@@ -1,4 +1,4 @@
-﻿=== Modern Events Calendar Lite ===
+=== Modern Events Calendar Lite ===
 Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
