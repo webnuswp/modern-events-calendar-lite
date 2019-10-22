@@ -3252,6 +3252,19 @@ function mec_focus_week(id) {
             }
         }
 
+        // Yearly view
+        $('.mec-yearly-calendar .mec-has-event a').on('click', function(e) {
+            e.preventDefault();
+            var des = $(this).attr('href');
+            $('.mec-events-agenda').removeClass('mec-selected');
+            $(des).closest('.mec-events-agenda').addClass('mec-selected');
+            var scrollTopVal = $(des).closest('.mec-events-agenda').offset().top - 35;
+
+            $('html, body').animate({
+                scrollTop: scrollTopVal
+            }, 300);
+        });
+
     });
 })(jQuery);
 

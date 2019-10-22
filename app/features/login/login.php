@@ -16,7 +16,7 @@
             <a class="mec-color-hover" href="<?php echo wp_lostpassword_url(); ?>">Forgot Password?</a>
         </div>
         <div class="mec-login-submit">
-            <button class="mec-bg-color">Login</button>
+            <button class="mec-bg-color mec-box-shadow-color">Login</button>
         </div>
     </div>
     <?php wp_nonce_field( 'mec-ajax-login-nonce', 'mec_login_nonce' ); ?>

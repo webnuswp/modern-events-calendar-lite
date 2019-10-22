@@ -737,13 +737,17 @@ class MEC_render extends MEC_base
                     $year = date('Y', strtotime($today));
                     $month = date('m', strtotime($today));
                     $day = $event_start_day;
+                    $hour = isset($event->meta['mec_date']['end']['hour']) ? sprintf('%02d', $event->meta['mec_date']['end']['hour']) : '06';
+                    $minutes = isset($event->meta['mec_date']['end']['minutes']) ? sprintf('%02d', $event->meta['mec_date']['end']['minutes']) : '00';
+                    $ampm = isset($event->meta['mec_date']['end']['ampm']) ? strtolower($event->meta['mec_date']['end']['ampm']) : 'pm';
                     
                     // Fix for 31st, 30th, 29th of some months
                     while(!checkdate($month, $day, $year)) $day--;
                     
                     $start_date = $year.'-'.$month.'-'.$day;
-                    
-                    if(strtotime($start_date) < time())
+                    $end_time = $hour.':'.$minutes.$ampm;
+
+                    if(strtotime($start_date.' '.$end_time) < current_time('timestamp', 0))
                     {
                         $i++;
                         continue;

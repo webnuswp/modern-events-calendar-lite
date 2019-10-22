@@ -61,6 +61,37 @@ class MEC_feature_search extends MEC_base
         if(is_wp_error($terms) || empty($terms)) return false;
         $taxonomy_name = ($taxonomy == 'post_tag') ? 'Tag' : str_replace('mec_', '', $taxonomy);
 
+        switch ($taxonomy_name) {
+            //Message Category
+            case 'category':
+            $taxonomy_name = $this->main->m('taxonomy_category', __('Category', 'modern-events-calendar-lite'));
+                break;
+            //Message Location
+            case 'location':
+            $taxonomy_name = $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'));
+                break;
+            //Message Organizer
+            case 'organizer':
+            $taxonomy_name = $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'));
+                break;
+            //Message Organizer
+            case 'speaker':
+            $taxonomy_name = $this->main->m('taxonomy_speaker', __('Speaker', 'modern-events-calendar-lite'));
+                break;
+            //Message Tag
+            case 'Tag':
+            $taxonomy_name =  __('Tag', 'modern-events-calendar-lite');
+                break;
+            //Message label
+            case 'label':
+            $taxonomy_name = $this->main->m('taxonomy_label', __('label', 'modern-events-calendar-lite'));
+                break;
+            //Default Screen
+            default:
+                $taxonomy_name = str_replace('mec_', '', $taxonomy);
+                break;
+        }
+
         $out .= '<div class="mec-dropdown-search"><i class="mec-sl-'.$icon.'"></i>';
         $args = array(
             'show_option_none'   => $taxonomy_name,

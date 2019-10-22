@@ -357,14 +357,13 @@ class MEC_feature_locations extends MEC_base
             <div class="mec-form-row">
                 <p><?php _e('You can select extra locations in addition to main location if you like.', 'modern-events-calendar-lite'); ?></p>
                 <div class="mec-additional-locations">
-                    <?php foreach($locations as $location): ?>
-                    <div>
-                        <label for="additional_location_ids<?php echo $location->term_id; ?>">
-                            <input type="checkbox" name="mec[additional_location_ids][]" id="additional_location_ids<?php echo $location->term_id; ?>" value="<?php echo $location->term_id; ?>" <?php if(in_array($location->term_id, $location_ids)) echo 'checked="checked"'; ?>>
-                            <?php echo $location->name; ?>
-                        </label>
-                    </div>
-                    <?php endforeach; ?>
+                    <select class="mec-select2-dropdown" name="mec[additional_location_ids][]" multiple="multiple">
+                        <?php foreach($locations as $location): ?>
+                            <option <?php if(in_array($location->term_id, $location_ids)) echo 'selected="selected"'; ?> value="<?php echo $location->term_id; ?>">
+                                <?php echo $location->name; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
             <?php endif; ?>

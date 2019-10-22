@@ -226,6 +226,18 @@ jQuery(document).ready(function($)
         }
     }
 
+    // Location select2
+    jQuery(".mec-additional-locations select").select2();
+    jQuery("#mec_location_id").select2();
+    
+    // Organizer Select2
+    jQuery(".mec-additional-organizers select").select2();
+    jQuery("#mec_organizer_id").select2();
+
+    // Add shortcode select2
+    jQuery(".mec-create-shortcode-tab-content select").select2();
+    
+
     $('.mec-import-settings').on('click', function (e) {
         e.preventDefault();
         var value = $(this).parent().find('.mec-import-settings-content').val();

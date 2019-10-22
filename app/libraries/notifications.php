@@ -870,7 +870,7 @@ class MEC_notifications extends MEC_base
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
 
         $reg_fields = $this->main->get_reg_fields($event_id);
-        foreach($attendees as $key => $attendee)
+        foreach($attendees as $key=>$attendee)
         {
             if(isset($attendee[0]['MEC_TYPE_OF_DATA'])) continue;
             if($key === 'attachments') continue;
@@ -880,7 +880,8 @@ class MEC_notifications extends MEC_base
             $attendees_full_info .= __('Name', 'modern-events-calendar-lite').': '.((isset($attendee['name']) and trim($attendee['name'])) ? $attendee['name'] : '---')."\r\n";
             $attendees_full_info .= __('Email', 'modern-events-calendar-lite').': '.((isset($attendee['email']) and trim($attendee['email'])) ? $attendee['email'] : '---')."\r\n";
 
-            if ( !empty( $reg_form  ) ) :
+            if(count($reg_form))
+            {
                 foreach($reg_form as $field_id=>$value)
                 {
                     // Placeholder Keys
@@ -901,7 +902,7 @@ class MEC_notifications extends MEC_base
                         $attendees_full_info .= __($label, 'modern-events-calendar-lite').': '.(is_string($value) ? $value : (is_array($value) ? implode(', ', $value) : '---'))."\r\n";
                     }
                 }
-            endif;
+            }
 
             $attendees_full_info .= "\r\n";
         }

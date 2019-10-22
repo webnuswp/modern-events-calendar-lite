@@ -312,14 +312,13 @@ class MEC_feature_organizers extends MEC_base
             <div class="mec-form-row">
                 <p><?php _e('You can select extra organizers in addition to main organizer if you like.', 'modern-events-calendar-lite'); ?></p>
                 <div class="mec-additional-organizers">
-                    <?php foreach($organizers as $organizer): ?>
-                    <div>
-                        <label for="additional_organizer_ids<?php echo $organizer->term_id; ?>">
-                            <input type="checkbox" name="mec[additional_organizer_ids][]" id="additional_organizer_ids<?php echo $organizer->term_id; ?>" value="<?php echo $organizer->term_id; ?>" <?php if(in_array($organizer->term_id, $organizer_ids)) echo 'checked="checked"'; ?>>
+                    <select class="mec-select2-dropdown" name="mec[additional_organizer_ids][]" multiple="multiple">
+                        <?php foreach($organizers as $organizer): ?>
+                        <option <?php if(in_array($organizer->term_id, $organizer_ids)) echo 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>">
                             <?php echo $organizer->name; ?>
-                        </label>
-                    </div>
-                    <?php endforeach; ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
             <?php endif; ?>

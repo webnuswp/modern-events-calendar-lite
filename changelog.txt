@@ -1,4 +1,24 @@
-﻿v 4.7.5 - 15 October 2019
+﻿v 4.7.6 - 22 October 2019
+- Added: A guide message in "Show Only Expired Events" section in shortcode builder
+- Added: A new message for booking verification (pro)
+- Improved: Select organizers/locations in add event section
+- Improved: Select organizers/locations/categories/label/author in add shortcode section
+- Improved: Select organizers/locations in Front-end Event Submission section
+- Improved: Category hierarchy in Front-end Event Submission
+- Fixed: Monthly repeating
+- Fixed: Select day color in yearly view
+- Fixed: Change label of the fields of the form from messages options
+- Fixed: User Profile responsive on mobile/tablet (pro)
+- Fixed: Speaker module in accordion skin
+- Fixed: Saving other locations in Front-end Event Submission
+- Fixed: Featured image in Front-end Event Submission
+- Fixed: Showing booking module (pro)
+- Fixed: Cancellation page (pro)
+- Fixed: Selected time zone for showing upcoming events
+- Fixed: some PHP notices
+- Fixed: Some minor issues
+
+v 4.7.5 - 15 October 2019
 - Added: Name field for Stripe gateways (pro)
 - Added: Cancel links and map view to the profile shortcode (pro)
 - Added: Booking fields to the translatable strings for WPML (pro)

@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.2.4
-Stable tag: 4.7.5
+Tested up to: 5.2.3
+Stable tag: 4.7.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -318,6 +318,25 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 4.7.6 - 22 October 2019 =
+- Added: A guide message in "Show Only Expired Events" section in shortcode builder
+- Added: A new message for booking verification (pro)
+- Improved: Select organizers/locations in add event section
+- Improved: Select organizers/locations/categories/label/author in add shortcode section
+- Improved: Select organizers/locations in Front-end Event Submission section
+- Improved: Category hierarchy in Front-end Event Submission
+- Fixed: Monthly repeating
+- Fixed: Select day color in yearly view
+- Fixed: Change label of the fields of the form from messages options
+- Fixed: User Profile responsive on mobile/tablet (pro)
+- Fixed: Speaker module in accordion skin
+- Fixed: Saving other locations in Front-end Event Submission
+- Fixed: Featured image in Front-end Event Submission
+- Fixed: Showing booking module (pro)
+- Fixed: Cancellation page (pro)
+- Fixed: Selected time zone for showing upcoming events
+- Fixed: some PHP notices
+- Fixed: Some minor issues
 
 = 4.7.5 - 15 October 2019 =
 - Added: Name field for Stripe gateways (pro)

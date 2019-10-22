@@ -1084,7 +1084,7 @@ class MEC_main extends MEC_base
                 foreach($value as $k=>$v)
                 {
                     // Define New Array
-                    if(!is_array($final[$key])) $final[$key] = array();
+                    if(!isset($final[$key])) $final[$key] = array();
 
                     // Overwrite Old Value
                     $final[$key][$k] = $v;
@@ -3190,16 +3190,19 @@ class MEC_main extends MEC_base
         // Check Show Booking Form Time
         if($show_booking_form_interval)
         {
-            $render_date = (isset($next_date['start']['date']) ? trim($next_date['start']['date']) : date('Y-m-d')) .' '. (isset($next_date['start']['hour']) ? trim(sprintf('%02d', $next_date['start']['hour'])) : date( 'h', current_time('timestamp', 0))) .':'
-            . (isset($next_date['start']['minutes']) ? trim(sprintf('%02d', $next_date['start']['minutes'])) : date( 'i', current_time('timestamp', 0))) . (isset($next_date['start']['ampm']) ? trim($next_date['start']['ampm']) : date( 'a', current_time('timestamp', 0)));
-            $date_diff = $this->date_diff(date( 'Y-m-d h:i a', current_time('timestamp', 0)), $render_date);
-            if(isset($date_diff->d) and !$date_diff->invert and $date_diff->d < 2)
+            $render_date = (isset($next_date['start']['date']) ? trim($next_date['start']['date']) : date('Y-m-d')) .' '. (isset($next_date['start']['hour']) ? trim(sprintf('%02d', $next_date['start']['hour'])) : date('h', current_time('timestamp', 0))) .':'
+            . (isset($next_date['start']['minutes']) ? trim(sprintf('%02d', $next_date['start']['minutes'])) : date('i', current_time('timestamp', 0))) . (isset($next_date['start']['ampm']) ? trim($next_date['start']['ampm']) : date('a', current_time('timestamp', 0)));
+            if($this->check_date_time_validation('Y-m-d h:ia', strtolower($render_date)))
             {
-                $minute = $date_diff->d * 24 * 60;
-                $minute += $date_diff->h * 60;
-                $minute += $date_diff->i;
-
-                if($minute > $show_booking_form_interval) return false;
+                $date_diff = $this->date_diff(date('Y-m-d h:ia', current_time('timestamp', 0)), $render_date);
+                if(isset($date_diff->d) and !$date_diff->invert and $date_diff->d < 2)
+                {
+                    $minute = $date_diff->d * 24 * 60;
+                    $minute += $date_diff->h * 60;
+                    $minute += $date_diff->i;
+    
+                    if($minute > $show_booking_form_interval) return false;
+                }   
             }
         }
 
@@ -4622,7 +4625,8 @@ class MEC_main extends MEC_base
      */
     public function set_featured_image($image_url, $post_id)
     {
-        if(!$attach_id = $this->get_attach_id($image_url))
+        $attach_id = $this->get_attach_id($image_url);
+        if(!$attach_id)
         {
             $upload_dir = wp_upload_dir();
             $filename = basename($image_url);
@@ -5444,7 +5448,7 @@ class MEC_main extends MEC_base
      * @resourse wp-mix.com
      * @return string
      */
-    function add_query_string($url, $key, $value)
+    public function add_query_string($url, $key, $value)
     {
         $url = preg_replace('/([?&])'. $key .'=.*?(&|$)/i', '$1$2$4', $url);
         
@@ -5459,5 +5463,20 @@ class MEC_main extends MEC_base
         {
             return ($url .'&'. $key .'='. $value);
         }
+    }
+
+    /**
+     * Check Is DateTime Format Validation
+     * @param string $format
+     * @param string $date
+     * @return boolean
+     */
+    public function check_date_time_validation($format, $date)
+    {
+        if(func_num_args() < 2) return;
+
+        $check = DateTime::createFromFormat($format, $date);
+        
+        return $check && $check->format($format) === $date;
     }
 }

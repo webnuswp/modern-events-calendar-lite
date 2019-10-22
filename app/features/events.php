@@ -1675,7 +1675,7 @@ class MEC_feature_events extends MEC_base
                                             $count_info = array('start'=>0, 'length'=>23);
                                         }
 
-                                        $render_hour = date($hour_format, strtotime(sprintf('%02d', $ticket['ticket_start_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_start_time_minute']) . strtoupper($ticket['ticket_start_time_ampm'])));
+                                        $render_hour = date($hour_format, strtotime(sprintf('%02d', $ticket['ticket_start_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_start_time_minute']) . (isset($ticket['ticket_start_time_ampm']) ? strtoupper($ticket['ticket_start_time_ampm']) : '')));
                                         for ($j = $count_info['start']; $j <= $count_info['length']; $j++) : ?>
                                             <option
                                                 <?php
@@ -1734,7 +1734,7 @@ class MEC_feature_events extends MEC_base
                                             $count_info = array('start'=>0, 'length'=>23);
                                         }
 
-                                        $render_hour = date($hour_format, strtotime(sprintf('%02d', $ticket['ticket_end_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_end_time_minute']) . strtoupper($ticket['ticket_end_time_ampm'])));
+                                        $render_hour = date($hour_format, strtotime(sprintf('%02d', $ticket['ticket_end_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_end_time_minute']) . (isset($ticket['ticket_end_time_ampm']) ? strtoupper($ticket['ticket_end_time_ampm']) : '')));
                                         for ($j = $count_info['start']; $j <= $count_info['length']; $j++) : ?>
                                             <option
                                                 <?php

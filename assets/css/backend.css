@@ -6052,3 +6052,41 @@ a.mec-create-shortcode-tabs-link {
 #mec_speaker_user + .select2-container {
     min-width: 224px !important;
 }
+
+/* Select 2 Styles */
+.mec-add-event-tabs-wrap .select2-container,
+.mec-create-shortcode-tab-content .select2-container {
+    height: 38px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    padding: 0 6px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.07);
+    background-color: #fff;
+    color: #32373c;
+    outline: none;
+    transition: 0.05s border-color ease-in-out;
+    min-width: 200px;
+    font-size: 14px;
+}
+
+.mec-add-event-tabs-wrap .select2-selection,
+.mec-create-shortcode-tab-content .select2-selection {
+    border: none;
+    background: transparent;
+    padding-top: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.mec-add-event-tabs-wrap .select2-container--default.select2-container--focus .select2-selection,
+.mec-create-shortcode-tab-content .select2-container--default.select2-container--focus .select2-selection {
+    border: none !important;
+    outline: 0;
+}
+.mec-add-event-tabs-wrap .select2-container--default .select2-selection--single .select2-selection__arrow,
+.mec-create-shortcode-tab-content .select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 5px;
+    right: 4px;
+}

@@ -240,6 +240,10 @@ class MEC_factory extends MEC_base
         //Include the nice-select
         wp_enqueue_script('mec-niceselect-script', $this->main->asset('js/jquery.nice-select.min.js'));
 
+        //Include Select2
+        wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'));
+        wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'));
+
         // Backend Dependencies
         $dependencies = array('wp-color-picker', 'jquery-ui-datepicker');
 
@@ -312,6 +316,10 @@ class MEC_factory extends MEC_base
         
         wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'));
         wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'));
+
+        //Include Select2
+        wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'));
+        wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'));
 
         // Include MEC frontend script files
         wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'));

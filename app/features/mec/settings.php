@@ -669,14 +669,15 @@ $get_n_option = get_option('mec_addons_notification_option');
                                             <option <?php echo ((isset($settings['fes_note_visibility']) and $settings['fes_note_visibility'] == 'always') ? 'selected="selected"' : ''); ?> value="always"><?php _e('Always', 'modern-events-calendar-lite'); ?></option>
                                             <option <?php echo ((isset($settings['fes_note_visibility']) and $settings['fes_note_visibility'] == 'pending') ? 'selected="selected"' : ''); ?> value="pending"><?php _e('While event is not published', 'modern-events-calendar-lite'); ?></option>
                                         </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('Visibility of Note', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Event Note shows on Frontend Submission Form and Edit Event in backend.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/frontend-event-submission/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
-                                    <span class="mec-tooltip">
-                                        <div class="box top">
-                                            <h5 class="title"><?php _e('Visibility of Note', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Event Note shows on Frontend Submission Form and Edit Event in backend.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/frontend-event-submission/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                        </div>
-                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                    </span>
+                                    
                                 </div>
                             </div>
                         </div>

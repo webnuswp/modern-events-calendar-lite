@@ -682,6 +682,14 @@ class MEC_feature_fes extends MEC_base
         foreach($additional_organizer_ids as $additional_organizer_id) wp_set_object_terms($post_id, (int) $additional_organizer_id, 'mec_organizer', true);
         update_post_meta($post_id, 'mec_additional_organizer_ids', $additional_organizer_ids);
         
+         // Additional locations
+         $additional_location_ids = isset($mec['additional_location_ids']) ? $mec['additional_location_ids'] : array();
+
+         foreach ($additional_location_ids as $additional_location_id) {
+             wp_set_object_terms($post_id, (int)$additional_location_id, 'mec_location', true);
+         }
+         update_post_meta($post_id, 'mec_additional_location_ids', $additional_location_ids);
+
         // Date Options
         $date = isset($mec['date']) ? $mec['date'] : array();
 
@@ -1135,5 +1143,48 @@ class MEC_feature_fes extends MEC_base
     {
         if(isset($this->settings['fes_list_page']) and trim($this->settings['fes_list_page'])) return get_permalink($this->settings['fes_list_page']);
         else return $this->main->add_qs_var('vlist', 1, $this->main->remove_qs_var('post_id'));
+    }
+}
+
+// FES Categories Custom Walker
+class FES_Custom_Walker extends Walker_Category 
+{
+    /**
+     * This class is a custom walker for front end event submission hierarchical categories customizing
+     */
+    private $post_id;
+
+    function __construct($post_id)
+    {
+        $this->post_id = $post_id;
+    }
+
+    function start_lvl(&$output, $depth = 0, $args = array())
+    {
+        $indent  = str_repeat("\t", $depth);
+        $output .= "$indent<div class='mec-fes-category-children'>";
+    }
+
+    function end_lvl(&$output, $depth = 0, $args = array())
+    {
+        $indent  = str_repeat("\t", $depth);
+        $output .= "$indent</div>";
+    }
+
+    function start_el(&$output, $category, $depth = 0, $args = array(), $id = 0)
+    {
+        $post_categories = get_the_terms($this->post_id, 'mec_category');
+
+        $categories = array();
+        if($post_categories) foreach($post_categories as $post_category) $categories[] = $post_category->term_id;
+
+        $output .= '<label for="mec_fes_categories' . $category->term_id . '">
+        <input type="checkbox" name="mec[categories][' . $category->term_id . ']"
+        id="mec_fes_categories' . $category->term_id .'" value="1"' . (in_array($category->term_id, $categories) ? 'checked="checked"' : '') . '/>' . $category->name;
+    }
+
+    function end_el(&$output, $page, $depth = 0, $args = array())
+    {
+        $output .= '</label>';
     }
 }

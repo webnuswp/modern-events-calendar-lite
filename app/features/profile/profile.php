@@ -91,12 +91,22 @@ $id = 1;
             </td>
             <td>
                  <span class="mec-event-date">
-                    <?php echo trim($dates[0].' '.(isset($event->time['start']) ? $event->time['start'] : '').' - '.(($dates[0] != $dates[1]) ? $dates[1].' ' : '').(isset($event->time['end']) ? $event->time['end'] : ''), '- '); ?>
+                    <div class="mec-tooltip">
+                        <div class="box">
+                            <?php echo trim($dates[0].' '.(isset($event->time['start']) ? $event->time['start'] : '').' - '.(($dates[0] != $dates[1]) ? $dates[1].' ' : '').(isset($event->time['end']) ? $event->time['end'] : ''), '- '); ?>
+                        </div>
+                        <i class="mec-sl-calendar"></i>
+                    </div>
                 </span>
             </td>
             <td>
                 <span class="mec-event-status <?php echo $status_class;?>">
-                    <?php echo $this->main->get_confirmation_label($confirmed); ?>
+                    <div class="mec-tooltip">
+                        <div class="box">
+                            <?php echo $this->main->get_confirmation_label($confirmed); ?>
+                        </div>
+                        <i class="mec-sl-layers"></i>
+                    </div>  
                 </span>
             </td>
             <td>

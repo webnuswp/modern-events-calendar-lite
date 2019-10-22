@@ -45,11 +45,9 @@ class MEC_tax_walker extends Walker_Category_Checklist
             // Show only Terms with Posts
             if($category->count)
             {
-                $output .= "\n<li id='{$taxonomy}-{$category->term_id}'$class>".
-                    '<label class="selectit"><input value="'.$category->term_id.'" type="checkbox" name="'.$name.'[]" id="in-'.$taxonomy.'-' .$category->term_id.'"'.
-                    checked(in_array($category->term_id, $args['selected_cats']), true, false).
-                    disabled(empty($args['disabled']), false, false).' /> '.
-                    esc_html(apply_filters('the_category', $category->name)).'</label>';
+                $output .= "\n<option value='{$category->term_id}'";
+                if(in_array($category->term_id, $args['selected_cats'])) $output .= "selected='selected'";
+                $output .= ">".esc_html(apply_filters('the_category', $category->name)).'';
             }
 		}
 	}
@@ -80,7 +78,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 <div class="mec-form-row mec-create-shortcode-tab-content mec-tab-active" id="mec_select_categories">
                     <h4><?php echo $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired categories for filtering the events.', 'modern-events-calendar-lite'); ?></p>
-                    <ul>
+                    <select name="mec_tax_input[mec_category][]" multiple="multiple">
                     <?php
                         $selected_categories = explode(',', get_post_meta($post->ID, 'category', true));
                         wp_terms_checklist(0, array(
@@ -92,12 +90,12 @@ $MEC_tax_walker = new MEC_tax_walker();
                             'walker'=>$MEC_tax_walker
                         ));
                     ?>
-                    </ul>
+                    </select>
                 </div>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_locations">
                     <h4><?php echo $this->main->m('taxonomy_locations', __('Locations', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired locations for filtering the events.', 'modern-events-calendar-lite'); ?></p>
-                    <ul>
+                    <select name="mec_tax_input[mec_location][]" multiple="multiple">
                     <?php
                         $selected_locations = explode(',', get_post_meta($post->ID, 'location', true));
                         wp_terms_checklist(0, array(
@@ -109,12 +107,12 @@ $MEC_tax_walker = new MEC_tax_walker();
                             'walker'=>$MEC_tax_walker
                         ));
                     ?>
-                    </ul>
+                    </select>
                 </div>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_organizers">
                     <h4><?php echo $this->main->m('taxonomy_organizers', __('Organizers', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired organizers for filtering the events.', 'modern-events-calendar-lite'); ?></p>
-                    <ul>
+                    <select name="mec_tax_input[mec_organizer][]" multiple="multiple">
                     <?php
                         $selected_organizers = explode(',', get_post_meta($post->ID, 'organizer', true));
                         wp_terms_checklist(0, array(
@@ -126,12 +124,12 @@ $MEC_tax_walker = new MEC_tax_walker();
                             'walker'=>$MEC_tax_walker
                         ));
                     ?>
-                    </ul>
+                    </select>
                 </div>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_labels">
                     <h4><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired labels for filtering the events.', 'modern-events-calendar-lite'); ?></p>
-                    <ul>
+                    <select name="mec_tax_input[mec_label][]" multiple="multiple">
                     <?php
                         $selected_labels = explode(',', get_post_meta($post->ID, 'label', true));
                         wp_terms_checklist(0, array(
@@ -143,7 +141,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                             'walker'=>$MEC_tax_walker
                         ));
                     ?>
-                    </ul>
+                    </select>
                 </div>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_tags">
                     <h4><?php _e('Tags', 'modern-events-calendar-lite'); ?></h4>
@@ -154,7 +152,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_authors">
                     <h4><?php _e('Authors', 'modern-events-calendar-lite'); ?></h4>
                     <p class="description"><?php _e('Choose your desired authors for filtering the events.', 'modern-events-calendar-lite'); ?></p>
-                    <ul>
+                    <select name="mec_tax_input[mec_author][]" multiple="multiple">
                     <?php
                         $selected_authors = explode(',', get_post_meta($post->ID, 'author', true));
                         $authors = get_users(array(
@@ -167,10 +165,14 @@ $MEC_tax_walker = new MEC_tax_walker();
                         
                         foreach($authors as $author)
                         {
-                            echo '<li><label><input id="in-mec_author-'.$author->ID.'" name="mec_tax_input[mec_author][]" type="checkbox" value="'.$author->ID.'" '.(in_array($author->ID, $selected_authors) ? 'checked="checked"' : '').' /> '.$author->display_name.'</label></li>';
+                            ?>
+                            <option <?php if(in_array($author->ID, $selected_authors)) echo 'selected="selected"'; ?> value="<?php echo $author->ID; ?>">
+                            <?php echo $author->display_name; ?>
+                            </option>
+                            <?php
                         }
                     ?>
-                    </ul>
+                    </select>
                 </div>
                 <?php do_action('mec_shortcode_filters' , $post->ID , $MEC_tax_walker ); ?>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_dates">
@@ -199,7 +201,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                                 <input type="checkbox" name="mec[show_only_past_events]" class="mec-checkbox-toggle" id="mec_show_only_past_events" value="1" <?php if($show_only_past_events == 1) echo 'checked="checked"'; ?> />
                                 <label for="mec_show_only_past_events"></label>
                             </div>
-                            <p class="description"><?php _e('It shows only expired/past events.', 'modern-events-calendar-lite'); ?></p>
+                            <p class="description" style="color: red;"><?php echo sprintf(__('It shows %s expired/past events. It will use selected start date as first day and then go to %s dates.', 'modern-events-calendar-lite'), '<strong>'.__('only', 'modern-events-calendar-lite').'</strong>', '<strong>'.__('older', 'modern-events-calendar-lite').'</strong>'); ?></p>
                         </div>
                         <br />
                     </div>
@@ -223,12 +225,13 @@ $MEC_tax_walker = new MEC_tax_walker();
     </div>
 </div>
 <script>
-    jQuery(".mec-create-shortcode-tabs-link").on("click", function (e) {
-        console.log(jQuery(this));
-        e.preventDefault();
-        var href = jQuery(this).attr("data-href");
-        jQuery(".mec-create-shortcode-tab-content,.mec-create-shortcode-tabs-link").removeClass("mec-tab-active");
-        jQuery(this).addClass("mec-tab-active");
-        jQuery("#" + href ).addClass("mec-tab-active");
-    });
+jQuery(".mec-create-shortcode-tabs-link").on("click", function(e)
+{
+    e.preventDefault();
+    var href = jQuery(this).attr("data-href");
+
+    jQuery(".mec-create-shortcode-tab-content,.mec-create-shortcode-tabs-link").removeClass("mec-tab-active");
+    jQuery(this).addClass("mec-tab-active");
+    jQuery("#" + href ).addClass("mec-tab-active");
+});
 </script>

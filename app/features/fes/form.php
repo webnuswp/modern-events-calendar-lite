@@ -724,7 +724,7 @@ $this->factory->params('footer', $javascript);
                 <h4><?php _e('Featured Image', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
                     <span id="mec_fes_thumbnail_img"><?php echo (trim($featured_image) ? '<img src="'.$featured_image.'" />' : ''); ?></span>
-                    <input type="hidden" id="mec_fes_thumbnail" name="mec[featured_image]" value="<?php echo (trim($featured_image) ? $featured_image : ''); ?>" />
+                    <input type="hidden" id="mec_fes_thumbnail" name="mec[featured_image]" value="<?php if(isset($attachment_id) and intval($attachment_id)) the_guid($attachment_id); ?>" />
                     <input type="file" id="mec_featured_image_file" onchange="mec_fes_upload_featured_image();" />
                     <span id="mec_fes_remove_image_button" class="<?php echo (trim($featured_image) ? '' : 'mec-util-hidden'); ?>"><?php _e('Remove Image', 'modern-events-calendar-lite'); ?></span>
                 </div>
@@ -733,27 +733,19 @@ $this->factory->params('footer', $javascript);
             
             <!-- Event Category Section -->
             <?php if(!isset($this->settings['fes_section_categories']) or (isset($this->settings['fes_section_categories']) and $this->settings['fes_section_categories'])): ?>
-            <?php
-                $post_categories = get_the_terms($post_id, 'mec_category');
-
-                $categories = array();
-                if($post_categories) foreach($post_categories as $post_category) $categories[] = $post_category->term_id;
-                
-                $category_terms = get_terms(array('taxonomy'=>'mec_category', 'hide_empty'=>false));
-            ?>
-            <?php if(count($category_terms)): ?>
             <div class="mec-meta-box-fields" id="mec-categories">
                 <h4><?php echo $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')); ?></h4>
                 <div class="mec-form-row">
-                    <?php foreach($category_terms as $category_term): ?>
-                    <label for="mec_fes_categories<?php echo $category_term->term_id; ?>">
-                        <input type="checkbox" name="mec[categories][<?php echo $category_term->term_id; ?>]" id="mec_fes_categories<?php echo $category_term->term_id; ?>" value="1" <?php echo (in_array($category_term->term_id, $categories) ? 'checked="checked"' : ''); ?> />
-                        <?php echo $category_term->name; ?>
-                    </label>
-                    <?php endforeach; ?>
+                    <?php 
+                        wp_list_categories(array(
+                            'taxonomy'    => 'mec_category',
+                            'hide_empty' => false,
+                            'title_li'           => '',
+                            'walker'          => new FES_Custom_Walker($post_id),
+                        ));
+                    ?>
                 </div>
             </div>
-            <?php endif; ?>
             <?php endif; ?>
             
             <!-- Event Label Section -->

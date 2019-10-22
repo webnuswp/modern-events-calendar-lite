@@ -203,6 +203,7 @@ if($this->style == 'colorful')
                     </li>
                 </ul>
                 <?php endif; ?>
+                <?php do_action( 'mec_grid_clean_booking_button', $event ); ?>
                 <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets)) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
             </div>
         <?php elseif($this->style == 'novel'): ?>

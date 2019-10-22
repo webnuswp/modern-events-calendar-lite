@@ -138,6 +138,10 @@ if($color && $color != '#40d9f1'): ?>
 	{border-bottom-color:<?php echo $color; ?>;}
 	.mec-wrap.colorskin-custom  article.mec-event-countdown-style1 .mec-event-countdown-part2:after
 	{border-color: transparent transparent transparent <?php echo $color; ?>;}
+
+	/* == BoxShadow
+		------------------ */
+	.mec-wrap.colorskin-custom .mec-box-shadow-color { box-shadow: 0 4px 22px -7px <?php echo $color; ?>;}
 <?php endif;
 
 // Render Container Width

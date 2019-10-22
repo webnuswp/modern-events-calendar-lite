@@ -186,12 +186,10 @@ defined('MECEXEC') or die();
     </article>
 </div>
 <script>
-jQuery( ".mec-speaker-avatar a" ).click(function(e) {
+// Fix modal speaker in some themes
+jQuery( "#mec_skin_<?php echo $this->uniqueid; ?> .mec-speaker-avatar a" ).click(function(e) {
     e.preventDefault();
     var id =  jQuery(this).attr('href');
-    var instance = lity(id);
-    jQuery(document).on('lity:close', function(event, instance) {
-        jQuery( ".mec-hourly-schedule-speaker-info" ).addClass('lity-hide');
-    });
+    lity(id);
 });
 </script>
