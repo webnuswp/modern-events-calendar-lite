@@ -1,0 +1,22 @@
+<wpml-config>
+	<custom-types>
+		<custom-type translate="1">mec-events</custom-type>
+	</custom-types>
+	<taxonomies>
+		<taxonomy translate="1">mec_category</taxonomy>
+		<taxonomy translate="1">mec_label</taxonomy>
+		<taxonomy translate="1">mec_location</taxonomy>
+		<taxonomy translate="1">mec_organizer</taxonomy>
+		<taxonomy translate="1">mec_speaker</taxonomy>
+	</taxonomies>
+	<admin-texts>
+        <key name="mec_options">
+            <key name="messages">
+                <key name="*"/>
+            </key>
+            <key name="reg_fields">
+                <key name="*"/>
+            </key>
+        </key>
+    </admin-texts>
+</wpml-config>
