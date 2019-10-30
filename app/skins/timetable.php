@@ -304,7 +304,11 @@ class MEC_skin_timetable extends MEC_skins
         $this->year = $this->request->getVar('mec_year', date('Y'));
         $this->month = $this->request->getVar('mec_month', date('m'));
         $this->week = 1;
-        
+
+        // Set MEC Year And Month If Disable Options
+        if(!trim($this->year)) $this->year = date('Y');
+        if(!trim($this->month)) $this->month = date('m');
+
         $this->start_date = $this->year.'-'.$this->month.'-01';
         
         // We will extend the end date in the loop

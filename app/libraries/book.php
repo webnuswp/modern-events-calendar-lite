@@ -366,15 +366,20 @@ class MEC_book extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param int $event_id
      * @param string $date
+     * @param string $mode
      * @return array
      */
-    public function get_tickets_availability($event_id, $date)
+    public function get_tickets_availability($event_id, $date, $mode = 'availability')
     {
         $availability = array();
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
 
         // No Ticket Found!
-        if(!is_array($tickets) or (is_array($tickets) and !count($tickets))) return $availability;
+        if(!is_array($tickets) or (is_array($tickets) and !count($tickets)))
+        {
+            if($mode == 'reservation') return 0;
+            else return $availability;
+        }
         
         $booking_options = get_post_meta($event_id, 'mec_booking', true);
         if(!is_array($booking_options)) $booking_options = array();
@@ -454,6 +459,9 @@ class MEC_book extends MEC_base
 
             $availability[$ticket_id] = $ticket_availability >= 0 ? $ticket_availability : 0;
         }
+
+        // For the time being set reservation parameter
+        if($mode == 'reservation') return $booked;
 
         // Set Total Booking Limit
         $availability['total'] = $total_bookings_limit;

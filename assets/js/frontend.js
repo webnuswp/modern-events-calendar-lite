@@ -1741,6 +1741,10 @@ var mecSingleEventDisplayer = {
             if (jQuery('.mec-modal-result').length === 0) jQuery('.mec-wrap').append('<div class="mec-modal-result"></div>');
             jQuery('.mec-modal-result').addClass('mec-month-navigator-loading');
 
+            // Set MEC Year And Month If Undefined
+            year = typeof year == 'undefined' ? '' : year;
+            month = typeof month == 'undefined' ? '' : month;
+
             $.ajax({
                 url: settings.ajax_url,
                 data: "action=mec_timetable_load_month&mec_year=" + year + "&mec_month=" + month + "&mec_week=" + week_number + "&" + settings.atts + "&apply_sf_date=1",
@@ -1764,6 +1768,9 @@ var mecSingleEventDisplayer = {
 
                     // Set active week
                     setThisWeek(response.week_id);
+
+                    // Focus First Active Week
+                    mec_focus_week(settings.id);
                 },
                 error: function () {}
             });

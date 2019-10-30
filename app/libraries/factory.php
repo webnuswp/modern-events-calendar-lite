@@ -882,7 +882,7 @@ class MEC_factory extends MEC_base
             foreach($calendars as $calendar)
             {
                 // Calendar exists
-                if(post_exists($calendar['title'], 'modern-events-calendar-lite')) continue;
+                if(post_exists($calendar['title'], 'MEC')) continue;
 
                 $post = array('post_title'=>$calendar['title'], 'post_content'=>'MEC', 'post_type'=>'mec_calendars', 'post_status'=>'publish');
                 $post_id = wp_insert_post($post);

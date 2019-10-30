@@ -888,25 +888,28 @@ class MEC_render extends MEC_base
      *  Render advanced dates
      * @author Webnus <info@webnus.biz>
      * @param array $advanced_days
+     * @param array $event_info
+     * @param int $maximum
+     * @param string $referer_date
+     * @param string $mode
      * @return array
      */
-    function generate_advanced_days($advanced_days = array(), $event_info = array(), $maximum = 6, $today = NULL, $mode = 'render')
+    public function generate_advanced_days($advanced_days = array(), $event_info = array(), $maximum = 6, $referer_date = NULL, $mode = 'render')
     {
         if(!count($advanced_days)) return array();
-        if(!trim($today)) $today = date( 'Y-m-d', current_time( 'timestamp', 0 ));
-
+        if(!trim($referer_date)) $referer_date = date('Y-m-d', current_time('timestamp', 0));
+    
         $levels = array('first', 'second', 'third', 'fourth', 'last');
         $year = date('Y');
         $dates = array();
-        
+    
         // Set last month for include current month results
-        $month = date('m', strtotime('first day of last month'));
+        $month = date('m', strtotime('first day of last month', strtotime($event_info['start']['date'])));
         $current_day = date("d");
-        $last_day =substr(end($advanced_days), 0, 3);
-        
+    
         $maximum = intval($maximum);
         $i = 0;
-
+    
         // Event info
         $exceptional_days =  array_key_exists('exceptional_days', $event_info) ? $event_info['exceptional_days'] : array();
         $start_date = $event_info['start'];
@@ -918,76 +921,86 @@ class MEC_render extends MEC_base
         $event_period_days = $event_period ? $event_period->days : 0;
         $mec_repeat_end = array_key_exists('mec_repeat_end', $event_info) ? $event_info['mec_repeat_end'] : '';
         $occurrences = array_key_exists('occurrences', $event_info) ? $event_info['occurrences'] : 0;
-
+    
         // Include default start date to resualts
-        if(!$this->main->is_past($start_date['date'], $today) and !in_array($start_date['date'], $exceptional_days))
+        if(!$this->main->is_past($start_date['date'], $referer_date) and !in_array($start_date['date'], $exceptional_days)) 
         {
             $dates[] = array(
                 'start' => $start_date,
                 'end' => $end_date,
                 'allday' => $allday,
                 'hide_time' => $hide_time,
-                'past' => 0
+                'past' => 0,
             );
-
+    
             if($mode == 'render') $i++;
         }
-
-        while($i < $maximum)
+    
+        $referer_date = $event_info['start']['date'];
+        while($i < $maximum) 
         {
             foreach($advanced_days as $day)
             {
                 if($i >= $maximum) break;
-
+    
                 // Explode $day value for example (Sun.1) to Sun and 1
                 $d = explode('.', $day);
-
+    
                 // Set indexes for {$levels} index if number day is Last(Sun.l) then indexes set 4th {$levels} index
                 $index = intval($d[1]) ? (intval($d[1]) - 1) : 4;
-
+    
                 // Generate date
                 $date = "{$year}-{$month}-{$current_day}";
-
+    
                 // Generate start date for example "first Sun of next month"
                 $start = date('Y-m-d', strtotime("{$levels[$index]} {$d[0]} of next month", strtotime(date($date))));
                 $end = date('Y-m-d', strtotime("+{$event_period_days} Days", strtotime($start)));
-                
+    
                 // When ends repeat date set
-                if($mode == 'render' and $this->main->is_past($finish_date, $start)) continue;
-
+                if ($mode == 'render' and $this->main->is_past($finish_date, $start)) continue;
+    
                 // Jump to next level if start date is past
-                if($this->main->is_past($start, $today) or in_array($start, $exceptional_days)) continue;
-
+                if ($this->main->is_past($start, $referer_date) or in_array($start, $exceptional_days)) continue;
+    
                 // Add dates
                 $dates[] = array(
-                    'start' => array('date'=>$start, 'hour'=>$start_date['hour'], 'minutes'=>$start_date['minutes'], 'ampm'=>$start_date['ampm']),
-                    'end' => array('date'=>$end, 'hour'=>$end_date['hour'], 'minutes'=>$end_date['minutes'], 'ampm'=>$end_date['ampm']),
+                    'start' => array(
+                        'date' => $start,
+                        'hour' => $start_date['hour'],
+                        'minutes' => $start_date['minutes'],
+                        'ampm' => $start_date['ampm'],
+                    ),
+                    'end' => array('date' => $end,
+                    'hour' => $end_date['hour'],
+                    'minutes' => $end_date['minutes'],
+                    'ampm' => $end_date['ampm'],
+                    ),
                     'allday' => $allday,
                     'hide_time' => $hide_time,
-                    'past' => 0
+                    'past' => 0,
                 );
-
+    
                 $i++;
             }
-
+    
             // When ends repeat date set
             if($mode == 'render' and $this->main->is_past($finish_date, $start)) break;
-            
+    
             // Change month and years for next resualts
             if(intval($month) == 12)
             {
-                $year = intval($year)+1;
+                $year = intval($year) + 1;
                 $month = '00';
             }
-
-            $month = sprintf("%02d", intval($month)+1);
+    
+            $month = sprintf("%02d", intval($month) + 1);
         }
-        
-        if($mode == 'render' and trim($mec_repeat_end) == 'occurrences' and count($dates) > $occurrences) 
+    
+        if(($mode == 'render') and (trim($mec_repeat_end) == 'occurrences') and (count($dates) > $occurrences))
         {
             $max = strtotime(reset($dates)['start']['date']);
             $pos = 0;
-            
+    
             for($i = 1; $i < count($dates); $i++)
             {
                 if(strtotime($dates[$i]['start']['date']) > $max)
@@ -996,10 +1009,10 @@ class MEC_render extends MEC_base
                     $pos = $i;
                 }
             }
-
+    
             unset($dates[$pos]);
         }
-        
+    
         return $dates;
     }
 

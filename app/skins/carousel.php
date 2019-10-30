@@ -73,7 +73,6 @@ class MEC_skin_carousel extends MEC_skins
 
         // Override the style if the style forced by us in a widget etc
         if(isset($this->atts['style']) and trim($this->atts['style']) != '') $this->style = $this->atts['style'];
-
         
         // HTML class
         $this->html_class = '';
@@ -178,8 +177,8 @@ class MEC_skin_carousel extends MEC_skins
         // Show only expired events
         if(isset($this->show_only_expired_events) and $this->show_only_expired_events)
         {
-            $yesterday = date('Y-m-d', strtotime('Yesterday'));
-            if(strtotime($date) > strtotime($yesterday)) $date = $yesterday;
+            $now = date('Y-m-d H:i:s', current_time('timestamp', 0));
+            if(strtotime($date) > strtotime($now)) $date = $now;
         }
         
         return $date;

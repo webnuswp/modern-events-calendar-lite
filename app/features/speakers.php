@@ -46,6 +46,8 @@ class MEC_feature_speakers extends MEC_base
         $this->factory->action('wp_ajax_speaker_adding', array($this, 'fes_speaker_adding'));
         $this->factory->action('wp_ajax_nopriv_speaker_adding', array($this, 'fes_speaker_adding'));
 
+        $this->factory->action('current_screen', array($this, 'show_notics'));
+
         $this->factory->filter('manage_edit-mec_speaker_columns', array($this, 'filter_columns'));
         $this->factory->filter('manage_mec_speaker_custom_column', array($this, 'filter_columns_content'), 10, 3);
     }
@@ -339,5 +341,36 @@ class MEC_feature_speakers extends MEC_base
 
         echo $speakers;
         exit;
+    }
+
+    public function show_notics($screen)
+    {
+        if(isset($screen->id) and $screen->id == 'edit-mec_speaker')
+        {
+            add_action('admin_footer', function ()
+            {
+                echo "<script>
+                            var xhrObject = window.XMLHttpRequest;
+                             function ajaxXHR()
+                             {
+                                 var xmlHttp = new xhrObject();
+                                 xmlHttp.addEventListener('readystatechange', function (xhr)
+                                 {
+                                     if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                                     {
+                                         if(xhr.currentTarget.responseText.indexOf('tr') != -1)
+                                         {
+                                             jQuery('.form-wrap').find('.warning-msg').remove();
+                                             jQuery('.form-wrap').append('<div class=\"warning-msg\"><p>" . __('Note: You can use the speakers in your event edit/add page > hourly schedule section and speaker widget section!', 'modern-events-calendar-lite') . "</p></div>');
+                                         }
+                                     }
+                                 });
+            
+                                 return xmlHttp;
+                             }
+                             window.XMLHttpRequest = ajaxXHR;
+                         </script>";
+            });
+        }
     }
 }

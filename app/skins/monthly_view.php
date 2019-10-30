@@ -146,7 +146,7 @@ class MEC_skin_monthly_view extends MEC_skins
     {
         if($this->show_only_expired_events)
         {
-            $start = current_time('Y-m-d');
+            $start = date('Y-m-d H:i:s', current_time('timestamp', 0));
             $end = $this->start_date;
         }
         else
@@ -274,8 +274,8 @@ class MEC_skin_monthly_view extends MEC_skins
 
             if($this->show_only_expired_events)
             {
-                $this->start_date = date('Y-m-t', strtotime($this->year.'-'.$this->month.'-01'));
-                $this->active_day = $this->start_date;
+                $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-01'));
+                $this->active_day = date('Y-m-t', strtotime($this->year.'-'.$this->month.'-01'));
             }
             else
             {

@@ -5695,6 +5695,7 @@ li.mec-no-event-found .mec-event-title {
 	-webkit-transition: all .21s ease;
 	-moz-transition: all .21s ease;
 	transition: all .21s ease;
+	text-decoration: unset;	
 }
 
 .mec-fes-list-top-actions a:hover,
@@ -5774,6 +5775,7 @@ li.mec-no-event-found .mec-event-title {
 	height: 40px;
 	max-width: 280px;
 	color: #798f96;
+	font-family: inherit;
 }
 
 .mec-fes-form input {

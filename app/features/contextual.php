@@ -38,7 +38,7 @@ class MEC_feature_contextual extends MEC_base
     public function init()
     {
         // updating checking
-        $this->factory->filter('contextual_help', array($this, 'contextual'), 10, 2);
+        //$this->factory->filter('contextual_help', array($this, 'contextual'), 10, 2);
     }
 
     public function contextual( $contextual_help, $screen_id)

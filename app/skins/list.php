@@ -231,8 +231,8 @@ class MEC_skin_list extends MEC_skins
         // Show only expired events
         if(isset($this->show_only_expired_events) and $this->show_only_expired_events)
         {
-            $yesterday = date('Y-m-d', strtotime('Yesterday'));
-            if(strtotime($date) > strtotime($yesterday)) $date = $yesterday;
+            $now = date('Y-m-d H:i:s', current_time('timestamp', 0));
+            if(strtotime($date) > strtotime($now)) $date = $now;
         }
         
         return $date;

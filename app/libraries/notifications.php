@@ -757,7 +757,13 @@ class MEC_notifications extends MEC_base
         $price = get_post_meta($book_id, 'mec_price', true);
         $message = str_replace('%%book_price%%', $this->main->render_price(($price ? $price : 0)), $message);
         $message = str_replace('%%total_attendees%%', $this->book->get_total_attendees($book_id), $message);
-        
+
+        $event_id = get_post_meta($book_id, 'mec_event_id', true);
+        $mec_date = explode(':', get_post_meta($book_id, 'mec_date', true));
+
+        if(count($mec_date) == 2 and isset($mec_date[0]))
+        $message = str_replace('%%amount_tickets%%', $this->book->get_tickets_availability($event_id, current($mec_date), 'reservation'), $message);
+
         // Event Data
         $organizer_id = get_post_meta($event_id, 'mec_organizer_id', true);
         $location_id = get_post_meta($event_id, 'mec_location_id', true);

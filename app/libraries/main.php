@@ -1995,9 +1995,20 @@ class MEC_main extends MEC_base
             // Libraries
             $book = $this->getBook();
             $render = $this->getRender();
-
+            $db = $this->getDB();
+            
             $transaction = $book->get_transaction($transaction_id);
             $event_id = isset($transaction['event_id']) ? $transaction['event_id'] : 0;
+
+            // Dont Show PDF If Booking Confirmation Status Equals Pending
+            $book_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='".$transaction_id."' AND `meta_key`='mec_transaction_id'", 'loadResult');
+            $mec_confirmed = get_post_meta($book_id, 'mec_confirmed', true);
+
+            if(!$mec_confirmed)
+            {
+                wp_die(__('Your booking still is not confirmed. You able download it after confirmation!', 'modern-events-calendar-lite'), __('Booking Not Confirmed.', 'modern-events-calendar-lite'), array('back_link'=>true));
+                exit;
+            }
 
             if(!$event_id)
             {
