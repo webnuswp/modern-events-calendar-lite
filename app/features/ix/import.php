@@ -26,7 +26,7 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                 <div class="mec-form-row">
                     <input type="file" name="feed" id="feed" title="<?php esc_attr_e('XML Feed', 'modern-events-calendar-lite'); ?>">
                     <input type="hidden" name="mec-ix-action" value="import-start">
-                    <button class="button button-primary"><?php _e('Upload & Import', 'modern-events-calendar-lite'); ?></button>
+                    <button class="button button-primary mec-button-primary mec-btn-2"><?php _e('Upload & Import', 'modern-events-calendar-lite'); ?></button>
                 </div>
             </form>
 
@@ -39,7 +39,7 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                 <div class="mec-form-row">
                     <input type="file" name="feed" id="feed" title="<?php esc_attr_e('ICS Feed', 'modern-events-calendar-lite'); ?>">
                     <input type="hidden" name="mec-ix-action" value="import-start">
-                    <button class="button button-primary"><?php _e('Upload & Import', 'modern-events-calendar-lite'); ?></button>
+                    <button class="button button-primary mec-button-primary mec-btn-2"><?php _e('Upload & Import', 'modern-events-calendar-lite'); ?></button>
                 </div>
             </form>
             <?php else: ?>

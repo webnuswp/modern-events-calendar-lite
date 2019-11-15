@@ -1986,7 +1986,7 @@ class MEC_main extends MEC_base
             $settings = $this->get_settings();
             if(isset($settings['booking_invoice']) and !$settings['booking_invoice'])
             {
-                wp_die(__('Cannot find the invoice!', 'modern-events-calendar-lite'), __('Invoice is invalid.', 'modern-events-calendar-lite'), array('back_link'=>true));
+                wp_die(__('Cannot find the invoice!', 'modern-events-calendar-lite'), __('Invoice is invalid.', 'modern-events-calendar-lite'));
                 exit;
             }
 
@@ -2004,15 +2004,15 @@ class MEC_main extends MEC_base
             $book_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='".$transaction_id."' AND `meta_key`='mec_transaction_id'", 'loadResult');
             $mec_confirmed = get_post_meta($book_id, 'mec_confirmed', true);
 
-            if(!$mec_confirmed)
+            if(!$mec_confirmed and (!current_user_can('administrator') and !current_user_can('editor')))
             {
-                wp_die(__('Your booking still is not confirmed. You able download it after confirmation!', 'modern-events-calendar-lite'), __('Booking Not Confirmed.', 'modern-events-calendar-lite'), array('back_link'=>true));
+                wp_die(__('Your booking still is not confirmed. You able download it after confirmation!', 'modern-events-calendar-lite'), __('Booking Not Confirmed.', 'modern-events-calendar-lite'));
                 exit;
             }
 
             if(!$event_id)
             {
-                wp_die(__('Cannot find the booking!', 'modern-events-calendar-lite'), __('Booking is invalid.', 'modern-events-calendar-lite'), array('back_link'=>true));
+                wp_die(__('Cannot find the booking!', 'modern-events-calendar-lite'), __('Booking is invalid.', 'modern-events-calendar-lite'));
                 exit;
             }
 
@@ -3810,6 +3810,26 @@ class MEC_main extends MEC_base
         }
     }
     
+     /**
+     * Returns start/end time labels
+     * @author Webnus <info@webnus.biz>
+     * @param string $start
+     * @param string $end
+     * @param array $args
+     * @return string
+     */
+    public function mec_include_time_labels($start = '', $end = '', $args = array())
+    {
+        $class = isset($args['class']) ? esc_attr($args['class']) : 'mec-time-details';
+
+        $return = "<div class='{$class}'>";
+        if(trim($start)) $return .= '<span class="mec-start-time">' . $start . '</span>';
+        if(trim($end)) $return .= ' - <span class="mec-end-time">' . $end . '</span>';
+        $return .= '</div>';
+
+        return $return;
+    }
+
     /**
      * Returns end date of an event based on start date
      * @author Webnus <info@webnus.biz>
@@ -4129,11 +4149,11 @@ class MEC_main extends MEC_base
             $db->q("UPDATE `#__mec_events` SET ".trim($q, ', ')." WHERE `id`='$mec_event_id'");
         }
 
+        if(isset($event['meta']) and is_array($event['meta'])) foreach($event['meta'] as $key=>$value) update_post_meta($post_id, $key, $value);
+
         // Update Schedule
         $schedule = $this->getSchedule();
         $schedule->reschedule($post_id, $schedule->get_reschedule_maximum($event['repeat_type']));
-
-        if(isset($event['meta']) and is_array($event['meta'])) foreach($event['meta'] as $key=>$value) update_post_meta($post_id, $key, $value);
         
         return $post_id;
     }
@@ -5019,6 +5039,9 @@ class MEC_main extends MEC_base
             'the-events-calendar' => __('The Events Calendar', 'modern-events-calendar-lite'),
             'weekly-class' => __('Events Schedule WP Plugin', 'modern-events-calendar-lite'),
             'calendarize-it' => __('Calendarize It', 'modern-events-calendar-lite'),
+            'event-espresso' => __('Event Espresso', 'modern-events-calendar-lite'),
+            'events-manager-recurring' => __('Events Manager (Recurring)', 'modern-events-calendar-lite'),
+            'events-manager-single' => __('Events Manager (Single)', 'modern-events-calendar-lite'),
         );
     }
 

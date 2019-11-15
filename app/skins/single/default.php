@@ -46,7 +46,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
             <?php $this->display_hourly_schedules_widget($event); ?>
 
             <!-- Booking Module -->
-            <?php if($this->main->is_sold($event, (trim($occurrence) ? $occurrence : $event->date['start']['date'])) and count($event->dates) <= 1): ?>
+            <?php if ( !empty($event->date) ): if($this->main->is_sold($event, (trim($occurrence) ? $occurrence : $event->date['start']['date'])) and count($event->dates) <= 1): ?>
             <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); ?></div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
@@ -61,7 +61,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                 }
                 ?>
             </div>
-            <?php endif ?>
+            <?php endif; endif; ?>
 
             <!-- Tags -->
             <div class="mec-events-meta-group mec-events-meta-group-tags">
@@ -81,7 +81,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                         <div class="mec-single-event-date">
                             <i class="mec-sl-calendar"></i>
                             <h3 class="mec-date"><?php _e('Date', 'modern-events-calendar-lite'); ?></h3>
-                            <dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
+                            <dd><abbr class="mec-events-abbr"><?php if (!empty($event->date)): echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); endif; ?></abbr></dd>
                         </div>
 
                         <?php  
@@ -157,7 +157,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
                 <?php
                     // Event Location
-                    if(isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]))
+                    if(isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]))
                     {
                         $location = $event->data->locations[$event->data->meta['mec_location_id']];
                         ?>
@@ -196,7 +196,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                         <?php
                     }
                 ?>
-
+                <?php do_action('mec_single_event_under_category' , $event); ?>
                 <?php
                     // Event Organizer
                     if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]))
@@ -408,7 +408,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                     <?php
                 }
                 ?>
-
+                <?php do_action('mec_single_event_under_category' , $event); ?>
                 <?php
                 // Event Organizer
                 if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]) and $single->found_value('event_orgnizer', $settings) == 'on')

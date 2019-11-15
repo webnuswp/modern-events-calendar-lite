@@ -30,7 +30,7 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                         <?php endforeach; ?>
                     </select>
                     <input type="hidden" name="mec-ix-action" value="thirdparty-import-start" />
-                    <button class="button button-primary"><?php _e('Start', 'modern-events-calendar-lite'); ?></button>
+                    <button class="button button-primary mec-button-primary mec-btn-2"><?php _e('Start', 'modern-events-calendar-lite'); ?></button>
                 </div>
             </form>
 
@@ -63,6 +63,8 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                             </div>
                             <div class="mec-options-fields">
                                 <h4><?php _e('Import Options', 'modern-events-calendar-lite'); ?></h4>
+
+                                <?php if(!in_array($this->ix['third-party'], array('event-espresso', 'events-manager-single', 'events-manager-recurring'))): ?>
                                 <div class="mec-form-row">
                                     <label>
                                         <input type="checkbox" name="ix[import_organizers]" value="1" checked="checked" />
@@ -72,6 +74,8 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                                         ?>
                                     </label>
                                 </div>
+                                <?php endif; ?>
+
                                 <div class="mec-form-row">
                                     <label>
                                         <input type="checkbox" name="ix[import_locations]" value="1" checked="checked" />
@@ -82,8 +86,8 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                                     <label>
                                         <input type="checkbox" name="ix[import_categories]" value="1" checked="checked" />
                                         <?php
-                                        if($this->ix['third-party'] == 'weekly-class') _e('Import Class Types', 'modern-events-calendar-lite');
-                                        else _e('Import Categories', 'modern-events-calendar-lite');
+                                            if($this->ix['third-party'] == 'weekly-class') _e('Import Class Types', 'modern-events-calendar-lite');
+                                            else _e('Import Categories', 'modern-events-calendar-lite');
                                         ?>
                                     </label>
                                 </div>

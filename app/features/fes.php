@@ -59,7 +59,6 @@ class MEC_feature_fes extends MEC_base
         
         // Export the event
         $this->factory->action('wp_ajax_mec_fes_csv_export', array($this, 'mec_fes_csv_export'));
-        $this->factory->action('wp_ajax_mec_fes_msexcel_export', array($this, 'mec_fes_msexcel_export'));
 
         // Remove the event
         $this->factory->action('wp_ajax_mec_fes_remove', array($this, 'fes_remove'));
@@ -303,115 +302,7 @@ class MEC_feature_fes extends MEC_base
         
         die(json_encode(array('name' => md5(time().mt_rand(100, 999)), 'ex' => "data:text/csv; charset=utf-8;base64,".base64_encode(ob_get_clean()))));
     }
-
-    public function mec_fes_msexcel_export()
-    {   
-        if((!isset($_POST['mec_event_id'])) or (!isset($_POST['booking_ids'])) or (!isset($_POST['fes_nonce'])) or (!wp_verify_nonce($_POST['fes_nonce'], 'mec_fes_nonce'))) die(json_encode(array('ex' => "error")));
-
-        $event_id = intval($_POST['mec_event_id']);
-        $booking_ids = sanitize_text_field($_POST['booking_ids']);
-
-        ob_start();
-        header('Content-Type: application/vnd.ms-excel; charset=utf-8');
-
-        $post_ids = trim($booking_ids) ? explode(',', $booking_ids) : array();
-        
-        if(!count($post_ids))
-        {
-            $books = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_event_id' AND `meta_value`={$event_id}", 'loadAssocList');
-            foreach ($books as $book) if(isset($book['post_id'])) $post_ids[] = $book['post_id'];
-        }
-
-        $event_ids = array();
-        foreach($post_ids as $post_id) $event_ids[] = get_post_meta($post_id, 'mec_event_id', true);
-        $event_ids = array_unique($event_ids);
-
-        $main_event_id = NULL;
-        if(count($event_ids) == 1) $main_event_id = $event_ids[0];
-
-        $columns = array(__('ID', 'modern-events-calendar-lite'), __('Event', 'modern-events-calendar-lite'), __('Date', 'modern-events-calendar-lite'), $this->main->m('ticket', __('Ticket', 'modern-events-calendar-lite')), __('Transaction ID', 'modern-events-calendar-lite'), __('Total Price', 'modern-events-calendar-lite'), __('Name', 'modern-events-calendar-lite'), __('Email', 'modern-events-calendar-lite'), __('Confirmation', 'modern-events-calendar-lite'), __('Verification', 'modern-events-calendar-lite'));
-        $columns = apply_filters('mec_excel_export_columns', $columns);
-        $reg_fields = $this->main->get_reg_fields($main_event_id);
-        foreach($reg_fields as $reg_field_key=>$reg_field)
-        {
-            // Placeholder Keys
-            if(!is_numeric($reg_field_key)) continue;
-
-            $type = isset($reg_field['type']) ? $reg_field['type'] : '';
-
-            $label = isset($reg_field['label']) ? __($reg_field['label'], 'modern-events-calendar-lite') : '';
-            if(trim($label) == '') continue;
-
-            if($type == 'agreement') $label = sprintf($label, get_the_title($reg_field['page']));
-
-            $columns[] = $label;
-        }
-        $columns[] = 'Attachments';
-        $output = fopen('php://output', 'w');
-        fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
-        fputcsv($output, $columns, "\t");
-        
-        foreach($post_ids as $post_id)
-        {
-            $post_id = (int) $post_id;
-
-            $event_id = get_post_meta($post_id, 'mec_event_id', true);
-            $booker_id = get_post_field('post_author', $post_id);
-            $transaction_id = get_post_meta($post_id, 'mec_transaction_id', true);
-
-            $tickets = get_post_meta($event_id, 'mec_tickets', true);
-
-            $attendees = get_post_meta($post_id, 'mec_attendees', true);
-            if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) $attendees = array(get_post_meta($post_id, 'mec_attendee', true));
-
-            $price = get_post_meta($post_id, 'mec_price', true);
-            $booker = get_userdata($booker_id);
-            
-            $confirmed = $this->main->get_confirmation_label(get_post_meta($post_id, 'mec_confirmed', true));
-            $verified = $this->main->get_verification_label(get_post_meta($post_id, 'mec_verified', true));
-
-                $attachments = '';
-            if( isset( $attendees['attachments'] ) ) 
-            {
-                foreach ($attendees['attachments'] as $attachment) {
-                    $attachments .= @$attachment['url'] . " - ";
-                }
-            }
-
-            foreach($attendees as $key => $attendee)
-            {
-                if ($key === 'attachments') {
-                    continue;
-                }
-                if (isset($attendee[0]['MEC_TYPE_OF_DATA'])) {
-                    continue;
-                }
-                $ticket_id = isset($attendee['id']) ? $attendee['id'] : get_post_meta($post_id, 'mec_ticket_id', true);
-                $booking = array($post_id, get_the_title($event_id), get_the_date('', $post_id), (isset($tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : __('Unknown', 'modern-events-calendar-lite')), $transaction_id, $this->main->render_price(($price ? $price : 0)), (isset($attendee['name']) ? $attendee['name'] : (isset($booker->first_name) ? trim($booker->first_name.' '.$booker->last_name) : '')), (isset($attendee['email']) ? $attendee['email'] : $booker->user_email), $confirmed, $verified,$attachments);
-                $booking = apply_filters('mec_excel_export_booking', $booking, $post_id, $event_id);
-
-                $reg_form = isset($attendee['reg']) ? $attendee['reg'] : array();
-                foreach($reg_fields as $field_id=>$reg_field)
-                {
-                    // Placeholder Keys
-                    if(!is_numeric($field_id)) continue;
-
-                    $label = isset($reg_field['label']) ? __($reg_field['label'], 'modern-events-calendar-lite') : '';
-                    if(trim($label) == '') continue;
-
-                    $booking[] = isset($reg_form[$field_id]) ? ((is_string($reg_form[$field_id]) and trim($reg_form[$field_id])) ? $reg_form[$field_id] : (is_array($reg_form[$field_id]) ? implode(' | ', $reg_form[$field_id]) : '---')) : '';
-                }
-                if ($attachments) {
-                    $booking[]  = $attachments;
-                    $attachments = '';
-                }
-                fputcsv($output, $booking, "\t");
-            }
-        }
-
-        die(json_encode(array('name' => md5(time().mt_rand(100, 999)), 'ex' => "data:application/vnd.ms-excel; charset=utf-8;base64,".base64_encode(ob_get_clean()))));
-    }
-
+    
     public function fes_upload()
     {
         // Check if our nonce is set.
@@ -1124,7 +1015,14 @@ class MEC_feature_fes extends MEC_base
         if($method == 'updated') do_action('mec_fes_updated', $post_id , 'update');
         else do_action('mec_fes_added', $post_id , '');
         
-        $this->main->response(array('success'=>1, 'message'=>$message, 'data'=>array('post_id'=>$post_id)));
+        $this->main->response(array(
+            'success' => 1,
+            'message' => $message,
+            'data'=> array(
+                'post_id' => $post_id,
+                'redirect_to' => isset($this->settings['fes_thankyou_page']) and trim($this->settings['fes_thankyou_page']) ? get_permalink(intval($this->settings['fes_thankyou_page'])) : '',
+            ),
+        ));
     }
     
     public function link_add_event()

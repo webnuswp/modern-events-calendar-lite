@@ -163,6 +163,15 @@ function mec_book_form_submit'.$uniqueid.'()
     {
         var valid = true;
         
+        jQuery("#mec_book_form'.$uniqueid.'").find(\'input[type="date"], input[type="file"]\').each(function(index, context) {
+            if(!jQuery(context).val())
+            {
+                valid = false;
+                jQuery(context).parent().addClass("mec-red-notification");
+            }
+            else jQuery(context).parent().removeClass("mec-red-notification");
+        });
+        
         jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-field-name.mec-reg-mandatory").filter(":visible").each(function(i)
         {
             var ticket_id = jQuery(this).data("ticket-id");

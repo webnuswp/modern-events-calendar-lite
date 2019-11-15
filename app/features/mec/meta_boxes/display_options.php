@@ -36,7 +36,7 @@ $events = $this->main->get_events();
                 <?php $sk_options_list = isset($sk_options['list']) ? $sk_options['list'] : array(); ?>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_list_style"><?php _e('Style', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-4 wn-mec-select" name="mec[sk-options][list][style]" id="mec_skin_list_style" onchange="mec_skin_style_changed('list', this.value); if(this.value == 'accordion'){ jQuery('.mec-sed-methode-container').hide();jQuery('.mec-toggle-month-divider').show(); }else{ jQuery('.mec-sed-methode-container').show();jQuery('.mec-toggle-month-divider').hide()}">
+                    <select class="mec-col-4 wn-mec-select" name="mec[sk-options][list][style]" id="mec_skin_list_style" onchange="mec_skin_style_changed('list', this.value, this); if(this.value == 'accordion'){ jQuery('.mec-sed-methode-container').hide();jQuery('.mec-toggle-month-divider').show(); }else{ jQuery('.mec-sed-methode-container').show();jQuery('.mec-toggle-month-divider').hide()}">
 						<option value="classic" <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] == 'classic') echo 'selected="selected"'; ?>><?php _e('Classic', 'modern-events-calendar-lite'); ?></option>
                         <option value="minimal" <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] == 'minimal') echo 'selected="selected"'; ?>><?php _e('Minimal', 'modern-events-calendar-lite'); ?></option>
                         <option value="modern" <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] == 'modern') echo 'selected="selected"'; ?>><?php _e('Modern', 'modern-events-calendar-lite'); ?></option>
@@ -121,6 +121,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_list_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][list][limit]" id="mec_skin_list_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_list['limit'])) echo $sk_options_list['limit']; ?>" />
                 </div>
+                <!-- Start Include Events Times -->
+                <div class="mec-form-row mec-switcher mec-include-events-times">
+					<div class="mec-col-4">
+						<label for="mec_skin_list_include_events_times"><?php _e('Include Events Times', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][list][include_events_times]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][list][include_events_times]" id="mec_skin_list_include_events_times" value="1" <?php if(isset($sk_options_list['include_events_times']) and trim($sk_options_list['include_events_times'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_list_include_events_times"></label>
+                    </div>
+                </div>
+                <!-- End Include Events Times -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
                         <label for="mec_skin_list_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
@@ -128,7 +140,7 @@ $events = $this->main->get_events();
 					<div class="mec-col-4">
 						<input type="hidden" name="mec[sk-options][list][load_more_button]" value="0" />
 						<input type="checkbox" name="mec[sk-options][list][load_more_button]" id="mec_skin_list_load_more_button" value="1" <?php if(!isset($sk_options_list['load_more_button']) or (isset($sk_options_list['load_more_button']) and $sk_options_list['load_more_button'])) echo 'checked="checked"'; ?> />
-						<label for="mec_skin_list_load_more_button"></label>
+                        <label for="mec_skin_list_load_more_button"></label>
 					</div>
                 </div>
                 <div class="mec-form-row mec-switcher">

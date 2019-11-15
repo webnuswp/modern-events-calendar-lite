@@ -780,6 +780,29 @@ class MEC_feature_ix extends MEC_base
                 'post_type' => 'events',
             ));
         }
+        elseif($third_party == 'event-espresso' and function_exists('bootstrap_espresso'))
+        {
+            $events = get_posts(array(
+                'posts_per_page' => -1,
+                'post_type' => 'espresso_events',
+            ));
+        }
+        elseif($third_party == 'events-manager-recurring' and class_exists('EM_Formats'))
+        {
+            $events = get_posts(array(
+                'posts_per_page' => -1,
+                'post_type' => 'event-recurring',
+            ));
+        }
+        elseif($third_party == 'events-manager-single' and class_exists('EM_Formats'))
+        {
+            $events = get_posts(array(
+                'posts_per_page' => -1,
+                'post_type' => 'event',
+                'meta_key' => '_recurrence_id',
+                'meta_compare' => 'NOT EXISTS'
+            ));
+        }
         else return array('success'=>0, 'message'=>__("Third Party plugin is not installed and activated!", 'modern-events-calendar-lite'));
 
         return array(
@@ -799,6 +822,9 @@ class MEC_feature_ix extends MEC_base
         elseif($third_party == 'the-events-calendar') return $this->thirdparty_tec_import_do();
         elseif($third_party == 'weekly-class') return $this->thirdparty_weekly_class_import_do();
         elseif($third_party == 'calendarize-it') return $this->thirdparty_calendarize_it_import_do();
+        elseif($third_party == 'event-espresso') return $this->thirdparty_es_import_do();
+        elseif($third_party == 'events-manager-recurring') return $this->thirdparty_emr_import_do();
+        elseif($third_party == 'events-manager-single') return $this->thirdparty_ems_import_do();
 
         return array('success'=>0, 'message'=>__('Third Party plugin is invalid!', 'modern-events-calendar-lite'));
     }
@@ -1564,7 +1590,7 @@ class MEC_feature_ix extends MEC_base
                 'days'=>$days,
                 'meta'=>array
                 (
-                    'mec_source'=>'eventon',
+                    'mec_source'=>'weekly_class',
                     'mec_weekly_class_id'=>$third_party_id,
                     'mec_allday'=>$allday,
                     'hide_end_time'=>$hide_end_time,
@@ -1864,8 +1890,8 @@ class MEC_feature_ix extends MEC_base
                 'days'=>$days,
                 'meta'=>array
                 (
-                    'mec_source'=>'eventon',
-                    'mec_weekly_class_id'=>$third_party_id,
+                    'mec_source'=>'calendarize_it',
+                    'mec_calendarize_it_id'=>$third_party_id,
                     'mec_allday'=>$allday,
                     'hide_end_time'=>$hide_end_time,
                     'mec_repeat_end'=>($finish ? 'date' : 'never'),
@@ -1885,6 +1911,610 @@ class MEC_feature_ix extends MEC_base
 
             // Set organizer to the post
             if($organizer_id) wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
+
+            // Set categories to the post
+            if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);
+
+            // Set Features Image
+            if(isset($this->ix['import_featured_image']) and $this->ix['import_featured_image'] and $thumbnail_id = get_post_thumbnail_id($ID))
+            {
+                set_post_thumbnail($post_id, $thumbnail_id);
+            }
+
+            $count++;
+        }
+
+        return array('success'=>1, 'data'=>$count);
+    }
+
+    public function thirdparty_es_import_do()
+    {
+        $IDs = isset($_POST['tp-events']) ? $_POST['tp-events'] : array();
+        $count = 0;
+
+        // Timezone
+        $timezone = $this->main->get_timezone();
+
+        foreach($IDs as $ID)
+        {
+            $post = get_post($ID);
+
+            // Event Title and Content
+            $title = $post->post_title;
+            $description = $post->post_content;
+            $third_party_id = $ID;
+
+            // Event location
+            $venue_id = $this->db->select("SELECT `VNU_ID` FROM `#__esp_event_venue` WHERE `EVT_ID`='".$ID."' ORDER BY `EVV_ID` ASC LIMIT 1", 'loadResult');
+            $location_id = 1;
+
+            // Import Event Locations into MEC locations
+            if(isset($this->ix['import_locations']) and $this->ix['import_locations'] and $venue_id)
+            {
+                $v_meta = $this->db->select("SELECT * FROM `#__esp_venue_meta` WHERE `VNU_ID`='".$venue_id."'", 'loadAssoc');
+                $location_id = $this->main->save_location(array
+                (
+                    'name'=>get_the_title($venue_id),
+                    'address'=>trim($v_meta['VNU_address'].' '.$v_meta['VNU_address2']),
+                    'latitude'=>'',
+                    'longitude'=>'',
+                ));
+            }
+
+            // Event Categories
+            $categories = wp_get_post_terms($ID, 'espresso_event_categories');
+            $category_ids = array();
+
+            // Import Event Categories into MEC categories
+            if(isset($this->ix['import_categories']) and $this->ix['import_categories'] and count($categories))
+            {
+                foreach($categories as $category)
+                {
+                    $category_id = $this->main->save_category(array
+                    (
+                        'name'=>trim($category->name),
+                    ));
+
+                    if($category_id) $category_ids[] = $category_id;
+                }
+            }
+
+            $datetimes = $venue_id = $this->db->select("SELECT * FROM `#__esp_datetime` WHERE `EVT_ID`='".$ID."' ORDER BY `DTT_EVT_start` ASC", 'loadAssocList');
+
+            $dt_start = NULL;
+            $dt_end = NULL;
+            $custom_days = array();
+
+            $i = 1;
+            foreach($datetimes as $datetime)
+            {
+                if(!$dt_start) $dt_start = $datetime['DTT_EVT_start'];
+                if(!$dt_end) $dt_end = $datetime['DTT_EVT_end'];
+
+                // Add to Custom Days
+                if($i > 1) $custom_days[] = array(date('Y-m-d', strtotime($datetime['DTT_EVT_start'])), date('Y-m-d', strtotime($datetime['DTT_EVT_end'])));
+
+                $i++;
+            }
+
+            // Event Start Date and Time
+            $date_start = new DateTime(date('Y-m-d G:i', strtotime($dt_start)), new DateTimeZone('UTC'));
+            $date_start->setTimezone(new DateTimeZone($timezone));
+
+            $start_date = $date_start->format('Y-m-d');
+            $start_hour = $date_start->format('g');
+            $start_minutes = $date_start->format('i');
+            $start_ampm = $date_start->format('A');
+
+            // Event End Date and Time
+            $date_end = new DateTime(date('Y-m-d G:i', strtotime($dt_end)), new DateTimeZone('UTC'));
+            $date_end->setTimezone(new DateTimeZone($timezone));
+
+            $end_date = $date_end->format('Y-m-d');
+            $end_hour = $date_end->format('g');
+            $end_minutes = $date_end->format('i');
+            $end_ampm = $date_end->format('A');
+
+            // Event Time Options
+            $hide_end_time = 0;
+            $allday = 0;
+
+            // Custom Days
+            if(count($custom_days))
+            {
+                $str_days = '';
+                foreach($custom_days as $custom_day) $str_days .= date('Y-m-d', strtotime($custom_day[0])).':'.date('Y-m-d', strtotime($custom_day[1])).',';
+
+                $repeat_status = 1;
+                $repeat_type = 'custom_days';
+                $interval = NULL;
+                $finish = $end_date;
+                $year = NULL;
+                $month = NULL;
+                $day = NULL;
+                $week = NULL;
+                $weekday = NULL;
+                $weekdays = NULL;
+                $days = trim($str_days, ', ');
+            }
+            // Single Event
+            else
+            {
+                $repeat_status = 0;
+                $repeat_type = '';
+                $interval = NULL;
+                $finish = $end_date;
+                $year = NULL;
+                $month = NULL;
+                $day = NULL;
+                $week = NULL;
+                $weekday = NULL;
+                $weekdays = NULL;
+                $days = NULL;
+            }
+
+            $args = array
+            (
+                'title'=>$title,
+                'content'=>$description,
+                'location_id'=>$location_id,
+                'organizer_id'=>1,
+                'date'=>array
+                (
+                    'start'=>array(
+                        'date'=>$start_date,
+                        'hour'=>$start_hour,
+                        'minutes'=>$start_minutes,
+                        'ampm'=>$start_ampm,
+                    ),
+                    'end'=>array(
+                        'date'=>$end_date,
+                        'hour'=>$end_hour,
+                        'minutes'=>$end_minutes,
+                        'ampm'=>$end_ampm,
+                    ),
+                    'repeat'=>array(
+                        'end'=>'date',
+                        'end_at_date'=>$finish,
+                        'end_at_occurrences'=>10,
+                    ),
+                    'allday'=>$allday,
+                    'comment'=>'',
+                    'hide_time'=>0,
+                    'hide_end_time'=>$hide_end_time,
+                ),
+                'start'=>$start_date,
+                'start_time_hour'=>$start_hour,
+                'start_time_minutes'=>$start_minutes,
+                'start_time_ampm'=>$start_ampm,
+                'end'=>$end_date,
+                'end_time_hour'=>$end_hour,
+                'end_time_minutes'=>$end_minutes,
+                'end_time_ampm'=>$end_ampm,
+                'repeat_status'=>$repeat_status,
+                'repeat_type'=>$repeat_type,
+                'interval'=>$interval,
+                'finish'=>$finish,
+                'year'=>$year,
+                'month'=>$month,
+                'day'=>$day,
+                'week'=>$week,
+                'weekday'=>$weekday,
+                'weekdays'=>$weekdays,
+                'days'=>$days,
+                'meta'=>array
+                (
+                    'mec_source'=>'eventespresso',
+                    'mec_eventespresso_id'=>$third_party_id,
+                    'mec_allday'=>$allday,
+                    'hide_end_time'=>$hide_end_time,
+                    'mec_repeat_end'=>($finish ? 'date' : 'never'),
+                    'mec_repeat_end_at_occurrences'=>9,
+                    'mec_repeat_end_at_date'=>$finish,
+                    'mec_in_days'=>$days,
+                )
+            );
+
+            $post_id = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='$third_party_id' AND `meta_key`='mec_eventespresso_id'", 'loadResult');
+
+            // Insert the event into MEC
+            $post_id = $this->main->save_event($args, $post_id);
+
+            // Set location to the post
+            if($location_id) wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
+
+            // Set categories to the post
+            if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);
+
+            // Set Features Image
+            if(isset($this->ix['import_featured_image']) and $this->ix['import_featured_image'] and $thumbnail_id = get_post_thumbnail_id($ID))
+            {
+                set_post_thumbnail($post_id, $thumbnail_id);
+            }
+
+            $count++;
+        }
+
+        return array('success'=>1, 'data'=>$count);
+    }
+
+    public function thirdparty_emr_import_do()
+    {
+        $IDs = isset($_POST['tp-events']) ? $_POST['tp-events'] : array();
+        $count = 0;
+
+        foreach($IDs as $ID)
+        {
+            $post = get_post($ID);
+            $metas = $this->main->get_post_meta($ID);
+
+            // Event Title and Content
+            $title = $post->post_title;
+            $description = $post->post_content;
+            $third_party_id = $ID;
+
+            // Event location
+            $location = $this->db->select("SELECT * FROM `#__em_locations` WHERE `location_id`='".(isset($metas['_location_id']) ? $metas['_location_id'] : 0)."'", 'loadAssoc');
+            $location_id = 1;
+
+            // Import Event Locations into MEC locations
+            if(isset($this->ix['import_locations']) and $this->ix['import_locations'] and isset($location['post_id']))
+            {
+                $address = $location['location_address'].' '.$location['location_region'].' '.$location['location_town'].' '.$location['location_state'].' '.$location['location_country'];
+                $location_id = $this->main->save_location(array
+                (
+                    'name'=>trim($location['location_name']),
+                    'address'=>trim($address),
+                    'latitude'=>trim($location['location_latitude']),
+                    'longitude'=>trim($location['location_longitude']),
+                ));
+            }
+
+            // Event Categories
+            $categories = wp_get_post_terms($ID, 'event-categories');
+            $category_ids = array();
+
+            // Import Event Categories into MEC categories
+            if(isset($this->ix['import_categories']) and $this->ix['import_categories'] and count($categories))
+            {
+                foreach($categories as $category)
+                {
+                    $category_id = $this->main->save_category(array
+                    (
+                        'name'=>trim($category->name),
+                    ));
+
+                    if($category_id) $category_ids[] = $category_id;
+                }
+            }
+
+            // Event Start Date and Time
+            $date_start = new DateTime(date('Y-m-d G:i', strtotime($metas['_event_start_local'])));
+
+            $start_date = $date_start->format('Y-m-d');
+            $start_hour = $date_start->format('g');
+            $start_minutes = $date_start->format('i');
+            $start_ampm = $date_start->format('A');
+
+            // Event End Date and Time
+            $date_end = new DateTime(date('Y-m-d', strtotime('+'.(isset($metas['_recurrence_days']) ? $metas['_recurrence_days'] : 0).' days', strtotime($metas['_event_start_local']))).' '.$metas['_event_end_time']);
+
+            $end_date = $date_end->format('Y-m-d');
+            $end_hour = $date_end->format('g');
+            $end_minutes = $date_end->format('i');
+            $end_ampm = $date_end->format('A');
+
+            // Event Time Options
+            $hide_end_time = 0;
+            $allday = isset($metas['_event_all_day']) ? $metas['_event_all_day'] : 0;
+
+            $repeat_status = 1;
+            $interval = NULL;
+            $year = NULL;
+            $month = NULL;
+            $day = NULL;
+            $week = NULL;
+            $weekday = NULL;
+            $weekdays = NULL;
+            $days = NULL;
+            $finish = date('Y-m-d', strtotime($metas['_event_end_local']));
+            $repeat_type = '';
+            $advanced_days = NULL;
+
+            if($metas['_recurrence_freq'] == 'daily')
+            {
+                $repeat_type = 'daily';
+                $interval = isset($metas['_recurrence_interval']) ? $metas['_recurrence_interval'] : 1;
+            }
+            elseif($metas['_recurrence_freq'] == 'weekly')
+            {
+                $repeat_type = 'certain_weekdays';
+                $interval = 1;
+                $weekdays = ',' . str_replace('0', '7', $metas['_recurrence_byday']) . ',';
+            }
+            elseif($metas['_recurrence_freq'] == 'monthly')
+            {
+                $repeat_type = 'advanced';
+
+                $week_no = $metas['_recurrence_byweekno'];
+                if($week_no == '-1' or $week_no == '5') $week_no = 'l';
+
+                $week_day = $metas['_recurrence_byday'];
+
+                if($week_day == '0') $week_day = 'Sun';
+                elseif($week_day == '1') $week_day = 'Mon';
+                elseif($week_day == '2') $week_day = 'Tue';
+                elseif($week_day == '3') $week_day = 'Wed';
+                elseif($week_day == '4') $week_day = 'Thu';
+                elseif($week_day == '5') $week_day = 'Fri';
+                else $week_day = 'Sat';
+
+                $advanced_days = array($week_day.'.'.$week_no);
+            }
+            elseif($metas['_recurrence_freq'] == 'yearly')
+            {
+                $repeat_type = 'yearly';
+
+                $year = '*';
+
+                $s = $start_date;
+                $e = $end_date;
+
+                $_months = array();
+                $_days = array();
+                while(strtotime($s) <= strtotime($e))
+                {
+                    $_months[] = date('m', strtotime($s));
+                    $_days[] = date('d', strtotime($s));
+
+                    $s = date('Y-m-d', strtotime('+1 Day', strtotime($s)));
+                }
+
+                $month = ','.implode(',', array_unique($_months)).',';
+                $day = ','.implode(',', array_unique($_days)).',';
+
+                $week = '*';
+                $weekday = '*';
+            }
+
+            $args = array
+            (
+                'title'=>$title,
+                'content'=>$description,
+                'location_id'=>$location_id,
+                'organizer_id'=>1,
+                'date'=>array
+                (
+                    'start'=>array(
+                        'date'=>$start_date,
+                        'hour'=>$start_hour,
+                        'minutes'=>$start_minutes,
+                        'ampm'=>$start_ampm,
+                    ),
+                    'end'=>array(
+                        'date'=>$end_date,
+                        'hour'=>$end_hour,
+                        'minutes'=>$end_minutes,
+                        'ampm'=>$end_ampm,
+                    ),
+                    'repeat'=>array(
+                        'end'=>'date',
+                        'end_at_date'=>$finish,
+                        'end_at_occurrences'=>10,
+                    ),
+                    'allday'=>$allday,
+                    'comment'=>'',
+                    'hide_time'=>0,
+                    'hide_end_time'=>$hide_end_time,
+                ),
+                'start'=>$start_date,
+                'start_time_hour'=>$start_hour,
+                'start_time_minutes'=>$start_minutes,
+                'start_time_ampm'=>$start_ampm,
+                'end'=>$end_date,
+                'end_time_hour'=>$end_hour,
+                'end_time_minutes'=>$end_minutes,
+                'end_time_ampm'=>$end_ampm,
+                'repeat_status'=>$repeat_status,
+                'repeat_type'=>$repeat_type,
+                'interval'=>$interval,
+                'finish'=>$finish,
+                'year'=>$year,
+                'month'=>$month,
+                'day'=>$day,
+                'week'=>$week,
+                'weekday'=>$weekday,
+                'weekdays'=>$weekdays,
+                'days'=>$days,
+                'meta'=>array
+                (
+                    'mec_source'=>'event_manager_recurring',
+                    'mec_emr_id'=>$third_party_id,
+                    'mec_allday'=>$allday,
+                    'hide_end_time'=>$hide_end_time,
+                    'mec_repeat_end'=>($finish ? 'date' : 'never'),
+                    'mec_repeat_end_at_occurrences'=>9,
+                    'mec_repeat_end_at_date'=>$finish,
+                    'mec_in_days'=>$days,
+                    'mec_advanced_days'=>$advanced_days,
+                )
+            );
+
+            $post_id = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='$third_party_id' AND `meta_key`='mec_emr_id'", 'loadResult');
+
+            // Insert the event into MEC
+            $post_id = $this->main->save_event($args, $post_id);
+
+            // Set location to the post
+            if($location_id) wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
+
+            // Set categories to the post
+            if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);
+
+            // Set Features Image
+            if(isset($this->ix['import_featured_image']) and $this->ix['import_featured_image'] and $thumbnail_id = get_post_thumbnail_id($ID))
+            {
+                set_post_thumbnail($post_id, $thumbnail_id);
+            }
+
+            $count++;
+        }
+
+        return array('success'=>1, 'data'=>$count);
+    }
+
+    public function thirdparty_ems_import_do()
+    {
+        $IDs = isset($_POST['tp-events']) ? $_POST['tp-events'] : array();
+        $count = 0;
+
+        foreach($IDs as $ID)
+        {
+            $post = get_post($ID);
+            $metas = $this->main->get_post_meta($ID);
+
+            // Event Title and Content
+            $title = $post->post_title;
+            $description = $post->post_content;
+            $third_party_id = $ID;
+
+            // Event location
+            $location = $this->db->select("SELECT * FROM `#__em_locations` WHERE `location_id`='".(isset($metas['_location_id']) ? $metas['_location_id'] : 0)."'", 'loadAssoc');
+            $location_id = 1;
+
+            // Import Event Locations into MEC locations
+            if(isset($this->ix['import_locations']) and $this->ix['import_locations'] and isset($location['post_id']))
+            {
+                $address = $location['location_address'].' '.$location['location_region'].' '.$location['location_town'].' '.$location['location_state'].' '.$location['location_country'];
+                $location_id = $this->main->save_location(array
+                (
+                    'name'=>trim($location['location_name']),
+                    'address'=>trim($address),
+                    'latitude'=>trim($location['location_latitude']),
+                    'longitude'=>trim($location['location_longitude']),
+                ));
+            }
+
+            // Event Categories
+            $categories = wp_get_post_terms($ID, 'event-categories');
+            $category_ids = array();
+
+            // Import Event Categories into MEC categories
+            if(isset($this->ix['import_categories']) and $this->ix['import_categories'] and count($categories))
+            {
+                foreach($categories as $category)
+                {
+                    $category_id = $this->main->save_category(array
+                    (
+                        'name'=>trim($category->name),
+                    ));
+
+                    if($category_id) $category_ids[] = $category_id;
+                }
+            }
+
+            // Event Start Date and Time
+            $date_start = new DateTime(date('Y-m-d G:i', strtotime($metas['_event_start_local'])));
+
+            $start_date = $date_start->format('Y-m-d');
+            $start_hour = $date_start->format('g');
+            $start_minutes = $date_start->format('i');
+            $start_ampm = $date_start->format('A');
+
+            // Event End Date and Time
+            $date_end = new DateTime(date('Y-m-d G:i', strtotime($metas['_event_end_local'])));
+
+            $end_date = $date_end->format('Y-m-d');
+            $end_hour = $date_end->format('g');
+            $end_minutes = $date_end->format('i');
+            $end_ampm = $date_end->format('A');
+
+            // Event Time Options
+            $hide_end_time = 0;
+            $allday = isset($metas['_event_all_day']) ? $metas['_event_all_day'] : 0;
+
+            // Single Event
+            $repeat_status = 0;
+            $repeat_type = '';
+            $interval = NULL;
+            $finish = $end_date;
+            $year = NULL;
+            $month = NULL;
+            $day = NULL;
+            $week = NULL;
+            $weekday = NULL;
+            $weekdays = NULL;
+            $days = NULL;
+
+            $args = array
+            (
+                'title'=>$title,
+                'content'=>$description,
+                'location_id'=>$location_id,
+                'organizer_id'=>1,
+                'date'=>array
+                (
+                    'start'=>array(
+                        'date'=>$start_date,
+                        'hour'=>$start_hour,
+                        'minutes'=>$start_minutes,
+                        'ampm'=>$start_ampm,
+                    ),
+                    'end'=>array(
+                        'date'=>$end_date,
+                        'hour'=>$end_hour,
+                        'minutes'=>$end_minutes,
+                        'ampm'=>$end_ampm,
+                    ),
+                    'repeat'=>array(
+                        'end'=>'date',
+                        'end_at_date'=>$finish,
+                        'end_at_occurrences'=>10,
+                    ),
+                    'allday'=>$allday,
+                    'comment'=>'',
+                    'hide_time'=>0,
+                    'hide_end_time'=>$hide_end_time,
+                ),
+                'start'=>$start_date,
+                'start_time_hour'=>$start_hour,
+                'start_time_minutes'=>$start_minutes,
+                'start_time_ampm'=>$start_ampm,
+                'end'=>$end_date,
+                'end_time_hour'=>$end_hour,
+                'end_time_minutes'=>$end_minutes,
+                'end_time_ampm'=>$end_ampm,
+                'repeat_status'=>$repeat_status,
+                'repeat_type'=>$repeat_type,
+                'interval'=>$interval,
+                'finish'=>$finish,
+                'year'=>$year,
+                'month'=>$month,
+                'day'=>$day,
+                'week'=>$week,
+                'weekday'=>$weekday,
+                'weekdays'=>$weekdays,
+                'days'=>$days,
+                'meta'=>array
+                (
+                    'mec_source'=>'event_manager_single',
+                    'mec_ems_id'=>$third_party_id,
+                    'mec_allday'=>$allday,
+                    'hide_end_time'=>$hide_end_time,
+                    'mec_repeat_end'=>($finish ? 'date' : 'never'),
+                    'mec_repeat_end_at_occurrences'=>9,
+                    'mec_repeat_end_at_date'=>$finish,
+                    'mec_in_days'=>$days,
+                )
+            );
+
+            $post_id = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='$third_party_id' AND `meta_key`='mec_ems_id'", 'loadResult');
+
+            // Insert the event into MEC
+            $post_id = $this->main->save_event($args, $post_id);
+
+            // Set location to the post
+            if($location_id) wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
 
             // Set categories to the post
             if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);

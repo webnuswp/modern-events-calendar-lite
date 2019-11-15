@@ -887,6 +887,15 @@ body.post-type-mec-books th.column-author {
     margin-top: 1px
 }
 
+/* WordPress 3 select */
+.mec-form-row select {
+    min-width: 50px;
+}
+
+.ui-datepicker select {
+    min-width: 60px;
+}
+
 .mec-book-status-form select {
     display: block;
     width: 99%;
@@ -1356,6 +1365,20 @@ body.post-type-mec-books th.column-author {
     padding: 8px;
     max-width: 100%;
     max-height: 100%
+}
+
+/* MEC Import/Export fix CSS */
+.m-e-calendar_page_MEC-ix #wpwrap .mec-button-primary.mec-btn-2 {
+    margin: 0 0 0 12px;
+}
+
+.m-e-calendar_page_MEC-ix #wpwrap input[type=file] {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.m-e-calendar_page_MEC-ix #wpwrap .mec-form-row select {
+    min-height: 46px;
 }
 
 .mec-image-select-wrap .mec-colorskin-1 {
@@ -3291,6 +3314,7 @@ textarea.mec-import-settings-content {
     margin-top: 40px
 }
 
+#webnus-dashboard .support-box a,
 #webnus-dashboard .w-box.support-page.mec-ticksy a {
     color: #fff;
     font-weight: 500;
@@ -3307,10 +3331,15 @@ textarea.mec-import-settings-content {
     display: inline-block
 }
 
+#webnus-dashboard .support-box a:hover,
 #webnus-dashboard .w-box.support-page.mec-ticksy a:hover {
     background: #222;
     background: linear-gradient(95deg,#555 0,#222 50%,#000 100%);
     box-shadow: 0 5px 23px -7px rgba(0,0,0,.5)
+}
+
+#webnus-dashboard .support-box a {
+    margin: 40px 4px 0 4px;
 }
 
 .mec-faq-accordion>.mec-faq-accordion-content {
@@ -6056,7 +6085,8 @@ a.mec-create-shortcode-tabs-link {
 /* Select 2 Styles */
 .mec-add-event-tabs-wrap .select2-container,
 .mec-create-shortcode-tab-content .select2-container {
-    height: 38px;
+    min-height: 38px;
+    height: auto;
     box-sizing: border-box;
     margin-bottom: 8px;
     padding: 0 6px;
@@ -6089,4 +6119,126 @@ a.mec-create-shortcode-tabs-link {
 .mec-create-shortcode-tab-content .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: 5px;
     right: 4px;
+}
+
+/* Freshdesk Newsletter */
+.fs-webform-container div .fserv-container {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 208px !important;
+    box-shadow: 0 1px 16px rgba(0, 0, 0, .034) !important;
+    border-radius: 2px !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 30px !important;
+}
+
+.fserv-container .fserv-form-name {
+    font-weight: 600 !important;
+    position: relative !important;
+    font-size: 20px !important;
+    padding: 20px !important;
+    border-bottom: 1px solid #ededed !important;
+    text-align: left !important;
+    margin: 0 !important
+}
+
+.fserv-form-description {
+    padding: 10px 30px !important;
+    margin: 1em 0 0 !important;
+    line-height: 1.5 !important;
+    font-size: 16px !important
+}
+
+.fserv-container form {
+    padding: 0 !important;
+    padding-left: 28px !important;
+}
+
+.fserv-container .fserv-label {
+    display: none !important
+}
+
+.fserv-field {
+    display: inline-block;
+    width: 41% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-right: 25px !important;
+}
+
+.fserv-field+div:not(.fserv-field) {
+    margin: 0 !important;
+    border: none !important;
+    text-align: left !important;
+    padding-left: 4px !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    display: inline-block;
+    margin-right: 10px !important;
+}
+
+.fserv-container .powered-by {
+    display: none !important
+}
+
+button.fserv-button-submit {
+    color: #fff !important;
+    font-weight: 500 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 3px 10px -4px #008aff !important;
+    text-shadow: none !important;
+    background: #008aff !important;
+    background: linear-gradient(95deg, #36a2ff 0, #008aff 50%, #0072ff 100%) !important;
+    border: none !important;
+    transition: .24s !important
+}
+
+button.fserv-button-submit:hover {
+    background: #222 !important;
+    background: linear-gradient(95deg, #555 0, #222 50%, #000 100%) !important;
+    box-shadow: 0 5px 23px -7px rgba(0, 0, 0, .5) !important;
+    cursor: pointer !important
+}
+
+.fserv-container input::-webkit-input-placeholder {
+    font-family: Inherit !important;
+    font-size: 14px
+}
+
+.fserv-container input::-moz-placeholder {
+    font-family: Inherit !important;
+    font-size: 14px
+}
+
+.fserv-container input:-ms-input-placeholder {
+    font-family: Inherit !important;
+    font-size: 14px
+}
+
+.fserv-container input:-moz-placeholder {
+    font-family: Inherit !important;
+    font-size: 14px
+}
+
+input.fserv-input-text {
+    height: 38px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    padding: 0 6px;
+    box-shadow: none;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, .05);
+}
+.fserv-field label.error {
+    display: none !important;
+}
+.fs-notifier {
+    position: fixed !important;
+    top: 40px !important;
+    width: 300px !important;
+    max-width: 300px !important;
+    margin: 0 !important;
+    right: 20px !important;
+    left: unset !important;
 }

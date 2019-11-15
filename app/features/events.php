@@ -316,19 +316,31 @@ class MEC_feature_events extends MEC_base
     ?>
         <div class="mec-add-event-tabs-wrap">
             <div class="mec-add-event-tabs-left">
-                <?php if ( ($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)) ) : ?>
-                <a class="mec-add-event-tabs-link" data-href="mec_meta_box_fes_form" href="#"><?php echo esc_html('FES Details' ,'modern-events-calendar-lite'); ?></a>
-                <?php endif; ?>
-                <a class="mec-add-event-tabs-link" data-href="mec_meta_box_date_form" href="#"><?php echo esc_html('Date And Time' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-add-event-tabs-link" data-href="mec_meta_box_repeat_form" href="#"><?php echo esc_html('Event Repeating' ,'modern-events-calendar-lite'); ?></a>
-                <?php if(isset($this->settings['exceptional_days']) and $this->settings['exceptional_days']) : ?>
-                <a class="mec-add-event-tabs-link" data-href="mec-exceptional-days" href="#"><?php echo esc_html('Exceptional Days' ,'modern-events-calendar-lite'); ?></a>
-                <?php endif; ?>
-                <a class="mec-add-event-tabs-link" data-href="mec-hourly-schedule" href="#"><?php echo esc_html('Hourly Schedule' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-add-event-tabs-link" data-href="mec-location" href="#"><?php echo esc_html('Location/Venue' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-add-event-tabs-link" data-href="mec-read-more" href="#"><?php echo esc_html('Links' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-add-event-tabs-link" data-href="mec-organizer" href="#"><?php echo esc_html('Organizer' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-add-event-tabs-link" data-href="mec-cost" href="#"><?php echo esc_html('Cost' ,'modern-events-calendar-lite'); ?></a>
+                <?php
+                $activated = '';
+                $single_event_meta_title = apply_filters('mec-single-event-meta-title', array(
+                    __('FES Details', 'modern-events-calendar-lite') => 'mec_meta_box_fes_form',
+                    __('Date And Time', 'modern-events-calendar-lite') => 'mec_meta_box_date_form',
+                    __('Event Repeating', 'modern-events-calendar-lite') => 'mec_meta_box_repeat_form',
+                    __('Exceptional Days', 'modern-events-calendar-lite') => 'mec-exceptional-days',
+                    __('Hourly Schedule', 'modern-events-calendar-lite') => 'mec-hourly-schedule',
+                    __('Location/Venue', 'modern-events-calendar-lite') => 'mec-location',
+                    __('Links', 'modern-events-calendar-lite') => 'mec-read-more',
+                    __('Organizer', 'modern-events-calendar-lite') => 'mec-organizer',
+                    __('Cost', 'modern-events-calendar-lite') => 'mec-cost',
+                ),$activated);
+                foreach ($single_event_meta_title as $link_name => $link_address) {
+                    if ( $link_address == 'mec_meta_box_fes_form' ) {
+                        if ( ($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)) )
+                        echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                    } elseif ( $link_address == 'mec-exceptional-days' ) {
+                        if(isset($this->settings['exceptional_days']) and $this->settings['exceptional_days'])
+                        echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                    } else {
+                        echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                    }
+                }
+                ?>
             </div>
             <div class="mec-add-event-tabs-right">
                 <?php do_action('mec_metabox_details', $post); ?>
@@ -791,27 +803,15 @@ class MEC_feature_events extends MEC_base
                     </div>
                     <div class="mec-form-row" id="mec_repeat_certain_weekdays_container">
                         <label class="mec-col-3"><?php _e('Week Days', 'modern-events-calendar-lite'); ?></label>
-                        <label> <input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
-                                       value="1" <?php echo(in_array(1, $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php _e('Monday', 'modern-events-calendar-lite'); ?>
+                        <?php
+                            $weekdays = $this->main->get_weekday_i18n_labels();
+                            foreach($weekdays as $weekday) :
+                        ?>
+                        <label>
+                            <input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
+                                value="<?php echo intval($weekday[0]); ?>" <?php echo(in_array($weekday[0], $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php echo $weekday[1]; ?>
                         </label>
-                        <label>&nbsp;<input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
-                                            value="2" <?php echo(in_array(2, $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php _e('Tuesday', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <label>&nbsp;<input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
-                                            value="3" <?php echo(in_array(3, $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php _e('Wednesday', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <label>&nbsp;<input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
-                                            value="4" <?php echo(in_array(4, $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php _e('Thursday', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <label>&nbsp;<input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
-                                            value="5" <?php echo(in_array(5, $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php _e('Friday', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <label>&nbsp;<input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
-                                            value="6" <?php echo(in_array(6, $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php _e('Saturday', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <label>&nbsp;<input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
-                                            value="7" <?php echo(in_array(7, $certain_weekdays) ? 'checked="checked"' : ''); ?> /><?php _e('Sunday', 'modern-events-calendar-lite'); ?>
-                        </label>
+                        <?php endforeach; ?>
                     </div>
                     <div class="mec-form-row" id="mec_exceptions_in_days_container">
                         <div class="mec-form-row">

@@ -16,8 +16,6 @@ get_header('mec'); ?>
 		
 		<?php do_action('mec_before_main_content'); ?>
 		
-		<?php if(have_posts()): ?>
-
 			<?php do_action('mec_before_events_loop'); ?>
                 
                 <h1><?php echo single_term_title(''); ?></h1>
@@ -25,7 +23,6 @@ get_header('mec'); ?>
 
 			<?php do_action('mec_after_events_loop'); ?>
 
-		<?php endif; ?>
         </section>
 
     <?php do_action('mec_after_main_content'); ?>

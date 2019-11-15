@@ -3366,7 +3366,7 @@ function mec_focus_week(id) {
         });
 
         // MEC FES export csv
-        $('.mec-event-export-csv').click(function()
+        $('.mec-event-export-csv, .mec-event-export-excel').click(function()
         {
             var mec_event_id = $(this).parent().parent().data('event-id');
             var booking_data = $(this).parent().parent().find('.mec-fes-btn-date .mec-certain-user-booking-ids').val();
@@ -3390,37 +3390,6 @@ function mec_focus_week(id) {
                         $csv.attr('download', 'bookings-' + res.name + '.csv');
                         $csv[0].click();
                         $csv.remove();
-                    }
-                },
-                error: function () {}
-            });
-        });
-
-        // MEC FES export msexcel
-        $('.mec-event-export-excel').click(function()
-        {
-            var mec_event_id = $(this).parent().parent().data('event-id');
-            var booking_data = $(this).parent().parent().find('.mec-fes-btn-date .mec-certain-user-booking-ids').val();
-            var certain_data = $(this).parent().parent().find('.fes-export-date-active').data('ids');
-            
-            if(typeof booking_data == 'undefined') booking_data = ',';
-            if(typeof certain_data != 'undefined') booking_data = certain_data;
-
-            booking_data = booking_data.substr(0, booking_data.length -1);
-            $.ajax({
-                url: mecdata.ajax_url,
-                data: "action=mec_fes_msexcel_export&fes_nonce=" + mecdata.fes_nonce + "&mec_event_id=" + mec_event_id + "&booking_ids=" + booking_data,
-                dataType: 'json',
-                type: "post",
-                success: function (res) {
-                    if(res.ex != 'error')
-                    {
-                        var $msexcel = $('<a>');
-                        $msexcel.attr('href', res.ex);
-                        $('body').append($msexcel);
-                        $msexcel.attr('download', 'bookings-' + res.name + '.csv');
-                        $msexcel[0].click();
-                        $msexcel.remove();
                     }
                 },
                 error: function () {}

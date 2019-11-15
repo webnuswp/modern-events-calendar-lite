@@ -80,14 +80,23 @@ $id = 1;
             else $status_class = 'mec-book-pending';
             $transaction = $this->book->get_transaction($transaction_id);
             $dates = isset($transaction['date']) ? explode(':', $transaction['date']) : array(date('Y-m-d'), date('Y-m-d'));
-            $event = $render->data($event_id);
+
+            // Check If Event Exist
+            $db = $this->getDB();
+            $check_event_exist = $db->select("SELECT `ID` FROM `#__posts` WHERE `ID`={$event_id}", 'loadResult');
+
+            $event = trim($check_event_exist) ? $render->data($event_id) : array();
         ?>
         <tr id="mec_profile_booking_<?php echo $ID; ?>">
             <td>
                 <span class="mec-event-id"><?php echo $id; ?></span>
             </td>
             <td>
+                <?php if(!isset($event->ID) or !isset($event->title)) : ?>
+                <span class="mec-event-title"><?php _e('N/A', 'modern-events-calendar-lite'); ?></span>
+                <?php else : ?>
                 <a class="mec-event-title" href="<?php echo get_the_permalink($event->ID); ?>"><?php echo $event->title; ?></a>
+                <?php endif; ?>
             </td>
             <td>
                  <span class="mec-event-date">
@@ -119,17 +128,20 @@ $id = 1;
             </td>
             <td>
                 <?php
+                if(isset($event->ID))
+                {
                     $location_id = get_post_meta($event->ID, 'mec_location_id', true);
                     $location_latitude = isset($event->locations[$location_id]['latitude']) ? $event->locations[$location_id]['latitude'] : NULL;
                     $location_longitude = isset($event->locations[$location_id]['longitude']) ? $event->locations[$location_id]['longitude'] : NULL;
+                }
                 ?>
                 <span class="mec-profile-bookings-view-google-map">
                     <?php
-                        if($location_latitude and $location_longitude):
+                        if((isset($location_latitude) and $location_latitude) and (isset($location_longitude) and $location_longitude)) :
                     ?>
                     <a target="_blank" href="<?php echo "https://www.google.com/maps?q={$location_latitude},{$location_longitude}"; ?>"><i class="mec-sl-map"></i></a>
                     <?php
-                        else:
+                        else :
                     ?>
                     <i class="mec-sl-question mec-profile-no-location"></i>
                     <?php 
@@ -193,7 +205,7 @@ $id = 1;
                         echo '<span class="mec-booking-attendee-ticket-variations">';
                         if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
                         {
-                            $ticket_variations = $this->main->ticket_variations($event_id);
+                            $ticket_variations = $this->main->ticket_variations(trim($check_event_exist) ? $event_id : NULL);
                             foreach($attendee['variations'] as $variation_id=>$variation_count)
                             {
                                 if(!$variation_count or ($variation_count and $variation_count < 0)) continue;

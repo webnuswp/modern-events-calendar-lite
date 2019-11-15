@@ -96,6 +96,7 @@ class MEC_skins extends MEC_base
     public $toggle_month_divider;
     public $image_popup;
     public $map_on_top;
+    public $include_events_times;
 
     /**
      * Constructor method

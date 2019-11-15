@@ -23,7 +23,33 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
         </div>
     </div>
     <div class="welcome-content w-clearfix extra">
+
+    <?php if(!$this->getPRO()): ?>
+        <div class="w-row mec-pro-notice">
+            <div class="w-col-sm-12">
+                <div class="info-msg support-box">
+                    <p><?php echo sprintf(__("%s, if you need support,  you can purchase our Extra Support feature through links below:", 'modern-events-calendar-lite'), '<strong>'.__('Dear user', 'modern-events-calendar-lite').'</strong>'); ?></p>
+                    <a target="_blank" href="https://webnus.net/checkout?edd_action=add_to_cart&download_id=960896"> Get 12 Month Premium Support </a>
+                    <a target="_blank" href="https://webnus.net/checkout?edd_action=add_to_cart&download_id=960724"> Get 6 Month Premium Support </a>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if($this->getPRO()): ?>
+        <div class="w-row mec-pro-notice">
+            <div class="w-col-sm-12">
+                <div class="info-msg support-box">
+                    <p><?php echo sprintf(__("%s, we won't charge you for any extra price after a year for using MEC or receiving updates, but you will need to renew your license if you needed support by then. You can use links below in order to do that:", 'modern-events-calendar-lite'), '<strong>'.__('Dear user', 'modern-events-calendar-lite').'</strong>'); ?></p>
+                    <a target="_blank" href="https://webnus.net/checkout?edd_action=add_to_cart&download_id=960896"> Get 12 Month Premium Support </a>
+                    <a target="_blank" href="https://webnus.net/checkout?edd_action=add_to_cart&download_id=960724"> Get 6 Month Premium Support </a>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <?php if(current_user_can('read')): ?>
+        <script src='https://webnus.freshsales.io/web_forms/8dd552ab6041bd25d23d8a8467819f701f9196106be0e25edc6870c9cc922bdc/form.js' crossorigin='anonymous' id='fs_8dd552ab6041bd25d23d8a8467819f701f9196106be0e25edc6870c9cc922bdc'></script>
         <div class="w-row">
             <div class="w-col-sm-12">
                 <div class="w-box support-page searchbox">
@@ -280,5 +306,13 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
 })(jQuery);
 </script>
 <?php if($this->getPRO()) : ?>
-<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="4c1b818f-12d2-4b87-a045-d843628eb07c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<script>
+  function initFreshChat() {
+    window.fcWidget.init({
+      token: "1be9e2ea-febf-4835-b290-5bd097dc2e02",
+      host: "https://wchat.freshchat.com"
+    });
+  }
+  function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
+</script>
 <?php endif; ?>

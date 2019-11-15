@@ -173,23 +173,23 @@ class MEC_single_widget extends WP_Widget
 	public function update($new_instance, $old_instance)
     {
         $instance = $old_instance;
-        $instance['data_time'] = strip_tags($new_instance['data_time']);
-        $instance['local_time'] = strip_tags($new_instance['local_time']);
-        $instance['event_cost'] = strip_tags($new_instance['event_cost']);
-        $instance['more_info'] = strip_tags($new_instance['more_info']);
-        $instance['event_label'] = strip_tags($new_instance['event_label']);
-        $instance['event_location'] = strip_tags($new_instance['event_location']);
-        $instance['event_categories'] = strip_tags($new_instance['event_categories']);
-        $instance['event_orgnizer'] = strip_tags($new_instance['event_orgnizer']);
-        $instance['event_speakers'] = strip_tags($new_instance['event_speakers']);
-        $instance['register_btn'] = strip_tags($new_instance['register_btn']);
-        $instance['attende_module'] = strip_tags($new_instance['attende_module']);
-        $instance['next_module'] = strip_tags($new_instance['next_module']);
-        $instance['links_module'] = strip_tags($new_instance['links_module']);
-        $instance['weather_module'] = strip_tags($new_instance['weather_module']);
-        $instance['google_map'] = strip_tags($new_instance['google_map']);
-        $instance['qrcode_module'] = strip_tags($new_instance['qrcode_module']);
-
+        $instance['data_time'] = isset($new_instance['data_time']) ? strip_tags($new_instance['data_time']) : '';
+        $instance['local_time'] = isset($new_instance['local_time']) ? strip_tags($new_instance['local_time']) : '';
+        $instance['event_cost'] = isset($new_instance['event_cost']) ? strip_tags($new_instance['event_cost']) : '';
+        $instance['more_info'] = isset($new_instance['more_info']) ? strip_tags($new_instance['more_info']) : '';
+        $instance['event_label'] = isset($new_instance['event_label']) ? strip_tags($new_instance['event_label']) : '';
+        $instance['event_location'] = isset($new_instance['event_location']) ? strip_tags($new_instance['event_location']) : '';
+        $instance['event_categories'] = isset($new_instance['event_categories']) ? strip_tags($new_instance['event_categories']) : '';
+        $instance['event_orgnizer'] = isset($new_instance['event_orgnizer']) ? strip_tags($new_instance['event_orgnizer']) : '';
+        $instance['event_speakers'] = isset($new_instance['event_speakers']) ? strip_tags($new_instance['event_speakers']) : '';
+        $instance['register_btn'] = isset($new_instance['register_btn']) ? strip_tags($new_instance['register_btn']) : '';
+        $instance['attende_module'] = isset($new_instance['attende_module']) ? strip_tags($new_instance['attende_module']) : '';
+        $instance['next_module'] = isset($new_instance['next_module']) ? strip_tags($new_instance['next_module']) : '';
+        $instance['links_module'] = isset($new_instance['links_module']) ? strip_tags($new_instance['links_module']) : '';
+        $instance['weather_module'] = isset($new_instance['weather_module']) ? strip_tags($new_instance['weather_module']) : '';
+        $instance['google_map'] = isset($new_instance['google_map']) ? strip_tags($new_instance['google_map']) : '';
+        $instance['qrcode_module'] = isset($new_instance['qrcode_module']) ? strip_tags($new_instance['qrcode_module']) : '';
+        
         $this->flush_widget_cache();
 
         $alloptions = wp_cache_get('alloptions', 'options');

@@ -396,10 +396,14 @@ function mec_skin_toggle()
     jQuery('#mec_skin_'+skin+'_style').trigger('change');
 }
 
-function mec_skin_style_changed(skin, style)
+function mec_skin_style_changed(skin, style, context)
 {
     jQuery('.mec-skin-'+skin+'-date-format-container').hide();
     jQuery('#mec_skin_'+skin+'_date_format_'+style+'_container').show();
+
+    // Show Or Hide Include Events Time Switcher
+    if(style == 'classic' || style == 'minimal' || style == 'modern') jQuery(context).parent().parent().find('.mec-include-events-times').show();
+    else jQuery(context).parent().parent().find('.mec-include-events-times').hide();
 }
 
 function mec_show_widget_check(context)

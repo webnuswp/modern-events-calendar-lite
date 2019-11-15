@@ -16,15 +16,12 @@ logitrans_blog_title_final(); ?>
 		
 		<?php do_action('mec_before_main_content'); ?>
 
-		<?php if(have_posts()): ?>
-
 			<?php do_action('mec_before_events_loop'); ?>
 
 				<?php $MEC = MEC::instance(); echo $MEC->category(); ?>
 
 			<?php do_action('mec_after_events_loop'); ?>
 
-		<?php endif; ?>
         </section>
 
     <?php do_action('mec_after_main_content'); ?>

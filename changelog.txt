@@ -1,4 +1,23 @@
-﻿v 4.7.7 - 30 October 2019
+﻿v 4.8.0 - 12 November 2019
+- Added: Import events from Event Espresso Plugin
+- Added: Importevents from Events Manager Plugin
+- Added: An option to show event start/end time in list skin
+- Added: Thank you page for Front-end Event Submission
+- Added: Event start/end date to notifications (pro)
+- Added: Newsletter box in MEC dashboard and support page for subscription to MEC news
+- Added: Premium support box in support page
+- Added: Čeština (translated by Michal Spielmann)
+- Added: French (translated by Jean Ghislain)
+- Improved: MS Excel export (pro)
+- Fixed: Week start in repeating tab for "Certain Weekdays" repeat
+- Fixed: Multi-booking through multiple clicks on the Booking button (pro)
+- Fixed: An empty page issue in category archive page
+- Fixed: Event name in profile shortcode (pro)
+- Fixed: Book date and Google Calendar link in notifications (pro)
+- Fixed: Some PHP notices
+- Fixed: Some minor issues
+
+v 4.7.7 - 30 October 2019
 - Compatibility: WordPress 5.2.4
 - Added: An option to manage waiting time before redirecting to Thank You Page (pro)
 - Added: Display the total amount of purchased tickets in confirmation email (pro)

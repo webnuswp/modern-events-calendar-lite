@@ -1096,9 +1096,10 @@
 	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: 0;
-	padding-top: 5px;
+	padding-top: 10px;
 }
 
+.mec-event-list-minimal .mec-time-details,
 .mec-event-list-minimal .mec-event-detail {
 	font-size: 15px;
 	font-weight: 300;
@@ -1255,6 +1256,10 @@
 .mec-event-list-modern .mec-event-detail {
 	font-weight: 300;
 	color: #8a8a8a;
+}
+
+.mec-event-list-modern .mec-event-detail .mec-time-details {
+    display: inline;
 }
 
 .mec-event-list-modern .mec-event-date .event-da {
@@ -1479,12 +1484,23 @@
 	margin-right: 20px;
 }
 
-.mec-event-list-classic .mec-event-date {
+.mec-event-list-classic .mec-event-date,
+.mec-event-list-classic .mec-event-time {
 	font-weight: 400;
 	font-size: 13px;
 	letter-spacing: 0;
 	line-height: 18px;
+	text-align: left;
+    display: initial;
+    margin-right: 12px;	
 }
+
+.mec-event-list-classic .mec-event-time .mec-time-details,
+.mec-event-list-classic .mec-event-time i {
+	display: inline;
+	margin-right: 3px;
+}
+
 
 .mec-event-list-classic .mec-event-date span {
 	font-weight: 500;
@@ -9239,7 +9255,8 @@ body .featherlight .featherlight-close-icon:hover {
 	margin-right: 8px;
 }
 
-.mec-toggle-item-col .mec-event-month {
+.mec-toggle-item-col .mec-event-month,
+.mec-toggle-item-col .mec-time-details {
 	text-transform: uppercase;
 	font-size: 12px;
 	line-height: 14px;

@@ -18,9 +18,30 @@ if($this->getPRO())
     $envato = $this->getEnvato();
     $verify = $envato->get_MEC_info('dl');
 }
+
+
+$data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-get-extra.html';  
+if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+{
+    $get_data = file_get_contents($data_url);
+}
+elseif ( function_exists('curl_version') )
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, $data_url);
+    $get_data = curl_exec($ch);
+    curl_close($ch);
+    
+} else {
+    $get_data = '';
+}
+if (!empty($get_data)) echo $get_data;
+
 $get_n_option = get_option('mec_addons_notification_option');
+if ( $get_n_option != 'open' ) :
 ?>
-<?php if ( $get_n_option != 'open' ) : ?>
 <div class="wns-be-container mec-addons-notification-set-box extra">
     <?php echo $this->main->addons_msg(); ?>
 </div>
@@ -549,6 +570,41 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 </div>
                                 <p class="description"><?php echo sprintf(__('Put %s shortcode into the page.', 'modern-events-calendar-lite'), '<code>[MEC_fes_form]</code>'); ?></p>
                             </div>
+                            <!-- Start FES Thank You Page -->
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_fes_thankyou_page"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-4">
+                                    <select id="mec_settings_fes_thankyou_page" name="mec[settings][fes_thankyou_page]">
+                                        <option value="">----</option>
+                                        <?php foreach($pages as $page): ?>
+                                            <option <?php echo ((isset($settings['fes_thankyou_page']) and $settings['fes_thankyou_page'] == $page->ID) ? 'selected="selected"' : ''); ?> value="<?php echo intval($page->ID); ?>"><?php echo $page->post_title; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("User redirects to this page after new event submission. Leave it empty if you want to disable it.", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- End FES Thank You Page -->
+                            <!-- Start FES Thank You Page Time -->
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_fes_thankyou_page_time"><?php _e('Thank You Page Time Interval', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-4">
+                                    <input type="number" id="mec_settings_fes_thankyou_page_time" name="mec[settings][fes_thankyou_page_time]" value="<?php echo ((isset($settings['fes_thankyou_page_time']) and trim($settings['fes_thankyou_page_time']) != '0') ? intval($settings['fes_thankyou_page_time']) : '2000'); ?>" placeholder="<?php esc_attr_e('2000 mean 2 seconds', 'modern-events-calendar-lite'); ?>" />
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Thank You Page Time Interval', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("Waiting time before redirecting to thank you page. It's in miliseconds so 2000 means 2 seconds.", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- End FES Thank You Page Time -->
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_guest_status]" value="0" />

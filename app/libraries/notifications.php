@@ -583,6 +583,8 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
         $message = str_replace('%%event_link%%', get_post_permalink($event_id), $message);
+        $message = str_replace('%%event_start_date%%', get_post_meta($event_id, 'mec_start_date', true), $message);
+        $message = str_replace('%%event_end_date%%', get_post_meta($event_id, 'mec_end_date', true), $message);
         $message = str_replace('%%event_status%%', $status, $message);
         $message = str_replace('%%event_note%%', get_post_meta($event_id, 'mec_note', true), $message);
         
@@ -656,6 +658,8 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
             $message = str_replace('%%event_title%%', get_the_title($post->ID), $message);
             $message = str_replace('%%event_link%%', get_post_permalink($post->ID), $message);
+            $message = str_replace('%%event_start_date%%', get_post_meta($post->ID, 'mec_start_date', true), $message);
+            $message = str_replace('%%event_end_date%%', get_post_meta($post->ID, 'mec_end_date', true), $message);
             $message = str_replace('%%event_status%%', $status, $message);
             $message = str_replace('%%event_note%%', get_post_meta($post->ID, 'mec_note', true), $message);
             
@@ -736,7 +740,11 @@ class MEC_notifications extends MEC_base
         // Book Data
         $transaction_id = get_post_meta($book_id, 'mec_transaction_id', true);
 
-        $message = str_replace('%%book_date%%', get_the_date('', $book_id), $message);
+        $book_date = get_post_meta($book_id, 'mec_date', true);
+        if(trim($book_date) and strpos($book_date, ':') !== false) $book_date = str_replace(':', ' ' . __('to', 'modern-events-calendar-lite') . ' ', $book_date);
+        else $book_date = get_the_date('', $book_id);
+        
+        $message = str_replace('%%book_date%%', $book_date, $message);
 
         // Book Time
         $start_seconds = get_post_meta($event_id, 'mec_start_day_seconds', true);
@@ -774,6 +782,8 @@ class MEC_notifications extends MEC_base
         
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
         $message = str_replace('%%event_link%%', get_post_permalink($event_id), $message);
+        $message = str_replace('%%event_start_date%%', get_post_meta($event_id, 'mec_start_date', true), $message);
+        $message = str_replace('%%event_end_date%%', get_post_meta($event_id, 'mec_end_date', true), $message);
         
         $message = str_replace('%%event_organizer_name%%', (isset($organizer->name) ? $organizer->name : ''), $message);
         $message = str_replace('%%event_organizer_tel%%', get_term_meta($organizer_id, 'tel', true), $message);
@@ -828,10 +838,24 @@ class MEC_notifications extends MEC_base
 
         $message = str_replace('%%ticket_name%%', $ticket_name, $message);
         $message = str_replace('%%ticket_time%%', $ticket_time, $message);
+
+        $ticket_start_time_info = ' '.sprintf("%02d", $ticket_start_hour).':'.sprintf("%02d", $ticket_start_minute).' '.$ticket_start_ampm;
+        $ticket_end_time_info = ' '.sprintf("%02d", $ticket_end_hour).':'.sprintf("%02d", $ticket_end_minute).' '.$ticket_end_ampm;
+
+        $start_time = strtotime(get_the_date('Y-m-d', $book_id) . $ticket_start_time_info);
+        $end_time = strtotime(get_the_date('Y-m-d', $book_id). $ticket_end_time_info);
         
-        $start_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_start_hour).':'.sprintf("%02d", $ticket_start_minute).' '.$ticket_start_ampm);
-        $end_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_end_hour).':'.sprintf("%02d", $ticket_end_minute).' '.$ticket_end_ampm);
-        
+        if(isset($book_date) and strpos($book_date, __('to', 'modern-events-calendar-lite')) !== false)
+        {
+            $explode_time = explode(__('to', 'modern-events-calendar-lite'), $book_date);
+
+            if(isset($explode_time) and count($explode_time) == 2)
+            {
+                $start_time = strtotime(trim($explode_time[0]) . $ticket_start_time_info);
+                $end_time = strtotime(trim($explode_time[1]) . $ticket_end_time_info);
+            }
+        }
+
         $gmt_offset_seconds = $this->main->get_gmt_offset_seconds($start_time);
         $event_title = get_the_title($event_id);
         $event_info = get_post($event_id);

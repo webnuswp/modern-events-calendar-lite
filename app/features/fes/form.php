@@ -50,6 +50,15 @@ jQuery(document).ready(function()
                     
                     // Set the event id
                     jQuery(".mec-fes-post-id").val(response.data.post_id);
+
+                    // Redirect Currnet Page
+                    if(response.data.redirect_to != "")
+                    {
+                        setTimeout(function()
+                        {
+                            window.location.href = response.data.redirect_to;
+                        },' . ((isset($this->settings['fes_thankyou_page_time']) and trim($this->settings['fes_thankyou_page_time']) != '') ? (int) $this->settings['fes_thankyou_page_time'] : 2000) . ');
+                    }
                 }
                 else
                 {

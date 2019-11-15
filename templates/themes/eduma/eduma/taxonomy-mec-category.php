@@ -15,13 +15,11 @@ defined('MECEXEC') or die();
 			.theiaStickySidebar{display:none !important;}
         </style>
         <section id="<?php echo apply_filters('mec_category_page_html_id', 'main-content'); ?>" class="<?php echo apply_filters('mec_category_page_html_class', 'container'); ?>">
-		<?php if(have_posts()): ?>
 
-			<?php do_action('mec_before_events_loop'); ?>
+              <?php do_action('mec_before_events_loop'); ?>
 
-				<?php $MEC = MEC::instance(); echo $MEC->category(); ?>
+                     <?php $MEC = MEC::instance(); echo $MEC->category(); ?>
 
-			<?php do_action('mec_after_events_loop'); ?>
+              <?php do_action('mec_after_events_loop'); ?>
 
-		<?php endif; ?>
         </section>

@@ -17,7 +17,7 @@ $uniqueid = (isset($uniqueid) ? $uniqueid : $event->data->ID);
 // Map is disabled for this event
 if(isset($event->data->meta['mec_dont_show_map']) and $event->data->meta['mec_dont_show_map']) return;
 
-$location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+$location = isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
 
 // Event location geo point
 $latitude = isset($location['latitude']) ? $location['latitude'] : '';
@@ -32,8 +32,11 @@ if(!trim($latitude) or !trim($longitude))
     $latitude = $geo_point[0];
     $longitude = $geo_point[1];
 
-    update_term_meta($event->data->meta['mec_location_id'], 'latitude', $latitude);
-    update_term_meta($event->data->meta['mec_location_id'], 'longitude', $longitude);
+    if(isset($event->data->meta['mec_location_id']))
+    {
+        update_term_meta($event->data->meta['mec_location_id'], 'latitude', $latitude);
+        update_term_meta($event->data->meta['mec_location_id'], 'longitude', $longitude);
+    }
 }
 
 // Still Latitude and Longitude are wrong!

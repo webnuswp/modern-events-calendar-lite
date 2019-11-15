@@ -77,6 +77,8 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_title%%</span>: <?php _e('Event title', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -130,6 +132,8 @@ $notifications = $this->main->get_notifications();
                                 <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_title%%</span>: <?php _e('Event title', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -182,6 +186,8 @@ $notifications = $this->main->get_notifications();
                                 <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_title%%</span>: <?php _e('Event title', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -437,6 +443,8 @@ $notifications = $this->main->get_notifications();
                                 <ul>
                                     <li><span>%%event_title%%</span>: <?php _e('Title of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_link%%</span>: <?php _e('Link of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_status%%</span>: <?php _e('Status of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_note%%</span>: <?php _e('Event Note', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -483,6 +491,8 @@ $notifications = $this->main->get_notifications();
                                 <ul>
                                     <li><span>%%event_title%%</span>: <?php _e('Title of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_link%%</span>: <?php _e('Link of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_status%%</span>: <?php _e('Status of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_note%%</span>: <?php _e('Event Note', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>

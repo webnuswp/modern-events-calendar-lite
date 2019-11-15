@@ -15,14 +15,18 @@ $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date[
 $end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : current_time('Y-m-d H:i:s');
 
 $s_time = '';
-$s_time .= sprintf("%02d", $date['start']['hour']).':';
-$s_time .= sprintf("%02d", $date['start']['minutes']);
-$s_time .= trim($date['start']['ampm']);
+if ( !empty($date) ): 
+    $s_time .= sprintf("%02d", $date['start']['hour']).':';
+    $s_time .= sprintf("%02d", $date['start']['minutes']);
+    $s_time .= trim($date['start']['ampm']);
+endif;
 
 $e_time = '';
-$e_time .= sprintf("%02d", $date['end']['hour']).':';
-$e_time .= sprintf("%02d", $date['end']['minutes']);
-$e_time .= trim($date['end']['ampm']);
+if ( !empty($date) ):
+    $e_time .= sprintf("%02d", $date['end']['hour']).':';
+    $e_time .= sprintf("%02d", $date['end']['minutes']);
+    $e_time .= trim($date['end']['ampm']);
+endif;
 
 $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.$s_time));
 $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.$e_time));

@@ -113,9 +113,9 @@ class MEC_MEC_widget extends WP_Widget
     public function update($new_instance, $old_instance)
     {
         $instance = array();
-        $instance['title'] = $new_instance['title'];
-        $instance['calendar_id'] = $new_instance['calendar_id'];
-        $instance['current_hide'] = $new_instance['current_hide'];
+        $instance['title'] = isset($new_instance['title']) ? strip_tags($new_instance['title']) : '';
+        $instance['calendar_id'] = isset($new_instance['calendar_id']) ? intval($new_instance['calendar_id']) : 0;
+        $instance['current_hide'] = isset($new_instance['current_hide']) ? strip_tags($new_instance['current_hide']) : '';
 
         return $instance;
     }

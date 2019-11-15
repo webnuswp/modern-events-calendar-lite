@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.2.4
-Stable tag: 4.7.7
+Stable tag: 4.8.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -318,6 +318,24 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 4.8.0 - 12 November 2019 =
+- Added: Import events from Event Espresso Plugin
+- Added: Importevents from Events Manager Plugin
+- Added: An option to show event start/end time in list skin
+- Added: Thank you page for Front-end Event Submission
+- Added: Event start/end date to notifications (pro)
+- Added: Newsletter box in MEC dashboard and support page for subscription to MEC news
+- Added: Premium support box in support page
+- Added: Čeština (translated by Michal Spielmann)
+- Added: French (translated by Jean Ghislain)
+- Improved: MS Excel export (pro)
+- Fixed: Week start in repeating tab for "Certain Weekdays" repeat
+- Fixed: Multi-booking through multiple clicks on the Booking button (pro)
+- Fixed: An empty page issue in category archive page
+- Fixed: Event name in profile shortcode (pro)
+- Fixed: Book date and Google Calendar link in notifications (pro)
+- Fixed: Some PHP notices
+- Fixed: Some minor issues
 
 = 4.7.7 - 30 October 2019 =
 - Compatibility: WordPress 5.2.4

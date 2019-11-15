@@ -157,10 +157,6 @@ $this->factory->params('footer', $javascript);
                     endforeach; 
                     ?>
                     </ul>
-                    <?php else: ?>
-                    <div class="date-messgae">
-                        <?php _e('Event is not repeating. No dates exist for this event!', 'modern-events-calendar-lite'); ?>
-                    </div>
                     <?php endif; ?>
                     <input type="hidden" class="mec-certain-user-booking-ids" value="<?php echo $ids_text_field; ?>">
                 </div>
