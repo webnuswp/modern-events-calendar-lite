@@ -17,7 +17,7 @@ $uniqueid = (isset($uniqueid) ? $uniqueid : $event->data->ID);
 // Map is disabled for this event
 if(isset($event->data->meta['mec_dont_show_map']) and $event->data->meta['mec_dont_show_map']) return;
 
-$location = isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+$location = isset($event->data->meta['mec_location_id']) && isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
 
 // Event location geo point
 $latitude = isset($location['latitude']) ? $location['latitude'] : '';
@@ -96,11 +96,11 @@ else $factory->params('footer', $javascript);
 <div class="mec-get-direction">
     <form method="post" action="#" id="mec_get_direction_form<?php echo $uniqueid; ?>" class="clearfix">
         <div class="mec-map-get-direction-address-cnt">
-            <input class="mec-map-get-direction-address" type="text" placeholder="<?php esc_attr_e('Address from ...', 'modern-events-calendar-lite') ?>" id="mec_get_direction_addr<?php echo $uniqueid; ?>" />
+            <input class="mec-map-get-direction-address" type="text" placeholder="<?php esc_attr_e('Address from ...', 'mec') ?>" id="mec_get_direction_addr<?php echo $uniqueid; ?>" />
             <span class="mec-map-get-direction-reset mec-util-hidden" id="mec_map_get_direction_reset<?php echo $uniqueid; ?>">X</span>
         </div>
         <div class="mec-map-get-direction-btn-cnt btn btn-primary">
-            <input type="submit" value="<?php _e('Get Directions', 'modern-events-calendar-lite'); ?>" />
+            <input type="submit" value="<?php _e('Get Directions', 'mec'); ?>" />
         </div>
     </form>
 </div>

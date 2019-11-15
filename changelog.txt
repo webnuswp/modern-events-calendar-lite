@@ -1,4 +1,9 @@
-﻿v 4.8.0 - 12 November 2019
+﻿v 4.8.1 - 13 November 2019
+- Fixed: Monthly view (clean style)
+- Fixed: Datepicker
+- Fixed: Google Map view in single event page
+
+v 4.8.0 - 12 November 2019
 - Added: Import events from Event Espresso Plugin
 - Added: Importevents from Events Manager Plugin
 - Added: An option to show event start/end time in list skin

@@ -170,7 +170,6 @@ elseif($week_start == 5) // Friday
                     $sold_out = ($is_soldout) ? ' <span class=soldout>' . __('Sold Out', 'modern-events-calendar-lite') . '</span> ' : '';
                     $events_str .= '<h4 class="mec-event-title'.$sold_out_css_class.'"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'">'.$event->data->title.'</a>'.$sold_out.$event_color.'</h4>';
                     $events_str .= '<div class="mec-event-detail">'.(isset($location['name']) ? $location['name'] : '').'</div>';
-                    $events_str .= apply_filters('monthly_event_right_box', $events_str, $event);
                     $events_str .= '</article>';
                 }
 

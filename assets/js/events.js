@@ -156,41 +156,43 @@ jQuery(document).ready(function($)
         $('#mec_fes_organizer_remove_image_button').addClass('mec-util-hidden');
     });
     
-    $('#mec_start_date').datepicker(
-    {
-        changeYear: true,
-        changeMonth: true,
-        dateFormat: 'yy-mm-dd',
-        gotoCurrent: true,
-        yearRange: 'c-3:c+5',
-    });
-    
-    $('#mec_end_date').datepicker(
-    {
-        changeYear: true,
-        changeMonth: true,
-        dateFormat: 'yy-mm-dd',
-        gotoCurrent: true,
-        yearRange: 'c-3:c+5',
-    });
-    
-    $('#mec_date_repeat_end_at_date').datepicker(
-    {
-        changeYear: true,
-        changeMonth: true,
-        dateFormat: 'yy-mm-dd',
-        gotoCurrent: true,
-        yearRange: 'c-3:c+5',
-    });
-    
-    $('.mec_date_picker').datepicker(
-    {
-        changeYear: true,
-        changeMonth: true,
-        dateFormat: 'yy-mm-dd',
-        gotoCurrent: true,
-        yearRange: 'c-3:c+5',
-    });
+    if ($.fn.datepicker) {
+        $('#mec_start_date').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: 'yy-mm-dd',
+            gotoCurrent: true,
+            yearRange: 'c-3:c+5',
+        });
+        
+        $('#mec_end_date').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: 'yy-mm-dd',
+            gotoCurrent: true,
+            yearRange: 'c-3:c+5',
+        });
+        
+        $('#mec_date_repeat_end_at_date').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: 'yy-mm-dd',
+            gotoCurrent: true,
+            yearRange: 'c-3:c+5',
+        });
+        
+        $('.mec_date_picker').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: 'yy-mm-dd',
+            gotoCurrent: true,
+            yearRange: 'c-3:c+5',
+        });
+    }
     
     $('#mec_location_id').on('change', function()
     {

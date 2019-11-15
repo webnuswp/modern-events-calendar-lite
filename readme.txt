@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.2.4
-Stable tag: 4.8.0
+Stable tag: 4.8.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -318,6 +318,11 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 4.8.1 - 13 November 2019 =
+- Fixed: Monthly view (clean style)
+- Fixed: Datepicker
+- Fixed: Google Map view in single event page
+
 = 4.8.0 - 12 November 2019 =
 - Added: Import events from Event Espresso Plugin
 - Added: Importevents from Events Manager Plugin
