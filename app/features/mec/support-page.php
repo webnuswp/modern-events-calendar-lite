@@ -56,10 +56,13 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                     <div class="w-box-content">
                         <p><?php esc_html_e('Advice and answers from the Webnus Team'); ?></p>  
                         <div class="search-form">
-                            <form action="https://webnus.crisp.help/en/" method="">
-                                <input type="text" placeholder="<?php esc_html_e('Search...'); ?>" name="search_query">
-                                <button><i class="mec-sl-magnifier"></i></button>
+                            <form role="search" action="https://webnus.net/dox/modern-events-calendar/" method="get">
+                                <div>
+                                    <input name="s" type="text" placeholder="Enter Keywords..." class="search-side">
+                                    <button type="submit" id="searchsubmit" value="Search" class="btn" formtarget="_blank"><i class="mec-sl-magnifier"></i></button>
+                                </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -271,8 +274,9 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-12">
                 <div class="w-box support-page mec-ticksy">
                     <div class="w-box-content">
-                        <p><?php esc_html_e('Webnus is an elite and trusted author with a high percentage of satisfied users. If you have any issues please don\'t hesitate to contact us, we will reply as soon as possible.' , 'modern-events-calendar-lite'); ?></p>
-                        <a href="https://webnus.ticksy.com/" target="_blank"><?php esc_html_e('Create a support ticket','modern-events-calendar-lite'); ?></a>
+                        <center><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/wn-ms-icon-17-n.svg'; ?>" style="width:100px; margin-top:30px;" /></center>
+                        <p style="margin-top:20px;"><?php esc_html_e('You don’t need to register anywhere for support anymore.You can click the following button, and the chat box will open up to ask all your different questions using our various channels.' , 'modern-events-calendar-lite'); ?><?php echo sprintf(__("<br><small style=\"color: #8a8a8a;\">Only enter your email address and the answers will be sent over to your mail box.</small>", 'modern-events-calendar-lite'));?></p>
+                        <a href="#" class="support-button"><?php esc_html_e('Create a support ticket','modern-events-calendar-lite'); ?></a>
                     </div>
                 </div>
             </div>
@@ -304,6 +308,12 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
     });
 
 })(jQuery);
+jQuery('.support-button').on('click',function(event, data) {
+    event.preventDefault();
+    if (window.fcWidget.isOpen() != true) {
+        window.fcWidget.open();
+    }
+});
 </script>
 <?php if($this->getPRO()) : ?>
 <script>

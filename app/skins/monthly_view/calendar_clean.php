@@ -133,6 +133,12 @@ elseif($week_start == 5) // Friday
                     $price_schema = isset($event->data->meta['mec_cost']) ? $event->data->meta['mec_cost'] : '' ; 
                     $currency_schema = isset($settings['currency']) ? $settings['currency'] : '' ;
                     $schema_settings = isset( $settings['schema'] ) ? $settings['schema'] : '';
+                    $events_filter = $after_time_filter = '';
+
+                    
+
+                    
+                    
                     if($schema_settings == '1' ):
                     $events_str .= '
                     <script type="application/ld+json">
@@ -165,11 +171,19 @@ elseif($week_start == 5) // Friday
                     $events_str .= '<article data-style="'.$label_style.'" class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'mec-event-article '.$this->get_event_classes($event, $is_soldout).'">';
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumblist'].'</div>';
                     if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+                    if(has_filter('monthly_event_after_time')) {
+                        $after_time_filter = apply_filters('monthly_event_after_time', $events_str, $event);
+                    }
+                    $events_str .= $after_time_filter;
                     $event_color =  isset($event->data->meta['mec_color'])?'<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>':'';
                     $sold_out_css_class = ($is_soldout) ? ' mec-event-title-soldout' : '';
                     $sold_out = ($is_soldout) ? ' <span class=soldout>' . __('Sold Out', 'modern-events-calendar-lite') . '</span> ' : '';
                     $events_str .= '<h4 class="mec-event-title'.$sold_out_css_class.'"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'">'.$event->data->title.'</a>'.$sold_out.$event_color.'</h4>';
                     $events_str .= '<div class="mec-event-detail">'.(isset($location['name']) ? $location['name'] : '').'</div>';
+                    if(has_filter('monthly_event_right_box')) {
+                        $events_filter = apply_filters('monthly_event_right_box', $events_str, $event);
+                    }
+                    $events_str .= $events_filter;
                     $events_str .= '</article>';
                 }
 

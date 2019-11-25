@@ -8,8 +8,29 @@ $styling = $this->main->get_styling();
 // colorskin
 $color = '';
 
+function hex2rgb( $cc ) {
+	if ( $cc[0] == '#' ) {
+			$cc = substr( $cc, 1 );
+	}
+	if ( strlen( $cc ) == 6 ) {
+			list( $r, $g, $b ) = array( $cc[0] . $cc[1], $cc[2] . $cc[3], $cc[4] . $cc[5] );
+	} elseif ( strlen( $cc ) == 3 ) {
+			list( $r, $g, $b ) = array( $cc[0] . $cc[0], $cc[1] . $cc[1], $cc[2] . $cc[2] );
+	} else {
+			return false;
+	}
+	$r = hexdec( $r );
+	$g = hexdec( $g );
+	$b = hexdec( $b );
+	return array( 'red' => $r, 'green' => $g, 'blue' => $b );
+}
+
+
 if(isset($styling['color']) && $styling['color']) $color = $styling['color'];
 elseif(isset($styling['mec_colorskin'])) $color = $styling['mec_colorskin'];
+
+$rgb_color = '64,217,241';
+if ( !empty($color)) $rgb_color = hex2rgb($color);
 
 // Typography
 $mec_h_fontfamily_arr = $mec_p_fontfamily_arr = $fonts_url = $mec_container_normal_width = $mec_container_large_width = '';
@@ -125,7 +146,7 @@ if($color && $color != '#40d9f1'): ?>
 
 	/* == Backgrounds
 		----------------- */
-	.mec-wrap.colorskin-custom .mec-event-sharing .mec-event-share:hover .event-sharing-icon,.mec-wrap.colorskin-custom .mec-event-grid-clean .mec-event-date,.mec-wrap.colorskin-custom .mec-event-list-modern .mec-event-sharing > li:hover a i,.mec-wrap.colorskin-custom .mec-event-list-modern .mec-event-sharing .mec-event-share:hover .mec-event-sharing-icon,.mec-wrap.colorskin-custom .mec-event-list-modern .mec-event-sharing li:hover a i,.mec-wrap.colorskin-custom .mec-calendar:not(.mec-event-calendar-classic) .mec-selected-day,.mec-wrap.colorskin-custom .mec-calendar .mec-selected-day:hover,.mec-wrap.colorskin-custom .mec-calendar .mec-calendar-row  dt.mec-has-event:hover,.mec-wrap.colorskin-custom .mec-calendar .mec-has-event:after, .mec-wrap.colorskin-custom .mec-bg-color, .mec-wrap.colorskin-custom .mec-bg-color-hover:hover, .colorskin-custom .mec-event-sharing-wrap:hover > li, .mec-wrap.colorskin-custom .mec-totalcal-box .mec-totalcal-view span.mec-totalcalview-selected,.mec-wrap .flip-clock-wrapper ul li a div div.inn,.mec-wrap .mec-totalcal-box .mec-totalcal-view span.mec-totalcalview-selected,.event-carousel-type1-head .mec-event-date-carousel,.mec-event-countdown-style3 .mec-event-date,#wrap .mec-wrap article.mec-event-countdown-style1,.mec-event-countdown-style1 .mec-event-countdown-part3 a.mec-event-button,.mec-wrap .mec-event-countdown-style2,.mec-map-get-direction-btn-cnt input[type="submit"],.mec-booking button,span.mec-marker-wrap
+	.mec-wrap.colorskin-custom .mec-event-sharing .mec-event-share:hover .event-sharing-icon,.mec-wrap.colorskin-custom .mec-event-grid-clean .mec-event-date,.mec-wrap.colorskin-custom .mec-event-list-modern .mec-event-sharing > li:hover a i,.mec-wrap.colorskin-custom .mec-event-list-modern .mec-event-sharing .mec-event-share:hover .mec-event-sharing-icon,.mec-wrap.colorskin-custom .mec-event-list-modern .mec-event-sharing li:hover a i,.mec-wrap.colorskin-custom .mec-calendar:not(.mec-event-calendar-classic) .mec-selected-day,.mec-wrap.colorskin-custom .mec-calendar .mec-selected-day:hover,.mec-wrap.colorskin-custom .mec-calendar .mec-calendar-row  dt.mec-has-event:hover,.mec-wrap.colorskin-custom .mec-calendar .mec-has-event:after, .mec-wrap.colorskin-custom .mec-bg-color, .mec-wrap.colorskin-custom .mec-bg-color-hover:hover, .colorskin-custom .mec-event-sharing-wrap:hover > li, .mec-wrap.colorskin-custom .mec-totalcal-box .mec-totalcal-view span.mec-totalcalview-selected,.mec-wrap .flip-clock-wrapper ul li a div div.inn,.mec-wrap .mec-totalcal-box .mec-totalcal-view span.mec-totalcalview-selected,.event-carousel-type1-head .mec-event-date-carousel,.mec-event-countdown-style3 .mec-event-date,#wrap .mec-wrap article.mec-event-countdown-style1,.mec-event-countdown-style1 .mec-event-countdown-part3 a.mec-event-button,.mec-wrap .mec-event-countdown-style2,.mec-map-get-direction-btn-cnt input[type="submit"],.mec-booking button,span.mec-marker-wrap,.mec-wrap.colorskin-custom .mec-timeline-events-container .mec-timeline-event-date:before
 	{background-color: <?php echo $color; ?>;}
 
 	
@@ -142,6 +163,12 @@ if($color && $color != '#40d9f1'): ?>
 	/* == BoxShadow
 		------------------ */
 	.mec-wrap.colorskin-custom .mec-box-shadow-color { box-shadow: 0 4px 22px -7px <?php echo $color; ?>;}
+
+
+	/* == Timeline View
+		------------------ */
+	.mec-wrap.colorskin-custom .mec-timeline-event-time ,.mec-wrap.colorskin-custom .mec-timeline-event-location { background: rgba(<?php echo $rgb_color['red']; ?>,<?php echo $rgb_color['green']; ?>,<?php echo $rgb_color['blue']; ?>,.11);}
+	.mec-wrap.colorskin-custom .mec-timeline-events-container .mec-timeline-event-date:after { background: rgba(<?php echo $rgb_color['red']; ?>,<?php echo $rgb_color['green']; ?>,<?php echo $rgb_color['blue']; ?>,.3);}
 <?php endif;
 
 // Render Container Width
@@ -179,6 +206,8 @@ if($content_color): ?>
 	color: <?php echo $content_color; ?>;
 }
 <?php endif;
+
+
 
 // get render content
 $out = '';

@@ -410,7 +410,7 @@ class MEC_render extends MEC_base
     }
     
     /**
-     * Renders annd Returns all event data
+     * Renders and returns all event data
      * @author Webnus <info@webnus.biz>
      * @param int $post_id
      * @param string $content
@@ -426,7 +426,7 @@ class MEC_render extends MEC_base
         // Post Data
         $data->ID = $post_id;
         $data->title = get_the_title($post_id);
-        $data->content = (is_null($content) ? $this->main->get_post_content($post_id) : $content);
+        $data->content = is_null($content) ? $this->main->get_post_content($post_id) : $content;
         
         // All Post Data
         $post = get_post($post_id);

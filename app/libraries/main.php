@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /** no direct access **/
 defined('MECEXEC') or die();
 
@@ -297,7 +297,8 @@ class MEC_main extends MEC_base
         $post = get_post($post_id);
         if(!$post) return NULL;
 
-        return str_replace(']]>', ']]&gt;', apply_filters('the_content', $post->post_content));
+        $content = apply_filters('the_content', $post->post_content);
+        return str_replace(']]>', ']]&gt;', do_shortcode($content));
     }
     
     /**
@@ -341,7 +342,8 @@ class MEC_main extends MEC_base
             'countdown'=>__('Countdown View', 'modern-events-calendar-lite'),
             'available_spot'=>__('Available Spot', 'modern-events-calendar-lite'),
             'carousel'=>__('Carousel View', 'modern-events-calendar-lite'),
-            'slider'=>__('Slider View', 'modern-events-calendar-lite')
+            'slider'=>__('Slider View', 'modern-events-calendar-lite'),
+            'timeline'=>__('Timeline View', 'modern-events-calendar-lite')
         );
 
         return apply_filters('mec_calendar_skins', $skins);

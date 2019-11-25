@@ -5810,6 +5810,7 @@ a.mec-create-shortcode-tabs-link {
     z-index: 1;
     transition: all 0.18s ease;
     outline: none;
+    line-height: normal;
 }
 
 #mec-search-settings:focus {

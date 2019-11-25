@@ -741,7 +741,16 @@ class MEC_notifications extends MEC_base
         $transaction_id = get_post_meta($book_id, 'mec_transaction_id', true);
 
         $book_date = get_post_meta($book_id, 'mec_date', true);
-        if(trim($book_date) and strpos($book_date, ':') !== false) $book_date = str_replace(':', ' ' . __('to', 'modern-events-calendar-lite') . ' ', $book_date);
+        if(trim($book_date) and strpos($book_date, ':') !== false)
+        {
+            $ex = explode(':', $book_date);
+            if(isset($ex[0]) and isset($ex[1]) and trim($ex[0]) != trim($ex[1]))
+            {
+                $date_format = get_option('date_format');
+                $book_date = sprintf(__('%s to %s', 'modern-events-calendar-lite'), date_i18n($date_format, strtotime($ex[0])), date_i18n($date_format, strtotime($ex[1])));
+            }
+            else $book_date = get_the_date('', $book_id);
+        }
         else $book_date = get_the_date('', $book_id);
         
         $message = str_replace('%%book_date%%', $book_date, $message);

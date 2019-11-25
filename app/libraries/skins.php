@@ -96,6 +96,7 @@ class MEC_skins extends MEC_base
     public $toggle_month_divider;
     public $image_popup;
     public $map_on_top;
+    public $geolocation;
     public $include_events_times;
 
     /**
@@ -581,7 +582,8 @@ class MEC_skins extends MEC_base
     {
         if($this->show_only_expired_events)
         {
-            $start = $this->start_date;
+            $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
+            $start = (isset($this->sf) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
             $end = date('Y-m-01', strtotime('-10 Year', strtotime($start)));
         }
         else

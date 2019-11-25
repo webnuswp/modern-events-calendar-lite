@@ -136,6 +136,30 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                     </div>
                 </div>
             </div>
+            <?php if( !$this->getPRO() && has_action('addons_activation') ) : ?>
+            <div class="w-col-sm-12">
+                <div class="w-box mec-activation">
+                    <div class="w-box-head">
+                        <?php _e('MEC Activate', 'modern-events-calendar-lite'); ?>
+                    </div>
+                    <?php if (current_user_can( 'administrator' )): ?>
+                    <div class="w-box-content">
+                        <div class="box-addons-activation">
+                            <?php $mec_options = get_option('mec_options'); ?>
+                            <div class="box-addon-activation-toggle-head"><i class="mec-sl-plus"></i><span><?php _e('Activate Addons', 'modern-events-calendar-lite'); ?></span></div>
+                            <div class="box-addon-activation-toggle-content">
+                                <?php do_action( 'addons_activation' ); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div class="w-box-content">
+                        <p style="background: #f7f7f7f7;display: inline-block;padding: 17px 35px;border-radius: 3px;/* box-shadow: 0 1px 16px rgba(0,0,0,.034); */"><?php echo esc_html__('You cannot access this section.', 'modern-events-calendar-lite'); ?></p>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
             <?php if($this->getPRO()) : ?>
             <div class="w-col-sm-12">
                 <div class="w-box mec-activation">

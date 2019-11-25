@@ -203,8 +203,8 @@ class MEC_feature_locations extends MEC_base
         {
             $geo_point = $this->main->get_lat_lng($address);
             
-            $latitude = $geo_point[0];
-            $longitude = $geo_point[1];
+            if(isset($geo_point[0]) and trim($geo_point[0])) $latitude = $geo_point[0];
+            if(isset($geo_point[1]) and trim($geo_point[1])) $longitude = $geo_point[1];
         }
         
         update_term_meta($term_id, 'address', $address);
@@ -424,7 +424,6 @@ class MEC_feature_locations extends MEC_base
         }
         
         $location_id = $term['term_id'];
-        
         if(!$location_id) return false;
         
         // Set Location ID to the parameters
@@ -437,12 +436,12 @@ class MEC_feature_locations extends MEC_base
         $longitude = (isset($_mec['location']['longitude']) and trim($_mec['location']['longitude'])) ? sanitize_text_field($_mec['location']['longitude']) : 0;
         $thumbnail = (isset($_mec['location']['thumbnail']) and trim($_mec['location']['thumbnail'])) ? sanitize_text_field($_mec['location']['thumbnail']) : '';
         
-        if(!trim($latitude) or !trim($longitude))
+        if((!trim($latitude) or !trim($longitude)) and trim($address))
         {
             $geo_point = $this->main->get_lat_lng($address);
             
-            $latitude = $geo_point[0];
-            $longitude = $geo_point[1];
+            if(isset($geo_point[0]) and trim($geo_point[0])) $latitude = $geo_point[0];
+            if(isset($geo_point[1]) and trim($geo_point[1])) $longitude = $geo_point[1];
         }
         
         update_term_meta($location_id, 'address', $address);

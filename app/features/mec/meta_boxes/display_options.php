@@ -162,11 +162,24 @@ $events = $this->main->get_events();
                         <div class="info-msg"><?php echo sprintf(__("%s is required to use this feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
                         <?php else: ?>
                         <input type="hidden" name="mec[sk-options][list][map_on_top]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][list][map_on_top]" id="mec_skin_list_map_on_top" value="1" <?php if(isset($sk_options_list['map_on_top']) and $sk_options_list['map_on_top']) echo 'checked="checked"'; ?> />
+                        <input type="checkbox" name="mec[sk-options][list][map_on_top]" id="mec_skin_list_map_on_top" value="1" onchange="mec_skin_map_toggle(this);" <?php if(isset($sk_options_list['map_on_top']) and $sk_options_list['map_on_top']) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_list_map_on_top"></label>
                         <?php endif; ?>
                     </div>
                 </div>
+                <!-- Start Set Map Geolocation -->
+                <div class="mec-form-row mec-switcher mec-set-geolocation <?php if(!isset($sk_options_list['map_on_top']) or (isset($sk_options_list['map_on_top']) and !$sk_options_list['map_on_top'])) echo 'mec-util-hidden'; ?>">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_list_set_geo_location"><?php _e('Geolocation', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][list][set_geolocation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][list][set_geolocation]" id="mec_skin_list_set_geo_location" value="1"
+                            <?php if(isset($sk_options_list['set_geolocation']) and trim($sk_options_list['set_geolocation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_list_set_geo_location"></label>
+                    </div>
+                </div>
+                <!-- End Set Map Geolocation -->
                 <div class="mec-sed-methode-container">
                     <?php echo $this->sed_method_field('list', (isset($sk_options_list['sed_method']) ? $sk_options_list['sed_method'] : 0), (isset($sk_options_list['image_popup']) ? $sk_options_list['image_popup'] : 0)); ?>
                 </div>
@@ -327,11 +340,24 @@ $events = $this->main->get_events();
                         <div class="info-msg"><?php echo sprintf(__("%s is required to use this feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
                         <?php else: ?>
                         <input type="hidden" name="mec[sk-options][grid][map_on_top]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][grid][map_on_top]" id="mec_skin_grid_map_on_top" value="1" <?php if(isset($sk_options_grid['map_on_top']) and $sk_options_grid['map_on_top']) echo 'checked="checked"'; ?> />
+                        <input type="checkbox" name="mec[sk-options][grid][map_on_top]" id="mec_skin_grid_map_on_top" value="1" onchange="mec_skin_map_toggle(this);" <?php if(isset($sk_options_grid['map_on_top']) and $sk_options_grid['map_on_top']) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_grid_map_on_top"></label>
                         <?php endif; ?>
                     </div>
                 </div>
+                <!-- Start Set Map Geolocation -->
+                <div class="mec-form-row mec-switcher mec-set-geolocation <?php if(!isset($sk_options_grid['map_on_top']) or (isset($sk_options_grid['map_on_top']) and !$sk_options_grid['map_on_top'])) echo 'mec-util-hidden'; ?>">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_grid_set_geo_location"><?php _e('Geolocation', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][grid][set_geolocation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][grid][set_geolocation]" id="mec_skin_grid_set_geo_location" value="1"
+                            <?php if(isset($sk_options_grid['set_geolocation']) and trim($sk_options_grid['set_geolocation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_grid_set_geo_location"></label>
+                    </div>
+                </div>
+                <!-- End Set Map Geolocation -->
                 <?php echo $this->sed_method_field('grid', (isset($sk_options_grid['sed_method']) ? $sk_options_grid['sed_method'] : 0), (isset($sk_options_grid['image_popup']) ? $sk_options_grid['image_popup'] : 0)); ?>
             </div>
 
@@ -1218,6 +1244,61 @@ $events = $this->main->get_events();
                 </div>
             </div>
 
+            <!-- Timeline View -->
+            <div class="mec-skin-options-container mec-util-hidden" id="mec_timeline_skin_options_container">
+
+                <?php $sk_options_timeline = isset($sk_options['timeline']) ? $sk_options['timeline'] : array(); ?>
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_timeline_start_date_type"><?php _e('Start Date', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-4 wn-mec-select" name="mec[sk-options][timeline][start_date_type]" id="mec_skin_timeline_start_date_type" onchange="if(this.value == 'date') jQuery('#mec_skin_timeline_start_date_container').show(); else jQuery('#mec_skin_timeline_start_date_container').hide();">
+                        <option value="today" <?php if(isset($sk_options_timeline['start_date_type']) and $sk_options_timeline['start_date_type'] == 'today') echo 'selected="selected"'; ?>><?php _e('Today', 'modern-events-calendar-lite'); ?></option>
+                        <option value="tomorrow" <?php if(isset($sk_options_timeline['start_date_type']) and $sk_options_timeline['start_date_type'] == 'tomorrow') echo 'selected="selected"'; ?>><?php _e('Tomorrow', 'modern-events-calendar-lite'); ?></option>
+                        <option value="start_current_month" <?php if(isset($sk_options_timeline['start_date_type']) and $sk_options_timeline['start_date_type'] == 'start_current_month') echo 'selected="selected"'; ?>><?php _e('Start of Current Month', 'modern-events-calendar-lite'); ?></option>
+                        <option value="start_next_month" <?php if(isset($sk_options_timeline['start_date_type']) and $sk_options_timeline['start_date_type'] == 'start_next_month') echo 'selected="selected"'; ?>><?php _e('Start of Next Month', 'modern-events-calendar-lite'); ?></option>
+                        <option value="date" <?php if(isset($sk_options_timeline['start_date_type']) and $sk_options_timeline['start_date_type'] == 'date') echo 'selected="selected"'; ?>><?php _e('On a certain date', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                    <div class="mec-col-4 <?php if(!isset($sk_options_timeline['start_date_type']) or (isset($sk_options_timeline['start_date_type']) and $sk_options_timeline['start_date_type'] != 'date')) echo 'mec-util-hidden'; ?>" id="mec_skin_timeline_start_date_container">
+                        <input class="mec_date_picker" type="text" name="mec[sk-options][timeline][start_date]" id="mec_skin_timeline_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_timeline['start_date'])) echo $sk_options_timeline['start_date']; ?>" />
+                    </div>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_timeline_classic_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
+                    <input type="text" class="mec-col-4" name="mec[sk-options][timeline][classic_date_format1]" id="mec_skin_timeline_classic_date_format1" value="<?php echo ((isset($sk_options_timeline['classic_date_format1']) and trim($sk_options_timeline['classic_date_format1']) != '') ? $sk_options_timeline['classic_date_format1'] : 'd F Y'); ?>" />
+                    <span class="mec-tooltip">
+                        <div class="box top">
+                            <h5 class="title"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></h5>
+                            <div class="content"><p><?php esc_attr_e('Default value is "d F Y', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/timeline-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                        </div>
+                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                    </span>	                                        
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_timeline_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
+                    <input class="mec-col-4" type="number" name="mec[sk-options][timeline][limit]" id="mec_skin_timeline_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_timeline['limit'])) echo $sk_options_timeline['limit']; ?>" />
+                </div>
+                <div class="mec-form-row mec-switcher">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_timeline_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timeline][load_more_button]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timeline][load_more_button]" id="mec_skin_timeline_load_more_button" value="1" <?php if(!isset($sk_options_timeline['load_more_button']) or (isset($sk_options_timeline['load_more_button']) and $sk_options_timeline['load_more_button'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timeline_load_more_button"></label>
+                    </div>
+                </div>
+                <div class="mec-form-row mec-switcher">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_timeline_month_divider"><?php _e('Show Month Divider', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timeline][month_divider]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timeline][month_divider]" id="mec_skin_timeline_month_divider" value="1" <?php if(isset($sk_options_timeline['month_divider']) and $sk_options_timeline['month_divider']) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timeline_month_divider"></label>
+                    </div>
+                </div>
+                <?php echo $this->sed_method_field('timeline', (isset($sk_options_timeline['sed_method']) ? $sk_options_timeline['sed_method'] : 0), (isset($sk_options_timeline['image_popup']) ? $sk_options_timeline['image_popup'] : 0)); ?>
+            </div>
+
             <!-- Custom Skins -->
             <?php do_action('mec_skin_options', $sk_options); ?>
         </div>
@@ -1249,6 +1330,7 @@ $events = $this->main->get_events();
         jQuery('.mec-custom-nice-select li[data-value="available_spot"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/available_spot.svg" /></div>');
         jQuery('.mec-custom-nice-select li[data-value="carousel"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/carousel.svg" /></div>');
         jQuery('.mec-custom-nice-select li[data-value="slider"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider.svg" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="timeline"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/timeline.svg" /></div>');
 
         /** List View Skins */
         jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-classic.png" /></span>');

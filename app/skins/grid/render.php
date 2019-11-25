@@ -292,6 +292,7 @@ if(isset($map_events) and !empty($map_events))
             clustering_images: "'.$this->main->asset('img/cluster1/m').'",
             getDirection: 0,
             ajax_url: "'.admin_url('admin-ajax.php', NULL).'",
+            geolocation: "'.$this->geolocation.'",
         });
     });
     </script>';

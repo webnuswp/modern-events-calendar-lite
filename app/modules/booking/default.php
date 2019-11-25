@@ -100,6 +100,7 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
                 
                 jQuery("#mec_booking'.$uniqueid.' #mec_event_ticket"+ticket_id+" .mec-event-ticket-price").html(price_label);
             }
+            
             // Remove Preloader
             jQuery(".mec-loader").remove();
             jQuery(".mec-event-tickets-list").removeClass("mec-cover-loader");
@@ -162,15 +163,6 @@ function mec_book_form_submit'.$uniqueid.'()
     if(step == 2)
     {
         var valid = true;
-        
-        jQuery("#mec_book_form'.$uniqueid.'").find(\'input[type="date"], input[type="file"]\').each(function(index, context) {
-            if(!jQuery(context).val())
-            {
-                valid = false;
-                jQuery(context).parent().addClass("mec-red-notification");
-            }
-            else jQuery(context).parent().removeClass("mec-red-notification");
-        });
         
         jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-field-name.mec-reg-mandatory").filter(":visible").each(function(i)
         {

@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.2.4
-Stable tag: 4.8.1
+Tested up to: 5.3.0
+Stable tag: 4.8.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -152,11 +152,20 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Dynamic event labels
 
 == Integration ==
-- WPML ready
-- WordPress Multisite ready
-- Visual Composer addon
+- WPML
+- Google Calendar
+- WordPress Multisite
 - Cache plugins compatibility
+- WooCommerce Cart
+- PayPal
+- Stripe
+- WPBakery
 - SEO plugins compatibility
+- Elementor 
+- Mailchimp Subscription
+- BuddyPress
+- Google Recaptcha
+- Google Map
 
 == Developers ==
 - Completely developer friendly
@@ -183,6 +192,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Exceptional Days
 - Google Recaptcha
 - Geolocation for map skin (*pro*)
+- Geolocation for list and grid skin map (*pro*)
 - Event countdown
 - Hourly Schedule
 - Breadcrumbs
@@ -318,10 +328,20 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 4.8.2 - 24 November 2019 =
+- Added: The ticket variations in CSV and Excel exports in Backend and "Front-end Event Submission" (pro)
+- Added: Timeline view
+- Added: Geolocation feature for map feature of list and grid skins (pro)
+- Fixed: Validation for second attendees in booking module (pro)
+- Fixed: A required validation issue on the booking form for some fields (pro)
+- Fixed: "Show Only Expired Events" mode
+- Fixed: A focus issue on daily skin
+- Fixed: Set geographical coordinates when add in single event page (pro)
+
 = 4.8.1 - 13 November 2019 =
 - Fixed: Monthly view (clean style)
 - Fixed: Datepicker
-- Fixed: Google Map view in single event page
+- Fixed: Google Map view in single event page (pro)
 
 = 4.8.0 - 12 November 2019 =
 - Added: Import events from Event Espresso Plugin

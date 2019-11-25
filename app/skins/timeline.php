@@ -3,26 +3,17 @@
 defined('MECEXEC') or die();
 
 /**
- * Webnus MEC grid class.
+ * Webnus MEC timeline class.
  * @author Webnus <info@webnus.biz>
  */
-class MEC_skin_grid extends MEC_skins
+class MEC_skin_timeline extends MEC_skins
 {
     /**
      * @var string
      */
-    public $skin = 'grid';
+    public $skin = 'timeline';
 
     public $date_format_classic_1;
-    public $date_format_clean_1;
-    public $date_format_clean_2;
-    public $date_format_minimal_1;
-    public $date_format_minimal_2;
-    public $date_format_modern_1;
-    public $date_format_modern_2;
-    public $date_format_modern_3;
-    public $date_format_simple_1;
-    public $date_format_novel_1;
 
     /**
      * Constructor method
@@ -39,8 +30,8 @@ class MEC_skin_grid extends MEC_skins
      */
     public function actions()
     {
-        $this->factory->action('wp_ajax_mec_grid_load_more', array($this, 'load_more'));
-        $this->factory->action('wp_ajax_nopriv_mec_grid_load_more', array($this, 'load_more'));
+        $this->factory->action('wp_ajax_mec_timeline_load_more', array($this, 'load_more'));
+        $this->factory->action('wp_ajax_nopriv_mec_timeline_load_more', array($this, 'load_more'));
     }
     
     /**
@@ -60,29 +51,7 @@ class MEC_skin_grid extends MEC_skins
         
         // Date Formats
         $this->date_format_classic_1 = (isset($this->skin_options['classic_date_format1']) and trim($this->skin_options['classic_date_format1'])) ? $this->skin_options['classic_date_format1'] : 'd F Y';
-        
-        $this->date_format_clean_1 = (isset($this->skin_options['clean_date_format1']) and trim($this->skin_options['clean_date_format1'])) ? $this->skin_options['clean_date_format1'] : 'd';
-        $this->date_format_clean_2 = (isset($this->skin_options['clean_date_format2']) and trim($this->skin_options['clean_date_format2'])) ? $this->skin_options['clean_date_format2'] : 'F';
-        
-        $this->date_format_minimal_1 = (isset($this->skin_options['minimal_date_format1']) and trim($this->skin_options['minimal_date_format1'])) ? $this->skin_options['minimal_date_format1'] : 'd';
-        $this->date_format_minimal_2 = (isset($this->skin_options['minimal_date_format2']) and trim($this->skin_options['minimal_date_format2'])) ? $this->skin_options['minimal_date_format2'] : 'M';
-        
-        $this->date_format_modern_1 = (isset($this->skin_options['modern_date_format1']) and trim($this->skin_options['modern_date_format1'])) ? $this->skin_options['modern_date_format1'] : 'd';
-        $this->date_format_modern_2 = (isset($this->skin_options['modern_date_format2']) and trim($this->skin_options['modern_date_format2'])) ? $this->skin_options['modern_date_format2'] : 'F';
-        $this->date_format_modern_3 = (isset($this->skin_options['modern_date_format3']) and trim($this->skin_options['modern_date_format3'])) ? $this->skin_options['modern_date_format3'] : 'l';
-        
-        $this->date_format_simple_1 = (isset($this->skin_options['simple_date_format1']) and trim($this->skin_options['simple_date_format1'])) ? $this->skin_options['simple_date_format1'] : 'M d Y';
-        
-        $this->date_format_novel_1 = (isset($this->skin_options['novel_date_format1']) and trim($this->skin_options['novel_date_format1'])) ? $this->skin_options['novel_date_format1'] : 'd F Y';
 
-        // Date Formats of colorful style
-        if($this->style == 'colorful')
-        {
-            $this->date_format_modern_1 = (isset($this->skin_options['colorful_date_format1']) and trim($this->skin_options['colorful_date_format1'])) ? $this->skin_options['colorful_date_format1'] : 'd';
-            $this->date_format_modern_2 = (isset($this->skin_options['colorful_date_format2']) and trim($this->skin_options['colorful_date_format2'])) ? $this->skin_options['colorful_date_format2'] : 'F';
-            $this->date_format_modern_3 = (isset($this->skin_options['colorful_date_format3']) and trim($this->skin_options['colorful_date_format3'])) ? $this->skin_options['colorful_date_format3'] : 'l';
-        }
-        
         // Search Form Options
         $this->sf_options = (isset($this->atts['sf-options']) and isset($this->atts['sf-options'][$this->skin])) ? $this->atts['sf-options'][$this->skin] : array();
         
@@ -107,9 +76,6 @@ class MEC_skin_grid extends MEC_skins
 
         // SED Method
         $this->sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
-
-        // Image popup
-        $this->image_popup = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
         
         // From Widget
         $this->widget = (isset($this->atts['widget']) and trim($this->atts['widget'])) ? true : false;
@@ -122,11 +88,8 @@ class MEC_skin_grid extends MEC_skins
         // The count in row
         $this->count = isset($this->skin_options['count']) ? $this->skin_options['count'] : '3';
 
-        // Map on top
-        $this->map_on_top = isset($this->skin_options['map_on_top']) ? $this->skin_options['map_on_top'] : false;
-        
-        // Map geolocation
-        $this->geolocation = ((isset($this->skin_options['map_on_top']) and (isset($this->skin_options['set_geolocation']))) and ($this->skin_options['map_on_top'] == '1' and $this->skin_options['set_geolocation'] == '1')) ? true : false;
+        // Show Month Divider or not
+        $this->month_divider = isset($this->skin_options['month_divider']) ? $this->skin_options['month_divider'] : true;
         
         // Init MEC
         $this->args['mec-init'] = true;

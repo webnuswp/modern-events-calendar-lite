@@ -406,6 +406,11 @@ function mec_skin_style_changed(skin, style, context)
     else jQuery(context).parent().parent().find('.mec-include-events-times').hide();
 }
 
+function mec_skin_map_toggle(context)
+{
+    jQuery(context).parent().parent().parent().find('.mec-set-geolocation').toggle();
+}
+
 function mec_show_widget_check(context)
 {
     var skin = jQuery(context).find(':selected').data('skin');

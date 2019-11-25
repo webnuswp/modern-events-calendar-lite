@@ -14597,4 +14597,337 @@ span.mec-event-export-csv:before,
     padding-left: 24px;
 }
 
+/* Timeline view */
+.mec-wrap .mec-timeline-events-container p,
+.mec-wrap .mec-timeline-events-container h4,
+.mec-wrap .mec-timeline-events-container div,
+.mec-wrap .mec-timeline-events-container a,
+.mec-wrap .mec-timeline-events-container span {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+.mec-timeline-events-container {
+	margin-left: 19px;
+	padding-top: 20px;
+	padding-bottom: 9px;
+}
+
+.mec-events-timeline-wrap {
+	position: relative;
+	display: block;
+	overflow: visible;
+	padding-left:95px;
+}
+
+.mec-events-timeline-wrap:before {
+	width: 1px;
+	content: '';
+	height: 100%;
+	position: absolute;
+	background: #dedede;
+	left: 95px;
+}
+
+
+.mec-timeline-month-divider+.mec-timeline-events-container {
+	padding-top: 110px;
+}
+
+.mec-timeline-right-content {
+    float: right;
+    width: 300px;
+}
+
+.mec-timeline-left-content {
+    float: left;
+    width: calc(100% - 300px);
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.mec-timeline-month-divider {
+	position: absolute;
+	display: block;
+	background: #fff;
+	right: calc(100% - 95px);
+	left: 0;
+	width: 190px;
+	text-align: center;
+	border: 1px solid #dedede;
+	border-radius: 50px;
+	font-size: 15px;
+	padding: 12px 27px;
+}
+
+.mec-timeline-event-date {
+	position: relative;
+}
+
+.mec-timeline-events-container .mec-timeline-event-date:before {
+	content: '';
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	background: #40D9F1;
+	border-radius: 50px;
+	top: 8px;
+	left: -23px;
+	z-index: 99;
+}
+
+.mec-timeline-events-container .mec-timeline-event-date:after {
+	content: '';
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: rgba(64, 217, 241, 0.3);
+	border-radius: 50px;
+	top: 3px;
+	left: -28px;
+}
+
+.mec-timeline-event-date {
+	float: left;
+	width: 17%;
+	margin-top:27px;
+}
+
+.mec-timeline-event-content {
+	float: left;
+	width: 82%;
+	background: #fff;
+	box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: visible;
+	position: relative;
+}
+
+.mec-timeline-main-content {
+	padding: 23px 30px;
+}
+
+.mec-timeline-main-content h4 {
+	margin-bottom: 15px;
+}
+
+.mec-timeline-main-content h4 a {
+	font-size: 25px;
+	font-weight: bold;
+	color: #000;
+	line-height: 33px;
+	text-decoration: none;
+}
+
+.mec-timeline-main-content p {
+	font-size: 15px;
+	color: #515151;
+	line-height: 24px;
+	margin-bottom: 36px;
+}
+
+a.mec-timeline-readmore {
+	width: 100%;
+	display: block;
+	text-align: center;
+	color: #fff;
+	text-decoration: none;
+	line-height: 52px;
+	font-size: 17px;
+	font-weight: bold;
+	-webkit-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+	border-radius: 0 0 10px 10px;
+}
+
+a.mec-timeline-readmore:hover {
+	background: #222;
+	color: #fff;
+}
+
+.mec-timeline-event-time .mec-time-details {
+	display: inline-block;
+	margin-left: 7px;
+	font-size: 13px;
+	line-height: 13px;
+	font-weight: 500;
+}
+
+.mec-timeline-event-time i {
+	vertical-align: middle;
+}
+
+.mec-timeline-event-time {
+	background: rgba(64, 217, 241, 0.11);
+	display: inline-block;
+	padding: 4px 20px 8px;
+	border-radius: 50px;
+}
+
+.mec-timeline-event-location address {
+	font-style: normal;
+}
+
+.mec-timeline-event-location address span {
+	font-size: 13px;
+	font-weight: 500;
+	vertical-align: middle;
+	margin-left: 6px;
+}
+
+.mec-timeline-event-location address i {
+	font-size: 17px;
+	vertical-align: middle;
+}
+
+.mec-timeline-event-location {
+	background: rgba(64, 217, 241, .11);
+	display: inline-block;
+	padding: 7px 20px 11px;
+	border-radius: 20px;
+	line-height: 1.24;
+}
+
+.mec-timeline-event-details+.mec-timeline-event-details {
+	margin-top: 12px;
+}
+
+.mec-timeline-event-content .col-md-4 {
+	padding: 0;
+}
+
+.mec-timeline-event-content:after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -10px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px;
+}
+
+.mec-timeline-event-content:after {
+	top: 30px;
+	border-color: transparent #ffffff transparent transparent;
+	left: -10px;
+}
+
+.mec-timeline-event-image img {
+	border-radius: 0 10px 0 0;
+	width: 100%;
+}
+
+.mec-timeline-event-image a {
+	display: block;
+	line-height: 0;
+}
+
+a.mec-timeline-readmore i {
+	vertical-align: middle;
+	margin-left: 10px;
+	font-size: 9px;
+}
+
+.mec-wrap .mec-timeline-event-content a.mec-timeline-readmore:hover {
+    background: #444;
+}
+
+@media(min-width: 1024px) {
+    .mec-past-event.mec-timeline-event {
+        margin: 50px 0;
+    }
+}
+
+@media(max-width: 1023px) {
+    .mec-past-event.mec-timeline-event {
+        margin: 25px 0;
+    }
+
+    .mec-events-timeline-wrap {
+        padding-left: 20px;
+    }
+
+    .mec-events-timeline-wrap:before {
+        left: 20px;
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 992px) {
+	.mec-timeline-event-content {
+		width: 81%;
+	}
+
+	.mec-timeline-event-date {
+		width: 18%;
+	}
+}
+
+@media (max-width: 992px) {
+	.mec-timeline-right-content,
+	.mec-timeline-left-content {
+		float: none;
+		width: 100%;
+		text-align: center;
+	}
+
+	.mec-timeline-right-content .mec-timeline-event-image {
+		text-align: center;
+	}
+
+	.mec-timeline-right-content .mec-timeline-event-image img {
+		max-width: 300px;
+		border-radius: 10px;
+		margin-top: 35px
+	}
+}
+
+@media (max-width: 440px) {
+	.mec-timeline-right-content .mec-timeline-event-image img {
+		margin-top: 0px
+	}
+}
+
+@media (max-width: 320px) {
+
+	.mec-timeline-event-date,
+	.mec-timeline-event-content {
+		float: none;
+		width: 100%;
+	}
+
+	.mec-timeline-event-date {
+		margin-bottom: 8px
+	}
+
+	.mec-timeline-event-content:after {
+		display: none;
+	}
+
+	.mec-timeline-main-content {
+		padding: 23px 0px;
+	}
+
+	.mec-timeline-main-content p {
+		font-size: 13px;
+	}
+
+	.mec-timeline-main-content h4 a {
+		font-size: 23px;
+		line-height: 24px;
+	}
+
+	.mec-time-details span {
+		font-size: 11px;
+	}
+
+	.mec-timeline-event-location address span {
+		font-size: 12px;
+	}
+
+	a.mec-timeline-readmore {
+		line-height: 44px;
+		font-size: 14px;
+	}
+}
+
 /* --------------------- */

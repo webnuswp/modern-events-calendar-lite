@@ -193,7 +193,7 @@ if(is_array($fonts))
                         </div>
                         <div class="mec-form-row">
 
-                            <label class="mec-col-3" for="mec_styling_disable_gfonts"><?php _e('Disable Google Fonts', 'modern-events-calendar-lite'); ?></label>
+                            <label class="mec-col-3" for="mec_styling_disable_gfonts"><?php _e('Disable MEC custom font (Montserrat)', 'modern-events-calendar-lite'); ?></label>
                             <div class="mec-col-8">
                                 <input type="hidden" name="mec[styling][disable_gfonts]" value="0" />
                                 <input value="1" type="checkbox" id="mec_styling_disable_gfonts" name="mec[styling][disable_gfonts]" <?php if(isset($styling['disable_gfonts']) and $styling['disable_gfonts']) echo 'checked="checked"'; ?> />
