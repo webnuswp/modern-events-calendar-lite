@@ -1,4 +1,7 @@
-﻿v 4.8.2 - 24 November 2019
+﻿v 4.8.3 - 25 November 2019
+- Fixed: Headers already sent warning
+
+v 4.8.2 - 25 November 2019
 - Added: The ticket variations in CSV and Excel exports in Backend and "Front-end Event Submission" (pro)
 - Added: Timeline view
 - Added: Geolocation feature for map feature of list and grid skins (pro)

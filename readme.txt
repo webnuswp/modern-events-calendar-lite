@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.0
-Stable tag: 4.8.2
+Stable tag: 4.8.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -328,7 +328,10 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
-= 4.8.2 - 24 November 2019 =
+= 4.8.3 - 25 November 2019 =
+- Fixed: Headers already sent warning
+
+= 4.8.2 - 25 November 2019 =
 - Added: The ticket variations in CSV and Excel exports in Backend and "Front-end Event Submission" (pro)
 - Added: Timeline view
 - Added: Geolocation feature for map feature of list and grid skins (pro)
