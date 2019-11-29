@@ -101,8 +101,7 @@ jQuery(document).ready(function($)
     });
     
     // Initialize WP Color Picker
-    if ($.fn.wpColorPicker) jQuery('.mec-color-picker').wpColorPicker();
-    
+    if($.fn.wpColorPicker) jQuery('.mec-color-picker').wpColorPicker();
     
     // Initialize MEC Skin Switcher
     $('#mec_skin').on('change', function()
@@ -236,9 +235,9 @@ jQuery(document).ready(function($)
 
     // Add shortcode select2
     jQuery(".mec-create-shortcode-tab-content select").select2();
-    
 
-    $('.mec-import-settings').on('click', function (e) {
+    $('.mec-import-settings').on('click', function(e)
+    {
         e.preventDefault();
         var value = $(this).parent().find('.mec-import-settings-content').val();
         if ( CheckJSON(value) || value == '' ) {
@@ -268,7 +267,7 @@ jQuery(document).ready(function($)
     });
 
     /* MEC activation */
-    if ($('#MECActivation').length > 0)
+    if($('#MECActivation').length > 0)
     {
         var LicenseType = $('#MECActivation input.checked[type=radio][name=MECLicense]').val();
         $('#MECActivation input[type=radio][name=MECLicense]').change(function () {
@@ -327,7 +326,8 @@ jQuery(document).ready(function($)
     }
 
     /* Addons Notification */
-    $('.mec-addons-notification-box-wrap span').on('click', function (e) {
+    $('.mec-addons-notification-box-wrap span').on('click', function(e)
+    {
         e.preventDefault();
         $.ajax({
             url: mec_admin_localize.ajax_url,
@@ -342,7 +342,88 @@ jQuery(document).ready(function($)
             },
         });
     });
+
+    // Attendees Lightbox
+    initSlider();
+
+    $('.mec-event-attendees').on('click', function(e)
+    {
+        e.preventDefault();
+
+        var ID = $(this).data('id');
+        if(!ID) return;
+        
+        lity("#mec_manage_events_lightbox" + ID );
+        jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').trigger('refresh.owl.carousel');
+        
+    });
 });
+
+function mec_event_attendees(ID, occurrence)
+{
+    // Set Occurrence
+    if(typeof occurrence === 'undefined') occurrence = '';
+    
+    // Wrapper
+    var $wrapper = jQuery("#mec_manage_events_lightbox" + ID + " .mec-attendees-list-right");
+    jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').find('a').removeClass("selected-day")
+    jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').find('a').each(function (event) {
+        if (occurrence === jQuery(this).attr('data-value')) {
+            jQuery(this).addClass("selected-day")
+        }
+    });
+
+    // Add Loading Effect
+    $wrapper.addClass('mec-loading');
+
+    jQuery.ajax(
+    {
+        url: mec_admin_localize.ajax_url,
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            action: 'mec_attendees',
+            id: ID,
+            occurrence: occurrence
+        },
+        success: function(response)
+        {
+            // Remove Loading Effect
+            $wrapper.removeClass('mec-loading');
+            $wrapper.html(response.html);
+            jQuery(".post-type-mec-events #wpcontent").removeClass("mec-cover-loader");
+            jQuery(".mec-loader").remove();
+        },
+        error: function()
+        {
+            // Remove Loading Effect
+            $wrapper.removeClass('mec-loading');
+        }
+    });
+}
+
+function initSlider()
+{
+    jQuery('.mec-attendees-list-left-menu').owlCarousel({
+        autoplay: false,
+        autoWidth: true,
+        items: 12,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            979: {
+                items: 2,
+            },
+            1199: {
+                items: 12,
+            }
+        },
+        dots: false,
+        nav: true,
+    });
+}
 
 function mec_skin_toggle()
 {
@@ -426,13 +507,13 @@ function mec_show_widget_check(context)
 }
 
 // Niceselect
-jQuery(document).ready(function() {
-
-    if (jQuery('.wn-mec-select').length > 0) jQuery('.wn-mec-select').niceSelect();
+jQuery(document).ready(function()
+{
+    if(jQuery('.wn-mec-select').length > 0) jQuery('.wn-mec-select').niceSelect();
 });
 
 // TinyMce Plugins
-if (jQuery('.mec-fes-form').length < 1)
+if(jQuery('.mec-fes-form').length < 1)
 {
     var items = JSON.parse(mec_admin_localize.mce_items);
     var menu = new Array();
@@ -460,7 +541,6 @@ if (jQuery('.mec-fes-form').length < 1)
         });
     }
 }
-
 
 (function(wp, $)
 {

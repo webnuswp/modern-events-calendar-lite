@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.0
-Stable tag: 4.8.3
+Stable tag: 4.8.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -328,6 +328,19 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 4.8.5 - 28 November 2019 =
+- Added: Attendees menu of all Events menu in WordPress backend (pro)
+- Added: Order time in bookings menu (pro)
+- Added: Filter by order date in bookings menu (pro)
+- Added: Main attendee email in booking title in addition to main attendee name (pro)
+- Changed: The default order of bookings to show the newest first (pro)
+- Updated: Support page in MEC backend menu
+- Fixed: The back link in PDF invoice (pro)
+- Fixed: Notification %%book_time%% placeholder (pro)
+- Fixed: A geographical coordinates points issue (pro)
+- Fixed: Not running the Divi shortcodes
+- Fixed: Images in Popup
+
 = 4.8.3 - 25 November 2019 =
 - Fixed: Headers already sent warning
 

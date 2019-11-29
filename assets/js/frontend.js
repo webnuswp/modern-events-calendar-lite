@@ -20,9 +20,9 @@ var mecSingleEventDisplayer = {
                 }, 1000);
 
                 if (image_popup != 0) {
-                    if (jQuery('.lity-content .mec-events-content a img').length > 0) {
-                        jQuery('.lity-content .mec-events-content a img').each(function () {
-                            jQuery(this).closest('a').attr('data-lity', '');
+                    if (jQuery('.featherlight-content .mec-events-content a img').length > 0) {
+                        jQuery('.featherlight-content .mec-events-content a img').each(function () {
+                            jQuery(this).closest('a').attr('data-featherlight', 'image');
                         });
                     }
                 }

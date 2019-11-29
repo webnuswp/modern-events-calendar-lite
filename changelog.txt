@@ -1,4 +1,17 @@
-﻿v 4.8.3 - 25 November 2019
+﻿v 4.8.5 - 28 November 2019
+- Added: Attendees menu of all Events menu in WordPress backend (pro)
+- Added: Order time in bookings menu (pro)
+- Added: Filter by order date in bookings menu (pro)
+- Added: Main attendee email in booking title in addition to main attendee name (pro)
+- Changed: The default order of bookings to show the newest first (pro)
+- Updated: Support page in MEC backend menu
+- Fixed: The back link in PDF invoice (pro)
+- Fixed: Notification %%book_time%% placeholder (pro)
+- Fixed: A geographical coordinates points issue (pro)
+- Fixed: Not running the Divi shortcodes
+- Fixed: Images in Popup
+
+v 4.8.3 - 25 November 2019
 - Fixed: Headers already sent warning
 
 v 4.8.2 - 25 November 2019
