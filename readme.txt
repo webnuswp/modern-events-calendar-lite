@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.0
-Stable tag: 4.8.5
+Stable tag: 4.9.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -119,6 +119,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Grid & cover](https://webnus.net/modern-events-calendar/grid-view-modern-style/) view (10 Skins)
 - [Slider & carousel](https://webnus.net/modern-events-calendar/slider-view-type-2/) view (8 Skins)
 - [List](https://webnus.net/modern-events-calendar/list-view-standard-style/) View (5 Skins)
+- Tile
 - Event locations system
 - Event organizer system
 - Multiple organizers
@@ -256,7 +257,11 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Profile page
 - Eruop language completed
 - [Reporting Dashboard](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-intro-page/) (*pro*)
-- [Map View](https://webnus.net/modern-events-calendar/map-view/) (*pro*)
+- Tile view
+- Timeline
+- List view with Map
+- Grid view with Map
+- [Map view](https://webnus.net/modern-events-calendar/map-view/) (*pro*)
 - [Yearly view](https://webnus.net/modern-events-calendar/yearly-view-clean-style/) (*pro*)
 - [Available spot](https://webnus.net/modern-events-calendar/available-spot/) (*pro*)
 - [Timetable view](https://webnus.net/modern-events-calendar/timetable-view-clean-style/) (*pro*)
@@ -268,6 +273,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Cancellation notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Reminders notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Booking](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
+- [Edit Booking Options](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
 - [Booking reminder notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Organizer payment](https://webnus.net/dox/modern-events-calendar/organizer-payment/) (*pro*)
 - [Individual booking form per event](https://webnus.net/dox/modern-events-calendar/booking-form/) (*pro*)
@@ -328,6 +334,28 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 4.9.0 - 10 December 2019 =
+- Added: An advanced option to edit bookings from backend (pro)
+- Added: Ticket variation option to edit bookings (pro)
+- Added: Recalculate price option for edit bookings (pro)
+- Added: An ability to remove and add attendees in edit bookings (pro)
+- Added: Event featured image placeholder (pro)
+- Added: Booking order time as a new placeholder (pro)
+- Added: Tile view skin
+- Added: A new booking badge to show amount of unread bookings in admin panel (pro)
+- Added: An option to show name of all attendees in attendees module in event details page - you need to install BuddyPress plugin (pro)
+- Added: Display Soldout and Last Few Tickets flags for events (pro)
+- Added: An option to send confirmation notification just to the main attendee instead of all attendees (pro)
+- Added: An option to change sender name and sender email of WordPress emails
+- Added: Show booking cancellation time in backend booking menu (pro)
+- Changed: Text field type to textarea field for description of the tickets (pro)
+- Improved: "Remove" ticket button in single event edit page (pro)
+- Fixed: Location of Google Calendar link
+- Fixed: Event end date in notifications (pro)
+- Fixed: Auto Synchronization (pro)
+- Fixed: Booking reminder notifications (pro)
+- Fixed: Ticket styling in single event edit page (pro)
+
 = 4.8.5 - 28 November 2019 =
 - Added: Attendees menu of all Events menu in WordPress backend (pro)
 - Added: Order time in bookings menu (pro)

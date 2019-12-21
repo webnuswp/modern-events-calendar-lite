@@ -3087,8 +3087,6 @@ hr {
     z-index: 999999999999999999
 }
 
-
-
 .mec-export-settings,.mec-import-settings {
     font-weight: 700;
     border-radius: 2px;
@@ -4005,6 +4003,56 @@ textarea.mec-import-settings-content {
         width: 181px
     }
 }
+
+/* Ticket Box */
+#mec_tickets .mec-box {
+    position: relative;
+    padding: 25px 10px;
+}
+
+.mec-form-row input[type=text], .mec-form-row textarea {
+    max-width: 400px;
+}
+
+#mec_tickets .button.remove {
+    padding: 0;
+    min-height: 28px;
+    height: 28px;
+    width: 28px;
+    margin: 0;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #ea6485;
+    box-shadow: 0 2px 6px -3px #ea6485;
+    background: #fff;
+    border-color: #ffd2dd;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+#mec_tickets .button.remove svg {
+    fill: #ea6485 !important;
+}
+
+#mec_tickets .button.remove:hover {
+    color: #fff;
+    border: 2px solid #ea6485;
+    background: #ea6485;
+}
+
+#mec_tickets .button.remove:hover svg {
+    fill: #fff !important;
+}
+
+@media(max-width: 480px) {
+    #mec_tickets .button.remove {
+        top: 5px;
+        right: 5px;
+    }
+}
+
 
 .addons-page-error,.addons-page-notice {
     display: block;

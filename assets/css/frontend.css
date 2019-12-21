@@ -924,44 +924,18 @@
 
 /* MEC Events Sold Out
 	------------------------------------ */
-.mec-event-title-soldout .soldout {
-	background: #de3120;
-	padding: 4px 5px;
+span.mec-event-title-soldout {
+	font-size: 8px;
+	font-weight: 700;
+	letter-spacing: .5px;
+	text-transform: uppercase;
+	background: #e63360;
 	color: #fff;
-}
-
-.mec-event-title-soldout .soldout {
-	background: #de3120;
-	position: relative;
-	top: -2px;
-	border-radius: 10px 0 0 20px;
-	padding: 2px 4px 2px 10px;
-	color: #fff;
-}
-
-.mec-event-title-soldout .soldout:before {
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-top: 10px solid #de3120;
-	border-bottom: 10px solid #de3120;
-	right: -10px;
-	border-right: 10px solid transparent;
-	border-left: 10px solid transparent;
-	top: 0px;
-}
-
-.mec-event-title-soldout .soldout:after {
-	content: ' ';
-	position: absolute;
-	width: 6px;
-	height: 6px;
-	background: #de3120;
-	border-radius: 50%;
-	left: 3px;
-	top: 4px;
-	border: 2px dashed #fff;
+	padding: 3px 8px;
+	line-height: 1;
+	border-radius: 15px;
+	white-space: nowrap;
+	vertical-align: middle;
 }
 
 /* MEC Events Grid Modern Colorful
@@ -2722,10 +2696,9 @@
 .mec-single-event .mec-events-meta-group-booking button {
 	min-width: 170px;
 	margin-top: 5px;
-}
-
-.mec-single-event .mec-events-meta-group-booking button {
 	margin-left: 15px;
+	border-radius: 2px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .mec-single-event .mec-book-form-coupon button {
@@ -3250,6 +3223,8 @@ focus,
 	display: block;
 	text-align: center;
 	font-size: 16px;
+	border-radius: 2px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .mec-single-event .mec-booking-button:hover {
@@ -3821,12 +3796,39 @@ address.mec-events-address {
 
 .mec-attendees-list-details .mec-attendee-profile-link a {
 	color: #8d8d8d;
+	display: block;
 }
 
 .mec-attendees-list-details .mec-attendee-profile-link span {
-	display: block;
+	display: inline-block;
 	color: #000;
+	vertical-align: middle;
+	cursor: pointer;
 }
+.mec-attendees-list-details span.mec-attendee-profile-ticket-number {
+	border-radius: 50px;
+	width: 20px;
+	height: 20px;
+	font-size: 12px;
+	text-align: center;
+	color: #fff;
+	margin-right: 4px;
+}
+.mec-attendees-list-details .mec-attendee-profile-link span i {
+	vertical-align: middle;
+	font-size: 9px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.mec-attendees-list-details .mec-attendees-toggle { border: 1px solid #e6e6e6;background: #fafafa;padding: 15px 15px 0;border-radius: 3px;margin: 12px 0 20px 52px;position: relative;font-size: 13px;box-shadow: 0 3px 1px 0 rgba(0,0,0,.02);}
+.mec-attendees-list-details .mec-attendees-toggle:before, .mec-attendees-list-details .mec-attendees-toggle:after { content: ''; display: block; position: absolute; left: 50px; width: 0; height: 0; border-style: solid; border-width: 10px; } 
+.mec-attendees-list-details .mec-attendees-toggle:after { top: -20px; border-color: transparent transparent #fafafa transparent; } 
+.mec-attendees-list-details .mec-attendees-toggle:before { top: -21px; border-color: transparent transparent #e1e1e1 transparent; }
+.mec-attendees-list-details .mec-attendees-toggle .mec-attendees-item { padding-bottom: 15px;}
+.mec-attendees-list-details .mec-attendee-avatar img { border-radius: 3px}
+.mec-attendee-avatar-sec { float: left; width: 50px; margin-right: 12px; }
+.mec-attendee-profile-name-sec, .mec-attendee-profile-ticket-sec { float: left; width: calc(100% - 62px); margin-top: 3px; }
 
 /* MEC Events Calendar Clean
 	----------------------------------------- */
@@ -14929,5 +14931,203 @@ a.mec-timeline-readmore i {
 		font-size: 14px;
 	}
 }
+
+/* Tile View */
+.mec-event-tile-view article.mec-tile-item {
+	height: 400px;
+	margin: 15px 0;
+	border-radius: 22px;
+	padding: 35px 25px;
+	position: relative;
+	color: #fff;
+	background-size: cover !important;
+	box-shadow: 0 2px 9px rgba(0, 0, 0, 0.25);
+	transition: all 0.22s ease;
+}
+
+.mec-event-tile-view article.mec-tile-item:hover {
+	box-shadow: 0 4px 19px rgba(0, 0, 0, 0.5);
+}
+
+.mec-event-tile-view article.mec-tile-item div {
+	position: relative;
+	z-index: 3;
+}
+
+.mec-event-tile-view article.mec-tile-item:before,
+.mec-event-tile-view article.mec-tile-item:after {
+	position: absolute;
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.48) 65%, rgba(0, 0, 0, 0.72) 100%);
+	content: "";
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+	border-radius: 22px;
+	z-index: 1;
+}
+
+.mec-event-tile-view article.mec-tile-item:after {
+	background-color: inherit;
+	background-image: none;
+	top: 34px;
+	bottom: auto;
+	height: 40px;
+	border-radius: 0 3px 3px 0;
+	width: 97px;
+	z-index: 2;
+	box-shadow: 2px 1px 7px rgba(0, 0, 0, 0.1);
+}
+
+.mec-event-tile-view article.mec-tile-item .event-tile-view-head {
+	padding: 8px 3px;
+	font-size: 16px;
+	font-weight: 700;
+	margin-bottom: 50px;
+	text-transform: uppercase;
+}
+
+.mec-event-tile-view article.mec-tile-item .mec-event-time {
+	color: #d6d6d6;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 1;
+	padding-top: 4px;
+	position: absolute;
+	right: 1px;
+	top: 10px;
+}
+
+.mec-event-tile-view article.mec-tile-item .mec-event-time i {
+	vertical-align: baseline;
+	font-size: 14px;
+	float: left;
+}
+
+.mec-event-tile-view article.mec-tile-item i {
+	margin-right: 5px;
+}
+
+.mec-event-tile-view article.mec-tile-item .mec-event-title {
+	color: #fff;
+	font-weight: 700;
+	font-size: 23px;
+	padding-top: 12px;
+}
+
+.mec-event-tile-view article.mec-tile-item .mec-event-title a {
+	color: #fff;
+}
+
+.mec-event-tile-view article.mec-tile-item .mec-event-title a:hover {
+	text-decoration: underline;
+}
+
+.mec-event-tile-view article.mec-tile-item .mec-event-content {
+	position: absolute;
+	bottom: 25px;
+	left: 25px;
+	right: 25px;
+}
+
+.mec-skin-tile-month-navigator-container {
+	position: relative;
+	text-align: center;
+	font-size: 12px;
+	height: 80px;
+	background: #f7f7f7;
+	padding: 28px;
+	border-radius: 11px;
+	margin-bottom: 20px
+}
+
+.mec-skin-tile-month-navigator-container:before,
+.mec-skin-tile-month-navigator-container:after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -10px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px;
+}
+
+.mec-skin-tile-month-navigator-container:after {
+	bottom: -20px;
+	border-color: #f7f7f7 transparent transparent transparent;
+}
+
+.mec-skin-tile-month-navigator-container:before {
+	bottom: -21px;
+	border-color: #ffffff transparent transparent transparent;
+}
+
+@media only screen and (max-width: 480px) {
+	.mec-skin-tile-month-navigator-container {
+		height: 110px;
+		padding-top: 68px;
+	}
+}
+
+.mec-skin-tile-month-navigator-container h2 {
+	font-size: 23px;
+	font-weight: 700;
+}
+
+.mec-skin-tile-month-navigator-container .mec-previous-month,
+.mec-skin-tile-month-navigator-container .mec-next-month {
+	position: absolute;
+	top: 28px;
+	left: 20px;
+	cursor: pointer;
+	padding: 3px 12px;
+	line-height: 23px;
+	background: #fff;
+	border-radius: 32px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+	transition: all 0.22s ease;
+}
+
+.mec-skin-tile-month-navigator-container .mec-next-month {
+	left: auto;
+	right: 20px;
+}
+
+.mec-skin-tile-month-navigator-container .mec-previous-month:hover,
+.mec-skin-tile-month-navigator-container .mec-next-month:hover {
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	color: #000;
+}
+
+.mec-wrap .mec-event-tile-view article.mec-label-canceled:before,
+.mec-wrap .mec-event-tile-view article.mec-label-featured:before {
+    position: absolute;
+    bottom: auto;
+    text-align: center;
+    right: auto;
+    font-size: 10px;
+}
+
+.mec-wrap .mec-event-tile-view .col-md-3 article.mec-label-canceled:before,
+.mec-wrap .mec-event-tile-view .col-md-3 article.mec-label-featured:before {
+    top: 12px;
+    left: 103px;
+}
+
+.mec-wrap .mec-event-tile-view .col-md-4 article.mec-label-canceled:before,
+.mec-wrap .mec-event-tile-view .col-md-4 article.mec-label-featured:before {
+    top: 18px;
+    left: 125px;
+}
+
+.mec-wrap .mec-event-tile-view .col-md-6 article.mec-label-canceled:before,
+.mec-wrap .mec-event-tile-view .col-md-6 article.mec-label-featured:before {
+    top: 20px;
+    left: 200px;
+}
+
 
 /* --------------------- */
