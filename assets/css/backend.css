@@ -20,6 +20,24 @@
     vertical-align: middle
 }
 
+.mec-send-email-button {
+    background:#008aff;
+    color:#fff;
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px 0px;
+    margin-top: 18px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mec-send-email-button:hover {
+    opacity: 0.9;
+}
+
 .mec-event-color-container,.mec-event-title-container {
     display: inline-block
 }
@@ -889,11 +907,19 @@ body.post-type-mec-books th.column-author {
 
 /* WordPress 3 select */
 .mec-form-row select {
-    min-width: 50px;
+    min-width: 65px;
 }
 
 .ui-datepicker select {
     min-width: 60px;
+}
+
+.mec-form-row input[type=text] {
+    width: 85%;
+}
+
+#mec_styles_CSS {
+    max-width: 100%;
 }
 
 .mec-book-status-form select {
@@ -1105,6 +1131,11 @@ body.post-type-mec-books th.column-author {
     background-color: #f7f7f7;
     border-left: 6px solid #e3e3e3;
     margin-bottom: 20px
+}
+
+#mec_gateways_form_container .mec-form-row input[type=number],
+#mec_gateways_form_container .mec-form-row select {
+    width: 100%;
 }
 
 #mec_notifications_form label {
@@ -4014,6 +4045,20 @@ textarea.mec-import-settings-content {
     max-width: 400px;
 }
 
+#mec_ticket_variations_list input[type=text].mec-col-12,
+#mec_fees_list input[type=text].mec-col-12{
+    max-width: 625px;
+}
+
+#ticket_variations_option input[type=text].mec-col-12,
+#taxes_option .mec-form-row input[type=text].mec-col-12 {
+    max-width: 554px
+}
+
+.mec-booking-tab-content .mec-form-row textarea {
+    max-width: 762px;
+}
+
 #mec_tickets .button.remove {
     padding: 0;
     min-height: 28px;
@@ -5599,6 +5644,11 @@ a.mec-create-shortcode-tabs-link {
     padding-right: 20px;
 }
 
+.mec-form-row input[type=number],
+.mec-form-row input[type=text],
+.mec-form-row select,
+.mec-form-row textarea,
+.mec-form-row.mec-skin-list-date-format-container input[type=text],
 .mec-calendar-metabox .wn-mec-select {
     border: solid 1px #ddd;
     border-radius: 2px;
@@ -5722,6 +5772,10 @@ a.mec-create-shortcode-tabs-link {
 .mec-form-row .mec-col-8 select,
 .mec-form-row .mec-col-8 input[type="text"] {
     vertical-align: top;
+}
+
+.mec-form-row .mec-col-8 span.mec-archive-skins input[type=text] {
+    max-width: 225px;
 }
 
 .mec-form-row input:disabled {
@@ -6352,7 +6406,7 @@ input.fserv-input-text {
     border-radius: 0;
     position: relative;
 }
-.mec-attendees-list-right {
+.mec-attendees-list-right, .mec-send-email-form-wrap {
     flex: 1;
     border-radius: 0 0 5px 5px;
     padding: 0 20px 20px;

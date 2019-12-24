@@ -14,14 +14,13 @@ $date_format1 = isset($settings['next_event_module_date_format1']) ? $settings['
 // Next Event Method
 $method = isset($settings['next_event_module_method']) ? $settings['next_event_module_method'] : 'occurrence';
 
-$date = '';
-if ( !empty($event->date) )
-{
-    $date = $event->date;
-}
+$date = array();
+if(!empty($event->date)) $date = $event->date;
 
 $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : date('Y-m-d');
 if(isset($_GET['occurrence']) and trim($_GET['occurrence'])) $start_date = sanitize_text_field($_GET['occurrence']);
+
+$next_date = array();
 
 // Show next occurrence from other events
 if($method == 'event')
@@ -50,6 +49,8 @@ if($method == 'event')
 
     // Nothing Found!
     if(!isset($next->data)) return false;
+
+    $next_date = $next->date;
 }
 else
 {
@@ -65,7 +66,7 @@ else
         if(strtotime($occ['start']['date']) > strtotime($start_date))
         {
             $found = true;
-            $next->date = $occ;
+            $next_date = $occ;
             break;
         }
     }
@@ -80,15 +81,14 @@ $allday = isset($next->data->meta['mec_allday']) ? $next->data->meta['mec_allday
 <div class="mec-next-event-details mec-frontbox" id="mec_next_event_details">
     <div class="mec-next-<?php echo $method; ?>">
         <h3 class="mec-frontbox-title"><?php echo ($method == 'occurrence' ? __('Next Occurrence', 'modern-events-calendar-lite') : __('Next Event', 'modern-events-calendar-lite')); ?></h3>
-        
         <ul>
             <li>
-                <a href="<?php echo $this->get_event_date_permalink($next->data->permalink, $next->date['start']['date'], true); ?>"><?php echo ($method == 'occurrence' ? __('Go to occurrence page', 'modern-events-calendar-lite') : $next->data->title); ?></a>
+                <a href="<?php echo $this->get_event_date_permalink($next->data->permalink, $next_date['start']['date'], true); ?>"><?php echo ($method == 'occurrence' ? __('Go to occurrence page', 'modern-events-calendar-lite') : $next->data->title); ?></a>
             </li>
             <li>
                 <i class="mec-sl-calendar"></i>
                 <h6><?php _e('Date', 'modern-events-calendar-lite'); ?></h6>
-                <dd><abbr class="mec-events-abbr"><?php echo $this->date_label($next->date['start'], (isset($next->date['end']) ? $next->date['end'] : NULL), $date_format1); ?></abbr></dd>
+                <dd><abbr class="mec-events-abbr"><?php echo $this->date_label($next_date['start'], (isset($next_date['end']) ? $next_date['end'] : NULL), $date_format1); ?></abbr></dd>
             </li>
             <li>
                 <i class="mec-sl-clock"></i>

@@ -108,8 +108,10 @@ $settings = $this->main->get_settings();
                     <?php endif; ?>
                 </span>
             </article>
+            <?php do_action('mec_timetable_view_content' , $event , $this , $date , $label_style); ?>
         <?php endforeach; ?>
     </div>
+    
     <?php elseif(!isset($has_events[$week])): $has_events[$week] = 'printed'; ?>
     <div class="mec-timetable-events-list mec-weekly-view-date-events mec-util-hidden mec-calendar-day-events mec-clear mec-weekly-view-week-<?php echo $this->id; ?>-<?php echo date('Ym', strtotime($date)).$week; ?>" id="mec_weekly_view_date_events<?php echo $this->id; ?>_<?php echo date('Ymd', strtotime($date)); ?>" data-week-number="<?php echo $week; ?>">
         <article class="mec-event-article"><h4 class="mec-event-title"><?php _e('No Events', 'modern-events-calendar-lite'); ?></h4><div class="mec-event-detail"></div></article>

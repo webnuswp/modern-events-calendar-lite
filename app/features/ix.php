@@ -3777,7 +3777,7 @@ class MEC_feature_ix extends MEC_base
         $post_ids = array();
         foreach($f_events as $f_event_id)
         {
-            $events_result = $this->main->get_web_page('https://graph.facebook.com/v3.2/'.$f_event_id.'?access_token='.$this->fb_access_token);
+            $events_result = $this->main->get_web_page('https://graph.facebook.com/v5.0/'.$f_event_id.'?access_token='.$this->fb_access_token);
             $event = json_decode($events_result, true);
 
             // An error Occurred
@@ -3830,6 +3830,14 @@ class MEC_feature_ix extends MEC_base
 
             // Event Time Options
             $allday = 0;
+
+            // Import Facebook Link as Event Link
+            $read_more = '';
+            if(isset($this->ix['import_link_event']) and $this->ix['import_link_event']) $read_more = 'https://www.facebook.com/events/'.$f_event_id.'/';
+
+            // Import Facebook Link as More Info
+            $more_info = '';
+            if(isset($this->ix['import_link_more_info']) and $this->ix['import_link_more_info']) $more_info = 'https://www.facebook.com/events/'.$f_event_id.'/';
             
             $args = array
             (
@@ -3880,7 +3888,9 @@ class MEC_feature_ix extends MEC_base
                     'mec_source'=>'facebook-calendar',
                     'mec_facebook_page_id'=>$fb_page_id,
                     'mec_facebook_event_id'=>$f_event_id,
-                    'mec_allday'=>$allday
+                    'mec_allday'=>$allday,
+                    'mec_read_more'=>$read_more,
+                    'mec_more_info'=>$more_info,
                 )
             );
             
@@ -3917,6 +3927,7 @@ class MEC_feature_ix extends MEC_base
     {
         $this->fb_access_token = isset($this->ix['facebook_app_token']) ? $this->ix['facebook_app_token'] : NULL;
         $fb_page_result = $this->main->get_web_page('https://graph.facebook.com/v3.2/?access_token='.$this->fb_access_token.'&id='.$link);
+
         return json_decode($fb_page_result, true);
     }
 }

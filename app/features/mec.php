@@ -68,6 +68,7 @@ class MEC_feature_mec extends MEC_base
         $this->factory->action('submenu_file', array($this, 'mec_sub_menu_highlight'));
 
         $this->factory->action('current_screen', array($this, 'booking_badge'));
+        $this->factory->action('current_screen', array($this, 'events_badge'));
         
         // Google recaptcha
         $this->factory->filter('mec_grecaptcha_include', array($this, 'grecaptcha_include'));
@@ -874,6 +875,67 @@ class MEC_feature_mec extends MEC_base
 
             $badge = ' <span class="update-plugins count-%%count%%"><span class="plugin-count">%%count%%</span></span>';
             $menu_item = wp_list_filter($menu, array(2 =>'edit.php?post_type='.$this->main->get_book_post_type()));
+            if(is_array($menu_item) and count($menu_item))
+            {
+                $menu[key($menu_item)][0] .= str_replace('%%count%%', esc_attr($count), $badge);
+            }
+        }
+    }
+
+    /**
+     * Show Events Badge.
+     * @param object $screen
+     * @return void
+     */
+    public function events_badge($screen)
+    {
+        if(!current_user_can('administrator') and !current_user_can('editor')) return;
+        
+        $user_id = get_current_user_id();
+        $user_last_view_date_events = get_user_meta($user_id, 'user_last_view_date_events', true);
+        $count = 0;
+
+        if(!trim($user_last_view_date_events))
+        {
+            update_user_meta($user_id, 'user_last_view_date_events', date('YmdHis', current_time('timestamp', 0)));
+            return;
+        }
+
+        $args = array(
+            'post_type' => $this->main->get_main_post_type(),
+            'post_status' => 'any',
+            'meta_query' => array(
+                array(
+                    'key' => 'mec_event_date_submit',
+                    'value' => $user_last_view_date_events,
+                    'compare' => '>=',
+                ),
+            ),
+        );
+        
+        $query = new WP_Query($args);
+        if($query->have_posts())
+        {
+            while($query->have_posts())
+            {
+                $query->the_post();
+                $count += 1;
+            }
+        }
+
+        if($count != 0)
+        {
+            if(isset($screen->id) and $screen->id == 'edit-mec-events')
+            {
+                update_user_meta($user_id, 'user_last_view_date_events', date('YmdHis', current_time('timestamp', 0)));
+                return;
+            }
+
+            // Append Events Badge To Event Menu.
+            global $menu;
+
+            $badge = ' <span class="update-plugins count-%%count%%"><span class="plugin-count">%%count%%</span></span>';
+            $menu_item = wp_list_filter($menu, array(2 =>'mec-intro'));
             if(is_array($menu_item) and count($menu_item))
             {
                 $menu[key($menu_item)][0] .= str_replace('%%count%%', esc_attr($count), $badge);

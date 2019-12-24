@@ -18,7 +18,9 @@ if($this->style == 'colorful')
 <div class="mec-wrap <?php echo $event_colorskin . $colorful_class; ?>">
     <div class="mec-event-grid-<?php echo $this->style; ?>">
         <?php
-        $count = $this->count;
+        $count      = $this->count;
+        $grid_div   = $this->count;
+        $grid_limit = $this->limit;
 
         if($count == 0 or $count == 5) $col = 4;
         else $col = 12 / $count;
@@ -268,6 +270,9 @@ if($this->style == 'colorful')
         ?>
         <?php endforeach; ?>
         <?php endforeach; ?>
+        <?php if (($grid_div & 1 ? 'odd' : 'even') =='even' && ($grid_limit % 2 ? 'odd' : 'even') == 'odd' ) {
+            echo '</div>';
+        } ?>
 	</div>
 </div>
 

@@ -274,8 +274,13 @@ if($this->getPRO())
                                             <li id="mec_sn_<?php echo esc_attr($social['id']); ?>" data-id="<?php echo esc_attr($social['id']); ?>" class="mec-form-row mec-switcher <?php echo ((isset($settings['sn'][$social['id']]) and $settings['sn'][$social['id']]) ? 'mec-enabled' : 'mec-disabled'); ?>">
                                                 <label class="mec-col-3"><?php echo esc_html($social['name']); ?></label>
                                                 <div class="mec-col-2">
+                                                    <?php if ($social['id'] == 'vk' || $social['id'] == 'tumblr' ||  $social['id'] == 'pinterest' || $social['id'] == 'flipboard' || $social['id'] == 'pocket' || $social['id'] == 'reddit' || $social['id'] == 'whatsapp' || $social['id'] == 'telegram')  : ?>
+                                                    <input class="mec-status" type="hidden" name="mec[settings][sn][<?php echo esc_attr($social['id']); ?>]" value="<?php echo (isset($settings['sn'][$social['id']]) ? $settings['sn'][$social['id']] : '0'); ?>" />
+                                                    <label for="mec[settings][sn][<?php echo esc_attr($social['id']); ?>]"></label>
+                                                    <?php else : ?>
                                                     <input class="mec-status" type="hidden" name="mec[settings][sn][<?php echo esc_attr($social['id']); ?>]" value="<?php echo (isset($settings['sn'][$social['id']]) ? $settings['sn'][$social['id']] : '1'); ?>" />
                                                     <label for="mec[settings][sn][<?php echo esc_attr($social['id']); ?>]"></label>
+                                                    <?php endif; ?>    
                                                 </div>
                                             </li>
                                         <?php endforeach; ?>

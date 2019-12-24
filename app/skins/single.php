@@ -246,19 +246,23 @@ class MEC_skin_single extends MEC_skins
             $end_date = (isset($dates[0]['end']) and isset($dates[0]['end']['date'])) ? $dates[0]['end']['date'] : current_time('Y-m-d H:i:s');
 
             $s_time = '';
-            if ( !empty($dates) ) :
+            if(!empty($dates))
+            {
                 $s_time .= sprintf("%02d", $dates[0]['start']['hour']).':';
                 $s_time .= sprintf("%02d", $dates[0]['start']['minutes']);
                 $s_time .= trim($dates[0]['start']['ampm']);
-            endif;
+            }
+
             $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.$s_time));
 
             $e_time = '';
-            if ( !empty($dates) ) :
+            if(!empty($dates))
+            {
                 $e_time .= sprintf("%02d", $dates[0]['end']['hour']).':';
                 $e_time .= sprintf("%02d", $dates[0]['end']['minutes']);
                 $e_time .= trim($dates[0]['end']['ampm']);
-            endif;
+            }
+
             $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.$e_time));
 
             $d1 = new DateTime($start_time);
@@ -270,7 +274,6 @@ class MEC_skin_single extends MEC_skins
 
             // Booking OnGoing Event Option
             $ongoing_event_book = (isset($settings['booking_ongoing']) and $settings['booking_ongoing'] == '1') ? true : false;
-
             if($ongoing_event_book)
             {
                 if($d3 < $d2)

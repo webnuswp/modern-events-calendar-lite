@@ -9,7 +9,7 @@ if ( ! did_action( 'elementor/loaded' ) ) {
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
-
+$current_month_divider = $this->request->getVar('current_month_divider', 0);
 // colorful
 $colorful_flag = $colorful_class = '';
 if($this->style == 'colorful')
@@ -18,7 +18,6 @@ if($this->style == 'colorful')
 	$this->style = 'modern';
 	$colorful_class = ' mec-event-custom-colorful';
 }
-  
 ?>
 <div class="mec-wrap <?php echo $event_colorskin . $colorful_class; ?>">
     <div class="mec-event-custom-<?php echo $this->style; ?>">       
@@ -72,6 +71,11 @@ if($this->style == 'colorful')
                     $this->args['offset'] = 0;
                 }
 
+                $month_id = date('Ym', strtotime($date));
+                if($this->count == '1' and $this->month_divider and $month_id != $current_month_divider): $current_month_divider = $month_id; ?>
+                    <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?php echo date_i18n('Ym', strtotime($date)); ?>-<?php echo $this->id; ?>"><span><?php echo date_i18n('F Y', strtotime($date)); ?></span><i class="mec-sl-arrow-down"></i></div>
+                <?php endif;
+
                 // The Query
                 $query = new WP_Query($this->args);
                 if($query->have_posts())
@@ -97,7 +101,7 @@ if($this->style == 'colorful')
                         );
                         echo ($rcount == 1) ? '<div class="row">' : '';
                         echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
-                        echo '<article class="mec-event-article mec-clear" itemscope>';
+                        echo '<article class="mec-event-article mec-sd-event-article'. get_the_ID().' mec-clear" itemscope>';
                         echo Plugin::instance()->frontend->get_builder_content_for_display( $this->style, true );
                         echo '</article></div>';
                         if($rcount == $count)
@@ -161,6 +165,7 @@ if(isset($map_eventss) and !empty($map_eventss))
             clustering_images: "'.$this->main->asset('img/cluster1/m').'",
             getDirection: 0,
             ajax_url: "'.admin_url('admin-ajax.php', NULL).'",
+            geolocation: "'.$this->geolocation.'",
         });
     });
     </script>';

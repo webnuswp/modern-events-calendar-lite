@@ -518,6 +518,10 @@
 	vertical-align: middle;
 }
 
+.mec-event-sharing-wrap li svg {
+    height: 16px;
+}
+
 .mec-event-sharing-wrap .mec-event-sharing li a {
 	display: block;
 }
@@ -1053,14 +1057,14 @@ span.mec-event-title-soldout {
 
 .mec-event-list-minimal .mec-event-date:after {
 	display: block;
-	content: "";
-	position: absolute;
-	width: 50px;
-	left: 1px;
-	top: 1px;
-	height: 30px;
-	background: rgba(255, 255, 255, 0.1);
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02);
+    content: "";
+    position: absolute;
+    width: 50px;
+    left: 1px;
+    top: 1px;
+    height: 34px;
+    background: rgba(255,255,255,.1);
+    box-shadow: 0 4px 4px rgba(0,0,0,.02);
 }
 
 .mec-event-list-minimal .mec-event-title {
@@ -1238,12 +1242,13 @@ span.mec-event-title-soldout {
 
 .mec-event-list-modern .mec-event-date .event-da {
 	margin-top: 9px;
-	color: #c0c0c0;
-	font-family: 'Roboto', sans-serif;
-	font-size: 28px;
-	font-weight: 100;
-	text-transform: uppercase;
-	letter-spacing: -1px;
+    color: silver;
+    font-family: Roboto,sans-serif;
+    font-size: 28px;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    text-align: left;
 }
 
 .mec-event-list-modern .mec-btn-wrapper .mec-booking-button {
@@ -3322,6 +3327,7 @@ focus,
 	padding: 9px;
 	font-size: 16px;
 	margin-right: 5px;
+	margin-bottom: 5px;
 }
 
 .mec-single-event .mec-event-social a.facebook {
@@ -3402,6 +3408,63 @@ focus,
 
 .mec-single-event .mec-event-social a.vk:hover {
 	background: #3d608a;
+}
+
+.mec-single-event .mec-event-social a.tumblr  {
+	background: #34465d;
+}
+
+.mec-single-event .mec-event-social a.tumblr:hover {
+	background: #273649;
+}
+
+.mec-single-event .mec-event-social a.telegram  {
+	background: #0088CC;
+}
+
+.mec-single-event .mec-event-social a.telegram:hover {
+	background: rgb(16, 118, 190);
+}
+
+.mec-single-event .mec-event-social a.whatsapp  {
+	background: #25D366;
+}
+
+.mec-single-event .mec-event-social a.whatsapp:hover {
+	background: #23ac55;
+}
+
+.mec-single-event .mec-event-social a.flipboard  {
+	background: #e12828;
+}
+
+.mec-single-event .mec-event-social a.flipboard:hover {
+	background: #af1e1e;
+}
+
+.mec-single-event .mec-event-social a.pocket  {
+	background: #ef4056;
+}
+
+.mec-single-event .mec-event-social a.pocket:hover {
+	background: #8d1717;
+}
+
+.mec-single-event .mec-event-social a.reddit  {
+	background: #ff5700;
+}
+
+.mec-single-event .mec-event-social a.reddit:hover {
+	background: #c94909;
+}
+
+.mec-single-event .mec-event-social a.telegram svg,
+.mec-single-event .mec-event-social a.flipboard svg {
+	height: 16px;
+}
+
+.mec-single-event .mec-event-social li.mec-event-social-icon a svg {
+    display: unset;
 }
 
 .mec-single-event .mec-event-social a.rss {
@@ -3736,8 +3799,9 @@ address.mec-events-address {
 
 .mec-single-event .mec-speakers-details ul li .mec-speaker-name {
 	display: inline-block;
-	margin-top: 6px;
-	font-size: 14px;
+	margin-top: 10px;
+	font-size: 15px;
+	line-height: 1.8;
 	text-transform: capitalize;
 	font-weight: 700;
 	padding-left: 8px;
@@ -3748,6 +3812,7 @@ address.mec-events-address {
 	font-size: 12px;
 	margin-top: -1px;
 	padding-left: 75px;
+	color: #888;
 }
 
 /* Location */
@@ -5452,6 +5517,10 @@ li.mec-no-event-found .mec-event-title {
 
 .mec-events-meta-group-countdown .countdown-w .block-w.done-w {
 	border: 0 none;
+}
+
+.mec-events-meta-group-countdown .countdown-w .block-w li {
+	font-size: 50px;
 }
 
 .mec-events-meta-group-countdown .countdown-w span {
@@ -10398,8 +10467,10 @@ body .featherlight .featherlight-close-icon:hover {
 }
 
 .mec-masonry .mec-masonry-col6 .mec-event-date {
-	font-size: 34px;
+	font-size: 52px;
 	letter-spacing: -2px;
+	line-height: 41px;
+	vertical-align: top;
 }
 
 .mec-masonry .mec-masonry-col6 {
@@ -11589,9 +11660,10 @@ ul.mec-weekly-view-dates-events article:before,
 	height: 30px;
 	display: inline-block;
 	text-align: center;
-	transition: all 0.2s ease;
+	transition: all .2s ease;
 	font-size: 15px;
 	cursor: pointer;
+	border-radius: 3px;
 }
 
 .mec-hourly-schedule-speaker-contact-information a i:hover {
@@ -14766,6 +14838,7 @@ a.mec-timeline-readmore:hover {
 
 .mec-timeline-event-location address {
 	font-style: normal;
+	margin-bottom:0;
 }
 
 .mec-timeline-event-location address span {
@@ -14941,8 +15014,9 @@ a.mec-timeline-readmore i {
 	position: relative;
 	color: #fff;
 	background-size: cover !important;
-	box-shadow: 0 2px 9px rgba(0, 0, 0, 0.25);
-	transition: all 0.22s ease;
+	background-position: center !important;
+	box-shadow: 0 2px 9px rgba(0, 0, 0, .25);
+	transition: all .22s ease;
 }
 
 .mec-event-tile-view article.mec-tile-item:hover {
@@ -14956,14 +15030,19 @@ a.mec-timeline-readmore i {
 
 .mec-event-tile-view article.mec-tile-item:before,
 .mec-event-tile-view article.mec-tile-item:after {
-	position: absolute;
-	background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.48) 65%, rgba(0, 0, 0, 0.72) 100%);
+	position: absolute;    
+	background: -moz-linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.48) 65%,rgba(0,0,0,.72) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,0,0,.35)), color-stop(65%, rgba(0,0,0,.48)), color-stop(100%, rgba(0,0,0,.72)));
+	background: -webkit-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.48) 65%,rgba(0,0,0,.72) 100%);
+	background: linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.48) 65%,rgba(0,0,0,.72) 100%);
 	content: "";
 	left: 0;
 	right: 0;
 	bottom: 0;
 	top: 0;
 	width: 100%;
+	width: calc(100% + 1px);
+	height: 100%;
 	border-radius: 22px;
 	z-index: 1;
 }
@@ -14971,7 +15050,7 @@ a.mec-timeline-readmore i {
 .mec-event-tile-view article.mec-tile-item:after {
 	background-color: inherit;
 	background-image: none;
-	top: 34px;
+	top: 35px;
 	bottom: auto;
 	height: 40px;
 	border-radius: 0 3px 3px 0;

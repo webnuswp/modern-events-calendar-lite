@@ -231,7 +231,7 @@ class MEC_feature_fes extends MEC_base
             $type = isset($reg_field['type']) ? $reg_field['type'] : '';
             $label = isset($reg_field['label']) ? __($reg_field['label'], 'modern-events-calendar-lite') : '';
 
-            if(trim($label) == '') continue;
+            if(trim($label) == '' or $type == 'name' or $type == 'mec_email') continue;
             if($type == 'agreement') $label = sprintf($label, get_the_title($reg_field['page']));
 
             $columns[] = $label;
@@ -291,7 +291,7 @@ class MEC_feature_fes extends MEC_base
                 {
                     continue;
                 }
-                if(isset($get_variations['tickets']) and is_array($get_variations['tickets']) and isset($get_variations['tickets'][$counter]))
+                if(isset($get_variations['tickets']) and is_array($get_variations['tickets']) and isset($get_variations['tickets'][$counter]) and isset($get_variations['tickets'][$counter]['variations']))
                 {
                     for($i = 1; $i <= count($get_variations['tickets'][$counter]['variations']); $i++)
                     {
@@ -309,8 +309,9 @@ class MEC_feature_fes extends MEC_base
                     // Placeholder Keys
                     if(!is_numeric($field_id)) continue;
 
+                    $type = isset($reg_field['type']) ? $reg_field['type'] : '';
                     $label = isset($reg_field['label']) ? __($reg_field['label'], 'modern-events-calendar-lite') : '';
-                    if(trim($label) == '') continue;
+                    if(trim($label) == '' or $type == 'name' or $type == 'mec_email') continue;
 
                     $booking[] = isset($reg_form[$field_id]) ? ((is_string($reg_form[$field_id]) and trim($reg_form[$field_id])) ? $reg_form[$field_id] : (is_array($reg_form[$field_id]) ? implode(' | ', $reg_form[$field_id]) : '---')) : '';
                 }
@@ -978,6 +979,8 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_op', $op);
         update_user_meta(get_post_field('post_author', $post_id), 'mec_op', $op);
 
+        do_action('save_fes_meta_action' , $post_id , $mec);
+
         if($booking_date_update)
         {
             $render_date = $past_start_date . ':' . $past_end_date;
@@ -1030,6 +1033,9 @@ class MEC_feature_fes extends MEC_base
                 wp_reset_postdata();
             }
         }
+
+        // For Event Notification Badge.
+        update_post_meta($post_id, 'mec_event_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
         $message = '';
         if($status == 'pending') $message = __('The event submitted. It will publish as soon as possible.', 'modern-events-calendar-lite');

@@ -3,8 +3,8 @@
 **Donate link:** https://webnus.net  
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
-**Tested up to:** 5.3.0  
-**Stable tag:** 4.9.0  
+**Tested up to:** 5.3.2  
+**Stable tag:** 4.9.5  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -101,6 +101,8 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 - [Elementor Form Builder](https://webnus.net/modern-events-calendar/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
 - [Elementor Single Builder](https://webnus.net/modern-events-calendar/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
 - [Event API](https://webnus.net/modern-events-calendar/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
+- [Multisite Event Sync](https://webnus.net/modern-events-calendar/multisite-event-sync/) - [Documentation](https://webnus.net/dox/modern-events-calendar/multisite-event-sync/)
+- [User Dashboard](https://webnus.net/modern-events-calendar/user-dashboard/) - [Documentation](https://webnus.net/dox/modern-events-calendar/user-dashboard/)
 
 
 
@@ -269,10 +271,10 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Profile page
 - Eruop language completed
 - [Reporting Dashboard](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-intro-page/) (*pro*)
-- Tile view
-- Timeline
-- List view with Map
-- Grid view with Map
+- [Tile view](https://webnus.net/modern-events-calendar/tile-view/)
+- [Timeline](https://webnus.net/modern-events-calendar/timeline-view/)
+- [List view with Map](https://webnus.net/modern-events-calendar/list-view-classic-style-with-map/) (*pro*)
+- [Grid view with Map](https://webnus.net/modern-events-calendar/grid-view-modern-style-with-map/) (*pro*)
 - [Map view](https://webnus.net/modern-events-calendar/map-view/) (*pro*)
 - [Yearly view](https://webnus.net/modern-events-calendar/yearly-view-clean-style/) (*pro*)
 - [Available spot](https://webnus.net/modern-events-calendar/available-spot/) (*pro*)
@@ -287,6 +289,10 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Booking](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
 - [Edit Booking Options](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
 - [Booking reminder notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
+- [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
+- Mass Emails to Attendees (*pro*)
+- Minimum Ticket Option (*pro*)
+- Stop selling Ticket Option (*pro*)
 - [Organizer payment](https://webnus.net/dox/modern-events-calendar/organizer-payment/) (*pro*)
 - [Individual booking form per event](https://webnus.net/dox/modern-events-calendar/booking-form/) (*pro*)
 - [Advanced Tax/Fee system](https://webnus.net/dox/modern-events-calendar/taxes-or-fees/) (*pro*)
@@ -308,7 +314,6 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Create various kind of tickets](https://webnus.net/dox/modern-events-calendar/tickets-and-taxes-fees/) (*pro*)
 - [Set a limit on total bookings](https://webnus.net/dox/modern-events-calendar/add-a-booking-system/) (*pro*)
 - [Set a limit for certain tickets](https://webnus.net/dox/modern-events-calendar/add-a-booking-system/) (*pro*)
-- [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
 
 
 ## Screenshots 
@@ -414,6 +419,24 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### 4.9.5 - 24 December 2019 
+- Added: An option to set minimum sale for tickets (pro)
+- Added: A new badge for new events to inform administrator
+- Added: An option for Facebook importer to import Facebook link as event link (pro)
+- Added: An option for Facebook importer to import Facebook link as more info link (pro)
+- Added: Mass email feature in attendees menu so admin can send mass email for selected attendees of a certain event at a specific date (pro)
+- Added: Payment information such as gateway and payment time in invoices (pro)
+- Added: WooCommerce order link in booking menu if booking is paid by WooCommerce (pro)
+- Added: An option to stop selling tickets at a certain time before the event starts (pro)
+- Added: Popular Social Networks (share): Tumblr, Pinterest, Flipboard, GetPocket, Reddit, WhatsApp and Telegram.
+- Fixed: A security issue on iCal download
+- Fixed: Date on next event module and export module
+- Fixed: The iCal export button
+- Fixed: Extra columns in CSV and MS Excel export (pro)
+- Fixed: Extra comma in the list view minimal when not having a location
+- Fixed: Some minor issues
+
 
 ### 4.9.0 - 10 December 2019 
 - Added: An advanced option to edit bookings from backend (pro)

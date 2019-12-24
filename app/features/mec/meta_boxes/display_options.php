@@ -1381,6 +1381,7 @@ $events = $this->main->get_events();
         jQuery('.mec-custom-nice-select li[data-value="slider"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider.svg" /></div>');
         jQuery('.mec-custom-nice-select li[data-value="timeline"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/timeline.svg" /></div>');
         jQuery('.mec-custom-nice-select li[data-value="tile"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/tile.svg" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="custom"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/shortcode-designer.svg" /></div>');
 
         /** List View Skins */
         jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-classic.png" /></span>');

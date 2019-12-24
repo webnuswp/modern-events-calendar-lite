@@ -76,6 +76,18 @@ $ix_options = $this->main->get_ix_options();
                                 <?php _e('Import Locations', 'modern-events-calendar-lite'); ?>
                             </label>
                         </div>
+                        <div class="mec-form-row">
+                            <label>
+                                <input type="checkbox" name="ix[import_link_event]" value="1" />
+                                <?php _e('Import Facebook Link as Event Link', 'modern-events-calendar-lite'); ?>
+                            </label>
+                        </div>
+                        <div class="mec-form-row">
+                            <label>
+                                <input type="checkbox" name="ix[import_link_more_info]" value="1" />
+                                <?php _e('Import Facebook Link as More Info Link', 'modern-events-calendar-lite'); ?>
+                            </label>
+                        </div>
                         <input type="hidden" name="mec-ix-action" value="facebook-calendar-import-do" />
                         <input type="hidden" name="ix[facebook_import_page_link]" value="<?php echo (isset($this->ix['facebook_import_page_link']) ? $this->ix['facebook_import_page_link'] : ''); ?>" />
                         <input type="hidden" name="ix[facebook_app_token]" value="<?php echo (isset($this->ix['facebook_app_token']) ? $this->ix['facebook_app_token'] : ''); ?>" />

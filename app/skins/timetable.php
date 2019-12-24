@@ -208,6 +208,15 @@ class MEC_skin_timetable extends MEC_skins
 
                     $rendered = $this->render->data(get_the_ID());
 
+
+                    $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
+                    $occurrence = $date;
+
+                    if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
+                    elseif(strtotime($occurrence)) $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+                    else $occurrence = NULL;
+                    $dates = $this->render->dates(get_the_ID(), $rendered, $this->maximum_dates, $occurrence);
+
                     $data = new stdClass();
                     $data->ID = get_the_ID();
                     $data->data = $rendered;
@@ -217,7 +226,7 @@ class MEC_skin_timetable extends MEC_skins
                         'start'=>array('date'=>$date),
                         'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                     );
-
+                    $data->dates = $dates;
                     $events[$date][] = $data;
                 }
             }

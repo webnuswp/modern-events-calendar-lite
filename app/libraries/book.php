@@ -377,10 +377,16 @@ class MEC_book extends MEC_base
      * @return array
      */
     public function get_tickets_availability($event_id, $date, $mode = 'availability')
-    {
+    {   
         $availability = array();
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
 
+        // Ticket Selling Stop
+        $start_time_hour = sprintf('%02d', get_post_meta($event_id, 'mec_start_time_hour', true));
+        $start_time_minute = sprintf('%02d', get_post_meta($event_id, 'mec_start_time_minutes', true));
+        $start_time_ampm = get_post_meta($event_id, 'mec_start_time_ampm', true);
+        $event_date = "{$date} {$start_time_hour}:{$start_time_minute}{$start_time_ampm}";
+        
         // No Ticket Found!
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets)))
         {
@@ -451,6 +457,20 @@ class MEC_book extends MEC_base
 
             // Restore original Post Data
             wp_reset_postdata();
+
+            // Ticket Selling Stop
+            $stop_selling_value = isset($ticket['stop_selling_value']) ? trim($ticket['stop_selling_value']) : 0;
+            $stop_selling_type = isset($ticket['stop_selling_type']) ? trim($ticket['stop_selling_type']) : 'day';
+            
+            if($stop_selling_value > 0 and $this->main->check_date_time_validation('Y-m-d h:ia', strtolower($event_date)))
+            {
+                if(strtotime("-{$stop_selling_value}{$stop_selling_type}", strtotime($event_date)) <= current_time('timestamp', 0))
+                {
+                    $availability[$ticket_id] = 0;
+                    $availability['stop_selling_'.$ticket_id] = true;
+                    continue;
+                }
+            }
 
             if((isset($ticket['unlimited']) and $ticket['unlimited'] == 1) or $limit == -1)
             {

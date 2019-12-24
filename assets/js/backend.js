@@ -353,9 +353,27 @@ jQuery(document).ready(function($)
         var ID = $(this).data('id');
         if(!ID) return;
         
-        lity("#mec_manage_events_lightbox" + ID );
-        jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').trigger('refresh.owl.carousel');
+        lity("#mec_manage_events_lightbox" + ID);
+        jQuery('#mec-send-email-editor' + ID + '-wrap').html('<textarea id="editor' + ID + '" class="wp-editor-area"></textarea>');
+        jQuery('#mec-send-email-editor' + ID + '-wrap').parent().find('.mec-send-email-button').data('id', ID);
         
+        wp.editor.initialize('editor' + ID,
+        {
+            tinymce:
+            {
+                wpautop:true,
+                toolbar1: 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker',
+            },
+            quicktags: true,
+            mediaButtons: true,
+        });
+
+        jQuery(document).on('lity:close', function()
+        {
+            wp.editor.remove('editor' + ID);
+        });
+
+        jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').trigger('refresh.owl.carousel');
     });
 });
 
@@ -510,7 +528,78 @@ function mec_show_widget_check(context)
 jQuery(document).ready(function()
 {
     if(jQuery('.wn-mec-select').length > 0) jQuery('.wn-mec-select').niceSelect();
+
+    // Send Custom Email To Attendees Button
+    jQuery('.mec-send-email-button').click(function()
+    {
+        var $this = this;
+        var data_send = jQuery($this).parent().parent().find('.mec-attendees-content').find('input[type="checkbox"]:checked').parent().find('.mec-send-email-attendee-info').text();
+        var mail_subject = jQuery($this).parent().find('#mec-send-email-subject').val();
+        var mail_content = wp.editor.getContent('editor' + jQuery(this).data('id'));
+        var mail_message = jQuery($this).parent().find('#mec-send-email-message');
+
+        if(data_send.length == 0) mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-no-user-selected').val()).show();
+        else if(mail_subject.length == 0) mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-empty-subject').val()).show();
+        else if(mail_content.length == 0) mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-empty-content').val()).show();
+        else
+        {
+            mail_message.hide();
+            jQuery($this).html(jQuery('#mec-send-email-label-loading').val());
+            jQuery.ajax(
+            {
+                url: mec_admin_localize.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'mec_mass_email',
+                    nonce: mec_admin_localize.ajax_nonce,
+                    mail_recipients_info: data_send,
+                    mail_subject: mail_subject,
+                    mail_content: mail_content
+                },
+                success: function(response)
+                {
+                    jQuery($this).html(jQuery('#mec-send-email-label').val());
+                    if(response == true) mail_message.attr('class', 'mec-util-hidden mec-success').html(jQuery('#mec-send-email-success').val()).show();
+                    else mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-error').val()).show();
+                },
+                error: function()
+                {
+                    jQuery($this).html(jQuery('#mec-send-email-label').val());
+                    mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-error').val()).show();
+                }
+            });
+        }
+    });
+
+    jQuery('.mec-attendees-list-left-menu .owl-item').click(function()
+    {
+        jQuery(this).parent().parent().parent().parent().parent().find('.mec-send-email-count > span').html(0);
+    });
 });
+
+// Check All Send Custom Email To Attendees
+function mec_send_email_check(Context)
+{
+    var all_item = jQuery(Context).parent().parent().parent().find('.mec-attendees-content');
+    var item_len = all_item.find('input[type="checkbox"]').length;
+    var check_len = all_item.find('input[type="checkbox"]:checked').length;
+    var all_check = jQuery(Context).parent().parent().parent().find('#mec-send-email-check-all');
+    
+    all_item.parent().parent().find('.mec-send-email-count > span').html(check_len);
+    if(item_len === check_len) all_check.prop('checked', true);
+    else all_check.prop('checked', false);
+}
+
+function mec_send_email_check_all(Context)
+{
+    var all_item = jQuery(Context).parent().parent().parent().parent().find('.mec-attendees-content');
+
+    if(jQuery(Context).is(':checked')) all_item.find('input[type="checkbox"]').prop('checked', true);
+    else all_item.find('input[type="checkbox"]').prop('checked', false);
+
+    var check_len = all_item.find('input[type="checkbox"]:checked').length;
+    all_item.parent().parent().find('.mec-send-email-count > span').html(check_len);
+}
 
 // TinyMce Plugins
 if(jQuery('.mec-fes-form').length < 1)

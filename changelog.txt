@@ -1,4 +1,21 @@
-﻿v 4.9.0 - 10 December 2019
+﻿v 4.9.5 - 24 December 2019
+- Added: An option to set minimum sale for tickets (pro)
+- Added: A new badge for new events to inform administrator
+- Added: An option for Facebook importer to import Facebook link as event link (pro)
+- Added: An option for Facebook importer to import Facebook link as more info link (pro)
+- Added: Mass email feature in attendees menu so admin can send mass email for selected attendees of a certain event at a specific date (pro)
+- Added: Payment information such as gateway and payment time in invoices (pro)
+- Added: WooCommerce order link in booking menu if booking is paid by WooCommerce (pro)
+- Added: An option to stop selling tickets at a certain time before the event starts (pro)
+- Added: Popular Social Networks (share): Tumblr, Pinterest, Flipboard, GetPocket, Reddit, WhatsApp and Telegram.
+- Fixed: A security issue on iCal download
+- Fixed: Date on next event module and export module
+- Fixed: The iCal export button
+- Fixed: Extra columns in CSV and MS Excel export (pro)
+- Fixed: Extra comma in the list view minimal when not having a location
+- Fixed: Some minor issues
+
+v 4.9.0 - 10 December 2019
 - Added: An advanced option to edit bookings from backend (pro)
 - Added: Ticket variation option to edit bookings (pro)
 - Added: Recalculate price option for edit bookings (pro)

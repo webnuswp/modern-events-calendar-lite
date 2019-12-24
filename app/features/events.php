@@ -135,6 +135,9 @@ class MEC_feature_events extends MEC_base
         // Event Attendees
         $this->factory->action('wp_ajax_mec_attendees', array($this, 'attendees'));
         $this->factory->action('wp_ajax_mec_attendees_date_list', array($this, 'attendees_date_list'));
+
+        // Mass Email
+        $this->factory->action('wp_ajax_mec_mass_email', array($this, 'mass_email'));
     }
 
     /**
@@ -1840,6 +1843,27 @@ class MEC_feature_events extends MEC_base
                                 <button class="button remove" type="button"
                                         onclick="mec_ticket_remove(<?php echo $key; ?>);"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>
                             </div>
+                            <div class="mec-form-row">
+                                <input type="text" name="mec[tickets][<?php echo $key; ?>][minimum_ticket]" value="<?php echo(isset($ticket['minimum_ticket']) ? esc_attr($ticket['minimum_ticket']) : '0'); ?>" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
+                                <span class="mec-tooltip">
+									<div class="box top">
+										<h5 class="title"><?php _e('MinimumTicket', 'modern-events-calendar-lite'); ?></h5>
+										<div class="content">
+                                            <p><?php esc_attr_e('Set a number for the minimum ticket reservation', 'modern-events-calendar-lite'); ?></p>
+                                        </div>
+									</div>
+									<i title="" class="dashicons-before dashicons-editor-help"></i>
+								</span>
+                            </div>
+                            <div class="mec-form-row">
+                                <?php ob_start(); ?>
+                                <input type="number" name="mec[tickets][<?php echo $key; ?>][stop_selling_value]" value="<?php echo((isset($ticket['stop_selling_value']) and trim($ticket['stop_selling_value'])) ? esc_attr($ticket['stop_selling_value']) : '0'); ?>" placeholder="<?php _e('e.g. 0', 'modern-events-calendar-lite'); ?>">
+                                <select name="mec[tickets][<?php echo $key; ?>][stop_selling_type]">
+                                    <option value="day" <?php echo(isset($ticket['stop_selling_type']) and trim($ticket['stop_selling_type']) == 'day') ? 'selected="selected"' : ''; ?>><?php _e("Day", "limitmec"); ?></option>
+                                    <option value="hour" <?php echo(isset($ticket['stop_selling_type']) and trim($ticket['stop_selling_type']) == 'hour') ? 'selected="selected"' : ''; ?>><?php _e("Hour", "mec"); ?></option>
+                                </select>
+                                <?php echo sprintf(__('Stop selling ticket %s before event start.', 'modern-events-calendar-lite'), ob_get_clean()); ?>
+                            </div>
                             <?php do_action('custom_field_ticket', $ticket, $key); ?>
                             <div id="mec_price_per_dates_container">
                                 <div class="mec-form-row">
@@ -2033,6 +2057,27 @@ class MEC_feature_events extends MEC_base
                         </label>
                         <button class="button remove" type="button"
                                 onclick="mec_ticket_remove(:i:)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>
+                    </div>
+                    <div class="mec-form-row">
+                        <input type="text" name="mec[tickets][:i:][minimum_ticket]" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
+                        <span class="mec-tooltip">
+                            <div class="box top">
+                                <h5 class="title"><?php _e('MinimumTicket', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="content">
+                                    <p><?php esc_attr_e('Set a number for the minimum ticket reservation', 'modern-events-calendar-lite'); ?></p>
+                                </div>
+                            </div>
+                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                        </span>
+                    </div>
+                    <div class="mec-form-row">
+                        <?php ob_start(); ?>
+                        <input type="number" name="mec[tickets][:i:][stop_selling_value]" value="0" placeholder="<?php _e('e.g. 0', 'modern-events-calendar-lite'); ?>">
+                        <select name="mec[tickets][:i:][stop_selling_type]">
+                            <option value="day"><?php _e("Day", "mec"); ?></option>
+                            <option value="hour"><?php _e("Hour", "mec"); ?></option>
+                        </select>
+                        <?php echo sprintf(__('Stop selling ticket %s before event start.', 'modern-events-calendar-lite'), ob_get_clean()); ?>
                     </div>
                     <div id="mec_price_per_dates_container_:i:">
                         <div class="mec-form-row">
@@ -2782,6 +2827,9 @@ class MEC_feature_events extends MEC_base
         update_post_meta($post_id, 'mec_repeat_end_at_occurrences', $repeat_end_at_occurrences);
         update_post_meta($post_id, 'mec_repeat_end_at_date', $repeat_end_at_date);
         update_post_meta($post_id, 'mec_advanced_days', $advanced);
+
+        // For Event Notification Badge.
+        if(!current_user_can('administrator')) update_post_meta($post_id, 'mec_event_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
         // Creating $event array for inserting in mec_events table
         $event = array(
@@ -3611,12 +3659,23 @@ class MEC_feature_events extends MEC_base
             $bookings = get_posts(array(
                 'posts_per_page' => -1,
                 'post_type' => $this->main->get_book_post_type(),
-                'meta_key' => 'mec_confirmed',
-                'meta_value' => '1',
+                'post_status' => 'any',
+                'meta_key' => 'mec_event_id',
+                'meta_value' => $id,
                 'meta_compare' => '=',
                 'meta_query' => array
                 (
-                    array('key' => 'mec_verified', 'value' => '1', 'compare' => '='),
+                    'relation' => 'AND',
+                    array(
+                        'key' => 'mec_verified',
+                        'value' => '1',
+                        'compare' => '=',
+                    ),
+                    array(
+                        'key' => 'mec_confirmed',
+                        'value' => '1',
+                        'compare' => '=',
+                    ),
                 ),
                 'date_query' => array(
                     array(
@@ -3643,10 +3702,13 @@ class MEC_feature_events extends MEC_base
             {
                 $actions['mec-attendees'] .= '
                 <div class="w-clearfix mec-attendees-head">
+                    <div class="w-col-xs-1">
+                        <span><input type="checkbox" id="mec-send-email-check-all" onchange="mec_send_email_check_all(this);" /></span>
+                    </div>
                     <div class="w-col-xs-3">
                         <span>'.__('Name', 'modern-events-calendar-lite').'</span>
                     </div>
-                    <div class="w-col-xs-4">
+                    <div class="w-col-xs-3">
                         <span>'.__('Email', 'modern-events-calendar-lite').'</span>
                     </div>
                     <div class="w-col-xs-3">
@@ -3657,12 +3719,13 @@ class MEC_feature_events extends MEC_base
                     </div>
                 </div>
                 ';
-
+                $index = 0;
                 foreach($attendees as $attendee)
                 {
                     $actions['mec-attendees'] .= '<div class="w-clearfix mec-attendees-content">';
+                    $actions['mec-attendees'] .= '<div class="w-col-xs-1"><input type="checkbox" onchange="mec_send_email_check(this);" /><span class="mec-util-hidden mec-send-email-attendee-info">'.$attendee['name'].':.:'.$attendee['email'].',</span></div>';
                     $actions['mec-attendees'] .= '<div class="w-col-xs-3">' . get_avatar($attendee['email']) .$attendee['name'].'</div>';
-                    $actions['mec-attendees'] .= '<div class="w-col-xs-4">'.$attendee['email'].'</div>';
+                    $actions['mec-attendees'] .= '<div class="w-col-xs-3">'.$attendee['email'].'</div>';
                     $actions['mec-attendees'] .= '<div class="w-col-xs-3">'.((isset($attendee['id']) and isset($tickets[$attendee['id']]['name'])) ? $tickets[$attendee['id']]['name'] : __('Unknown', 'modern-events-calendar-lite')).'</div>';
 
                     $variations = '';
@@ -3685,6 +3748,7 @@ class MEC_feature_events extends MEC_base
                     $actions['mec-attendees'] .= $variations;
 
                     $actions['mec-attendees'] .= '</div>';
+                    $index++;
                 }
 
 
@@ -3693,11 +3757,31 @@ class MEC_feature_events extends MEC_base
             {
                 $actions['mec-attendees'] .= '<p>'.__("No Attendees Found!", 'modern-events-calendar-lite').'</p>';
             }
-                
-            $actions['mec-attendees']  .='            </div>
+
+            $send_email_label = __('Send Email', 'modern-events-calendar-lite');
+            $actions['mec-attendees']  .='</div>
+                    <div class="mec-send-email-form-wrap">
+                    <h2>'.__('Mass Email', 'modern-events-calendar-lite').'</h2>
+                    <h4 class="mec-send-email-count">'.sprintf(__('You are sending email to %s attendees', 'modern-events-calendar-lite'), '<span>0</span>').'</h4>
+                    <input type="text" class="widefat" id="mec-send-email-subject" placeholder="'.__('Email Subject', 'modern-events-calendar-lite').'"/><br><br>
+                    <div id="mec-send-email-editor'.$id.'-wrap"></div>
+                    <br><p class="description">'.__('You can use following placeholders', 'modern-events-calendar-lite').'</p>
+                    <ul>
+                        <li><span>%%name%%</span>: '.__('Attendee Name', 'modern-events-calendar-lite').'</li>
+                    </ul>
+                    <div id="mec-send-email-message" class="mec-util-hidden mec-error"></div>
+                    <input type="hidden" id="mec-send-email-label" value="'.$send_email_label.'" />
+                    <input type="hidden" id="mec-send-email-label-loading" value="'.esc_attr__('Loading...', 'modern-events-calendar-lite').'" />
+                    <input type="hidden" id="mec-send-email-success" value="'.esc_attr__('Emails successfully sent.', 'modern-events-calendar-lite').'" />
+                    <input type="hidden" id="mec-send-email-no-user-selected" value="'.esc_attr__('No user selected!', 'modern-events-calendar-lite').'" />
+                    <input type="hidden" id="mec-send-email-empty-subject" value="'.esc_attr__('Email subject cannot be empty!', 'modern-events-calendar-lite').'" />
+                    <input type="hidden" id="mec-send-email-empty-content" value="'.esc_attr__('Email content cannot be empty!', 'modern-events-calendar-lite').'" />
+                    <input type="hidden" id="mec-send-email-error" value="'.esc_attr__('There was an error please try again!', 'modern-events-calendar-lite').'" />
+                    <span class="mec-send-email-button">'.$send_email_label.'</span>
                     </div>
                 </div>
-                ';          
+                </div>';
+                wp_enqueue_editor();
         }
 
         return $actions;
@@ -3808,12 +3892,23 @@ class MEC_feature_events extends MEC_base
         $bookings = get_posts(array(
             'posts_per_page' => -1,
             'post_type' => $this->main->get_book_post_type(),
-            'meta_key' => 'mec_confirmed',
-            'meta_value' => '1',
+            'post_status' => 'any',
+            'meta_key' => 'mec_event_id',
+            'meta_value' => $id,
             'meta_compare' => '=',
             'meta_query' => array
             (
-                array('key' => 'mec_verified', 'value' => '1', 'compare' => '='),
+                'relation' => 'AND',
+                array(
+                    'key' => 'mec_verified',
+                    'value' => '1',
+                    'compare' => '=',
+                ),
+                array(
+                    'key' => 'mec_confirmed',
+                    'value' => '1',
+                    'compare' => '=',
+                ),
             ),
             'date_query' => array(
                 array(
@@ -3839,10 +3934,13 @@ class MEC_feature_events extends MEC_base
         {
             $html .= '
             <div class="w-clearfix mec-attendees-head">
+                <div class="w-col-xs-1">
+                    <span><input type="checkbox" id="mec-send-email-check-all" onchange="mec_send_email_check_all(this);" /></span>
+                </div>
                 <div class="w-col-xs-3">
                     <span>'.__('Name', 'modern-events-calendar-lite').'</span>
                 </div>
-                <div class="w-col-xs-4">
+                <div class="w-col-xs-3">
                     <span>'.__('Email', 'modern-events-calendar-lite').'</span>
                 </div>
                 <div class="w-col-xs-3">
@@ -3855,12 +3953,13 @@ class MEC_feature_events extends MEC_base
             ';
 
 
-            
+            $index = 0;
             foreach($attendees as $attendee)
             {
                 $html .= '<div class="w-clearfix mec-attendees-content">';
+                $html .= '<div class="w-col-xs-1"><input type="checkbox" onchange="mec_send_email_check(this);" /><span class="mec-util-hidden mec-send-email-attendee-info">'.$attendee['name'].':.:'.$attendee['email'].',</span></div>';
                 $html .= '<div class="w-col-xs-3">' . get_avatar($attendee['email']) .$attendee['name'].'</div>';
-                $html .= '<div class="w-col-xs-4">'.$attendee['email'].'</div>';
+                $html .= '<div class="w-col-xs-3">'.$attendee['email'].'</div>';
                 $html .= '<div class="w-col-xs-3">'.((isset($attendee['id']) and isset($tickets[$attendee['id']]['name'])) ? $tickets[$attendee['id']]['name'] : __('Unknown', 'modern-events-calendar-lite')).'</div>';
 
                 $variations = '';
@@ -3883,6 +3982,7 @@ class MEC_feature_events extends MEC_base
                 $html .= $variations;
 
                 $html .= '</div>';
+                $index++;
             }
 
 
@@ -3894,5 +3994,51 @@ class MEC_feature_events extends MEC_base
 
         echo json_encode(array('html' => $html));
         exit;
+    }
+
+    public function mass_email()
+    {
+        if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_nonce')) exit();
+
+        $mail_recipients_info = isset($_POST['mail_recipients_info']) ? sanitize_text_field($_POST['mail_recipients_info']) : '';
+        $mail_subject = isset($_POST['mail_subject']) ? sanitize_text_field($_POST['mail_subject']) : '';
+        $mail_content = isset($_POST['mail_content']) ? sanitize_text_field($_POST['mail_content']) : '';
+
+        if(substr($mail_recipients_info, -1) == ',') $mail_recipients_info = substr($mail_recipients_info, 0, -1);
+        
+        $send_mail_user = array();
+        $render_recipients = explode(',', $mail_recipients_info);
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+        
+        foreach($render_recipients as $recipient)
+        {
+            $render_recipient = explode(':.:', $recipient);
+
+            $to = isset($render_recipient[1]) ? trim($render_recipient[1]) : '';
+            if(isset($send_mail_user[$to])) continue;
+
+            $message = $mail_content;
+            $message = str_replace('%%name%%', (isset($render_recipient[0]) ? trim($render_recipient[0]) : ''), $message);
+            
+            $mail_arg = array(
+                'to' => $to,
+                'subject' => $mail_subject,
+                'message' => $message,
+                'headers' => $headers,
+                'attachments' => array(),
+            );
+
+            $mail_arg = apply_filters('mec_before_send_mass_email', $mail_arg, 'mass_email');
+
+            // Send the mail
+            wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
+            
+            $send_mail_user[$mail_arg['to']] = '';
+        }
+
+        // Remove the HTML Email filter
+        remove_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
+
+        wp_die(true);
     }
 }

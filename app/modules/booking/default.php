@@ -11,8 +11,11 @@ $settings = $this->get_settings();
 // Booking module is disabled
 if(!isset($settings['booking_status']) or (isset($settings['booking_status']) and !$settings['booking_status'])) return;
 
+$uniqueid = '';
+$uniqueid = apply_filters('mec_booking_uniqueid_value', $uniqueid);
+
 $event = $event[0];
-$uniqueid = (isset($uniqueid) ? $uniqueid : $event->data->ID);
+$uniqueid = (isset($uniqueid) && !empty($uniqueid) ? $uniqueid : $event->data->ID);
 
 $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
 $dates = isset($event->dates) ? $event->dates : $event->date;
@@ -25,11 +28,14 @@ if(!count($tickets)) return;
 
 // Generate JavaScript code of Booking Module
 $javascript = '<script type="text/javascript">
-jQuery("#mec_book_form'.$uniqueid.'").on("submit", function(event)
-{
-    event.preventDefault();
-    mec_book_form_submit'.$uniqueid.'();
-});
+jQuery("#mec_book_form'.$uniqueid.'").each(function(index, el) {
+   jQuery(this).on("submit", function(event)
+    {
+        event.preventDefault();
+        mec_book_form_submit'.$uniqueid.'();
+    }); 
+})
+
 
 var mec_tickets_availability_ajax'.$uniqueid.' = false;
 function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
@@ -66,6 +72,9 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
                 
                 jQuery("#mec_booking'.$uniqueid.' #mec_event_ticket"+ticket_id).addClass(".mec-event-ticket"+limit);
                 
+                if(data.availability["stop_selling_"+ticket_id]) jQuery("#mec-ticket-message-"+ticket_id).attr("class", "mec-ticket-unavailable-spots mec-error").find("div").html(jQuery("#mec-ticket-message-sales-"+ticket_id).val());
+                else jQuery("#mec-ticket-message-"+ticket_id).attr("class", "mec-ticket-unavailable-spots info-msg").find("div").html(jQuery("#mec-ticket-message-sold-out-"+ticket_id).val());
+
                 // There are some available spots
                 if(limit != "0")
                 {

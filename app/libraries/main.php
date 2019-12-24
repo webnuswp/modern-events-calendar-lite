@@ -876,8 +876,8 @@ class MEC_main extends MEC_base
                                 <ol>
                                     <li>'.__('<strong>WooCommerce Integration:</strong> You can now purchase ticket (as products) and Woo products at the same time.' , 'modern-events-calendar-lite').'</li>
                                     <li>'.__('<strong>Event API:</strong> display your events (shortcodes/single event) on other websites without MEC.  Use JSON output features to make your Apps compatible with MEC.' , 'modern-events-calendar-lite').'</li>
-                                    <li>'.__('<strong>Elementor Single Builder:</strong> Edit single event page using Elementor. Manage the position of all elements in the Single page and in desktops, mobiles and tablets as well.' , 'modern-events-calendar-lite').'</li>
-                                    <li>'.__('<strong>Elementor Shortcode Builder:</strong> It enables you to create shortcodes in Elementor Live Editor.', 'modern-events-calendar-lite').'</li>
+                                    <li>'.__('<strong>Multisite Event Sync:</strong> Sync events between your subsites and main websites. Changes in the main one will be inherited by the subsites. you can set these up in the admin panel.' , 'modern-events-calendar-lite').'</li>
+                                    <li>'.__('<strong>User Dashboard:</strong> Create exclusive pages for users. These pages can contain ticket purchase information, information about registered events. Users can now log in to purchase tickets.', 'modern-events-calendar-lite').'</li>
                                 </ol>
                                 <a href="https://webnus.net/modern-events-calendar/addons/?ref=17" target="_blank">'.esc_html('find out more', 'modern-events-calendar-lite').'</a>
                             </div>
@@ -1473,6 +1473,13 @@ class MEC_main extends MEC_base
             'twitter'=>array('id'=>'twitter', 'name'=>__('Twitter', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_twitter')),
             'linkedin'=>array('id'=>'linkedin', 'name'=>__('Linkedin', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_linkedin')),
             'vk'=>array('id'=>'vk', 'name'=>__('VK', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_vk')),
+            'tumblr'=>array('id'=>'tumblr', 'name'=>__('Tumblr', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_tumblr')),
+            'pinterest'=>array('id'=>'pinterest', 'name'=>__('Pinterest', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_pinterest')),
+            'flipboard'=>array('id'=>'flipboard', 'name'=>__('Flipboard', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_flipboard')),
+            'pocket'=>array('id'=>'pocket', 'name'=>__('GetPocket', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_pocket')),
+            'reddit'=>array('id'=>'reddit', 'name'=>__('Reddit', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_reddit')),
+            'whatsapp'=>array('id'=>'whatsapp', 'name'=>__('WhatsApp', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_whatsapp')),
+            'telegram'=>array('id'=>'telegram', 'name'=>__('Telegram', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_telegram')),
             'email'=>array('id'=>'email', 'name'=>__('Email', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_email')),
         );
         
@@ -1559,7 +1566,123 @@ class MEC_main extends MEC_base
 
         return '<li class="mec-event-social-icon"><a class="vk" href=" http://vk.com/share.php?url='.rawurlencode($url).'" title="'.__('VK', 'modern-events-calendar-lite').'" target="_blank"><i class="mec-fa-vk"></i></a></li>';
     }
+
+
+    /**
+     * Do tumblr link for social networks
+     * @author Webnus <info@webnus.biz>
+     * @param string $url
+     * @param object $event
+     * @return string
+     */
+    public function sn_tumblr($url, $event)
+    {
+        $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
+        if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
+        return '<li class="mec-event-social-icon"><a class="tumblr" href="https://www.tumblr.com/widgets/share/tool?canonicalUrl='.rawurlencode($url).'&title'.wp_specialchars_decode($event->data->title).'&caption='.wp_specialchars_decode($event->data->title).'" title="'.__('Share on Tumblr', 'modern-events-calendar-lite').'"><i class="mec-fa-tumblr"></i></a></li>';
+
+    }
+
+    /**
+     * Do pinterest link for social networks
+     * @author Webnus <info@webnus.biz>
+     * @param string $url
+     * @param object $event
+     * @return string
+     */
+    public function sn_pinterest($url, $event)
+    {
+        $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
+        if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
+
+        return '<li class="mec-event-social-icon"><a class="pinterest" href="http://pinterest.com/pin/create/button/?url='.rawurlencode($url).'" title="'.__('Share on Pinterest', 'modern-events-calendar-lite').'"><i class="mec-fa-pinterest"></i></a></li>';
+
+    }
     
+    /**
+     * Do flipboard link for social networks
+     * @author Webnus <info@webnus.biz>
+     * @param string $url
+     * @param object $event
+     * @return string
+     */
+    public function sn_flipboard($url, $event)
+    {
+        $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
+        if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
+
+        return '<li class="mec-event-social-icon"><a class="flipboard" href="https://share.flipboard.com/bookmarklet/popout?v=2&title'.wp_specialchars_decode($event->data->title).'=&url='.rawurlencode($url).'" title="'.__('Share on Flipboard', 'modern-events-calendar-lite').'">
+        <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="flipboard" class="svg-inline--fa fa-flipboard fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 32v448h448V32H0zm358.4 179.2h-89.6v89.6h-89.6v89.6H89.6V121.6h268.8v89.6z"></path></svg>
+        </a></li>';
+
+    }
+
+    /**
+     * Do pocket link for social networks
+     * @author Webnus <info@webnus.biz>
+     * @param string $url
+     * @param object $event
+     * @return string
+     */
+    public function sn_pocket($url, $event)
+    {
+        $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
+        if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
+
+        return '<li class="mec-event-social-icon"><a class="pocket" href="https://getpocket.com/edit?url='.rawurlencode($url).'" title="'.__('Share on GetPocket', 'modern-events-calendar-lite').'"><i class="mec-fa-get-pocket"></i></a></li>';
+
+    }
+
+    /**
+     * Do reddit link for social networks
+     * @author Webnus <info@webnus.biz>
+     * @param string $url
+     * @param object $event
+     * @return string
+     */
+    public function sn_reddit($url, $event)
+    {
+        $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
+        if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
+
+        return '<li class="mec-event-social-icon"><a class="reddit" href="https://reddit.com/submit?url='.rawurlencode($url).'&title='.wp_specialchars_decode($event->data->title).'" title="'.__('Share on Reddit', 'modern-events-calendar-lite').'"><i class="mec-fa-reddit"></i></a></li>';
+
+    }
+
+    /**
+     * Do telegram link for social networks
+     * @author Webnus <info@webnus.biz>
+     * @param string $url
+     * @param object $event
+     * @return string
+     */
+    public function sn_telegram($url, $event)
+    {
+        $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
+        if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
+
+        return '<li class="mec-event-social-icon"><a class="telegram" href="https://telegram.me/share/url?url='.rawurlencode($url).'&text='.wp_specialchars_decode($event->data->title).'" title="'.__('Share on Telegram', 'modern-events-calendar-lite').'">
+        <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="telegram" class="svg-inline--fa fa-telegram fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"></path></svg>
+        </a></li>';
+
+    }
+
+    /**
+     * Do whatsapp link for social networks
+     * @author Webnus <info@webnus.biz>
+     * @param string $url
+     * @param object $event
+     * @return string
+     */
+    public function sn_whatsapp($url, $event)
+    {
+        $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
+        if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
+
+        return '<li class="mec-event-social-icon"><a class="whatsapp" href="https://wa.me/?text='.rawurlencode($url).'" title="'.__('Share on WhatsApp', 'modern-events-calendar-lite').'"><i class="mec-fa-whatsapp"></i></a></li>';
+
+    }
+
     /**
      * Get available skins for archive page
      * @author Webnus <info@webnus.biz>
@@ -2135,6 +2258,24 @@ class MEC_main extends MEC_base
                 $pdf->Ln();
             }
 
+            // Geteway
+            $pdf->SetFont('DejaVuBold', '', 16);
+            $pdf->Write(20, __('Payment', 'modern-events-calendar-lite'));
+            $pdf->Ln();
+
+            $pdf->SetFont('DejaVu', '', 12);
+            $pdf->Write(6, __('Gateway', 'modern-events-calendar-lite').': ');
+            $pdf->Write(6, get_post_meta($book_id, 'mec_gateway_label', true));
+            $pdf->Ln();
+
+            $date_format = get_option('date_format');
+            $time_format = get_option('time_format');
+
+            $pdf->SetFont('DejaVu', '', 12);
+            $pdf->Write(6, __('Payment Time', 'modern-events-calendar-lite').': ');
+            $pdf->Write(6, date($date_format.' '.$time_format, strtotime(get_post_meta($book_id, 'mec_booking_time', true))));
+            $pdf->Ln();
+            
             $image = $this->module('qrcode.invoice', array('event'=>$event));
             if(trim($image))
             {
@@ -2159,16 +2300,21 @@ class MEC_main extends MEC_base
         if(isset($_GET['method']) and sanitize_text_field($_GET['method']) == 'ical')
         {
             $id = sanitize_text_field($_GET['id']);
-            $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';
+            $post = get_post($id);
 
-            $events = $this->ical_single($id, $occurrence);
-            $ical_calendar = $this->ical_calendar($events);
-            
-            header('Content-type: application/force-download; charset=utf-8');
-            header('Content-Disposition: attachment; filename="mec-event-'.$id.'.ics"');
-            
-            echo $ical_calendar;
-            exit;
+            if($post->post_type == $this->get_main_post_type() and $post->post_status == 'publish')
+            {
+                $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';
+
+                $events = $this->ical_single($id, $occurrence);
+                $ical_calendar = $this->ical_calendar($events);
+
+                header('Content-type: application/force-download; charset=utf-8');
+                header('Content-Disposition: attachment; filename="mec-event-'.$id.'.ics"');
+
+                echo $ical_calendar;
+                exit;
+            }
         }
     }
 
@@ -2296,7 +2442,6 @@ class MEC_main extends MEC_base
         
         return $ical;
     }
-
 
     /**
      * Returns iCal export for email

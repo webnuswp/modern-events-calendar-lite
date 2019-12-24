@@ -58,7 +58,7 @@ class MEC_notifications extends MEC_base
         if($price > 0 and isset($this->settings['booking_auto_verify_paid']) and $this->settings['booking_auto_verify_paid'] == 1) return false;
 
         $subject = isset($this->notif_settings['email_verification']['subject']) ? $this->content(__($this->notif_settings['email_verification']['subject'], 'modern-events-calendar-lite'), $book_id) : __('Please verify your email.', 'modern-events-calendar-lite');
-        $headers = array();
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         $recipients_str = isset($this->notif_settings['email_verification']['recipients']) ? $this->notif_settings['email_verification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
@@ -140,7 +140,7 @@ class MEC_notifications extends MEC_base
         if(isset($this->notif_settings['booking_notification']['status']) and !$this->notif_settings['booking_notification']['status']) return false;
 
         $subject = isset($this->notif_settings['booking_notification']['subject']) ? $this->content(__($this->notif_settings['booking_notification']['subject'], 'modern-events-calendar-lite'), $book_id) : __('Your booking is received.', 'modern-events-calendar-lite');
-        $headers = array();
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         $recipients_str = isset($this->notif_settings['booking_notification']['recipients']) ? $this->notif_settings['booking_notification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
@@ -186,7 +186,21 @@ class MEC_notifications extends MEC_base
                 $message = str_replace('%%attendee_full_info%%', $attendees_full_info, $message);
                 $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
             }
+            $message = '
+            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+                <tr>
+                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
+                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
 
+                        '.$message.'
+
+                    </div>
+                    
+
+                    </td>
+                </tr>
+            </table>
+            ';
             // Filter the email
             $mail_arg = array(
                 'to'            => $to,
@@ -233,7 +247,7 @@ class MEC_notifications extends MEC_base
         if($price > 0 and isset($this->settings['booking_auto_confirm_paid']) and $this->settings['booking_auto_confirm_paid'] == 1) return false;
 
         $subject = isset($this->notif_settings['booking_confirmation']['subject']) ? $this->content(__($this->notif_settings['booking_confirmation']['subject'], 'modern-events-calendar-lite'), $book_id) : __('Your booking is confirmed.', 'modern-events-calendar-lite');
-        $headers = array();
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         $recipients_str = isset($this->notif_settings['booking_confirmation']['recipients']) ? $this->notif_settings['booking_confirmation']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
@@ -263,7 +277,21 @@ class MEC_notifications extends MEC_base
             if(!trim($to) or in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
 
             $message = isset($this->notif_settings['booking_confirmation']['content']) ? $this->content($this->notif_settings['booking_confirmation']['content'], $book_id, $attendee) : '';
+            $message = '
+            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+                <tr>
+                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
+                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
 
+                        '.$message.'
+
+                    </div>
+                    
+
+                    </td>
+                </tr>
+            </table>
+            ';
             // Filter the email
             $mail_arg = array(
                 'to'            => $to,
@@ -347,7 +375,7 @@ class MEC_notifications extends MEC_base
         // No Recipient
         if(!count($tos)) return;
 
-        $headers = array();
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         $recipients_str = isset($this->notif_settings['cancellation_notification']['recipients']) ? $this->notif_settings['cancellation_notification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
@@ -372,7 +400,7 @@ class MEC_notifications extends MEC_base
             $mailto = (is_array($to) and isset($to['email'])) ? $to['email'] : $to;
 
             if(!trim($mailto) or !filter_var($mailto, FILTER_VALIDATE_EMAIL)) continue;
-            if($i > 1) $headers = array();
+            if($i > 1) $headers = array('Content-Type: text/html; charset=UTF-8');
 
             $message = isset($this->notif_settings['cancellation_notification']['content']) ? $this->content($this->notif_settings['cancellation_notification']['content'], $book_id, (is_array($to) ? $to : NULL)) : '';
 
@@ -387,7 +415,21 @@ class MEC_notifications extends MEC_base
                 $message = str_replace('%%attendee_full_info%%', $attendees_full_info, $message);
                 $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
             }
+            $message = '
+            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+                <tr>
+                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
+                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
 
+                        '.$message.'
+
+                    </div>
+                    
+
+                    </td>
+                </tr>
+            </table>
+            ';
             // Filter the email
             $mail_arg = array(
                 'to'            => $mailto,
@@ -422,7 +464,7 @@ class MEC_notifications extends MEC_base
 
         $to = get_bloginfo('admin_email');
         $subject = isset($this->notif_settings['admin_notification']['subject']) ? $this->content(__($this->notif_settings['admin_notification']['subject'], 'modern-events-calendar-lite'), $book_id) : __('A new booking is received.', 'modern-events-calendar-lite');
-        $headers = array();
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         $recipients_str = isset($this->notif_settings['admin_notification']['recipients']) ? $this->notif_settings['admin_notification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
@@ -458,7 +500,21 @@ class MEC_notifications extends MEC_base
 
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
+        $message = '
+        <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+            <tr>
+                <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
+                <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
 
+                    '.$message.'
+
+                </div>
+                
+
+                </td>
+            </tr>
+        </table>
+        ';
         // Filter the email
         $mail_arg = array(
             'to'            => $to,
@@ -490,7 +546,7 @@ class MEC_notifications extends MEC_base
         if(!isset($booker->user_email)) return false;
 
         $subject = isset($this->notif_settings['booking_reminder']['subject']) ? $this->content(__($this->notif_settings['booking_reminder']['subject'], 'modern-events-calendar-lite'), $book_id) : __('Booking Reminder', 'modern-events-calendar-lite');
-        $headers = array();
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         $recipients_str = isset($this->notif_settings['booking_reminder']['recipients']) ? $this->notif_settings['booking_reminder']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
@@ -519,6 +575,22 @@ class MEC_notifications extends MEC_base
             $message = isset($this->notif_settings['booking_reminder']['content']) ? $this->content($this->notif_settings['booking_reminder']['content'], $book_id, $attendee) : '';
 
             if(!trim($to)) continue;
+
+            $message = '
+            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+                <tr>
+                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
+                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
+
+                        '.$message.'
+
+                    </div>
+                    
+
+                    </td>
+                </tr>
+            </table>
+            ';
 
             // Filter the email
             $mail_arg = array(
@@ -572,7 +644,7 @@ class MEC_notifications extends MEC_base
 
         $to = get_bloginfo('admin_email');
         $subject = (isset($this->notif_settings['new_event']['subject']) and trim($this->notif_settings['new_event']['subject'])) ? __($this->notif_settings['new_event']['subject'], 'modern-events-calendar-lite') : __('A new event is added.', 'modern-events-calendar-lite');
-        $headers = array();
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         $recipients_str = isset($this->notif_settings['new_event']['recipients']) ? $this->notif_settings['new_event']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
@@ -644,7 +716,7 @@ class MEC_notifications extends MEC_base
 
             $to = $guest_email;
             $subject = (isset($this->notif_settings['user_event_publishing']['subject']) and trim($this->notif_settings['user_event_publishing']['subject'])) ? __($this->notif_settings['user_event_publishing']['subject'], 'modern-events-calendar-lite') : __('Your event is published.', 'modern-events-calendar-lite');
-            $headers = array();
+            $headers = array('Content-Type: text/html; charset=UTF-8');
 
             $recipients_str = isset($this->notif_settings['user_event_publishing']['recipients']) ? $this->notif_settings['user_event_publishing']['recipients'] : '';
             $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();

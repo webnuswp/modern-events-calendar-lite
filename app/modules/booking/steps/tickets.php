@@ -28,7 +28,7 @@ $date_format = (isset($settings['booking_date_format1']) and trim($settings['boo
     </div>
     
     <div class="mec-event-tickets-list" id="mec_book_form_tickets_container<?php echo $uniqueid; ?>" data-total-booking-limit="<?php echo isset($availability['total']) ? $availability['total'] : '-1'; ?>">
-        <?php foreach($tickets as $ticket_id=>$ticket): $ticket_limit = isset($availability[$ticket_id]) ? $availability[$ticket_id] : -1; if($ticket_limit === '0' and count($dates) <= 1) continue; ?>
+        <?php foreach($tickets as $ticket_id=>$ticket): $stop_selling = isset($availability['stop_selling_'.$ticket_id]) ? $availability['stop_selling_'.$ticket_id] : false;  $ticket_limit = isset($availability[$ticket_id]) ? $availability[$ticket_id] : -1; if($ticket_limit === '0' and count($dates) <= 1) continue; ?>
         <div class="mec-event-ticket mec-event-ticket<?php echo $ticket_limit; ?>" id="mec_event_ticket<?php echo $ticket_id; ?>">
             <div class="mec-ticket-available-spots <?php echo ($ticket_limit == '0' ? 'mec-util-hidden' : ''); ?>">
                 <span class="mec-event-ticket-name"><?php echo (isset($ticket['name']) ? $ticket['name'] : ''); ?></span>
@@ -36,12 +36,35 @@ $date_format = (isset($settings['booking_date_format1']) and trim($settings['boo
                 <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo $ticket['description']; ?></p><?php endif; ?>
                 <div>
                     <input type="number" class="mec-book-ticket-limit" name="book[tickets][<?php echo $ticket_id; ?>]" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo $default_ticket_number; ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" onchange="mec_check_tickets_availability<?php echo $uniqueid; ?>(<?php echo $ticket_id; ?>, this.value);" />
+                    
+                    <!-- Set Input Minimum Ticket Min Value -->
+                    <?php $min_ticket = (isset($ticket['minimum_ticket']) and intval($ticket['minimum_ticket']) > 0) ? intval($ticket['minimum_ticket']) : 0; ?>
+                    <input type="hidden" name="book[tickets_info][<?php echo $ticket_id; ?>]" value="<?php echo "{$ticket_id} , ".(isset($ticket['name']) ? $ticket['name'] : '')." , {$min_ticket}"; ?>" />
                 </div>
                 <span class="mec-event-ticket-available"><?php echo sprintf(__('Available %s: <span>%s</span>', 'modern-events-calendar-lite'), $this->m('tickets', __('Tickets', 'modern-events-calendar-lite')), ($ticket['unlimited'] ? __('Unlimited', 'modern-events-calendar-lite') : ($ticket_limit != '-1' ? $ticket_limit : __('Unlimited', 'modern-events-calendar-lite')))); ?></span>
             </div>
-            <div class="mec-ticket-unavailable-spots info-msg <?php echo ($ticket_limit == '0' ? '' : 'mec-util-hidden'); ?>">
-                <?php echo sprintf(__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite'), (isset($ticket['name']) ? '<strong>'.$ticket['name'].'</strong>' : '')); ?>
+            <?php
+                $str_replace = isset($ticket['name']) ? '<strong>'.$ticket['name'].'</strong>' : '';
+                $ticket_message_sales =  sprintf(__('The %s ticket sales has stoped!', 'modern-events-calendar-lite'), $str_replace);
+                $ticket_message_sold_out =  sprintf(__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite'), $str_replace);
+            ?>
+            <?php if(isset($stop_selling) and $stop_selling): ?>
+            <div id="mec-ticket-message-<?php echo $ticket_id; ?>" class="mec-ticket-unavailable-spots mec-error <?php echo ($ticket_limit == '0' ? '' : 'mec-util-hidden'); ?>">
+                <div>
+                    <?php echo $ticket_message_sales; ?>
+                </div>
+                <input type="hidden" id="mec-ticket-message-sales-<?php echo $ticket_id; ?>" value="<?php echo $ticket_message_sales; ?>" />
+                <input type="hidden" id="mec-ticket-message-sold-out-<?php echo $ticket_id; ?>" value="<?php echo $ticket_message_sold_out; ?>" />
             </div>
+            <?php else: ?>
+            <div id="mec-ticket-message-<?php echo $ticket_id; ?>" class="mec-ticket-unavailable-spots info-msg <?php echo ($ticket_limit == '0' ? '' : 'mec-util-hidden'); ?>">
+                <div>
+                    <?php echo $ticket_message_sold_out; ?>
+                </div>
+                <input type="hidden" id="mec-ticket-message-sales-<?php echo $ticket_id; ?>" value="<?php echo $ticket_message_sales; ?>" />
+                <input type="hidden" id="mec-ticket-message-sold-out-<?php echo $ticket_id; ?>" value="<?php echo $ticket_message_sold_out; ?>" />
+            </div>
+            <?php endif; ?>
         </div>
         <?php endforeach; ?>
     </div>
