@@ -89,7 +89,7 @@ $settings = $this->main->get_settings();
                             <div class="mec-event-date"><?php echo date_i18n($this->date_format_clean_1, strtotime($event->date['start']['date'])); ?></div>
                             <div class="mec-event-month"><?php echo date_i18n($this->date_format_clean_2, strtotime($event->date['start']['date'])); ?></div>
                         <?php else: ?>
-                            <div class="mec-event-month"><?php echo $this->main->date_label($event->date['start'], $event->date['end'], $this->date_format_clean_1 .' '. $this->date_format_clean_2); ?></div>
+                            <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_clean_1 .' '. $this->date_format_clean_2); ?></div>
                         <?php endif; ?>
                         <div class="mec-event-time"><i class="mec-sl-clock"></i><?php echo $start_time; ?></div>
                     </div>

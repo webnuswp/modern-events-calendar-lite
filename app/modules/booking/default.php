@@ -28,15 +28,6 @@ if(!count($tickets)) return;
 
 // Generate JavaScript code of Booking Module
 $javascript = '<script type="text/javascript">
-jQuery("#mec_book_form'.$uniqueid.'").each(function(index, el) {
-   jQuery(this).on("submit", function(event)
-    {
-        event.preventDefault();
-        mec_book_form_submit'.$uniqueid.'();
-    }); 
-})
-
-
 var mec_tickets_availability_ajax'.$uniqueid.' = false;
 function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
 {
@@ -138,29 +129,31 @@ function mec_check_tickets_availability'.$uniqueid.'(ticket_id, count)
     if(parseInt(count) > parseInt(max)) jQuery("#mec_booking'.$uniqueid.' #mec_event_ticket"+ticket_id+" .mec-book-ticket-limit").val(max);
 }
 
-function mec_toggle_first_for_all'.$uniqueid.'()
+function mec_toggle_first_for_all'.$uniqueid.'(context)
 {
     var status = jQuery("#mec_book_first_for_all'.$uniqueid.'").is(":checked") ? true : false;
     
     if(status)
     {
         jQuery("#mec_booking'.$uniqueid.' .mec-book-ticket-container:not(:first-child)").addClass("mec-util-hidden");
+        jQuery(context).parent().find("input[type=\"checkbox\"]").attr("checked", "checked");
     }
     else
     {
         jQuery("#mec_booking'.$uniqueid.' .mec-book-ticket-container").removeClass("mec-util-hidden");
+        jQuery(context).parent().find("input[type=\"checkbox\"]").removeAttr("checked");
     }
 }
 
-function mec_label_first_for_all'.$uniqueid.'()
+function mec_label_first_for_all'.$uniqueid.'(context)
 {
     var input = jQuery("#mec_book_first_for_all'.$uniqueid.'");
     if (!input.is(":checked")) {
         input.prop("checked", true);
-        mec_toggle_first_for_all'.$uniqueid.'();
+        mec_toggle_first_for_all'.$uniqueid.'(context);
     } else {
         input.prop("checked", false);
-        mec_toggle_first_for_all'.$uniqueid.'();
+        mec_toggle_first_for_all'.$uniqueid.'(context);
     }
 }
 
@@ -303,11 +296,6 @@ function mec_book_form_submit'.$uniqueid.'()
             if(data.success)
             {
                 jQuery("#mec_booking'.$uniqueid.'").html(data.output);
-                jQuery("#mec_book_form'.$uniqueid.'").off("submit").on("submit", function(event)
-                {
-                    event.preventDefault();
-                    mec_book_form_submit'.$uniqueid.'();
-                });
                 
                 // Show Invoice Link
                 if(typeof data.data.invoice_link != "undefined" && data.data.invoice_link != "")

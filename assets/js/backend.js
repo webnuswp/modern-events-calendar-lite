@@ -343,56 +343,65 @@ jQuery(document).ready(function($)
         });
     });
 
-    // Attendees Lightbox
-    initSlider();
-
-    $('.mec-event-attendees').on('click', function(e)
+    /* Custom msg Notification */
+    $('.mec-cmsg-notification-box-wrap span').on('click', function(e)
     {
         e.preventDefault();
-
-        var ID = $(this).data('id');
-        if(!ID) return;
-        
-        lity("#mec_manage_events_lightbox" + ID);
-        jQuery('#mec-send-email-editor' + ID + '-wrap').html('<textarea id="editor' + ID + '" class="wp-editor-area"></textarea>');
-        jQuery('#mec-send-email-editor' + ID + '-wrap').parent().find('.mec-send-email-button').data('id', ID);
-        
-        wp.editor.initialize('editor' + ID,
-        {
-            tinymce:
-            {
-                wpautop:true,
-                toolbar1: 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker',
+        $.ajax({
+            url: mec_admin_localize.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'close_cmsg_notification',
+                nonce: mec_admin_localize.ajax_nonce,
             },
-            quicktags: true,
-            mediaButtons: true,
+            success: function (response) {
+                $(".mec-custom-msg-notification-set-box").fadeOut(100, function () { $(this).remove(); });
+                $(".mec-custom-msg-notification-wrap").fadeOut(100, function () { $(this).remove(); });
+            },
         });
-
-        jQuery(document).on('lity:close', function()
-        {
-            wp.editor.remove('editor' + ID);
-        });
-
-        jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').trigger('refresh.owl.carousel');
     });
+
+    /* Load event dates in Report page */
+    if ( $('.mec-reports-selectbox-event').length > 0 )
+    {
+        $('.mec-reports-selectbox-event').select2();
+        $('.mec-reports-selectbox-event').on('change', function(e)
+        {
+            e.preventDefault();
+            var id = $('.mec-reports-selectbox-event').val();
+            $.ajax({
+                url: mec_admin_localize.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'report_event_dates',
+                    nonce: mec_admin_localize.ajax_nonce,
+                    event_id: id,
+                },
+                success: function (response) {
+                    $('.mec-report-selected-event-attendees-wrap').hide();
+                    $('.mec-reports-selectbox-dates').remove();
+                    $('.mec-report-selected-event-attendees-wrap .w-row .w-col-sm-12').html('');
+                    $('.mec-report-select-event-wrap .w-row .w-col-sm-12').append(response);
+                    $('.mec-report-sendmail-wrap').hide();
+                    $('.mec-report-backtoselect-wrap').hide();
+                },
+            });
+        });
+    }
+
+    $('.mec-report-backtoselect-wrap button').on('click', function (e) {
+        e.preventDefault();
+        $('.mec-report-backtoselect-wrap').hide();
+        $('.mec-report-sendmail-wrap').show();
+        $('.mec-report-selected-event-attendees-wrap').show();
+        $('.mec-report-sendmail-form-wrap').hide();
+    })
 });
 
 function mec_event_attendees(ID, occurrence)
 {
     // Set Occurrence
     if(typeof occurrence === 'undefined') occurrence = '';
-    
-    // Wrapper
-    var $wrapper = jQuery("#mec_manage_events_lightbox" + ID + " .mec-attendees-list-right");
-    jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').find('a').removeClass("selected-day")
-    jQuery("#mec_manage_events_lightbox" + ID + ' .mec-attendees-list-left-menu').find('a').each(function (event) {
-        if (occurrence === jQuery(this).attr('data-value')) {
-            jQuery(this).addClass("selected-day")
-        }
-    });
-
-    // Add Loading Effect
-    $wrapper.addClass('mec-loading');
 
     jQuery.ajax(
     {
@@ -406,17 +415,50 @@ function mec_event_attendees(ID, occurrence)
         },
         success: function(response)
         {
-            // Remove Loading Effect
-            $wrapper.removeClass('mec-loading');
-            $wrapper.html(response.html);
-            jQuery(".post-type-mec-events #wpcontent").removeClass("mec-cover-loader");
-            jQuery(".mec-loader").remove();
+            console.log(response.email_button);
+            if (response.email_button != '') {
+                jQuery('.mec-report-selected-event-attendees-wrap').show();
+                jQuery('.mec-report-selected-event-attendees-wrap .w-row .w-col-sm-12').html(response.html);
+                jQuery('.mec-report-sendmail-wrap').show();
+                jQuery('.mec-report-sendmail-wrap .w-row .w-col-sm-12').html(response.email_button);
+            } else {
+                jQuery('.mec-report-selected-event-attendees-wrap').show();
+                jQuery('.mec-report-sendmail-wrap').hide();
+                jQuery('.mec-report-selected-event-attendees-wrap .w-row .w-col-sm-12').html(response.html);
+                jQuery('.mec-report-sendmail-wrap .w-row .w-col-sm-12').html('');
+            } 
         },
         error: function()
         {
-            // Remove Loading Effect
-            $wrapper.removeClass('mec-loading');
         }
+    });
+}
+
+function mec_submit_event_email(ID) {
+    // Set Occurrence
+    if (typeof ID === 'undefined') ID = '';
+
+    if (jQuery('.mec-send-email-count > span').text() == 0) {
+        alert('Please choose attendees first');
+        return;
+    }
+    jQuery('.mec-report-sendmail-form-wrap .w-row .w-col-sm-12 #mec-send-email-editor-wrap').attr('id', 'mec-send-email-editor' + ID + '-wrap');
+    jQuery('.mec-report-selected-event-attendees-wrap').hide();
+    jQuery('.mec-report-sendmail-form-wrap').show();
+    jQuery('#mec-send-email-editor' + ID + '-wrap').html('<textarea id="editor' + ID + '" class="wp-editor-area"></textarea>');
+    jQuery('#mec-send-email-editor' + ID + '-wrap').parent().find('.mec-send-email-button').data('id', ID);
+    jQuery('.mec-report-sendmail-wrap').hide();
+    jQuery('.mec-report-backtoselect-wrap').show();
+
+    wp.editor.initialize('editor' + ID,
+    {
+        tinymce:
+        {
+            wpautop:true,
+            toolbar1: 'formatselect bold italic | bullist numlist | blockquote | alignleft aligncenter alignright | link unlink | wp_more | spellchecker',
+        },
+        quicktags: true,
+        mediaButtons: true,
     });
 }
 
@@ -533,10 +575,10 @@ jQuery(document).ready(function()
     jQuery('.mec-send-email-button').click(function()
     {
         var $this = this;
-        var data_send = jQuery($this).parent().parent().find('.mec-attendees-content').find('input[type="checkbox"]:checked').parent().find('.mec-send-email-attendee-info').text();
-        var mail_subject = jQuery($this).parent().find('#mec-send-email-subject').val();
+        var data_send = jQuery('.mec-attendees-content').find('input[type="checkbox"]:checked').parent().find('.mec-send-email-attendee-info').text();
+        var mail_subject = jQuery('#mec-send-email-subject').val();
         var mail_content = wp.editor.getContent('editor' + jQuery(this).data('id'));
-        var mail_message = jQuery($this).parent().find('#mec-send-email-message');
+        var mail_message = jQuery('#mec-send-email-message');
 
         if(data_send.length == 0) mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-no-user-selected').val()).show();
         else if(mail_subject.length == 0) mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-empty-subject').val()).show();
@@ -585,7 +627,7 @@ function mec_send_email_check(Context)
     var check_len = all_item.find('input[type="checkbox"]:checked').length;
     var all_check = jQuery(Context).parent().parent().parent().find('#mec-send-email-check-all');
     
-    all_item.parent().parent().find('.mec-send-email-count > span').html(check_len);
+    jQuery('.mec-send-email-count > span').html(check_len);
     if(item_len === check_len) all_check.prop('checked', true);
     else all_check.prop('checked', false);
 }
@@ -598,7 +640,7 @@ function mec_send_email_check_all(Context)
     else all_item.find('input[type="checkbox"]').prop('checked', false);
 
     var check_len = all_item.find('input[type="checkbox"]:checked').length;
-    all_item.parent().parent().find('.mec-send-email-count > span').html(check_len);
+    jQuery('.mec-send-email-count > span').html(check_len);
 }
 
 // TinyMce Plugins

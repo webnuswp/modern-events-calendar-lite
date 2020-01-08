@@ -126,7 +126,7 @@
 	margin-right: 10px;
 	line-height: 1;
 	padding: 18px 20px 16px;
-	background: #39c36e;
+	background: #24ca4f;
 	-webkit-transition: all 0.21s ease;
 	-moz-transition: all 0.21s ease;
 	transition: all 0.21s ease;
@@ -144,7 +144,7 @@
 
 /* Form Builder Button */
 .mec-booking-form-container button {
-	display: block !important;
+	display: block;
 }
 
 /* Distance (Vertical Spaces) */
@@ -2699,11 +2699,28 @@ span.mec-event-title-soldout {
 }
 
 .mec-single-event .mec-events-meta-group-booking button {
-	min-width: 170px;
+	min-width: 155px;
 	margin-top: 5px;
-	margin-left: 15px;
+	margin-left: 10px;
 	border-radius: 2px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 2px 1px rgba(0, 0, 0, .08);
+}
+
+.mec-single-event .mec-events-meta-group-booking button.mec-book-form-back-button {
+	background: #c4cace;
+	float: left;
+}
+
+.mec-single-event .mec-events-meta-group-booking button.mec-book-form-back-button:hover {
+	background: #000;
+}
+
+.mec-single-event .mec-events-meta-group-booking button.mec-book-form-next-button {
+	float: left;
+}
+
+button#mec-book-form-back-btn-step-3 {
+	float: none;
 }
 
 .mec-single-event .mec-book-form-coupon button {
@@ -2712,6 +2729,46 @@ span.mec-event-title-soldout {
 
 .mec-single-event .mec-book-form-gateway-checkout button {
 	margin-left: 0;
+}
+
+.mec-single-event .mec-single-event .mec-book-form-gateway-checkout button {
+    margin-right: 20px;
+}
+
+.mec-single-event button#mec-book-form-back-btn-step-3 {
+    margin-left: 0;
+}
+
+.mec-single-event .lity-wrap .mec-booking-form-container button {
+    display: unset;
+}
+
+.mec-single-event .lity-wrap #mec-book-form-back-btn-step-3,
+.mec-single-event .lity-wrap .mec-booking-form-container button.mec-book-form-back-button {
+    background: #c4cace;
+}
+
+.mec-single-event .lity-wrap button[type=submit],
+.mec-single-event .lity-wrap #mec-book-form-back-btn-step-3,
+.mec-single-event .lity-wrap .mec-booking-form-container button {
+	min-width: 170px;
+    margin-top: 5px;
+    border-radius: 2px;
+    box-shadow: 0 2px 1px rgba(0,0,0,.08);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1;
+    padding: 18px 20px 16px;
+    -webkit-transition: all .21s ease;
+    -moz-transition: all .21s ease;
+    transition: all .21s ease;
+}
+
+.mec-single-event .lity-wrap .mec-booking-form-container button.mec-book-form-back-button:hover {
+    background: #222;
 }
 
 .mec-single-event .mec-book-first,
@@ -10016,6 +10073,19 @@ body .featherlight .featherlight-close-icon:hover {
 }
 
 
+
+/* MEC Timetable Classic
+	-------------------------------- */
+.mec-timetable-t3-wrap td {
+	position: relative;
+	padding: 0;
+}
+
+.mec-timetable-t3-wrap td a {
+	width: 100%;
+	display: block;
+	min-height: 110px;
+}
 
 /* MEC Weather widget
 	-------------------------------- */

@@ -48,7 +48,7 @@ if(!$mec_email)
 }
 ?>
 
-<form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" novalidate="novalidate" enctype="multipart/form-data" method="post">
+<form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);" novalidate="novalidate" enctype="multipart/form-data" method="post">
     <h4><?php echo apply_filters('mec-attendees-title', __('Attendees Form', 'modern-events-calendar-lite')) ?></h4>
     <ul class="mec-book-tickets-container">
 
@@ -125,7 +125,7 @@ if(!$mec_email)
 
                 <?php /** Agreement **/ elseif($reg_field['type'] == 'agreement'): ?>
                 <label for="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>">
-                    <input type="checkbox" id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="1" <?php echo (!isset($reg_field['status']) or (isset($reg_field['status']) and $reg_field['status'] == 'checked')) ? 'checked="checked"' : ''; ?> />
+                    <input type="checkbox" id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="1" <?php echo (!isset($reg_field['status']) or (isset($reg_field['status']) and $reg_field['status'] == 'checked')) ? 'checked="checked"' : ''; ?> onchange="mec_agreement_change(this);"/>
                     <?php echo ((isset($reg_field['mandatory']) and $reg_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?>
                     <?php echo sprintf(__(stripslashes($reg_field['label']), 'modern-events-calendar-lite'), '<a href="'.get_the_permalink($reg_field['page']).'" target="_blank">'.get_the_title($reg_field['page']).'</a>'); ?>
                 </label>
@@ -160,8 +160,8 @@ if(!$mec_email)
         <li class="mec-first-for-all-wrapper">
             <label class="mec-fill-attendees">
                 <input type="hidden" name="book[first_for_all]" value="0" />
-                <input type="checkbox" name="book[first_for_all]" value="1" checked="checked" class="mec_book_first_for_all" id="mec_book_first_for_all<?php echo $uniqueid; ?>" onchange="mec_toggle_first_for_all<?php echo $uniqueid; ?>();" />
-                <label for="pages1" onclick="mec_label_first_for_all<?php echo $uniqueid; ?>();" class="wn-checkbox-label"></label>
+                <input type="checkbox" name="book[first_for_all]" value="1" checked="checked" class="mec_book_first_for_all" id="mec_book_first_for_all<?php echo $uniqueid; ?>" onchange="mec_toggle_first_for_all<?php echo $uniqueid; ?>(this);" />
+                <label for="pages1" onclick="mec_label_first_for_all<?php echo $uniqueid; ?>(this);" class="wn-checkbox-label"></label>
                 <?php _e("Fill other attendees information like the first form.", 'modern-events-calendar-lite'); ?>
             </label>
         </li>
@@ -175,5 +175,9 @@ if(!$mec_email)
     <input type="hidden" name="uniqueid" value="<?php echo $uniqueid; ?>" />
     <input type="hidden" name="step" value="2" />
     <?php wp_nonce_field('mec_book_form_'.$event_id); ?>
-    <button type="submit"><?php _e('Next', 'modern-events-calendar-lite'); ?></button>
+    <div class="mec-book-form-btn-wrap">
+        <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php _e('Next', 'modern-events-calendar-lite'); ?></button>
+        <button id="mec-book-form-back-btn-step-2" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php _e('Back', 'modern-events-calendar-lite'); ?></button>
+        
+    </div>
 </form>

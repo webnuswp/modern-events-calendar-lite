@@ -178,6 +178,7 @@ $this->factory->params('footer', $javascript);
     <form id="mec_fes_form" enctype="multipart/form-data">
         <?php
             $allday = get_post_meta($post_id, 'mec_allday', true);
+            $one_occurrence = get_post_meta($post_id, 'one_occurrence', true);
             $comment = get_post_meta($post_id, 'mec_comment', true);
             $hide_time = get_post_meta($post_id, 'mec_hide_time', true);
             $hide_end_time = get_post_meta($post_id, 'mec_hide_end_time', true);
@@ -642,6 +643,16 @@ $this->factory->params('footer', $javascript);
                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                                 </span>	                                
                             </div>
+                            <div class="mec-form-row">
+                                <input
+                                    <?php
+                                    if ($one_occurrence == '1') {
+                                        echo 'checked="checked"';
+                                    }
+                                    ?>
+                                        type="checkbox" name="mec[date][one_occurrence]" id="mec-one-occurrence" value="1"/><label
+                                        for="mec-one-occurrence"><?php _e('Show only one occurrence of this event', 'modern-events-calendar-lite'); ?></label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -693,7 +704,7 @@ $this->factory->params('footer', $javascript);
                 <h4><?php _e('Event Links', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
                     <label class="mec-col-2" for="mec_read_more_link"><?php echo $this->main->m('read_more_link', __('Event Link', 'modern-events-calendar-lite')); ?></label>
-                    <input class="mec-col-7" type="text" name="mec[read_more]" id="mec_read_more_link" value="<?php echo esc_attr($read_more); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>" />
+                    <input class="mec-col-9" type="text" name="mec[read_more]" id="mec_read_more_link" value="<?php echo esc_attr($read_more); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>" />
                     <p class="description"><?php _e('If you fill it, it will be replaced instead of default event page link. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?></p>
                 </div>
                 <div class="mec-form-row">
@@ -716,7 +727,7 @@ $this->factory->params('footer', $javascript);
                 <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?></h4>
                 <div id="mec_meta_box_cost_form">
                     <div class="mec-form-row">
-                        <input type="text" class="mec-col-6" name="mec[cost]" id="mec_cost" value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" />
+                        <input type="text" class="mec-col-3" name="mec[cost]" id="mec_cost" value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" />
                     </div>
                 </div>
             </div>

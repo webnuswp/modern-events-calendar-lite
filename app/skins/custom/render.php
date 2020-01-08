@@ -93,7 +93,6 @@ if($this->style == 'colorful')
                         $data->ID = get_the_ID();
                         $data->data = $rendered;
                         update_option( 'mec_sd_time_option', $date, true);
-                        update_option( 'mec_esd_time_option', $this->end_date, true);
                         $data->date = array
                         (
                             'start'=>array('date'=>$date),

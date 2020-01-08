@@ -153,6 +153,7 @@ class MEC_skin_daily_view extends MEC_skins
         $dates = $this->period($start, $end, true);
 
         $s = $this->start_date;
+
         $sorted = array();
         while(date('m', strtotime($s)) == $this->month)
         {

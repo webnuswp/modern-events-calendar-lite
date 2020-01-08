@@ -1,20 +1,20 @@
 <?php
 /** no direct access **/
 defined('MECEXEC') or die();
+
 $single = new MEC_skin_single();
 wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
 wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
 
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
-if (!is_array($booking_options)) {
-    $booking_options = array();
-}
+if(!is_array($booking_options)) $booking_options = array();
 
 $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) ? $booking_options['bookings_limit_for_users'] : 0;
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
     <?php do_action('mec_top_single_event' , get_the_ID()); ?>
     <article class="row mec-single-event">
+
         <!-- start breadcrumbs -->
         <?php
         $breadcrumbs_settings = isset( $settings['breadcrumbs'] ) ? $settings['breadcrumbs'] : '';
@@ -23,7 +23,8 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                 <?php  $single->display_breadcrumb_widget( get_the_ID() ); ?>
             </div>
         <?php endif; ?>
-        <!-- end breadcrumbs --> 
+        <!-- end breadcrumbs -->
+
         <div class="col-md-8">
             <div class="mec-events-event-image"><?php echo $event->data->thumbnails['full']; ?></div>
             <div class="mec-event-content">
@@ -77,11 +78,17 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                     // Event Date and Time
                     if(isset($event->data->meta['mec_date']['start']) and !empty($event->data->meta['mec_date']['start']))
                     {
+                        $midnight_event = $this->main->is_midnight_event($event);
                     ?>
                         <div class="mec-single-event-date">
                             <i class="mec-sl-calendar"></i>
                             <h3 class="mec-date"><?php _e('Date', 'modern-events-calendar-lite'); ?></h3>
-                            <dd><abbr class="mec-events-abbr"><?php if (!empty($event->date)): echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); endif; ?></abbr></dd>
+
+                            <?php if($midnight_event): ?>
+                            <dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
+                            <?php else: ?>
+                            <dd><abbr class="mec-events-abbr"><?php if(!empty($event->date)): echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); endif; ?></abbr></dd>
+                            <?php endif; ?>
                         </div>
 
                         <?php  
@@ -289,11 +296,17 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                 // Event Date and Time
                 if(isset($event->data->meta['mec_date']['start']) and !empty($event->data->meta['mec_date']['start']) and $single->found_value('data_time', $settings) == 'on')
                 {
+                    $midnight_event = $this->main->is_midnight_event($event);
                     ?>
                     <div class="mec-single-event-date">
                         <i class="mec-sl-calendar"></i>
                         <h3 class="mec-date"><?php _e('Date', 'modern-events-calendar-lite'); ?></h3>
+
+                        <?php if($midnight_event): ?>
+                        <dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
+                        <?php else: ?>
                         <dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
+                        <?php endif; ?>
                     </div>
 
                     <?php  

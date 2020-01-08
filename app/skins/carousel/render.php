@@ -134,10 +134,11 @@ $settings = $this->main->get_settings();
                         <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days') : ?>
                             <span class="mec-event-date-info"><?php echo date_i18n($this->date_format_type2_1, strtotime($event->date['start']['date'])); ?></span>
                         <?php else: ?>
-                            <span class="mec-event-date-info"><?php echo $this->main->date_label($event->date['start'], $event->date['end'], $this->date_format_type2_1); ?></span>
+                            <span class="mec-event-date-info"><?php echo $this->main->dateify($event, $this->date_format_type2_1); ?></span>
                         <?php endif; ?>
                         <?php do_action('mec_carousel_type2_before_title' , $event); ?>
-                        <h4 class="mec-event-carousel-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date); ?></h4>
+                        <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
+                        <h4 class="mec-event-carousel-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout; ?></h4>
                         <?php do_action('mec_carousel_type2_after_title' , $event); ?>
                         <p><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
                     </div>
@@ -156,7 +157,7 @@ $settings = $this->main->get_settings();
                             </li>
                         </ul>
                     <?php endif; ?>
-                        <a class="mec-booking-button mec-bg-color-hover mec-border-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets)) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
+                        <a class="mec-booking-button mec-bg-color-hover mec-border-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
                     </div>
                 </div>
                 <?php elseif($this->style == 'type3'): ?>
@@ -174,9 +175,10 @@ $settings = $this->main->get_settings();
                         <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days') : ?>
                             <div class="mec-event-date-info"><?php echo date_i18n($this->date_format_type3_1, strtotime($event->date['start']['date'])); ?></div>
                         <?php else: ?>
-                            <span class="mec-event-date-info"><?php echo $this->main->date_label($event->date['start'], $event->date['end'], $this->date_format_type3_1); ?></span>
+                            <span class="mec-event-date-info"><?php echo $this->main->dateify($event, $this->date_format_type3_1); ?></span>
                         <?php endif; ?>
-                        <h4 class="mec-event-carousel-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date); ?></h4>
+                        <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
+                        <h4 class="mec-event-carousel-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout; ?></h4>
                         <p><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
                         <?php if($settings['social_network_status'] != '0') : ?>
                             <ul class="mec-event-sharing-wrap">
@@ -192,7 +194,7 @@ $settings = $this->main->get_settings();
                                 </li>
                             </ul>
                         <?php endif; ?>
-                        <a class="mec-booking-button mec-bg-color-hover mec-border-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets)) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
+                        <a class="mec-booking-button mec-bg-color-hover mec-border-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
                     </div>
                 </div>
                 <?php elseif($this->style == 'type4'): ?>

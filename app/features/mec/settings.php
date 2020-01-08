@@ -19,33 +19,17 @@ if($this->getPRO())
     $verify = $envato->get_MEC_info('dl');
 }
 
+echo $this->main->mec_custom_msg('', '');
 
-$data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-get-extra.html';  
-if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
-{
-    $get_data = file_get_contents($data_url);
-}
-elseif ( function_exists('curl_version') )
-{
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, $data_url);
-    $get_data = curl_exec($ch);
-    curl_close($ch);
-    
-} else {
-    $get_data = '';
-}
-if (!empty($get_data)) echo $get_data;
-
+// Display Addons Notification
 $get_n_option = get_option('mec_addons_notification_option');
 if ( $get_n_option != 'open' ) :
+    echo '<div class="wns-be-container mec-addons-notification-set-box extra">';
+        echo $this->main->addons_msg();
+    echo '</div>';
+endif;
 ?>
-<div class="wns-be-container mec-addons-notification-set-box extra">
-    <?php echo $this->main->addons_msg(); ?>
-</div>
-<?php endif; ?>
+
 <div class="wns-be-container wns-be-container-sticky">
     <div id="wns-be-infobar">
         <div class="mec-search-settings-wrap">
@@ -57,7 +41,6 @@ if ( $get_n_option != 'open' ) :
 
     <div class="wns-be-sidebar">
         <?php $this->main->get_sidebar_menu('settings'); ?>
-       
     </div>
 
     <div class="wns-be-main">
@@ -212,6 +195,27 @@ if ( $get_n_option != 'open' ) :
                                     </span>
                                 </div>
 
+                            </div>
+
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_midnight_hour"><?php _e('Midnight Hour', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-4">
+                                    <select id="mec_settings_midnight_hour" name="mec[settings][midnight_hour]">
+                                        <option value="0" <?php if(isset($settings['midnight_hour']) and !$settings['midnight_hour']) echo 'selected="selected"'; ?>><?php _e('12 AM', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="1" <?php if(isset($settings['midnight_hour']) and $settings['midnight_hour'] == '1') echo 'selected="selected"'; ?>><?php _e('1 AM', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="2" <?php if(isset($settings['midnight_hour']) and $settings['midnight_hour'] == '2') echo 'selected="selected"'; ?>><?php _e('2 AM', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="3" <?php if(isset($settings['midnight_hour']) and $settings['midnight_hour'] == '3') echo 'selected="selected"'; ?>><?php _e('3 AM', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="4" <?php if(isset($settings['midnight_hour']) and $settings['midnight_hour'] == '4') echo 'selected="selected"'; ?>><?php _e('4 AM', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="5" <?php if(isset($settings['midnight_hour']) and $settings['midnight_hour'] == '5') echo 'selected="selected"'; ?>><?php _e('5 AM', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php _e('Midnight Hour', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("12 AM is midnight by default but you can change it if your event ends after 12 AM and you don't want those events considered as multiple days events!", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/general-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
                             </div>
 
                         </div>
@@ -888,6 +892,77 @@ if ( $get_n_option != 'open' ) :
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="campaign_monitor_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('Campaign Monitor Integration', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][campm_status]" value="0" />
+                                        <input onchange="jQuery('#mec_campm_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][campm_status]" <?php if(isset($settings['campm_status']) and $settings['campm_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable Campaign Monitor Integration', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_campm_status_container_toggle" class="<?php if((isset($settings['campm_status']) and !$settings['campm_status']) or !isset($settings['campm_status'])) echo 'mec-util-hidden'; ?>">
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_campm_api_key"><?php _e('API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_campm_api_key" name="mec[settings][campm_api_key]" value="<?php echo ((isset($settings['campm_api_key']) and trim($settings['campm_api_key']) != '') ? $settings['campm_api_key'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_campm_list_id"><?php _e('List ID', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_campm_list_id" name="mec[settings][campm_list_id]" value="<?php echo ((isset($settings['campm_list_id']) and trim($settings['campm_list_id']) != '') ? $settings['campm_list_id'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="mailerlite_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('MailerLite Integration', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][mailerlite_status]" value="0" />
+                                        <input onchange="jQuery('#mec_mailerlite_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][mailerlite_status]" <?php if(isset($settings['mailerlite_status']) and $settings['mailerlite_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable MailerLite Integration', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_mailerlite_status_container_toggle" class="<?php if((isset($settings['mailerlite_status']) and !$settings['mailerlite_status']) or !isset($settings['mailerlite_status'])) echo 'mec-util-hidden'; ?>">
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_mailerlite_api_key"><?php _e('API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_mailerlite_api_key" name="mec[settings][mailerlite_api_key]" value="<?php echo ((isset($settings['mailerlite_api_key']) and trim($settings['mailerlite_api_key']) != '') ? $settings['mailerlite_api_key'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_mailerlite_list_id"><?php _e('Group ID', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_mailerlite_list_id" name="mec[settings][mailerlite_list_id]" value="<?php echo ((isset($settings['mailerlite_list_id']) and trim($settings['mailerlite_list_id']) != '') ? $settings['mailerlite_list_id'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="constantcontact_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('Constant Contact Integration', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][constantcontact_status]" value="0" />
+                                        <input onchange="jQuery('#mec_constantcontact_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][constantcontact_status]" <?php if(isset($settings['constantcontact_status']) and $settings['constantcontact_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable constantcontact Integration', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_constantcontact_status_container_toggle" class="<?php if((isset($settings['constantcontact_status']) and !$settings['constantcontact_status']) or !isset($settings['constantcontact_status'])) echo 'mec-util-hidden'; ?>">
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_constantcontact_api_key"><?php _e('API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_constantcontact_api_key" name="mec[settings][constantcontact_api_key]" value="<?php echo ((isset($settings['constantcontact_api_key']) and trim($settings['constantcontact_api_key']) != '') ? $settings['constantcontact_api_key'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_constantcontact_list_id"><?php _e('List ID', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_constantcontact_list_id" name="mec[settings][constantcontact_list_id]" value="<?php echo ((isset($settings['constantcontact_list_id']) and trim($settings['constantcontact_list_id']) != '') ? $settings['constantcontact_list_id'] : ''); ?>" />
                                         </div>
                                     </div>
                                 </div>

@@ -59,10 +59,7 @@ class MEC_db extends MEC_base
 	public function num($query, $table = '')
 	{
         // If table is filled, generate the query
-		if(trim($table) != '')
-		{
-			$query = "SELECT COUNT(*) FROM `#__$table`";
-		}
+		if(trim($table) != '') $query = "SELECT COUNT(*) FROM `#__$table`";
 		
 		// Apply DB prefix
 		$query = $this->_prefix($query);

@@ -212,7 +212,6 @@ class MEC_skin_weekly_view extends MEC_skins
                     else $occurrence = NULL;
                     $dates = $this->render->dates(get_the_ID(), $rendered, $this->maximum_dates, $occurrence);
 
-
                     $data = new stdClass();
                     $data->ID = get_the_ID();
                     $data->data = $rendered;

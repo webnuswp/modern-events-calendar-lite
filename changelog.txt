@@ -1,4 +1,18 @@
-﻿v 4.9.5 - 24 December 2019
+﻿v 5.0.0 - 8 January 2020
+- Added: An option to change MEC midnight hour for those events that span after the actual midnight
+- Added: A per event option to show only one occurrence of the event
+- Added: "Back Button" for booking form so users can simply navigate to previous step if needed (pro)
+- Added: Filter by category on masonry skin when trying to load more events
+- Added: Campaign Monitor Integration (pro)
+- Added: MailerLite Integration (pro)
+- Added: Constant Contact Integration (pro)
+- Replaced: "Attendees" menu from back-end with new "Report" page (pro)
+- Added: Booking report page (pro)
+- Improved: Make date filter disabled by default on list and grid skins to avoid confusion
+- Fixed: Register link when all tickets are sold (pro)
+- Fixed: Advanced repeat type
+
+v 4.9.5 - 24 December 2019
 - Added: An option to set minimum sale for tickets (pro)
 - Added: A new badge for new events to inform administrator
 - Added: An option for Facebook importer to import Facebook link as event link (pro)

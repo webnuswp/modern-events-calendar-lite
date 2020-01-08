@@ -51,7 +51,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
 do_action('mec_start_skin' , $this->id);
 do_action('mec_masonry_skin_head');
 ?>
-<div class="mec-wrap mec-skin-masonry-container<?php echo $event_colorskin; ?><?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
+<div class="mec-wrap mec-skin-masonry-container<?php echo $event_colorskin; ?><?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>" data-filterby="<?php echo trim($this->filter_by) ? trim($this->filter_by) : ''; ?>">
     <?php if(trim($this->filter_by)) echo $this->filter_by(); ?>
 
     <?php if($this->found): ?>

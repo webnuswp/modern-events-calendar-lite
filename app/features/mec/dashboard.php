@@ -118,6 +118,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
             </div>
         </div>
         <?php endif; ?>
+        <?php echo $this->mec_custom_msg('yes', 'yes'); ?>
         <?php echo $this->addons_msg(); ?>
         <div class="w-row">
             <div class="w-col-sm-12">

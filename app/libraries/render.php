@@ -221,8 +221,7 @@ class MEC_render extends MEC_base
      */
     public function vcustom($atts)
     {
-        if (isset($this->settings['custom_archive']) && !empty($this->settings['custom_archive']))
-        echo do_shortcode( $this->settings['custom_archive'] );
+        if(isset($this->settings['custom_archive']) && !empty($this->settings['custom_archive'])) echo do_shortcode( $this->settings['custom_archive'] );
     }
     
     /**
@@ -270,7 +269,6 @@ class MEC_render extends MEC_base
         {
             return $this->vmonth(array_merge($atts, array('sk-options'=>array('monthly_view'=>array('style'=>$monthly_skin)))));
         }
-
 
         if($this->settings['default_skin_archive'] == 'monthly_view') $content = $this->vmonth(array_merge($atts, array('sk-options'=>array('monthly_view'=>array('style'=>$monthly_skin)))));
         elseif($this->settings['default_skin_archive'] == 'full_calendar') $content = $this->vdefaultfull($atts);
@@ -354,10 +352,7 @@ class MEC_render extends MEC_base
      */
     public function parse($post_id, $atts = array())
     {
-        if ( $this->post_atts )
-        {
-            return wp_parse_args($atts, $this->post_atts);
-        }
+        if($this->post_atts) return wp_parse_args($atts, $this->post_atts);
 
         $post_atts = array();
         if($post_id) $post_atts = $this->main->get_post_meta($post_id);
@@ -478,7 +473,6 @@ class MEC_render extends MEC_base
 
         $data->tickets = isset($meta['mec_tickets']) ? $meta['mec_tickets'] : array();
         $data->color = isset($meta['mec_color']) ? $meta['mec_color'] : '';
-        
         $data->permalink = ((isset($meta['mec_read_more']) and filter_var($meta['mec_read_more'], FILTER_VALIDATE_URL)) ? $meta['mec_read_more'] : get_post_permalink($post_id));
         
         // Thumbnails
@@ -521,7 +515,6 @@ class MEC_render extends MEC_base
         if(isset($this->settings['speakers_status']) and $this->settings['speakers_status']) $taxonomies[] = 'mec_speaker';
 
         $terms = wp_get_post_terms($post_id, $taxonomies, array('fields'=>'all'));
-
         foreach($terms as $term)
         {
             // First Validation
@@ -881,6 +874,7 @@ class MEC_render extends MEC_base
 
                 // Generate dates for event
                 $event_info = array('start' => $start_date, 'end' => $end_date, 'allday' => $allday, 'hide_time' => $hide_time, 'finish_date' => $finish_date['date'], 'exceptional_days' => $exceptional_days, 'mec_repeat_end' => $event->meta['mec_repeat']['end'], 'occurrences' => $event->meta['mec_repeat']['end_at_occurrences']);
+
                 $dates = $this->generate_advanced_days($advanced_days, $event_info, $maximum, $today);
             }
         }
@@ -904,12 +898,14 @@ class MEC_render extends MEC_base
         if(!trim($referer_date)) $referer_date = date('Y-m-d', current_time('timestamp', 0));
     
         $levels = array('first', 'second', 'third', 'fourth', 'last');
-        $year = date('Y');
+        $year = date('Y', strtotime($event_info['start']['date']));
         $dates = array();
     
         // Set last month for include current month results
         $month = date('m', strtotime('first day of last month', strtotime($event_info['start']['date'])));
-        $current_day = date("d");
+        $current_day = date("d", strtotime($event_info['start']['date']));
+
+        if($month == '12') $year = $year - 1;
     
         $maximum = intval($maximum);
         $i = 0;
@@ -926,7 +922,7 @@ class MEC_render extends MEC_base
         $mec_repeat_end = array_key_exists('mec_repeat_end', $event_info) ? $event_info['mec_repeat_end'] : '';
         $occurrences = array_key_exists('occurrences', $event_info) ? $event_info['occurrences'] : 0;
     
-        // Include default start date to resualts
+        // Include default start date to results
         if(!$this->main->is_past($start_date['date'], $referer_date) and !in_array($start_date['date'], $exceptional_days)) 
         {
             $dates[] = array(
@@ -941,7 +937,7 @@ class MEC_render extends MEC_base
         }
     
         $referer_date = $event_info['start']['date'];
-        while($i < $maximum) 
+        while($i < $maximum)
         {
             foreach($advanced_days as $day)
             {
@@ -957,14 +953,14 @@ class MEC_render extends MEC_base
                 $date = "{$year}-{$month}-{$current_day}";
     
                 // Generate start date for example "first Sun of next month"
-                $start = date('Y-m-d', strtotime("{$levels[$index]} {$d[0]} of next month", strtotime(date($date))));
+                $start = date('Y-m-d', strtotime("{$levels[$index]} {$d[0]} of next month", strtotime($date)));
                 $end = date('Y-m-d', strtotime("+{$event_period_days} Days", strtotime($start)));
     
                 // When ends repeat date set
-                if ($mode == 'render' and $this->main->is_past($finish_date, $start)) continue;
+                if($mode == 'render' and $this->main->is_past($finish_date, $start)) continue;
     
                 // Jump to next level if start date is past
-                if ($this->main->is_past($start, $referer_date) or in_array($start, $exceptional_days)) continue;
+                if($this->main->is_past($start, $referer_date) or in_array($start, $exceptional_days)) continue;
     
                 // Add dates
                 $dates[] = array(
@@ -974,10 +970,11 @@ class MEC_render extends MEC_base
                         'minutes' => $start_date['minutes'],
                         'ampm' => $start_date['ampm'],
                     ),
-                    'end' => array('date' => $end,
-                    'hour' => $end_date['hour'],
-                    'minutes' => $end_date['minutes'],
-                    'ampm' => $end_date['ampm'],
+                    'end' => array(
+                        'date' => $end,
+                        'hour' => $end_date['hour'],
+                        'minutes' => $end_date['minutes'],
+                        'ampm' => $end_date['ampm'],
                     ),
                     'allday' => $allday,
                     'hide_time' => $hide_time,

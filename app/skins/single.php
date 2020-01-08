@@ -628,23 +628,33 @@ class MEC_skin_single extends MEC_skins
     function display_date_widget($event)
     {
         $occurrence = (isset($event->date['start']['date']) ? $event->date['start']['date'] : (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : ''));
-        $occurrence_end_date 	= trim($occurrence) ? $this->main->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
+        $occurrence_end_date = trim($occurrence) ? $this->main->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
+        $midnight_event = $this->main->is_midnight_event($event);
+
         echo '<div class="mec-event-meta">';
+
         // Event Date
-        if (isset($event->data->meta['mec_date']['start']) and !empty($event->data->meta['mec_date']['start'])) {
+        if(isset($event->data->meta['mec_date']['start']) and !empty($event->data->meta['mec_date']['start']))
+        {
             ?>
             <div class="mec-single-event-date">
                 <i class="mec-sl-calendar"></i>
                 <h3 class="mec-date"><?php _e('Date', 'mec-single-builder'); ?></h3>
-                <dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date' => $occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date' => $occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), 'M d Y'); ?></abbr></dd>
+
+                <?php if($midnight_event): ?>
+                <dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
+                <?php else: ?>
+                <dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date' => $occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date' => $occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
+                <?php endif; ?>
             </div>
             <?php
         }
+
         echo '</div>';
     }
 
     /**
-     * @param object More Info widget
+     * @param object
      * @return void
      */
     function display_more_info_widget($event)

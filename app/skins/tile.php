@@ -170,6 +170,9 @@ class MEC_skin_tile extends MEC_skins
         $events = array();
         foreach($dates as $date=>$IDs)
         {
+            // No Event
+            if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) continue;
+
             // Include Available Events
             $this->args['post__in'] = $IDs;
 
@@ -177,12 +180,12 @@ class MEC_skin_tile extends MEC_skins
             $query = new WP_Query($this->args);
             if($query->have_posts())
             {
+                if(!isset($events[$date])) $events[$date] = array();
+
                 // The Loop
                 while($query->have_posts())
                 {
                     $query->the_post();
-
-                    if(!isset($events[$date])) $events[$date] = array();
 
                     $rendered = $this->render->data(get_the_ID());
 

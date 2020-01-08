@@ -206,6 +206,11 @@ class MEC_skin_masonry extends MEC_skins
     public function load_more()
     {
         $this->sf = $this->request->getVar('sf', array());
+
+        $mec_filter_by = $this->request->getVar('mec_filter_by', '');
+        $mec_filter_value = $this->request->getVar('mec_filter_value', '');
+        if($mec_filter_by and ($mec_filter_value and $mec_filter_value != '*')) $this->sf[$mec_filter_by] = $mec_filter_value;
+
         $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
         $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
         

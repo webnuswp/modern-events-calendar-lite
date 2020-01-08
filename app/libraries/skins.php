@@ -499,6 +499,9 @@ class MEC_skins extends MEC_base
         $today = current_time('Y-m-d');
         $now = current_time('timestamp', 0);
 
+        // Midnight Hour
+        $midnight_hour = (isset($this->settings['midnight_hour']) and $this->settings['midnight_hour']) ? $this->settings['midnight_hour'] : 0;
+
         $dates = array();
         foreach($mec_dates as $mec_date)
         {
@@ -556,11 +559,20 @@ class MEC_skins extends MEC_base
                             }
                             else $days = '';
 
-                            if(strpos($days, $d) === false) $dates[$d][] = $mec_date->post_id; 
+                            if(strpos($days, $d) === false)
+                            {
+                                $midnight = $s+(3600*$midnight_hour);
+                                if($midnight >= $mec_date->tend) break;
+
+                                $dates[$d][] = $mec_date->post_id;
+                            }
                             else $dates[$d][] = NULL;
                         }
                         else
                         {
+                            $midnight = $s+(3600*$midnight_hour);
+                            if($midnight >= $mec_date->tend) break;
+
                             $dates[$d][] = $mec_date->post_id;
                         }
                     }
@@ -570,6 +582,25 @@ class MEC_skins extends MEC_base
             }
         }
 
+        // Show only one occurrence of events
+        $first_event = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart` >= {$now} GROUP BY `post_id` ORDER BY `tstart`");
+
+        foreach($dates as $date => $event_ids)
+        {
+            if(!is_array($event_ids) or (is_array($event_ids) and !count($event_ids))) continue;
+
+            foreach($event_ids as $index => $event_id)
+            {
+                $one_occurrence = get_post_meta($event_id, 'one_occurrence', true);
+                if($one_occurrence != '1') continue;
+
+                if(isset($first_event[$event_id]->tstart) and strtotime($date) >= $first_event[$event_id]->tstart)
+                {
+                    $dates[$date][$index] = '';
+                }
+            }
+        }
+        
         return $dates;
     }
     
@@ -604,6 +635,9 @@ class MEC_skins extends MEC_base
 
         foreach($dates as $date=>$IDs)
         {
+            // No Event
+            if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) continue;
+
             // Include Available Events
             $this->args['post__in'] = $IDs;
 
@@ -626,12 +660,12 @@ class MEC_skins extends MEC_base
             $query = new WP_Query($this->args);
             if($query->have_posts())
             {
+                if(!isset($events[$date])) $events[$date] = array();
+
                 // The Loop
                 while($query->have_posts())
                 {
                     $query->the_post();
-
-                    if(!isset($events[$date])) $events[$date] = array();
 
                     $rendered = $this->render->data(get_the_ID());
 
@@ -955,17 +989,21 @@ class MEC_skins extends MEC_base
             {
                 $time = isset($this->start_date) ? strtotime($this->start_date) : '';
 
-                $output .= '<div class="mec-date-search">
+                $skins = array('list', 'grid');
+                if(isset($this->skin_options['default_view']) and $this->skin_options['default_view'] == 'list') array_push($skins, 'full_calendar');
+
+                $item = __('none', 'modern-events-calendar-lite');
+                $option = in_array($this->skin, $skins) ? '<option class="mec-none-item" value="none" selected="selected">'.$item.'</option>' : '';
+
+                $output .= '<div class="mec-date-search"><input type="hidden" id="mec-filter-none" value="'.$item.'">
                     <i class="mec-sl-calendar"></i>
                     <select id="mec_sf_month_'.$this->id.'">';
 
-                $output .= in_array($this->skin, array('list', 'grid')) ? '<option id="mec_sf_skip_date_'.$this->id.'" value="ignore_date">'.__('Ignore month and years', 'modern-events-calendar-lite').'</option>' : '';
-
-                $m = date('m', $time);
+                $output .= $option;
                 $Y = date('Y', $time);
 
-                for($i = 1; $i <= 12; $i++) $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'" '.($i == $m ? 'selected="selected"' : '').'>'.date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
-                $output .= '</select><select id="mec_sf_year_'.$this->id.'">';
+                for($i = 1; $i <= 12; $i++) $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'" >'.date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
+                $output .= '</select><select id="mec_sf_year_'.$this->id.'">'.$option;
 
                 $start_year = $min_start_year = $this->db->select("SELECT MIN(cast(meta_value as unsigned)) AS date FROM `#__postmeta` WHERE `meta_key`='mec_start_date'", 'loadResult');
                 $end_year = $max_end_year = $this->db->select("SELECT MAX(cast(meta_value as unsigned)) AS date FROM `#__postmeta` WHERE `meta_key`='mec_end_date'", 'loadResult');
@@ -987,7 +1025,7 @@ class MEC_skins extends MEC_base
 
                 for($i = $start_year; $i <= $end_year; $i++)
                 {
-                    $output .= '<option value="'.$i.'" '.($i == $Y ? 'selected="selected"' : '').'>'.$i.'</option>';
+                    $output .= '<option value="'.$i.'" >'.$i.'</option>';
                 }
 
                 $output .= '</select></div>';

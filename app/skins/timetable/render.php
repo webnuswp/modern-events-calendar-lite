@@ -177,4 +177,42 @@ $settings = $this->main->get_settings();
     </div>
     <?php endforeach; ?>
 </div>
+<?php elseif($this->style == 'classic'): ?>
+<div class="mec-timetable-t3-wrap">
+    <table>
+        <thead>
+            <tr>
+                <td>Time/Date</td>
+                <?php foreach($this->events as $date=>$events): ?>
+                <td><?php echo date_i18n('l', strtotime($date)); ?></td>
+                <?php endforeach; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i=$this->start_time; $i <= $this->end_time; $i++): ?>
+                <tr class="mec-timetable-row-wrap mec-timetable-row-<?php echo $i; ?>" height="110">
+                    <td style="vertical-align:middle;text-align: center;"><?php echo $i; ?>:00</td>
+                    <?php foreach($this->events as $date=>$events): ?>
+                        <?php if ( !empty ( $events ) ) : ?>
+                        <td colspan="1" style="vertical-align:top;text-align: center;">
+                            <?php foreach($events as $event): ?>
+                                <?php 
+                                if ( $event->data->meta['mec_date']['start']['hour'] == $i ) 
+                                {
+                                ?>
+                                <a class="mec-color-hover" style="background: #<?php echo $event->data->meta['mec_color']; ?>" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
+                                <?php
+                                }  
+                                ?>
+                            <?php endforeach; ?>
+                        </td>
+                        <?php else: ?>
+                        <td colspan="1" style="vertical-align:middle;text-align: center;"></td>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endfor; ?>  
+        </tbody>
+    </table>
+</div>
 <?php endif; ?>

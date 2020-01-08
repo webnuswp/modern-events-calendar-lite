@@ -208,6 +208,7 @@ $events = $this->main->get_events();
                         <option value="simple" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'simple') echo 'selected="selected"'; ?>><?php _e('Simple', 'modern-events-calendar-lite'); ?></option>
                         <option value="colorful" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'colorful') echo 'selected="selected"'; ?>><?php _e('Colorful', 'modern-events-calendar-lite'); ?></option>
                         <option value="novel" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'novel') echo 'selected="selected"'; ?>><?php _e('Novel', 'modern-events-calendar-lite'); ?></option>
+                        <?php do_action('mec_grid_fluent' , $sk_options_grid['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -763,9 +764,10 @@ $events = $this->main->get_events();
                 <?php $sk_options_timetable = isset($sk_options['timetable']) ? $sk_options['timetable'] : array(); ?>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_timetable_style"><?php _e('Style', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-4 wn-mec-select" name="mec[sk-options][timetable][style]" id="mec_skin_timetable_style" onchange="mec_skin_style_changed('timetable', this.value); if(this.value == 'clean'){ jQuery('.mec-timetable-clean-style-depended').show(); jQuery('.mec-timetable-modern-style-depended').hide(); } else { jQuery('.mec-timetable-clean-style-depended').hide(); jQuery('.mec-timetable-modern-style-depended').show(); }">
+                    <select class="mec-col-4 wn-mec-select" name="mec[sk-options][timetable][style]" id="mec_skin_timetable_style" onchange="mec_skin_style_changed('timetable', this.value); if(this.value == 'clean'){ jQuery('.mec-timetable-clean-style-depended').show(); jQuery('.mec-timetable-classic-style-depended').hide(); jQuery('.mec-timetable-modern-style-depended').hide(); } else if ( this.value == 'classic' ) { jQuery('.mec-timetable-classic-style-depended').show(); jQuery('.mec-timetable-clean-style-depended').show(); jQuery('.mec-timetable-modern-style-depended').hide(); } else { jQuery('.mec-timetable-clean-style-depended').hide(); jQuery('.mec-timetable-classic-style-depended').hide(); jQuery('.mec-timetable-modern-style-depended').show(); }">
                         <option value="modern" <?php if(isset($sk_options_timetable['style']) and $sk_options_timetable['style'] == 'modern') echo 'selected="selected"'; ?>><?php _e('Modern', 'modern-events-calendar-lite'); ?></option>
                         <option value="clean" <?php if(isset($sk_options_timetable['style']) and $sk_options_timetable['style'] == 'clean') echo 'selected="selected"'; ?>><?php _e('Clean', 'modern-events-calendar-lite'); ?></option>
+                        <!-- <option value="classic" <?php if(isset($sk_options_timetable['style']) and $sk_options_timetable['style'] == 'classic') echo 'selected="selected"'; ?>><?php _e('Classic', 'modern-events-calendar-lite'); ?></option> -->
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -806,6 +808,39 @@ $events = $this->main->get_events();
                             <option value="5" <?php if(isset($sk_options_timetable['week_start']) and $sk_options_timetable['week_start'] == '5') echo 'selected="selected"'; ?>><?php _e('Friday', 'modern-events-calendar-lite'); ?></option>
                             <option value="6" <?php if(isset($sk_options_timetable['week_start']) and $sk_options_timetable['week_start'] == '6') echo 'selected="selected"'; ?>><?php _e('Saturday', 'modern-events-calendar-lite'); ?></option>
                         </select>
+                    </div>
+                </div>
+                <div class="mec-timetable-classic-style-depended">
+                    <div class="mec-form-row">
+                        <label class="mec-col-4" for="mec_skin_grid_clean_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
+                        <select class="mec-col-2 wn-mec-select" name="mec[sk-options][timetable][start_time]" id="mec_skin_timetable_start_time">
+                            <option value="1" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '1') echo 'selected="selected"'; ?>><?php _e('1:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="2" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '2') echo 'selected="selected"'; ?>><?php _e('2:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="3" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '3') echo 'selected="selected"'; ?>><?php _e('3:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="4" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '4') echo 'selected="selected"'; ?>><?php _e('4:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="5" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '5') echo 'selected="selected"'; ?>><?php _e('5:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="6" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '6') echo 'selected="selected"'; ?>><?php _e('6:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="7" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '7') echo 'selected="selected"'; ?>><?php _e('7:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="8" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '8') echo 'selected="selected"'; ?>><?php _e('8:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="9" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '9') echo 'selected="selected"'; ?>><?php _e('9:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="10" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '10') echo 'selected="selected"'; ?>><?php _e('10:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="11" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '11') echo 'selected="selected"'; ?>><?php _e('11:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="12" <?php if(isset($sk_options_timetable['start_time']) and $sk_options_timetable['start_time'] == '12') echo 'selected="selected"'; ?>><?php _e('12:00', 'modern-events-calendar-lite'); ?></option>
+                        </select>
+                        <select class="mec-col-2 wn-mec-select" name="mec[sk-options][timetable][end_time]" id="mec_skin_timetable_end_time">
+                            <option value="13" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '13') echo 'selected="selected"'; ?>><?php _e('13:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="14" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '14') echo 'selected="selected"'; ?>><?php _e('14:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="15" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '15') echo 'selected="selected"'; ?>><?php _e('15:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="16" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '16') echo 'selected="selected"'; ?>><?php _e('16:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="17" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '17') echo 'selected="selected"'; ?>><?php _e('17:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="18" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '18') echo 'selected="selected"'; ?>><?php _e('18:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="19" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '19') echo 'selected="selected"'; ?>><?php _e('19:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="20" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '20') echo 'selected="selected"'; ?>><?php _e('20:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="21" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '21') echo 'selected="selected"'; ?>><?php _e('21:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="22" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '22') echo 'selected="selected"'; ?>><?php _e('22:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="23" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '23') echo 'selected="selected"'; ?>><?php _e('23:00', 'modern-events-calendar-lite'); ?></option>
+                            <option value="24" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '24') echo 'selected="selected"'; ?>><?php _e('24:00', 'modern-events-calendar-lite'); ?></option>
+                        </select>                                        
                     </div>
                 </div>
                 <div class="mec-timetable-modern-style-depended">
@@ -1316,8 +1351,8 @@ $events = $this->main->get_events();
                 </div>
                 <div class="mec-form-row mec-skin-tile-date-format-container <?php if(isset($sk_options_tile['style']) and $sk_options_tile['style'] != 'clean') echo 'mec-util-hidden'; ?>" id="mec_skin_tile_date_format_clean_container">
                     <label class="mec-col-4" for="mec_skin_tile_minimal_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
-                    <input type="text" class="mec-col-3" name="mec[sk-options][tile][clean_date_format1]" id="mec_skin_tile_clean_date_format1" value="<?php echo ((isset($sk_options_tile['clean_date_format1']) and trim($sk_options_tile['clean_date_format1']) != '') ? $sk_options_tile['clean_date_format1'] : 'j'); ?>" />
-                    <input type="text" class="mec-col-3" name="mec[sk-options][tile][clean_date_format2]" id="mec_skin_tile_clean_date_format2" value="<?php echo ((isset($sk_options_tile['clean_date_format2']) and trim($sk_options_tile['clean_date_format2']) != '') ? $sk_options_tile['clean_date_format2'] : 'M'); ?>" />
+                    <input type="text" class="mec-col-2" name="mec[sk-options][tile][clean_date_format1]" id="mec_skin_tile_clean_date_format1" value="<?php echo ((isset($sk_options_tile['clean_date_format1']) and trim($sk_options_tile['clean_date_format1']) != '') ? $sk_options_tile['clean_date_format1'] : 'j'); ?>" />
+                    <input type="text" class="mec-col-2" name="mec[sk-options][tile][clean_date_format2]" id="mec_skin_tile_clean_date_format2" value="<?php echo ((isset($sk_options_tile['clean_date_format2']) and trim($sk_options_tile['clean_date_format2']) != '') ? $sk_options_tile['clean_date_format2'] : 'M'); ?>" />
                     <span class="mec-tooltip">
                         <div class="box top">
                             <h5 class="title"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></h5>
@@ -1408,6 +1443,11 @@ $events = $this->main->get_events();
         jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="weekly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-weekly.png" /></span>');
         jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="monthly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-monthly.png" /></span>');
         jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="yearly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-yearly.png" /></span>');
+
+        /** FullCalendar View Skins > Monthly Style */
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-clean.png" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="novel"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-novel.png" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="simple"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-simple.png" /></span>');
 
         /** Yearly View Skins */
         jQuery('#mec_yearly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/yearly/yearly-modern.png" /></span>');

@@ -1,10 +1,9 @@
 <?php
 /** no direct access **/
 defined('MECEXEC') or die();
+
 $booking_options = get_post_meta($event->data->ID, 'mec_booking', true);
-if (!is_array($booking_options)) {
-    $booking_options = array();
-}
+if(!is_array($booking_options)) $booking_options = array();
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?> mec-modal-wrap" id="mec_skin_<?php echo $this->uniqueid; ?>" data-unique-id="<?php echo $this->uniqueid; ?>">
     <article class="mec-single-event mec-single-modern mec-single-modal">

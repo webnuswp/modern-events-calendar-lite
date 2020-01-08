@@ -124,10 +124,7 @@ class MEC_book extends MEC_base
         $fees = get_post_meta($event_id, 'mec_fees', true);
 
         // Get fees from global options
-        if($fees_global_inheritance)
-        {
-            $fees = isset($this->settings['fees']) ? $this->settings['fees'] : array();
-        }
+        if($fees_global_inheritance) $fees = isset($this->settings['fees']) ? $this->settings['fees'] : array();
 
         return $fees;
     }
@@ -223,8 +220,7 @@ class MEC_book extends MEC_base
         // For Badget Bubble Notification Alert Count From It.
         update_post_meta($book_id, 'mec_book_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
-        if (!empty($location_id)) update_post_meta($book_id, 'mec_booking_location', $location_id);
-
+        if(!empty($location_id)) update_post_meta($book_id, 'mec_booking_location', $location_id);
         if(isset($values['mec_attendees'])) update_post_meta($book_id, 'mec_attendees', $values['mec_attendees']);
 
         $price = isset($transaction['price']) ? $transaction['price'] : (isset($transaction['total']) ? $transaction['total'] : 0);
@@ -374,7 +370,7 @@ class MEC_book extends MEC_base
      * @param int $event_id
      * @param string $date
      * @param string $mode
-     * @return array
+     * @return array|integer
      */
     public function get_tickets_availability($event_id, $date, $mode = 'availability')
     {   
@@ -410,9 +406,9 @@ class MEC_book extends MEC_base
 
         $ex = explode('-', $date);
 
-        $year = $ex[0];
-        $month = $ex[1];
-        $day = $ex[2];
+        $year = isset($ex[0]) ? $ex[0] : NULL;
+        $month = isset($ex[1]) ? $ex[1] : NULL;
+        $day = isset($ex[2]) ? $ex[2] : NULL;
 
         $booked = 0;
         foreach($tickets as $ticket_id=>$ticket)
@@ -452,7 +448,6 @@ class MEC_book extends MEC_base
             }
 
             if($total_bookings_limit > 0) $total_bookings_limit = max(($total_bookings_limit - $bookings), 0);
-
             $booked += $bookings;
 
             // Restore original Post Data
@@ -751,11 +746,7 @@ class MEC_book extends MEC_base
         // No Ticket Found!
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets))) return $prices;
 
-        foreach($tickets as $ticket_id=>$ticket)
-        {
-            $prices[$ticket_id] = $this->get_ticket_price_key($ticket, $date, $key);
-        }
-
+        foreach($tickets as $ticket_id=>$ticket) $prices[$ticket_id] = $this->get_ticket_price_key($ticket, $date, $key);
         return $prices;
     }
 }

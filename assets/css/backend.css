@@ -914,10 +914,6 @@ body.post-type-mec-books th.column-author {
     min-width: 60px;
 }
 
-.mec-form-row input[type=text] {
-    width: 85%;
-}
-
 #mec_styles_CSS {
     max-width: 100%;
 }
@@ -1141,6 +1137,10 @@ body.post-type-mec-books th.column-author {
 #mec_notifications_form label {
     display: inline-block;
     min-width: 160px
+}
+
+div#booking_notification iframe {
+    height: 300px !important;
 }
 
 #mec_notifications_form input[type=text],#mec_notifications_form select {
@@ -4041,10 +4041,6 @@ textarea.mec-import-settings-content {
     padding: 25px 10px;
 }
 
-.mec-form-row input[type=text], .mec-form-row textarea {
-    max-width: 400px;
-}
-
 #mec_ticket_variations_list input[type=text].mec-col-12,
 #mec_fees_list input[type=text].mec-col-12{
     max-width: 625px;
@@ -4096,6 +4092,38 @@ textarea.mec-import-settings-content {
         top: 5px;
         right: 5px;
     }
+}
+
+/* Single Event Page Fields + Shortcode Page Fields + Payment Gatway in Setting Page */
+#mec_meta_box_hourly_schedule_days .mec-form-row input[type=text],
+#mec_meta_box_tickets_form .mec-form-row input[type=text] {
+    max-width: 400px;
+}
+
+#mec_exceptions_not_in_days_date {
+    width: 100%;
+}
+
+#mec_select_tags.mec-create-shortcode-tab-content input[type=text],
+#mec_settings_weather_module_api_key {
+    width: 262px;
+}
+
+#mec_meta_box_date_form input[type=text],
+#mec_exceptions_not_in_days_date,
+#mec_meta_box_calendar_skin_options input[type=text].mec_date_picker {
+    max-width: 262px;
+}
+
+#payment_gateways_option .mec-col-4 input[type=text],
+#payment_gateways_option .mec-col-4 select,
+#payment_gateways_option .mec-col-4 textarea,
+#payment_gateways_option .mec-col-4 input[type=number] {
+    width: 75%;
+}
+
+.mec-form-repeating-event-row .mec-col-6 input[type=text] {
+    width: 35%;
 }
 
 
@@ -4594,7 +4622,8 @@ form#mec_reg_fields_form label {
     }
 }
 
-.mec-addons-notification-box-wrap .w-col-sm-12 {
+.mec-addons-notification-box-wrap .w-col-sm-12,
+.mec-cmsg-notification-box-wrap .w-col-sm-12 {
     padding: 0
 }
 
@@ -4647,7 +4676,8 @@ form#mec_reg_fields_form label {
     background: #000
 }
 
-.w-clearfix.w-box.mec-addons-notification-box-wrap span {
+.w-clearfix.w-box.mec-addons-notification-box-wrap span,
+.w-clearfix.w-box.mec-cmsg-notification-box-wrap span {
     right: 0;
     left: unset;
     cursor: pointer;
@@ -4655,18 +4685,21 @@ form#mec_reg_fields_form label {
     padding: 0 16px
 }
 
-.w-clearfix.w-box.mec-addons-notification-box-wrap span i {
+.w-clearfix.w-box.mec-addons-notification-box-wrap span i,
+.w-clearfix.w-box.mec-cmsg-notification-box-wrap span i {
     font-size: 28px;
     vertical-align: sub;
     color: #f2113e
 }
 
-.wns-be-container .mec-addons-notification-wrap {
+.wns-be-container .mec-addons-notification-wrap,
+.mec-custom-msg-notification-wrap {
     padding: 0;
     margin: 0
 }
 
-.wns-be-container .mec-addons-notification-wrap .w-col-sm-12 {
+.wns-be-container .mec-addons-notification-wrap .w-col-sm-12,
+.mec-custom-msg-notification-wrap .w-col-sm-12 {
     padding: 0
 }
 
@@ -5083,6 +5116,14 @@ li.wns-be-group-menu-li.mec-settings-menu:hover > .mec-settings-submenu {
 }
 
 /* Display Option / Shortcode / niceselect style */
+
+.mec-form-row.mec-skin-list-date-format-container input[type=text],
+.mec-form-row.mec-skin-grid-date-format-container  input[type=text],
+.mec-form-row.mec-skin-countdown-date-format-container input[type=text],
+.mec-skin-options-container input[type=text] {
+    max-width: unset;
+}
+
 /* Niceselect */
 .wn-mec-select {
     width: 32.33333333%!important;
@@ -5746,8 +5787,6 @@ a.mec-create-shortcode-tabs-link {
     }
 }
 
-
-
 .mec-form-row select+span.mec-tooltip,
 .mec-form-row input+span.mec-tooltip {
     bottom: 10px;
@@ -5871,10 +5910,6 @@ a.mec-create-shortcode-tabs-link {
 .wns-be-sidebar>li:hover a,
 .wns-be-sidebar li:hover a i {
     color: #008aff;
-}
-
-.mec-form-row.mec-skin-list-date-format-container input[type=text] {
-    margin-right: 2px;
 }
 
 .mec-form-row.mec-skin-list-date-format-container span.mec-tooltip {
@@ -6590,4 +6625,241 @@ input.fserv-input-text {
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+
+/* Report Page */
+.mec-report-sendmail-form-wrap,
+.mec-report-backtoselect-wrap {
+    display: none;
+}
+.mec-report-select-event-wrap .select2 {
+    width: 100% !important;
+}
+
+.mec-report-select-event-wrap .select2-container--default .select2-selection--single {
+    border-radius: 2px;
+    border: 1px solid #e2e3e4;
+    height: 38px;
+    padding-top: 5px;
+    width: 100%;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+}
+
+.mec-report-select-event-wrap .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+
+.mec-report-select-event-wrap .select2-container--open .select2-dropdown--below {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    border-color: #d7d8d9;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) inset;
+    border-color: #d7d8d9;
+    border-radius: 2px;
+}
+
+.mec-report-select-event-wrap input[type=text],
+.mec-report-select-event-wrap select {
+    border: 1px solid #e2e3e4;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+    max-width: 150px;
+}
+
+.mec-report-select-event-wrap .select2-container--default {
+    max-width: 400px;
+}
+
+.mec-report-select-event-wrap select.mec-reports-selectbox-dates {
+    height: 38px;
+    min-width: 260px;
+    margin: 0 0 0 10px;
+    padding-left: 15px;
+}
+
+.mec-report-sendmail-wrap,
+.mec-report-sendmail-form-wrap {
+    padding: 30px 15px;
+    background: #fff;
+    border: 1px solid #e2e3e4;
+    margin: 15px 0 5px;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .02);
+}
+
+.mec-report-sendmail-wrap .w-col-sm-12:before {
+    background: url("../img/email-document.png") no-repeat left top;
+    content: "";
+    display: block;
+    width: 90px;
+    height: 70px;
+    z-index: 100;
+    float: left;
+}
+
+.mec-report-sendmail-wrap p {
+    margin: 0 0 15px;
+    font-size: 15px;
+    color: #7d8284;
+}
+
+.mec-report-sendmail-wrap .w-col-sm-12 button,
+.mec-report-backtoselect-wrap button,
+.mec-send-email-form-wrap .mec-send-email-button {
+    background: #19cde9;
+    border: none;
+    color: #fff;
+    font-size: 13px !important;
+    padding: 6px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(25, 205, 233, 0.25);
+    transition: all 0.2s ease;
+}
+
+.mec-report-sendmail-wrap .w-col-sm-12 button:hover,
+.mec-report-backtoselect-wrap button:hover,
+.mec-send-email-form-wrap .mec-send-email-button:hover {
+    background: #04bfdc;
+    box-shadow: 0 1px 2px rgba(25, 205, 233, 0.05);
+}
+
+.mec-report-backtoselect-wrap button {
+    margin-top: 15px;
+}
+
+.mec-report-selected-event-attendees-wrap {
+    border: 1px solid #96e3ef;
+    padding: 0;
+    margin: 20px 0;
+    border-radius: 3px;
+    box-shadow: 0 2px 14px rgba(25, 205, 233, 0.1);
+    display: none;
+}
+
+.mec-report-sendmail-wrap {
+    display: none;
+}
+
+.mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-head {
+    background: #c7eef4;
+    border-bottom: 1px solid #96e3ef;
+    padding: 15px;
+    margin: 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-content {
+    margin: 0;
+    padding: 8px 15px;
+    border-bottom: 1px solid #e4eef0;
+    font-size: 13px;
+    line-height: 25px;
+}
+
+.mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-content:hover {
+    background: #f3fdfe;
+}
+
+.mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-content:last-child {
+    border-bottom: none;
+    border-radius: 0 0 3px 3px;
+}
+
+.mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-content img {
+    border-radius: 25px;
+    margin-left: 8px;
+}
+
+.mec-report-selected-event-attendees-wrap input[type="checkbox"] {
+    border-radius: 3px;
+
+    margin-top: 0px;
+}
+
+.mec-report-selected-event-attendees-wrap .mec-attendees-head .w-col-xs-2.name {
+    padding-left: 10px
+}
+
+.mec-report-selected-event-attendees-wrap .checkin_status span {
+    font-weight: 600;
+}
+
+.mec-report-selected-event-attendees-wrap .w-col-sm-12>p {
+    text-align: center
+}
+
+.mec-attendees-list-right,
+.mec-send-email-form-wrap {
+    flex: 1;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    max-width: 674px;
+    margin: 0 auto;
+}
+
+.mec-report-sendmail-form-wrap {
+    padding: 0 30px 45px;
+}
+
+.mec-send-email-form-wrap h2 {
+    background: url("../img/email-document.png") no-repeat center top;
+    padding-top: 70px;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: 0;
+}
+
+#webnus-dashboard .mec-send-email-form-wrap .wp-editor-tools button {
+    font-size: 13px;
+    font-weight: normal;
+    color: #444;
+    line-height: 1;
+    margin-bottom: 0;
+}
+
+#webnus-dashboard .mec-send-email-form-wrap .wp-editor-tabs button {
+    min-height: 30px;
+}
+
+.mec-send-email-form-wrap input.widefat {
+    min-height: 40px;
+    border: 1px solid #e2e3e4;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .02);
+}
+
+.mec-send-email-form-wrap input.widefat:focus {
+    border: 1px solid #96e3ef;
+}
+
+.mec-send-email-form-wrap h4.mec-send-email-count {
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.mec-send-email-form-wrap .mec-send-email-button {
+    min-height: 40px;
+    line-height: 40px;
+    padding: 0;
+    font-size: 17px !important;
+    font-weight: 600;
+}
+
+.mec-send-email-form-wrap .mce-menubtn.mce-fixed-width span {
+    height: 20px;
+    padding-top: 2px;
 }

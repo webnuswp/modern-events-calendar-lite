@@ -16,7 +16,7 @@ $availability = $book->get_tickets_availability($event_id, $occurrence);
 
 $date_format = (isset($settings['booking_date_format1']) and trim($settings['booking_date_format1'])) ? $settings['booking_date_format1'] : 'Y-m-d';
 ?>
-<form id="mec_book_form<?php echo $uniqueid; ?>">
+<form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
     <h4><?php _e('Book Event', 'modern-events-calendar-lite'); ?></h4>
     <div class="mec-book-first">
         <label for="mec_book_form_date"><?php _e('Date', 'modern-events-calendar-lite'); ?>: </label>
@@ -75,5 +75,5 @@ $date_format = (isset($settings['booking_date_format1']) and trim($settings['boo
     <input type="hidden" name="uniqueid" value="<?php echo $uniqueid; ?>" />
     <input type="hidden" name="step" value="1" />
     <?php wp_nonce_field('mec_book_form_'.$event_id); ?>
-    <button type="submit"><?php _e('Next', 'modern-events-calendar-lite'); ?></button>
+    <button id="mec-book-form-btn-step-1" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php _e('Next', 'modern-events-calendar-lite'); ?></button>
 </form>

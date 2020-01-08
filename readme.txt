@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.2
-Stable tag: 4.9.5
+Stable tag: 5.0.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -89,13 +89,13 @@ Only by a few clicks in a couple of seconds your current content [events](https:
 
 == Addons ==
 We have begun to create practical [add-ons](https://webnus.net/modern-events-calendar/addons/). Now, you will have access to a wide range of features using them. Please have a look at these add-ons: (MEC Pro requeired)
-- [Woocommerce Integration](https://webnus.net/modern-events-calendar/woocommerce-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/woocommerce-addon/)
-- [Elementor Shortcode Builder](https://webnus.net/modern-events-calendar/elementor-shortcode-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/shortcode-builder-addon/) 
-- [Elementor Form Builder](https://webnus.net/modern-events-calendar/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
-- [Elementor Single Builder](https://webnus.net/modern-events-calendar/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
-- [Event API](https://webnus.net/modern-events-calendar/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
-- [Multisite Event Sync](https://webnus.net/modern-events-calendar/multisite-event-sync/) - [Documentation](https://webnus.net/dox/modern-events-calendar/multisite-event-sync/)
-- [User Dashboard](https://webnus.net/modern-events-calendar/user-dashboard/) - [Documentation](https://webnus.net/dox/modern-events-calendar/user-dashboard/)
+- [Woocommerce Integration](https://webnus.net/modern-events-calendar/addons/woocommerce-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/woocommerce-addon/)
+- [Elementor Shortcode Builder](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/shortcode-builder-addon/) 
+- [Elementor Form Builder](https://webnus.net/modern-events-calendar/addons/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
+- [Elementor Single Builder](https://webnus.net/modern-events-calendar/addons/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
+- [Event API](https://webnus.net/modern-events-calendar/addons/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
+- [Multisite Event Sync](https://webnus.net/modern-events-calendar/addons/multisite-event-sync/) - [Documentation](https://webnus.net/dox/modern-events-calendar/multisite-event-sync/)
+- [User Dashboard](https://webnus.net/modern-events-calendar/addons/user-dashboard/) - [Documentation](https://webnus.net/dox/modern-events-calendar/user-dashboard/)
 
 
 == Helpful Documentation ==
@@ -166,6 +166,9 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - SEO plugins compatibility
 - Elementor 
 - Mailchimp Subscription
+- Campaign Monitor
+- MailerLite
+- Constant Contact
 - BuddyPress
 - Google Recaptcha
 - Google Map
@@ -180,6 +183,9 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 == Key Features ==
 - Mailchimp Integration (*pro*)
+- Campaign Monitor Integration (*pro*)
+- MailerLite Integration (*pro*)
+- Constant Contact Integration (*pro*)
 - BuddyPress Integration (*pro*)
 - Archive Page Skins
 - Category Page Skins
@@ -217,7 +223,9 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Custom Repeating
 - Certain Weekdays Repeating
 - Advance Repeating
+- Show only one occurrence of the event
 - End Repeating
+- Midnight Hour
 - Advanced categorizing and filtering options
 - Full search bar for all shortcodes
 - Event note for frontend event submission
@@ -280,6 +288,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
 - Mass Emails to Attendees (*pro*)
 - Minimum Ticket Option (*pro*)
+- Booking report page (*pro*)
 - Stop selling Ticket Option (*pro*)
 - [Organizer payment](https://webnus.net/dox/modern-events-calendar/organizer-payment/) (*pro*)
 - [Individual booking form per event](https://webnus.net/dox/modern-events-calendar/booking-form/) (*pro*)
@@ -339,6 +348,20 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 5.0.0 - 8 January 2020 =
+- Added: An option to change MEC midnight hour for those events that span after the actual midnight
+- Added: A per event option to show only one occurrence of the event
+- Added: "Back Button" for booking form so users can simply navigate to previous step if needed (pro)
+- Added: Filter by category on masonry skin when trying to load more events
+- Added: Campaign Monitor Integration (pro)
+- Added: MailerLite Integration (pro)
+- Added: Constant Contact Integration (pro)
+- Replaced: "Attendees" menu from back-end with new "Report" page (pro)
+- Added: Booking report page (pro)
+- Improved: Make date filter disabled by default on list and grid skins to avoid confusion
+- Fixed: Register link when all tickets are sold (pro)
+- Fixed: Advanced repeat type
+
 = 4.9.5 - 24 December 2019 =
 - Added: An option to set minimum sale for tickets (pro)
 - Added: A new badge for new events to inform administrator

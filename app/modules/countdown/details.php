@@ -15,18 +15,20 @@ $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date[
 $end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : current_time('Y-m-d H:i:s');
 
 $s_time = '';
-if ( !empty($date) ): 
+if(!empty($date))
+{
     $s_time .= sprintf("%02d", $date['start']['hour']).':';
     $s_time .= sprintf("%02d", $date['start']['minutes']);
     $s_time .= trim($date['start']['ampm']);
-endif;
+}
 
 $e_time = '';
-if ( !empty($date) ):
+if(!empty($date))
+{
     $e_time .= sprintf("%02d", $date['end']['hour']).':';
     $e_time .= sprintf("%02d", $date['end']['minutes']);
     $e_time .= trim($date['end']['ampm']);
-endif;
+}
 
 $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.$s_time));
 $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.$e_time));
@@ -94,7 +96,8 @@ jQuery(document).ready(function()
         jQuery(".countdown-message").html();
     }
     
-    var clock = jQuery(".clock").FlipClock(diff, {
+    clock = jQuery(".clock").FlipClock(diff,
+    {
         clockFace: "DailyCounter",
         countdown: true,
         autoStart: true,
@@ -111,7 +114,7 @@ jQuery(document).ready(function()
     });
 });
 </script>';
-if ( !function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); 
+if(!function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/includes/plugin.php');
 ?>
 <?php if(!isset($settings['countdown_list']) or (isset($settings['countdown_list']) and $settings['countdown_list'] === 'default')): ?>
 <?php
@@ -156,7 +159,8 @@ if ( !function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/inc
 <?php elseif(isset($settings['countdown_list']) and $settings['countdown_list'] === 'flip'): ?>
 <?php
     if($this->is_ajax()) echo $flipjs;
-    elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) {   
+    elseif(is_plugin_active( 'mec-single-builder/mec-single-builder.php'))
+    {
         wp_enqueue_script('mec-flipcount-script', $this->asset('js/flipcount.js'));      
         echo $flipjs;
     }  

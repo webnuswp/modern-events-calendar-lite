@@ -72,9 +72,19 @@ var mecSingleEventDisplayer = {
         $("#mec_sf_s_" + settings.id).on('change', function (e) {
             search();
         });
+        
+        var mec_sf_month_selector = "#mec_sf_month_" + settings.id;
+        var  mec_sf_year_selector = "#mec_sf_year_" + settings.id;
+        mec_sf_month_selector += (', ' + mec_sf_year_selector);
+        
+        $(mec_sf_month_selector).on('change', function (e) {
+            if($(mec_sf_year_selector).find('option:eq(0)').val() == 'none')
+            {
+                var mec_month_val = $(mec_sf_month_selector).val();
+                var mec_year_val = $(mec_sf_year_selector).val();
 
-        $("#mec_sf_month_" + settings.id + ", #mec_sf_year_" + settings.id).on('change', function (e) {
-            search();
+                if((mec_month_val != 'none' && mec_year_val != 'none') || ((mec_month_val == 'none' && mec_year_val == 'none'))) search();
+            } else search();
         });
 
         $("#mec_sf_event_type_" + settings.id).on('change', function (e) {
@@ -97,15 +107,13 @@ var mecSingleEventDisplayer = {
             var year = $("#mec_sf_year_" + settings.id).length ? $("#mec_sf_year_" + settings.id).val() : '';
             var event_type = $("#mec_sf_event_type_" + settings.id).length ? $("#mec_sf_event_type_" + settings.id).val() : '';
             var event_type_2 = $("#mec_sf_event_type_2_" + settings.id).length ? $("#mec_sf_event_type_2_" + settings.id).val() : '';
-            var skip_date = false;
 
-            if (month === 'ignore_date') skip_date = true;
-
-            // Skip filter by date
-            if (skip_date === true) {
-                month = '';
+            if(year === 'none' && month === 'none')
+            {
                 year = '';
+                month = '';
             }
+
             var atts = settings.atts + '&sf[s]=' + s + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2;
             settings.callback(atts);
         }
@@ -474,6 +482,21 @@ var mecSingleEventDisplayer = {
             $("#mec_skin_" + settings.id + " .mec-totalcal-box .mec-totalcal-view span").on('click', function (e) {
                 e.preventDefault();
                 var skin = $(this).data('skin');
+                var mec_month_select = $('#mec_sf_month_' + settings.id);
+                var mec_year_select = $('#mec_sf_year_' + settings.id);
+
+                if(skin == 'list')
+                {
+                    var mec_filter_none = '<option class="mec-none-item" value="none" selected="selected">' + $('#mec-filter-none').val() + '</option>';
+                    
+                    if(mec_month_select.find('.mec-none-item').length == 0) mec_month_select.prepend(mec_filter_none);
+                    if(mec_year_select.find('.mec-none-item').length == 0) mec_year_select.prepend(mec_filter_none);
+                }
+                else
+                {
+                    if(mec_month_select.find('.mec-none-item').length != 0) mec_month_select.find('.mec-none-item').remove();
+                    if(mec_year_select.find('.mec-none-item').length != 0) mec_year_select.find('.mec-none-item').remove();
+                }
 
                 $(this).addClass('mec-totalcalview-selected').siblings().removeClass('mec-totalcalview-selected');
 
@@ -2070,6 +2093,16 @@ var mecSingleEventDisplayer = {
 
         }
 
+        $("#mec_skin_" + settings.id + " .mec-events-masonry-cats > a").click(function()
+        {
+            var mec_load_more_btn = $("#mec_skin_" + settings.id + " .mec-load-more-button");
+            var mec_filter_value = $(this).data('filter').replace('.mec-t', '');
+
+            if(mec_load_more_btn.hasClass('mec-load-more-loading')) mec_load_more_btn.removeClass('mec-load-more-loading');
+            if(mec_load_more_btn.hasClass("mec-hidden-" + mec_filter_value)) mec_load_more_btn.addClass("mec-util-hidden");
+            else mec_load_more_btn.removeClass("mec-util-hidden");
+        });
+        
         $("#mec_skin_" + settings.id + " .mec-load-more-button").on("click", function () {
             loadMore();
         });
@@ -2090,10 +2123,12 @@ var mecSingleEventDisplayer = {
         function loadMore() {
             // Add loading Class
             $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-load-more-loading");
+            var mec_filter_value = $('#mec_skin_' + settings.id).find('.mec-masonry-cat-selected').data('filter').replace('.mec-t', '');
+            var mec_filter_by = $('#mec_skin_' + settings.id).data('filterby');
 
             $.ajax({
                 url: settings.ajax_url,
-                data: "action=mec_masonry_load_more&mec_start_date=" + settings.end_date + "&mec_offset=" + settings.offset + "&" + settings.atts + "&apply_sf_date=0",
+                data: "action=mec_masonry_load_more&mec_filter_by=" + mec_filter_by + "&mec_filter_value=" + mec_filter_value + "&mec_start_date=" + settings.end_date + "&mec_offset=" + settings.offset + "&" + settings.atts + "&apply_sf_date=0",
                 dataType: "json",
                 type: "post",
                 success: function (response) {
@@ -2102,7 +2137,7 @@ var mecSingleEventDisplayer = {
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-load-more-loading");
 
                         // Hide load more button
-                        $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
+                        $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden mec-hidden-" + mec_filter_value);
                     } else {
                         // Show load more button
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
@@ -2649,6 +2684,19 @@ var mecSingleEventDisplayer = {
                         settings.end_date = response.end_date;
                         settings.offset = response.offset;
 
+                        if ( $('.mec-event-sd-countdown').length > 0 )
+                        {
+                            $('.mec-event-sd-countdown').each(function (event) {
+                                var dc= $(this).attr('data-date-custom');
+                                $(this).mecCountDown(
+                                {
+                                    date: dc,
+                                    format: "off"
+                                },
+                                function () {
+                                });
+                            })
+                        }
                         // Single Event Method
                         if (settings.sed_method != '0') {
                             sed();
@@ -3814,6 +3862,85 @@ function mec_focus_week(id) {
         });
     });
 })(jQuery);
+
+function mec_book_form_submit(event, unique_id)
+{
+    event.preventDefault();
+    window["mec_book_form_submit" + unique_id]();
+}
+
+function mec_book_form_back_btn_cache(context, unique_id)
+{
+    var id = jQuery(context).attr('id');
+    var mec_form_data = jQuery('#mec_book_form' + unique_id).serializeArray();
+
+    if(id == "mec-book-form-btn-step-1") jQuery('body').data('mec-book-form-step-1', jQuery('#mec_booking' + unique_id).html()).data('unique-id', unique_id).data('mec-book-form-data-step-1', mec_form_data);
+    else if(id == "mec-book-form-btn-step-2") jQuery('body').data('mec-book-form-step-2', jQuery('#mec_booking' + unique_id).html()).data('mec-book-form-data-step-2', mec_form_data);
+}
+
+function mec_agreement_change(context)
+{
+    var status = jQuery(context).is(":checked") ? true : false;
+    
+    if(status) jQuery(context).attr("checked", "checked");
+    else jQuery(context).removeAttr("checked");
+}
+
+function mec_book_form_back_btn_click(context, unique_id)
+{
+    var id = jQuery(context).attr('id');
+    unique_id = jQuery('body').data('unique-id');
+
+    jQuery('#mec_booking_message' + unique_id).hide();
+    if(id == "mec-book-form-back-btn-step-2")
+    {
+        var mec_form_data_step_1 = jQuery('body').data('mec-book-form-data-step-1');
+
+        jQuery('#mec_booking' + unique_id).html(jQuery('body').data('mec-book-form-step-1'));
+        jQuery.each(mec_form_data_step_1, function(index, object_item)
+        {
+            jQuery('[name="' + object_item.name + '"]').val(object_item.value);
+        });
+
+        // Booking Refresh Recaptcha When Back Button Click.
+        var recaptcha_check =  jQuery('#mec_booking' + unique_id).find('#g-recaptcha').length;
+        if(recaptcha_check != 0)
+        {
+            jQuery('#g-recaptcha').html('');
+            grecaptcha.render("g-recaptcha", {
+                sitekey: mecdata.recapcha_key
+            });
+        }
+    }
+    else if(id == "mec-book-form-back-btn-step-3")
+    {
+        var mec_form_data_step_2 = jQuery('body').data('mec-book-form-data-step-2');
+        
+        jQuery('#mec_booking' + unique_id).html(jQuery('body').data('mec-book-form-step-2'));
+        jQuery.each(mec_form_data_step_2, function(index, object_item)
+        {
+            var mec_elem = jQuery('[name="'+ object_item.name +'"]');
+            var mec_type = mec_elem.attr('type');
+
+            if((mec_type == 'checkbox' || mec_type == 'radio'))
+            {
+                var mec_elem_len = jQuery('[name="'+ object_item.name +'"]').length;
+
+                if(mec_elem_len > 1)
+                {
+                    var id = '#' + mec_elem.attr('id').match(/mec_book_reg_field_reg.*_/g) + object_item.value.toLowerCase();
+                    jQuery(id).prop('checked', true);
+                }
+                else
+                {
+                    mec_elem.prop('checked', true);
+                }
+            }
+
+            mec_elem.val(object_item.value);
+        });
+    }
+}
 
 // Google map Skin
 function gmapSkin(NewJson) {

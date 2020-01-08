@@ -77,67 +77,75 @@ $settings = $this->main->get_settings();
             </script>
             <?php
             endif;
+
             $masonry_filter = '';
-            if ( $this->filter_by == 'category' ) {
-                if ( isset($event->data->categories) && !empty($event->data->categories) ) :
+            if($this->filter_by == 'category')
+            {
+                if(isset($event->data->categories) && !empty($event->data->categories))
+                {
                     $masonry_filter = "[";
-                    foreach ($event->data->categories as $key => $value) {
-                        $masonry_filter .= '"' . $value['id'] . '",';
-                    }
+                    foreach($event->data->categories as $key => $value) $masonry_filter .= '"' . $value['id'] . '",';
+
                     $masonry_filter .= "]";
                     $masonry_filter = str_replace(",]", "]", $masonry_filter);
-                endif;
-            } elseif ( $this->filter_by == 'label' ) {
-                if ( isset($event->data->labels) && !empty($event->data->labels) ) :
+                }
+            }
+            elseif($this->filter_by == 'label')
+            {
+                if(isset($event->data->labels) && !empty($event->data->labels))
+                {
                     $masonry_filter = "[";
-                    foreach ($event->data->labels as $key => $value) {
-                        $masonry_filter .= '"' . $value['id'] . '",';
-                    }
+                    foreach($event->data->labels as $key => $value) $masonry_filter .= '"' . $value['id'] . '",';
+
                     $masonry_filter .= "]";
                     $masonry_filter = str_replace(",]", "]", $masonry_filter);
-                endif;
-            } elseif ( $this->filter_by == 'organizer' ) {
-                if ( isset($event->data->organizers) && !empty($event->data->organizers) ) :
+                }
+            }
+            elseif($this->filter_by == 'organizer')
+            {
+                if(isset($event->data->organizers) && !empty($event->data->organizers))
+                {
                     $masonry_filter = "[";
-                    foreach ($event->data->organizers as $key => $value) {
-                        $masonry_filter .= '"' . $value['id'] . '",';
-                    }
+                    foreach($event->data->organizers as $key => $value) $masonry_filter .= '"' . $value['id'] . '",';
+
                     $masonry_filter .= "]";
                     $masonry_filter = str_replace(",]", "]", $masonry_filter);
-                endif;
-            } elseif ( $this->filter_by == 'location' ) {
-                if ( isset($event->data->locations) && !empty($event->data->locations) ) :
+                }
+            }
+            elseif($this->filter_by == 'location')
+            {
+                if(isset($event->data->locations) && !empty($event->data->locations))
+                {
                     $masonry_filter = "[";
-                    foreach ($event->data->locations as $key => $value) {
-                        $masonry_filter .= '"' . $value['id'] . '",';
-                    }
+                    foreach($event->data->locations as $key => $value) $masonry_filter .= '"' . $value['id'] . '",';
+
                     $masonry_filter .= "]";
                     $masonry_filter = str_replace(",]", "]", $masonry_filter);
-                endif;
+                }
             }
             
-            if ( empty($masonry_filter )) $masonry_filter = "[\"\"]";
+            if(empty($masonry_filter)) $masonry_filter = "[\"\"]";
             ?>
             <div data-sort-masonry="<?php echo $event->date['start']['date']; ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-masonry-item-wrap <?php echo $this->filter_by_classes($event->data->ID); ?>">
                 <div class="mec-masonry">
 
                     <article data-style="<?php echo $label_style; ?>" class="mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
-                        <?php if(isset($event->data->featured_image) and $this->masonry_like_grid ): ?>
-                                <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'thumblist'); ?></a></div>
-                        <?php elseif( isset($event->data->featured_image) and isset($event->data->featured_image['full']) and trim($event->data->featured_image['full'])): ?>
-                                <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'full'); ?></a></div>
+                        <?php if(isset($event->data->featured_image) and $this->masonry_like_grid): ?>
+                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'thumblist'); ?></a></div>
+                        <?php elseif(isset($event->data->featured_image) and isset($event->data->featured_image['full']) and trim($event->data->featured_image['full'])): ?>
+                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'full'); ?></a></div>
                         <?php endif; ?>
 
                         <div class="mec-masonry-content mec-event-grid-modern">
                             <div class="event-grid-modern-head clearfix">
 
                                 <div class="mec-masonry-col<?php echo (isset($location['name']) and trim($location['name'])) ? '6' : '12'; ?>">
-                                    <?php if(isset($settings['multiple_day_show_method']) and $settings['multiple_day_show_method'] == 'all_days') : ?>
+                                    <?php if(isset($settings['multiple_day_show_method']) and ($settings['multiple_day_show_method'] == 'all_days' or $settings['multiple_day_show_method'] == 'first_day_listgrid')): ?>
                                         <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format_1, strtotime($event->date['start']['date'])); ?></div>
                                         <div class="mec-event-month"><?php echo date_i18n($this->date_format_2, strtotime($event->date['start']['date'])); ?></div>
                                     <?php else: ?>
-                                        <div class="mec-event-date mec-color"><?php echo $this->main->date_label($event->date['start'], $event->date['end'], $this->date_format_1); ?></div>
-                                        <div class="mec-event-month"><?php echo $this->main->date_label($event->date['start'], $event->date['end'], $this->date_format_2); ?></div>
+                                        <div class="mec-event-date mec-color"><?php echo $this->main->dateify($event, $this->date_format_1); ?></div>
+                                        <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_2); ?></div>
                                     <?php endif; ?>
                                     <div class="mec-event-detail"><?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div>
                                 </div>
@@ -170,13 +178,14 @@ $settings = $this->main->get_settings();
                                 }
                             ?>
                             <div class="mec-event-content">
-                                <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?></h4>
+                                <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
+                                <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
                                 <div class="mec-event-description mec-events-content">
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                 </div>
                             </div>
                             <div class="mec-event-footer">
-                                <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets)) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
+                                <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
                                 <?php do_action( 'mec_masonry_button', $event ); ?>
                             </div>
                         </div>

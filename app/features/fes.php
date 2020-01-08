@@ -668,6 +668,7 @@ class MEC_feature_fes extends MEC_base
         }
         
         $allday = isset($date['allday']) ? 1 : 0;
+        $one_occurrence = isset($date['one_occurrence']) ? 1 : 0;
         $hide_time = isset($date['hide_time']) ? 1 : 0;
         $hide_end_time = isset($date['hide_end_time']) ? 1 : 0;
         $comment = isset($date['comment']) ? $date['comment'] : '';
@@ -736,6 +737,7 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_repeat', $repeat);
         update_post_meta($post_id, 'mec_certain_weekdays', $certain_weekdays);
         update_post_meta($post_id, 'mec_allday', $allday);
+        update_post_meta($post_id, 'one_occurrence', $one_occurrence);
         update_post_meta($post_id, 'mec_hide_time', $hide_time);
         update_post_meta($post_id, 'mec_hide_end_time', $hide_end_time);
         update_post_meta($post_id, 'mec_comment', $comment);

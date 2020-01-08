@@ -88,6 +88,15 @@ class MEC_feature_mec extends MEC_base
         
         // Mailchimp Integration
         $this->factory->action('mec_booking_verified', array($this->main, 'mailchimp_add_subscriber'), 10);
+
+        // Campaign Monitor Integration
+        $this->factory->action('mec_booking_verified', array($this->main, 'campaign_monitor_add_subscriber'), 10);
+
+        // MailerLite Integration
+        $this->factory->action('mec_booking_verified', array($this->main, 'mailerlite_add_subscriber'), 10);
+
+        // Constant Contact Integration
+        $this->factory->action('mec_booking_verified', array($this->main, 'constantcontact_add_subscriber'), 10);
         
         // MEC Notifications
         $this->factory->action('mec_booking_completed', array($this->notifications, 'email_verification'), 10);
@@ -129,6 +138,14 @@ class MEC_feature_mec extends MEC_base
         // Close Notification
         $this->factory->action('wp_ajax_close_notification', array($this, 'close_notification'));
         $this->factory->action('wp_ajax_nopriv_close_notification', array($this, 'close_notification'));
+
+        // Close Custom Text Notification
+        $this->factory->action('wp_ajax_close_cmsg_notification', array($this, 'close_cmsg_notification'));
+        $this->factory->action('wp_ajax_nopriv_close_cmsg_notification', array($this, 'close_cmsg_notification'));
+
+        // Close Custom Text Notification
+        $this->factory->action('wp_ajax_report_event_dates', array($this, 'report_event_dates'));
+        $this->factory->action('wp_ajax_nopriv_report_event_dates', array($this, 'report_event_dates'));
 
         // Scheduler Cronjob
         $schedule = $this->getSchedule();
@@ -202,6 +219,48 @@ class MEC_feature_mec extends MEC_base
             exit();
         }
         update_option('mec_addons_notification_option', 'open');
+        wp_die();
+    }
+
+    /* Close addons notification */
+    public function close_cmsg_notification()
+    {
+        if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
+        {
+            exit();
+        }
+        update_option('mec_custom_msg_close_option', 'open');
+        wp_die();
+    }
+
+
+    /* Report Event Dates */
+    public function report_event_dates()
+    {
+        if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
+        {
+            exit();
+        }
+        $post_id = $_POST['event_id'];
+        $feature_class = new MEC_feature_mec();
+        if ( $post_id != 'none' )
+        {
+            $dates = $feature_class->db->select("SELECT `dstart`, `dend` FROM `#__mec_dates` WHERE `post_id`='".$post_id."' LIMIT 100");
+            $id = $post_id;
+            $occurrence = reset($dates)->dstart;
+            echo '<select name="mec-report-event-dates" class="mec-reports-selectbox mec-reports-selectbox-dates" onchange="mec_event_attendees('.$post_id.', this.value);">';
+            echo '<option value="none">'.esc_html( "Select Date" , "mec").'</option>';
+            foreach($dates as $date)
+            {
+                echo '<option href="#" value="'.$date->dstart.'" '.($occurrence == $date->dstart ? 'class="selected-day"' : '').'>'.(($date->dstart != $date->dend) ? sprintf(__('%s to %s', 'modern-events-calendar-lite'), $date->dstart, $date->dend) : $date->dstart).'</option>';
+            }
+            echo '</select>';
+        } 
+        else
+        {
+            echo '';
+        }
+        
         wp_die();
     }
 
@@ -354,6 +413,10 @@ class MEC_feature_mec extends MEC_base
         add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), 'edit_others_posts', 'edit.php?post_type=mec_calendars');
         add_submenu_page('mec-intro', __('MEC - Settings', 'modern-events-calendar-lite'), __('Settings', 'modern-events-calendar-lite'), 'manage_options', 'MEC-settings', array($this, 'page'));
         add_submenu_page('mec-intro', __('MEC - Addons', 'modern-events-calendar-lite'), __('Addons', 'modern-events-calendar-lite'), 'manage_options', 'MEC-addons', array($this, 'addons'));
+        if(isset($this->settings['booking_status']) and $this->settings['booking_status'])
+        {
+            add_submenu_page('mec-intro', __('MEC - Report', 'modern-events-calendar-lite'), __('Report', 'modern-events-calendar-lite'), 'manage_options', 'MEC-report', array($this, 'report'));
+        }
 
         do_action('after_mec_submenu_action');
     }
@@ -573,6 +636,29 @@ class MEC_feature_mec extends MEC_base
     public function display_addons()
     {
         $path = MEC::import('app.features.mec.addons', true, true);
+        ob_start();
+        include $path;
+        echo $output = ob_get_clean();
+    }
+
+    /**
+     * Get Report page
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function report()
+    {
+        $this->display_report();
+    }
+
+    /**
+     * Show report page
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function display_report()
+    {
+        $path = MEC::import('app.features.mec.report', true, true);
         ob_start();
         include $path;
         echo $output = ob_get_clean();

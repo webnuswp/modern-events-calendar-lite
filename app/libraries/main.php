@@ -537,6 +537,9 @@ class MEC_main extends MEC_base
             __('User Profile', 'modern-events-calendar-lite') => 'user_profile_options',
             __('Search Bar', 'modern-events-calendar-lite') => 'search_bar_options',
             __('Mailchimp Integration', 'modern-events-calendar-lite') => 'mailchimp_option',
+            __('Campaign Monitor Integration', 'modern-events-calendar-lite') => 'campaign_monitor_option',
+            __('MailerLite Integration', 'modern-events-calendar-lite') => 'mailerlite_option',
+            __('Constant Contact Integration', 'modern-events-calendar-lite') => 'constantcontact_option',
             __('Upload Field', 'modern-events-calendar-lite') => 'uploadfield_option',
         ), $active_menu);
 
@@ -593,7 +596,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'settings' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($settings as $settings_name => $settings_link) : ?>
                 <?php
-                if ( $settings_link == 'mailchimp_option') : 
+                if ( $settings_link == 'mailchimp_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
                     if (  $this->getPRO() ) : ?>
                     <li>
                         <a 
@@ -887,6 +890,60 @@ class MEC_main extends MEC_base
             </div>
         </div>
         ';
+    }
+
+    /**
+     * Returns MEC custom message
+     * @author Webnus <info@webnus.biz>
+     * @return array
+     */
+    public function mec_custom_msg($display_option = '', $message = '')
+    {
+        $get_cmsg_display_option = get_option('mec_custom_msg_display_option');
+        
+
+        $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
+        if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+        {
+            $get_data = file_get_contents($data_url);
+            if ( $get_data !== false AND !empty($get_data) )
+            {
+                $obj = json_decode($get_data);
+                $i = count((array)$obj);
+            }
+        }
+        elseif ( function_exists('curl_version') )
+        {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_URL, $data_url);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            $obj = json_decode($result);
+            $i = count((array)$obj);
+        } else {
+            $obj = '';
+        }
+
+        if ( !empty( $obj ) ) :
+            foreach ($obj as $key => $value) {
+                $html = $value->html;
+                $display = $value->display;
+            }
+
+            if ( $get_cmsg_display_option != $display ) :
+                update_option( 'mec_custom_msg_display_option', $display );
+                update_option('mec_custom_msg_close_option', 'close');
+                return $html;
+            elseif ( $get_cmsg_display_option == $display ) :
+                $get_cmsg_close_option = get_option('mec_custom_msg_close_option');
+                if ( $get_cmsg_close_option == 'open' ) return;
+                return $html;
+            endif;
+        else:
+            return '';
+        endif;
     }
 
     /**
@@ -1443,7 +1500,6 @@ class MEC_main extends MEC_base
      */
     public function get_marker_lightbox($event, $date_format = 'M d Y')
     {
-        // $infowindow_thumb = trim($event->data->thumbnails['thumbnail']) ? '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>' : '';
         $infowindow_thumb = trim($event->data->featured_image['thumbnail']) ? '<div class="mec-event-image"><img src="'.$event->data->featured_image['thumbnail'].'" alt="'.$event->data->title.'" /></div>' : '';
         $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
@@ -1452,7 +1508,7 @@ class MEC_main extends MEC_base
 			<div class="mec-map-lightbox-wp mec-event-list-classic">
 				<article class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'mec-event-article mec-clear">
 					'.$infowindow_thumb.'
-					<a data-event-id="'.$event->data->ID.'" href="'.$this->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> '.$this->date_label((isset($event->date['start']) ? $event->date['start'] : NULL), (isset($event->date['end']) ? $event->date['end'] : NULL), $date_format).'</div></a>
+					<a data-event-id="'.$event->data->ID.'" href="'.$this->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> '.$this->dateify($event, $date_format).'</div></a>
 					<h4 class="mec-event-title"><a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$this->get_event_date_permalink($event->data->permalink, (isset($event->date['start']) ? $event->date['start']['date'] : NULL)).'">'.$event->data->title.'</a>'.$this->get_flags($event->data->ID, $event_start_date).'</h4>
 				</article>
 			</div>
@@ -3958,8 +4014,29 @@ class MEC_main extends MEC_base
             else return '<span class="mec-start-date-label" itemprop="startDate">' . date_i18n($format, $start_timestamp).'</span><span class="mec-end-date-label" itemprop="endDate">'.$separator.date_i18n($format, $end_timestamp).'</span>';
         }
     }
+
+    public function dateify($event, $format, $separator = ' - ')
+    {
+        // Settings
+        $settings = $this->get_settings();
+
+        $start_timestamp = strtotime($event->date['start']['date']);
+        $end_timestamp = strtotime($event->date['end']['date']);
+        $time = $event->data->time;
+        $start_date = date_i18n($format, $start_timestamp);
+        $end_date = date_i18n($format, $end_timestamp);
+
+        // Midnight Hour
+        $midnight_hour = (isset($settings['midnight_hour']) and $settings['midnight_hour']) ? $settings['midnight_hour'] : 0;
+        $midnight = $end_timestamp+(3600*$midnight_hour);
+
+        // End Date is before Midnight
+        if($start_timestamp < $end_timestamp and $midnight >= strtotime($end_date.' '.$time['end'])) $end_date = date_i18n($format, ($end_timestamp - 86400));
+
+        return $this->date_label(array('date' => $start_date), array('date' => $end_date), $format, $separator);
+    }
     
-     /**
+    /**
      * Returns start/end time labels
      * @author Webnus <info@webnus.biz>
      * @param string $start
@@ -4669,6 +4746,122 @@ class MEC_main extends MEC_base
             'timeout' => '10',
             'redirection' => '10',
             'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode('user:' . $api_key)),
+        )));
+    }
+
+    /**
+     * Add booker information to campaign monitor list
+     * @param int $book_id
+     * @return boolean}int
+     */
+    public function campaign_monitor_add_subscriber($book_id)
+    {
+        require_once MEC_ABSPATH.'/app/api/Campaign_Monitor/csrest_subscribers.php';
+        // Get MEC Options
+        $settings = $this->get_settings();
+        
+        // Mailchim integration is disabled
+        if(!isset($settings['campm_status']) or (isset($settings['campm_status']) and !$settings['campm_status'])) return false;
+        
+        $api_key = isset($settings['campm_api_key']) ? $settings['campm_api_key'] : '';
+        $list_id = isset($settings['campm_list_id']) ? $settings['campm_list_id'] : '';
+        
+        // Mailchim credentials are required
+        if(!trim($api_key) or !trim($list_id)) return false;
+        
+        $booker_id = get_post_field('post_author', $book_id);
+        $booker = get_userdata($booker_id);
+
+        $wrap = new CS_REST_Subscribers($list_id, $api_key);
+        $result = $wrap->add(array(
+            'EmailAddress' => $booker->user_email,
+            'Name' => $booker->first_name . ' ' .$booker->last_name,
+            'ConsentToTrack' => 'yes',
+            'Resubscribe' => true
+        ));
+    }
+
+
+    /**
+     * Add booker information to mailerlite list
+     * @param int $book_id
+     * @return boolean}int
+     */
+    public function mailerlite_add_subscriber($book_id)
+    {
+        // Get MEC Options
+        $settings = $this->get_settings();
+        
+        // Mailchim integration is disabled
+        if(!isset($settings['mailerlite_status']) or (isset($settings['mailerlite_status']) and !$settings['mailerlite_status'])) return false;
+        
+        $api_key = isset($settings['mailerlite_api_key']) ? $settings['mailerlite_api_key'] : '';
+        $list_id = isset($settings['mailerlite_list_id']) ? $settings['mailerlite_list_id'] : '';
+        
+        // Mailchim credentials are required
+        if(!trim($api_key) or !trim($list_id)) return false;
+        
+        $booker_id = get_post_field('post_author', $book_id);
+        $booker = get_userdata($booker_id);
+        
+        $url = 'https://api.mailerlite.com/api/v2/groups/'.$list_id.'/subscribers';
+        
+        $json = json_encode(array
+        (
+            'email'=>$booker->user_email,
+            'name'=>$booker->first_name . ' ' .$booker->last_name,
+        ));
+
+        // Execute the Request and Return the Response Code
+        return wp_remote_retrieve_response_code(wp_remote_post($url, array(
+            'body' => $json,
+            'timeout' => '10',
+            'redirection' => '10',
+            'headers' => array('Content-Type' => 'application/json', 'X-MailerLite-ApiKey' => $api_key),
+        )));
+    }
+
+
+    /**
+     * Add booker information to constantcontact list
+     * @param int $book_id
+     * @return boolean}int
+     */
+    public function constantcontact_add_subscriber($book_id)
+    {
+        // Get MEC Options
+        $settings = $this->get_settings();
+        
+        // Mailchim integration is disabled
+        if(!isset($settings['constantcontact_status']) or (isset($settings['constantcontact_status']) and !$settings['constantcontact_status'])) return false;
+        
+        $api_key = isset($settings['constantcontact_api_key']) ? $settings['constantcontact_api_key'] : '';
+        $list_id = isset($settings['constantcontact_list_id']) ? $settings['constantcontact_list_id'] : '';
+        
+        // Mailchim credentials are required
+        if(!trim($api_key) or !trim($list_id)) return false;
+        
+        $booker_id = get_post_field('post_author', $book_id);
+        $booker = get_userdata($booker_id);
+        
+        $url = 'https://api.cc.email/v3';
+
+        $json = json_encode(array
+        (
+            'email_address'=> [
+                'address' => $booker->user_email
+            ],
+            'first_name'=> $booker->first_name,
+            'last_name'=> $booker->last_name,
+            'list_memberships' => $list_id,
+        ));
+
+        // Execute the Request and Return the Response Code
+        return wp_remote_retrieve_response_code(wp_remote_post($url, array(
+            'body' => $json,
+            'timeout' => '10',
+            'redirection' => '10',
+            'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$api_key),
         )));
     }
     
@@ -5633,7 +5826,7 @@ class MEC_main extends MEC_base
             $output_tag = ' <span class="mec-event-title-soldout"><span class=soldout>%%title%%</span></span> ';
             
             // Check For Return SoldOut Label Exist.
-            if(current($is_soldout) === 0) return str_replace('%%title%%', __('Sold Out', 'modern-events-calendar-lite'), $output_tag);
+            if(current($is_soldout) === 0) return str_replace('%%title%%', __('Sold Out', 'modern-events-calendar-lite'), $output_tag) . '<input type="hidden" value="%%soldout%%"/>';
     
             $booking_options = get_post_meta($event_id, 'mec_booking', true);
             $total_bookings_limit = (isset($booking_options['bookings_limit']) and trim($booking_options['bookings_limit'])) ? $booking_options['bookings_limit'] : 100;
@@ -5698,5 +5891,24 @@ class MEC_main extends MEC_base
     {
         $db = $this->getDB();
         return $db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`dstart`='".$date."') OR (`dstart`<'".$date."' AND `dend`>='".$date."')) ORDER BY `dstart` ASC LIMIT 1", 'loadResult');
+    }
+
+    public function is_midnight_event($event)
+    {
+        // Settings
+        $settings = $this->get_settings();
+
+        $start_timestamp = strtotime($event->date['start']['date']);
+        $end_timestamp = strtotime($event->date['end']['date']);
+        $time = $event->data->time;
+
+        // Midnight Hour
+        $midnight_hour = (isset($settings['midnight_hour']) and $settings['midnight_hour']) ? $settings['midnight_hour'] : 0;
+        $midnight = $end_timestamp+(3600*$midnight_hour);
+
+        // End Date is before Midnight
+        if($start_timestamp < $end_timestamp and $midnight >= strtotime($event->date['end']['date'].' '.$time['end'])) return true;
+
+        return false;
     }
 }

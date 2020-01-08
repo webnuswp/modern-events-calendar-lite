@@ -204,16 +204,16 @@ class MEC_envato extends MEC_base
         $version = json_decode(json_encode($this->get_MEC_info('version')->version), true);
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/addons-api.json';
         
-        if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+        if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
         {
             $get_data = file_get_contents($data_url);
-            if ( $get_data !== false AND !empty($get_data) )
+            if($get_data !== false AND !empty($get_data))
             {
                 $obj = json_decode($get_data);
                 $i = count((array)$obj);
             }
         }
-        elseif ( function_exists('curl_version') )
+        elseif(function_exists('curl_version'))
         {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -223,24 +223,25 @@ class MEC_envato extends MEC_base
             curl_close($ch);
             $obj = json_decode($result);
             $i = count((array)$obj);
-        } else {
-            $obj = '';
         }
+        else $obj = '';
+
         $addons = '';
-        if ( !empty( $obj ) ) :
-                $addons .= '<div class="mec-details-addons-container">';
-            foreach ($obj as $key => $value) :
+        if(!empty($obj))
+        {
+            $addons .= '<div class="mec-details-addons-container">';
+            foreach($obj as $key => $value)
+            {
                 $addons .= '
                 <div class="mec-details-addons-wrap">
                     <a href="https://webnus.net/modern-events-calendar/addons/" target="_blank"><img src="'.$value->img.'" /></a>
                     <div class="mec-details-addons-title"><a href="https://webnus.net/modern-events-calendar/addons/" target="_blank"><span>'. esc_html__($value->name) .'</span></a></div>
                     <p>'. esc_html__($value->desc) .'</p>
-                </div>
-                
-                ';
-            endforeach;
-                $addons .= '</div>';
-        endif;
+                </div>';
+            }
+
+            $addons .= '</div>';
+        }
 
         if(isset($arg->slug) and $arg->slug === $this->slug)
         {
@@ -256,12 +257,12 @@ class MEC_envato extends MEC_base
             $information->tested = '5.2.2';
             $information->active_installs = '10000';
             $information->sections = (array) $information->sections;
+
             unset($information->sections['installation']);
             unset($information->sections['faq']);
             unset($information->sections['screenshots']);
             
             $information->sections['addons'] = $addons;
-
             return $information;
         }
         
@@ -275,9 +276,11 @@ class MEC_envato extends MEC_base
 	public function getRemote_information()
 	{
 		$request = wp_remote_post('https://api.wordpress.org/plugins/info/1.0/modern-events-calendar-lite.json', array( 'timeout' => 30 ));
-		if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200) {
+		if(!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200)
+		{
 			return $request['body'];
 		}
+
 		return false;
 	}
 
@@ -292,7 +295,7 @@ class MEC_envato extends MEC_base
         // setting the header for the rest of the api
         $code = $this->get_purchase_code();
         $product_name = $this->get_product_name();
-        $url  = get_home_url();
+        $url = get_home_url();
         
         if($type == 'remove') $verify_url = 'https://webnus.net/api/remove?id='.$code;
         elseif($type == 'dl') $verify_url = 'http://webnus.biz/webnus.net/plugin-api/verify?item_name=' . urlencode($product_name) . '&id=' . $code . '&url=' . $url;
