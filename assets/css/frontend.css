@@ -2739,36 +2739,43 @@ button#mec-book-form-back-btn-step-3 {
     margin-left: 0;
 }
 
-.mec-single-event .lity-wrap .mec-booking-form-container button {
-    display: unset;
-}
 
-.mec-single-event .lity-wrap #mec-book-form-back-btn-step-3,
-.mec-single-event .lity-wrap .mec-booking-form-container button.mec-book-form-back-button {
-    background: #c4cace;
-}
-
-.mec-single-event .lity-wrap button[type=submit],
-.mec-single-event .lity-wrap #mec-book-form-back-btn-step-3,
-.mec-single-event .lity-wrap .mec-booking-form-container button {
-	min-width: 170px;
-    margin-top: 5px;
-    border-radius: 2px;
-    box-shadow: 0 2px 1px rgba(0,0,0,.08);
+.lity-content .mec-book-form-back-button {
+    position: relative;
+    border: none;
+    border-radius: 0;
     color: #fff;
+    display: inline-block;
     font-size: 12px;
     letter-spacing: 1px;
+    line-height: 1.5;
     text-transform: uppercase;
+    font-weight: 600;
     text-decoration: none;
+    cursor: pointer;
+    margin-right: 10px;
     line-height: 1;
     padding: 18px 20px 16px;
     -webkit-transition: all .21s ease;
     -moz-transition: all .21s ease;
     transition: all .21s ease;
+    min-width: 170px;
+    margin-top: 5px;
+    border-radius: 0;
+    margin-bottom: 6px;
+    background: #c4cace;
 }
 
-.mec-single-event .lity-wrap .mec-booking-form-container button.mec-book-form-back-button:hover {
-    background: #222;
+.lity-content .mec-book-form-back-button:hover {
+    background: #000;
+}
+
+.lity-content button#mec-book-form-back-btn-step-3 {
+    float: none;
+}
+
+.lity-content .mec-book-form-next-button {
+    float: left;
 }
 
 .mec-single-event .mec-book-first,

@@ -4020,18 +4020,19 @@ class MEC_main extends MEC_base
         // Settings
         $settings = $this->get_settings();
 
+        $time = $event->data->time;
+        $start_date = $event->date['start']['date'];
+        $end_date = $event->date['end']['date'];
+
         $start_timestamp = strtotime($event->date['start']['date']);
         $end_timestamp = strtotime($event->date['end']['date']);
-        $time = $event->data->time;
-        $start_date = date_i18n($format, $start_timestamp);
-        $end_date = date_i18n($format, $end_timestamp);
 
         // Midnight Hour
         $midnight_hour = (isset($settings['midnight_hour']) and $settings['midnight_hour']) ? $settings['midnight_hour'] : 0;
         $midnight = $end_timestamp+(3600*$midnight_hour);
 
         // End Date is before Midnight
-        if($start_timestamp < $end_timestamp and $midnight >= strtotime($end_date.' '.$time['end'])) $end_date = date_i18n($format, ($end_timestamp - 86400));
+        if($start_timestamp < $end_timestamp and $midnight >= strtotime($end_date.' '.$time['end'])) $end_date = date('Y-m-d', ($end_timestamp - 86400));
 
         return $this->date_label(array('date' => $start_date), array('date' => $end_date), $format, $separator);
     }

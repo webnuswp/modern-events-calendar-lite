@@ -950,6 +950,30 @@ class MEC_feature_fes extends MEC_base
         
         $tickets = isset($mec['tickets']) ? $mec['tickets'] : array();
         unset($tickets[':i:']);
+
+        // Unset Ticket Dats
+        if(count($tickets))
+        {
+            $new_tickets = array();
+            foreach($tickets as $key => $ticket)
+            {
+                unset($ticket['dates'][':j:']);
+
+                $ticket_start_time_ampm = ((intval($ticket['ticket_start_time_hour']) > 0 and intval($ticket['ticket_start_time_hour']) < 13) and isset($ticket['ticket_start_time_ampm'])) ? $ticket['ticket_start_time_ampm'] : '';
+                $ticket_render_start_time = date('h:ia', strtotime(sprintf('%02d', $ticket['ticket_start_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_start_time_minute']) . $ticket_start_time_ampm));
+                $ticket_end_time_ampm = ((intval($ticket['ticket_end_time_hour']) > 0 and intval($ticket['ticket_end_time_hour']) < 13) and isset($ticket['ticket_end_time_ampm'])) ? $ticket['ticket_end_time_ampm'] : '';
+                $ticket_render_end_time = date('h:ia', strtotime(sprintf('%02d', $ticket['ticket_end_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_end_time_minute']) . $ticket_end_time_ampm));
+
+                $ticket['ticket_start_time_hour'] = substr($ticket_render_start_time, 0, 2);
+                $ticket['ticket_start_time_ampm'] = strtoupper(substr($ticket_render_start_time, 5, 6));
+                $ticket['ticket_end_time_hour'] = substr($ticket_render_end_time, 0, 2);
+                $ticket['ticket_end_time_ampm'] = strtoupper(substr($ticket_render_end_time, 5, 6));
+
+                $new_tickets[$key] = $ticket;
+            }
+
+            $tickets = $new_tickets;
+        }
         
         update_post_meta($post_id, 'mec_tickets', $tickets);
         

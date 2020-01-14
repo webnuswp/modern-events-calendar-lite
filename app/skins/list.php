@@ -170,6 +170,9 @@ class MEC_skin_list extends MEC_skins
         // Show Only Expired Events
         $this->show_only_expired_events = (isset($this->atts['show_only_past_events']) and trim($this->atts['show_only_past_events'])) ? '1' : '0';
 
+        // Maximum Date Range.
+        $this->maximum_date_range = (isset($this->skin_options['maximum_date_range']) and trim($this->skin_options['maximum_date_range'])) ? trim($this->skin_options['maximum_date_range']) : NULL;
+
         // Show Past Events
         if($this->show_only_expired_events)
         {

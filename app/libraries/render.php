@@ -935,8 +935,7 @@ class MEC_render extends MEC_base
     
             if($mode == 'render') $i++;
         }
-    
-        $referer_date = $event_info['start']['date'];
+        
         while($i < $maximum)
         {
             foreach($advanced_days as $day)

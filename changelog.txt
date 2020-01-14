@@ -1,4 +1,17 @@
-﻿v 5.0.0 - 8 January 2020
+﻿v 5.0.1 - 14 January 2020
+- Added: An option to set maximum date for certain skins
+- Added: Currency to WooCommerce order (pro)
+- Added: Attendees count in backend booking form (pro)
+- Disabled: Auto confirmation when paid by "Pay Locally" gateway. (pro)
+- Fixed: Price per date in "Frontend Event Submission"
+- Fixed: Localized dates
+- Fixed: Admin notification system
+- Fixed: Next event module
+- Fixed: "Advanced" repeat type regarding showing dates
+- Fixed: Month filter in search module
+- Fixed: Some minor issues
+
+v 5.0.0 - 8 January 2020
 - Added: An option to change MEC midnight hour for those events that span after the actual midnight
 - Added: A per event option to show only one occurrence of the event
 - Added: "Back Button" for booking form so users can simply navigate to previous step if needed (pro)

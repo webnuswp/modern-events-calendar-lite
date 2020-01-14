@@ -3063,10 +3063,10 @@ class MEC_feature_events extends MEC_base
         unset($tickets[':i:']);
 
         // Unset Ticket Dats
-        if (count($tickets))
+        if(count($tickets))
         {
             $new_tickets = array();
-            foreach ($tickets as $key => $ticket)
+            foreach($tickets as $key => $ticket)
             {
                 unset($ticket['dates'][':j:']);
                 $ticket_start_time_ampm = ((intval($ticket['ticket_start_time_hour']) > 0 and intval($ticket['ticket_start_time_hour']) < 13) and isset($ticket['ticket_start_time_ampm'])) ? $ticket['ticket_start_time_ampm'] : '';

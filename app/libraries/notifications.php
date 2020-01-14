@@ -642,12 +642,20 @@ class MEC_notifications extends MEC_base
         // Don't send the email if it's auto draft post
         if($status == 'auto-draft') return false;
 
-        $to = get_bloginfo('admin_email');
-        $subject = (isset($this->notif_settings['new_event']['subject']) and trim($this->notif_settings['new_event']['subject'])) ? __($this->notif_settings['new_event']['subject'], 'modern-events-calendar-lite') : __('A new event is added.', 'modern-events-calendar-lite');
-        $headers = array('Content-Type: text/html; charset=UTF-8');
+        $to = (!isset($this->notif_settings['new_event']['send_to_admin']) or (isset($this->notif_settings['new_event']['send_to_admin']) and $this->notif_settings['new_event']['send_to_admin'])) ? get_bloginfo('admin_email') : NULL;
 
         $recipients_str = isset($this->notif_settings['new_event']['recipients']) ? $this->notif_settings['new_event']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
+
+        if(is_null($to) and !count($recipients)) return false;
+        else if(is_null($to))
+        {
+            $to = current($recipients);
+            unset($recipients[0]);
+        }
+        
+        $subject = (isset($this->notif_settings['new_event']['subject']) and trim($this->notif_settings['new_event']['subject'])) ? __($this->notif_settings['new_event']['subject'], 'modern-events-calendar-lite') : __('A new event is added.', 'modern-events-calendar-lite');
+        $headers = array('Content-Type: text/html; charset=UTF-8');
 
         foreach($recipients as $recipient)
         {

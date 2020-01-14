@@ -3845,12 +3845,13 @@ textarea.mec-import-settings-content {
 .mec-addon-box-head img {
     display: block;
     width: 60px;
+    height: 60px;
     margin-bottom: 10px;
 }
 
 .mec-addon-box-title {
-    font-weight: 700;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 17px;
     line-height: 25px
 }
 
@@ -4113,6 +4114,10 @@ textarea.mec-import-settings-content {
 #mec_exceptions_not_in_days_date,
 #mec_meta_box_calendar_skin_options input[type=text].mec_date_picker {
     max-width: 262px;
+}
+
+#mec_meta_box_calendar_skin_options input[type=text].mec_date_picker.mec-col-4 {
+    max-width: 32.33333333%;
 }
 
 #payment_gateways_option .mec-col-4 input[type=text],

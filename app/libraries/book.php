@@ -261,7 +261,9 @@ class MEC_book extends MEC_base
         // Auto confirmation for paid bookings is enabled
         if($price > 0 and isset($this->settings['booking_auto_confirm_paid']) and $this->settings['booking_auto_confirm_paid'] == 1)
         {
-            $this->confirm($book_id);
+            // Disable auto confirmation when pay through pay locally Payment.
+            $pay_locally_gateway = (isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_pay_locally') ? true : false;
+            if(!$pay_locally_gateway) $this->confirm($book_id);
         }
 
         return $book_id;
@@ -715,8 +717,10 @@ class MEC_book extends MEC_base
         if(!count($price_dates)) return $data;
 
         $time = strtotime($date);
-        foreach($price_dates as $price_date)
+        foreach($price_dates as $k => $price_date)
         {
+            if(!is_numeric($k)) continue;
+
             $start = $price_date['start'];
             $end = $price_date['end'];
 

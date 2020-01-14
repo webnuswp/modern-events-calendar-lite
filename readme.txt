@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.2
-Stable tag: 5.0.0
+Stable tag: 5.0.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -348,6 +348,19 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 33. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 5.0.1 - 14 January 2020 =
+- Added: An option to set maximum date for certain skins
+- Added: Currency to WooCommerce order (pro)
+- Added: Attendees count in backend booking form (pro)
+- Disabled: Auto confirmation when paid by "Pay Locally" gateway. (pro)
+- Fixed: Price per date in "Frontend Event Submission"
+- Fixed: Localized dates
+- Fixed: Admin notification system
+- Fixed: Next event module
+- Fixed: "Advanced" repeat type regarding showing dates
+- Fixed: Month filter in search module
+- Fixed: Some minor issues
+
 = 5.0.0 - 8 January 2020 =
 - Added: An option to change MEC midnight hour for those events that span after the actual midnight
 - Added: A per event option to show only one occurrence of the event

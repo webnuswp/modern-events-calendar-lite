@@ -56,7 +56,20 @@ $events = $this->main->get_events();
                     <div class="mec-col-4 <?php if(!isset($sk_options_list['start_date_type']) or (isset($sk_options_list['start_date_type']) and $sk_options_list['start_date_type'] != 'date')) echo 'mec-util-hidden'; ?>" id="mec_skin_list_start_date_container">
                         <input class="mec_date_picker" type="text" name="mec[sk-options][list][start_date]" id="mec_skin_list_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_list['start_date'])) echo $sk_options_list['start_date']; ?>" />
                     </div>
-				</div>
+                </div>
+                <!-- Start Maximum Date -->
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_list_maximum_date_range"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></label>
+                    <input type="text" class="mec-col-4 mec_date_picker" name="mec[sk-options][list][maximum_date_range]" value="<?php echo isset($sk_options_list['maximum_date_range']) ? esc_attr($sk_options_list['maximum_date_range']) : ''; ?>" placeholder="<?php _e('Maximum Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
+                    <span class="mec-tooltip">
+                        <div class="box top">
+                            <h5 class="title"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></h5>
+                            <div class="content"><p><?php _e('Show events before the specified date.', 'modern-events-calendar-lite'); ?></p></div>
+                        </div>
+                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                    </span>
+                </div>
+                <!-- End Maximum Date -->
                 <div class="mec-form-row mec-skin-list-date-format-container <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] != 'classic') echo 'mec-util-hidden'; ?>" id="mec_skin_list_date_format_classic_container">
                     <label class="mec-col-4" for="mec_skin_list_classic_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4" name="mec[sk-options][list][classic_date_format1]" id="mec_skin_list_classic_date_format1" value="<?php echo ((isset($sk_options_list['classic_date_format1']) and trim($sk_options_list['classic_date_format1']) != '') ? $sk_options_list['classic_date_format1'] : 'M d Y'); ?>" />
@@ -224,6 +237,19 @@ $events = $this->main->get_events();
                         <input class="mec_date_picker" type="text" name="mec[sk-options][grid][start_date]" id="mec_skin_grid_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_grid['start_date'])) echo $sk_options_grid['start_date']; ?>" />
                     </div>
                 </div>
+                <!-- Start Maximum Date -->
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_grid_maximum_date_range"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></label>
+                    <input type="text" class="mec-col-4 mec_date_picker" name="mec[sk-options][grid][maximum_date_range]" value="<?php echo isset($sk_options_grid['maximum_date_range']) ? esc_attr($sk_options_grid['maximum_date_range']) : ''; ?>" placeholder="<?php _e('Maximum Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
+                    <span class="mec-tooltip">
+                        <div class="box top">
+                            <h5 class="title"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></h5>
+                            <div class="content"><p><?php _e('Show events before the specified date.', 'modern-events-calendar-lite'); ?></p></div>
+                        </div>
+                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                    </span>
+                </div>
+                <!-- End Maximum Date -->
                 <div class="mec-form-row mec-skin-grid-date-format-container <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] != 'classic') echo 'mec-util-hidden'; ?>" id="mec_skin_grid_date_format_classic_container">
                     <label class="mec-col-4" for="mec_skin_grid_classic_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4" name="mec[sk-options][grid][classic_date_format1]" id="mec_skin_grid_classic_date_format1" value="<?php echo ((isset($sk_options_grid['classic_date_format1']) and trim($sk_options_grid['classic_date_format1']) != '') ? $sk_options_grid['classic_date_format1'] : 'd F Y'); ?>" />
@@ -389,6 +415,19 @@ $events = $this->main->get_events();
                         <input class="mec_date_picker" type="text" name="mec[sk-options][agenda][start_date]" id="mec_skin_agenda_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_agenda['start_date'])) echo $sk_options_agenda['start_date']; ?>" />
                     </div>
                 </div>
+                <!-- Start Maximum Date -->
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_agenda_maximum_date_range"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></label>
+                    <input type="text" class="mec-col-4 mec_date_picker" name="mec[sk-options][agenda][maximum_date_range]" value="<?php echo isset($sk_options_agenda['maximum_date_range']) ? esc_attr($sk_options_agenda['maximum_date_range']) : ''; ?>" placeholder="<?php _e('Maximum Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
+                    <span class="mec-tooltip">
+                        <div class="box top">
+                            <h5 class="title"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></h5>
+                            <div class="content"><p><?php _e('Show events before the specified date.', 'modern-events-calendar-lite'); ?></p></div>
+                        </div>
+                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                    </span>
+                </div>
+                <!-- End Maximum Date -->
                 <div class="mec-form-row mec-skin-agenda-date-format-container <?php if(isset($sk_options_agenda['style']) and $sk_options_agenda['style'] != 'clean') echo 'mec-util-hidden'; ?>" id="mec_skin_agenda_date_format_clean_container">
                     <label class="mec-col-4" for="mec_skin_agenda_clean_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-2" name="mec[sk-options][agenda][clean_date_format1]" id="mec_skin_agenda_clean_date_format1" value="<?php echo ((isset($sk_options_agenda['clean_date_format1']) and trim($sk_options_agenda['clean_date_format1']) != '') ? $sk_options_agenda['clean_date_format1'] : 'l'); ?>" />
@@ -882,6 +921,19 @@ $events = $this->main->get_events();
                         <input class="mec_date_picker" type="text" name="mec[sk-options][masonry][start_date]" id="mec_skin_masonry_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_masonry['start_date'])) echo $sk_options_masonry['start_date']; ?>" />
                     </div>
                 </div>
+                <!-- Start Maximum Date -->
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_masonry_maximum_date_range"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></label>
+                    <input type="text" class="mec-col-4 mec_date_picker" name="mec[sk-options][masonry][maximum_date_range]" value="<?php echo isset($sk_options_masonry['maximum_date_range']) ? esc_attr($sk_options_masonry['maximum_date_range']) : ''; ?>" placeholder="<?php _e('Maximum Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
+                    <span class="mec-tooltip">
+                        <div class="box top">
+                            <h5 class="title"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></h5>
+                            <div class="content"><p><?php _e('Show events before the specified date.', 'modern-events-calendar-lite'); ?></p></div>
+                        </div>
+                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                    </span>
+                </div>
+                <!-- End Maximum Date -->
                 <div class="mec-form-row mec-skin-masonry-date-format-container">
                     <label class="mec-col-4" for="mec_skin_masonry_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-2" name="mec[sk-options][masonry][date_format1]" id="mec_skin_masonry_date_format1" value="<?php echo ((isset($sk_options_masonry['date_format1']) and trim($sk_options_masonry['date_format1']) != '') ? $sk_options_masonry['date_format1'] : 'j'); ?>" />
@@ -1297,6 +1349,19 @@ $events = $this->main->get_events();
                         <input class="mec_date_picker" type="text" name="mec[sk-options][timeline][start_date]" id="mec_skin_timeline_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_timeline['start_date'])) echo $sk_options_timeline['start_date']; ?>" />
                     </div>
                 </div>
+                <!-- Start Maximum Date -->
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_timeline_maximum_date_range"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></label>
+                    <input type="text" class="mec-col-4 mec_date_picker" name="mec[sk-options][timeline][maximum_date_range]" value="<?php echo isset($sk_options_timeline['maximum_date_range']) ? esc_attr($sk_options_timeline['maximum_date_range']) : ''; ?>" placeholder="<?php _e('Maximum Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
+                    <span class="mec-tooltip">
+                        <div class="box top">
+                            <h5 class="title"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></h5>
+                            <div class="content"><p><?php _e('Show events before the specified date.', 'modern-events-calendar-lite'); ?></p></div>
+                        </div>
+                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                    </span>
+                </div>
+                <!-- End Maximum Date -->
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_timeline_classic_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4" name="mec[sk-options][timeline][classic_date_format1]" id="mec_skin_timeline_classic_date_format1" value="<?php echo ((isset($sk_options_timeline['classic_date_format1']) and trim($sk_options_timeline['classic_date_format1']) != '') ? $sk_options_timeline['classic_date_format1'] : 'd F Y'); ?>" />

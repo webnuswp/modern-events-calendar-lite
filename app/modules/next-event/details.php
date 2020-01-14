@@ -77,6 +77,9 @@ else
 
 $time_comment = isset($next->data->meta['mec_comment']) ? $next->data->meta['mec_comment'] : '';
 $allday = isset($next->data->meta['mec_allday']) ? $next->data->meta['mec_allday'] : 0;
+
+$midnight_event = $this->is_midnight_event($next);
+if($midnight_event) $next_date['end']['date'] = date('Y-m-d', strtotime('-1 Day', strtotime($next_date['end']['date'])));
 ?>
 <div class="mec-next-event-details mec-frontbox" id="mec_next_event_details">
     <div class="mec-next-<?php echo $method; ?>">

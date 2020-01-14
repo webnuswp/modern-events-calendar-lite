@@ -64,6 +64,7 @@ class MEC_skins extends MEC_base
     public $skin_options;
     public $style;
     public $show_only_expired_events;
+    public $maximum_date_range;
     public $limit;
     public $paged;
     public $start_date;
@@ -615,6 +616,7 @@ class MEC_skins extends MEC_base
         {
             $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
             $start = (isset($this->sf) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
+
             $end = date('Y-m-01', strtotime('-10 Year', strtotime($start)));
         }
         else
@@ -622,6 +624,9 @@ class MEC_skins extends MEC_base
             $start = $this->start_date;
             $end = date('Y-m-t', strtotime('+10 Year', strtotime($start)));
         }
+
+        // Set a certain maximum date from shortcode page.
+        if(trim($this->maximum_date) == '' and (isset($this->maximum_date_range) and trim($this->maximum_date_range))) $this->maximum_date = $this->maximum_date_range;
 
         // Date Events
         $dates = $this->period($start, $end, true);
