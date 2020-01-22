@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.0.1  
+**Stable tag:** 5.0.2  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -97,13 +97,14 @@ Only by a few clicks in a couple of seconds your current content [events](https:
 ## Addons 
 We have begun to create practical [add-ons](https://webnus.net/modern-events-calendar/addons/). Now, you will have access to a wide range of features using them. Please have a look at these add-ons: (MEC Pro requeired)
 - [Woocommerce Integration](https://webnus.net/modern-events-calendar/addons/woocommerce-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/woocommerce-addon/)
-- [Elementor Shortcode Builder](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/shortcode-builder-addon/) 
-- [Elementor Form Builder](https://webnus.net/modern-events-calendar/addons/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
-- [Elementor Single Builder](https://webnus.net/modern-events-calendar/addons/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
-- [Event API](https://webnus.net/modern-events-calendar/addons/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
 - [Multisite Event Sync](https://webnus.net/modern-events-calendar/addons/multisite-event-sync/) - [Documentation](https://webnus.net/dox/modern-events-calendar/multisite-event-sync/)
 - [User Dashboard](https://webnus.net/modern-events-calendar/addons/user-dashboard/) - [Documentation](https://webnus.net/dox/modern-events-calendar/user-dashboard/)
-
+- [Event API](https://webnus.net/modern-events-calendar/addons/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
+- [Elementor Single Builder](https://webnus.net/modern-events-calendar/addons/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
+- [Elementor Shortcode Builder](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/shortcode-builder-addon/) 
+- [Elementor Form Builder](https://webnus.net/modern-events-calendar/addons/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
+- [Elementor Shortcode Designer](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-designer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/mec-shortcode-designer-addon/)
+- [Ticket and Invoice](https://webnus.net/modern-events-calendar/addons/ticket-invoice/) - [Documentation](https://webnus.net/dox/modern-events-calendar/ticket-and-invoice-addon/)
 
 
 ## Helpful Documentation 
@@ -130,7 +131,8 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Grid & cover](https://webnus.net/modern-events-calendar/grid-view-modern-style/) view (10 Skins)
 - [Slider & carousel](https://webnus.net/modern-events-calendar/slider-view-type-2/) view (8 Skins)
 - [List](https://webnus.net/modern-events-calendar/list-view-standard-style/) View (5 Skins)
-- Tile
+- [Timetable](https://webnus.net/modern-events-calendar/timeline-view/) View (3 Skins)
+- [Tile](https://webnus.net/modern-events-calendar/tile-view/) View 
 - Event locations system
 - Event organizer system
 - Multiple organizers
@@ -259,6 +261,8 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Weekly](https://webnus.net/modern-events-calendar/weekly-view/) View
 - [Daily](https://webnus.net/modern-events-calendar/daily-view/) View
 - [List/Grid](https://webnus.net/modern-events-calendar/list-view-classic-style/) View
+- [Timetable](https://webnus.net/modern-events-calendar/timeline-view/) View
+- [Tile](https://webnus.net/modern-events-calendar/tile-view/) View 
 - [Search bar](https://webnus.net/dox/modern-events-calendar/search-bar/) Shortcode
 - RTL support
 - Multiple organizers
@@ -428,6 +432,24 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### 5.0.2 - 22 January 2020 
+- Added: An ability to add users as recipients in notifications (pro)
+- Added: An ability to add user roles as recipient in notifications (pro)
+- Added: LinkedIn to speakers
+- Removed: "Schedule" message in bookings (pro)
+- Changed: "none" to "select" for date search field in  Full Calendar shortcode
+- Fixed: A timeout issue in ICS and XML import
+- Fixed: An organizer issue in ICS and XML import
+- Fixed: Hide other organizer section when main organizer is set to be hidden
+- Fixed: Minimum ticket option (pro)
+- Fixed: Tags search field
+- Fixed: Weekly repeating in multiple-day events 
+- Fixed: Booking module (pro)
+- Fixed: Typography (attendee's form and stop selling ticket warning - pro)
+- Fixed: Hide search form option for Timeline shortcode in the backend page
+- Fixed: Some issues concerning PHP 7.4
+
 
 ### 5.0.1 - 14 January 2020 
 - Added: An option to set maximum date for certain skins
@@ -1121,11 +1143,6 @@ Yes, it is possible. In order to see the related documentations, please [click h
 ### Does MEC have default languages or it needs to be translated? 
 
 Yes, for some of the languages MEC has the translation file as default. However, since these translations have been done by the users, they may be incomplete, hence updating them might be required. For more information, please [click here](https://webnus.net/dox/modern-events-calendar/translate-mec/).
-
-
-### Can I have more than one calendar in one website? 
-
-Unfortunately, MEC does not support more than 1 calendar in a single website, however, it will be added in its upcoming updates.
 
 
 ### Can I import/export from/to MEC? 

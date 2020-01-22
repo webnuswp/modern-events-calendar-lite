@@ -23,11 +23,11 @@ echo $this->main->mec_custom_msg('', '');
 
 // Display Addons Notification
 $get_n_option = get_option('mec_addons_notification_option');
-if ( $get_n_option != 'open' ) :
-    echo '<div class="wns-be-container mec-addons-notification-set-box extra">';
-        echo $this->main->addons_msg();
-    echo '</div>';
-endif;
+// if ( $get_n_option != 'open' ) :
+//     echo '<div class="wns-be-container mec-addons-notification-set-box extra">';
+//         //echo $this->main->addons_msg();
+//     echo '</div>';
+// endif;
 ?>
 
 <div class="wns-be-container wns-be-container-sticky">

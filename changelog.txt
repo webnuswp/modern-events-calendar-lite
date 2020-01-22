@@ -1,4 +1,21 @@
-﻿v 5.0.1 - 14 January 2020
+﻿v 5.0.2 - 22 January 2020
+- Added: An ability to add users as recipients in notifications (pro)
+- Added: An ability to add user roles as recipient in notifications (pro)
+- Added: LinkedIn to speakers
+- Removed: "Schedule" message in bookings (pro)
+- Changed: "none" to "select" for date search field in  Full Calendar shortcode
+- Fixed: A timeout issue in ICS and XML import
+- Fixed: An organizer issue in ICS and XML import
+- Fixed: Hide other organizer section when main organizer is set to be hidden
+- Fixed: Minimum ticket option (pro)
+- Fixed: Tags search field
+- Fixed: Weekly repeating in multiple-day events 
+- Fixed: Booking module (pro)
+- Fixed: Typography (attendee's form and stop selling ticket warning - pro)
+- Fixed: Hide search form option for Timeline shortcode in the backend page
+- Fixed: Some issues concerning PHP 7.4
+
+v 5.0.1 - 14 January 2020
 - Added: An option to set maximum date for certain skins
 - Added: Currency to WooCommerce order (pro)
 - Added: Attendees count in backend booking form (pro)

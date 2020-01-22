@@ -223,21 +223,31 @@ class MEC_feature_ix extends MEC_base
 
     public function import_do($feed)
     {
+        // Increase the resources
+        @ini_set('memory_limit', '1024M');
+        @ini_set('max_execution_time', 300);
+
         $file = $this->getFile();
         $extension = $file->getExt($feed);
 
-        // Libraries
+        /**
+         * @var MEC_db
+         */
         $db = $this->getDB();
+
+        /**
+         * @var MEC_main
+         */
         $main = $this->getMain();
+
+        // WP Upload Path
+        $wp_upload_dir = wp_upload_dir();
 
         $posts = array();
         if(strtolower($extension) == 'xml')
         {
             $XML = simplexml_load_string($file->read($feed));
             if($XML === false) return false;
-
-            // WP Upload Path
-            $wp_upload_dir = wp_upload_dir();
 
             foreach($XML->children() as $event)
             {
@@ -556,7 +566,6 @@ class MEC_feature_ix extends MEC_base
         }
         elseif(strtolower($extension) == 'ics')
         {
-            $main = $this->getMain();
             $parsed = $main->parse_ics($feed);
 
             // Timezone
@@ -575,12 +584,28 @@ class MEC_feature_ix extends MEC_base
                 )) : 1;
 
                 // Event Organizer
-                $organizer = $event->organizer_array;
+                $organizer = isset($event->organizer_array) ? $event->organizer_array : array();
                 $organizer_id = (isset($organizer[0]) and isset($organizer[0]['CN'])) ? $main->save_organizer(array
                 (
                     'name'=>trim((string) $organizer[0]['CN']),
                     'email'=>(string) str_replace('MAILTO:', '', $organizer[1]),
                 )) : 1;
+
+                // Event Categories
+                $category_ids = array();
+                if(isset($event->categories) and trim($event->categories))
+                {
+                    $cats = explode(',', $event->categories);
+                    foreach($cats as $category)
+                    {
+                        $category_id = $main->save_category(array
+                        (
+                            'name'=>trim((string) $category),
+                        ));
+
+                        if($category_id) $category_ids[] = $category_id;
+                    }
+                }
 
                 $date_start = new DateTime($event->dtstart);
                 $date_start->setTimezone(new DateTimeZone($timezone));
@@ -589,6 +614,8 @@ class MEC_feature_ix extends MEC_base
                 $start_hour = $date_start->format('g');
                 $start_minutes = $date_start->format('i');
                 $start_ampm = $date_start->format('A');
+
+                $date_end = NULL;
 
                 $end_timestamp = isset($event->dtend) ? strtotime($event->dtend) : 0;
                 if($end_timestamp)
@@ -621,6 +648,97 @@ class MEC_feature_ix extends MEC_base
                 $weekdays = NULL;
                 $days = NULL;
                 $not_in_days = NULL;
+
+                // Recurring Event
+                $rrule = (isset($event->rrule) and trim($event->rrule)) ? $event->rrule : '';
+                if(trim($rrule) != '')
+                {
+                    $ex1 = explode(';', $rrule);
+
+                    $rule = array();
+                    foreach($ex1 as $r)
+                    {
+                        $ex2 = explode('=', $r);
+                        $rule[strtolower($ex2[0])] = strtolower($ex2[1]);
+                    }
+
+                    $repeat_status = 1;
+                    if($rule['freq'] == 'daily')
+                    {
+                        $repeat_type = 'daily';
+                        $repeat_interval = isset($rule['interval']) ? $rule['interval'] : 1;
+                    }
+                    elseif($rule['freq'] == 'weekly')
+                    {
+                        $repeat_type = 'weekly';
+                        $repeat_interval = isset($rule['interval']) ? $rule['interval']*7 : 7;
+                    }
+                    elseif($rule['freq'] == 'monthly')
+                    {
+                        $repeat_type = 'monthly';
+
+                        $year = '*';
+                        $month = '*';
+
+                        $s = $start_date;
+                        $e = $end_date;
+
+                        $_days = array();
+                        while(strtotime($s) <= strtotime($e))
+                        {
+                            $_days[] = date('d', strtotime($s));
+                            $s = date('Y-m-d', strtotime('+1 Day', strtotime($s)));
+                        }
+
+                        $day = ','.implode(',', array_unique($_days)).',';
+
+                        $week = '*';
+                        $weekday = '*';
+                    }
+                    elseif($rule['freq'] == 'yearly')
+                    {
+                        $repeat_type = 'yearly';
+
+                        $year = '*';
+
+                        $s = $start_date;
+                        $e = $end_date;
+
+                        $_months = array();
+                        $_days = array();
+                        while(strtotime($s) <= strtotime($e))
+                        {
+                            $_months[] = date('m', strtotime($s));
+                            $_days[] = date('d', strtotime($s));
+
+                            $s = date('Y-m-d', strtotime('+1 Day', strtotime($s)));
+                        }
+
+                        $month = ','.implode(',', array_unique($_months)).',';
+                        $day = ','.implode(',', array_unique($_days)).',';
+
+                        $week = '*';
+                        $weekday = '*';
+                    }
+                    else $repeat_type = '';
+
+                    // Custom Week Days
+                    if($repeat_type == 'weekly' and isset($rule['byday']) and count(explode(',', $rule['byday'])) > 1)
+                    {
+                        $g_week_days = explode(',', $rule['byday']);
+                        $week_day_mapping = array('mo'=>1, 'tu'=>2, 'we'=>3, 'th'=>4, 'fr'=>5, 'sa'=>6, 'su'=>7);
+
+                        $weekdays = '';
+                        foreach($g_week_days as $g_week_day) $weekdays .= $week_day_mapping[$g_week_day].',';
+
+                        $weekdays = ','.trim($weekdays, ', ').',';
+                        $interval = NULL;
+
+                        $repeat_type = 'certain_weekdays';
+                    }
+
+                    $finish = isset($rule['until']) ? date('Y-m-d', strtotime($rule['until'])) : NULL;
+                }
 
                 $additional_organizer_ids = array();
                 $hourly_schedules = array();
@@ -720,6 +838,25 @@ class MEC_feature_ix extends MEC_base
 
                 // Set organizer to the post
                 if($organizer_id) wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
+
+                // Set categories to the post
+                if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);
+
+                // Featured Image
+                $featured_image = isset($event->attach) ? (string) $event->attach : '';
+                if(!has_post_thumbnail($post_id) and trim($featured_image))
+                {
+                    $file_name = basename($featured_image);
+
+                    $path = rtrim($wp_upload_dir['path'], DS.' ').DS.$file_name;
+                    $url = rtrim($wp_upload_dir['url'], '/ ').'/'.$file_name;
+
+                    // Download Image
+                    $buffer = $main->get_web_page($featured_image);
+
+                    $file->write($path, $buffer);
+                    $main->set_featured_image($url, $post_id);
+                }
             }
         }
 

@@ -375,7 +375,7 @@ class MEC_book extends MEC_base
      * @return array|integer
      */
     public function get_tickets_availability($event_id, $date, $mode = 'availability')
-    {   
+    {
         $availability = array();
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
 

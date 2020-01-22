@@ -770,20 +770,20 @@ class MEC_path extends MEC_base
 		$path = MEC_path::clean($path);
 		$mode = @ decoct(@ fileperms($path) & 0777);
 
-		if (strlen($mode) < 3)
+		if(strlen($mode) < 3)
 		{
 			return '---------';
 		}
 
 		$parsed_mode = '';
-		for ($i = 0; $i < 3; $i++)
+		for($i = 0; $i < 3; $i++)
 		{
 			// read
-			$parsed_mode .= ($mode{$i} & 04) ? "r" : "-";
+			$parsed_mode .= ($mode[$i] & 04) ? "r" : "-";
 			// write
-			$parsed_mode .= ($mode{$i} & 02) ? "w" : "-";
+			$parsed_mode .= ($mode[$i] & 02) ? "w" : "-";
 			// execute
-			$parsed_mode .= ($mode{$i} & 01) ? "x" : "-";
+			$parsed_mode .= ($mode[$i] & 01) ? "x" : "-";
 		}
 
 		return $parsed_mode;

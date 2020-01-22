@@ -49,7 +49,7 @@ if(!$mec_email)
 ?>
 
 <form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);" novalidate="novalidate" enctype="multipart/form-data" method="post">
-    <h4><?php echo apply_filters('mec-attendees-title', __('Attendees Form', 'modern-events-calendar-lite')) ?></h4>
+    <h4><?php echo apply_filters('mec-attendees-title', __('Attendee\'s Form', 'modern-events-calendar-lite')) ?></h4>
     <ul class="mec-book-tickets-container">
 
         <?php $j = 0; foreach($tickets as $ticket_id=>$count): if(!$count) continue; $ticket = $event_tickets[$ticket_id]; for($i = 1; $i <= $count; $i++): $j++; ?>
@@ -64,10 +64,10 @@ if(!$mec_email)
             <!-- Custom fields -->
             <?php if(count($reg_fields)): foreach($reg_fields as $reg_field_id=>$reg_field): if(!is_numeric($reg_field_id) or !isset($reg_field['type'])) continue; ?>
 
-            <?php $reg_field_name = strtolower( str_replace([' ',',',':','"',"'"], '_', $reg_field['label']) ); ?>
+            <?php $reg_field_name = strtolower(str_replace([' ',',',':','"',"'"], '_', $reg_field['label'])); ?>
 
             <div class="mec-book-reg-field-<?php echo $reg_field['type']; ?> <?php echo ((isset($reg_field['mandatory']) and $reg_field['mandatory']) ? 'mec-reg-mandatory' : ''); ?><?php
-            if ( isset($reg_field['inline']) && $reg_field['inline'] == 'enable') {
+            if(isset($reg_field['inline']) && $reg_field['inline'] == 'enable') {
                 echo ' col-md-6'; } else { echo ' col-md-12'; }
         ?>" data-ticket-id="<?php echo $j; ?>" data-field-id="<?php echo $reg_field_id; ?>">
                 <?php if(isset($reg_field['label']) and $reg_field['type'] != 'agreement' &&  $reg_field['type'] != 'name' && $reg_field['type'] != 'mec_email' ): ?><label for="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>"><?php _e($reg_field['label'], 'modern-events-calendar-lite'); ?><?php echo ((isset($reg_field['mandatory']) and $reg_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?></label><?php endif; ?>

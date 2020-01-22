@@ -236,6 +236,13 @@ jQuery(document).ready(function($)
     // Add shortcode select2
     jQuery(".mec-create-shortcode-tab-content select").select2();
 
+    // Add Notification DropDown Select2
+    jQuery(".mec-notification-dropdown-select2").select2(
+    {
+        closeOnSelect: false,
+        width: '33%'
+    });
+
     $('.mec-import-settings').on('click', function(e)
     {
         e.preventDefault();
@@ -508,7 +515,7 @@ function mec_skin_toggle()
     }
 
     // Show/Hide Search Widget Options
-    if(skin === 'countdown' || skin === 'cover' || skin === 'available_spot' || skin === 'masonry' || skin === 'carousel' || skin === 'slider')
+    if(skin === 'countdown' || skin === 'cover' || skin === 'available_spot' || skin === 'masonry' || skin === 'carousel' || skin === 'slider' || skin === 'timeline')
     {
         jQuery('#mec_calendar_search_form').hide();
     }

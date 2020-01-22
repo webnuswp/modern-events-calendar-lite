@@ -102,6 +102,7 @@ class MEC_feature_speakers extends MEC_base
         $email = get_metadata('term', $term->term_id, 'email', true);
         $facebook = get_metadata('term', $term->term_id, 'facebook', true);
         $instagram = get_metadata('term', $term->term_id, 'instagram', true);
+        $linkedin = get_metadata('term', $term->term_id, 'linkedin', true);
         $twitter = get_metadata('term', $term->term_id, 'twitter', true);
         $thumbnail = get_metadata('term', $term->term_id, 'thumbnail', true);
     ?>
@@ -143,6 +144,14 @@ class MEC_feature_speakers extends MEC_base
             </th>
             <td>
                 <input type="text" placeholder="<?php esc_attr_e('Insert URL of Instagram', 'modern-events-calendar-lite'); ?>" name="instagram" id="mec_instagram" value="<?php echo $instagram; ?>" />
+            </td>
+        </tr>
+        <tr class="form-field">
+            <th scope="row" valign="top">
+                <label for="mec_linkedin"><?php _e('LinkedIn', 'modern-events-calendar-lite'); ?></label>
+            </th>
+            <td>
+                <input type="text" placeholder="<?php esc_attr_e('Insert URL of LinkedIn', 'modern-events-calendar-lite'); ?>" name="linkedin" id="mec_linkedin" value="<?php echo $linkedin; ?>" />
             </td>
         </tr>
         <tr class="form-field">
@@ -196,6 +205,10 @@ class MEC_feature_speakers extends MEC_base
             <input type="text" name="instagram" placeholder="<?php esc_attr_e('Insert URL of Instagram', 'modern-events-calendar-lite'); ?>" id="mec_instagram" value="" />
         </div>
         <div class="form-field">
+            <label for="mec_linkedin"><?php _e('LinkedIn', 'modern-events-calendar-lite'); ?></label>
+            <input type="text" name="linkedin" placeholder="<?php esc_attr_e('Insert URL of linkedin', 'modern-events-calendar-lite'); ?>" id="mec_linkedin" value="" />
+        </div>
+        <div class="form-field">
             <label for="mec_twitter"><?php _e('Twitter Page', 'modern-events-calendar-lite'); ?></label>
             <input type="text" name="twitter" placeholder="<?php esc_attr_e('Insert URL of Twitter Page', 'modern-events-calendar-lite'); ?>" id="mec_twitter" value="" />
         </div>
@@ -217,13 +230,14 @@ class MEC_feature_speakers extends MEC_base
      */
     public function save_metadata($term_id)
     {
-        $job_title = isset($_POST['job_title']) ? sanitize_text_field($_POST['job_title']) : '';
-        $tel = isset($_POST['tel']) ? sanitize_text_field($_POST['tel']) : '';
-        $email = isset($_POST['email']) ? sanitize_text_field($_POST['email']) : '';
-        $facebook = (isset($_POST['facebook']) and trim($_POST['facebook'])) ? (strpos($_POST['facebook'], 'http') === false ? 'http://'.sanitize_text_field($_POST['facebook']) : sanitize_text_field($_POST['facebook'])) : '';
-        $twitter = (isset($_POST['twitter']) and trim($_POST['twitter'])) ? (strpos($_POST['twitter'], 'http') === false ? 'http://'.sanitize_text_field($_POST['twitter']) : sanitize_text_field($_POST['twitter'])) : '';
-        $instagram = (isset($_POST['instagram']) and trim($_POST['instagram'])) ? (strpos($_POST['instagram'], 'http') === false ? 'http://'.sanitize_text_field($_POST['instagram']) : sanitize_text_field($_POST['instagram'])) : '';
-        $thumbnail = isset($_POST['thumbnail']) ? sanitize_text_field($_POST['thumbnail']) : '';
+        $job_title  = isset($_POST['job_title']) ? sanitize_text_field($_POST['job_title']) : '';
+        $tel        = isset($_POST['tel']) ? sanitize_text_field($_POST['tel']) : '';
+        $email      = isset($_POST['email']) ? sanitize_text_field($_POST['email']) : '';
+        $facebook   = (isset($_POST['facebook']) and trim($_POST['facebook'])) ? (strpos($_POST['facebook'], 'http') === false ? 'http://'.sanitize_text_field($_POST['facebook']) : sanitize_text_field($_POST['facebook'])) : '';
+        $twitter    = (isset($_POST['twitter']) and trim($_POST['twitter'])) ? (strpos($_POST['twitter'], 'http') === false ? 'http://'.sanitize_text_field($_POST['twitter']) : sanitize_text_field($_POST['twitter'])) : '';
+        $instagram  = (isset($_POST['instagram']) and trim($_POST['instagram'])) ? (strpos($_POST['instagram'], 'http') === false ? 'http://'.sanitize_text_field($_POST['instagram']) : sanitize_text_field($_POST['instagram'])) : '';
+        $linkedin   = (isset($_POST['linkedin']) and trim($_POST['linkedin'])) ? (strpos($_POST['linkedin'], 'http') === false ? 'http://'.sanitize_text_field($_POST['linkedin']) : sanitize_text_field($_POST['linkedin'])) : '';
+        $thumbnail  = isset($_POST['thumbnail']) ? sanitize_text_field($_POST['thumbnail']) : '';
         
         update_term_meta($term_id, 'job_title', $job_title);
         update_term_meta($term_id, 'tel', $tel);
@@ -231,6 +245,7 @@ class MEC_feature_speakers extends MEC_base
         update_term_meta($term_id, 'facebook', $facebook);
         update_term_meta($term_id, 'twitter', $twitter);
         update_term_meta($term_id, 'instagram', $instagram);
+        update_term_meta($term_id, 'linkedin', $linkedin);
         update_term_meta($term_id, 'thumbnail', $thumbnail);
 
 

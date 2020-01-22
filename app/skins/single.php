@@ -229,7 +229,13 @@ class MEC_skin_single extends MEC_skins
         $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : date('Y-m-d');
 
         if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
-        elseif(strtotime($occurrence)) $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+        elseif(strtotime($occurrence))
+        {
+            $md_start = $this->main->get_start_of_multiple_days($this->id, $occurrence);
+            if($md_start) $occurrence = $md_start;
+
+            $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+        }
         else $occurrence = NULL;
 
         $data = new stdClass();
@@ -1000,9 +1006,13 @@ class MEC_skin_single extends MEC_skins
                         <?php if($twitter = trim(get_term_meta($speaker->term_id, 'twitter', true))): ?>
                         <a href="<?php echo $twitter; ?>" target="_blank"><i class="mec-fa-twitter"></i></a>
                         <?php endif; ?>
-                        <!-- Speaker Google Plus -->
+                        <!-- Speaker Instagram -->
                         <?php if($instagram = trim(get_term_meta($speaker->term_id, 'instagram', true))): ?>
                         <a href="<?php echo $instagram; ?>" target="_blank"><i class="mec-fa-instagram"></i></a>
+                        <?php endif; ?>
+                        <!-- Speaker LinkedIn -->
+                        <?php if($linkedin = trim(get_term_meta($speaker->term_id, 'linkedin', true))): ?>
+                        <a href="<?php echo $linkedin; ?>" target="_blank"><i class="mec-fa-linkedin"></i></a>
                         <?php endif; ?>
                     </div>
                     <!-- Speaker Description -->

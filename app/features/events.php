@@ -1848,8 +1848,6 @@ class MEC_feature_events extends MEC_base
                                     />
                                     <?php _e('Unlimited', 'modern-events-calendar-lite'); ?>
                                 </label>
-                                <button class="button remove" type="button"
-                                        onclick="mec_ticket_remove(<?php echo $key; ?>);"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>
                             </div>
                             <div class="mec-form-row">
                                 <input type="text" name="mec[tickets][<?php echo $key; ?>][minimum_ticket]" value="<?php echo(isset($ticket['minimum_ticket']) ? esc_attr($ticket['minimum_ticket']) : '0'); ?>" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
@@ -1871,6 +1869,8 @@ class MEC_feature_events extends MEC_base
                                     <option value="hour" <?php echo(isset($ticket['stop_selling_type']) and trim($ticket['stop_selling_type']) == 'hour') ? 'selected="selected"' : ''; ?>><?php _e("Hour", "mec"); ?></option>
                                 </select>
                                 <?php echo sprintf(__('Stop selling ticket %s before event start.', 'modern-events-calendar-lite'), ob_get_clean()); ?>
+                                <button class="button remove" type="button"
+                                        onclick="mec_ticket_remove(<?php echo $key; ?>);"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>                                
                             </div>
                             <?php do_action('custom_field_ticket', $ticket, $key); ?>
                             <div id="mec_price_per_dates_container">
@@ -2063,8 +2063,6 @@ class MEC_feature_events extends MEC_base
                                    name="mec[tickets][:i:][unlimited]"/>
                             <?php _e('Unlimited', 'modern-events-calendar-lite'); ?>
                         </label>
-                        <button class="button remove" type="button"
-                                onclick="mec_ticket_remove(:i:)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>
                     </div>
                     <div class="mec-form-row">
                         <input type="text" name="mec[tickets][:i:][minimum_ticket]" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
@@ -2086,6 +2084,8 @@ class MEC_feature_events extends MEC_base
                             <option value="hour"><?php _e("Hour", "mec"); ?></option>
                         </select>
                         <?php echo sprintf(__('Stop selling ticket %s before event start.', 'modern-events-calendar-lite'), ob_get_clean()); ?>
+                        <button class="button remove" type="button"
+                                onclick="mec_ticket_remove(:i:)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>                        
                     </div>
                     <div id="mec_price_per_dates_container_:i:">
                         <div class="mec-form-row">

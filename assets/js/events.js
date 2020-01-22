@@ -202,6 +202,11 @@ jQuery(document).ready(function($)
     $('#mec_organizer_id').on('change', function()
     {
         mec_organizer_toggle();
+        var mec_organizer_val = parseInt($(this).val());
+        var mec_additional_organizer = $(this).parent().parent().find('#mec-additional-organizer-wrap');
+
+        if(mec_organizer_val != 1) mec_additional_organizer.show();
+        else mec_additional_organizer.hide();
     });
     
     mec_location_toggle();

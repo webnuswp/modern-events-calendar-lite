@@ -3547,6 +3547,14 @@ focus,
 	background: #2e4d66;
 }
 
+.mec-single-event .mec-event-social a.linkedin {
+	background: #457399;
+}
+
+.mec-single-event .mec-event-social a.linkedin:hover {
+	background: #2e4d66;
+}
+
 .mec-single-event .mec-event-social a.other-social {
 	background: #ff5d5e;
 }

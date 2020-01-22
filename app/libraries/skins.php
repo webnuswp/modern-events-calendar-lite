@@ -374,24 +374,32 @@ class MEC_skins extends MEC_base
     /**
      * Returns tag query for adding to WP_Query
      * @author Webnus <info@webnus.biz>
-     * @return array
+     * @return string
      */
     public function tag_query()
     {
         $tag = '';
-        
+
         // Add event tags to filter
         if(isset($this->atts['tag']) and trim($this->atts['tag'], ', ') != '')
         {
             if(is_numeric($this->atts['tag']))
             {
                 $term = get_term_by('id', $this->atts['tag'], 'post_tag');
-                if($term) $tag = $term->name;
+                if($term) $tag = $term->slug;
             }
-            else $tag = $this->atts['tag'];
+            else
+            {
+                $tags = explode(',', $this->atts['tag']);
+                foreach($tags as $t)
+                {
+                    $term = get_term_by('name', $t, 'post_tag');
+                    if($term) $tag .= $term->slug.',';
+                }
+            }
         }
         
-        return $tag;
+        return trim($tag, ', ');
     }
     
     /**
@@ -997,7 +1005,7 @@ class MEC_skins extends MEC_base
                 $skins = array('list', 'grid');
                 if(isset($this->skin_options['default_view']) and $this->skin_options['default_view'] == 'list') array_push($skins, 'full_calendar');
 
-                $item = __('none', 'modern-events-calendar-lite');
+                $item = __('Select', 'modern-events-calendar-lite');
                 $option = in_array($this->skin, $skins) ? '<option class="mec-none-item" value="none" selected="selected">'.$item.'</option>' : '';
 
                 $output .= '<div class="mec-date-search"><input type="hidden" id="mec-filter-none" value="'.$item.'">
@@ -1077,7 +1085,6 @@ class MEC_skins extends MEC_base
         
         // Apply Label Query
         if(isset($sf['label']) and trim($sf['label'])) $atts['label'] = $sf['label'];
-
         
         // Apply SF Date or Not
         if($apply_sf_date == 1)

@@ -44,6 +44,41 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_booking_notification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][booking_notification][subject]" id="mec_notifications_booking_notification_subject" value="<?php echo (isset($notifications['booking_notification']['subject']) ? stripslashes($notifications['booking_notification']['subject']) : ''); ?>" />
                                 </div>
+
+                               <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_notification_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $users = isset($notifications['booking_notification']['receiver_users']) ? $notifications['booking_notification']['receiver_users'] : array();
+                                        echo $this->main->get_users_dropdown($users, 'booking_notification');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_notification_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $roles = isset($notifications['booking_notification']['receiver_roles']) ? $notifications['booking_notification']['receiver_roles'] : array();
+                                        echo $this->main->get_roles_dropdown($roles, 'booking_notification');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_booking_notification_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][booking_notification][recipients]" id="mec_notifications_booking_notification_recipients" value="<?php echo (isset($notifications['booking_notification']['recipients']) ? $notifications['booking_notification']['recipients'] : ''); ?>" />
@@ -89,6 +124,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%invoice_link%%</span>: <?php _e('Invoice Link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%total_attendees%%</span>: <?php _e('Total Attendees', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ticket_name%%</span>: <?php _e('Ticket name', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ticket_time%%</span>: <?php _e('Ticket time', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
@@ -105,6 +141,41 @@ $notifications = $this->main->get_notifications();
                                 <label for="mec_notifications_email_verification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                 <input type="text" name="mec[notifications][email_verification][subject]" id="mec_notifications_email_verification_subject" value="<?php echo (isset($notifications['email_verification']['subject']) ? stripslashes($notifications['email_verification']['subject']) : ''); ?>" />
                             </div>
+
+                            <!-- Start Receiver Users -->
+                            <div class="mec-form-row">
+                                <label for="mec_notifications_email_verification_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                <?php
+                                    $users = isset($notifications['email_verification']['receiver_users']) ? $notifications['email_verification']['receiver_users'] : array();
+                                    echo $this->main->get_users_dropdown($users, 'email_verification');
+                                ?>
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                            <!-- End Receiver Users -->
+
+                            <!-- Start Receiver Roles -->
+                            <div class="mec-form-row">
+                                <label for="mec_notifications_email_verification_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                <?php
+                                    $roles = isset($notifications['email_verification']['receiver_roles']) ? $notifications['email_verification']['receiver_roles'] : array();
+                                    echo $this->main->get_roles_dropdown($roles, 'email_verification');
+                                ?>
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                            <!-- End Receiver Roles -->
+
                             <div class="mec-form-row">
                                 <label for="mec_notifications_email_verification_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                 <input type="text" name="mec[notifications][email_verification][recipients]" id="mec_notifications_email_verification_recipients" value="<?php echo (isset($notifications['email_verification']['recipients']) ? $notifications['email_verification']['recipients'] : ''); ?>" />
@@ -145,6 +216,7 @@ $notifications = $this->main->get_notifications();
                                 <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%verification_link%%</span>: <?php _e('Email/Booking verification link.', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%total_attendees%%</span>: <?php _e('Total Attendees', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%ticket_name%%</span>: <?php _e('Ticket name', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%ticket_time%%</span>: <?php _e('Ticket time', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
@@ -161,6 +233,41 @@ $notifications = $this->main->get_notifications();
                                 <label for="mec_notifications_booking_confirmation_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                 <input type="text" name="mec[notifications][booking_confirmation][subject]" id="mec_notifications_booking_confirmation_subject" value="<?php echo (isset($notifications['booking_confirmation']['subject']) ? stripslashes($notifications['booking_confirmation']['subject']) : ''); ?>" />
                             </div>
+                            
+                            <!-- Start Receiver Users -->
+                            <div class="mec-form-row">
+                                <label for="mec_notifications_booking_confirmation_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                <?php
+                                    $users = isset($notifications['booking_confirmation']['receiver_users']) ? $notifications['booking_confirmation']['receiver_users'] : array();
+                                    echo $this->main->get_users_dropdown($users, 'booking_confirmation');
+                                ?>
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                            <!-- End Receiver Users -->
+
+                            <!-- Start Receiver Roles -->
+                            <div class="mec-form-row">
+                                <label for="mec_notifications_booking_confirmation_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                <?php
+                                    $roles = isset($notifications['booking_confirmation']['receiver_roles']) ? $notifications['booking_confirmation']['receiver_roles'] : array();
+                                    echo $this->main->get_roles_dropdown($roles, 'booking_confirmation');
+                                ?>
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                            <!-- End Receiver Roles -->
+
                             <div class="mec-form-row">
                                 <label for="mec_notifications_booking_confirmation_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                 <input type="text" name="mec[notifications][booking_confirmation][recipients]" id="mec_notifications_booking_confirmation_recipients" value="<?php echo (isset($notifications['booking_confirmation']['recipients']) ? $notifications['booking_confirmation']['recipients'] : ''); ?>" />
@@ -206,7 +313,7 @@ $notifications = $this->main->get_notifications();
                                 <li><span>%%cancellation_link%%</span>: <?php _e('Booking cancellation link.', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%invoice_link%%</span>: <?php _e('Invoice Link', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%total_attendees%%</span>: <?php _e('Total Attendees', 'modern-events-calendar-lite'); ?></li>
-                                <li><span>%%amount_tickets%%</span>: <?php _e('Amount Tickets', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%ticket_name%%</span>: <?php _e('Ticket name', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%ticket_time%%</span>: <?php _e('Ticket time', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
@@ -229,6 +336,41 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_cancellation_notification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][cancellation_notification][subject]" id="mec_notifications_cancellation_notification_subject" value="<?php echo (isset($notifications['cancellation_notification']['subject']) ? stripslashes($notifications['cancellation_notification']['subject']) : 'Your booking is canceled.'); ?>" />
                                 </div>
+
+                                <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_cancellation_notification_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $users = isset($notifications['cancellation_notification']['receiver_users']) ? $notifications['cancellation_notification']['receiver_users'] : array();
+                                        echo $this->main->get_users_dropdown($users, 'cancellation_notification');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_cancellation_notification_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $roles = isset($notifications['cancellation_notification']['receiver_roles']) ? $notifications['cancellation_notification']['receiver_roles'] : array();
+                                        echo $this->main->get_roles_dropdown($roles, 'cancellation_notification');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_cancellation_notification_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][cancellation_notification][recipients]" id="mec_notifications_cancellation_notification_recipients" value="<?php echo (isset($notifications['cancellation_notification']['recipients']) ? $notifications['cancellation_notification']['recipients'] : ''); ?>" />
@@ -280,6 +422,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%admin_link%%</span>: <?php _e('Admin booking management link.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%total_attendees%%</span>: <?php _e('Total Attendees', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets', 'modern-events-calendar-lite'); ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -299,6 +442,41 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_admin_notification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][admin_notification][subject]" id="mec_notifications_admin_notification_subject" value="<?php echo (isset($notifications['admin_notification']['subject']) ? stripslashes($notifications['admin_notification']['subject']) : ''); ?>" />
                                 </div>
+                                
+                                <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_admin_notification_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $users = isset($notifications['admin_notification']['receiver_users']) ? $notifications['admin_notification']['receiver_users'] : array();
+                                        echo $this->main->get_users_dropdown($users, 'admin_notification');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_admin_notification_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $roles = isset($notifications['admin_notification']['receiver_roles']) ? $notifications['admin_notification']['receiver_roles'] : array();
+                                        echo $this->main->get_roles_dropdown($roles, 'admin_notification');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_admin_notification_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][admin_notification][recipients]" id="mec_notifications_admin_notification_recipients" value="<?php echo (isset($notifications['admin_notification']['recipients']) ? $notifications['admin_notification']['recipients'] : ''); ?>" />
@@ -342,6 +520,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%admin_link%%</span>: <?php _e('Admin booking management link.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%total_attendees%%</span>: <?php _e('Total Attendees', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets', 'modern-events-calendar-lite'); ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -364,6 +543,41 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_booking_reminder_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][booking_reminder][subject]" id="mec_notifications_booking_reminder_subject" value="<?php echo ((isset($notifications['booking_reminder']) and isset($notifications['booking_reminder']['subject'])) ? stripslashes($notifications['booking_reminder']['subject']) : ''); ?>" />
                                 </div>
+
+                                <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_reminder_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $users = isset($notifications['booking_reminder']['receiver_users']) ? $notifications['booking_reminder']['receiver_users'] : array();
+                                        echo $this->main->get_users_dropdown($users, 'booking_reminder');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_reminder_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $roles = isset($notifications['booking_reminder']['receiver_roles']) ? $notifications['booking_reminder']['receiver_roles'] : array();
+                                        echo $this->main->get_roles_dropdown($roles, 'booking_reminder');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_booking_reminder_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][booking_reminder][recipients]" id="mec_notifications_booking_reminder_recipients" value="<?php echo ((isset($notifications['booking_reminder']) and isset($notifications['booking_reminder']['recipients'])) ? $notifications['booking_reminder']['recipients'] : ''); ?>" />
@@ -414,6 +628,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%cancellation_link%%</span>: <?php _e('Booking cancellation link.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%invoice_link%%</span>: <?php _e('Invoice Link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%total_attendees%%</span>: <?php _e('Total Attendees', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ticket_name%%</span>: <?php _e('Ticket name', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ticket_time%%</span>: <?php _e('Ticket time', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
@@ -445,13 +660,48 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_new_event_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][new_event][subject]" id="mec_notifications_new_event_subject" value="<?php echo (isset($notifications['new_event']['subject']) ? stripslashes($notifications['new_event']['subject']) : ''); ?>" />
                                 </div>
+                                
+                                <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_new_event_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $users = isset($notifications['new_event']['receiver_users']) ? $notifications['new_event']['receiver_users'] : array();
+                                        echo $this->main->get_users_dropdown($users, 'new_event');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_new_event_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $roles = isset($notifications['new_event']['receiver_roles']) ? $notifications['new_event']['receiver_roles'] : array();
+                                        echo $this->main->get_roles_dropdown($roles, 'new_event');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_new_event_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][new_event][recipients]" id="mec_notifications_new_event_recipients" value="<?php echo (isset($notifications['new_event']['recipients']) ? $notifications['new_event']['recipients'] : ''); ?>" />
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                            <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>                                             
@@ -493,6 +743,41 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_user_event_publishing_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][user_event_publishing][subject]" id="mec_notifications_user_event_publishing_subject" value="<?php echo (isset($notifications['user_event_publishing']['subject']) ? stripslashes($notifications['user_event_publishing']['subject']) : ''); ?>" />
                                 </div>
+
+                                <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_user_event_publishing_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $users = isset($notifications['user_event_publishing']['receiver_users']) ? $notifications['user_event_publishing']['receiver_users'] : array();
+                                        echo $this->main->get_users_dropdown($users, 'user_event_publishing');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_user_event_publishing_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                        $roles = isset($notifications['user_event_publishing']['receiver_roles']) ? $notifications['user_event_publishing']['receiver_roles'] : array();
+                                        echo $this->main->get_roles_dropdown($roles, 'user_event_publishing');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_user_event_publishing_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][user_event_publishing][recipients]" id="mec_notifications_user_event_publishing_recipients" value="<?php echo (isset($notifications['user_event_publishing']['recipients']) ? $notifications['user_event_publishing']['recipients'] : ''); ?>" />

@@ -263,7 +263,7 @@ class MEC_feature_organizers extends MEC_base
                     <option value="1"><?php _e('Hide organizer', 'modern-events-calendar-lite'); ?></option>
 					<option value="0"><?php _e('Insert a new organizer', 'modern-events-calendar-lite'); ?></option>
 					<?php foreach($organizers as $organizer): ?>
-					<option <?php if($organizer_id == $organizer->term_id) echo 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>"><?php echo $organizer->name; ?></option>
+					<option <?php if($organizer_id == $organizer->term_id) echo $selected = 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>"><?php echo $organizer->name; ?></option>
 					<?php endforeach; ?>
 				</select>
                 <span class="mec-tooltip">
@@ -308,17 +308,19 @@ class MEC_feature_organizers extends MEC_base
                 <?php endif; ?>
 			</div>
             <?php if($additional_organizers_status and count($organizers)): ?>
-            <h4><?php echo $this->main->m('other_organizers', __('Other Organizers', 'modern-events-calendar-lite')); ?></h4>
-            <div class="mec-form-row">
-                <p><?php _e('You can select extra organizers in addition to main organizer if you like.', 'modern-events-calendar-lite'); ?></p>
-                <div class="mec-additional-organizers">
-                    <select class="mec-select2-dropdown" name="mec[additional_organizer_ids][]" multiple="multiple">
-                        <?php foreach($organizers as $organizer): ?>
-                        <option <?php if(in_array($organizer->term_id, $organizer_ids)) echo 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>">
-                            <?php echo $organizer->name; ?>
-                        </option>
-                        <?php endforeach; ?>
-                    </select>
+            <div id="mec-additional-organizer-wrap" class="<?php echo !isset($selected) ? 'mec-util-hidden' : ''; ?>">
+                <h4><?php echo $this->main->m('other_organizers', __('Other Organizers', 'modern-events-calendar-lite')); ?></h4>
+                <div class="mec-form-row">
+                    <p><?php _e('You can select extra organizers in addition to main organizer if you like.', 'modern-events-calendar-lite'); ?></p>
+                    <div class="mec-additional-organizers">
+                        <select class="mec-select2-dropdown" name="mec[additional_organizer_ids][]" multiple="multiple">
+                            <?php foreach($organizers as $organizer): ?>
+                            <option <?php if(in_array($organizer->term_id, $organizer_ids)) echo 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>">
+                                <?php echo $organizer->name; ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
             </div>
             <?php endif; ?>

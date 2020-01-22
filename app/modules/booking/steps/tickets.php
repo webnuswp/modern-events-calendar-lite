@@ -36,16 +36,12 @@ $date_format = (isset($settings['booking_date_format1']) and trim($settings['boo
                 <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo $ticket['description']; ?></p><?php endif; ?>
                 <div>
                     <input type="number" class="mec-book-ticket-limit" name="book[tickets][<?php echo $ticket_id; ?>]" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo $default_ticket_number; ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" onchange="mec_check_tickets_availability<?php echo $uniqueid; ?>(<?php echo $ticket_id; ?>, this.value);" />
-                    
-                    <!-- Set Input Minimum Ticket Min Value -->
-                    <?php $min_ticket = (isset($ticket['minimum_ticket']) and intval($ticket['minimum_ticket']) > 0) ? intval($ticket['minimum_ticket']) : 0; ?>
-                    <input type="hidden" name="book[tickets_info][<?php echo $ticket_id; ?>]" value="<?php echo "{$ticket_id} , ".(isset($ticket['name']) ? $ticket['name'] : '')." , {$min_ticket}"; ?>" />
                 </div>
                 <span class="mec-event-ticket-available"><?php echo sprintf(__('Available %s: <span>%s</span>', 'modern-events-calendar-lite'), $this->m('tickets', __('Tickets', 'modern-events-calendar-lite')), ($ticket['unlimited'] ? __('Unlimited', 'modern-events-calendar-lite') : ($ticket_limit != '-1' ? $ticket_limit : __('Unlimited', 'modern-events-calendar-lite')))); ?></span>
             </div>
             <?php
                 $str_replace = isset($ticket['name']) ? '<strong>'.$ticket['name'].'</strong>' : '';
-                $ticket_message_sales =  sprintf(__('The %s ticket sales has stoped!', 'modern-events-calendar-lite'), $str_replace);
+                $ticket_message_sales =  sprintf(__('The %s ticket sales has stopped!', 'modern-events-calendar-lite'), $str_replace);
                 $ticket_message_sold_out =  sprintf(__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite'), $str_replace);
             ?>
             <?php if(isset($stop_selling) and $stop_selling): ?>

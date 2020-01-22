@@ -65,9 +65,13 @@ if(!count($speakers)) return false;
                         <?php if($twitter = trim(get_term_meta($speaker['id'], 'twitter', true))): ?>
                         <a href="<?php echo $twitter; ?>" target="_blank"><i class="mec-fa-twitter"></i></a>
                         <?php endif; ?>
-                        <!-- Speaker Google Plus -->
+                        <!-- Speaker Instagram -->
                         <?php if($instagram = trim(get_term_meta($speaker['id'], 'instagram', true))): ?>
                         <a href="<?php echo $instagram; ?>" target="_blank"><i class="mec-fa-instagram"></i></a>
+                        <?php endif; ?>
+                        <!-- Speaker LinkedIn -->
+                        <?php if($linkedin = trim(get_term_meta($speaker['id'], 'linkedin', true))): ?>
+                        <a href="<?php echo $linkedin; ?>" target="_blank"><i class="mec-fa-linkedin"></i></a>
                         <?php endif; ?>
                     </div>
                     <!-- Speaker Description -->

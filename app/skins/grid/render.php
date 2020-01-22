@@ -258,6 +258,7 @@ if($this->style == 'colorful')
                 </div>
             </div>
         <?php elseif($this->style == 'simple'): ?>
+            <?php do_action('mec_skin_grid_simple', $event); ?>
             <div class="mec-event-date mec-color"><?php echo $this->main->dateify($event, $this->date_format_simple_1); ?></div>
             <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
             <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>

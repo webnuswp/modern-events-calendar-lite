@@ -2454,8 +2454,6 @@ class MEC_main extends MEC_base
         $event = $render->data($event_id);
         $dates = $render->dates($event_id, $event, 2, $occurrence);
         
-        $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']]['address'] : '';
-        
         $occurrence_end_date = trim($occurrence) ? $this->get_end_date_by_occurrence($event_id, (isset($dates[0]['start']['date']) ? $dates[0]['start']['date'] : $occurrence)) : '';
         $start_time = strtotime((trim($occurrence) ? $occurrence : $dates[0]['start']['date']).' '.sprintf("%02d", $dates[0]['start']['hour']).':'.sprintf("%02d", $dates[0]['start']['minutes']).' '.$dates[0]['start']['ampm']);
         $end_time = strtotime((trim($occurrence_end_date) ? $occurrence_end_date : $dates[0]['end']['date']).' '.sprintf("%02d", $dates[0]['end']['hour']).':'.sprintf("%02d", $dates[0]['end']['minutes']).' '.$dates[0]['end']['ampm']);
@@ -2482,9 +2480,28 @@ class MEC_main extends MEC_base
         $ical .= "SUMMARY:".html_entity_decode($event->title, ENT_NOQUOTES, 'UTF-8').PHP_EOL;
         $ical .= "DESCRIPTION:".html_entity_decode(trim(strip_tags($event->content)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
         $ical .= "URL:".$event->permalink.PHP_EOL;
-        
+
+        // Organizer
+        $organizer = isset($event->organizers[$event->meta['mec_organizer_id']]) ? $event->organizers[$event->meta['mec_organizer_id']] : array();
+        $organizer_name = (isset($organizer['name']) and trim($organizer['name'])) ? $organizer['name'] : NULL;
+        $organizer_email = (isset($organizer['email']) and trim($organizer['email'])) ? $organizer['email'] : NULL;
+
+        $ical .= "ORGANIZER;CN=".$organizer_name.":MAILTO:".$organizer_email.PHP_EOL;
+
+        // Categories
+        $categories = '';
+        if(isset($event->categories) and is_array($event->categories) and count($event->categories))
+        {
+            foreach($event->categories as $category) $categories .= $category['name'].',';
+        }
+
+        if(trim($categories) != '') $ical .= "CATEGORIES:".trim($categories, ', ').PHP_EOL;
+
         // Location
-        if(trim($location) != '') $ical .= "LOCATION:".$location.PHP_EOL;
+        $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']] : array();
+        $address = (isset($location['address']) and trim($location['address'])) ? $location['address'] : $location['name'];
+
+        if(trim($address) != '') $ical .= "LOCATION:".$address.PHP_EOL;
         
         // Featured Image
         if(trim($event->featured_image['full']) != '')
@@ -2536,7 +2553,8 @@ class MEC_main extends MEC_base
         $render = $this->getRender();
         $event = $render->data($event_id);
         
-        $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']]['address'] : '';
+        $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']] : array();
+        $address = (isset($location['address']) and trim($location['address'])) ? $location['address'] : $location['name'];
         
         $start_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_start_hour).':'.sprintf("%02d", $ticket_start_minute).' '.$ticket_start_ampm);
         $end_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_end_hour).':'.sprintf("%02d", $ticket_end_minute).' '.$ticket_end_ampm);
@@ -2558,7 +2576,7 @@ class MEC_main extends MEC_base
         $ical .= "URL:".$event->permalink.PHP_EOL;
         
         // Location
-        if(trim($location) != '') $ical .= "LOCATION:".$location.PHP_EOL;
+        if(trim($address) != '') $ical .= "LOCATION:".$address.PHP_EOL;
         
         // Featured Image
         if(trim($event->featured_image['full']) != '')
@@ -5911,5 +5929,89 @@ class MEC_main extends MEC_base
         if($start_timestamp < $end_timestamp and $midnight >= strtotime($event->date['end']['date'].' '.$time['end'])) return true;
 
         return false;
+    }
+
+    public function get_users_dropdown($current = array(), $notifications = 'booking_notification')
+    {
+        $users = get_users();
+        ob_start();
+        ?>
+            <select id="mec_notifications_<?php echo $notifications; ?>_receiver_users" class="mec-notification-dropdown-select2" name="mec[notifications][<?php echo $notifications; ?>][receiver_users][]" multiple="multiple">
+                <?php
+                    foreach($users as $user)
+                    {
+                ?>
+                    <option value="<?php echo isset($user->data->ID) ? intval($user->data->ID) : 0; ?>" <?php echo (is_array($current) and in_array(intval($user->data->ID), $current)) ? 'selected="selected"' : ''; ?>><?php echo (isset($user->data->display_name) and trim($user->data->display_name)) ? trim($user->data->display_name) : '(' . trim($user->data->user_login) . ')'; ?></option>
+                <?php
+                    }
+                ?>
+            </select>
+        <?php
+        $output = ob_get_contents();
+        ob_clean();
+
+        return $output;
+    }
+
+    public function get_emails_by_users($users)
+    {
+        $users_list = array();
+        if(is_array($users) and count($users))
+        {
+            $query = 'SELECT `user_email` FROM `#__users` WHERE';
+            foreach($users as $user_id)
+            {
+                $query .= ' ID='.$user_id.' OR';
+            }
+
+            $db = $this->getDB();
+            $users_list = $db->select(substr(trim($query), 0, -2), 'loadObjectList');
+        }
+
+        return array_keys($users_list);
+    }
+
+    public function get_roles_dropdown($current = array(), $notifications = 'booking_notification')
+    {
+        global $wp_roles;
+        $roles = $wp_roles->get_names();
+        ob_start();
+        ?>
+            <select id="mec_notifications_<?php echo $notifications; ?>_receiver_roles" class="mec-notification-dropdown-select2" name="mec[notifications][<?php echo $notifications; ?>][receiver_roles][]" multiple="multiple">
+                <?php
+                    foreach($roles as $role_key => $role_name)
+                    {
+                ?>
+                    <option value="<?php echo esc_attr($role_key); ?>" <?php echo (is_array($current) and in_array(trim($role_key), $current)) ? 'selected="selected"' : ''; ?>><?php echo $role_name; ?></option>
+                <?php
+                    }
+                ?>
+            </select>
+        <?php
+        $output = ob_get_contents();
+        ob_clean();
+
+        return $output;
+    }
+
+    public function get_emails_by_roles($roles)
+    {
+        $user_list = array();
+        foreach($roles as $role)
+        {
+            $curren_get_users = get_users(array(
+                'role' => $role,
+            ));
+            
+            if(count($curren_get_users))
+            {
+                foreach($curren_get_users as $user)
+                {
+                    if(isset($user->data->user_email) and !in_array($user->data->user_email, $user_list)) $user_list[] = $user->data->user_email;
+                }
+            }
+        }
+
+        return $user_list;
     }
 }

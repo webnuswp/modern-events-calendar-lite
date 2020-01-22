@@ -63,6 +63,17 @@ class MEC_notifications extends MEC_base
         $recipients_str = isset($this->notif_settings['email_verification']['recipients']) ? $this->notif_settings['email_verification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
 
+        $users = isset($this->notif_settings['email_verification']['receiver_users']) ? $this->notif_settings['email_verification']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['email_verification']['receiver_roles']) ? $this->notif_settings['email_verification']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
@@ -144,6 +155,17 @@ class MEC_notifications extends MEC_base
 
         $recipients_str = isset($this->notif_settings['booking_notification']['recipients']) ? $this->notif_settings['booking_notification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
+
+        $users = isset($this->notif_settings['booking_notification']['receiver_users']) ? $this->notif_settings['booking_notification']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['booking_notification']['receiver_roles']) ? $this->notif_settings['booking_notification']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
         {
@@ -252,6 +274,17 @@ class MEC_notifications extends MEC_base
         $recipients_str = isset($this->notif_settings['booking_confirmation']['recipients']) ? $this->notif_settings['booking_confirmation']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
 
+        $users = isset($this->notif_settings['booking_confirmation']['receiver_users']) ? $this->notif_settings['booking_confirmation']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['booking_confirmation']['receiver_roles']) ? $this->notif_settings['booking_confirmation']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
+        
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
@@ -380,6 +413,17 @@ class MEC_notifications extends MEC_base
         $recipients_str = isset($this->notif_settings['cancellation_notification']['recipients']) ? $this->notif_settings['cancellation_notification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
 
+        $users = isset($this->notif_settings['cancellation_notification']['receiver_users']) ? $this->notif_settings['cancellation_notification']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['cancellation_notification']['receiver_roles']) ? $this->notif_settings['cancellation_notification']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
@@ -469,6 +513,17 @@ class MEC_notifications extends MEC_base
         $recipients_str = isset($this->notif_settings['admin_notification']['recipients']) ? $this->notif_settings['admin_notification']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
 
+        $users = isset($this->notif_settings['admin_notification']['receiver_users']) ? $this->notif_settings['admin_notification']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['admin_notification']['receiver_roles']) ? $this->notif_settings['admin_notification']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
@@ -550,6 +605,17 @@ class MEC_notifications extends MEC_base
 
         $recipients_str = isset($this->notif_settings['booking_reminder']['recipients']) ? $this->notif_settings['booking_reminder']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
+
+        $users = isset($this->notif_settings['booking_reminder']['receiver_users']) ? $this->notif_settings['booking_reminder']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['booking_reminder']['receiver_roles']) ? $this->notif_settings['booking_reminder']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
         {
@@ -647,6 +713,17 @@ class MEC_notifications extends MEC_base
         $recipients_str = isset($this->notif_settings['new_event']['recipients']) ? $this->notif_settings['new_event']['recipients'] : '';
         $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
 
+        $users = isset($this->notif_settings['new_event']['receiver_users']) ? $this->notif_settings['new_event']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['new_event']['receiver_roles']) ? $this->notif_settings['new_event']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
+
         if(is_null($to) and !count($recipients)) return false;
         else if(is_null($to))
         {
@@ -728,6 +805,17 @@ class MEC_notifications extends MEC_base
 
             $recipients_str = isset($this->notif_settings['user_event_publishing']['recipients']) ? $this->notif_settings['user_event_publishing']['recipients'] : '';
             $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
+
+            $users = isset($this->notif_settings['user_event_publishing']['receiver_users']) ? $this->notif_settings['user_event_publishing']['receiver_users'] : array();
+            $users_down = $this->main->get_emails_by_users($users);
+            $recipients = array_merge($users_down, $recipients);
+
+            $roles = isset($this->notif_settings['user_event_publishing']['receiver_roles']) ? $this->notif_settings['user_event_publishing']['receiver_roles'] : array();
+            $user_roles = $this->main->get_emails_by_roles($roles);
+            $recipients = array_merge($user_roles, $recipients);
+
+            // Unique Recipients
+            $recipients = array_unique($recipients);
 
             foreach($recipients as $recipient)
             {
