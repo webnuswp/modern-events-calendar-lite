@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.0.2  
+**Stable tag:** 5.0.5
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -432,6 +432,23 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### 5.0.5 - 29 January 2020 
+- Added: Versioning to asset files
+- Added: A WordPress cron for booking reminder emails (pro)
+- Fixed: All day events
+- Fixed: When event time is hidden
+- Fixed: WooCommerce gateway (pro)
+- Fixed: Booking edit (pro)
+- Fixed: Apostrophe in booking success message (pro)
+- Fixed: Day focus of daily skin
+- Fixed: Accordion month toggle
+- Fixed: Sort event in masonry skin (pro)
+- Fixed: Current year in search module
+- Fixed: Advanced repeat
+- Fixed: Pay button position when cart is invalid (pro)
+- Fixed: Simple monthly calendar style
+
 
 ### 5.0.2 - 22 January 2020 
 - Added: An ability to add users as recipients in notifications (pro)
