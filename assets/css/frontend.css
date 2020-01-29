@@ -142,6 +142,16 @@
 	color: #fff;
 }
 
+/* WooCommerce Intagration Add To Cart Button */
+.mec-wrap #mec_woo_add_to_cart_btn_r {
+    min-width: 155px;
+    margin-top: 5px;
+    border-radius: 2px;
+    box-shadow: 0 2px 1px rgba(0,0,0,.08);
+    float: left;
+    text-align: center;
+}
+
 /* Form Builder Button */
 .mec-booking-form-container button {
 	display: block;

@@ -81,7 +81,7 @@ elseif($week_start == 5) // Friday
                     $tooltip_content .= trim($start_time) ? '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>' : '' ;
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '' ;
                     $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.$event->data->thumbnails['thumbnail'].'</div>' : '' ;
-                    $tooltip_content .= !empty(!empty($event->data->content)) ? '<div class="mec-tooltip-event-desc">'.substr($event->data->content, 0, 320).' , ...</div>' : '' ;
+                    $tooltip_content .= !empty(!empty($event->data->content)) ? '<div class="mec-tooltip-event-desc">'.$this->main->mec_content_html($event->data->content, 320).' , ...</div>' : '' ;
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '' ;
                     $speakers = '""';
                     if ( !empty($event->data->speakers)) 

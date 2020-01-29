@@ -1038,7 +1038,10 @@ class MEC_skins extends MEC_base
 
                 for($i = $start_year; $i <= $end_year; $i++)
                 {
-                    $output .= '<option value="'.$i.'" >'.$i.'</option>';
+                    $skins = array('list', 'grid');
+                    if(isset($this->skin_options['default_view']) and $this->skin_options['default_view'] == 'list') array_push($skins, 'full_calendar');
+                    $selected = (!in_array($this->skin, $skins) and $i == date('Y', current_time('timestamp', 0))) ? 'selected="selected"' : '';
+                    $output .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                 }
 
                 $output .= '</select></div>';

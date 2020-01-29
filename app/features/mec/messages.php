@@ -38,7 +38,7 @@ $values = $this->main->get_messages_options();
                                             <?php foreach($category['messages'] as $key=>$message): ?>
                                                 <li>
                                                     <label for="<?php echo 'mec_m_'.$key; ?>"><?php echo $message['label']; ?></label>
-                                                    <input id="<?php echo 'mec_m_'.$key; ?>" name="mec[messages][<?php echo $key; ?>]" type="text" placeholder="<?php echo esc_attr($message['default']); ?>" value="<?php echo (isset($values[$key]) and trim($values[$key])) ? esc_attr($values[$key]) : ''; ?>" />
+                                                    <input id="<?php echo 'mec_m_'.$key; ?>" name="mec[messages][<?php echo $key; ?>]" type="text" placeholder="<?php echo esc_attr($message['default']); ?>" value="<?php echo (isset($values[$key]) and trim($values[$key])) ? esc_attr(stripslashes($values[$key])) : ''; ?>" />
                                                 </li>
                                             <?php endforeach; ?>
                                         </ul>

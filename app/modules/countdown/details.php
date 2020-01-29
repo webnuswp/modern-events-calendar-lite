@@ -11,8 +11,8 @@ if(!isset($settings['countdown_status']) or (isset($settings['countdown_status']
 $event = $event[0];
 $date = $event->date;
 
-$start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : current_time('Y-m-d H:i:s');
-$end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : current_time('Y-m-d H:i:s');
+$start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : current_time('Y-m-d');
+$end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : current_time('Y-m-d');
 
 $s_time = '';
 if(!empty($date))

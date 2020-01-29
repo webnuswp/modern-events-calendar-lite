@@ -275,7 +275,11 @@ if($this->style == 'colorful')
         ?>
         <?php endforeach; ?>
         <?php endforeach; ?>
-        <?php if (($grid_div & 1 ? 'odd' : 'even') =='even' && ($grid_limit % 2 ? 'odd' : 'even') == 'odd' ) {
+        <?php 
+        if ( ($rcount <= count($map_events) + 1 ) && count($map_events) % 3 != 0 ) {
+            echo '</div>'; //close row
+        }
+        if (($grid_div & 1 ? 'odd' : 'even') =='even' && ($grid_limit % 2 ? 'odd' : 'even') == 'odd' ) {
             echo '</div>';
         } ?>
 	</div>

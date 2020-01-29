@@ -1796,7 +1796,7 @@ class MEC_main extends MEC_base
      */
     public function get_events($limit = -1)
     {
-        return get_posts(array('post_type'=>$this->get_main_post_type(), 'posts_per_page'=>$limit, 'post_status'=>'publish'));
+        return get_posts(array('post_type'=>$this->get_main_post_type(), 'numberposts'=>$limit, 'post_status'=>'publish'));
     }
     
     /**
@@ -4038,7 +4038,10 @@ class MEC_main extends MEC_base
         // Settings
         $settings = $this->get_settings();
 
-        $time = $event->data->time;
+        $time = sprintf("%02d", $event->data->meta['mec_end_time_hour']).':';
+        $time .= sprintf("%02d", $event->data->meta['mec_end_time_minutes']).' ';
+        $time .= $event->data->meta['mec_end_time_ampm'];
+
         $start_date = $event->date['start']['date'];
         $end_date = $event->date['end']['date'];
 
@@ -4050,7 +4053,7 @@ class MEC_main extends MEC_base
         $midnight = $end_timestamp+(3600*$midnight_hour);
 
         // End Date is before Midnight
-        if($start_timestamp < $end_timestamp and $midnight >= strtotime($end_date.' '.$time['end'])) $end_date = date('Y-m-d', ($end_timestamp - 86400));
+        if($start_timestamp < $end_timestamp and $midnight >= strtotime($end_date.' '.$time)) $end_date = date('Y-m-d', ($end_timestamp - 86400));
 
         return $this->date_label(array('date' => $start_date), array('date' => $end_date), $format, $separator);
     }
@@ -5919,16 +5922,98 @@ class MEC_main extends MEC_base
 
         $start_timestamp = strtotime($event->date['start']['date']);
         $end_timestamp = strtotime($event->date['end']['date']);
-        $time = $event->data->time;
+
+        $time = sprintf("%02d", $event->data->meta['mec_end_time_hour']).':';
+        $time .= sprintf("%02d", $event->data->meta['mec_end_time_minutes']).' ';
+        $time .= $event->data->meta['mec_end_time_ampm'];
 
         // Midnight Hour
         $midnight_hour = (isset($settings['midnight_hour']) and $settings['midnight_hour']) ? $settings['midnight_hour'] : 0;
         $midnight = $end_timestamp+(3600*$midnight_hour);
 
         // End Date is before Midnight
-        if($start_timestamp < $end_timestamp and $midnight >= strtotime($event->date['end']['date'].' '.$time['end'])) return true;
+        if($start_timestamp < $end_timestamp and $midnight >= strtotime($event->date['end']['date'].' '.$time)) return true;
 
         return false;
+    }
+
+    public function mec_content_html($text, $max_length)
+    {
+        $tags   = array();
+        $result = "";
+        $is_open   = false;
+        $grab_open = false;
+        $is_close  = false;
+        $in_double_quotes = false;
+        $in_single_quotes = false;
+        $tag = "";
+        $i = 0;
+        $stripped = 0;
+        $stripped_text = strip_tags($text);
+        while ($i < strlen($text) && $stripped < strlen($stripped_text) && $stripped < $max_length)
+        {
+            $symbol  = $text{$i};
+            $result .= $symbol;
+            switch ($symbol)
+            {
+            case '<':
+                    $is_open   = true;
+                    $grab_open = true;
+                    break;
+            case '"':
+                if ($in_double_quotes)
+                    $in_double_quotes = false;
+                else
+                    $in_double_quotes = true;
+
+                break;
+                case "'":
+                if ($in_single_quotes)
+                    $in_single_quotes = false;
+                else
+                    $in_single_quotes = true;
+
+                break;
+                case '/':
+                    if ($is_open && !$in_double_quotes && !$in_single_quotes)
+                    {
+                        $is_close  = true;
+                        $is_open   = false;
+                        $grab_open = false;
+                    }
+
+                    break;
+                case ' ':
+                    if ($is_open)
+                        $grab_open = false;
+                    else
+                        $stripped++;
+
+                    break;
+                case '>':
+                    if ($is_open)
+                    {
+                        $is_open   = false;
+                        $grab_open = false;
+                        array_push($tags, $tag);
+                        $tag = "";
+                    }
+                    else if ($is_close)
+                    {
+                        $is_close = false;
+                        array_pop($tags);
+                        $tag = "";
+                    }
+                    break;
+                default:
+                    if ($grab_open || $is_close) $tag .= $symbol;
+                    if (!$is_open && !$is_close) $stripped++;
+            }
+            $i++;
+        }
+        while ($tags)
+            $result .= "</".array_pop($tags).">";
+        return $result;
     }
 
     public function get_users_dropdown($current = array(), $notifications = 'booking_notification')

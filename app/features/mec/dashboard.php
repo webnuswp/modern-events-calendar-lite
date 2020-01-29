@@ -83,7 +83,11 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
         </div>
     </div>
     <div class="welcome-content w-clearfix extra">
-
+        <div class="w-row">
+            <div class="w-col-sm-12">
+                <script src='https://webnus.freshsales.io/web_forms/8dd552ab6041bd25d23d8a8467819f701f9196106be0e25edc6870c9cc922bdc/form.js' crossorigin='anonymous' id='fs_8dd552ab6041bd25d23d8a8467819f701f9196106be0e25edc6870c9cc922bdc'></script>
+            </div>
+        </div>                                   
         <?php if(!$this->getPRO()): ?>
         <div class="w-row mec-pro-notice">
             <div class="w-col-sm-12">
@@ -246,9 +250,6 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                 </div>
             </div>
             <?php endif; ?>
-            <div class="w-col-sm-12">
-            <script src='https://webnus.freshsales.io/web_forms/8dd552ab6041bd25d23d8a8467819f701f9196106be0e25edc6870c9cc922bdc/form.js' crossorigin='anonymous' id='fs_8dd552ab6041bd25d23d8a8467819f701f9196106be0e25edc6870c9cc922bdc'></script>
-            </div>
             <?php if(current_user_can('read')): ?>
             <div class="w-col-sm-3">
                 <div class="w-box doc">

@@ -125,6 +125,7 @@ class MEC_schedule extends MEC_base
         elseif($repeat_type == 'weekday') return 270;
         elseif($repeat_type == 'weekend') return 150;
         elseif($repeat_type == 'certain_weekdays') return 150;
+        elseif($repeat_type == 'advanced') return 120;
         elseif($repeat_type == 'weekly') return 100;
         elseif($repeat_type == 'monthly') return 50;
         elseif($repeat_type == 'yearly') return 25;

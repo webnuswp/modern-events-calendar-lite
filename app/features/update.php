@@ -61,6 +61,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '4.4.6', '<')) $this->version446();
         if(version_compare($version, '4.6.1', '<')) $this->version461();
         if(version_compare($version, '4.9.0', '<')) $this->version490();
+        if(version_compare($version, '5.0.5', '<')) $this->version505();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -311,5 +312,10 @@ class MEC_feature_update extends MEC_base
             $location_id = get_post_meta($event_id, 'mec_location_id', true);
             if ( !empty( $location_id )) update_post_meta($booking->ID, 'mec_booking_location', $location_id);
         }
+    }
+
+    public function version505()
+    {
+        if(!wp_next_scheduled('mec_syncScheduler')) wp_schedule_event(time(), 'daily', 'mec_syncScheduler');
     }
 }

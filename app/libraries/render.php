@@ -56,6 +56,46 @@ class MEC_render extends MEC_base
         $skin = isset($atts['skin']) ? $atts['skin'] : $this->get_default_layout();
         return $this->skin($skin, $atts);
     }
+
+    /**
+     * Do the shortcode and return its json output 
+     * @author Webnus <info@webnus.biz>
+     * @param array $atts
+     * @return string
+     */
+    public function shortcode_json($atts)
+    {
+        $calendar_id = isset($atts['id']) ? $atts['id'] : 0;
+        $atts = apply_filters('mec_calendar_atts', $this->parse($calendar_id, $atts));
+        
+        $skin = isset($atts['skin']) ? $atts['skin'] : $this->get_default_layout();
+        $json = $this->skin($skin, $atts);
+        
+        $path = MEC::import('app.skins.'.$skin, true, true);
+        $skin_path = apply_filters('mec_skin_path', $skin);
+        
+        if($skin_path != $skin and $this->file->exists($skin_path)) $path = $skin_path;
+        if(!$this->file->exists($path))
+        {
+            return __('Skin controller does not exist.', 'modern-events-calendar-lite');
+        }
+        
+        include_once $path;
+        
+        $skin_class_name = 'MEC_skin_'.$skin;
+        
+        // Create Skin Object Class
+        $SKO = new $skin_class_name();
+        
+        // Initialize the skin
+        $SKO->initialize($atts);
+        
+        // Fetch the events
+        $atts['content_json']  = $SKO->fetch();
+        $atts['content_html']  = $SKO->output();
+
+        return $atts;
+    }
     
     /**
      * Do the widget and return its output

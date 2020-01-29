@@ -485,10 +485,18 @@ var mecSingleEventDisplayer = {
                 var mec_month_select = $('#mec_sf_month_' + settings.id);
                 var mec_year_select = $('#mec_sf_year_' + settings.id);
 
+                if(mec_year_select.val() == 'none')
+                {
+                    mec_year_select.find('option').each(function()
+                    {
+                        var option_val = $(this).val();
+                        if(option_val == mecdata.current_year) mec_year_select.val(option_val);
+                    });
+                }
+
                 if(skin == 'list')
                 {
-                    var mec_filter_none = '<option class="mec-none-item" value="none" selected="selected">' + $('#mec-filter-none').val() + '</option>';
-                    
+                    var mec_filter_none = '<option class="mec-none-item" value="none">' + $('#mec-filter-none').val() + '</option>';
                     if(mec_month_select.find('.mec-none-item').length == 0) mec_month_select.prepend(mec_filter_none);
                     if(mec_year_select.find('.mec-none-item').length == 0) mec_year_select.prepend(mec_filter_none);
                 }
@@ -524,7 +532,7 @@ var mecSingleEventDisplayer = {
                     $('.mec-modal-result').removeClass("mec-month-navigator-loading");
 
                     // Focus First Active Day
-                    mecFocusDay(settings.id);
+                    mecFocusDay(settings);
 
                     // Focus First Active Week
                     mec_focus_week(settings.id);
@@ -550,7 +558,7 @@ var mecSingleEventDisplayer = {
                     $('.mec-modal-result').removeClass("mec-month-navigator-loading");
 
                     // Focus First Active Day
-                    mecFocusDay(settings.id);
+                    mecFocusDay(settings);
 
                     // Focus First Active Week
                     mec_focus_week(settings.id);
@@ -1364,7 +1372,7 @@ var mecSingleEventDisplayer = {
         initDaysSlider(settings.month_id);
 
         // Slider first event day focus when page load.
-        mecFocusDay(settings.id);
+        mecFocusDay(settings);
 
         // Search Widget
         if (settings.sf.container !== '') {
@@ -1517,7 +1525,7 @@ var mecSingleEventDisplayer = {
                     setToday('' + active_year + active_month + active_day);
 
                     // Focus First Active Day
-                    mecFocusDay(settings.id);
+                    mecFocusDay(settings);
                 },
                 error: function () {}
             });
@@ -1591,7 +1599,7 @@ var mecSingleEventDisplayer = {
             initDaysSlider(month_id, day_id);
 
             // Focus First Active Day
-            mecFocusDay(settings.id);
+            mecFocusDay(settings);
         }
 
         function sed() {
@@ -2025,6 +2033,7 @@ var mecSingleEventDisplayer = {
 
         function initMasonry() {
             var $container = $("#mec_skin_" + settings.id + " .mec-event-masonry");
+            var data_sortAscending = $("#mec_skin_" + settings.id).data('sortascending');
             var $grid = $container.isotope({
                 filter: '*',
                 itemSelector: '.mec-masonry-item-wrap',
@@ -2032,6 +2041,7 @@ var mecSingleEventDisplayer = {
                     date: '[data-sort-masonry]',
                 },
                 sortBy: 'date',
+                sortAscending: data_sortAscending,
                 animationOptions: {
                     duration: 750,
                     easing: 'linear',
@@ -2040,13 +2050,15 @@ var mecSingleEventDisplayer = {
             });
 
             if (settings.fit_to_row == 1) $grid.isotope({
-                layoutMode: 'fitRows'
+                layoutMode: 'fitRows',
+                sortAscending: data_sortAscending,
             });
 
             // Fix Elementor tab
             $('.elementor-tabs').find('.elementor-tab-title').click(function () {
                 $grid.isotope({
-                    sortBy: 'date'
+                    sortBy: 'date',
+                    sortAscending: data_sortAscending,
                 });
             });
 
@@ -2059,6 +2071,7 @@ var mecSingleEventDisplayer = {
                         date: '[data-sort-masonry]',
                     },
                     sortBy: 'date',
+                    sortAscending: data_sortAscending,
                     animationOptions: {
                         duration: 750,
                         easing: 'linear',
@@ -2066,7 +2079,8 @@ var mecSingleEventDisplayer = {
                     },
                 });
                 if (settings.masonry_like_grid == 1) $grid_cat.isotope({
-                    sortBy: 'date'
+                    sortBy: 'date',
+                    sortAscending: data_sortAscending,
                 });
                 return false;
             });
@@ -2123,7 +2137,8 @@ var mecSingleEventDisplayer = {
         function loadMore() {
             // Add loading Class
             $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-load-more-loading");
-            var mec_filter_value = $('#mec_skin_' + settings.id).find('.mec-masonry-cat-selected').data('filter').replace('.mec-t', '');
+            var mec_cat_elem = $('#mec_skin_' + settings.id).find('.mec-masonry-cat-selected');
+            var mec_filter_value = (mec_cat_elem && mec_cat_elem.data('filter') != undefined) ? mec_cat_elem.data('filter').replace('.mec-t', '') : '';
             var mec_filter_by = $('#mec_skin_' + settings.id).data('filterby');
 
             $.ajax({
@@ -2254,11 +2269,17 @@ var mecSingleEventDisplayer = {
             });
         }
 
-        function toggleLoadmore() {
-            $('#mec_skin_' + settings.id + ' .mec-month-divider:not(.active)').each(function () {
+        function toggleLoadmore()
+        {
+            $('#mec_skin_' + settings.id + ' .mec-month-divider:not(:last)').each(function ()
+            {
+                if($(this).hasClass('active')) $(this).removeClass('active');
                 var month = $(this).data('toggle-divider');
                 $('#mec_skin_' + settings.id + ' .' + month).slideUp('fast');
             });
+
+            // Set Active Class For Last Article
+            $('#mec_skin_' + settings.id + ' .mec-month-divider:last').addClass('active');
 
             // Register Listeners
             toggle();
@@ -3613,17 +3634,46 @@ function get_parameter_by_name(name, url) {
 // Focus events day
 var mec_g_month_id = null;
 
-function mecFocusDay(id) {
-    setTimeout(function () {
-        var owl_go = jQuery("#mec-owl-calendar-d-table-" + id + "-" + mec_g_month_id);
-        owl_go.find('.owl-stage > div').each(function (index) {
-            if (parseInt(jQuery(this).children('div').data("events-count")) > 0) {
-                var index_plus = index + 1;
-                jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + (index < 10 ? '0' + index_plus : index_plus)).trigger('click');
-                owl_go.trigger('to.owl.carousel', index_plus);
-                return false;
+function mecFocusDay(settings)
+{
+    setTimeout(function()
+    {
+        var id = settings.id,
+        date = new Date(),
+        mec_owl_year = mec_g_month_id.substr(0, 4),
+        mec_current_year = date.getFullYear(),
+        mec_owl_month = mec_g_month_id.substr(4, 6),
+        mec_current_month = date.getMonth() + 1,
+        mec_current_day = date.getDate(),
+        mec_owl_go = jQuery("#mec-owl-calendar-d-table-" + id + "-" + mec_g_month_id),
+        mec_day_exist = false;
+        mec_owl_go.find('.owl-stage > div').each(function (index)
+        {
+            if(parseInt(jQuery(this).children('div').data("events-count")) > 0)
+            {
+                if((((mec_owl_year != mec_current_year) && (mec_owl_month != mec_current_month)) || (mec_owl_year == mec_current_year) && (mec_owl_month != mec_current_month)) || parseInt(jQuery(this).children('div').text()) > mec_current_day)
+                {
+                    var index_plus = index + 1;
+                    jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + (index < 10 ? '0' + index_plus : index_plus)).trigger('click');
+                    mec_owl_go.trigger('to.owl.carousel', index_plus);
+                    mec_day_exist = true;
+                    return false;
+                }
+                else
+                {
+                    jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + mec_current_day).trigger('click');
+                    mec_owl_go.trigger('to.owl.carousel', mec_current_day);
+                    mec_day_exist = true;
+                    return false;
+                }
             }
         });
+
+        if(!mec_day_exist && ((mec_owl_year == mec_current_year) && (mec_owl_month == mec_current_month)))
+        {
+            jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + mec_current_day).trigger('click');
+            mec_owl_go.trigger('to.owl.carousel', mec_current_day);
+        }
     }, 1000);
 }
 

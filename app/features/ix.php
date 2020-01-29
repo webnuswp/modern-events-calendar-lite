@@ -327,14 +327,14 @@ class MEC_feature_ix extends MEC_base
 
                 // Start
                 $start_date = (string) $meta->mec_date->start->date;
-                $start_hour = (string) $meta->mec_date->start->hour;
-                $start_minutes = (string) $meta->mec_date->start->minutes;
+                $start_hour = (int) $meta->mec_date->start->hour;
+                $start_minutes = (int) $meta->mec_date->start->minutes;
                 $start_ampm = (string) $meta->mec_date->start->ampm;
 
                 // End
                 $end_date = (string) $meta->mec_date->end->date;
-                $end_hour = (string) $meta->mec_date->end->hour;
-                $end_minutes = (string) $meta->mec_date->end->minutes;
+                $end_hour = (int) $meta->mec_date->end->hour;
+                $end_minutes = (int) $meta->mec_date->end->minutes;
                 $end_ampm = (string) $meta->mec_date->end->ampm;
 
                 // Time Options
