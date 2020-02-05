@@ -143,7 +143,7 @@ $settings = $this->main->get_settings();
                         <p><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
                     </div>
                     <div class="mec-event-footer-carousel-type2">
-                    <?php if($settings['social_network_status'] != '0') : ?>
+                        <?php if($settings['social_network_status'] != '0') : ?>
                         <ul class="mec-event-sharing-wrap">
                             <li class="mec-event-share">
                                 <a href="#" class="mec-event-share-icon">
@@ -156,7 +156,7 @@ $settings = $this->main->get_settings();
                                 </ul>
                             </li>
                         </ul>
-                    <?php endif; ?>
+                        <?php endif; ?>
                         <a class="mec-booking-button mec-bg-color-hover mec-border-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
                     </div>
                 </div>

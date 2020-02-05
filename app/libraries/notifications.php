@@ -217,7 +217,7 @@ class MEC_notifications extends MEC_base
                         '.$message.'
 
                     </div>
-                    
+
 
                     </td>
                 </tr>
@@ -251,10 +251,14 @@ class MEC_notifications extends MEC_base
      * Send booking confirmation notification
      * @author Webnus <info@webnus.biz>
      * @param int $book_id
+     * @param string $mode
      * @return boolean
      */
-    public function booking_confirmation($book_id)
+    public function booking_confirmation($book_id, $mode = 'manually')
     {
+        $confirmation_notification = apply_filters('mec_booking_confirmation', true);
+        if(!$confirmation_notification) return false;
+
         $booker_id = get_post_field('post_author', $book_id);
         $booker = get_userdata($booker_id);
 
@@ -263,10 +267,10 @@ class MEC_notifications extends MEC_base
         $price = get_post_meta($book_id, 'mec_price', true);
 
         // Auto confirmation for free bookings is enabled so don't send the confirmation email
-        if($price <= 0 and isset($this->settings['booking_auto_confirm_free']) and $this->settings['booking_auto_confirm_free'] == 1) return false;
+        if($price <= 0 and isset($this->settings['booking_auto_confirm_free']) and $this->settings['booking_auto_confirm_free'] == 1 and $mode == 'auto') return false;
 
         // Auto confirmation for paid bookings is enabled so don't send the confirmation email
-        if($price > 0 and isset($this->settings['booking_auto_confirm_paid']) and $this->settings['booking_auto_confirm_paid'] == 1) return false;
+        if($price > 0 and isset($this->settings['booking_auto_confirm_paid']) and $this->settings['booking_auto_confirm_paid'] == 1 and $mode == 'auto') return false;
 
         $subject = isset($this->notif_settings['booking_confirmation']['subject']) ? $this->content(__($this->notif_settings['booking_confirmation']['subject'], 'modern-events-calendar-lite'), $book_id) : __('Your booking is confirmed.', 'modern-events-calendar-lite');
         $headers = array('Content-Type: text/html; charset=UTF-8');
@@ -284,7 +288,7 @@ class MEC_notifications extends MEC_base
 
         // Unique Recipients
         $recipients = array_unique($recipients);
-        
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
@@ -319,7 +323,7 @@ class MEC_notifications extends MEC_base
                         '.$message.'
 
                     </div>
-                    
+
 
                     </td>
                 </tr>
@@ -360,6 +364,9 @@ class MEC_notifications extends MEC_base
      */
     public function booking_cancellation($book_id)
     {
+        $cancellation_notification = apply_filters('mec_booking_cancellation', true);
+        if(!$cancellation_notification) return false;
+
         $booker_id = get_post_field('post_author', $book_id);
         $booker = get_userdata($booker_id);
 
@@ -468,7 +475,7 @@ class MEC_notifications extends MEC_base
                         '.$message.'
 
                     </div>
-                    
+
 
                     </td>
                 </tr>
@@ -564,7 +571,7 @@ class MEC_notifications extends MEC_base
                     '.$message.'
 
                 </div>
-                
+
 
                 </td>
             </tr>
@@ -651,7 +658,7 @@ class MEC_notifications extends MEC_base
                         '.$message.'
 
                     </div>
-                    
+
 
                     </td>
                 </tr>
@@ -730,7 +737,7 @@ class MEC_notifications extends MEC_base
             $to = current($recipients);
             unset($recipients[0]);
         }
-        
+
         $subject = (isset($this->notif_settings['new_event']['subject']) and trim($this->notif_settings['new_event']['subject'])) ? __($this->notif_settings['new_event']['subject'], 'modern-events-calendar-lite') : __('A new event is added.', 'modern-events-calendar-lite');
         $headers = array('Content-Type: text/html; charset=UTF-8');
 

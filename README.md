@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.0.5
+**Stable tag:** 5.1.0  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -23,7 +23,7 @@ WordPress event calendar plugin is a trending FREE tool used for managing events
 
 ## WordPress event calendar 
 [Modern Events Calendar](https://webnus.net/modern-events-calendar/) has been created according to trending design methods and latest technology with attractive design based on practical concept of design.
-We gathered all features of [event calendar](https://webnus.net/modern-events-calendar/) as you desire with advanced booking system ([Pro Version](https://webnus.net/mec-purchase/)) and many other useful options which are practical in real world!
+We gathered all features of [event calendar](https://webnus.net/modern-events-calendar/) as you desire with advanced booking system ([Pro Version](https://webnus.net/mec-purchase/?ref=17/)) and many other useful options which are practical in real world!
 Using [Modern Events Calendar Lite](https://webnus.net/modern-events-calendar/), you can create different single or [recurring events](https://webnus.net/modern-events-calendar/) and show them in frontend of your website using many modern skins and styles.
 
 https://www.youtube.com/watch?v=erKILCKDxis
@@ -252,6 +252,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Custom Booking Form for Single Events
 - Payments for Certain Single Events
 - Shortcode Creator
+- Add shortcode in the form of wizard
 - Multiple color skins
 - [Slider](https://webnus.net/modern-events-calendar/slider-view-type-1/) View
 - [Cover](https://webnus.net/modern-events-calendar/cover-view-classic-style/) View
@@ -432,6 +433,14 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### 5.1.0 – 5 February 2019 
+- Added: Shortcode wizard - hard-refresh is required
+- Removed: Back button after payment in booking module (pro)
+- Fixed: Read more link in single event page
+- Fixed: An event link issue in map modules
+- Fixed: MEC widget and list view
+
 
 ### 5.0.5 - 29 January 2020 
 - Added: Versioning to asset files
@@ -1132,7 +1141,7 @@ For installing Modern Events Calendar Lite please follow below steps:
 
 ### How to upgrade to Pro version? 
 
-You can buy the Pro version from [Webnus.net](https://webnus.net/mec-purchase/). After that uninstall the lite version and install the Pro version on your website. If you want to move the data of lite version to Pro version, make sure that you disable the "Remove MEC Data on Plugin Uninstall" option in M.E. Calendar -> Settings menu before uninstalling the lite version.
+You can buy the Pro version from [Webnus.net](https://webnus.net/mec-purchase/?ref=17/). After that uninstall the lite version and install the Pro version on your website. If you want to move the data of lite version to Pro version, make sure that you disable the "Remove MEC Data on Plugin Uninstall" option in M.E. Calendar -> Settings menu before uninstalling the lite version.
 
 
 ### How can I create or edit event? 

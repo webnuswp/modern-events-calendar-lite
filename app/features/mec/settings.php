@@ -217,6 +217,14 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     </span>
                                 </div>
                             </div>
+                            
+                            <div class="mec-form-row">
+                            <label class="mec-col-3" for="mec_settings_sh_as_popup"><?php _e('Open "Add Shortcode" as Popup', 'modern-events-calendar-lite'); ?></label>
+                                <label id="mec_settings_sh_as_popup" >
+                                    <input type="hidden" name="mec[settings][sh_as_popup]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][sh_as_popup]" <?php if(!isset($settings['sh_as_popup']) or (isset($settings['sh_as_popup']) and $settings['sh_as_popup'])) echo 'checked="checked"'; ?> /> <?php _e('Enable', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
 
                         </div>
 

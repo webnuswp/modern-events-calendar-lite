@@ -8,6 +8,7 @@ $current_month_divider = $this->request->getVar('current_month_divider', 0);
 $this->include_events_times = isset($this->skin_options['include_events_times']) ? $this->skin_options['include_events_times'] : false;
 
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
+$map_events = array();
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
 	<div class="mec-event-list-<?php echo $this->style; ?>">
@@ -176,7 +177,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                         </div>
                     </div>
                     <div class="mec-event-footer">
-                    <?php if(isset($settings['social_network_status']) and $settings['social_network_status'] != '0') : ?>
+                        <?php if(isset($settings['social_network_status']) and $settings['social_network_status'] != '0') : ?>
                         <ul class="mec-event-sharing-wrap">
                             <li class="mec-event-share">
                                 <a href="#" class="mec-event-share-icon">
@@ -189,7 +190,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                                 </ul>
                             </li>
                         </ul>
-                    <?php endif; ?>
+                        <?php endif; ?>
                         <?php do_action('mec_standard_booking_button' ,$event ); ?>
                         <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
                     </div>

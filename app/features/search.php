@@ -7,7 +7,6 @@ defined('MECEXEC') or die();
  */
 class MEC_feature_search extends MEC_base
 {
-
     public $factory;
     public $main;
     public $settings;
@@ -26,7 +25,6 @@ class MEC_feature_search extends MEC_base
 
         // MEC Settings
         $this->settings = $this->main->get_settings();
-
     }
     
     /**
@@ -38,11 +36,13 @@ class MEC_feature_search extends MEC_base
         // search Shortcode
         $this->factory->shortcode('MEC_search_bar', array($this, 'search'));
 
-        if ( isset($this->settings['search_bar_ajax_mode']) && $this->settings['search_bar_ajax_mode'] == '1' )
+        if(isset($this->settings['search_bar_ajax_mode']) && $this->settings['search_bar_ajax_mode'] == '1')
         {
             $this->factory->action('wp_ajax_mec_get_ajax_search_data', array($this, 'mec_get_ajax_search_data'));
             $this->factory->action('wp_ajax_nopriv_mec_get_ajax_search_data', array($this, 'mec_get_ajax_search_data'));
-        } else {
+        }
+        else
+        {
             $this->factory->filter('pre_get_posts', array($this, 'mec_search_filter'));
         }
     }
@@ -61,32 +61,39 @@ class MEC_feature_search extends MEC_base
         if(is_wp_error($terms) || empty($terms)) return false;
         $taxonomy_name = ($taxonomy == 'post_tag') ? 'Tag' : str_replace('mec_', '', $taxonomy);
 
-        switch ($taxonomy_name) {
-            //Message Category
+        switch($taxonomy_name)
+        {
+            // Message Category
             case 'category':
-            $taxonomy_name = $this->main->m('taxonomy_category', __('Category', 'modern-events-calendar-lite'));
+                $taxonomy_name = $this->main->m('taxonomy_category', __('Category', 'modern-events-calendar-lite'));
                 break;
-            //Message Location
+
+            // Message Location
             case 'location':
-            $taxonomy_name = $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'));
+                $taxonomy_name = $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'));
                 break;
-            //Message Organizer
+
+            // Message Organizer
             case 'organizer':
-            $taxonomy_name = $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'));
+                $taxonomy_name = $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'));
                 break;
-            //Message Organizer
+
+            // Message Organizer
             case 'speaker':
-            $taxonomy_name = $this->main->m('taxonomy_speaker', __('Speaker', 'modern-events-calendar-lite'));
+                $taxonomy_name = $this->main->m('taxonomy_speaker', __('Speaker', 'modern-events-calendar-lite'));
                 break;
-            //Message Tag
+
+            // Message Tag
             case 'Tag':
-            $taxonomy_name =  __('Tag', 'modern-events-calendar-lite');
+                $taxonomy_name =  __('Tag', 'modern-events-calendar-lite');
                 break;
-            //Message label
+
+            // Message label
             case 'label':
-            $taxonomy_name = $this->main->m('taxonomy_label', __('label', 'modern-events-calendar-lite'));
+                $taxonomy_name = $this->main->m('taxonomy_label', __('label', 'modern-events-calendar-lite'));
                 break;
-            //Default Screen
+
+            // Default Screen
             default:
                 $taxonomy_name = str_replace('mec_', '', $taxonomy);
                 break;
@@ -116,7 +123,7 @@ class MEC_feature_search extends MEC_base
 
     public function mec_get_ajax_search_data(){
 
-        if ( $_POST['length'] < '3' ) 
+        if($_POST['length'] < '3')
         {
             _e('Please enter at least 3 characters and try again' , 'modern-events-calendar-lite');
             die();
@@ -126,85 +133,91 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_POST['location']))
         {
-            $location = sanitize_text_field( $_POST['location'] );
+            $location = sanitize_text_field($_POST['location']);
             $mec_quesries[] = array(
                 'taxonomy'  => 'mec_location',
                 'field'     => 'id',
-                'terms'     => array( $location ),
+                'terms'     => array($location),
                 'operator'  => 'IN'
             );
         }
 
         if(!empty($_POST['category']))
         {
-            $category = sanitize_text_field( $_POST['category'] );
+            $category = sanitize_text_field($_POST['category']);
             $mec_quesries[] = array(
                 'taxonomy'  => 'mec_category',
                 'field'     => 'id',
-                'terms'     => array( $category ),
+                'terms'     => array($category),
                 'operator'  => 'IN'
             );
         }
 
         if(!empty($_POST['organizer']))
         {
-            $organizer = sanitize_text_field( $_POST['organizer'] );
+            $organizer = sanitize_text_field($_POST['organizer']);
             $mec_quesries[] = array(
                 'taxonomy'  => 'mec_organizer',
                 'field'     => 'id',
-                'terms'     => array( $organizer ),
+                'terms'     => array($organizer),
                 'operator'  => 'IN'
             );
         }
 
         if(!empty($_POST['speaker']))
         {
-            $speaker = sanitize_text_field( $_POST['speaker'] );
+            $speaker = sanitize_text_field($_POST['speaker']);
             $mec_quesries[] = array(
                 'taxonomy'  => 'mec_speaker',
                 'field'     => 'id',
-                'terms'     => array( $speaker ),
+                'terms'     => array($speaker),
                 'operator'  => 'IN'
             );
         }
 
         if(!empty($_POST['tag']))
         {
-            $tag = sanitize_text_field( $_POST['tag'] );
+            $tag = sanitize_text_field($_POST['tag']);
             $mec_quesries[] = array(
                 'taxonomy'  => 'post_tag',
                 'field'     => 'id',
-                'terms'     => array( $tag ),
+                'terms'     => array($tag),
                 'operator'  => 'IN'
             );
         }
 
         if(!empty($_POST['label']))
         {
-            $label = sanitize_text_field( $_POST['label'] );
+            $label = sanitize_text_field($_POST['label']);
             $mec_quesries[] = array(
                 'taxonomy'  => 'mec_label',
                 'field'     => 'id',
-                'terms'     => array( $label ),
+                'terms'     => array($label),
                 'operator'  => 'IN'
             );
         }
 
         $the_query = new WP_Query(array(
             'tax_query' => $mec_quesries,
-            's' => esc_attr( $_POST['keyword'] ),
+            's' => esc_attr($_POST['keyword']),
             'post_type' => 'mec-events',
             'post_status' => array('publish'),
         ));
 
-        if( $the_query->have_posts() ) :
-            while( $the_query->have_posts() ): $the_query->the_post();
+        if($the_query->have_posts())
+        {
+            while($the_query->have_posts())
+            {
+                $the_query->the_post();
                 include MEC::import('app.features.search_bar.search_result', true, true);
-            endwhile;
-            wp_reset_postdata();  
-        else:
+            }
+
+            wp_reset_postdata();
+        }
+        else
+        {
             include MEC::import('app.features.search_bar.search_noresult', true, true);
-        endif;
+        }
 
         die();
     }
@@ -228,7 +241,7 @@ class MEC_feature_search extends MEC_base
             $mec_quesries[] = array(
                 'taxonomy' => 'mec_location',
                 'field' => 'id',
-                'terms' => array( $_GET['location'] ),
+                'terms' => array($_GET['location']),
                 'operator'=> 'IN'
             );
         }
@@ -238,7 +251,7 @@ class MEC_feature_search extends MEC_base
             $mec_quesries[] = array(
                 'taxonomy' => 'mec_category',
                 'field' => 'id',
-                'terms' => array( $_GET['category'] ),
+                'terms' => array($_GET['category']),
                 'operator'=> 'IN'
             );
         }
@@ -248,7 +261,7 @@ class MEC_feature_search extends MEC_base
             $mec_quesries[] = array(
                 'taxonomy' => 'mec_organizer',
                 'field' => 'id',
-                'terms' => array( $_GET['organizer'] ),
+                'terms' => array($_GET['organizer']),
                 'operator'=> 'IN'
             );
         }
@@ -258,7 +271,7 @@ class MEC_feature_search extends MEC_base
             $mec_quesries[] = array(
                 'taxonomy' => 'mec_speaker',
                 'field' => 'id',
-                'terms' => array( $_GET['speaker'] ),
+                'terms' => array($_GET['speaker']),
                 'operator'=> 'IN'
             );
         }
@@ -268,7 +281,7 @@ class MEC_feature_search extends MEC_base
             $mec_quesries[] = array(
                 'taxonomy' => 'post_tag',
                 'field' => 'id',
-                'terms' => array( $_GET['tag'] ),
+                'terms' => array($_GET['tag']),
                 'operator'=> 'IN'
             );
         }
@@ -278,14 +291,15 @@ class MEC_feature_search extends MEC_base
             $mec_quesries[] = array(
                 'taxonomy' => 'mec_label',
                 'field' => 'id',
-                'terms' => array( $_GET['label'] ),
+                'terms' => array($_GET['label']),
                 'operator'=> 'IN'
             );
         }
 
         // wordpress event list search
         $post_types = array('post', 'mec-events');
-        if ( !function_exists('get_current_screen')) require_once(ABSPATH . 'wp-admin/includes/screen.php');
+        if(!function_exists('get_current_screen')) require_once(ABSPATH . 'wp-admin/includes/screen.php');
+
         $current_screen = isset(get_current_screen()->id) ? get_current_screen()->id : false;
         if($current_screen and trim($current_screen) == 'edit-mec-events') $post_types = 'mec-events';
         

@@ -5,6 +5,7 @@ defined('MECEXEC') or die();
 // Fix conflict between ACF and niceSelect
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if(is_plugin_active('advanced-custom-fields/acf.php')) remove_action('admin_footer', 'acf_enqueue_uploader', 5);
+if(is_plugin_active('advanced-custom-fields-pro/acf.php')) remove_action('admin_footer', 'acf_enqueue_uploader', 5);
 
 // Skin Options
 $skins = $this->main->get_skins();
@@ -1221,14 +1222,14 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_carousel_autoplay"><?php _e('Auto Play Time', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][carousel][autoplay]" id="mec_skin_carousel_autoplay" placeholder="<?php _e('eg. 3000 default is 3 second', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_carousel['autoplay']) && $sk_options_carousel['autoplay'] != '' ) echo $sk_options_carousel['autoplay']; ?>" />
                 </div>
-            </div>
-            <div class="mec-form-row mec-carousel-archive-link">
-                <label class="mec-col-4" for="mec_skin_carousel_archive_link"><?php _e('Archive Link', 'modern-events-calendar-lite'); ?></label>
+                <div class="mec-form-row mec-carousel-archive-link">
+                    <label class="mec-col-4" for="mec_skin_carousel_archive_link"><?php _e('Archive Link', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4" name="mec[sk-options][carousel][archive_link]" id="mec_skin_carousel_archive_link" value="<?php echo ((isset($sk_options_carousel['archive_link']) and trim($sk_options_carousel['archive_link']) != '') ? $sk_options_carousel['archive_link'] : ''); ?>" />
-            </div>
-            <div class="mec-form-row mec-carousel-head-text">
-                <label class="mec-col-4" for="mec_skin_carousel_head_text"><?php _e('Head Text', 'modern-events-calendar-lite'); ?></label>
+                </div>
+                <div class="mec-form-row mec-carousel-head-text">
+                    <label class="mec-col-4" for="mec_skin_carousel_head_text"><?php _e('Head Text', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4" name="mec[sk-options][carousel][head_text]" id="mec_skin_carousel_head_text" value="<?php echo ((isset($sk_options_carousel['head_text']) and trim($sk_options_carousel['head_text']) != '') ? $sk_options_carousel['head_text'] : ''); ?>" />
+                </div>
             </div>
 
             <!-- Slider View -->

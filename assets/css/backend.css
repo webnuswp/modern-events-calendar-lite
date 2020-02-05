@@ -6868,3 +6868,916 @@ input.fserv-input-text {
     height: 20px;
     padding-top: 2px;
 }
+
+/* Add shortcode Popup */
+.lity.mec-add-shortcode-popup {
+    background-color: #B7E4E3;
+}
+
+.lity.mec-add-shortcode-popup .lity-content {
+    box-shadow: 0 3px 20px 0 rgba(91, 188, 190, 0.55);
+    border-radius: 10px;
+    height: 100%;
+}
+
+.mec-add-shortcode-popup .lity-container {
+    width: 930px;
+    height: 620px;
+}
+
+.mec-add-shortcode-popup .lity-content:after {
+    display: none;
+}
+
+.mec-add-shortcode-popup div#mec_popup_shortcode {
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+}
+.mec-steps-container {
+    width: 92px;
+    text-align: center;
+    background: #fff;
+}
+
+.mec-steps-panel {
+    width: calc(100% - 92px);
+    background: #EEF4F5;
+}
+
+.mec-steps-container ul {
+    text-align: center;
+    display: block;
+    margin-top:62px;
+}
+
+.mec-steps-container ul li {
+    width: 22px;
+    height: 70px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.mec-steps-container ul li span {
+    border-radius: 50px;
+    background-color: rgba(26, 175, 251, .16);
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    padding-top: 2px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #1AAFFB;
+}
+
+.mec-steps-container ul li:after,
+.mec-steps-container ul li:before {
+    content: '';
+    display: block;
+    height: 24px;
+    width: 2px;
+    background: rgba(26, 175, 251, 0.16);
+    margin-left: calc(50% - 1px);
+}
+
+.mec-steps-container ul li:first-of-type:before,
+.mec-steps-container ul li:last-of-type:after {
+    display: none;
+}
+
+.mec-steps-container ul li:first-of-type {
+    height: 46px;
+}
+
+li.mec-step.mec-step-passed span,
+li.mec-step.mec-step-passed:after,
+li.mec-step.mec-step-passed:before {
+    background-color: #2DCB73;
+    color: #fff;
+}
+
+.mec-steps-container img {
+    margin-top: 27px;
+}
+
+.mec-steps-header {
+    display: flex;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 3px 22px 0 rgba(11, 121, 125, 0.01);
+    padding: 12px 22px;
+    margin-bottom: 50px;
+}
+
+.mec-steps-header-settings {
+    width: 65px;
+}
+
+.mec-steps-header-userinfo {
+    width: calc(100% - 65px);
+}
+
+.mec-steps-panel {
+    padding: 35px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mec-steps-header-userinfo span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mec-steps-header-userinfo span img {
+    height: 40px;
+    border-radius: 50px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.mec-steps-header-userinfo span.mec-steps-header-name {
+    font-size: 14px;
+    color: #778182;
+}
+
+span.mec-steps-header-add-text {
+    color: #839294;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.mec-steps-header-settings a {
+    height: 100%;
+    display: block;
+    padding-top: 11px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #707070;
+}
+
+.mec-steps-header-settings a i {
+    color: #1AAFFB;
+    font-size: 16px;
+    vertical-align: text-top;
+    margin-right: 5px;
+}
+
+.mec-next-previous-buttons {
+    clear: both;
+}
+
+.mec-next-previous-buttons button.mec-button-next {
+    float: right;
+    background: #008AFF;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 123px;
+    text-align: left;
+    padding: 8px 18px 9px;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 0 5px 10px 0 rgba(0, 138, 255, 0.3);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.mec-next-previous-buttons button:hover {
+    background: #000;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.mec-next-previous-buttons button.mec-button-next img {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+}
+
+.mec-next-previous-buttons button {
+    position: relative;
+}
+
+.mec-next-previous-buttons button.mec-button-prev {
+    background: #fff;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    width: 123px;
+    text-align: right;
+    padding: 8px 15px 9px;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 0 5px 10px 0 rgba(11, 121, 125, .01);
+    transition: all .3s ease;
+    outline: none;
+}
+
+.mec-next-previous-buttons button.mec-button-prev img {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+}
+
+.mec-next-previous-buttons button.mec-button-prev:hover {
+    background: #000;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .3);
+    color: #fff;
+}
+
+
+.mec-next-previous-buttons button.mec-button-new {
+    background: #008aff;
+    float: right;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 154px;
+    text-align: left;
+    padding: 8px 18px 9px;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 0 5px 10px 0 rgba(0, 138, 255, .3);
+    transition: all .3s ease;
+    outline: none;
+}
+
+.mec-next-previous-buttons button.mec-button-new:hover {
+    background: #000;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .3);
+}
+
+.mec-next-previous-buttons button.mec-button-new img {
+    vertical-align: sub;
+    margin-left: -3px;
+    margin-right: 8px;
+}
+
+div#mec_popup_shortcode_form {
+    height: calc(100% - 37px);
+}
+
+.mec-steps-content-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Step 1 */
+.mec-steps-content-container.mec-steps-content-1 {
+    background: url(../../assets/img/popup/first-step.png) no-repeat 90% 70%;
+}
+.mec-steps-content-container.mec-steps-content-1 .popup-sh-name-required {
+    color: red;
+    display: none;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 8px;
+}
+.mec-steps-content-container.mec-steps-content-1 .mec-steps-content.mec-steps-content-1 {
+    top: 50%;
+    position: absolute;
+    width: 360px;
+}
+
+.mec-steps-content-container.mec-steps-content-1 .mec-steps-content.mec-steps-content-1 input[name="shortcode[name]"] {
+    width: 360px;
+    height: 46px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 36px;
+    font-size: 12px;
+    color: #B1B2B4;
+    box-shadow: 0 3px 22px 0 rgba(11, 121, 125, .01);
+}
+
+.mec-steps-content-container.mec-steps-content-1 .mec-steps-content.mec-steps-content-1 input[name="shortcode[name]"]::-webkit-input-placeholder {
+    color: #B1B2B4;
+}
+
+.mec-steps-content-container.mec-steps-content-1 .mec-steps-content.mec-steps-content-1 input[name="shortcode[name]"]:-ms-input-placeholder {
+    color: #B1B2B4;
+}
+
+.mec-steps-content-container.mec-steps-content-1 .mec-steps-content.mec-steps-content-1 input[name="shortcode[name]"]::placeholder {
+    color: #B1B2B4;
+}
+
+.mec-steps-content-container.mec-steps-content-1 .mec-steps-content.mec-steps-content-1:before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    background: url('../../assets/img/add-sh-icon.png') no-repeat center center;
+    position: absolute;
+    top: 17px;
+    left: 17px;
+}
+
+
+
+/* Step 2 */
+.mec-steps-content-container.mec-steps-content-2 .mec-steps-content.mec-steps-content-2 ul {
+    height: 386px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-left: 60px;
+    margin-top: -22px;
+    margin-bottom: 0;
+    position: relative;
+    padding-bottom: 19px !important;
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-steps-content.mec-steps-content-2 ul li {
+    width: 193px!important;
+    float: left!important;
+    min-height: 135px!important;
+    height: 160px;
+    margin: 1.66%!important;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 10px!important;
+    border-radius: 5px;
+    border: 2px solid #C4EDFF;
+    background: #fff!important;
+    cursor: pointer;
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-steps-content.mec-steps-content-2 ul li.active {
+    border-color: #00ACF8;
+    box-shadow: 0 3px 5px rgba(0,172,248,.2);
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-step-popup-skin-img img {
+    margin: 4px 0 1px 1px;
+    line-height: 1;
+    max-width: 68px;
+    max-height: 56px;
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+    transition: all .22s ease;
+    -webkit-transition: all .22s ease;
+    -moz-transition: all .22s ease;
+    -ms-transition: all .22s ease;
+    -o-transition: all .22s ease;
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-step-popup-skin-text input {
+    display: block;
+    margin: 0 auto;
+    margin-top: 6px;
+    border: 2px solid #E1E7ED;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-step-popup-skin-img {
+    padding-top: 16px;
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-steps-content.mec-steps-content-2 ul li .mec-step-popup-skin-text input {
+    display: none;
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-step-popup-skin-text:before {
+    width: 14px;
+    height: 14px;
+    content: '';
+    border-radius: 50px;
+    background: #fff;
+    display: block;
+    position: absolute;
+    left: calc(50% - 7px);
+    top: 24px;
+    z-index: 99;
+    border: 2px solid #e1e7ed;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,.05);
+}
+
+.mec-steps-content-container.mec-steps-content-2 .mec-step-popup-skin-text {
+    position: relative;
+}
+
+.mec-steps-content-container.mec-steps-content-2 li.active .mec-step-popup-skin-text:before {
+    background: #008aff;
+    border: none;
+    box-shadow: 0 5px 10px 0 rgba(0,138,255,.3);
+    width: 16px;
+    height: 16px;
+}
+
+.mec-steps-content-container.mec-steps-content-2 li.active .mec-step-popup-skin-text:after {
+    width: 4px;
+    height: 4px;
+    display: block;
+    content: '';
+    position: absolute;
+    background: #fff;
+    left: calc(50% - 1px);
+    top: 30px;
+    z-index: 999;
+    border-radius: 50px;
+}
+
+/* Step 3 */
+.mec-steps-content-container.mec-steps-content-3  span.wn-hover-img-sh {
+    display: block;
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-skin-styles {
+    height: 386px;
+    overflow-x: hidden;
+    padding-left: 60px;
+    padding-bottom: 19px;
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-skin-styles label {
+    width: 193px!important;
+    float: left!important;
+    margin: 1.66%!important;
+    text-align: center;
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-skin-styles label span {
+    width: 193px!important;
+    float: left!important;
+    min-height: 135px!important;
+    height: 150px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid #c4edff;
+    background: #fff!important;
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-top: -6px;
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-skin-styles label.active span {
+    border-color: #00ACF8;
+    box-shadow: 0 3px 5px rgba(0,172,248,.2);
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-skin-styles label div {
+    font-size: 14px;
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-skin-styles label.active div {
+    color: #008AFF;
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-skin-styles input {
+    opacity: 0;
+    display: none;
+}
+
+.mec-steps-content-container.mec-steps-content-3 .mec-steps-content.mec-steps-content-3 {
+    margin-top: -18px;
+}
+
+.mec-steps-content-container.mec-steps-content-3 span.wn-hover-img-sh img {
+    width: 189px;
+    height: 146px;
+    border-radius: 5px;
+}
+
+/* Step 4 */
+.mec-steps-content-container.mec-steps-content-4 {
+    background: url(../../assets/img/popup/fourth-step.png) no-repeat 90% 70%;
+}
+
+.mec-steps-content.mec-steps-content-4 .nice-select {
+    border: none;
+    box-shadow: 0 3px 22px 0 rgba(11, 121, 125, .01);
+}
+
+.mec-steps-content-container.mec-steps-content-4 .mec-steps-content.mec-steps-content-4 {
+    top: 40%;
+    position: absolute;
+    width: 330px;
+}
+
+.mec-steps-content-container.mec-steps-content-4 .mec-steps-content.mec-steps-content-4 h3 {
+    font-size: 13px;
+    font-weight: normal;
+    color: #707070;
+}
+
+.mec-steps-content-container.mec-steps-content-4 .mec-steps-content.mec-steps-content-4 .mec-multiple-skin-options div {
+    border: 2px dashed #DCE2E3;
+    border-radius: 3px;
+    padding: 20px 20px 6px;
+    background: #FCFCFC;
+}
+
+.mec-steps-content-container.mec-steps-content-4 .mec-steps-content.mec-steps-content-4 .mec-multiple-skin-options div label {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup {
+    -webkit-tap-highlight-color: transparent;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    position: relative;
+    text-align: left!important;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    box-shadow: 0 3px 13px -5px rgba(0,0,0,.1),inset 0 1px 2px rgba(0,0,0,.07);
+    clear: unset!important;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid 1px #e8e8e8;
+    box-sizing: border-box;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    height: 42px;
+    line-height: 40px;
+    outline: 0;
+    padding-left: 18px;
+    padding-right: 30px;
+    position: relative;
+    text-align: left!important;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    width: 300px !important;
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup:hover {
+    border-color: #dbdbdb
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup.open .list {
+    overflow: unset;
+    width: 100%;
+    margin: 0
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .list {
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 33px -2px rgba(0,0,0,.2),inset 0 1px 2px rgba(0,0,0,.07);
+    box-sizing: border-box;
+    margin-top: 4px;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    -webkit-transform-origin: 50% 0;
+    -ms-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    -webkit-transform: scale(.75) translateY(-21px);
+    -ms-transform: scale(.75) translateY(-21px);
+    transform: scale(.75) translateY(-21px);
+    -webkit-transition: all .2s cubic-bezier(.5,0,0,1.25),opacity .15s ease-out;
+    transition: all .2s cubic-bezier(.5,0,0,1.25),opacity .15s ease-out;
+    z-index: 9
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup:after {
+    border-bottom: 2px solid #999;
+    border-right: 2px solid #999;
+    content: '';
+    display: block;
+    height: 5px;
+    margin-top: -4px;
+    pointer-events: none;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    -webkit-transform-origin: 66% 66%;
+    -ms-transform-origin: 66% 66%;
+    transform-origin: 66% 66%;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+    width: 5px
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup.open:after {
+    -webkit-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    transform: rotate(-135deg)
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup.open .list {
+    opacity: 1;
+    pointer-events: auto;
+    -webkit-transform: scale(1) translateY(0);
+    -ms-transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0)
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup.disabled {
+    border-color: #ededed;
+    color: #999;
+    pointer-events: none
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup.disabled:after {
+    border-color: #ccc
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .list {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(68,68,68,.11);
+    box-sizing: border-box;
+    margin-top: 4px;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    -webkit-transform-origin: 50% 0;
+    -ms-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    -webkit-transform: scale(.75) translateY(-21px);
+    -ms-transform: scale(.75) translateY(-21px);
+    transform: scale(.75) translateY(-21px);
+    -webkit-transition: all .2s cubic-bezier(.5,0,0,1.25),opacity .15s ease-out;
+    transition: all .2s cubic-bezier(.5,0,0,1.25),opacity .15s ease-out;
+    z-index: 9
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .list:hover .option:not(:hover) {
+    background-color: transparent!important
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option {
+    cursor: pointer;
+    font-weight: 400;
+    list-style: none;
+    min-height: 40px;
+    outline: 0;
+    text-align: left;
+    position: relative;
+    font-size: 12px!important;
+    padding: 1px 12px!important;
+    margin: 0!important;
+    line-height: 28px!important;
+    min-height: 28px!important;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option .wn-hover-img-sh img {
+    position: absolute;
+    padding: 3px;
+    top: -1px;
+    left: 100%;
+    box-shadow: 0 4px 42px -5px rgba(0, 0, 0, .16);
+    visibility: hidden;
+    opacity: 0;
+    border: 1px solid #e3e3e3;
+    border-radius: 2px;
+    z-index: 99999999;
+    background: #fff;
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option:hover .wn-hover-img-sh img {
+    visibility: visible;
+    opacity: 1
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option.focus,
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option.selected.focus,
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option:hover {
+    background-color: #f6f6f6
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option.selected {
+    font-weight: 700
+}
+
+.mec-steps-content-container.mec-steps-content-4 .wn-mec-select-popup .option.disabled {
+    background-color: transparent;
+    color: #999;
+    cursor: default
+}
+
+.no-csspointerevents .wn-mec-select-popup .list {
+    display: none
+}
+
+.no-csspointerevents .wn-mec-select-popup.open .list {
+    display: block
+}
+
+.mec-steps-content.mec-steps-content-4 label input {
+    background: #fff;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #CACECE;
+}
+
+.mec-steps-content.mec-steps-content-4 label input:before {
+    disaply: none;
+}
+
+.mec-steps-content.mec-steps-content-4 label.active input {
+    background: #008AFF;
+    box-shadow: 0 5px 10px 0 rgba(0, 138, 255, 0.3);
+    border: none;
+}
+
+.mec-steps-content.mec-steps-content-4 label.active input:before {
+    background: #fff;
+    width: 6px;
+    height: 6px;
+    top: 6px;
+    left: 6px;
+    position: absolute;
+}
+
+
+/* Step 5 */
+.mec-steps-content-container.mec-steps-content-5 {
+    background: url(../../assets/img/popup/fifth-step.png) no-repeat 90% 70%;
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 {
+    width: 360px;
+    margin-top: 16px;
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher label {
+    color: #707070;
+    font-size: 14px;
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher p {
+    color: #8A8A8A;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher {
+    padding-bottom: 30px;
+    margin-bottom: 34px;
+    border-bottom: 2px dashed #DCE2E3;
+    position: relative;
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher div:last-of-type label {
+    position: absolute;
+    top: -4px;
+    right: 0;
+    width: 52px;
+    height: 26px;
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher input:checked+label:after {
+    margin-left: 26px;
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher input+label:after,
+.mec-switcher input+label:before {
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 1px;
+    bottom: 2px;
+    content: "";
+}
+
+.mec-steps-content-container.mec-steps-content-5 .mec-steps-content.mec-steps-content-5 .mec-switcher input+label:after {
+    width: 23px;
+} 
+
+
+/* Step 6 */
+.mec-steps-content-container.mec-steps-content-6 {
+    background: url(../../assets/img/popup/sixth-step.png) no-repeat 90% 70%;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-steps-content.mec-steps-content-6 {
+    margin-top: 56px;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-popup-shortcode {
+    width: 325px;
+    border: 2px dashed #DCE2E3;
+    background: #FCFCFC;
+    padding: 42px 42px 47px;
+    text-align: center;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-popup-shortcode h3 {
+    font-size: 16px;
+    font-weight: normal;
+    color: #707070;
+    margin-top: 7px;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-popup-shortcode-code {
+    border-radius: 3px;
+    background: rgba(154,214,222,0.35);
+    width: 243px;
+    margin: 0 auto;
+    padding: 14px 17px;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-popup-shortcode-code code {
+    background: transparent;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: -11px;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-popup-shortcode-code button {
+    border: none;
+    background: #fff;
+    border-radius: 3px;
+    padding: 3px 8px 6px;
+    margin-left: 46px;
+    cursor: pointer;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-popup-shortcode-code button:hover {
+    background: #000;
+    color: #fff;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-steps-6-results p {
+    width: 325px;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+    color: #8A8A8A;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-steps-6-loading {
+    width: 325px;
+    border: 2px dashed #dce2e3;
+    background: #fcfcfc;
+    padding: 42px 42px 47px;
+    text-align: center;
+    height: 182px;
+    position: relative;
+}
+
+.mec-steps-content-container.mec-steps-content-6 .mec-steps-6-loading .mec-loader {
+    position: absolute;
+    left: 136px;
+    top: 65px;
+}
+
+/* Close Button */
+.mec-add-shortcode-popup button.lity-close {
+    right: 0;
+    top: -52px;
+    border-radius: 50%;
+    width: 37px;
+    height: 37px;
+    background: #FFFFFF;
+    color: #A2AFBC;
+    text-shadow: none;
+    padding-top: 1px;
+    transition: all 0.2s ease;
+    position: absolute;
+    box-shadow: 0 3px 8px 0 rgba(91,188,190,0.55);
+}
+
+.mec-add-shortcode-popup button.lity-close:hover {
+    background: #000;
+    color: #fff;
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.55);
+}
+
+.mec-skin-styles.mec-styles-full_calendar h3 {
+    padding-left: 12px;
+}

@@ -102,7 +102,7 @@ class MEC_feature_mec extends MEC_base
         $this->factory->action('mec_booking_completed', array($this->notifications, 'email_verification'), 10);
         $this->factory->action('mec_booking_completed', array($this->notifications, 'booking_notification'), 11);
         $this->factory->action('mec_booking_completed', array($this->notifications, 'admin_notification'), 12);
-        $this->factory->action('mec_booking_confirmed', array($this->notifications, 'booking_confirmation'), 10);
+        $this->factory->action('mec_booking_confirmed', array($this->notifications, 'booking_confirmation'), 10, 2);
         $this->factory->action('mec_booking_canceled', array($this->notifications, 'booking_cancellation'), 12);
         $this->factory->action('mec_fes_added', array($this->notifications, 'new_event'), 50, 3);
         $this->factory->action('mec_event_published', array($this->notifications, 'user_event_publishing'), 10, 3);
@@ -118,10 +118,11 @@ class MEC_feature_mec extends MEC_base
 
         // Disable Block Editor
         $gutenberg_status = (!isset($this->settings['gutenberg']) or (isset($this->settings['gutenberg']) and $this->settings['gutenberg'])) ? true : false;
-        if($gutenberg_status):
-        $this->factory->filter('gutenberg_can_edit_post_type', array($this, 'gutenberg'), 10, 2);
-        $this->factory->filter('use_block_editor_for_post_type', array($this, 'gutenberg'), 10, 2);
-        endif; 
+        if($gutenberg_status)
+        {
+            $this->factory->filter('gutenberg_can_edit_post_type', array($this, 'gutenberg'), 10, 2);
+            $this->factory->filter('use_block_editor_for_post_type', array($this, 'gutenberg'), 10, 2);
+        }
 
         // Export Settings
         $this->factory->action('wp_ajax_download_settings', array($this, 'download_settings'));
@@ -869,20 +870,20 @@ class MEC_feature_mec extends MEC_base
      */
     public function sed_method_field($skin, $value = 0, $image_popup = 0)
     {
-        $image_popup_html = '
-            <div class="mec-form-row mec-image-popup-wrap mec-switcher">
-                <div class="mec-col-4">
-                    <label for="mec_skin_'.$skin.'_image_popup">'.__('Display content\'s images as Popup', 'modern-events-calendar-lite').'</label>
-                </div>
-                <div class="mec-col-4">
-                    <input type="hidden" name="mec[sk-options]['.$skin.'][image_popup]" value="0" />
-                    <input type="checkbox" name="mec[sk-options]['.$skin.'][image_popup]" id="mec_skin_'.$skin.'_image_popup" value="1"
-                ';
-                if( $image_popup == 1 ) $image_popup_html .= 'checked="checked"'; 
-                $image_popup_html .= '/><label for="mec_skin_'.$skin.'_image_popup"></label>
-                </div>
+        $image_popup_html = '<div class="mec-form-row mec-image-popup-wrap mec-switcher">
+            <div class="mec-col-4">
+                <label for="mec_skin_'.$skin.'_image_popup">'.__('Display content\'s images as Popup', 'modern-events-calendar-lite').'</label>
             </div>
-        ';
+            <div class="mec-col-4">
+                <input type="hidden" name="mec[sk-options]['.$skin.'][image_popup]" value="0" />
+                <input type="checkbox" name="mec[sk-options]['.$skin.'][image_popup]" id="mec_skin_'.$skin.'_image_popup" value="1"';
+
+            if($image_popup == 1) $image_popup_html .= 'checked="checked"';
+
+            $image_popup_html .= '/><label for="mec_skin_'.$skin.'_image_popup"></label>
+            </div>
+        </div>';
+
         return '<div class="mec-form-row mec-sed-method-wrap">
             <div class="mec-col-4">
                 <label for="mec_skin_'.$skin.'_sed_method">'.__('Single Event Display Method', 'modern-events-calendar-lite').'</label>

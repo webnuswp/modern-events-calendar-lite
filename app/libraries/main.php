@@ -1503,13 +1503,14 @@ class MEC_main extends MEC_base
         $infowindow_thumb = trim($event->data->featured_image['thumbnail']) ? '<div class="mec-event-image"><img src="'.$event->data->featured_image['thumbnail'].'" alt="'.$event->data->title.'" /></div>' : '';
         $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
+        $link = $this->get_event_date_permalink($event->data->permalink, (isset($event->date['start']) ? $event->date['start']['date'] : NULL));
         $content = '
 		<div class="mec-wrap">
 			<div class="mec-map-lightbox-wp mec-event-list-classic">
 				<article class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'mec-event-article mec-clear">
 					'.$infowindow_thumb.'
-					<a data-event-id="'.$event->data->ID.'" href="'.$this->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> '.$this->dateify($event, $date_format).'</div></a>
-					<h4 class="mec-event-title"><a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$this->get_event_date_permalink($event->data->permalink, (isset($event->date['start']) ? $event->date['start']['date'] : NULL)).'">'.$event->data->title.'</a>'.$this->get_flags($event->data->ID, $event_start_date).'</h4>
+					<a data-event-id="'.$event->data->ID.'" href="'.$link.'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> '.$this->dateify($event, $date_format).'</div></a>
+					<h4 class="mec-event-title"><a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$link.'">'.$event->data->title.'</a>'.$this->get_flags($event->data->ID, $event_start_date).'</h4>
 				</article>
 			</div>
 		</div>';
@@ -5468,7 +5469,7 @@ class MEC_main extends MEC_base
 
     public function get_pro_link()
     {
-        return 'https://webnus.net/mec-purchase/';
+        return 'https://webnus.net/mec-purchase/?ref=17/';
     }
 
     /**

@@ -5,6 +5,8 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
+
+$map_events = array();
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-tile-view">
@@ -17,7 +19,7 @@ $settings = $this->main->get_settings();
         $rcount = 1 ;
         foreach($this->events as $date):
             foreach($date as $event):
-
+                $map_events[] = $event;
                 echo ($rcount == 1) ? '<div class="row">' : '';
                 echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
                 $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
@@ -84,6 +86,7 @@ $settings = $this->main->get_settings();
                 </script>
                 <?php endif; ?>
                 <article <?php echo 'style="background:' . $event_color . $background_image. '"'; ?> data-style="<?php echo $label_style; ?>" class="<?php echo ((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event' : ''); ?> mec-event-article mec-tile-item mec-clear <?php echo $this->get_event_classes($event); ?>">
+                    <?php do_action('mec_skin_tile_view', $event); ?>
                     <div class="event-tile-view-head clearfix">
                         <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days') : ?>
                             <div class="mec-event-date"><?php echo date_i18n($this->date_format_clean_1, strtotime($event->date['start']['date'])); ?></div>
@@ -111,4 +114,8 @@ $settings = $this->main->get_settings();
             <?php endforeach; ?>
         <?php endforeach; ?>
     </div>
+    <?php
+    $div_count = count($map_events) - (floor(count($map_events) / $count) * $count);
+    if($div_count > 0 and $div_count < $count) echo '</div>';
+    ?>
 </div>

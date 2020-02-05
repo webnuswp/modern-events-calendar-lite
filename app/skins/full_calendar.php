@@ -81,7 +81,6 @@ class MEC_skin_full_calendar extends MEC_skins
         $this->monthly_style = isset($this->skin_options['monthly_style']) ? $this->skin_options['monthly_style'] : 'clean';
         if(isset($this->skin_options[$this->monthly_style]) and !$this->skin_options[$this->monthly_style]) $this->monthly_style = 'clean';
 
-
         $this->yearly = isset($this->skin_options['yearly']) ? $this->skin_options['yearly'] : true;
         $this->monthly = isset($this->skin_options['monthly']) ? $this->skin_options['monthly'] : true;
         $this->weekly = isset($this->skin_options['weekly']) ? $this->skin_options['weekly'] : true;

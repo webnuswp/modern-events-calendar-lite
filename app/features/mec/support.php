@@ -123,9 +123,9 @@ defined('MECEXEC') or die();
                                         <?php endif; ?>
                                         <div class="w-button">
                                             <?php if(!$this->getPRO()): ?>
-                                                <a href="https://webnus.net/mec-purchase/" target="_blank"><?php echo esc_html__('GO PREMIUM', 'modern-events-calendar-lite'); ?></a>
+                                                <a href="https://webnus.net/mec-purchase/?ref=17/" target="_blank"><?php echo esc_html__('GO PREMIUM', 'modern-events-calendar-lite'); ?></a>
                                             <?php else: ?>
-                                                <a href="https://webnus.ticksy.com/" target="_blank"><?php echo esc_html__('OPEN A TICKET', 'modern-events-calendar-lite'); ?></a>
+                                                <a href="https://webnus.net/support/" target="_blank"><?php echo esc_html__('OPEN A TICKET', 'modern-events-calendar-lite'); ?></a>
                                             <?php endif; ?>
                                         </div>
                                     </div>
@@ -139,12 +139,12 @@ defined('MECEXEC') or die();
                                     </div>
                                     <div class="w-box-content">
                                         <ul>
-                                            <li><a href="https://webnus.ticksy.com/article/8597/"><?php _e('How to create a new event?', 'modern-events-calendar-lite'); ?></a></li>
-                                            <li><a href="https://webnus.ticksy.com/article/8600/"><?php _e("Booking module doesn't work", 'modern-events-calendar-lite'); ?></a></li>
-                                            <li><a href="https://webnus.ticksy.com/article/8601/"><?php _e("How to export events in iCal format?", 'modern-events-calendar-lite'); ?></a></li>
-                                            <li><a href="https://webnus.ticksy.com/article/8603/"><?php _e("How to override MEC template files?", 'modern-events-calendar-lite'); ?></a></li>
-                                            <li><a href="https://webnus.ticksy.com/article/8599/"><?php _e("How to add/manage shortcodes?", 'modern-events-calendar-lite'); ?></a></li>
-                                            <li class="mec-view-all-articles"><a href="https://webnus.ticksy.com/articles/100004962/"><?php _e("All Articles", 'modern-events-calendar-lite'); ?></a></li>
+                                            <li><a href="https://webnus.net/dox/modern-events-calendar/add-event/"><?php _e('How to create a new event?', 'modern-events-calendar-lite'); ?></a></li>
+                                            <li><a href="https://webnus.net/dox/modern-events-calendar/booking-system-and-register-button-configurations-in-mec-plugin/"><?php _e("Booking module doesn't work", 'modern-events-calendar-lite'); ?></a></li>
+                                            <li><a href="https://webnus.net/dox/modern-events-calendar/how-to-export-events-in-ical-format/"><?php _e("How to export events in iCal format?", 'modern-events-calendar-lite'); ?></a></li>
+                                            <li><a href="https://webnus.net/dox/modern-events-calendar/category/developer-document/"><?php _e("How to override MEC template files?", 'modern-events-calendar-lite'); ?></a></li>
+                                            <li><a href="https://webnus.net/dox/modern-events-calendar/making-advance-shortcodes-in-modern-event-calendar/"><?php _e("How to add/manage shortcodes?", 'modern-events-calendar-lite'); ?></a></li>
+                                            <li class="mec-view-all-articles"><a href="https://webnus.net/dox/modern-events-calendar/category/knowledge/"><?php _e("All Articles", 'modern-events-calendar-lite'); ?></a></li>
                                         </ul>
                                     </div>
                                 </div>

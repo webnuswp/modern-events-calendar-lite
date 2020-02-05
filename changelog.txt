@@ -1,4 +1,11 @@
-﻿v 5.0.5 - 29 January 2020
+﻿v 5.1.0 – 5 February 2019
+- Added: Shortcode wizard - hard-refresh is required
+- Removed: Back button after payment in booking module (pro)
+- Fixed: Read more link in single event page
+- Fixed: An event link issue in map modules
+- Fixed: MEC widget and list view
+
+v 5.0.5 - 29 January 2020
 - Added: Versioning to asset files
 - Added: A WordPress cron for booking reminder emails (pro)
 - Fixed: All day events

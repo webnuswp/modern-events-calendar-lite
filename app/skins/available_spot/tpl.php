@@ -5,6 +5,7 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
+
 // Event is not valid!
 if(!isset($event->data)) return;
 
@@ -30,20 +31,15 @@ $event_etime .= (isset($event->data->meta['mec_date']['end']['ampm']) ? $event->
 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
 $label_style = '';
-if ( !empty($event->data->labels) ):
-foreach( $event->data->labels as $label)
+if(!empty($event->data->labels))
 {
-    if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-    if ( $label['style']  == 'mec-label-featured' )
+    foreach($event->data->labels as $label)
     {
-        $label_style = esc_html__( 'Featured' , 'modern-events-calendar-lite' );
-    } 
-    elseif ( $label['style']  == 'mec-label-canceled' )
-    {
-        $label_style = esc_html__( 'Canceled' , 'modern-events-calendar-lite' );
+        if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
+        if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured', 'modern-events-calendar-lite');
+        elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled', 'modern-events-calendar-lite');
     }
 }
-endif;
 
 $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.date('H:i:s', strtotime($event_time))));
 $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.date('H:i:s', strtotime($event_etime))));
@@ -56,7 +52,6 @@ $ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_m
 
 // Skip if event is expired
 if($ongoing) if($d3 < $d2) $ongoing = false;
-
 if($d1 < $d2 and !$ongoing) return;
 
 $gmt_offset = $this->main->get_gmt_offset();
@@ -100,19 +95,22 @@ foreach($availability as $ticket_id=>$count)
 }
 
 $speakers = '""';
-if ( !empty($event->data->speakers)) 
+if(!empty($event->data->speakers))
 {
     $speakers= [];
-    foreach ($event->data->speakers as $key => $value) {
+    foreach($event->data->speakers as $key => $value)
+    {
         $speakers[] = array(
             "@type" 	=> "Person",
             "name"		=> $value['name'],
             "image"		=> $value['thumbnail'],
             "sameAs"	=> $value['facebook'],
         );
-    } 
+    }
+
     $speakers = json_encode($speakers);
 }
+
 do_action('mec_start_skin' , $this->id);
 do_action('mec_available_spot_skin_head');
 ?>

@@ -250,6 +250,12 @@ class MEC_factory extends MEC_base
         // Include Lity Lightbox
         wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
 
+        // Include Nicescroll
+        wp_enqueue_script('mec-nice-scroll', $this->main->asset('js/jquery.nicescroll.min.js'));
+
+        wp_enqueue_style('mec-featherlight-style', $this->main->asset('packages/featherlight/featherlight.css'));
+        wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'));
+
         // Include MEC Carousel JS libraries
         wp_enqueue_script('mec-owl-carousel-script', $this->main->asset('packages/owl-carousel/owl.carousel.min.js'));
 

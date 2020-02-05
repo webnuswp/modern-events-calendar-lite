@@ -255,7 +255,7 @@ class MEC_book extends MEC_base
         // Auto confirmation for free bookings is enabled
         if($price <= 0 and isset($this->settings['booking_auto_confirm_free']) and $this->settings['booking_auto_confirm_free'] == 1)
         {
-            $this->confirm($book_id);
+            $this->confirm($book_id, 'auto');
         }
 
         // Auto confirmation for paid bookings is enabled
@@ -263,7 +263,7 @@ class MEC_book extends MEC_base
         {
             // Disable auto confirmation when pay through pay locally Payment.
             $pay_locally_gateway = (isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_pay_locally') ? true : false;
-            if(!$pay_locally_gateway) $this->confirm($book_id);
+            if(!$pay_locally_gateway) $this->confirm($book_id, 'auto');
         }
 
         return $book_id;
@@ -275,12 +275,12 @@ class MEC_book extends MEC_base
      * @param int $book_id
      * @return boolean
      */
-    public function confirm($book_id)
+    public function confirm($book_id, $mode = 'manually')
     {
         update_post_meta($book_id, 'mec_confirmed', 1);
 
         // Fires after confirming a booking to send notifications etc.
-        do_action('mec_booking_confirmed', $book_id);
+        do_action('mec_booking_confirmed', $book_id, $mode);
 
         return true;
     }

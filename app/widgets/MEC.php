@@ -55,8 +55,13 @@ class MEC_MEC_widget extends WP_Widget
 		}
         
         $calendar_id = isset($instance['calendar_id']) ? $instance['calendar_id'] : 0;
+
+        // Get Skin Options
+        $sk_options = get_post_meta($calendar_id, 'sk-options', true);
+        $sk_options_list_style = (isset($sk_options['list']) and isset($sk_options['list']['style'])) ? trim($sk_options['list']['style']) : 'classic';
+
         $current_hide = isset($instance['current_hide']) ? $instance['current_hide'] : '';
-        $atts = array('html-class'=>'mec-widget '.$current_hide, 'style'=>'classic', 'widget'=>true);
+        $atts = array('html-class'=>'mec-widget '.$current_hide, 'style'=>$sk_options_list_style, 'widget'=>true);
         
         // Print the skin output
         echo $this->render->widget($calendar_id, $atts);
