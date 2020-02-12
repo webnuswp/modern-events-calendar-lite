@@ -101,7 +101,7 @@ if($midnight_event) $next_date['end']['date'] = date('Y-m-d', strtotime('-1 Day'
                 <?php if($allday == '0' and isset($next->data->time) and trim($next->data->time['start'])): ?>
                 <dd><abbr class="mec-events-abbr"><?php echo $next->data->time['start']; ?><?php echo (trim($next->data->time['end']) ? ' - '.$next->data->time['end'] : ''); ?></abbr></dd>
                 <?php else: ?>
-                <dd><abbr class="mec-events-abbr"><?php _e('All of the day', 'modern-events-calendar-lite'); ?></abbr></dd>
+                <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'modern-events-calendar-lite'); ?></abbr></dd>
                 <?php endif; ?>
             </li>
         </ul>

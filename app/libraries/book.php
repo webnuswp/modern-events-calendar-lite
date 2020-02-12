@@ -261,8 +261,10 @@ class MEC_book extends MEC_base
         // Auto confirmation for paid bookings is enabled
         if($price > 0 and isset($this->settings['booking_auto_confirm_paid']) and $this->settings['booking_auto_confirm_paid'] == 1)
         {
-            // Disable auto confirmation when pay through pay locally Payment.
-            $pay_locally_gateway = (isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_pay_locally') ? true : false;
+            // Work or don't work auto confirmation when pay through pay locally payment.
+            $gateways_settings = get_option('mec_options', array());
+            $pay_locally_gateway = (isset($gateways_settings['gateways'][1]['disable_auto_confirmation']) and trim($gateways_settings['gateways'][1]['disable_auto_confirmation'])) ? true : false;
+
             if(!$pay_locally_gateway) $this->confirm($book_id, 'auto');
         }
 
@@ -273,6 +275,7 @@ class MEC_book extends MEC_base
      * Confirm a booking
      * @author Webnus <info@webnus.biz>
      * @param int $book_id
+     * @param string $mode
      * @return boolean
      */
     public function confirm($book_id, $mode = 'manually')

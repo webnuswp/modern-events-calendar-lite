@@ -251,6 +251,15 @@ $gateways_options = $this->main->get_gateways_options();
                                         </label>
                                     </div>
                                 </div>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <label for="mec_settings_booking_auto_confirm_send_email">
+                                            <input type="hidden" name="mec[settings][booking_auto_confirm_send_email]" value="0" />
+                                            <input type="checkbox" name="mec[settings][booking_auto_confirm_send_email]" id="mec_settings_booking_auto_confirm_send_email" <?php echo ((isset($settings['booking_auto_confirm_send_email']) and $settings['booking_auto_confirm_send_email'] == '1') ? 'checked="checked"' : ''); ?> value="1" />
+                                            <?php _e('Send confirmation email in auto confirmation mode', 'modern-events-calendar-lite'); ?>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <?php endif; ?>
                         </div>

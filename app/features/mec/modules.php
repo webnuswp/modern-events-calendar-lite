@@ -157,6 +157,7 @@ if($this->getPRO())
                                         </span>
                                         </div>
                                     </div>
+                                    <?php do_action( 'mec_map_options_after' ,$settings); ?>
                                 </div>
                                 <?php endif; ?>
                             </div>

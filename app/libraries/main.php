@@ -905,7 +905,12 @@ class MEC_main extends MEC_base
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
         if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
         {
-            $get_data = file_get_contents($data_url);
+            $ctx = stream_context_create(array('http'=>
+                array(
+                    'timeout' => 20,
+                )
+            ));
+            $get_data = file_get_contents($data_url, false, $ctx);
             if ( $get_data !== false AND !empty($get_data) )
             {
                 $obj = json_decode($get_data);
@@ -917,6 +922,8 @@ class MEC_main extends MEC_base
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+            curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
             curl_setopt($ch, CURLOPT_URL, $data_url);
             $result = curl_exec($ch);
             curl_close($ch);
@@ -2215,6 +2222,9 @@ class MEC_main extends MEC_base
 
             $booking_time = date('Y-m-d', strtotime($booking_time));
 
+            // Coupon Code
+            $coupon_code = isset($booking[0]) ? get_post_meta($booking[0]->ID, 'mec_coupon_code', true) : '';
+
             // Include the tFPDF Class
             if(!class_exists('tFPDF')) require_once MEC_ABSPATH.'app'.DS.'api'.DS.'TFPDF'.DS.'tfpdf.php';
 
@@ -2306,6 +2316,12 @@ class MEC_main extends MEC_base
                 foreach($transaction['price_details']['details'] as $price_row)
                 {
                     $pdf->Write(6, $price_row['description'].": ".$this->render_price($price_row['amount']));
+                    $pdf->Ln();
+                }
+
+                if($coupon_code)
+                {
+                    $pdf->Write(6, __('Coupon Code', 'modern-events-calendar-lite').": ".$coupon_code);
                     $pdf->Ln();
                 }
 
@@ -2500,7 +2516,7 @@ class MEC_main extends MEC_base
 
         // Location
         $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']] : array();
-        $address = (isset($location['address']) and trim($location['address'])) ? $location['address'] : $location['name'];
+        $address = ((isset($location['address']) and trim($location['address'])) ? $location['address'] : (isset($location['name']) ? $location['name'] : ''));
 
         if(trim($address) != '') $ical .= "LOCATION:".$address.PHP_EOL;
         
@@ -4022,6 +4038,29 @@ class MEC_main extends MEC_base
     {
         $start_timestamp = strtotime($start['date']);
         $end_timestamp = strtotime($end['date']);
+
+        $timezone_GMT = new DateTimeZone("GMT");
+        $timezone_site = new DateTimeZone($this->get_timezone());
+
+        $dt_now = new DateTime("now", $timezone_GMT);
+        $dt_start = new DateTime($start['date'], $timezone_GMT);
+        $dt_end = new DateTime($end['date'], $timezone_GMT);
+
+        $offset_now = $timezone_site->getOffset($dt_now);
+        $offset_start = $timezone_site->getOffset($dt_start);
+        $offset_end = $timezone_site->getOffset($dt_end);
+
+        if($offset_now != $offset_start)
+        {
+            $diff = $offset_start - $offset_now;
+            $start_timestamp += $diff;
+        }
+
+        if($offset_now != $offset_end)
+        {
+            $diff = $offset_end - $offset_now;
+            $end_timestamp += $diff;
+        }
         
         if($start_timestamp >= $end_timestamp) return '<span class="mec-start-date-label" itemprop="startDate">' . date_i18n($format, $start_timestamp) . '</span>';
         elseif($start_timestamp < $end_timestamp)
@@ -5090,22 +5129,36 @@ class MEC_main extends MEC_base
     /**
      * Load Google Maps assets
      */
-    public function load_map_assets()
+    public function load_map_assets($define_settings=null)
     {
         if($this->getPRO())
         {
             // MEC Settings
             $settings = $this->get_settings();
 
-            // Include Google Maps Javascript API
+            
+            $assets = array('js'=>array(), 'css'=>array());
             $gm_include = apply_filters('mec_gm_include', true);
-            if($gm_include) wp_enqueue_script('googlemap', '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : ''));
+            if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '');
 
-            // Google Maps Rich Marker
-            wp_enqueue_script('mec-richmarker-script', $this->asset('packages/richmarker/richmarker.min.js'));
+            
+            $assets['js']['mec-richmarker-script']=$this->asset('packages/richmarker/richmarker.min.js'); // Google Maps Rich Marker
+            $assets['js']['mec-clustering-script']=$this->asset('packages/clusterer/markerclusterer.min.js'); // Google Maps Clustering
+            $assets['js']['mec-googlemap-script']=$this->asset('js/googlemap.js'); // Google Maps Javascript API
 
-            // Google Maps Clustering
-            wp_enqueue_script('mec-clustering-script', $this->asset('packages/clusterer/markerclusterer.min.js'));
+            $assets = apply_filters( 'mec_map_assets_include',$assets, $this, $define_settings );
+
+            if(count($assets['js'])>0){
+                foreach ($assets['js'] as $key => $link) {
+                    wp_enqueue_script($key, $link);
+                }
+            }
+
+            if(count($assets['css'])>0){
+                foreach ($assets['css'] as $key => $link) {
+                    wp_enqueue_style( $key, $link );
+                }
+            }
         }
     }
     
@@ -6099,5 +6152,20 @@ class MEC_main extends MEC_base
         }
 
         return $user_list;
+    }
+
+    public function get_normal_labels($event)
+    {
+        $output = '';
+
+        if(is_object($event) and isset($event->data->labels) and !empty($event->data->labels))
+        {
+            foreach($event->data->labels as $label)
+            {
+                if(isset($label['style']) and !trim($label['style']) and isset($label['name']) and trim($label['name'])) $output .= '<span data-style="Normal" class="mec-label-normal">' . trim($label['name']) . '</span>';
+            }
+        }
+
+        return $output ? '<span class="mec-labels-normal">' . $output . '</span>' : $output;
     }
 }

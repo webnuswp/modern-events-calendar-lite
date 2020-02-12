@@ -8,7 +8,7 @@ $start_ampm = get_post_meta( get_the_ID(), 'mec_start_time_ampm', true);
 $end_hour = get_post_meta( get_the_ID(), 'mec_end_time_hour', true);
 $end_min = (get_post_meta( get_the_ID(), 'mec_end_time_minutes', true) < '10') ? '0' . get_post_meta( get_the_ID(), 'mec_end_time_minutes', true) : get_post_meta( get_the_ID(), 'mec_end_time_minutes', true);
 $end_ampm = get_post_meta( get_the_ID(), 'mec_end_time_ampm', true);
-$time =  ( get_post_meta( get_the_ID(), 'mec_allday', true) == '1' ) ? __('All of the day' , 'modern-events-calendar-lite') : $start_hour . ':' .  $start_min . ' ' . $start_ampm . ' - ' . $end_hour . ':' .  $end_min . ' ' . $end_ampm;
+$time =  ( get_post_meta( get_the_ID(), 'mec_allday', true) == '1' ) ? __('All Day' , 'modern-events-calendar-lite') : $start_hour . ':' .  $start_min . ' ' . $start_ampm . ' - ' . $end_hour . ':' .  $end_min . ' ' . $end_ampm;
 ?>
 
 <article class="mec-search-bar-result">

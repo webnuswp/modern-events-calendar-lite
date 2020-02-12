@@ -1,4 +1,21 @@
-﻿v 5.1.0 – 5 February 2019
+﻿v 5.1.5 – 12 February 2020
+- Added: An option to disable "Auto Confirmation" for Pay Locally gateway (pro)
+- Added: Used coupons in booking details view and booking invoice (pro)
+- Added: An option to save Start and End dates of Google calendar import
+- Added: An option to disable / enable sending confirmation email in auto confirm mode (pro)
+- Added: Use WordPress time format in local time module
+- Added: An Organizer and other organizer description options
+- Changed: "All of the day" to "All Day"
+- Fixed: Thank you page of "Frontend Event Submission"
+- Fixed: a PHP warning in export
+- Fixed: Event time in 0 hour
+- Fixed: Close div tag in grid view skin
+- Fixed: Tile view overlay style
+- Fixed: The dates when day light saving happens
+- Fixed: Monthly calendar skin simple view responsive mobile size
+- Fixed: Some minor issues
+
+v 5.1.0 – 5 February 2020
 - Added: Shortcode wizard - hard-refresh is required
 - Removed: Back button after payment in booking module (pro)
 - Fixed: Read more link in single event page

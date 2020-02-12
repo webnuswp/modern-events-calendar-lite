@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.1.0  
+**Stable tag:** 5.1.5  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -279,6 +279,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Search Bar Feature
 - Customizable Timetable (*pro*)
 - Additional Organizers
+- Organizer & Other Organizers Description
 - Multiple Location
 - Choose Weekends
 - Profile page
@@ -298,12 +299,11 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Import .ics file](https://webnus.net/modern-events-calendar/) (*pro*)
 - [Reminders notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Cancellation notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
-- [Reminders notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Booking](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
 - [Edit Booking Options](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
 - [Booking reminder notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
-- Mass Emails to Attendees (*pro*)
+- Bulk Emails to Attendees (*pro*)
 - Minimum Ticket Option (*pro*)
 - Booking report page (*pro*)
 - Stop selling Ticket Option (*pro*)
@@ -434,7 +434,25 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 ## Changelog 
 
-### 5.1.0 – 5 February 2019 
+### 5.1.5 – 12 February 2020 
+- Added: An option to disable "Auto Confirmation" for Pay Locally gateway (pro)
+- Added: Used coupons in booking details view and booking invoice (pro)
+- Added: An option to save Start and End dates of Google calendar import
+- Added: An option to disable / enable sending confirmation email in auto confirm mode (pro)
+- Added: Use WordPress time format in local time module
+- Added: An Organizer and other organizer description options
+- Changed: "All of the day" to "All Day"
+- Fixed: Thank you page of "Frontend Event Submission"
+- Fixed: a PHP warning in export
+- Fixed: Event time in 0 hour
+- Fixed: Close div tag in grid view skin
+- Fixed: Tile view overlay style
+- Fixed: The dates when day light saving happens
+- Fixed: Monthly calendar skin simple view responsive mobile size
+- Fixed: Some minor issues
+
+
+### 5.1.0 – 5 February 2020 
 - Added: Shortcode wizard - hard-refresh is required
 - Removed: Back button after payment in booking module (pro)
 - Fixed: Read more link in single event page

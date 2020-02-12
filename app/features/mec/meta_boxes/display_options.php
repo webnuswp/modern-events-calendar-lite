@@ -723,6 +723,7 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <p class="description"><?php _e('The geolocation feature works only in secure (https) websites.', 'modern-events-calendar-lite'); ?></p>
+                <?php do_action( 'mec_location_shortcode_filter', $post ); ?>
             </div>
             
             <!-- Daily View -->

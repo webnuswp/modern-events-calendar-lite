@@ -49,7 +49,12 @@ if(!is_array($booking_options)) $booking_options = array();
                             <h6><?php _e('Website', 'modern-events-calendar-lite'); ?></h6>
                             <span><a href="<?php echo (strpos($organizer['url'], 'http') === false ? 'http://'.$organizer['url'] : $organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $organizer['url']; ?></a></span>
                         </dd>
-                        <?php endif; ?>
+                        <?php endif;
+                        $organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer');  if($organizer_description_setting == '1'): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>
+                        <dd class="mec-organizer-description">
+                            <p><?php echo $organizer_term->description;?></p>
+                        </dd>
+                        <?php endif; } } endif; ?>
                     </div>
                     <?php
                     $this->show_other_organizers($event); // Show Additional Organizers

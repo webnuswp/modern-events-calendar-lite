@@ -1076,7 +1076,7 @@ class MEC_feature_fes extends MEC_base
             'message' => $message,
             'data'=> array(
                 'post_id' => $post_id,
-                'redirect_to' => isset($this->settings['fes_thankyou_page']) and trim($this->settings['fes_thankyou_page']) ? get_permalink(intval($this->settings['fes_thankyou_page'])) : '',
+                'redirect_to' => (isset($this->settings['fes_thankyou_page']) and trim($this->settings['fes_thankyou_page'])) ? get_permalink(intval($this->settings['fes_thankyou_page'])) : '',
             ),
         ));
     }

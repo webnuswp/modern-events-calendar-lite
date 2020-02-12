@@ -403,57 +403,39 @@ class MEC_feature_events extends MEC_base
         if(trim($start_time_hour) == '') $start_time_hour = 8;
 
         $start_time_minutes = get_post_meta($post->ID, 'mec_start_time_minutes', true);
-        if (trim($start_time_minutes) == '') {
-            $start_time_minutes = 0;
-        }
+        if(trim($start_time_minutes) == '') $start_time_minutes = 0;
 
         $start_time_ampm = get_post_meta($post->ID, 'mec_start_time_ampm', true);
-        if (trim($start_time_ampm) == '') {
-            $start_time_minutes = 'AM';
-        }
+        if(trim($start_time_ampm) == '') $start_time_minutes = 'AM';
 
         $end_date = get_post_meta($post->ID, 'mec_end_date', true);
 
         $end_time_hour = get_post_meta($post->ID, 'mec_end_time_hour', true);
-        if (trim($end_time_hour) == '') {
-            $end_time_hour = 6;
-        }
+        if(trim($end_time_hour) == '') $end_time_hour = 6;
 
         $end_time_minutes = get_post_meta($post->ID, 'mec_end_time_minutes', true);
-        if (trim($end_time_minutes) == '') {
-            $end_time_minutes = 0;
-        }
+        if(trim($end_time_minutes) == '') $end_time_minutes = 0;
 
         $end_time_ampm = get_post_meta($post->ID, 'mec_end_time_ampm', true);
-        if (trim($end_time_ampm) == '') {
-            $end_time_ampm = 'PM';
-        }
+        if(trim($end_time_ampm) == '') $end_time_ampm = 'PM';
 
         $repeat_status = get_post_meta($post->ID, 'mec_repeat_status', true);
         $repeat_type = get_post_meta($post->ID, 'mec_repeat_type', true);
 
         $repeat_interval = get_post_meta($post->ID, 'mec_repeat_interval', true);
-        if (trim($repeat_interval) == '' and in_array($repeat_type, array('daily', 'weekly'))) {
-            $repeat_interval = 1;
-        }
+        if(trim($repeat_interval) == '' and in_array($repeat_type, array('daily', 'weekly'))) $repeat_interval = 1;
 
         $certain_weekdays = get_post_meta($post->ID, 'mec_certain_weekdays', true);
-        if ($repeat_type != 'certain_weekdays') {
-            $certain_weekdays = array();
-        }
+        if($repeat_type != 'certain_weekdays') $certain_weekdays = array();
 
         $in_days_str = get_post_meta($post->ID, 'mec_in_days', true);
         $in_days = trim($in_days_str) ? explode(',', $in_days_str) : array();
 
         $mec_repeat_end = get_post_meta($post->ID, 'mec_repeat_end', true);
-        if (trim($mec_repeat_end) == '') {
-            $mec_repeat_end = 'never';
-        }
+        if(trim($mec_repeat_end) == '') $mec_repeat_end = 'never';
 
         $repeat_end_at_occurrences = get_post_meta($post->ID, 'mec_repeat_end_at_occurrences', true);
-        if (trim($repeat_end_at_occurrences) == '') {
-            $repeat_end_at_occurrences = 9;
-        }
+        if(trim($repeat_end_at_occurrences) == '') $repeat_end_at_occurrences = 9;
 
         $repeat_end_at_date = get_post_meta($post->ID, 'mec_repeat_end_at_date', true);
 
@@ -535,7 +517,7 @@ class MEC_feature_events extends MEC_base
                                             value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
                                 <?php endfor; ?>
                             </select>
-                        <?php else : ?>
+                        <?php else : if($start_time_ampm == 'AM' and $start_time_hour == '0') $start_time_hour = 12; ?>
                             <select name="mec[date][start][hour]" id="mec_start_hour">
                                 <?php for ($i = 1; $i <= 12; $i++) : ?>
                                     <option
@@ -627,7 +609,7 @@ class MEC_feature_events extends MEC_base
                                             value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
                                 <?php endfor; ?>
                             </select>
-                        <?php else : ?>
+                        <?php else : if($end_time_ampm == 'AM' and $end_time_hour == '0') $end_time_hour = 12; ?>
                             <select name="mec[date][end][hour]" id="mec_end_hour">
                                 <?php for ($i = 1; $i <= 12; $i++) : ?>
                                     <option

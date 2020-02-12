@@ -133,6 +133,7 @@ class MEC_feature_locations extends MEC_base
                 <input class="mec-has-tip" type="text" placeholder="<?php esc_attr_e('Geo longitude (Optional)', 'modern-events-calendar-lite'); ?>" name="longitude" id="mec_longitude" value="<?php echo $longitude; ?>" />
             </td>
         </tr>
+        <?php do_action('mec_location_after_edit_form',$term); ?>
         <tr class="form-field">
             <th scope="row" valign="top">
                 <label for="mec_thumbnail_button"><?php _e('Thumbnail', 'modern-events-calendar-lite'); ?></label>
@@ -176,6 +177,7 @@ class MEC_feature_locations extends MEC_base
             <label for="mec_longitude"><?php _e('Longitude', 'modern-events-calendar-lite'); ?></label>
             <input type="text" name="longitude"  placeholder="<?php esc_attr_e('Geo longitude (Optional)', 'modern-events-calendar-lite'); ?>" id="mec_longitude" value="" />
         </div>
+        <?php do_action('mec_location_after_add_form'); ?>
         <div class="form-field">
             <label for="mec_thumbnail_button"><?php _e('Thumbnail', 'modern-events-calendar-lite'); ?></label>
             <div id="mec_thumbnail_img"></div>
@@ -331,7 +333,8 @@ class MEC_feature_locations extends MEC_base
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                     </span>	                     
-				</div>
+                </div>
+                <?php do_action( 'mec_location_after_new_form' ); ?>
                 <?php /* Don't show this section in FES */ if(is_admin()): ?>
 				<div class="mec-form-row mec-thumbnail-row">
 					<div id="mec_location_thumbnail_img"></div>

@@ -328,7 +328,7 @@
 }
 
 .mec-event-content p {
-	font-family: 'Roboto', sans-serif;
+	font-family: Roboto,sans-serif;
 	font-weight: 300;
 }
 
@@ -1253,7 +1253,6 @@ span.mec-event-title-soldout {
 .mec-event-list-modern .mec-event-date .event-da {
 	margin-top: 9px;
     color: silver;
-    font-family: Roboto,sans-serif;
     font-size: 28px;
     font-weight: 100;
     text-transform: uppercase;
@@ -2883,6 +2882,13 @@ button#mec-book-form-back-btn-step-3 {
 .mec-single-event .mec-events-meta-group-booking .mec-red-notification input[type="radio"],
 .mec-single-event .mec-events-meta-group-booking .mec-red-notification input[type="checkbox"] {
 	outline: 1px solid #ff3c3c;
+}
+
+/* Modal booking - required forms */
+.lity .mec-book-ticket-container .mec-red-notification input,
+.lity .mec-book-ticket-container .mec-red-notification select,
+.lity .mec-book-ticket-container .mec-red-notification textarea {
+    border: 1px solid #ff3c3c;
 }
 
 @media only screen and (max-width: 479px) {
@@ -4766,7 +4772,7 @@ address.mec-events-address {
 	}
 
 	.mec-calendar.mec-event-container-simple .mec-calendar-side {
-		min-width: 700px;
+		min-width: 100%;
 	}
 
 	.mec-event-container-simple .mec-monthly-tooltip h4 {
@@ -9174,6 +9180,10 @@ li.mec-no-event-found .mec-event-title {
 .mec-single-modal .mec-event-meta dd.mec-organizer-email a {
 	font-size: 12px;
 	display: block;
+}
+
+.mec-organizer-description p {
+    padding-left: 12px;
 }
 
 .mec-modal-wrap {
@@ -15136,8 +15146,8 @@ a.mec-timeline-readmore i {
 	bottom: 0;
 	top: 0;
 	width: 100%;
-	width: calc(100% + 1px);
 	height: 100%;
+	display: block;
 	border-radius: 22px;
 	z-index: 1;
 }
@@ -15301,6 +15311,11 @@ a.mec-timeline-readmore i {
 .mec-wrap .mec-event-tile-view .col-md-6 article.mec-label-featured:before {
     top: 20px;
     left: 200px;
+}
+
+/* Normal Label - Temporarily Hidden*/
+.mec-wrap .mec-label-normal {
+    display: none;
 }
 
 

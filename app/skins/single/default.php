@@ -105,7 +105,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                                 <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                                 <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                                 <?php else: ?>
-                                <dd><abbr class="mec-events-abbr"><?php _e('All of the day', 'modern-events-calendar-lite'); ?></abbr></dd>
+                                <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'modern-events-calendar-lite'); ?></abbr></dd>
                                 <?php endif; ?>
                             </div>
                         <?php
@@ -242,7 +242,12 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                                 <span><a href="<?php echo (strpos($organizer['url'], 'http') === false ? 'http://'.$organizer['url'] : $organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $organizer['url']; ?></a></span>
                                 <?php do_action( 'mec_single_default_organizer', $organizer ); ?>
                             </dd>
-                            <?php endif; ?>
+                            <?php endif;
+                            $organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer');  if($organizer_description_setting == '1'): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>
+                            <dd class="mec-organizer-description">
+                                <p><?php echo $organizer_term->description;?></p>
+                            </dd>
+                            <?php endif; } } endif; ?>
                         </div>
                     <?php
                         $this->show_other_organizers($event); // Show Additional Organizers
@@ -323,7 +328,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                             <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                                 <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                             <?php else: ?>
-                                <dd><abbr class="mec-events-abbr"><?php _e('All of the day', 'modern-events-calendar-lite'); ?></abbr></dd>
+                                <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'modern-events-calendar-lite'); ?></abbr></dd>
                             <?php endif; ?>
                         </div>
                         <?php
@@ -460,7 +465,12 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                             <span><a href="<?php echo (strpos($organizer['url'], 'http') === false ? 'http://'.$organizer['url'] : $organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $organizer['url']; ?></a></span>
                             <?php do_action( 'mec_single_default_organizer', $organizer ); ?>
                         </dd>
-                        <?php endif; ?>
+                        <?php endif;
+                        $organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer');  if($organizer_description_setting == '1'): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>
+                        <dd class="mec-organizer-description">
+                            <p><?php echo $organizer_term->description;?></p>
+                        </dd>
+                        <?php endif; } } endif; ?>
                     </div>
                     <?php
                     $this->show_other_organizers($event); // Show Additional Organizers

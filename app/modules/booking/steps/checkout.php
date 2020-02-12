@@ -46,18 +46,19 @@ foreach($gateways as $gateway)
         <div class="mec-coupon-message mec-util-hidden"></div>
     </div>
     <?php endif; ?>
+    <?php do_action('mec-booking-after-coupon-form', $transaction_id, $uniqueid); ?>
     <div class="mec-book-form-gateways">
         <?php foreach($active_gateways as $gateway): ?>
         <div class="mec-book-form-gateway-label">
             <label>
                 <?php if(count($active_gateways) > 1): ?>
-                <input type="radio" name="book[gateway]" onchange="mec_gateway_selected(this.value);" value="<?php echo $gateway->id(); ?>" /> 
+                <input type="radio" name="book[gateway]" onchange="mec_gateway_selected(this.value);" value="<?php echo $gateway->id(); ?>" />
                 <?php endif; ?>
                 <?php echo $gateway->title(); ?>
             </label>
         </div>
         <?php endforeach; ?>
-        
+
         <?php foreach($active_gateways as $gateway): ?>
         <div class="mec-book-form-gateway-checkout <?php echo (count($active_gateways) == 1 ? '' : 'mec-util-hidden'); ?>" id="mec_book_form_gateway_checkout<?php echo $gateway->id(); ?>">
             <?php echo $gateway->comment(); ?>

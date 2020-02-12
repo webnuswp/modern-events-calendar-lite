@@ -16,7 +16,8 @@ if(!$timezone) return;
 
 // Date Formats
 $date_format1 = (isset($settings['single_date_format1']) and trim($settings['single_date_format1'])) ? $settings['single_date_format1'] : 'M d Y';
-        
+$time_format = get_option('time_format', 'H:i');
+
 $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';
 $occurrence_end_date = trim($occurrence) ? $this->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
 
@@ -43,8 +44,8 @@ $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->
     <ul>
         <li><?php echo sprintf(__('Timezone: %s', 'modern-events-calendar-lite'), '<span>'.$timezone.'</span>'); ?></li>
         <li><?php echo sprintf(__('Date: %s', 'modern-events-calendar-lite'), $this->date_label(array('date'=>date('Y-m-d', $user_start_time)), array('date'=>date('Y-m-d', $user_end_time)), $date_format1)); ?></li>
-        <?php if(!$hide_time): ?>
-        <li><?php echo sprintf(__('Time: %s', 'modern-events-calendar-lite'), '<span>'.($allday ? __('All of the day', 'modern-events-calendar-lite') : ($hide_end_time ? date('H:i', $user_start_time) : date('H:i', $user_start_time).' - '.date('H:i', $user_end_time))).'</span>'); ?></li>
+        <?php if(!$hide_time and trim($time_format)): ?>
+        <li><?php echo sprintf(__('Time: %s', 'modern-events-calendar-lite'), '<span>'.($allday ? __('All Day', 'modern-events-calendar-lite') : ($hide_end_time ? date($time_format, $user_start_time) : date($time_format, $user_start_time).' - '.date($time_format, $user_end_time))).'</span>'); ?></li>
         <?php endif; ?>
     </ul>
 </div>

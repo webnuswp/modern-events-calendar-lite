@@ -37,13 +37,13 @@ $ix_options = $this->main->get_ix_options();
                     <div class="mec-form-row">
                         <label class="mec-col-3" for="mec_ix_google_import_start_date"><?php _e('Start Date', 'modern-events-calendar-lite'); ?></label>
                         <div class="mec-col-4">
-                            <input type="text" id="mec_ix_google_import_start_date" name="ix[google_import_start_date]" value="<?php echo (isset($this->ix['google_import_start_date']) ? $this->ix['google_import_start_date'] : date('Y-m-d', strtotime('-1 Month'))); ?>" class="mec_date_picker" />
+                            <input type="text" id="mec_ix_google_import_start_date" name="ix[google_import_start_date]" value="<?php echo (isset($ix_options['google_import_start_date']) ? $ix_options['google_import_start_date'] : date('Y-m-d', strtotime('-1 Month'))); ?>" class="mec_date_picker" />
                         </div>
                     </div>
                     <div class="mec-form-row">
                         <label class="mec-col-3" for="mec_ix_google_import_end_date"><?php _e('End Date', 'modern-events-calendar-lite'); ?></label>
                         <div class="mec-col-4">
-                            <input type="text" id="mec_ix_google_import_end_date" name="ix[google_import_end_date]" value="<?php echo (isset($this->ix['google_import_end_date']) ? $this->ix['google_import_end_date'] : date('Y-m-d', strtotime('+3 Months'))); ?>" class="mec_date_picker" />
+                            <input type="text" id="mec_ix_google_import_end_date" name="ix[google_import_end_date]" value="<?php echo (isset($ix_options['google_import_end_date']) ? $ix_options['google_import_end_date'] : date('Y-m-d', strtotime('+3 Months'))); ?>" class="mec_date_picker" />
                         </div>
                     </div>
                     <div class="mec-options-fields">

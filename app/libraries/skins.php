@@ -354,6 +354,8 @@ class MEC_skins extends MEC_base
                 'terms'=>explode(',', trim($this->atts['event_type_2'], ', '))
             );
         }
+
+        $tax_query = apply_filters( 'mec_map_tax_query',$tax_query, $this->atts );
         
         return $tax_query;
     }
@@ -367,6 +369,8 @@ class MEC_skins extends MEC_base
     {
         $meta_query = array();
         $meta_query['relation'] = 'AND';
+
+        $meta_query = apply_filters( 'mec_map_meta_query',$meta_query, $this->atts );
         
         return $meta_query;
     }
@@ -815,6 +819,9 @@ class MEC_skins extends MEC_base
                 }
                 $fields .= $this->sf_search_field($field, $options);
         }
+
+        $fields = apply_filters( 'mec_filter_fields_search_form',$fields, $this );
+
         $form = '';
         if(trim($fields) && ( in_array('dropdown', $display_form ) || in_array('text_input', $display_form ) ) ) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
         

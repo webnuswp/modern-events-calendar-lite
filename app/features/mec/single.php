@@ -112,6 +112,7 @@ $pages = get_pages();
                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                                 </span>
                             </div>
+
                             <div class="mec-form-row">
                             <label class="mec-col-3" for="mec_settings_breadcrumbs"><?php _e('Breadcrumbs', 'modern-events-calendar-lite'); ?></label>
                                 <label id="mec_settings_breadcrumbs" >
@@ -122,6 +123,21 @@ $pages = get_pages();
                                     <div class="box top">
                                         <h5 class="title"><?php _e('Breadcrumbs', 'modern-events-calendar-lite'); ?></h5>
                                         <div class="content"><p><?php esc_attr_e("Check this option, for showing the breadcrumbs on single event page", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+
+                            <div class="mec-form-row">
+                            <label class="mec-col-3" for="mec_settings_organizer_description"><?php _e('Organizer Description', 'modern-events-calendar-lite'); ?></label>
+                                <label id="mec_settings_organizer_description" >
+                                    <input type="hidden" name="mec[settings][organizer_description]" value="0" />
+                                    <input type="checkbox" name="mec[settings][organizer_description]" id="mec_settings_organizer_description" <?php echo ((isset($settings['organizer_description']) and $settings['organizer_description']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Description For Organizer.', 'modern-events-calendar-lite'); ?>
+                                </label>
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Organizer Description', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e("If you want to turn on description for other organizer plase go to 'Additional Organizers - After enabling and saving the settings, reloading the settings page.' tab", 'modern-events-calendar-lite'); ?></p></div>
                                     </div>
                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                                 </span>
@@ -169,14 +185,26 @@ $pages = get_pages();
 
                         <div id="additional_organizers" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Additional Organizers', 'modern-events-calendar-lite'); ?></h4>
+
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][additional_organizers]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][additional_organizers]" <?php if(!isset($settings['additional_organizers']) or (isset($settings['additional_organizers']) and $settings['additional_organizers'])) echo 'checked="checked"'; ?> /> <?php _e('Show additional organizers option on Add/Edit events page and single event page.', 'modern-events-calendar-lite'); ?>
+                                    <input onchange="jQuery('#mec_settings_additional_organizers_description').toggle();" value="1" type="checkbox" name="mec[settings][additional_organizers]" <?php if(!isset($settings['additional_organizers']) or (isset($settings['additional_organizers']) and $settings['additional_organizers'])) echo 'checked="checked"'; ?> /> <?php _e('Show additional organizers option on Add/Edit events page and single event page.', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
-                        </div>
 
+                            <div id="mec_settings_additional_organizers_description" class="<?php if((isset($settings['additional_organizers']) and !$settings['additional_organizers']) or !isset($settings['additional_organizers'])) echo 'mec-util-hidden'; ?>">
+
+                                <div class="mec-form-row">
+                                    <label id="mec_settings_additional_organizers_description" >
+                                        <input type="hidden" name="mec[settings][addintional_organizers_description]" value="0" />
+                                        <input type="checkbox" name="mec[settings][addintional_organizers_description]" id="mec_settings_additional_organizers_description" <?php echo ((isset($settings['addintional_organizers_description']) and $settings['addintional_organizers_description']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Description For Other Organizers.', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
                         <div id="additional_locations" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Additional locations', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">

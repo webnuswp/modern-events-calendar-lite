@@ -48,12 +48,32 @@ if(!$this->is_ajax()) $this->load_map_assets();
 // Get Direction Status
 $get_direction = (isset($settings['google_maps_get_direction_status']) and in_array($settings['google_maps_get_direction_status'], array(0,1,2))) ? $settings['google_maps_get_direction_status'] : 0;
 
+$additional_location_ids = get_post_meta( $event->ID, 'mec_additional_location_ids', true );
+$event_locations = array_keys($event->data->locations);
+
+$map_data = new stdClass;
+$map_data->id = $uniqueid;
+$map_data->atts = array(
+    'location_map_zoom'=>isset($settings['google_maps_zoomlevel']) ? $settings['google_maps_zoomlevel'] : 14,
+    'location_center_lat'=>null,
+    'location_center_long'=>null,
+    'use_orig_map' => true
+);
+$map_data->events =  $this->get_rendered_events(array('post__in'=>array($event->ID)));
+$map_data->render = $render;
+$map_data->geolocation = '0';
+$map_data->sf_status = null;
+
+$current_event = [$map_data->events[$event->ID]];
+$events = apply_filters( 'mec_location_load_additional', $current_event,$additional_location_ids,$event_locations);
+$map_data->events = $events;
+
 // Initialize MEC Google Maps jQuery plugin
 $javascript = '<script type="text/javascript">
 var p'.$uniqueid.';
 jQuery(document).ready(function()
 {
-    p'.$uniqueid.' = jQuery("#mec_googlemap_canvas'.$uniqueid.'").mecGoogleMaps(
+    p'.$uniqueid.' = jQuery("#mec_map_canvas'.$uniqueid.'").mecGoogleMaps(
     {
         latitude: "'.$latitude.'",
         longitude: "'.$longitude.'",
@@ -61,7 +81,8 @@ jQuery(document).ready(function()
         zoom: '.(isset($settings['google_maps_zoomlevel']) ? $settings['google_maps_zoomlevel'] : 14).',
         icon: "'.apply_filters('mec_marker_icon', $this->asset('img/m-04.png')).'",
         styles: '.((isset($settings['google_maps_style']) and trim($settings['google_maps_style']) != '') ? $this->get_googlemap_style($settings['google_maps_style']) : "''").',
-        markers: '.json_encode($render->markers($this->get_rendered_events(array('post__in'=>array($event->ID))))).',
+        markers: '.json_encode($render->markers($map_data->events)).',
+        clustering_images: "'.$this->asset('img/cluster1/m').'",
         getDirection: '.$get_direction.',
         directionOptions:
         {
@@ -84,13 +105,18 @@ function mec_init_gmap'.$uniqueid.'()
     p'.$uniqueid.'.init();
 }
 </script>';
+
+$javascript = apply_filters( 'mec_map_load_script',$javascript, $map_data,$settings );
+
+
 if ( !function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 // Include javascript code into the footer
 if($this->is_ajax()) echo $javascript;
 elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) echo $javascript;
 else $factory->params('footer', $javascript);
 ?>
-<div class="mec-googlemap-details" id="mec_googlemap_canvas<?php echo $uniqueid; ?>" style="height: 500px;">
+<div class="mec-googlemap-details" id="mec_map_canvas<?php echo $uniqueid; ?>" style="height: 500px;">
+    <?php do_action( 'mec_map_inner_element_tools' ,$settings); ?>
 </div>
 <?php if($get_direction): ?>
 <div class="mec-get-direction">

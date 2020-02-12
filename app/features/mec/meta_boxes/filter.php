@@ -104,7 +104,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                             'selected_cats'=>$selected_locations,
                             'popular_cats'=>false,
                             'checked_ontop'=>false,
-                            'walker'=>$MEC_tax_walker
+                            'walker'=>$MEC_tax_walker,
                         ));
                     ?>
                     </select>

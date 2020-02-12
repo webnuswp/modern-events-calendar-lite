@@ -2717,7 +2717,7 @@ class MEC_feature_ix extends MEC_base
         if(!trim($api_key) or !trim($calendar_id)) return array('success'=>0, 'error'=>__('Both of API key and Calendar ID are required!', 'modern-events-calendar-lite'));
         
         // Save options
-        $this->main->save_ix_options(array('google_import_api_key'=>$api_key, 'google_import_calendar_id'=>$calendar_id));
+        $this->main->save_ix_options(array('google_import_api_key'=>$api_key, 'google_import_calendar_id'=>$calendar_id, 'google_import_start_date'=>$start_date, 'google_import_end_date'=>$end_date));
         
         // GMT Offset
         $gmt_offset = $this->main->get_gmt_offset();
@@ -3487,11 +3487,7 @@ class MEC_feature_ix extends MEC_base
             case 'ical':
                 
                 $output = '';
-                
-                foreach($events as $event)
-                {
-                    $output .= $this->main->ical_single($event->ID);
-                }
+                foreach($events as $event) $output .= $this->main->ical_single($event->ID);
                 
                 $ical_calendar = $this->main->ical_calendar($output);
 
@@ -3534,7 +3530,7 @@ class MEC_feature_ix extends MEC_base
                         (isset($organizer['name']) ? $organizer['name'] : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
-                        (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost'])
+                        (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']) : '')
                     );
                     
                     fputcsv($output, $event);
@@ -3576,7 +3572,7 @@ class MEC_feature_ix extends MEC_base
                         (isset($organizer['name']) ? $organizer['name'] : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
-                        (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost'])
+                        (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']) : '')
                     );
                     
                     fputcsv($output, $event, "\t");
@@ -3588,10 +3584,7 @@ class MEC_feature_ix extends MEC_base
             case 'xml':
                 
                 $output = array();
-                foreach($events as $event)
-                {
-                    $output[] = $this->main->export_single($event->ID);
-                }
+                foreach($events as $event) $output[] = $this->main->export_single($event->ID);
                 
                 $xml_feed = $this->main->xml_convert(array('events'=>$output));
 
@@ -3605,10 +3598,7 @@ class MEC_feature_ix extends MEC_base
             case 'json':
                 
                 $output = array();
-                foreach($events as $event)
-                {
-                    $output[] = $this->main->export_single($event->ID);
-                }
+                foreach($events as $event) $output[] = $this->main->export_single($event->ID);
 
                 header('Content-type: application/force-download; charset=utf-8'); 
                 header('Content-Disposition: attachment; filename="mec-events-'.date('YmdTHi').'.json"');

@@ -264,13 +264,10 @@ class MEC_notifications extends MEC_base
 
         if(!isset($booker->user_email)) return false;
 
-        $price = get_post_meta($book_id, 'mec_price', true);
+        $send_email_state =  (isset($this->settings['booking_auto_confirm_send_email']) and $this->settings['booking_auto_confirm_send_email'] == '1') ? true : false;
 
-        // Auto confirmation for free bookings is enabled so don't send the confirmation email
-        if($price <= 0 and isset($this->settings['booking_auto_confirm_free']) and $this->settings['booking_auto_confirm_free'] == 1 and $mode == 'auto') return false;
-
-        // Auto confirmation for paid bookings is enabled so don't send the confirmation email
-        if($price > 0 and isset($this->settings['booking_auto_confirm_paid']) and $this->settings['booking_auto_confirm_paid'] == 1 and $mode == 'auto') return false;
+        // Don't send the confirmation email
+        if($mode == 'auto' and !$send_email_state) return false;
 
         $subject = isset($this->notif_settings['booking_confirmation']['subject']) ? $this->content(__($this->notif_settings['booking_confirmation']['subject'], 'modern-events-calendar-lite'), $book_id) : __('Your booking is confirmed.', 'modern-events-calendar-lite');
         $headers = array('Content-Type: text/html; charset=UTF-8');
@@ -951,7 +948,7 @@ class MEC_notifications extends MEC_base
 
         // Book Time
         $start_seconds = get_post_meta($event_id, 'mec_start_day_seconds', true);
-        $event_start_time = get_post_meta($event_id, 'mec_allday', true) ? __('All of the day', 'modern-events-calendar-lite') : $this->main->get_time($start_seconds);
+        $event_start_time = get_post_meta($event_id, 'mec_allday', true) ? __('All Day', 'modern-events-calendar-lite') : $this->main->get_time($start_seconds);
 
         // Condition for check some parameter simple hide event time
         if(!get_post_meta( $event_id, 'mec_hide_time', true )) $message = str_replace('%%book_time%%', $event_start_time, $message);
