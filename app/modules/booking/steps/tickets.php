@@ -15,6 +15,7 @@ $book = $this->getBook();
 $availability = $book->get_tickets_availability($event_id, $occurrence);
 
 $date_format = (isset($settings['booking_date_format1']) and trim($settings['booking_date_format1'])) ? $settings['booking_date_format1'] : 'Y-m-d';
+$midnight_event = $this->is_midnight_event($event);
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
     <h4><?php _e('Book Event', 'modern-events-calendar-lite'); ?></h4>
@@ -22,7 +23,9 @@ $date_format = (isset($settings['booking_date_format1']) and trim($settings['boo
         <label for="mec_book_form_date"><?php _e('Date', 'modern-events-calendar-lite'); ?>: </label>
         <select name="book[date]" id="mec_book_form_date" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
             <?php foreach($dates as $date): ?>
-            <option value="<?php echo $date['start']['date'].':'.$date['end']['date']; ?>"><?php echo date_i18n($date_format, strtotime($date['start']['date'])).((strtotime($date['end']['date']) > strtotime($date['start']['date'])) ? ' - '.date_i18n($date_format, strtotime($date['end']['date'])) : ''); ?></option>
+            <option value="<?php echo $date['start']['date'].':'.$date['end']['date']; ?>">
+                <?php echo strip_tags($this->date_label($date['start'], $date['end'], $date_format)); ?>
+            </option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -31,9 +34,9 @@ $date_format = (isset($settings['booking_date_format1']) and trim($settings['boo
         <?php foreach($tickets as $ticket_id=>$ticket): $stop_selling = isset($availability['stop_selling_'.$ticket_id]) ? $availability['stop_selling_'.$ticket_id] : false;  $ticket_limit = isset($availability[$ticket_id]) ? $availability[$ticket_id] : -1; if($ticket_limit === '0' and count($dates) <= 1) continue; ?>
         <div class="mec-event-ticket mec-event-ticket<?php echo $ticket_limit; ?>" id="mec_event_ticket<?php echo $ticket_id; ?>">
             <div class="mec-ticket-available-spots <?php echo ($ticket_limit == '0' ? 'mec-util-hidden' : ''); ?>">
-                <span class="mec-event-ticket-name"><?php echo (isset($ticket['name']) ? $ticket['name'] : ''); ?></span>
+                <span class="mec-event-ticket-name"><?php echo (isset($ticket['name']) ? __($ticket['name'], 'modern-events-calendar-lite') : ''); ?></span>
                 <span class="mec-event-ticket-price"><?php echo (isset($ticket['price_label']) ? $book->get_ticket_price_label($ticket, current_time('Y-m-d')) : ''); ?></span>
-                <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo $ticket['description']; ?></p><?php endif; ?>
+                <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo __($ticket['description'], 'modern-events-calendar-lite'); ?></p><?php endif; ?>
                 <div>
                     <input type="number" class="mec-book-ticket-limit" name="book[tickets][<?php echo $ticket_id; ?>]" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo $default_ticket_number; ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" onchange="mec_check_tickets_availability<?php echo $uniqueid; ?>(<?php echo $ticket_id; ?>, this.value);" />
                 </div>

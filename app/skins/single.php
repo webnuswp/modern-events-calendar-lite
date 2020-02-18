@@ -176,11 +176,15 @@ class MEC_skin_single extends MEC_skins
                             </a>
                         </figure>
                         <div class="mec-related-event-content">
-                            <span><?php
-                            $date = date(get_option('date_format'), strtotime(get_post_meta( get_the_ID(), 'mec_start_date', true )));
+                            <span>
+                            <?php
+                            $mec_start_date = get_post_meta(get_the_ID(), 'mec_start_date', true);
+                            $date = date(get_option('date_format'), strtotime($mec_start_date));
+                            $link = get_the_permalink();
                             echo $date;
-                            ?></span>
-                            <h5><a class="mec-color-hover" href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h5>
+                            ?>
+                            </span>
+                            <h5><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($link, $mec_start_date); ?>"><?php echo get_the_title(); ?></a></h5>
                         </div>
                         
                     </article>

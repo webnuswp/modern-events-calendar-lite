@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.2
-Stable tag: 5.1.5
+Stable tag: 5.1.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -29,6 +29,9 @@ https://www.youtube.com/watch?v=erKILCKDxis
 Fortunately, though WordPress doesn’t enable these functions out of the box, there’s a plugin you can use. Modern Events Calendar is an easy way to manage events of all kinds on your WordPress site. As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS.
 
 https://www.youtube.com/watch?v=cnVy2YzDMOk
+
+== 10 Best Event Calendar Plugins and Themes for WordPress 2020 ==
+You can read and compare about the WordPress best event management plugins in our recently published article: [10 Best Event Calendar Plugins for WordPress](https://webnus.net/10-best-event-calendar-plugins-and-themes-for-wordpress). We've done a lot of precise explorations to come up with a complete informative article to serve your needs on running an event based website.
 
 == Experts Opinions ==
 >The Modern Events Calendar plugin combined with Divi’s beautiful layouts are an effective combination both in design and functionality. To start things off I’m going to go through the settings we need to get the functionality we want for our event scheduling and booking. There are a ton of options available which really is empowering when you are trying to perfect the user experience when scheduling or booking events.
@@ -328,31 +331,51 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 8. WordPress Event Calendar - Cover view
 9. WordPress Event Calendar - Weekly view
 10. WordPress Event Calendar - Timetable view
-11. WordPress Event Calendar - Widgets
-12. WordPress Event Calendar - Search Bar
-13. WordPress Event Calendar - Settings 01
-14. WordPress Event Calendar - Settings 02
-15. WordPress Event Calendar - Settings 03
-16. WordPress Event Calendar - Settings 04
-17. WordPress Event Calendar - Settings 05
-18. WordPress Event Calendar - Settings 06
-19. WordPress Event Calendar - Settings 07
-20. WordPress Event Calendar - Settings 08
-21. WordPress Event Calendar - Settings 09
-22. WordPress Event Calendar - Import/Export
-23. WordPress Event Calendar - Single event edit page
-24. WordPress Event Calendar - Single event edit page
+11. WordPress Event Calendar - Tile View
+12. WordPress Event Calendar - Timeline View
+13. WordPress Event Calendar - Widgets
+14. WordPress Event Calendar - Search Bar
+15. WordPress Event Calendar - Settings 01
+16. WordPress Event Calendar - Settings 02
+17. WordPress Event Calendar - Settings 03
+18. WordPress Event Calendar - Settings 04
+19. WordPress Event Calendar - Settings 05
+20. WordPress Event Calendar - Settings 06
+21. WordPress Event Calendar - Settings 07
+22. WordPress Event Calendar - Settings 08
+23. WordPress Event Calendar - Settings 09
+24. WordPress Event Calendar - Import/Export
 25. WordPress Event Calendar - Single event edit page
 26. WordPress Event Calendar - Single event edit page
 27. WordPress Event Calendar - Single event edit page
-28. WordPress Event Calendar - Shortcode edit page
-29. WordPress Event Calendar - Shortcode edit page
+28. WordPress Event Calendar - Single event edit page
+29. WordPress Event Calendar - Single event edit page
 30. WordPress Event Calendar - Shortcode edit page
 31. WordPress Event Calendar - Shortcode edit page
 32. WordPress Event Calendar - Shortcode edit page
 33. WordPress Event Calendar - Shortcode edit page
+34. WordPress Event Calendar - Shortcode edit page
+35. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 5.1.6 – 18 February 2020 =
+- Added: Occurrence to related events module
+- Added: Order time column to the CSV Export (pro)
+- Added: Some strings to WPML compatibility (pro)
+- Fixed: HTML tag in bulk email (pro)
+- Fixed: "Thank You Page" in PayPal Express gateway (pro)
+- Fixed: Day light saving for booking module
+- Fixed: A duplicate booking in free bookings (pro)
+- Fixed: A duplicate booking in Stripe gateway (pro)
+- Fixed: "mec_admin_localize" error when tinymce exists in pages.
+- Fixed: A canvas issue in map module of list and grid skins (pro)
+- Fixed: Required file field of booking module (pro)
+- Fixed: Content position on slider view type 3
+- Fixed: Container on the category archive pages
+- Fixed: Structured Data
+- Fixed: Some warnings in PHP 7.4 (pro)
+- Updated: German translation (Thanks to Marius Kreyßel)
+
 = 5.1.5 – 12 February 2020 =
 - Added: An option to disable "Auto Confirmation" for Pay Locally gateway (pro)
 - Added: Used coupons in booking details view and booking invoice (pro)

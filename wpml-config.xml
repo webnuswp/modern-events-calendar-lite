@@ -9,6 +9,17 @@
 		<taxonomy translate="1">mec_organizer</taxonomy>
 		<taxonomy translate="1">mec_speaker</taxonomy>
 	</taxonomies>
+    <custom-fields>
+        <custom-field action="translate">mec_tickets</custom-field>
+    </custom-fields>
+    <custom-fields-texts>
+        <key name="mec_tickets">
+            <key name="*">
+                <key name="name" />
+                <key name="description" />
+            </key>
+        </key>
+    </custom-fields-texts>
 	<admin-texts>
         <key name="mec_options">
             <key name="messages">

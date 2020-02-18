@@ -12,7 +12,7 @@ defined('MECEXEC') or die();
 get_header('mec'); ?>
     
 	
-		<section id="<?php echo apply_filters('mec_category_page_html_id', 'main-content'); ?>" class="<?php echo apply_filters('mec_category_page_html_class', 'container'); ?>">
+		<section id="<?php echo apply_filters('mec_category_page_html_id', 'main-content'); ?>" class="<?php echo apply_filters('mec_category_page_html_class', 'mec-container'); ?>">
 		
 		<?php do_action('mec_before_main_content'); ?>
 		

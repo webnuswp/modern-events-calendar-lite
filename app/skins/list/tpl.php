@@ -46,7 +46,8 @@ jQuery(document).ready(function()
 // Include javascript code into the page
 if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
-do_action('mec_start_skin' , $this->id);
+
+do_action('mec_start_skin', $this->id);
 do_action('mec_list_skin_head');
 ?>
 <div class="mec-wrap mec-skin-list-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
@@ -54,7 +55,7 @@ do_action('mec_list_skin_head');
     <?php if($this->sf_status) echo $this->sf_search_form(); ?>
 
     <?php if($this->found): ?>
-    <?php if ( $this->map_on_top == '1' ) : ?>
+    <?php if($this->map_on_top == '1'): ?>
         <div class="mec-wrap mec-skin-map-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
             <div class="mec-googlemap-skin" id="mec_googlemap_canvas<?php echo $this->id; ?>" style="height: 500px;"></div>
             <input type="hidden" id="gmap-data" value="">

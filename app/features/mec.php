@@ -418,7 +418,7 @@ class MEC_feature_mec extends MEC_base
         {
             add_submenu_page('mec-intro', __('MEC - Report', 'modern-events-calendar-lite'), __('Report', 'modern-events-calendar-lite'), 'manage_options', 'MEC-report', array($this, 'report'));
         }
-
+        if (!$this->getPRO()) add_submenu_page('mec-intro', __('MEC - Go Pro', 'modern-events-calendar-lite'), __('Go Pro', 'modern-events-calendar-lite'), 'manage_options', 'MEC-go-pro', array($this, 'go_pro'));
         do_action('after_mec_submenu_action');
     }
     
@@ -614,6 +614,29 @@ class MEC_feature_mec extends MEC_base
     {
         $path = MEC::import('app.features.mec.meta_boxes.skin_options', true, true);
 
+        ob_start();
+        include $path;
+        echo $output = ob_get_clean();
+    }
+
+    /**
+     * Get Addons page
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function go_pro()
+    {
+        $this->display_go_pro();
+    }
+
+    /**
+     * Show go_pro page
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function display_go_pro()
+    {
+        $path = MEC::import('app.features.mec.go-pro', true, true);
         ob_start();
         include $path;
         echo $output = ob_get_clean();

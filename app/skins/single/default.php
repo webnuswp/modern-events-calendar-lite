@@ -559,7 +559,7 @@ if($schema_settings == '1' ):
         "priceCurrency" : "<?php echo isset($settings['currency']) ? $settings['currency'] : ''; ?>"
     },
 	"performer": <?php echo $speakers; ?>,
-	"description" 	: "<?php  echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', get_the_content())); ?>",
+	"description" 	: "<?php  echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', preg_replace('/\s/u', ' ', get_the_content()))); ?>",
 	"image" 		: "<?php echo esc_html($event->data->featured_image['full']); ?>",
 	"name" 			: "<?php esc_html_e(get_the_title()); ?>",
 	"url"			: "<?php the_permalink(); ?>"

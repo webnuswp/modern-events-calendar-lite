@@ -203,6 +203,19 @@ function mec_book_form_submit'.$uniqueid.'()
             else jQuery(this).removeClass("mec-red-notification");
         });
 
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-reg-field-file.mec-reg-mandatory").filter(":visible").each(function(i)
+        {
+            var ticket_id = jQuery(this).data("ticket-id");
+            var field_id = jQuery(this).data("field-id");
+
+            if(!jQuery("#mec_book_form'.$uniqueid.' input[name=\'book[tickets]["+ticket_id+"][reg]["+field_id+"]\']").val())
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
+        
         jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-reg-field-radio.mec-reg-mandatory").filter(":visible").each(function(i)
         {
             var ticket_id = jQuery(this).data("ticket-id");
@@ -376,6 +389,7 @@ function mec_book_apply_coupon'.$uniqueid.'()
 function mec_book_free'.$uniqueid.'()
 {
     // Add loading Class to the button
+    jQuery("#mec_book_form_free_booking'.$uniqueid.'").find("button").prop("disabled", true);
     jQuery("#mec_book_form_free_booking'.$uniqueid.' button[type=submit]").addClass("loading");
     jQuery("#mec_booking_message'.$uniqueid.'").removeClass("mec-success mec-error").hide();
 
@@ -408,14 +422,16 @@ function mec_book_free'.$uniqueid.'()
                 }
             }
             else
-            {
+            {   
                 jQuery("#mec_booking_message'.$uniqueid.'").addClass("mec-error").html(data.message).show();
+                jQuery("#mec_book_form_free_booking'.$uniqueid.'").find("button").prop("disabled", false);
             }
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
             // Remove the loading Class to the button
             jQuery("#mec_book_form_free_booking'.$uniqueid.' button[type=submit]").removeClass("loading");
+            jQuery("#mec_book_form_free_booking'.$uniqueid.'").find("button").prop("disabled", false);
         }
     });
 }

@@ -54,9 +54,9 @@ if(!$mec_email)
 
         <?php $j = 0; foreach($tickets as $ticket_id=>$count): if(!$count) continue; $ticket = $event_tickets[$ticket_id]; for($i = 1; $i <= $count; $i++): $j++; ?>
         <li class="mec-book-ticket-container <?php echo (($j > 1 and $first_for_all) ? 'mec-util-hidden' : ''); ?>">
-            <?php if (!empty($ticket['name']) || !empty($this->book->get_ticket_price_label($ticket, current_time('Y-m-d')))) : ?>
+            <?php if(!empty($ticket['name']) || !empty($this->book->get_ticket_price_label($ticket, current_time('Y-m-d')))): ?>
             <h4 class="col-md-12">
-                <span class="mec-ticket-name"><?php echo $ticket['name']; ?></span>
+                <span class="mec-ticket-name"><?php echo __($ticket['name'], 'modern-events-calendar-lite'); ?></span>
                 <span class="mec-ticket-price"><?php echo $this->book->get_ticket_price_label($ticket, current_time('Y-m-d')); ?></span>
             </h4>
             <?php endif; ?>

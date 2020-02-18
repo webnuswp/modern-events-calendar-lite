@@ -8554,13 +8554,15 @@ li.mec-no-event-found .mec-event-title {
 	display: table;
 	position: absolute;
 	left: 0;
-	top: 0;
+    top: 50% ;
+    transform: translateY(-50%);
 	bottom: 0;
 	padding: 0 2% 0 7%;
 	margin: auto 0;
 	background: none;
 	z-index: 2;
 }
+
 
 .mec-slider-t3 .mec-slider-t3-content.mec-event-grid-modern *:not(.mec-color) {
 	color: #fff;

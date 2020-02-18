@@ -4110,7 +4110,7 @@ class MEC_main extends MEC_base
     {
         $class = isset($args['class']) ? esc_attr($args['class']) : 'mec-time-details';
 
-        $return = "<div class='{$class}'>";
+        $return = '<div class="'.$class.'">';
         if(trim($start)) $return .= '<span class="mec-start-time">' . $start . '</span>';
         if(trim($end)) $return .= ' - <span class="mec-end-time">' . $end . '</span>';
         $return .= '</div>';
@@ -5956,7 +5956,7 @@ class MEC_main extends MEC_base
      */
     public function check_date_time_validation($format, $date)
     {
-        if(func_num_args() < 2) return;
+        if(func_num_args() < 2) return false;
 
         $check = DateTime::createFromFormat($format, $date);
         
@@ -6004,32 +6004,30 @@ class MEC_main extends MEC_base
         $i = 0;
         $stripped = 0;
         $stripped_text = strip_tags($text);
-        while ($i < strlen($text) && $stripped < strlen($stripped_text) && $stripped < $max_length)
+
+        while($i < strlen($text) && $stripped < strlen($stripped_text) && $stripped < $max_length)
         {
-            $symbol  = $text{$i};
+            $symbol  = $text[$i];
             $result .= $symbol;
-            switch ($symbol)
+            switch($symbol)
             {
-            case '<':
+                case '<':
                     $is_open   = true;
                     $grab_open = true;
                     break;
-            case '"':
-                if ($in_double_quotes)
-                    $in_double_quotes = false;
-                else
-                    $in_double_quotes = true;
 
-                break;
+                case '"':
+                    if($in_double_quotes) $in_double_quotes = false;
+                    else $in_double_quotes = true;
+                    break;
+
                 case "'":
-                if ($in_single_quotes)
-                    $in_single_quotes = false;
-                else
-                    $in_single_quotes = true;
+                    if($in_single_quotes) $in_single_quotes = false;
+                    else $in_single_quotes = true;
+                    break;
 
-                break;
                 case '/':
-                    if ($is_open && !$in_double_quotes && !$in_single_quotes)
+                    if($is_open && !$in_double_quotes && !$in_single_quotes)
                     {
                         $is_close  = true;
                         $is_open   = false;
@@ -6037,36 +6035,40 @@ class MEC_main extends MEC_base
                     }
 
                     break;
+
                 case ' ':
-                    if ($is_open)
-                        $grab_open = false;
-                    else
-                        $stripped++;
+                    if($is_open) $grab_open = false;
+                    else $stripped++;
 
                     break;
+
                 case '>':
-                    if ($is_open)
+                    if($is_open)
                     {
                         $is_open   = false;
                         $grab_open = false;
                         array_push($tags, $tag);
                         $tag = "";
                     }
-                    else if ($is_close)
+                    elseif($is_close)
                     {
                         $is_close = false;
                         array_pop($tags);
                         $tag = "";
                     }
+
                     break;
+
                 default:
-                    if ($grab_open || $is_close) $tag .= $symbol;
-                    if (!$is_open && !$is_close) $stripped++;
+                    if($grab_open || $is_close) $tag .= $symbol;
+                    if(!$is_open && !$is_close) $stripped++;
             }
+
             $i++;
         }
-        while ($tags)
-            $result .= "</".array_pop($tags).">";
+
+        while($tags) $result .= "</".array_pop($tags).">";
+
         return $result;
     }
 

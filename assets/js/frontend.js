@@ -94,6 +94,9 @@ var mecSingleEventDisplayer = {
         $("#mec_sf_event_type_2_" + settings.id).on('change', function (e) {
             search();
         });
+        $("#mec_sf_attribute_" + settings.id).on('change', function (e) {
+            search();
+        });
 
         if (settings.fields && settings.fields != null && settings.fields.length > 0) {
             for (var k in settings.fields) {
@@ -115,6 +118,7 @@ var mecSingleEventDisplayer = {
             var year = $("#mec_sf_year_" + settings.id).length ? $("#mec_sf_year_" + settings.id).val() : '';
             var event_type = $("#mec_sf_event_type_" + settings.id).length ? $("#mec_sf_event_type_" + settings.id).val() : '';
             var event_type_2 = $("#mec_sf_event_type_2_" + settings.id).length ? $("#mec_sf_event_type_2_" + settings.id).val() : '';
+            var attribute = $("#mec_sf_attribute_" + settings.id).length ? $("#mec_sf_attribute_" + settings.id).val() : '';
 
             if (year === 'none' && month === 'none') {
                 year = '';
@@ -131,7 +135,7 @@ var mecSingleEventDisplayer = {
                 }
             }
 
-            var atts = settings.atts + '&sf[s]=' + s + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + addation_attr;
+            var atts = settings.atts + '&sf[s]=' + s + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
             settings.callback(atts);
         }
     };

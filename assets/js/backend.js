@@ -653,7 +653,11 @@ function mec_send_email_check_all(Context)
 // TinyMce Plugins
 if(jQuery('.mec-fes-form').length < 1)
 {
-    var items = JSON.parse(mec_admin_localize.mce_items);
+    if (typeof mec_admin_localize === "undefined") {
+        var  items = '';
+    } else {
+        var  items = JSON.parse(mec_admin_localize.mce_items);
+    }
     var menu = new Array();
     if (items && typeof tinymce !== 'undefined') {
         tinymce.PluginManager.add('mec_mce_buttons', function (editor, url) {

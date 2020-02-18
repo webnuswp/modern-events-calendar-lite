@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modern Events Calendar Lite\n"
-"POT-Creation-Date: 2020-02-12 17:40+0330\n"
-"PO-Revision-Date: 2020-02-12 17:43+0330\n"
+"POT-Creation-Date: 2020-02-18 15:15+0330\n"
+"PO-Revision-Date: 2020-02-18 15:17+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -73,7 +73,7 @@ msgstr "Barva události"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: app/features/contextual.php:62 app/features/events.php:2453
+#: app/features/contextual.php:62 app/features/events.php:2452
 #: app/features/mec/booking.php:448 app/features/mec/support.php:29
 #: app/libraries/main.php:560
 msgid "Booking Form"
@@ -315,29 +315,29 @@ msgstr "Zobrazit událost"
 msgid "No events found in Trash!"
 msgstr "V koši nebyly nalezeny žádné události!"
 
-#: app/features/events.php:182 app/features/events.php:3302
+#: app/features/events.php:182 app/features/events.php:3301
 #: app/features/mec/meta_boxes/display_options.php:959
 #: app/features/mec/meta_boxes/search_form.php:31
 #: app/features/mec/meta_boxes/search_form.php:93
 #: app/features/mec/meta_boxes/search_form.php:155
-#: app/features/mec/meta_boxes/search_form.php:216
-#: app/features/mec/meta_boxes/search_form.php:277
-#: app/features/mec/meta_boxes/search_form.php:338
-#: app/features/mec/meta_boxes/search_form.php:399
-#: app/features/mec/meta_boxes/search_form.php:453
-#: app/features/mec/meta_boxes/search_form.php:514
-#: app/features/mec/meta_boxes/search_form.php:575
-#: app/features/mec/meta_boxes/search_form.php:672
+#: app/features/mec/meta_boxes/search_form.php:217
+#: app/features/mec/meta_boxes/search_form.php:279
+#: app/features/mec/meta_boxes/search_form.php:341
+#: app/features/mec/meta_boxes/search_form.php:403
+#: app/features/mec/meta_boxes/search_form.php:458
+#: app/features/mec/meta_boxes/search_form.php:520
+#: app/features/mec/meta_boxes/search_form.php:582
+#: app/features/mec/meta_boxes/search_form.php:680
 #: app/features/mec/settings.php:808 app/features/mec/single.php:232
 #: app/features/search.php:68 app/libraries/main.php:5335
-#: app/libraries/skins.php:865 app/skins/single.php:566
+#: app/libraries/skins.php:865 app/skins/single.php:570
 #: app/skins/single/default.php:192 app/skins/single/default.php:415
 #: app/skins/single/m1.php:184 app/skins/single/m2.php:110
 #: app/skins/single/modern.php:118
 msgid "Category"
 msgstr "Kategorie"
 
-#: app/features/events.php:183 app/features/events.php:3257
+#: app/features/events.php:183 app/features/events.php:3256
 #: app/features/fes/form.php:757 app/features/mec.php:403
 #: app/features/mec/meta_boxes/filter.php:79 app/libraries/main.php:5334
 msgid "Categories"
@@ -427,8 +427,8 @@ msgstr "Datum a čas"
 msgid "Event Repeating"
 msgstr "Opakování události"
 
-#: app/features/events.php:333 app/features/events.php:1268
-#: app/features/mec/settings.php:718 app/skins/single.php:953
+#: app/features/events.php:333 app/features/events.php:1269
+#: app/features/mec/settings.php:718 app/skins/single.php:957
 msgid "Hourly Schedule"
 msgstr "Hodinový rozvrh"
 
@@ -444,35 +444,35 @@ msgstr "Umístění"
 msgid "Links"
 msgstr "Odkaz"
 
-#: app/features/events.php:336 app/features/events.php:3304
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:336 app/features/events.php:3303
+#: app/features/events.php:3494 app/features/events.php:3536
 #: app/features/ix.php:3506 app/features/ix.php:3547
 #: app/features/mec/meta_boxes/display_options.php:962
 #: app/features/mec/meta_boxes/search_form.php:45
 #: app/features/mec/meta_boxes/search_form.php:107
 #: app/features/mec/meta_boxes/search_form.php:169
-#: app/features/mec/meta_boxes/search_form.php:230
-#: app/features/mec/meta_boxes/search_form.php:291
-#: app/features/mec/meta_boxes/search_form.php:352
-#: app/features/mec/meta_boxes/search_form.php:413
-#: app/features/mec/meta_boxes/search_form.php:467
-#: app/features/mec/meta_boxes/search_form.php:528
-#: app/features/mec/meta_boxes/search_form.php:589
-#: app/features/mec/meta_boxes/search_form.php:686
+#: app/features/mec/meta_boxes/search_form.php:231
+#: app/features/mec/meta_boxes/search_form.php:293
+#: app/features/mec/meta_boxes/search_form.php:355
+#: app/features/mec/meta_boxes/search_form.php:417
+#: app/features/mec/meta_boxes/search_form.php:472
+#: app/features/mec/meta_boxes/search_form.php:534
+#: app/features/mec/meta_boxes/search_form.php:596
+#: app/features/mec/meta_boxes/search_form.php:694
 #: app/features/mec/settings.php:820 app/features/mec/single.php:236
 #: app/features/organizers.php:58 app/features/organizers.php:204
 #: app/features/organizers.php:260 app/features/organizers.php:262
 #: app/features/organizers.php:271 app/features/search.php:78
 #: app/libraries/main.php:5341 app/libraries/skins.php:917
-#: app/skins/single.php:812 app/skins/single/default.php:217
+#: app/skins/single.php:816 app/skins/single/default.php:217
 #: app/skins/single/default.php:440 app/skins/single/m1.php:99
 #: app/skins/single/m2.php:25 app/skins/single/modern.php:34
 msgid "Organizer"
 msgstr "Organizátor"
 
-#: app/features/events.php:337 app/features/events.php:1154
+#: app/features/events.php:337 app/features/events.php:1155
 #: app/features/fes/form.php:730 app/libraries/main.php:5368
-#: app/skins/single.php:589 app/skins/single/default.php:126
+#: app/skins/single.php:593 app/skins/single/default.php:126
 #: app/skins/single/default.php:349 app/skins/single/m1.php:58
 #: app/skins/single/modern.php:213
 msgid "Cost"
@@ -486,8 +486,8 @@ msgstr "Poznámka pro recenzenta"
 msgid "Guest Data"
 msgstr "Údaje hosta"
 
-#: app/features/events.php:461 app/features/events.php:2435
-#: app/features/events.php:3784 app/features/fes.php:223
+#: app/features/events.php:461 app/features/events.php:2434
+#: app/features/events.php:3783 app/features/fes.php:223
 #: app/features/fes/form.php:689 app/features/labels.php:178
 #: app/features/mec/booking.php:45 app/features/organizers.php:279
 #: app/features/profile/profile.php:180 app/libraries/notifications.php:1117
@@ -495,8 +495,8 @@ msgstr "Údaje hosta"
 msgid "Name"
 msgstr "Jméno"
 
-#: app/features/events.php:462 app/features/events.php:2446
-#: app/features/events.php:2522 app/features/events.php:3787
+#: app/features/events.php:462 app/features/events.php:2445
+#: app/features/events.php:2521 app/features/events.php:3786
 #: app/features/fes.php:223 app/features/fes/form.php:685
 #: app/features/mec/booking.php:57 app/features/mec/booking.php:499
 #: app/features/organizers.php:111 app/features/organizers.php:152
@@ -504,8 +504,8 @@ msgstr "Jméno"
 #: app/features/speakers.php:196 app/libraries/main.php:1547
 #: app/libraries/main.php:1616 app/libraries/main.php:2843
 #: app/libraries/notifications.php:1118 app/modules/booking/steps/form.php:46
-#: app/modules/booking/steps/form.php:83 app/skins/single.php:829
-#: app/skins/single.php:884 app/skins/single/default.php:234
+#: app/modules/booking/steps/form.php:83 app/skins/single.php:833
+#: app/skins/single.php:888 app/skins/single/default.php:234
 #: app/skins/single/default.php:457 app/skins/single/m1.php:116
 #: app/skins/single/m2.php:42 app/skins/single/modern.php:51
 msgid "Email"
@@ -516,8 +516,8 @@ msgid "Date and Time"
 msgstr "Datum a čas"
 
 #: app/features/events.php:473 app/features/events.php:479
-#: app/features/events.php:3305 app/features/events.php:3495
-#: app/features/events.php:3537 app/features/fes/form.php:247
+#: app/features/events.php:3304 app/features/events.php:3494
+#: app/features/events.php:3536 app/features/fes/form.php:247
 #: app/features/fes/form.php:251 app/features/ix.php:3506
 #: app/features/ix.php:3547 app/features/ix/import_g_calendar.php:38
 #: app/features/mec/dashboard.php:401
@@ -540,46 +540,46 @@ msgid "Start Date"
 msgstr "Počátečná den"
 
 #: app/features/events.php:551 app/features/events.php:643
-#: app/features/events.php:1708 app/features/events.php:1767
-#: app/features/events.php:1960 app/features/events.php:1999
+#: app/features/events.php:1707 app/features/events.php:1766
+#: app/features/events.php:1959 app/features/events.php:1998
 #: app/features/fes/form.php:279 app/features/fes/form.php:319
 msgid "AM"
 msgstr "dop."
 
 #: app/features/events.php:558 app/features/events.php:650
-#: app/features/events.php:1715 app/features/events.php:1774
-#: app/features/events.php:1961 app/features/events.php:2000
+#: app/features/events.php:1714 app/features/events.php:1773
+#: app/features/events.php:1960 app/features/events.php:1999
 #: app/features/fes/form.php:280 app/features/fes/form.php:320
 msgid "PM"
 msgstr "odp."
 
 #: app/features/events.php:565 app/features/events.php:570
-#: app/features/events.php:3306 app/features/events.php:3495
-#: app/features/events.php:3537 app/features/fes/form.php:287
+#: app/features/events.php:3305 app/features/events.php:3494
+#: app/features/events.php:3536 app/features/fes/form.php:287
 #: app/features/fes/form.php:291 app/features/ix.php:3506
 #: app/features/ix.php:3547 app/features/ix/import_g_calendar.php:44
 #: app/features/mec/dashboard.php:402
 msgid "End Date"
 msgstr "Konečný den"
 
-#: app/features/events.php:664 app/features/fes/form.php:326
+#: app/features/events.php:665 app/features/fes/form.php:326
 msgid "All Day Event"
 msgstr "Celodenní událost"
 
-#: app/features/events.php:674 app/features/fes/form.php:329
+#: app/features/events.php:675 app/features/fes/form.php:329
 msgid "Hide Event Time"
 msgstr "Skrýt čas události"
 
-#: app/features/events.php:684 app/features/fes/form.php:332
+#: app/features/events.php:685 app/features/fes/form.php:332
 msgid "Hide Event End Time"
 msgstr "Skrýt čas ukončení události"
 
-#: app/features/events.php:689 app/features/events.php:693
+#: app/features/events.php:690 app/features/events.php:694
 #: app/features/fes/form.php:336
 msgid "Time Comment"
 msgstr "Časový komentář"
 
-#: app/features/events.php:694 app/features/fes/form.php:337
+#: app/features/events.php:695 app/features/fes/form.php:337
 msgid ""
 "It shows next to event time on single event page. You can insert Timezone "
 "etc. in this field."
@@ -587,14 +587,14 @@ msgstr ""
 "Zobrazuje se vedle času události na stránce jedné události. Do tohoto pole "
 "můžete vložit časové pásmo atd."
 
-#: app/features/events.php:696 app/features/events.php:817
-#: app/features/events.php:1117 app/features/events.php:1194
-#: app/features/events.php:1493 app/features/events.php:1585
-#: app/features/events.php:1795 app/features/events.php:1810
-#: app/features/events.php:2019 app/features/events.php:2032
-#: app/features/events.php:2183 app/features/events.php:2219
-#: app/features/events.php:2317 app/features/events.php:2332
-#: app/features/events.php:2362 app/features/events.php:2375
+#: app/features/events.php:697 app/features/events.php:818
+#: app/features/events.php:1118 app/features/events.php:1195
+#: app/features/events.php:1494 app/features/events.php:1586
+#: app/features/events.php:1794 app/features/events.php:1809
+#: app/features/events.php:2018 app/features/events.php:2031
+#: app/features/events.php:2182 app/features/events.php:2218
+#: app/features/events.php:2316 app/features/events.php:2331
+#: app/features/events.php:2361 app/features/events.php:2374
 #: app/features/fes/form.php:641 app/features/locations.php:301
 #: app/features/mec/booking.php:108 app/features/mec/booking.php:158
 #: app/features/mec/booking.php:171 app/features/mec/booking.php:187
@@ -660,110 +660,110 @@ msgstr ""
 #: app/features/mec/single.php:125 app/features/mec/single.php:178
 #: app/features/mec/styling.php:203 app/features/mec/styling.php:220
 #: app/features/mec/styling.php:233 app/features/organizers.php:272
-#: app/skins/single.php:674 app/skins/single/default.php:141
+#: app/skins/single.php:678 app/skins/single/default.php:141
 #: app/skins/single/default.php:364 app/skins/single/m1.php:206
 #: app/skins/single/m2.php:133 app/skins/single/modern.php:141
 msgid "Read More"
 msgstr "Číst více"
 
-#: app/features/events.php:704
+#: app/features/events.php:705
 msgid "Repeating"
 msgstr "Opakování"
 
-#: app/features/events.php:713
+#: app/features/events.php:714
 msgid "Event Repeating (Recurring events)"
 msgstr "Opakování události (opakující se události)"
 
-#: app/features/events.php:717 app/features/fes/form.php:347
+#: app/features/events.php:718 app/features/fes/form.php:347
 msgid "Repeats"
 msgstr "Opakování"
 
-#: app/features/events.php:725 app/features/fes/form.php:349
+#: app/features/events.php:726 app/features/fes/form.php:349
 #: app/features/mec/dashboard.php:404
 #: app/skins/default_full_calendar/tpl.php:69
 #: app/skins/full_calendar/tpl.php:110
 msgid "Daily"
 msgstr "Děnně"
 
-#: app/features/events.php:732 app/features/fes/form.php:350
+#: app/features/events.php:733 app/features/fes/form.php:350
 msgid "Every Weekday"
 msgstr "Každý všední den"
 
-#: app/features/events.php:739 app/features/fes/form.php:351
+#: app/features/events.php:740 app/features/fes/form.php:351
 msgid "Every Weekend"
 msgstr "Každý víkend"
 
-#: app/features/events.php:746 app/features/fes/form.php:352
+#: app/features/events.php:747 app/features/fes/form.php:352
 msgid "Certain Weekdays"
 msgstr "Určité pracovní dny"
 
-#: app/features/events.php:753 app/features/fes/form.php:353
+#: app/features/events.php:754 app/features/fes/form.php:353
 #: app/skins/default_full_calendar/tpl.php:68
 #: app/skins/full_calendar/tpl.php:109
 msgid "Weekly"
 msgstr "Týdně"
 
-#: app/features/events.php:760 app/features/fes/form.php:354
+#: app/features/events.php:761 app/features/fes/form.php:354
 #: app/features/mec/dashboard.php:405
 #: app/skins/default_full_calendar/tpl.php:67
 #: app/skins/full_calendar/tpl.php:108
 msgid "Monthly"
 msgstr "Měsíčně"
 
-#: app/features/events.php:767 app/features/fes/form.php:355
+#: app/features/events.php:768 app/features/fes/form.php:355
 #: app/features/mec/dashboard.php:406
 #: app/skins/default_full_calendar/tpl.php:66
 #: app/skins/full_calendar/tpl.php:107
 msgid "Yearly"
 msgstr "Ročně"
 
-#: app/features/events.php:774 app/features/fes/form.php:356
+#: app/features/events.php:775 app/features/fes/form.php:356
 msgid "Custom Days"
 msgstr "Vlastní dny"
 
-#: app/features/events.php:781 app/features/fes/form.php:357
+#: app/features/events.php:782 app/features/fes/form.php:357
 msgid "Advanced"
 msgstr "Pokročilé"
 
-#: app/features/events.php:786 app/features/fes/form.php:361
+#: app/features/events.php:787 app/features/fes/form.php:361
 msgid "Repeat Interval"
 msgstr "Interval opakování"
 
-#: app/features/events.php:788 app/features/fes/form.php:362
+#: app/features/events.php:789 app/features/fes/form.php:362
 msgid "Repeat interval"
 msgstr "Interval opakování"
 
-#: app/features/events.php:792 app/features/fes/form.php:365
+#: app/features/events.php:793 app/features/fes/form.php:365
 msgid "Week Days"
 msgstr "Dny v týdnu"
 
-#: app/features/events.php:807 app/features/events.php:1879
-#: app/features/events.php:1907 app/features/events.php:2087
+#: app/features/events.php:808 app/features/events.php:1878
+#: app/features/events.php:1906 app/features/events.php:2086
 #: app/features/fes/form.php:377 app/features/ix/import_f_calendar.php:42
 #: app/features/ix/import_g_calendar.php:51
 #: app/features/ix/import_meetup.php:40 app/features/ix/thirdparty.php:33
 msgid "Start"
 msgstr "Začátek"
 
-#: app/features/events.php:809 app/features/events.php:1883
-#: app/features/events.php:1911 app/features/events.php:2091
+#: app/features/events.php:810 app/features/events.php:1882
+#: app/features/events.php:1910 app/features/events.php:2090
 #: app/features/fes/form.php:378
 msgid "End"
 msgstr "Konec"
 
-#: app/features/events.php:811 app/features/events.php:1188
-#: app/features/events.php:1299 app/features/events.php:1404
-#: app/features/events.php:1862 app/features/events.php:2076
-#: app/features/events.php:2156 app/features/events.php:2289
+#: app/features/events.php:812 app/features/events.php:1189
+#: app/features/events.php:1300 app/features/events.php:1405
+#: app/features/events.php:1861 app/features/events.php:2075
+#: app/features/events.php:2155 app/features/events.php:2288
 #: app/features/fes/form.php:379 app/features/fes/form.php:855
 msgid "Add"
 msgstr "Přidat"
 
-#: app/features/events.php:814
+#: app/features/events.php:815
 msgid "Custom Days Repeating"
 msgstr "Opakování vlastních dnů"
 
-#: app/features/events.php:815
+#: app/features/events.php:816
 msgid ""
 "Add certain days to event occurrence dates. If you have single day event, "
 "start and end date should be the same, If you have multiple day event the "
@@ -773,49 +773,49 @@ msgstr ""
 "datum zahájení a ukončení by mělo být stejné. Pokud máte vícedenní událost, "
 "datum zahájení a ukončení musí odpovídat počátečnímu datu."
 
-#: app/features/events.php:851 app/features/fes/form.php:405
+#: app/features/events.php:852 app/features/fes/form.php:405
 msgid "First"
 msgstr "První"
 
-#: app/features/events.php:893 app/features/fes/form.php:447
+#: app/features/events.php:894 app/features/fes/form.php:447
 msgid "Second"
 msgstr "Druhá"
 
-#: app/features/events.php:935 app/features/fes/form.php:489
+#: app/features/events.php:936 app/features/fes/form.php:489
 msgid "Third"
 msgstr "Třetí"
 
-#: app/features/events.php:977 app/features/fes/form.php:531
+#: app/features/events.php:978 app/features/fes/form.php:531
 msgid "Fourth"
 msgstr "Čtvrtá"
 
-#: app/features/events.php:1019 app/features/fes/form.php:573
+#: app/features/events.php:1020 app/features/fes/form.php:573
 msgid "Last"
 msgstr "Poslední"
 
-#: app/features/events.php:1066 app/features/fes/form.php:619
+#: app/features/events.php:1067 app/features/fes/form.php:619
 msgid "Ends Repeat"
 msgstr "Ukončení opakování"
 
-#: app/features/events.php:1078 app/features/fes/form.php:623
+#: app/features/events.php:1079 app/features/fes/form.php:623
 msgid "Never"
 msgstr "Nikdy"
 
 # Možná Zapnuto
-#: app/features/events.php:1090 app/features/fes/form.php:628
+#: app/features/events.php:1091 app/features/fes/form.php:628
 msgid "On"
 msgstr "Na"
 
-#: app/features/events.php:1106 app/features/fes/form.php:635
+#: app/features/events.php:1107 app/features/fes/form.php:635
 msgid "After"
 msgstr "Po"
 
-#: app/features/events.php:1110 app/features/events.php:1114
+#: app/features/events.php:1111 app/features/events.php:1115
 #: app/features/fes/form.php:637 app/features/fes/form.php:640
 msgid "Occurrences times"
 msgstr "Časy výskytu"
 
-#: app/features/events.php:1115 app/features/fes/form.php:641
+#: app/features/events.php:1116 app/features/fes/form.php:641
 msgid ""
 "The event will finish after certain repeats. For example if you set it to "
 "10, the event will finish after 10 repeats."
@@ -823,39 +823,39 @@ msgstr ""
 "Událost bude ukončena po určitých opakováních. Pokud například nastavíte "
 "hodnotu 10, událost skončí po 10 opakováních."
 
-#: app/features/events.php:1130 app/features/fes/form.php:654
+#: app/features/events.php:1131 app/features/fes/form.php:654
 #, fuzzy
 #| msgid "Next Occurrence of Other Events"
 msgid "Show only one occurrence of this event"
 msgstr "Další výskyt dalších událostí"
 
-#: app/features/events.php:1150 app/features/events.php:3495
-#: app/features/events.php:3537 app/features/fes/form.php:727
+#: app/features/events.php:1151 app/features/events.php:3494
+#: app/features/events.php:3536 app/features/fes/form.php:727
 #: app/features/ix.php:3506 app/features/ix.php:3547
 #: app/features/mec/settings.php:664 app/libraries/main.php:5367
 #: app/widgets/single.php:103
 msgid "Event Cost"
 msgstr "Cena události"
 
-#: app/features/events.php:1175
+#: app/features/events.php:1176
 msgid "Exceptional Days (Exclude Dates)"
 msgstr "Výjimečné dny (vyjma dat)"
 
-#: app/features/events.php:1181 app/features/events.php:1191
+#: app/features/events.php:1182 app/features/events.php:1192
 msgid "Exclude certain days"
 msgstr "Vyloučit určité dny"
 
-#: app/features/events.php:1186 app/features/events.php:2523
+#: app/features/events.php:1187 app/features/events.php:2522
 #: app/features/fes.php:223 app/features/mec/booking.php:500
 #: app/features/profile/profile.php:53 app/libraries/main.php:2253
-#: app/libraries/main.php:2901 app/modules/booking/steps/tickets.php:22
-#: app/modules/next-event/details.php:93 app/skins/single.php:648
+#: app/libraries/main.php:2901 app/modules/booking/steps/tickets.php:23
+#: app/modules/next-event/details.php:93 app/skins/single.php:652
 #: app/skins/single/default.php:85 app/skins/single/default.php:308
 #: app/skins/single/m1.php:20 app/skins/single/modern.php:175
 msgid "Date"
 msgstr "Datum"
 
-#: app/features/events.php:1192
+#: app/features/events.php:1193
 msgid ""
 "Exclude certain days from event occurrence dates. Please note that you can "
 "exclude only single day occurrences and you cannot exclude one day from "
@@ -865,15 +865,15 @@ msgstr ""
 "můžete vyloučit pouze výskyty za jeden den a nelze vyloučit jeden den z "
 "vícedenních výskytů."
 
-#: app/features/events.php:1246 app/libraries/render.php:506
+#: app/features/events.php:1247 app/libraries/render.php:506
 msgid "Day 1"
 msgstr "Den 1"
 
-#: app/features/events.php:1272
+#: app/features/events.php:1273
 msgid "Add Day"
 msgstr "Přidat den"
 
-#: app/features/events.php:1273
+#: app/features/events.php:1274
 msgid ""
 "Add new days for schedule. For example if your event is multiple days, you "
 "can add a different schedule for each day!"
@@ -881,28 +881,28 @@ msgstr ""
 "Přidat nové dny pro rozvrh. Pokud je například vaše akce vícedenní, můžete "
 "pro každý den přidat jiný rozvrh!"
 
-#: app/features/events.php:1280
+#: app/features/events.php:1281
 #, php-format
 msgid "Day %s"
 msgstr "Den %s"
 
-#: app/features/events.php:1284 app/features/events.php:1323
-#: app/features/events.php:1358 app/features/events.php:1390
-#: app/features/events.php:1419 app/features/events.php:2304
-#: app/features/events.php:2351 app/features/events.php:3301
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:1285 app/features/events.php:1324
+#: app/features/events.php:1359 app/features/events.php:1391
+#: app/features/events.php:1420 app/features/events.php:2303
+#: app/features/events.php:2350 app/features/events.php:3300
+#: app/features/events.php:3494 app/features/events.php:3536
 #: app/features/fes/form.php:236 app/features/ix.php:3506
 #: app/features/ix.php:3547 app/features/mec/booking.php:384
 #: app/features/mec/booking.php:416 app/features/mec/styling.php:115
 msgid "Title"
 msgstr "Název"
 
-#: app/features/events.php:1293 app/features/events.php:1330
-#: app/features/events.php:1363 app/features/events.php:1398
-#: app/features/events.php:1424 app/features/events.php:1893
-#: app/features/events.php:1919 app/features/events.php:2097
-#: app/features/events.php:2196 app/features/events.php:2232
-#: app/features/events.php:2339 app/features/events.php:2381
+#: app/features/events.php:1294 app/features/events.php:1331
+#: app/features/events.php:1364 app/features/events.php:1399
+#: app/features/events.php:1425 app/features/events.php:1892
+#: app/features/events.php:1918 app/features/events.php:2096
+#: app/features/events.php:2195 app/features/events.php:2231
+#: app/features/events.php:2338 app/features/events.php:2380
 #: app/features/mec/booking.php:327 app/features/mec/booking.php:356
 #: app/features/mec/booking.php:407 app/features/mec/booking.php:439
 #: app/libraries/main.php:2762 app/libraries/main.php:2792
@@ -915,28 +915,28 @@ msgstr "Název"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: app/features/events.php:1300 app/features/events.php:1405
+#: app/features/events.php:1301 app/features/events.php:1406
 msgid "Add new hourly schedule row"
 msgstr "Přidejte nový řádek rozvrhu hodin"
 
-#: app/features/events.php:1315 app/features/events.php:1352
-#: app/features/events.php:1414
+#: app/features/events.php:1316 app/features/events.php:1353
+#: app/features/events.php:1415
 msgid "From e.g. 8:15"
 msgstr "Od např. 8:15"
 
-#: app/features/events.php:1319 app/features/events.php:1355
-#: app/features/events.php:1416
+#: app/features/events.php:1320 app/features/events.php:1356
+#: app/features/events.php:1417
 msgid "To e.g. 8:45"
 msgstr "Do např. 8:45"
 
-#: app/features/events.php:1327 app/features/events.php:1361
-#: app/features/events.php:1422 app/features/events.php:1783
-#: app/features/events.php:2008
+#: app/features/events.php:1328 app/features/events.php:1362
+#: app/features/events.php:1423 app/features/events.php:1782
+#: app/features/events.php:2007
 msgid "Description"
 msgstr "Popis"
 
-#: app/features/events.php:1333 app/features/events.php:1366
-#: app/features/events.php:1427 app/features/fes/form.php:851
+#: app/features/events.php:1334 app/features/events.php:1367
+#: app/features/events.php:1428 app/features/fes/form.php:851
 #: app/features/mec.php:411 app/features/mec/modules.php:52
 #: app/features/mec/settings.php:712 app/features/speakers.php:62
 #: app/libraries/main.php:565 app/libraries/main.php:5342
@@ -944,26 +944,26 @@ msgstr "Popis"
 msgid "Speakers"
 msgstr "Řečníci"
 
-#: app/features/events.php:1386 app/features/events.php:1394
+#: app/features/events.php:1387 app/features/events.php:1395
 msgid "New Day"
 msgstr "Nový den"
 
-#: app/features/events.php:1458 app/features/fes/form.php:704
+#: app/features/events.php:1459 app/features/fes/form.php:704
 #: app/features/mec/settings.php:658
 msgid "Event Links"
 msgstr "Odkazy na událost"
 
-#: app/features/events.php:1461 app/features/events.php:1467
+#: app/features/events.php:1462 app/features/events.php:1468
 #: app/features/fes/form.php:706 app/libraries/main.php:5365
 msgid "Event Link"
 msgstr "Odkaz na událost"
 
-#: app/features/events.php:1464 app/features/events.php:1480
+#: app/features/events.php:1465 app/features/events.php:1481
 #: app/features/fes/form.php:707 app/features/fes/form.php:712
 msgid "eg. http://yoursite.com/your-event"
 msgstr "např. http://yoursite.com/vase-udalost"
 
-#: app/features/events.php:1468
+#: app/features/events.php:1469
 msgid ""
 "If you fill it, it will be replaced instead of default event page link. "
 "Insert full link including http(s):// - Also, if you use advertising URL, "
@@ -973,32 +973,32 @@ msgstr ""
 "Vložte úplný odkaz včetně http (s): // - Pokud používáte reklamní adresu "
 "URL, můžete také použít zkracovač URL"
 
-#: app/features/events.php:1470
+#: app/features/events.php:1471
 msgid "URL Shortener"
 msgstr "Zkracovač URL"
 
-#: app/features/events.php:1477 app/features/events.php:1490
+#: app/features/events.php:1478 app/features/events.php:1491
 #: app/features/fes/form.php:711 app/libraries/main.php:5366
-#: app/skins/single.php:673 app/skins/single/default.php:140
+#: app/skins/single.php:677 app/skins/single/default.php:140
 #: app/skins/single/default.php:363 app/skins/single/m1.php:205
 #: app/skins/single/m2.php:132 app/skins/single/modern.php:140
 #: app/widgets/single.php:107
 msgid "More Info"
 msgstr "Více info"
 
-#: app/features/events.php:1483 app/features/fes/form.php:713
+#: app/features/events.php:1484 app/features/fes/form.php:713
 msgid "More Information"
 msgstr "Více informací"
 
-#: app/features/events.php:1485 app/features/fes/form.php:715
+#: app/features/events.php:1486 app/features/fes/form.php:715
 msgid "Current Window"
 msgstr "Aktuální okno"
 
-#: app/features/events.php:1486 app/features/fes/form.php:716
+#: app/features/events.php:1487 app/features/fes/form.php:716
 msgid "New Window"
 msgstr "Nové okno"
 
-#: app/features/events.php:1491 app/features/fes/form.php:718
+#: app/features/events.php:1492 app/features/fes/form.php:718
 msgid ""
 "If you fill it, it will be shown in event details page as an optional link. "
 "Insert full link including http(s)://"
@@ -1006,18 +1006,18 @@ msgstr ""
 "Pokud ji vyplníte, zobrazí se jako volitelný odkaz na stránce s podrobnostmi "
 "o události. Vložte celý odkaz včetně http (s): //"
 
-#: app/features/events.php:1566 app/features/events.php:1581
+#: app/features/events.php:1567 app/features/events.php:1582
 msgid "Total booking limits"
 msgstr "Celkové limity rezervace"
 
-#: app/features/events.php:1578 app/features/events.php:1831
-#: app/features/events.php:2046 app/modules/booking/default.php:85
-#: app/modules/booking/steps/tickets.php:40
+#: app/features/events.php:1579 app/features/events.php:1830
+#: app/features/events.php:2045 app/modules/booking/default.php:85
+#: app/modules/booking/steps/tickets.php:43
 #: app/skins/available_spot/tpl.php:158
 msgid "Unlimited"
 msgstr "Neomezené"
 
-#: app/features/events.php:1584
+#: app/features/events.php:1585
 msgid ""
 "If you want to set a limit to all tickets, uncheck this checkbox and put a "
 "limitation number."
@@ -1025,33 +1025,33 @@ msgstr ""
 "Pokud chcete nastavit limit na všechny lístky, zrušte zaškrtnutí tohoto "
 "políčka a zadejte číslo omezení."
 
-#: app/features/events.php:1586
+#: app/features/events.php:1587
 msgid "Read About A Booking System"
 msgstr "Přečtěte si o rezervačním systému"
 
-#: app/features/events.php:1594
+#: app/features/events.php:1595
 msgid "100"
 msgstr "100"
 
-#: app/features/events.php:1599
+#: app/features/events.php:1600
 msgid "Total user booking limits"
 msgstr "Celkové limity rezervace uživatelů"
 
-#: app/features/events.php:1611 app/features/events.php:2145
-#: app/features/events.php:2277 app/features/events.php:2465
+#: app/features/events.php:1612 app/features/events.php:2144
+#: app/features/events.php:2276 app/features/events.php:2464
 msgid "Inherit from global options"
 msgstr "Zdědí z globálních možností"
 
-#: app/features/events.php:1614
+#: app/features/events.php:1615
 msgid "12"
 msgstr "12"
 
-#: app/features/events.php:1635 app/libraries/book.php:60
-#: app/libraries/main.php:5370 app/modules/booking/steps/tickets.php:40
+#: app/features/events.php:1634 app/libraries/book.php:60
+#: app/libraries/main.php:5370 app/modules/booking/steps/tickets.php:43
 msgid "Tickets"
 msgstr "Vstupenky"
 
-#: app/features/events.php:1638
+#: app/features/events.php:1637
 msgid ""
 "You're translating an event so MEC will use the original event for tickets "
 "and booking. You can only translate the ticket name and description. Please "
@@ -1061,131 +1061,131 @@ msgstr ""
 "vstupenek a rezervace. Můžete přeložit pouze název a popis vstupenky. Prosím "
 "definujte určité vstupenky, které jste definovali v původní události."
 
-#: app/features/events.php:1643
+#: app/features/events.php:1642
 #, fuzzy
 #| msgid "Ticket"
 msgid "Add Ticket"
 msgstr "Vstupenka"
 
-#: app/features/events.php:1657 app/features/events.php:1933
+#: app/features/events.php:1656 app/features/events.php:1932
 msgid "Ticket Name"
 msgstr "Název vstupenky"
 
-#: app/features/events.php:1662 app/features/events.php:1937
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:1661 app/features/events.php:1936
+#: app/features/events.php:3494 app/features/events.php:3536
 #: app/features/ix.php:3506 app/features/ix.php:3547
 msgid "Start Time"
 msgstr "Začátek"
 
-#: app/features/events.php:1721 app/features/events.php:1967
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:1720 app/features/events.php:1966
+#: app/features/events.php:3494 app/features/events.php:3536
 #: app/features/ix.php:3506 app/features/ix.php:3547
 msgid "End Time"
 msgstr "Konec"
 
-#: app/features/events.php:1788 app/features/events.php:1792
-#: app/features/events.php:1887 app/features/events.php:1914
-#: app/features/events.php:2013 app/features/events.php:2016
-#: app/features/events.php:2093 app/features/events.php:2310
-#: app/features/events.php:2314 app/features/events.php:2356
-#: app/features/events.php:2359 app/features/mec/booking.php:388
+#: app/features/events.php:1787 app/features/events.php:1791
+#: app/features/events.php:1886 app/features/events.php:1913
+#: app/features/events.php:2012 app/features/events.php:2015
+#: app/features/events.php:2092 app/features/events.php:2309
+#: app/features/events.php:2313 app/features/events.php:2355
+#: app/features/events.php:2358 app/features/mec/booking.php:388
 #: app/features/mec/booking.php:391 app/features/mec/booking.php:420
 #: app/features/mec/booking.php:423
 msgid "Price"
 msgstr "Cena"
 
-#: app/features/events.php:1793 app/features/events.php:2017
+#: app/features/events.php:1792 app/features/events.php:2016
 msgid "Insert 0 for free ticket. Only numbers please."
 msgstr "Vložte 0 pro vstupenku zdarma. Prosím pouze čísla."
 
-#: app/features/events.php:1802 app/features/events.php:1807
-#: app/features/events.php:2026 app/features/events.php:2029
+#: app/features/events.php:1801 app/features/events.php:1806
+#: app/features/events.php:2025 app/features/events.php:2028
 msgid "Price Label"
 msgstr "Cenový štítek"
 
-#: app/features/events.php:1808 app/features/events.php:2030
+#: app/features/events.php:1807 app/features/events.php:2029
 msgid "For showing on website. e.g. $15"
 msgstr "Pro zobrazení na webu. např. 15 $"
 
-#: app/features/events.php:1818 app/features/events.php:2040
+#: app/features/events.php:1817 app/features/events.php:2039
 msgid "Available Tickets"
 msgstr "Dostupné vstupenky"
 
-#: app/features/events.php:1835 app/features/events.php:2050
+#: app/features/events.php:1834 app/features/events.php:2049
 #, fuzzy
 #| msgid "Maximum Per Ticket"
 msgid "Minimum Ticket e.g. 3"
 msgstr "Maximum na jednu vstupenku"
 
-#: app/features/events.php:1838 app/features/events.php:2053
+#: app/features/events.php:1837 app/features/events.php:2052
 #, fuzzy
 #| msgid "Maximum Per Ticket"
 msgid "MinimumTicket"
 msgstr "Maximum na jednu vstupenku"
 
-#: app/features/events.php:1840 app/features/events.php:2055
+#: app/features/events.php:1839 app/features/events.php:2054
 msgid "Set a number for the minimum ticket reservation"
 msgstr ""
 
-#: app/features/events.php:1848 app/features/events.php:2063
+#: app/features/events.php:1847 app/features/events.php:2062
 msgid "e.g. 0"
 msgstr ""
 
-#: app/features/events.php:1850 app/features/events.php:2065
+#: app/features/events.php:1849 app/features/events.php:2064
 #, fuzzy
 #| msgid "Days"
 msgid "Day"
 msgstr "Dny"
 
-#: app/features/events.php:1851 app/features/events.php:2066
+#: app/features/events.php:1850 app/features/events.php:2065
 msgid "Hour"
 msgstr ""
 
-#: app/features/events.php:1853 app/features/events.php:2068
+#: app/features/events.php:1852 app/features/events.php:2067
 #, php-format
 msgid "Stop selling ticket %s before event start."
 msgstr ""
 
-#: app/features/events.php:1860 app/features/events.php:2074
+#: app/features/events.php:1859 app/features/events.php:2073
 msgid "Price per Date"
 msgstr "Cena za datum"
 
-#: app/features/events.php:1891 app/features/events.php:1917
-#: app/features/events.php:2095 app/features/labels.php:60
+#: app/features/events.php:1890 app/features/events.php:1916
+#: app/features/events.php:2094 app/features/labels.php:60
 #: app/features/mec/meta_boxes/display_options.php:960
 #: app/features/mec/meta_boxes/search_form.php:66
 #: app/features/mec/meta_boxes/search_form.php:128
 #: app/features/mec/meta_boxes/search_form.php:190
-#: app/features/mec/meta_boxes/search_form.php:251
-#: app/features/mec/meta_boxes/search_form.php:312
-#: app/features/mec/meta_boxes/search_form.php:373
-#: app/features/mec/meta_boxes/search_form.php:434
-#: app/features/mec/meta_boxes/search_form.php:488
-#: app/features/mec/meta_boxes/search_form.php:549
-#: app/features/mec/meta_boxes/search_form.php:610
-#: app/features/mec/meta_boxes/search_form.php:707
+#: app/features/mec/meta_boxes/search_form.php:252
+#: app/features/mec/meta_boxes/search_form.php:314
+#: app/features/mec/meta_boxes/search_form.php:376
+#: app/features/mec/meta_boxes/search_form.php:438
+#: app/features/mec/meta_boxes/search_form.php:493
+#: app/features/mec/meta_boxes/search_form.php:555
+#: app/features/mec/meta_boxes/search_form.php:617
+#: app/features/mec/meta_boxes/search_form.php:715
 #: app/features/mec/settings.php:840 app/features/mec/single.php:250
 #: app/libraries/skins.php:995
 msgid "Label"
 msgstr "Štítek"
 
-#: app/features/events.php:2133
+#: app/features/events.php:2132
 msgid "Fees"
 msgstr "Poplatky"
 
-#: app/features/events.php:2170 app/features/events.php:2208
+#: app/features/events.php:2169 app/features/events.php:2207
 #: app/features/mec/booking.php:307 app/features/mec/booking.php:336
 msgid "Fee Title"
 msgstr "Název poplatku"
 
-#: app/features/events.php:2176 app/features/events.php:2180
-#: app/features/events.php:2213 app/features/events.php:2216
+#: app/features/events.php:2175 app/features/events.php:2179
+#: app/features/events.php:2212 app/features/events.php:2215
 #: app/features/mec/booking.php:311 app/features/mec/booking.php:314
 #: app/features/mec/booking.php:340 app/features/mec/booking.php:343
 msgid "Amount"
 msgstr "Množství"
 
-#: app/features/events.php:2181 app/features/events.php:2217
+#: app/features/events.php:2180 app/features/events.php:2216
 #: app/features/mec/booking.php:315 app/features/mec/booking.php:344
 msgid ""
 "Fee amount, considered as fixed amount if you set the type to amount "
@@ -1194,85 +1194,85 @@ msgstr ""
 "Výše poplatku, je považovaná za pevnou částku, pokud nastavíte typ na částku "
 "odpovídající procentuální hodnotě"
 
-#: app/features/events.php:2190 app/features/events.php:2226
+#: app/features/events.php:2189 app/features/events.php:2225
 #: app/features/mec/booking.php:322 app/features/mec/booking.php:351
 msgid "Percent"
 msgstr "Procent"
 
-#: app/features/events.php:2191 app/features/events.php:2227
+#: app/features/events.php:2190 app/features/events.php:2226
 #: app/features/mec/booking.php:323 app/features/mec/booking.php:352
 msgid "Amount (Per Ticket)"
 msgstr "Částka (za vstupenku)"
 
-#: app/features/events.php:2192 app/features/events.php:2228
+#: app/features/events.php:2191 app/features/events.php:2227
 #: app/features/mec/booking.php:324 app/features/mec/booking.php:353
 msgid "Amount (Per Booking)"
 msgstr "Částka (za rezervaci)"
 
-#: app/features/events.php:2265 app/features/mec/settings.php:736
+#: app/features/events.php:2264 app/features/mec/settings.php:736
 msgid "Ticket Variations / Options"
 msgstr "Varianty vstupenky / možnosti"
 
-#: app/features/events.php:2315 app/features/events.php:2360
+#: app/features/events.php:2314 app/features/events.php:2359
 #: app/features/mec/booking.php:392 app/features/mec/booking.php:424
 msgid "Option Price"
 msgstr "Možnosti ceny"
 
-#: app/features/events.php:2325 app/features/events.php:2329
-#: app/features/events.php:2369 app/features/events.php:2372
+#: app/features/events.php:2324 app/features/events.php:2328
+#: app/features/events.php:2368 app/features/events.php:2371
 #: app/features/mec/booking.php:398 app/features/mec/booking.php:401
 #: app/features/mec/booking.php:430 app/features/mec/booking.php:433
 msgid "Maximum Per Ticket"
 msgstr "Maximum na jednu vstupenku"
 
-#: app/features/events.php:2330 app/features/events.php:2373
+#: app/features/events.php:2329 app/features/events.php:2372
 #: app/features/mec/booking.php:402 app/features/mec/booking.php:434
 msgid "Maximum Per Ticket. Leave it blank for unlimited."
 msgstr "Maximum na jednu vstupenku. Ponechte to prázdné pro neomezené."
 
-#: app/features/events.php:2519 app/features/mec/booking.php:496
+#: app/features/events.php:2518 app/features/mec/booking.php:496
 #: app/libraries/main.php:2784
 msgid "MEC Name"
 msgstr "MEC Jméno"
 
-#: app/features/events.php:2520 app/features/mec/booking.php:497
+#: app/features/events.php:2519 app/features/mec/booking.php:497
 #: app/libraries/main.php:2813
 msgid "MEC Email"
 msgstr "MEC Email"
 
-#: app/features/events.php:2521 app/features/mec/booking.php:498
+#: app/features/events.php:2520 app/features/mec/booking.php:498
 #: app/libraries/main.php:2754
 msgid "Text"
 msgstr "Text"
 
-#: app/features/events.php:2524 app/features/mec/booking.php:501
+#: app/features/events.php:2523 app/features/mec/booking.php:501
 #: app/features/organizers.php:103 app/features/organizers.php:148
 #: app/features/speakers.php:119 app/features/speakers.php:192
 #: app/features/speakers.php:271 app/libraries/main.php:2930
 msgid "Tel"
 msgstr "Tel"
 
-#: app/features/events.php:2525 app/features/mec/booking.php:502
+#: app/features/events.php:2524 app/features/mec/booking.php:502
 #: app/libraries/main.php:2872
 msgid "File"
 msgstr "Soubor"
 
-#: app/features/events.php:2526 app/features/mec/booking.php:503
+#: app/features/events.php:2525 app/features/mec/booking.php:503
 #: app/libraries/main.php:2959
 msgid "Textarea"
 msgstr "Plocha textu"
 
-#: app/features/events.php:2527 app/features/mec/booking.php:504
+#: app/features/events.php:2526 app/features/mec/booking.php:504
 #: app/libraries/main.php:3012
 msgid "Checkboxes"
 msgstr "Zatržítko"
 
-#: app/features/events.php:2528 app/features/mec/booking.php:505
+#: app/features/events.php:2527 app/features/mec/booking.php:505
 #: app/libraries/main.php:3056
 msgid "Radio Buttons"
 msgstr "Přepínače"
 
-#: app/features/events.php:2529 app/features/mec/booking.php:506
+#: app/features/events.php:2528 app/features/mec/booking.php:506
 #: app/features/mec/meta_boxes/search_form.php:34
 #: app/features/mec/meta_boxes/search_form.php:41
 #: app/features/mec/meta_boxes/search_form.php:48
@@ -1294,100 +1294,100 @@ msgstr "Přepínače"
 #: app/features/mec/meta_boxes/search_form.php:186
 #: app/features/mec/meta_boxes/search_form.php:193
 #: app/features/mec/meta_boxes/search_form.php:200
-#: app/features/mec/meta_boxes/search_form.php:219
-#: app/features/mec/meta_boxes/search_form.php:226
-#: app/features/mec/meta_boxes/search_form.php:233
-#: app/features/mec/meta_boxes/search_form.php:240
-#: app/features/mec/meta_boxes/search_form.php:247
-#: app/features/mec/meta_boxes/search_form.php:254
-#: app/features/mec/meta_boxes/search_form.php:261
-#: app/features/mec/meta_boxes/search_form.php:280
-#: app/features/mec/meta_boxes/search_form.php:287
-#: app/features/mec/meta_boxes/search_form.php:294
-#: app/features/mec/meta_boxes/search_form.php:301
-#: app/features/mec/meta_boxes/search_form.php:308
-#: app/features/mec/meta_boxes/search_form.php:315
-#: app/features/mec/meta_boxes/search_form.php:322
-#: app/features/mec/meta_boxes/search_form.php:341
-#: app/features/mec/meta_boxes/search_form.php:348
-#: app/features/mec/meta_boxes/search_form.php:355
-#: app/features/mec/meta_boxes/search_form.php:362
-#: app/features/mec/meta_boxes/search_form.php:369
-#: app/features/mec/meta_boxes/search_form.php:376
-#: app/features/mec/meta_boxes/search_form.php:383
-#: app/features/mec/meta_boxes/search_form.php:402
-#: app/features/mec/meta_boxes/search_form.php:409
-#: app/features/mec/meta_boxes/search_form.php:416
-#: app/features/mec/meta_boxes/search_form.php:423
-#: app/features/mec/meta_boxes/search_form.php:430
-#: app/features/mec/meta_boxes/search_form.php:437
-#: app/features/mec/meta_boxes/search_form.php:456
-#: app/features/mec/meta_boxes/search_form.php:463
-#: app/features/mec/meta_boxes/search_form.php:470
-#: app/features/mec/meta_boxes/search_form.php:477
-#: app/features/mec/meta_boxes/search_form.php:484
-#: app/features/mec/meta_boxes/search_form.php:491
-#: app/features/mec/meta_boxes/search_form.php:498
-#: app/features/mec/meta_boxes/search_form.php:517
-#: app/features/mec/meta_boxes/search_form.php:524
-#: app/features/mec/meta_boxes/search_form.php:531
-#: app/features/mec/meta_boxes/search_form.php:538
-#: app/features/mec/meta_boxes/search_form.php:545
-#: app/features/mec/meta_boxes/search_form.php:552
-#: app/features/mec/meta_boxes/search_form.php:559
-#: app/features/mec/meta_boxes/search_form.php:578
+#: app/features/mec/meta_boxes/search_form.php:220
+#: app/features/mec/meta_boxes/search_form.php:227
+#: app/features/mec/meta_boxes/search_form.php:234
+#: app/features/mec/meta_boxes/search_form.php:241
+#: app/features/mec/meta_boxes/search_form.php:248
+#: app/features/mec/meta_boxes/search_form.php:255
+#: app/features/mec/meta_boxes/search_form.php:262
+#: app/features/mec/meta_boxes/search_form.php:282
+#: app/features/mec/meta_boxes/search_form.php:289
+#: app/features/mec/meta_boxes/search_form.php:296
+#: app/features/mec/meta_boxes/search_form.php:303
+#: app/features/mec/meta_boxes/search_form.php:310
+#: app/features/mec/meta_boxes/search_form.php:317
+#: app/features/mec/meta_boxes/search_form.php:324
+#: app/features/mec/meta_boxes/search_form.php:344
+#: app/features/mec/meta_boxes/search_form.php:351
+#: app/features/mec/meta_boxes/search_form.php:358
+#: app/features/mec/meta_boxes/search_form.php:365
+#: app/features/mec/meta_boxes/search_form.php:372
+#: app/features/mec/meta_boxes/search_form.php:379
+#: app/features/mec/meta_boxes/search_form.php:386
+#: app/features/mec/meta_boxes/search_form.php:406
+#: app/features/mec/meta_boxes/search_form.php:413
+#: app/features/mec/meta_boxes/search_form.php:420
+#: app/features/mec/meta_boxes/search_form.php:427
+#: app/features/mec/meta_boxes/search_form.php:434
+#: app/features/mec/meta_boxes/search_form.php:441
+#: app/features/mec/meta_boxes/search_form.php:461
+#: app/features/mec/meta_boxes/search_form.php:468
+#: app/features/mec/meta_boxes/search_form.php:475
+#: app/features/mec/meta_boxes/search_form.php:482
+#: app/features/mec/meta_boxes/search_form.php:489
+#: app/features/mec/meta_boxes/search_form.php:496
+#: app/features/mec/meta_boxes/search_form.php:503
+#: app/features/mec/meta_boxes/search_form.php:523
+#: app/features/mec/meta_boxes/search_form.php:530
+#: app/features/mec/meta_boxes/search_form.php:537
+#: app/features/mec/meta_boxes/search_form.php:544
+#: app/features/mec/meta_boxes/search_form.php:551
+#: app/features/mec/meta_boxes/search_form.php:558
+#: app/features/mec/meta_boxes/search_form.php:565
 #: app/features/mec/meta_boxes/search_form.php:585
 #: app/features/mec/meta_boxes/search_form.php:592
 #: app/features/mec/meta_boxes/search_form.php:599
 #: app/features/mec/meta_boxes/search_form.php:606
 #: app/features/mec/meta_boxes/search_form.php:613
 #: app/features/mec/meta_boxes/search_form.php:620
-#: app/features/mec/meta_boxes/search_form.php:675
-#: app/features/mec/meta_boxes/search_form.php:682
-#: app/features/mec/meta_boxes/search_form.php:689
-#: app/features/mec/meta_boxes/search_form.php:696
-#: app/features/mec/meta_boxes/search_form.php:703
-#: app/features/mec/meta_boxes/search_form.php:710
-#: app/features/mec/meta_boxes/search_form.php:717 app/libraries/main.php:3100
+#: app/features/mec/meta_boxes/search_form.php:627
+#: app/features/mec/meta_boxes/search_form.php:683
+#: app/features/mec/meta_boxes/search_form.php:690
+#: app/features/mec/meta_boxes/search_form.php:697
+#: app/features/mec/meta_boxes/search_form.php:704
+#: app/features/mec/meta_boxes/search_form.php:711
+#: app/features/mec/meta_boxes/search_form.php:718
+#: app/features/mec/meta_boxes/search_form.php:725 app/libraries/main.php:3100
 msgid "Dropdown"
 msgstr "Rozbalovací"
 
-#: app/features/events.php:2530 app/features/mec/booking.php:507
+#: app/features/events.php:2529 app/features/mec/booking.php:507
 #: app/libraries/main.php:3147
 msgid "Agreement"
 msgstr "Smlouva"
 
-#: app/features/events.php:2531 app/features/mec/booking.php:508
+#: app/features/events.php:2530 app/features/mec/booking.php:508
 #: app/libraries/main.php:2988
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: app/features/events.php:3203 app/features/events.php:3221
-#: app/features/events.php:3239 app/features/events.php:3257
+#: app/features/events.php:3202 app/features/events.php:3220
+#: app/features/events.php:3238 app/features/events.php:3256
 #, php-format
 msgid "Show all %s"
 msgstr "Ukázat všechny %s"
 
-#: app/features/events.php:3203
+#: app/features/events.php:3202
 msgid "labels"
 msgstr "štítky"
 
-#: app/features/events.php:3221
+#: app/features/events.php:3220
 msgid "locations"
 msgstr "umístění"
 
-#: app/features/events.php:3239
+#: app/features/events.php:3238
 msgid "organizers"
 msgstr "organizátoři"
 
-#: app/features/events.php:3273
+#: app/features/events.php:3272
 #, fuzzy
 #| msgid "Attendees Limit"
 msgid "Attendees List"
 msgstr "Limit účastníků"
 
-#: app/features/events.php:3303 app/features/events.php:3495
-#: app/features/events.php:3537 app/features/ix.php:3506
+#: app/features/events.php:3302 app/features/events.php:3494
+#: app/features/events.php:3536 app/features/ix.php:3506
 #: app/features/ix.php:3547 app/features/locations.php:58
 #: app/features/locations.php:232 app/features/locations.php:289
 #: app/features/locations.php:291 app/features/locations.php:300
@@ -1395,94 +1395,94 @@ msgstr "Limit účastníků"
 #: app/features/mec/meta_boxes/search_form.php:38
 #: app/features/mec/meta_boxes/search_form.php:100
 #: app/features/mec/meta_boxes/search_form.php:162
-#: app/features/mec/meta_boxes/search_form.php:223
-#: app/features/mec/meta_boxes/search_form.php:284
-#: app/features/mec/meta_boxes/search_form.php:345
-#: app/features/mec/meta_boxes/search_form.php:406
-#: app/features/mec/meta_boxes/search_form.php:460
-#: app/features/mec/meta_boxes/search_form.php:521
-#: app/features/mec/meta_boxes/search_form.php:582
-#: app/features/mec/meta_boxes/search_form.php:679
+#: app/features/mec/meta_boxes/search_form.php:224
+#: app/features/mec/meta_boxes/search_form.php:286
+#: app/features/mec/meta_boxes/search_form.php:348
+#: app/features/mec/meta_boxes/search_form.php:410
+#: app/features/mec/meta_boxes/search_form.php:465
+#: app/features/mec/meta_boxes/search_form.php:527
+#: app/features/mec/meta_boxes/search_form.php:589
+#: app/features/mec/meta_boxes/search_form.php:687
 #: app/features/mec/settings.php:814 app/features/mec/single.php:240
 #: app/features/search.php:73 app/libraries/main.php:2247
 #: app/libraries/main.php:5339 app/libraries/skins.php:891
-#: app/skins/single.php:493 app/skins/single.php:930
+#: app/skins/single.php:497 app/skins/single.php:934
 #: app/skins/single/default.php:176 app/skins/single/default.php:399
 #: app/skins/single/m1.php:169 app/skins/single/m2.php:95
 #: app/skins/single/modern.php:102
 msgid "Location"
 msgstr "Umístění"
 
-#: app/features/events.php:3308
+#: app/features/events.php:3307
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: app/features/events.php:3309
+#: app/features/events.php:3308
 msgid "Author"
 msgstr "Autor"
 
-#: app/features/events.php:3430 app/features/events.php:3431
+#: app/features/events.php:3429 app/features/events.php:3430
 msgid "iCal Export"
 msgstr "iCal Export"
 
-#: app/features/events.php:3433 app/features/events.php:3434
+#: app/features/events.php:3432 app/features/events.php:3433
 msgid "CSV Export"
 msgstr "CSV Export"
 
-#: app/features/events.php:3436 app/features/events.php:3437
+#: app/features/events.php:3435 app/features/events.php:3436
 msgid "MS Excel Export"
 msgstr "MS Excel Export"
 
-#: app/features/events.php:3439 app/features/events.php:3440
+#: app/features/events.php:3438 app/features/events.php:3439
 msgid "XML Export"
 msgstr "XML Export"
 
-#: app/features/events.php:3442 app/features/events.php:3443
+#: app/features/events.php:3441 app/features/events.php:3442
 msgid "JSON Export"
 msgstr "JSON Export"
 
-#: app/features/events.php:3445 app/features/events.php:3446
-#: app/features/events.php:3628
+#: app/features/events.php:3444 app/features/events.php:3445
+#: app/features/events.php:3627
 msgid "Duplicate"
 msgstr "Duplikát"
 
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:3494 app/features/events.php:3536
 #: app/features/fes.php:223 app/features/ix.php:3506 app/features/ix.php:3547
 #: app/features/labels.php:177 app/features/locations.php:231
 #: app/features/organizers.php:203 app/features/speakers.php:268
 msgid "ID"
 msgstr "ID"
 
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:3494 app/features/events.php:3536
 #: app/features/ix.php:3506 app/features/ix.php:3547
 msgid "Link"
 msgstr "Odkaz"
 
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:3494 app/features/events.php:3536
 #, php-format
 msgid "%s Tel"
 msgstr "%s Tel"
 
-#: app/features/events.php:3495 app/features/events.php:3537
+#: app/features/events.php:3494 app/features/events.php:3536
 #, php-format
 msgid "%s Email"
 msgstr "%s Email"
 
-#: app/features/events.php:3790 app/features/fes.php:223
+#: app/features/events.php:3789 app/features/fes.php:223
 #: app/features/profile/profile.php:186 app/libraries/main.php:2282
 #: app/libraries/main.php:5369
 msgid "Ticket"
 msgstr "Vstupenka"
 
-#: app/features/events.php:3793 app/features/profile/profile.php:189
+#: app/features/events.php:3792 app/features/profile/profile.php:189
 msgid "Variations"
 msgstr "Variace"
 
-#: app/features/events.php:3808 app/features/fes.php:303
+#: app/features/events.php:3807 app/features/fes.php:303
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: app/features/events.php:3841
+#: app/features/events.php:3840
 #, fuzzy
 #| msgid "Attendees Form"
 msgid "No Attendees Found!"
@@ -1518,6 +1518,12 @@ msgstr "Prosím %s/%s v pořadí pro správu událostí."
 #: app/features/fes.php:195
 msgid "The event removed!"
 msgstr "Událost byla odebrána!"
+
+#: app/features/fes.php:223
+#, fuzzy
+#| msgid "End Time"
+msgid "Order Time"
+msgstr "Konec"
 
 #: app/features/fes.php:223 app/libraries/main.php:2259
 msgid "Transaction ID"
@@ -1647,7 +1653,7 @@ msgstr "Odebrat obrázek"
 #: app/features/fes/form.php:783 app/features/labels.php:61
 #: app/features/labels.php:221 app/features/mec.php:404
 #: app/features/mec/meta_boxes/filter.php:130 app/libraries/main.php:5336
-#: app/skins/single.php:702 app/skins/single/default.php:155
+#: app/skins/single.php:706 app/skins/single/default.php:155
 #: app/skins/single/default.php:378 app/skins/single/m1.php:73
 #: app/skins/single/modern.php:228
 msgid "Labels"
@@ -2440,7 +2446,7 @@ msgstr "Vybrané a zrušené události můžete zobrazit jiným stylem!"
 
 #: app/features/labels.php:180 app/features/locations.php:234
 #: app/features/organizers.php:206 app/features/speakers.php:272
-#: app/modules/booking/steps/tickets.php:38
+#: app/modules/booking/steps/tickets.php:41
 msgid "Count"
 msgstr "Spočítat"
 
@@ -2658,6 +2664,16 @@ msgstr "MEC - podpora"
 msgid "Report"
 msgstr "Export"
 
+#: app/features/mec.php:421
+#, fuzzy
+#| msgid "MEC - Support"
+msgid "MEC - Go Pro"
+msgstr "MEC - podpora"
+
+#: app/features/mec.php:421 app/features/mec/go-pro.php:9
+msgid "Go Pro"
+msgstr ""
+
 #: app/features/mec.php:440
 msgid "Add Shortcode"
 msgstr "Přidat zkrácený kód"
@@ -2694,19 +2710,19 @@ msgstr "Filtrovat možnosti"
 msgid "Search Form"
 msgstr "Vyhledávací formulář"
 
-#: app/features/mec.php:875
+#: app/features/mec.php:898
 msgid "Display content's images as Popup"
 msgstr "Zobrazit obrázky obsahu jako vyskakovací okno"
 
-#: app/features/mec.php:889 app/features/popup/shortcode.php:300
+#: app/features/mec.php:912 app/features/popup/shortcode.php:300
 msgid "Single Event Display Method"
 msgstr "Metoda zobrazení jedné události"
 
-#: app/features/mec.php:894 app/features/popup/shortcode.php:304
+#: app/features/mec.php:917 app/features/popup/shortcode.php:304
 msgid "Separate Window"
 msgstr "Samostatné okno"
 
-#: app/features/mec.php:895 app/features/popup/shortcode.php:308
+#: app/features/mec.php:918 app/features/popup/shortcode.php:308
 msgid "Modal 1"
 msgstr "Modal 1"
 
@@ -3025,7 +3041,7 @@ msgstr "Ohodnoťe doplněk ★★★★★"
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: app/features/mec/dashboard.php:96 app/features/mec/go-pro.php:22
+#: app/features/mec/dashboard.php:96 app/features/mec/go-pro.php:65
 #, php-format
 msgid ""
 "You're using %s version of Modern Events Calendar. To use advanced booking "
@@ -3036,16 +3052,16 @@ msgstr ""
 "pokročilý rezervační systém, moderní vzhledy jako Agenda, Rozvrh, Roční "
 "pohled, Dostupná místa atd., Měli byste upgradovat na verzi Pro."
 
-#: app/features/mec/dashboard.php:96 app/features/mec/go-pro.php:22
+#: app/features/mec/dashboard.php:96 app/features/mec/go-pro.php:65
 msgid "lite"
 msgstr " omezenou"
 
-#: app/features/mec/dashboard.php:99 app/features/mec/go-pro.php:25
+#: app/features/mec/dashboard.php:99 app/features/mec/go-pro.php:68
 #: app/features/mec/support.php:126
 msgid "GO PREMIUM"
 msgstr "PŘEJÍT NA PREMIUM"
 
-#: app/features/mec/dashboard.php:102 app/features/mec/go-pro.php:28
+#: app/features/mec/dashboard.php:102 app/features/mec/go-pro.php:71
 #, php-format
 msgid ""
 "Easily get a discount coupon by rating us on %s or following and reposting "
@@ -3054,11 +3070,11 @@ msgstr ""
 "Jednoduše získejte slevový kupón tím, že nás ohodnocíte na% s nebo poté a "
 "uložíte nás na sociální média. Stačí poslat screenshot do % s a obdržíte % s"
 
-#: app/features/mec/dashboard.php:102 app/features/mec/go-pro.php:28
+#: app/features/mec/dashboard.php:102 app/features/mec/go-pro.php:71
 msgid "WordPress"
 msgstr "WordPress"
 
-#: app/features/mec/dashboard.php:102 app/features/mec/go-pro.php:28
+#: app/features/mec/dashboard.php:102 app/features/mec/go-pro.php:71
 msgid "Copouns!"
 msgstr "Kupóny!"
 
@@ -3142,10 +3158,6 @@ msgstr "Celkový prodej %s"
 #: app/features/mec/dashboard.php:449
 msgid "Change Log"
 msgstr "Změna logu"
-
-#: app/features/mec/go-pro.php:9
-msgid "Go Pro"
-msgstr ""
 
 #: app/features/mec/ie.php:21
 msgid ""
@@ -4075,54 +4087,53 @@ msgstr "Zobrazit vyhledávací formulář"
 #: app/features/mec/meta_boxes/search_form.php:192
 #: app/features/mec/meta_boxes/search_form.php:199
 #: app/features/mec/meta_boxes/search_form.php:206
-#: app/features/mec/meta_boxes/search_form.php:218
-#: app/features/mec/meta_boxes/search_form.php:225
-#: app/features/mec/meta_boxes/search_form.php:232
-#: app/features/mec/meta_boxes/search_form.php:239
-#: app/features/mec/meta_boxes/search_form.php:246
-#: app/features/mec/meta_boxes/search_form.php:253
-#: app/features/mec/meta_boxes/search_form.php:260
-#: app/features/mec/meta_boxes/search_form.php:267
-#: app/features/mec/meta_boxes/search_form.php:279
-#: app/features/mec/meta_boxes/search_form.php:286
-#: app/features/mec/meta_boxes/search_form.php:293
-#: app/features/mec/meta_boxes/search_form.php:300
-#: app/features/mec/meta_boxes/search_form.php:307
-#: app/features/mec/meta_boxes/search_form.php:314
-#: app/features/mec/meta_boxes/search_form.php:321
-#: app/features/mec/meta_boxes/search_form.php:328
-#: app/features/mec/meta_boxes/search_form.php:340
-#: app/features/mec/meta_boxes/search_form.php:347
-#: app/features/mec/meta_boxes/search_form.php:354
-#: app/features/mec/meta_boxes/search_form.php:361
-#: app/features/mec/meta_boxes/search_form.php:368
-#: app/features/mec/meta_boxes/search_form.php:375
-#: app/features/mec/meta_boxes/search_form.php:382
-#: app/features/mec/meta_boxes/search_form.php:389
-#: app/features/mec/meta_boxes/search_form.php:401
-#: app/features/mec/meta_boxes/search_form.php:408
-#: app/features/mec/meta_boxes/search_form.php:415
-#: app/features/mec/meta_boxes/search_form.php:422
-#: app/features/mec/meta_boxes/search_form.php:429
-#: app/features/mec/meta_boxes/search_form.php:436
-#: app/features/mec/meta_boxes/search_form.php:443
-#: app/features/mec/meta_boxes/search_form.php:455
-#: app/features/mec/meta_boxes/search_form.php:462
-#: app/features/mec/meta_boxes/search_form.php:469
-#: app/features/mec/meta_boxes/search_form.php:476
-#: app/features/mec/meta_boxes/search_form.php:483
-#: app/features/mec/meta_boxes/search_form.php:490
-#: app/features/mec/meta_boxes/search_form.php:497
-#: app/features/mec/meta_boxes/search_form.php:504
-#: app/features/mec/meta_boxes/search_form.php:516
-#: app/features/mec/meta_boxes/search_form.php:523
-#: app/features/mec/meta_boxes/search_form.php:530
-#: app/features/mec/meta_boxes/search_form.php:537
-#: app/features/mec/meta_boxes/search_form.php:544
-#: app/features/mec/meta_boxes/search_form.php:551
-#: app/features/mec/meta_boxes/search_form.php:558
-#: app/features/mec/meta_boxes/search_form.php:565
-#: app/features/mec/meta_boxes/search_form.php:577
+#: app/features/mec/meta_boxes/search_form.php:219
+#: app/features/mec/meta_boxes/search_form.php:226
+#: app/features/mec/meta_boxes/search_form.php:233
+#: app/features/mec/meta_boxes/search_form.php:240
+#: app/features/mec/meta_boxes/search_form.php:247
+#: app/features/mec/meta_boxes/search_form.php:254
+#: app/features/mec/meta_boxes/search_form.php:261
+#: app/features/mec/meta_boxes/search_form.php:268
+#: app/features/mec/meta_boxes/search_form.php:281
+#: app/features/mec/meta_boxes/search_form.php:288
+#: app/features/mec/meta_boxes/search_form.php:295
+#: app/features/mec/meta_boxes/search_form.php:302
+#: app/features/mec/meta_boxes/search_form.php:309
+#: app/features/mec/meta_boxes/search_form.php:316
+#: app/features/mec/meta_boxes/search_form.php:323
+#: app/features/mec/meta_boxes/search_form.php:330
+#: app/features/mec/meta_boxes/search_form.php:343
+#: app/features/mec/meta_boxes/search_form.php:350
+#: app/features/mec/meta_boxes/search_form.php:357
+#: app/features/mec/meta_boxes/search_form.php:364
+#: app/features/mec/meta_boxes/search_form.php:371
+#: app/features/mec/meta_boxes/search_form.php:378
+#: app/features/mec/meta_boxes/search_form.php:385
+#: app/features/mec/meta_boxes/search_form.php:392
+#: app/features/mec/meta_boxes/search_form.php:405
+#: app/features/mec/meta_boxes/search_form.php:412
+#: app/features/mec/meta_boxes/search_form.php:419
+#: app/features/mec/meta_boxes/search_form.php:426
+#: app/features/mec/meta_boxes/search_form.php:433
+#: app/features/mec/meta_boxes/search_form.php:440
+#: app/features/mec/meta_boxes/search_form.php:447
+#: app/features/mec/meta_boxes/search_form.php:460
+#: app/features/mec/meta_boxes/search_form.php:467
+#: app/features/mec/meta_boxes/search_form.php:474
+#: app/features/mec/meta_boxes/search_form.php:481
+#: app/features/mec/meta_boxes/search_form.php:488
+#: app/features/mec/meta_boxes/search_form.php:495
+#: app/features/mec/meta_boxes/search_form.php:502
+#: app/features/mec/meta_boxes/search_form.php:509
+#: app/features/mec/meta_boxes/search_form.php:522
+#: app/features/mec/meta_boxes/search_form.php:529
+#: app/features/mec/meta_boxes/search_form.php:536
+#: app/features/mec/meta_boxes/search_form.php:543
+#: app/features/mec/meta_boxes/search_form.php:550
+#: app/features/mec/meta_boxes/search_form.php:557
+#: app/features/mec/meta_boxes/search_form.php:564
+#: app/features/mec/meta_boxes/search_form.php:571
 #: app/features/mec/meta_boxes/search_form.php:584
 #: app/features/mec/meta_boxes/search_form.php:591
 #: app/features/mec/meta_boxes/search_form.php:598
@@ -4130,14 +4141,15 @@ msgstr "Zobrazit vyhledávací formulář"
 #: app/features/mec/meta_boxes/search_form.php:612
 #: app/features/mec/meta_boxes/search_form.php:619
 #: app/features/mec/meta_boxes/search_form.php:626
-#: app/features/mec/meta_boxes/search_form.php:674
-#: app/features/mec/meta_boxes/search_form.php:681
-#: app/features/mec/meta_boxes/search_form.php:688
-#: app/features/mec/meta_boxes/search_form.php:695
-#: app/features/mec/meta_boxes/search_form.php:702
-#: app/features/mec/meta_boxes/search_form.php:709
-#: app/features/mec/meta_boxes/search_form.php:716
-#: app/features/mec/meta_boxes/search_form.php:723
+#: app/features/mec/meta_boxes/search_form.php:633
+#: app/features/mec/meta_boxes/search_form.php:682
+#: app/features/mec/meta_boxes/search_form.php:689
+#: app/features/mec/meta_boxes/search_form.php:696
+#: app/features/mec/meta_boxes/search_form.php:703
+#: app/features/mec/meta_boxes/search_form.php:710
+#: app/features/mec/meta_boxes/search_form.php:717
+#: app/features/mec/meta_boxes/search_form.php:724
+#: app/features/mec/meta_boxes/search_form.php:731
 #: app/features/mec/modules.php:125 app/features/mec/settings.php:101
 #: app/features/mec/settings.php:421
 msgid "Disabled"
@@ -4146,14 +4158,14 @@ msgstr "Zakázaný"
 #: app/features/mec/meta_boxes/search_form.php:52
 #: app/features/mec/meta_boxes/search_form.php:114
 #: app/features/mec/meta_boxes/search_form.php:176
-#: app/features/mec/meta_boxes/search_form.php:237
-#: app/features/mec/meta_boxes/search_form.php:298
-#: app/features/mec/meta_boxes/search_form.php:359
-#: app/features/mec/meta_boxes/search_form.php:420
-#: app/features/mec/meta_boxes/search_form.php:474
-#: app/features/mec/meta_boxes/search_form.php:535
-#: app/features/mec/meta_boxes/search_form.php:596
-#: app/features/mec/meta_boxes/search_form.php:693
+#: app/features/mec/meta_boxes/search_form.php:238
+#: app/features/mec/meta_boxes/search_form.php:300
+#: app/features/mec/meta_boxes/search_form.php:362
+#: app/features/mec/meta_boxes/search_form.php:424
+#: app/features/mec/meta_boxes/search_form.php:479
+#: app/features/mec/meta_boxes/search_form.php:541
+#: app/features/mec/meta_boxes/search_form.php:603
+#: app/features/mec/meta_boxes/search_form.php:701
 #: app/features/mec/settings.php:827 app/features/mec/single.php:245
 #: app/features/search.php:83 app/features/speakers.php:61
 #: app/features/speakers.php:269 app/libraries/main.php:5343
@@ -4164,14 +4176,14 @@ msgstr "Řečník"
 #: app/features/mec/meta_boxes/search_form.php:59
 #: app/features/mec/meta_boxes/search_form.php:121
 #: app/features/mec/meta_boxes/search_form.php:183
-#: app/features/mec/meta_boxes/search_form.php:244
-#: app/features/mec/meta_boxes/search_form.php:305
-#: app/features/mec/meta_boxes/search_form.php:366
-#: app/features/mec/meta_boxes/search_form.php:427
-#: app/features/mec/meta_boxes/search_form.php:481
-#: app/features/mec/meta_boxes/search_form.php:542
-#: app/features/mec/meta_boxes/search_form.php:603
-#: app/features/mec/meta_boxes/search_form.php:700
+#: app/features/mec/meta_boxes/search_form.php:245
+#: app/features/mec/meta_boxes/search_form.php:307
+#: app/features/mec/meta_boxes/search_form.php:369
+#: app/features/mec/meta_boxes/search_form.php:431
+#: app/features/mec/meta_boxes/search_form.php:486
+#: app/features/mec/meta_boxes/search_form.php:548
+#: app/features/mec/meta_boxes/search_form.php:610
+#: app/features/mec/meta_boxes/search_form.php:708
 #: app/features/mec/settings.php:834 app/features/mec/single.php:254
 #: app/features/search.php:88 app/libraries/skins.php:969
 msgid "Tag"
@@ -4180,50 +4192,50 @@ msgstr "Štítek"
 #: app/features/mec/meta_boxes/search_form.php:73
 #: app/features/mec/meta_boxes/search_form.php:135
 #: app/features/mec/meta_boxes/search_form.php:197
-#: app/features/mec/meta_boxes/search_form.php:258
-#: app/features/mec/meta_boxes/search_form.php:319
-#: app/features/mec/meta_boxes/search_form.php:380
-#: app/features/mec/meta_boxes/search_form.php:495
-#: app/features/mec/meta_boxes/search_form.php:556
-#: app/features/mec/meta_boxes/search_form.php:617
-#: app/features/mec/meta_boxes/search_form.php:714
+#: app/features/mec/meta_boxes/search_form.php:259
+#: app/features/mec/meta_boxes/search_form.php:321
+#: app/features/mec/meta_boxes/search_form.php:383
+#: app/features/mec/meta_boxes/search_form.php:500
+#: app/features/mec/meta_boxes/search_form.php:562
+#: app/features/mec/meta_boxes/search_form.php:624
+#: app/features/mec/meta_boxes/search_form.php:722
 msgid "Month Filter"
 msgstr "Měsíční filtr"
 
 #: app/features/mec/meta_boxes/search_form.php:80
 #: app/features/mec/meta_boxes/search_form.php:142
 #: app/features/mec/meta_boxes/search_form.php:204
-#: app/features/mec/meta_boxes/search_form.php:265
-#: app/features/mec/meta_boxes/search_form.php:326
-#: app/features/mec/meta_boxes/search_form.php:387
-#: app/features/mec/meta_boxes/search_form.php:441
-#: app/features/mec/meta_boxes/search_form.php:502
-#: app/features/mec/meta_boxes/search_form.php:563
-#: app/features/mec/meta_boxes/search_form.php:624
-#: app/features/mec/meta_boxes/search_form.php:721
+#: app/features/mec/meta_boxes/search_form.php:266
+#: app/features/mec/meta_boxes/search_form.php:328
+#: app/features/mec/meta_boxes/search_form.php:390
+#: app/features/mec/meta_boxes/search_form.php:445
+#: app/features/mec/meta_boxes/search_form.php:507
+#: app/features/mec/meta_boxes/search_form.php:569
+#: app/features/mec/meta_boxes/search_form.php:631
+#: app/features/mec/meta_boxes/search_form.php:729
 msgid "Text Search"
 msgstr "Vyhledat text"
 
 #: app/features/mec/meta_boxes/search_form.php:83
 #: app/features/mec/meta_boxes/search_form.php:145
 #: app/features/mec/meta_boxes/search_form.php:207
-#: app/features/mec/meta_boxes/search_form.php:268
-#: app/features/mec/meta_boxes/search_form.php:329
-#: app/features/mec/meta_boxes/search_form.php:390
-#: app/features/mec/meta_boxes/search_form.php:444
-#: app/features/mec/meta_boxes/search_form.php:505
-#: app/features/mec/meta_boxes/search_form.php:566
-#: app/features/mec/meta_boxes/search_form.php:627
-#: app/features/mec/meta_boxes/search_form.php:724
+#: app/features/mec/meta_boxes/search_form.php:269
+#: app/features/mec/meta_boxes/search_form.php:331
+#: app/features/mec/meta_boxes/search_form.php:393
+#: app/features/mec/meta_boxes/search_form.php:448
+#: app/features/mec/meta_boxes/search_form.php:510
+#: app/features/mec/meta_boxes/search_form.php:572
+#: app/features/mec/meta_boxes/search_form.php:634
+#: app/features/mec/meta_boxes/search_form.php:732
 msgid "Text Input"
 msgstr "Zadávání textu"
 
-#: app/features/mec/meta_boxes/search_form.php:635
-#: app/features/mec/meta_boxes/search_form.php:641
-#: app/features/mec/meta_boxes/search_form.php:647
-#: app/features/mec/meta_boxes/search_form.php:653
-#: app/features/mec/meta_boxes/search_form.php:659
-#: app/features/mec/meta_boxes/search_form.php:665
+#: app/features/mec/meta_boxes/search_form.php:643
+#: app/features/mec/meta_boxes/search_form.php:649
+#: app/features/mec/meta_boxes/search_form.php:655
+#: app/features/mec/meta_boxes/search_form.php:661
+#: app/features/mec/meta_boxes/search_form.php:667
+#: app/features/mec/meta_boxes/search_form.php:673
 msgid "No Search Options"
 msgstr "Žádné možnosti vyhledávání"
 
@@ -6390,7 +6402,7 @@ msgid "eg. https://webnus.net"
 msgstr "např. https://webnus.net"
 
 #: app/features/organizers.php:312 app/libraries/main.php:5371
-#: app/skins/single.php:862
+#: app/skins/single.php:866
 msgid "Other Organizers"
 msgstr "Další organizátoři"
 
@@ -6449,7 +6461,7 @@ msgid "Prev"
 msgstr ""
 
 #: app/features/popup/shortcode.php:373 app/modules/booking/steps/form.php:179
-#: app/modules/booking/steps/tickets.php:74 app/skins/countdown/tpl.php:145
+#: app/modules/booking/steps/tickets.php:77 app/skins/countdown/tpl.php:145
 #: app/skins/countdown/tpl.php:189 app/skins/countdown/tpl.php:234
 msgid "Next"
 msgstr "Další"
@@ -6533,7 +6545,7 @@ msgstr "Žádný výsledek vyhledávání."
 #: app/features/search_bar/search_result.php:11
 #: app/libraries/notifications.php:951 app/libraries/render.php:488
 #: app/modules/local-time/details.php:48 app/modules/next-event/details.php:104
-#: app/skins/single.php:160 app/skins/single.php:753
+#: app/skins/single.php:160 app/skins/single.php:757
 #: app/skins/single/default.php:108 app/skins/single/default.php:331
 #: app/skins/single/m1.php:43 app/skins/single/modern.php:198
 #, fuzzy
@@ -6617,12 +6629,12 @@ msgstr ""
 msgid "%s Price"
 msgstr "%s Cena"
 
-#: app/libraries/book.php:588
+#: app/libraries/book.php:602
 msgid "Discount"
 msgstr "Sleva"
 
-#: app/libraries/book.php:678 app/modules/booking/default.php:303
-#: app/modules/booking/default.php:401
+#: app/libraries/book.php:694 app/modules/booking/default.php:316
+#: app/modules/booking/default.php:415
 msgid "Download Invoice"
 msgstr "Stáhnout fakturu"
 
@@ -7236,8 +7248,8 @@ msgstr "Registrační tlačítko"
 #: app/skins/grid/render.php:124 app/skins/grid/render.php:171
 #: app/skins/grid/render.php:215 app/skins/grid/render.php:244
 #: app/skins/list/render.php:109 app/skins/list/render.php:195
-#: app/skins/masonry/render.php:188 app/skins/single.php:774
-#: app/skins/single.php:777 app/skins/single/default.php:260
+#: app/skins/masonry/render.php:188 app/skins/single.php:778
+#: app/skins/single.php:781 app/skins/single/default.php:260
 #: app/skins/single/default.php:262 app/skins/single/default.php:483
 #: app/skins/single/default.php:485 app/skins/single/m1.php:140
 #: app/skins/single/m1.php:142 app/skins/single/m2.php:66
@@ -7452,21 +7464,21 @@ msgstr "Vyplňte informace o dalších účastnících, jako v prvním formulá�
 msgid "Thanks for your booking."
 msgstr "Děkujeme za vaši rezervaci."
 
-#: app/modules/booking/steps/tickets.php:20
+#: app/modules/booking/steps/tickets.php:21
 msgid "Book Event"
 msgstr "Rezervovat událost"
 
-#: app/modules/booking/steps/tickets.php:40
+#: app/modules/booking/steps/tickets.php:43
 #, php-format
 msgid "Available %s: <span>%s</span>"
 msgstr "K dispozici %s: <span>%s</span>"
 
-#: app/modules/booking/steps/tickets.php:44
+#: app/modules/booking/steps/tickets.php:47
 #, php-format
 msgid "The %s ticket sales has stopped!"
 msgstr ""
 
-#: app/modules/booking/steps/tickets.php:45
+#: app/modules/booking/steps/tickets.php:48
 #, php-format
 msgid "The %s ticket is sold out. You can try another ticket or another date."
 msgstr ""
@@ -7480,15 +7492,15 @@ msgstr "Událost je ukončena."
 msgid "The event is ongoing."
 msgstr "Událost právě probíhá."
 
-#: app/modules/googlemap/details.php:125
+#: app/modules/googlemap/details.php:124
 msgid "Address from ..."
 msgstr "Adresa od ..."
 
-#: app/modules/googlemap/details.php:129
+#: app/modules/googlemap/details.php:128
 msgid "Get Directions"
 msgstr "Získat směr"
 
-#: app/modules/links/details.php:17 app/skins/single.php:461
+#: app/modules/links/details.php:17 app/skins/single.php:465
 msgid "Share this event"
 msgstr "Sdílet tuto událost"
 
@@ -7515,7 +7527,7 @@ msgstr "Další výskyt"
 msgid "Go to occurrence page"
 msgstr "Přejít na stránku výskytu"
 
-#: app/modules/next-event/details.php:98 app/skins/single.php:747
+#: app/modules/next-event/details.php:98 app/skins/single.php:751
 #: app/skins/single/default.php:102 app/skins/single/default.php:325
 #: app/skins/single/m1.php:37 app/skins/single/modern.php:192
 msgid "Time"
@@ -7572,15 +7584,15 @@ msgstr "Viditelnost"
 #: app/skins/agenda/tpl.php:66 app/skins/agenda/tpl.php:70
 #: app/skins/carousel/tpl.php:46 app/skins/custom/tpl.php:62
 #: app/skins/custom/tpl.php:66 app/skins/grid/tpl.php:62
-#: app/skins/grid/tpl.php:66 app/skins/list/tpl.php:67
-#: app/skins/list/tpl.php:71 app/skins/masonry/tpl.php:62
+#: app/skins/grid/tpl.php:66 app/skins/list/tpl.php:68
+#: app/skins/list/tpl.php:72 app/skins/masonry/tpl.php:62
 #: app/skins/masonry/tpl.php:66 app/skins/slider/tpl.php:44
 #: app/skins/timeline/tpl.php:56 app/skins/timeline/tpl.php:60
 msgid "No event found!"
 msgstr "Nebyla nalezena žádná událost!"
 
 #: app/skins/agenda/tpl.php:75 app/skins/custom/tpl.php:71
-#: app/skins/grid/tpl.php:71 app/skins/list/tpl.php:76
+#: app/skins/grid/tpl.php:71 app/skins/list/tpl.php:77
 #: app/skins/masonry/tpl.php:71 app/skins/timeline/tpl.php:65
 #: app/skins/yearly_view/render.php:124
 msgid "Load More"
@@ -7637,31 +7649,31 @@ msgstr "Událost pro %s"
 msgid "No Events"
 msgstr "Žádné události"
 
-#: app/skins/single.php:205
+#: app/skins/single.php:209
 msgid "Home"
 msgstr "Domů"
 
-#: app/skins/single.php:544 app/skins/single/default.php:51
+#: app/skins/single.php:548 app/skins/single/default.php:51
 #: app/skins/single/m1.php:261 app/skins/single/m2.php:182
 #: app/skins/single/modern.php:270
 msgid "Sold out!"
 msgstr "Vyprodáno!"
 
-#: app/skins/single.php:822 app/skins/single.php:877
+#: app/skins/single.php:826 app/skins/single.php:881
 #: app/skins/single/default.php:227 app/skins/single/default.php:450
 #: app/skins/single/m1.php:109 app/skins/single/m2.php:35
 #: app/skins/single/modern.php:44
 msgid "Phone"
 msgstr "Telefon"
 
-#: app/skins/single.php:836 app/skins/single.php:891
+#: app/skins/single.php:840 app/skins/single.php:895
 #: app/skins/single/default.php:241 app/skins/single/default.php:464
 #: app/skins/single/m1.php:123 app/skins/single/m2.php:49
 #: app/skins/single/modern.php:58
 msgid "Website"
 msgstr "Webová stránka"
 
-#: app/skins/single.php:967
+#: app/skins/single.php:971
 msgid "Speakers:"
 msgstr "Řečník:"
 
@@ -7846,11 +7858,6 @@ msgstr "http://webnus.net"
 #~| msgid "Booking Style"
 #~ msgid "Book Date"
 #~ msgstr "Styl rezervace"
-
-#, fuzzy
-#~| msgid "End Time"
-#~ msgid "Order Time"
-#~ msgstr "Konec"
 
 #, fuzzy
 #~| msgid "Ticket"

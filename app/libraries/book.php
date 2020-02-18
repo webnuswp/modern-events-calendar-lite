@@ -191,6 +191,18 @@ class MEC_book extends MEC_base
      */
     public function add($values, $transaction_id, $ticket_ids)
     {
+        // Check Transaction State
+        $db = $this->main->getDB();
+        $db_transaction_ids = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key` = 'mec_transaction_id' AND `meta_value` = '{$transaction_id}'", 'loadObjectList');
+
+        foreach($db_transaction_ids as $db_transaction_id)
+        {
+            $book_status = get_post_status($db_transaction_id->post_id);
+            if(trim($book_status) == 'trash') unset($db_transaction_ids[$db_transaction_id->post_id]);
+        }
+
+        if(count($db_transaction_ids)) exit;
+
         // Transaction Data
         $transaction = $this->get_transaction($transaction_id);
         $event_id = $transaction['event_id'];
@@ -200,7 +212,9 @@ class MEC_book extends MEC_base
         if(!isset($values['post_status'])) $values['post_status'] = 'publish';
 
         $book_id = wp_insert_post($values);
-        $location_id = get_post_meta($event_id, 'mec_location_id', true);
+
+        // Update transaction id after insert book for prevent repeat reservation books.
+        update_post_meta($book_id, 'mec_transaction_id', $transaction_id);
 
         // Publish it
         wp_publish_post($book_id);
@@ -210,7 +224,6 @@ class MEC_book extends MEC_base
         update_post_meta($book_id, 'mec_cancellation_key', md5(time().mt_rand(10000, 99999)));
 
         update_post_meta($book_id, 'mec_confirmed', 0);
-        update_post_meta($book_id, 'mec_transaction_id', $transaction_id);
 
         update_post_meta($book_id, 'mec_event_id', $event_id);
         update_post_meta($book_id, 'mec_date', $transaction['date']);
@@ -220,6 +233,7 @@ class MEC_book extends MEC_base
         // For Badget Bubble Notification Alert Count From It.
         update_post_meta($book_id, 'mec_book_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
+        $location_id = get_post_meta($event_id, 'mec_location_id', true);
         if(!empty($location_id)) update_post_meta($book_id, 'mec_booking_location', $location_id);
         if(isset($values['mec_attendees'])) update_post_meta($book_id, 'mec_attendees', $values['mec_attendees']);
 
@@ -263,7 +277,7 @@ class MEC_book extends MEC_base
         {
             // Work or don't work auto confirmation when pay through pay locally payment.
             $gateways_settings = get_option('mec_options', array());
-            $pay_locally_gateway = (isset($gateways_settings['gateways'][1]['disable_auto_confirmation']) and trim($gateways_settings['gateways'][1]['disable_auto_confirmation'])) ? true : false;
+            $pay_locally_gateway = ((isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_pay_locally') and (isset($gateways_settings['gateways'][1]['disable_auto_confirmation']) and trim($gateways_settings['gateways'][1]['disable_auto_confirmation']))) ? true : false;
 
             if(!$pay_locally_gateway) $this->confirm($book_id, 'auto');
         }
@@ -666,7 +680,9 @@ class MEC_book extends MEC_base
     public function get_thankyou_page($page_id, $transaction_id)
     {
         $main = $this->getMain();
-        return $main->add_qs_var('transaction', $transaction_id, get_permalink($page_id));
+        $page = get_permalink($page_id);
+
+        return ($transaction_id ? $main->add_qs_var('transaction', $transaction_id, $page) : $page);
     }
 
     public function invoice_link_shortcode()

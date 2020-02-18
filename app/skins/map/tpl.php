@@ -43,13 +43,13 @@ if(count($this->events))
     });
     </script>';
 
-    $javascript = apply_filters( 'mec_map_load_script',$javascript, $this,$settings );
+    $javascript = apply_filters('mec_map_load_script', $javascript, $this,$settings);
 
     // Include javascript code into the page
     if($this->main->is_ajax()) echo $javascript;
     else $this->factory->params('footer', $javascript);
 }
-do_action('mec_start_skin' , $this->id);
+do_action('mec_start_skin', $this->id);
 do_action('mec_map_skin_head');
 ?>
 <?php if($settings['view_mode'] == 'normal') : ?>

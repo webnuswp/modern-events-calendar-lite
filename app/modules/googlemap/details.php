@@ -48,7 +48,7 @@ if(!$this->is_ajax()) $this->load_map_assets();
 // Get Direction Status
 $get_direction = (isset($settings['google_maps_get_direction_status']) and in_array($settings['google_maps_get_direction_status'], array(0,1,2))) ? $settings['google_maps_get_direction_status'] : 0;
 
-$additional_location_ids = get_post_meta( $event->ID, 'mec_additional_location_ids', true );
+$additional_location_ids = get_post_meta($event->ID, 'mec_additional_location_ids', true);
 $event_locations = array_keys($event->data->locations);
 
 $map_data = new stdClass;
@@ -65,7 +65,7 @@ $map_data->geolocation = '0';
 $map_data->sf_status = null;
 
 $current_event = [$map_data->events[$event->ID]];
-$events = apply_filters( 'mec_location_load_additional', $current_event,$additional_location_ids,$event_locations);
+$events = apply_filters('mec_location_load_additional', $current_event, $additional_location_ids, $event_locations);
 $map_data->events = $events;
 
 // Initialize MEC Google Maps jQuery plugin
@@ -105,11 +105,10 @@ function mec_init_gmap'.$uniqueid.'()
     p'.$uniqueid.'.init();
 }
 </script>';
-
 $javascript = apply_filters( 'mec_map_load_script',$javascript, $map_data,$settings );
 
+if(!function_exists('is_plugin_active')) include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
-if ( !function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 // Include javascript code into the footer
 if($this->is_ajax()) echo $javascript;
 elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) echo $javascript;

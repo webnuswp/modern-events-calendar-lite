@@ -652,7 +652,8 @@ class MEC_feature_events extends MEC_base
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="mec-form-row">
+                <?php do_action('add_event_after_time_and_date' ,$post->ID); ?>
+                <div class="mec-form-row mec-all-day-event">
                     <input
                         <?php
                         if ($allday == '1') {
@@ -1627,9 +1628,7 @@ class MEC_feature_events extends MEC_base
     public function meta_box_tickets($post)
     {
         $tickets = get_post_meta($post->ID, 'mec_tickets', true);
-        if (!is_array($tickets)) {
-            $tickets = array();
-        }
+        if(!is_array($tickets)) $tickets = array();
         ?>
         <div class="mec-meta-box-fields mec-booking-tab-content" id="mec-tickets">
             <h4 class="mec-meta-box-header"><?php echo $this->main->m('tickets', __('Tickets', 'modern-events-calendar-lite')); ?></h4>
@@ -3854,7 +3853,7 @@ class MEC_feature_events extends MEC_base
 
         $mail_recipients_info = isset($_POST['mail_recipients_info']) ? sanitize_text_field($_POST['mail_recipients_info']) : '';
         $mail_subject = isset($_POST['mail_subject']) ? sanitize_text_field($_POST['mail_subject']) : '';
-        $mail_content = isset($_POST['mail_content']) ? sanitize_text_field($_POST['mail_content']) : '';
+        $mail_content = isset($_POST['mail_content']) ? $_POST['mail_content'] : '';
 
         if(substr($mail_recipients_info, -1) == ',') $mail_recipients_info = substr($mail_recipients_info, 0, -1);
 

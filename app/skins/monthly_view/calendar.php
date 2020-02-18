@@ -133,7 +133,7 @@ elseif($week_start == 5) // Friday
                             "priceCurrency" : "' . $currency_schema .'"
                         },
                         "performer":  '. $speakers . ',
-                        "description" 	: "' . esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', $event->data->post->post_content)) . '",
+                        "description" 	: "' . esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', preg_replace('/\s/u', ' ', $event->data->post->post_content))) . '",
                         "image" 		: "'. $image . '",
                         "name" 			: "' .esc_html($event->data->title) . '",
                         "url"			: "'. $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']) . '"

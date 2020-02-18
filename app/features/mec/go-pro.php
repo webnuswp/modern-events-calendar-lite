@@ -14,6 +14,49 @@ defined('MECEXEC') or die();
             </div>
         </div>
     </div>
+    <div class="mec-custom-msg-notification-set-box extra">
+        <div class="w-row mec-custom-msg-notification-wrap">
+            <div class="w-col-sm-12">
+                <div class="w-clearfix w-box mec-cmsg-notification-box-wrap mec-go-pro-features-wrap">
+                    <div class="w-box-head">Pro Features<span></span></div>
+                    <div class="w-box-content">
+                        <div class="mec-addons-notification-box-image"> <img src="<?php echo plugin_dir_url(__FILE__ ); ?>../../../assets/img/mec-lite-backend-go-pro.png" /></div>
+                        <div class="mec-addons-notification-box-content mec-new-addons">
+                            <div class="w-box-content">
+                                <div class="mec-go-pro-content-title">Modern Events Calendar Pro</div>
+                                <p>Modern Events Calendar has been created according to trending design methods and latest technology with attractive design.
+                                We gathered all features of event calendar as you desire with advanced booking system and many other useful options which are practical in real world! Below you can see a list of some of the pro features:</p>
+                                <div class="mec-addons-key-features">
+                                    <ul>
+                                        <li>Booking System</li>
+                                        <li>Reporting Dashboard</li>
+                                        <li>Timetable View</li>
+                                        <li>Map view + Directions</li>
+                                        <li>Reminders Notification</li>
+                                        <li>Weather module</li>
+                                        <li>PDF invoice</li>
+                                        <li>Mailchimp Integration</li>
+                                        <li>Campaign Monitor Integration</li>
+                                    </ul>
+                                    <ul>
+                                        <li>Cancellation Booking</li>
+                                        <li>Attendee list</li>
+                                        <li>Organizer payment (Commission System)</li>
+                                        <li>Advanced Tax/Fee system</li>
+                                        <li>Ticket Variations</li>
+                                        <li>Coupons/Discount system</li>
+                                        <li>Synchronization</li>
+                                        <li>MailerLite Integration</li>
+                                        <li>Constant Contact Integration</li>
+                                    </ul>
+                                </div>
+                                <div style="clear:both"></div><a href="https://webnus.net/modern-events-calendar/features/?ref=17" target="_blank">Find out more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="welcome-content w-clearfix extra">
         <div class="w-row mec-pro-notice">
             <div class="w-col-sm-12">

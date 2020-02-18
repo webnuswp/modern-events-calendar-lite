@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.1.5  
+**Stable tag:** 5.1.6  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -31,6 +31,10 @@ https://www.youtube.com/watch?v=erKILCKDxis
 Fortunately, though WordPress doesn’t enable these functions out of the box, there’s a plugin you can use. Modern Events Calendar is an easy way to manage events of all kinds on your WordPress site. As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS.
 
 https://www.youtube.com/watch?v=cnVy2YzDMOk
+
+
+## 10 Best Event Calendar Plugins and Themes for WordPress 2020 
+You can read and compare about the WordPress best event management plugins in our recently published article: [10 Best Event Calendar Plugins for WordPress](https://webnus.net/10-best-event-calendar-plugins-and-themes-for-wordpress). We've done a lot of precise explorations to come up with a complete informative article to serve your needs on running an event based website.
 
 
 ## Experts Opinions 
@@ -361,47 +365,47 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 ### 10. WordPress Event Calendar - Timetable view
 ![WordPress Event Calendar - Timetable view](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-10.png)
 
-### 11. WordPress Event Calendar - Widgets
-![WordPress Event Calendar - Widgets](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-11.png)
+### 11. WordPress Event Calendar - Tile View
+![WordPress Event Calendar - Tile View](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-11.png)
 
-### 12. WordPress Event Calendar - Search Bar
-![WordPress Event Calendar - Search Bar](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-12.png)
+### 12. WordPress Event Calendar - Timeline View
+![WordPress Event Calendar - Timeline View](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-12.png)
 
-### 13. WordPress Event Calendar - Settings 01
-![WordPress Event Calendar - Settings 01](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-13.png)
+### 13. WordPress Event Calendar - Widgets
+![WordPress Event Calendar - Widgets](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-13.png)
 
-### 14. WordPress Event Calendar - Settings 02
-![WordPress Event Calendar - Settings 02](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-14.png)
+### 14. WordPress Event Calendar - Search Bar
+![WordPress Event Calendar - Search Bar](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-14.png)
 
-### 15. WordPress Event Calendar - Settings 03
-![WordPress Event Calendar - Settings 03](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-15.png)
+### 15. WordPress Event Calendar - Settings 01
+![WordPress Event Calendar - Settings 01](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-15.png)
 
-### 16. WordPress Event Calendar - Settings 04
-![WordPress Event Calendar - Settings 04](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-16.png)
+### 16. WordPress Event Calendar - Settings 02
+![WordPress Event Calendar - Settings 02](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-16.png)
 
-### 17. WordPress Event Calendar - Settings 05
-![WordPress Event Calendar - Settings 05](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-17.png)
+### 17. WordPress Event Calendar - Settings 03
+![WordPress Event Calendar - Settings 03](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-17.png)
 
-### 18. WordPress Event Calendar - Settings 06
-![WordPress Event Calendar - Settings 06](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-18.png)
+### 18. WordPress Event Calendar - Settings 04
+![WordPress Event Calendar - Settings 04](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-18.png)
 
-### 19. WordPress Event Calendar - Settings 07
-![WordPress Event Calendar - Settings 07](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-19.png)
+### 19. WordPress Event Calendar - Settings 05
+![WordPress Event Calendar - Settings 05](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-19.png)
 
-### 20. WordPress Event Calendar - Settings 08
-![WordPress Event Calendar - Settings 08](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-20.png)
+### 20. WordPress Event Calendar - Settings 06
+![WordPress Event Calendar - Settings 06](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-20.png)
 
-### 21. WordPress Event Calendar - Settings 09
-![WordPress Event Calendar - Settings 09](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-21.png)
+### 21. WordPress Event Calendar - Settings 07
+![WordPress Event Calendar - Settings 07](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-21.png)
 
-### 22. WordPress Event Calendar - Import/Export
-![WordPress Event Calendar - Import/Export](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-22.png)
+### 22. WordPress Event Calendar - Settings 08
+![WordPress Event Calendar - Settings 08](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-22.png)
 
-### 23. WordPress Event Calendar - Single event edit page
-![WordPress Event Calendar - Single event edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-23.png)
+### 23. WordPress Event Calendar - Settings 09
+![WordPress Event Calendar - Settings 09](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-23.png)
 
-### 24. WordPress Event Calendar - Single event edit page
-![WordPress Event Calendar - Single event edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-24.png)
+### 24. WordPress Event Calendar - Import/Export
+![WordPress Event Calendar - Import/Export](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-24.png)
 
 ### 25. WordPress Event Calendar - Single event edit page
 ![WordPress Event Calendar - Single event edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-25.png)
@@ -412,11 +416,11 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 ### 27. WordPress Event Calendar - Single event edit page
 ![WordPress Event Calendar - Single event edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-27.png)
 
-### 28. WordPress Event Calendar - Shortcode edit page
-![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-28.png)
+### 28. WordPress Event Calendar - Single event edit page
+![WordPress Event Calendar - Single event edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-28.png)
 
-### 29. WordPress Event Calendar - Shortcode edit page
-![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-29.png)
+### 29. WordPress Event Calendar - Single event edit page
+![WordPress Event Calendar - Single event edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-29.png)
 
 ### 30. WordPress Event Calendar - Shortcode edit page
 ![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-30.png)
@@ -430,9 +434,34 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 ### 33. WordPress Event Calendar - Shortcode edit page
 ![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-33.png)
 
+### 34. WordPress Event Calendar - Shortcode edit page
+![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-34.png)
+
+### 35. WordPress Event Calendar - Shortcode edit page
+![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-35.png)
+
 
 
 ## Changelog 
+
+### 5.1.6 – 18 February 2020 
+- Added: Occurrence to related events module
+- Added: Order time column to the CSV Export (pro)
+- Added: Some strings to WPML compatibility (pro)
+- Fixed: HTML tag in bulk email (pro)
+- Fixed: "Thank You Page" in PayPal Express gateway (pro)
+- Fixed: Day light saving for booking module
+- Fixed: A duplicate booking in free bookings (pro)
+- Fixed: A duplicate booking in Stripe gateway (pro)
+- Fixed: "mec_admin_localize" error when tinymce exists in pages.
+- Fixed: A canvas issue in map module of list and grid skins (pro)
+- Fixed: Required file field of booking module (pro)
+- Fixed: Content position on slider view type 3
+- Fixed: Container on the category archive pages
+- Fixed: Structured Data
+- Fixed: Some warnings in PHP 7.4 (pro)
+- Updated: German translation (Thanks to Marius Kreyßel)
+
 
 ### 5.1.5 – 12 February 2020 
 - Added: An option to disable "Auto Confirmation" for Pay Locally gateway (pro)

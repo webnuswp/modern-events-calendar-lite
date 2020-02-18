@@ -7781,3 +7781,53 @@ div#mec_popup_shortcode_form {
 .mec-skin-styles.mec-styles-full_calendar h3 {
     padding-left: 12px;
 }
+
+/* Go Pro page */
+.mec-go-pro-content-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.mec-go-pro-features-wrap p {
+    font-size: 14px;
+}
+
+.mec-go-pro-features-wrap .mec-addons-notification-box-content {
+    width: calc(100% - 590px);
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.mec-go-pro-features-wrap ul {
+    float: left;
+    width: 50%;
+    margin: 0 0 12px;
+}
+
+.mec-go-pro-features-wrap ul li {
+    margin-bottom: 1px;
+    font-size: 13px;
+    color: #717479;
+    padding-left: 18px;
+    position: relative;
+}
+
+.mec-go-pro-features-wrap ul li:before {
+    position: absolute;
+    left: -1px;
+    top: 6px;
+    color: #36da74;
+    font-size: 13px;
+    font-weight: 700;
+    vertical-align: middle;
+    font-family: simple-line-icons;
+    border-radius: 50%;
+    padding: 0;
+    width: 13px;
+    height: 13px;
+    line-height: 13px;
+    z-index: 3;
+    background: rgba(64, 241, 147, .12);
+    content: "\e080";
+}

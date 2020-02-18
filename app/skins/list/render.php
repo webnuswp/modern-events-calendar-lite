@@ -79,7 +79,7 @@ $map_events = array();
                     "priceCurrency" : "<?php echo isset($settings['currency']) ? $settings['currency'] : ''; ?>"
                 },
                 "performer": <?php echo $speakers; ?>,
-                "description" 	: "<?php  echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', $event->data->post->post_content)); ?>",
+                "description" 	: "<?php  echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', preg_replace('/\s/u', ' ', $event->data->post->post_content))); ?>",
                 "image" 		: "<?php echo !empty($event->data->featured_image['full']) ? esc_html($event->data->featured_image['full']) : '' ; ?>",
                 "name" 			: "<?php esc_html_e($event->data->title); ?>",
                 "url"			: "<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"
@@ -232,19 +232,21 @@ $map_events = array();
 </div>
 
 <?php
-if ( isset($this->map_on_top) and $this->map_on_top ) :
+if(isset($this->map_on_top) and $this->map_on_top):
 if(isset($map_events) and !empty($map_events))
 {
     // Include Map Assets such as JS and CSS libraries
     $this->main->load_map_assets();
 
     $map_javascript = '<script type="text/javascript">
+    var mecmap'.$this->id.';
     jQuery(document).ready(function()
     {
         var jsonPush = gmapSkin('.json_encode($this->render->markers($map_events)).');
-        jQuery("#mec_googlemap_canvas'.$this->id.'").mecGoogleMaps(
+        mecmap'.$this->id.' = jQuery("#mec_googlemap_canvas'.$this->id.'").mecGoogleMaps(
         {
             id: "'.$this->id.'",
+            autoinit: false,
             atts: "'.http_build_query(array('atts'=>$this->atts), '', '&').'",
             zoom: '.(isset($settings['google_maps_zoomlevel']) ? $settings['google_maps_zoomlevel'] : 14).',
             icon: "'.apply_filters('mec_marker_icon', $this->main->asset('img/m-04.png')).'",
@@ -255,10 +257,19 @@ if(isset($map_events) and !empty($map_events))
             ajax_url: "'.admin_url('admin-ajax.php', NULL).'",
             geolocation: "'.$this->geolocation.'",
         });
+        
+        var mecinterval'.$this->id.' = setInterval(function()
+        {
+            if(jQuery("#mec_googlemap_canvas'.$this->id.'").is(":visible"))
+            {
+                mecmap'.$this->id.'.init();
+                clearInterval(mecinterval'.$this->id.');
+            };
+        }, 1000);
     });
     </script>';
 
-    $map_javascript = apply_filters( 'mec_map_load_script',$map_javascript, $this,$settings );
+    $map_javascript = apply_filters('mec_map_load_script', $map_javascript, $this,$settings);
 
     // Include javascript code into the page
     if($this->main->is_ajax()) echo $map_javascript;
