@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.2
-Stable tag: 5.1.6
+Stable tag: 5.1.7
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,7 +24,7 @@ WordPress event calendar plugin is a trending FREE tool used for managing events
 We gathered all features of [event calendar](https://webnus.net/modern-events-calendar/) as you desire with advanced booking system ([Pro Version](https://webnus.net/mec-purchase/?ref=17/)) and many other useful options which are practical in real world!
 Using [Modern Events Calendar Lite](https://webnus.net/modern-events-calendar/), you can create different single or [recurring events](https://webnus.net/modern-events-calendar/) and show them in frontend of your website using many modern skins and styles.
 
-https://www.youtube.com/watch?v=erKILCKDxis
+https://youtu.be/GjRVKIwD5jY
 
 Fortunately, though WordPress doesn’t enable these functions out of the box, there’s a plugin you can use. Modern Events Calendar is an easy way to manage events of all kinds on your WordPress site. As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS.
 
@@ -358,6 +358,9 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 35. WordPress Event Calendar - Shortcode edit page
 
 == Changelog ==
+= 5.1.7 – 29 February 2020 =
+- Fixed: Improve ajax access for causing XSS security issues
+
 = 5.1.6 – 18 February 2020 =
 - Added: Occurrence to related events module
 - Added: Order time column to the CSV Export (pro)

@@ -1,4 +1,7 @@
-﻿v 5.1.6 – 18 February 2020
+﻿v 5.1.7 – 29 February 2020
+- Fixed: Improve ajax access for causing XSS security issues
+
+v 5.1.6 – 18 February 2020
 - Added: Occurrence to related events module
 - Added: Order time column to the CSV Export (pro)
 - Added: Some strings to WPML compatibility (pro)

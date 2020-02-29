@@ -126,27 +126,21 @@ class MEC_feature_mec extends MEC_base
 
         // Export Settings
         $this->factory->action('wp_ajax_download_settings', array($this, 'download_settings'));
-        $this->factory->action('wp_ajax_nopriv_download_settings', array($this, 'download_settings'));
 
         // Import Settings
         $this->factory->action('wp_ajax_import_settings', array($this, 'import_settings'));
-        $this->factory->action('wp_ajax_nopriv_import_settings', array($this, 'import_settings'));
 
         // License Activation
         $this->factory->action('wp_ajax_activate_license', array($this, 'activate_license'));
-        $this->factory->action('wp_ajax_nopriv_activate_license', array($this, 'activate_license'));
 
         // Close Notification
         $this->factory->action('wp_ajax_close_notification', array($this, 'close_notification'));
-        $this->factory->action('wp_ajax_nopriv_close_notification', array($this, 'close_notification'));
 
         // Close Custom Text Notification
         $this->factory->action('wp_ajax_close_cmsg_notification', array($this, 'close_cmsg_notification'));
-        $this->factory->action('wp_ajax_nopriv_close_cmsg_notification', array($this, 'close_cmsg_notification'));
 
         // Close Custom Text Notification
         $this->factory->action('wp_ajax_report_event_dates', array($this, 'report_event_dates'));
-        $this->factory->action('wp_ajax_nopriv_report_event_dates', array($this, 'report_event_dates'));
 
         // Scheduler Cronjob
         $schedule = $this->getSchedule();
@@ -159,6 +153,9 @@ class MEC_feature_mec extends MEC_base
     /* Activate License */
     public function activate_license()
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();
@@ -194,6 +191,9 @@ class MEC_feature_mec extends MEC_base
     /* Download MEC settings */
     public function download_settings()
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_download'))
         {
             exit();
@@ -215,6 +215,9 @@ class MEC_feature_mec extends MEC_base
     /* Close addons notification */
     public function close_notification()
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();
@@ -226,6 +229,9 @@ class MEC_feature_mec extends MEC_base
     /* Close addons notification */
     public function close_cmsg_notification()
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();
@@ -238,6 +244,9 @@ class MEC_feature_mec extends MEC_base
     /* Report Event Dates */
     public function report_event_dates()
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();
@@ -265,9 +274,12 @@ class MEC_feature_mec extends MEC_base
         wp_die();
     }
 
-    /* Download MEC settings */
+    /* Import MEC settings */
     public function import_settings()
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();

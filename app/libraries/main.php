@@ -901,7 +901,6 @@ class MEC_main extends MEC_base
     {
         $get_cmsg_display_option = get_option('mec_custom_msg_display_option');
         
-
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
         if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
         {
@@ -1117,6 +1116,9 @@ class MEC_main extends MEC_base
         
         // Verify that the nonce is valid.
         if(!wp_verify_nonce($wpnonce, 'mec_options_form')) $this->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
+
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
         
         // Get mec options
         $mec = $request->getVar('mec', array());
@@ -1180,6 +1182,9 @@ class MEC_main extends MEC_base
      */
     public function save_notifications()
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        
         // MEC Request library
         $request = $this->getRequest();
 
@@ -1212,9 +1217,14 @@ class MEC_main extends MEC_base
     /**
      * Saves MEC Import/Export options
      * @author Webnus <info@webnus.biz>
+     * @param array $ix_options
+     * @return boolean
      */
     public function save_ix_options($ix_options = array())
     {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         // Get current MEC ix options
         $current = $this->get_ix_options();
         if(is_string($current) and trim($current) == '') $current = array();
@@ -1379,7 +1389,6 @@ class MEC_main extends MEC_base
     /**
      * Returns MEC Container Width
      * @author Webnus <info@webnus.biz>
-     * @return array
      */
     public function get_container_width()
     {
