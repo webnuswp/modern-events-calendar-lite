@@ -207,8 +207,6 @@ if($content_color): ?>
 }
 <?php endif;
 
-
-
 // get render content
 $out = '';
 $out = ob_get_clean();

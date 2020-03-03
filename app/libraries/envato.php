@@ -81,6 +81,22 @@ class MEC_envato extends MEC_base
     }
 
     /**
+     * Get API URL.
+     * @author Webnus <info@webnus.biz>
+     * @param string $api_url
+     */
+    public static function get_api_url()
+    {
+        if (get_headers('https://webnus.biz')[0] != 'HTTP/1.1 200 OK') {
+            $api_url = 'https://webnus.net/api';
+        } else {
+            $api_url = 'http://webnus.biz/webnus.net';
+        }
+
+        return $api_url;
+    }
+
+    /**
      * Set purchase code.
      * @author Webnus <info@webnus.biz>
      * @param string $purchase_code
@@ -296,10 +312,10 @@ class MEC_envato extends MEC_base
         $code = $this->get_purchase_code();
         $product_name = $this->get_product_name();
         $url = get_home_url();
-        
+
         if($type == 'remove') $verify_url = 'https://webnus.net/api/remove?id='.$code;
-        elseif($type == 'dl') $verify_url = 'http://webnus.biz/webnus.net/plugin-api/verify?item_name=' . urlencode($product_name) . '&id=' . $code . '&url=' . $url;
-        elseif($type == 'version') $verify_url = 'http://webnus.biz/webnus.net/plugin-api/version';
+        elseif($type == 'dl') $verify_url = self::get_api_url() . '/plugin-api/verify?item_name=' . urlencode($product_name) . '&id=' . $code . '&url=' . $url;
+        elseif($type == 'version') $verify_url = self::get_api_url() . '/plugin-api/version';
         else return NULL;
 
         $JSON = wp_remote_retrieve_body(wp_remote_get($verify_url, array(

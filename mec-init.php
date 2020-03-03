@@ -13,7 +13,7 @@ class MEC
      * @var object
      */
     private static $instance = NULL;
-    
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -22,19 +22,19 @@ class MEC
     {
         // MEC EP
         if(!defined('EP_MEC_EVENTS')) define('EP_MEC_EVENTS', 555);
-        
+
         // Import Base library
         $this->import('app.libraries.base');
     }
-    
+
     private function __clone()
     {
     }
-    
+
     private function __wakeup()
     {
     }
-    
+
     /**
      * Getting instance. This Class is a singleton class
      * @author Webnus <info@webnus.biz>
@@ -44,7 +44,7 @@ class MEC
 	{
         // Get an instance of Class
         if(!self::$instance) self::$instance = new self();
-        
+
         // Return the instance
         return self::$instance;
 	}
@@ -64,46 +64,52 @@ class MEC
             if(!function_exists('is_plugin_active')) include_once(ABSPATH . 'wp-admin/includes/plugin.php');
             if(is_plugin_active('modern-events-calendar/mec.php')) deactivate_plugins('modern-events-calendar-lite/modern-events-calendar-lite.php');
         }
-        
+
         // Initialize Auto Update Feaature
         if($factory->getPRO()) $factory->load_auto_update();
 
         // Registering MEC actions
         $factory->load_actions();
-        
+
         // Registering MEC filter methods
         $factory->load_filters();
-        
+
         // Registering MEC hooks such as activate, deactivate and uninstall hooks
         $factory->load_hooks();
-        
+
         // Loading MEC features
         $factory->load_features();
-        
+
         // Loading MEC skins
         $factory->load_skins();
-        
+
         // Loading MEC addons
         $factory->load_addons();
-        
+
         // Register MEC Widget
         $factory->action('widgets_init', array($factory, 'load_widgets'));
+
+        // MEC Body Class
+        $factory->action('body_class', array($factory, 'mec_body_class'));
+
+        // MEC Admin Body Class
+        $factory->action('admin_body_class', array($factory, 'mec_admin_body_class'));
 
         // Register MEC Menus
         $factory->action('admin_menu', array($factory, 'load_menus'), 1);
 
         // Register MEC Menus
         $factory->action('init', array($factory, 'mec_dyncss'));
-        
+
         // Include needed assets (CSS, JavaScript etc) in the WordPress backend
         $factory->action('admin_enqueue_scripts', array($factory, 'load_backend_assets'), 0);
-        
+
         // Include needed assets (CSS, JavaScript etc) in the website frontend
 		$factory->action('wp_enqueue_scripts', array($factory, 'load_frontend_assets'), 0);
-        
+
         // Register the shortcodes
         $factory->action('init', array($factory, 'load_shortcodes'));
-        
+
         // Register language files for localization
         $factory->action('plugins_loaded', array($factory, 'load_languages'));
     }

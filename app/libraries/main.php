@@ -563,7 +563,7 @@ class MEC_main extends MEC_base
 
         $modules = apply_filters('mec-settings-item-modules', array(
             __('Speakers', 'modern-events-calendar-lite') => 'speakers_option',
-            __('Google Maps Options', 'modern-events-calendar-lite') => 'googlemap_option',
+            __('Map Options', 'modern-events-calendar-lite') => 'googlemap_option',
             __('Export Options', 'modern-events-calendar-lite') => 'export_module_option',
             __('Local Time', 'modern-events-calendar-lite') => 'time_module_option',
             __('QR Code', 'modern-events-calendar-lite') => 'qrcode_module_option',
@@ -900,7 +900,7 @@ class MEC_main extends MEC_base
     public function mec_custom_msg($display_option = '', $message = '')
     {
         $get_cmsg_display_option = get_option('mec_custom_msg_display_option');
-        
+
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
         if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
         {
@@ -1182,9 +1182,20 @@ class MEC_main extends MEC_base
      */
     public function save_notifications()
     {
+        // MEC Request library
+        $request = $this->getRequest();
+
+        $wpnonce = $request->getVar('_wpnonce', NULL);
+
+        // Check if our nonce is set.
+        if(!trim($wpnonce)) $this->response(array('success'=>0, 'code'=>'NONCE_MISSING'));
+
+        // Verify that the nonce is valid.
+        if(!wp_verify_nonce($wpnonce, 'mec_options_form')) $this->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
+
         // Current User is not Permitted
         if(!current_user_can('manage_options')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
-        
+
         // MEC Request library
         $request = $this->getRequest();
 
@@ -1516,17 +1527,26 @@ class MEC_main extends MEC_base
      */
     public function get_marker_lightbox($event, $date_format = 'M d Y')
     {
-        $infowindow_thumb = trim($event->data->featured_image['thumbnail']) ? '<div class="mec-event-image"><img src="'.$event->data->featured_image['thumbnail'].'" alt="'.$event->data->title.'" /></div>' : '';
-        $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
-
         $link = $this->get_event_date_permalink($event->data->permalink, (isset($event->date['start']) ? $event->date['start']['date'] : NULL));
+        $infowindow_thumb = trim($event->data->featured_image['thumbnail']) ? '<div class="mec-event-image"><a data-event-id="'.$event->data->ID.'" href="'.$link.'"><img src="'.$event->data->featured_image['thumbnail'].'" alt="'.$event->data->title.'" /></a></div>' : '';
+        $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
+        $event_start_date_day = !empty($event->date['start']['date']) ? date_i18n('d', strtotime($event->date['start']['date'])) : '';
+        $event_start_date_month = !empty($event->date['start']['date']) ? date_i18n('M', strtotime($event->date['start']['date'])) : '';
+        $event_start_date_year = !empty($event->date['start']['date']) ? date_i18n('Y', strtotime($event->date['start']['date'])) : '';
+        $start_time = !empty($event->data->time['start']) ? $event->data->time['start'] : '';
+        $end_time = !empty($event->data->time['end']) ? $event->data->time['end'] : '';
+
         $content = '
 		<div class="mec-wrap">
 			<div class="mec-map-lightbox-wp mec-event-list-classic">
 				<article class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'mec-event-article mec-clear">
 					'.$infowindow_thumb.'
-					<a data-event-id="'.$event->data->ID.'" href="'.$link.'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> '.$this->dateify($event, $date_format).'</div></a>
-					<h4 class="mec-event-title"><a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$link.'">'.$event->data->title.'</a>'.$this->get_flags($event->data->ID, $event_start_date).'</h4>
+                    <a data-event-id="'.$event->data->ID.'" href="'.$link.'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> <span class="mec-map-lightbox-month">'.$event_start_date_month. '</span><span class="mec-map-lightbox-day"> ' . $event_start_date_day . '</span><span class="mec-map-lightbox-year"> ' . $event_start_date_year .  '</span></div></a>
+                    <h4 class="mec-event-title">
+                    <div class="mec-map-time" style="display: none">'.$this->mec_include_time_labels($start_time,$end_time).'</div>
+                    <a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$link.'">'.$event->data->title.'</a>
+                    '.$this->get_flags($event->data->ID, $event_start_date).'
+                    </h4>
 				</article>
 			</div>
 		</div>';
@@ -4062,13 +4082,13 @@ class MEC_main extends MEC_base
         if($offset_now != $offset_start)
         {
             $diff = $offset_start - $offset_now;
-            $start_timestamp += $diff;
+            if($diff > 0) $start_timestamp += $diff;
         }
 
         if($offset_now != $offset_end)
         {
             $diff = $offset_end - $offset_now;
-            $end_timestamp += $diff;
+            if($diff > 0) $end_timestamp += $diff;
         }
         
         if($start_timestamp >= $end_timestamp) return '<span class="mec-start-date-label" itemprop="startDate">' . date_i18n($format, $start_timestamp) . '</span>';

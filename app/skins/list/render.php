@@ -148,7 +148,7 @@ $map_events = array();
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
                                 <h3 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color.$this->main->get_normal_labels($event); ?></h3>
-                                <div class="mec-event-description"><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></div>
+                                <div class="mec-event-description"><?php echo $excerpt.(trim($excerpt) ? ' <span>...</span>' : ''); ?></div>
                             </div>
                         </div>
                         <div class="col-md-3 mec-col-table-c mec-event-meta-wrap">
@@ -268,6 +268,15 @@ if(isset($map_events) and !empty($map_events))
         }, 1000);
     });
     </script>';
+
+    $map_data = new stdClass;
+    $map_data->id = $this->id;
+    $map_data->atts = $this->atts;
+    $map_data->events =  $map_events;
+    $map_data->render = $this->render;
+    $map_data->geolocation = $this->geolocation;
+    $map_data->sf_status = null;
+    $map_data->main = $this->main;
 
     $map_javascript = apply_filters('mec_map_load_script', $map_javascript, $this,$settings);
 

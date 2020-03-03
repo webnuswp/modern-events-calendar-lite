@@ -4,6 +4,12 @@ defined('MECEXEC') or die();
 
 // Get layout path
 $render_path = $this->get_render_path();
+$styling = $this->main->get_styling();
+
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
 
 ob_start();
 include $render_path;
@@ -33,7 +39,7 @@ else $this->factory->params('footer', $javascript);
 do_action('mec_start_skin' , $this->id);
 do_action('mec_slider_skin_head');
 ?>
-<div class="mec-wrap mec-skin-slider-container<?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
+<div class="mec-wrap mec-skin-slider-container<?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
     
     <?php if($this->found): ?>
     <div class="mec-skin-slider-events-container" id="mec_skin_events_<?php echo $this->id; ?>">

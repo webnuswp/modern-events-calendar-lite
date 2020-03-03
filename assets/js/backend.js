@@ -405,6 +405,12 @@ jQuery(document).ready(function($)
     })
 });
 
+function mec_skin_full_calendar_df_mode(Context)
+{
+    var current_item = jQuery(Context).val();
+    jQuery(Context).parent().parent().parent().find('.mec-date-format').toggle();
+}
+
 function mec_event_attendees(ID, occurrence)
 {
     // Set Occurrence

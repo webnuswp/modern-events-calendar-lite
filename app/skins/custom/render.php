@@ -99,7 +99,9 @@ if($this->style == 'colorful')
                         );
                         update_option( 'mec_sd_time_option', $data->date['start']['date'], true);
                         update_option( 'mec_sdn_time_option', $data->date['end']['date'], true);
-                        
+                        update_option( 'mec_st_time_option', $data->data->time['start'], true);
+                        update_option( 'mec_stn_time_option', $data->data->time['end'], true);
+
                         echo ($rcount == 1) ? '<div class="row">' : '';
                         echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
                         echo '<article class="mec-event-article mec-sd-event-article'. get_the_ID().' mec-clear" itemscope>';
@@ -171,7 +173,16 @@ if(isset($map_eventss) and !empty($map_eventss))
     });
     </script>';
 
-    $map_javascript = apply_filters( 'mec_map_load_script',$map_javascript, $this,$settings );
+    $map_data = new stdClass;
+    $map_data->id = $this->id;
+    $map_data->atts = $this->atts;
+    $map_data->events =  $map_eventss;
+    $map_data->render = $this->render;
+    $map_data->geolocation = $this->geolocation;
+    $map_data->sf_status = null;
+    $map_data->main = $this->main;
+    
+    $map_javascript = apply_filters( 'mec_map_load_script',$map_javascript, $map_data,$settings );
 
     // Include javascript code into the page
     if($this->main->is_ajax()) echo $map_javascript;

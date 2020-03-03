@@ -30,11 +30,17 @@ if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
 
 $styling = $this->main->get_styling();
+
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
+
 do_action('mec_start_skin' , $this->id);
 do_action('mec_full_skin_head');
 ?>
-<div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin; ?> mec-full-calendar-wrap">
+<div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin . ' ' . $set_dark; ?> mec-full-calendar-wrap">
     
     <div class="mec-search-form mec-totalcal-box">
         <?php

@@ -186,7 +186,6 @@ class MEC_feature_mec extends MEC_base
         echo $LicenseStatus;
         wp_die();
     }
-    
 
     /* Download MEC settings */
     public function download_settings()
@@ -194,7 +193,7 @@ class MEC_feature_mec extends MEC_base
         // Current User is not Permitted
         if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
 
-        if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_download'))
+        if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_download'))
         {
             exit();
         }
@@ -246,20 +245,21 @@ class MEC_feature_mec extends MEC_base
     {
         // Current User is not Permitted
         if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
-
+        
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();
         }
+
         $post_id = $_POST['event_id'];
         $feature_class = new MEC_feature_mec();
-        if ( $post_id != 'none' )
+        if($post_id != 'none')
         {
             $dates = $feature_class->db->select("SELECT `dstart`, `dend` FROM `#__mec_dates` WHERE `post_id`='".$post_id."' LIMIT 100");
-            $id = $post_id;
+
             $occurrence = reset($dates)->dstart;
             echo '<select name="mec-report-event-dates" class="mec-reports-selectbox mec-reports-selectbox-dates" onchange="mec_event_attendees('.$post_id.', this.value);">';
-            echo '<option value="none">'.esc_html( "Select Date" , "mec").'</option>';
+            echo '<option value="none">'.esc_html__( "Select Date" , "mec").'</option>';
             foreach($dates as $date)
             {
                 echo '<option href="#" value="'.$date->dstart.'" '.($occurrence == $date->dstart ? 'class="selected-day"' : '').'>'.(($date->dstart != $date->dend) ? sprintf(__('%s to %s', 'modern-events-calendar-lite'), $date->dstart, $date->dend) : $date->dstart).'</option>';
@@ -280,7 +280,7 @@ class MEC_feature_mec extends MEC_base
         // Current User is not Permitted
         if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
 
-        if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
+        if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();
         }

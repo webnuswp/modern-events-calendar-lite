@@ -319,6 +319,15 @@ if(isset($map_events) and !empty($map_events))
     });
     </script>';
 
+    $map_data = new stdClass;
+    $map_data->id = $this->id;
+    $map_data->atts = $this->atts;
+    $map_data->events =  $map_events;
+    $map_data->render = $this->render;
+    $map_data->geolocation = $this->geolocation;
+    $map_data->sf_status = null;
+    $map_data->main = $this->main;
+
     $map_javascript = apply_filters( 'mec_map_load_script',$map_javascript, $this,$settings );
 
     // Include javascript code into the page

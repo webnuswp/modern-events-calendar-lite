@@ -47,10 +47,16 @@ else $this->factory->params('footer', $javascript);
 
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
+
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
+
 do_action('mec_start_skin' , $this->id);
 do_action('mec_agenda_skin_head');
 ?>
-<div class="mec-wrap mec-events-agenda-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
+<div class="mec-wrap mec-events-agenda-container <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
     
     <?php if($this->sf_status) echo $this->sf_search_form(); ?>
     

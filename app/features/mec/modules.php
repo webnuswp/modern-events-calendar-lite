@@ -64,7 +64,7 @@ if($this->getPRO())
                         <?php if($this->main->getPRO()): ?>
 
                             <div id="googlemap_option" class="mec-options-fields">
-                                <h4 class="mec-form-subtitle"><?php _e('Google Maps Options', 'modern-events-calendar-lite'); ?></h4>
+                                <h4 class="mec-form-subtitle"><?php _e('Map Options', 'modern-events-calendar-lite'); ?></h4>
 
                                 <?php if(!$this->main->getPRO()): ?>
                                 <div class="info-msg"><?php echo sprintf(__("%s is required to use this feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
@@ -72,17 +72,17 @@ if($this->getPRO())
                                 <div class="mec-form-row">
                                     <label>
                                         <input type="hidden" name="mec[settings][google_maps_status]" value="0" />
-                                        <input onchange="jQuery('#mec_google_maps_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][google_maps_status]" <?php if(isset($settings['google_maps_status']) and $settings['google_maps_status']) echo 'checked="checked"'; ?> /> <?php _e('Show Google Maps on event page', 'modern-events-calendar-lite'); ?>
+                                        <input onchange="jQuery('#mec_google_maps_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][google_maps_status]" <?php if(isset($settings['google_maps_status']) and $settings['google_maps_status']) echo 'checked="checked"'; ?> /> <?php _e('Show Map on event page', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
                                 <div id="mec_google_maps_container_toggle" class="<?php if((isset($settings['google_maps_status']) and !$settings['google_maps_status']) or !isset($settings['google_maps_status'])) echo 'mec-util-hidden'; ?>">
                                     <div class="mec-form-row">
-                                        <label class="mec-col-3" for="mec_settings_google_maps_api_key"><?php _e('API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <label class="mec-col-3" for="mec_settings_google_maps_api_key"><?php _e('Google Maps API Key', 'modern-events-calendar-lite'); ?></label>
                                         <div class="mec-col-4">
                                             <input type="text" id="mec_settings_google_maps_api_key" name="mec[settings][google_maps_api_key]" value="<?php echo ((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? $settings['google_maps_api_key'] : ''); ?>" />
                                             <span class="mec-tooltip">
                                                 <div class="box">
-                                                    <h5 class="title"><?php _e('Google Maps Options', 'modern-events-calendar-lite'); ?></h5>
+                                                    <h5 class="title"><?php _e('Google Map Options', 'modern-events-calendar-lite'); ?></h5>
                                                     <div class="content"><p><?php esc_attr_e("Required!", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>

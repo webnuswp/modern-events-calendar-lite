@@ -7831,3 +7831,707 @@ div#mec_popup_shortcode_form {
     background: rgba(64, 241, 147, .12);
     content: "\e080";
 }
+
+
+
+
+
+
+
+
+/* MEC - Backend Dark Mode*/
+.mec-admin-dark-mode.post-type-mec-books .postbox,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support #webnus-dashboard .mec-pro-notice .info-msg,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix .mec-container,
+.mec-admin-dark-mode.post-type-mec-events .components-popover__content,
+.mec-admin-dark-mode.post-type-mec-events #mec_reg_form_fields li,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-main,
+.mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu>li.active>a,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-event-tabs-wrap .select2-container,
+.mec-admin-dark-mode #mec_metabox_details .mec-create-shortcode-tab-content .select2-container,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-editor-container,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-content,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-main,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-infobar,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_field_types button, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields li,
+.mec-admin-dark-mode.post-type-mec-events #screen-meta-links .show-settings,
+.mec-admin-dark-mode.post-type-mec-events #screen-meta,
+.mec-admin-dark-mode.post-type-mec-events div.mce-toolbar-grp,
+.mec-admin-dark-mode.post-type-mec-events .wp-switch-editor,
+.mec-admin-dark-mode.post-type-mec-events .wp-tab-active,
+.mec-admin-dark-mode.post-type-mec-events ul.add-menu-item-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec-events ul.category-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec-events .categorydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events .customlinkdiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events .posttypediv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events .taxonomydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events div.mce-panel,
+.mec-admin-dark-mode.post-type-mec-events #post-status-info,
+.mec-admin-dark-mode.post-type-mec-events .wp-tab-panel,
+.mec-admin-dark-mode.post-type-mec-events .postbox,
+.mec-admin-dark-mode.post-type-mec-events #major-publishing-actions,
+.mec-admin-dark-mode.post-type-mec_calendars #screen-meta-links .show-settings,
+.mec-admin-dark-mode.post-type-mec_calendars #screen-meta,
+.mec-admin-dark-mode.post-type-mec_calendars div.mce-toolbar-grp,
+.mec-admin-dark-mode.post-type-mec_calendars .wp-switch-editor,
+.mec-admin-dark-mode.post-type-mec_calendars .wp-tab-active,
+.mec-admin-dark-mode.post-type-mec_calendars ul.add-menu-item-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec_calendars ul.category-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec_calendars .categorydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .customlinkdiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .posttypediv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .taxonomydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars div.mce-panel,
+.mec-admin-dark-mode.post-type-mec_calendars #post-status-info,
+.mec-admin-dark-mode.post-type-mec_calendars .wp-tab-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .postbox,
+.mec-admin-dark-mode.post-type-mec_calendars #major-publishing-actions,
+.mec-admin-dark-mode .w-box-content pre,
+.mec-admin-dark-mode .w-clearfix.w-box.mec-addons-notification-box-wrap span,
+.mec-admin-dark-mode .w-clearfix.w-box.mec-cmsg-notification-box-wrap span,
+.mec-admin-dark-mode .w-box,
+.mec-admin-dark-mode .wns-be-main,
+.mec-admin-dark-mode .wns-be-main .mec-container,
+.mec-admin-dark-mode #mec_metabox_details,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-booking-tabs-wrap,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-event-tabs-wrap,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-booking-tabs-left,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-event-tabs-left,
+.mec-admin-dark-mode #mec_metabox_details .mec-create-shortcode-tabs-left,
+.mec-admin-dark-mode #mec_calendar_filter,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-booking-tabs-wrap,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-event-tabs-wrap,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-booking-tabs-left,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-event-tabs-left,
+.mec-admin-dark-mode #mec_calendar_filter .mec-create-shortcode-tabs-left,
+.mec-admin-dark-mode #mec_metabox_booking,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-booking-tabs-wrap,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-event-tabs-wrap,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-booking-tabs-left,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-event-tabs-left,
+.mec-admin-dark-mode #mec_metabox_booking .mec-create-shortcode-tabs-left {
+    background: #1F1F1F;
+    color: #fff;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support #webnus-dashboard .mec-faq-accordion-trigger a,
+.mec-admin-dark-mode .mec-form-row ul.mec-message-categories li ul,
+.mec-admin-dark-mode .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode .mec-form-row .mec-box,
+.mec-admin-dark-mode .mec-meta-box-fields .mec-box {
+    background: #282828;
+    border-color: #353535;
+    box-shadow: 0 1px 6px -2px #000;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix .mec-form-row.mec-syn-schedule,
+.mec-admin-dark-mode.post-type-mec-events #mec_reg_form_fields,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-booking-tabs-left a,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-event-tabs-left a,
+.mec-admin-dark-mode #mec_calendar_filter .mec-create-shortcode-tabs-left a,
+.mec-admin-dark-mode.post-type-mec-events  .select2-search--dropdown,
+.mec-admin-dark-mode.post-type-mec_calendars .select2-search--dropdown,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-booking-tabs-left a,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-event-tabs-left a,
+.mec-admin-dark-mode #mec_metabox_booking .mec-create-shortcode-tabs-left a,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-booking-tabs-left a,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-event-tabs-left a,
+.mec-admin-dark-mode #mec_metabox_details .mec-create-shortcode-tabs-left a {
+    background: #282828;
+    border-color: #353535;
+}
+
+.mec-admin-dark-mode .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: #000;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-dropdown,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-container--default .select2-selection--multiple,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_gateways_form li .mec-gateway-options-form,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #payment_gateways_option li .mec-gateway-options-form,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-custom-nice-select ul.list,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-booking-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-event-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_calendar_filter .mec-create-shortcode-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-booking-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-event-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_metabox_booking .mec-create-shortcode-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-booking-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-event-tabs-left a.mec-tab-active,
+.mec-admin-dark-mode #mec_metabox_details .mec-create-shortcode-tabs-left a.mec-tab-active {
+    background: #000;
+    box-shadow: 0 2px 12px -5px #000;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-infobar,
+.mec-admin-dark-mode.post-type-mec-books .postbox .hndle,
+.mec-admin-dark-mode.post-type-mec-books .postbox hr,
+.mec-admin-dark-mode.post-type-mec-books .postbox,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .wp-editor-container,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mce-btn-group:not(:first-child),
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-dropdown,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-container--default .select2-search--dropdown .select2-search__field,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-sed-methods li,
+.mec-admin-dark-mode.post-type-mec-events .components-popover__content,
+.mec-admin-dark-mode.post-type-mec-events .edit-post-meta-boxes-area #poststuff .stuffbox>h3,
+.mec-admin-dark-mode.post-type-mec-events .edit-post-meta-boxes-area #poststuff h2.hndle,
+.mec-admin-dark-mode.post-type-mec-events .edit-post-meta-boxes-area #poststuff h3.hndle,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-core-ui .quicktags-toolbar input.button.button-small,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-editor-container,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-container--default .select2-selection--multiple .select2-selection__choice,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-content,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-main,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-infobar:before,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .html-active .switch-html,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .tmce-active .switch-tmce,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-switch-editor,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-container--default .select2-selection--multiple,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings  #mec_reg_form_field_types button, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-footer,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .mec-custom-msg-notification-set-box.extra,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-custom-nice-select ul.list li.option,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-custom-nice-select ul.list,
+.mec-admin-dark-mode.post-type-mec_calendars #screen-meta-links .show-settings,
+.mec-admin-dark-mode.post-type-mec_calendars #screen-meta,
+.mec-admin-dark-mode.post-type-mec_calendars .wp-editor-container,
+.mec-admin-dark-mode.post-type-mec_calendars div.mce-toolbar-grp,
+.mec-admin-dark-mode.post-type-mec_calendars .wp-switch-editor,
+.mec-admin-dark-mode.post-type-mec_calendars .wp-tab-active,
+.mec-admin-dark-mode.post-type-mec_calendars ul.add-menu-item-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec_calendars ul.category-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec_calendars .categorydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .customlinkdiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .posttypediv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .taxonomydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec_calendars div.mce-panel,
+.mec-admin-dark-mode.post-type-mec_calendars #post-status-info,
+.mec-admin-dark-mode.post-type-mec_calendars .wp-tab-panel,
+.mec-admin-dark-mode.post-type-mec_calendars .postbox,
+.mec-admin-dark-mode.post-type-mec_calendars #major-publishing-actions,
+.mec-admin-dark-mode.post-type-mec_calendars .postbox,
+.mec-admin-dark-mode.post-type-mec_calendars .postbox h2,
+.mec-admin-dark-mode.post-type-mec-events #screen-meta-links .show-settings,
+.mec-admin-dark-mode.post-type-mec-events #screen-meta,
+.mec-admin-dark-mode.post-type-mec-events .wp-editor-container,
+.mec-admin-dark-mode.post-type-mec-events div.mce-toolbar-grp,
+.mec-admin-dark-mode.post-type-mec-events .wp-switch-editor,
+.mec-admin-dark-mode.post-type-mec-events .wp-tab-active,
+.mec-admin-dark-mode.post-type-mec-events ul.add-menu-item-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec-events ul.category-tabs li.tabs,
+.mec-admin-dark-mode.post-type-mec-events .categorydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events .customlinkdiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events .posttypediv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events .taxonomydiv div.tabs-panel,
+.mec-admin-dark-mode.post-type-mec-events div.mce-panel,
+.mec-admin-dark-mode.post-type-mec-events #post-status-info,
+.mec-admin-dark-mode.post-type-mec-events .wp-tab-panel,
+.mec-admin-dark-mode.post-type-mec-events .postbox,
+.mec-admin-dark-mode.post-type-mec-events #major-publishing-actions,
+.mec-admin-dark-mode.post-type-mec-events .postbox,
+.mec-admin-dark-mode.post-type-mec-events .postbox h2,
+.mec-admin-dark-mode .extra .w-box-head,
+.mec-admin-dark-mode .mec-form-row ul.mec-message-categories,
+.mec-admin-dark-mode .mec-message-categories li.mec-acc-label {
+    border-color: #353535;
+}
+
+.mec-admin-dark-mode.post-type-mec-books input[type=email],
+.mec-admin-dark-mode.post-type-mec-books input[type=url],
+.mec-admin-dark-mode.post-type-mec-books select,
+.mec-admin-dark-mode.post-type-mec-books textarea,
+.mec-admin-dark-mode.post-type-mec-books .wn-mec-select,
+.mec-admin-dark-mode.post-type-mec-books input[type=number],
+.mec-admin-dark-mode.post-type-mec-books input[type=text],
+.mec-admin-dark-mode .mec-addon-box-version,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .html-active .switch-html,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .tmce-active .switch-tmce,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .wp-switch-editor,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report div.mce-toolbar-grp,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-send-email-form-wrap input.widefat,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-sendmail-form-wrap,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-sendmail-wrap,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-container--default .select2-results__option--highlighted[aria-selected],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-container--default .select2-search--dropdown .select2-search__field,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-select-event-wrap .select2-container--default .select2-selection--single,
+.mec-admin-dark-mode.post-type-mec_calendars .select2-container--default .select2-selection--multiple .select2-selection__choice,
+.mec-admin-dark-mode.post-type-mec-events .mec-certain-day>div, .mec-select-deselect-actions li,
+.mec-admin-dark-mode.post-type-mec-events .mec-xi-facebook-import-events .mec-select-deselect-actions li,
+.mec-admin-dark-mode.post-type-mec-events .mec-xi-google-import-events .mec-select-deselect-actions li,
+.mec-admin-dark-mode.post-type-mec-events input[type=checkbox],
+.mec-admin-dark-mode.post-type-mec-events input[type=radio],
+.mec-admin-dark-mode.post-type-mec-events #mec_reg_form_field_types button,
+.mec-admin-dark-mode.post-type-mec-events #mec_reg_form_fields button,
+.mec-admin-dark-mode.post-type-mec-events .wp-admin p label input[type=checkbox],
+.mec-admin-dark-mode.post-type-mec-events .components-form-token-field__input-container,
+.mec-admin-dark-mode.post-type-mec-events .components-panel__body,
+.mec-admin-dark-mode.toplevel_page_mec-intro .w-box.mec-activation input[type=radio]+label span,
+.mec-admin-dark-mode.toplevel_page_mec-intro .w-box.mec-activation input[name=MECPurchaseCode],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-addons,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-core-ui .quicktags-toolbar input.button.button-small,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_field_types button,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields button,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .quicktags-toolbar,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec-invoice-custom-css,
+.mec-admin-dark-mode.post-type-mec_calendars input[type=checkbox],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=radio],
+.mec-admin-dark-mode.post-type-mec_calendars .mec-add-event-tabs-wrap .select2-container,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-create-shortcode-tab-content .select2-container,
+.mec-admin-dark-mode.post-type-mec_calendars #titlediv #title,
+.mec-admin-dark-mode.post-type-mec_calendars .select2-dropdown,
+.mec-admin-dark-mode.post-type-mec_calendars .select2-results__option[aria-selected],
+.mec-admin-dark-mode.post-type-mec_calendars .mec-add-event-tabs-wrap .select2-container span,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-create-shortcode-tab-content .select2-container span,
+.mec-admin-dark-mode.post-type-mec_calendars input[type=color],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=date],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=datetime-local],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=datetime],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=email],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=month],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=number],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=password],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=search],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=tel],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=text],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=time],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=url],
+.mec-admin-dark-mode.post-type-mec_calendars input[type=week],
+.mec-admin-dark-mode.post-type-mec_calendars select,
+.mec-admin-dark-mode.post-type-mec_calendars textarea,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=checkbox],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=radio],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .mec-add-event-tabs-wrap .select2-container,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .mec-create-shortcode-tab-content .select2-container,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #titlediv #title,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-dropdown,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-results__option[aria-selected],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .mec-add-event-tabs-wrap .select2-container span,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .mec-create-shortcode-tab-content .select2-container span,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=color],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=date],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=datetime-local],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=datetime],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=email],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=month],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=number],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=password],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=search],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=tel],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=text],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=time],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=url],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings input[type=week],
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings select,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings textarea,
+.mec-admin-dark-mode.post-type-mec-events #titlediv #title,
+.mec-admin-dark-mode.post-type-mec-events .select2-dropdown,
+.mec-admin-dark-mode.post-type-mec-events .select2-results__option[aria-selected],
+.mec-admin-dark-mode.post-type-mec-events .mec-add-event-tabs-wrap .select2-container span,
+.mec-admin-dark-mode.post-type-mec-events .mec-create-shortcode-tab-content .select2-container span,
+.mec-admin-dark-mode.post-type-mec-events input[type=color],
+.mec-admin-dark-mode.post-type-mec-events input[type=date],
+.mec-admin-dark-mode.post-type-mec-events input[type=datetime-local],
+.mec-admin-dark-mode.post-type-mec-events input[type=datetime],
+.mec-admin-dark-mode.post-type-mec-events input[type=email],
+.mec-admin-dark-mode.post-type-mec-events input[type=month],
+.mec-admin-dark-mode.post-type-mec-events input[type=number],
+.mec-admin-dark-mode.post-type-mec-events input[type=password],
+.mec-admin-dark-mode.post-type-mec-events input[type=search],
+.mec-admin-dark-mode.post-type-mec-events input[type=tel],
+.mec-admin-dark-mode.post-type-mec-events input[type=text],
+.mec-admin-dark-mode.post-type-mec-events input[type=time],
+.mec-admin-dark-mode.post-type-mec-events input[type=url],
+.mec-admin-dark-mode.post-type-mec-events input[type=week],
+.mec-admin-dark-mode.post-type-mec-events select,
+.mec-admin-dark-mode.post-type-mec-events textarea,
+.mec-admin-dark-mode .mec-calendar-metabox .wn-mec-select,
+.mec-admin-dark-mode .mec-form-row input[type=number],
+.mec-admin-dark-mode .mec-form-row input[type=text],
+.mec-admin-dark-mode .mec-form-row select,
+.mec-admin-dark-mode .mec-form-row textarea,
+.mec-admin-dark-mode .mec-form-row.mec-skin-list-date-format-container input[type=text],
+.mec-admin-dark-mode #mec_metabox_booking .mec-calendar-metabox .wn-mec-select,
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=number],
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row select,
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row textarea,
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row.mec-skin-list-date-format-container input[type=text],
+.mec-admin-dark-mode #mec_metabox_booking .mec-calendar-metabox .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode #mec_metabox_booking .mec-meta-box-fields .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-event-tabs-wrap .select2-container,
+.mec-admin-dark-mode #mec_metabox_booking .mec-create-shortcode-tab-content .select2-container,
+.mec-admin-dark-mode #mec_metabox_booking .mec-calendar-metabox .wn-mec-select,
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=number],
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row select,
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row textarea,
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row.mec-skin-list-date-format-container input[type=text],
+.mec-admin-dark-mode #mec_metabox_booking .mec-calendar-metabox .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode #mec_metabox_booking .mec-meta-box-fields .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-event-tabs-wrap .select2-container,
+.mec-admin-dark-mode #mec_metabox_booking .mec-create-shortcode-tab-content .select2-container,
+.mec-admin-dark-mode #mec_calendar_filter .mec-calendar-metabox .wn-mec-select,
+.mec-admin-dark-mode #mec_calendar_filter .mec-form-row input[type=number],
+.mec-admin-dark-mode #mec_calendar_filter .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_calendar_filter .mec-form-row select,
+.mec-admin-dark-mode #mec_calendar_filter .mec-form-row textarea,
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row.mec-skin-list-date-format-container input[type=text],
+.mec-admin-dark-mode #mec_metabox_details .mec-calendar-metabox .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode #mec_metabox_details .mec-meta-box-fields .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode #mec_metabox_details .mec-add-event-tabs-wrap .select2-container,
+.mec-admin-dark-mode #mec_metabox_details .mec-create-shortcode-tab-content .select2-container,
+.mec-admin-dark-mode #mec_metabox_details .mec-calendar-metabox .wn-mec-select,
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row input[type=number],
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row select,
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row textarea,
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row.mec-skin-list-date-format-container input[type=text],
+.mec-admin-dark-mode #mec_metabox_details .mec-calendar-metabox .mec-form-row input[type=checkbox],
+.mec-admin-dark-mode #mec_metabox_details .mec-meta-box-fields .mec-form-row input[type=checkbox] {
+    background: #282828;
+    border-color: #353535;
+    color: #D2D2D2;
+}
+
+.mec-admin-dark-mode .mec-custom-nice-select ul.list li .wn-mec-text:after,
+.mec-admin-dark-mode .mec-sed-methods li:before,
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=checkbox]:checked,
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row input[type=checkbox]:checked {
+    box-shadow: 0 1px 6px -2px #000;
+    border-color: #353535;
+    background: #222222;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-container--default .select2-results__option,
+.mec-admin-dark-mode .mec-switcher input+label,
+.mec-admin-dark-mode .mec-switcher input+label:before {
+    background-color: #000;
+}
+
+.mec-admin-dark-mode .wn-mec-select .option.focus .wn-img-sh img,
+.mec-admin-dark-mode .wn-mec-select .option.selected.focus .wn-img-sh img,
+.mec-admin-dark-mode .wn-mec-select .option:hover .wn-img-sh img {
+    background: transparent;
+}
+
+.mec-admin-dark-mode .ui-datepicker {
+    background-color: #000;
+    border: 1px solid #000;
+    box-shadow: 0 0 8px rgba(33,33,33,.6);
+}
+
+.mec-admin-dark-mode .w-box.upcoming-events .mec-event-article .mec-detail-button,
+.mec-admin-dark-mode.post-type-mec_calendars .postbox h2,
+.mec-admin-dark-mode.post-type-mec-events .postbox h2,
+.mec-admin-dark-mode.post-type-mec-events,
+.mec-admin-dark-mode .ui-datepicker.ui-widget td a {
+    color: #D2D2D2;
+    background: #282828;
+}
+
+.mec-admin-dark-mode #mec-advanced-wraper div:first-child>ul * {
+    background: #282828;
+}
+
+.mec-admin-dark-mode .mec-message-categories li.mec-acc-label,
+.mec-admin-dark-mode #mec_styles_form #mec_styles_CSS,
+.mec-admin-dark-mode #mec-advanced-wraper div:first-child>ul>ul>li,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields {
+    background: #000;
+}
+
+.mec-admin-dark-mode.post-type-mec-events .select2-container--default .select2-results__option--highlighted[aria-selected],
+.mec-admin-dark-mode #mec-advanced-wraper div:first-child>ul>ul>li:hover,
+.mec-admin-dark-mode .mec-active {
+    background: #888 !important;
+}
+
+.mec-admin-dark-mode.post-type-mec_calendars .mec-calendar-metabox .wn-mec-select .list {
+    border-radius: 0 0 2px 2px;
+    box-shadow: 0 0 0 1px #353535, 0 2px 6px rgba(0,0,0,.07);
+}
+
+.mec-admin-dark-mode #mec_gateways_form li .mec-gateway-options-form,
+.mec-admin-dark-mode #payment_gateways_option li .mec-gateway-options-form,
+.mec-admin-dark-mode .mec-meta-box-fields h4,
+.mec-admin-dark-mode #mec_metabox_booking .ui-sortable-handle,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-booking-tabs-right,
+.mec-admin-dark-mode #mec_metabox_booking .mec-add-event-tabs-right,
+.mec-admin-dark-mode #mec_metabox_booking .mec-create-shortcode-tabs-right, 
+.mec-admin-dark-mode #mec_metabox_details .ui-sortable-handle,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-booking-tabs-right,
+.mec-admin-dark-mode #mec_metabox_details .mec-add-event-tabs-right,
+.mec-admin-dark-mode #mec_metabox_details .mec-create-shortcode-tabs-right,
+.mec-admin-dark-mode #mec_calendar_filter .ui-sortable-handle,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-booking-tabs-right,
+.mec-admin-dark-mode #mec_calendar_filter .mec-add-event-tabs-right,
+.mec-admin-dark-mode #mec_calendar_filter .mec-create-shortcode-tabs-right {
+    border-color: #000 !important;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-content,
+.mec-admin-dark-mode.post-type-mec_calendars .wn-mec-select .list,
+.mec-admin-dark-mode.post-type-mec-events #wp-content-editor-tools,
+.mec-admin-dark-mode.post-type-mec_calendars,
+.mec-admin-dark-mode .wns-be-container {
+    background-color: #282828;
+    border-color: #353535;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-head,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support .fserv-container,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support .fserv-container *,
+.mec-admin-dark-mode.toplevel_page_mec-intro .fserv-container,
+.mec-admin-dark-mode.toplevel_page_mec-intro .fserv-container *,
+.mec-admin-dark-mode .mec-intro-section-ifarme iframe {
+    background: #1F1F1F !important;
+    border-color: #353535 !important;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-content,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-container--default .select2-selection--single .select2-selection__rendered,
+.mec-admin-dark-mode .block-editor-block-types-list__item-icon,
+.mec-admin-dark-mode .block-editor-block-types-list__item-title,
+.mec-admin-dark-mode .w-box.upcoming-events .mec-event-article h4.mec-event-title,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support .about-wrap h3,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support .fserv-container .fserv-form-name ,
+.mec-admin-dark-mode.toplevel_page_mec-intro .about-wrap h3,
+.mec-admin-dark-mode.toplevel_page_mec-intro .fserv-container .fserv-form-name {
+    color: #D2D2D2 !important;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .html-active .switch-html,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .tmce-active .switch-tmce,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-switch-editor,
+.mec-admin-dark-mode.post-type-mec_calendars .wn-mec-select .option:hover,
+.mec-admin-dark-mode .wns-be-sidebar li a:hover,
+.mec-admin-dark-mode .wns-be-sidebar li:hover {
+    background: #000;
+    color: #D2D2D2;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support #webnus-dashboard .mec-faq-accordion-trigger a,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-head span,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix h1,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix h2,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix h3, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix h4,
+.mec-admin-dark-mode.post-type-mec-books .postbox h1,
+.mec-admin-dark-mode.post-type-mec-books .postbox h2,
+.mec-admin-dark-mode.post-type-mec-books .postbox h3,
+.mec-admin-dark-mode.post-type-mec-events .components-panel__body-toggle.components-button,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-custom-nice-select ul.list li.option .wn-mec-text,
+.mec-admin-dark-mode.post-type-mec-events .wrap h1.wp-heading-inline,
+.mec-admin-dark-mode .wns-be-sidebar li a {
+     color: #D2D2D2;
+}
+
+.mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu>li.active>a,
+.mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu>li.active>a:hover {
+    background: #282828;
+    background: linear-gradient(95deg,#282828 0,#222 50%,#282828 100%);
+    color: #D2D2D2;
+}
+
+.mec-admin-dark-mode .wns-be-sidebar li.active ul.subsection {
+    background: #282828;
+    border-bottom: 1px solid #353535;
+}
+
+.mec-admin-dark-mode .wns-be-sidebar li .subsection a {
+    background: #282828;
+    color: #636363;
+    opacity: 1;
+    font-size: 12px;
+    padding: 6px 4px 6px 46px;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-infobar,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-main,
+.mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu>li.active>a {
+    box-shadow: 0 2px 12px -5px #000;
+}
+
+.mec-admin-dark-mode.post-type-mec_calendars .wn-mec-select .option.focus,
+.mec-admin-dark-mode.post-type-mec_calendars .wn-mec-select .option.selected.focus,
+.mec-admin-dark-mode.post-type-mec_calendars .wn-mec-select .option:hover,
+.mec-admin-dark-mode li.wns-be-group-menu-li.mec-settings-menu .mec-settings-submenu,
+.mec-admin-dark-mode .wns-be-sidebar .mec-settings-menu .mec-settings-submenu a,
+.mec-admin-dark-mode .wns-be-container .wns-be-group-tab h4 {
+    background: #000;
+    color: #D2D2D2;
+    border-color: #353535;
+}
+
+.mec-admin-dark-mode.post-type-mec_calendars .mec-custom-nice-select ul.list li.option,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings{
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.mec-admin-dark-mode.post-type-mec-books,
+.mec-admin-dark-mode.post-type-mec-books h1,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-support h1,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report h1,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix h1,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings div.mce-panel,
+.mec-admin-dark-mode.toplevel_page_mec-intro,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-addons,
+.mec-admin-dark-mode.toplevel_page_mec-intro .about-wrap h1,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-addons .about-wrap h1,
+.mec-admin-dark-mode.post-type-mec_calendars,
+.mec-admin-dark-mode.post-type-mec_calendars .wrap h1.wp-heading-inline {
+    background: #282828 !important;
+    color: #D2D2D2;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report .w-theme-version,
+.mec-admin-dark-mode.toplevel_page_mec-intro .w-theme-version {
+    box-shadow: 0 3px 30px -4px #000;
+    background: #000;
+    background: linear-gradient(95deg,#000 0,#282828 50%,#1f1f1f 100%);
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix #mec-wrap h2.nav-tab-wrapper,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix #mec-wrap .nav-tab-wrapper .nav-tab,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-container--default .select2-selection--multiple .select2-selection__choice,
+.mec-admin-dark-mode .mec-sed-methods li.active,
+.mec-admin-dark-mode .wns-be-container .wns-be-group-tab h2, 
+.mec-admin-dark-mode .wns-be-container .wns-be-group-tab h4 {
+    color: #D2D2D2;
+    background: #000;
+} 
+
+.mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu li a:hover {
+    color: #008aff;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-ix #mec-wrap .nav-tab-wrapper .nav-tab-active{
+    background: #008aff;
+    background: linear-gradient(95deg,#36a2ff 0,#008aff 50%,#0072ff 100%);
+}
+
+.mec-admin-dark-mode .wns-be-container #wns-be-infobar:before {
+    content: "";
+    width: 261px;
+    height: 78px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #1f1f1f url(../img/webnus-logo2.png) no-repeat center;
+    border-bottom: 1px solid #dedede;
+    background-size: 220px;
+    z-index: 997;    
+}
+
+.mec-admin-dark-mode.post-type-mec-books #titlediv #title,
+.mec-admin-dark-mode.post-type-mec-books .postbox h1,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-footer {
+    background: #1f1f1f !important;
+}
+
+.mec-admin-dark-mode .mec-settings-menu .mec-settings-submenu:after,
+.mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu li .subsection li.active a:after,
+.mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu li .subsection li.active a:before {
+    border-right-color: #353535;
+}
+
+.mec-admin-dark-mode .mec-switcher input:checked+label:before {
+    background-color: #000;
+    background: linear-gradient(95deg,#1f1f1f 0,#222 50%,#000 100%);
+}
+.mec-admin-dark-mode .mec-switcher input:checked+label {
+    box-shadow: 0 3px 11px -7px #000;
+}
+
+/* WP TABEL */
+.mec-admin-dark-mode.post-type-mec-books table.widefat,
+.mec-admin-dark-mode.post-type-mec_calendars table.widefat,
+.post-type-mec-events.mec-admin-dark-mode table.widefat {
+    background: #1f1f1f;
+    border-color: #353535;
+    color: #D2D2D2;
+}
+
+.mec-admin-dark-mode.post-type-mec-books .striped>tbody>:nth-child(odd),
+.mec-admin-dark-mode.post-type-mec-books ul.striped>:nth-child(odd),
+.mec-admin-dark-mode.post-type-mec_calendars .striped>tbody>:nth-child(odd),
+.mec-admin-dark-mode.post-type-mec_calendars ul.striped>:nth-child(odd),
+.mec-admin-dark-mode.post-type-mec-events .striped>tbody>:nth-child(odd),
+.mec-admin-dark-mode.post-type-mec-events ul.striped>:nth-child(odd) {
+    background: #282828;
+    border-color: #353535;
+    color: #D2D2D2;
+}
+
+.mec-admin-dark-mode.post-type-mec-books .widefat td,
+.mec-admin-dark-mode.post-type-mec-books .widefat th,
+.mec-admin-dark-mode.post-type-mec_calendars .widefat td,
+.mec-admin-dark-mode.post-type-mec_calendars .widefat th,
+.mec-admin-dark-mode.post-type-mec-events .widefat td,
+.mec-admin-dark-mode.post-type-mec-events .widefat th {
+    border-color: #000;
+    color: #D2D2D2;
+}
+
+.mec-admin-dark-mode.post-type-mec_calendars ul#adminmenu a.wp-has-current-submenu:after,
+.mec-admin-dark-mode.post-type-mec_calendars ul#adminmenu>li.current>a.current:after,
+.mec-admin-dark-mode.post-type-mec-events ul#adminmenu a.wp-has-current-submenu:after,
+.mec-admin-dark-mode.post-type-mec-events ul#adminmenu>li.current>a.current:after,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings ul#adminmenu a.wp-has-current-submenu:after,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings ul#adminmenu>li.current>a.current:after {
+    border-right-color: #1f1f1f;
+}
+
+.mec-admin-dark-mode.post-type-mec_calendars .wp-heading-inline+.page-title-action,
+.mec-admin-dark-mode.post-type-mec_calendars .button,
+.mec-admin-dark-mode.post-type-mec-events .wp-heading-inline+.page-title-action,
+.mec-admin-dark-mode.post-type-mec-events .button,
+.mec-admin-dark-mode.post-type-mec-events .button-secondary,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .button,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .button-secondary {
+    color: #D2D2D2 !important;
+    border-color: #353535 !important;
+    background: #0000 !important;
+}
+
+.mec-admin-dark-mode.post-type-mec_calendars .button-secondary:hover,
+.mec-admin-dark-mode.post-type-mec_calendars .button.hover,
+.mec-admin-dark-mode.post-type-mec_calendars .button:hover,
+.mec-admin-dark-mode.post-type-mec-events .button-secondary:hover,
+.mec-admin-dark-mode.post-type-mec-events .button.hover,
+.mec-admin-dark-mode.post-type-mec-events .button:hover,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .button-secondary:hover,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .button.hover,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .button:hover {
+    background: #000 !important;
+    border-color: #333 !important;
+    color: #fff !important;
+}
+
+.mec-admin-dark-mode.post-type-mec-events .mec-form-row .button:not(.wp-color-result) {
+    height: 37px;
+    margin-top: 1px;
+    box-shadow: inset 0 2px 4px #282828, inset 0 -2px 4px rgba(0,0,0,.05), 0 2px 2px rgba(0,0,0,.06);
+}
+
+.mec-admin-dark-mode.post-type-mec-events .wp-color-result-text,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-color-result-text {
+    border-left: 1px solid #353535;
+    color: #D2D2D2;
+    background: #000;
+}
+
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings  #mec-search-settings {
+    color: #D2D2D2;
+    background: #282828;
+}
+
+.mec-admin-dark-mode.post-type-mec_calendars .wn-mec-select .option .wn-hover-img-sh img,
+.mec-admin-dark-mode.post-type-mec_calendars .mec-switcher input+label:after {
+    background: #282828;
+}

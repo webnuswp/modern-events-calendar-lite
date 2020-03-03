@@ -1,4 +1,11 @@
-﻿v 5.1.7 – 29 February 2020
+﻿v 5.1.8 – 3 March 2020
+- Added: Dark Mode
+- Added: Modal method for carousel skin
+- Added: Date formats in full calendar skin for list and yearly skins
+- Improved: security of settings menu.
+- Fixed: Wrong date in Southern hemisphere
+
+v 5.1.7 – 29 FEBRUARY 2020
 - Fixed: Improve ajax access for causing XSS security issues
 
 v 5.1.6 – 18 February 2020

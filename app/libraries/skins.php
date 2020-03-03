@@ -305,7 +305,7 @@ class MEC_skins extends MEC_base
                 'terms'=>explode(',', trim($this->atts['category'], ', '))
             );
         }
-        
+
         // Add event location to filter
         if(isset($this->atts['location']) and trim($this->atts['location'], ', ') != '')
         {
@@ -313,6 +313,17 @@ class MEC_skins extends MEC_base
                 'taxonomy'=>'mec_location',
                 'field'=>'term_id',
                 'terms'=>explode(',', trim($this->atts['location'], ', '))
+            );
+        }
+
+        // Add event address to filter
+        if(isset($this->atts['address']) and trim($this->atts['address'], ', ') != '')
+        {
+            $get_locations_id = $this->get_locations_id($this->atts['address']);
+            $tax_query[] = array(
+                'taxonomy'=>'mec_location',
+                'field'=>'term_id',
+                'terms'=>$get_locations_id,
             );
         }
         
@@ -1064,7 +1075,16 @@ class MEC_skins extends MEC_base
                 </div>';
             }
         }
-        
+        elseif($field == 'address_search')
+        {
+            if($type == 'address_input')
+            {
+                $output .= '<div class="mec-text-address-search">
+                    <i class="mec-sl-map"></i>
+                    <input type="search" value="'.(isset($this->atts['address']) ? $this->atts['address'] : '').'" id="mec_sf_address_s_'.$this->id.'" />
+                </div>';
+            }
+        }
         $output = apply_filters('mec_search_fields_to_box',$output,$field,$type,$this->atts,$this->id);
 
         return $output;
@@ -1077,6 +1097,9 @@ class MEC_skins extends MEC_base
 
         // Apply Text Search Query
         if(isset($sf['s'])) $atts['s'] = $sf['s'];
+
+        // Apply Address Search Query
+        if(isset($sf['address'])) $atts['address'] = $sf['address'];
         
         // Apply Category Query
         if(isset($sf['category']) and trim($sf['category'])) $atts['category'] = $sf['category'];
@@ -1123,5 +1146,31 @@ class MEC_skins extends MEC_base
         $atts = apply_filters('add_to_search_box_query',$atts, $sf );
         
         return $atts;
+    }
+    
+    /**
+     * Get Locations ID
+     * @param string $address
+     * @return array
+     */
+    public function get_locations_id($address = '')
+    {
+        if(!trim($address)) return array();
+
+        $address = str_replace(' ', ',', $address);
+        $locations = explode(',', $address);
+        $query = "SELECT `term_id` FROM `#__termmeta` WHERE `meta_key` = 'address'";
+
+        foreach($locations as $location)
+            if(trim($location)) $query .= " AND `meta_value` LIKE '%" . trim($location) . "%'";
+
+        $locations_id = $this->db->select($query, 'loadAssocList');
+
+        $return = array_map(function($value)
+        {
+            return intval($value['term_id']);
+        }, $locations_id);
+
+        return $return;
     }
 }

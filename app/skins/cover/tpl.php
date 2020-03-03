@@ -6,6 +6,11 @@ $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
 
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
+
 // Event is not valid!
 if(!isset($event->data)) return;
 
@@ -51,7 +56,7 @@ if ( !empty($event->data->speakers))
 do_action('mec_start_skin' , $this->id);
 do_action('mec_cover_skin_head');
 ?>
-<div class="mec-wrap <?php echo $event_colorskin . ' ' . $this->html_class; ?>">
+<div class="mec-wrap <?php echo $event_colorskin . ' ' . $this->html_class . ' ' . $set_dark; ?>">
 <?php
     $schema_settings = isset( $settings['schema'] ) ? $settings['schema'] : '';
     if($schema_settings == '1' ):

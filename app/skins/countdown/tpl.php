@@ -6,6 +6,11 @@ $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
 
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
+
 // Event is not valid!
 if(!isset($event->data)) return;
 
@@ -107,7 +112,7 @@ do_action('mec_countdown_skin_head');
 .mec-wrap .mec-event-countdown-style2, .mec-wrap .mec-event-countdown-style1, .mec-event-countdown-style1 .mec-event-countdown-part3 .mec-event-button {background: <?php echo $this->bg_color; ?> ;}
 .mec-wrap .mec-event-countdown-style1 .mec-event-countdown-part2:after { border-color: transparent transparent transparent<?php echo $this->bg_color; ?>;}
 </style>
-<div class="mec-wrap <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
+<div class="mec-wrap <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
 <?php
     $schema_settings = isset( $settings['schema'] ) ? $settings['schema'] : '';
     if($schema_settings == '1' ):

@@ -3851,6 +3851,9 @@ class MEC_feature_events extends MEC_base
     {
         if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_nonce')) exit();
 
+        // Current User is not Permitted
+        if(!current_user_can('publish_posts')) $this->main->response(array('success'=>0, 'code'=>'NO_ACCESS'));
+
         $mail_recipients_info = isset($_POST['mail_recipients_info']) ? sanitize_text_field($_POST['mail_recipients_info']) : '';
         $mail_subject = isset($_POST['mail_subject']) ? sanitize_text_field($_POST['mail_subject']) : '';
         $mail_content = isset($_POST['mail_content']) ? $_POST['mail_content'] : '';

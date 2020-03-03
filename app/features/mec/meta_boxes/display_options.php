@@ -504,31 +504,61 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_full_calendar_limit">Events per day</label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][full_calendar][limit]" id="mec_skin_full_calendar_limit" placeholder="eg. 6" value="<?php if(isset($sk_options_full_calendar['limit'])) esc_attr_e($sk_options_full_calendar['limit'], 'modern-events-calendar-lite'); ?>">
                 </div>
-                <div class="mec-form-row mec-switcher">
-                    <div class="mec-col-4">
-                        <label for="mec_skin_full_calendar_list"><?php _e('List View', 'modern-events-calendar-lite'); ?></label>
+                <div class="mec-skin-full-calendar-list-wrap">
+                    <div class="mec-form-row mec-switcher">
+                        <div class="mec-col-4">
+                            <label for="mec_skin_full_calendar_list"><?php _e('List View', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-col-4">
+                            <input type="hidden" name="mec[sk-options][full_calendar][list]" value="0" />
+                            <input type="checkbox" name="mec[sk-options][full_calendar][list]" id="mec_skin_full_calendar_list" onchange="mec_skin_full_calendar_df_mode(this)" value="1" <?php if(!isset($sk_options_full_calendar['list']) or (isset($sk_options_full_calendar['list']) and $sk_options_full_calendar['list'])) echo 'checked="checked"'; ?> />
+                            <label for="mec_skin_full_calendar_list"></label>
+                        </div>
                     </div>
-                    <div class="mec-col-4">
-                        <input type="hidden" name="mec[sk-options][full_calendar][list]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][full_calendar][list]" id="mec_skin_full_calendar_list" value="1" <?php if(!isset($sk_options_full_calendar['list']) or (isset($sk_options_full_calendar['list']) and $sk_options_full_calendar['list'])) echo 'checked="checked"'; ?> />
-                        <label for="mec_skin_full_calendar_list"></label>
+                    <?php
+                        $date_format_list = 'd M';
+                            
+                        if(isset($sk_options_full_calendar['date_format_list']) and trim($sk_options_full_calendar['date_format_list']) != '') $date_format_list = trim(trim($sk_options_full_calendar['date_format_list']));
+                        elseif(isset($sk_options_list['standard_date_format1']) and trim($sk_options_list['standard_date_format1']) != '') $date_format_list = trim($sk_options_list['standard_date_format1']);
+                    ?>
+                    <div class="mec-form-row mec-date-format <?php echo (!isset($sk_options_full_calendar['list']) or (isset($sk_options_full_calendar['list']) and $sk_options_full_calendar['list'])) ? '' : 'mec-util-hidden'; ?>">
+                        <label class="mec-col-4" for="mec_skin_full_calendar_date_format_list"><?php _e('List View Date Formats', 'modern-events-calendar-lite'); ?></label>
+                        <input type="text" class="mec-col-4" name="mec[sk-options][full_calendar][date_format_list]" id="mec_skin_full_calendar_date_format_list" value="<?php esc_attr_e($date_format_list); ?>"/>
                     </div>
                 </div>
-                <div class="mec-form-row mec-switcher">
-                    <div class="mec-col-4">
-                        <label for="mec_skin_full_calendar_yearly"><?php _e('Yearly View', 'modern-events-calendar-lite'); ?></label>
+                <div class="mec-skin-full-calendar-yearly-wrap">
+                    <div class="mec-form-row mec-switcher">
+                        <div class="mec-col-4">
+                            <label for="mec_skin_full_calendar_yearly"><?php _e('Yearly View', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-col-4">
+                            <input type="hidden" name="mec[sk-options][full_calendar][yearly]" value="0" />
+                            <?php
+                                if ($this->main->getPRO()) {
+                                    echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" onchange="mec_skin_full_calendar_df_mode(this)" value="1"';
+                                    if(!isset($sk_options_full_calendar['yearly']) or (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly'])) echo 'checked="checked"';
+                                } else {
+                                    echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" value="0"';
+                                }                       
+                            ?> />
+                            <label for="mec_skin_full_calendar_yearly"></label>
+                        </div>
                     </div>
-                    <div class="mec-col-4">
-                        <input type="hidden" name="mec[sk-options][full_calendar][yearly]" value="0" />
-                        <?php
-                            if ($this->main->getPRO()) {
-                                echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" value="1"';
-                                if(!isset($sk_options_full_calendar['yearly']) or (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly'])) echo 'checked="checked"';
-                            } else {
-                                echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" value="0"';
-                            }                       
-                        ?> />
-                        <label for="mec_skin_full_calendar_yearly"></label>
+                    <?php
+                        $date_format_yearly_1 = 'l';
+                        $date_format_yearly_2 = 'F j';
+                        $sk_options_yearly_view = isset($sk_options['yearly_view']) ? $sk_options['yearly_view'] : array();
+
+                        if(isset($sk_options_full_calendar['date_format_yearly_1']) and trim($sk_options_full_calendar['date_format_yearly_1']) != '') $date_format_yearly_1 = trim($sk_options_full_calendar['date_format_yearly_1']);
+                        elseif(isset($sk_options_yearly_view['modern_date_format1']) and trim($sk_options_yearly_view['modern_date_format1']) != '') $date_format_yearly_1 = trim($sk_options_yearly_view['modern_date_format1']);
+
+                        if(isset($sk_options_full_calendar['date_format_yearly_2']) and trim($sk_options_full_calendar['date_format_yearly_2']) != '') $date_format_yearly_2 = trim($sk_options_full_calendar['date_format_yearly_2']);
+                        elseif(isset($sk_options_yearly_view['modern_date_format2']) and trim($sk_options_yearly_view['modern_date_format2']) != '') $date_format_yearly_2 = trim($sk_options_yearly_view['modern_date_format2']);
+                    ?>
+                    <div class="mec-form-row mec-date-format <?php echo (!isset($sk_options_full_calendar['yearly']) or (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly'])) ? '' : 'mec-util-hidden'; ?>">
+                        <label class="mec-col-4" for="mec_skin_full_calendar_date_format_yearly_1"><?php _e('Yearly View Date Formats', 'modern-events-calendar-lite'); ?></label>
+                        <input type="text" class="mec-col-2" name="mec[sk-options][full_calendar][date_format_yearly_1]" id="mec_skin_full_calendar_date_format_yearly_1" value="<?php esc_attr_e($date_format_yearly_1); ?>"/>
+                        <input type="text" class="mec-col-2" name="mec[sk-options][full_calendar][date_format_yearly_2]" id="mec_skin_full_calendar_date_format_yearly_2" value="<?php esc_attr_e($date_format_yearly_2); ?>"/>
                     </div>
                 </div>
                 <div class="mec-form-row">
@@ -1222,6 +1252,9 @@ $events = $this->main->get_events();
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_carousel_autoplay"><?php _e('Auto Play Time', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][carousel][autoplay]" id="mec_skin_carousel_autoplay" placeholder="<?php _e('eg. 3000 default is 3 second', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_carousel['autoplay']) && $sk_options_carousel['autoplay'] != '' ) echo $sk_options_carousel['autoplay']; ?>" />
+                </div>
+                <div class="mec-sed-methode-container">
+                    <?php echo $this->sed_method_field('carousel', (isset($sk_options_carousel['sed_method']) ? $sk_options_carousel['sed_method'] : 0), (isset($sk_options_carousel['image_popup']) ? $sk_options_carousel['image_popup'] : 0)); ?>
                 </div>
                 <div class="mec-form-row mec-carousel-archive-link">
                     <label class="mec-col-4" for="mec_skin_carousel_archive_link"><?php _e('Archive Link', 'modern-events-calendar-lite'); ?></label>

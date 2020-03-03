@@ -238,7 +238,10 @@ class MEC_skin_single extends MEC_skins
             $md_start = $this->main->get_start_of_multiple_days($this->id, $occurrence);
             if($md_start) $occurrence = $md_start;
 
-            $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+            $new_occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+            if(in_array($repeat_type, array('monthly')) and date('m', strtotime($new_occurrence)) != date('m', strtotime($occurrence))) $new_occurrence = date('Y-m-d', strtotime($occurrence));
+
+            $occurrence = $new_occurrence;
         }
         else $occurrence = NULL;
 
@@ -637,6 +640,7 @@ class MEC_skin_single extends MEC_skins
      */
     function display_date_widget($event)
     {
+        $this->date_format1 = (isset($this->settings['single_date_format1']) and trim($this->settings['single_date_format1'])) ? $this->settings['single_date_format1'] : 'M d Y';
         $occurrence = (isset($event->date['start']['date']) ? $event->date['start']['date'] : (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : ''));
         $occurrence_end_date = trim($occurrence) ? $this->main->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
         $midnight_event = $this->main->is_midnight_event($event);

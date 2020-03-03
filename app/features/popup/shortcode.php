@@ -419,15 +419,14 @@ jQuery(document).ready(function()
 
         // Open Lightbox
         lity('#mec_popup_shortcode');
-        
 
         // Do Step
         mec_shortcode_step(1, 'next');
     });
 
-
     // Lightbox Open
-    jQuery(document).on('lity:open', function(event, instance) {
+    jQuery(document).on('lity:open', function(event, instance)
+    {
         jQuery('.lity').addClass('mec-add-shortcode-popup');
         jQuery('body').css('overflow', 'hidden');
         jQuery('.lity-wrap').removeAttr('data-lity-close');
@@ -441,7 +440,6 @@ jQuery(document).ready(function()
         jQuery(".mec-steps-content.mec-steps-content-3 .mec-skin-styles").getNiceScroll().hide();
         jQuery("#mec-select-skin-popup-scrollbar .nicescroll-cursors").css('z-index', '-1');
         jQuery(".mec-steps-content.mec-steps-content-2 ul").getNiceScroll().hide();
-        
     });
 
     // Previous

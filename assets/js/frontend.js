@@ -72,6 +72,10 @@ var mecSingleEventDisplayer = {
         $("#mec_sf_s_" + settings.id).on('change', function (e) {
             search();
         });
+       
+        $("#mec_sf_address_s_" + settings.id).on('change', function (e) {
+            search();
+        });
         
         var mec_sf_month_selector = "#mec_sf_month_" + settings.id;
         var  mec_sf_year_selector = "#mec_sf_year_" + settings.id;
@@ -108,6 +112,7 @@ var mecSingleEventDisplayer = {
 
         function search() {
             var s = $("#mec_sf_s_" + settings.id).length ? $("#mec_sf_s_" + settings.id).val() : '';
+            var address = $("#mec_sf_address_s_" + settings.id).length ? $("#mec_sf_address_s_" + settings.id).val() : '';
             var category = $("#mec_sf_category_" + settings.id).length ? $("#mec_sf_category_" + settings.id).val() : '';
             var location = $("#mec_sf_location_" + settings.id).length ? $("#mec_sf_location_" + settings.id).val() : '';
             var organizer = $("#mec_sf_organizer_" + settings.id).length ? $("#mec_sf_organizer_" + settings.id).val() : '';
@@ -135,7 +140,7 @@ var mecSingleEventDisplayer = {
                 }
             }
 
-            var atts = settings.atts + '&sf[s]=' + s + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
+            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
             settings.callback(atts);
         }
     };
@@ -2821,9 +2826,14 @@ var mecSingleEventDisplayer = {
         }, options);
 
         // Init Sliders
-        initSlider();
+        initSlider(settings);
 
-        function initSlider() {
+        // Single Event Method
+        if (settings.sed_method != '0') {
+            sed(settings);
+        }
+
+        function initSlider(settings) {
             // Check RTL website
             if ($('body').hasClass('rtl')) {
                 var owl_rtl = true;
@@ -2929,6 +2939,18 @@ var mecSingleEventDisplayer = {
         }
     };
 
+    function sed(settings) {
+        // Single Event Display
+        $("#mec_skin_" + settings.id + " .mec-event-carousel-title a, #mec_skin_" + settings.id + " .mec-booking-button, #mec_skin_" + settings.id + " .mec-event-button").off('click').on('click', function (e) {
+            e.preventDefault();
+            var href = $(this).attr('href');
+
+            var id = $(this).data('event-id');
+            var occurrence = get_parameter_by_name('occurrence', href);
+
+            mecSingleEventDisplayer.getSinglePage(id, occurrence, settings.ajax_url, settings.sed_method, settings.image_popup);
+        });
+    }
 }(jQuery));
 
 // MEC SLIDER VIEW PLUGIN

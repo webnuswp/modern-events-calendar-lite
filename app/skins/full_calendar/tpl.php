@@ -30,15 +30,21 @@ if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
 
 $styling = $this->main->get_styling();
+
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
+
 do_action('mec_start_skin' , $this->id);
 do_action('mec_full_skin_head');
 ?>
-<div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin; ?> mec-full-calendar-wrap">
+<div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin . ' ' . $set_dark; ?> mec-full-calendar-wrap">
     
     <div class="mec-search-form mec-totalcal-box">
         <?php
-        if($this->sf_status): ?>        
+        if($this->sf_status): ?>
             <?php
                 $sf_month_filter = (isset($this->sf_options['month_filter']) ? $this->sf_options['month_filter'] : array());
                 $sf_category = (isset($this->sf_options['category']) ? $this->sf_options['category'] : array());
@@ -48,6 +54,7 @@ do_action('mec_full_skin_head');
                 $sf_tag = (isset($this->sf_options['tag']) ? $this->sf_options['tag'] : array());
                 $sf_label = (isset($this->sf_options['label']) ? $this->sf_options['label'] : array());
                 $sf_text_search = (isset($this->sf_options['text_search']) ? $this->sf_options['text_search'] : array());
+                $sf_address_search = (isset($this->sf_options['address_search']) ? $this->sf_options['address_search'] : array());
 
                 $sf_month_filter_status = (isset($sf_month_filter['type']) and trim($sf_month_filter['type'])) ? true : false;
                 $sf_category_status = (isset($sf_category['type']) and trim($sf_category['type'])) ? true : false;
@@ -57,6 +64,7 @@ do_action('mec_full_skin_head');
                 $sf_tag_status = (isset($sf_tag['type']) and trim($sf_tag['type'])) ? true : false;
                 $sf_label_status = (isset($sf_label['type']) and trim($sf_label['type'])) ? true : false;
                 $sf_text_search_status = (isset($sf_text_search['type']) and trim($sf_text_search['type'])) ? true : false;
+                $sf_address_search_status = (isset($sf_address_search['type']) and trim($sf_address_search['type'])) ? true : false;
 
                 // Status of Speakers Feature
                 $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
@@ -98,6 +106,10 @@ do_action('mec_full_skin_head');
             <div class="col-md-<?php echo $sf_columns; ?>">
                 <?php if($sf_text_search_status): ?>
                     <?php echo $this->sf_search_field('text_search', $sf_text_search); ?>
+                <?php endif; ?>
+                
+                <?php if($sf_address_search_status): ?>
+                    <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
                 <?php endif; ?>
             </div>        
         <?php endif; ?>

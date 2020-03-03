@@ -4,6 +4,12 @@ defined('MECEXEC') or die();
 
 // Get layout path
 $render_path = $this->get_render_path();
+$styling = $this->main->get_styling();
+
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
 
 ob_start();
 include $render_path;
@@ -44,15 +50,21 @@ else $this->factory->params('footer', $javascript);
 do_action('mec_start_skin' , $this->id);
 do_action('mec_grid_skin_head');
 ?>
-<div class="mec-wrap mec-skin-grid-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
+<div class="mec-wrap mec-skin-grid-container <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
     
     <?php if($this->sf_status) echo $this->sf_search_form(); ?>
     
     <?php if($this->found): ?>
     <?php if ( $this->map_on_top == '1' ) : ?>
         <div class="mec-wrap mec-skin-map-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
-            <div class="mec-googlemap-skin" id="mec_googlemap_canvas<?php echo $this->id; ?>" style="height: 500px;"></div>
+            <div class="mec-googlemap-skin" id="mec_googlemap_canvas<?php echo $this->id; ?>" style="height: 500px;">
+            <?php 
+            $map = isset($this->settings['default_maps_view'])?$this->settings['default_maps_view']:'google';
+            do_action( 'mec_map_inner_element_tools' ,array('map'=>$map));
+            ?>
+            </div>
             <input type="hidden" id="gmap-data" value="">
+        </div>
         </div>
         <?php endif; ?>
     <div class="mec-skin-grid-events-container" id="mec_skin_events_<?php echo $this->id; ?>">

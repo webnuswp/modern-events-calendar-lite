@@ -68,23 +68,25 @@ do_action('mec_map_skin_head');
     
 </div>
 <?php else: ?>
-<div class="container">
+<div class="mec-wrap">
     <div class="row">
-        <div class="col-sm-3">
-            <div class="mec-wrap mec-skin-map-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
+        <div class="col-sm-12">
+            <div class="mec-skin-map-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
                 <?php if($this->sf_status) echo $this->sf_search_form(); ?>
             </div>
         </div>
-        <div class="col-sm-3" id="mec-map-skin-side-<?php echo $this->id; ?>"></div>
-        <div class="col-sm">
+    </div>
+    <div class="row mec-map-events-wrap">
+        <div class="col-sm-7">
             <?php if(count($this->events)): ?>
-                <div class="mec-googlemap-skin" id="mec_map_canvas<?php echo $this->id; ?>" style="height: 500px;">
+                <div class="mec-googlemap-skin" id="mec_map_canvas<?php echo $this->id; ?>" style="height: 600px;">
                     <?php do_action( 'mec_map_inner_element_tools' ,$settings); ?>
                 </div>
             <?php else: ?>
                 <p class="mec-error"><?php _e('No events found!', 'modern-events-calendar-lite'); ?></p>
             <?php endif; ?>
         </div>
+        <div class="col-sm-5" id="mec-map-skin-side-<?php echo $this->id; ?>"></div>
     </div>
 </div>
 <?php endif; ?>

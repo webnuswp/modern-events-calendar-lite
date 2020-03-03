@@ -108,6 +108,21 @@ if(is_array($fonts))
                             </div>
                         </div>
 
+                        <div class="mec-form-row">
+                            <label class="mec-col-3" for="mec_styling_dark_mode"><?php _e('Dark Mode', 'modern-events-calendar-lite'); ?></label>
+                            <div class="mec-col-8">
+                                <input type="hidden" name="mec[styling][dark_mode]" value="0" />
+                                <input value="1" type="checkbox" id="mec_styling_dark_mode" name="mec[styling][dark_mode]" <?php if(isset($styling['dark_mode']) and $styling['dark_mode']) echo 'checked="checked"'; ?> />
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Dark Mode', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Enable it to turn on dark mode', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                        </div>
+
                         <!-- Advanced Options -->
                         <h4 class="mec-form-subtitle"><?php esc_html_e('Advanced Color Options (shortcodes)', 'modern-events-calendar-lite' ); ?></h4>
                         <div class="mec-form-row">

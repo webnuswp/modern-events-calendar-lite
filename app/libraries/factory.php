@@ -285,6 +285,9 @@ class MEC_factory extends MEC_base
 
         // Thickbox
         wp_enqueue_media();
+
+        // Editor
+        wp_enqueue_editor();
     
         // Include WordPress color picker CSS file
         wp_enqueue_style('wp-color-picker');
@@ -954,6 +957,49 @@ class MEC_factory extends MEC_base
             delete_option('mec_options');
             delete_option('mec_version');
         }
+    }
+
+    /**
+     * Remove MEC from a blog
+     * @author Webnus <info@webnus.biz>
+     * @return int $dark
+     */    
+    function mec_body_class( $dark )
+    {
+
+        global $post;
+        $styling = $this->main->get_styling();
+
+        $dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+
+        if ( $dark_mode == 1 )
+        {
+            $dark[] = 'mec-dark-mode';
+        }
+        return $dark;
+
+    }
+
+    /**
+     * Remove MEC from a blog
+     * @author Webnus <info@webnus.biz>
+     * @return int $darkadmin
+     */ 
+    function mec_admin_body_class( $darkadmin)
+    {
+
+        global $post;
+        $styling = $this->main->get_styling();
+
+        $darkadmin_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+
+        if ( $darkadmin_mode == 1 )
+        {
+            $darkadmin = 'mec-admin-dark-mode';
+        }
+
+        return $darkadmin;
+
     }
 
 }

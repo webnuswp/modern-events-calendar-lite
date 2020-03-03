@@ -4,9 +4,15 @@ defined('MECEXEC') or die();
 
 $has_events = array();
 $settings = $this->main->get_settings();
+
+$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
+else: $set_dark ='';
+endif;
+
 ?>
 <?php if($this->style == 'modern'): ?>
-<div class="mec-timetable-day-events mec-clear mec-weekly-view-dates-events">
+<div class="mec-timetable-day-events mec-clear mec-weekly-view-dates-events <?php echo $set_dark; ?>">
     <?php foreach($this->events as $date=>$events): $week = $this->week_of_days[$date]; ?>
     <?php
         if(!isset($has_events[$week]))
@@ -121,7 +127,7 @@ $settings = $this->main->get_settings();
 </div>
 <div class="mec-event-footer"></div>
 <?php elseif($this->style == 'clean'): ?>
-<div class="mec-timetable-t2-wrap">
+<div class="mec-timetable-t2-wrap <?php echo $set_dark; ?>">
     <?php foreach($this->events as $date=>$events): ?>
     <div class="mec-timetable-t2-col mec-timetable-col-<?php echo $this->number_of_days; ?>">
         <div class="mec-ttt2-title"> <?php echo date_i18n('l', strtotime($date)); ?> </div>
@@ -178,7 +184,7 @@ $settings = $this->main->get_settings();
     <?php endforeach; ?>
 </div>
 <?php elseif($this->style == 'classic'): ?>
-<div class="mec-timetable-t3-wrap">
+<div class="mec-timetable-t3-wrap <?php echo $set_dark; ?>">
     <table>
         <thead>
             <tr>

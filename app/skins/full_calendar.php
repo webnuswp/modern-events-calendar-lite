@@ -150,6 +150,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['yearly_view']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
                 $atts['sk-options']['yearly_view']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
                 $atts['sk-options']['yearly_view']['limit'] = isset($this->skin_options['limit']) ? $this->skin_options['limit'] : 12;
+                $atts['sk-options']['yearly_view']['modern_date_format1'] = isset($this->skin_options['date_format_yearly_1']) ? $this->skin_options['date_format_yearly_1'] : 'l';
+                $atts['sk-options']['yearly_view']['modern_date_format2'] = isset($this->skin_options['date_format_yearly_2']) ? $this->skin_options['date_format_yearly_2'] : 'F j';
                 $atts['sf_status'] = false;
 
                 $output = $this->render->vyear($atts);
@@ -210,6 +212,7 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['list']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
                 $atts['sk-options']['list']['display_price'] = isset($this->skin_options['display_price']) ? $this->skin_options['display_price'] : 0;
                 $atts['sk-options']['list']['limit'] = isset($this->skin_options['limit']) ? $this->skin_options['limit'] : 12;
+                $atts['sk-options']['list']['standard_date_format1'] = isset($this->skin_options['date_format_list']) ? $this->skin_options['date_format_list'] : 'd M';
                 $atts['sf_status'] = false;
 
                 $output = $this->render->vlist($atts);

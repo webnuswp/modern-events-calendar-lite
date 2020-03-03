@@ -757,6 +757,9 @@ class MEC_render extends MEC_base
             }
             elseif($repeat_type == 'monthly')
             {
+                // Start from Event Start Date
+                if(strtotime($start_date['date']) > strtotime($original_start_date)) $original_start_date = $start_date['date'];
+
                 $event_days = explode(',', trim($event->mec->day, ', '));
                 
                 $event_start_day = $event_days[0];
@@ -787,7 +790,7 @@ class MEC_render extends MEC_base
                     $start_date = $year.'-'.$month.'-'.$day;
                     $end_time = $hour.':'.$minutes.$ampm;
 
-                    if(strtotime($start_date.' '.$end_time) < current_time('timestamp', 0))
+                    if((strtotime($start_date.' '.$end_time) < current_time('timestamp', 0)) or (strtotime($start_date.' '.$end_time) < strtotime($original_start_date)))
                     {
                         $i++;
                         continue;
