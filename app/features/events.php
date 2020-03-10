@@ -54,6 +54,7 @@ class MEC_feature_events extends MEC_base
         $this->factory->action('init', array($this, 'register_endpoints'));
         $this->factory->action('add_meta_boxes_' . $this->PT, array($this, 'remove_taxonomies_metaboxes'));
         $this->factory->action('save_post', array($this, 'save_event'), 10);
+        $this->factory->action('edit_post', array($this, 'quick_edit'), 10);
         $this->factory->action('delete_post', array($this, 'delete_event'), 10);
         $this->factory->action('transition_post_status', array($this, 'event_published'), 10 , 3);
 
@@ -3154,6 +3155,21 @@ class MEC_feature_events extends MEC_base
         }
     }
 
+    public function quick_edit($post_id)
+    {
+        // Validating And Verifying
+        if((!isset($_POST['screen']) || trim($_POST['screen']) != 'edit-mec-events') and !check_ajax_referer('inlineeditnonce', '_inline_edit', false)) return;
+
+        $mec_locations = (isset($_POST['tax_input']['mec_location']) and trim($_POST['tax_input']['mec_location'])) ? array_filter(explode(',', sanitize_text_field($_POST['tax_input']['mec_location']))) : NULL;
+        $mec_organizers = (isset($_POST['tax_input']['mec_organizer']) and trim($_POST['tax_input']['mec_organizer'])) ? array_filter(explode(',', sanitize_text_field($_POST['tax_input']['mec_organizer']))) : NULL;
+
+        // MEC Locations Quick Edit
+        $this->mec_locations_edit($post_id, $mec_locations, 'quick_edit');
+
+        // MEC Organizers Quick Edit
+        $this->mec_organizers_edit($post_id, $mec_organizers, 'quick_edit');
+    }
+
      /**
      * Publish a event
      * @author Webnus <info@webnus.biz>
@@ -3658,62 +3674,95 @@ class MEC_feature_events extends MEC_base
 
         $mec_locations = (isset($_GET['tax_input']['mec_location']) and trim($_GET['tax_input']['mec_location'])) ? array_filter(explode(',', sanitize_text_field($_GET['tax_input']['mec_location']))) : NULL;
         $mec_organizers = (isset($_GET['tax_input']['mec_organizer']) and trim($_GET['tax_input']['mec_organizer'])) ? array_filter(explode(',', sanitize_text_field($_GET['tax_input']['mec_organizer']))) : NULL;
+        $terms = get_terms(array(
+            'taxonomy' => array('mec_location', 'mec_organizer'),
+        ));
 
         foreach($post_ids as $post_id)
         {
-            // MEC Location Bulk Edit
-            if(!is_null($mec_locations))
+            foreach($terms as $term)
             {
-                $term_location = current($mec_locations);
-                if(!term_exists($term_location, 'mec_location')) wp_insert_term($term_location, 'mec_location', array());
-
-                $location_id =  get_term_by('name', $term_location, 'mec_location')->term_id;
-                update_post_meta($post_id, 'mec_location_id', $location_id);
-
-                if(count($mec_locations) > 1)
-                {
-                    // Additional locations
-                    $additional_location_ids = array();
-
-                    for($i = 1; $i < count($mec_locations); $i++)
-                    {
-                        if(!term_exists($mec_locations[$i], 'mec_location')) wp_insert_term($mec_locations[$i], 'mec_location', array());
-
-                        $additional_location_id =  get_term_by('name', $mec_locations[$i], 'mec_location')->term_id;
-                        wp_set_object_terms($post_id, (int)$additional_location_id, 'mec_location', true);
-                        $additional_location_ids[] = (int)$additional_location_id;
-                    }
-
-                    update_post_meta($post_id, 'mec_additional_location_ids', $additional_location_ids);
-                }
+                $term_objects = get_objects_in_term($term->term_id, $term->taxonomy);
+                if(in_array($post_id, $term_objects)) wp_remove_object_terms($post_id, $term->term_id, $term->taxonomy);
             }
 
-            // MEC Organizer Bulk Edit
-            if(!is_null($mec_organizers))
+            // MEC Locations Bulk Edit
+            $this->mec_locations_edit($post_id, $mec_locations);
+
+            // MEC Organizers Bulk Edit
+            $this->mec_organizers_edit($post_id, $mec_organizers);
+        }
+    }
+
+    // MEC Locations Edit.
+    public function mec_locations_edit($post_id, $mec_locations, $action = 'bulk_edit')
+    {
+        if(!is_null($mec_locations))
+        {
+            $term_location = current($mec_locations);
+            if(!term_exists($term_location, 'mec_location')) wp_insert_term($term_location, 'mec_location', array());
+
+            $location_id =  get_term_by('name', $term_location, 'mec_location')->term_id;
+            wp_set_object_terms($post_id, (int)$location_id, 'mec_location');
+            update_post_meta($post_id, 'mec_location_id', $location_id);
+
+            if(count($mec_locations) > 1)
             {
-                $term_organizer = current($mec_organizers);
-                if(!term_exists($term_organizer, 'mec_organizer')) wp_insert_term($term_organizer, 'mec_organizer', array());
+                // Additional locations
+                $additional_location_ids = array();
 
-                $organizer_id =  get_term_by('name', current($mec_organizers), 'mec_organizer')->term_id;
-                update_post_meta($post_id, 'mec_organizer_id', $organizer_id);
-
-                if(count($mec_organizers) > 1)
+                for($i = 1; $i < count($mec_locations); $i++)
                 {
-                    // Additional organizers
-                    $additional_organizer_ids = array();
+                    if(!term_exists($mec_locations[$i], 'mec_location')) wp_insert_term($mec_locations[$i], 'mec_location', array());
 
-                    for($i = 1; $i < count($mec_organizers); $i++)
-                    {
-                        if(!term_exists($mec_organizers[$i], 'mec_organizer')) wp_insert_term($mec_organizers[$i], 'mec_organizer', array());
-
-                        $additional_organizer_id =  get_term_by('name', $mec_organizers[$i], 'mec_organizer')->term_id;
-                        wp_set_object_terms($post_id, (int)$additional_organizer_id, 'mec_organizer', true);
-                        $additional_organizer_ids[] = (int)$additional_organizer_id;
-                    }
-
-                    update_post_meta($post_id, 'mec_additional_organizer_ids', $additional_organizer_ids);
+                    $additional_location_id =  get_term_by('name', $mec_locations[$i], 'mec_location')->term_id;
+                    wp_set_object_terms($post_id, (int)$additional_location_id, 'mec_location', true);
+                    $additional_location_ids[] = (int)$additional_location_id;
                 }
+
+                update_post_meta($post_id, 'mec_additional_location_ids', $additional_location_ids);
             }
+        }
+        elseif($action == 'quick_edit')
+        {
+            update_post_meta($post_id, 'mec_location_id', 0);
+            update_post_meta($post_id, 'mec_additional_location_ids', array());
+        }
+    }
+
+    // MEC Organizers Edit.
+    public function mec_organizers_edit($post_id, $mec_organizers, $action = 'bulk_edit')
+    {
+        if(!is_null($mec_organizers))
+        {
+            $term_organizer = current($mec_organizers);
+            if(!term_exists($term_organizer, 'mec_organizer')) wp_insert_term($term_organizer, 'mec_organizer', array());
+
+            $organizer_id =  get_term_by('name', current($mec_organizers), 'mec_organizer')->term_id;
+            wp_set_object_terms($post_id, (int)$organizer_id, 'mec_organizer');
+            update_post_meta($post_id, 'mec_organizer_id', $organizer_id);
+
+            if(count($mec_organizers) > 1)
+            {
+                // Additional organizers
+                $additional_organizer_ids = array();
+
+                for($i = 1; $i < count($mec_organizers); $i++)
+                {
+                    if(!term_exists($mec_organizers[$i], 'mec_organizer')) wp_insert_term($mec_organizers[$i], 'mec_organizer', array());
+
+                    $additional_organizer_id =  get_term_by('name', $mec_organizers[$i], 'mec_organizer')->term_id;
+                    wp_set_object_terms($post_id, (int)$additional_organizer_id, 'mec_organizer', true);
+                    $additional_organizer_ids[] = (int)$additional_organizer_id;
+                }
+
+                update_post_meta($post_id, 'mec_additional_organizer_ids', $additional_organizer_ids);
+            }
+        }
+        elseif($action == 'quick_edit')
+        {
+            update_post_meta($post_id, 'mec_organizer_id', 0);
+            update_post_meta($post_id, 'mec_additional_organizer_ids', array());
         }
     }
 

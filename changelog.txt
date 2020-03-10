@@ -1,11 +1,26 @@
-﻿v 5.1.8 – 3 March 2020
+﻿v 5.2.0 – 10 March 2020
+- Added: Add Event Wizard - hard-refresh is required
+- Added: Custom fields to the booking edit menu (pro)
+- Added: A validation for payment gateway options - hard-refresh is required (pro)
+- Added: Address filter
+- Increased: Number of dates in booking edit menu (pro)
+- Fixed: Weather module (pro)
+- Fixed: An issue in date i18n of related events module
+- Fixed: Bulk Edit of events
+- Fixed: A date focus issue on timetable skin
+- Fixed: User Event Publishing notification
+- Fixed: Weekly view of full calendar skin
+- Fixed: Widgets view styles
+- Fixed: Some minor issues
+
+v 5.1.8 – 3 March 2020
 - Added: Dark Mode
 - Added: Modal method for carousel skin
 - Added: Date formats in full calendar skin for list and yearly skins
 - Improved: security of settings menu.
 - Fixed: Wrong date in Southern hemisphere
 
-v 5.1.7 – 29 FEBRUARY 2020
+v 5.1.7 – 29 February 2020
 - Fixed: Improve ajax access for causing XSS security issues
 
 v 5.1.6 – 18 February 2020

@@ -8,7 +8,7 @@ $styling = $this->main->get_styling();
 // colorskin
 $color = '';
 
-function mec_hex2rgb( $cc ) {
+function mec_dyn_hex2rgb( $cc ) {
 	if ( $cc[0] == '#' ) {
 			$cc = substr( $cc, 1 );
 	}
@@ -30,7 +30,7 @@ if(isset($styling['color']) && $styling['color']) $color = $styling['color'];
 elseif(isset($styling['mec_colorskin'])) $color = $styling['mec_colorskin'];
 
 $rgb_color = '64,217,241';
-if ( !empty($color)) $rgb_color = mec_hex2rgb($color);
+if ( !empty($color)) $rgb_color = mec_dyn_hex2rgb($color);
 
 // Typography
 $mec_h_fontfamily_arr = $mec_p_fontfamily_arr = $fonts_url = $mec_container_normal_width = $mec_container_large_width = '';

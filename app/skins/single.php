@@ -77,8 +77,8 @@ class MEC_skin_single extends MEC_skins
      */    
     public function display_related_posts_widget($event_id)
     {
-        if ( !isset( $this->settings['related_events'] ) ) return;
-        if ( isset( $this->settings['related_events'] ) && $this->settings['related_events'] != '1' ) return;
+        if(!isset( $this->settings['related_events'])) return;
+        if(isset( $this->settings['related_events']) && $this->settings['related_events'] != '1') return;
 
         $related_args = array(
             'post_type' => 'mec-events',
@@ -89,7 +89,7 @@ class MEC_skin_single extends MEC_skins
             'tax_query' => array(),
         );
 
-        if (isset($this->settings['related_events_basedon_category']) && $this->settings['related_events_basedon_category'] == 1)
+        if(isset($this->settings['related_events_basedon_category']) && $this->settings['related_events_basedon_category'] == 1)
         {
             $post_terms = wp_get_object_terms($event_id, 'mec_category', array('fields'=>'slugs'));
             $related_args['tax_query'][] = array(
@@ -98,7 +98,8 @@ class MEC_skin_single extends MEC_skins
 				'terms' => $post_terms
 			);
         }
-        if (isset($this->settings['related_events_basedon_organizer']) && $this->settings['related_events_basedon_organizer'] == 1)
+
+        if(isset($this->settings['related_events_basedon_organizer']) && $this->settings['related_events_basedon_organizer'] == 1)
         {
             $post_terms = wp_get_object_terms($event_id, 'mec_organizer', array('fields'=>'slugs'));
             $related_args['tax_query'][] = array(
@@ -107,7 +108,8 @@ class MEC_skin_single extends MEC_skins
 				'terms' => $post_terms
 			);
         }
-        if (isset($this->settings['related_events_basedon_location']) && $this->settings['related_events_basedon_location'] == 1)
+
+        if(isset($this->settings['related_events_basedon_location']) && $this->settings['related_events_basedon_location'] == 1)
         {
             $post_terms = wp_get_object_terms($event_id, 'mec_location', array('fields'=>'slugs'));
             $related_args['tax_query'][] = array(
@@ -116,7 +118,8 @@ class MEC_skin_single extends MEC_skins
 				'terms' => $post_terms
 			);
         }
-        if (isset($this->settings['related_events_basedon_speaker']) && $this->settings['related_events_basedon_speaker'] == 1)
+
+        if(isset($this->settings['related_events_basedon_speaker']) && $this->settings['related_events_basedon_speaker'] == 1)
         {
             $post_terms = wp_get_object_terms($event_id, 'mec_speaker', array('fields'=>'slugs'));
             $related_args['tax_query'][] = array(
@@ -125,7 +128,8 @@ class MEC_skin_single extends MEC_skins
 				'terms' => $post_terms
 			);
         }
-        if (isset($this->settings['related_events_basedon_label']) && $this->settings['related_events_basedon_label'] == 1)
+
+        if(isset($this->settings['related_events_basedon_label']) && $this->settings['related_events_basedon_label'] == 1)
         {
             $post_terms = wp_get_object_terms($event_id, 'mec_label', array('fields'=>'slugs'));
             $related_args['tax_query'][] = array(
@@ -134,7 +138,8 @@ class MEC_skin_single extends MEC_skins
 				'terms' => $post_terms
 			);
         }
-        if (isset($this->settings['related_events_basedon_tag']) && $this->settings['related_events_basedon_tag'] == 1)
+
+        if(isset($this->settings['related_events_basedon_tag']) && $this->settings['related_events_basedon_tag'] == 1)
         {
             $post_terms = wp_get_object_terms($event_id, 'post_tag', array('fields'=>'slugs'));
             $related_args['tax_query'][] = array(
@@ -146,53 +151,51 @@ class MEC_skin_single extends MEC_skins
 
         $related_args['tax_query']['relation'] = 'OR';
 
-        $related_args = apply_filters('mec_add_to_related_post_query', $related_args,$event_id);
-
+        $related_args = apply_filters('mec_add_to_related_post_query', $related_args, $event_id);
         $query = new WP_Query($related_args);
 
-        if ( $query->have_posts() ):
-            $start_hour = get_post_meta( get_the_ID(), 'mec_start_time_hour', true);
-            $start_min = (get_post_meta( get_the_ID(), 'mec_start_time_minutes', true) < '10') ? '0' . get_post_meta( get_the_ID(), 'mec_start_time_minutes', true) : get_post_meta( get_the_ID(), 'mec_start_time_minutes', true);
-            $start_ampm = get_post_meta( get_the_ID(), 'mec_start_time_ampm', true);
-            $end_hour = get_post_meta( get_the_ID(), 'mec_end_time_hour', true);
-            $end_min = (get_post_meta( get_the_ID(), 'mec_end_time_minutes', true) < '10') ? '0' . get_post_meta( get_the_ID(), 'mec_end_time_minutes', true) : get_post_meta( get_the_ID(), 'mec_end_time_minutes', true);
-            $end_ampm = get_post_meta( get_the_ID(), 'mec_end_time_ampm', true);
-            $time =  ( get_post_meta( get_the_ID(), 'mec_allday', true) == '1' ) ? __('All Day' , 'modern-events-calendar-lite') : $start_hour . ':' .  $start_min . ' ' . $start_ampm . ' - ' . $end_hour . ':' .  $end_min . ' ' . $end_ampm;
+        if($query->have_posts())
+        {
+            $start_hour = get_post_meta(get_the_ID(), 'mec_start_time_hour', true);
+            $start_min = (get_post_meta(get_the_ID(), 'mec_start_time_minutes', true) < '10') ? '0' . get_post_meta(get_the_ID(), 'mec_start_time_minutes', true) : get_post_meta(get_the_ID(), 'mec_start_time_minutes', true);
+            $start_ampm = get_post_meta(get_the_ID(), 'mec_start_time_ampm', true);
+            $end_hour = get_post_meta(get_the_ID(), 'mec_end_time_hour', true);
+            $end_min = (get_post_meta(get_the_ID(), 'mec_end_time_minutes', true) < '10') ? '0' . get_post_meta(get_the_ID(), 'mec_end_time_minutes', true) : get_post_meta(get_the_ID(), 'mec_end_time_minutes', true);
+            $end_ampm = get_post_meta(get_the_ID(), 'mec_end_time_ampm', true);
+            $time = (get_post_meta(get_the_ID(), 'mec_allday', true) == '1') ? __('All Day', 'modern-events-calendar-lite') : $start_hour . ':' . $start_min . ' ' . $start_ampm . ' - ' . $end_hour . ':' . $end_min . ' ' . $end_ampm;
             ?>
             <div class="row mec-related-events-wrap">
-                <h3 class="mec-rec-events-title"><?php echo __('Related Events' ,'modern-events-calendar-lite'); ?></h3>
+                <h3 class="mec-rec-events-title"><?php echo __('Related Events', 'modern-events-calendar-lite'); ?></h3>
                 <div class="mec-related-events">
-                <?php while ( $query->have_posts() ): $query->the_post(); ?>
-                    <article class="mec-related-event-post col-md-3 col-sm-3">
-                        <figure>
-                            <a href="<?php echo get_the_permalink(); ?>">
-                            <?php
-                            if ( get_the_post_thumbnail(get_the_ID(),'thumblist') ) :
-                                echo get_the_post_thumbnail(get_the_ID(),'thumblist');
-                            else :
-                                echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../assets/img/no-image.png'.'" />';
-                            endif;
-                            ?>
-                            </a>
-                        </figure>
-                        <div class="mec-related-event-content">
+                    <?php while ($query->have_posts()): $query->the_post(); ?>
+                        <article class="mec-related-event-post col-md-3 col-sm-3">
+                            <figure>
+                                <a href="<?php echo get_the_permalink(); ?>">
+                                    <?php
+                                    if (get_the_post_thumbnail(get_the_ID(), 'thumblist')) echo get_the_post_thumbnail(get_the_ID(), 'thumblist');
+                                    else echo '<img src="' . plugin_dir_url(__FILE__) . '../../assets/img/no-image.png' . '" />';
+                                    ?>
+                                </a>
+                            </figure>
+                            <div class="mec-related-event-content">
                             <span>
-                            <?php
-                            $mec_start_date = get_post_meta(get_the_ID(), 'mec_start_date', true);
-                            $date = date(get_option('date_format'), strtotime($mec_start_date));
-                            $link = get_the_permalink();
-                            echo $date;
-                            ?>
+                                <?php
+                                $mec_start_date = get_post_meta(get_the_ID(), 'mec_start_date', true);
+                                $date = date_i18n(get_option('date_format'), strtotime($mec_start_date));
+                                $link = get_the_permalink();
+                                echo $date;
+                                ?>
                             </span>
-                            <h5><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($link, $mec_start_date); ?>"><?php echo get_the_title(); ?></a></h5>
-                        </div>
-                        
-                    </article>
-                <?php endwhile; ?>
+                                <h5><a class="mec-color-hover"
+                                       href="<?php echo $this->main->get_event_date_permalink($link, $mec_start_date); ?>"><?php echo get_the_title(); ?></a>
+                                </h5>
+                            </div>
+                        </article>
+                    <?php endwhile; ?>
                 </div>
             </div>
             <?php
-        endif;
+        }
         wp_reset_postdata();
     }
 

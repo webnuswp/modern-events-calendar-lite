@@ -49,6 +49,23 @@ class MEC_feature_colors extends MEC_base
     {
         add_meta_box('mec_metabox_color', __('Event Color', 'modern-events-calendar-lite'), array($this, 'meta_box_colors'), $this->main->get_main_post_type(), 'side');
     }
+
+    public function mec_hex2rgb($hex) {
+        $hex = str_replace("#", "", $hex);
+     
+        if(strlen($hex) == 3) {
+           $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+           $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+           $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+        } else {
+           $r = hexdec(substr($hex,0,2));
+           $g = hexdec(substr($hex,2,2));
+           $b = hexdec(substr($hex,4,2));
+        }
+        $rgb = array($r, $g, $b);
+        //return implode(",", $rgb); // returns the rgb values separated by commas
+        return $rgb; // returns an array with the rgb values
+     }
     
     /**
      * Show color meta box content
@@ -59,7 +76,6 @@ class MEC_feature_colors extends MEC_base
     {
         $color = get_post_meta($post->ID, 'mec_color', true);
         $available_colors = $this->main->get_available_colors();
-        
         if(!trim($color)) $color = $available_colors[0];
     ?>
         <div class="mec-meta-box-colors-container">
@@ -67,8 +83,17 @@ class MEC_feature_colors extends MEC_base
                 <input type="text" id="mec_event_color" name="mec[color]" value="#<?php echo $color; ?>" data-default-color="#<?php echo $color; ?>" class="mec-color-picker" />
             </div>
             <div class="mec-form-row mec-available-color-row">
+                <div class="mec-recent-color-sec" style="display: none"><?php echo __('Recent Colors', 'modern-events-calendar-lite'); ?></div>
                 <?php foreach($available_colors as $available_color): ?>
-                <span class="mec-color" onclick="mec_set_event_color('<?php echo $available_color; ?>');" style="background-color: #<?php echo $available_color; ?>"></span>
+                <span class="mec-recent-color-sec-wrap">
+                <?php
+                    $rgba_array = $this->mec_hex2rgb('#'.$available_color);
+                    if (!empty($rgba_array)) {
+                        echo '<span class="mec-color-meta-box-popup" style="display: none;background-color: rgba('.$rgba_array[0].','.$rgba_array[1].','.$rgba_array[2].',0.14);"></span>';
+                    }
+                    ?>
+                    <span class="mec-color" onclick="mec_set_event_color('<?php echo $available_color; ?>');" style="background-color: #<?php echo $available_color; ?>"></span>
+                </span>
                 <?php endforeach; ?>
             </div>
         </div>

@@ -625,10 +625,50 @@ jQuery(document).ready(function()
     });
 });
 
+jQuery('#mec_gateways_form_container .mec-required').on('change', function()
+{
+    var val = jQuery(this).val();
+    if(val)
+    {
+        // Remove Focus Style
+        jQuery(this).removeClass('mec-mandatory');
+    }
+});
+
 jQuery("#mec_booking_form").on('submit', function(event)
 {
     event.preventDefault();
-    
+
+    var validated = true;
+    var first_field;
+
+    jQuery('#mec_gateways_form_container').find('.mec-required').each(function()
+    {
+        // Remove Focus Style
+        jQuery(this).removeClass('mec-mandatory');
+
+        var val = jQuery(this).val();
+        if(jQuery(this).is(':visible') && !val)
+        {
+            // Add Focus Style
+            jQuery(this).addClass('mec-mandatory');
+
+            validated = false;
+            if(!first_field) first_field = this;
+        }
+    });
+
+    if(!validated && first_field)
+    {
+        jQuery(first_field).focus();
+        jQuery('html, body').animate(
+        {
+            scrollTop: (jQuery(first_field).offset().top - 200)
+        }, 500);
+
+        return false;
+    }
+
     // Add loading Class to the button
     jQuery(".dpr-save-btn").addClass('loading').text("<?php echo esc_js(esc_attr__('Saved', 'modern-events-calendar-lite')); ?>");
     jQuery('<div class="wns-saved-settings"><?php echo esc_js(esc_attr__('Settings Saved!', 'modern-events-calendar-lite')); ?></div>').insertBefore('#wns-be-content');
@@ -636,7 +676,7 @@ jQuery("#mec_booking_form").on('submit', function(event)
     if(jQuery(".mec-purchase-verify").text() != '<?php echo esc_js(esc_attr__('Verified', 'modern-events-calendar-lite')); ?>')
     {
         jQuery(".mec-purchase-verify").text("<?php echo esc_js(esc_attr__('Checking ...', 'modern-events-calendar-lite')); ?>");
-    } 
+    }
     
     var settings = jQuery("#mec_booking_form").serialize();
     jQuery.ajax(

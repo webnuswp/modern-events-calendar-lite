@@ -107,10 +107,6 @@ do_action('mec_full_skin_head');
                 <?php if($sf_text_search_status): ?>
                     <?php echo $this->sf_search_field('text_search', $sf_text_search); ?>
                 <?php endif; ?>
-                
-                <?php if($sf_address_search_status): ?>
-                    <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
-                <?php endif; ?>
             </div>        
         <?php endif; ?>
         </div>
@@ -123,6 +119,11 @@ do_action('mec_full_skin_head');
                 <?php if($this->list): ?><span class="mec-totalcal-listview<?php if($this->default_view == 'list') echo ' mec-totalcalview-selected'; ?>" data-skin="list"><?php _e('List', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
             </div>
         </div>
+        <?php if($sf_address_search_status): ?>
+            <div class="col-md-12">
+                <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
+            </div>
+        <?php endif; ?>
     </div>
     
     <div id="mec_full_calendar_container_<?php echo $this->id; ?>" class="mec-full-calendar-skin-container">

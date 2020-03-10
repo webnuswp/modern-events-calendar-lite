@@ -52,12 +52,12 @@ class MEC_feature_popup extends MEC_base
             $path = MEC::import('app.features.popup.shortcode', true, true);
             include $path;
         }
-        // Event Popup
-        // elseif($post_type == $this->main->get_main_post_type())
-        // {
-        //     $path = MEC::import('app.features.popup.event', true, true);
-        //     include $path;
-        // }
+        //Event Popup
+        elseif($post_type == $this->main->get_main_post_type())
+        {
+            $path = MEC::import('app.features.popup.event', true, true);
+            include $path;
+        }
     }
 
     public function shortcode_save()
@@ -289,7 +289,7 @@ class MEC_feature_popup extends MEC_base
         if($featured_image) set_post_thumbnail($post_id, $featured_image);
 
         // Location
-        $location_id = isset($mec['location_id']) ? sanitize_text_field($mec['location_id']) : 1;
+        $location_id = isset($mec['location_id']) ? sanitize_text_field($mec['location_id']) : 0;
 
         // Selected a saved location
         if($location_id)
@@ -309,6 +309,8 @@ class MEC_feature_popup extends MEC_base
             {
                 // Set term to the post
                 wp_set_object_terms($post_id, (int) $term->term_id, 'mec_location');
+
+                $location_id = (int) $term->term_id;
             }
             else
             {
@@ -347,10 +349,10 @@ class MEC_feature_popup extends MEC_base
         update_post_meta($post_id, 'mec_dont_show_map', $dont_show_map);
 
         // Organizer
-        $organizer_id = isset($mec['organizer_id']) ? sanitize_text_field($mec['organizer_id']) : 1;
+        $organizer_id = isset($mec['organizer_id']) ? sanitize_text_field($mec['organizer_id']) : 0;
 
         // Selected a saved organizer
-        if(isset($organizer_id) and $organizer_id)
+        if($organizer_id)
         {
             // Set term to the post
             wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
@@ -366,6 +368,7 @@ class MEC_feature_popup extends MEC_base
             {
                 // Set term to the post
                 wp_set_object_terms($post_id, (int) $term->term_id, 'mec_organizer');
+                $organizer_id = (int) $term->term_id;
             }
             else
             {

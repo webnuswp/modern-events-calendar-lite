@@ -834,7 +834,7 @@ class MEC_skins extends MEC_base
         $fields = apply_filters( 'mec_filter_fields_search_form',$fields, $this );
 
         $form = '';
-        if(trim($fields) && ( in_array('dropdown', $display_form ) || in_array('text_input', $display_form ) ) ) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
+        if(trim($fields) && ( in_array('dropdown', $display_form ) || in_array('text_input', $display_form ) || in_array('address_input', $display_form ) ) ) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
         
         return $form;
     }

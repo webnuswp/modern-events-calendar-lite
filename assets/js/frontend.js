@@ -233,9 +233,6 @@ var mecSingleEventDisplayer = {
 
                     // Focus First Active Day
                     mecFocusDay(settings);
-
-                    // Focus First Active Week
-                    mec_focus_week(settings.id);
                 },
                 error: function () {}
             });
@@ -947,7 +944,7 @@ var mecSingleEventDisplayer = {
                     toggleMonth(response.current_month.id);
 
                     // Set active week
-                    setThisWeek(active_week, true);
+                    setThisWeek(response.week_id, true);
                 },
                 error: function () {}
             });
@@ -1479,6 +1476,9 @@ var mecSingleEventDisplayer = {
             year = typeof year == 'undefined' ? '' : year;
             month = typeof month == 'undefined' ? '' : month;
 
+            // Append current week to data body for used after filter.
+            $('body').data('currentweek', $("#mec_skin_events_" + settings.id).find('.mec-current-week > span').html());
+
             $.ajax({
                 url: settings.ajax_url,
                 data: "action=mec_timetable_load_month&mec_year=" + year + "&mec_month=" + month + "&mec_week=" + week_number + "&" + settings.atts + "&apply_sf_date=1",
@@ -1504,7 +1504,7 @@ var mecSingleEventDisplayer = {
                     setThisWeek(response.week_id);
 
                     // Focus First Active Week
-                    mec_focus_week(settings.id);
+                    mec_focus_week(settings.id, 'timetable');
                 },
                 error: function () {}
             });
@@ -3395,23 +3395,47 @@ function mecFocusDay(settings)
 }
 
 // Focus events week
-function mec_focus_week(id) {
-    var days = jQuery('.mec-weeks-container .mec-weekly-view-week-active').parent().find('dt');
-    var days_count = parseInt(days.length);
-    days.each(function (index) {
-        var index_plus = index + 1;
-        var week = parseInt(jQuery(this).parent().index());
+function mec_focus_week(id, skin) {
+    skin = skin || 'weekly';
+    var wrap_elem = jQuery('.mec-weeks-container .mec-weekly-view-week-active').parent();
+    var days = wrap_elem.find('dt');
+    var week = wrap_elem.find('dl').length;
+    var focus_week = false;
+    var i = j = 1;
+    
+    for (i = 1; i < week; i++) {
+        setTimeout(function () {
+            var event = new Event('click');
+            jQuery('#mec_skin_' + id + ' .mec-previous-month.mec-load-week')[0].dispatchEvent(event);
+        }, 33);
+    }
 
+    days.each(function (i) {
         if (jQuery(this).data('events-count') > 0) {
-            for (var i = 0; i < week; i++) {
-                setTimeout(function () {
-                    var event = new Event('click');
-                    jQuery('#mec_skin_' + id + ' .mec-next-month.mec-load-week')[0].dispatchEvent(event);
-                }, 33);
+            if (focus_week === false) {
+                focus_week = parseInt(jQuery(this).parent().data('week-number'));
             }
-            return false;
+
+            if (skin == 'timetable') {
+                if (parseInt(jQuery(this).parent().data('week-number')) == parseInt(jQuery('body').data('currentweek'))) {
+                    focus_week = parseInt(jQuery(this).parent().data('week-number'));
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
         }
     });
+
+    if (focus_week !== false) {
+        for (j = 1; j < focus_week; j++) {
+            setTimeout(function () {
+                var event = new Event('click');
+                jQuery('#mec_skin_' + id + ' .mec-next-month.mec-load-week')[0].dispatchEvent(event);
+            }, 33);
+        }
+    }
 }
 
 // TODO must be cleaned JS codes

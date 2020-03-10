@@ -595,7 +595,7 @@ $notifications = $this->main->get_notifications();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                            <div class="content"><p><?php esc_attr_e('Please, insert comma to separate reminder days.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -862,6 +862,8 @@ jQuery("#mec_notifications_form").on('submit', function(event)
     jQuery("#mec_notifications_new_event_content-html").click();
     jQuery("#mec_notifications_new_event_content-tmce").click();
 
+    jQuery("#mec_notifications_user_event_publishing_content-html").click();
+    jQuery("#mec_notifications_user_event_publishing_content-tmce").click();
 });
 </script>
 
@@ -906,7 +908,7 @@ jQuery("#mec_notifications_form").on('submit', function(event)
     {
         jQuery(".mec-purchase-verify").text("<?php echo esc_js(esc_attr__('Checking ...', 'modern-events-calendar-lite')); ?>");
     }
-    
+
     var settings = jQuery("#mec_notifications_form").serialize();
     jQuery.ajax(
     {

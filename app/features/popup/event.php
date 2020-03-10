@@ -66,10 +66,6 @@ $organizer_id = 1;
                 </div>
                 <div class="mec-steps-content mec-steps-content-2">
                     <div id="mec_meta_box_date_form">
-                        <div class="mec-title">
-                            <span class="mec-dashicons dashicons dashicons-calendar-alt"></span>
-                            <label for="mec_start_date"><?php _e('Start Date', 'modern-events-calendar-lite'); ?></label>
-                        </div>
                         <div class="mec-form-row">
                             <div class="mec-col-4">
                                 <input type="text" name="mec[date][start][date]" id="mec_start_date"
@@ -86,7 +82,7 @@ $organizer_id = 1;
                                         $start_time_hour += 12;
                                     }
                                     ?>
-                                    <select name="mec[date][start][hour]" id="mec_start_hour">
+                                    <select name="mec[date][start][hour]" id="mec_start_hour" class="mec_start_hour wn-mec-select-popup">
                                         <?php for ($i = 0; $i <= 23; $i++) : ?>
                                             <option
                                                 <?php
@@ -98,7 +94,7 @@ $organizer_id = 1;
                                         <?php endfor; ?>
                                     </select>
                                     <span class="time-dv">:</span>
-                                    <select name="mec[date][start][minutes]" id="mec_start_minutes">
+                                    <select name="mec[date][start][minutes]" id="mec_start_minutes" class="mec_start_minutes wn-mec-select-popup">
                                         <?php for ($i = 0; $i <= 11; $i++) : ?>
                                             <option
                                                 <?php
@@ -110,7 +106,7 @@ $organizer_id = 1;
                                         <?php endfor; ?>
                                     </select>
                                 <?php else : if($start_time_ampm == 'AM' and $start_time_hour == '0') $start_time_hour = 12; ?>
-                                    <select name="mec[date][start][hour]" id="mec_start_hour">
+                                    <select name="mec[date][start][hour]" id="mec_start_hour" class="mec_start_hour wn-mec-select-popup">
                                         <?php for ($i = 1; $i <= 12; $i++) : ?>
                                             <option
                                                 <?php
@@ -122,7 +118,7 @@ $organizer_id = 1;
                                         <?php endfor; ?>
                                     </select>
                                     <span class="time-dv">:</span>
-                                    <select name="mec[date][start][minutes]" id="mec_start_minutes">
+                                    <select name="mec[date][start][minutes]" id="mec_start_minutes" class="mec_start_minutes wn-mec-select-popup">
                                         <?php for ($i = 0; $i <= 11; $i++) : ?>
                                             <option
                                                 <?php
@@ -133,7 +129,7 @@ $organizer_id = 1;
                                                     value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
                                         <?php endfor; ?>
                                     </select>
-                                    <select name="mec[date][start][ampm]" id="mec_start_ampm">
+                                    <select name="mec[date][start][ampm]" id="mec_start_ampm" class="mec_start_ampm wn-mec-select-popup">
                                         <option
                                             <?php
                                             if ($start_time_ampm == 'AM') {
@@ -152,10 +148,6 @@ $organizer_id = 1;
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="mec-title">
-                            <span class="mec-dashicons dashicons dashicons-calendar-alt"></span>
-                            <label for="mec_end_date"><?php _e('End Date', 'modern-events-calendar-lite'); ?></label>
-                        </div>
                         <div class="mec-form-row">
                             <div class="mec-col-4">
                                 <input type="text" name="mec[date][end][date]" id="mec_end_date"
@@ -172,7 +164,7 @@ $organizer_id = 1;
                                         $end_time_hour += 12;
                                     }
                                     ?>
-                                    <select name="mec[date][end][hour]" id="mec_end_hour">
+                                    <select name="mec[date][end][hour]" id="mec_end_hour" class="mec_end_hour wn-mec-select-popup">
                                         <?php for ($i = 0; $i <= 23; $i++) : ?>
                                             <option
                                                 <?php
@@ -184,7 +176,7 @@ $organizer_id = 1;
                                         <?php endfor; ?>
                                     </select>
                                     <span class="time-dv">:</span>
-                                    <select name="mec[date][end][minutes]" id="mec_end_minutes">
+                                    <select name="mec[date][end][minutes]" id="mec_end_minutes" class="mec_end_minutes wn-mec-select-popup">
                                         <?php for ($i = 0; $i <= 11; $i++) : ?>
                                             <option
                                                 <?php
@@ -196,7 +188,7 @@ $organizer_id = 1;
                                         <?php endfor; ?>
                                     </select>
                                 <?php else : if($end_time_ampm == 'AM' and $end_time_hour == '0') $end_time_hour = 12; ?>
-                                    <select name="mec[date][end][hour]" id="mec_end_hour">
+                                    <select name="mec[date][end][hour]" id="mec_end_hour" class="mec_end_hour wn-mec-select-popup">
                                         <?php for ($i = 1; $i <= 12; $i++) : ?>
                                             <option
                                                 <?php
@@ -208,7 +200,7 @@ $organizer_id = 1;
                                         <?php endfor; ?>
                                     </select>
                                     <span class="time-dv">:</span>
-                                    <select name="mec[date][end][minutes]" id="mec_end_minutes">
+                                    <select name="mec[date][end][minutes]" id="mec_end_minutes" class="mec_end_minutes wn-mec-select-popup">
                                         <?php for ($i = 0; $i <= 11; $i++) : ?>
                                             <option
                                                 <?php
@@ -219,7 +211,7 @@ $organizer_id = 1;
                                                     value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
                                         <?php endfor; ?>
                                     </select>
-                                    <select name="mec[date][end][ampm]" id="mec_end_ampm">
+                                    <select name="mec[date][end][ampm]" id="mec_end_ampm" class="mec_end_ampm wn-mec-select-popup">
                                         <option
                                             <?php
                                             if ($end_time_ampm == 'AM') {
@@ -248,9 +240,9 @@ $organizer_id = 1;
                 <div class="mec-steps-content mec-steps-content-3">
                     <div id="mec-location">
                         <div class="mec-form-row">
-                            <select name="mec[location_id]" id="mec_popup_location_id" title="<?php echo esc_attr__($this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), 'modern-events-calendar-lite'); ?>">
+                            <select name="mec[location_id]" id="mec_popup_location_id" class="mec_popup_location_id wn-mec-select-popup" title="<?php echo esc_attr__($this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), 'modern-events-calendar-lite'); ?>">
                                 <option value="1"><?php _e('Hide location', 'modern-events-calendar-lite'); ?></option>
-                                <option value="0" style="display: none;"><?php _e('Insert a new location', 'modern-events-calendar-lite'); ?></option>
+                                <!-- <option value="0" style="display: none;"><?php _e('Insert a new location', 'modern-events-calendar-lite'); ?></option> -->
                                 <?php foreach($locations as $location): ?>
                                     <option <?php if($location_id == $location->term_id) echo 'selected="selected"'; ?> value="<?php echo $location->term_id; ?>"><?php echo $location->name; ?></option>
                                 <?php endforeach; ?>
@@ -263,6 +255,11 @@ $organizer_id = 1;
                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                             </span>
                             <button type="button" id="mec_popup_add_location"><?php _e('Add Location'); ?></button>
+                        </div>
+                        
+                        <div class="mec-form-row">
+                            <input type="hidden" name="mec[dont_show_map]" value="0" />
+                            <input type="checkbox" id="mec_location_dont_show_map" name="mec[dont_show_map]" value="1" <?php echo ($dont_show_map ? 'checked="checked"' : ''); ?> /><label for="mec_location_dont_show_map"><?php echo __("Don't show map in single event page", 'modern-events-calendar-lite'); ?></label>
                         </div>
                         <div id="mec_location_new_container">
                             <div class="mec-form-row">
@@ -285,18 +282,14 @@ $organizer_id = 1;
                                 </span>
                             </div>
                         </div>
-                        <div class="mec-form-row">
-                            <input type="hidden" name="mec[dont_show_map]" value="0" />
-                            <input type="checkbox" id="mec_location_dont_show_map" name="mec[dont_show_map]" value="1" <?php echo ($dont_show_map ? 'checked="checked"' : ''); ?> /><label for="mec_location_dont_show_map"><?php echo __("Don't show map in single event page", 'modern-events-calendar-lite'); ?></label>
-                        </div>
                     </div>
                 </div>
                 <div class="mec-steps-content mec-steps-content-4">
                     <div id="mec-organizer">
                         <div class="mec-form-row">
-                            <select name="mec[organizer_id]" id="mec_popup_organizer_id" title="<?php echo esc_attr__($this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), 'modern-events-calendar-lite'); ?>">
+                            <select name="mec[organizer_id]" id="mec_popup_organizer_id" class="mec_popup_organizer_id wn-mec-select-popup" title="<?php echo esc_attr__($this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), 'modern-events-calendar-lite'); ?>">
                                 <option value="1"><?php _e('Hide organizer', 'modern-events-calendar-lite'); ?></option>
-                                <option value="0" style="display: none;"><?php _e('Insert a new organizer', 'modern-events-calendar-lite'); ?></option>
+                                <!-- <option value="0" style="display: none;"><?php _e('Insert a new organizer', 'modern-events-calendar-lite'); ?></option> -->
                                 <?php foreach($organizers as $organizer): ?>
                                     <option <?php if($organizer_id == $organizer->term_id) echo $selected = 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>"><?php echo $organizer->name; ?></option>
                                 <?php endforeach; ?>
@@ -326,11 +319,11 @@ $organizer_id = 1;
                                 <p class="description"><?php _e('eg. john@smith.com', 'modern-events-calendar-lite'); ?></p>
                             </div>
                             <div class="mec-form-row">
-                                <div class="mec-col-6">
+                                <div class="mec-col-7">
                                     <input type="text" name="mec[organizer][url]" id="mec_organizer_url" value="" placeholder="<?php _e('Link to organizer page', 'modern-events-calendar-lite'); ?>" />
                                     <p class="description"><?php _e('eg. https://webnus.net', 'modern-events-calendar-lite'); ?></p>
                                 </div>
-                                <div class="mec-col-6">
+                                <div class="mec-col-5">
                                     <div class="mec-form-row mec-thumbnail-row">
                                         <input type="hidden" name="mec[organizer][thumbnail]" id="mec_organizer_thumbnail" value="" />
                                         <button type="button" class="mec_organizer_upload_image_button button" id="mec_organizer_thumbnail_button"><?php echo __('Choose image', 'modern-events-calendar-lite'); ?></button>
@@ -338,7 +331,7 @@ $organizer_id = 1;
                                 </div>
                             </div>
                             <div class="mec-form-row">
-                                <div class="mec-col-6">
+                                <div class="mec-col-12">
                                     <div id="mec_organizer_thumbnail_img"></div>
                                 </div>
                             </div>
@@ -352,7 +345,7 @@ $organizer_id = 1;
                             <li data-type="popular"><?php _e('Most Used', 'modern-events-calendar-lite'); ?></li>
                         </ul>
                     </div>
-                    <div class="mec-categories-tab-contents">
+                    <div class="mec-categories-tab-contents mec-form-row">
                         <ul>
                             <?php wp_terms_checklist(0, array(
                                 'taxonomy' => 'mec_category',
@@ -361,7 +354,7 @@ $organizer_id = 1;
                     </div>
                     <div class="mec-categories-add-new">
                         <span id="mec_popup_new_category_button"><?php _e('Add New Category', 'modern-events-calendar-lite'); ?></span>
-                        <input type="text" id="mec_popup_new_category" style="display: none;">
+                        <input type="text" id="mec_popup_new_category" placeholder="Press 'Enter' to add category" style="display: none;">
                     </div>
                 </div>
                 <div class="mec-steps-content mec-steps-content-6">
@@ -379,10 +372,13 @@ $organizer_id = 1;
                 <div class="mec-steps-content mec-steps-content-8">
                     <div class="mec-steps-8-loading"><div class="mec-loader"></div></div>
                     <div class="mec-steps-8-results">
-                        <h3><?php _e('Your Event Has Been Created.', 'modern-events-calendar-lite'); ?></h3>
-                        <div class="mec-popup-final-buttons">
-                            <a class="mec-button-view" href="#"><?php _e('View Event', 'modern-events-calendar-lite'); ?></a>
-                            <button class="mec-button-new"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-new-shortcode-plus.svg'; ?>" /><?php _e('New Event', 'modern-events-calendar-lite'); ?></button>
+                        <div class="mec-steps-8-results-wrap">
+                            <img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/char.png'; ?>" />
+                            <h3><?php _e('Your Event Has Been Created.', 'modern-events-calendar-lite'); ?></h3>
+                            <div class="mec-popup-final-buttons">
+                                <a class="mec-button-view" href="#"><?php _e('View Event', 'modern-events-calendar-lite'); ?></a>
+                                <button class="mec-button-new"><?php _e('New Event', 'modern-events-calendar-lite'); ?></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -416,6 +412,8 @@ jQuery(document).ready(function()
     var $organizer_dropdown = jQuery('#mec_popup_organizer_id');
     var $steps_content = jQuery('.mec-steps-content');
 
+    if(jQuery('.mec-steps-content .wn-mec-select-popup').length > 0) jQuery('.mec-steps-content .wn-mec-select-popup').niceSelect();
+
     // Add Event Button
     jQuery('.wrap .page-title-action').on('click', function(e)
     {
@@ -426,6 +424,14 @@ jQuery(document).ready(function()
 
         // Do Step
         mec_event_step(1, 'next');
+    });
+
+    // Lightbox Open
+    jQuery(document).on('lity:open', function(event, instance)
+    {
+        jQuery('.lity').addClass('mec-add-event-popup');
+        jQuery('body').css('overflow', 'hidden');
+        jQuery('.lity-wrap').removeAttr('data-lity-close');
     });
 
     // Lightbox Close
@@ -574,8 +580,16 @@ jQuery(document).ready(function()
             // Grab the selected attachment.
             var attachment = frame.state().get('selection').first();
 
-            jQuery('#mec_event_popup_featured_image_preview').html('<img src="'+attachment.attributes.url+'" />');
+            jQuery('#mec_event_popup_featured_image_preview').html('<img src="'+attachment.attributes.url+'" /><span><i class="mec-sl-close"></i></span>');
             jQuery('#mec_event_popup_featured_image_thumbnail').val(attachment.id);
+            jQuery('.mec-event-popup-featured-image-button').hide();
+
+            jQuery("#mec_event_popup_featured_image_preview span i").on("click", function()
+            {
+                jQuery('#mec_event_popup_featured_image_preview').html('');
+                jQuery('#mec_event_popup_featured_image_thumbnail').val('');
+                jQuery('.mec-event-popup-featured-image-button').show();
+            });
 
             frame.close();
         });
@@ -636,8 +650,13 @@ jQuery(document).ready(function()
             }
         }
 
+        // Auto Focus
+        if(step === 1)
+        {
+            $name.focus();
+        }
         // Init WP Editor
-        if(step === 6 && !popup_wpeditor)
+        else if(step === 6 && !popup_wpeditor)
         {
             popup_wpeditor = true;
             wp.editor.initialize('mec_popup_content',

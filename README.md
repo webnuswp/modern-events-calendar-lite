@@ -4,12 +4,12 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.1.8  
+**Stable tag:** 5.2.0  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
-WordPress event calendar is a free plugin that allows you to manage your single and recurring events and present them in different, modern style and skin.
+WordPress event calendar plugin is the best tool used for managing events websites. Modern Events Calendar is a comprehensive events management plugin
 
 
 ## Description 
@@ -26,7 +26,7 @@ WordPress event calendar plugin is a trending FREE tool used for managing events
 We gathered all features of [event calendar](https://webnus.net/modern-events-calendar/) as you desire with advanced booking system ([Pro Version](https://webnus.net/mec-purchase/?ref=17/)) and many other useful options which are practical in real world!
 Using [Modern Events Calendar Lite](https://webnus.net/modern-events-calendar/), you can create different single or [recurring events](https://webnus.net/modern-events-calendar/) and show them in frontend of your website using many modern skins and styles.
 
-https://www.youtube.com/watch?v=erKILCKDxis
+https://www.youtube.com/watch?v=GjRVKIwD5jY
 
 Fortunately, though WordPress doesn’t enable these functions out of the box, there’s a plugin you can use. Modern Events Calendar is an easy way to manage events of all kinds on your WordPress site. As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS.
 
@@ -39,32 +39,25 @@ You can read and compare about the WordPress best event management plugins in ou
 
 ## Experts Opinions 
 >The Modern Events Calendar plugin combined with Divi’s beautiful layouts are an effective combination both in design and functionality. To start things off I’m going to go through the settings we need to get the functionality we want for our event scheduling and booking. There are a ton of options available which really is empowering when you are trying to perfect the user experience when scheduling or booking events.
-><strong>Jason Champagne</strong>
->[Elegant Themes Blog](https://www.elegantthemes.com/blog/divi-resources/how-to-add-event-scheduling-and-booking-to-your-site-using-the-pottery-studio-layout-pack)
+><strong>Jason Champagne on Elegant Themes Blog</strong>
 
 >Created to deliver a selection of useful features and a well-designed user experience, the Modern Events Calendar plugin is a tool for publishing events on WordPress websites.  With free and paid versions available, whether you simply want to add basic events publishing functionality to your website or you have more demanding needs, there’s a good chance this plugin will meet your requirements.
-><strong>Joe Fylan</strong>
->[AThemes Blog](https://athemes.com/reviews/modern-events-calendar-review/)
+><strong>Joe Fylan on AThemes Blog</strong>
 
 >Hence the name, Modern Events Calendar Lite is a WordPress plugin that follows all the latest trends and regulations. When it comes to creating the niftiest event calendars, this tool might be the perfect solution for what you are up to. And if you are already using another plugin, but you are not fully satisfied, you can import the data quickly and effortlessly, too. The process of setting up the calendar that you require is simple and swift.
-><strong>Vishnu</strong>
->[Colorlib Blog](https://colorlib.com/wp/event-calendar-plugins/)
+><strong>Vishnu on Colorlib Blog</strong>
 
 >As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS. Modern Events Calendar lets you create great-looking event displays right out of the box, along with advanced features like ticketing and a custom event display builder. You can even integrate with Elementor for more design flexibility, and WooCommerce for more ticketing/payment flexibility.
-><strong>Colin Newcomer</strong>
->[WPlift Blog](https://wplift.com/modern-events-calendar-review)
+><strong>Colin Newcomer on WPlift Blog</strong>
 
 >Many WordPress site owners can benefit from having an online booking system. Integrated online event registration helps your customers purchase tickets, schedule appointments, and sign up for events whenever it’s convenient for them. When it comes to managing events in WordPress, Modern Events Calendar really has it all. From simple calendar displays to personalized bookings with variable tickets, you can create the perfect system to meet your site’s needs.
-><strong>Will Morris</strong>
->[WPmayor Blog](https://wpmayor.com/how-to-manage-online-bookings-with-modern-events-calendar/)
+><strong>Will Morris on WPmayor Blog</strong>
 
 >If you are running an event website or you want to start a WordPress powered website with booking services, you need a managed WordPress hosting that will not disappoint you and a strong and practical plugin that can provide all the required features. The most important factor in such projects is the user-friendly environment the plugin creates. In this regard, both Lite and Pro versions of Modern Events Calendar (MEC) can help you.
-><strong>Mustaasam Saleem</strong>
->[Cloudways Blog](https://www.cloudways.com/blog/modern-events-calendar-wordpress-plugin-review/)
+><strong>Mustaasam Saleem on Cloudways Blog</strong>
 
 >The Modern Events Calendar plugin says quite a bit in its name, since it’s a high-quality, professional, and modern take on your standard events management layout. You can choose from a wide variety of designs, making it an excellent solution for branding and fitting in your website. It also includes a powerful booking system at only $34. Since this is sold on CodeCanyon you’re also signing up for a year of premium support, beating out some of those free plugins we’ve talked about earlier.
-><strong>Brian Jackson</strong>
->[Kinsta Blog](https://kinsta.com/blog/wordpress-event-management-plugins/)
+><strong>Brian Jackson on Kinsta Blog</strong>
 
 
 ## Some New Features 
@@ -257,6 +250,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Custom Booking Form for Single Events
 - Payments for Certain Single Events
 - Shortcode Creator
+- Add Event in the form of wizard
 - Add shortcode in the form of wizard
 - Multiple color skins
 - [Slider](https://webnus.net/modern-events-calendar/slider-view-type-1/) View
@@ -441,9 +435,31 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 ### 35. WordPress Event Calendar - Shortcode edit page
 ![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-35.png)
 
+### 36. WordPress Event Calendar - Add Event Wizard
+![WordPress Event Calendar - Add Event Wizard](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-36.png)
+
+### 37. WordPress Event Calendar - Add Shortcode Wizard
+![WordPress Event Calendar - Add Shortcode Wizard](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-37.png)
+
 
 
 ## Changelog 
+
+### 5.2.0 – 10 March 2020 
+- Added: Add Event Wizard - hard-refresh is required
+- Added: Custom fields to the booking edit menu (pro)
+- Added: A validation for payment gateway options (pro)
+- Added: Address filter
+- Increased: Number of dates in booking edit menu (pro)
+- Fixed: Weather module (pro)
+- Fixed: An issue in date i18n of related events module
+- Fixed: Bulk Edit of events
+- Fixed: A date focus issue on timetable skin
+- Fixed: User Event Publishing notification
+- Fixed: Weekly view of full calendar skin
+- Fixed: Widgets view styles
+- Fixed: Some minor issues
+
 
 ### 5.1.8 – 3 March 2020 
 - Added: Dark Mode
@@ -453,7 +469,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Fixed: Wrong date in Southern hemisphere
 
 
-### 5.1.7 – 29 FEBRUARY 2020 
+### 5.1.7 – 29 February 2020 
 - Fixed: Improve ajax access for causing XSS security issues
 
 

@@ -44,7 +44,11 @@ if(!is_array($weather) or (is_array($weather) and !count($weather))) return;
                 <span class="mec-weather-icon <?php echo $weather['icon']; ?>"></span>
             </div>
             <div class="mec-weather-summary">
+
+                <?php if(isset($weather['summary'])): ?>
                 <div class="mec-weather-summary-report"><?php echo $weather['summary']; ?></div>
+                <?php endif; ?>
+
                 <?php if(isset($weather['temperature'])): ?>
                     <div class="mec-weather-summary-temp" data-c="<?php _e( ' °C', 'modern-events-calendar-lite' ); ?>" data-f="<?php _e( ' °F', 'modern-events-calendar-lite' ); ?>">
                     <?php if(!$imperial): echo round($weather['temperature']); ?>
@@ -54,6 +58,7 @@ if(!is_array($weather) or (is_array($weather) and !count($weather))) return;
                     <?php endif; ?>
                     </div>
                 <?php endif; ?>
+
             </div>
             
             <?php if(isset($settings['weather_module_change_units_button']) and $settings['weather_module_change_units_button']): ?>

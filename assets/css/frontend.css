@@ -696,6 +696,70 @@
 	border-color: #e2e2e2 transparent transparent transparent;
 }
 
+/* Widgets View List and Grid */
+.mec-widget .mec-event-grid-classic.mec-owl-carousel .owl-nav button {
+    position: absolute;
+    background: #fff;
+    padding: 6px;
+    margin-top: -17px;
+    border-radius: 3px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 2px 0 0 rgba(0,0,0,.028);
+}
+
+.mec-widget .mec-event-grid-classic.mec-owl-carousel .owl-nav button:hover {
+    background: #40d9f1;
+    border-color: #40d9f1;
+}
+
+.mec-widget .mec-event-grid-classic.mec-owl-carousel .owl-nav button:hover i {
+    color: #fff;
+}
+
+.mec-widget .mec-event-grid-classic.mec-owl-carousel .mec-booking-button {
+    width: 40%;
+    float: right;
+    color: #202020;
+    height: 36px;
+    line-height: 16px;
+}
+
+.mec-widget .mec-event-grid-classic.mec-owl-carousel .mec-booking-button:hover {
+    color: #fff;
+}
+
+.mec-widget .mec-event-list-modern .col-md-2.col-sm-2,
+.mec-widget .mec-event-list-modern .col-md-6.col-sm-6 {
+    padding: 0;
+    width: 100%;
+    display: block;
+    position: unset;
+}
+
+.mec-widget .mec-event-list-modern .col-md-4.col-sm-4 .mec-booking-button {
+    width: 80%;
+    height: 46px;
+    line-height: 22px;
+    padding: 11px 20px;
+    float: right;
+}
+
+.mec-widget .mec-event-list-modern .col-md-4.col-sm-4.mec-btn-wrapper {
+    top: auto;
+    bottom: 5%;
+}
+
+@media (max-width: 480px) {
+    .mec-widget .mec-event-list-modern .col-md-4.col-sm-4 {
+        padding: 0;
+    }
+
+    .mec-widget .mec-event-list-modern .col-md-4.col-sm-4 .mec-booking-button {
+        width: 100%;
+    }
+}
+
+
 /* MEC Events Grid Clean
 	-------------------------- */
 .mec-event-grid-clean {
@@ -6819,6 +6883,13 @@ li.mec-no-event-found .mec-event-title {
 		width: 100%;
 		float: none;
 	}
+}
+
+.mec-search-form .mec-text-address-search {
+    float: left;
+    width: 100%;
+    padding: 0 10px;
+    margin-top: 20px;
 }
 
 
