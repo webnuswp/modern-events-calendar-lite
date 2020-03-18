@@ -13,7 +13,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_db instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_db instance
+     * @return MEC_db instance
      */
 	final public function getDB()
     {
@@ -24,7 +24,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_request instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_request instance
+     * @return MEC_request instance
      */
     final public function getRequest()
     {
@@ -35,7 +35,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_file instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_file instance
+     * @return MEC_file instance
      */
     final public function getFile()
     {
@@ -46,7 +46,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_folder instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_folder instance
+     * @return MEC_folder instance
      */
     final public function getFolder()
     {
@@ -57,7 +57,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_path instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_path instance
+     * @return MEC_path instance
      */
     final public function getPath()
     {
@@ -68,7 +68,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_main instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_main instance
+     * @return MEC_main instance
      */
     final public function getMain()
     {
@@ -79,7 +79,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_factory instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_factory instance
+     * @return MEC_factory instance
      */
     final public function getFactory()
     {
@@ -90,7 +90,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_render instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_render instance
+     * @return MEC_render instance
      */
     final public function getRender()
     {
@@ -101,7 +101,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_parser instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_parser instance
+     * @return MEC_parser instance
      */
     final public function getParser()
     {
@@ -112,7 +112,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_feed instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_feed instance
+     * @return MEC_feed instance
      */
     final public function getFeed()
     {
@@ -123,7 +123,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_book instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_book instance
+     * @return MEC_book instance
      */
     final public function getBook()
     {
@@ -134,7 +134,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_notifications instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_notifications instance
+     * @return MEC_notifications instance
      */
     final public function getNotifications()
     {
@@ -145,7 +145,7 @@ abstract class MEC_base extends MEC
      * Returns MEC_envato instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_envato instance
+     * @return MEC_envato instance
      */
     final public function getEnvato()
     {
@@ -156,7 +156,7 @@ abstract class MEC_base extends MEC
      * Returns QRCode instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \QRcode instance
+     * @return QRcode instance
      */
     final public function getQRcode()
     {
@@ -168,7 +168,7 @@ abstract class MEC_base extends MEC
      * Returns PRO instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_pro instance
+     * @return MEC_pro instance
      */
     final public function getPRO()
     {
@@ -179,7 +179,7 @@ abstract class MEC_base extends MEC
      * Returns PRO instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_schedule instance
+     * @return MEC_schedule instance
      */
     final public function getSchedule()
     {
@@ -190,7 +190,7 @@ abstract class MEC_base extends MEC
      * Returns PRO instance
      * @final
      * @author Webnus <info@webnus.biz>
-     * @return \MEC_syncSchedule instance
+     * @return MEC_syncSchedule instance
      */
     final public function getSyncSchedule()
     {

@@ -275,10 +275,14 @@ class MEC_factory extends MEC_base
         // Register New Block Editor 
         if(function_exists('register_block_type')) register_block_type('mec/blockeditor', array('editor_script' => 'block.editor'));
 
+        // Settings
+        $settings = $this->main->get_settings();
+
         wp_localize_script( 'mec-backend-script', 'mec_admin_localize', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'ajax_nonce' => wp_create_nonce('mec_settings_nonce'),
             'mce_items' => $this->main->mce_get_shortcode_list(),
+            'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
         ));
 
         wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
@@ -375,6 +379,7 @@ class MEC_factory extends MEC_base
             'ajax_url' => admin_url('admin-ajax.php'),
             'fes_nonce' => wp_create_nonce('mec_fes_nonce'),
             'current_year' => date('Y', current_time('timestamp', 0)),
+            'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
         ));
         
         // Include Google Recaptcha Javascript API
@@ -891,6 +896,10 @@ class MEC_factory extends MEC_base
                 array('title'=>'Countdown View', 'meta'=>array('skin'=>'countdown', 'show_past_events'=>0, 'sk-options'=>array('countdown'=>array('style'=>'style3', 'event_id'=>'-1')), 'sf-options'=>array('countdown'=>$sf_options), 'sf_status'=>0)),
                 array('title'=>'Slider View', 'meta'=>array('skin'=>'slider', 'show_past_events'=>0, 'sk-options'=>array('slider'=>array('style'=>'t1', 'limit'=>6, 'autoplay'=>3000)), 'sf-options'=>array('slider'=>$sf_options), 'sf_status'=>0)),
                 array('title'=>'Masonry View', 'meta'=>array('skin'=>'masonry', 'show_past_events'=>0, 'sk-options'=>array('masonry'=>array('limit'=>24, 'filter_by'=>'category')), 'sf-options'=>array('masonry'=>$sf_options), 'sf_status'=>0)),
+                array('title'=>'Agenda View', 'meta'=>array('skin'=>'agenda', 'show_past_events'=>0, 'sk-options'=>array('agenda'=>array('load_more_button'=>1)), 'sf-options'=>array('agenda'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Timetable View', 'meta'=>array('skin'=>'timetable', 'show_past_events'=>0, 'sk-options'=>array('timetable'=>array('next_previous_button'=>1)), 'sf-options'=>array('timetable'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Tile View', 'meta'=>array('skin'=>'tile', 'show_past_events'=>0, 'sk-options'=>array('tile'=>array('next_previous_button'=>1)), 'sf-options'=>array('tile'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Timeline View', 'meta'=>array('skin'=>'timeline', 'show_past_events'=>0, 'sk-options'=>array('timeline'=>array('load_more_button'=>1)), 'sf-options'=>array('timeline'=>$sf_options), 'sf_status'=>0)),
             );
 
             foreach($calendars as $calendar)
@@ -949,9 +958,44 @@ class MEC_factory extends MEC_base
             $db = MEC::getInstance('app.libraries.db');
 
             // Drop Tables
-            $db->q("DROP TABLE `#__mec_events`");
-            $db->q("DROP TABLE `#__mec_dates`");
+            $db->q("DROP TABLE IF EXISTS `#__mec_events`");
+            $db->q("DROP TABLE IF EXISTS `#__mec_dates`");
 
+            // Removing MEC posts and postmeta data
+            $posts = $db->select("SELECT ID FROM `#__posts` WHERE `post_type`='mec-events' OR `post_type`='mec_calendars' OR `post_type`='mec-books'", 'loadAssocList');
+            if(is_array($posts) and count($posts))
+            {
+                $post_ids = $meta_ids = '';
+
+                $remove_post_sql = "DELETE FROM `#__posts` WHERE";
+                $remove_post_meta_sql = "DELETE FROM `#__postmeta` WHERE";
+
+                foreach($posts as $post)
+                {
+                    if(isset($post['ID']))
+                    {
+                        $meta_ids .= ' `post_id`=' . $post[ 'ID' ] . ' OR ';
+                        $post_ids .= ' `ID`=' . $post[ 'ID' ] . ' OR ';
+                    }
+                }
+
+                $remove_post_sql .= substr($post_ids, 0, -4);
+                $remove_post_meta_sql .= substr($meta_ids, 0, -4);
+
+                $db->q($remove_post_sql);
+                $db->q($remove_post_meta_sql);
+            }
+
+            // Removing all MEC taxonomy terms
+            $terms = $db->select("SELECT `#__term_taxonomy.term_id`, `#__term_taxonomy.taxonomy` FROM `#__terms` INNER JOIN `#__term_taxonomy` ON `#__terms.term_id`=`#__term_taxonomy.term_id` WHERE `#__term_taxonomy.taxonomy`='mec_category' OR `#__term_taxonomy.taxonomy`='mec_label' OR `#__term_taxonomy.taxonomy`='mec_location' OR `#__term_taxonomy.taxonomy`='mec_organizer'", 'loadAssocList');
+            foreach($terms as $term)
+            {
+                if(isset($term['term_id']) and isset($term['taxonomy']))
+                {
+                    wp_delete_term((int) $term['term_id'], trim($term['taxonomy']));
+                }
+            }
+            
             // MEC Deleted
             delete_option('mec_installed');
             delete_option('mec_options');

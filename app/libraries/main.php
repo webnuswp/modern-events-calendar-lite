@@ -1530,9 +1530,9 @@ class MEC_main extends MEC_base
         $link = $this->get_event_date_permalink($event->data->permalink, (isset($event->date['start']) ? $event->date['start']['date'] : NULL));
         $infowindow_thumb = trim($event->data->featured_image['thumbnail']) ? '<div class="mec-event-image"><a data-event-id="'.$event->data->ID.'" href="'.$link.'"><img src="'.$event->data->featured_image['thumbnail'].'" alt="'.$event->data->title.'" /></a></div>' : '';
         $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
-        $event_start_date_day = !empty($event->date['start']['date']) ? date_i18n('d', strtotime($event->date['start']['date'])) : '';
-        $event_start_date_month = !empty($event->date['start']['date']) ? date_i18n('M', strtotime($event->date['start']['date'])) : '';
-        $event_start_date_year = !empty($event->date['start']['date']) ? date_i18n('Y', strtotime($event->date['start']['date'])) : '';
+        $event_start_date_day = !empty($event->date['start']['date']) ? $this->date_i18n('d', strtotime($event->date['start']['date'])) : '';
+        $event_start_date_month = !empty($event->date['start']['date']) ? $this->date_i18n('M', strtotime($event->date['start']['date'])) : '';
+        $event_start_date_year = !empty($event->date['start']['date']) ? $this->date_i18n('Y', strtotime($event->date['start']['date'])) : '';
         $start_time = !empty($event->data->time['start']) ? $event->data->time['start'] : '';
         $end_time = !empty($event->data->time['end']) ? $event->data->time['end'] : '';
 
@@ -4126,6 +4126,26 @@ class MEC_main extends MEC_base
 
         return $this->date_label(array('date' => $start_date), array('date' => $end_date), $format, $separator);
     }
+
+    public function date_i18n($format, $time = NULL)
+    {
+        $timezone_GMT = new DateTimeZone("GMT");
+        $timezone_site = new DateTimeZone($this->get_timezone());
+
+        $dt_now = new DateTime("now", $timezone_GMT);
+        $dt_time = new DateTime(date('Y-m-d', $time), $timezone_GMT);
+
+        $offset_now = $timezone_site->getOffset($dt_now);
+        $offset_time = $timezone_site->getOffset($dt_time);
+
+        if($offset_now != $offset_time)
+        {
+            $diff = $offset_time - $offset_now;
+            if($diff > 0) $time += $diff;
+        }
+
+        return date_i18n($format, $time);
+    }
     
     /**
      * Returns start/end time labels
@@ -5928,7 +5948,8 @@ class MEC_main extends MEC_base
     
         if(isset($is_soldout))
         {
-            $output_tag = ' <span class="mec-event-title-soldout"><span class=soldout>%%title%%</span></span> ';
+            $add_css_class = current($is_soldout) ? 'mec-few-tickets' : '';
+            $output_tag = ' <span class="mec-event-title-soldout ' . $add_css_class . '"><span class=soldout>%%title%%</span></span> ';
             
             // Check For Return SoldOut Label Exist.
             if(current($is_soldout) === 0) return str_replace('%%title%%', __('Sold Out', 'modern-events-calendar-lite'), $output_tag) . '<input type="hidden" value="%%soldout%%"/>';
@@ -6198,5 +6219,18 @@ class MEC_main extends MEC_base
         }
 
         return $output ? '<span class="mec-labels-normal">' . $output . '</span>' : $output;
+    }
+
+    public function standardize_format($date = '', $format = 'Y-m-d')
+    {
+        if(!trim($date)) return '';
+
+        $date = str_replace('.', '-', $date);
+        $f = explode('&', trim($format));
+        
+        if(isset($f[1])) $return = date($f[1], strtotime($date));
+        else $return = date($format, strtotime($date));
+
+        return $return;
     }
 }

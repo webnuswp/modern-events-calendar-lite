@@ -1,3 +1,6 @@
+// Set datepicker default value.
+var datepicker_format = 'yy-mm-dd';
+
 jQuery(document).ready(function($)
 {
     // Image picker on terms menu
@@ -156,12 +159,26 @@ jQuery(document).ready(function($)
         $('#mec_fes_organizer_remove_image_button').addClass('mec-util-hidden');
     });
     
+    if ( typeof mec_admin_localize !== 'undefined' ) {
+        var date_splite = mec_admin_localize.datepicker_format.split( '&' );
+        
+        if ( date_splite[0] !== undefined && date_splite.length == 2 ) {
+            datepicker_format = date_splite[0];
+        }
+    } else if ( typeof mecdata !== 'undefined' ) {
+        var date_splite = mecdata.datepicker_format.split( '&' );
+        
+        if ( date_splite[0] !== undefined && date_splite.length == 2 ) {
+            datepicker_format = date_splite[0];
+        }
+    }
+
     if ($.fn.datepicker) {
         $('#mec_start_date').datepicker(
         {
             changeYear: true,
             changeMonth: true,
-            dateFormat: 'yy-mm-dd',
+            dateFormat: datepicker_format,
             gotoCurrent: true,
             yearRange: 'c-3:c+5',
         });
@@ -170,7 +187,7 @@ jQuery(document).ready(function($)
         {
             changeYear: true,
             changeMonth: true,
-            dateFormat: 'yy-mm-dd',
+            dateFormat: datepicker_format,
             gotoCurrent: true,
             yearRange: 'c-3:c+5',
         });
@@ -179,11 +196,20 @@ jQuery(document).ready(function($)
         {
             changeYear: true,
             changeMonth: true,
-            dateFormat: 'yy-mm-dd',
+            dateFormat: datepicker_format,
             gotoCurrent: true,
             yearRange: 'c-3:c+5',
         });
         
+        $('.mec_date_picker_dynamic_format').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: datepicker_format,
+            gotoCurrent: true,
+            yearRange: 'c-3:c+5',
+        });
+
         $('.mec_date_picker').datepicker(
         {
             changeYear: true,
@@ -532,7 +558,7 @@ function mec_handle_add_price_date_button(e)
     {
         changeYear: true,
         changeMonth: true,
-        dateFormat: 'yy-mm-dd',
+        dateFormat: datepicker_format,
         gotoCurrent: true,
         yearRange: 'c-3:c+5',
     });

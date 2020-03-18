@@ -59,7 +59,7 @@ foreach($bookings as $booking)
             <!-- MEC BuddyPress Integration Attendees Modules -->
             <div class="mec-attendees-toggle mec-util-hidden">
             <?php
-                $mec_attendees = get_post_meta($booking_id, 'mec_attendees', true);
+                $mec_attendees = array_filter(get_post_meta($booking_id, 'mec_attendees', true));
                 $mec_attendees_count = count($mec_attendees);
 
                 // For Sorting And Filtering MEC Attendees Array.

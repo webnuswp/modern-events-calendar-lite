@@ -3642,7 +3642,7 @@ class MEC_feature_ix extends MEC_base
             $this->main->response(array('success'=>0, 'message'=>$ex->getMessage()));
         }
         
-        $this->main->response(array('success'=>1, 'message'=>sprintf(__('All seems good! Please click %s for authenticating your app.', 'modern-events-calendar-lite'), '<a href="'.$auth_url.'">here</a>')));
+        $this->main->response(array('success'=>1, 'message'=>sprintf(__('All seems good! Please click %s for authenticating your app.', 'modern-events-calendar-lite'), '<a href="'.$auth_url.'">'.__('here', 'modern-events-calendar-lite').'</a>')));
     }
     
     public function g_calendar_export_get_token()
@@ -3663,7 +3663,7 @@ class MEC_feature_ix extends MEC_base
             $client->setClientId($client_id);
             $client->setClientSecret($client_secret);
             $client->setRedirectUri($this->main->add_qs_vars(array('mec-ix-action'=>'google-calendar-export-get-token'), $this->main->URL('backend').'admin.php?page=MEC-ix&tab=MEC-g-calendar-export'));
-            
+
             $authentication = $client->authenticate($code);
         	$token = $client->getAccessToken();
             
@@ -3732,8 +3732,9 @@ class MEC_feature_ix extends MEC_base
             $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();
 
             $recurrence = $this->main->get_ical_rrules($data);
-            
-            $event = new Google_Service_Calendar_Event(array
+
+            // Event Data
+            $event_data = array
             (
                 'summary'=>$data->title,
                 'location'=>(isset($location['address']) ? $location['address'] : (isset($location['name']) ? $location['name'] : '')),
@@ -3749,8 +3750,9 @@ class MEC_feature_ix extends MEC_base
                 'recurrence'=>$recurrence,
                 'attendees'=>array(),
                 'reminders'=>array(),
-            ));
-            
+            );
+
+            $event = new Google_Service_Calendar_Event($event_data);
             $iCalUID = 'mec-ical-'.$data->ID;
             
             $mec_iCalUID = get_post_meta($data->ID, 'mec_gcal_ical_uid', true);
@@ -3781,6 +3783,7 @@ class MEC_feature_ix extends MEC_base
                 
                 // Set Google Calendar ID to MEC databse for updating it in the future instead of adding it twice
                 update_post_meta($data->ID, 'mec_gcal_ical_uid', $g_event->getICalUID());
+                update_post_meta($data->ID, 'mec_gcal_calendar_id', $calendar_id);
                 update_post_meta($data->ID, 'mec_gcal_id', $g_event->getId());
                 
                 $g_events_inserted[] = array('title'=>$data->title, 'message'=>$g_event->htmlLink);
@@ -3794,9 +3797,24 @@ class MEC_feature_ix extends MEC_base
                     {
                         $g_event_id = get_post_meta($data->ID, 'mec_gcal_id', true);
                         $g_event = $service->events->get($calendar_id, $g_event_id);
-                        foreach($event as $k=>$v) $g_event->$k = $v;
 
-                        $g_updated_event = $service->events->update($calendar_id, $g_event->getId(), $g_event);
+                        // Update Event Data
+                        $g_event->setSummary($event_data['summary']);
+                        $g_event->setLocation($event_data['location']);
+                        $g_event->setDescription($event_data['description']);
+                        $g_event->setRecurrence($event_data['recurrence']);
+
+                        $start = new Google_Service_Calendar_EventDateTime();
+                        $start->setDateTime($event_data['start']['dateTime']);
+                        $start->setTimeZone($event_data['start']['timeZone']);
+                        $g_event->setStart($start);
+
+                        $end = new Google_Service_Calendar_EventDateTime();
+                        $end->setDateTime($event_data['end']['dateTime']);
+                        $end->setTimeZone($event_data['end']['timeZone']);
+                        $g_event->setEnd($end);
+
+                        $g_updated_event = $service->events->update($calendar_id, $g_event_id, $g_event);
                         $g_events_updated[] = array('title'=>$data->title, 'message'=>$g_updated_event->htmlLink);
                     }
                     catch(Exception $ex)
@@ -4036,7 +4054,7 @@ class MEC_feature_ix extends MEC_base
             
             if(!has_post_thumbnail($post_id) and isset($photos['cover']) and is_array($photos['cover']) and count($photos['cover']))
             {
-                $photo = $this->main->get_web_page('https://graph.facebook.com/'.$photos['cover']['id'].'/picture?type=normal');
+                $photo = $this->main->get_web_page($photos['cover']['source']);
                 $file_name = md5($post_id).'.'.$this->main->get_image_type_by_buffer($photo);
                 
                 $path = rtrim($wp_upload_dir['path'], DS.' ').DS.$file_name;

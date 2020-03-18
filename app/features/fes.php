@@ -391,8 +391,8 @@ class MEC_feature_fes extends MEC_base
 
         $post_id = isset($mec['post_id']) ? sanitize_text_field($mec['post_id']) : -1;
 
-        $start_date = (isset($mec['date']['start']['date']) and trim($mec['date']['start']['date'])) ? $mec['date']['start']['date'] : date('Y-m-d');
-        $end_date = (isset($mec['date']['end']['date']) and trim($mec['date']['end']['date'])) ? $mec['date']['end']['date'] : date('Y-m-d');
+        $start_date = (isset($mec['date']['start']['date']) and trim($mec['date']['start']['date'])) ? $this->main->standardize_format($mec['date']['start']['date']) : date('Y-m-d');
+        $end_date = (isset($mec['date']['end']['date']) and trim($mec['date']['end']['date'])) ? $this->main->standardize_format($mec['date']['end']['date']) : date('Y-m-d');
 
         $event = $this->db->select("SELECT * FROM `#__mec_events` WHERE `post_id` = {$post_id}", 'loadAssoc');
         if(!is_array($event)) $event = array();
@@ -611,8 +611,8 @@ class MEC_feature_fes extends MEC_base
 
         $start_date = date('Y-m-d', strtotime($start_date));
         
-        // Set the date if it's empty
-        if(trim($date['start']['date']) == '') $date['start']['date'] = $start_date;
+        // Set the start date
+        $date['start']['date'] = $start_date;
         
         $start_time_hour = isset($date['start']) ? $date['start']['hour'] : '8';
         $start_time_minutes = isset($date['start']) ? $date['start']['minutes'] : '00';
@@ -623,8 +623,8 @@ class MEC_feature_fes extends MEC_base
         // Fix end_date if it's smaller than start_date
         if(strtotime($end_date) < strtotime($start_date)) $end_date = $start_date;
         
-        // Set the date if it's empty
-        if(trim($date['end']['date']) == '') $date['end']['date'] = $end_date;
+        // Set the end date
+        $date['end']['date'] = $end_date;
         
         $end_time_hour = isset($date['end']) ? $date['end']['hour'] : '6';
         $end_time_minutes = isset($date['end']) ? $date['end']['minutes'] : '00';
@@ -730,8 +730,7 @@ class MEC_feature_fes extends MEC_base
         
         $repeat_end = ($repeat_status and isset($repeat['end'])) ? $repeat['end'] : '';
         $repeat_end_at_occurrences = ($repeat_status and isset($repeat['end_at_occurrences'])) ? ($repeat['end_at_occurrences']-1) : '';
-        $repeat_end_at_date = ($repeat_status and isset($repeat['end_at_date'])) ? $repeat['end_at_date'] : '';
-        if(trim($repeat_end_at_date) != '') $repeat_end_at_date = date('Y-m-d', strtotime($repeat_end_at_date));
+        $repeat_end_at_date = ($repeat_status and isset($repeat['end_at_date'])) ? $this->main->standardize_format( $repeat['end_at_date'] ) : '';
         
         update_post_meta($post_id, 'mec_date', $date);
         update_post_meta($post_id, 'mec_repeat', $repeat);
@@ -861,10 +860,31 @@ class MEC_feature_fes extends MEC_base
         $not_in_days_arr = (isset($mec['not_in_days']) and is_array($mec['not_in_days']) and count($mec['not_in_days'])) ? array_unique($mec['not_in_days']) : array();
 
         $in_days = '';
-        if(count($in_days_arr)) foreach($in_days_arr as $key=>$in_day_arr) if(is_numeric($key)) $in_days .= $in_day_arr.',';
+        if ( count( $in_days_arr ) ) {
+            $in_days_arr = array_map( function( $value ) {
+                return $this->main->standardize_format( explode( ':', $value )[0] ) . ':' . $this->main->standardize_format( explode( ':', $value )[1] );
+            }, $in_days_arr );
+
+            usort($in_days_arr, function($a, $b)
+            {
+                return strtotime(explode(':', $a)[0]) - strtotime(explode(':', $b)[0]);
+            });
+
+            foreach ( $in_days_arr as $key => $in_day_arr ) {
+                if ( is_numeric( $key ) ) {
+                    $in_days .= $in_day_arr . ',';
+                }
+            }
+        }
 
         $not_in_days = '';
-        if(count($not_in_days_arr)) foreach($not_in_days_arr as $key=>$not_in_day_arr) if(is_numeric($key)) $not_in_days .= $not_in_day_arr.',';
+        if ( count( $not_in_days_arr ) ) {
+            foreach ( $not_in_days_arr as $key => $not_in_day_arr ) {
+                if ( is_numeric( $key ) ) {
+                    $not_in_days .= $this->main->standardize_format( $not_in_day_arr ) . ',';
+                }
+            }
+        }
 
         $in_days = trim($in_days, ', ');
         $not_in_days = trim($not_in_days, ', ');
@@ -968,6 +988,19 @@ class MEC_feature_fes extends MEC_base
                 $ticket['ticket_start_time_ampm'] = strtoupper(substr($ticket_render_start_time, 5, 6));
                 $ticket['ticket_end_time_hour'] = substr($ticket_render_end_time, 0, 2);
                 $ticket['ticket_end_time_ampm'] = strtoupper(substr($ticket_render_end_time, 5, 6));
+
+                // Bellow conditional block code is used to change ticket dates format to compatible ticket past dates structure for store in db.
+                if ( isset( $ticket[ 'dates' ] ) ) {
+                    foreach ( $ticket[ 'dates' ] as $dates_ticket_key => $dates_ticket_values ) {
+                        if ( isset( $dates_ticket_values[ 'start' ] ) and trim( $dates_ticket_values[ 'start' ] ) ) {
+                            $ticket[ 'dates' ][ $dates_ticket_key ][ 'start' ] = $this->main->standardize_format( $dates_ticket_values[ 'start' ] );
+                        }
+
+                        if ( isset( $dates_ticket_values[ 'end' ] ) and trim( $dates_ticket_values[ 'end' ] ) ) {
+                            $ticket[ 'dates' ][ $dates_ticket_key ][ 'end' ] = $this->main->standardize_format( $dates_ticket_values[ 'end' ] );
+                        }
+                    }
+                }
 
                 $new_tickets[$key] = $ticket;
             }

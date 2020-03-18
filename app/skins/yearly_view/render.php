@@ -10,6 +10,7 @@ for($i = 1; $i <= 12; $i++)
     $months_html .= $this->draw_monthly_calendar($this->year, $i, $this->events, $calendar_type);
 }
 $settings = $this->main->get_settings();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 ?>
 <div class="mec-yearly-calendar-sec">
     <?php echo $months_html ?>
@@ -24,8 +25,8 @@ $settings = $this->main->get_settings();
 
         <div class="mec-agenda-date-wrap" id="mec_yearly_view<?php echo $this->id; ?>_<?php echo date('Ymd', strtotime($date)); ?>">
             <i class="mec-sl-calendar"></i>
-            <span class="mec-agenda-day"><?php echo date_i18n($this->date_format_modern_1, strtotime($date)); ?></span>
-            <span class="mec-agenda-date"><?php echo date_i18n($this->date_format_modern_2, strtotime($date)); ?></span>
+            <span class="mec-agenda-day"><?php echo $this->main->date_i18n($this->date_format_modern_1, strtotime($date)); ?></span>
+            <span class="mec-agenda-date"><?php echo $this->main->date_i18n($this->date_format_modern_2, strtotime($date)); ?></span>
         </div>
 
         <div class="mec-agenda-events-wrap">
@@ -112,6 +113,7 @@ $settings = $this->main->get_settings();
                             <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
                             <?php echo $event_color; ?>
                             <?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
+                            <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                         </span>
                     </div>
                 <?php endif; ?>

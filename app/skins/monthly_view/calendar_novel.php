@@ -51,7 +51,7 @@ elseif($week_start == 5) // Friday
         for($list_day = 1; $list_day <= $days_in_month; $list_day++)
         {
             $time = strtotime($year.'-'.$month.'-'.$list_day);
-            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? date_i18n('jS', $time) : date_i18n('j', $time);
+            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
             $today = date('Y-m-d', $time);
             $day_id = date('Ymd', $time);

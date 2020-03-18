@@ -229,6 +229,9 @@ $this->factory->params('footer', $javascript);
             if(trim($repeat_end_at_occurrences) == '') $repeat_end_at_occurrences = 9;
 
             $repeat_end_at_date = get_post_meta($post_id, 'mec_repeat_end_at_date', true);
+
+            // This date format used for datepicker
+            $datepicker_format = (isset($this->settings['datepicker_format']) and trim($this->settings['datepicker_format'])) ? $this->settings['datepicker_format'] : 'Y-m-d';
         ?>
 
         <div class="mec-fes-form-cntt">
@@ -248,7 +251,7 @@ $this->factory->params('footer', $javascript);
                     </div>
                     <div class="mec-form-row">
                         <div class="mec-col-4">
-                            <input type="text" name="mec[date][start][date]" id="mec_start_date" value="<?php echo esc_attr($start_date); ?>" placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" class="" />
+                            <input type="text" name="mec[date][start][date]" id="mec_start_date" value="<?php echo esc_attr( $this->main->standardize_format( $start_date, $datepicker_format ) ); ?>" placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" class="" />
                         </div>
                         <div class="mec-col-6 mec-time-picker">
                             <?php if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24): if($start_time_ampm == 'PM' and $start_time_hour != 12) $start_time_hour += 12; if($start_time_ampm == 'AM' and $start_time_hour == 12) $start_time_hour += 12; ?>
@@ -288,7 +291,7 @@ $this->factory->params('footer', $javascript);
                     </div>
                     <div class="mec-form-row">
                         <div class="mec-col-4">
-                            <input type="text" name="mec[date][end][date]" id="mec_end_date" value="<?php echo esc_attr($end_date); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>" class="" />
+                            <input type="text" name="mec[date][end][date]" id="mec_end_date" value="<?php echo esc_attr( $this->main->standardize_format( $end_date, $datepicker_format ) ); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>" class="" />
                         </div>
                         <div class="mec-col-6 mec-time-picker">
                             <?php if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24): if($end_time_ampm == 'PM' and $end_time_hour != 12) $end_time_hour += 12; if($end_time_ampm == 'AM' and $end_time_hour == 12) $end_time_hour += 12; ?>
@@ -374,14 +377,21 @@ $this->factory->params('footer', $javascript);
                         <div class="mec-form-row" id="mec_exceptions_in_days_container">
                             <div class="mec-form-row">
                                 <div class="mec-col-6">
-                                    <input type="text" id="mec_exceptions_in_days_start_date" value="" placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker" />
-                                    <input type="text" id="mec_exceptions_in_days_end_date" value="" placeholder="<?php _e('End', 'modern-events-calendar-lite'); ?>" class="mec_date_picker" />
+                                    <input type="text" id="mec_exceptions_in_days_start_date" value="" placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format" />
+                                    <input type="text" id="mec_exceptions_in_days_end_date" value="" placeholder="<?php _e('End', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format" />
                                     <button class="button" type="button" id="mec_add_in_days"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
                                     <p class="description"><?php _e('Add certain days to event occurrence dates.', 'modern-events-calendar-lite'); ?></p>
                                 </div>
                             </div>
                             <div class="mec-form-row" id="mec_in_days">
-                                <?php $i = 1; foreach($in_days as $in_day): ?>
+                            <?php $i = 1;
+                            foreach ($in_days as $in_day) : ?>
+                                <?php
+                                    $in_day = explode( ':', $in_day );
+                                    $first_date = $this->main->standardize_format( $in_day[0], $datepicker_format );
+                                    $second_date = $this->main->standardize_format( $in_day[1], $datepicker_format );
+                                    $in_day = $first_date . ':' . $second_date;
+                                ?>
                                 <div class="mec-form-row" id="mec_in_days_row<?php echo $i; ?>">
                                     <input type="hidden" name="mec[in_days][<?php echo $i; ?>]" value="<?php echo $in_day; ?>" />
                                     <span class="mec-in-days-day"><?php echo str_replace(':', ' - ', $in_day); ?></span>
@@ -627,7 +637,7 @@ $this->factory->params('footer', $javascript);
                                     <input <?php if($mec_repeat_end == 'date') echo 'checked="checked"'; ?> type="radio" value="date" name="mec[date][repeat][end]" id="mec_repeat_ends_date" />
                                     <label for="mec_repeat_ends_date"><?php _e('On', 'modern-events-calendar-lite'); ?></label>
                                 </div>
-                                <input class="mec-col-2" type="text" name="mec[date][repeat][end_at_date]" id="mec_date_repeat_end_at_date" autocomplete="off" value="<?php echo esc_attr($repeat_end_at_date); ?>" />
+                                <input class="mec-col-2" type="text" name="mec[date][repeat][end_at_date]" id="mec_date_repeat_end_at_date" autocomplete="off" value="<?php echo esc_attr( $this->main->standardize_format( $repeat_end_at_date, $datepicker_format ) ); ?>" />
                             </div>
                             <div class="mec-form-row">
                                 <div class="mec-col-3">

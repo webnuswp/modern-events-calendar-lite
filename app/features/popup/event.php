@@ -16,7 +16,7 @@ $allday = 0;
 $start_date = date('Y-m-d', strtotime('Tomorrow'));
 $start_time_hour = 8;
 $start_time_minutes = 0;
-$start_time_minutes = 'AM';
+$start_time_ampm = 'AM';
 $end_date = $start_date;
 $end_time_hour = 6;
 $end_time_minutes = 0;
@@ -28,6 +28,9 @@ $dont_show_map = 1;
 
 $organizers = get_terms('mec_organizer', array('orderby'=>'name', 'hide_empty'=>'0'));
 $organizer_id = 1;
+
+// This date format used for input type of datepicker.
+$datepicker_format = (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? $settings['datepicker_format'] : 'Y-m-d';
 ?>
 <div id="mec_popup_event" class="lity-hide">
     <div class="mec-steps-container">
@@ -69,16 +72,16 @@ $organizer_id = 1;
                         <div class="mec-form-row">
                             <div class="mec-col-4">
                                 <input type="text" name="mec[date][start][date]" id="mec_start_date"
-                                       value="<?php echo esc_attr($start_date); ?>"
+                                       value="<?php echo esc_attr( $this->main->standardize_format( $start_date, $datepicker_format ) ); ?>"
                                        placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" autocomplete="off"/>
                             </div>
                             <div class="mec-col-6 mec-time-picker">
                                 <?php
                                 if (isset($settings['time_format']) and $settings['time_format'] == 24) :
-                                    if ($start_time_ampm == 'PM' and $start_time_hour != 12) {
+                                    if ((isset($start_time_ampm) and $start_time_ampm == 'PM') and $start_time_hour != 12) {
                                         $start_time_hour += 12;
                                     }
-                                    if ($start_time_ampm == 'AM' and $start_time_hour == 12) {
+                                    if ((isset($start_time_ampm) and $start_time_ampm == 'AM') and $start_time_hour == 12) {
                                         $start_time_hour += 12;
                                     }
                                     ?>
@@ -132,14 +135,14 @@ $organizer_id = 1;
                                     <select name="mec[date][start][ampm]" id="mec_start_ampm" class="mec_start_ampm wn-mec-select-popup">
                                         <option
                                             <?php
-                                            if ($start_time_ampm == 'AM') {
+                                            if (isset($start_time_ampm) and $start_time_ampm == 'AM') {
                                                 echo 'selected="selected"';
                                             }
                                             ?>
                                                 value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
                                         <option
                                             <?php
-                                            if ($start_time_ampm == 'PM') {
+                                            if (isset($start_time_ampm) and $start_time_ampm == 'PM') {
                                                 echo 'selected="selected"';
                                             }
                                             ?>
@@ -151,16 +154,16 @@ $organizer_id = 1;
                         <div class="mec-form-row">
                             <div class="mec-col-4">
                                 <input type="text" name="mec[date][end][date]" id="mec_end_date"
-                                       value="<?php echo esc_attr($end_date); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>"
+                                       value="<?php echo esc_attr( $this->main->standardize_format( $end_date, $datepicker_format ) ); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>"
                                        autocomplete="off"/>
                             </div>
                             <div class="mec-col-6 mec-time-picker">
                                 <?php
                                 if (isset($settings['time_format']) and $settings['time_format'] == 24) :
-                                    if ($end_time_ampm == 'PM' and $end_time_hour != 12) {
+                                    if ((isset($end_time_ampm) and $end_time_ampm == 'PM') and $end_time_hour != 12) {
                                         $end_time_hour += 12;
                                     }
-                                    if ($end_time_ampm == 'AM' and $end_time_hour == 12) {
+                                    if ((isset($end_time_ampm) and $end_time_ampm == 'AM') and $end_time_hour == 12) {
                                         $end_time_hour += 12;
                                     }
                                     ?>

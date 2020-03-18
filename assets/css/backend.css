@@ -7793,7 +7793,11 @@ div#mec_popup_event_form {
     height: 41px;
 }
 
-.mec-add-event-popup .mec-steps-container ul li:after, .mec-steps-container ul li:before {
+.mec-add-shortcode-popup .mec-steps-container ul li:after,.mec-add-shortcode-popup  .mec-steps-container ul li:before {
+    height: 24px;
+}
+
+.mec-add-event-popup .mec-steps-container ul li:after,.mec-add-event-popup  .mec-steps-container ul li:before {
     height: 19px;
 }
 .mec-add-event-popup .mec-steps-container ul li {

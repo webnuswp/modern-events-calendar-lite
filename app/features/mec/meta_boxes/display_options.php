@@ -135,6 +135,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_list_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][list][limit]" id="mec_skin_list_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_list['limit'])) echo $sk_options_list['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_list_localtime">
+					<div class="mec-col-4">
+						<label for="mec_skin_list_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][list][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][list][include_local_time]" id="mec_skin_list_include_local_time" value="1" <?php if(isset($sk_options_list['include_local_time']) and trim($sk_options_list['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_list_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <!-- Start Include Events Times -->
                 <div class="mec-form-row mec-switcher mec-include-events-times">
 					<div class="mec-col-4">
@@ -188,9 +200,20 @@ $events = $this->main->get_events();
                     </div>
                     <div class="mec-col-4">
                         <input type="hidden" name="mec[sk-options][list][set_geolocation]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][list][set_geolocation]" id="mec_skin_list_set_geo_location" value="1"
+                        <input type="checkbox" name="mec[sk-options][list][set_geolocation]" id="mec_skin_list_set_geo_location" value="1" onchange="mec_skin_geolocation_toggle(this);"
                             <?php if(isset($sk_options_list['set_geolocation']) and trim($sk_options_list['set_geolocation'])) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_list_set_geo_location"></label>
+                    </div>
+                </div>
+                <div class="mec-form-row mec-switcher mec-set-geolocation-focus <?php if((!isset($sk_options_list['set_geolocation']) or (isset($sk_options_list['set_geolocation']) and !$sk_options_list['set_geolocation'])) or (!isset($sk_options_list['map_on_top']) or (isset($sk_options_list['map_on_top']) and !$sk_options_list['map_on_top']))) echo 'mec-util-hidden'; ?>">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_list_set_geo_location_focus"><?php _e('Disable Geolocation Force Focus', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][list][set_geolocation_focus]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][list][set_geolocation_focus]" id="mec_skin_list_set_geo_location_focus" value="1"
+                            <?php if(isset($sk_options_list['set_geolocation_focus']) and trim($sk_options_list['set_geolocation_focus'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_list_set_geo_location_focus"></label>
                     </div>
                 </div>
                 <!-- End Set Map Geolocation -->
@@ -349,6 +372,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_grid_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][grid][limit]" id="mec_skin_grid_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_grid['limit'])) echo $sk_options_grid['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_grid_localtime">
+					<div class="mec-col-4">
+						<label for="mec_skin_grid_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][grid][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][grid][include_local_time]" id="mec_skin_grid_include_local_time" value="1" <?php if(isset($sk_options_grid['include_local_time']) and trim($sk_options_grid['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_grid_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label for="mec_skin_grid_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
@@ -380,9 +415,20 @@ $events = $this->main->get_events();
                     </div>
                     <div class="mec-col-4">
                         <input type="hidden" name="mec[sk-options][grid][set_geolocation]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][grid][set_geolocation]" id="mec_skin_grid_set_geo_location" value="1"
+                        <input type="checkbox" name="mec[sk-options][grid][set_geolocation]" id="mec_skin_grid_set_geo_location" value="1" onchange="mec_skin_geolocation_toggle(this);"
                             <?php if(isset($sk_options_grid['set_geolocation']) and trim($sk_options_grid['set_geolocation'])) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_grid_set_geo_location"></label>
+                    </div>
+                </div>
+                <div class="mec-form-row mec-switcher mec-set-geolocation-focus <?php if((!isset($sk_options_grid['set_geolocation']) or (isset($sk_options_grid['set_geolocation']) and !$sk_options_grid['set_geolocation'])) or (!isset($sk_options_grid['map_on_top']) or (isset($sk_options_grid['map_on_top']) and !$sk_options_grid['map_on_top']))) echo 'mec-util-hidden'; ?>">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_grid_set_geo_location_focus"><?php _e('Disable Geolocation Force Focus', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][grid][set_geolocation_focus]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][grid][set_geolocation_focus]" id="mec_skin_grid_set_geo_location_focus" value="1"
+                            <?php if(isset($sk_options_grid['set_geolocation_focus']) and trim($sk_options_grid['set_geolocation_focus'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_grid_set_geo_location_focus"></label>
                     </div>
                 </div>
                 <!-- End Set Map Geolocation -->
@@ -445,6 +491,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_agenda_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][agenda][limit]" id="mec_skin_agenda_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_agenda['limit'])) echo $sk_options_agenda['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_agenda_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][agenda][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][agenda][include_local_time]" id="mec_skin_agenda_include_local_time" value="1" <?php if(isset($sk_options_agenda['include_local_time']) and trim($sk_options_agenda['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_agenda_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label for="mec_skin_agenda_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
@@ -651,6 +709,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_yearly_view_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][yearly_view][limit]" id="mec_skin_yearly_view_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_yearly_view['limit'])) echo $sk_options_yearly_view['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_yearly_view_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][yearly_view][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][yearly_view][include_local_time]" id="mec_skin_yearly_view_include_local_time" value="1" <?php if(isset($sk_options_yearly_view['include_local_time']) and trim($sk_options_yearly_view['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_yearly_view_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>
@@ -693,6 +763,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_monthly_view_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][monthly_view][limit]" id="mec_skin_monthly_view_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_monthly_view['limit'])) echo $sk_options_monthly_view['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_monthly_view_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][monthly_view][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][monthly_view][include_local_time]" id="mec_skin_monthly_view_include_local_time" value="1" <?php if(isset($sk_options_monthly_view['include_local_time']) and trim($sk_options_monthly_view['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_monthly_view_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>
@@ -748,8 +830,18 @@ $events = $this->main->get_events();
                     </div>
                     <div class="mec-col-4">
                         <input type="hidden" name="mec[sk-options][map][geolocation]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][map][geolocation]" id="mec_skin_map_geolocation" value="1" <?php if(isset($sk_options_map['geolocation']) and $sk_options_map['geolocation']) echo 'checked="checked"'; ?> />
+                        <input type="checkbox" name="mec[sk-options][map][geolocation]" id="mec_skin_map_geolocation" value="1" onchange="mec_skin_geolocation_toggle(this);" <?php if(isset($sk_options_map['geolocation']) and $sk_options_map['geolocation']) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_map_geolocation"></label>
+                    </div>
+                </div>
+                <div class="mec-form-row mec-switcher mec-set-geolocation-focus <?php if(!isset($sk_options_map['geolocation']) or (isset($sk_options_map['geolocation']) and !$sk_options_map['geolocation'])) echo 'mec-util-hidden'; ?>">
+                    <div class="mec-col-4">
+                        <label><?php _e('Disable Geolocation Force Focus', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][map][geolocation_focus]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][map][geolocation_focus]" id="mec_skin_map_geolocation_focus" value="1" <?php if(isset($sk_options_map['geolocation_focus']) and $sk_options_map['geolocation_focus']) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_map_geolocation_focus"></label>
                     </div>
                 </div>
                 <p class="description"><?php _e('The geolocation feature works only in secure (https) websites.', 'modern-events-calendar-lite'); ?></p>
@@ -777,6 +869,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_daily_view_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][daily_view][limit]" id="mec_skin_daily_view_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_daily_view['limit'])) echo $sk_options_daily_view['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_daily_view_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][daily_view][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][daily_view][include_local_time]" id="mec_skin_daily_view_include_local_time" value="1" <?php if(isset($sk_options_daily_view['include_local_time']) and trim($sk_options_daily_view['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_daily_view_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>
@@ -811,6 +915,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_weekly_view_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][weekly_view][limit]" id="mec_skin_weekly_view_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_weekly_view['limit'])) echo $sk_options_weekly_view['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_weekly_view_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][weekly_view][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][weekly_view][include_local_time]" id="mec_skin_weekly_view_include_local_time" value="1" <?php if(isset($sk_options_weekly_view['include_local_time']) and trim($sk_options_weekly_view['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_weekly_view_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>
@@ -914,6 +1030,18 @@ $events = $this->main->get_events();
                         </select>                                        
                     </div>
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_timetable_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timetable][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timetable][include_local_time]" id="mec_skin_timetable_include_local_time" value="1" <?php if(isset($sk_options_timetable['include_local_time']) and trim($sk_options_timetable['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timetable_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-timetable-modern-style-depended">
                     <div class="mec-form-row mec-switcher">
                         <div class="mec-col-4">
@@ -934,7 +1062,6 @@ $events = $this->main->get_events();
 
             <!-- Masonry View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_masonry_skin_options_container">
-
                 <?php if(!$this->main->getPRO()): ?>
                 <div class="info-msg"><?php echo sprintf(__("%s is required to use synchronization feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
                 <?php endif; ?>
@@ -992,6 +1119,18 @@ $events = $this->main->get_events();
                         <option value="organizer" <?php if(isset($sk_options_masonry['filter_by']) and $sk_options_masonry['filter_by'] == 'organizer') echo 'selected="selected"'; ?>><?php _e('Organizer', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_masonry_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][masonry][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][masonry][include_local_time]" id="mec_skin_masonry_include_local_time" value="1" <?php if(isset($sk_options_masonry['include_local_time']) and trim($sk_options_masonry['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_masonry_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label><?php _e('Fit to row', 'modern-events-calendar-lite'); ?></label>
@@ -1082,6 +1221,18 @@ $events = $this->main->get_events();
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_cover_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][cover][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][cover][include_local_time]" id="mec_skin_cover_include_local_time" value="1" <?php if(isset($sk_options_cover['include_local_time']) and trim($sk_options_cover['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_cover_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
             </div>
             
             <!-- CountDown -->
@@ -1143,6 +1294,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_countdown_bg_color"><?php _e('Background Color', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4 mec-color-picker wp-color-picker-field" id="mec_skin_countdown_bg_color" name="mec[sk-options][countdown][bg_color]" value="<?php echo ((isset($sk_options_countdown['bg_color']) and trim($sk_options_countdown['bg_color']) != '') ? $sk_options_countdown['bg_color'] : '#437df9'); ?>" data-default-color="#437df9" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_countdown_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][countdown][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][countdown][include_local_time]" id="mec_skin_countdown_include_local_time" value="1" <?php if(isset($sk_options_countdown['include_local_time']) and trim($sk_options_countdown['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_countdown_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
             </div>
 
             <!-- Available Spot -->
@@ -1163,7 +1326,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are j and F', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/available-spots-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_available_spot_event_id"><?php _e('Event', 'modern-events-calendar-lite'); ?></label>
@@ -1174,6 +1337,18 @@ $events = $this->main->get_events();
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_available_spot_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][available_spot][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][available_spot][include_local_time]" id="mec_skin_available_spot_include_local_time" value="1" <?php if(isset($sk_options_available_spot['include_local_time']) and trim($sk_options_available_spot['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_available_spot_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
             </div>
 
             <!-- Carousel View -->
@@ -1264,6 +1439,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_carousel_head_text"><?php _e('Head Text', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4" name="mec[sk-options][carousel][head_text]" id="mec_skin_carousel_head_text" value="<?php echo ((isset($sk_options_carousel['head_text']) and trim($sk_options_carousel['head_text']) != '') ? $sk_options_carousel['head_text'] : ''); ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_carousel_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][carousel][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][carousel][include_local_time]" id="mec_skin_carousel_include_local_time" value="1" <?php if(isset($sk_options_carousel['include_local_time']) and trim($sk_options_carousel['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_carousel_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
             </div>
 
             <!-- Slider View -->
@@ -1365,6 +1552,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_slider_autoplay"><?php _e('Auto Play Time', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][slider][autoplay]" id="mec_skin_slider_autoplay" placeholder="<?php _e('eg. 3000 default is 3 second', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_slider['autoplay']) && $sk_options_slider['autoplay'] != '' ) echo $sk_options_slider['autoplay']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_slider_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][slider][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][slider][include_local_time]" id="mec_skin_slider_include_local_time" value="1" <?php if(isset($sk_options_slider['include_local_time']) and trim($sk_options_slider['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_slider_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
             </div>
 
             <!-- Timeline View -->
@@ -1412,6 +1611,18 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_timeline_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][timeline][limit]" id="mec_skin_timeline_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_timeline['limit'])) echo $sk_options_timeline['limit']; ?>" />
                 </div>
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_timeline_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timeline][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timeline][include_local_time]" id="mec_skin_timeline_include_local_time" value="1" <?php if(isset($sk_options_timeline['include_local_time']) and trim($sk_options_timeline['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timeline_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label for="mec_skin_timeline_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>

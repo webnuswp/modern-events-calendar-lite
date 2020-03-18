@@ -28,17 +28,17 @@ if($this->next_previous_button)
        (isset($this->atts['show_past_events']) and !$this->atts['show_past_events'] and strtotime(date('Y-m-t', $_1year_before)) >= time())
     )
     {
-        $navigator_html .= '<div class="mec-previous-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_before).'"><i class="mec-sl-angle-left"></i> '.date_i18n('Y', $_1year_before).'</div>';
+        $navigator_html .= '<div class="mec-previous-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_before).'"><i class="mec-sl-angle-left"></i> '.$this->main->date_i18n('Y', $_1year_before).'</div>';
     }
     
-    $navigator_html .= '<h2>'.date_i18n('Y', $current_year_time).'</h2>';
+    $navigator_html .= '<h2>'.$this->main->date_i18n('Y', $current_year_time).'</h2>';
     
     // Show next month handler if needed
     if(!$this->show_only_expired_events or
        ($this->show_only_expired_events and strtotime(date('Y-01-01', $_1year_after)) <= time())
     )
     {
-        $navigator_html .= '<div class="mec-next-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_after).'">'.date_i18n('Y', $_1year_after).' <i class="mec-sl-angle-right"></i></div>';
+        $navigator_html .= '<div class="mec-next-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_after).'">'.$this->main->date_i18n('Y', $_1year_after).' <i class="mec-sl-angle-right"></i></div>';
     }
 }
 
@@ -48,9 +48,9 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
     echo json_encode(array(
         'year'=>$year_html,
         'navigator'=>$navigator_html,
-        'previous_year'=>array('label'=>date_i18n('Y', $_1year_before), 'id'=>date('Y', $_1year_before), 'year'=>date('Y', $_1year_before), 'month'=>date('m', $_1year_before)),
-        'current_year'=>array('label'=>date_i18n('Y', $current_year_time), 'id'=>date('Y', $current_year_time), 'year'=>date('Y', $current_year_time), 'month'=>date('m', $current_year_time)),
-        'next_year'=>array('label'=>date_i18n('Y', $_1year_after), 'id'=>date('Y', $_1year_after), 'year'=>date('Y', $_1year_after), 'month'=>date('m', $_1year_after)),
+        'previous_year'=>array('label'=>$this->main->date_i18n('Y', $_1year_before), 'id'=>date('Y', $_1year_before), 'year'=>date('Y', $_1year_before), 'month'=>date('m', $_1year_before)),
+        'current_year'=>array('label'=>$this->main->date_i18n('Y', $current_year_time), 'id'=>date('Y', $current_year_time), 'year'=>date('Y', $current_year_time), 'month'=>date('m', $current_year_time)),
+        'next_year'=>array('label'=>$this->main->date_i18n('Y', $_1year_after), 'id'=>date('Y', $_1year_after), 'year'=>date('Y', $_1year_after), 'month'=>date('m', $_1year_after)),
     ));
     exit;
 }
@@ -110,7 +110,7 @@ do_action('mec_yearly_skin_head');
         <?php else: ?>
         <div class="mec-yearly-title-sec">
             <div class="mec-year-navigator">
-                <h2><?php echo date_i18n('Y', $current_year_time); ?></h2>
+                <h2><?php echo $this->main->date_i18n('Y', $current_year_time); ?></h2>
             </div>
         </div>
         <?php endif; ?>

@@ -5,6 +5,7 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin']) or isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-slider-<?php echo $this->style; ?>-wrap" >
@@ -100,15 +101,16 @@ $settings = $this->main->get_settings();
                         <div class="mec-slider-t1-content mec-event-grid-modern">
                         
                             <div class="event-grid-modern-head clearfix">
-                                <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format_type1_1, strtotime($event->date['start']['date'])); ?></div>
-                                <div class="mec-event-month"><?php echo date_i18n($this->date_format_type1_2, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_type1_1, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_type1_2, strtotime($event->date['start']['date'])); ?></div>
                                 <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
-                                <div class="mec-event-day"><?php echo date_i18n($this->date_format_type1_3, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-day"><?php echo $this->main->date_i18n($this->date_format_type1_3, strtotime($event->date['start']['date'])); ?></div>
                             </div>
                             <div class="mec-event-content">
                             <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
                             <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
                                 <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></div>
+                                <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                             </div>
                             <div class="mec-event-footer">
                                 <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
@@ -149,15 +151,18 @@ $settings = $this->main->get_settings();
                         <div class="mec-slider-t2-content mec-event-grid-modern mec-bg-color">
 
                             <div class="event-grid-modern-head clearfix">
-                                <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format_type2_1, strtotime($event->date['start']['date'])); ?></div>
-                                <div class="mec-event-month"><?php echo date_i18n($this->date_format_type2_2, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_type2_1, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_type2_2, strtotime($event->date['start']['date'])); ?></div>
                                 <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
-                                <div class="mec-event-day"><?php echo date_i18n($this->date_format_type2_3, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-day"><?php echo $this->main->date_i18n($this->date_format_type2_3, strtotime($event->date['start']['date'])); ?></div>
                             </div>
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
                                 <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
-                                <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></div>
+                                <div class="mec-event-detail">
+                                    <?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?>
+                                    <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
+                                </div>
                             </div>
                             <div class="mec-event-footer">
                                 <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
@@ -197,15 +202,18 @@ $settings = $this->main->get_settings();
                         <div class="mec-slider-t3-img" style="background: url(<?php echo $src; ?> );"></div>
                         <div class="mec-slider-t3-content mec-event-grid-modern">
                             <div class="event-grid-modern-head clearfix">
-                                <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format_type3_1, strtotime($event->date['start']['date'])); ?></div>
-                                <div class="mec-event-month"><?php echo date_i18n($this->date_format_type3_2, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_type3_1, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_type3_2, strtotime($event->date['start']['date'])); ?></div>
                                 <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
-                                <div class="mec-event-day"><?php echo date_i18n($this->date_format_type3_3, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-day"><?php echo $this->main->date_i18n($this->date_format_type3_3, strtotime($event->date['start']['date'])); ?></div>
                             </div>
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
                                 <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
-                                <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></div>
+                                <div class="mec-event-detail">
+                                    <?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?>
+                                    <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
+                                </div>
                             </div>
                             <div class="mec-slider-t3-footer">
                                 <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
@@ -246,15 +254,18 @@ $settings = $this->main->get_settings();
                         <div class="mec-slider-t4-content mec-event-grid-modern">
 
                             <div class="event-grid-modern-head clearfix">
-                                <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format_type4_1, strtotime($event->date['start']['date'])); ?></div>
-                                <div class="mec-event-month"><?php echo date_i18n($this->date_format_type4_2, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_type4_1, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_type4_2, strtotime($event->date['start']['date'])); ?></div>
                                 <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
-                                <div class="mec-event-day"><?php echo date_i18n($this->date_format_type4_3, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-day"><?php echo $this->main->date_i18n($this->date_format_type4_3, strtotime($event->date['start']['date'])); ?></div>
                             </div>
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
                                 <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
-                                <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></div>
+                                <div class="mec-event-detail">
+                                    <?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?>
+                                    <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
+                                </div>
                             </div>
                             <div class="mec-slider-t4-footer">
                                 <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
@@ -295,9 +306,12 @@ $settings = $this->main->get_settings();
                         <div class="mec-slider-t5-content mec-event-grid-modern">
                             <div class="event-grid-modern-head clearfix">
                              <div class="mec-slider-t5-col6">
-                                <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format_type5_1, strtotime($event->date['start']['date'])); ?></div>
-                                <div class="mec-event-month"><?php echo date_i18n($this->date_format_type5_2, strtotime($event->date['start']['date'])); ?></div>
-                                <div class="mec-event-detail"> <?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div>
+                                <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_type5_1, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_type5_2, strtotime($event->date['start']['date'])); ?></div>
+                                <div class="mec-event-detail">
+                                    <?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?>
+                                    <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
+                                </div>
                             </div>
                             <div class="mec-slider-t5-col6">
                               <div class="mec-event-location">

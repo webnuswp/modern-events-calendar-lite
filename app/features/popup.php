@@ -399,25 +399,21 @@ class MEC_feature_popup extends MEC_base
         // Date Options
         $date = isset($mec['date']) ? $mec['date'] : array();
 
-        $start_date = (isset($date['start']['date']) and trim($date['start']['date'])) ? $date['start']['date'] : date('Y-m-d');
-        $end_date = (isset($date['end']['date']) and trim($date['end']['date'])) ? $date['end']['date'] : date('Y-m-d');
+        $start_date = (isset($date['start']['date']) and trim($date['start']['date'])) ? $this->main->standardize_format($date['start']['date']) : date('Y-m-d');
+        $end_date = (isset($date['end']['date']) and trim($date['end']['date'])) ? $this->main->standardize_format($date['end']['date']) : date('Y-m-d');
 
-        $start_date = date('Y-m-d', strtotime($start_date));
-
-        // Set the date if it's empty
-        if(trim($date['start']['date']) == '') $date['start']['date'] = $start_date;
+        // Set the start date
+        $date['start']['date'] = $start_date;
 
         $start_time_hour = isset($date['start']) ? $date['start']['hour'] : '8';
         $start_time_minutes = isset($date['start']) ? $date['start']['minutes'] : '00';
         $start_time_ampm = (isset($date['start']) and isset($date['start']['ampm'])) ? $date['start']['ampm'] : 'AM';
 
-        $end_date = date('Y-m-d', strtotime($end_date));
-
         // Fix end_date if it's smaller than start_date
         if(strtotime($end_date) < strtotime($start_date)) $end_date = $start_date;
 
-        // Set the date if it's empty
-        if(trim($date['end']['date']) == '') $date['end']['date'] = $end_date;
+        // Set the end date
+        $date['end']['date'] = $end_date;
 
         $end_time_hour = isset($date['end']) ? $date['end']['hour'] : '6';
         $end_time_minutes = isset($date['end']) ? $date['end']['minutes'] : '00';
@@ -488,8 +484,6 @@ class MEC_feature_popup extends MEC_base
         update_post_meta($post_id, 'mec_end_time_minutes', $end_time_minutes);
         update_post_meta($post_id, 'mec_end_time_ampm', $end_time_ampm);
         update_post_meta($post_id, 'mec_end_day_seconds', $day_end_seconds);
-
-        update_post_meta($post_id, 'mec_date', $date);
 
         // Repeat Options
         $repeat = array();

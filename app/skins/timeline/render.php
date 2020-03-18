@@ -5,13 +5,14 @@ defined('MECEXEC') or die();
 $current_month_divider = $this->request->getVar('current_month_divider', 0);
 $settings = $this->main->get_settings();
 $styling = $this->main->get_styling();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
 ?>
 <div class="mec-events-timeline-wrap mec-wrap <?php echo $event_colorskin; ?>">
 <?php foreach($this->events as $date=>$events): ?>
 
     <?php $month_id = date('Ym', strtotime($date)); if($this->month_divider and $month_id != $current_month_divider): $current_month_divider = $month_id; ?>
-        <div class="mec-timeline-month-divider"><span><?php echo date_i18n('F Y', strtotime($date)); ?></span></div>
+        <div class="mec-timeline-month-divider"><span><?php echo $this->main->date_i18n('F Y', strtotime($date)); ?></span></div>
     <?php endif; ?>
 
     <div class="mec-timeline-events-container">
@@ -95,7 +96,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                 endif;
                 ?>
                 <div class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-timeline-event clearfix <?php echo $this->get_event_classes($event); ?>">
-                    <div class="mec-timeline-event-date mec-color<?php echo ($event->date['start']['date'] != $event->date['end']['date']) ? ' mec-timeline-dates' : '' ; ?>"><?php echo ( $event->date['start']['date'] == $event->date['end']['date'] ) ? date_i18n( get_option( 'date_format' ), strtotime($event->date['start']['date'])) : date_i18n( get_option( 'date_format' ), strtotime($event->date['start']['date'])) . '<br>' . date_i18n( get_option( 'date_format' ), strtotime($event->date['end']['date'])) ; ?> </div>
+                    <div class="mec-timeline-event-date mec-color<?php echo ($event->date['start']['date'] != $event->date['end']['date']) ? ' mec-timeline-dates' : '' ; ?>"><?php echo ( $event->date['start']['date'] == $event->date['end']['date'] ) ? $this->main->date_i18n( get_option( 'date_format' ), strtotime($event->date['start']['date'])) : $this->main->date_i18n( get_option( 'date_format' ), strtotime($event->date['start']['date'])) . '<br>' . $this->main->date_i18n( get_option( 'date_format' ), strtotime($event->date['end']['date'])) ; ?> </div>
                     <div class="mec-timeline-event-content">
                         <div class="clearfix">
                             <div class="mec-timeline-right-content">
@@ -117,7 +118,17 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                                             <address class="mec-timeline-event-address"><i class="mec-sl-location-pin"></i><span><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address>
                                         </div>
                                     </div>
-                                    <?php endif; ?>
+                                    <?php  if($this->localtime) 
+                                    {
+                                    ?>
+                                    <div class="mec-timeline-event-details">
+                                        <div class="mec-timeline-event-local-time mec-color">
+                                            <?php echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    }
+                                endif; ?>
                                 </div>
                             </div>
                         </div>

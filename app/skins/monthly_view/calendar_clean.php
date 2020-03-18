@@ -12,6 +12,7 @@ $week_start = $this->main->get_first_day_of_week();
 
 // Get date suffix 
 $settings = $this->main->get_settings();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 
 // days and weeks vars
 $running_day = date('w', mktime(0, 0, 0, $month, 1, $year));
@@ -55,7 +56,7 @@ elseif($week_start == 5) // Friday
         for($list_day = 1; $list_day <= $days_in_month; $list_day++)
         {
             $time = strtotime($year.'-'.$month.'-'.$list_day);
-            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? date_i18n('jS', $time) : date_i18n('j', $time);
+            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
             $today = date('Y-m-d', $time);
             $day_id = date('Ymd', $time);
@@ -65,7 +66,7 @@ elseif($week_start == 5) // Friday
             if(isset($events[$today]) and count($events[$today]))
             {
                 echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'"><a href="#" class="mec-has-event-a">'.$list_day.'</a></dt>';
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
+                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), $this->main->date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
                 
                 foreach($events[$today] as $event)
                 {
@@ -156,6 +157,7 @@ elseif($week_start == 5) // Friday
                     $events_str .= $after_time_filter;
                     $event_color =  isset($event->data->meta['mec_color'])?'<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>':'';
                     $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'">'.$event->data->title.'</a>'.$this->main->get_flags($event->data->ID, $event_start_date).$event_color.'</h4>';
+                    if($this->localtime) $events_str .= $this->main->module('local-time.type3', array('event'=>$event));
                     $events_str .= '<div class="mec-event-detail">'.(isset($location['name']) ? $location['name'] : '').'</div>';
                     if(has_filter('monthly_event_right_box')) {
                         $events_filter = apply_filters('monthly_event_right_box', $events_str, $event);
@@ -170,7 +172,7 @@ elseif($week_start == 5) // Friday
             {
                 echo '<dt class="mec-calendar-day'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'">'.$list_day.'</dt>';
                 
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
+                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), $this->main->date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
                 $events_str .= '<article class="mec-event-article">';
                 $events_str .= '<div class="mec-event-detail">'.__('No Events', 'modern-events-calendar-lite').'</div>';
                 $events_str .= '</article>';

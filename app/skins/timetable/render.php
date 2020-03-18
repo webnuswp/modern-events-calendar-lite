@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 $has_events = array();
 $settings = $this->main->get_settings();
-
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
 if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
 else: $set_dark ='';
@@ -99,6 +99,7 @@ endif;
                 <span class="mec-timetable-event-span mec-timetable-event-title">
                     <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?>
                     <?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
+                    <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 </span>
                 
                 <span class="mec-timetable-event-span mec-timetable-event-location">
@@ -130,7 +131,7 @@ endif;
 <div class="mec-timetable-t2-wrap <?php echo $set_dark; ?>">
     <?php foreach($this->events as $date=>$events): ?>
     <div class="mec-timetable-t2-col mec-timetable-col-<?php echo $this->number_of_days; ?>">
-        <div class="mec-ttt2-title"> <?php echo date_i18n('l', strtotime($date)); ?> </div>
+        <div class="mec-ttt2-title"> <?php echo $this->main->date_i18n('l', strtotime($date)); ?> </div>
         <?php foreach($events as $event): ?>
         <?php
             $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
@@ -177,6 +178,7 @@ endif;
                         <span><?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?></span>
                     <?php endif; ?>
                 </div>
+                <?php if($this->localtime) echo $this->main->module('local-time.type1', array('event'=>$event)); ?>
             </div>
         </article>
         <?php endforeach; ?>
@@ -190,7 +192,7 @@ endif;
             <tr>
                 <td>Time/Date</td>
                 <?php foreach($this->events as $date=>$events): ?>
-                <td><?php echo date_i18n('l', strtotime($date)); ?></td>
+                <td><?php echo $this->main->date_i18n('l', strtotime($date)); ?></td>
                 <?php endforeach; ?>
             </tr>
         </thead>

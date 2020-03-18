@@ -6,7 +6,7 @@ $events = $this->main->get_events('-1');
 $ix_options = $this->main->get_ix_options();
 
 // Start the export process if token is exists
-if(isset( $ix_options['google_export_token'] ) && $ix_options['google_export_token']) $this->action = 'google-calendar-export-start';
+if(isset($ix_options['google_export_token']) && $ix_options['google_export_token']) $this->action = 'google-calendar-export-start';
 ?>
 <div class="wrap" id="mec-wrap">
     <h1><?php _e('MEC Import / Export', 'modern-events-calendar-lite'); ?></h1>
@@ -47,7 +47,7 @@ if(isset( $ix_options['google_export_token'] ) && $ix_options['google_export_tok
                     <div class="mec-options-fields">
                         <button id="mec_ix_google_export_authenticate_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Authenticate', 'modern-events-calendar-lite'); ?></button>
                     </div>
-                    <p class="mec-col-6" id="mec_ix_google_export_authenticate_message" class="mec-util-hidden"></p>
+                    <p id="mec_ix_google_export_authenticate_message" class="mec-col-6 mec-util-hidden"></p>
                 </form>
             </div>
             <?php if($this->action == 'google-calendar-export-start'): ?>
@@ -71,7 +71,7 @@ if(isset( $ix_options['google_export_token'] ) && $ix_options['google_export_tok
                     <div class="mec-options-fields">
                         <button id="mec_ix_google_export_do_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Add to Google Calendar', 'modern-events-calendar-lite'); ?></button>
                     </div>
-                    <p class="mec-col-6" id="mec_ix_google_export_do_message" class="mec-util-hidden"></p>
+                    <p id="mec_ix_google_export_do_message" class="mec-col-6 mec-util-hidden"></p>
                 </form>
             </div>
             <?php endif; ?>
@@ -82,9 +82,12 @@ if(isset( $ix_options['google_export_token'] ) && $ix_options['google_export_tok
 jQuery("#mec_g_calendar_export_form_authenticate").on('submit', function(e)
 {
     e.preventDefault();
-    
+
+    // Message
+    var $message = jQuery('#mec_ix_google_export_authenticate_message');
+
     // Hide the Message
-    jQuery('#mec_ix_google_export_authenticate_message').hide();
+    $message.hide();
     
     // Add loading Class to the button
     jQuery("#mec_ix_google_export_authenticate_form_button").addClass('loading').text("<?php esc_attr_e('Checking ...', 'modern-events-calendar-lite'); ?>");
@@ -104,14 +107,12 @@ jQuery("#mec_g_calendar_export_form_authenticate").on('submit', function(e)
             }, 1000);
             
             // Remove the classes
-            jQuery('#mec_ix_google_export_authenticate_message').removeClass('mec-error');
-            jQuery('#mec_ix_google_export_authenticate_message').removeClass('mec-success');
+            $message.removeClass('mec-error').removeClass('mec-success');
     
             if(data.success) jQuery('#mec_ix_google_export_authenticate_message').addClass('mec-success');
             else jQuery('#mec_ix_google_export_authenticate_message').addClass('mec-error');
-            
-            jQuery('#mec_ix_google_export_authenticate_message').html(data.message);
-            jQuery('#mec_ix_google_export_authenticate_message').show();
+
+            $message.html(data.message).show();
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
@@ -126,9 +127,12 @@ jQuery("#mec_g_calendar_export_form_authenticate").on('submit', function(e)
 jQuery("#mec_g_calendar_export_form_do").on('submit', function(e)
 {
     e.preventDefault();
-    
+
+    // Message
+    var $message = jQuery('#mec_ix_google_export_do_message');
+
     // Hide the Message
-    jQuery('#mec_ix_google_export_do_message').hide();
+    $message.hide();
     
     // Add loading Class to the button
     jQuery("#mec_ix_google_export_do_form_button").addClass('loading').text("<?php esc_attr_e('Exporting ...', 'modern-events-calendar-lite'); ?>");
@@ -148,14 +152,12 @@ jQuery("#mec_g_calendar_export_form_do").on('submit', function(e)
             }, 1000);
             
             // Remove the classes
-            jQuery('#mec_ix_google_export_do_message').removeClass('mec-error');
-            jQuery('#mec_ix_google_export_do_message').removeClass('mec-success');
+            $message.removeClass('mec-error').removeClass('mec-success');
     
             if(data.success) jQuery('#mec_ix_google_export_do_message').addClass('mec-success');
             else jQuery('#mec_ix_google_export_do_message').addClass('mec-error');
-            
-            jQuery('#mec_ix_google_export_do_message').html(data.message);
-            jQuery('#mec_ix_google_export_do_message').show();
+
+            $message.html(data.message).show();
         },
         error: function(jqXHR, textStatus, errorThrown)
         {

@@ -68,11 +68,83 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                 </div>
             </div>       
         </div>
+
+        <div class="w-row">
+            <div class="w-col-sm-3">
+                <div class="w-box support-page videobox articles">
+                    <div class="w-box-head">
+                        <?php _e('Setting Up Event', 'modern-events-calendar-lite'); ?>
+                    </div>
+                    <div class="w-box-content">
+                        <ul>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/category/setup-features/" target="_blank"><?php echo esc_html__('Setup Features', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/add-event/" target="_blank"><?php echo esc_html__('Add Event In MEC Plugin', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/date-and-time/" target="_blank"><?php echo esc_html__('Repeating, Date & Time', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/tickets-and-taxes-fees/" target="_blank"><?php echo esc_html__('Add Tickets & Fee', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/total-booking-limits/" target="_blank"><?php echo esc_html__('Total Booking & User Limits', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/create-events-with-your-page-builder/" target="_blank"><?php echo esc_html__('Create Events With Your Page Builder', 'modern-events-calendar-lite'); ?></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="w-col-sm-3">
+                <div class="w-box support-page videobox">
+                    <div class="w-box-head">
+                        <?php _e('MEC Settings', 'modern-events-calendar-lite'); ?>
+                    </div>
+                    <div class="w-box-content">
+                        <ul>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/general-options/" target="_blank"><?php echo esc_html__('General Options', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/frontend-event-submission/" target="_blank"><?php echo esc_html__('Frontend Event Submission', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php echo esc_html__('Single Event', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php echo esc_html__('Google Maps Options', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/making-advance-shortcodes-in-modern-event-calendar/" target="_blank"><?php echo esc_html__('Making Advance Shortcodes', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/messages/" target="_blank"><?php echo esc_html__('Messages', 'modern-events-calendar-lite'); ?></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> 
+            <div class="w-col-sm-3">
+                <div class="w-box support-page videobox">
+                    <div class="w-box-head">
+                        <?php _e('Booking', 'modern-events-calendar-lite'); ?>
+                    </div>
+                    <div class="w-box-content">
+                        <ul>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php echo esc_html__('Booking', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/payment-gateways/" target="_blank"><?php echo esc_html__('Payment Gateways', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/tickets-and-taxes-fees/" target="_blank"><?php echo esc_html__('Add Tickets & Fee', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php echo esc_html__('Notifications', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/organizer-payment/" target="_blank"><?php echo esc_html__('Organizer Payment', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/bookings/" target="_blank"><?php echo esc_html__('Manage The Bookings', 'modern-events-calendar-lite'); ?></a></li>
+                        </ul>
+                    </div>
+            </div>
+            </div>
+            <div class="w-col-sm-3">
+                <div class="w-box support-page videobox">
+                    <div class="w-box-head">
+                        <?php _e('Other Articles', 'modern-events-calendar-lite'); ?>
+                    </div>
+                    <div class="w-box-content">
+                        <ul>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/import-and-export-events/" target="_blank"><?php echo esc_html__('Import & Export Events', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/single-events-sidebar/" target="_blank"><?php echo esc_html__('Single Events Sidebar', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/translate-mec/" target="_blank"><?php echo esc_html__('Translate MEC', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/category/developer-document/" target="_blank"><?php echo esc_html__('Developer Documentation', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/category/knowledge/" target="_blank"><?php echo esc_html__('Knowledge', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><i class="mec-sl-arrow-right-circle"></i><a href="https://webnus.net/dox/modern-events-calendar/category/troubleshooting/" target="_blank"><?php echo esc_html__('Troubleshooting', 'modern-events-calendar-lite'); ?></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
         <div class="w-row">
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('Quick Setup', 'modern-events-calendar-lite'); ?>
+                        <?php _e('Quick Setup Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>
@@ -89,7 +161,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('Activate License', 'modern-events-calendar-lite'); ?>
+                        <?php _e('Activate License Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>
@@ -106,7 +178,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('New Event', 'modern-events-calendar-lite'); ?>
+                        <?php _e('Add New Event Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>
@@ -123,7 +195,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('Enable Booking', 'modern-events-calendar-lite'); ?>
+                        <?php _e('Enable Booking Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>
@@ -143,7 +215,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('Add booking form to event', 'modern-events-calendar-lite'); ?>
+                        <?php _e('Add Booking Form Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>
@@ -160,7 +232,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('Create Shortcodes', 'modern-events-calendar-lite'); ?>
+                        <?php _e('Create Shortcodes Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>
@@ -177,7 +249,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('WooCommerce gateways', 'modern-events-calendar-lite'); ?>
+                        <?php _e('WooCommerce Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>
@@ -194,7 +266,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-3">
                 <div class="w-box support-page videobox">
                     <div class="w-box-head">
-                        <?php _e('Settings', 'modern-events-calendar-lite'); ?>
+                        <?php _e('Settings Video', 'modern-events-calendar-lite'); ?>
                     </div>
                     <div class="w-box-content">
                         <ul>

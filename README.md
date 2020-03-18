@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.2.0  
+**Stable tag:** 5.2.1  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -162,6 +162,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Event countdown
 - Dynamic event labels
 - Dark Mode
+- Local time for all shortcodes
 
 
 ## Integration 
@@ -444,6 +445,27 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### 5.2.1 – 18 March 2020 
+- Added: New skins in default shortcakes
+- Added: File field in booking edit menu (pro)
+- Added: An option to change the format of the date picker
+- Added: A custom class for all "Last Few Tickets" (pro)
+- Added: A new Geo-Location option to disable autofocus on user position (pro)
+- Added: An option to show the Local-Time for all shortcodes
+- Changed: "Modal 1" name to "Modal Popup"
+- Fixed: Number of dates in booking edit menu (pro)
+- Fixed: Showing unrelated events in monthly skin
+- Fixed: Removing MEC data after uninstallation when the data remove option is enabled.
+- Fixed: Importing Facebook images (pro)
+- Fixed: Updating previously exported events to Google Calendar
+- Fixed: Showing wrong dates with WordPress i18n date function
+- Fixed: Font face on a single event
+- Fixed: Address search field position
+- Fixed: Modal Popup view on Monthly/Calendar skin simple type
+- Fixed: Free Booking button when using 100% coupon (pro)
+- Fixed: Some minor issues
+
 
 ### 5.2.0 – 10 March 2020 
 - Added: Add Event Wizard - hard-refresh is required

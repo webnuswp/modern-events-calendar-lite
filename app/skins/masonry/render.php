@@ -5,6 +5,7 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-masonry">
@@ -141,13 +142,14 @@ $settings = $this->main->get_settings();
 
                                 <div class="mec-masonry-col<?php echo (isset($location['name']) and trim($location['name'])) ? '6' : '12'; ?>">
                                     <?php if(isset($settings['multiple_day_show_method']) and ($settings['multiple_day_show_method'] == 'all_days' or $settings['multiple_day_show_method'] == 'first_day_listgrid')): ?>
-                                        <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format_1, strtotime($event->date['start']['date'])); ?></div>
-                                        <div class="mec-event-month"><?php echo date_i18n($this->date_format_2, strtotime($event->date['start']['date'])); ?></div>
+                                        <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_1, strtotime($event->date['start']['date'])); ?></div>
+                                        <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_2, strtotime($event->date['start']['date'])); ?></div>
                                     <?php else: ?>
                                         <div class="mec-event-date mec-color"><?php echo $this->main->dateify($event, $this->date_format_1); ?></div>
                                         <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_2); ?></div>
                                     <?php endif; ?>
                                     <div class="mec-event-detail"><?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div>
+                                    <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                                 </div>
 
                                 <?php if(isset($location['name']) and trim($location['name'])): ?>

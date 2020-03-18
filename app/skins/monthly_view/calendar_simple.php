@@ -6,12 +6,12 @@ defined('MECEXEC') or die();
 $headings = $this->main->get_weekday_abbr_labels();
 echo '<dl class="mec-calendar-table-head"><dt class="mec-calendar-day-head">'.implode('</dt><dt class="mec-calendar-day-head">', $headings).'</dt></dl>';
 
-
 // Start day of week
 $week_start = $this->main->get_first_day_of_week();
 
 // Get date suffix 
 $settings = $this->main->get_settings();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 
 // days and weeks vars
 $running_day = date('w', mktime(0, 0, 0, $month, 1, $year));
@@ -52,12 +52,13 @@ elseif($week_start == 5) // Friday
         for($list_day = 1; $list_day <= $days_in_month; $list_day++)
         {
             $time = strtotime($year.'-'.$month.'-'.$list_day);
-            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? date_i18n('jS', $time) : date_i18n('j', $time);
+            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
             $today = date('Y-m-d', $time);
             $day_id = date('Ymd', $time);
             $selected_day = (str_replace('-', '', $this->active_day) == $day_id) ? ' mec-selected-day' : '';
             $selected_day_date = (str_replace('-', '', $this->active_day) == $day_id) ? 'mec-color' : '';
+
             // Print events
             if(isset($events[$today]) and count($events[$today]))
             {
@@ -82,6 +83,7 @@ elseif($week_start == 5) // Friday
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '' ;
                     $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.$event->data->thumbnails['thumbnail'].'</div>' : '' ;
                     $tooltip_content .= !empty(!empty($event->data->content)) ? '<div class="mec-tooltip-event-desc">'.$this->main->mec_content_html($event->data->content, 320).' , ...</div>' : '' ;
+                    if($this->localtime) $tooltip_content .= $this->main->module('local-time.type2', array('event'=>$event));
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '' ;
                     $speakers = '""';
                     if ( !empty($event->data->speakers)) 

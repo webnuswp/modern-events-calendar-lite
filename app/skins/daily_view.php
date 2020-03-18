@@ -268,7 +268,7 @@ class MEC_skin_daily_view extends MEC_skins
         foreach($this->events as $date=>$events)
         {
             $time = strtotime($date);
-            $labels .= '<div class="mec-daily-view-day '.(count($events) ? 'mec-has-event' : '').'" id="mec_daily_view_day'.$this->id.'_'.date('Ymd', $time).'" data-events-count="'.count($events).'" data-month-id="'.date('Ym', $time).'" data-day-id="'.date('Ymd', $time).'" data-day-weekday="'.date_i18n('l', $time).'" data-day-monthday="'.date('j', $time).'">'.date_i18n('j', $time).'</div>';
+            $labels .= '<div class="mec-daily-view-day '.(count($events) ? 'mec-has-event' : '').'" id="mec_daily_view_day'.$this->id.'_'.date('Ymd', $time).'" data-events-count="'.count($events).'" data-month-id="'.date('Ym', $time).'" data-day-id="'.date('Ymd', $time).'" data-day-weekday="'.$this->main->date_i18n('l', $time).'" data-day-monthday="'.date('j', $time).'">'.$this->main->date_i18n('j', $time).'</div>';
         }
         
         return $labels.'</div>';

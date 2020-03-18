@@ -128,6 +128,9 @@ class MEC_skin_grid extends MEC_skins
         // Map geolocation
         $this->geolocation = ((isset($this->skin_options['map_on_top']) and (isset($this->skin_options['set_geolocation']))) and ($this->skin_options['map_on_top'] == '1' and $this->skin_options['set_geolocation'] == '1')) ? true : false;
         
+        // Geolocation Focus
+        $this->geolocation_focus = isset($this->skin_options['set_geolocation_focus']) ? $this->skin_options['set_geolocation_focus'] : 0;
+
         // Init MEC
         $this->args['mec-init'] = true;
         $this->args['mec-skin'] = $this->skin;

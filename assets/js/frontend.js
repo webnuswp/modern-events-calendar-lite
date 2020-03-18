@@ -714,7 +714,7 @@ var mecSingleEventDisplayer = {
 
         function sed() {
             // Single Event Display
-            $("#mec_skin_" + settings.id + " .mec-event-title a,#mec_skin_" + settings.id + " .event-single-link-novel").off('click').on('click', function (e) {
+            $("#mec_skin_" + settings.id + " .mec-event-title a,#mec_skin_" + settings.id + " .event-single-link-novel,#mec_skin_" + settings.id + " .mec-monthly-tooltip").off('click').on('click', function (e) {
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -735,6 +735,9 @@ var mecSingleEventDisplayer = {
                         minWidth: 350,
                         maxWidth: 350
                     });
+                    if (settings.sed_method != '0') {
+                        sed();
+                    }
                 } else {
                     var touchtime = 0;
                     $(".mec-monthly-tooltip").on("click", function (event) {

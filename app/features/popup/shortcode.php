@@ -305,7 +305,7 @@ $settings = $this->main->get_settings();
                             </label>
                             <label>
                                 <input type="radio" name="shortcode[sed]" value="m1">
-                                <?php _e('Modal 1', 'modern-events-calendar-lite'); ?>
+                                <?php _e('Modal Popup', 'modern-events-calendar-lite'); ?>
                             </label>
                         </div>
                     </div>

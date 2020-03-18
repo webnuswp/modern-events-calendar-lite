@@ -164,6 +164,13 @@ class MEC_skin_monthly_view extends MEC_skins
         $events = array();
         foreach($dates as $date=>$IDs)
         {
+            // No Event
+            if(!is_array($IDs) or (is_array($IDs) and !count($IDs)))
+            {
+                $events[$date] = array();
+                continue;
+            }
+
             // Include Available Events
             $this->args['post__in'] = $IDs;
 

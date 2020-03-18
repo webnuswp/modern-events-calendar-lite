@@ -106,6 +106,9 @@ class MEC_skin_map extends MEC_skins
         // Geolocation
         $this->geolocation = isset($this->skin_options['geolocation']) ? $this->skin_options['geolocation'] : 0;
         
+        // Geolocation Focus
+        $this->geolocation_focus = isset($this->skin_options['geolocation_focus']) ? $this->skin_options['geolocation_focus'] : 0;
+
         // Start Date
         $this->start_date = $this->get_start_date();
     }

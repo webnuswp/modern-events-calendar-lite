@@ -395,6 +395,9 @@ class MEC_feature_events extends MEC_base
         $hide_end_time = get_post_meta($post->ID, 'mec_hide_end_time', true);
         $start_date = get_post_meta($post->ID, 'mec_start_date', true);
 
+        // This date format used for datepicker
+        $datepicker_format = (isset($this->settings['datepicker_format']) and trim($this->settings['datepicker_format'])) ? $this->settings['datepicker_format'] : 'Y-m-d';
+
         // Advanced Repeating Day
         $advanced_days = get_post_meta($post->ID, 'mec_advanced_days', true);
         $advanced_days = is_array($advanced_days) ? $advanced_days : array();
@@ -476,7 +479,7 @@ class MEC_feature_events extends MEC_base
                 <div class="mec-form-row">
                     <div class="mec-col-4">
                         <input type="text" name="mec[date][start][date]" id="mec_start_date"
-                               value="<?php echo esc_attr($start_date); ?>"
+                               value="<?php echo esc_attr( $this->main->standardize_format( $start_date, $datepicker_format ) ); ?>"
                                placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" autocomplete="off"/>
                     </div>
                     <div class="mec-col-6 mec-time-picker
@@ -568,7 +571,7 @@ class MEC_feature_events extends MEC_base
                 <div class="mec-form-row">
                     <div class="mec-col-4">
                         <input type="text" name="mec[date][end][date]" id="mec_end_date"
-                               value="<?php echo esc_attr($end_date); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>"
+                               value="<?php echo esc_attr( $this->main->standardize_format( $end_date, $datepicker_format ) ); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>"
                                autocomplete="off"/>
                     </div>
                     <div class="mec-col-6 mec-time-picker
@@ -806,9 +809,9 @@ class MEC_feature_events extends MEC_base
                         <div class="mec-form-row">
                             <div class="mec-col-6">
                                 <input type="text" id="mec_exceptions_in_days_start_date" value=""
-                                       placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker"/>
+                                       placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format"/>
                                 <input type="text" id="mec_exceptions_in_days_end_date" value=""
-                                       placeholder="<?php _e('End', 'modern-events-calendar-lite'); ?>" class="mec_date_picker"/>
+                                       placeholder="<?php _e('End', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format"/>
                                 <button class="button" type="button"
                                         id="mec_add_in_days"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
                                 <span class="mec-tooltip">
@@ -825,6 +828,12 @@ class MEC_feature_events extends MEC_base
                         <div class="mec-form-row mec-certain-day" id="mec_in_days">
                             <?php $i = 1;
                             foreach ($in_days as $in_day) : ?>
+                                <?php
+                                    $in_day = explode( ':', $in_day );
+                                    $first_date = $this->main->standardize_format( $in_day[0], $datepicker_format );
+                                    $second_date = $this->main->standardize_format( $in_day[1], $datepicker_format );
+                                    $in_day = $first_date . ':' . $second_date;
+                                ?>
                                 <div class="mec-form-row" id="mec_in_days_row<?php echo $i; ?>">
                                     <input type="hidden" name="mec[in_days][<?php echo $i; ?>]"
                                            value="<?php echo $in_day; ?>"/>
@@ -1093,7 +1102,7 @@ class MEC_feature_events extends MEC_base
                             </div>
                             <input class="mec-col-2" type="text" name="mec[date][repeat][end_at_date]"
                                    id="mec_date_repeat_end_at_date" autocomplete="off"
-                                   value="<?php echo esc_attr($repeat_end_at_date); ?>"/>
+                                   value="<?php echo esc_attr( $this->main->standardize_format( $repeat_end_at_date, $datepicker_format ) ); ?>"/>
                         </div>
                         <div class="mec-form-row">
                             <div class="mec-col-3">
@@ -1185,7 +1194,7 @@ class MEC_feature_events extends MEC_base
                     <div class="mec-form-row">
                         <div class="mec-col-6">
                             <input type="text" id="mec_exceptions_not_in_days_date" value=""
-                                   placeholder="<?php _e('Date', 'modern-events-calendar-lite'); ?>" class="mec_date_picker" autocomplete="off"/>
+                                   placeholder="<?php _e('Date', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format" autocomplete="off"/>
                             <button class="button" type="button"
                                     id="mec_add_not_in_days"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
                             <span class="mec-tooltip">
@@ -1200,12 +1209,15 @@ class MEC_feature_events extends MEC_base
                         </div>
                     </div>
                     <div class="mec-form-row mec-certain-day" id="mec_not_in_days">
-                        <?php $i = 1;
+                        <?php
+                        // This date format used for datepicker
+                        $datepicker_format = (isset($this->settings['datepicker_format']) and trim($this->settings['datepicker_format'])) ? $this->settings['datepicker_format'] : 'Y-m-d';
+                        $i = 1;
                         foreach ($not_in_days as $not_in_day) : ?>
                             <div class="mec-form-row" id="mec_not_in_days_row<?php echo $i; ?>">
                                 <input type="hidden" name="mec[not_in_days][<?php echo $i; ?>]"
-                                       value="<?php echo $not_in_day; ?>"/>
-                                <span class="mec-not-in-days-day"><?php echo $not_in_day; ?></span>
+                                       value="<?php echo $this->main->standardize_format( $not_in_day, $datepicker_format ); ?>"/>
+                                <span class="mec-not-in-days-day"><?php echo $this->main->standardize_format( $not_in_day, $datepicker_format ); ?></span>
                                 <span class="mec-not-in-days-remove"
                                       onclick="mec_not_in_days_remove(<?php echo $i; ?>);">x</span>
                             </div>
@@ -1239,19 +1251,25 @@ class MEC_feature_events extends MEC_base
     {
         $meta_hourly_schedules = get_post_meta($post->ID, 'mec_hourly_schedules', true);
 
-        if (is_array($meta_hourly_schedules) and count($meta_hourly_schedules)) {
+        if (is_array($meta_hourly_schedules) and count($meta_hourly_schedules))
+        {
             $first_key = key($meta_hourly_schedules);
 
             $hourly_schedules = array();
-            if (!isset($meta_hourly_schedules[$first_key]['schedules'])) {
+            if(!isset($meta_hourly_schedules[$first_key]['schedules']))
+            {
                 $hourly_schedules[] = array(
                     'title' => __('Day 1', 'modern-events-calendar-lite'),
                     'schedules' => $meta_hourly_schedules,
                 );
-            } else {
+            }
+            else
+            {
                 $hourly_schedules = $meta_hourly_schedules;
             }
-        } else {
+        }
+        else
+        {
             $hourly_schedules = array();
         }
 
@@ -1554,9 +1572,7 @@ class MEC_feature_events extends MEC_base
     public function meta_box_booking_options($post)
     {
         $booking_options = get_post_meta($post->ID, 'mec_booking', true);
-        if (!is_array($booking_options)) {
-            $booking_options = array();
-        }
+        if(!is_array($booking_options)) $booking_options = array();
 
         $bookings_limit = isset($booking_options['bookings_limit']) ? $booking_options['bookings_limit'] : '';
         $bookings_limit_unlimited = isset($booking_options['bookings_limit_unlimited']) ? $booking_options['bookings_limit_unlimited'] : 0;
@@ -1629,6 +1645,10 @@ class MEC_feature_events extends MEC_base
     public function meta_box_tickets($post)
     {
         $tickets = get_post_meta($post->ID, 'mec_tickets', true);
+
+        // This date format used for datepicker
+        $datepicker_format = (isset($this->settings['datepicker_format']) and trim($this->settings['datepicker_format'])) ? $this->settings['datepicker_format'] : 'Y-m-d';
+
         if(!is_array($tickets)) $tickets = array();
         ?>
         <div class="mec-meta-box-fields mec-booking-tab-content" id="mec-tickets">
@@ -1852,7 +1872,7 @@ class MEC_feature_events extends MEC_base
                                 </select>
                                 <?php echo sprintf(__('Stop selling ticket %s before event start.', 'modern-events-calendar-lite'), ob_get_clean()); ?>
                                 <button class="button remove" type="button"
-                                        onclick="mec_ticket_remove(<?php echo $key; ?>);"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>                                
+                                        onclick="mec_ticket_remove(<?php echo $key; ?>);"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>
                             </div>
                             <?php do_action('custom_field_ticket', $ticket, $key); ?>
                             <div id="mec_price_per_dates_container">
@@ -1873,13 +1893,13 @@ class MEC_feature_events extends MEC_base
                                             ?>
                                             <div id="mec_ticket_price_raw_<?php echo $key; ?>_<?php echo $p; ?>">
                                                 <div class="mec-form-row">
-                                                    <input class="mec-col-3 mec_date_picker" type="text"
+                                                    <input class="mec-col-3 mec_date_picker_dynamic_format" type="text"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][start]"
-                                                           value="<?php echo isset($price_date['start']) ? $price_date['start'] : date('Y-m-d'); ?>"
+                                                           value="<?php echo isset($price_date['start']) ? $this->main->standardize_format( $price_date[ 'start' ], $datepicker_format ) : $this->main->standardize_format( date( 'Y-m-d' ), $datepicker_format ); ?>"
                                                            placeholder="<?php esc_attr_e('Start', 'modern-events-calendar-lite'); ?>"/>
-                                                    <input class="mec-col-3 mec_date_picker" type="text"
+                                                    <input class="mec-col-3 mec_date_picker_dynamic_format" type="text"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][end]"
-                                                           value="<?php echo isset($price_date['end']) ? $price_date['end'] : date('Y-m-d', strtotime('+10 days')); ?>"
+                                                           value="<?php echo isset($price_date['end']) ? $this->main->standardize_format( $price_date['end'], $datepicker_format ) : $this->main->standardize_format( date( 'Y-m-d', strtotime( '+10 days' ) ), $datepicker_format ); ?>"
                                                            placeholder="<?php esc_attr_e('End', 'modern-events-calendar-lite'); ?>"/>
                                                     <input class="mec-col-3" type="text"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][price]"
@@ -1903,11 +1923,11 @@ class MEC_feature_events extends MEC_base
                                         <div class="mec-form-row">
                                             <input class="mec-col-3 new_added" type="text"
                                                    name="mec[tickets][<?php echo $key; ?>][dates][:j:][start]"
-                                                   value="<?php echo date('Y-m-d'); ?>"
+                                                   value="<?php echo $this->main->standardize_format( date( 'Y-m-d' ), $datepicker_format ); ?>"
                                                    placeholder="<?php esc_attr_e('Start', 'modern-events-calendar-lite'); ?>"/>
                                             <input class="mec-col-3 new_added" type="text"
                                                    name="mec[tickets][<?php echo $key; ?>][dates][:j:][end]"
-                                                   value="<?php echo date('Y-m-d', strtotime('+10 days')); ?>"
+                                                   value="<?php echo $this->main->standardize_format( date( 'Y-m-d', strtotime( '+10 days' ) ), $datepicker_format ); ?>"
                                                    placeholder="<?php esc_attr_e('End', 'modern-events-calendar-lite'); ?>"/>
                                             <input class="mec-col-3" type="text"
                                                    name="mec[tickets][<?php echo $key; ?>][dates][:j:][price]"
@@ -2067,7 +2087,7 @@ class MEC_feature_events extends MEC_base
                         </select>
                         <?php echo sprintf(__('Stop selling ticket %s before event start.', 'modern-events-calendar-lite'), ob_get_clean()); ?>
                         <button class="button remove" type="button"
-                                onclick="mec_ticket_remove(:i:)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>                        
+                                onclick="mec_ticket_remove(:i:)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>
                     </div>
                     <div id="mec_price_per_dates_container_:i:">
                         <div class="mec-form-row">
@@ -2083,11 +2103,11 @@ class MEC_feature_events extends MEC_base
                                 <div class="mec-form-row">
                                     <input class="mec-col-3 new_added" type="text"
                                            name="mec[tickets][:i:][dates][:j:][start]"
-                                           value="<?php echo date('Y-m-d'); ?>"
+                                           value="<?php echo $this->main->standardize_format( date( 'Y-m-d' ), $datepicker_format ); ?>"
                                            placeholder="<?php esc_attr_e('Start', 'modern-events-calendar-lite'); ?>"/>
                                     <input class="mec-col-3 new_added" type="text"
                                            name="mec[tickets][:i:][dates][:j:][end]"
-                                           value="<?php echo date('Y-m-d', strtotime('+10 days')); ?>"
+                                           value="<?php echo $this->main->standardize_format( date( 'Y-m-d', strtotime( '+10 days' ) ), $datepicker_format ); ?>"
                                            placeholder="<?php esc_attr_e('End', 'modern-events-calendar-lite'); ?>"/>
                                     <input class="mec-col-3" type="text" name="mec[tickets][:i:][dates][:j:][price]"
                                            placeholder="<?php esc_attr_e('Price', 'modern-events-calendar-lite'); ?>"/>
@@ -2609,8 +2629,8 @@ class MEC_feature_events extends MEC_base
         // Get Modern Events Calendar Data
         $_mec = isset($_POST['mec']) ? $_POST['mec'] : array();
 
-        $start_date = (isset($_mec['date']['start']['date']) and trim($_mec['date']['start']['date'])) ? $_mec['date']['start']['date'] : date('Y-m-d');
-        $end_date = (isset($_mec['date']['end']['date']) and trim($_mec['date']['end']['date'])) ? $_mec['date']['end']['date'] : date('Y-m-d');
+        $start_date = (isset($_mec['date']['start']['date']) and trim($_mec['date']['start']['date'])) ? $this->main->standardize_format( $_mec['date']['start']['date'] ) : date('Y-m-d');
+        $end_date = (isset($_mec['date']['end']['date']) and trim($_mec['date']['end']['date'])) ? $this->main->standardize_format( $_mec['date']['end']['date'] ) : date('Y-m-d');
 
         $event = $this->db->select("SELECT * FROM `#__mec_events` WHERE `post_id` = {$post_id}", 'loadAssoc');
         if(!is_array($event)) $event = array();
@@ -2668,10 +2688,8 @@ class MEC_feature_events extends MEC_base
 
         $start_date = date('Y-m-d', strtotime($start_date));
 
-        // Set the date if it's empty
-        if (trim($date['start']['date']) == '') {
-            $date['start']['date'] = $start_date;
-        }
+        // Set the start date
+        $date['start']['date'] = $start_date;
 
         $start_time_hour = isset($date['start']) ? $date['start']['hour'] : '8';
         $start_time_minutes = isset($date['start']) ? $date['start']['minutes'] : '00';
@@ -2684,10 +2702,8 @@ class MEC_feature_events extends MEC_base
             $end_date = $start_date;
         }
 
-        // Set the date if it's empty
-        if (trim($date['end']['date']) == '') {
-            $date['end']['date'] = $end_date;
-        }
+        // Set the end date
+        $date['end']['date'] = $end_date;
 
         $end_time_hour = isset($date['end']) ? $date['end']['hour'] : '6';
         $end_time_minutes = isset($date['end']) ? $date['end']['minutes'] : '00';
@@ -2781,10 +2797,7 @@ class MEC_feature_events extends MEC_base
 
         $repeat_end = ($repeat_status and isset($repeat['end'])) ? $repeat['end'] : '';
         $repeat_end_at_occurrences = ($repeat_status and isset($repeat['end_at_occurrences'])) ? ($repeat['end_at_occurrences'] - 1) : '';
-        $repeat_end_at_date = ($repeat_status and isset($repeat['end_at_date'])) ? $repeat['end_at_date'] : '';
-        if (trim($repeat_end_at_date) != '') {
-            $repeat_end_at_date = date('Y-m-d', strtotime($repeat_end_at_date));
-        }
+        $repeat_end_at_date = ($repeat_status and isset($repeat['end_at_date'])) ? $this->main->standardize_format( $repeat['end_at_date'] ) : '';
 
         $day_start_seconds = $this->main->time_to_seconds($this->main->to_24hours($start_time_hour, $start_time_ampm), $start_time_minutes);
         $day_end_seconds = $this->main->time_to_seconds($this->main->to_24hours($end_time_hour, $end_time_ampm), $end_time_minutes);
@@ -2930,6 +2943,11 @@ class MEC_feature_events extends MEC_base
         $in_days = '';
         if (count($in_days_arr)) {
            if(isset($in_days_arr[':i:'])) unset($in_days_arr[':i:']);
+
+            $in_days_arr = array_map( function( $value ) {
+                return $this->main->standardize_format( explode( ':', $value )[0] ) . ':' . $this->main->standardize_format( explode( ':', $value )[1] );
+            }, $in_days_arr );
+
             usort($in_days_arr, function($a, $b)
             {
                 return strtotime(explode(':', $a)[0]) - strtotime(explode(':', $b)[0]);
@@ -2947,7 +2965,7 @@ class MEC_feature_events extends MEC_base
         if (count($not_in_days_arr)) {
             foreach ($not_in_days_arr as $key => $not_in_day_arr) {
                 if (is_numeric($key)) {
-                    $not_in_days .= $not_in_day_arr . ',';
+                    $not_in_days .= $this->main->standardize_format( $not_in_day_arr ) . ',';
                 }
             }
         }
@@ -3060,6 +3078,19 @@ class MEC_feature_events extends MEC_base
                 $ticket['ticket_start_time_ampm'] = strtoupper(substr($ticket_render_start_time, 5, 6));
                 $ticket['ticket_end_time_hour'] = substr($ticket_render_end_time, 0, 2);
                 $ticket['ticket_end_time_ampm'] = strtoupper(substr($ticket_render_end_time, 5, 6));
+
+                // Bellow conditional block code is used to change ticket dates format to compatible ticket past dates structure for store in db.
+                if ( isset( $ticket[ 'dates' ] ) ) {
+                    foreach ( $ticket[ 'dates' ] as $dates_ticket_key => $dates_ticket_values ) {
+                        if ( isset( $dates_ticket_values[ 'start' ] ) and trim( $dates_ticket_values[ 'start' ] ) ) {
+                            $ticket[ 'dates' ][ $dates_ticket_key ][ 'start' ] = $this->main->standardize_format( $dates_ticket_values[ 'start' ] );
+                        }
+
+                        if ( isset( $dates_ticket_values[ 'end' ] ) and trim( $dates_ticket_values[ 'end' ] ) ) {
+                            $ticket[ 'dates' ][ $dates_ticket_key ][ 'end' ] = $this->main->standardize_format( $dates_ticket_values[ 'end' ] );
+                        }
+                    }
+                }
 
                 $new_tickets[$key] = $ticket;
             }
@@ -3358,9 +3389,9 @@ class MEC_feature_events extends MEC_base
             $organizer = get_term(get_post_meta($post_id, 'mec_organizer_id', true));
             echo(isset($organizer->name) ? $organizer->name : '----');
         } elseif ($column_name == 'start_date') {
-            echo date('Y-n-d', strtotime(get_post_meta($post_id, 'mec_start_date', true)));
+            echo date( get_option( 'date_format', 'Y-n-d' ), strtotime( get_post_meta( $post_id, 'mec_start_date', true ) ) );
         } elseif ($column_name == 'end_date') {
-            echo date('Y-n-d', strtotime(get_post_meta($post_id, 'mec_end_date', true)));
+            echo date( get_option( 'date_format', 'Y-n-d' ), strtotime( get_post_meta( $post_id, 'mec_end_date', true ) ) );
         } elseif ($column_name == 'repeat') {
             $repeat_type = get_post_meta($post_id, 'mec_repeat_type', true);
             echo ucwords(str_replace('_', ' ', $repeat_type));
@@ -3766,10 +3797,18 @@ class MEC_feature_events extends MEC_base
         }
     }
 
-    public function attendees()
+    public function attendees($id = false, $occurrence = false)
     {
-        $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
-        $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
+        $return = true;
+        if(!$id) {
+            $return = false;
+            $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
+        }
+
+        if(!$occurrence) {
+            $return = false;
+            $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
+        }
 
         $dates = $this->db->select("SELECT `dstart`, `dend` FROM `#__mec_dates` WHERE `post_id`='".$id."' LIMIT 10");
 
@@ -3817,7 +3856,10 @@ class MEC_feature_events extends MEC_base
         foreach($bookings as $booking)
         {
             $atts = get_post_meta($booking->ID, 'mec_attendees', true);
-
+            foreach ($atts as $key => $value) {
+                $atts[$key]['book_id'] = $booking->ID;
+                $atts[$key]['key'] = ($key + 1);
+            }
             $attendees = array_merge($attendees, $atts);
         }
 
@@ -3852,7 +3894,7 @@ class MEC_feature_events extends MEC_base
                 $html .= '<div class="w-clearfix mec-attendees-content">';
                 $html .= '<div class="w-col-xs-1"><input type="checkbox" onchange="mec_send_email_check(this);" /><span class="mec-util-hidden mec-send-email-attendee-info">'.$attendee['name'].':.:'.$attendee['email'].',</span></div>';
                 $html .= '<div class="w-col-xs-3 name">' . get_avatar($attendee['email']) .$attendee['name'].'</div>';
-                $html .= '<div class="w-col-xs-3 email">'.$attendee['email'].'</div>';
+                $html .= '<div class="w-col-xs-3 email">'.$attendee['email'] .'</div>';
                 $html .= '<div class="w-col-xs-3 ticket">'.((isset($attendee['id']) and isset($tickets[$attendee['id']]['name'])) ? $tickets[$attendee['id']]['name'] : __('Unknown', 'modern-events-calendar-lite')).'</div>';
 
                 $variations = '';
@@ -3873,9 +3915,9 @@ class MEC_feature_events extends MEC_base
                     }
                 }
                 $variations .= '</div>';
-                
+
                 $html .= $variations;
-                $html = apply_filters('mec_attendees_list_html', $html, $attendee,$key, $booking->ID);
+                $html = apply_filters('mec_attendees_list_html', $html, $attendee,$attendee['key'], $attendee['book_id']);
                 $html .= '</div>';
                 $index++;
             }
@@ -3890,9 +3932,11 @@ class MEC_feature_events extends MEC_base
             $email_button = '';
         }
 
+        if($return) {
+            return array('html' => $html , 'email_button' => $email_button );
+        }
 
-
-        echo json_encode(array('html' => $html , 'email_button' =>$email_button ));
+        echo json_encode(array('html' => $html , 'email_button' => $email_button ));
         exit;
     }
 

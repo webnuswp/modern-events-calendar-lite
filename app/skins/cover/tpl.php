@@ -5,7 +5,7 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
-
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
 if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
 else: $set_dark ='';
@@ -93,8 +93,9 @@ do_action('mec_cover_skin_head');
         <a href="<?php echo $event_link; ?>" class="mec-event-cover-a">
         <div class="mec-event-overlay mec-bg-color"></div>
             <div class="mec-event-detail">
-                <?php if ( empty($label_style) ) echo '<div class="mec-event-tag mec-color">' . __('featured event', 'modern-events-calendar-lite') . ' </div>'; else echo '<span class="mec-fc-style">'.$label_style.'</span>';  ?>
-                <div class="mec-event-date"><?php echo date_i18n($this->date_format_modern1, strtotime($event_date)).((isset($event->data->time) and trim($event->data->time['start'])) ? ' - '.$event->data->time['start'] : ''); ?></div>
+                <?php if(empty($label_style)) echo '<div class="mec-event-tag mec-color">' . __('featured event', 'modern-events-calendar-lite') . ' </div>'; else echo '<span class="mec-fc-style">'.$label_style.'</span>';  ?>
+                <div class="mec-event-date"><?php echo $this->main->date_i18n($this->date_format_modern1, strtotime($event_date)).((isset($event->data->time) and trim($event->data->time['start'])) ? ' - '.$event->data->time['start'] : ''); ?></div>
+                <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?></h4>
                 <div class="mec-event-place"><?php echo (isset($event_location['name']) ? $event_location['name'] : ''); ?></div>
             </div>
@@ -108,20 +109,22 @@ do_action('mec_cover_skin_head');
         <div class="mec-event-content">
             <i class="mec-event-icon mec-bg-color mec-fa-calendar"></i>
             <div class="mec-event-date">
-                <span class="mec-color"><?php echo date_i18n($this->date_format_classic1, strtotime($event_date)); ?></span> <?php echo date_i18n($this->date_format_classic2, strtotime($event_date)); ?>
+                <span class="mec-color"><?php echo $this->main->date_i18n($this->date_format_classic1, strtotime($event_date)); ?></span> <?php echo $this->main->date_i18n($this->date_format_classic2, strtotime($event_date)); ?>
             </div>
+            <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
             <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
             <div class="mec-btn-wrapper"><a class="mec-event-button" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a></div>
         </div>
         <?php elseif($this->style == 'clean'): ?>
         <div class="mec-event-content">
             <h4 class="mec-event-title"><a href="<?php echo $event_link; ?>"><?php echo $event_title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
+            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
             <?php if(isset($event_organizer['name'])): ?><div class="mec-event-place"><?php echo (isset($event_organizer['name']) ? $event_organizer['name'] : ''); ?></div><?php endif; ?>
         </div>
         <div class="mec-event-date mec-bg-color">
-            <div class="dday"><?php echo date_i18n($this->date_format_clean1, strtotime($event_date)); ?></div>
-            <div class="dmonth"><?php echo date_i18n($this->date_format_clean2, strtotime($event_date)); ?></div>
-            <div class="dyear"><?php echo date_i18n($this->date_format_clean3, strtotime($event_date)); ?></div>
+            <div class="dday"><?php echo $this->main->date_i18n($this->date_format_clean1, strtotime($event_date)); ?></div>
+            <div class="dmonth"><?php echo $this->main->date_i18n($this->date_format_clean2, strtotime($event_date)); ?></div>
+            <div class="dyear"><?php echo $this->main->date_i18n($this->date_format_clean3, strtotime($event_date)); ?></div>
         </div>
         <?php endif; ?>
     </article>

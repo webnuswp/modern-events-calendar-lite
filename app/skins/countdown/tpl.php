@@ -5,7 +5,7 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
-
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
 if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
 else: $set_dark ='';
@@ -152,7 +152,7 @@ do_action('mec_countdown_skin_head');
         </div>
         <div class="mec-event-countdown-part2 col-md-5">
             <div class="mec-event-date-place">
-                <div class="mec-event-date"><?php echo date_i18n($this->date_format_style11, strtotime($event_date)); ?></div>
+                <div class="mec-event-date"><?php echo $this->main->date_i18n($this->date_format_style11, strtotime($event_date)); ?></div>
                 <div class="mec-event-place"><?php echo (isset($event_location['name']) ? ' - '.$event_location['name'] : ''); ?></div>
             </div>
             <div class="mec-event-countdown" id="mec_skin_countdown<?php echo $this->id; ?>">
@@ -183,6 +183,7 @@ do_action('mec_countdown_skin_head');
                     </div>
                 </ul>
             </div>
+            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
         </div>
         <div class="mec-event-countdown-part3 col-md-3">
             <a class="mec-event-button" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a>
@@ -196,7 +197,7 @@ do_action('mec_countdown_skin_head');
         </div>
         <div class="mec-event-countdown-part2 col-md-5">
             <div class="mec-event-date-place">
-                <div class="mec-event-date"><?php echo date_i18n($this->date_format_style21, strtotime($event_date)); ?></div>
+                <div class="mec-event-date"><?php echo $this->main->date_i18n($this->date_format_style21, strtotime($event_date)); ?></div>
                 <div class="mec-event-place"><?php echo (isset($event_location['name']) ? ' - '.$event_location['name'] : ''); ?></div>
             </div>
             <div class="mec-event-countdown" id="mec_skin_countdown<?php echo $this->id; ?>">
@@ -227,6 +228,7 @@ do_action('mec_countdown_skin_head');
                     </div>
                 </ul>
             </div>
+            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
         </div>
         <div class="mec-event-countdown-part3 col-md-3">
             <a class="mec-event-button" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a>
@@ -238,11 +240,12 @@ do_action('mec_countdown_skin_head');
             <div class="mec-event-countdown-part-title">
                 <div class="mec-event-upcoming"><?php echo sprintf(__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
             </div>
+            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
             <div class="mec-event-countdown-part-details">
                 <div class="mec-event-date">
-                    <span class="mec-date1"><?php echo date_i18n($this->date_format_style31, strtotime($event_date)); ?></span>
-                    <span class="mec-date2"><?php echo date_i18n($this->date_format_style32, strtotime($event_date)); ?></span>
-                    <span class="mec-date3"><?php echo date_i18n($this->date_format_style33, strtotime($event_date)); ?></span>
+                    <span class="mec-date1"><?php echo $this->main->date_i18n($this->date_format_style31, strtotime($event_date)); ?></span>
+                    <span class="mec-date2"><?php echo $this->main->date_i18n($this->date_format_style32, strtotime($event_date)); ?></span>
+                    <span class="mec-date3"><?php echo $this->main->date_i18n($this->date_format_style33, strtotime($event_date)); ?></span>
                 </div>
                 <div class="mec-event-title-link">
                     <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event->data->ID, $start_date); ?><?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>

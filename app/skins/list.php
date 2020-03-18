@@ -102,6 +102,9 @@ class MEC_skin_list extends MEC_skins
         // Map geolocation
         $this->geolocation = ((isset($this->skin_options['map_on_top']) and (isset($this->skin_options['set_geolocation']))) and ($this->skin_options['map_on_top'] == '1' and $this->skin_options['set_geolocation'] == '1')) ? true : false;
 
+        // Geolocation Focus
+        $this->geolocation_focus = isset($this->skin_options['set_geolocation_focus']) ? $this->skin_options['set_geolocation_focus'] : 0;
+
         // The style
         $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'modern';
         

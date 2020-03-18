@@ -5,7 +5,7 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
-
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
 if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
 else: $set_dark ='';
@@ -190,9 +190,10 @@ do_action('mec_available_spot_skin_head');
 
                     <div class="event-grid-modern-head clearfix">
                         <div class="mec-av-spot-col6">
-                            <div class="mec-event-date mec-color"><?php echo date_i18n($this->date_format1, strtotime($event_date)); ?></div>
-                            <div class="mec-event-month"><?php echo date_i18n($this->date_format2, strtotime($event_date)); ?></div>
+                            <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format1, strtotime($event_date)); ?></div>
+                            <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format2, strtotime($event_date)); ?></div>
                             <div class="mec-event-detail"><?php echo (isset($event->data->time) and isset($event->data->time['start'])) ? $event->data->time['start'] : ''; ?><?php echo (isset($event->data->time) and isset($event->data->time['end']) and trim($event->data->time['end'])) ? ' - '.$event->data->time['end'] : ''; ?></div>
+                            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                         </div>
                         <div class="mec-av-spot-col6">
                             <?php if(isset($event_location['name'])): ?>

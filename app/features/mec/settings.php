@@ -23,13 +23,7 @@ echo $this->main->mec_custom_msg('', '');
 
 // Display Addons Notification
 $get_n_option = get_option('mec_addons_notification_option');
-// if ( $get_n_option != 'open' ) :
-//     echo '<div class="wns-be-container mec-addons-notification-set-box extra">';
-//         //echo $this->main->addons_msg();
-//     echo '</div>';
-// endif;
 ?>
-
 <div class="wns-be-container wns-be-container-sticky">
     <div id="wns-be-infobar">
         <div class="mec-search-settings-wrap">
@@ -195,6 +189,29 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     </span>
                                 </div>
 
+                            </div>
+
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_datepicker_format"><?php _e('Datepicker Format', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-4">
+                                    <select id="mec_settings_datepicker_format" name="mec[settings][datepicker_format]">
+                                        <?php
+                                            $selected = (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd&Y-m-d';
+                                            $current_time = current_time('timestamp', 0);
+                                        ?>
+                                        <!-- ++++ dd-mm-yy ++++ -->
+                                        <option value="yy-mm-dd&Y-m-d" <?php selected($selected, 'yy-mm-dd&Y-m-d'); ?>><?php echo date('Y-m-d', $current_time) . ' ' . __('(Y-m-d)', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="dd-mm-yy&d-m-Y" <?php selected($selected, 'dd-mm-yy&d-m-Y'); ?>><?php echo date('d-m-Y', $current_time) . ' ' . __('(d-m-Y)', 'modern-events-calendar-lite'); ?></option>
+
+                                        <!-- ++++ dd/mm/yy ++++ -->
+                                        <option value="yy/mm/dd&Y/m/d" <?php selected($selected, 'yy/mm/dd&Y/m/d'); ?>><?php echo date('Y/m/d', $current_time) . ' ' . __('(Y/m/d)', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="mm/dd/yy&m/d/Y" <?php selected($selected, 'mm/dd/yy&m/d/Y'); ?>><?php echo date('m/d/Y', $current_time) . ' ' . __('(m/d/Y)', 'modern-events-calendar-lite'); ?></option>
+
+                                        <!-- ++++ dd.mm.yy ++++ -->
+                                        <option value="yy.mm.dd&Y.m.d" <?php selected($selected, 'yy.mm.dd&Y.m.d'); ?>><?php echo date('Y.m.d', $current_time) . ' ' . __('(Y.m.d)', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="dd.mm.yy&d.m.Y" <?php selected($selected, 'dd.mm.yy&d.m.Y'); ?>><?php echo date('d.m.Y', $current_time) . ' ' . __('(d.m.Y)', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="mec-form-row">

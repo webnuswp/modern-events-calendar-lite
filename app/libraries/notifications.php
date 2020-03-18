@@ -934,7 +934,7 @@ class MEC_notifications extends MEC_base
             $ex = explode(':', $book_date);
             if(isset($ex[0]) and isset($ex[1]) and trim($ex[0]) != trim($ex[1]))
             {
-                $book_date = sprintf(__('%s to %s', 'modern-events-calendar-lite'), date_i18n($date_format, strtotime($ex[0])), date_i18n($date_format, strtotime($ex[1])));
+                $book_date = sprintf(__('%s to %s', 'modern-events-calendar-lite'), $this->main->date_i18n($date_format, strtotime($ex[0])), $this->main->date_i18n($date_format, strtotime($ex[1])));
             }
             else $book_date = get_the_date('', $book_id);
         }
@@ -944,7 +944,7 @@ class MEC_notifications extends MEC_base
 
         // Order Time
         $order_time = get_post_meta($book_id, 'mec_booking_time', true);
-        $message = str_replace('%%book_order_time%%', date_i18n($date_format.' '.$time_format, strtotime($order_time)), $message);
+        $message = str_replace('%%book_order_time%%', $this->main->date_i18n($date_format.' '.$time_format, strtotime($order_time)), $message);
 
         // Book Time
         $start_seconds = get_post_meta($event_id, 'mec_start_day_seconds', true);

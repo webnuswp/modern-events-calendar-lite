@@ -33,7 +33,7 @@ if($this->next_previous_button)
         $navigator_html .= '<div class="mec-previous-month mec-color mec-load-month" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><i class="mec-sl-angle-left"></i></div>';
     }
     
-    $navigator_html .= '<h4>'.date_i18n('Y F', $current_month_time).'</h4>';
+    $navigator_html .= '<h4>'.$this->main->date_i18n('Y F', $current_month_time).'</h4>';
     
     // Show next month handler if needed
     if(!$this->show_only_expired_events or
@@ -54,9 +54,9 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
     echo json_encode(array(
         'month'=>$month_html,
         'navigator'=>$navigator_html,
-        'previous_month'=>array('label'=>date_i18n('Y F', $_1month_before), 'id'=>date('Ym', $_1month_before), 'year'=>date('Y', $_1month_before), 'month'=>date('m', $_1month_before)),
-        'current_month'=>array('label'=>date_i18n('Y F', $current_month_time), 'id'=>date('Ym', $current_month_time), 'year'=>date('Y', $current_month_time), 'month'=>date('m', $current_month_time)),
-        'next_month'=>array('label'=>date_i18n('Y F', $_1month_after), 'id'=>date('Ym', $_1month_after), 'year'=>date('Y', $_1month_after), 'month'=>date('m', $_1month_after)),
+        'previous_month'=>array('label'=>$this->main->date_i18n('Y F', $_1month_before), 'id'=>date('Ym', $_1month_before), 'year'=>date('Y', $_1month_before), 'month'=>date('m', $_1month_before)),
+        'current_month'=>array('label'=>$this->main->date_i18n('Y F', $current_month_time), 'id'=>date('Ym', $current_month_time), 'year'=>date('Y', $current_month_time), 'month'=>date('m', $current_month_time)),
+        'next_month'=>array('label'=>$this->main->date_i18n('Y F', $_1month_after), 'id'=>date('Ym', $_1month_after), 'year'=>date('Y', $_1month_after), 'month'=>date('m', $_1month_after)),
     ));
     exit;
 }
@@ -116,7 +116,7 @@ do_action('mec_daily_skin_head');
             <div class="mec-month-navigator" id="mec_month_navigator<?php echo $this->id; ?>_<?php echo date('Ym', $current_month_time); ?>"><?php echo $navigator_html; ?></div>
         </div>
         <?php else: ?>
-        <div class="mec-calendar-a-month mec-clear"><h4 class="mec-month-label"><?php echo date_i18n('Y F', $current_month_time); ?></h4></div>
+        <div class="mec-calendar-a-month mec-clear"><h4 class="mec-month-label"><?php echo $this->main->date_i18n('Y F', $current_month_time); ?></h4></div>
         <?php endif; ?>
 
         <div class="mec-skin-daily-view-events-container" id="mec_skin_events_<?php echo $this->id; ?>">

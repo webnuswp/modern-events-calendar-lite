@@ -5,6 +5,7 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin']) or isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-carousel-<?php echo $this->style; ?>">
@@ -109,15 +110,16 @@ $settings = $this->main->get_settings();
                         ?>
                         </div>
                         <div class="mec-event-date-carousel">
-                            <?php echo date_i18n($this->date_format_type1_1, strtotime($event->date['start']['date'])); ?>
-                            <div class="mec-event-date-info"><?php echo date_i18n($this->date_format_type1_2, strtotime($event->date['start']['date'])); ?></div>
-                            <div class="mec-event-date-info-year"><?php echo date_i18n($this->date_format_type1_3, strtotime($event->date['start']['date'])); ?></div>
+                            <?php echo $this->main->date_i18n($this->date_format_type1_1, strtotime($event->date['start']['date'])); ?>
+                            <div class="mec-event-date-info"><?php echo $this->main->date_i18n($this->date_format_type1_2, strtotime($event->date['start']['date'])); ?></div>
+                            <div class="mec-event-date-info-year"><?php echo $this->main->date_i18n($this->date_format_type1_3, strtotime($event->date['start']['date'])); ?></div>
                         </div>
                     </div>
                 </div>
                 <div class="mec-event-carousel-content">
                     <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date); ?></h4>
                     <p><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
+                    <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 </div>
                 <?php elseif($this->style == 'type2'): ?>
                 <div class="event-carousel-type2-head clearfix">
@@ -132,7 +134,7 @@ $settings = $this->main->get_settings();
                     </div>
                     <div class="mec-event-carousel-content-type2">
                         <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days') : ?>
-                            <span class="mec-event-date-info"><?php echo date_i18n($this->date_format_type2_1, strtotime($event->date['start']['date'])); ?></span>
+                            <span class="mec-event-date-info"><?php echo $this->main->date_i18n($this->date_format_type2_1, strtotime($event->date['start']['date'])); ?></span>
                         <?php else: ?>
                             <span class="mec-event-date-info"><?php echo $this->main->dateify($event, $this->date_format_type2_1); ?></span>
                         <?php endif; ?>
@@ -141,6 +143,7 @@ $settings = $this->main->get_settings();
                         <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout; ?></h4>
                         <?php do_action('mec_carousel_type2_after_title' , $event); ?>
                         <p><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
+                        <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                     </div>
                     <div class="mec-event-footer-carousel-type2">
                         <?php if($settings['social_network_status'] != '0') : ?>
@@ -173,11 +176,12 @@ $settings = $this->main->get_settings();
                     </div>
                     <div class="mec-event-footer-carousel-type3">
                         <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days') : ?>
-                            <div class="mec-event-date-info"><?php echo date_i18n($this->date_format_type3_1, strtotime($event->date['start']['date'])); ?></div>
+                            <div class="mec-event-date-info"><?php echo $this->main->date_i18n($this->date_format_type3_1, strtotime($event->date['start']['date'])); ?></div>
                         <?php else: ?>
                             <span class="mec-event-date-info"><?php echo $this->main->dateify($event, $this->date_format_type3_1); ?></span>
                         <?php endif; ?>
                         <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
+                        <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                         <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout; ?></h4>
                         <p><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
                         <?php if($settings['social_network_status'] != '0') : ?>
@@ -212,8 +216,9 @@ $settings = $this->main->get_settings();
                     <div class="mec-event-hover-carousel-type4">
                         <i class="mec-event-icon mec-bg-color mec-fa-calendar"></i>
                         <div class="mec-event-date">
-                            <span class="mec-color"><?php echo date_i18n('F d', strtotime($event_date)); ?></span> <?php echo date_i18n('l', strtotime($event_date)); ?>
+                            <span class="mec-color"><?php echo $this->main->date_i18n('F d', strtotime($event_date)); ?></span> <?php echo $this->main->date_i18n('l', strtotime($event_date)); ?>
                         </div>
+                        <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                         <h4 class="mec-event-title"><?php echo $event->data->title.$this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
                         <div class="mec-btn-wrapper"><a class="mec-event-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a></div>
                     </div>

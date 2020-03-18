@@ -39,20 +39,20 @@ class MEC_feature_mec extends MEC_base
     {
         // Import MEC Factory
         $this->factory = $this->getFactory();
-        
+
         // Import MEC DB
         $this->db = $this->getDB();
-        
+
         // Import MEC Main
         $this->main = $this->getMain();
-        
+
         // Import MEC Notifications
         $this->notifications = $this->getNotifications();
-        
+
         // MEC Settings
         $this->settings = $this->main->get_settings();
     }
-    
+
     /**
      * Initialize calendars feature
      * @author Webnus <info@webnus.biz>
@@ -63,29 +63,29 @@ class MEC_feature_mec extends MEC_base
         $this->factory->action('admin_menu', array($this, 'support_menu'), 21);
         $this->factory->action('init', array($this, 'register_post_type'));
         $this->factory->action('add_meta_boxes', array($this, 'register_meta_boxes'), 1);
-        
+
         $this->factory->action('parent_file', array($this, 'mec_parent_menu_highlight'));
         $this->factory->action('submenu_file', array($this, 'mec_sub_menu_highlight'));
 
         $this->factory->action('current_screen', array($this, 'booking_badge'));
         $this->factory->action('current_screen', array($this, 'events_badge'));
-        
+
         // Google recaptcha
         $this->factory->filter('mec_grecaptcha_include', array($this, 'grecaptcha_include'));
-        
+
         // Google Maps API
         $this->factory->filter('mec_gm_include', array($this, 'gm_include'));
-        
+
         $this->factory->filter('manage_mec_calendars_posts_columns', array($this, 'filter_columns'));
         $this->factory->action('manage_mec_calendars_posts_custom_column', array($this, 'filter_columns_content'), 10, 2);
-        
+
         $this->factory->action('save_post', array($this, 'save_calendar'), 10);
-        
+
         // BuddyPress Integration
         $this->factory->action('mec_booking_confirmed', array($this->main, 'bp_add_activity'), 10);
         $this->factory->action('mec_booking_verified', array($this->main, 'bp_add_activity'), 10);
         $this->factory->action('bp_register_activity_actions', array($this->main, 'bp_register_activity_actions'), 10);
-        
+
         // Mailchimp Integration
         $this->factory->action('mec_booking_verified', array($this->main, 'mailchimp_add_subscriber'), 10);
 
@@ -97,7 +97,7 @@ class MEC_feature_mec extends MEC_base
 
         // Constant Contact Integration
         $this->factory->action('mec_booking_verified', array($this->main, 'constantcontact_add_subscriber'), 10);
-        
+
         // MEC Notifications
         $this->factory->action('mec_booking_completed', array($this->notifications, 'email_verification'), 10);
         $this->factory->action('mec_booking_completed', array($this->notifications, 'booking_notification'), 11);
@@ -112,7 +112,7 @@ class MEC_feature_mec extends MEC_base
         $this->factory->filter('wp_mail_from', array($this->notifications, 'notification_sender_email'));
 
         $this->page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : 'MEC-settings';
-        
+
         // MEC Post Type Name
         $this->PT = $this->main->get_main_post_type();
 
@@ -178,9 +178,9 @@ class MEC_feature_mec extends MEC_base
         {
             $LicenseStatus = 'success';
         }
-        else 
+        else
         {
-            $LicenseStatus = __('Activation faild. Please check your purchase code or license type.<br><b>Note: Your purchase code should match your licesne type.</b>' , 'modern-events-calendar-lite') . '<a style="text-decoration: underline; padding-left: 7px;" href="https://webnus.net/dox/modern-events-calendar/auto-update-issue/" target="_blank">'  . __('Troubleshooting' , 'modern-events-calendar-lite') . '</a>';
+            $LicenseStatus = __('Activation failed. Please check your purchase code or license type.<br><b>Note: Your purchase code should match your licesne type.</b>' , 'modern-events-calendar-lite') . '<a style="text-decoration: underline; padding-left: 7px;" href="https://webnus.net/dox/modern-events-calendar/auto-update-issue/" target="_blank">'  . __('Troubleshooting' , 'modern-events-calendar-lite') . '</a>';
         }
 
         echo $LicenseStatus;
@@ -245,7 +245,7 @@ class MEC_feature_mec extends MEC_base
     {
         // Current User is not Permitted
         if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
-        
+
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
         {
             exit();
@@ -265,12 +265,12 @@ class MEC_feature_mec extends MEC_base
                 echo '<option href="#" value="'.$date->dstart.'" '.($occurrence == $date->dstart ? 'class="selected-day"' : '').'>'.(($date->dstart != $date->dend) ? sprintf(__('%s to %s', 'modern-events-calendar-lite'), $date->dstart, $date->dend) : $date->dstart).'</option>';
             }
             echo '</select>';
-        } 
+        }
         else
         {
             echo '';
         }
-        
+
         wp_die();
     }
 
@@ -317,13 +317,13 @@ class MEC_feature_mec extends MEC_base
     public function mec_parent_menu_highlight($parent_file)
     {
         global $current_screen;
-        
+
         $taxonomy = $current_screen->taxonomy;
         $post_type = $current_screen->post_type;
-        
+
         // Don't do amything if the post type is not our post type
         if($post_type != $this->PT) return $parent_file;
-        
+
         switch($taxonomy)
         {
             case 'mec_category':
@@ -335,45 +335,45 @@ class MEC_feature_mec extends MEC_base
 
                 $parent_file = 'mec-intro';
                 break;
-            
+
             default:
                 //nothing
                 break;
         }
-        
+
         return $parent_file;
     }
-    
+
     public function mec_sub_menu_highlight($submenu_file)
     {
         global $current_screen;
-        
+
         $taxonomy = $current_screen->taxonomy;
         $post_type = $current_screen->post_type;
-        
+
         // Don't do amything if the post type is not our post type
         if($post_type != $this->PT) return $submenu_file;
-        
+
         switch($taxonomy)
         {
             case 'mec_category':
-                
+
                 $submenu_file = 'edit-tags.php?taxonomy=mec_category&post_type='.$this->PT;
                 break;
             case 'post_tag':
-                
+
                 $submenu_file = 'edit-tags.php?taxonomy=post_tag&post_type='.$this->PT;
                 break;
             case 'mec_label':
-                
+
                 $submenu_file = 'edit-tags.php?taxonomy=mec_label&post_type='.$this->PT;
                 break;
             case 'mec_location':
-                
+
                 $submenu_file = 'edit-tags.php?taxonomy=mec_location&post_type='.$this->PT;
                 break;
             case 'mec_organizer':
-                
+
                 $submenu_file = 'edit-tags.php?taxonomy=mec_organizer&post_type='.$this->PT;
                 break;
             case 'mec_speaker':
@@ -384,7 +384,7 @@ class MEC_feature_mec extends MEC_base
                 //nothing
                 break;
         }
-        
+
         return $submenu_file;
     }
 
@@ -405,11 +405,11 @@ class MEC_feature_mec extends MEC_base
     {
         global $submenu;
         unset($submenu['mec-intro'][2]);
-        
+
         remove_menu_page('edit.php?post_type=mec-events');
         remove_menu_page('edit.php?post_type=mec_calendars');
         do_action('before_mec_submenu_action');
-        
+
         add_submenu_page('mec-intro', __('Add Event', 'modern-events-calendar-lite'), __('Add Event', 'modern-events-calendar-lite'), 'edit_posts', 'post-new.php?post_type='.$this->PT);
         add_submenu_page('mec-intro', __('Tags', 'modern-events-calendar-lite'), __('Tags', 'modern-events-calendar-lite'), 'edit_others_posts', 'edit-tags.php?taxonomy=post_tag&post_type='.$this->PT);
         add_submenu_page('mec-intro', $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')), $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')), 'edit_others_posts', 'edit-tags.php?taxonomy=mec_category&post_type='.$this->PT);
@@ -433,11 +433,11 @@ class MEC_feature_mec extends MEC_base
         if (!$this->getPRO()) add_submenu_page('mec-intro', __('MEC - Go Pro', 'modern-events-calendar-lite'), __('Go Pro', 'modern-events-calendar-lite'), 'manage_options', 'MEC-go-pro', array($this, 'go_pro'));
         do_action('after_mec_submenu_action');
     }
-    
+
     /**
      * Register post type of calendars/custom shortcodes
      * @author Webnus <info@webnus.biz>
-     * 
+     *
      */
     public function register_post_type()
     {
@@ -470,7 +470,7 @@ class MEC_feature_mec extends MEC_base
 
         do_action('mec_register_post_type');
     }
-    
+
     /**
      * Filter columns of calendars/custom shortcodes
      * @author Webnus <info@webnus.biz>
@@ -482,7 +482,7 @@ class MEC_feature_mec extends MEC_base
         $columns['shortcode'] = __('Shortcode', 'modern-events-calendar-lite');
         return $columns;
     }
-    
+
     /**
      * Filter column content of calendars/custom shortcodes
      * @author Webnus <info@webnus.biz>
@@ -496,7 +496,7 @@ class MEC_feature_mec extends MEC_base
             echo '[MEC id="'.$post_id.'"]';
         }
     }
-    
+
     /**
      * Register meta boxes of calendars/custom shortcodes
      * @author Webnus <info@webnus.biz>
@@ -512,7 +512,7 @@ class MEC_feature_mec extends MEC_base
         add_meta_box('mec_calendar_shortcode', __('Shortcode', 'modern-events-calendar-lite'), array($this, 'meta_box_shortcode'), 'mec_calendars', 'side');
         add_meta_box('mec_calendar_search_form', __('Search Form', 'modern-events-calendar-lite'), array($this, 'meta_box_search_form'), 'mec_calendars', 'side');
     }
-    
+
     /**
      * Save calendars/custom shortcodes
      * @author Webnus <info@webnus.biz>
@@ -529,16 +529,16 @@ class MEC_feature_mec extends MEC_base
 
         // If this is an autosave, our form has not been submitted, so we don't want to do anything.
         if(defined('DOING_AUTOSAVE') and DOING_AUTOSAVE) return;
-        
+
         $terms = isset($_POST['mec_tax_input']) ? $_POST['mec_tax_input'] : array();
-        
+
         $categories = (isset($terms['mec_category']) and is_array($terms['mec_category'])) ? implode(',', $terms['mec_category']) : '';
         $locations = (isset($terms['mec_location']) and is_array($terms['mec_location'])) ? implode(',', $terms['mec_location']) : '';
         $organizers = (isset($terms['mec_organizer']) and is_array($terms['mec_organizer'])) ? implode(',', $terms['mec_organizer']) : '';
         $labels = (isset($terms['mec_label']) and is_array($terms['mec_label'])) ? implode(',', $terms['mec_label']) : '';
         $tags = (isset($terms['mec_tag'])) ? explode(',', trim($terms['mec_tag'])) : '';
         $authors = (isset($terms['mec_author']) and is_array($terms['mec_author'])) ? implode(',', $terms['mec_author']) : '';
-        
+
         // Fox tags
         if(is_array($tags) and count($tags) == 1 and trim($tags[0]) == '') $tags = array();
         if(is_array($tags))
@@ -546,21 +546,21 @@ class MEC_feature_mec extends MEC_base
             $tags = array_map('trim', $tags);
             $tags = implode(',', $tags);
         }
-        
+
         update_post_meta($post_id, 'label', $labels);
         update_post_meta($post_id, 'category', $categories);
         update_post_meta($post_id, 'location', $locations);
         update_post_meta($post_id, 'organizer', $organizers);
         update_post_meta($post_id, 'tag', $tags);
         update_post_meta($post_id, 'author', $authors);
-        
+
         do_action('mec_shortcode_filters_save' , $post_id , $terms );
-        
+
         $mec = isset($_POST['mec']) ? $_POST['mec'] : array();
-        
+
         foreach($mec as $key=>$value) update_post_meta($post_id, $key, $value);
     }
-    
+
     /**
      * Show content of filter meta box
      * @author Webnus <info@webnus.biz>
@@ -574,7 +574,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of shortcode meta box
      * @author Webnus <info@webnus.biz>
@@ -588,7 +588,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of search form meta box
      * @author Webnus <info@webnus.biz>
@@ -602,7 +602,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of display options meta box
      * @author Webnus <info@webnus.biz>
@@ -616,7 +616,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of skin options meta box
      * @author Webnus <info@webnus.biz>
@@ -697,6 +697,7 @@ class MEC_feature_mec extends MEC_base
         $path = MEC::import('app.features.mec.report', true, true);
         ob_start();
         include $path;
+        do_action('mec_display_report_page', $path);
         echo $output = ob_get_clean();
     }
 
@@ -722,7 +723,7 @@ class MEC_feature_mec extends MEC_base
     {
         $this->display_support();
     }
-    
+
     /**
      * Show content settings menu
      * @author Webnus <info@webnus.biz>
@@ -731,7 +732,7 @@ class MEC_feature_mec extends MEC_base
     public function page()
     {
         $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'MEC-settings';
-        
+
         if($tab == 'MEC-customcss') $this->styles();
         elseif($tab == 'MEC-ie') $this->import_export();
         elseif($tab == 'MEC-notifications') $this->notifications();
@@ -742,7 +743,7 @@ class MEC_feature_mec extends MEC_base
         elseif($tab == 'MEC-modules') $this->modules();
         else $this->settings();
     }
-    
+
     /**
      * Show content of settings tab
      * @author Webnus <info@webnus.biz>
@@ -751,12 +752,12 @@ class MEC_feature_mec extends MEC_base
     public function settings()
     {
         $path = MEC::import('app.features.mec.settings', true, true);
-        
+
         ob_start();
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of styles tab
      * @author Webnus <info@webnus.biz>
@@ -770,7 +771,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of styling tab
      * @author Webnus <info@webnus.biz>
@@ -784,7 +785,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of single tab
      * @author Webnus <info@webnus.biz>
@@ -798,7 +799,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of booking tab
      * @author Webnus <info@webnus.biz>
@@ -812,7 +813,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of modules tab
      * @author Webnus <info@webnus.biz>
@@ -840,7 +841,7 @@ class MEC_feature_mec extends MEC_base
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of notifications tab
      * @author Webnus <info@webnus.biz>
@@ -849,12 +850,12 @@ class MEC_feature_mec extends MEC_base
     public function notifications()
     {
         $path = MEC::import('app.features.mec.notifications', true, true);
-        
+
         ob_start();
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Show content of messages tab
      * @author Webnus <info@webnus.biz>
@@ -863,12 +864,12 @@ class MEC_feature_mec extends MEC_base
     public function messages()
     {
         $path = MEC::import('app.features.mec.messages', true, true);
-        
+
         ob_start();
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Whether to include google recaptcha library
      * @author Webnus <info@webnus.biz>
@@ -879,10 +880,10 @@ class MEC_feature_mec extends MEC_base
     {
         // Don't include the library if google recaptcha is not enabled
         if(!$this->main->get_recaptcha_status()) return false;
-        
+
         return $grecaptcha_include;
     }
-    
+
     /**
      * Whether to include google map library
      * @author Webnus <info@webnus.biz>
@@ -893,7 +894,7 @@ class MEC_feature_mec extends MEC_base
     {
         // Don't include the library if google Maps API is set to don't load
         if(isset($this->settings['google_maps_dont_load_api']) and $this->settings['google_maps_dont_load_api']) return false;
-        
+
         return $gm_include;
     }
 
@@ -927,7 +928,7 @@ class MEC_feature_mec extends MEC_base
                 <input type="hidden" name="mec[sk-options]['.$skin.'][sed_method]" value="'.$value.'" id="mec_skin_'.$skin.'_sed_method_field" />
                 <ul class="mec-sed-methods" data-for="#mec_skin_'.$skin.'_sed_method_field">
                     <li data-method="0" class="'.(!$value ? 'active' : '').'">'.__('Separate Window', 'modern-events-calendar-lite').'</li>
-                    <li data-method="m1" class="'.($value === 'm1' ? 'active' : '').'">'.__('Modal 1', 'modern-events-calendar-lite').'</li>
+                    <li data-method="m1" class="'.($value === 'm1' ? 'active' : '').'">'.__('Modal Popup', 'modern-events-calendar-lite').'</li>
                 </ul>
             </div>
         </div>' . $image_popup_html;
@@ -973,7 +974,7 @@ class MEC_feature_mec extends MEC_base
                 ),
             ),
         );
-        
+
         $query = new WP_Query($args);
         if($query->have_posts())
         {
@@ -1012,7 +1013,7 @@ class MEC_feature_mec extends MEC_base
     public function events_badge($screen)
     {
         if(!current_user_can('administrator') and !current_user_can('editor')) return;
-        
+
         $user_id = get_current_user_id();
         $user_last_view_date_events = get_user_meta($user_id, 'user_last_view_date_events', true);
         $count = 0;
@@ -1034,7 +1035,7 @@ class MEC_feature_mec extends MEC_base
                 ),
             ),
         );
-        
+
         $query = new WP_Query($args);
         if($query->have_posts())
         {

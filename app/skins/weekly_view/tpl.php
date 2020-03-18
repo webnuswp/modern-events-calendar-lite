@@ -31,8 +31,8 @@ foreach($this->weeks as $week_number=>$week)
         $time = strtotime($day);
         $count = isset($this->events[$day]) ? count($this->events[$day]) : 0;
         $weeks .= '<dt data-events-count="'.$count.'" class="'.((strtotime($day) < $current_month_time or strtotime($day) >= $_1month_after)? 'mec-weekly-disabled' : '').'">'
-                .'<span class="mec-weekly-view-weekday">'.date_i18n('D', $time).'</span> '
-                .'<span class="mec-weekly-view-monthday">'.date_i18n('j', $time).'</span> '
+                .'<span class="mec-weekly-view-weekday">'.$this->main->date_i18n('D', $time).'</span> '
+                .'<span class="mec-weekly-view-monthday">'.$this->main->date_i18n('j', $time).'</span> '
                 .'</dt>';
     }
     
@@ -58,7 +58,7 @@ if($this->next_previous_button)
         $navigator_html .= '<div class="mec-previous-month mec-load-month mec-color" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><i class="mec-sl-angle-left"></i></div>';
     }
     
-    $navigator_html .= '<h4 class="mec-month-label">'.date_i18n('Y F', $current_month_time).'</h4>';
+    $navigator_html .= '<h4 class="mec-month-label">'.$this->main->date_i18n('Y F', $current_month_time).'</h4>';
     
     // Show next month handler if needed
     if(!$this->show_only_expired_events or
@@ -81,9 +81,9 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
         'month'=>$week_html.$month_html,
         'navigator'=>$navigator_html,
         'week_id'=>date('Ym', $current_month_time).$this->week_of_days[$this->today],
-        'previous_month'=>array('label'=>date_i18n('Y F', $_1month_before), 'id'=>date('Ym', $_1month_before), 'year'=>date('Y', $_1month_before), 'month'=>date('m', $_1month_before)),
-        'current_month'=>array('label'=>date_i18n('Y F', $current_month_time), 'id'=>date('Ym', $current_month_time), 'year'=>date('Y', $current_month_time), 'month'=>date('m', $current_month_time)),
-        'next_month'=>array('label'=>date_i18n('Y F', $_1month_after), 'id'=>date('Ym', $_1month_after), 'year'=>date('Y', $_1month_after), 'month'=>date('m', $_1month_after)),
+        'previous_month'=>array('label'=>$this->main->date_i18n('Y F', $_1month_before), 'id'=>date('Ym', $_1month_before), 'year'=>date('Y', $_1month_before), 'month'=>date('m', $_1month_before)),
+        'current_month'=>array('label'=>$this->main->date_i18n('Y F', $current_month_time), 'id'=>date('Ym', $current_month_time), 'year'=>date('Y', $current_month_time), 'month'=>date('m', $current_month_time)),
+        'next_month'=>array('label'=>$this->main->date_i18n('Y F', $_1month_after), 'id'=>date('Ym', $_1month_after), 'year'=>date('Y', $_1month_after), 'month'=>date('m', $_1month_after)),
     ));
     exit;
 }
@@ -140,7 +140,7 @@ do_action('mec_weekly_skin_head');
         </div>
         <?php else: ?>
         <div class="mec-calendar-a-month mec-clear">
-            <h4 class="mec-month-label"><?php echo date_i18n('Y F', $current_month_time); ?></h4>
+            <h4 class="mec-month-label"><?php echo $this->main->date_i18n('Y F', $current_month_time); ?></h4>
         </div>
         <?php endif; ?>
 

@@ -4,18 +4,20 @@ defined('MECEXEC') or die();
 
 $current_month_divider = $this->request->getVar('current_month_divider', 0);
 $settings = $this->main->get_settings();
+$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
+
 ?>
 <?php foreach($this->events as $date=>$events): ?>
 
     <?php $month_id = date('Ym', strtotime($date)); if($this->month_divider and $month_id != $current_month_divider): $current_month_divider = $month_id; ?>
-        <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?php echo date_i18n('Ym', strtotime($date)); ?>-<?php echo $this->id; ?>"><span><?php echo date_i18n('F Y', strtotime($date)); ?></span><i class="mec-sl-arrow-down"></i></div>
+        <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?php echo date('Ym', strtotime($date)); ?>-<?php echo $this->id; ?>"><span><?php echo $this->main->date_i18n('F Y', strtotime($date)); ?></span><i class="mec-sl-arrow-down"></i></div>
     <?php endif; ?>
     <div class="mec-events-agenda">
 
         <div class="mec-agenda-date-wrap">
             <i class="mec-sl-calendar"></i>
-            <span class="mec-agenda-day"><?php echo date_i18n($this->date_format_clean_1, strtotime($date)); ?></span>
-            <span class="mec-agenda-date"><?php echo date_i18n($this->date_format_clean_2, strtotime($date)); ?></span>
+            <span class="mec-agenda-day"><?php echo $this->main->date_i18n($this->date_format_clean_1, strtotime($date)); ?></span>
+            <span class="mec-agenda-date"><?php echo $this->main->date_i18n($this->date_format_clean_2, strtotime($date)); ?></span>
         </div>
 
         <div class="mec-agenda-events-wrap">
@@ -102,6 +104,7 @@ $settings = $this->main->get_settings();
                         </span>
                         <span class="mec-agenda-event-title">
                             <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
+                            <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                             <?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?>
                             <?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
                         </span>

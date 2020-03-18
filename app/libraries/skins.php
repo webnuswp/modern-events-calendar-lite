@@ -98,6 +98,7 @@ class MEC_skins extends MEC_base
     public $image_popup;
     public $map_on_top;
     public $geolocation;
+    public $geolocation_focus;
     public $include_events_times;
 
     /**
@@ -1033,7 +1034,7 @@ class MEC_skins extends MEC_base
                 $output .= $option;
                 $Y = date('Y', $time);
 
-                for($i = 1; $i <= 12; $i++) $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'" >'.date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
+                for($i = 1; $i <= 12; $i++) $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'" >'.$this->main->date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
                 $output .= '</select><select id="mec_sf_year_'.$this->id.'">'.$option;
 
                 $start_year = $min_start_year = $this->db->select("SELECT MIN(cast(meta_value as unsigned)) AS date FROM `#__postmeta` WHERE `meta_key`='mec_start_date'", 'loadResult');

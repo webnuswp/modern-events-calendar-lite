@@ -1774,6 +1774,7 @@ span.mec-event-title-soldout {
 	border-radius: 50%;
 }
 
+.mec-event-grid-novel .mec-local-time-details,
 .mec-event-grid-novel .mec-event-month,
 .mec-event-grid-novel .mec-event-detail,
 .mec-event-grid-novel .mec-event-address {
@@ -1784,6 +1785,7 @@ span.mec-event-title-soldout {
 	color: rgba(255, 255, 255, 0.4);
 }
 
+.mec-event-grid-novel .mec-local-time-details:before,
 .mec-event-grid-novel .mec-event-month::before,
 .mec-event-grid-novel .mec-event-detail::before,
 .mec-event-grid-novel .mec-event-address::before {
@@ -1797,6 +1799,10 @@ span.mec-event-title-soldout {
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
+}
+
+.mec-event-grid-novel .mec-local-time-details::before {
+	content: "\e007";
 }
 
 .mec-event-grid-novel .mec-event-month::before {
@@ -2518,6 +2524,7 @@ span.mec-event-title-soldout {
 	text-transform: uppercase;
 }
 
+.mec-event-list-standard .mec-local-time-details,
 .mec-event-list-standard .mec-venue-details,
 .mec-event-list-standard .mec-date-details,
 .mec-event-list-standard .mec-time-details {
@@ -2526,6 +2533,7 @@ span.mec-event-title-soldout {
 	margin-bottom: 10px;
 }
 
+.mec-event-list-standard .mec-local-time-details:before,
 .mec-event-list-standard .mec-venue-details:before,
 .mec-event-list-standard .mec-time-details:before,
 .mec-event-list-standard .mec-date-details:before {
@@ -2542,6 +2550,24 @@ span.mec-event-title-soldout {
 
 .mec-event-list-standard .mec-time-details:before {
 	content: "\f017";
+}
+
+.mec-event-list-standard .mec-local-time-details:before {
+	content: "\f0ac";
+}
+
+.mec-event-list-standard .mec-local-time-details .mec-local-title {
+    display: block;
+}
+
+.mec-event-list-standard .mec-local-time-details .mec-local-date,
+.mec-event-list-standard .mec-local-time-details .mec-local-time {
+    font-style: normal;
+    letter-spacing: 0;
+    font-size: 11px;
+    color: #8a8a8a;
+	font-weight: 300;
+	line-height: 1.6;
 }
 
 .mec-event-list-minimal .mec-event-title a {
@@ -2609,6 +2635,192 @@ span.mec-event-title-soldout {
 	}
 }
 
+/* Local Time
+	-------------------------- */
+.mec-localtime-details {
+	color: #777;
+	font-weight: 400;
+	line-height: 12px;
+	font-size: 12px;
+}
+
+.mec-localtime-details .mec-localtitle,
+.mec-localtime-details .mec-localdate,
+.mec-localtime-details .mec-localtime {
+	display: inline-block;
+}
+
+.mec-localtime-details .mec-start-date-label {
+	padding-right: 5px;
+}
+
+.mec-localtime-details .mec-localtime {
+	padding-left: 5px;
+}
+
+.mec-event-list-minimal .mec-localtime-details {
+    display: inline-flex;
+	font-size: 15px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #9a9a9a;
+	padding-left: 9px;
+}
+
+.mec-event-grid-clean .mec-localtime-details,
+.mec-event-grid-classic .mec-localtime-details {
+    color: #fff;
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #fff;
+    padding: 0 0;
+    line-height: 18px;
+    margin-top: -3px;
+}
+
+.tooltipster-box .mec-localtime-details,
+.mec-event-grid-colorful .mec-localtime-details,
+.mec-event-grid-clean .mec-localtime-details {
+    line-height: 22px;
+    padding-top: 10px;
+}
+
+.mec-event-grid-colorful .mec-localtime-details {
+	color: #fff;
+}
+
+.mec-event-grid-classic .mec-localtime-details {
+    text-align: center;
+}
+
+.mec-event-grid-minimal .mec-localtime-details {
+    line-height: 22px;
+}
+
+.mec-wrap .mec-yearly-view-wrap .mec-localtime-wrap i {
+    display: inline-block;
+    margin-left: -1px;
+}
+
+.mec-timetable-t2-content .mec-local-time-details {
+    padding-left: 19px;
+}
+
+.mec-timetable-t2-content .mec-local-time-details {
+    position: relative;
+}
+
+.mec-timetable-t2-content .mec-local-time-details:before {
+    content: "\e007";
+    font-family: 'simple-line-icons';
+    position: absolute;
+    font-size: 12px;
+    margin-right: 4px;
+    left: 0;
+}
+
+.mec-masonry .mec-masonry-col6 .mec-localtime-details {
+    margin-top: 10px;
+    line-height: 21px;
+}
+
+.mec-masonry .mec-masonry-col6 .mec-localtime-details i {
+    height: auto;
+}
+
+.mec-event-cover-classic .mec-localtime-details {
+	color: #fff;
+	margin-top: 12px;
+}
+
+.mec-event-cover-classic .mec-localtime-details i {
+	padding-right: 8px;
+}
+
+.mec-event-cover-clean .mec-localtime-details {
+	color: #fff;
+	margin-bottom: 20px;
+}
+
+.mec-event-cover-modern .mec-localtime-details {
+	color: #fff;
+	margin: 10px 0;
+	font-weight: 400;
+    font-size: 18px;
+}
+
+.mec-event-countdown-style3 .mec-localtime-details,
+.mec-event-countdown-style2 .mec-localtime-details,
+.mec-event-countdown-style1 .mec-localtime-details {
+    color: #fff;
+    padding: 8px 5px 0;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.mec-event-countdown-style1 .mec-localtime-details {
+	text-align: center;
+}
+
+.mec-event-hover-carousel-type4 .mec-localtime-details {
+    display: block;
+    color: #fff;
+    font-size: 11px;
+}
+
+.mec-event-footer-carousel-type3 .mec-localtime-details span,
+.mec-event-footer-carousel-type3 .mec-localtime-details .mec-localdate,
+.mec-event-footer-carousel-type3 .mec-localtime-details .mec-localtime,
+.mec-event-footer-carousel-type3 .mec-localtime-details .mec-localtitle {
+    display: inline-flex;
+    line-height: 20px;
+    text-align: left;
+    margin: 0!important;
+    font-size: 12px;
+    color: #777;
+    line-height: 28px;
+}
+
+.mec-owl-crousel-skin-type1 .mec-localtime-details {
+    margin-top: -7px;
+    margin-bottom: 12px;
+}
+
+.mec-wrap .mec-slider-t5 .mec-localtime-details {
+    margin-top: 14px;
+    line-height: 20px;
+}
+.mec-wrap .mec-slider-t5 .mec-localtime-details i {
+    font-size: 18px;
+    height: 20px;
+}
+
+.mec-timeline-event-local-time {
+    background: rgba(64,217,241,.11);
+    display: inline-block;
+    padding: 7px 20px 11px;
+    border-radius: 20px;
+    line-height: 1.24;
+}
+
+.mec-timeline-event-local-time .mec-localtime-details {
+    font-size: 13px;
+    font-weight: 500;
+    vertical-align: middle;
+    margin-left: 6px;
+    color: inherit;
+    line-height: 24px;
+}
+
+.mec-timeline-event-local-time .mec-localtime-details i {
+    font-size: 17px;
+    vertical-align: middle;
+    margin-left: -7px;
+    padding-right: 3px;
+}
 
 
 /* MEC Event- Single
@@ -2790,6 +3002,7 @@ span.mec-event-title-soldout {
 
 .mec-single-event .mec-events-meta-group-booking button.mec-book-form-next-button {
 	float: left;
+	margin-left: 0;
 }
 
 button#mec-book-form-back-btn-step-3 {
@@ -4278,6 +4491,7 @@ address.mec-events-address {
 	height: auto;
 }
 
+.mec-calendar .mec-event-article .mec-localtime-details div,
 .mec-calendar .mec-event-article .mec-event-detail {
 	font-size: 13px;
 	line-height: 1.3;
@@ -6889,10 +7103,8 @@ li.mec-no-event-found .mec-event-title {
     float: left;
     width: 100%;
     padding: 0 10px;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
-
-
 
 /* MEC Datepicker 
 	---------------------*/

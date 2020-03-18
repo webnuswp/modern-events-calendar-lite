@@ -565,6 +565,11 @@ function mec_skin_map_toggle(context)
     jQuery(context).parent().parent().parent().find('.mec-set-geolocation').toggle();
 }
 
+function mec_skin_geolocation_toggle(context)
+{
+    jQuery(context).parent().parent().parent().parent().find('.mec-set-geolocation-focus').toggle();
+}
+
 function mec_show_widget_check(context)
 {
     var skin = jQuery(context).find(':selected').data('skin');

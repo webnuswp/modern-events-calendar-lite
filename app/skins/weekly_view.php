@@ -189,6 +189,7 @@ class MEC_skin_weekly_view extends MEC_skins
 
             // Extending the end date
             $this->end_date = $date;
+
             // The Query
             $query = new WP_Query($this->args);
             if(is_array($IDs) and count($IDs) and $query->have_posts())
@@ -199,7 +200,6 @@ class MEC_skin_weekly_view extends MEC_skins
                     $query->the_post();
 
                     if(!isset($events[$date])) $events[$date] = array();
-                    
 
                     $rendered = $this->render->data(get_the_ID());
 

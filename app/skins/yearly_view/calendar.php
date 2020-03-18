@@ -42,7 +42,7 @@ $rows = 1;
 <div class="mec-calendar mec-yearly-calendar">
 
     <div class="mec-calendar-table-title">
-        <?php echo date_i18n('F', strtotime($this->year.'-'.$month.'-01')); ?>
+        <?php echo $this->main->date_i18n('F', strtotime($this->year.'-'.$month.'-01')); ?>
     </div>
     <div class="mec-calendar-table">
         <?php echo '<div class="mec-calendar-table-head"><dl><dt>'.implode('</dt><dt>', $headings).'</dt></dl></div>'; ?>

@@ -71,6 +71,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_list_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][list][address_search][type]" id="mec_sf_list_address_search">
+						<option value="0" <?php if(isset($sf_options_list['address_search']) and isset($sf_options_list['address_search']['type']) and $sf_options_list['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_list['address_search']) and isset($sf_options_list['address_search']['type']) and $sf_options_list['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_list_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][list][month_filter][type]" id="mec_sf_list_month_filter">
 						<option value="0" <?php if(isset($sf_options_list['month_filter']) and isset($sf_options_list['month_filter']['type']) and $sf_options_list['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -82,13 +89,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][list][text_search][type]" id="mec_sf_list_text_search">
 						<option value="0" <?php if(isset($sf_options_list['text_search']) and isset($sf_options_list['text_search']['type']) and $sf_options_list['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_list['text_search']) and isset($sf_options_list['text_search']['type']) and $sf_options_list['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_list_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][list][address_search][type]" id="mec_sf_list_address_search">
-						<option value="0" <?php if(isset($sf_options_list['address_search']) and isset($sf_options_list['address_search']['type']) and $sf_options_list['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_list['address_search']) and isset($sf_options_list['address_search']['type']) and $sf_options_list['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_list_search_form',$sf_options_list); ?>
@@ -141,6 +141,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_grid_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][grid][address_search][type]" id="mec_sf_grid_address_search">
+						<option value="0" <?php if(isset($sf_options_grid['address_search']) and isset($sf_options_grid['address_search']['type']) and $sf_options_grid['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_grid['address_search']) and isset($sf_options_grid['address_search']['type']) and $sf_options_grid['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_grid_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][grid][month_filter][type]" id="mec_sf_grid_month_filter">
                         <option value="0" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -152,13 +159,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][grid][text_search][type]" id="mec_sf_grid_text_search">
                         <option value="0" <?php if(isset($sf_options_grid['text_search']) and isset($sf_options_grid['text_search']['type']) and $sf_options_grid['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_grid['text_search']) and isset($sf_options_grid['text_search']['type']) and $sf_options_grid['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_grid_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][grid][address_search][type]" id="mec_sf_grid_address_search">
-						<option value="0" <?php if(isset($sf_options_grid['address_search']) and isset($sf_options_grid['address_search']['type']) and $sf_options_grid['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_grid['address_search']) and isset($sf_options_grid['address_search']['type']) and $sf_options_grid['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_grid_search_form',$sf_options_grid); ?>
@@ -211,6 +211,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_agenda_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][agenda][address_search][type]" id="mec_sf_agenda_address_search">
+						<option value="0" <?php if(isset($sf_options_agenda['address_search']) and isset($sf_options_agenda['address_search']['type']) and $sf_options_agenda['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_agenda['address_search']) and isset($sf_options_agenda['address_search']['type']) and $sf_options_agenda['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_agenda_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][agenda][month_filter][type]" id="mec_sf_agenda_month_filter">
                         <option value="0" <?php if(isset($sf_options_agenda['month_filter']) and isset($sf_options_agenda['month_filter']['type']) and $sf_options_agenda['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -222,13 +229,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][agenda][text_search][type]" id="mec_sf_agenda_text_search">
                         <option value="0" <?php if(isset($sf_options_agenda['text_search']) and isset($sf_options_agenda['text_search']['type']) and $sf_options_agenda['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_agenda['text_search']) and isset($sf_options_agenda['text_search']['type']) and $sf_options_agenda['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_agenda_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][agenda][address_search][type]" id="mec_sf_agenda_address_search">
-						<option value="0" <?php if(isset($sf_options_agenda['address_search']) and isset($sf_options_agenda['address_search']['type']) and $sf_options_agenda['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_agenda['address_search']) and isset($sf_options_agenda['address_search']['type']) and $sf_options_agenda['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_agenda_search_form',$sf_options_agenda); ?>
@@ -281,6 +281,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_full_calendar_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][full_calendar][address_search][type]" id="mec_sf_full_calendar_address_search">
+						<option value="0" <?php if(isset($sf_options_full_calendar['address_search']) and isset($sf_options_full_calendar['address_search']['type']) and $sf_options_full_calendar['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_full_calendar['address_search']) and isset($sf_options_full_calendar['address_search']['type']) and $sf_options_full_calendar['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_full_calendar_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][full_calendar][month_filter][type]" id="mec_sf_full_calendar_month_filter">
 						<option value="0" <?php if(isset($sf_options_full_calendar['month_filter']) and isset($sf_options_full_calendar['month_filter']['type']) and $sf_options_full_calendar['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -292,13 +299,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][full_calendar][text_search][type]" id="mec_sf_full_calendar_text_search">
 						<option value="0" <?php if(isset($sf_options_full_calendar['text_search']) and isset($sf_options_full_calendar['text_search']['type']) and $sf_options_full_calendar['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_full_calendar['text_search']) and isset($sf_options_full_calendar['text_search']['type']) and $sf_options_full_calendar['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_full_calendar_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][full_calendar][address_search][type]" id="mec_sf_full_calendar_address_search">
-						<option value="0" <?php if(isset($sf_options_full_calendar['address_search']) and isset($sf_options_full_calendar['address_search']['type']) and $sf_options_full_calendar['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_full_calendar['address_search']) and isset($sf_options_full_calendar['address_search']['type']) and $sf_options_full_calendar['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_full_calendar_search_form',$sf_options_full_calendar); ?>
@@ -351,6 +351,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_monthly_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][monthly_view][address_search][type]" id="mec_sf_monthly_view_address_search">
+						<option value="0" <?php if(isset($sf_options_monthly_view['address_search']) and isset($sf_options_monthly_view['address_search']['type']) and $sf_options_monthly_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_monthly_view['address_search']) and isset($sf_options_monthly_view['address_search']['type']) and $sf_options_monthly_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_monthly_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][monthly_view][month_filter][type]" id="mec_sf_monthly_view_month_filter">
 						<option value="0" <?php if(isset($sf_options_monthly_view['month_filter']) and isset($sf_options_monthly_view['month_filter']['type']) and $sf_options_monthly_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -362,13 +369,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][monthly_view][text_search][type]" id="mec_sf_monthly_view_text_search">
 						<option value="0" <?php if(isset($sf_options_monthly_view['text_search']) and isset($sf_options_monthly_view['text_search']['type']) and $sf_options_monthly_view['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_monthly_view['text_search']) and isset($sf_options_monthly_view['text_search']['type']) and $sf_options_monthly_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_monthly_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][monthly_view][address_search][type]" id="mec_sf_monthly_view_address_search">
-						<option value="0" <?php if(isset($sf_options_monthly_view['address_search']) and isset($sf_options_monthly_view['address_search']['type']) and $sf_options_monthly_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_monthly_view['address_search']) and isset($sf_options_monthly_view['address_search']['type']) and $sf_options_monthly_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_monthly_search_form',$sf_options_monthly_view); ?>
@@ -421,6 +421,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_yearly_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][yearly_view][address_search][type]" id="mec_sf_yearly_view_address_search">
+						<option value="0" <?php if(isset($sf_options_yearly_view['address_search']) and isset($sf_options_yearly_view['address_search']['type']) and $sf_options_yearly_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_yearly_view['address_search']) and isset($sf_options_yearly_view['address_search']['type']) and $sf_options_yearly_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_yearly_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][yearly_view][month_filter][type]" id="mec_sf_yearly_view_month_filter">
                         <option value="0" <?php if(isset($sf_options_yearly_view['month_filter']) and isset($sf_options_yearly_view['month_filter']['type']) and $sf_options_yearly_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -432,13 +439,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][yearly_view][text_search][type]" id="mec_sf_yearly_view_text_search">
                         <option value="0" <?php if(isset($sf_options_yearly_view['text_search']) and isset($sf_options_yearly_view['text_search']['type']) and $sf_options_yearly_view['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_yearly_view['text_search']) and isset($sf_options_yearly_view['text_search']['type']) and $sf_options_yearly_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_yearly_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][yearly_view][address_search][type]" id="mec_sf_yearly_view_address_search">
-						<option value="0" <?php if(isset($sf_options_yearly_view['address_search']) and isset($sf_options_yearly_view['address_search']['type']) and $sf_options_yearly_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_yearly_view['address_search']) and isset($sf_options_yearly_view['address_search']['type']) and $sf_options_yearly_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_yearly_search_form',$sf_options_yearly_view); ?>
@@ -491,17 +491,17 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_map_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][map][text_search][type]" id="mec_sf_map_text_search">
-						<option value="0" <?php if(isset($sf_options_map['text_search']) and isset($sf_options_map['text_search']['type']) and $sf_options_map['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="text_input" <?php if(isset($sf_options_map['text_search']) and isset($sf_options_map['text_search']['type']) and $sf_options_map['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_map_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][map][address_search][type]" id="mec_sf_map_address_search">
 						<option value="0" <?php if(isset($sf_options_map['address_search']) and isset($sf_options_map['address_search']['type']) and $sf_options_map['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="address_input" <?php if(isset($sf_options_map['address_search']) and isset($sf_options_map['address_search']['type']) and $sf_options_map['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_map_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][map][text_search][type]" id="mec_sf_map_text_search">
+						<option value="0" <?php if(isset($sf_options_map['text_search']) and isset($sf_options_map['text_search']['type']) and $sf_options_map['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="text_input" <?php if(isset($sf_options_map['text_search']) and isset($sf_options_map['text_search']['type']) and $sf_options_map['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_map_search_form',$sf_options_map); ?>
@@ -554,6 +554,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_daily_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][daily_view][address_search][type]" id="mec_sf_daily_view_address_search">
+						<option value="0" <?php if(isset($sf_options_daily_view['address_search']) and isset($sf_options_daily_view['address_search']['type']) and $sf_options_daily_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_daily_view['address_search']) and isset($sf_options_daily_view['address_search']['type']) and $sf_options_daily_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_daily_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][daily_view][month_filter][type]" id="mec_sf_daily_view_month_filter">
 						<option value="0" <?php if(isset($sf_options_daily_view['month_filter']) and isset($sf_options_daily_view['month_filter']['type']) and $sf_options_daily_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -565,13 +572,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][daily_view][text_search][type]" id="mec_sf_daily_view_text_search">
 						<option value="0" <?php if(isset($sf_options_daily_view['text_search']) and isset($sf_options_daily_view['text_search']['type']) and $sf_options_daily_view['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_daily_view['text_search']) and isset($sf_options_daily_view['text_search']['type']) and $sf_options_daily_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_daily_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][daily_view][address_search][type]" id="mec_sf_daily_view_address_search">
-						<option value="0" <?php if(isset($sf_options_daily_view['address_search']) and isset($sf_options_daily_view['address_search']['type']) and $sf_options_daily_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_daily_view['address_search']) and isset($sf_options_daily_view['address_search']['type']) and $sf_options_daily_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_daily_search_form',$sf_options_daily_view); ?>
@@ -624,6 +624,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_weekly_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][weekly_view][address_search][type]" id="mec_sf_weekly_view_address_search">
+						<option value="0" <?php if(isset($sf_options_weekly_view['address_search']) and isset($sf_options_weekly_view['address_search']['type']) and $sf_options_weekly_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_weekly_view['address_search']) and isset($sf_options_weekly_view['address_search']['type']) and $sf_options_weekly_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_weekly_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][weekly_view][month_filter][type]" id="mec_sf_weekly_view_month_filter">
 						<option value="0" <?php if(isset($sf_options_weekly_view['month_filter']) and isset($sf_options_weekly_view['month_filter']['type']) and $sf_options_weekly_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -635,13 +642,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][weekly_view][text_search][type]" id="mec_sf_weekly_view_text_search">
 						<option value="0" <?php if(isset($sf_options_weekly_view['text_search']) and isset($sf_options_weekly_view['text_search']['type']) and $sf_options_weekly_view['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_weekly_view['text_search']) and isset($sf_options_weekly_view['text_search']['type']) and $sf_options_weekly_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_weekly_view_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][weekly_view][address_search][type]" id="mec_sf_weekly_view_address_search">
-						<option value="0" <?php if(isset($sf_options_weekly_view['address_search']) and isset($sf_options_weekly_view['address_search']['type']) and $sf_options_weekly_view['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_weekly_view['address_search']) and isset($sf_options_weekly_view['address_search']['type']) and $sf_options_weekly_view['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_weekly_search_form',$sf_options_weekly_view); ?>
@@ -694,6 +694,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_timetable_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][timetable][address_search][type]" id="mec_sf_timetable_address_search">
+						<option value="0" <?php if(isset($sf_options_timetable['address_search']) and isset($sf_options_timetable['address_search']['type']) and $sf_options_timetable['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_timetable['address_search']) and isset($sf_options_timetable['address_search']['type']) and $sf_options_timetable['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_timetable_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][timetable][month_filter][type]" id="mec_sf_timetable_month_filter">
                         <option value="0" <?php if(isset($sf_options_timetable['month_filter']) and isset($sf_options_timetable['month_filter']['type']) and $sf_options_timetable['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -705,13 +712,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][timetable][text_search][type]" id="mec_sf_timetable_text_search">
                         <option value="0" <?php if(isset($sf_options_timetable['text_search']) and isset($sf_options_timetable['text_search']['type']) and $sf_options_timetable['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_timetable['text_search']) and isset($sf_options_timetable['text_search']['type']) and $sf_options_timetable['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_timetable_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][timetable][address_search][type]" id="mec_sf_timetable_address_search">
-						<option value="0" <?php if(isset($sf_options_timetable['address_search']) and isset($sf_options_timetable['address_search']['type']) and $sf_options_timetable['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_timetable['address_search']) and isset($sf_options_timetable['address_search']['type']) and $sf_options_timetable['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_timetable_search_form',$sf_options_timetable); ?>
@@ -800,6 +800,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_tile_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][tile][address_search][type]" id="mec_sf_tile_address_search">
+						<option value="0" <?php if(isset($sf_options_tile['address_search']) and isset($sf_options_tile['address_search']['type']) and $sf_options_tile['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="address_input" <?php if(isset($sf_options_tile['address_search']) and isset($sf_options_tile['address_search']['type']) and $sf_options_tile['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_tile_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][tile][month_filter][type]" id="mec_sf_tile_month_filter">
                         <option value="0" <?php if(isset($sf_options_tile['month_filter']) and isset($sf_options_tile['month_filter']['type']) and $sf_options_tile['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -811,13 +818,6 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][tile][text_search][type]" id="mec_sf_tile_text_search">
                         <option value="0" <?php if(isset($sf_options_tile['text_search']) and isset($sf_options_tile['text_search']['type']) and $sf_options_tile['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="text_input" <?php if(isset($sf_options_tile['text_search']) and isset($sf_options_tile['text_search']['type']) and $sf_options_tile['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
-                    </select>
-                </div>
-                <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_tile_address_search"><?php _e('Address', 'modern-events-calendar-lite'); ?></label>
-                    <select class="mec-col-12" name="mec[sf-options][tile][address_search][type]" id="mec_sf_tile_address_search">
-						<option value="0" <?php if(isset($sf_options_tile['address_search']) and isset($sf_options_tile['address_search']['type']) and $sf_options_tile['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="address_input" <?php if(isset($sf_options_tile['address_search']) and isset($sf_options_tile['address_search']['type']) and $sf_options_tile['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <?php do_action('mec_tile_search_form',$sf_options_tile); ?>

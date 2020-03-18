@@ -28,17 +28,17 @@ if($this->next_previous_button)
        (isset($this->atts['show_past_events']) and !$this->atts['show_past_events'] and strtotime(date('Y-m-t', $_1month_before)) >= time())
     )
     {
-        $navigator_html .= '<div class="mec-previous-month mec-load-month mec-previous-month" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><i class="mec-sl-angle-left"></i> '.date_i18n('F', $_1month_before).'</div>';
+        $navigator_html .= '<div class="mec-previous-month mec-load-month mec-previous-month" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><i class="mec-sl-angle-left"></i> '.$this->main->date_i18n('F', $_1month_before).'</div>';
     }
     
-    $navigator_html .= '<div class="mec-calendar-header"><h2>'.date_i18n('F Y', $current_month_time).'</h2></div>';
+    $navigator_html .= '<div class="mec-calendar-header"><h2>'.$this->main->date_i18n('F Y', $current_month_time).'</h2></div>';
     
     // Show next month handler if needed
     if(!$this->show_only_expired_events or
        ($this->show_only_expired_events and strtotime(date('Y-m-01', $_1month_after)) <= time())
     )
     {
-        $navigator_html .= '<div class="mec-next-month mec-load-month mec-next-month" data-mec-year="'.date('Y', $_1month_after).'" data-mec-month="'.date('m', $_1month_after).'">'.date_i18n('F', $_1month_after).' <i class="mec-sl-angle-right"></i></div>';
+        $navigator_html .= '<div class="mec-next-month mec-load-month mec-next-month" data-mec-year="'.date('Y', $_1month_after).'" data-mec-month="'.date('m', $_1month_after).'">'.$this->main->date_i18n('F', $_1month_after).' <i class="mec-sl-angle-right"></i></div>';
     }
 }
 
@@ -49,9 +49,9 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
         'month'=>$month_html,
         'events_side'=>(in_array($this->style, array('clean', 'modern')) ? $this->events_str : ''),
         'navigator'=>$navigator_html,
-        'previous_month'=>array('label'=>date_i18n('Y F', $_1month_before), 'id'=>date('Ym', $_1month_before), 'year'=>date('Y', $_1month_before), 'month'=>date('m', $_1month_before)),
-        'current_month'=>array('label'=>date_i18n('Y F', $current_month_time), 'id'=>date('Ym', $current_month_time), 'year'=>date('Y', $current_month_time), 'month'=>date('m', $current_month_time)),
-        'next_month'=>array('label'=>date_i18n('Y F', $_1month_after), 'id'=>date('Ym', $_1month_after), 'year'=>date('Y', $_1month_after), 'month'=>date('m', $_1month_after)),
+        'previous_month'=>array('label'=>$this->main->date_i18n('Y F', $_1month_before), 'id'=>date('Ym', $_1month_before), 'year'=>date('Y', $_1month_before), 'month'=>date('m', $_1month_before)),
+        'current_month'=>array('label'=>$this->main->date_i18n('Y F', $current_month_time), 'id'=>date('Ym', $current_month_time), 'year'=>date('Y', $current_month_time), 'month'=>date('m', $current_month_time)),
+        'next_month'=>array('label'=>$this->main->date_i18n('Y F', $_1month_after), 'id'=>date('Ym', $_1month_after), 'year'=>date('Y', $_1month_after), 'month'=>date('m', $_1month_after)),
     ));
     exit;
 }
@@ -123,7 +123,7 @@ do_action('mec_monthly_skin_head');
                 <div class="mec-month-navigator" id="mec_month_navigator_<?php echo $this->id; ?>_<?php echo date('Ym', $current_month_time); ?>"><?php echo $navigator_html; ?></div>
             </div>
             <?php else: ?>
-            <div class="mec-calendar-header"><h2><?php echo date_i18n('Y F', $current_month_time); ?></h2></div>
+            <div class="mec-calendar-header"><h2><?php echo $this->main->date_i18n('Y F', $current_month_time); ?></h2></div>
             <?php endif; ?>
 
             <div class="mec-calendar-table" id="mec_skin_events_<?php echo $this->id; ?>">

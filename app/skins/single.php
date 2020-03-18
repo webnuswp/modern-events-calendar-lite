@@ -181,7 +181,7 @@ class MEC_skin_single extends MEC_skins
                             <span>
                                 <?php
                                 $mec_start_date = get_post_meta(get_the_ID(), 'mec_start_date', true);
-                                $date = date_i18n(get_option('date_format'), strtotime($mec_start_date));
+                                $date = $this->main->date_i18n(get_option('date_format'), strtotime($mec_start_date));
                                 $link = get_the_permalink();
                                 echo $date;
                                 ?>
