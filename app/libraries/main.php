@@ -1122,7 +1122,8 @@ class MEC_main extends MEC_base
         
         // Get mec options
         $mec = $request->getVar('mec', array());
-        
+        if(isset($mec['reg_fields']) and !is_array($mec['reg_fields'])) $mec['reg_fields'] = array();
+
         $filtered = array();
         foreach($mec as $key=>$value) $filtered[$key] = (is_array($value) ? $value : array());
         
@@ -1135,11 +1136,29 @@ class MEC_main extends MEC_base
         if(isset($filtered['settings']) and isset($filtered['settings']['category_slug'])) $filtered['settings']['category_slug'] = strtolower(str_replace(' ', '-', $filtered['settings']['category_slug']));
         if(isset($filtered['settings']) and isset($filtered['settings']['custom_archive'])) $filtered['settings']['custom_archive'] = isset($filtered['settings']['custom_archive']) ? str_replace('\"','"',$filtered['settings']['custom_archive']) : '';
 
-        if(isset($mec['reg_fields']) and !is_array($mec['reg_fields'])) $mec['reg_fields'] = array();
-        if(isset($current['reg_fields']) and isset($mec['reg_fields']) and count($current['reg_fields']) != count($mec['reg_fields']))
+        // Bellow conditional block codes is used for sortable booking form items.
+        if(isset($filtered['reg_fields']))
+        {
+            if(is_array($filtered['reg_fields']))
+            {
+                $filtered_reg_fields_count = count($filtered['reg_fields']);
+                if($filtered_reg_fields_count)
+                {
+                    $filtered_reg_fields_slice_first = array_slice($filtered['reg_fields'], 0, $filtered_reg_fields_count - 2);
+                    $filtered_reg_fields_slice_last = array_slice($filtered['reg_fields'], ($filtered_reg_fields_count - 2), $filtered_reg_fields_count, true);
+                    $filtered['reg_fields'] = array_merge($filtered_reg_fields_slice_first, $filtered_reg_fields_slice_last);
+                }
+            }
+            else
+            {
+                $filtered['reg_fields'] = array();
+            }
+        }
+        
+        if(isset($current['reg_fields']) and isset($filtered['reg_fields']))
         {
             $current['reg_fields'] = array();
-            $current['reg_fields'] = $mec['reg_fields'];
+            $current['reg_fields'] = $filtered['reg_fields'];
         }
         
         // Generate New Options
@@ -1171,7 +1190,7 @@ class MEC_main extends MEC_base
         
         // Refresh WordPress rewrite rules
         $this->flush_rewrite_rules();
-        
+
         // Print the response
         $this->response(array('success'=>1));
     }
@@ -4129,6 +4148,9 @@ class MEC_main extends MEC_base
 
     public function date_i18n($format, $time = NULL)
     {
+        // Force to numeric
+        if(!is_numeric($time)) $time = strtotime($time);
+
         $timezone_GMT = new DateTimeZone("GMT");
         $timezone_site = new DateTimeZone($this->get_timezone());
 

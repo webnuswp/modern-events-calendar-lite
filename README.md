@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.3.2  
-**Stable tag:** 5.2.1  
+**Stable tag:** 5.2.2  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -445,6 +445,17 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### 5.2.2 – 24 March 2020 
+- Added: An option in tile skin to load events in list view
+- Fixed: A display issue in tile skin
+- Fixed: An issue regarding showing red borders in booking modal for required fields (pro)
+- Fixed: Some PHP notices in event popup
+- Fixed: Order of booking fields on the classic form builder (pro)
+- Fixed: Masonry skin regarding showing events in modal (pro)
+- Fixed: Event import (xml file)
+- Fixed: Plugin deletion
+
 
 ### 5.2.1 – 18 March 2020 
 - Added: New skins in default shortcakes

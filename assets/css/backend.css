@@ -9382,3 +9382,125 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.post-type-mec_calendars .mec-switcher input+label:after {
     background: #282828;
 }
+
+/* Dashboard Widget */
+.mec-metabox-head-version img,.mec-metabox-head-version p {
+    float: left;
+}
+
+.mec-metabox-head-version a {
+    float: right;
+}
+
+.mec-metabox-head-version p {
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-bottom: 34px;
+}
+
+h3.mec-metabox-feed-head {
+    border-top: 1px solid #ccc;
+}
+
+div#mec_widget_news_features .inside {
+    padding: 0;
+}
+
+.mec-metabox-head-wrap {
+    padding: 0 12px;
+}
+
+#dashboard-widgets h3.mec-metabox-feed-head {
+    padding: 8px 12px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+}
+
+.mec-metabox-feed-content {
+    padding: 0px 12px;
+}
+
+.mec-metabox-feed-content ul li a {
+    font-weight: 600;
+    display: block;
+}
+
+.mec-metabox-feed-content ul li p {
+    margin: 3px 0 24px;
+}
+
+.mec-metabox-footer a span {
+    font-size: 17px;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+.mec-metabox-footer a {
+    text-decoration: none;
+    border-right: 1px solid #eee;
+    padding-right: 10px;
+    margin-right: 12px;
+}
+.mec-metabox-footer {
+    padding: 11px 12px 10px;
+    border-top: 1px solid #eee;
+}
+
+.mec-metabox-footer a:last-of-type {
+    border: none;
+}
+
+.mec-metabox-upcoming-wrap h3 {
+    border-top: none !important;
+    padding-top: 13px !important;
+}
+
+.mec-metabox-head-wrap {
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mec-metabox-upcoming-wrap ul li span {
+    float: left;
+}
+
+.mec-metabox-upcoming-wrap ul li .mec-metabox-upcoming-event {
+    float:left;
+    margin-left: 10px;
+}
+
+.mec-metabox-upcoming-wrap ul li .mec-metabox-upcoming-event-date {
+    float:right;  
+}
+
+.mec-metabox-upcoming-wrap ul {
+    padding: 0 12px;
+    background: #f7f7f7;
+    margin: 0;
+}
+
+.mec-metabox-upcoming-wrap ul li {
+    border-bottom: 1px solid #eee;
+    padding: 14px 0;
+    margin-bottom: 0;
+}
+
+.mec-metabox-upcoming-wrap ul li:last-of-type {
+    border: none;
+}
+
+.mec-metabox-upcoming-wrap h3 {
+    margin-bottom: 0 !important;
+}
+
+.mec-metabox-upcoming-wrap ul li .mec-metabox-upcoming-event a {
+    font-weight: 600;
+}
+
+.mec-metabox-head-version a span {
+    vertical-align: middle;
+}
+
+.mec-metabox-head-version a {
+    padding-left: 6px !important;
+}

@@ -74,6 +74,7 @@ class MEC_skin_single extends MEC_skins
     /**
      * Related Post in Single
      * @author Webnus <info@webnus.biz>
+     * @param integer $event_id
      */    
     public function display_related_posts_widget($event_id)
     {
@@ -172,22 +173,21 @@ class MEC_skin_single extends MEC_skins
                             <figure>
                                 <a href="<?php echo get_the_permalink(); ?>">
                                     <?php
-                                    if (get_the_post_thumbnail(get_the_ID(), 'thumblist')) echo get_the_post_thumbnail(get_the_ID(), 'thumblist');
-                                    else echo '<img src="' . plugin_dir_url(__FILE__) . '../../assets/img/no-image.png' . '" />';
+                                        if (get_the_post_thumbnail(get_the_ID(), 'thumblist')) echo get_the_post_thumbnail(get_the_ID(), 'thumblist');
+                                        else echo '<img src="' . plugin_dir_url(__FILE__) . '../../assets/img/no-image.png' . '" />';
                                     ?>
                                 </a>
                             </figure>
                             <div class="mec-related-event-content">
                             <span>
                                 <?php
-                                $mec_start_date = get_post_meta(get_the_ID(), 'mec_start_date', true);
-                                $date = $this->main->date_i18n(get_option('date_format'), strtotime($mec_start_date));
-                                $link = get_the_permalink();
-                                echo $date;
+                                    $mec_start_date = get_post_meta(get_the_ID(), 'mec_start_date', true);
+                                    $date = $this->main->date_i18n(get_option('date_format'), strtotime($mec_start_date));
+                                    $link = get_the_permalink();
+                                    echo $date;
                                 ?>
                             </span>
-                                <h5><a class="mec-color-hover"
-                                       href="<?php echo $this->main->get_event_date_permalink($link, $mec_start_date); ?>"><?php echo get_the_title(); ?></a>
+                                <h5><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($link, $mec_start_date); ?>"><?php echo get_the_title(); ?></a>
                                 </h5>
                             </div>
                         </article>

@@ -245,7 +245,7 @@ $events = $this->main->get_events();
                         <option value="simple" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'simple') echo 'selected="selected"'; ?>><?php _e('Simple', 'modern-events-calendar-lite'); ?></option>
                         <option value="colorful" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'colorful') echo 'selected="selected"'; ?>><?php _e('Colorful', 'modern-events-calendar-lite'); ?></option>
                         <option value="novel" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'novel') echo 'selected="selected"'; ?>><?php _e('Novel', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_grid_fluent' , $sk_options_grid['style'] ); ?>
+                        <?php do_action('mec_grid_fluent', (isset($sk_options_grid['style']) ? $sk_options_grid['style'] : '')); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -1686,11 +1686,27 @@ $events = $this->main->get_events();
                     </div>
                     <div class="mec-col-4">
                         <input type="hidden" name="mec[sk-options][tile][next_previous_button]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][tile][next_previous_button]" id="mec_skin_tile_next_previous_button" value="1" <?php if(!isset($sk_options_tile['next_previous_button']) or (isset($sk_options_tile['next_previous_button']) and $sk_options_tile['next_previous_button'])) echo 'checked="checked"'; ?> />
+                        <input type="checkbox" name="mec[sk-options][tile][next_previous_button]" id="mec_skin_tile_next_previous_button" value="1" <?php if(!isset($sk_options_tile['next_previous_button']) or (isset($sk_options_tile['next_previous_button']) and $sk_options_tile['next_previous_button'])) echo 'checked="checked"'; ?> onchange="jQuery('#mec_tile_off_month_options').toggle();" />
                         <label for="mec_skin_tile_next_previous_button"></label>
                     </div>
                 </div>
                 <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
+                <div id="mec_tile_off_month_options" <?php if(!isset($sk_options_tile['next_previous_button']) or (isset($sk_options_tile['next_previous_button']) and $sk_options_tile['next_previous_button'])) echo 'style="display:none;"'; ?>>
+                    <div class="mec-form-row">
+                        <label class="mec-col-4" for="mec_skin_tile_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
+                        <input class="mec-col-4" type="number" name="mec[sk-options][tile][limit]" id="mec_skin_tile_limit" placeholder="<?php _e('eg. 60', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_tile['limit'])) echo $sk_options_tile['limit']; ?>" />
+                    </div>
+                    <div class="mec-form-row mec-switcher">
+                        <div class="mec-col-4">
+                            <label><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-col-4">
+                            <input type="hidden" name="mec[sk-options][tile][load_more_button]" value="0" />
+                            <input type="checkbox" name="mec[sk-options][tile][load_more_button]" id="mec_skin_tile_load_more_button" value="1" <?php if(!isset($sk_options_tile['load_more_button']) or (isset($sk_options_tile['load_more_button']) and $sk_options_tile['load_more_button'])) echo 'checked="checked"'; ?> />
+                            <label for="mec_skin_tile_load_more_button"></label>
+                        </div>
+                    </div>
+                </div>
                 <?php echo $this->sed_method_field('tile', (isset($sk_options_tile['sed_method']) ? $sk_options_tile['sed_method'] : 0), (isset($sk_options_tile['image_popup']) ? $sk_options_tile['image_popup'] : 0)); ?>
             </div>
 

@@ -246,7 +246,9 @@ class MEC_feature_ix extends MEC_base
         $posts = array();
         if(strtolower($extension) == 'xml')
         {
-            $XML = simplexml_load_string($file->read($feed));
+            $xml_string = str_replace(':i:', 'iii', $file->read($feed));
+
+            $XML = simplexml_load_string($xml_string);
             if($XML === false) return false;
 
             foreach($XML->children() as $event)
@@ -258,8 +260,8 @@ class MEC_feature_ix extends MEC_base
                 $mec = $event->mec;
 
                 // Event location
-                $location = $event->locations->item[0];
-                $location_id = isset($location->name) ? $main->save_location(array
+                $location = ($event->locations ? $event->locations->item[0] : NULL);
+                $location_id = ($location and isset($location->name)) ? $main->save_location(array
                 (
                     'name'=>trim((string) $location->name),
                     'address'=>(string) $location->address,
@@ -269,8 +271,8 @@ class MEC_feature_ix extends MEC_base
                 )) : 1;
 
                 // Event Organizer
-                $organizer = $event->organizers->item[0];
-                $organizer_id = isset($organizer->name) ? $main->save_organizer(array
+                $organizer = ($event->organizers ? $event->organizers->item[0] : NULL);
+                $organizer_id = ($organizer and isset($organizer->name)) ? $main->save_organizer(array
                 (
                     'name'=>trim((string) $organizer->name),
                     'email'=>(string) $organizer->email,

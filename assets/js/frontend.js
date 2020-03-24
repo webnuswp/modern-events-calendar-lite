@@ -1826,7 +1826,7 @@ var mecSingleEventDisplayer = {
 
         function sed() {
             // Single Event Display
-            $("#mec_skin_" + settings.id + " .mec-event-title a, #mec_skin_" + settings.id + " .mec-booking-button").off('click').on('click', function (e) {
+            $("#mec_skin_" + settings.id + " .mec-masonry-img a, #mec_skin_" + settings.id + " .mec-event-title a, #mec_skin_" + settings.id + " .mec-booking-button").off('click').on('click', function (e) {
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -3104,7 +3104,7 @@ var mecSingleEventDisplayer = {
         if(settings.month_navigator) initMonthNavigator();
 
         // Load Next Month in background
-        setMonth(settings.next_month.year, settings.next_month.month, true);
+        if(settings.load_method === 'month') setMonth(settings.next_month.year, settings.next_month.month, true);
 
         active_month = settings.active_month.month;
         active_year = settings.active_month.year;
@@ -3129,11 +3129,7 @@ var mecSingleEventDisplayer = {
 
         function initMonthNavigator()
         {
-            // Remove the onclick event
-            $("#mec_skin_" + settings.id + " .mec-load-month").off("click");
-
-            // Add onclick event
-            $("#mec_skin_" + settings.id + " .mec-load-month").on("click", function()
+            $("#mec_skin_" + settings.id + " .mec-load-month").off("click").on("click", function()
             {
                 var year = $(this).data("mec-year");
                 var month = $(this).data("mec-month");
@@ -3156,23 +3152,43 @@ var mecSingleEventDisplayer = {
                 type: "post",
                 success: function(response)
                 {
-                    active_month = response.current_month.month;
-                    active_year = response.current_month.year;
+                    if(settings.load_method === 'month')
+                    {
+                        active_month = response.current_month.month;
+                        active_year = response.current_month.year;
 
-                    // Append Month
-                    $("#mec_skin_events_" + settings.id).html('<div class="mec-month-container" id="mec_tile_month_' + settings.id + '_' + response.current_month.id + '" data-month-id="' + response.current_month.id + '">' + response.month + '</div>');
+                        // Append Month
+                        $("#mec_skin_events_" + settings.id).html('<div class="mec-month-container" id="mec_tile_month_' + settings.id + '_' + response.current_month.id + '" data-month-id="' + response.current_month.id + '">' + response.month + '</div>');
 
-                    // Append Month Navigator
-                    $("#mec_skin_" + settings.id + " .mec-skin-monthly-view-month-navigator-container").html('<div class="mec-month-navigator" id="mec_month_navigator_' + settings.id + '_' + response.current_month.id + '">' + response.navigator + '</div>');
+                        // Append Month Navigator
+                        $("#mec_skin_" + settings.id + " .mec-skin-tile-month-navigator-container").append('<div class="mec-month-navigator" id="mec_month_navigator_' + settings.id + '_' + response.current_month.id + '">' + response.navigator + '</div>');
 
-                    // Re-initialize Month Navigator
-                    initMonthNavigator();
+                        // Re-initialize Month Navigator
+                        initMonthNavigator();
 
-                    // Set onclick Listeners
-                    setListeners();
+                        // Set onclick Listeners
+                        setListeners();
 
-                    // Toggle Month
-                    toggleMonth(response.current_month.id);
+                        // Toggle Month
+                        toggleMonth(response.current_month.id);
+                    }
+                    else
+                    {
+                        // Append Items
+                        $("#mec_skin_events_" + settings.id).html(response.html);
+
+                        // Show load more button
+                        if (response.count >= settings.limit) $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        // Hide load more button
+                        else $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
+
+                        // Update the variables
+                        settings.end_date = response.end_date;
+                        settings.offset = response.offset;
+
+                        // Set onclick Listeners
+                        setListeners();
+                    }
 
                     // Remove loading Class
                     $('.mec-modal-result').removeClass("mec-month-navigator-loading");
@@ -3272,11 +3288,13 @@ var mecSingleEventDisplayer = {
 
         function setListeners()
         {
-            // Remove the onclick event
-            $("#mec_skin_" + settings.id + " .mec-has-event").off("click");
+            $("#mec_skin_" + settings.id + " .mec-load-more-button").off("click").on("click", function()
+            {
+                loadMore();
+            });
 
             // Add the onclick event
-            $("#mec_skin_" + settings.id + " .mec-has-event").on('click', function(e)
+            $("#mec_skin_" + settings.id + " .mec-has-event").off("click").on('click', function(e)
             {
                 e.preventDefault();
 
@@ -3313,6 +3331,57 @@ var mecSingleEventDisplayer = {
                 var id = $(this).data('event-id');
                 var occurrence = get_parameter_by_name('occurrence', href);
                 mecSingleEventDisplayer.getSinglePage(id, occurrence, settings.ajax_url, settings.sed_method, settings.image_popup);
+            });
+        }
+
+        function loadMore()
+        {
+            // Load More Button
+            var $load_more_button = $("#mec_skin_" + settings.id + " .mec-load-more-button");
+
+            // Add loading Class
+            $load_more_button.addClass("mec-load-more-loading");
+
+            $.ajax(
+            {
+                url: settings.ajax_url,
+                data: "action=mec_tile_load_more&mec_start_date=" + settings.end_date + "&mec_offset=" + settings.offset + "&" + settings.atts + "&current_month_divider=" + settings.current_month_divider + "&apply_sf_date=0",
+                dataType: "json",
+                type: "post",
+                success: function(response)
+                {
+                    if(response.count == '0')
+                    {
+                        // Remove loading Class
+                        $load_more_button.removeClass("mec-load-more-loading");
+
+                        // Hide load more button
+                        $load_more_button.addClass("mec-util-hidden");
+                    }
+                    else
+                    {
+                        // Show load more button
+                        $load_more_button.removeClass("mec-util-hidden");
+
+                        // Append Items
+                        $("#mec_skin_events_" + settings.id).append(response.html);
+
+                        // Remove loading Class
+                        $load_more_button.removeClass("mec-load-more-loading");
+
+                        // Update the variables
+                        settings.end_date = response.end_date;
+                        settings.offset = response.offset;
+                        settings.current_month_divider = response.current_month_divider;
+
+                        // Single Event Method
+                        if(settings.sed_method != '0')
+                        {
+                            sed();
+                        }
+                    }
+                },
+                error: function(){}
             });
         }
     };

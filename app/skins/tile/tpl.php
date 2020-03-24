@@ -17,6 +17,12 @@ ob_start();
 include $render_path;
 $month_html = ob_get_clean();
 
+if(isset($this->atts['return_only_items']) and $this->atts['return_only_items'])
+{
+    echo json_encode(array('html'=>$month_html, 'end_date'=>$this->end_date, 'offset'=>$this->next_offset, 'count'=>$this->found));
+    exit;
+}
+
 $navigator_html = '';
 
 // Generate Month Navigator
@@ -62,6 +68,11 @@ jQuery(document).ready(function()
     jQuery("#mec_tile_month_'.$this->id.'_'.date('Ym', $current_month_time).'").mecTileView(
     {
         id: "'.$this->id.'",
+        start_date: "'.$this->start_date.'",
+        end_date: "'.$this->end_date.'",
+		offset: "'.$this->next_offset.'",
+		limit: "'.$this->limit.'",
+		load_method: "'.$this->load_method.'",
         today: "'.date('Ymd', strtotime($this->active_day)).'",
         month_id: "'.date('Ym', $current_month_time).'",
         active_month: {year: "'.date('Y', strtotime($this->start_date)).'", month: "'.date('m', strtotime($this->start_date)).'"},
@@ -89,10 +100,10 @@ else $this->factory->params('footer', $javascript);
 $styling = $this->main->get_styling();
 
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+$dark_mode = (isset($styling['dark_mode'])) ? $styling['dark_mode'] : '';
+
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark ='';
 
 do_action('mec_start_skin' , $this->id);
 do_action('mec_tile_head');
@@ -108,13 +119,19 @@ do_action('mec_tile_head');
                 <div class="mec-skin-tile-month-navigator-container">
                     <div class="mec-month-navigator" id="mec_month_navigator_<?php echo $this->id; ?>_<?php echo date('Ym', $current_month_time); ?>"><?php echo $navigator_html; ?></div>
                 </div>
-                <?php else: ?>
-                <div class="mec-calendar-header"><h2><?php echo $this->main->date_i18n('Y F', $current_month_time); ?></h2></div>
                 <?php endif; ?>
 
                 <div class="mec-calendar-table" id="mec_skin_events_<?php echo $this->id; ?>">
-                    <div class="mec-month-container mec-month-container-selected" id="mec_tile_month_<?php echo $this->id; ?>_<?php echo date('Ym', $current_month_time); ?>" data-month-id="<?php echo date('Ym', $current_month_time); ?>"><?php echo $month_html; ?></div>
+                    <?php if($this->load_method === 'list'): ?>
+                        <?php echo $month_html; ?>
+                    <?php else: ?>
+                        <div class="mec-month-container mec-month-container-selected" id="mec_tile_month_<?php echo $this->id; ?>_<?php echo date('Ym', $current_month_time); ?>" data-month-id="<?php echo date('Ym', $current_month_time); ?>"><?php echo $month_html; ?></div>
+                    <?php endif; ?>
                 </div>
+
+                <?php if($this->load_method === 'list' and $this->load_more_button and $this->found >= $this->limit): ?>
+                    <div class="mec-load-more-wrap"><div class="mec-load-more-button"><?php echo __('Load More', 'modern-events-calendar-lite'); ?></div></div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

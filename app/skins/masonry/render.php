@@ -132,9 +132,9 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
 
                     <article data-style="<?php echo $label_style; ?>" class="mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
                         <?php if(isset($event->data->featured_image) and $this->masonry_like_grid): ?>
-                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'thumblist'); ?></a></div>
+                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" data-event-id="<?php echo $event->data->ID; ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'thumblist'); ?></a></div>
                         <?php elseif(isset($event->data->featured_image) and isset($event->data->featured_image['full']) and trim($event->data->featured_image['full'])): ?>
-                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'full'); ?></a></div>
+                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>" data-event-id="<?php echo $event->data->ID; ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'full'); ?></a></div>
                         <?php endif; ?>
 
                         <div class="mec-masonry-content mec-event-grid-modern">

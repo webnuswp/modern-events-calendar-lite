@@ -3153,19 +3153,21 @@ button#mec-book-form-back-btn-step-3 {
 .mec-single-event .mec-events-meta-group-booking .mec-red-notification input,
 .mec-single-event .mec-events-meta-group-booking .mec-red-notification textarea,
 .mec-single-event .mec-events-meta-group-booking .mec-red-notification select {
-	border: 1px solid #ff3c3c;
+	border: 1px solid #ff3c3c !important;
 }
 
 .mec-single-event .mec-events-meta-group-booking .mec-red-notification input[type="radio"],
-.mec-single-event .mec-events-meta-group-booking .mec-red-notification input[type="checkbox"] {
-	outline: 1px solid #ff3c3c;
+.mec-single-event .mec-events-meta-group-booking .mec-red-notification input[type="checkbox"],
+.lity .mec-events-meta-group-booking .mec-red-notification input[type=checkbox],
+.lity .mec-events-meta-group-booking .mec-red-notification input[type=radio] {
+	outline: 1px solid #ff3c3c !important;
 }
 
 /* Modal booking - required forms */
 .lity .mec-book-ticket-container .mec-red-notification input,
 .lity .mec-book-ticket-container .mec-red-notification select,
 .lity .mec-book-ticket-container .mec-red-notification textarea {
-    border: 1px solid #ff3c3c;
+    border: 1px solid #ff3c3c !important;
 }
 
 @media only screen and (max-width: 479px) {
@@ -15455,6 +15457,10 @@ a.mec-timeline-readmore i {
 	font-weight: 700;
 	margin-bottom: 50px;
 	text-transform: uppercase;
+}
+
+.mec-event-tile-view article.mec-tile-item .event-tile-view-head > div {
+	display: inline;
 }
 
 .mec-event-tile-view article.mec-tile-item .mec-event-time {

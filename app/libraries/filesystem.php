@@ -23,7 +23,8 @@ class MEC_file extends MEC_base
      */
 	public static function getExt($file)
 	{
-		return end(explode('.', $file));
+	    $ex = explode('.', $file);
+		return end($ex);
 	}
     
     /**

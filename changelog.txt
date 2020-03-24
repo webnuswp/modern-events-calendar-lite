@@ -1,4 +1,14 @@
-﻿v 5.2.1 – 18 March 2020
+﻿v 5.2.2 – 24 March 2020
+- Added: An option in tile skin to load events in list view
+- Fixed: A display issue in tile skin
+- Fixed: An issue regarding showing red borders in booking modal for required fields (pro)
+- Fixed: Some PHP notices in event popup
+- Fixed: Order of booking fields on the classic form builder (pro)
+- Fixed: Masonry skin regarding showing events in modal (pro)
+- Fixed: Event import (xml file)
+- Fixed: Plugin deletion
+
+v 5.2.1 – 18 March 2020
 - Added: New skins in default shortcakes
 - Added: File field in booking edit menu (pro)
 - Added: An option to change the format of the date picker

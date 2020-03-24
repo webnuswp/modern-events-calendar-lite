@@ -303,7 +303,7 @@ if(isset($map_events) and !empty($map_events))
     $this->main->load_map_assets();
 
     // It changing geolocation focus, because after done filtering, if it doesn't. then the map position will not set correctly.
-    if((isset($_REQUEST['action']) and $_REQUEST['action'] == 'mec_grid_load_more') and isset($_REQUEST[ 'sf' ])) $this->geolocation_focus = true;
+    if((isset($_REQUEST['action']) and $_REQUEST['action'] == 'mec_grid_load_more') and isset($_REQUEST['sf'])) $this->geolocation_focus = true;
 
     $map_javascript = '<script type="text/javascript">
     var mecmap'.$this->id.';
