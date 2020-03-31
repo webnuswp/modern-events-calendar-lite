@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.3.2
-Stable tag: 5.2.2
+Stable tag: 5.2.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -356,6 +356,17 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 37. WordPress Event Calendar - Add Shortcode Wizard
 
 == Changelog ==
+= 5.2.3 – 31 March 2020 =
+- Added: SEO Schema section to specify event status
+- Added: A new currency (Israeli Shekel)
+- Changed: The next and back button positions on the booking form (pro)
+- Fixed: MEC sender name and email
+- Fixed: MEC Archive page
+- Fixed: An issue in update client of MEC
+- Fixed: Advanced repeat
+- Fixed: Internal cronjob of MEC (pro)
+- Fixed: The "New Event" notification
+
 = 5.2.2 – 24 March 2020 =
 - Added: An option in tile skin to load events in list view
 - Fixed: A display issue in tile skin

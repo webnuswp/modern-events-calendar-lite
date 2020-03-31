@@ -30,14 +30,13 @@ if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
 
 $styling = $this->main->get_styling();
-
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
 
-do_action('mec_start_skin' , $this->id);
+$dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark = '';
+
+do_action('mec_start_skin', $this->id);
 do_action('mec_full_skin_head');
 ?>
 <div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin . ' ' . $set_dark; ?> mec-full-calendar-wrap">
@@ -71,11 +70,8 @@ do_action('mec_full_skin_head');
                 $sf_columns = 8;
             ?>
         <?php
-            if ( (!empty($sf_category) && $sf_category["type"] == 'dropdown') || (!empty($sf_location) && $sf_location["type"] == 'dropdown') || (!empty($sf_organizer) && $sf_organizer["type"] == 'dropdown') || (!empty($sf_speaker) && $sf_speaker["type"] == 'dropdown') || (!empty($sf_tag) && $sf_tag["type"] == 'dropdown') || (!empty($sf_label) && $sf_label["type"] == 'dropdown') ):
-                $wrapper_class = 'class="mec-dropdown-wrap"';
-            else:
-                $wrapper_class = '';
-            endif;
+            if((!empty($sf_category) && $sf_category["type"] == 'dropdown') || (!empty($sf_location) && $sf_location["type"] == 'dropdown') || (!empty($sf_organizer) && $sf_organizer["type"] == 'dropdown') || (!empty($sf_speaker) && $sf_speaker["type"] == 'dropdown') || (!empty($sf_tag) && $sf_tag["type"] == 'dropdown') || (!empty($sf_label) && $sf_label["type"] == 'dropdown')) $wrapper_class = 'class="mec-dropdown-wrap"';
+            else $wrapper_class = '';
         ?>
         <div id="mec_search_form_<?php echo $this->id; ?>" <?php echo $wrapper_class; ?>>
             <?php if($sf_category_status): ?>

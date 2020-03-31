@@ -336,15 +336,21 @@ class MEC_feature_events extends MEC_base
                     __('Links', 'modern-events-calendar-lite') => 'mec-read-more',
                     __('Organizer', 'modern-events-calendar-lite') => 'mec-organizer',
                     __('Cost', 'modern-events-calendar-lite') => 'mec-cost',
-                ),$activated);
-                foreach ($single_event_meta_title as $link_name => $link_address) {
-                    if ( $link_address == 'mec_meta_box_fes_form' ) {
-                        if ( ($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)) )
-                        echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
-                    } elseif ( $link_address == 'mec-exceptional-days' ) {
-                        if(isset($this->settings['exceptional_days']) and $this->settings['exceptional_days'])
-                        echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
-                    } else {
+                    __('SEO Schema', 'modern-events-calendar-lite') => 'mec-schema',
+                ), $activated);
+
+                foreach($single_event_meta_title as $link_name => $link_address)
+                {
+                    if($link_address == 'mec_meta_box_fes_form')
+                    {
+                        if(($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)))  echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                    }
+                    elseif($link_address == 'mec-exceptional-days')
+                    {
+                        if(isset($this->settings['exceptional_days']) and $this->settings['exceptional_days']) echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                    }
+                    else
+                    {
                         echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
                     }
                 }
@@ -1810,7 +1816,7 @@ class MEC_feature_events extends MEC_base
 								<span class="mec-tooltip">
 									<div class="box top">
 										<h5 class="title"><?php _e('Price', 'modern-events-calendar-lite'); ?></h5>
-										<div class="content"><p><?php esc_attr_e('Insert 0 for free ticket. Only numbers please.', 'modern-events-calendar-lite'); ?>
+										<div class="content"><p><?php esc_attr_e('Insert 0 for free ticket. Only numbers please — Enter only the price without any symbols or characters.', 'modern-events-calendar-lite'); ?>
                                                 <a href="https://webnus.net/dox/modern-events-calendar/add-a-booking-system/"
                                                    target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
 									</div>
@@ -2034,7 +2040,7 @@ class MEC_feature_events extends MEC_base
 							<span class="mec-tooltip">
 								<div class="box top">
 									<h5 class="title"><?php _e('Price', 'modern-events-calendar-lite'); ?></h5>
-									<div class="content"><p><?php esc_attr_e('Insert 0 for free ticket. Only numbers please.', 'modern-events-calendar-lite'); ?>
+									<div class="content"><p><?php esc_attr_e('Insert 0 for free ticket. Only numbers please — Enter only the price without any symbols or characters.', 'modern-events-calendar-lite'); ?>
                                             <a href="https://webnus.net/dox/modern-events-calendar/add-a-booking-system/"
                                                target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
 								</div>
@@ -3184,6 +3190,9 @@ class MEC_feature_events extends MEC_base
                 wp_reset_postdata();
             }
         }
+
+        $mec_update = (isset($_REQUEST['original_publish']) and strtolower(trim($_REQUEST['original_publish'])) == 'publish') ? false : true;
+        do_action('mec_after_publish_admin_event', $post_id, $mec_update);
     }
 
     public function quick_edit($post_id)

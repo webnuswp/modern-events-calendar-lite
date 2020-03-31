@@ -140,7 +140,7 @@ class MEC_parser extends MEC_base
                 else $template = MEC_ABSPATH.'templates'.DS.'single-mec-events.php';
             }
         }
-        elseif(is_post_type_archive($PT))
+        elseif(is_post_type_archive($PT) && !is_search())
         {
             $template = locate_template('archive-'.$PT.'.php');
             if($template == '')

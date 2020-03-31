@@ -648,13 +648,13 @@ $notifications = $this->main->get_notifications();
                                     <input onchange="jQuery('#mec_notification_new_event_container_toggle').toggle();" value="1" type="checkbox" name="mec[notifications][new_event][status]" <?php if(isset($notifications['new_event']['status']) and $notifications['new_event']['status']) echo 'checked="checked"'; ?> /> <?php _e('Enable new event notification', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
-                            <div class="mec-form-row">
-                                <label>
-                                    <input type="hidden" name="mec[notifications][new_event][send_to_admin]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[notifications][new_event][send_to_admin]" <?php if((!isset($notifications['new_event']['send_to_admin'])) or (isset($notifications['new_event']['send_to_admin']) and $notifications['new_event']['send_to_admin'])) echo 'checked="checked"'; ?> /> <?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?>
-                                </label>
-                            </div>
                             <div id="mec_notification_new_event_container_toggle" class="<?php if((isset($notifications['new_event']) and !$notifications['new_event']['status']) or !isset($notifications['new_event'])) echo 'mec-util-hidden'; ?>">
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[notifications][new_event][send_to_admin]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[notifications][new_event][send_to_admin]" <?php if((!isset($notifications['new_event']['send_to_admin'])) or (isset($notifications['new_event']['send_to_admin']) and $notifications['new_event']['send_to_admin'])) echo 'checked="checked"'; ?> /> <?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
                                 <p class="description"><?php _e('It sends after adding a new event from frontend event submission or from website backend.', 'modern-events-calendar-lite'); ?></p>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_new_event_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>

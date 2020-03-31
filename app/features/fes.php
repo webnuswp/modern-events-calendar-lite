@@ -1038,6 +1038,14 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_op', $op);
         update_user_meta(get_post_field('post_author', $post_id), 'mec_op', $op);
 
+        // SEO Schema
+        $event_status = isset($mec['event_status']) ? sanitize_text_field($mec['event_status']) : 'EventScheduled';
+        if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
+        update_post_meta($post_id, 'mec_event_status', $event_status);
+
+        $moved_online_link = (isset($mec['moved_online_link']) and filter_var($mec['moved_online_link'], FILTER_VALIDATE_URL)) ? esc_url($mec['moved_online_link']) : '';
+        update_post_meta($post_id, 'mec_moved_online_link', $moved_online_link);
+
         do_action('save_fes_meta_action' , $post_id , $mec);
 
         if($booking_date_update)

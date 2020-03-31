@@ -66,7 +66,8 @@ foreach($gateways as $gateway)
         </div>
         <?php endforeach; ?>
     </div>
-    <form id="mec_book_form_free_booking<?php echo $uniqueid; ?>" class="mec-util-hidden" onsubmit="mec_book_free<?php echo $uniqueid; ?>(); return false;">
+    <button id="mec-book-form-back-btn-step-3" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php _e('Back', 'modern-events-calendar-lite'); ?></button>
+    <form id="mec_book_form_free_booking<?php echo $uniqueid; ?>" class="mec-util-hidden mec-click-next" onsubmit="mec_book_free<?php echo $uniqueid; ?>(); return false;">
         <div class="mec-form-row">
             <input type="hidden" name="action" value="mec_do_transaction_free" />
             <input type="hidden" name="transaction_id" value="<?php echo $transaction_id; ?>" />
@@ -76,5 +77,4 @@ foreach($gateways as $gateway)
             <button class="mec-book-form-next-button" type="submit"><?php _e('Free Booking', 'modern-events-calendar-lite'); ?></button>
         </div>
     </form>
-    <button id="mec-book-form-back-btn-step-3" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php _e('Back', 'modern-events-calendar-lite'); ?></button>
 </div>

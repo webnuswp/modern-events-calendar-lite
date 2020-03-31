@@ -3009,6 +3009,51 @@ button#mec-book-form-back-btn-step-3 {
 	float: none;
 }
 
+/* Pay Buttons Position */
+.mec-single-event .mec-events-meta-group-booking .mec-click-pay {
+    max-width: 350px;
+}
+.mec-single-event .mec-events-meta-group-booking .mec-click-pay #mec_woo_add_to_cart_btn_r,
+.mec-single-event .mec-events-meta-group-booking .mec-click-pay button.mec-book-form-next-button {
+    float: right;
+}
+
+.mec-single-event .mec-events-meta-group-booking .mec-click-pay #mec_woo_add_to_cart_btn_r:hover,
+.mec-single-event .mec-events-meta-group-booking .mec-click-pay button.mec-book-form-next-button:hover {
+    background: #000;
+}
+
+.lity-container .mec-click-pay {
+    max-width: 400px;
+}
+
+.lity-container .mec-click-pay #mec_woo_add_to_cart_btn_r,
+.lity-container .mec-book-form-btn-wrap button.mec-book-form-next-button {
+    float: right;
+}
+
+.lity-container button.mec-book-form-next-button {
+    float: right;
+}
+
+.lity-container .mec-click-pay #mec_woo_add_to_cart_btn_r:hover,
+.lity-container .mec-click-pay button.mec-book-form-next-button:hover {
+    background: #000;
+}
+
+/* Free booking with coupon */
+.mec-single-event .mec-events-meta-group-booking .mec-click-next {
+    float: right;
+    position: relative;
+    width: calc(100% - 186px);
+}
+
+.lity-container .mec-click-next {
+    float: right;
+    position: relative;
+    width: calc(100% - 186px);
+}
+
 .mec-single-event .mec-book-form-coupon button {
 	margin-left: 0;
 }
@@ -12685,6 +12730,7 @@ ul.mec-weekly-view-dates-events article:before,
 	margin-bottom: 2px !important;
 }
 
+.lity-container .mec-click-pay #mec_woo_add_to_cart_btn_r,
 .lity-content button[type="submit"] {
 	position: relative;
 	border: none;

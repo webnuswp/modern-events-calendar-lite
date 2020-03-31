@@ -1,15 +1,15 @@
 <?php
 /** no direct access **/
 defined('MECEXEC') or die();
+
 use Elementor\Plugin;
-if ( ! did_action( 'elementor/loaded' ) ) {
-    return;
-}
+if(!did_action('elementor/loaded')) return;
 
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
 $current_month_divider = $this->request->getVar('current_month_divider', 0);
+
 // colorful
 $colorful_flag = $colorful_class = '';
 if($this->style == 'colorful')

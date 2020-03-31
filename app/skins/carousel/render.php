@@ -10,26 +10,14 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-carousel-<?php echo $this->style; ?>">
         <?php 
-            if( $this->style == 'type4' ) 
-            {
-                $carousel_type = 'type4' ;
-            } 
-            elseif ( $this->style == 'type1' )
-            {
-                $carousel_type = 'type1' ;
-            } 
-            else
-            {
-                $carousel_type = 'type2' ;
-            }
+            if($this->style == 'type4') $carousel_type = 'type4';
+            elseif($this->style == 'type1') $carousel_type = 'type1';
+            else $carousel_type = 'type2';
         ?>
         <div class='mec-owl-crousel-skin-<?php echo $carousel_type; ?> mec-owl-carousel mec-owl-theme'>
             <?php
                 foreach($this->events as $date):
                 foreach($date as $event):
-
-                // Skip to next event if there is no image
-                // if(empty($event->data->thumbnails['meccarouselthumb'])) continue;
 
                 $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
                 $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']])? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
@@ -48,56 +36,11 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
                     }
                 }
 
-                $speakers = '""';
-                if(!empty($event->data->speakers))
-                {
-                    $speakers = [];
-                    foreach($event->data->speakers as $key=>$value)
-                    {
-                        $speakers[] = array(
-                            "@type" 	=> "Person",
-                            "name"		=> $value['name'],
-                            "image"		=> $value['thumbnail'],
-                            "sameAs"	=> $value['facebook'],
-                        );
-                    }
-
-                    $speakers = json_encode($speakers);
-                }
+                // MEC Schema
+                do_action('mec_schema', $event);
             ?>
             <article data-style="<?php echo $label_style; ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>" itemscope>
-            <?php
-                $schema_settings = isset( $settings['schema'] ) ? $settings['schema'] : '';
-                if($schema_settings == '1' ):
-            ?>            
-                <script type="application/ld+json">
-                {
-                    "@context" 		: "http://schema.org",
-                    "@type" 		: "Event",
-                    "startDate" 	: "<?php echo !empty( $event->data->meta['mec_date']['start']['date'] ) ? $event->data->meta['mec_date']['start']['date'] : '' ; ?>",
-                    "endDate" 		: "<?php echo !empty( $event->data->meta['mec_date']['end']['date'] ) ? $event->data->meta['mec_date']['end']['date'] : '' ; ?>",
-                    "location" 		:
-                    {
-                        "@type" 		: "Place",
-                        "name" 			: "<?php echo (isset($location['name']) ? $location['name'] : ''); ?>",
-                        "image"			: "<?php echo (isset($location['thumbnail']) ? esc_url($location['thumbnail'] ) : '');; ?>",
-                        "address"		: "<?php echo (isset($location['address']) ? $location['address'] : ''); ?>"
-                    },
-                    "offers": {
-                        "url": "<?php echo $event->data->permalink; ?>",
-                        "price": "<?php echo isset($event->data->meta['mec_cost']) ? $event->data->meta['mec_cost'] : '' ; ?>",
-                        "priceCurrency" : "<?php echo isset($settings['currency']) ? $settings['currency'] : ''; ?>"
-                    },
-                    "performer": <?php echo $speakers; ?>,
-                    "description" 	: "<?php  echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', preg_replace('/\s/u', ' ', $event->data->post->post_content))); ?>",
-                    "image" 		: "<?php echo !empty($event->data->featured_image['full']) ? esc_html($event->data->featured_image['full']) : '' ; ?>",
-                    "name" 			: "<?php esc_html_e($event->data->title); ?>",
-                    "url"			: "<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"
-                }
-                </script>
-                <?php
-                endif;
-                if($this->style == 'type1'):  ?>
+            <?php if($this->style == 'type1'): ?>
                 <div class="event-carousel-type1-head clearfix">
                     <div class="mec-event-date mec-color">
                         <div class="mec-event-image">

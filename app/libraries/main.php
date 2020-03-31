@@ -2038,6 +2038,7 @@ class MEC_main extends MEC_base
             'IRR'=>'IRR',
             'IQD'=>'IQD',
             'ILS'=>'ILS',
+            'NIS' => 'NIS',
             'JMD'=>'JMD',
             'JOD'=>'JOD',
             'KZT'=>'KZT',

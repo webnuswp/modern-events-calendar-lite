@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modern Events Calendar\n"
-"POT-Creation-Date: 2020-03-24 15:36+0430\n"
-"PO-Revision-Date: 2020-03-24 15:41+0430\n"
+"POT-Creation-Date: 2020-03-31 19:33+0430\n"
+"PO-Revision-Date: 2020-03-31 19:39+0430\n"
 "Last-Translator: Mats Vallström <walle@mtre.se>\n"
 "Language-Team: Mats Vallström <walle@mtre.se>\n"
 "Language: sv_SE\n"
@@ -31,8 +31,8 @@ msgstr "Modern Events Calendar"
 msgid "Content"
 msgstr "Innehåll"
 
-#: app/addons/KC.php:75 app/addons/VC.php:70 app/features/mec.php:451
-#: app/features/mec.php:482 app/features/mec.php:512
+#: app/addons/KC.php:75 app/addons/VC.php:70 app/features/mec.php:448
+#: app/features/mec.php:479 app/features/mec.php:509
 msgid "Shortcode"
 msgstr "Shortcode"
 
@@ -82,14 +82,14 @@ msgstr "Evenemangs-färg"
 msgid "Recent Colors"
 msgstr "Evenemangs-färg"
 
-#: app/features/contextual.php:55 app/features/mec.php:427
+#: app/features/contextual.php:55 app/features/mec.php:424
 #: app/features/mec/dashboard.php:143 app/features/mec/support.php:20
 #: app/features/popup/event.php:60 app/features/popup/shortcode.php:37
 #: app/libraries/main.php:594
 msgid "Settings"
 msgstr "Inställningar"
 
-#: app/features/contextual.php:62 app/features/events.php:2473
+#: app/features/contextual.php:62 app/features/events.php:2479
 #: app/features/mec/booking.php:448 app/features/mec/support.php:29
 #: app/libraries/main.php:560
 msgid "Booking Form"
@@ -251,7 +251,7 @@ msgstr "Rabattkuponger"
 msgid "BuddyPress Integration"
 msgstr "Integration för BuddyPress"
 
-#: app/features/contextual.php:334 app/features/mec/settings.php:880
+#: app/features/contextual.php:334 app/features/mec/settings.php:886
 #: app/libraries/main.php:539
 msgid "Mailchimp Integration"
 msgstr "Integration för MailChimp"
@@ -277,7 +277,7 @@ msgstr "Evenemang"
 msgid "Event"
 msgstr "Evenemang"
 
-#: app/features/events.php:160 app/features/mec.php:413
+#: app/features/events.php:160 app/features/mec.php:410
 msgid "Add Event"
 msgstr "Lägg till evenemang"
 
@@ -285,9 +285,9 @@ msgstr "Lägg till evenemang"
 msgid "Add New Event"
 msgstr "Lägg till nytt evenemang"
 
-#: app/features/events.php:162 app/features/ix.php:3899
-#: app/features/ix/thirdparty.php:42 app/skins/map/tpl.php:67
-#: app/skins/map/tpl.php:87
+#: app/features/events.php:162 app/features/ix.php:3918
+#: app/features/ix/thirdparty.php:42 app/skins/map/tpl.php:68
+#: app/skins/map/tpl.php:88
 msgid "No events found!"
 msgstr "Inga evenemang hittades"
 
@@ -308,7 +308,7 @@ msgstr "Visa evenemang"
 msgid "No events found in Trash!"
 msgstr "Inga raderade evenemang hittades!"
 
-#: app/features/events.php:183 app/features/events.php:3348
+#: app/features/events.php:183 app/features/events.php:3357
 #: app/features/mec/meta_boxes/display_options.php:1116
 #: app/features/mec/meta_boxes/search_form.php:31
 #: app/features/mec/meta_boxes/search_form.php:101
@@ -321,18 +321,18 @@ msgstr "Inga raderade evenemang hittades!"
 #: app/features/mec/meta_boxes/search_form.php:584
 #: app/features/mec/meta_boxes/search_form.php:654
 #: app/features/mec/meta_boxes/search_form.php:760
-#: app/features/mec/settings.php:833 app/features/mec/single.php:232
-#: app/features/search.php:68 app/libraries/main.php:5406
+#: app/features/mec/settings.php:839 app/features/mec/single.php:232
+#: app/features/search.php:68 app/libraries/main.php:5407
 #: app/libraries/skins.php:877 app/skins/single.php:576
 #: app/skins/single/default.php:192 app/skins/single/default.php:415
 #: app/skins/single/m1.php:184 app/skins/single/m2.php:110
-#: app/skins/single/modern.php:118
+#: app/skins/single/modern.php:119
 msgid "Category"
 msgstr "Kategori"
 
-#: app/features/events.php:184 app/features/events.php:3303
-#: app/features/fes/form.php:767 app/features/mec.php:415
-#: app/features/mec/meta_boxes/filter.php:79 app/libraries/main.php:5405
+#: app/features/events.php:184 app/features/events.php:3312
+#: app/features/fes/form.php:767 app/features/mec.php:412
+#: app/features/mec/meta_boxes/filter.php:79 app/libraries/main.php:5406
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -420,7 +420,7 @@ msgstr "Datum och tid"
 msgid "Event Repeating"
 msgstr "Upprepande evenemang"
 
-#: app/features/events.php:334 app/features/events.php:1288
+#: app/features/events.php:334 app/features/events.php:1294
 #: app/features/mec/settings.php:743 app/skins/single.php:964
 msgid "Hourly Schedule"
 msgstr "Timme-schema"
@@ -437,8 +437,8 @@ msgstr "Platser"
 msgid "Links"
 msgstr "Länk"
 
-#: app/features/events.php:337 app/features/events.php:3350
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:337 app/features/events.php:3359
+#: app/features/events.php:3550 app/features/events.php:3592
 #: app/features/ix.php:3508 app/features/ix.php:3549
 #: app/features/mec/meta_boxes/display_options.php:1119
 #: app/features/mec/meta_boxes/search_form.php:46
@@ -452,66 +452,71 @@ msgstr "Länk"
 #: app/features/mec/meta_boxes/search_form.php:599
 #: app/features/mec/meta_boxes/search_form.php:669
 #: app/features/mec/meta_boxes/search_form.php:775
-#: app/features/mec/settings.php:845 app/features/mec/single.php:236
+#: app/features/mec/settings.php:851 app/features/mec/single.php:236
 #: app/features/organizers.php:58 app/features/organizers.php:204
 #: app/features/organizers.php:260 app/features/organizers.php:262
 #: app/features/organizers.php:271 app/features/popup/event.php:293
 #: app/features/popup/event.php:302 app/features/search.php:78
-#: app/libraries/main.php:5412 app/libraries/skins.php:929
+#: app/libraries/main.php:5413 app/libraries/skins.php:929
 #: app/skins/single.php:823 app/skins/single/default.php:217
 #: app/skins/single/default.php:440 app/skins/single/m1.php:99
-#: app/skins/single/m2.php:25 app/skins/single/modern.php:34
+#: app/skins/single/m2.php:25 app/skins/single/modern.php:35
 msgid "Organizer"
 msgstr "Arrangör"
 
-#: app/features/events.php:338 app/features/events.php:1165
-#: app/features/fes/form.php:740 app/libraries/main.php:5439
+#: app/features/events.php:338 app/features/events.php:1171
+#: app/features/fes/form.php:740 app/libraries/main.php:5440
 #: app/skins/single.php:599 app/skins/single/default.php:126
 #: app/skins/single/default.php:349 app/skins/single/m1.php:58
-#: app/skins/single/modern.php:213
+#: app/skins/single/modern.php:214
 msgid "Cost"
 msgstr "Kostnad"
 
-#: app/features/events.php:458
+#: app/features/events.php:339 app/features/mec/settings.php:767
+#: app/features/schema.php:62
+msgid "SEO Schema"
+msgstr ""
+
+#: app/features/events.php:464
 msgid "Note for reviewer"
 msgstr "Anmärkningar:"
 
-#: app/features/events.php:464
+#: app/features/events.php:470
 msgid "Guest Data"
 msgstr "Gäst-data"
 
-#: app/features/events.php:465 app/features/events.php:2455
-#: app/features/events.php:3874 app/features/fes.php:223
+#: app/features/events.php:471 app/features/events.php:2461
+#: app/features/events.php:3883 app/features/fes.php:223
 #: app/features/fes/form.php:699 app/features/labels.php:178
 #: app/features/mec/booking.php:45 app/features/organizers.php:279
 #: app/features/popup/event.php:312 app/features/profile/profile.php:180
-#: app/libraries/notifications.php:1117 app/modules/booking/steps/form.php:37
+#: app/libraries/notifications.php:1141 app/modules/booking/steps/form.php:37
 msgid "Name"
 msgstr "Namn"
 
-#: app/features/events.php:466 app/features/events.php:2466
-#: app/features/events.php:2542 app/features/events.php:3877
+#: app/features/events.php:472 app/features/events.php:2472
+#: app/features/events.php:2548 app/features/events.php:3886
 #: app/features/fes.php:223 app/features/fes/form.php:695
 #: app/features/mec/booking.php:57 app/features/mec/booking.php:499
 #: app/features/organizers.php:111 app/features/organizers.php:152
 #: app/features/profile/profile.php:183 app/features/speakers.php:127
 #: app/features/speakers.php:196 app/libraries/main.php:1595
-#: app/libraries/main.php:1664 app/libraries/main.php:2891
-#: app/libraries/notifications.php:1118 app/modules/booking/steps/form.php:46
+#: app/libraries/main.php:1664 app/libraries/main.php:2892
+#: app/libraries/notifications.php:1142 app/modules/booking/steps/form.php:46
 #: app/modules/booking/steps/form.php:83 app/skins/single.php:840
 #: app/skins/single.php:895 app/skins/single/default.php:234
 #: app/skins/single/default.php:457 app/skins/single/m1.php:116
-#: app/skins/single/m2.php:42 app/skins/single/modern.php:51
+#: app/skins/single/m2.php:42 app/skins/single/modern.php:52
 msgid "Email"
 msgstr "E-post"
 
-#: app/features/events.php:474 app/features/fes/form.php:246
+#: app/features/events.php:480 app/features/fes/form.php:246
 msgid "Date and Time"
 msgstr "Datum och tid"
 
-#: app/features/events.php:477 app/features/events.php:483
-#: app/features/events.php:3351 app/features/events.php:3541
-#: app/features/events.php:3583 app/features/fes/form.php:250
+#: app/features/events.php:483 app/features/events.php:489
+#: app/features/events.php:3360 app/features/events.php:3550
+#: app/features/events.php:3592 app/features/fes/form.php:250
 #: app/features/fes/form.php:254 app/features/ix.php:3508
 #: app/features/ix.php:3549 app/features/ix/import_g_calendar.php:38
 #: app/features/mec/dashboard.php:405
@@ -534,50 +539,50 @@ msgstr "Datum och tid"
 msgid "Start Date"
 msgstr "Start-datum"
 
-#: app/features/events.php:555 app/features/events.php:647
-#: app/features/events.php:1728 app/features/events.php:1787
-#: app/features/events.php:1980 app/features/events.php:2019
+#: app/features/events.php:561 app/features/events.php:653
+#: app/features/events.php:1734 app/features/events.php:1793
+#: app/features/events.php:1986 app/features/events.php:2025
 #: app/features/fes/form.php:282 app/features/fes/form.php:322
 #: app/features/popup/event.php:142 app/features/popup/event.php:224
 msgid "AM"
 msgstr "AM"
 
-#: app/features/events.php:562 app/features/events.php:654
-#: app/features/events.php:1735 app/features/events.php:1794
-#: app/features/events.php:1981 app/features/events.php:2020
+#: app/features/events.php:568 app/features/events.php:660
+#: app/features/events.php:1741 app/features/events.php:1800
+#: app/features/events.php:1987 app/features/events.php:2026
 #: app/features/fes/form.php:283 app/features/fes/form.php:323
 #: app/features/popup/event.php:149 app/features/popup/event.php:231
 msgid "PM"
 msgstr "PM"
 
-#: app/features/events.php:569 app/features/events.php:574
-#: app/features/events.php:3352 app/features/events.php:3541
-#: app/features/events.php:3583 app/features/fes/form.php:290
+#: app/features/events.php:575 app/features/events.php:580
+#: app/features/events.php:3361 app/features/events.php:3550
+#: app/features/events.php:3592 app/features/fes/form.php:290
 #: app/features/fes/form.php:294 app/features/ix.php:3508
 #: app/features/ix.php:3549 app/features/ix/import_g_calendar.php:44
 #: app/features/mec/dashboard.php:406 app/features/popup/event.php:157
 msgid "End Date"
 msgstr "Slut-datum"
 
-#: app/features/events.php:669 app/features/fes/form.php:329
+#: app/features/events.php:675 app/features/fes/form.php:329
 #: app/features/popup/event.php:239
 msgid "All Day Event"
 msgstr "Heldags-evenemang"
 
-#: app/features/events.php:679 app/features/fes/form.php:332
+#: app/features/events.php:685 app/features/fes/form.php:332
 msgid "Hide Event Time"
 msgstr "Dölj evenemangs-tid"
 
-#: app/features/events.php:689 app/features/fes/form.php:335
+#: app/features/events.php:695 app/features/fes/form.php:335
 msgid "Hide Event End Time"
 msgstr "Dölj evenemangets slut-tid"
 
-#: app/features/events.php:694 app/features/events.php:698
+#: app/features/events.php:700 app/features/events.php:704
 #: app/features/fes/form.php:339
 msgid "Time Comment"
 msgstr "Tids-kommentar"
 
-#: app/features/events.php:699 app/features/fes/form.php:340
+#: app/features/events.php:705 app/features/fes/form.php:340
 #, fuzzy
 #| msgid ""
 #| "It shows next to event time on calendar. You can insert Timezone etc. in "
@@ -589,14 +594,14 @@ msgstr ""
 "Visas bredvid evenemangs-tiden i kalendern. Du kan infoga Tidzon etc. i "
 "detta område."
 
-#: app/features/events.php:701 app/features/events.php:822
-#: app/features/events.php:1128 app/features/events.php:1205
-#: app/features/events.php:1513 app/features/events.php:1603
-#: app/features/events.php:1815 app/features/events.php:1830
-#: app/features/events.php:2039 app/features/events.php:2052
-#: app/features/events.php:2203 app/features/events.php:2239
-#: app/features/events.php:2337 app/features/events.php:2352
-#: app/features/events.php:2382 app/features/events.php:2395
+#: app/features/events.php:707 app/features/events.php:828
+#: app/features/events.php:1134 app/features/events.php:1211
+#: app/features/events.php:1519 app/features/events.php:1609
+#: app/features/events.php:1821 app/features/events.php:1836
+#: app/features/events.php:2045 app/features/events.php:2058
+#: app/features/events.php:2209 app/features/events.php:2245
+#: app/features/events.php:2343 app/features/events.php:2358
+#: app/features/events.php:2388 app/features/events.php:2401
 #: app/features/fes/form.php:651 app/features/locations.php:301
 #: app/features/mec/booking.php:108 app/features/mec/booking.php:158
 #: app/features/mec/booking.php:171 app/features/mec/booking.php:187
@@ -654,9 +659,9 @@ msgstr ""
 #: app/features/mec/settings.php:434 app/features/mec/settings.php:451
 #: app/features/mec/settings.php:470 app/features/mec/settings.php:484
 #: app/features/mec/settings.php:512 app/features/mec/settings.php:599
-#: app/features/mec/settings.php:772 app/features/mec/settings.php:788
-#: app/features/mec/settings.php:895 app/features/mec/settings.php:908
-#: app/features/mec/settings.php:924 app/features/mec/single.php:42
+#: app/features/mec/settings.php:778 app/features/mec/settings.php:794
+#: app/features/mec/settings.php:901 app/features/mec/settings.php:914
+#: app/features/mec/settings.php:930 app/features/mec/single.php:42
 #: app/features/mec/single.php:58 app/features/mec/single.php:77
 #: app/features/mec/single.php:94 app/features/mec/single.php:110
 #: app/features/mec/single.php:125 app/features/mec/single.php:178
@@ -666,172 +671,172 @@ msgstr ""
 #: app/features/popup/event.php:303 app/skins/single.php:685
 #: app/skins/single/default.php:141 app/skins/single/default.php:364
 #: app/skins/single/m1.php:206 app/skins/single/m2.php:133
-#: app/skins/single/modern.php:141
+#: app/skins/single/modern.php:142
 msgid "Read More"
 msgstr "Läs mer"
 
-#: app/features/events.php:709
+#: app/features/events.php:715
 #, fuzzy
 #| msgid "Repeat"
 msgid "Repeating"
 msgstr "Upprepa"
 
-#: app/features/events.php:718
+#: app/features/events.php:724
 #, fuzzy
 #| msgid "Event Repeating"
 msgid "Event Repeating (Recurring events)"
 msgstr "Upprepande evenemang"
 
-#: app/features/events.php:722 app/features/fes/form.php:350
+#: app/features/events.php:728 app/features/fes/form.php:350
 msgid "Repeats"
 msgstr "Upprepningar"
 
-#: app/features/events.php:730 app/features/fes/form.php:352
+#: app/features/events.php:736 app/features/fes/form.php:352
 #: app/features/mec/dashboard.php:408
-#: app/skins/default_full_calendar/tpl.php:75
-#: app/skins/full_calendar/tpl.php:125
+#: app/skins/default_full_calendar/tpl.php:74
+#: app/skins/full_calendar/tpl.php:121
 msgid "Daily"
 msgstr "Dagligen"
 
-#: app/features/events.php:737 app/features/fes/form.php:353
+#: app/features/events.php:743 app/features/fes/form.php:353
 msgid "Every Weekday"
 msgstr "Varje vardag"
 
-#: app/features/events.php:744 app/features/fes/form.php:354
+#: app/features/events.php:750 app/features/fes/form.php:354
 msgid "Every Weekend"
 msgstr "Varje helg"
 
-#: app/features/events.php:751 app/features/fes/form.php:355
+#: app/features/events.php:757 app/features/fes/form.php:355
 msgid "Certain Weekdays"
 msgstr "vissa vardagar"
 
-#: app/features/events.php:758 app/features/fes/form.php:356
-#: app/skins/default_full_calendar/tpl.php:74
-#: app/skins/full_calendar/tpl.php:124
+#: app/features/events.php:764 app/features/fes/form.php:356
+#: app/skins/default_full_calendar/tpl.php:73
+#: app/skins/full_calendar/tpl.php:120
 msgid "Weekly"
 msgstr "Veckovis"
 
-#: app/features/events.php:765 app/features/fes/form.php:357
+#: app/features/events.php:771 app/features/fes/form.php:357
 #: app/features/mec/dashboard.php:409
-#: app/skins/default_full_calendar/tpl.php:73
-#: app/skins/full_calendar/tpl.php:123
+#: app/skins/default_full_calendar/tpl.php:72
+#: app/skins/full_calendar/tpl.php:119
 msgid "Monthly"
 msgstr "Månadsvis"
 
-#: app/features/events.php:772 app/features/fes/form.php:358
+#: app/features/events.php:778 app/features/fes/form.php:358
 #: app/features/mec/dashboard.php:410
-#: app/skins/default_full_calendar/tpl.php:72
-#: app/skins/full_calendar/tpl.php:122
+#: app/skins/default_full_calendar/tpl.php:71
+#: app/skins/full_calendar/tpl.php:118
 msgid "Yearly"
 msgstr "Årsvis"
 
-#: app/features/events.php:779 app/features/fes/form.php:359
+#: app/features/events.php:785 app/features/fes/form.php:359
 msgid "Custom Days"
 msgstr "Egna dagar"
 
-#: app/features/events.php:786 app/features/fes/form.php:360
+#: app/features/events.php:792 app/features/fes/form.php:360
 #, fuzzy
 #| msgid "Advanced Method"
 msgid "Advanced"
 msgstr "Avancerad metod"
 
-#: app/features/events.php:791 app/features/fes/form.php:364
+#: app/features/events.php:797 app/features/fes/form.php:364
 msgid "Repeat Interval"
 msgstr "Intervall för upprepning"
 
-#: app/features/events.php:793 app/features/fes/form.php:365
+#: app/features/events.php:799 app/features/fes/form.php:365
 msgid "Repeat interval"
 msgstr "Upprepa intervall"
 
-#: app/features/events.php:797 app/features/fes/form.php:368
+#: app/features/events.php:803 app/features/fes/form.php:368
 msgid "Week Days"
 msgstr "Vardagar"
 
-#: app/features/events.php:812 app/features/events.php:1899
-#: app/features/events.php:1927 app/features/events.php:2107
+#: app/features/events.php:818 app/features/events.php:1905
+#: app/features/events.php:1933 app/features/events.php:2113
 #: app/features/fes/form.php:380 app/features/ix/import_f_calendar.php:42
 #: app/features/ix/import_g_calendar.php:51
 #: app/features/ix/import_meetup.php:40 app/features/ix/thirdparty.php:33
 msgid "Start"
 msgstr "Start"
 
-#: app/features/events.php:814 app/features/events.php:1903
-#: app/features/events.php:1931 app/features/events.php:2111
+#: app/features/events.php:820 app/features/events.php:1909
+#: app/features/events.php:1937 app/features/events.php:2117
 #: app/features/fes/form.php:381
 #, fuzzy
 #| msgid "Enabled"
 msgid "End"
 msgstr "Aktiverat"
 
-#: app/features/events.php:816 app/features/events.php:1199
-#: app/features/events.php:1319 app/features/events.php:1424
-#: app/features/events.php:1882 app/features/events.php:2096
-#: app/features/events.php:2176 app/features/events.php:2309
+#: app/features/events.php:822 app/features/events.php:1205
+#: app/features/events.php:1325 app/features/events.php:1430
+#: app/features/events.php:1888 app/features/events.php:2102
+#: app/features/events.php:2182 app/features/events.php:2315
 #: app/features/fes/form.php:382 app/features/fes/form.php:865
 msgid "Add"
 msgstr "Lägg till"
 
-#: app/features/events.php:819
+#: app/features/events.php:825
 #, fuzzy
 #| msgid "Custom Days"
 msgid "Custom Days Repeating"
 msgstr "Egna dagar"
 
-#: app/features/events.php:820
+#: app/features/events.php:826
 msgid ""
 "Add certain days to event occurrence dates. If you have single day event, "
 "start and end date should be the same, If you have multiple day event the "
 "start and end dates must be commensurate with the initial date."
 msgstr ""
 
-#: app/features/events.php:862 app/features/fes/form.php:415
+#: app/features/events.php:868 app/features/fes/form.php:415
 #, fuzzy
 #| msgid "First name"
 msgid "First"
 msgstr "Förnamn"
 
-#: app/features/events.php:904 app/features/fes/form.php:457
+#: app/features/events.php:910 app/features/fes/form.php:457
 #, fuzzy
 #| msgid "second"
 msgid "Second"
 msgstr "andra"
 
-#: app/features/events.php:946 app/features/fes/form.php:499
+#: app/features/events.php:952 app/features/fes/form.php:499
 msgid "Third"
 msgstr ""
 
-#: app/features/events.php:988 app/features/fes/form.php:541
+#: app/features/events.php:994 app/features/fes/form.php:541
 msgid "Fourth"
 msgstr ""
 
-#: app/features/events.php:1030 app/features/fes/form.php:583
+#: app/features/events.php:1036 app/features/fes/form.php:583
 #, fuzzy
 #| msgid "Last name"
 msgid "Last"
 msgstr "Efternamn"
 
-#: app/features/events.php:1077 app/features/fes/form.php:629
+#: app/features/events.php:1083 app/features/fes/form.php:629
 msgid "Ends Repeat"
 msgstr "Slut upprepas"
 
-#: app/features/events.php:1089 app/features/fes/form.php:633
+#: app/features/events.php:1095 app/features/fes/form.php:633
 msgid "Never"
 msgstr "Aldrig"
 
-#: app/features/events.php:1101 app/features/fes/form.php:638
+#: app/features/events.php:1107 app/features/fes/form.php:638
 msgid "On"
 msgstr "På"
 
-#: app/features/events.php:1117 app/features/fes/form.php:645
+#: app/features/events.php:1123 app/features/fes/form.php:645
 msgid "After"
 msgstr "Efter"
 
-#: app/features/events.php:1121 app/features/events.php:1125
+#: app/features/events.php:1127 app/features/events.php:1131
 #: app/features/fes/form.php:647 app/features/fes/form.php:650
 msgid "Occurrences times"
 msgstr "Förekommande tider"
 
-#: app/features/events.php:1126 app/features/fes/form.php:651
+#: app/features/events.php:1132 app/features/fes/form.php:651
 msgid ""
 "The event will finish after certain repeats. For example if you set it to "
 "10, the event will finish after 10 repeats."
@@ -839,146 +844,146 @@ msgstr ""
 "Evenemanget kommer att upphöra efter angivna upprepningar. Om du t.ex. "
 "ställer in det på 10, kommer händelsen upphöra efter 10 upprepningar."
 
-#: app/features/events.php:1141 app/features/fes/form.php:664
+#: app/features/events.php:1147 app/features/fes/form.php:664
 #, fuzzy
 #| msgid "Next Occurrence of Other Events"
 msgid "Show only one occurrence of this event"
 msgstr "Nästa förekomst av andra evenemang"
 
-#: app/features/events.php:1161 app/features/events.php:3541
-#: app/features/events.php:3583 app/features/fes/form.php:737
+#: app/features/events.php:1167 app/features/events.php:3550
+#: app/features/events.php:3592 app/features/fes/form.php:737
 #: app/features/ix.php:3508 app/features/ix.php:3549
-#: app/features/mec/settings.php:689 app/libraries/main.php:5438
+#: app/features/mec/settings.php:689 app/libraries/main.php:5439
 #: app/widgets/single.php:103
 msgid "Event Cost"
 msgstr "Evenemangskostnader"
 
-#: app/features/events.php:1186
+#: app/features/events.php:1192
 #, fuzzy
 #| msgid "Exceptional Days"
 msgid "Exceptional Days (Exclude Dates)"
 msgstr "Exceptionella dagar"
 
-#: app/features/events.php:1192 app/features/events.php:1202
+#: app/features/events.php:1198 app/features/events.php:1208
 msgid "Exclude certain days"
 msgstr "Uteslut vissa dagar"
 
-#: app/features/events.php:1197 app/features/events.php:2543
+#: app/features/events.php:1203 app/features/events.php:2549
 #: app/features/fes.php:223 app/features/mec/booking.php:500
-#: app/features/profile/profile.php:53 app/libraries/main.php:2301
-#: app/libraries/main.php:2949 app/modules/booking/steps/tickets.php:23
+#: app/features/profile/profile.php:53 app/libraries/main.php:2302
+#: app/libraries/main.php:2950 app/modules/booking/steps/tickets.php:23
 #: app/modules/next-event/details.php:93 app/skins/single.php:659
 #: app/skins/single/default.php:85 app/skins/single/default.php:308
-#: app/skins/single/m1.php:20 app/skins/single/modern.php:175
+#: app/skins/single/m1.php:20 app/skins/single/modern.php:176
 msgid "Date"
 msgstr "Datum"
 
-#: app/features/events.php:1203
+#: app/features/events.php:1209
 msgid ""
 "Exclude certain days from event occurrence dates. Please note that you can "
 "exclude only single day occurrences and you cannot exclude one day from "
 "multiple day occurrences."
 msgstr ""
 
-#: app/features/events.php:1262 app/libraries/render.php:506
+#: app/features/events.php:1268 app/libraries/render.php:506
 msgid "Day 1"
 msgstr ""
 
-#: app/features/events.php:1292
+#: app/features/events.php:1298
 msgid "Add Day"
 msgstr ""
 
-#: app/features/events.php:1293
+#: app/features/events.php:1299
 msgid ""
 "Add new days for schedule. For example if your event is multiple days, you "
 "can add a different schedule for each day!"
 msgstr ""
 
-#: app/features/events.php:1300
+#: app/features/events.php:1306
 #, php-format
 msgid "Day %s"
 msgstr ""
 
-#: app/features/events.php:1304 app/features/events.php:1343
-#: app/features/events.php:1378 app/features/events.php:1410
-#: app/features/events.php:1439 app/features/events.php:2324
-#: app/features/events.php:2371 app/features/events.php:3347
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:1310 app/features/events.php:1349
+#: app/features/events.php:1384 app/features/events.php:1416
+#: app/features/events.php:1445 app/features/events.php:2330
+#: app/features/events.php:2377 app/features/events.php:3356
+#: app/features/events.php:3550 app/features/events.php:3592
 #: app/features/fes/form.php:239 app/features/ix.php:3508
 #: app/features/ix.php:3549 app/features/mec/booking.php:384
 #: app/features/mec/booking.php:416 app/features/mec/styling.php:130
 msgid "Title"
 msgstr "Titel"
 
-#: app/features/events.php:1313 app/features/events.php:1350
-#: app/features/events.php:1383 app/features/events.php:1418
-#: app/features/events.php:1444 app/features/events.php:1913
-#: app/features/events.php:1939 app/features/events.php:2117
-#: app/features/events.php:2216 app/features/events.php:2252
-#: app/features/events.php:2359 app/features/events.php:2401
+#: app/features/events.php:1319 app/features/events.php:1356
+#: app/features/events.php:1389 app/features/events.php:1424
+#: app/features/events.php:1450 app/features/events.php:1919
+#: app/features/events.php:1945 app/features/events.php:2123
+#: app/features/events.php:2222 app/features/events.php:2258
+#: app/features/events.php:2365 app/features/events.php:2407
 #: app/features/mec/booking.php:327 app/features/mec/booking.php:356
 #: app/features/mec/booking.php:407 app/features/mec/booking.php:439
-#: app/libraries/main.php:2810 app/libraries/main.php:2840
-#: app/libraries/main.php:2869 app/libraries/main.php:2899
-#: app/libraries/main.php:2928 app/libraries/main.php:2957
-#: app/libraries/main.php:2986 app/libraries/main.php:3015
-#: app/libraries/main.php:3037 app/libraries/main.php:3068
-#: app/libraries/main.php:3112 app/libraries/main.php:3156
-#: app/libraries/main.php:3203 app/libraries/main.php:3242
+#: app/libraries/main.php:2811 app/libraries/main.php:2841
+#: app/libraries/main.php:2870 app/libraries/main.php:2900
+#: app/libraries/main.php:2929 app/libraries/main.php:2958
+#: app/libraries/main.php:2987 app/libraries/main.php:3016
+#: app/libraries/main.php:3038 app/libraries/main.php:3069
+#: app/libraries/main.php:3113 app/libraries/main.php:3157
+#: app/libraries/main.php:3204 app/libraries/main.php:3243
 msgid "Remove"
 msgstr "Ta bort"
 
-#: app/features/events.php:1320 app/features/events.php:1425
+#: app/features/events.php:1326 app/features/events.php:1431
 msgid "Add new hourly schedule row"
 msgstr "Lägg till ny timme-schema rad"
 
-#: app/features/events.php:1335 app/features/events.php:1372
-#: app/features/events.php:1434
+#: app/features/events.php:1341 app/features/events.php:1378
+#: app/features/events.php:1440
 msgid "From e.g. 8:15"
 msgstr "Från t.ex. 08:15"
 
-#: app/features/events.php:1339 app/features/events.php:1375
-#: app/features/events.php:1436
+#: app/features/events.php:1345 app/features/events.php:1381
+#: app/features/events.php:1442
 msgid "To e.g. 8:45"
 msgstr "Till t.ex. 08:45"
 
-#: app/features/events.php:1347 app/features/events.php:1381
-#: app/features/events.php:1442 app/features/events.php:1803
-#: app/features/events.php:2028
+#: app/features/events.php:1353 app/features/events.php:1387
+#: app/features/events.php:1448 app/features/events.php:1809
+#: app/features/events.php:2034
 msgid "Description"
 msgstr "Beskrivning"
 
-#: app/features/events.php:1353 app/features/events.php:1386
-#: app/features/events.php:1447 app/features/fes/form.php:861
-#: app/features/mec.php:423 app/features/mec/modules.php:52
+#: app/features/events.php:1359 app/features/events.php:1392
+#: app/features/events.php:1453 app/features/fes/form.php:861
+#: app/features/mec.php:420 app/features/mec/modules.php:52
 #: app/features/mec/settings.php:737 app/features/speakers.php:62
-#: app/libraries/main.php:565 app/libraries/main.php:5413
+#: app/libraries/main.php:565 app/libraries/main.php:5414
 #: app/modules/speakers/details.php:18
 msgid "Speakers"
 msgstr ""
 
-#: app/features/events.php:1406 app/features/events.php:1414
+#: app/features/events.php:1412 app/features/events.php:1420
 #, fuzzy
 #| msgid "Week Days"
 msgid "New Day"
 msgstr "Vardagar"
 
-#: app/features/events.php:1478 app/features/fes/form.php:714
+#: app/features/events.php:1484 app/features/fes/form.php:714
 #: app/features/mec/settings.php:683
 msgid "Event Links"
 msgstr "Evenemangs-länkar"
 
-#: app/features/events.php:1481 app/features/events.php:1487
-#: app/features/fes/form.php:716 app/libraries/main.php:5436
+#: app/features/events.php:1487 app/features/events.php:1493
+#: app/features/fes/form.php:716 app/libraries/main.php:5437
 msgid "Event Link"
 msgstr "Evenemangs-länk"
 
-#: app/features/events.php:1484 app/features/events.php:1500
+#: app/features/events.php:1490 app/features/events.php:1506
 #: app/features/fes/form.php:717 app/features/fes/form.php:722
 msgid "eg. http://yoursite.com/your-event"
 msgstr "t.ex. http://dinsida.se/ditt-evenemang"
 
-#: app/features/events.php:1488
+#: app/features/events.php:1494
 #, fuzzy
 #| msgid ""
 #| "If you fill it, it will be replaced instead of default event page link. "
@@ -991,32 +996,32 @@ msgstr ""
 "Om du fyller i detta, ersätts evenemangets standard-sido-länk. Infoga full "
 "länk inklusive http(s)://"
 
-#: app/features/events.php:1490
+#: app/features/events.php:1496
 msgid "URL Shortener"
 msgstr ""
 
-#: app/features/events.php:1497 app/features/events.php:1510
-#: app/features/fes/form.php:721 app/libraries/main.php:5437
+#: app/features/events.php:1503 app/features/events.php:1516
+#: app/features/fes/form.php:721 app/libraries/main.php:5438
 #: app/skins/single.php:684 app/skins/single/default.php:140
 #: app/skins/single/default.php:363 app/skins/single/m1.php:205
-#: app/skins/single/m2.php:132 app/skins/single/modern.php:140
+#: app/skins/single/m2.php:132 app/skins/single/modern.php:141
 #: app/widgets/single.php:107
 msgid "More Info"
 msgstr "Mer info"
 
-#: app/features/events.php:1503 app/features/fes/form.php:723
+#: app/features/events.php:1509 app/features/fes/form.php:723
 msgid "More Information"
 msgstr "Mer information"
 
-#: app/features/events.php:1505 app/features/fes/form.php:725
+#: app/features/events.php:1511 app/features/fes/form.php:725
 msgid "Current Window"
 msgstr "Aktuellt fönster"
 
-#: app/features/events.php:1506 app/features/fes/form.php:726
+#: app/features/events.php:1512 app/features/fes/form.php:726
 msgid "New Window"
 msgstr "Nytt fönster"
 
-#: app/features/events.php:1511 app/features/fes/form.php:728
+#: app/features/events.php:1517 app/features/fes/form.php:728
 msgid ""
 "If you fill it, it will be shown in event details page as an optional link. "
 "Insert full link including http(s)://"
@@ -1024,153 +1029,157 @@ msgstr ""
 "Om du fyller i detta visas denna länk på evenemangets informationssida. "
 "Infoga full länk inklusive http(s)://"
 
-#: app/features/events.php:1584 app/features/events.php:1599
+#: app/features/events.php:1590 app/features/events.php:1605
 msgid "Total booking limits"
 msgstr "Totala boknings-begränsningar"
 
-#: app/features/events.php:1596 app/features/events.php:1851
-#: app/features/events.php:2066 app/modules/booking/default.php:85
+#: app/features/events.php:1602 app/features/events.php:1857
+#: app/features/events.php:2072 app/modules/booking/default.php:85
 #: app/modules/booking/steps/tickets.php:43
-#: app/skins/available_spot/tpl.php:163
+#: app/skins/available_spot/tpl.php:120
 msgid "Unlimited"
 msgstr "Obegränsad"
 
-#: app/features/events.php:1602
+#: app/features/events.php:1608
 msgid ""
 "If you want to set a limit to all tickets, uncheck this checkbox and put a "
 "limitation number."
 msgstr ""
 
-#: app/features/events.php:1604
+#: app/features/events.php:1610
 #, fuzzy
 #| msgid "Choose your single event style."
 msgid "Read About A Booking System"
 msgstr "Välj din enstaka händelses stil."
 
-#: app/features/events.php:1612
+#: app/features/events.php:1618
 msgid "100"
 msgstr "100"
 
-#: app/features/events.php:1617
+#: app/features/events.php:1623
 #, fuzzy
 #| msgid "Total booking limits"
 msgid "Total user booking limits"
 msgstr "Totala boknings-begränsningar"
 
-#: app/features/events.php:1629 app/features/events.php:2165
-#: app/features/events.php:2297 app/features/events.php:2485
+#: app/features/events.php:1635 app/features/events.php:2171
+#: app/features/events.php:2303 app/features/events.php:2491
 msgid "Inherit from global options"
 msgstr "Ärv från globala alternativ"
 
-#: app/features/events.php:1632
+#: app/features/events.php:1638
 msgid "12"
 msgstr ""
 
-#: app/features/events.php:1655 app/libraries/book.php:60
-#: app/libraries/main.php:5441 app/modules/booking/steps/tickets.php:43
+#: app/features/events.php:1661 app/libraries/book.php:60
+#: app/libraries/main.php:5442 app/modules/booking/steps/tickets.php:43
 msgid "Tickets"
 msgstr "Biljetter"
 
-#: app/features/events.php:1658
+#: app/features/events.php:1664
 msgid ""
 "You're translating an event so MEC will use the original event for tickets "
 "and booking. You can only translate the ticket name and description. Please "
 "define exact tickets that you defined in the original event here."
 msgstr ""
 
-#: app/features/events.php:1663
+#: app/features/events.php:1669
 #, fuzzy
 #| msgid "Ticket"
 msgid "Add Ticket"
 msgstr "Biljett"
 
-#: app/features/events.php:1677 app/features/events.php:1953
+#: app/features/events.php:1683 app/features/events.php:1959
 msgid "Ticket Name"
 msgstr "Biljettnamn"
 
-#: app/features/events.php:1682 app/features/events.php:1957
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:1688 app/features/events.php:1963
+#: app/features/events.php:3550 app/features/events.php:3592
 #: app/features/ix.php:3508 app/features/ix.php:3549
 msgid "Start Time"
 msgstr "Start-tid"
 
-#: app/features/events.php:1741 app/features/events.php:1987
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:1747 app/features/events.php:1993
+#: app/features/events.php:3550 app/features/events.php:3592
 #: app/features/ix.php:3508 app/features/ix.php:3549
 msgid "End Time"
 msgstr "Slut-tid"
 
-#: app/features/events.php:1808 app/features/events.php:1812
-#: app/features/events.php:1907 app/features/events.php:1934
-#: app/features/events.php:2033 app/features/events.php:2036
-#: app/features/events.php:2113 app/features/events.php:2330
-#: app/features/events.php:2334 app/features/events.php:2376
-#: app/features/events.php:2379 app/features/mec/booking.php:388
+#: app/features/events.php:1814 app/features/events.php:1818
+#: app/features/events.php:1913 app/features/events.php:1940
+#: app/features/events.php:2039 app/features/events.php:2042
+#: app/features/events.php:2119 app/features/events.php:2336
+#: app/features/events.php:2340 app/features/events.php:2382
+#: app/features/events.php:2385 app/features/mec/booking.php:388
 #: app/features/mec/booking.php:391 app/features/mec/booking.php:420
 #: app/features/mec/booking.php:423
 msgid "Price"
 msgstr "Pris"
 
-#: app/features/events.php:1813 app/features/events.php:2037
-msgid "Insert 0 for free ticket. Only numbers please."
+#: app/features/events.php:1819 app/features/events.php:2043
+#, fuzzy
+#| msgid "Insert 0 for free ticket. Only numbers please."
+msgid ""
+"Insert 0 for free ticket. Only numbers please — Enter only the price without "
+"any symbols or characters."
 msgstr "Fyll i \"0\" för en gratis biljett (endast siffror)."
 
-#: app/features/events.php:1822 app/features/events.php:1827
-#: app/features/events.php:2046 app/features/events.php:2049
+#: app/features/events.php:1828 app/features/events.php:1833
+#: app/features/events.php:2052 app/features/events.php:2055
 msgid "Price Label"
 msgstr "Pris-märkning"
 
-#: app/features/events.php:1828 app/features/events.php:2050
+#: app/features/events.php:1834 app/features/events.php:2056
 msgid "For showing on website. e.g. $15"
 msgstr "För att visas på hemsidan, t.ex. 15 kr."
 
-#: app/features/events.php:1838 app/features/events.php:2060
+#: app/features/events.php:1844 app/features/events.php:2066
 msgid "Available Tickets"
 msgstr "Tillgängliga biljetter"
 
-#: app/features/events.php:1855 app/features/events.php:2070
+#: app/features/events.php:1861 app/features/events.php:2076
 #, fuzzy
 #| msgid "Maximum events"
 msgid "Minimum Ticket e.g. 3"
 msgstr "Maximalt antal evenemang"
 
-#: app/features/events.php:1858 app/features/events.php:2073
+#: app/features/events.php:1864 app/features/events.php:2079
 #, fuzzy
 #| msgid "Maximum events"
 msgid "MinimumTicket"
 msgstr "Maximalt antal evenemang"
 
-#: app/features/events.php:1860 app/features/events.php:2075
+#: app/features/events.php:1866 app/features/events.php:2081
 msgid "Set a number for the minimum ticket reservation"
 msgstr ""
 
-#: app/features/events.php:1868 app/features/events.php:2083
+#: app/features/events.php:1874 app/features/events.php:2089
 msgid "e.g. 0"
 msgstr ""
 
-#: app/features/events.php:1870 app/features/events.php:2085
+#: app/features/events.php:1876 app/features/events.php:2091
 #, fuzzy
 #| msgid "Daily"
 msgid "Day"
 msgstr "Dagligen"
 
-#: app/features/events.php:1871 app/features/events.php:2086
+#: app/features/events.php:1877 app/features/events.php:2092
 msgid "Hour"
 msgstr ""
 
-#: app/features/events.php:1873 app/features/events.php:2088
+#: app/features/events.php:1879 app/features/events.php:2094
 #, php-format
 msgid "Stop selling ticket %s before event start."
 msgstr ""
 
-#: app/features/events.php:1880 app/features/events.php:2094
+#: app/features/events.php:1886 app/features/events.php:2100
 #, fuzzy
 #| msgid "Price Label"
 msgid "Price per Date"
 msgstr "Pris-märkning"
 
-#: app/features/events.php:1911 app/features/events.php:1937
-#: app/features/events.php:2115 app/features/labels.php:60
+#: app/features/events.php:1917 app/features/events.php:1943
+#: app/features/events.php:2121 app/features/labels.php:60
 #: app/features/mec/meta_boxes/display_options.php:1117
 #: app/features/mec/meta_boxes/search_form.php:67
 #: app/features/mec/meta_boxes/search_form.php:137
@@ -1183,28 +1192,28 @@ msgstr "Pris-märkning"
 #: app/features/mec/meta_boxes/search_form.php:620
 #: app/features/mec/meta_boxes/search_form.php:690
 #: app/features/mec/meta_boxes/search_form.php:796
-#: app/features/mec/settings.php:865 app/features/mec/single.php:250
+#: app/features/mec/settings.php:871 app/features/mec/single.php:250
 #: app/libraries/skins.php:1007
 msgid "Label"
 msgstr "Etikett"
 
-#: app/features/events.php:2153
+#: app/features/events.php:2159
 msgid "Fees"
 msgstr "Avgifter"
 
-#: app/features/events.php:2190 app/features/events.php:2228
+#: app/features/events.php:2196 app/features/events.php:2234
 #: app/features/mec/booking.php:307 app/features/mec/booking.php:336
 msgid "Fee Title"
 msgstr "Avgifts-titel"
 
-#: app/features/events.php:2196 app/features/events.php:2200
-#: app/features/events.php:2233 app/features/events.php:2236
+#: app/features/events.php:2202 app/features/events.php:2206
+#: app/features/events.php:2239 app/features/events.php:2242
 #: app/features/mec/booking.php:311 app/features/mec/booking.php:314
 #: app/features/mec/booking.php:340 app/features/mec/booking.php:343
 msgid "Amount"
 msgstr "Belopp"
 
-#: app/features/events.php:2201 app/features/events.php:2237
+#: app/features/events.php:2207 app/features/events.php:2243
 #: app/features/mec/booking.php:315 app/features/mec/booking.php:344
 msgid ""
 "Fee amount, considered as fixed amount if you set the type to amount "
@@ -1213,34 +1222,34 @@ msgstr ""
 "Avgiftsbelopp – anses som fast belopp om man ställer in avgiftstypen till "
 "\"belopp\". Annars betraktas avgiften som procent"
 
-#: app/features/events.php:2210 app/features/events.php:2246
+#: app/features/events.php:2216 app/features/events.php:2252
 #: app/features/mec/booking.php:322 app/features/mec/booking.php:351
 msgid "Percent"
 msgstr "Procent"
 
-#: app/features/events.php:2211 app/features/events.php:2247
+#: app/features/events.php:2217 app/features/events.php:2253
 #: app/features/mec/booking.php:323 app/features/mec/booking.php:352
 msgid "Amount (Per Ticket)"
 msgstr ""
 
-#: app/features/events.php:2212 app/features/events.php:2248
+#: app/features/events.php:2218 app/features/events.php:2254
 #: app/features/mec/booking.php:324 app/features/mec/booking.php:353
 msgid "Amount (Per Booking)"
 msgstr ""
 
-#: app/features/events.php:2285 app/features/mec/settings.php:761
+#: app/features/events.php:2291 app/features/mec/settings.php:761
 msgid "Ticket Variations / Options"
 msgstr ""
 
-#: app/features/events.php:2335 app/features/events.php:2380
+#: app/features/events.php:2341 app/features/events.php:2386
 #: app/features/mec/booking.php:392 app/features/mec/booking.php:424
 #, fuzzy
 #| msgid "Option"
 msgid "Option Price"
 msgstr "Alternativ"
 
-#: app/features/events.php:2345 app/features/events.php:2349
-#: app/features/events.php:2389 app/features/events.php:2392
+#: app/features/events.php:2351 app/features/events.php:2355
+#: app/features/events.php:2395 app/features/events.php:2398
 #: app/features/mec/booking.php:398 app/features/mec/booking.php:401
 #: app/features/mec/booking.php:430 app/features/mec/booking.php:433
 #, fuzzy
@@ -1248,58 +1257,58 @@ msgstr "Alternativ"
 msgid "Maximum Per Ticket"
 msgstr "Maximalt antal evenemang"
 
-#: app/features/events.php:2350 app/features/events.php:2393
+#: app/features/events.php:2356 app/features/events.php:2399
 #: app/features/mec/booking.php:402 app/features/mec/booking.php:434
 msgid "Maximum Per Ticket. Leave it blank for unlimited."
 msgstr ""
 
-#: app/features/events.php:2539 app/features/mec/booking.php:496
-#: app/libraries/main.php:2832
+#: app/features/events.php:2545 app/features/mec/booking.php:496
+#: app/libraries/main.php:2833
 #, fuzzy
 #| msgid "Name"
 msgid "MEC Name"
 msgstr "Namn"
 
-#: app/features/events.php:2540 app/features/mec/booking.php:497
-#: app/libraries/main.php:2861
+#: app/features/events.php:2546 app/features/mec/booking.php:497
+#: app/libraries/main.php:2862
 #, fuzzy
 #| msgid "Email"
 msgid "MEC Email"
 msgstr "E-post"
 
-#: app/features/events.php:2541 app/features/mec/booking.php:498
-#: app/libraries/main.php:2802
+#: app/features/events.php:2547 app/features/mec/booking.php:498
+#: app/libraries/main.php:2803
 msgid "Text"
 msgstr "Text"
 
-#: app/features/events.php:2544 app/features/mec/booking.php:501
+#: app/features/events.php:2550 app/features/mec/booking.php:501
 #: app/features/organizers.php:103 app/features/organizers.php:148
 #: app/features/speakers.php:119 app/features/speakers.php:192
-#: app/features/speakers.php:271 app/libraries/main.php:2978
+#: app/features/speakers.php:271 app/libraries/main.php:2979
 msgid "Tel"
 msgstr "Tel"
 
-#: app/features/events.php:2545 app/features/mec/booking.php:502
-#: app/libraries/main.php:2920
+#: app/features/events.php:2551 app/features/mec/booking.php:502
+#: app/libraries/main.php:2921
 msgid "File"
 msgstr ""
 
-#: app/features/events.php:2546 app/features/mec/booking.php:503
-#: app/libraries/main.php:3007
+#: app/features/events.php:2552 app/features/mec/booking.php:503
+#: app/libraries/main.php:3008
 msgid "Textarea"
 msgstr "Textyta"
 
-#: app/features/events.php:2547 app/features/mec/booking.php:504
-#: app/libraries/main.php:3060
+#: app/features/events.php:2553 app/features/mec/booking.php:504
+#: app/libraries/main.php:3061
 msgid "Checkboxes"
 msgstr "Kryssrutor"
 
-#: app/features/events.php:2548 app/features/mec/booking.php:505
-#: app/libraries/main.php:3104
+#: app/features/events.php:2554 app/features/mec/booking.php:505
+#: app/libraries/main.php:3105
 msgid "Radio Buttons"
 msgstr "Radio-knappar"
 
-#: app/features/events.php:2549 app/features/mec/booking.php:506
+#: app/features/events.php:2555 app/features/mec/booking.php:506
 #: app/features/mec/meta_boxes/search_form.php:34
 #: app/features/mec/meta_boxes/search_form.php:41
 #: app/features/mec/meta_boxes/search_form.php:49
@@ -1375,46 +1384,46 @@ msgstr "Radio-knappar"
 #: app/features/mec/meta_boxes/search_form.php:785
 #: app/features/mec/meta_boxes/search_form.php:792
 #: app/features/mec/meta_boxes/search_form.php:799
-#: app/features/mec/meta_boxes/search_form.php:813 app/libraries/main.php:3148
+#: app/features/mec/meta_boxes/search_form.php:813 app/libraries/main.php:3149
 msgid "Dropdown"
 msgstr "Rullgardin"
 
-#: app/features/events.php:2550 app/features/mec/booking.php:507
-#: app/libraries/main.php:3195
+#: app/features/events.php:2556 app/features/mec/booking.php:507
+#: app/libraries/main.php:3196
 msgid "Agreement"
 msgstr ""
 
-#: app/features/events.php:2551 app/features/mec/booking.php:508
-#: app/libraries/main.php:3036
+#: app/features/events.php:2557 app/features/mec/booking.php:508
+#: app/libraries/main.php:3037
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: app/features/events.php:3249 app/features/events.php:3267
-#: app/features/events.php:3285 app/features/events.php:3303
+#: app/features/events.php:3258 app/features/events.php:3276
+#: app/features/events.php:3294 app/features/events.php:3312
 #, php-format
 msgid "Show all %s"
 msgstr "Visa alla %s"
 
-#: app/features/events.php:3249
+#: app/features/events.php:3258
 msgid "labels"
 msgstr "etiketter"
 
-#: app/features/events.php:3267
+#: app/features/events.php:3276
 msgid "locations"
 msgstr "platser"
 
-#: app/features/events.php:3285
+#: app/features/events.php:3294
 msgid "organizers"
 msgstr "arrangörer"
 
-#: app/features/events.php:3319
+#: app/features/events.php:3328
 #, fuzzy
 #| msgid "Attendees Limit"
 msgid "Attendees List"
 msgstr "Begränsning av deltagare"
 
-#: app/features/events.php:3349 app/features/events.php:3541
-#: app/features/events.php:3583 app/features/ix.php:3508
+#: app/features/events.php:3358 app/features/events.php:3550
+#: app/features/events.php:3592 app/features/ix.php:3508
 #: app/features/ix.php:3549 app/features/locations.php:58
 #: app/features/locations.php:232 app/features/locations.php:289
 #: app/features/locations.php:291 app/features/locations.php:300
@@ -1430,89 +1439,89 @@ msgstr "Begränsning av deltagare"
 #: app/features/mec/meta_boxes/search_form.php:591
 #: app/features/mec/meta_boxes/search_form.php:661
 #: app/features/mec/meta_boxes/search_form.php:767
-#: app/features/mec/settings.php:839 app/features/mec/single.php:240
+#: app/features/mec/settings.php:845 app/features/mec/single.php:240
 #: app/features/popup/event.php:246 app/features/popup/event.php:255
-#: app/features/search.php:73 app/libraries/main.php:2295
-#: app/libraries/main.php:5410 app/libraries/skins.php:903
+#: app/features/search.php:73 app/libraries/main.php:2296
+#: app/libraries/main.php:5411 app/libraries/skins.php:903
 #: app/skins/single.php:503 app/skins/single.php:941
 #: app/skins/single/default.php:176 app/skins/single/default.php:399
 #: app/skins/single/m1.php:169 app/skins/single/m2.php:95
-#: app/skins/single/modern.php:102
+#: app/skins/single/modern.php:103
 msgid "Location"
 msgstr "Platser"
 
-#: app/features/events.php:3354
+#: app/features/events.php:3363
 msgid "Repeat"
 msgstr "Upprepa"
 
-#: app/features/events.php:3355
+#: app/features/events.php:3364
 msgid "Author"
 msgstr "Författare"
 
-#: app/features/events.php:3476 app/features/events.php:3477
+#: app/features/events.php:3485 app/features/events.php:3486
 msgid "iCal Export"
 msgstr "iCal-export"
 
-#: app/features/events.php:3479 app/features/events.php:3480
+#: app/features/events.php:3488 app/features/events.php:3489
 msgid "CSV Export"
 msgstr "CSV-export"
 
-#: app/features/events.php:3482 app/features/events.php:3483
+#: app/features/events.php:3491 app/features/events.php:3492
 msgid "MS Excel Export"
 msgstr "MS Excel-export"
 
-#: app/features/events.php:3485 app/features/events.php:3486
+#: app/features/events.php:3494 app/features/events.php:3495
 msgid "XML Export"
 msgstr "XML-export"
 
-#: app/features/events.php:3488 app/features/events.php:3489
+#: app/features/events.php:3497 app/features/events.php:3498
 msgid "JSON Export"
 msgstr "JSON-export"
 
-#: app/features/events.php:3491 app/features/events.php:3492
-#: app/features/events.php:3674
+#: app/features/events.php:3500 app/features/events.php:3501
+#: app/features/events.php:3683
 msgid "Duplicate"
 msgstr "Duplicera"
 
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:3550 app/features/events.php:3592
 #: app/features/fes.php:223 app/features/ix.php:3508 app/features/ix.php:3549
 #: app/features/labels.php:177 app/features/locations.php:231
 #: app/features/organizers.php:203 app/features/speakers.php:268
 msgid "ID"
 msgstr "ID"
 
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:3550 app/features/events.php:3592
 #: app/features/ix.php:3508 app/features/ix.php:3549
 msgid "Link"
 msgstr "Länk"
 
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:3550 app/features/events.php:3592
 #, php-format
 msgid "%s Tel"
 msgstr "%s Tel"
 
-#: app/features/events.php:3541 app/features/events.php:3583
+#: app/features/events.php:3550 app/features/events.php:3592
 #, php-format
 msgid "%s Email"
 msgstr "%s E-post"
 
-#: app/features/events.php:3880 app/features/fes.php:223
-#: app/features/profile/profile.php:186 app/libraries/main.php:2330
-#: app/libraries/main.php:5440
+#: app/features/events.php:3889 app/features/fes.php:223
+#: app/features/profile/profile.php:186 app/libraries/main.php:2331
+#: app/libraries/main.php:5441
 msgid "Ticket"
 msgstr "Biljett"
 
-#: app/features/events.php:3883 app/features/profile/profile.php:189
+#: app/features/events.php:3892 app/features/profile/profile.php:189
 #, fuzzy
 #| msgid "Verification"
 msgid "Variations"
 msgstr "Verifikation"
 
-#: app/features/events.php:3898 app/features/fes.php:303
+#: app/features/events.php:3907 app/features/fes.php:303
 msgid "Unknown"
 msgstr "Okänd"
 
-#: app/features/events.php:3931
+#: app/features/events.php:3940
 #, fuzzy
 #| msgid "Attendees Form"
 msgid "No Attendees Found!"
@@ -1554,7 +1563,7 @@ msgstr "Evenemanget är borttaget!"
 msgid "Order Time"
 msgstr "Slut-tid"
 
-#: app/features/fes.php:223 app/libraries/main.php:2307
+#: app/features/fes.php:223 app/libraries/main.php:2308
 msgid "Transaction ID"
 msgstr "Transaktions-ID"
 
@@ -1588,11 +1597,11 @@ msgstr "Captcha är ogiltig. Var god försök igen."
 msgid "Please fill event title field!"
 msgstr "Fyll i fältet Evenemangs-titel!"
 
-#: app/features/fes.php:1100
+#: app/features/fes.php:1108
 msgid "The event submitted. It will publish as soon as possible."
 msgstr "Evenemanget är skapat och kommer att publiceras så snart som möjligt."
 
-#: app/features/fes.php:1101
+#: app/features/fes.php:1109
 msgid "The event published."
 msgstr "Evenemanget är nu publicerat."
 
@@ -1682,15 +1691,15 @@ msgid "Remove Image"
 msgstr "Ta bort bild"
 
 #: app/features/fes/form.php:793 app/features/labels.php:61
-#: app/features/labels.php:221 app/features/mec.php:416
-#: app/features/mec/meta_boxes/filter.php:130 app/libraries/main.php:5407
+#: app/features/labels.php:221 app/features/mec.php:413
+#: app/features/mec/meta_boxes/filter.php:130 app/libraries/main.php:5408
 #: app/skins/single.php:713 app/skins/single/default.php:155
 #: app/skins/single/default.php:378 app/skins/single/m1.php:73
-#: app/skins/single/modern.php:228
+#: app/skins/single/modern.php:229
 msgid "Labels"
 msgstr "Etiketter"
 
-#: app/features/fes/form.php:839 app/features/mec.php:414
+#: app/features/fes/form.php:839 app/features/mec.php:411
 #: app/features/mec/meta_boxes/filter.php:147
 msgid "Tags"
 msgstr "Taggar"
@@ -1775,7 +1784,7 @@ msgstr ""
 msgid "Both of API key and Calendar ID are required!"
 msgstr "Både API-nyckel och kalender-ID krävs!"
 
-#: app/features/ix.php:2772 app/features/ix.php:3191 app/features/ix.php:3906
+#: app/features/ix.php:2772 app/features/ix.php:3191 app/features/ix.php:3925
 msgid "Please select some events to import!"
 msgstr "Välj evenemang att importera!"
 
@@ -1814,28 +1823,28 @@ msgstr ""
 msgid "All of Client App, Client Secret and Calendar ID are required!"
 msgstr "Klient-app, klient-lösenord och kalender-ID krävs!"
 
-#: app/features/ix.php:3835
+#: app/features/ix.php:3854
 #, php-format
 msgid "%s events added to Google Calendar successfully."
 msgstr "%s evenemang lades till i Google-kalendern framgångsrikt."
 
-#: app/features/ix.php:3836
+#: app/features/ix.php:3855
 #, php-format
 msgid "%s previously added events get updated."
 msgstr "%s tidigare tillagda händelser uppdaterades."
 
-#: app/features/ix.php:3837
+#: app/features/ix.php:3856
 #, php-format
 msgid "%s events failed to add for following reasons: %s"
 msgstr "%s evenemang kunde inte läggas till av följande skäl: %s"
 
-#: app/features/ix.php:3869
+#: app/features/ix.php:3888
 #, fuzzy
 #| msgid "Please insert your facebook page's link."
 msgid "Please insert your Facebook page's link."
 msgstr "Fyll i länk (URL) till din Facebook-sida."
 
-#: app/features/ix.php:3878
+#: app/features/ix.php:3897
 #, fuzzy
 #| msgid ""
 #| "We couldn't recognize your Facebook page. Please check it and provide us "
@@ -1847,11 +1856,11 @@ msgstr ""
 "Vi kände inte igen din Facebook-sida. Kontrollera adressen och ange en "
 "giltigt facebook-länk (URL)."
 
-#: app/features/ix.php:3910
+#: app/features/ix.php:3929
 msgid "Please insert your facebook page's link."
 msgstr "Fyll i länk (URL) till din Facebook-sida."
 
-#: app/features/ix.php:3915
+#: app/features/ix.php:3934
 msgid ""
 "We couldn't recognize your Facebook page. Please check it and provide us a "
 "valid facebook page link."
@@ -2029,7 +2038,7 @@ msgstr "Lägg till i Google Kalender"
 
 #: app/features/ix/export_g_calendar.php:93 app/features/mec/booking.php:678
 #: app/features/mec/modules.php:398 app/features/mec/notifications.php:909
-#: app/features/mec/settings.php:1079 app/features/mec/single.php:297
+#: app/features/mec/settings.php:1085 app/features/mec/single.php:297
 msgid "Checking ..."
 msgstr "Kontrollerar..."
 
@@ -2463,32 +2472,32 @@ msgstr ""
 
 #: app/features/labels.php:117 app/features/labels.php:142
 #: app/skins/agenda/render.php:41 app/skins/available_spot/tpl.php:44
-#: app/skins/carousel/render.php:46 app/skins/countdown/tpl.php:33
-#: app/skins/cover/tpl.php:34 app/skins/daily_view/render.php:26
+#: app/skins/carousel/render.php:34 app/skins/countdown/tpl.php:33
+#: app/skins/cover/tpl.php:34 app/skins/daily_view/render.php:25
 #: app/skins/grid/render.php:54 app/skins/list/render.php:39
-#: app/skins/masonry/render.php:30 app/skins/monthly_view/calendar.php:87
-#: app/skins/monthly_view/calendar_clean.php:87
-#: app/skins/monthly_view/calendar_novel.php:77 app/skins/slider/render.php:47
-#: app/skins/tile/render.php:37 app/skins/timeline/render.php:45
-#: app/skins/timetable/render.php:41 app/skins/timetable/render.php:151
-#: app/skins/weekly_view/render.php:35 app/skins/yearly_view/render.php:49
+#: app/skins/masonry/render.php:30 app/skins/monthly_view/calendar.php:86
+#: app/skins/monthly_view/calendar_clean.php:85
+#: app/skins/monthly_view/calendar_novel.php:77 app/skins/slider/render.php:44
+#: app/skins/tile/render.php:38 app/skins/timeline/render.php:45
+#: app/skins/timetable/render.php:41 app/skins/timetable/render.php:108
+#: app/skins/weekly_view/render.php:33 app/skins/yearly_view/render.php:49
 #, fuzzy
 #| msgid "Featured Image"
 msgid "Featured"
 msgstr "Utvald bild"
 
 #: app/features/labels.php:118 app/features/labels.php:143
-#: app/libraries/main.php:5656 app/skins/agenda/render.php:45
-#: app/skins/available_spot/tpl.php:45 app/skins/carousel/render.php:47
-#: app/skins/countdown/tpl.php:37 app/skins/cover/tpl.php:38
-#: app/skins/daily_view/render.php:30 app/skins/grid/render.php:55
+#: app/libraries/main.php:5657 app/skins/agenda/render.php:42
+#: app/skins/available_spot/tpl.php:45 app/skins/carousel/render.php:35
+#: app/skins/countdown/tpl.php:37 app/skins/cover/tpl.php:35
+#: app/skins/daily_view/render.php:26 app/skins/grid/render.php:55
 #: app/skins/list/render.php:40 app/skins/masonry/render.php:31
-#: app/skins/monthly_view/calendar.php:91
-#: app/skins/monthly_view/calendar_clean.php:91
-#: app/skins/monthly_view/calendar_novel.php:78 app/skins/slider/render.php:48
-#: app/skins/tile/render.php:38 app/skins/timeline/render.php:49
-#: app/skins/timetable/render.php:45 app/skins/timetable/render.php:152
-#: app/skins/weekly_view/render.php:39 app/skins/yearly_view/render.php:53
+#: app/skins/monthly_view/calendar.php:87
+#: app/skins/monthly_view/calendar_clean.php:86
+#: app/skins/monthly_view/calendar_novel.php:78 app/skins/slider/render.php:45
+#: app/skins/tile/render.php:39 app/skins/timeline/render.php:46
+#: app/skins/timetable/render.php:42 app/skins/timetable/render.php:109
+#: app/skins/weekly_view/render.php:34 app/skins/yearly_view/render.php:50
 msgid "Canceled"
 msgstr "Avbruten"
 
@@ -2512,9 +2521,9 @@ msgstr "Slug"
 msgid "Event %s"
 msgstr "Evenemang %s"
 
-#: app/features/locations.php:59 app/features/mec.php:417
+#: app/features/locations.php:59 app/features/mec.php:414
 #: app/features/mec/dashboard.php:275 app/features/mec/meta_boxes/filter.php:96
-#: app/libraries/main.php:5409
+#: app/libraries/main.php:5410
 msgid "Locations"
 msgstr "Platser"
 
@@ -2633,7 +2642,7 @@ msgstr "Välj bild"
 msgid "Don't show map in single event page"
 msgstr "Visa Inte karta på sidan för enstaka evenemang"
 
-#: app/features/locations.php:359 app/libraries/main.php:5443
+#: app/features/locations.php:359 app/libraries/main.php:5444
 #, fuzzy
 #| msgid "Search Locations"
 msgid "Other Locations"
@@ -2648,153 +2657,153 @@ msgstr ""
 msgid "<strong>"
 msgstr ""
 
-#: app/features/mec.php:183
+#: app/features/mec.php:180
 msgid ""
 "Activation failed. Please check your purchase code or license type."
 "<br><b>Note: Your purchase code should match your licesne type.</b>"
 msgstr ""
 
-#: app/features/mec.php:183 app/features/mec/support-page.php:136
+#: app/features/mec.php:180 app/features/mec/support-page.php:136
 msgid "Troubleshooting"
 msgstr ""
 
-#: app/features/mec.php:262
+#: app/features/mec.php:259
 #, fuzzy
 #| msgid "Select All"
 msgid "Select Date"
 msgstr "Markera allt"
 
-#: app/features/mec.php:265 app/libraries/notifications.php:937
+#: app/features/mec.php:262 app/libraries/notifications.php:961
 #, php-format
 msgid "%s to %s"
 msgstr "%s till %s"
 
-#: app/features/mec.php:291
+#: app/features/mec.php:288
 msgid ""
 "Your options is not in JSON format. Please insert correct options in this "
 "field and try again."
 msgstr ""
 
-#: app/features/mec.php:298
+#: app/features/mec.php:295
 #, fuzzy
 #| msgid "Your booking cannot verify!"
 msgid "Your options field can not be empty!"
 msgstr "Din bokning kan inte verifieras!"
 
-#: app/features/mec.php:304
+#: app/features/mec.php:301
 #, fuzzy
 #| msgid "Your booking successfully verified."
 msgid "Your options imported successfuly."
 msgstr "Din bokning är bekräftad."
 
-#: app/features/mec.php:397
+#: app/features/mec.php:394
 #, fuzzy
 #| msgid "Support"
 msgid "MEC - Support"
 msgstr "Support"
 
-#: app/features/mec.php:397 app/features/mec/support-page.php:9
+#: app/features/mec.php:394 app/features/mec/support-page.php:9
 #: app/features/mec/support.php:80 app/features/mec/support.php:93
 msgid "Support"
 msgstr "Support"
 
-#: app/features/mec.php:418 app/features/mec/dashboard.php:282
+#: app/features/mec.php:415 app/features/mec/dashboard.php:282
 #: app/features/mec/meta_boxes/filter.php:113 app/features/organizers.php:59
-#: app/libraries/main.php:5411
+#: app/libraries/main.php:5412
 msgid "Organizers"
 msgstr "Arrangörer"
 
-#: app/features/mec.php:426 app/features/mec.php:450
+#: app/features/mec.php:423 app/features/mec.php:447
 #: app/features/mec/dashboard.php:268
 msgid "Shortcodes"
 msgstr "Shortcodes"
 
-#: app/features/mec.php:427
+#: app/features/mec.php:424
 msgid "MEC - Settings"
 msgstr "MEC - Inställningar"
 
-#: app/features/mec.php:428
+#: app/features/mec.php:425
 #, fuzzy
 #| msgid "MEC - Settings"
 msgid "MEC - Addons"
 msgstr "MEC - Inställningar"
 
-#: app/features/mec.php:428 app/features/mec/addons.php:22
+#: app/features/mec.php:425 app/features/mec/addons.php:22
 msgid "Addons"
 msgstr ""
 
-#: app/features/mec.php:431
+#: app/features/mec.php:428
 #, fuzzy
 #| msgid "Support"
 msgid "MEC - Report"
 msgstr "Support"
 
-#: app/features/mec.php:431
+#: app/features/mec.php:428
 #, fuzzy
 #| msgid "Export"
 msgid "Report"
 msgstr "Export"
 
-#: app/features/mec.php:433
+#: app/features/mec.php:430
 #, fuzzy
 #| msgid "Support"
 msgid "MEC - Go Pro"
 msgstr "Support"
 
-#: app/features/mec.php:433 app/features/mec/go-pro.php:9
+#: app/features/mec.php:430 app/features/mec/go-pro.php:9
 #: app/libraries/factory.php:1045
 msgid "Go Pro"
 msgstr ""
 
-#: app/features/mec.php:452
+#: app/features/mec.php:449
 msgid "Add Shortcode"
 msgstr "Lägg till shortcode"
 
-#: app/features/mec.php:453
+#: app/features/mec.php:450
 msgid "Add New Shortcode"
 msgstr "Lägg till en ny shortcode"
 
-#: app/features/mec.php:454
+#: app/features/mec.php:451
 msgid "No shortcodes found!"
 msgstr "Inga shortcodes hittades!"
 
-#: app/features/mec.php:455
+#: app/features/mec.php:452
 msgid "All Shortcodes"
 msgstr "Alla shortcodes"
 
-#: app/features/mec.php:456
+#: app/features/mec.php:453
 msgid "Edit shortcodes"
 msgstr "Redigera shortcodes"
 
-#: app/features/mec.php:457
+#: app/features/mec.php:454
 msgid "No shortcodes found in Trash!"
 msgstr "Inga raderade shortcodes hittades!"
 
-#: app/features/mec.php:510
+#: app/features/mec.php:507
 msgid "Display Options"
 msgstr "Visningsalternativ"
 
-#: app/features/mec.php:511
+#: app/features/mec.php:508
 msgid "Filter Options"
 msgstr "Filteralternativ"
 
-#: app/features/mec.php:513
+#: app/features/mec.php:510
 msgid "Search Form"
 msgstr "Sökformulär"
 
-#: app/features/mec.php:911
+#: app/features/mec.php:908
 msgid "Display content's images as Popup"
 msgstr ""
 
-#: app/features/mec.php:925 app/features/popup/shortcode.php:300
+#: app/features/mec.php:922 app/features/popup/shortcode.php:300
 msgid "Single Event Display Method"
 msgstr "Enstaka evenemangs visnings-format"
 
-#: app/features/mec.php:930 app/features/popup/shortcode.php:304
+#: app/features/mec.php:927 app/features/popup/shortcode.php:304
 msgid "Separate Window"
 msgstr "Separat fönster"
 
-#: app/features/mec.php:931 app/features/popup/shortcode.php:308
+#: app/features/mec.php:928 app/features/popup/shortcode.php:308
 #, fuzzy
 #| msgid "Modal 1"
 msgid "Modal Popup"
@@ -2839,8 +2848,8 @@ msgstr "Sök %s"
 #: app/features/mec/notifications.php:828
 #: app/features/mec/notifications.php:926
 #: app/features/mec/notifications.php:940 app/features/mec/settings.php:33
-#: app/features/mec/settings.php:1028 app/features/mec/settings.php:1038
-#: app/features/mec/settings.php:1096 app/features/mec/settings.php:1110
+#: app/features/mec/settings.php:1034 app/features/mec/settings.php:1044
+#: app/features/mec/settings.php:1102 app/features/mec/settings.php:1116
 #: app/features/mec/single.php:17 app/features/mec/single.php:262
 #: app/features/mec/single.php:272 app/features/mec/single.php:314
 #: app/features/mec/single.php:328 app/features/mec/styles.php:11
@@ -3067,14 +3076,14 @@ msgstr ""
 
 #: app/features/mec/booking.php:673 app/features/mec/messages.php:78
 #: app/features/mec/modules.php:393 app/features/mec/notifications.php:904
-#: app/features/mec/settings.php:1074 app/features/mec/single.php:292
+#: app/features/mec/settings.php:1080 app/features/mec/single.php:292
 #: app/features/mec/styles.php:60 app/features/mec/styling.php:311
 msgid "Saved"
 msgstr "Sparad"
 
 #: app/features/mec/booking.php:674 app/features/mec/messages.php:79
 #: app/features/mec/modules.php:394 app/features/mec/notifications.php:905
-#: app/features/mec/settings.php:1075 app/features/mec/single.php:293
+#: app/features/mec/settings.php:1081 app/features/mec/single.php:293
 #: app/features/mec/styles.php:61 app/features/mec/styling.php:312
 msgid "Settings Saved!"
 msgstr ""
@@ -3082,14 +3091,14 @@ msgstr ""
 #: app/features/mec/booking.php:676 app/features/mec/booking.php:698
 #: app/features/mec/modules.php:396 app/features/mec/modules.php:418
 #: app/features/mec/notifications.php:907
-#: app/features/mec/notifications.php:929 app/features/mec/settings.php:1077
-#: app/features/mec/settings.php:1099 app/features/mec/single.php:295
-#: app/features/mec/single.php:317 app/libraries/main.php:5655
+#: app/features/mec/notifications.php:929 app/features/mec/settings.php:1083
+#: app/features/mec/settings.php:1105 app/features/mec/single.php:295
+#: app/features/mec/single.php:317 app/libraries/main.php:5656
 msgid "Verified"
 msgstr "Verifierad"
 
 #: app/features/mec/booking.php:700 app/features/mec/modules.php:420
-#: app/features/mec/notifications.php:931 app/features/mec/settings.php:1101
+#: app/features/mec/notifications.php:931 app/features/mec/settings.php:1107
 #: app/features/mec/single.php:319
 msgid "Please Refresh Page"
 msgstr "Var vänlig ladda om sidan"
@@ -4319,9 +4328,9 @@ msgstr "Avaktiverad"
 #: app/features/mec/meta_boxes/search_form.php:606
 #: app/features/mec/meta_boxes/search_form.php:676
 #: app/features/mec/meta_boxes/search_form.php:782
-#: app/features/mec/settings.php:852 app/features/mec/single.php:245
+#: app/features/mec/settings.php:858 app/features/mec/single.php:245
 #: app/features/search.php:83 app/features/speakers.php:61
-#: app/features/speakers.php:269 app/libraries/main.php:5414
+#: app/features/speakers.php:269 app/libraries/main.php:5415
 #: app/libraries/skins.php:955
 msgid "Speaker"
 msgstr ""
@@ -4337,7 +4346,7 @@ msgstr ""
 #: app/features/mec/meta_boxes/search_form.php:613
 #: app/features/mec/meta_boxes/search_form.php:683
 #: app/features/mec/meta_boxes/search_form.php:789
-#: app/features/mec/settings.php:859 app/features/mec/single.php:254
+#: app/features/mec/settings.php:865 app/features/mec/single.php:254
 #: app/features/search.php:88 app/libraries/skins.php:981
 #, fuzzy
 #| msgid "Tags"
@@ -4458,8 +4467,8 @@ msgstr "Google Maps API"
 msgid "Google Map Options"
 msgstr "Google Maps alternativ"
 
-#: app/features/mec/modules.php:86 app/features/mec/settings.php:895
-#: app/features/mec/settings.php:908
+#: app/features/mec/modules.php:86 app/features/mec/settings.php:901
+#: app/features/mec/settings.php:914
 msgid "Required!"
 msgstr "Obligatorisk!"
 
@@ -4564,9 +4573,9 @@ msgstr ""
 msgid "Show weather module on event page"
 msgstr ""
 
-#: app/features/mec/modules.php:239 app/features/mec/settings.php:889
-#: app/features/mec/settings.php:894 app/features/mec/settings.php:942
-#: app/features/mec/settings.php:966 app/features/mec/settings.php:990
+#: app/features/mec/modules.php:239 app/features/mec/settings.php:895
+#: app/features/mec/settings.php:900 app/features/mec/settings.php:948
+#: app/features/mec/settings.php:972 app/features/mec/settings.php:996
 msgid "API Key"
 msgstr "API-nyckel"
 
@@ -5066,7 +5075,7 @@ msgid ""
 msgstr "Skickas till deltagare efter bokning för att meddela honom/henne."
 
 #: app/features/mec/notifications.php:387
-#: app/features/mec/notifications.php:654
+#: app/features/mec/notifications.php:655
 #, fuzzy
 #| msgid "Send the email to event organizer"
 msgid "Send the email to admin"
@@ -5098,7 +5107,7 @@ msgid "It sends to admin to notify him/her that a new booking received."
 msgstr "Skickas till admin för att meddela att en ny bokning inkommit."
 
 #: app/features/mec/notifications.php:530 app/libraries/main.php:581
-#: app/libraries/notifications.php:607
+#: app/libraries/notifications.php:622
 msgid "Booking Reminder"
 msgstr ""
 
@@ -5161,8 +5170,8 @@ msgid "Status of event"
 msgstr "Status för evenemang"
 
 #: app/features/mec/notifications.php:720
-#: app/features/mec/notifications.php:803 app/features/mec/settings.php:767
-#: app/features/mec/settings.php:771
+#: app/features/mec/notifications.php:803 app/features/mec/settings.php:773
+#: app/features/mec/settings.php:777
 msgid "Event Note"
 msgstr "Evenemangs-not"
 
@@ -5366,7 +5375,7 @@ msgid "You can enable/disable Schema scripts"
 msgstr ""
 
 #: app/features/mec/settings.php:154 app/features/mec/settings.php:164
-#: app/libraries/main.php:5418
+#: app/libraries/main.php:5419
 msgid "Weekdays"
 msgstr "Veckodagar"
 
@@ -5753,7 +5762,7 @@ msgstr "Bokningsalternativ"
 msgid "Fees / Taxes Options"
 msgstr "Alternativ för avgifter/skatter"
 
-#: app/features/mec/settings.php:772
+#: app/features/mec/settings.php:778
 #, php-format
 msgid ""
 "Users can put a note for editors while they're submitting the event. Also "
@@ -5764,101 +5773,101 @@ msgstr ""
 "evenemang. Du kan även lägga till %%event_note%% till evenemangets "
 "anmärkningsfält för att få användarnas meddelande som e-post."
 
-#: app/features/mec/settings.php:779 app/features/mec/settings.php:787
+#: app/features/mec/settings.php:785 app/features/mec/settings.php:793
 msgid "Visibility of Note"
 msgstr "Anmärkningsfältets synlighet"
 
-#: app/features/mec/settings.php:782
+#: app/features/mec/settings.php:788
 msgid "Always"
 msgstr "Alltid"
 
-#: app/features/mec/settings.php:783
+#: app/features/mec/settings.php:789
 msgid "While event is not published"
 msgstr "Medan evenemanget inte har publicerats"
 
-#: app/features/mec/settings.php:788
+#: app/features/mec/settings.php:794
 msgid "Event Note shows on Frontend Submission Form and Edit Event in backend."
 msgstr ""
 "Evenemangs-anteckning visas i \"Frontend\" inmatningsformulär och \"Redigera "
 "händelse\" i \"Backend\"."
 
-#: app/features/mec/settings.php:799 app/libraries/main.php:537
+#: app/features/mec/settings.php:805 app/libraries/main.php:537
 msgid "User Profile"
 msgstr ""
 
-#: app/features/mec/settings.php:801
+#: app/features/mec/settings.php:807
 #, php-format
 msgid ""
 "Put %s shortcode into your desired page. Then users are able to see history "
 "of their bookings."
 msgstr ""
 
-#: app/features/mec/settings.php:806 app/libraries/main.php:538
+#: app/features/mec/settings.php:812 app/libraries/main.php:538
 #, fuzzy
 #| msgid "Search Form"
 msgid "Search Bar"
 msgstr "Sökformulär"
 
-#: app/features/mec/settings.php:808
+#: app/features/mec/settings.php:814
 #, php-format
 msgid ""
 "Put %s shortcode into your desired page. Then users are able to search events"
 msgstr ""
 
-#: app/features/mec/settings.php:812
+#: app/features/mec/settings.php:818
 msgid "Ajax Live mode"
 msgstr ""
 
-#: app/features/mec/settings.php:816
+#: app/features/mec/settings.php:822
 msgid "Ajax mode"
 msgstr ""
 
-#: app/features/mec/settings.php:817
+#: app/features/mec/settings.php:823
 msgid ""
 "if you enable this option, search button disappeared and to use this "
 "feature, text input field must be enabled."
 msgstr ""
 
-#: app/features/mec/settings.php:825
+#: app/features/mec/settings.php:831
 #, fuzzy
 #| msgid "Modern Style"
 msgid "Modern Type"
 msgstr "Modern stil"
 
-#: app/features/mec/settings.php:829
+#: app/features/mec/settings.php:835
 #, fuzzy
 #| msgid "Search Labels"
 msgid "Search bar fields"
 msgstr "Sök etiketter"
 
-#: app/features/mec/settings.php:871
+#: app/features/mec/settings.php:877
 #, fuzzy
 #| msgid "Text Input"
 msgid "Text input"
 msgstr "Textinmatning"
 
-#: app/features/mec/settings.php:884
+#: app/features/mec/settings.php:890
 msgid "Enable Mailchimp Integration"
 msgstr "Aktivera integration för Mailchimp"
 
-#: app/features/mec/settings.php:902 app/features/mec/settings.php:907
-#: app/features/mec/settings.php:948 app/features/mec/settings.php:996
+#: app/features/mec/settings.php:908 app/features/mec/settings.php:913
+#: app/features/mec/settings.php:954 app/features/mec/settings.php:1002
 msgid "List ID"
 msgstr "List-ID"
 
-#: app/features/mec/settings.php:915 app/features/mec/settings.php:923
+#: app/features/mec/settings.php:921 app/features/mec/settings.php:929
 msgid "Subscription Status"
 msgstr "Prenumerationsstatus"
 
-#: app/features/mec/settings.php:918
+#: app/features/mec/settings.php:924
 msgid "Subscribe automatically"
 msgstr "Prenumerera automatiskt"
 
-#: app/features/mec/settings.php:919
+#: app/features/mec/settings.php:925
 msgid "Subscribe by verification"
 msgstr "Prenumerera med bekräftelse"
 
-#: app/features/mec/settings.php:924
+#: app/features/mec/settings.php:930
 msgid ""
 "If you choose \"Subscribe by verification\" then an email will send to user "
 "by mailchimp for subscription verification."
@@ -5866,71 +5875,71 @@ msgstr ""
 "Om du väljer \"Prenumerera med bekräftelse\" skickas ett e-postmeddelande "
 "till användaren genom MailChimp för verifiering."
 
-#: app/features/mec/settings.php:933 app/libraries/main.php:540
+#: app/features/mec/settings.php:939 app/libraries/main.php:540
 #, fuzzy
 #| msgid "Mailchimp Integration"
 msgid "Campaign Monitor Integration"
 msgstr "Integration för MailChimp"
 
-#: app/features/mec/settings.php:937
+#: app/features/mec/settings.php:943
 #, fuzzy
 #| msgid "Enable Mailchimp Integration"
 msgid "Enable Campaign Monitor Integration"
 msgstr "Aktivera integration för Mailchimp"
 
-#: app/features/mec/settings.php:957 app/libraries/main.php:541
+#: app/features/mec/settings.php:963 app/libraries/main.php:541
 #, fuzzy
 #| msgid "Mailchimp Integration"
 msgid "MailerLite Integration"
 msgstr "Integration för MailChimp"
 
-#: app/features/mec/settings.php:961
+#: app/features/mec/settings.php:967
 #, fuzzy
 #| msgid "Enable Mailchimp Integration"
 msgid "Enable MailerLite Integration"
 msgstr "Aktivera integration för Mailchimp"
 
-#: app/features/mec/settings.php:972
+#: app/features/mec/settings.php:978
 msgid "Group ID"
 msgstr ""
 
-#: app/features/mec/settings.php:981 app/libraries/main.php:542
+#: app/features/mec/settings.php:987 app/libraries/main.php:542
 #, fuzzy
 #| msgid "BuddyPress Integration"
 msgid "Constant Contact Integration"
 msgstr "Integration för BuddyPress"
 
-#: app/features/mec/settings.php:985
+#: app/features/mec/settings.php:991
 #, fuzzy
 #| msgid "Enable Mailchimp Integration"
 msgid "Enable constantcontact Integration"
 msgstr "Aktivera integration för Mailchimp"
 
-#: app/features/mec/settings.php:1007
+#: app/features/mec/settings.php:1013
 #, fuzzy
 #| msgid "Filter Options"
 msgid "Upload Field Options"
 msgstr "Filteralternativ"
 
-#: app/features/mec/settings.php:1009
+#: app/features/mec/settings.php:1015
 msgid "Mime types"
 msgstr ""
 
-#: app/features/mec/settings.php:1013
+#: app/features/mec/settings.php:1019
 msgid "Split mime types with \",\"."
 msgstr ""
 
-#: app/features/mec/settings.php:1013
+#: app/features/mec/settings.php:1019
 msgid "Default: jpeg,jpg,png,pdf"
 msgstr ""
 
-#: app/features/mec/settings.php:1016
+#: app/features/mec/settings.php:1022
 #, fuzzy
 #| msgid "Maximum events"
 msgid "Maximum file size"
 msgstr "Maximalt antal evenemang"
 
-#: app/features/mec/settings.php:1020
+#: app/features/mec/settings.php:1026
 msgid "The unit is Megabyte \"MB\""
 msgstr ""
 
@@ -6825,7 +6834,7 @@ msgstr "t.ex. tage@testlund.se"
 msgid "eg. https://webnus.net"
 msgstr "http://webnus.biz"
 
-#: app/features/organizers.php:312 app/libraries/main.php:5442
+#: app/features/organizers.php:312 app/libraries/main.php:5443
 #: app/skins/single.php:873
 msgid "Other Organizers"
 msgstr ""
@@ -6900,9 +6909,9 @@ msgid "Prev"
 msgstr ""
 
 #: app/features/popup/event.php:392 app/features/popup/shortcode.php:373
-#: app/modules/booking/steps/form.php:178
-#: app/modules/booking/steps/tickets.php:77 app/skins/countdown/tpl.php:150
-#: app/skins/countdown/tpl.php:195 app/skins/countdown/tpl.php:241
+#: app/modules/booking/steps/form.php:179
+#: app/modules/booking/steps/tickets.php:77 app/skins/countdown/tpl.php:107
+#: app/skins/countdown/tpl.php:152 app/skins/countdown/tpl.php:198
 msgid "Next"
 msgstr "Nästa"
 
@@ -6962,7 +6971,7 @@ msgstr "Lägg till en ny shortcode"
 msgid "Please %s/%s in order to see your bookings / profile."
 msgstr "Vänligen %s/%s för att skicka in nya evenemang."
 
-#: app/features/profile/profile.php:18 app/libraries/main.php:2198
+#: app/features/profile/profile.php:18 app/libraries/main.php:2199
 #, fuzzy
 #| msgid "Your booking cannot be canceled."
 msgid "Your booking already canceled!"
@@ -6972,11 +6981,11 @@ msgstr "Din bokning kan inte avbrytas."
 msgid "#"
 msgstr ""
 
-#: app/features/profile/profile.php:56 app/libraries/main.php:3217
+#: app/features/profile/profile.php:56 app/libraries/main.php:3218
 msgid "Status"
 msgstr ""
 
-#: app/features/profile/profile.php:59 app/libraries/main.php:2316
+#: app/features/profile/profile.php:59 app/libraries/main.php:2317
 msgid "Attendees"
 msgstr ""
 
@@ -7007,7 +7016,63 @@ msgstr ""
 msgid "No bookings found!"
 msgstr "Inga bokningar hittades!"
 
-#: app/features/search.php:93 app/libraries/main.php:5408
+#: app/features/schema.php:63
+msgid ""
+"Following statuses are for informing search engines (Google, bing, etc) "
+"about your events so they can manage your events better so you can use these "
+"statuses to be more Search Engine Friendly."
+msgstr ""
+
+#: app/features/schema.php:68
+#, fuzzy
+#| msgid "Hourly Schedule"
+msgid "Scheduled"
+msgstr "Timme-schema"
+
+#: app/features/schema.php:70
+#, fuzzy
+#| msgid "Export certain events"
+msgid "For active events!"
+msgstr "Exportera utvalda evenemang"
+
+#: app/features/schema.php:75
+msgid "Postponed"
+msgstr ""
+
+#: app/features/schema.php:77
+msgid "If you postponed an event then you can use this status!"
+msgstr ""
+
+#: app/features/schema.php:82
+#, fuzzy
+#| msgid "Canceled"
+msgid "Cancelled"
+msgstr "Avbruten"
+
+#: app/features/schema.php:84
+msgid "If you cancelled an event then you should select this status!"
+msgstr ""
+
+#: app/features/schema.php:89
+msgid "Moved Online"
+msgstr ""
+
+#: app/features/schema.php:91
+msgid "For the events that moved online!"
+msgstr ""
+
+#: app/features/schema.php:95
+#, fuzzy
+#| msgid "Archive Page Skin"
+msgid "Online Link"
+msgstr "Arkivsidans tema"
+
+#: app/features/schema.php:99
+msgid ""
+"Link to join online event. If you leave it empty event link will be used."
+msgstr ""
+
+#: app/features/search.php:93 app/libraries/main.php:5409
 msgid "label"
 msgstr "etikett"
 
@@ -7034,13 +7099,13 @@ msgid "No search result."
 msgstr ""
 
 #: app/features/search_bar/search_result.php:12
-#: app/libraries/notifications.php:951 app/libraries/render.php:488
+#: app/libraries/notifications.php:975 app/libraries/render.php:488
 #: app/modules/local-time/details.php:48 app/modules/local-time/type1.php:44
 #: app/modules/local-time/type2.php:46 app/modules/local-time/type3.php:44
 #: app/modules/next-event/details.php:104 app/skins/single.php:166
 #: app/skins/single.php:764 app/skins/single/default.php:108
 #: app/skins/single/default.php:331 app/skins/single/m1.php:43
-#: app/skins/single/modern.php:198
+#: app/skins/single/modern.php:199
 #, fuzzy
 #| msgid "All Day Event"
 msgid "All Day"
@@ -7169,8 +7234,8 @@ msgid "day"
 msgstr "dag"
 
 #: app/libraries/factory.php:373 app/modules/countdown/details.php:138
-#: app/skins/available_spot/tpl.php:170 app/skins/countdown/tpl.php:163
-#: app/skins/countdown/tpl.php:208 app/skins/countdown/tpl.php:259
+#: app/skins/available_spot/tpl.php:127 app/skins/countdown/tpl.php:120
+#: app/skins/countdown/tpl.php:165 app/skins/countdown/tpl.php:216
 msgid "days"
 msgstr "dagar"
 
@@ -7179,8 +7244,8 @@ msgid "hour"
 msgstr "timme"
 
 #: app/libraries/factory.php:375 app/modules/countdown/details.php:145
-#: app/skins/available_spot/tpl.php:174 app/skins/countdown/tpl.php:169
-#: app/skins/countdown/tpl.php:214 app/skins/countdown/tpl.php:265
+#: app/skins/available_spot/tpl.php:131 app/skins/countdown/tpl.php:126
+#: app/skins/countdown/tpl.php:171 app/skins/countdown/tpl.php:222
 msgid "hours"
 msgstr "timmar"
 
@@ -7189,8 +7254,8 @@ msgid "minute"
 msgstr "minut"
 
 #: app/libraries/factory.php:377 app/modules/countdown/details.php:152
-#: app/skins/available_spot/tpl.php:178 app/skins/countdown/tpl.php:175
-#: app/skins/countdown/tpl.php:220 app/skins/countdown/tpl.php:271
+#: app/skins/available_spot/tpl.php:135 app/skins/countdown/tpl.php:132
+#: app/skins/countdown/tpl.php:177 app/skins/countdown/tpl.php:228
 msgid "minutes"
 msgstr "minuter"
 
@@ -7199,8 +7264,8 @@ msgid "second"
 msgstr "andra"
 
 #: app/libraries/factory.php:379 app/modules/countdown/details.php:159
-#: app/skins/available_spot/tpl.php:182 app/skins/countdown/tpl.php:181
-#: app/skins/countdown/tpl.php:226 app/skins/countdown/tpl.php:277
+#: app/skins/available_spot/tpl.php:139 app/skins/countdown/tpl.php:138
+#: app/skins/countdown/tpl.php:183 app/skins/countdown/tpl.php:234
 msgid "seconds"
 msgstr "sekunder"
 
@@ -7297,31 +7362,31 @@ msgstr "Bildspel"
 msgid "Tile View"
 msgstr "Bildspel"
 
-#: app/libraries/main.php:385 app/libraries/main.php:5420
+#: app/libraries/main.php:385 app/libraries/main.php:5421
 msgid "SU"
 msgstr "Sön"
 
-#: app/libraries/main.php:386 app/libraries/main.php:5421
+#: app/libraries/main.php:386 app/libraries/main.php:5422
 msgid "MO"
 msgstr "Mån"
 
-#: app/libraries/main.php:387 app/libraries/main.php:5422
+#: app/libraries/main.php:387 app/libraries/main.php:5423
 msgid "TU"
 msgstr "Tis"
 
-#: app/libraries/main.php:388 app/libraries/main.php:5423
+#: app/libraries/main.php:388 app/libraries/main.php:5424
 msgid "WE"
 msgstr "Ons"
 
-#: app/libraries/main.php:389 app/libraries/main.php:5424
+#: app/libraries/main.php:389 app/libraries/main.php:5425
 msgid "TH"
 msgstr "Tor"
 
-#: app/libraries/main.php:390 app/libraries/main.php:5425
+#: app/libraries/main.php:390 app/libraries/main.php:5426
 msgid "FR"
 msgstr "Fre"
 
-#: app/libraries/main.php:391 app/libraries/main.php:5426
+#: app/libraries/main.php:391 app/libraries/main.php:5427
 msgid "SA"
 msgstr "Lör"
 
@@ -7486,275 +7551,275 @@ msgstr ""
 msgid "Custom Shortcode"
 msgstr "Shortcode"
 
-#: app/libraries/main.php:2178
+#: app/libraries/main.php:2179
 #, fuzzy
 #| msgid "Your booking successfully verified."
 msgid "Your booking already verified!"
 msgstr "Din bokning är bekräftad."
 
-#: app/libraries/main.php:2183
+#: app/libraries/main.php:2184
 msgid "Your booking successfully verified."
 msgstr "Din bokning är bekräftad."
 
-#: app/libraries/main.php:2184
+#: app/libraries/main.php:2185
 msgid "Your booking cannot verify!"
 msgstr "Din bokning kan inte verifieras!"
 
-#: app/libraries/main.php:2203
+#: app/libraries/main.php:2204
 msgid "Your booking successfully canceled."
 msgstr "Din bokning är framgångsrikt avbruten."
 
-#: app/libraries/main.php:2204
+#: app/libraries/main.php:2205
 msgid "Your booking cannot be canceled."
 msgstr "Din bokning kan inte avbrytas."
 
-#: app/libraries/main.php:2208
+#: app/libraries/main.php:2209
 msgid "You canceled the payment successfully."
 msgstr "Betalningen är framgångsrikt avbruten."
 
-#: app/libraries/main.php:2212
+#: app/libraries/main.php:2213
 msgid "You returned from payment gateway successfully."
 msgstr "Du har framgångsrikt återvänt från betalväxeln."
 
-#: app/libraries/main.php:2228
+#: app/libraries/main.php:2229
 msgid "Cannot find the invoice!"
 msgstr ""
 
-#: app/libraries/main.php:2228
+#: app/libraries/main.php:2229
 #, fuzzy
 #| msgid "Security nonce is invalid."
 msgid "Invoice is invalid."
 msgstr "Tillfälligt säkerhetsord är ogiltigt"
 
-#: app/libraries/main.php:2248
+#: app/libraries/main.php:2249
 msgid ""
 "Your booking still is not confirmed. You able download it after confirmation!"
 msgstr ""
 
-#: app/libraries/main.php:2248
+#: app/libraries/main.php:2249
 #, fuzzy
 #| msgid "Booking Confirmation"
 msgid "Booking Not Confirmed."
 msgstr "Bokningsbekräftelse"
 
-#: app/libraries/main.php:2254
+#: app/libraries/main.php:2255
 msgid "Cannot find the booking!"
 msgstr ""
 
-#: app/libraries/main.php:2254
+#: app/libraries/main.php:2255
 msgid "Booking is invalid."
 msgstr ""
 
-#: app/libraries/main.php:2286
+#: app/libraries/main.php:2287
 #, php-format
 msgid "%s Invoice"
 msgstr ""
 
-#: app/libraries/main.php:2360
+#: app/libraries/main.php:2361
 msgid "Billing"
 msgstr ""
 
-#: app/libraries/main.php:2372
+#: app/libraries/main.php:2373
 #, fuzzy
 #| msgid "Coupon"
 msgid "Coupon Code"
 msgstr "Rabattkupong"
 
-#: app/libraries/main.php:2377
+#: app/libraries/main.php:2378
 msgid "Total"
 msgstr ""
 
-#: app/libraries/main.php:2384
+#: app/libraries/main.php:2385
 msgid "Payment"
 msgstr "Betalning"
 
-#: app/libraries/main.php:2388
+#: app/libraries/main.php:2389
 msgid "Gateway"
 msgstr "Gateway"
 
-#: app/libraries/main.php:2396
+#: app/libraries/main.php:2397
 #, fuzzy
 #| msgid "Payment"
 msgid "Payment Time"
 msgstr "Betalning"
 
-#: app/libraries/main.php:2457
+#: app/libraries/main.php:2458
 #, fuzzy
 #| msgid "Request is invalid!"
 msgid "Request is not valid."
 msgstr "Ogiltig begäran!"
 
-#: app/libraries/main.php:2457
+#: app/libraries/main.php:2458
 msgid "iCal export stopped!"
 msgstr "iCal-export avbruten!"
 
-#: app/libraries/main.php:2801 app/libraries/main.php:2831
-#: app/libraries/main.php:2860 app/libraries/main.php:2890
-#: app/libraries/main.php:2919 app/libraries/main.php:2948
-#: app/libraries/main.php:2977 app/libraries/main.php:3006
-#: app/libraries/main.php:3035 app/libraries/main.php:3059
-#: app/libraries/main.php:3103 app/libraries/main.php:3147
-#: app/libraries/main.php:3194 app/libraries/main.php:3241
+#: app/libraries/main.php:2802 app/libraries/main.php:2832
+#: app/libraries/main.php:2861 app/libraries/main.php:2891
+#: app/libraries/main.php:2920 app/libraries/main.php:2949
+#: app/libraries/main.php:2978 app/libraries/main.php:3007
+#: app/libraries/main.php:3036 app/libraries/main.php:3060
+#: app/libraries/main.php:3104 app/libraries/main.php:3148
+#: app/libraries/main.php:3195 app/libraries/main.php:3242
 msgid "Sort"
 msgstr "Sortera"
 
-#: app/libraries/main.php:2807 app/libraries/main.php:2837
-#: app/libraries/main.php:2866 app/libraries/main.php:2896
-#: app/libraries/main.php:2925 app/libraries/main.php:2954
-#: app/libraries/main.php:2983 app/libraries/main.php:3012
-#: app/libraries/main.php:3065 app/libraries/main.php:3109
-#: app/libraries/main.php:3153 app/libraries/main.php:3200
+#: app/libraries/main.php:2808 app/libraries/main.php:2838
+#: app/libraries/main.php:2867 app/libraries/main.php:2897
+#: app/libraries/main.php:2926 app/libraries/main.php:2955
+#: app/libraries/main.php:2984 app/libraries/main.php:3013
+#: app/libraries/main.php:3066 app/libraries/main.php:3110
+#: app/libraries/main.php:3154 app/libraries/main.php:3201
 msgid "Required Field"
 msgstr "Obligatoriskt fält"
 
-#: app/libraries/main.php:2813 app/libraries/main.php:2843
-#: app/libraries/main.php:2872 app/libraries/main.php:2902
-#: app/libraries/main.php:2931 app/libraries/main.php:2960
-#: app/libraries/main.php:2989 app/libraries/main.php:3018
-#: app/libraries/main.php:3071 app/libraries/main.php:3115
-#: app/libraries/main.php:3159 app/libraries/main.php:3206
+#: app/libraries/main.php:2814 app/libraries/main.php:2844
+#: app/libraries/main.php:2873 app/libraries/main.php:2903
+#: app/libraries/main.php:2932 app/libraries/main.php:2961
+#: app/libraries/main.php:2990 app/libraries/main.php:3019
+#: app/libraries/main.php:3072 app/libraries/main.php:3116
+#: app/libraries/main.php:3160 app/libraries/main.php:3207
 msgid "Insert a label for this field"
 msgstr "Fyll i en etikett för detta fält"
 
-#: app/libraries/main.php:3041
+#: app/libraries/main.php:3042
 msgid "HTML and shortcode are allowed."
 msgstr "HTML och shortcodes tillåtna."
 
-#: app/libraries/main.php:3084 app/libraries/main.php:3128
-#: app/libraries/main.php:3172
+#: app/libraries/main.php:3085 app/libraries/main.php:3129
+#: app/libraries/main.php:3173
 msgid "Option"
 msgstr "Alternativ"
 
-#: app/libraries/main.php:3206
+#: app/libraries/main.php:3207
 #, php-format
 msgid "Instead of %s, the page title with a link will be show."
 msgstr ""
 
-#: app/libraries/main.php:3208
+#: app/libraries/main.php:3209
 msgid "Agreement Page"
 msgstr ""
 
-#: app/libraries/main.php:3219
+#: app/libraries/main.php:3220
 msgid "Checked by default"
 msgstr ""
 
-#: app/libraries/main.php:3220
+#: app/libraries/main.php:3221
 msgid "Unchecked by default"
 msgstr ""
 
-#: app/libraries/main.php:3243
+#: app/libraries/main.php:3244
 msgid "Insert a label for this option"
 msgstr "Fyll i en etikett för det här alternativet"
 
-#: app/libraries/main.php:3258
+#: app/libraries/main.php:3259
 msgid "Free"
 msgstr "Kostnadsfri"
 
-#: app/libraries/main.php:3864 app/libraries/main.php:5670
+#: app/libraries/main.php:3865 app/libraries/main.php:5671
 #, fuzzy
 #| msgid "M.E. Calendar"
 msgid "M.E. Calender"
 msgstr "M.E. Calendar"
 
-#: app/libraries/main.php:4019
+#: app/libraries/main.php:4020
 #, php-format
 msgid "Copy of %s"
 msgstr "Kopia av %s"
 
-#: app/libraries/main.php:4783
+#: app/libraries/main.php:4784
 msgid "Booked an event."
 msgstr "Bokade ett evenemang."
 
-#: app/libraries/main.php:4824
+#: app/libraries/main.php:4825
 #, php-format
 msgid "%s booked %s event."
 msgstr "%s bokade %s evenemang."
 
-#: app/libraries/main.php:5403
+#: app/libraries/main.php:5404
 msgid "Taxonomies"
 msgstr "Taxonomier"
 
-#: app/libraries/main.php:5405
+#: app/libraries/main.php:5406
 msgid "Category Plural Label"
 msgstr "Kategori (plural etikett)"
 
-#: app/libraries/main.php:5406
+#: app/libraries/main.php:5407
 msgid "Category Singular Label"
 msgstr "Kategori (singular etikett)"
 
-#: app/libraries/main.php:5407
+#: app/libraries/main.php:5408
 msgid "Label Plural Label"
 msgstr "Etikett (plural etikett)"
 
-#: app/libraries/main.php:5408
+#: app/libraries/main.php:5409
 msgid "Label Singular Label"
 msgstr "Etikett (singular etikett)"
 
-#: app/libraries/main.php:5409
+#: app/libraries/main.php:5410
 msgid "Location Plural Label"
 msgstr "Plats (plural etikett)"
 
-#: app/libraries/main.php:5410
+#: app/libraries/main.php:5411
 msgid "Location Singular Label"
 msgstr "Plats (singular etikett)"
 
-#: app/libraries/main.php:5411
+#: app/libraries/main.php:5412
 msgid "Organizer Plural Label"
 msgstr "Arrangör (plural etikett)"
 
-#: app/libraries/main.php:5412
+#: app/libraries/main.php:5413
 msgid "Organizer Singular Label"
 msgstr "Arrangör (singular etikett)"
 
-#: app/libraries/main.php:5413
+#: app/libraries/main.php:5414
 #, fuzzy
 #| msgid "Label Plural Label"
 msgid "Speaker Plural Label"
 msgstr "Etikett (plural etikett)"
 
-#: app/libraries/main.php:5414
+#: app/libraries/main.php:5415
 #, fuzzy
 #| msgid "Label Singular Label"
 msgid "Speaker Singular Label"
 msgstr "Etikett (singular etikett)"
 
-#: app/libraries/main.php:5420
+#: app/libraries/main.php:5421
 msgid "Sunday abbreviation"
 msgstr "Söndag förkortning"
 
-#: app/libraries/main.php:5421
+#: app/libraries/main.php:5422
 msgid "Monday abbreviation"
 msgstr "Måndag förkortning"
 
-#: app/libraries/main.php:5422
+#: app/libraries/main.php:5423
 msgid "Tuesday abbreviation"
 msgstr "Tisdag förkortning"
 
-#: app/libraries/main.php:5423
+#: app/libraries/main.php:5424
 msgid "Wednesday abbreviation"
 msgstr "Onsdag förkortning"
 
-#: app/libraries/main.php:5424
+#: app/libraries/main.php:5425
 msgid "Thursday abbreviation"
 msgstr "Torsdag förkortning"
 
-#: app/libraries/main.php:5425
+#: app/libraries/main.php:5426
 msgid "Friday abbreviation"
 msgstr "Fredag ​​förkortning"
 
-#: app/libraries/main.php:5426
+#: app/libraries/main.php:5427
 msgid "Saturday abbreviation"
 msgstr "Lördag förkortning"
 
-#: app/libraries/main.php:5430
+#: app/libraries/main.php:5431
 msgid "Others"
 msgstr "Andra"
 
-#: app/libraries/main.php:5432
+#: app/libraries/main.php:5433
 msgid "Booking Success Message"
 msgstr "Meddelande om Framgångsrik bokning"
 
-#: app/libraries/main.php:5432
+#: app/libraries/main.php:5433
 msgid ""
 "Thanks for your booking. Your tickets booked, booking verification might be "
 "needed, please check your email."
@@ -7762,124 +7827,124 @@ msgstr ""
 "Tack för din bokning. Dina biljetter är bokade. Verifikation kan behövas, "
 "kontrollera din e-post."
 
-#: app/libraries/main.php:5433 app/widgets/single.php:131
+#: app/libraries/main.php:5434 app/widgets/single.php:131
 msgid "Register Button"
 msgstr "Knappen Registrera"
 
-#: app/libraries/main.php:5433 app/skins/available_spot/tpl.php:229
-#: app/skins/carousel/render.php:163 app/skins/carousel/render.php:201
-#: app/skins/grid/render.php:125 app/skins/grid/render.php:178
-#: app/skins/grid/render.php:225 app/skins/grid/render.php:255
-#: app/skins/list/render.php:111 app/skins/list/render.php:199
-#: app/skins/masonry/render.php:190 app/skins/single.php:785
+#: app/libraries/main.php:5434 app/skins/available_spot/tpl.php:186
+#: app/skins/carousel/render.php:106 app/skins/carousel/render.php:144
+#: app/skins/grid/render.php:82 app/skins/grid/render.php:135
+#: app/skins/grid/render.php:182 app/skins/grid/render.php:212
+#: app/skins/list/render.php:67 app/skins/list/render.php:155
+#: app/skins/masonry/render.php:146 app/skins/single.php:785
 #: app/skins/single.php:788 app/skins/single/default.php:260
 #: app/skins/single/default.php:262 app/skins/single/default.php:483
 #: app/skins/single/default.php:485 app/skins/single/m1.php:140
 #: app/skins/single/m1.php:142 app/skins/single/m2.php:66
-#: app/skins/single/m2.php:68 app/skins/single/modern.php:76
-#: app/skins/single/modern.php:78 app/skins/slider/render.php:116
-#: app/skins/slider/render.php:168 app/skins/slider/render.php:219
-#: app/skins/slider/render.php:271 app/skins/slider/render.php:334
+#: app/skins/single/m2.php:68 app/skins/single/modern.php:77
+#: app/skins/single/modern.php:79 app/skins/slider/render.php:71
+#: app/skins/slider/render.php:95 app/skins/slider/render.php:118
+#: app/skins/slider/render.php:142 app/skins/slider/render.php:177
 msgid "REGISTER"
 msgstr "REGISTER"
 
-#: app/libraries/main.php:5434
+#: app/libraries/main.php:5435
 msgid "View Detail Button"
 msgstr "Knappen Visa detaljer"
 
-#: app/libraries/main.php:5434 app/skins/carousel/render.php:163
-#: app/skins/carousel/render.php:201 app/skins/grid/render.php:125
-#: app/skins/grid/render.php:178 app/skins/grid/render.php:225
-#: app/skins/grid/render.php:255 app/skins/list/render.php:111
-#: app/skins/list/render.php:199 app/skins/masonry/render.php:190
-#: app/skins/slider/render.php:116 app/skins/slider/render.php:168
-#: app/skins/slider/render.php:219 app/skins/slider/render.php:271
-#: app/skins/slider/render.php:334
+#: app/libraries/main.php:5435 app/skins/carousel/render.php:106
+#: app/skins/carousel/render.php:144 app/skins/grid/render.php:82
+#: app/skins/grid/render.php:135 app/skins/grid/render.php:182
+#: app/skins/grid/render.php:212 app/skins/list/render.php:67
+#: app/skins/list/render.php:155 app/skins/masonry/render.php:146
+#: app/skins/slider/render.php:71 app/skins/slider/render.php:95
+#: app/skins/slider/render.php:118 app/skins/slider/render.php:142
+#: app/skins/slider/render.php:177
 msgid "View Detail"
 msgstr "Visa detaljer"
 
-#: app/libraries/main.php:5435
+#: app/libraries/main.php:5436
 msgid "Event Detail Button"
 msgstr "Knappen Evenemagsdetaljer"
 
-#: app/libraries/main.php:5435 app/skins/countdown/tpl.php:252
+#: app/libraries/main.php:5436 app/skins/countdown/tpl.php:209
 msgid "Event Detail"
 msgstr "Evenemangsdetalj"
 
-#: app/libraries/main.php:5437
+#: app/libraries/main.php:5438
 msgid "More Info Link"
 msgstr "Länken ”Mer information”"
 
-#: app/libraries/main.php:5440
+#: app/libraries/main.php:5441
 msgid "Ticket (Singular)"
 msgstr ""
 
-#: app/libraries/main.php:5441
+#: app/libraries/main.php:5442
 msgid "Tickets (Plural)"
 msgstr ""
 
-#: app/libraries/main.php:5527
+#: app/libraries/main.php:5528
 msgid "EventON"
 msgstr ""
 
-#: app/libraries/main.php:5528
+#: app/libraries/main.php:5529
 msgid "The Events Calendar"
 msgstr ""
 
-#: app/libraries/main.php:5529
+#: app/libraries/main.php:5530
 msgid "Events Schedule WP Plugin"
 msgstr ""
 
-#: app/libraries/main.php:5530
+#: app/libraries/main.php:5531
 msgid "Calendarize It"
 msgstr ""
 
-#: app/libraries/main.php:5531
+#: app/libraries/main.php:5532
 #, fuzzy
 #| msgid "No Search Options"
 msgid "Event Espresso"
 msgstr "Ingen sökalternativ"
 
-#: app/libraries/main.php:5532
+#: app/libraries/main.php:5533
 #, fuzzy
 #| msgid "Event Repeating"
 msgid "Events Manager (Recurring)"
 msgstr "Upprepande evenemang"
 
-#: app/libraries/main.php:5533
+#: app/libraries/main.php:5534
 #, fuzzy
 #| msgid "Modern Events Calendar"
 msgid "Events Manager (Single)"
 msgstr "Modern Events Calendar"
 
-#: app/libraries/main.php:5607 app/libraries/main.php:5627
+#: app/libraries/main.php:5608 app/libraries/main.php:5628
 msgid "Confirmed"
 msgstr "Bekräftad"
 
-#: app/libraries/main.php:5608 app/libraries/main.php:5635
+#: app/libraries/main.php:5609 app/libraries/main.php:5636
 msgid "Rejected"
 msgstr "Avvisad"
 
-#: app/libraries/main.php:5609 app/libraries/main.php:5631
+#: app/libraries/main.php:5610 app/libraries/main.php:5632
 msgid "Pending"
 msgstr "Väntande"
 
-#: app/libraries/main.php:5657
+#: app/libraries/main.php:5658
 msgid "Waiting"
 msgstr "Väntar"
 
-#: app/libraries/main.php:5862 app/libraries/render.php:80
+#: app/libraries/main.php:5863 app/libraries/render.php:80
 #: app/libraries/render.php:418
 msgid "Skin controller does not exist."
 msgstr "Tema-kontroll existerar inte."
 
-#: app/libraries/main.php:5977
+#: app/libraries/main.php:5978
 #, fuzzy
 #| msgid "Sold out!"
 msgid "Sold Out"
 msgstr "Slutsåld!"
 
-#: app/libraries/main.php:5985
+#: app/libraries/main.php:5986
 #, fuzzy
 #| msgid "Ticket"
 msgid "Last Few Tickets"
@@ -7889,52 +7954,52 @@ msgstr "Biljett"
 msgid "Please verify your email."
 msgstr "Bekräfta din e-postadress."
 
-#: app/libraries/notifications.php:153
+#: app/libraries/notifications.php:156
 msgid "Your booking is received."
 msgstr ""
 
-#: app/libraries/notifications.php:272
+#: app/libraries/notifications.php:278
 msgid "Your booking is confirmed."
 msgstr "Din bokning är bekräftad."
 
-#: app/libraries/notifications.php:439
+#: app/libraries/notifications.php:448
 #, fuzzy
 #| msgid "Your booking cannot be canceled."
 msgid "booking canceled."
 msgstr "Din bokning kan inte avbrytas."
 
-#: app/libraries/notifications.php:514
+#: app/libraries/notifications.php:526
 msgid "A new booking is received."
 msgstr "En ny bokning är mottagen."
 
-#: app/libraries/notifications.php:738
+#: app/libraries/notifications.php:756
 msgid "A new event is added."
 msgstr "Ett nytt evenemang läggs till."
 
-#: app/libraries/notifications.php:807
+#: app/libraries/notifications.php:828
 #, fuzzy
 #| msgid "The event published."
 msgid "Your event is published."
 msgstr "Evenemanget är nu publicerat."
 
-#: app/libraries/notifications.php:1043 app/libraries/notifications.php:1054
-#: app/libraries/notifications.php:1056
+#: app/libraries/notifications.php:1067 app/libraries/notifications.php:1078
+#: app/libraries/notifications.php:1080
 msgid "to"
 msgstr ""
 
-#: app/libraries/notifications.php:1071 app/modules/export/details.php:46
+#: app/libraries/notifications.php:1095 app/modules/export/details.php:46
 msgid "+ Add to Google Calendar"
 msgstr "+ Lägg till i Google Kalender"
 
-#: app/libraries/notifications.php:1072 app/modules/export/details.php:47
+#: app/libraries/notifications.php:1096 app/modules/export/details.php:47
 msgid "+ iCal export"
 msgstr "+ iCal-export"
 
-#: app/libraries/notifications.php:1135
+#: app/libraries/notifications.php:1159
 msgid "Yes"
 msgstr ""
 
-#: app/libraries/notifications.php:1135
+#: app/libraries/notifications.php:1159
 msgid "No"
 msgstr ""
 
@@ -7970,13 +8035,13 @@ msgstr "Rabattkupong"
 msgid "Apply Coupon"
 msgstr "Aktivera rabattkupong"
 
-#: app/modules/booking/steps/checkout.php:76
-msgid "Free Booking"
+#: app/modules/booking/steps/checkout.php:69
+#: app/modules/booking/steps/form.php:178
+msgid "Back"
 msgstr ""
 
-#: app/modules/booking/steps/checkout.php:79
-#: app/modules/booking/steps/form.php:179
-msgid "Back"
+#: app/modules/booking/steps/checkout.php:77
+msgid "Free Booking"
 msgstr ""
 
 #: app/modules/booking/steps/form.php:52
@@ -8085,7 +8150,7 @@ msgstr "Gå till händelse-sida"
 
 #: app/modules/next-event/details.php:98 app/skins/single.php:758
 #: app/skins/single/default.php:102 app/skins/single/default.php:325
-#: app/skins/single/m1.php:37 app/skins/single/modern.php:192
+#: app/skins/single/m1.php:37 app/skins/single/modern.php:193
 msgid "Time"
 msgstr "Tid"
 
@@ -8150,42 +8215,42 @@ msgstr "Inget evenemang hittades!"
 #: app/skins/agenda/tpl.php:81 app/skins/custom/tpl.php:76
 #: app/skins/grid/tpl.php:83 app/skins/list/tpl.php:88
 #: app/skins/masonry/tpl.php:77 app/skins/tile/tpl.php:133
-#: app/skins/timeline/tpl.php:71 app/skins/yearly_view/render.php:126
+#: app/skins/timeline/tpl.php:71 app/skins/yearly_view/render.php:83
 msgid "Load More"
 msgstr "Visa fler"
 
-#: app/skins/available_spot/tpl.php:163
+#: app/skins/available_spot/tpl.php:120
 msgid "Available Spot(s):"
 msgstr ""
 
-#: app/skins/carousel/render.php:223 app/skins/countdown/tpl.php:189
-#: app/skins/countdown/tpl.php:234 app/skins/cover/tpl.php:116
-#: app/skins/list/render.php:132
+#: app/skins/carousel/render.php:166 app/skins/countdown/tpl.php:146
+#: app/skins/countdown/tpl.php:191 app/skins/cover/tpl.php:72
+#: app/skins/list/render.php:88
 msgid "EVENT DETAIL"
 msgstr "EVENEMANGSDETALJ"
 
-#: app/skins/carousel/render.php:235
+#: app/skins/carousel/render.php:178
 #, fuzzy
 #| msgid "All Events"
 msgid "View All Events"
 msgstr "Alla evenemang"
 
-#: app/skins/countdown/tpl.php:150 app/skins/countdown/tpl.php:195
-#: app/skins/countdown/tpl.php:241
+#: app/skins/countdown/tpl.php:107 app/skins/countdown/tpl.php:152
+#: app/skins/countdown/tpl.php:198
 #, php-format
 msgid "%s Upcoming Event"
 msgstr "%s kommande evenemang"
 
-#: app/skins/cover/tpl.php:96
+#: app/skins/cover/tpl.php:52
 msgid "featured event"
 msgstr "Utvalt evenemang"
 
-#: app/skins/daily_view/render.php:86
+#: app/skins/daily_view/render.php:42
 msgid "No event"
 msgstr "Inget evenemang"
 
-#: app/skins/default_full_calendar/tpl.php:76
-#: app/skins/full_calendar/tpl.php:126
+#: app/skins/default_full_calendar/tpl.php:75
+#: app/skins/full_calendar/tpl.php:122
 msgid "List"
 msgstr "Lista"
 
@@ -8194,16 +8259,16 @@ msgid "All"
 msgstr ""
 
 #: app/skins/monthly_view/calendar.php:69
-#: app/skins/monthly_view/calendar.php:161
-#: app/skins/monthly_view/calendar_clean.php:69
-#: app/skins/monthly_view/calendar_clean.php:175
+#: app/skins/monthly_view/calendar.php:110
+#: app/skins/monthly_view/calendar_clean.php:68
+#: app/skins/monthly_view/calendar_clean.php:119
 #, php-format
 msgid "Events for %s"
 msgstr "Evenemang under %s"
 
-#: app/skins/monthly_view/calendar.php:163
-#: app/skins/monthly_view/calendar_clean.php:177
-#: app/skins/timetable/render.php:124 app/skins/weekly_view/render.php:99
+#: app/skins/monthly_view/calendar.php:112
+#: app/skins/monthly_view/calendar_clean.php:121
+#: app/skins/timetable/render.php:81 app/skins/weekly_view/render.php:54
 msgid "No Events"
 msgstr "Inga evenemang"
 
@@ -8213,21 +8278,21 @@ msgstr ""
 
 #: app/skins/single.php:554 app/skins/single/default.php:51
 #: app/skins/single/m1.php:261 app/skins/single/m2.php:182
-#: app/skins/single/modern.php:270
+#: app/skins/single/modern.php:271
 msgid "Sold out!"
 msgstr "Slutsåld!"
 
 #: app/skins/single.php:833 app/skins/single.php:888
 #: app/skins/single/default.php:227 app/skins/single/default.php:450
 #: app/skins/single/m1.php:109 app/skins/single/m2.php:35
-#: app/skins/single/modern.php:44
+#: app/skins/single/modern.php:45
 msgid "Phone"
 msgstr "Telefon"
 
 #: app/skins/single.php:847 app/skins/single.php:902
 #: app/skins/single/default.php:241 app/skins/single/default.php:464
 #: app/skins/single/m1.php:123 app/skins/single/m2.php:49
-#: app/skins/single/modern.php:58
+#: app/skins/single/modern.php:59
 msgid "Website"
 msgstr "Webbplats"
 
@@ -8238,17 +8303,17 @@ msgid "Speakers:"
 msgstr "Ingen sökalternativ"
 
 #: app/skins/single/default.php:69 app/skins/single/m1.php:278
-#: app/skins/single/m2.php:199 app/skins/single/modern.php:288
+#: app/skins/single/m2.php:199 app/skins/single/modern.php:289
 msgid "Tags: "
 msgstr "Taggar: "
 
-#: app/skins/timeline/render.php:135
+#: app/skins/timeline/render.php:90
 #, fuzzy
 #| msgid "Title of event"
 msgid "Register for event"
 msgstr "Titel för evenemang"
 
-#: app/skins/timeline/render.php:135
+#: app/skins/timeline/render.php:90
 #, fuzzy
 #| msgid "View Detail"
 msgid "View Details"
@@ -8364,6 +8429,11 @@ msgstr ""
 #~| msgid "%s facebook events imported/updated."
 #~ msgid "%s Facebook events imported/updated."
 #~ msgstr "%s Facebook-evenemang importerade/uppdaterade."
+
+#, fuzzy
+#~| msgid "Auto Google Calendar import is disabled!"
+#~ msgid "Auto Google Calendar export is disabled!"
+#~ msgstr "Google Kalender auto-import är inaktiverat!"
 
 #~ msgid "Auto Google Calendar import is disabled!"
 #~ msgstr "Google Kalender auto-import är inaktiverat!"

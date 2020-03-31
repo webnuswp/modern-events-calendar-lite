@@ -617,6 +617,8 @@ class MEC_feature_popup extends MEC_base
         // For Event Notification Badge.
         update_post_meta($post_id, 'mec_event_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
+        do_action('mec_after_publish_admin_event', $post_id, false);
+
         $this->main->response(array(
             'success' => 1,
             'id' => $post_id,

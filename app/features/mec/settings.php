@@ -763,6 +763,12 @@ $get_n_option = get_option('mec_addons_notification_option');
                             </div>
                             <div class="mec-form-row">
                                 <label>
+                                    <input type="hidden" name="mec[settings][fes_section_schema]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_schema]" <?php if(!isset($settings['fes_section_schema']) or (isset($settings['fes_section_schema']) and $settings['fes_section_schema'])) echo 'checked="checked"'; ?> /> <?php _e('SEO Schema', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div class="mec-form-row">
+                                <label>
                                     <input type="hidden" name="mec[settings][fes_note]" value="0" />
                                     <input onchange="jQuery('#mec_fes_note_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][fes_note]" <?php if(isset($settings['fes_note']) and $settings['fes_note']) echo 'checked="checked"'; ?> /> <?php _e('Event Note', 'modern-events-calendar-lite'); ?>
                                 </label>

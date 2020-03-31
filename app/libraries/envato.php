@@ -48,11 +48,6 @@ class MEC_envato extends MEC_base
      */
     public $slug;
 
-    /**
-     * User for cashing directory
-     */
-    protected $cache_dir = 'cache';
-
     public $main;
     public $factory;
     public $settings;
@@ -83,15 +78,12 @@ class MEC_envato extends MEC_base
     /**
      * Get API URL.
      * @author Webnus <info@webnus.biz>
-     * @param string $api_url
+     * @return string $api_url
      */
     public static function get_api_url()
     {
-        if (get_headers('https://webnus.biz')[0] != 'HTTP/1.1 200 OK') {
-            $api_url = 'https://webnus.net/api';
-        } else {
-            $api_url = 'http://webnus.biz/webnus.net';
-        }
+        if(ini_get('allow_url_fopen') and get_headers('https://webnus.biz')[0] != 'HTTP/1.1 200 OK') $api_url = 'https://webnus.net/api';
+        else $api_url = 'http://webnus.biz/webnus.net';
 
         return $api_url;
     }
@@ -179,9 +171,6 @@ class MEC_envato extends MEC_base
         // Get the remote version
         $version = json_decode(json_encode($this->get_MEC_info('version')->version), true);
 
-        // Set mec update path
-        $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
-
         // If a newer version is available, add the update
         if(version_compare($this->current_version, $version, '<'))
         {
@@ -216,7 +205,6 @@ class MEC_envato extends MEC_base
      */
     public function check_info($false, $action, $arg)
     {
-        $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
         $version = json_decode(json_encode($this->get_MEC_info('version')->version), true);
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/addons-api.json';
         
@@ -226,7 +214,6 @@ class MEC_envato extends MEC_base
             if($get_data !== false AND !empty($get_data))
             {
                 $obj = json_decode($get_data);
-                $i = count((array)$obj);
             }
         }
         elseif(function_exists('curl_version'))
@@ -238,7 +225,6 @@ class MEC_envato extends MEC_base
             $result = curl_exec($ch);
             curl_close($ch);
             $obj = json_decode($result);
-            $i = count((array)$obj);
         }
         else $obj = '';
 
@@ -250,7 +236,7 @@ class MEC_envato extends MEC_base
             {
                 $addons .= '
                 <div class="mec-details-addons-wrap">
-                    <a href="https://webnus.net/modern-events-calendar/addons/" target="_blank"><img src="'.$value->img.'" /></a>
+                    <a href="https://webnus.net/modern-events-calendar/addons/" target="_blank"><img alt="'.esc_attr($value->name).'" src="'.$value->img.'" /></a>
                     <div class="mec-details-addons-title"><a href="https://webnus.net/modern-events-calendar/addons/" target="_blank"><span>'. esc_html__($value->name) .'</span></a></div>
                     <p>'. esc_html__($value->desc) .'</p>
                 </div>';

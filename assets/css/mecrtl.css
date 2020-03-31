@@ -65,8 +65,6 @@
 	/*	Text align right
 	====================================================*/
 	.mec-event-cover-classic .mec-btn-wrapper { text-align: right; }
-	
-
 
 	/* #General
 	================================================== */
@@ -90,7 +88,7 @@
 	.mec-fes-list ul li .mec-fes-event-remove, .mec-fes-list ul li .mec-fes-event-view { float: left;}
 	.mec-fes-form input[type=checkbox], .mec-fes-form input[type=radio]  { float: right; margin: 5px;}
 	.mec-fes-form #mec_fes_form .mec-form-row #mec_cost { float:none;}
-	.mec-meta-box-fields .mec-form-row { overflow: hidden;}
+	/* .mec-meta-box-fields .mec-form-row { overflow: hidden;} */
 	.mec-fes-form label {padding-right: 0;}
 
 	/* #Search Form (top bar skin's)
@@ -138,7 +136,9 @@
 	/* Single Events Sidebar */
 	.single-mec-events .mec-wrap .col-md-4 {direction: rtl;float: right;}
 	/* Single Events */
-	.single-mec-events .mec-wrap .col-md-4 {margin-top: -50px;}
+	.single-mec-events .mec-wrap .mec-single-modern .col-md-4 {margin-top: -50px;}
+	.mec-events-template-default .mec-wrap .col-md-4 {margin-top: 0; float: left;}
+	.mec-events-template-default .mec-wrap .col-md-8 {margin-top: 0; float: right;}
 	.single-mec-events .mec-single-modern .mec-single-event-bar {padding: 14px 0;}
 	.single-mec-events .mec-single-modern .col-md-4 .mec-frontbox {margin: 0;}
 	.single-mec-events .mec-single-event .mec-events-meta-group-booking form>h4:before, .mec-single-event .mec-frontbox-title:before {transform: translate(-50%); margin: 0;}
@@ -146,7 +146,7 @@
 	.single-mec-events .mec-single-event .mec-booking-button {position: relative; z-index: 2;}
 	.single-mec-events .mec-wrap .mec-single-event .mec-event-meta dd a i:before   {content: '\f104'; line-height: 32px; }
 	.single-mec-events .mec-wrap .mec-single-event .mec-event-meta dd.mec-events-event-categories:after {display: none;}
-
+	.single-mec-events .mec-wrap .mec-book-form-btn-wrap {float: right;}
 	/* #List View
 	================================================== */
 	/* List View Standard */
@@ -202,6 +202,12 @@
 	/* Full Calendar View > List View */
 	.mec-wrap .mec-event-list-standard .mec-date-details:before, .mec-event-list-standard .mec-time-details:before, .mec-event-list-standard .mec-venue-details:before { right:0; text-align:right;}
 	.mec-wrap .mec-event-meta.mec-color-before span { margin-right: 28px;}
+	/* Full Calendar View > Yearly View */
+	.mec-wrap .mec-timetable-t2-col {float: right;}
+	.mec-wrap .mec-agenda-date-wrap {float: right;}
+	.mec-wrap .mec-agenda-events-wrap {float: left;}
+	.mec-wrap .mec-yearly-view-wrap .mec-yearly-calendar-sec {float: right;}
+	.mec-wrap .mec-yearly-agenda-sec {float: left; padding: 0 20px 0  0;}
 
 	/* #Calendar/Monthly View
 	================================================== */
@@ -239,9 +245,26 @@
 	.mec-wrap .mec-event-countdown-style3 .mec-event-date { left: auto; right: -27px;}
 	.mec-wrap .mec-event-countdown-style3 .mec-event-date:after { left:auto; right:8px;  transform: rotate(-45deg);}
 
+	/* #Masonry View
+	================================================== */
+	.mec-wrap .mec-masonry .mec-event-content .mec-event-description {display: block; direction: rtl; text-align: right;}
+	.mec-wrap .mec-masonry .mec-event-grid-modern .mec-event-content .mec-event-title .event-color { float: left;}
+	.mec-wrap .mec-masonry .event-grid-modern-head .mec-event-date {margin: 0 0 0 11px;}
+	.mec-wrap .mec-masonry .mec-masonry-col6 i {float: right; margin: 0 0 0 7px;}
+
+	/* #Tile View
+	================================================== */
+	.mec-event-tile-view article.mec-tile-item .mec-event-time {right: auto; left: 4px;}
+
+	/* #Timetable
+	================================================== */
+	.mec-wrap .mec-timetable-t2-content { direction: rtl; text-align: right;}
+	.mec-wrap .mec-timetable-t2-content div {text-align: right;}
+	.mec-wrap .mec-timetable-t2-content div i {margin-right: 0;margin-left: 5px;}
+	.mec-wrap .mec-timetable-t2-content div span {float: left;text-align: right;width: calc( 100% - 22px);}
+
 	/* #Slider View
 	================================================== */
-
 	.mec-wrap .mec-event-content .mec-event-title a.mec-color-hover { float: right;}
 	.mec-wrap .mec-event-content .mec-event-title .event-color { float: left;}
 
@@ -284,6 +307,12 @@
 	.mec-wrap .mec-slider-t4-wrap .mec-owl-theme .owl-nav div.owl-prev { left:30px; right:auto;}
 	.mec-wrap .mec-slider-t4-wrap .mec-owl-theme .owl-nav div.owl-next { left:82px; right:auto;}
 
+	/* #FES Form
+	================================================== */
+	.mec-fes-form .mec-fes-form-cntt, .mec-fes-form .mec-fes-form-sdbr {direction: rtl;text-align: right;}
+	.mec-fes-form .mec-fes-form-cntt { float: right; padding-right: 0; padding-left: 20px;}
+	.mec-fes-form .mec-fes-form-sdbr { padding-right: 20px; padding-left: 0;}
+	.mec-fes-form .mec-fes-form-cntt .mec-col-4, .mec-fes-form .mec-fes-form-sdbr .mec-col-4 {float: unset;}
 
 	/* #Responsive
 	================================================== */

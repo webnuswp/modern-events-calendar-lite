@@ -949,7 +949,6 @@ class MEC_render extends MEC_base
     
         // Set last month for include current month results
         $month = date('m', strtotime('first day of last month', strtotime($event_info['start']['date'])));
-        $current_day = date("d", strtotime($event_info['start']['date']));
 
         if($month == '12') $year = $year - 1;
     
@@ -995,7 +994,7 @@ class MEC_render extends MEC_base
                 $index = intval($d[1]) ? (intval($d[1]) - 1) : 4;
     
                 // Generate date
-                $date = "{$year}-{$month}-{$current_day}";
+                $date = date('Y-m-t', strtotime("{$year}-{$month}-01"));
     
                 // Generate start date for example "first Sun of next month"
                 $start = date('Y-m-d', strtotime("{$levels[$index]} {$d[0]} of next month", strtotime($date)));

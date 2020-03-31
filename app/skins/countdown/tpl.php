@@ -6,10 +6,10 @@ $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+
+$dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark = '';
 
 // Event is not valid!
 if(!isset($event->data)) return;
@@ -70,23 +70,6 @@ if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'S
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') == true) $gmt_offset = substr(trim($gmt_offset), 0 , 3);
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true) $gmt_offset = substr(trim($gmt_offset), 2 , 3);
 
-$speakers = '""';
-if(!empty($event->data->speakers))
-{
-    $speakers= [];
-    foreach($event->data->speakers as $key => $value)
-    {
-        $speakers[] = array(
-            "@type" 	=> "Person",
-            "name"		=> $value['name'],
-            "image"		=> $value['thumbnail'],
-            "sameAs"	=> $value['facebook'],
-        );
-    }
-
-    $speakers = json_encode($speakers);
-}
-
 // Generating javascript code of countdown module
 $javascript = '<script type="text/javascript">
 jQuery(document).ready(function()
@@ -105,7 +88,8 @@ jQuery(document).ready(function()
 // Include javascript code into the page
 if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
-do_action('mec_start_skin' , $this->id);
+
+do_action('mec_start_skin', $this->id);
 do_action('mec_countdown_skin_head');
 ?>
 <style>
@@ -114,36 +98,9 @@ do_action('mec_countdown_skin_head');
 </style>
 <div class="mec-wrap <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
 <?php
-    $schema_settings = isset( $settings['schema'] ) ? $settings['schema'] : '';
-    if($schema_settings == '1' ):
-?>
-    <script type="application/ld+json">
-    {
-        "@context" 		: "http://schema.org",
-        "@type" 		: "Event",
-        "startDate" 	: "<?php echo !empty( $event->data->meta['mec_date']['start']['date'] ) ? $event->data->meta['mec_date']['start']['date'] : '' ; ?>",
-        "endDate" 		: "<?php echo !empty( $event->data->meta['mec_date']['end']['date'] ) ? $event->data->meta['mec_date']['end']['date'] : '' ; ?>",
-        "location" 		:
-        {
-            "@type" 		: "Place",
-            "name" 			: "<?php echo (isset($location['name']) ? $location['name'] : ''); ?>",
-            "image"			: "<?php echo (isset($location['thumbnail']) ? esc_url($location['thumbnail'] ) : '');; ?>",
-            "address"		: "<?php echo (isset($location['address']) ? $location['address'] : ''); ?>"
-        },
-        "offers": {
-            "url": "<?php echo $event->data->permalink; ?>",
-            "price": "<?php echo isset($event->data->meta['mec_cost']) ? $event->data->meta['mec_cost'] : '' ; ?>",
-            "priceCurrency" : "<?php echo isset($settings['currency']) ? $settings['currency'] : ''; ?>"
-        },
-        "performer": <?php echo $speakers; ?>,
-        "description" 	: "<?php  echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', preg_replace('/\s/u', ' ', $event->data->post->post_content))); ?>",
-        "image" 		: "<?php echo !empty($event->data->featured_image['full']) ? esc_html($event->data->featured_image['full']) : '' ; ?>",
-        "name" 			: "<?php esc_html_e($event->data->title); ?>",
-        "url"			: "<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"
-    }
-    </script>
-    <?php
-    endif;
+    // MEC Schema
+    do_action('mec_schema', $event);
+
     if($this->style == 'style1'): ?>
     <article class="mec-event-countdown-style1 col-md-12 <?php echo $this->get_event_classes($event); ?>">
         <div class="mec-event-countdown-part1 col-md-4">

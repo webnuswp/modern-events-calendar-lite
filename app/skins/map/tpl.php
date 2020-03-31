@@ -50,6 +50,7 @@ if(count($this->events))
     if($this->main->is_ajax()) echo $javascript;
     else $this->factory->params('footer', $javascript);
 }
+
 do_action('mec_start_skin', $this->id);
 do_action('mec_map_skin_head');
 ?>

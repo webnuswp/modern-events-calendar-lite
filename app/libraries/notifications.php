@@ -94,6 +94,9 @@ class MEC_notifications extends MEC_base
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
         $link = trim(get_permalink($event_id), '/').'/verify/'.$key.'/';
 
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
+
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
 
@@ -188,6 +191,9 @@ class MEC_notifications extends MEC_base
 
         // Do not send email twice!
         $done_emails = array();
+
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
 
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
@@ -300,6 +306,9 @@ class MEC_notifications extends MEC_base
 
         // Do not send email twice!
         $done_emails = array();
+
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
 
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
@@ -438,6 +447,9 @@ class MEC_notifications extends MEC_base
 
         $subject = isset($this->notif_settings['cancellation_notification']['subject']) ? $this->content(__($this->notif_settings['cancellation_notification']['subject'], 'modern-events-calendar-lite'), $book_id) : __('booking canceled.', 'modern-events-calendar-lite');
 
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
+
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
 
@@ -557,6 +569,9 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
         }
 
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
+
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
         $message = '
@@ -632,6 +647,9 @@ class MEC_notifications extends MEC_base
         // Attendees
         $attendees = get_post_meta($book_id, 'mec_attendees', true);
         if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) $attendees = array(get_post_meta($book_id, 'mec_attendee', true));
+
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
 
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
@@ -765,6 +783,9 @@ class MEC_notifications extends MEC_base
         // Notification Subject
         $subject = str_replace('%%event_title%%', get_the_title($event_id), $subject);
 
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
+
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
 
@@ -850,6 +871,9 @@ class MEC_notifications extends MEC_base
 
             // Notification Subject
             $subject = str_replace('%%event_title%%', get_the_title($post->ID), $subject);
+
+            // Changing some sender email info.
+            $this->mec_sender_email_notification_filter();
 
             // Set Email Type to HTML
             add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
@@ -1147,6 +1171,13 @@ class MEC_notifications extends MEC_base
         return $attendees_full_info;
     }
 
+    public function mec_sender_email_notification_filter()
+    {
+        // MEC Notification Sender Email
+        add_filter('wp_mail_from_name', array($this, 'notification_sender_name'));
+        add_filter('wp_mail_from', array($this, 'notification_sender_email'));
+    }
+    
      /**
      * Change Notification Sender Name
      * @return string

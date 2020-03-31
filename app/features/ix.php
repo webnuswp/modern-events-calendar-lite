@@ -3735,20 +3735,39 @@ class MEC_feature_ix extends MEC_base
 
             $recurrence = $this->main->get_ical_rrules($data);
 
+            $start_time = sprintf("%02d", $data->meta['mec_start_time_hour']).':';
+            $start_time .= sprintf("%02d", $data->meta['mec_start_time_minutes']).' ';
+            $start_time .= $data->meta['mec_start_time_ampm'];
+
+            $start = array(
+                'dateTime'=>date('Y-m-d\TH:i:s', strtotime($date['start']['date'].' '.$start_time)).$gmt_offset,
+                'timeZone'=>$timezone,
+            );
+
+            $end_time = sprintf("%02d", $data->meta['mec_end_time_hour']).':';
+            $end_time .= sprintf("%02d", $data->meta['mec_end_time_minutes']).' ';
+            $end_time .= $data->meta['mec_end_time_ampm'];
+
+            $end = array(
+                'dateTime'=>date('Y-m-d\TH:i:s', strtotime($date['end']['date'].' '.$end_time)).$gmt_offset,
+                'timeZone'=>$timezone,
+            );
+
+            $allday = isset($data->meta['mec_allday']) ? $data->meta['mec_allday'] : 0;
+            if($allday)
+            {
+                $start['dateTime'] = date('Y-m-d\T00:00:00', strtotime($start['dateTime'])).$gmt_offset;
+                $end['dateTime'] = date('Y-m-d\T00:00:00', strtotime('+1 Day', strtotime($end['dateTime']))).$gmt_offset;
+            }
+
             // Event Data
             $event_data = array
             (
                 'summary'=>$data->title,
                 'location'=>(isset($location['address']) ? $location['address'] : (isset($location['name']) ? $location['name'] : '')),
                 'description'=>strip_tags(strip_shortcodes($data->content)),
-                'start'=>array(
-                    'dateTime'=>date('Y-m-d\TH:i:s', strtotime($date['start']['date'].' '.$data->time['start'])).$gmt_offset,
-                    'timeZone'=>$timezone,
-                ),
-                'end'=>array(
-                    'dateTime'=>date('Y-m-d\TH:i:s', strtotime($date['end']['date'].' '.$data->time['end'])).$gmt_offset,
-                    'timeZone'=>$timezone,
-                ),
+                'start'=>$start,
+                'end'=>$end,
                 'recurrence'=>$recurrence,
                 'attendees'=>array(),
                 'reminders'=>array(),

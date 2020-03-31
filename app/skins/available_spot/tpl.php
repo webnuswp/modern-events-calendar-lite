@@ -6,10 +6,10 @@ $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+$dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
+
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark ='';
 
 // Event is not valid!
 if(!isset($event->data)) return;
@@ -99,58 +99,15 @@ foreach($availability as $ticket_id=>$count)
     }
 }
 
-$speakers = '""';
-if(!empty($event->data->speakers))
-{
-    $speakers= [];
-    foreach($event->data->speakers as $key => $value)
-    {
-        $speakers[] = array(
-            "@type" 	=> "Person",
-            "name"		=> $value['name'],
-            "image"		=> $value['thumbnail'],
-            "sameAs"	=> $value['facebook'],
-        );
-    }
-
-    $speakers = json_encode($speakers);
-}
-
 do_action('mec_start_skin' , $this->id);
 do_action('mec_available_spot_skin_head');
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
     <div class="mec-av-spot-wrap">
-    <?php
-        $schema_settings = isset( $settings['schema'] ) ? $settings['schema'] : '';
-        if($schema_settings == '1' ):
-    ?>
-        <script type="application/ld+json">
-        {
-            "@context" 		: "http://schema.org",
-            "@type" 		: "Event",
-            "startDate" 	: "<?php echo !empty( $event->data->meta['mec_date']['start']['date'] ) ? $event->data->meta['mec_date']['start']['date'] : '' ; ?>",
-            "endDate" 		: "<?php echo !empty( $event->data->meta['mec_date']['end']['date'] ) ? $event->data->meta['mec_date']['end']['date'] : '' ; ?>",
-            "location" 		:
-            {
-                "@type" 		: "Place",
-                "name" 			: "<?php echo (isset($location['name']) ? $location['name'] : ''); ?>",
-                "image"			: "<?php echo (isset($location['thumbnail']) ? esc_url($location['thumbnail'] ) : '');; ?>",
-                "address"		: "<?php echo (isset($location['address']) ? $location['address'] : ''); ?>"
-            },
-            "offers": {
-                            "url": "<?php echo $event->data->permalink; ?>",
-                            "price": "<?php echo isset($event->data->meta['mec_cost']) ? $event->data->meta['mec_cost'] : '' ; ?>",
-                            "priceCurrency" : "<?php echo isset($settings['currency']) ? $settings['currency'] : ''; ?>"
-                        },
-            "performer": <?php echo $speakers; ?>,
-            "description" 	: "<?php  echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', preg_replace('/\s/u', ' ', $event->data->post->post_content))); ?>",
-            "image" 		: "<?php echo !empty($event->data->featured_image['full']) ? esc_html($event->data->featured_image['full']) : '' ; ?>",
-            "name" 			: "<?php esc_html_e($event->data->title); ?>",
-            "url"			: "<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"
-        }
-        </script>
-        <?php endif; ?>        
+        <?php
+            // MEC Schema
+            do_action('mec_schema', $event);
+        ?>
         <div class="mec-av-spot">
             <article data-style="<?php echo $label_style; ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
 

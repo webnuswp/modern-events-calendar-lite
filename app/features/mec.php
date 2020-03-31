@@ -105,11 +105,8 @@ class MEC_feature_mec extends MEC_base
         $this->factory->action('mec_booking_confirmed', array($this->notifications, 'booking_confirmation'), 10, 2);
         $this->factory->action('mec_booking_canceled', array($this->notifications, 'booking_cancellation'), 12);
         $this->factory->action('mec_fes_added', array($this->notifications, 'new_event'), 50, 3);
+        $this->factory->action('mec_after_publish_admin_event', array($this->notifications, 'new_event'), 10,3);
         $this->factory->action('mec_event_published', array($this->notifications, 'user_event_publishing'), 10, 3);
-
-        // MEC Notification Sender Email
-        $this->factory->filter('wp_mail_from_name', array($this->notifications, 'notification_sender_name'));
-        $this->factory->filter('wp_mail_from', array($this->notifications, 'notification_sender_email'));
 
         $this->page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : 'MEC-settings';
 
