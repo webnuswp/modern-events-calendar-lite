@@ -68,6 +68,12 @@ class MEC_skin_weekly_view extends MEC_skins
 
         // Image popup
         $this->image_popup = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
+
+        // reason_for_cancellation
+        $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
+        // display_label
+        $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
         
         // From Widget
         $this->widget = (isset($this->atts['widget']) and trim($this->atts['widget'])) ? true : false;

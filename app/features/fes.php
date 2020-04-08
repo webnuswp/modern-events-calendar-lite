@@ -521,6 +521,7 @@ class MEC_feature_fes extends MEC_base
 
                     $latitude = (isset($mec['location']['latitude']) and trim($mec['location']['latitude'])) ? sanitize_text_field($mec['location']['latitude']) : 0;
                     $longitude = (isset($mec['location']['longitude']) and trim($mec['location']['longitude'])) ? sanitize_text_field($mec['location']['longitude']) : 0;
+                    $url = (isset($mec['location']['url']) and trim($mec['location']['url'])) ? esc_url($mec['location']['url']) : '';
                     $thumbnail = (isset($mec['location']['thumbnail']) and trim($mec['location']['thumbnail'])) ? sanitize_text_field($mec['location']['thumbnail']) : '';
 
                     if(!trim($latitude) or !trim($longitude))
@@ -534,6 +535,7 @@ class MEC_feature_fes extends MEC_base
                     update_term_meta($location_id, 'address', $address);
                     update_term_meta($location_id, 'latitude', $latitude);
                     update_term_meta($location_id, 'longitude', $longitude);
+                    update_term_meta($location_id, 'url', $url);
                     update_term_meta($location_id, 'thumbnail', $thumbnail);
                 }
                 else $location_id = 1;
@@ -1045,6 +1047,9 @@ class MEC_feature_fes extends MEC_base
 
         $moved_online_link = (isset($mec['moved_online_link']) and filter_var($mec['moved_online_link'], FILTER_VALIDATE_URL)) ? esc_url($mec['moved_online_link']) : '';
         update_post_meta($post_id, 'mec_moved_online_link', $moved_online_link);
+
+        $cancelled_reason = (isset($mec['cancelled_reason']) and filter_var($mec['cancelled_reason'], FILTER_VALIDATE_URL)) ? esc_url($mec['cancelled_reason']) : '';
+        update_post_meta($post_id, 'mec_cancelled_reason', $cancelled_reason);
 
         do_action('save_fes_meta_action' , $post_id , $mec);
 

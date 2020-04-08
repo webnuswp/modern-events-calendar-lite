@@ -131,6 +131,12 @@ class MEC_skin_grid extends MEC_skins
         // Geolocation Focus
         $this->geolocation_focus = isset($this->skin_options['set_geolocation_focus']) ? $this->skin_options['set_geolocation_focus'] : 0;
 
+        // reason_for_cancellation
+        $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
+        // display_label
+        $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
+
         // Init MEC
         $this->args['mec-init'] = true;
         $this->args['mec-skin'] = $this->skin;

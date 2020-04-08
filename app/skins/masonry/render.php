@@ -6,6 +6,9 @@ $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
+$display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
+$reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-masonry">
@@ -138,6 +141,7 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
                                 <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
+                                <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
                                 <div class="mec-event-description mec-events-content">
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                 </div>

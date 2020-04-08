@@ -886,6 +886,7 @@ body.post-type-mec-books th.column-author {
 
 .mec-form-row input[type=number],
 .mec-form-row input[type=text],
+.mec-form-row input[type=url],
 .mec-form-row select,
 .mec-form-row textarea {
     height: 38px;
@@ -5696,6 +5697,7 @@ a.mec-create-shortcode-tabs-link {
 
 .mec-form-row input[type=number],
 .mec-form-row input[type=text],
+.mec-form-row input[type=url],
 .mec-form-row select,
 .mec-form-row textarea,
 .mec-form-row.mec-skin-list-date-format-container input[type=text],
@@ -8994,12 +8996,14 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode .mec-calendar-metabox .wn-mec-select,
 .mec-admin-dark-mode .mec-form-row input[type=number],
 .mec-admin-dark-mode .mec-form-row input[type=text],
+.mec-admin-dark-mode .mec-form-row input[type=url],
 .mec-admin-dark-mode .mec-form-row select,
 .mec-admin-dark-mode .mec-form-row textarea,
 .mec-admin-dark-mode .mec-form-row.mec-skin-list-date-format-container input[type=text],
 .mec-admin-dark-mode #mec_metabox_booking .mec-calendar-metabox .wn-mec-select,
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=number],
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=url],
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row select,
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row textarea,
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row.mec-skin-list-date-format-container input[type=text],
@@ -9010,6 +9014,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode #mec_metabox_booking .mec-calendar-metabox .wn-mec-select,
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=number],
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_metabox_booking .mec-form-row input[type=url],
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row select,
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row textarea,
 .mec-admin-dark-mode #mec_metabox_booking .mec-form-row.mec-skin-list-date-format-container input[type=text],
@@ -9020,6 +9025,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode #mec_calendar_filter .mec-calendar-metabox .wn-mec-select,
 .mec-admin-dark-mode #mec_calendar_filter .mec-form-row input[type=number],
 .mec-admin-dark-mode #mec_calendar_filter .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_calendar_filter .mec-form-row input[type=url],
 .mec-admin-dark-mode #mec_calendar_filter .mec-form-row select,
 .mec-admin-dark-mode #mec_calendar_filter .mec-form-row textarea,
 .mec-admin-dark-mode #mec_metabox_details .mec-form-row.mec-skin-list-date-format-container input[type=text],
@@ -9030,6 +9036,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode #mec_metabox_details .mec-calendar-metabox .wn-mec-select,
 .mec-admin-dark-mode #mec_metabox_details .mec-form-row input[type=number],
 .mec-admin-dark-mode #mec_metabox_details .mec-form-row input[type=text],
+.mec-admin-dark-mode #mec_metabox_details .mec-form-row input[type=url],
 .mec-admin-dark-mode #mec_metabox_details .mec-form-row select,
 .mec-admin-dark-mode #mec_metabox_details .mec-form-row textarea,
 .mec-admin-dark-mode #mec_metabox_details .mec-form-row.mec-skin-list-date-format-container input[type=text],
@@ -9503,4 +9510,20 @@ div#mec_widget_news_features .inside {
 
 .mec-metabox-head-version a {
     padding-left: 6px !important;
+}
+
+div#mec-schema .mec-form-row label {
+    display: inline-block;
+    width: 111px;
+}
+
+.event-status-schema {
+    background: #f7f7f7;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+div#mec_cancelled_reason_wrapper label {
+    width: 166px !important;
 }

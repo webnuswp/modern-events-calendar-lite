@@ -52,6 +52,12 @@ class MEC_skin_timeline extends MEC_skins
         // Date Formats
         $this->date_format_classic_1 = (isset($this->skin_options['classic_date_format1']) and trim($this->skin_options['classic_date_format1'])) ? $this->skin_options['classic_date_format1'] : 'd F Y';
 
+        // reason_for_cancellation
+        $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
+        // display_label
+        $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
+
         // Search Form Options
         $this->sf_options = (isset($this->atts['sf-options']) and isset($this->atts['sf-options'][$this->skin])) ? $this->atts['sf-options'][$this->skin] : array();
         

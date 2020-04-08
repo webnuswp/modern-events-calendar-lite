@@ -99,7 +99,7 @@ class MEC_feature_labels extends MEC_base
         $style = get_metadata('term', $term->term_id, 'style', true);
     ?>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row" >
                 <label for="mec_color"><?php _e('Color', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -108,7 +108,7 @@ class MEC_feature_labels extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row" >
                 <label for="mec_style"><?php _e('Style', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>

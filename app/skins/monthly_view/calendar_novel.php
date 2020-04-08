@@ -11,6 +11,8 @@ $week_start = $this->main->get_first_day_of_week();
 
 // Get date suffix 
 $settings = $this->main->get_settings();
+$display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
+$reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
 // days and weeks vars
 $running_day = date('w', mktime(0, 0, 0, $month, 1, $year));
@@ -83,7 +85,7 @@ elseif($week_start == 5) // Friday
                     do_action('mec_schema', $event);
 
                     echo '<a class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'event-single-link-novel" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'"><div style="background:'.$event_color.'" class="mec-single-event-novel mec-event-article '.$this->get_event_classes($event).'">';
-                    echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>';
+                    echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation);
                     echo '</div></a>';
                 }
                 echo '</dt>';

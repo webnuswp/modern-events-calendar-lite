@@ -10,6 +10,7 @@ $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
 if(!is_array($booking_options)) $booking_options = array();
 
 $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) ? $booking_options['bookings_limit_for_users'] : 0;
+$display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_in_single_page', true);
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
     <?php do_action('mec_top_single_event' , get_the_ID()); ?>
@@ -28,6 +29,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
         <div class="col-md-8">
             <div class="mec-events-event-image"><?php echo $event->data->thumbnails['full']; ?></div>
             <div class="mec-event-content">
+                <?php echo $this->main->display_cancellation_reason($event->data->ID, $display_reason); ?>
                 <h1 class="mec-single-title"><?php the_title(); ?></h1>
                 <div class="mec-single-event-description mec-events-content"><?php the_content(); ?></div>
             </div>
@@ -176,6 +178,14 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                             <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
                             <dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
                             <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
+
+                            <?php if(isset($location['url']) and trim($location['url'])): ?>
+                            <dd class="mec-location-url">
+                                <i class="mec-sl-sitemap"></i>
+                                <h6><?php _e('Website', 'modern-events-calendar-lite'); ?></h6>
+                                <span><a href="<?php echo (strpos($location['url'], 'http') === false ? 'http://'.$location['url'] : $location['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $location['url']; ?></a></span>
+                            </dd>
+                            <?php endif; ?>
                         </div>
                         <?php
                         $this->show_other_locations($event); // Show Additional Locations
@@ -399,6 +409,14 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                         <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
                         <dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
                         <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
+
+                        <?php if(isset($location['url']) and trim($location['url'])): ?>
+                        <dd class="mec-location-url">
+                            <i class="mec-sl-sitemap"></i>
+                            <h6><?php _e('Website', 'modern-events-calendar-lite'); ?></h6>
+                            <span><a href="<?php echo (strpos($location['url'], 'http') === false ? 'http://'.$location['url'] : $location['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $location['url']; ?></a></span>
+                        </dd>
+                        <?php endif; ?>
                     </div>
                     <?php
                     $this->show_other_locations($event); // Show Additional Locations

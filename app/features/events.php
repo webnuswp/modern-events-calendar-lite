@@ -243,7 +243,7 @@ class MEC_feature_events extends MEC_base
         $icon = get_metadata('term', $term->term_id, 'mec_cat_icon', true);
         ?>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row" >
                 <label for="mec_cat_icon"><?php _e('Category Icon', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -336,7 +336,7 @@ class MEC_feature_events extends MEC_base
                     __('Links', 'modern-events-calendar-lite') => 'mec-read-more',
                     __('Organizer', 'modern-events-calendar-lite') => 'mec-organizer',
                     __('Cost', 'modern-events-calendar-lite') => 'mec-cost',
-                    __('SEO Schema', 'modern-events-calendar-lite') => 'mec-schema',
+                    __('SEO Schema / Event Status', 'modern-events-calendar-lite') => 'mec-schema',
                 ), $activated);
 
                 foreach($single_event_meta_title as $link_name => $link_address)
@@ -1631,7 +1631,7 @@ class MEC_feature_events extends MEC_base
                                 echo 'checked="checked"';
                             }
                             ?>
-                                type="checkbox" value="1" name="mec[booking][bookings_user_limit_unlimited]" onchange="javascript: $(this).parent().parent().find('input[type=text]').toggle().val('');"/>
+                                type="checkbox" value="1" name="mec[booking][bookings_user_limit_unlimited]" onchange="jQuery(this).parent().parent().find('input[type=text]').toggle().val('');"/>
                         <?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?>
                     </label>
                     <input class="mec-col-4  <?php echo ($bookings_user_limit_unlimited == 1) ? 'mec-util-hidden' : ''; ?>" type="text" name="mec[booking][bookings_user_limit]" id="mec_bookings_user_limit"

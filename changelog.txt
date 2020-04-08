@@ -1,5 +1,17 @@
-﻿v 5.2.3 – 31 March 2020
-- Added: SEO Schema section to specify event status
+﻿v 5.2.5 – 8 April 2020
+- Added: Normal Label to all skins
+- Added: Cancellation reason to all skins
+- Added: Cancellation reason to single and popup single page
+- Added: Delete event feature on Google Calendar Export and Google Calendar import
+- Added: URL field for locations
+- Fixed: Carousel and slider skins
+- Fixed: User booking limit
+- Fixed: Weekly view
+- Fixed: Search when working with expired events
+- Fixed: Some minor issues
+
+v 5.2.3 – 31 March 2020
+- Added: SEO Schema section to specify event status due to COVID-19 (New properties for virtual, postponed, and canceled events — <a href="https://bit.ly/2ygWgF4" target="_blank">read more here</a>)
 - Added: A new currency (Israeli Shekel)
 - Changed: The next and back button positions on the booking form (pro)
 - Fixed: MEC sender name and email

@@ -6,6 +6,8 @@ $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
+$display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
+$reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 $dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
 
 if($dark_mode == 1) $set_dark = 'mec-dark-mode';
@@ -166,6 +168,7 @@ do_action('mec_available_spot_skin_head');
                     </div>
                     <div class="mec-event-content">
                         <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $event_link; ?>"><?php echo $event_title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?></h4>
+                        <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation);?>
                         <?php
                             $excerpt = trim($event->data->post->post_excerpt) ? $event->data->post->post_excerpt : '';
 

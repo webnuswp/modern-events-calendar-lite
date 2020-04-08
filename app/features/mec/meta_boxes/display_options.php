@@ -179,6 +179,30 @@ $events = $this->main->get_events();
 						<label for="mec_skin_list_month_divider"></label>
 					</div>
                 </div>
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_list_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_list_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][list][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][list][display_label]" id="mec_skin_list_display_label" value="1" <?php if(isset($sk_options_list['display_label']) and trim($sk_options_list['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_list_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_list_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_list_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][list][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][list][reason_for_cancellation]" id="mec_skin_list_reason_for_cancellation" value="1" <?php if(isset($sk_options_list['reason_for_cancellation']) and trim($sk_options_list['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_list_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label for="mec_skin_list_map_on_top"><?php _e('Show Map on top', 'modern-events-calendar-lite'); ?></label>
@@ -394,6 +418,30 @@ $events = $this->main->get_events();
                         <label for="mec_skin_grid_load_more_button"></label>
                     </div>
                 </div>
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_grid_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_grid_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][grid][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][grid][display_label]" id="mec_skin_grid_display_label" value="1" <?php if(isset($sk_options_grid['display_label']) and trim($sk_options_grid['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_grid_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_grid_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_grid_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][grid][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][grid][reason_for_cancellation]" id="mec_skin_grid_reason_for_cancellation" value="1" <?php if(isset($sk_options_grid['reason_for_cancellation']) and trim($sk_options_grid['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_grid_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label for="mec_skin_grid_map_on_top"><?php _e('Show Map on top', 'modern-events-calendar-lite'); ?></label>
@@ -503,6 +551,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_agenda_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_agenda_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][agenda][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][agenda][display_label]" id="mec_skin_agenda_display_label" value="1" <?php if(isset($sk_options_agenda['display_label']) and trim($sk_options_agenda['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_agenda_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_agenda_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_agenda_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][agenda][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][agenda][reason_for_cancellation]" id="mec_skin_agenda_reason_for_cancellation" value="1" <?php if(isset($sk_options_agenda['reason_for_cancellation']) and trim($sk_options_agenda['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_agenda_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label for="mec_skin_agenda_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
@@ -532,6 +604,7 @@ $events = $this->main->get_events();
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_full_calendar_start_date_type"><?php _e('Start Date', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][full_calendar][start_date_type]" id="mec_skin_full_calendar_start_date_type" onchange="if(this.value == 'date') jQuery('#mec_skin_full_calendar_start_date_container').show(); else jQuery('#mec_skin_full_calendar_start_date_container').hide();">
+                        <option value="today" <?php if(isset($sk_options_full_calendar['start_date_type']) and $sk_options_full_calendar['start_date_type'] == 'today') echo 'selected="selected"'; ?>><?php _e('Today', 'modern-events-calendar-lite'); ?></option>
                         <option value="start_current_month" <?php if(isset($sk_options_full_calendar['start_date_type']) and $sk_options_full_calendar['start_date_type'] == 'start_current_month') echo 'selected="selected"'; ?>><?php _e('Start of Current Month', 'modern-events-calendar-lite'); ?></option>
                         <option value="start_next_month" <?php if(isset($sk_options_full_calendar['start_date_type']) and $sk_options_full_calendar['start_date_type'] == 'start_next_month') echo 'selected="selected"'; ?>><?php _e('Start of Next Month', 'modern-events-calendar-lite'); ?></option>
                         <option value="date" <?php if(isset($sk_options_full_calendar['start_date_type']) and $sk_options_full_calendar['start_date_type'] == 'date') echo 'selected="selected"'; ?>><?php _e('On a certain date', 'modern-events-calendar-lite'); ?></option>
@@ -665,6 +738,30 @@ $events = $this->main->get_events();
                         <label for="mec_skin_full_calendar_display_price"></label>
                     </div>
                 </div>
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_full_calendar_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_full_calendar_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][full_calendar][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][full_calendar][display_label]" id="mec_skin_full_calendar_display_label" value="1" <?php if(isset($sk_options_full_calendar['display_label']) and trim($sk_options_full_calendar['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_full_calendar_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_full_calendar_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_full_calendar_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][full_calendar][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][full_calendar][reason_for_cancellation]" id="mec_skin_full_calendar_reason_for_cancellation" value="1" <?php if(isset($sk_options_full_calendar['reason_for_cancellation']) and trim($sk_options_full_calendar['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_full_calendar_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <?php echo $this->sed_method_field('full_calendar', (isset($sk_options_full_calendar['sed_method']) ? $sk_options_full_calendar['sed_method'] : 0), (isset($sk_options_full_calendar['image_popup']) ? $sk_options_full_calendar['image_popup'] : 0)); ?>
             </div>
 
@@ -731,6 +828,30 @@ $events = $this->main->get_events();
                         <label for="mec_skin_yearly_view_next_previous_button"></label>
                     </div>
                 </div>
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_yearly_view_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_yearly_view_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][yearly_view][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][yearly_view][display_label]" id="mec_skin_yearly_view_display_label" value="1" <?php if(isset($sk_options_yearly_view['display_label']) and trim($sk_options_yearly_view['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_yearly_view_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_yearly_view_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_yearly_view_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][yearly_view][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][yearly_view][reason_for_cancellation]" id="mec_skin_yearly_view_reason_for_cancellation" value="1" <?php if(isset($sk_options_yearly_view['reason_for_cancellation']) and trim($sk_options_yearly_view['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_yearly_view_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <p class="description"><?php _e('For showing next/previous year navigation.', 'modern-events-calendar-lite'); ?></p>
                 <?php echo $this->sed_method_field('yearly_view', (isset($sk_options_yearly_view['sed_method']) ? $sk_options_yearly_view['sed_method'] : 0), (isset($sk_options_yearly_view['image_popup']) ? $sk_options_yearly_view['image_popup'] : 0)); ?>
             </div>
@@ -785,6 +906,30 @@ $events = $this->main->get_events();
 						<label for="mec_skin_monthly_view_next_previous_button"></label>
 					</div>
                 </div>
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_monthly_view_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_monthly_view_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][monthly_view][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][monthly_view][display_label]" id="mec_skin_monthly_view_display_label" value="1" <?php if(isset($sk_options_monthly_view['display_label']) and trim($sk_options_monthly_view['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_monthly_view_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_monthly_view_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_monthly_view_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][monthly_view][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][monthly_view][reason_for_cancellation]" id="mec_skin_monthly_view_reason_for_cancellation" value="1" <?php if(isset($sk_options_monthly_view['reason_for_cancellation']) and trim($sk_options_monthly_view['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_monthly_view_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <!-- <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Uppercase Text', 'modern-events-calendar-lite'); ?></label>
@@ -891,6 +1036,30 @@ $events = $this->main->get_events();
 						<label for="mec_skin_daily_view_next_previous_button"></label>
 					</div>
                 </div>
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_daily_view_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_daily_view_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][daily_view][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][daily_view][display_label]" id="mec_skin_daily_view_display_label" value="1" <?php if(isset($sk_options_daily_view['display_label']) and trim($sk_options_daily_view['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_daily_view_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_daily_view_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_daily_view_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][daily_view][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][daily_view][reason_for_cancellation]" id="mec_skin_daily_view_reason_for_cancellation" value="1" <?php if(isset($sk_options_daily_view['reason_for_cancellation']) and trim($sk_options_daily_view['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_daily_view_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 <?php echo $this->sed_method_field('daily_view', (isset($sk_options_daily_view['sed_method']) ? $sk_options_daily_view['sed_method'] : 0), (isset($sk_options_daily_view['image_popup']) ? $sk_options_daily_view['image_popup'] : 0)); ?>
             </div>
@@ -927,6 +1096,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_weekly_view_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_weekly_view_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][weekly_view][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][weekly_view][display_label]" id="mec_skin_weekly_view_display_label" value="1" <?php if(isset($sk_options_weekly_view['display_label']) and trim($sk_options_weekly_view['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_weekly_view_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_weekly_view_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_weekly_view_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][weekly_view][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][weekly_view][reason_for_cancellation]" id="mec_skin_weekly_view_reason_for_cancellation" value="1" <?php if(isset($sk_options_weekly_view['reason_for_cancellation']) and trim($sk_options_weekly_view['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_weekly_view_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>
@@ -1042,6 +1235,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_timetable_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_timetable_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timetable][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timetable][display_label]" id="mec_skin_timetable_display_label" value="1" <?php if(isset($sk_options_timetable['display_label']) and trim($sk_options_timetable['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timetable_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_timetable_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_timetable_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timetable][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timetable][reason_for_cancellation]" id="mec_skin_timetable_reason_for_cancellation" value="1" <?php if(isset($sk_options_timetable['reason_for_cancellation']) and trim($sk_options_timetable['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timetable_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-timetable-modern-style-depended">
                     <div class="mec-form-row mec-switcher">
                         <div class="mec-col-4">
@@ -1131,6 +1348,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_masonry_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_masonry_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][masonry][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][masonry][display_label]" id="mec_skin_masonry_display_label" value="1" <?php if(isset($sk_options_masonry['display_label']) and trim($sk_options_masonry['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_masonry_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_masonry_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_masonry_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][masonry][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][masonry][reason_for_cancellation]" id="mec_skin_masonry_reason_for_cancellation" value="1" <?php if(isset($sk_options_masonry['reason_for_cancellation']) and trim($sk_options_masonry['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_masonry_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label><?php _e('Fit to row', 'modern-events-calendar-lite'); ?></label>
@@ -1233,6 +1474,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_cover_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_cover_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][cover][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][cover][display_label]" id="mec_skin_cover_display_label" value="1" <?php if(isset($sk_options_cover['display_label']) and trim($sk_options_cover['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_cover_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_cover_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_cover_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][cover][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][cover][reason_for_cancellation]" id="mec_skin_cover_reason_for_cancellation" value="1" <?php if(isset($sk_options_cover['reason_for_cancellation']) and trim($sk_options_cover['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_cover_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
             </div>
             
             <!-- CountDown -->
@@ -1306,6 +1571,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_countdown_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_countdown_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][countdown][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][countdown][display_label]" id="mec_skin_countdown_display_label" value="1" <?php if(isset($sk_options_countdown['display_label']) and trim($sk_options_countdown['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_countdown_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_countdown_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_countdown_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][countdown][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][countdown][reason_for_cancellation]" id="mec_skin_countdown_reason_for_cancellation" value="1" <?php if(isset($sk_options_countdown['reason_for_cancellation']) and trim($sk_options_countdown['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_countdown_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
             </div>
 
             <!-- Available Spot -->
@@ -1349,6 +1638,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_available_spot_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_available_spot_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][available_spot][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][available_spot][display_label]" id="mec_skin_available_spot_display_label" value="1" <?php if(isset($sk_options_available_spot['display_label']) and trim($sk_options_available_spot['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_available_spot_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_available_spot_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_available_spot_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][available_spot][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][available_spot][reason_for_cancellation]" id="mec_skin_available_spot_reason_for_cancellation" value="1" <?php if(isset($sk_options_available_spot['reason_for_cancellation']) and trim($sk_options_available_spot['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_available_spot_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
             </div>
 
             <!-- Carousel View -->
@@ -1451,6 +1764,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_carousel_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_carousel_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][carousel][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][carousel][display_label]" id="mec_skin_carousel_display_label" value="1" <?php if(isset($sk_options_carousel['display_label']) and trim($sk_options_carousel['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_carousel_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_carousel_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_carousel_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][carousel][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][carousel][reason_for_cancellation]" id="mec_skin_carousel_reason_for_cancellation" value="1" <?php if(isset($sk_options_carousel['reason_for_cancellation']) and trim($sk_options_carousel['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_carousel_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
             </div>
 
             <!-- Slider View -->
@@ -1564,6 +1901,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_slider_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_slider_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][slider][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][slider][display_label]" id="mec_skin_slider_display_label" value="1" <?php if(isset($sk_options_slider['display_label']) and trim($sk_options_slider['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_slider_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_slider_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_slider_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][slider][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][slider][reason_for_cancellation]" id="mec_skin_slider_reason_for_cancellation" value="1" <?php if(isset($sk_options_slider['reason_for_cancellation']) and trim($sk_options_slider['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_slider_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
             </div>
 
             <!-- Timeline View -->
@@ -1623,6 +1984,30 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_timeline_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_timeline_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timeline][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timeline][display_label]" id="mec_skin_timeline_display_label" value="1" <?php if(isset($sk_options_timeline['display_label']) and trim($sk_options_timeline['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timeline_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_timeline_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_timeline_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][timeline][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][timeline][reason_for_cancellation]" id="mec_skin_timeline_reason_for_cancellation" value="1" <?php if(isset($sk_options_timeline['reason_for_cancellation']) and trim($sk_options_timeline['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_timeline_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label for="mec_skin_timeline_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
@@ -1680,6 +2065,30 @@ $events = $this->main->get_events();
                         <option value="2" <?php echo (isset($sk_options_tile['count']) and $sk_options_tile['count'] == 2) ? 'selected="selected"' : ''; ?>>2</option>
                     </select>
                 </div>
+                <!-- Start Display Label -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_tile_display_normal_label">
+					<div class="mec-col-4">
+						<label for="mec_skin_tile_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][tile][display_label]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][tile][display_label]" id="mec_skin_tile_display_label" value="1" <?php if(isset($sk_options_tile['display_label']) and trim($sk_options_tile['display_label'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_tile_display_label"></label>
+                    </div>
+                </div>
+                <!-- End Display Label -->
+                <!-- Start Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_tile_display_reason_for_cancellation">
+					<div class="mec-col-4">
+						<label for="mec_skin_tile_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+					</div>
+					<div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][tile][reason_for_cancellation]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][tile][reason_for_cancellation]" id="mec_skin_tile_reason_for_cancellation" value="1" <?php if(isset($sk_options_tile['reason_for_cancellation']) and trim($sk_options_tile['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_tile_reason_for_cancellation"></label>
+                    </div>
+                </div>
+                <!-- End Display Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>

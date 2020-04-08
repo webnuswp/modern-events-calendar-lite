@@ -7,6 +7,8 @@ $settings = $this->main->get_settings();
 $styling = $this->main->get_styling();
 
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
+$display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
+$reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
 $dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
 if($dark_mode == 1) $set_dark = 'mec-dark-mode';
@@ -54,7 +56,7 @@ else $set_dark = '';
                     <?php endif; ?>
                 </span>
                 <span class="mec-timetable-event-span mec-timetable-event-title">
-                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?>
+                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
                     <?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 </span>

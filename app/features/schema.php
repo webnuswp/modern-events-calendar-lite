@@ -57,10 +57,12 @@ class MEC_feature_schema extends MEC_base
         if(!trim($event_status)) $event_status = 'EventScheduled';
 
         $moved_online_link = get_post_meta($post->ID, 'mec_moved_online_link', true);
+        $cancelled_reason = get_post_meta($post->ID, 'mec_cancelled_reason', true);
+        $display_cancellation_reason_in_single_page = get_post_meta($post->ID, 'mec_display_cancellation_reason_in_single_page', true);
         ?>
         <div class="mec-meta-box-fields mec-event-tab-content" id="mec-schema">
             <h4><?php echo __('SEO Schema', 'modern-events-calendar-lite'); ?></h4>
-            <p><?php _e("Following statuses are for informing search engines (Google, bing, etc) about your events so they can manage your events better so you can use these statuses to be more Search Engine Friendly.", 'modern-events-calendar-lite'); ?></p>
+            <p><?php _e("Following statuses are for informing search engines (Google, bing, etc) about your events so they can manage your events better. Therefore you can use these statuses to be more Search Engine Friendly.", 'modern-events-calendar-lite'); ?></p>
 
 			<div class="mec-form-row">
                 <label>
@@ -83,6 +85,25 @@ class MEC_feature_schema extends MEC_base
                 </label>
                 <p class="description"><?php _e('If you cancelled an event then you should select this status!', 'modern-events-calendar-lite'); ?></p>
             </div>
+            <div id="mec_cancelled_reason_wrapper" class="event-status-schema" <?php echo ($event_status == 'EventCancelled' ? '' : 'style="display: none;"'); ?>>
+                <div class="mec-form-row">
+                    <label class="mec-col-2" for="mec_cancelled_reason"><?php _e('Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+                    <input class="mec-col-9" type="text" id="mec_cancelled_reason" name="mec[cancelled_reason]" value="<?php echo $cancelled_reason; ?>" placeholder="Please write your reasons here">
+                </div>
+                <div>
+                    <p class="description"><?php _e('This will be displayed in Single Event and Shortcode/Calendar Pages', 'modern-events-calendar-lite'); ?></p>
+                </div>
+                <div class="mec-form-row">
+                    <input
+                        <?php
+                        if (isset($display_cancellation_reason_in_single_page) and $display_cancellation_reason_in_single_page == true) {
+                            echo 'checked="checked"';
+                        }
+                        ?>
+                            type="checkbox" name="mec[display_cancellation_reason_in_single_page]" id="mec_display_cancellation_reason_in_single_page" value="1"/><label
+                            for="mec_display_cancellation_reason_in_single_page"><?php _e('Display in single event page', 'modern-events-calendar-lite'); ?></label>
+                </div>
+            </div>
             <div class="mec-form-row">
                 <label>
                     <input class="mec-schema-event-status" type="radio" name="mec[event_status]" value="EventMovedOnline" <?php echo ($event_status == 'EventMovedOnline' ? 'checked' : ''); ?>>
@@ -90,7 +111,7 @@ class MEC_feature_schema extends MEC_base
                 </label>
                 <p class="description"><?php _e('For the events that moved online!', 'modern-events-calendar-lite'); ?></p>
             </div>
-            <div id="mec_moved_online_link_wrapper" <?php echo ($event_status == 'EventMovedOnline' ? '' : 'style="display: none;"'); ?>>
+            <div id="mec_moved_online_link_wrapper" class="event-status-schema" <?php echo ($event_status == 'EventMovedOnline' ? '' : 'style="display: none;"'); ?>>
                 <div class="mec-form-row">
                     <label class="mec-col-2" for="mec_moved_online_link"><?php _e('Online Link', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-9" type="url" id="mec_moved_online_link" name="mec[moved_online_link]" value="<?php echo $moved_online_link; ?>" placeholder="https://online-platform.com/event-id">
@@ -107,8 +128,16 @@ class MEC_feature_schema extends MEC_base
             {
                 var value = jQuery(this).val();
 
-                if(value === 'EventMovedOnline') jQuery('#mec_moved_online_link_wrapper').show();
-                else jQuery('#mec_moved_online_link_wrapper').hide();
+                if(value === 'EventMovedOnline'){
+                    jQuery('#mec_moved_online_link_wrapper').show();
+                    jQuery('#mec_cancelled_reason_wrapper').hide();
+                } else if(value === 'EventCancelled') {
+                    jQuery('#mec_moved_online_link_wrapper').hide();
+                    jQuery('#mec_cancelled_reason_wrapper').show();
+                } else {
+                    jQuery('#mec_moved_online_link_wrapper').hide();
+                    jQuery('#mec_cancelled_reason_wrapper').hide();
+                } 
             });
         });
         </script>
@@ -143,6 +172,14 @@ class MEC_feature_schema extends MEC_base
         $moved_online_link = (isset($_mec['moved_online_link']) and filter_var($_mec['moved_online_link'], FILTER_VALIDATE_URL)) ? esc_url($_mec['moved_online_link']) : '';
         update_post_meta($post_id, 'mec_moved_online_link', $moved_online_link);
 
+        $cancelled_reason = (isset($_mec['cancelled_reason']) and !empty($_mec['cancelled_reason'])) ? esc_html($_mec['cancelled_reason']) : '';
+        update_post_meta($post_id, 'mec_cancelled_reason', $cancelled_reason);
+
+        $display_cancellation_reason_in_single_page = (isset($_mec['display_cancellation_reason_in_single_page']) and !empty($_mec['display_cancellation_reason_in_single_page'])) ? true : false;
+        update_post_meta($post_id, 'mec_display_cancellation_reason_in_single_page', $display_cancellation_reason_in_single_page);
+
+
+
         return true;
     }
 
@@ -172,6 +209,8 @@ class MEC_feature_schema extends MEC_base
         $event_link = $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']);
 
         $moved_online_link = (isset($event->data->meta['mec_moved_online_link']) and trim($event->data->meta['mec_moved_online_link'])) ? $event->data->meta['mec_moved_online_link'] : '';
+        $cancelled_reason = (isset($event->data->meta['mec_cancelled_reason']) and trim($event->data->meta['mec_cancelled_reason'])) ? $event->data->meta['mec_cancelled_reason'] : '';
+        $display_cancellation_reason_in_single_page = (isset($event->data->meta['mec_display_cancellation_reason_in_single_page']) and trim($event->data->meta['mec_display_cancellation_reason_in_single_page'])) ? $event->data->meta['mec_display_cancellation_reason_in_single_page'] : '';
         ?>
         <script type="application/ld+json">
         {

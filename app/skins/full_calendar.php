@@ -72,6 +72,12 @@ class MEC_skin_full_calendar extends MEC_skins
 
         // Image popup
         $this->image_popup = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
+
+        // reason_for_cancellation
+        $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
+        // display_label
+        $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
         
         // Default View of Full Calendar
         $this->default_view = isset($this->skin_options['default_view']) ? $this->skin_options['default_view'] : 'list';
@@ -145,7 +151,7 @@ class MEC_skin_full_calendar extends MEC_skins
                 else $start_date_type = 'date';
 
                 $atts['sk-options']['yearly_view']['start_date_type'] = $start_date_type;
-                $atts['sk-options']['yearly_view']['start_date'] = isset($this->skin_options['start_date']) ? $this->skin_options['start_date'] : current_time('Y-01-01');
+                $atts['sk-options']['yearly_view']['start_date'] = (isset($this->skin_options['start_date']) and trim($this->skin_options['start_date'])) ? $this->skin_options['start_date'] : current_time('Y-01-01');
                 $atts['sk-options']['yearly_view']['style'] = 'modern';
                 $atts['sk-options']['yearly_view']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
                 $atts['sk-options']['yearly_view']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';

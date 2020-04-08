@@ -99,7 +99,7 @@ class MEC_feature_organizers extends MEC_base
         $thumbnail = get_metadata('term', $term->term_id, 'thumbnail', true);
     ?>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_tel"><?php _e('Tel', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -107,7 +107,7 @@ class MEC_feature_organizers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_email"><?php _e('Email', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -115,7 +115,7 @@ class MEC_feature_organizers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_url"><?php _e('Link to organizer page', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -123,7 +123,7 @@ class MEC_feature_organizers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_thumbnail_button"><?php _e('Thumbnail', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>

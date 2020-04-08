@@ -11881,6 +11881,7 @@ ul.mec-weekly-view-dates-events article:before,
 }
 
 /* Full Calendar/Yearly View */
+.mec-timeline-event .mec-fc-style,
 .mec-wrap .mec-events-agenda .mec-agenda-event .mec-fc-style,
 .mec-wrap .mec-event-list-modern article .mec-fc-style,
 .mec-wrap .mec-event-list-accordion article .mec-fc-style,
@@ -11902,12 +11903,12 @@ ul.mec-weekly-view-dates-events article:before,
 	margin-left: 5px;
 	border-radius: 2px;
 }
-
+.mec-timeline-event.mec-label-canceled .mec-fc-style,
 .mec-wrap .mec-events-agenda .mec-agenda-event.mec-label-canceled .mec-fc-style,
 .mec-wrap article.mec-event-cover-modern.mec-label-canceled .mec-fc-style {
 	background: #de0404;
 }
-
+.mec-timeline-event .mec-fc-style:before,
 .mec-wrap .mec-events-agenda .mec-agenda-event .mec-fc-style:before,
 .mec-wrap .mec-event-list-modern article .mec-fc-style:before,
 .mec-wrap .mec-event-list-accordion article .mec-fc-style:before,
@@ -11931,6 +11932,7 @@ ul.mec-weekly-view-dates-events article:before,
 	color: #04de78;
 }
 
+.mec-timeline-event.mec-label-canceled .mec-fc-style:before,
 .mec-wrap .mec-events-agenda .mec-agenda-event.mec-label-canceled .mec-fc-style:before {
 	color: #de0404;
 }
@@ -15552,6 +15554,13 @@ a.mec-timeline-readmore i {
 	right: 25px;
 }
 
+.mec-event-tile-view  article.mec-label-canceled:before,
+.mec-event-tile-view  article.mec-label-featured:before {
+    top: 17px !important;
+    left: 110px !important;
+    height: auto;
+}
+
 .mec-skin-tile-month-navigator-container {
 	position: relative;
 	text-align: center;
@@ -15650,9 +15659,138 @@ a.mec-timeline-readmore i {
     left: 200px;
 }
 
-/* Normal Label - Temporarily Hidden*/
-.mec-wrap .mec-label-normal {
+/* Normal Label - Default Style for All Skins */
+.mec-wrap .mec-labels-normal .mec-label-normal,.mec-wrap .mec-cancellation-reason span {
+	position: relative;
+    top: -3px;
+    font-size: 11px;
+	font-weight: 300;
+    margin-left: 10px;
+    line-height: 1.9;
+    letter-spacing: 1px;
+    color: #fff;
+    padding: 2px 7px;
+	border-radius: 2px;
+}
+.mec-timetable-event .mec-labels-normal .mec-label-normal,
+.tooltipster-box .mec-labels-normal .mec-label-normal,
+.mec-agenda-event-title .mec-labels-normal .mec-label-normal {
+    font-size: 9px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    color: #fff;
+	position: relative;
+    margin-left: 5px;
+    border-radius: 2px;
+    top: 0;
+}
+
+.mec-tile-item .mec-labels-normal .mec-label-normal,
+.mec-timeline-event .mec-labels-normal .mec-label-normal,
+.mec-owl-carousel:not(.mec-slider-t1) .mec-labels-normal .mec-label-normal,
+.mec-av-spot .mec-labels-normal .mec-label-normal,
+.mec-event-countdown-part1 .mec-labels-normal .mec-label-normal,
+.mec-event-countdown-part2 .mec-labels-normal .mec-label-normal,
+.mec-event-cover-modern .mec-labels-normal .mec-label-normal,
+.mec-masonry-content .mec-labels-normal .mec-label-normal,
+.tooltipster-box .mec-labels-normal .mec-label-normal {
+	margin: 0 5px 0 0;
+}
+
+.mec-event-countdown-style3 .mec-labels-normal .mec-label-normal {
+	margin: 0 0 0 5px;
+}
+
+.mec-event-footer-carousel-type3 .mec-labels-normal .mec-label-normal {
+	display: inline;
+}
+
+.mec-event-carousel-type4 .mec-fc-style {
     display: none;
+}
+
+.mec-event-carousel-type4 .mec-labels-normal {
+    top: -20px;
+    position: relative;
+}
+
+
+/* Cancelled Reason */
+.mec-wrap .mec-cancellation-reason {
+    display: inline-block;
+}
+
+.mec-wrap .mec-cancellation-reason span {
+    line-height: 1.3;
+    background: #EB3450;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.mec-wrap .mec-event-list-accordion  .mec-labels-normal .mec-label-normal,
+.mec-wrap .mec-event-list-accordion  .mec-cancellation-reason span {
+	top: 7px;
+}
+
+
+.mec-agenda-event-title .mec-cancellation-reason span,
+.mec-timetable-event .mec-cancellation-reason span,
+.tooltipster-box .mec-cancellation-reason span {
+    font-size: 9px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    color: #fff;
+    position: relative;
+    margin-left: 5px;
+    border-radius: 2px;
+    top: 0;
+}
+
+.mec-wrap .mec-event-container-novel .mec-cancellation-reason span,
+.mec-wrap .mec-event-container-novel .mec-labels-normal .mec-label-normal {
+    white-space: inherit;
+	margin-left: 0px;
+}
+
+.mec-wrap .mec-event-container-simple .mec-cancellation-reason span,
+.mec-wrap .mec-event-container-simple .mec-labels-normal .mec-label-normal {
+	top: -12px;
+	white-space: inherit;
+	margin-left: 0px;
+}
+
+.mec-tile-item .mec-cancellation-reason span,
+.mec-timeline-event .mec-cancellation-reason span,
+.mec-owl-carousel:not(.mec-slider-t1) .mec-cancellation-reason span,
+.mec-av-spot .mec-cancellation-reason span,
+.mec-event-countdown-part1 .mec-cancellation-reason span,
+.mec-event-countdown-part2 .mec-cancellation-reason span,
+.mec-event-cover-modern .mec-cancellation-reason span,
+.mec-masonry-content .mec-cancellation-reason span,
+.tooltipster-box .mec-cancellation-reason span {
+	margin: 0 5px 0 0;
+}
+
+.mec-owl-carousel .mec-event-footer-carousel-type3 span.mec-labels-normal {
+	margin-top: 0;
+}
+
+.mec-wrap .mec-single-event .mec-cancellation-reason span {
+    margin: 0;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.featherlight-content .mec-cancellation-reason {
+    display: block;
+    width: 100%;
+    text-align: center;
+	margin-top: 20px;
+	margin-bottom: -10px;
 }
 
 

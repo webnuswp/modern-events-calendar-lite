@@ -562,9 +562,10 @@ class MEC_render extends MEC_base
 
             if($term->taxonomy == 'mec_label') $data->labels[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name, 'color'=>get_metadata('term', $term->term_id, 'color', true), 'style'=>get_metadata('term', $term->term_id, 'style', true));
             elseif($term->taxonomy == 'mec_organizer') $data->organizers[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name, 'tel'=>get_metadata('term', $term->term_id, 'tel', true), 'email'=>get_metadata('term', $term->term_id, 'email', true), 'url'=>get_metadata('term', $term->term_id, 'url', true), 'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true));
-            elseif($term->taxonomy == 'mec_location') {
-                $locations = array('id'=>$term->term_id, 'name'=>$term->name, 'address'=>get_metadata('term', $term->term_id, 'address', true), 'latitude'=>get_metadata('term', $term->term_id, 'latitude', true), 'longitude'=>get_metadata('term', $term->term_id, 'longitude', true), 'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true));
-                $data->locations[$term->term_id] = apply_filters( 'mec_map_load_location_terms', $locations, $term );
+            elseif($term->taxonomy == 'mec_location')
+            {
+                $locations = array('id'=>$term->term_id, 'name'=>$term->name, 'address'=>get_metadata('term', $term->term_id, 'address', true), 'latitude'=>get_metadata('term', $term->term_id, 'latitude', true), 'longitude'=>get_metadata('term', $term->term_id, 'longitude', true), 'url'=>get_metadata('term', $term->term_id, 'url', true), 'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true));
+                $data->locations[$term->term_id] = apply_filters('mec_map_load_location_terms', $locations, $term);
             }
             elseif($term->taxonomy == 'mec_category') $data->categories[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name);
             elseif($term->taxonomy == 'post_tag') $data->tags[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name);

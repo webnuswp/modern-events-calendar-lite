@@ -123,6 +123,12 @@ class MEC_skin_slider extends MEC_skins
         // Pagination Options
         $this->paged = get_query_var('paged', 1);
         $this->limit = (isset($this->skin_options['limit']) and trim($this->skin_options['limit'])) ? $this->skin_options['limit'] : 12;
+
+        // reason_for_cancellation
+        $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
+        // display_label
+        $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
         
         $this->args['posts_per_page'] = $this->limit;
         $this->args['paged'] = $this->paged;

@@ -5508,7 +5508,7 @@ class MEC_main extends MEC_base
      */
     function weather_unit_convert($value, $mode)
     {
-        if(func_num_args() < 2) return;
+        if(func_num_args() < 2) return false;
         $mode = strtoupper($mode);
 
         if($mode == 'F_TO_C') return (round(((floatval($value) -32) *5 /9)));
@@ -5575,7 +5575,7 @@ class MEC_main extends MEC_base
     public function parse_ics($feed)
     {
         try {
-            $ical = new ICal($feed, array(
+            return new ICal($feed, array(
                 'defaultSpan'                 => 2,     // Default value
                 'defaultTimeZone'             => 'UTC',
                 'defaultWeekStart'            => 'MO',  // Default value
@@ -5583,8 +5583,6 @@ class MEC_main extends MEC_base
                 'skipRecurrence'              => false, // Default value
                 'useTimeZoneWithRRules'       => false, // Default value
             ));
-
-            return $ical;
         }
         catch(\Exception $e)
         {
@@ -5888,7 +5886,7 @@ class MEC_main extends MEC_base
      * @param integer $limit
      * @return array
      */
-    public function booking_permitted($user_email, $ticket_info = array(), $limit, $booking_count = false)
+    public function booking_permitted($user_email, $ticket_info = array(), $limit)
     {
         if(!is_array($ticket_info) or is_array($ticket_info) and count($ticket_info) < 2) return false;
 
@@ -5940,6 +5938,72 @@ class MEC_main extends MEC_base
         if(($bookings + $count) > $limit) $permission = false;
 
         return array("booking_count" => $bookings, "permission" => $permission);
+    }
+
+    public function booking_permitted_by_ip($event_id, $limit, $ticket_info = array())
+    {
+        if(!is_array($ticket_info) or count($ticket_info) < 2) return false;
+
+        $count = isset($ticket_info['count']) ? intval($ticket_info['count']) : 0;
+        $date = isset($ticket_info['date']) ? $ticket_info['date'] : '';
+
+        list($year, $month, $day) = explode('-', $date);
+        $attendee_ip = $this->get_client_ip();
+
+        $args = array(
+            'post_type' => $this->get_book_post_type(),
+            'posts_per_page' => -1,
+            'post_status' => array('publish', 'pending', 'draft', 'future', 'private'),
+            'year'=>$year,
+            'monthnum'=>$month,
+            'day'=>$day,
+            'meta_query' => array
+            (
+                array(
+                    'key' => 'mec_event_id',
+                    'value' => $event_id,
+                    'compare' => '=',
+                ),
+                array(
+                    'key' => 'mec_verified',
+                    'value' => '-1',
+                    'compare' => '!=',
+                ),
+                array(
+                    'key' => 'mec_confirmed',
+                    'value' => '-1',
+                    'compare' => '!=',
+                ),
+                array(
+                    'key' => 'mec_attendees',
+                    'value' => $attendee_ip,
+                    'compare' => 'LIKE',
+                ),
+            ),
+        );
+
+        $bookings = 0;
+        $permission = true;
+        $mec_books = get_posts($args);
+
+        foreach($mec_books as $mec_book)
+        {
+            $get_attendees = get_post_meta($mec_book->ID, 'mec_attendees', true);
+            if(is_array($get_attendees))
+            {
+                foreach($get_attendees as $attendee)
+                {
+                    if(isset($attendee['buyerip']) and trim($attendee['buyerip'], '') == $attendee_ip)
+                    {
+                        $bookings += isset($attendee['count']) ? intval($attendee['count']) : 0;
+                    }
+                }
+            }
+        }
+
+        if(($bookings + $count) > $limit) $permission = false;
+
+        return array('booking_count' => $bookings, 'permission' => $permission);
     }
 
     /**
@@ -6229,19 +6293,32 @@ class MEC_main extends MEC_base
         return $user_list;
     }
 
-    public function get_normal_labels($event)
+    public function get_normal_labels($event,$display_label=false)
     {
         $output = '';
 
-        if(is_object($event) and isset($event->data->labels) and !empty($event->data->labels))
+        if($display_label != false and is_object($event) and isset($event->data->labels) and !empty($event->data->labels))
         {
             foreach($event->data->labels as $label)
             {
-                if(isset($label['style']) and !trim($label['style']) and isset($label['name']) and trim($label['name'])) $output .= '<span data-style="Normal" class="mec-label-normal">' . trim($label['name']) . '</span>';
+                if(isset($label['style']) and !trim($label['style']) and isset($label['name']) and trim($label['name'])) $output .= '<span data-style="Normal" class="mec-label-normal" style="background-color:'.$label['color'].';">' . trim($label['name']) . '</span>';
             }
         }
 
         return $output ? '<span class="mec-labels-normal">' . $output . '</span>' : $output;
+    }
+
+    public function display_cancellation_reason($event_id,$display_reason=false)
+    {
+        $output = '';
+        $reason = get_post_meta($event_id, 'mec_cancelled_reason', true);
+
+        if($display_reason != false and isset($reason) and !empty($reason))
+        {
+            $output = '<div class="mec-cancellation-reason"><span>'.$reason.'</span></div>';
+        }
+
+        return $output;
     }
 
     public function standardize_format($date = '', $format = 'Y-m-d')

@@ -4,6 +4,7 @@ defined('MECEXEC') or die();
 
 $booking_options = get_post_meta($event->data->ID, 'mec_booking', true);
 if(!is_array($booking_options)) $booking_options = array();
+$display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reason_in_single_page', true);
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?> mec-modal-wrap" id="mec_skin_<?php echo $this->uniqueid; ?>" data-unique-id="<?php echo $this->uniqueid; ?>">
     <article class="mec-single-event mec-single-modern mec-single-modal">
@@ -95,6 +96,14 @@ if(!is_array($booking_options)) $booking_options = array();
                         <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
                         <dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
                         <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
+
+                        <?php if(isset($location['url']) and trim($location['url'])): ?>
+                        <dd class="mec-location-url">
+                            <i class="mec-sl-sitemap"></i>
+                            <h6><?php _e('Website', 'modern-events-calendar-lite'); ?></h6>
+                            <span><a href="<?php echo (strpos($location['url'], 'http') === false ? 'http://'.$location['url'] : $location['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $location['url']; ?></a></span>
+                        </dd>
+                        <?php endif; ?>
                     </div>
                     <?php
                 }

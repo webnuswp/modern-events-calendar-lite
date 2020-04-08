@@ -3425,45 +3425,48 @@ var mec_g_month_id = null;
 
 function mecFocusDay(settings)
 {
-    setTimeout(function()
+    if(mec_g_month_id != null)
     {
-        var id = settings.id,
-        date = new Date(),
-        mec_owl_year = mec_g_month_id.substr(0, 4),
-        mec_current_year = date.getFullYear(),
-        mec_owl_month = mec_g_month_id.substr(4, 6),
-        mec_current_month = date.getMonth() + 1,
-        mec_current_day = date.getDate(),
-        mec_owl_go = jQuery("#mec-owl-calendar-d-table-" + id + "-" + mec_g_month_id),
-        mec_day_exist = false;
-        mec_owl_go.find('.owl-stage > div').each(function (index)
+        setTimeout(function()
         {
-            if(parseInt(jQuery(this).children('div').data("events-count")) > 0)
+            var id = settings.id,
+            date = new Date(),
+            mec_owl_year = mec_g_month_id.substr(0, 4),
+            mec_current_year = date.getFullYear(),
+            mec_owl_month = mec_g_month_id.substr(4, 6),
+            mec_current_month = date.getMonth() + 1,
+            mec_current_day = date.getDate(),
+            mec_owl_go = jQuery("#mec-owl-calendar-d-table-" + id + "-" + mec_g_month_id),
+            mec_day_exist = false;
+            mec_owl_go.find('.owl-stage > div').each(function (index)
             {
-                if((((mec_owl_year != mec_current_year) && (mec_owl_month != mec_current_month)) || (mec_owl_year == mec_current_year) && (mec_owl_month != mec_current_month)) || parseInt(jQuery(this).children('div').text()) > mec_current_day)
+                if(parseInt(jQuery(this).children('div').data("events-count")) > 0)
                 {
-                    var index_plus = index + 1;
-                    jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + (index < 10 ? '0' + index_plus : index_plus)).trigger('click');
-                    mec_owl_go.trigger('to.owl.carousel', index_plus);
-                    mec_day_exist = true;
-                    return false;
+                    if((((mec_owl_year != mec_current_year) && (mec_owl_month != mec_current_month)) || (mec_owl_year == mec_current_year) && (mec_owl_month != mec_current_month)) || parseInt(jQuery(this).children('div').text()) > mec_current_day)
+                    {
+                        var index_plus = index + 1;
+                        jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + (index < 10 ? '0' + index_plus : index_plus)).trigger('click');
+                        mec_owl_go.trigger('to.owl.carousel', index_plus);
+                        mec_day_exist = true;
+                        return false;
+                    }
+                    else
+                    {
+                        jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + mec_current_day).trigger('click');
+                        mec_owl_go.trigger('to.owl.carousel', mec_current_day);
+                        mec_day_exist = true;
+                        return false;
+                    }
                 }
-                else
-                {
-                    jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + mec_current_day).trigger('click');
-                    mec_owl_go.trigger('to.owl.carousel', mec_current_day);
-                    mec_day_exist = true;
-                    return false;
-                }
+            });
+    
+            if(!mec_day_exist && ((mec_owl_year == mec_current_year) && (mec_owl_month == mec_current_month)))
+            {
+                jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + mec_current_day).trigger('click');
+                mec_owl_go.trigger('to.owl.carousel', mec_current_day);
             }
-        });
-
-        if(!mec_day_exist && ((mec_owl_year == mec_current_year) && (mec_owl_month == mec_current_month)))
-        {
-            jQuery('#mec_daily_view_day' + id + '_' + mec_g_month_id + mec_current_day).trigger('click');
-            mec_owl_go.trigger('to.owl.carousel', mec_current_day);
-        }
-    }, 1000);
+        }, 1000);
+    }
 }
 
 // Focus events week

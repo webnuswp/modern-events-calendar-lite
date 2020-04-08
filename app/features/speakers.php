@@ -107,7 +107,7 @@ class MEC_feature_speakers extends MEC_base
         $thumbnail = get_metadata('term', $term->term_id, 'thumbnail', true);
     ?>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_job_title"><?php _e('Job Title', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -115,7 +115,7 @@ class MEC_feature_speakers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_tel"><?php _e('Tel', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -123,7 +123,7 @@ class MEC_feature_speakers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_email"><?php _e('Email', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -131,7 +131,7 @@ class MEC_feature_speakers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_facebook"><?php _e('Facebook Page', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -139,7 +139,7 @@ class MEC_feature_speakers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_instagram"><?php _e('Instagram', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -147,7 +147,7 @@ class MEC_feature_speakers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_linkedin"><?php _e('LinkedIn', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -155,7 +155,7 @@ class MEC_feature_speakers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_twitter"><?php _e('Twitter Page', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
@@ -163,7 +163,7 @@ class MEC_feature_speakers extends MEC_base
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row" valign="top">
+            <th scope="row">
                 <label for="mec_thumbnail_button"><?php _e('Thumbnail', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>

@@ -550,7 +550,7 @@ class MEC_skins extends MEC_base
             if($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel'))))
             {
                 // Hide Shown Events on AJAX
-                if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start)) continue;
+                if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start) and !$this->show_only_expired_events) continue;
 
                 $d = date('Y-m-d', $s);
 

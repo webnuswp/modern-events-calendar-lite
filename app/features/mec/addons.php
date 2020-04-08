@@ -63,9 +63,14 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                 <div class="w-box addon">
                     <div class="w-box-child mec-addon-box">
                         <div class="mec-addon-box-head">
+                            <?php
+                                $each_addons_url    = 'http://webnus.biz/webnus.net/addons-api/version?item_name=' . urlencode($value->name);
+                                $addons_convert     = @file_get_contents($each_addons_url);
+                                $addons_json        = json_decode($addons_convert, true);
+                            ?>
                             <div class="mec-addon-box-title"><img src="<?php esc_html_e($value->img); ?>" /><span><?php esc_html_e($value->name); ?></span></div>
                             <?php if ( $value->comingsoon == 'false' ) : ?> 
-                            <div class="mec-addon-box-version"><span><?php esc_html_e('Version' , 'modern-events-calendar-lite'); ?> <strong><?php esc_html_e($value->version); ?></strong></span></div>
+                            <div class="mec-addon-box-version"><span><?php esc_html_e('Version' , 'modern-events-calendar-lite'); ?> <strong><?php esc_html_e($addons_json['version']); ?></strong></span></div>
                             <?php endif; ?>
                         </div>
                         <div class="mec-addon-box-body">

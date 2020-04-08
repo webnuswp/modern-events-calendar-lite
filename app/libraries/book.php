@@ -235,7 +235,17 @@ class MEC_book extends MEC_base
 
         $location_id = get_post_meta($event_id, 'mec_location_id', true);
         if(!empty($location_id)) update_post_meta($book_id, 'mec_booking_location', $location_id);
-        if(isset($values['mec_attendees'])) update_post_meta($book_id, 'mec_attendees', $values['mec_attendees']);
+        if(isset($values['mec_attendees']))
+        {
+            $i = 0;
+            foreach($values['mec_attendees'] as $mec_attendee)
+            {
+                $values['mec_attendees'][$i]['buyerip'] = $this->main->get_client_ip();
+                $i++;
+            }
+
+            update_post_meta($book_id, 'mec_attendees', $values['mec_attendees']);
+        }
 
         $price = isset($transaction['price']) ? $transaction['price'] : (isset($transaction['total']) ? $transaction['total'] : 0);
         update_post_meta($book_id, 'mec_price', $price);
