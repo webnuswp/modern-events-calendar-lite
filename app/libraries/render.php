@@ -528,7 +528,7 @@ class MEC_render extends MEC_base
         if(trim($thumbnail) == '' and trim($medium) != '') $thumbnail = preg_replace("/height=\"[0-9]*\"/", 'height="150"', preg_replace("/width=\"[0-9]*\"/", 'width="150"', $medium));
         elseif(trim($thumbnail) == '' and trim($large) != '') $thumbnail = preg_replace("/height=\"[0-9]*\"/", 'height="150"', preg_replace("/width=\"[0-9]*\"/", 'width="150"', $large));
         
-        $data->thumbnails = array(
+        $dataThumbnails = apply_filters('mec-render-data-thumbnails', [
             'thumbnail'=>$thumbnail,
             'thumblist'=>$thumblist,
             'gridsquare'=>$gridsquare,
@@ -537,10 +537,11 @@ class MEC_render extends MEC_base
             'large'=>$large,
             'full'=>$full,
             'tileview'=>$tileview
-        );
-        
+        ], $post_id);
+        $data->thumbnails = $dataThumbnails;
+
         // Featured image URLs
-        $data->featured_image = array(
+        $dataFeaturedImage = apply_filters('mec-render-data-featured-image', array(
             'thumbnail'=>esc_url(get_the_post_thumbnail_url($post_id, 'thumbnail')),
             'thumblist'=>esc_url(get_the_post_thumbnail_url($post_id, 'thumblist' )),
             'gridsquare'=>esc_url(get_the_post_thumbnail_url($post_id, 'gridsquare' )),
@@ -549,7 +550,8 @@ class MEC_render extends MEC_base
             'large'=>esc_url(get_the_post_thumbnail_url($post_id, 'large')),
             'full'=>esc_url(get_the_post_thumbnail_url($post_id, 'full')),
             'tileview'=>esc_url(get_the_post_thumbnail_url($post_id, 'tileview'))
-        );
+        ), $post_id);
+        $data->featured_image = $dataFeaturedImage;
 
         $taxonomies = array('mec_label', 'mec_organizer', 'mec_location', 'mec_category', 'post_tag');
         if(isset($this->settings['speakers_status']) and $this->settings['speakers_status']) $taxonomies[] = 'mec_speaker';

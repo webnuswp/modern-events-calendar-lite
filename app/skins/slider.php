@@ -12,6 +12,8 @@ class MEC_skin_slider extends MEC_skins
      * @var string
      */
     public $skin = 'slider';
+    public $display_price;
+    public $display_available_tickets;
     
     /**
      * Constructor method
@@ -90,7 +92,13 @@ class MEC_skin_slider extends MEC_skins
 		if($this->widget)
         {
 			$this->skin_options['count'] = '1';
-		}
+        }
+        
+        // Fluent view - Display Price
+        $this->display_price = (isset($this->skin_options['display_price']) and trim($this->skin_options['display_price'])) ? true : false;
+
+        // Fluent view - Available Tickets
+        $this->display_available_tickets = (isset($this->skin_options['display_available_tickets']) and trim($this->skin_options['display_available_tickets'])) ? $this->skin_options['display_available_tickets'] : '';
         
         // The count in row
         $this->count = isset($this->skin_options['count']) ? $this->skin_options['count'] : '3';
@@ -162,6 +170,8 @@ class MEC_skin_slider extends MEC_skins
         
         // Found Events
         $this->found = 0;
+
+        do_action('mec-slider-initialize-end', $this);
     }
     
     /**

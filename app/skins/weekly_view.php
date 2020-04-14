@@ -142,6 +142,8 @@ class MEC_skin_weekly_view extends MEC_skins
         foreach($this->weeks as $week_number=>$week) foreach($week as $day) $this->week_of_days[$day] = $week_number;
 
         $this->maximum_dates = isset($this->atts['maximum_dates']) ? $this->atts['maximum_dates'] : 1;
+
+        do_action('mec-weekly-initialize-end', $this);
     }
     
     /**

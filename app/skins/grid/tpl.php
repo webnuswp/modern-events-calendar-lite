@@ -65,7 +65,6 @@ do_action('mec_grid_skin_head');
             </div>
             <input type="hidden" id="gmap-data" value="">
         </div>
-        </div>
         <?php endif; ?>
     <div class="mec-skin-grid-events-container" id="mec_skin_events_<?php echo $this->id; ?>">
         <?php echo $items_html; ?>

@@ -173,6 +173,8 @@ class MEC_skin_masonry extends MEC_skins
         
         // Found Events
         $this->found = 0;
+
+        do_action('mec-masonry-initialize-end', $this);
     }
     
     /**

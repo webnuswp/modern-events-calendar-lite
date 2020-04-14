@@ -119,7 +119,7 @@ $id = 1;
                 </span>
             </td>
             <td>
-                <a class="mec-booking-number-of-attendees" href="#mec_profile_booking_<?php echo $ID; ?>" data-lity>
+                <a class="mec-booking-number-of-attendees"  href="#mec_profile_booking_<?php echo $ID; ?>">
                     <?php echo sprintf(__('<i class="mec-sl-eye"></i> %s', 'modern-events-calendar-lite'), ((is_array($transaction) and isset($transaction['tickets'])) ? count($transaction['tickets']) : 0)); ?>
                 </a>
             </td>
@@ -232,3 +232,11 @@ $id = 1;
     <p><?php echo __('No bookings found!', 'modern-events-calendar-lite'); ?></p>
     <?php endif; ?>
 </div>
+<script>
+jQuery( ".mec-booking-number-of-attendees" ).on('click',function(e)
+{
+    e.preventDefault();
+    var attendee_id =  jQuery(this).attr('href');
+    lity(attendee_id);
+});
+</script>

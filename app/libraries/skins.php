@@ -207,7 +207,7 @@ class MEC_skins extends MEC_base
         $path = $this->get_path('tpl');
         
         // Apply filters
-        $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin);
+        $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, $this->style);
         if($filtered_path != $this->skin and $this->file->exists($filtered_path)) $path = $filtered_path;
         
         return $path;
@@ -639,7 +639,7 @@ class MEC_skins extends MEC_base
         if($this->show_only_expired_events)
         {
             $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
-            $start = (isset($this->sf) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
+            $start = ((isset($this->sf) || $this->request->getVar('sf', array())) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
 
             $end = date('Y-m-01', strtotime('-10 Year', strtotime($start)));
         }

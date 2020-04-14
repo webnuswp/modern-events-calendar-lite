@@ -161,6 +161,8 @@ class MEC_skin_carousel extends MEC_skins
         
         // Found Events
         $this->found = 0;
+
+        do_action('mec-carousel-initialize-end', $this);
     }
     
     /**

@@ -141,11 +141,14 @@ if($this->style == 'colorful')
 </div>
 
 <?php
-foreach ($map_events as $key => $value) {
-    foreach ($value as $keyy => $valuee) {
-        $map_eventss[] = $valuee;
+$map_eventss = array();
+if ( isset($map_events) && !empty($map_events)) :
+    foreach ($map_events as $key => $value) {
+        foreach ($value as $keyy => $valuee) {
+            $map_eventss[] = $valuee;
+        }
     }
-}
+endif;
 
 if ( isset($this->map_on_top) and $this->map_on_top ) :
 if(isset($map_eventss) and !empty($map_eventss))

@@ -23,6 +23,7 @@ class MEC_skin_grid extends MEC_skins
     public $date_format_modern_3;
     public $date_format_simple_1;
     public $date_format_novel_1;
+    public $date_format_fluent_1;
 
     /**
      * Constructor method
@@ -41,6 +42,10 @@ class MEC_skin_grid extends MEC_skins
     {
         $this->factory->action('wp_ajax_mec_grid_load_more', array($this, 'load_more'));
         $this->factory->action('wp_ajax_nopriv_mec_grid_load_more', array($this, 'load_more'));
+
+        // Fluent view
+        $this->factory->action('wp_ajax_mec_grid_load_month', array($this, 'load_month'));
+        $this->factory->action('wp_ajax_nopriv_mec_grid_load_month', array($this, 'load_month'));
     }
     
     /**
@@ -74,6 +79,9 @@ class MEC_skin_grid extends MEC_skins
         $this->date_format_simple_1 = (isset($this->skin_options['simple_date_format1']) and trim($this->skin_options['simple_date_format1'])) ? $this->skin_options['simple_date_format1'] : 'M d Y';
         
         $this->date_format_novel_1 = (isset($this->skin_options['novel_date_format1']) and trim($this->skin_options['novel_date_format1'])) ? $this->skin_options['novel_date_format1'] : 'd F Y';
+
+        // Fluent view - Date Formats
+        $this->date_format_fluent_1 = (isset($this->skin_options['fluent_date_format1']) and trim($this->skin_options['fluent_date_format1'])) ? $this->skin_options['fluent_date_format1'] : 'D, F d, Y';
 
         // Date Formats of colorful style
         if($this->style == 'colorful')
@@ -201,6 +209,11 @@ class MEC_skin_grid extends MEC_skins
         
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
+
+        // Fluent view
+        $this->year = date('Y', strtotime($this->start_date));
+        $this->month = date('m', strtotime($this->start_date));
+        $this->day = date('d', strtotime($this->start_date));
         
         // Show Ongoing Events
         $this->show_ongoing_events = (isset($this->atts['show_only_ongoing_events']) and trim($this->atts['show_only_ongoing_events'])) ? '1' : '0';
@@ -272,7 +285,15 @@ class MEC_skin_grid extends MEC_skins
         $this->initialize($atts);
         
         // Override variables
-        $this->start_date = $this->request->getVar('mec_start_date', date('y-m-d'));
+        if (strpos($this->style, 'fluent') === false) {
+            $this->start_date = $this->request->getVar('mec_start_date', date('y-m-d'));
+        } else {
+            $this->maximum_date = $this->request->getVar('mec_maximum_date');
+            $mecStartDate = $this->request->getVar('mec_start_date', date('y-m-d'));
+            $this->start_date = strtotime($mecStartDate) > strtotime($this->maximum_date) ? $this->maximum_date :  $mecStartDate;
+            $this->year = $this->request->getVar('mec_year');
+            $this->month = $this->request->getVar('mec_month');
+        }
         $this->end_date = $this->start_date;
         $this->offset = $this->request->getVar('mec_offset', 0);
 		
@@ -284,6 +305,82 @@ class MEC_skin_grid extends MEC_skins
         
         // Fetch the events
         $this->fetch();
+        
+        // Return the output
+        $output = $this->output();
+        
+        echo json_encode($output);
+        exit;
+    }
+
+    /**
+    * Load month for AJAX requert / Fluent view
+    * @author Webnus <info@webnus.biz>
+    * @return void
+    */
+    public function load_month()
+    {
+        $this->sf = $this->request->getVar('sf', array());
+        $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
+        $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
+        $navigator_click = $this->request->getVar('navigator_click', false);
+
+        // Initialize the skin
+        $this->initialize($atts);
+        
+        // Search Events If Not Found In Current Month 
+        $c = 0;
+        $break = false;
+
+        do {
+            if($c > 6) $break = true;
+            if($c and !$break) {
+                if(intval($this->month) == 12)
+                {
+                    $this->year = intval($this->year)+1;
+                    $this->month = '01';
+                }
+
+                $this->month = sprintf("%02d", intval($this->month)+1);
+            } else {
+                // Start Date
+                $this->year = $this->request->getVar('mec_year', current_time('Y'));
+                $this->month = $this->request->getVar('mec_month', current_time('m'));
+            }
+
+            if($this->show_only_expired_events) {
+                $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-01'));
+                $this->active_day = date('Y-m-t', strtotime($this->year.'-'.$this->month.'-01'));
+            } else {
+                $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-01'));
+
+                $day = current_time('d');
+                $this->active_day = $this->year.'-'.$this->month.'-'.$day;
+
+                // If date is not valid then use the first day of month
+                if(!$this->main->validate_date($this->active_day, 'Y-m-d')) $this->active_day = $this->year.'-'.$this->month.'-01';
+            }
+
+            // We will extend the end date in the loop
+            $this->end_date = $this->start_date;
+            
+            // Return the events
+            $this->atts['return_items'] = true;
+            
+            // Fetch the events
+            $this->fetch();
+            
+            // Break the loop if not resault
+            if($break) {
+                break;
+            }
+
+            // Set active day to current day if not resault
+            if(count($this->events)) $this->active_day = key($this->events);
+            if($navigator_click) break;
+            
+            $c++;
+        } while(!count($this->events));
         
         // Return the output
         $output = $this->output();

@@ -3892,9 +3892,16 @@ class MEC_feature_ix extends MEC_base
         $this->main->save_ix_options(array('facebook_app_token'=>$this->fb_access_token));
         
         $fb_page = $this->f_calendar_import_get_page($fb_page_link);
-        
+
         $fb_page_id = isset($fb_page['id']) ? $fb_page['id'] : 0;
-        if(!$fb_page_id) return array('success'=>0, 'message'=>__("We couldn't recognize your Facebook page. Please check it and provide us a valid Facebook page link.", 'modern-events-calendar-lite'));
+        if(!$fb_page_id)
+        {
+            $message = __("We couldn't recognize your Facebook page. Please check it and provide us a valid Facebook page link.", 'modern-events-calendar-lite');
+            if(isset($fb_page['error']) and isset($fb_page['error']['message'])) $message = $fb_page['error']['message'];
+
+            return array('success'=>0, 'message'=>$message);
+        }
+
         $events = array();
         $next_page = 'https://graph.facebook.com/v3.2/'.$fb_page_id.'/events/?access_token='.$this->fb_access_token;
         

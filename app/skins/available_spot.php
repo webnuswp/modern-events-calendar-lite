@@ -16,6 +16,7 @@ class MEC_skin_available_spot extends MEC_skins
     public $event_id;
     public $date_format1;
     public $date_format2;
+    public $date_format_fluent_1;
 
     /**
      * Constructor method
@@ -48,6 +49,9 @@ class MEC_skin_available_spot extends MEC_skins
         $this->date_format1 = (isset($this->skin_options['date_format1']) and trim($this->skin_options['date_format1'])) ? $this->skin_options['date_format1'] : 'j';
         $this->date_format2 = (isset($this->skin_options['date_format2']) and trim($this->skin_options['date_format2'])) ? $this->skin_options['date_format2'] : 'F';
 
+        // Fluent view - Date Formats
+        $this->date_format_fluent_1 = (isset($this->skin_options['fluent_date_format1']) and trim($this->skin_options['fluent_date_format1'])) ? $this->skin_options['fluent_date_format1'] : 'F d';
+
         // reason_for_cancellation
         $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
@@ -74,6 +78,8 @@ class MEC_skin_available_spot extends MEC_skins
 
         // Event ID
         $this->event_id = isset($this->skin_options['event_id']) ? $this->skin_options['event_id'] : '-1';
+
+        do_action('mec-available-spot-initialize-end', $this);
     }
 
     /**

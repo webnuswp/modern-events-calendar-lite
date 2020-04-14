@@ -1522,6 +1522,9 @@ span.mec-event-title-soldout {
 	color: #fff;
 }
 
+.mec-wrap .mec-event-grid-minimal .mec-event-date:hover {
+    color: #fff;
+}
 
 /* MEC Event-list Classic
 	-------------------------- */
@@ -9591,6 +9594,11 @@ body .featherlight .featherlight-close-icon:hover {
     .mec-single-event .mec-events-meta-group-countdown {
         margin-left: 0;
         padding: 15px 1%;
+	}
+	/* Close Button - Feather Light Modal */
+    body .featherlight .featherlight-close-icon {
+        color: #000;
+        border-color: #000;
     }
 }
 
@@ -15657,6 +15665,18 @@ a.mec-timeline-readmore i {
 .mec-wrap .mec-event-tile-view .col-md-6 article.mec-label-featured:before {
     top: 20px;
     left: 200px;
+}
+
+@media (max-width: 960px) {
+    .mec-wrap .mec-event-tile-view .col-sm-3 {
+        width: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .mec-wrap .mec-event-tile-view .col-sm-3 {
+        width: 100%;
+    }
 }
 
 /* Normal Label - Default Style for All Skins */

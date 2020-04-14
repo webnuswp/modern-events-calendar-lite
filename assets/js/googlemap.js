@@ -17,14 +17,14 @@
                 form: '#mec_get_direction_form',
                 reset: '.mec-map-get-direction-reset',
                 addr: '#mec_get_direction_addr',
-                destination: {},
-            },
+                destination: {}
+            }
         }, options);
 
         var bounds;
         var map;
         var infowindow;
-        var loadedMarkers = new Array();
+        var loadedMarkers = [];
         var markerCluster;
 
         var canvas = this;
@@ -55,7 +55,7 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 center: center,
                 zoom: settings.zoom,
-                styles: settings.styles,
+                styles: settings.styles
             };
 
             // Init map
@@ -82,7 +82,7 @@
                 };
             };
 
-            markerClusterOptions = {
+            var markerClusterOptions = {
                 styles: [{
                         height: 53,
                         url: settings.clustering_images + '1.png',
@@ -114,7 +114,7 @@
                         textColor: '#fff'
                     }
                 ]
-            }
+            };
 
             markerCluster = new MarkerClusterer(map, null, markerClusterOptions);
 
@@ -128,25 +128,28 @@
             // Geolocation focus.
             var permission = false;
 
-            navigator.permissions.query( {
-                name : 'geolocation'
-            } ).then( function( result )
+            if(typeof navigator.permissions !== 'undefined')
             {
-                if ( ! settings.geolocation_focus ) {
-                    permission = true;
-                }
-                
-                result.onchange = function() {
-                    if ( result.state == 'granted' ) {
-                        permission = true;
+                navigator.permissions.query({
+                    name : 'geolocation'
+                }).then(function(result)
+                {
+                    if(!settings.geolocation_focus) permission = true;
+
+                    result.onchange = function()
+                    {
+                        if(result.state === 'granted') permission = true;
                     }
-                }
-            } );
+                });
+            }
 
             // Geolocation
-            if ((settings.HTML5geolocation || (options.geolocation !== 'undefined' && options.geolocation == true)) && navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    if ( permission ) {
+            if((settings.HTML5geolocation || (options.geolocation !== 'undefined' && options.geolocation === true)) && navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function (position)
+                {
+                    if(permission)
+                    {
                         var center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                         var zoom = map.getZoom();
 

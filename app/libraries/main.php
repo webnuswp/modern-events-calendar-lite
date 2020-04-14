@@ -2320,6 +2320,8 @@ class MEC_main extends MEC_base
                 $i = 1;
                 foreach($transaction['tickets'] as $attendee)
                 {
+                    if(!isset($attendee['id'])) continue;
+
                     $pdf->SetFont('DejaVuBold', '', 12);
                     $pdf->Write(6, $attendee['name']);
                     $pdf->Ln();
@@ -2388,6 +2390,11 @@ class MEC_main extends MEC_base
             $pdf->SetFont('DejaVu', '', 12);
             $pdf->Write(6, __('Gateway', 'modern-events-calendar-lite').': ');
             $pdf->Write(6, get_post_meta($book_id, 'mec_gateway_label', true));
+            $pdf->Ln();
+
+            $pdf->SetFont('DejaVu', '', 12);
+            $pdf->Write(6, __('Transaction ID', 'modern-events-calendar-lite').': ');
+            $pdf->Write(6, ((isset($transaction['gateway_transaction_id']) and trim($transaction['gateway_transaction_id'])) ? $transaction['gateway_transaction_id'] : $transaction_id));
             $pdf->Ln();
 
             $date_format = get_option('date_format');
@@ -5208,28 +5215,26 @@ class MEC_main extends MEC_base
             // MEC Settings
             $settings = $this->get_settings();
 
-            
             $assets = array('js'=>array(), 'css'=>array());
+
             $gm_include = apply_filters('mec_gm_include', true);
             if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '');
-
             
-            $assets['js']['mec-richmarker-script']=$this->asset('packages/richmarker/richmarker.min.js'); // Google Maps Rich Marker
-            $assets['js']['mec-clustering-script']=$this->asset('packages/clusterer/markerclusterer.min.js'); // Google Maps Clustering
-            $assets['js']['mec-googlemap-script']=$this->asset('js/googlemap.js'); // Google Maps Javascript API
+            $assets['js']['mec-richmarker-script'] = $this->asset('packages/richmarker/richmarker.min.js'); // Google Maps Rich Marker
+            $assets['js']['mec-clustering-script'] = $this->asset('packages/clusterer/markerclusterer.min.js'); // Google Maps Clustering
+            $assets['js']['mec-googlemap-script'] = $this->asset('js/googlemap.js'); // Google Maps Javascript API
 
-            $assets = apply_filters( 'mec_map_assets_include',$assets, $this, $define_settings );
+            // Apply Filters
+            $assets = apply_filters('mec_map_assets_include', $assets, $this, $define_settings);
 
-            if(count($assets['js'])>0){
-                foreach ($assets['js'] as $key => $link) {
-                    wp_enqueue_script($key, $link);
-                }
+            if(count($assets['js']) > 0)
+            {
+                foreach($assets['js'] as $key => $link) wp_enqueue_script($key, $link);
             }
 
-            if(count($assets['css'])>0){
-                foreach ($assets['css'] as $key => $link) {
-                    wp_enqueue_style( $key, $link );
-                }
+            if(count($assets['css']) > 0)
+            {
+                foreach($assets['css'] as $key => $link) wp_enqueue_style($key, $link);
             }
         }
     }

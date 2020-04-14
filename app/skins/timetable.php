@@ -150,7 +150,7 @@ class MEC_skin_timetable extends MEC_skins
         list($this->year, $this->month, $this->day) = $this->get_start_date();
         
         $this->today = $this->year.'-'.$this->month.'-'.$this->day;
-        $this->start_date = $this->year.'-'.$this->month.(($this->style == 'clean' || $this->style == 'classic') ? '-'.$this->day : '-01');
+        $this->start_date = $this->year.'-'.$this->month.(($this->style == 'clean' || $this->style == 'classic' || $this->style == 'fluent') ? '-'.$this->day : '-01');
 
         $this->active_date = (strtotime($this->start_date) > strtotime(date('Y-m-d'))) ? $this->start_date : date('Y-m-d');
 
@@ -178,7 +178,7 @@ class MEC_skin_timetable extends MEC_skins
 
         // Date Events
         $dates = $this->period($start, $end);
-        if($this->style == 'clean' || $this->style == 'classic')
+        if($this->style == 'clean' || $this->style == 'classic' || $this->style == 'fluent')
         {
             $s = $start;
             $sorted = array();
@@ -296,7 +296,7 @@ class MEC_skin_timetable extends MEC_skins
         }
 
         // Show from start week
-        if($this->style == 'clean' || $this->style == 'classic')
+        if($this->style == 'clean' || $this->style == 'classic' || $this->style == 'fluent')
         {
             if(date('w', strtotime($date)) == $week_start) $date = date('Y-m-d', strtotime('This '.$weekdays[0], strtotime($date)));
             else $date = date('Y-m-d', strtotime('Last '.$weekdays[0], strtotime($date)));

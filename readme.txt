@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 5.2.5
+Stable tag: 5.2.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -30,10 +30,10 @@ Fortunately, though WordPress doesn’t enable these functions out of the box, t
 
 https://www.youtube.com/watch?v=cnVy2YzDMOk
 
-== Covid-19 (Coronavirus) Event Status ==
-MEC version 5.2.3 conforms with Google recommendations and you can have a more accurate state for your events in the Schema and Google will detect that in the search results to provide better results for users. This is present in both Lite and Pro features. [Read More in Google](https://webmasters.googleblog.com/2020/03/new-properties-virtual-or-canceled-events.html)
+== Covid-19 (Coronavirus) ==
+In MEC 5.2.5 we've prepared 3 very important features to help you during the Covid-19 pandemic. You can now display normal labels and the reason for the event's cancelation in shortcodes and the Single Event Page. You can also set a url for your locations so your location can act as a URL display for livestreams/webinars. 
 
-You can also create the label you like from Label section and view it in the shortcode. This feature allows you to display the event status to your users in the shortcodes, and if your event is an online event, you can use the “More info” button to link to the page where you are going to livestream your event online.
+There is also a feature that was added in the last update. Once you set the status of an event, those changes are reflected in the schema as well so that Google can detect your events' status easier.[Read More](https://webnus.net/modern-events-calendar/covid-19/)
 
 == 10 Best Event Calendar Plugins and Themes for WordPress 2020 ==
 You can read and compare about the WordPress best event management plugins in our recently published article: [10 Best Event Calendar Plugins for WordPress](https://webnus.net/10-best-event-calendar-plugins-and-themes-for-wordpress). We've done a lot of precise explorations to come up with a complete informative article to serve your needs on running an event based website.
@@ -364,6 +364,19 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 37. WordPress Event Calendar - Add Shortcode Wizard
 
 == Changelog ==
+v 5.2.6 – 14 April 2020
+- Added: Start and end dates in RSS feeds
+- Increased: Default date generation limit for advanced events
+- Fixed: Showing correct error on Facebook importer (pro)
+- Fixed: Loading gateway options when booking module is disabled (pro)
+- Fixed: Transaction ID in PayPal Gateway (pro)
+- Fixed: Google Maps Geo code on Safari browser (pro)
+- Fixed: The new events badge in backend
+- Fixed: Divi theme builder and the Bloom plugin (tinymc conflicts)
+- Fixed: Tile view responsive size on mobile and tablet
+- Fixed: Close button on modal popup view responsive size on mobile and tablet
+- Fixed: Hover style on the grid view skin minimal style
+
 v 5.2.5 – 8 April 2020
 - Added: Normal Label to all skins
 - Added: Cancellation reason to all skins

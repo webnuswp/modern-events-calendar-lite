@@ -135,6 +135,8 @@ class MEC_skin_daily_view extends MEC_skins
         
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
+
+        do_action('mec-daily-initialize-end', $this);
     }
     
     /**

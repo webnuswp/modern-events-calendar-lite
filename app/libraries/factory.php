@@ -281,7 +281,7 @@ class MEC_factory extends MEC_base
         // Settings
         $settings = $this->main->get_settings();
 
-        wp_localize_script( 'mec-backend-script', 'mec_admin_localize', array(
+        wp_localize_script('mec-backend-script', 'mec_admin_localize', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'ajax_nonce' => wp_create_nonce('mec_settings_nonce'),
             'mce_items' => $this->main->mce_get_shortcode_list(),
@@ -293,8 +293,9 @@ class MEC_factory extends MEC_base
         // Thickbox
         wp_enqueue_media();
 
-        // Editor
-        wp_enqueue_editor();
+        // WP Editor
+        $page = isset($_GET['page']) ? $_GET['page'] : NULL; // Don't include it in Divi Theme Builder
+        if(strpos($page, 'et_') === false) wp_enqueue_editor();
     
         // Include WordPress color picker CSS file
         wp_enqueue_style('wp-color-picker');
@@ -340,7 +341,7 @@ class MEC_factory extends MEC_base
         wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'));
         wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'));
 
-        //Include Select2
+        // Include Select2
         wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'));
         wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'));
 
@@ -362,13 +363,12 @@ class MEC_factory extends MEC_base
         if(did_action('elementor/loaded')) $elementor_edit_mode = (\Elementor\Plugin::$instance->editor->is_edit_mode() == false) ? 'no' : 'yes';
         else $elementor_edit_mode = 'no';
         
-         // Settings
-         $settings = $this->main->get_settings();
-         $grecaptcha_key = isset($settings['google_recaptcha_sitekey']) ? trim($settings['google_recaptcha_sitekey']) : '';
+        // Settings
+        $settings = $this->main->get_settings();
+        $grecaptcha_key = isset($settings['google_recaptcha_sitekey']) ? trim($settings['google_recaptcha_sitekey']) : '';
 
         // Localize Some Strings
-        wp_localize_script('mec-frontend-script', 'mecdata', array
-        (
+        $mecdata = apply_filters('mec_locolize_data', array(
             'day'=>__('day', 'modern-events-calendar-lite'),
             'days'=>__('days', 'modern-events-calendar-lite'),
             'hour'=>__('hour', 'modern-events-calendar-lite'),
@@ -384,6 +384,9 @@ class MEC_factory extends MEC_base
             'current_year' => date('Y', current_time('timestamp', 0)),
             'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
         ));
+        
+        // Localize Some Strings
+        wp_localize_script('mec-frontend-script', 'mecdata', $mecdata);
         
         // Include Google Recaptcha Javascript API
         $grecaptcha_include = apply_filters('mec_grecaptcha_include', true);
@@ -1124,45 +1127,33 @@ class MEC_factory extends MEC_base
 
     /**
      * Remove MEC from a blog
-     * @author Webnus <info@webnus.biz>
+     * @param $dark
      * @return int $dark
-     */    
-    function mec_body_class( $dark )
+     * @author Webnus <info@webnus.biz>
+     */
+    public function mec_body_class($dark)
     {
-
-        global $post;
         $styling = $this->main->get_styling();
 
-        $dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
+        $dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
+        if($dark_mode == 1) $dark[] = 'mec-dark-mode';
 
-        if ( $dark_mode == 1 )
-        {
-            $dark[] = 'mec-dark-mode';
-        }
         return $dark;
-
     }
 
     /**
      * Remove MEC from a blog
-     * @author Webnus <info@webnus.biz>
+     * @param $darkadmin
      * @return int $darkadmin
-     */ 
-    function mec_admin_body_class( $darkadmin)
+     * @author Webnus <info@webnus.biz>
+     */
+    public function mec_admin_body_class($darkadmin)
     {
-
-        global $post;
         $styling = $this->main->get_styling();
 
-        $darkadmin_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-
-        if ( $darkadmin_mode == 1 )
-        {
-            $darkadmin = 'mec-admin-dark-mode';
-        }
+        $darkadmin_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
+        if($darkadmin_mode == 1) $darkadmin = 'mec-admin-dark-mode';
 
         return $darkadmin;
-
     }
-
 }

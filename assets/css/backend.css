@@ -9527,3 +9527,7 @@ div#mec-schema .mec-form-row label {
 div#mec_cancelled_reason_wrapper label {
     width: 166px !important;
 }
+
+.mec-fluent-hidden {
+    display: none;
+}

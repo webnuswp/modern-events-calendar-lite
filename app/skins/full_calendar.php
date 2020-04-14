@@ -102,6 +102,8 @@ class MEC_skin_full_calendar extends MEC_skins
         
         // Set the ID
         if(!isset($this->atts['id'])) $this->atts['id'] = $this->id;
+
+        do_action('mec-full-calendar-initialize-end', $this);
     }
     
     public function get_start_date()
@@ -160,6 +162,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['yearly_view']['modern_date_format2'] = isset($this->skin_options['date_format_yearly_2']) ? $this->skin_options['date_format_yearly_2'] : 'F j';
                 $atts['sf_status'] = false;
 
+                $atts = apply_filters('mec-full-calendar-load-skin-yearly', $this, $atts, 'yearly_view');
+
                 $output = $this->render->vyear($atts);
 
                 break;
@@ -174,6 +178,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['monthly_view']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
                 $atts['sk-options']['monthly_view']['limit'] = isset($this->skin_options['limit']) ? $this->skin_options['limit'] : 12;
                 $atts['sf_status'] = false;
+
+                $atts = apply_filters('mec-full-calendar-load-skin-monthly', $this, $atts, 'monthly_view');
                 
                 $output = $this->render->vmonth($atts);
                 
@@ -188,6 +194,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['weekly_view']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
                 $atts['sk-options']['weekly_view']['limit'] = isset($this->skin_options['limit']) ? $this->skin_options['limit'] : 12;
                 $atts['sf_status'] = false;
+
+                $atts = apply_filters('mec-full-calendar-load-skin-weekly', $this, $atts, 'weekly_view');
                 
                 $output = $this->render->vweek($atts);
                 
@@ -202,6 +210,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['daily_view']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
                 $atts['sk-options']['daily_view']['limit'] = isset($this->skin_options['limit']) ? $this->skin_options['limit'] : 12;
                 $atts['sf_status'] = false;
+
+                $atts = apply_filters('mec-full-calendar-load-skin-daily', $this, $atts, 'daily_view');
                 
                 $output = $this->render->vday($atts);
                 
@@ -220,6 +230,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['list']['limit'] = isset($this->skin_options['limit']) ? $this->skin_options['limit'] : 12;
                 $atts['sk-options']['list']['standard_date_format1'] = isset($this->skin_options['date_format_list']) ? $this->skin_options['date_format_list'] : 'd M';
                 $atts['sf_status'] = false;
+
+                $atts = apply_filters('mec-full-calendar-load-skin-list', $this, $atts, 'list');
 
                 $output = $this->render->vlist($atts);
                 

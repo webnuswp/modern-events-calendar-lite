@@ -550,13 +550,20 @@ function mec_skin_toggle()
     jQuery('#mec_skin_'+skin+'_style').trigger('change');
 }
 
-function mec_skin_style_changed(skin, style, context)
-{
-    jQuery('.mec-skin-'+skin+'-date-format-container').hide();
-    jQuery('#mec_skin_'+skin+'_date_format_'+style+'_container').show();
+function mec_skin_style_changed(skin, style, context) {
+    if (style.includes('fluent')) {
+        jQuery('.mec-' + skin + '-fluent').removeClass('mec-fluent-hidden');
+        jQuery('.mec-not-' + skin + '-fluent').addClass('mec-fluent-hidden');
+    } else {
+        jQuery('.mec-' + skin + '-fluent').addClass('mec-fluent-hidden');
+        jQuery('.mec-not-' + skin + '-fluent').removeClass('mec-fluent-hidden');
+    }
+
+    jQuery('.mec-skin-' + skin + '-date-format-container').hide();
+    jQuery('#mec_skin_' + skin + '_date_format_' + style + '_container').show();
 
     // Show Or Hide Include Events Time Switcher
-    if(style == 'classic' || style == 'minimal' || style == 'modern') jQuery(context).parent().parent().find('.mec-include-events-times').show();
+    if (style == 'classic' || style == 'minimal' || style == 'modern') jQuery(context).parent().parent().find('.mec-include-events-times').show();
     else jQuery(context).parent().parent().find('.mec-include-events-times').hide();
 }
 
@@ -664,33 +671,36 @@ function mec_send_email_check_all(Context)
 // TinyMce Plugins
 if(jQuery('.mec-fes-form').length < 1)
 {
-    if (typeof mec_admin_localize === "undefined") {
-        var  items = '';
-    } else {
-        var  items = JSON.parse(mec_admin_localize.mce_items);
-    }
-    var menu = new Array();
-    if (items && typeof tinymce !== 'undefined') {
-        tinymce.PluginManager.add('mec_mce_buttons', function (editor, url) {
-            items.shortcodes.forEach(function (e, i) {
+    var items = '';
+    if(typeof mec_admin_localize !== "undefined") items = JSON.parse(mec_admin_localize.mce_items);
+
+    var menu = [];
+    if(items && typeof tinymce !== 'undefined')
+    {
+        tinymce.PluginManager.add('mec_mce_buttons', function(editor, url)
+        {
+            items.shortcodes.forEach(function(e, i)
+            {
                 menu.push(
+                {
+                    text: items.shortcodes[i]['PN'].replace(/-/g, ' '),
+                    id: items.shortcodes[i]['ID'],
+                    classes: 'mec-mce-items',
+                    onselect: function(e)
                     {
-                        text: items.shortcodes[i]['PN'].replace(/-/g, ' '),
-                        id: items.shortcodes[i]['ID'],
-                        classes: 'mec-mce-items',
-                        onselect: function (e) {
-                            editor.insertContent(`[MEC id="${e.control.settings.id}"]`);
-                        }
-                    });
+                        editor.insertContent(`[MEC id="${e.control.settings.id}"]`);
+                    }
+                });
             });
+
             // Add menu button
             editor.addButton('mec_mce_buttons',
-                {
-                    text: items.mce_title,
-                    icon: false,
-                    type: 'menubutton',
-                    menu: menu
-                });
+            {
+                text: items.mce_title,
+                icon: false,
+                type: 'menubutton',
+                menu: menu
+            });
         });
     }
 }

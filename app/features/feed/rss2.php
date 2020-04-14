@@ -15,6 +15,7 @@ do_action('rss_tag_pre', 'rss2');
 	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:mec="http://webnus.net/rss/mec/"
 	<?php do_action('rss2_ns'); ?>>
 <channel>
 	<title><?php wp_title_rss(); ?></title>
@@ -27,7 +28,7 @@ do_action('rss_tag_pre', 'rss2');
 	<sy:updateFrequency><?php echo apply_filters('rss_update_frequency', 1); ?></sy:updateFrequency>
 	<?php do_action('rss2_head'); ?>
     
-    <?php foreach($this->events as $date): foreach($date as $event): ?>
+    <?php foreach($this->events as $date=>$events): foreach($events as $event): ?>
     <item>
 		<title><?php echo $this->feed->title($event->ID); ?></title>
 		<link><?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?></link>
@@ -51,10 +52,14 @@ do_action('rss_tag_pre', 'rss2');
 		<wfw:commentRss><?php echo esc_url(get_post_comments_feed_link($event->ID, 'rss2')); ?></wfw:commentRss>
 		<slash:comments><?php echo get_comments_number($event->ID); ?></slash:comments>
         <?php endif; ?>
-        
+
+        <mec:startDate><?php echo $date; ?></mec:startDate>
+        <mec:endDate><?php echo $this->main->get_end_date_by_occurrence($event->ID, $date); ?></mec:endDate>
+
         <?php $this->feed->enclosure_rss($event->ID); ?>
         <?php do_action('rss2_item'); ?>
 	</item>
     <?php endforeach; endforeach; ?>
+
 </channel>
 </rss>

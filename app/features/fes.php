@@ -1107,7 +1107,9 @@ class MEC_feature_fes extends MEC_base
         }
 
         // For Event Notification Badge.
-        update_post_meta($post_id, 'mec_event_date_submit', date('YmdHis', current_time('timestamp', 0)));
+        if(isset($_REQUEST['mec']['post_id']) and trim($_REQUEST['mec']['post_id']) == '-1') {
+            update_post_meta($post_id, 'mec_event_date_submit', date('YmdHis', current_time('timestamp', 0)));
+        }
 
         $message = '';
         if($status == 'pending') $message = __('The event submitted. It will publish as soon as possible.', 'modern-events-calendar-lite');

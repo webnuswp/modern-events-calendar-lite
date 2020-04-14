@@ -1,4 +1,17 @@
-﻿v 5.2.5 – 8 April 2020
+﻿v 5.2.6 – 14 April 2020
+- Added: Start and end dates in RSS feeds
+- Increased: Default date generation limit for advanced events
+- Fixed: Showing correct error on Facebook importer (pro)
+- Fixed: Loading gateway options when booking module is disabled (pro)
+- Fixed: Transaction ID in PayPal Gateway (pro)
+- Fixed: Google Maps Geo code on Safari browser (pro)
+- Fixed: The new events badge in backend
+- Fixed: Divi theme builder and the Bloom plugin (tinymc conflicts)
+- Fixed: Tile view responsive size on mobile and tablet
+- Fixed: Close button on modal popup view responsive size on mobile and tablet
+- Fixed: Hover style on the grid view skin minimal style
+
+v 5.2.5 – 8 April 2020
 - Added: Normal Label to all skins
 - Added: Cancellation reason to all skins
 - Added: Cancellation reason to single and popup single page
