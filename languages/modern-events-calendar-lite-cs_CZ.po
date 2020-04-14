@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modern Events Calendar Lite\n"
-"POT-Creation-Date: 2020-04-14 17:14+0430\n"
-"PO-Revision-Date: 2020-04-14 17:17+0430\n"
+"POT-Creation-Date: 2020-04-15 00:20+0430\n"
+"PO-Revision-Date: 2020-04-15 00:20+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -284,9 +284,9 @@ msgid "Events"
 msgstr "Události"
 
 #: app/features/events.php:159 app/features/fes.php:223
-#: app/features/mec/meta_boxes/display_options.php:1478
-#: app/features/mec/meta_boxes/display_options.php:1572
-#: app/features/mec/meta_boxes/display_options.php:1645
+#: app/features/mec/meta_boxes/display_options.php:1500
+#: app/features/mec/meta_boxes/display_options.php:1594
+#: app/features/mec/meta_boxes/display_options.php:1667
 #: app/features/profile/profile.php:50 app/skins/daily_view/tpl.php:80
 #: app/skins/monthly_view/tpl.php:71 app/skins/tile/tpl.php:81
 #: app/skins/yearly_view/tpl.php:69
@@ -325,7 +325,7 @@ msgid "No events found in Trash!"
 msgstr "V koši nebyly nalezeny žádné události!"
 
 #: app/features/events.php:183 app/features/events.php:3357
-#: app/features/mec/meta_boxes/display_options.php:1351
+#: app/features/mec/meta_boxes/display_options.php:1373
 #: app/features/mec/meta_boxes/search_form.php:31
 #: app/features/mec/meta_boxes/search_form.php:101
 #: app/features/mec/meta_boxes/search_form.php:171
@@ -456,7 +456,7 @@ msgstr "Odkaz"
 #: app/features/events.php:337 app/features/events.php:3359
 #: app/features/events.php:3550 app/features/events.php:3592
 #: app/features/ix.php:3508 app/features/ix.php:3549
-#: app/features/mec/meta_boxes/display_options.php:1354
+#: app/features/mec/meta_boxes/display_options.php:1376
 #: app/features/mec/meta_boxes/search_form.php:46
 #: app/features/mec/meta_boxes/search_form.php:116
 #: app/features/mec/meta_boxes/search_form.php:186
@@ -541,17 +541,17 @@ msgstr "Datum a čas"
 #: app/features/mec/meta_boxes/display_options.php:278
 #: app/features/mec/meta_boxes/display_options.php:505
 #: app/features/mec/meta_boxes/display_options.php:610
-#: app/features/mec/meta_boxes/display_options.php:791
-#: app/features/mec/meta_boxes/display_options.php:883
-#: app/features/mec/meta_boxes/display_options.php:967
-#: app/features/mec/meta_boxes/display_options.php:1012
-#: app/features/mec/meta_boxes/display_options.php:1085
-#: app/features/mec/meta_boxes/display_options.php:1170
-#: app/features/mec/meta_boxes/display_options.php:1306
-#: app/features/mec/meta_boxes/display_options.php:1706
-#: app/features/mec/meta_boxes/display_options.php:1835
-#: app/features/mec/meta_boxes/display_options.php:1964
-#: app/features/mec/meta_boxes/display_options.php:2067
+#: app/features/mec/meta_boxes/display_options.php:813
+#: app/features/mec/meta_boxes/display_options.php:905
+#: app/features/mec/meta_boxes/display_options.php:989
+#: app/features/mec/meta_boxes/display_options.php:1034
+#: app/features/mec/meta_boxes/display_options.php:1107
+#: app/features/mec/meta_boxes/display_options.php:1192
+#: app/features/mec/meta_boxes/display_options.php:1328
+#: app/features/mec/meta_boxes/display_options.php:1728
+#: app/features/mec/meta_boxes/display_options.php:1857
+#: app/features/mec/meta_boxes/display_options.php:1986
+#: app/features/mec/meta_boxes/display_options.php:2089
 #: app/features/popup/event.php:76
 msgid "Start Date"
 msgstr "Počátečná den"
@@ -635,25 +635,25 @@ msgstr ""
 #: app/features/mec/meta_boxes/display_options.php:370
 #: app/features/mec/meta_boxes/display_options.php:381
 #: app/features/mec/meta_boxes/display_options.php:537
-#: app/features/mec/meta_boxes/display_options.php:808
-#: app/features/mec/meta_boxes/display_options.php:1338
-#: app/features/mec/meta_boxes/display_options.php:1449
-#: app/features/mec/meta_boxes/display_options.php:1461
-#: app/features/mec/meta_boxes/display_options.php:1472
-#: app/features/mec/meta_boxes/display_options.php:1542
-#: app/features/mec/meta_boxes/display_options.php:1553
-#: app/features/mec/meta_boxes/display_options.php:1566
-#: app/features/mec/meta_boxes/display_options.php:1639
-#: app/features/mec/meta_boxes/display_options.php:1726
-#: app/features/mec/meta_boxes/display_options.php:1737
+#: app/features/mec/meta_boxes/display_options.php:830
+#: app/features/mec/meta_boxes/display_options.php:1360
+#: app/features/mec/meta_boxes/display_options.php:1471
+#: app/features/mec/meta_boxes/display_options.php:1483
+#: app/features/mec/meta_boxes/display_options.php:1494
+#: app/features/mec/meta_boxes/display_options.php:1564
+#: app/features/mec/meta_boxes/display_options.php:1575
+#: app/features/mec/meta_boxes/display_options.php:1588
+#: app/features/mec/meta_boxes/display_options.php:1661
 #: app/features/mec/meta_boxes/display_options.php:1748
-#: app/features/mec/meta_boxes/display_options.php:1855
-#: app/features/mec/meta_boxes/display_options.php:1868
-#: app/features/mec/meta_boxes/display_options.php:1881
-#: app/features/mec/meta_boxes/display_options.php:1894
-#: app/features/mec/meta_boxes/display_options.php:1907
-#: app/features/mec/meta_boxes/display_options.php:1995
-#: app/features/mec/meta_boxes/display_options.php:2084
+#: app/features/mec/meta_boxes/display_options.php:1759
+#: app/features/mec/meta_boxes/display_options.php:1770
+#: app/features/mec/meta_boxes/display_options.php:1877
+#: app/features/mec/meta_boxes/display_options.php:1890
+#: app/features/mec/meta_boxes/display_options.php:1903
+#: app/features/mec/meta_boxes/display_options.php:1916
+#: app/features/mec/meta_boxes/display_options.php:1929
+#: app/features/mec/meta_boxes/display_options.php:2017
+#: app/features/mec/meta_boxes/display_options.php:2106
 #: app/features/mec/modules.php:53 app/features/mec/modules.php:86
 #: app/features/mec/modules.php:103 app/features/mec/modules.php:138
 #: app/features/mec/modules.php:154 app/features/mec/modules.php:318
@@ -887,7 +887,7 @@ msgstr ""
 "můžete vyloučit pouze výskyty za jeden den a nelze vyloučit jeden den z "
 "vícedenních výskytů."
 
-#: app/features/events.php:1268 app/libraries/render.php:506
+#: app/features/events.php:1268 app/libraries/render.php:520
 msgid "Day 1"
 msgstr "Den 1"
 
@@ -1178,7 +1178,7 @@ msgstr "Cena za datum"
 
 #: app/features/events.php:1917 app/features/events.php:1943
 #: app/features/events.php:2121 app/features/labels.php:60
-#: app/features/mec/meta_boxes/display_options.php:1352
+#: app/features/mec/meta_boxes/display_options.php:1374
 #: app/features/mec/meta_boxes/search_form.php:67
 #: app/features/mec/meta_boxes/search_form.php:137
 #: app/features/mec/meta_boxes/search_form.php:207
@@ -1417,7 +1417,7 @@ msgstr "Limit účastníků"
 #: app/features/ix.php:3549 app/features/locations.php:58
 #: app/features/locations.php:247 app/features/locations.php:304
 #: app/features/locations.php:306 app/features/locations.php:315
-#: app/features/mec/meta_boxes/display_options.php:1353
+#: app/features/mec/meta_boxes/display_options.php:1375
 #: app/features/mec/meta_boxes/search_form.php:38
 #: app/features/mec/meta_boxes/search_form.php:108
 #: app/features/mec/meta_boxes/search_form.php:178
@@ -1600,43 +1600,43 @@ msgid "Go back to events list"
 msgstr "Přejít zpět na seznam událostí"
 
 #: app/features/fes/form.php:369
-#: app/features/mec/meta_boxes/display_options.php:1200
+#: app/features/mec/meta_boxes/display_options.php:1222
 #: app/libraries/main.php:410
 msgid "Monday"
 msgstr "Pondělí"
 
 #: app/features/fes/form.php:370
-#: app/features/mec/meta_boxes/display_options.php:1201
+#: app/features/mec/meta_boxes/display_options.php:1223
 #: app/libraries/main.php:410
 msgid "Tuesday"
 msgstr "Úterý"
 
 #: app/features/fes/form.php:371
-#: app/features/mec/meta_boxes/display_options.php:1202
+#: app/features/mec/meta_boxes/display_options.php:1224
 #: app/libraries/main.php:410
 msgid "Wednesday"
 msgstr "Středa"
 
 #: app/features/fes/form.php:372
-#: app/features/mec/meta_boxes/display_options.php:1203
+#: app/features/mec/meta_boxes/display_options.php:1225
 #: app/libraries/main.php:410
 msgid "Thursday"
 msgstr "Čtvrtek"
 
 #: app/features/fes/form.php:373
-#: app/features/mec/meta_boxes/display_options.php:1204
+#: app/features/mec/meta_boxes/display_options.php:1226
 #: app/libraries/main.php:410
 msgid "Friday"
 msgstr "Pátek"
 
 #: app/features/fes/form.php:374
-#: app/features/mec/meta_boxes/display_options.php:1205
+#: app/features/mec/meta_boxes/display_options.php:1227
 #: app/libraries/main.php:410
 msgid "Saturday"
 msgstr "Sobota"
 
 #: app/features/fes/form.php:375
-#: app/features/mec/meta_boxes/display_options.php:1199
+#: app/features/mec/meta_boxes/display_options.php:1221
 #: app/libraries/main.php:410
 msgid "Sunday"
 msgstr "Neděle"
@@ -2083,12 +2083,12 @@ msgstr "% s je vyžadováno pro použití této funkce."
 #: app/features/mec/meta_boxes/display_options.php:213
 #: app/features/mec/meta_boxes/display_options.php:453
 #: app/features/mec/meta_boxes/display_options.php:493
-#: app/features/mec/meta_boxes/display_options.php:703
-#: app/features/mec/meta_boxes/display_options.php:779
-#: app/features/mec/meta_boxes/display_options.php:962
-#: app/features/mec/meta_boxes/display_options.php:1156
-#: app/features/mec/meta_boxes/display_options.php:1300
-#: app/features/mec/meta_boxes/display_options.php:1627
+#: app/features/mec/meta_boxes/display_options.php:725
+#: app/features/mec/meta_boxes/display_options.php:801
+#: app/features/mec/meta_boxes/display_options.php:984
+#: app/features/mec/meta_boxes/display_options.php:1178
+#: app/features/mec/meta_boxes/display_options.php:1322
+#: app/features/mec/meta_boxes/display_options.php:1649
 #: app/features/mec/modules.php:70 app/features/mec/modules.php:212
 #: app/features/mec/modules.php:229
 msgid "Pro version of Modern Events Calendar"
@@ -2262,7 +2262,7 @@ msgid "Auto Synchronization"
 msgstr "Automatická synchronizace"
 
 #: app/features/ix/sync.php:22
-#: app/features/mec/meta_boxes/display_options.php:1300
+#: app/features/mec/meta_boxes/display_options.php:1322
 #, php-format
 msgid "%s is required to use synchronization feature."
 msgstr "%s je vyžadováno pro použití vlastností synchronizace."
@@ -2429,13 +2429,13 @@ msgstr "Vybrat barvu štítku"
 #: app/features/mec/meta_boxes/display_options.php:39
 #: app/features/mec/meta_boxes/display_options.php:265
 #: app/features/mec/meta_boxes/display_options.php:498
-#: app/features/mec/meta_boxes/display_options.php:784
-#: app/features/mec/meta_boxes/display_options.php:872
-#: app/features/mec/meta_boxes/display_options.php:1161
-#: app/features/mec/meta_boxes/display_options.php:1433
-#: app/features/mec/meta_boxes/display_options.php:1528
-#: app/features/mec/meta_boxes/display_options.php:1696
-#: app/features/mec/meta_boxes/display_options.php:1824
+#: app/features/mec/meta_boxes/display_options.php:806
+#: app/features/mec/meta_boxes/display_options.php:894
+#: app/features/mec/meta_boxes/display_options.php:1183
+#: app/features/mec/meta_boxes/display_options.php:1455
+#: app/features/mec/meta_boxes/display_options.php:1550
+#: app/features/mec/meta_boxes/display_options.php:1718
+#: app/features/mec/meta_boxes/display_options.php:1846
 msgid "Style"
 msgstr "Styl"
 
@@ -2875,11 +2875,11 @@ msgstr "Výchozí je Y-m-d"
 #: app/features/mec/meta_boxes/display_options.php:136
 #: app/features/mec/meta_boxes/display_options.php:398
 #: app/features/mec/meta_boxes/display_options.php:543
-#: app/features/mec/meta_boxes/display_options.php:1344
-#: app/features/mec/meta_boxes/display_options.php:1763
-#: app/features/mec/meta_boxes/display_options.php:1913
-#: app/features/mec/meta_boxes/display_options.php:2001
-#: app/features/mec/meta_boxes/display_options.php:2134
+#: app/features/mec/meta_boxes/display_options.php:1366
+#: app/features/mec/meta_boxes/display_options.php:1785
+#: app/features/mec/meta_boxes/display_options.php:1935
+#: app/features/mec/meta_boxes/display_options.php:2023
+#: app/features/mec/meta_boxes/display_options.php:2156
 msgid "Limit"
 msgstr "Limit"
 
@@ -3283,9 +3283,9 @@ msgstr "Vzhled"
 
 #: app/features/mec/meta_boxes/display_options.php:41
 #: app/features/mec/meta_boxes/display_options.php:267
-#: app/features/mec/meta_boxes/display_options.php:874
-#: app/features/mec/meta_boxes/display_options.php:1165
-#: app/features/mec/meta_boxes/display_options.php:1435
+#: app/features/mec/meta_boxes/display_options.php:896
+#: app/features/mec/meta_boxes/display_options.php:1187
+#: app/features/mec/meta_boxes/display_options.php:1457
 #: app/features/mec/settings.php:292 app/features/mec/settings.php:316
 #: app/features/mec/settings.php:325 app/features/mec/settings.php:366
 #: app/features/mec/settings.php:390 app/features/mec/settings.php:399
@@ -3304,10 +3304,10 @@ msgstr "Minimální"
 
 #: app/features/mec/meta_boxes/display_options.php:43
 #: app/features/mec/meta_boxes/display_options.php:270
-#: app/features/mec/meta_boxes/display_options.php:786
-#: app/features/mec/meta_boxes/display_options.php:876
-#: app/features/mec/meta_boxes/display_options.php:1163
-#: app/features/mec/meta_boxes/display_options.php:1437
+#: app/features/mec/meta_boxes/display_options.php:808
+#: app/features/mec/meta_boxes/display_options.php:898
+#: app/features/mec/meta_boxes/display_options.php:1185
+#: app/features/mec/meta_boxes/display_options.php:1459
 #: app/features/mec/settings.php:294 app/features/mec/settings.php:307
 #: app/features/mec/settings.php:318 app/features/mec/settings.php:328
 #: app/features/mec/settings.php:368 app/features/mec/settings.php:381
@@ -3334,24 +3334,24 @@ msgstr "Akordeon"
 #: app/features/mec/meta_boxes/display_options.php:280
 #: app/features/mec/meta_boxes/display_options.php:507
 #: app/features/mec/meta_boxes/display_options.php:612
-#: app/features/mec/meta_boxes/display_options.php:969
-#: app/features/mec/meta_boxes/display_options.php:1014
-#: app/features/mec/meta_boxes/display_options.php:1308
-#: app/features/mec/meta_boxes/display_options.php:1708
-#: app/features/mec/meta_boxes/display_options.php:1837
-#: app/features/mec/meta_boxes/display_options.php:1966
+#: app/features/mec/meta_boxes/display_options.php:991
+#: app/features/mec/meta_boxes/display_options.php:1036
+#: app/features/mec/meta_boxes/display_options.php:1330
+#: app/features/mec/meta_boxes/display_options.php:1730
+#: app/features/mec/meta_boxes/display_options.php:1859
+#: app/features/mec/meta_boxes/display_options.php:1988
 msgid "Today"
 msgstr "Dnes"
 
 #: app/features/mec/meta_boxes/display_options.php:53
 #: app/features/mec/meta_boxes/display_options.php:281
 #: app/features/mec/meta_boxes/display_options.php:508
-#: app/features/mec/meta_boxes/display_options.php:970
-#: app/features/mec/meta_boxes/display_options.php:1015
-#: app/features/mec/meta_boxes/display_options.php:1309
-#: app/features/mec/meta_boxes/display_options.php:1709
-#: app/features/mec/meta_boxes/display_options.php:1838
-#: app/features/mec/meta_boxes/display_options.php:1967
+#: app/features/mec/meta_boxes/display_options.php:992
+#: app/features/mec/meta_boxes/display_options.php:1037
+#: app/features/mec/meta_boxes/display_options.php:1331
+#: app/features/mec/meta_boxes/display_options.php:1731
+#: app/features/mec/meta_boxes/display_options.php:1860
+#: app/features/mec/meta_boxes/display_options.php:1989
 msgid "Tomorrow"
 msgstr "Zítra"
 
@@ -3359,16 +3359,16 @@ msgstr "Zítra"
 #: app/features/mec/meta_boxes/display_options.php:282
 #: app/features/mec/meta_boxes/display_options.php:509
 #: app/features/mec/meta_boxes/display_options.php:613
-#: app/features/mec/meta_boxes/display_options.php:885
-#: app/features/mec/meta_boxes/display_options.php:971
-#: app/features/mec/meta_boxes/display_options.php:1016
-#: app/features/mec/meta_boxes/display_options.php:1089
-#: app/features/mec/meta_boxes/display_options.php:1174
-#: app/features/mec/meta_boxes/display_options.php:1310
-#: app/features/mec/meta_boxes/display_options.php:1710
-#: app/features/mec/meta_boxes/display_options.php:1839
-#: app/features/mec/meta_boxes/display_options.php:1968
-#: app/features/mec/meta_boxes/display_options.php:2069
+#: app/features/mec/meta_boxes/display_options.php:907
+#: app/features/mec/meta_boxes/display_options.php:993
+#: app/features/mec/meta_boxes/display_options.php:1038
+#: app/features/mec/meta_boxes/display_options.php:1111
+#: app/features/mec/meta_boxes/display_options.php:1196
+#: app/features/mec/meta_boxes/display_options.php:1332
+#: app/features/mec/meta_boxes/display_options.php:1732
+#: app/features/mec/meta_boxes/display_options.php:1861
+#: app/features/mec/meta_boxes/display_options.php:1990
+#: app/features/mec/meta_boxes/display_options.php:2091
 msgid "Start of Current Month"
 msgstr "Začátek aktuálního měsíce"
 
@@ -3376,16 +3376,16 @@ msgstr "Začátek aktuálního měsíce"
 #: app/features/mec/meta_boxes/display_options.php:283
 #: app/features/mec/meta_boxes/display_options.php:510
 #: app/features/mec/meta_boxes/display_options.php:614
-#: app/features/mec/meta_boxes/display_options.php:886
-#: app/features/mec/meta_boxes/display_options.php:972
-#: app/features/mec/meta_boxes/display_options.php:1017
-#: app/features/mec/meta_boxes/display_options.php:1090
-#: app/features/mec/meta_boxes/display_options.php:1175
-#: app/features/mec/meta_boxes/display_options.php:1311
-#: app/features/mec/meta_boxes/display_options.php:1711
-#: app/features/mec/meta_boxes/display_options.php:1840
-#: app/features/mec/meta_boxes/display_options.php:1969
-#: app/features/mec/meta_boxes/display_options.php:2070
+#: app/features/mec/meta_boxes/display_options.php:908
+#: app/features/mec/meta_boxes/display_options.php:994
+#: app/features/mec/meta_boxes/display_options.php:1039
+#: app/features/mec/meta_boxes/display_options.php:1112
+#: app/features/mec/meta_boxes/display_options.php:1197
+#: app/features/mec/meta_boxes/display_options.php:1333
+#: app/features/mec/meta_boxes/display_options.php:1733
+#: app/features/mec/meta_boxes/display_options.php:1862
+#: app/features/mec/meta_boxes/display_options.php:1991
+#: app/features/mec/meta_boxes/display_options.php:2092
 msgid "Start of Next Month"
 msgstr "Začátek dalšího měsíce"
 
@@ -3393,17 +3393,17 @@ msgstr "Začátek dalšího měsíce"
 #: app/features/mec/meta_boxes/display_options.php:284
 #: app/features/mec/meta_boxes/display_options.php:511
 #: app/features/mec/meta_boxes/display_options.php:615
-#: app/features/mec/meta_boxes/display_options.php:795
-#: app/features/mec/meta_boxes/display_options.php:887
-#: app/features/mec/meta_boxes/display_options.php:973
-#: app/features/mec/meta_boxes/display_options.php:1018
-#: app/features/mec/meta_boxes/display_options.php:1091
-#: app/features/mec/meta_boxes/display_options.php:1176
-#: app/features/mec/meta_boxes/display_options.php:1312
-#: app/features/mec/meta_boxes/display_options.php:1712
-#: app/features/mec/meta_boxes/display_options.php:1841
-#: app/features/mec/meta_boxes/display_options.php:1970
-#: app/features/mec/meta_boxes/display_options.php:2071
+#: app/features/mec/meta_boxes/display_options.php:817
+#: app/features/mec/meta_boxes/display_options.php:909
+#: app/features/mec/meta_boxes/display_options.php:995
+#: app/features/mec/meta_boxes/display_options.php:1040
+#: app/features/mec/meta_boxes/display_options.php:1113
+#: app/features/mec/meta_boxes/display_options.php:1198
+#: app/features/mec/meta_boxes/display_options.php:1334
+#: app/features/mec/meta_boxes/display_options.php:1734
+#: app/features/mec/meta_boxes/display_options.php:1863
+#: app/features/mec/meta_boxes/display_options.php:1992
+#: app/features/mec/meta_boxes/display_options.php:2093
 msgid "On a certain date"
 msgstr "K určitému datu"
 
@@ -3411,17 +3411,17 @@ msgstr "K určitému datu"
 #: app/features/mec/meta_boxes/display_options.php:287
 #: app/features/mec/meta_boxes/display_options.php:514
 #: app/features/mec/meta_boxes/display_options.php:618
-#: app/features/mec/meta_boxes/display_options.php:798
-#: app/features/mec/meta_boxes/display_options.php:890
-#: app/features/mec/meta_boxes/display_options.php:976
-#: app/features/mec/meta_boxes/display_options.php:1022
-#: app/features/mec/meta_boxes/display_options.php:1094
-#: app/features/mec/meta_boxes/display_options.php:1179
-#: app/features/mec/meta_boxes/display_options.php:1315
-#: app/features/mec/meta_boxes/display_options.php:1715
-#: app/features/mec/meta_boxes/display_options.php:1844
-#: app/features/mec/meta_boxes/display_options.php:1973
-#: app/features/mec/meta_boxes/display_options.php:2074
+#: app/features/mec/meta_boxes/display_options.php:820
+#: app/features/mec/meta_boxes/display_options.php:912
+#: app/features/mec/meta_boxes/display_options.php:998
+#: app/features/mec/meta_boxes/display_options.php:1044
+#: app/features/mec/meta_boxes/display_options.php:1116
+#: app/features/mec/meta_boxes/display_options.php:1201
+#: app/features/mec/meta_boxes/display_options.php:1337
+#: app/features/mec/meta_boxes/display_options.php:1737
+#: app/features/mec/meta_boxes/display_options.php:1866
+#: app/features/mec/meta_boxes/display_options.php:1995
+#: app/features/mec/meta_boxes/display_options.php:2096
 #, php-format
 msgid "eg. %s"
 msgstr "např. %s"
@@ -3435,12 +3435,12 @@ msgstr "např. %s"
 #: app/features/mec/meta_boxes/display_options.php:519
 #: app/features/mec/meta_boxes/display_options.php:520
 #: app/features/mec/meta_boxes/display_options.php:523
-#: app/features/mec/meta_boxes/display_options.php:1320
-#: app/features/mec/meta_boxes/display_options.php:1321
-#: app/features/mec/meta_boxes/display_options.php:1324
-#: app/features/mec/meta_boxes/display_options.php:1978
-#: app/features/mec/meta_boxes/display_options.php:1979
-#: app/features/mec/meta_boxes/display_options.php:1982
+#: app/features/mec/meta_boxes/display_options.php:1342
+#: app/features/mec/meta_boxes/display_options.php:1343
+#: app/features/mec/meta_boxes/display_options.php:1346
+#: app/features/mec/meta_boxes/display_options.php:2000
+#: app/features/mec/meta_boxes/display_options.php:2001
+#: app/features/mec/meta_boxes/display_options.php:2004
 #, fuzzy
 #| msgid "Maximum Dates"
 msgid "Maximum Date"
@@ -3449,8 +3449,8 @@ msgstr "Maximum termínů"
 #: app/features/mec/meta_boxes/display_options.php:69
 #: app/features/mec/meta_boxes/display_options.php:297
 #: app/features/mec/meta_boxes/display_options.php:524
-#: app/features/mec/meta_boxes/display_options.php:1325
-#: app/features/mec/meta_boxes/display_options.php:1983
+#: app/features/mec/meta_boxes/display_options.php:1347
+#: app/features/mec/meta_boxes/display_options.php:2005
 #, fuzzy
 #| msgid "Show events based on created shortcodes."
 msgid "Show events before the specified date."
@@ -3482,45 +3482,45 @@ msgstr "Zobrazit události na základě vytvořených zkrácených kódů."
 #: app/features/mec/meta_boxes/display_options.php:380
 #: app/features/mec/meta_boxes/display_options.php:531
 #: app/features/mec/meta_boxes/display_options.php:536
-#: app/features/mec/meta_boxes/display_options.php:802
-#: app/features/mec/meta_boxes/display_options.php:807
-#: app/features/mec/meta_boxes/display_options.php:1211
-#: app/features/mec/meta_boxes/display_options.php:1332
-#: app/features/mec/meta_boxes/display_options.php:1337
-#: app/features/mec/meta_boxes/display_options.php:1442
-#: app/features/mec/meta_boxes/display_options.php:1448
-#: app/features/mec/meta_boxes/display_options.php:1455
-#: app/features/mec/meta_boxes/display_options.php:1460
-#: app/features/mec/meta_boxes/display_options.php:1467
-#: app/features/mec/meta_boxes/display_options.php:1471
-#: app/features/mec/meta_boxes/display_options.php:1537
-#: app/features/mec/meta_boxes/display_options.php:1541
-#: app/features/mec/meta_boxes/display_options.php:1548
-#: app/features/mec/meta_boxes/display_options.php:1552
+#: app/features/mec/meta_boxes/display_options.php:824
+#: app/features/mec/meta_boxes/display_options.php:829
+#: app/features/mec/meta_boxes/display_options.php:1233
+#: app/features/mec/meta_boxes/display_options.php:1354
+#: app/features/mec/meta_boxes/display_options.php:1359
+#: app/features/mec/meta_boxes/display_options.php:1464
+#: app/features/mec/meta_boxes/display_options.php:1470
+#: app/features/mec/meta_boxes/display_options.php:1477
+#: app/features/mec/meta_boxes/display_options.php:1482
+#: app/features/mec/meta_boxes/display_options.php:1489
+#: app/features/mec/meta_boxes/display_options.php:1493
 #: app/features/mec/meta_boxes/display_options.php:1559
-#: app/features/mec/meta_boxes/display_options.php:1565
-#: app/features/mec/meta_boxes/display_options.php:1633
-#: app/features/mec/meta_boxes/display_options.php:1638
-#: app/features/mec/meta_boxes/display_options.php:1719
-#: app/features/mec/meta_boxes/display_options.php:1725
-#: app/features/mec/meta_boxes/display_options.php:1732
-#: app/features/mec/meta_boxes/display_options.php:1736
-#: app/features/mec/meta_boxes/display_options.php:1743
+#: app/features/mec/meta_boxes/display_options.php:1563
+#: app/features/mec/meta_boxes/display_options.php:1570
+#: app/features/mec/meta_boxes/display_options.php:1574
+#: app/features/mec/meta_boxes/display_options.php:1581
+#: app/features/mec/meta_boxes/display_options.php:1587
+#: app/features/mec/meta_boxes/display_options.php:1655
+#: app/features/mec/meta_boxes/display_options.php:1660
+#: app/features/mec/meta_boxes/display_options.php:1741
 #: app/features/mec/meta_boxes/display_options.php:1747
-#: app/features/mec/meta_boxes/display_options.php:1848
-#: app/features/mec/meta_boxes/display_options.php:1854
-#: app/features/mec/meta_boxes/display_options.php:1861
-#: app/features/mec/meta_boxes/display_options.php:1867
-#: app/features/mec/meta_boxes/display_options.php:1874
-#: app/features/mec/meta_boxes/display_options.php:1880
-#: app/features/mec/meta_boxes/display_options.php:1887
-#: app/features/mec/meta_boxes/display_options.php:1893
-#: app/features/mec/meta_boxes/display_options.php:1900
-#: app/features/mec/meta_boxes/display_options.php:1906
-#: app/features/mec/meta_boxes/display_options.php:1990
-#: app/features/mec/meta_boxes/display_options.php:1994
-#: app/features/mec/meta_boxes/display_options.php:2078
-#: app/features/mec/meta_boxes/display_options.php:2083
+#: app/features/mec/meta_boxes/display_options.php:1754
+#: app/features/mec/meta_boxes/display_options.php:1758
+#: app/features/mec/meta_boxes/display_options.php:1765
+#: app/features/mec/meta_boxes/display_options.php:1769
+#: app/features/mec/meta_boxes/display_options.php:1870
+#: app/features/mec/meta_boxes/display_options.php:1876
+#: app/features/mec/meta_boxes/display_options.php:1883
+#: app/features/mec/meta_boxes/display_options.php:1889
+#: app/features/mec/meta_boxes/display_options.php:1896
+#: app/features/mec/meta_boxes/display_options.php:1902
+#: app/features/mec/meta_boxes/display_options.php:1909
+#: app/features/mec/meta_boxes/display_options.php:1915
+#: app/features/mec/meta_boxes/display_options.php:1922
+#: app/features/mec/meta_boxes/display_options.php:1928
+#: app/features/mec/meta_boxes/display_options.php:2012
+#: app/features/mec/meta_boxes/display_options.php:2016
+#: app/features/mec/meta_boxes/display_options.php:2100
+#: app/features/mec/meta_boxes/display_options.php:2105
 msgid "Date Formats"
 msgstr "Formát data"
 
@@ -3536,11 +3536,11 @@ msgstr "Výchozí hodnoty jsou d, M a l"
 #: app/features/mec/meta_boxes/display_options.php:107
 #: app/features/mec/meta_boxes/display_options.php:346
 #: app/features/mec/meta_boxes/display_options.php:370
-#: app/features/mec/meta_boxes/display_options.php:1855
-#: app/features/mec/meta_boxes/display_options.php:1868
-#: app/features/mec/meta_boxes/display_options.php:1881
-#: app/features/mec/meta_boxes/display_options.php:1894
-#: app/features/mec/meta_boxes/display_options.php:1907
+#: app/features/mec/meta_boxes/display_options.php:1877
+#: app/features/mec/meta_boxes/display_options.php:1890
+#: app/features/mec/meta_boxes/display_options.php:1903
+#: app/features/mec/meta_boxes/display_options.php:1916
+#: app/features/mec/meta_boxes/display_options.php:1929
 msgid "Default values are d, F and l"
 msgstr "Výchozí hodnoty jsou d, F a I"
 
@@ -3556,32 +3556,32 @@ msgstr "TVýchozí hodnoty jsou d a F"
 #: app/features/mec/meta_boxes/display_options.php:137
 #: app/features/mec/meta_boxes/display_options.php:399
 #: app/features/mec/meta_boxes/display_options.php:544
-#: app/features/mec/meta_boxes/display_options.php:815
-#: app/features/mec/meta_boxes/display_options.php:895
-#: app/features/mec/meta_boxes/display_options.php:1027
-#: app/features/mec/meta_boxes/display_options.php:1099
-#: app/features/mec/meta_boxes/display_options.php:1184
-#: app/features/mec/meta_boxes/display_options.php:1764
-#: app/features/mec/meta_boxes/display_options.php:1914
-#: app/features/mec/meta_boxes/display_options.php:2002
+#: app/features/mec/meta_boxes/display_options.php:837
+#: app/features/mec/meta_boxes/display_options.php:917
+#: app/features/mec/meta_boxes/display_options.php:1049
+#: app/features/mec/meta_boxes/display_options.php:1121
+#: app/features/mec/meta_boxes/display_options.php:1206
+#: app/features/mec/meta_boxes/display_options.php:1786
+#: app/features/mec/meta_boxes/display_options.php:1936
+#: app/features/mec/meta_boxes/display_options.php:2024
 msgid "eg. 6"
 msgstr "např. 6"
 
 #: app/features/mec/meta_boxes/display_options.php:142
 #: app/features/mec/meta_boxes/display_options.php:404
 #: app/features/mec/meta_boxes/display_options.php:549
-#: app/features/mec/meta_boxes/display_options.php:820
-#: app/features/mec/meta_boxes/display_options.php:900
-#: app/features/mec/meta_boxes/display_options.php:1032
-#: app/features/mec/meta_boxes/display_options.php:1104
-#: app/features/mec/meta_boxes/display_options.php:1245
-#: app/features/mec/meta_boxes/display_options.php:1360
-#: app/features/mec/meta_boxes/display_options.php:1488
-#: app/features/mec/meta_boxes/display_options.php:1587
-#: app/features/mec/meta_boxes/display_options.php:1656
-#: app/features/mec/meta_boxes/display_options.php:1784
-#: app/features/mec/meta_boxes/display_options.php:1923
-#: app/features/mec/meta_boxes/display_options.php:2007
+#: app/features/mec/meta_boxes/display_options.php:842
+#: app/features/mec/meta_boxes/display_options.php:922
+#: app/features/mec/meta_boxes/display_options.php:1054
+#: app/features/mec/meta_boxes/display_options.php:1126
+#: app/features/mec/meta_boxes/display_options.php:1267
+#: app/features/mec/meta_boxes/display_options.php:1382
+#: app/features/mec/meta_boxes/display_options.php:1510
+#: app/features/mec/meta_boxes/display_options.php:1609
+#: app/features/mec/meta_boxes/display_options.php:1678
+#: app/features/mec/meta_boxes/display_options.php:1806
+#: app/features/mec/meta_boxes/display_options.php:1945
+#: app/features/mec/meta_boxes/display_options.php:2029
 #, fuzzy
 #| msgid "Local Time"
 msgid "Include Local Time"
@@ -3596,35 +3596,35 @@ msgstr "Skrýt čas události"
 #: app/features/mec/meta_boxes/display_options.php:165
 #: app/features/mec/meta_boxes/display_options.php:415
 #: app/features/mec/meta_boxes/display_options.php:584
-#: app/features/mec/meta_boxes/display_options.php:1417
-#: app/features/mec/meta_boxes/display_options.php:2042
-#: app/features/mec/meta_boxes/display_options.php:2139
+#: app/features/mec/meta_boxes/display_options.php:1439
+#: app/features/mec/meta_boxes/display_options.php:2064
+#: app/features/mec/meta_boxes/display_options.php:2161
 msgid "Load More Button"
 msgstr "Načíst tlačítko Další"
 
 #: app/features/mec/meta_boxes/display_options.php:175
 #: app/features/mec/meta_boxes/display_options.php:594
-#: app/features/mec/meta_boxes/display_options.php:2052
+#: app/features/mec/meta_boxes/display_options.php:2074
 msgid "Show Month Divider"
 msgstr "Zobrazit oddělovník měsíce"
 
 #: app/features/mec/meta_boxes/display_options.php:186
 #: app/features/mec/meta_boxes/display_options.php:426
 #: app/features/mec/meta_boxes/display_options.php:561
-#: app/features/mec/meta_boxes/display_options.php:750
-#: app/features/mec/meta_boxes/display_options.php:842
-#: app/features/mec/meta_boxes/display_options.php:922
-#: app/features/mec/meta_boxes/display_options.php:1054
-#: app/features/mec/meta_boxes/display_options.php:1116
-#: app/features/mec/meta_boxes/display_options.php:1257
-#: app/features/mec/meta_boxes/display_options.php:1372
-#: app/features/mec/meta_boxes/display_options.php:1500
-#: app/features/mec/meta_boxes/display_options.php:1599
-#: app/features/mec/meta_boxes/display_options.php:1668
-#: app/features/mec/meta_boxes/display_options.php:1796
-#: app/features/mec/meta_boxes/display_options.php:1935
-#: app/features/mec/meta_boxes/display_options.php:2019
-#: app/features/mec/meta_boxes/display_options.php:2100
+#: app/features/mec/meta_boxes/display_options.php:772
+#: app/features/mec/meta_boxes/display_options.php:864
+#: app/features/mec/meta_boxes/display_options.php:944
+#: app/features/mec/meta_boxes/display_options.php:1076
+#: app/features/mec/meta_boxes/display_options.php:1138
+#: app/features/mec/meta_boxes/display_options.php:1279
+#: app/features/mec/meta_boxes/display_options.php:1394
+#: app/features/mec/meta_boxes/display_options.php:1522
+#: app/features/mec/meta_boxes/display_options.php:1621
+#: app/features/mec/meta_boxes/display_options.php:1690
+#: app/features/mec/meta_boxes/display_options.php:1818
+#: app/features/mec/meta_boxes/display_options.php:1957
+#: app/features/mec/meta_boxes/display_options.php:2041
+#: app/features/mec/meta_boxes/display_options.php:2122
 #, fuzzy
 #| msgid "Desktop Normal Screens"
 msgid "Display Normal Labels"
@@ -3633,20 +3633,20 @@ msgstr "Desktop Normální obrazovky"
 #: app/features/mec/meta_boxes/display_options.php:198
 #: app/features/mec/meta_boxes/display_options.php:438
 #: app/features/mec/meta_boxes/display_options.php:573
-#: app/features/mec/meta_boxes/display_options.php:762
-#: app/features/mec/meta_boxes/display_options.php:854
-#: app/features/mec/meta_boxes/display_options.php:934
-#: app/features/mec/meta_boxes/display_options.php:1066
-#: app/features/mec/meta_boxes/display_options.php:1128
-#: app/features/mec/meta_boxes/display_options.php:1269
-#: app/features/mec/meta_boxes/display_options.php:1384
-#: app/features/mec/meta_boxes/display_options.php:1512
-#: app/features/mec/meta_boxes/display_options.php:1611
-#: app/features/mec/meta_boxes/display_options.php:1680
-#: app/features/mec/meta_boxes/display_options.php:1808
-#: app/features/mec/meta_boxes/display_options.php:1947
-#: app/features/mec/meta_boxes/display_options.php:2031
-#: app/features/mec/meta_boxes/display_options.php:2112
+#: app/features/mec/meta_boxes/display_options.php:784
+#: app/features/mec/meta_boxes/display_options.php:876
+#: app/features/mec/meta_boxes/display_options.php:956
+#: app/features/mec/meta_boxes/display_options.php:1088
+#: app/features/mec/meta_boxes/display_options.php:1150
+#: app/features/mec/meta_boxes/display_options.php:1291
+#: app/features/mec/meta_boxes/display_options.php:1406
+#: app/features/mec/meta_boxes/display_options.php:1534
+#: app/features/mec/meta_boxes/display_options.php:1633
+#: app/features/mec/meta_boxes/display_options.php:1702
+#: app/features/mec/meta_boxes/display_options.php:1830
+#: app/features/mec/meta_boxes/display_options.php:1969
+#: app/features/mec/meta_boxes/display_options.php:2053
+#: app/features/mec/meta_boxes/display_options.php:2134
 msgid "Display Reason for Cancellation"
 msgstr ""
 
@@ -3657,13 +3657,13 @@ msgstr "Zobrazit mapu nahoře"
 
 #: app/features/mec/meta_boxes/display_options.php:224
 #: app/features/mec/meta_boxes/display_options.php:464
-#: app/features/mec/meta_boxes/display_options.php:985
+#: app/features/mec/meta_boxes/display_options.php:1007
 msgid "Geolocation"
 msgstr "Geolokace"
 
 #: app/features/mec/meta_boxes/display_options.php:235
 #: app/features/mec/meta_boxes/display_options.php:475
-#: app/features/mec/meta_boxes/display_options.php:995
+#: app/features/mec/meta_boxes/display_options.php:1017
 #, fuzzy
 #| msgid "Disable Google Fonts"
 msgid "Disable Geolocation Force Focus"
@@ -3675,10 +3675,10 @@ msgstr "Přepínač pro oddělovník měsíce"
 
 #: app/features/mec/meta_boxes/display_options.php:268
 #: app/features/mec/meta_boxes/display_options.php:500
-#: app/features/mec/meta_boxes/display_options.php:635
-#: app/features/mec/meta_boxes/display_options.php:875
-#: app/features/mec/meta_boxes/display_options.php:1164
-#: app/features/mec/meta_boxes/display_options.php:1436
+#: app/features/mec/meta_boxes/display_options.php:637
+#: app/features/mec/meta_boxes/display_options.php:897
+#: app/features/mec/meta_boxes/display_options.php:1186
+#: app/features/mec/meta_boxes/display_options.php:1458
 #: app/features/mec/settings.php:293 app/features/mec/settings.php:308
 #: app/features/mec/settings.php:326 app/features/mec/settings.php:367
 #: app/features/mec/settings.php:382 app/features/mec/settings.php:400
@@ -3689,8 +3689,8 @@ msgid "Clean"
 msgstr "Čistý"
 
 #: app/features/mec/meta_boxes/display_options.php:271
-#: app/features/mec/meta_boxes/display_options.php:637
-#: app/features/mec/meta_boxes/display_options.php:878
+#: app/features/mec/meta_boxes/display_options.php:639
+#: app/features/mec/meta_boxes/display_options.php:900
 #: app/features/mec/settings.php:296 app/features/mec/settings.php:329
 #: app/features/mec/settings.php:370 app/features/mec/settings.php:403
 #: app/features/popup/shortcode.php:115 app/features/popup/shortcode.php:150
@@ -3704,8 +3704,8 @@ msgid "Colorful"
 msgstr "Plněbarevný"
 
 #: app/features/mec/meta_boxes/display_options.php:273
-#: app/features/mec/meta_boxes/display_options.php:636
-#: app/features/mec/meta_boxes/display_options.php:877
+#: app/features/mec/meta_boxes/display_options.php:638
+#: app/features/mec/meta_boxes/display_options.php:899
 #: app/features/mec/settings.php:295 app/features/mec/settings.php:331
 #: app/features/mec/settings.php:369 app/features/mec/settings.php:405
 #: app/features/popup/shortcode.php:125 app/features/popup/shortcode.php:145
@@ -3714,7 +3714,7 @@ msgid "Novel"
 msgstr "Novela"
 
 #: app/features/mec/meta_boxes/display_options.php:309
-#: app/features/mec/meta_boxes/display_options.php:1995
+#: app/features/mec/meta_boxes/display_options.php:2017
 msgid "Default value is \"d F Y"
 msgstr "Výchozí hodnota je \"d F Y"
 
@@ -3731,22 +3731,22 @@ msgid "Default value is \"d F Y\""
 msgstr "Výchozí hodnota je \"d F Y\""
 
 #: app/features/mec/meta_boxes/display_options.php:387
-#: app/features/mec/meta_boxes/display_options.php:1754
-#: app/features/mec/meta_boxes/display_options.php:2090
+#: app/features/mec/meta_boxes/display_options.php:1776
+#: app/features/mec/meta_boxes/display_options.php:2112
 msgid "Count in row"
 msgstr "Počet v řadě"
 
 #: app/features/mec/meta_boxes/display_options.php:493
-#: app/features/mec/meta_boxes/display_options.php:779
-#: app/features/mec/meta_boxes/display_options.php:962
-#: app/features/mec/meta_boxes/display_options.php:1156
-#: app/features/mec/meta_boxes/display_options.php:1627
+#: app/features/mec/meta_boxes/display_options.php:801
+#: app/features/mec/meta_boxes/display_options.php:984
+#: app/features/mec/meta_boxes/display_options.php:1178
+#: app/features/mec/meta_boxes/display_options.php:1649
 #, php-format
 msgid "%s is required to use this skin."
 msgstr "%s je nutné použít tento vzhled."
 
 #: app/features/mec/meta_boxes/display_options.php:537
-#: app/features/mec/meta_boxes/display_options.php:808
+#: app/features/mec/meta_boxes/display_options.php:830
 msgid "Default values are l and F j"
 msgstr "Výchozí hodnoty jsou I a F j"
 
@@ -3755,261 +3755,276 @@ msgid "Default View"
 msgstr "Výchozí zobrazení"
 
 #: app/features/mec/meta_boxes/display_options.php:625
-#: app/features/mec/meta_boxes/display_options.php:647
+#: app/features/mec/meta_boxes/display_options.php:649
 #: app/libraries/main.php:330 app/libraries/main.php:1813
 #: app/libraries/main.php:1838
 msgid "List View"
 msgstr "Zobrazení seznamu"
 
 #: app/features/mec/meta_boxes/display_options.php:626
-#: app/features/mec/meta_boxes/display_options.php:669
+#: app/features/mec/meta_boxes/display_options.php:670
+#: app/libraries/main.php:331 app/libraries/main.php:1814
+#: app/libraries/main.php:1839
+msgid "Grid View"
+msgstr "Zobrazení mřížky"
+
+#: app/features/mec/meta_boxes/display_options.php:627
+#: app/features/mec/meta_boxes/display_options.php:680
+#: app/libraries/main.php:347
+#, fuzzy
+#| msgid "Timetable View"
+msgid "Tile View"
+msgstr "Zobrazení rozvrhu"
+
+#: app/features/mec/meta_boxes/display_options.php:628
+#: app/features/mec/meta_boxes/display_options.php:691
 #: app/libraries/main.php:334 app/libraries/main.php:1807
 #: app/libraries/main.php:1832
 msgid "Yearly View"
 msgstr "Roční zobrazení"
 
-#: app/features/mec/meta_boxes/display_options.php:627
-#: app/features/mec/meta_boxes/display_options.php:708
+#: app/features/mec/meta_boxes/display_options.php:629
+#: app/features/mec/meta_boxes/display_options.php:730
 msgid "Monthly/Calendar View"
 msgstr "Měsíční / kalendářní zobrazení"
 
-#: app/features/mec/meta_boxes/display_options.php:628
-#: app/features/mec/meta_boxes/display_options.php:718
+#: app/features/mec/meta_boxes/display_options.php:630
+#: app/features/mec/meta_boxes/display_options.php:740
 #: app/libraries/main.php:337 app/libraries/main.php:1809
 #: app/libraries/main.php:1834
 msgid "Weekly View"
 msgstr "Týdenní zobrazení"
 
-#: app/features/mec/meta_boxes/display_options.php:629
-#: app/features/mec/meta_boxes/display_options.php:728
+#: app/features/mec/meta_boxes/display_options.php:631
+#: app/features/mec/meta_boxes/display_options.php:750
 #: app/libraries/main.php:336 app/libraries/main.php:1810
 #: app/libraries/main.php:1835
 msgid "Daily View"
 msgstr "Denní zobrazení"
 
-#: app/features/mec/meta_boxes/display_options.php:633
+#: app/features/mec/meta_boxes/display_options.php:635
 #: app/features/popup/shortcode.php:136
 msgid "Monthly Style"
 msgstr "Měsíční styl"
 
-#: app/features/mec/meta_boxes/display_options.php:662
+#: app/features/mec/meta_boxes/display_options.php:664
 #, fuzzy
 #| msgid "Lightbox Date Format"
 msgid "List View Date Formats"
 msgstr "Formát data Lightbox"
 
-#: app/features/mec/meta_boxes/display_options.php:696
+#: app/features/mec/meta_boxes/display_options.php:718
 #, fuzzy
 #| msgid "Date Formats"
 msgid "Yearly View Date Formats"
 msgstr "Formát data"
 
-#: app/features/mec/meta_boxes/display_options.php:703
+#: app/features/mec/meta_boxes/display_options.php:725
 #, php-format
 msgid "%s is required to use <b>Yearly View</b> skin."
 msgstr "%s je nutné použít vzhled <b>Roční zobrazení</b>."
 
-#: app/features/mec/meta_boxes/display_options.php:736
+#: app/features/mec/meta_boxes/display_options.php:758
 msgid "The price shows only in List View."
 msgstr "Cena se zobrazuje pouze v zobrazení seznamu."
 
-#: app/features/mec/meta_boxes/display_options.php:739
+#: app/features/mec/meta_boxes/display_options.php:761
 msgid "Display Event Price"
 msgstr "Zobrazit cenu události"
 
-#: app/features/mec/meta_boxes/display_options.php:793
+#: app/features/mec/meta_boxes/display_options.php:815
 msgid "Start of Current Year"
 msgstr "Začátek aktuálního roku"
 
-#: app/features/mec/meta_boxes/display_options.php:794
+#: app/features/mec/meta_boxes/display_options.php:816
 msgid "Start of Next Year"
 msgstr "Začátek příštího roku"
 
-#: app/features/mec/meta_boxes/display_options.php:814
-#: app/features/mec/meta_boxes/display_options.php:894
-#: app/features/mec/meta_boxes/display_options.php:1026
-#: app/features/mec/meta_boxes/display_options.php:1098
-#: app/features/mec/meta_boxes/display_options.php:1183
+#: app/features/mec/meta_boxes/display_options.php:836
+#: app/features/mec/meta_boxes/display_options.php:916
+#: app/features/mec/meta_boxes/display_options.php:1048
+#: app/features/mec/meta_boxes/display_options.php:1120
+#: app/features/mec/meta_boxes/display_options.php:1205
 msgid "Events per day"
 msgstr "Události za den"
 
-#: app/features/mec/meta_boxes/display_options.php:831
-#: app/features/mec/meta_boxes/display_options.php:911
-#: app/features/mec/meta_boxes/display_options.php:1043
-#: app/features/mec/meta_boxes/display_options.php:1139
-#: app/features/mec/meta_boxes/display_options.php:1281
-#: app/features/mec/meta_boxes/display_options.php:2123
+#: app/features/mec/meta_boxes/display_options.php:853
+#: app/features/mec/meta_boxes/display_options.php:933
+#: app/features/mec/meta_boxes/display_options.php:1065
+#: app/features/mec/meta_boxes/display_options.php:1161
+#: app/features/mec/meta_boxes/display_options.php:1303
+#: app/features/mec/meta_boxes/display_options.php:2145
 msgid "Next/Previous Buttons"
 msgstr "Tlačítka Další / Předchozí"
 
-#: app/features/mec/meta_boxes/display_options.php:863
+#: app/features/mec/meta_boxes/display_options.php:885
 msgid "For showing next/previous year navigation."
 msgstr "Pro zobrazení navigace další / předchozí."
 
-#: app/features/mec/meta_boxes/display_options.php:945
+#: app/features/mec/meta_boxes/display_options.php:967
 msgid "Uppercase Text"
 msgstr "Text velkými písmeny"
 
-#: app/features/mec/meta_boxes/display_options.php:953
-#: app/features/mec/meta_boxes/display_options.php:1075
-#: app/features/mec/meta_boxes/display_options.php:1147
-#: app/features/mec/meta_boxes/display_options.php:1289
-#: app/features/mec/meta_boxes/display_options.php:2131
+#: app/features/mec/meta_boxes/display_options.php:975
+#: app/features/mec/meta_boxes/display_options.php:1097
+#: app/features/mec/meta_boxes/display_options.php:1169
+#: app/features/mec/meta_boxes/display_options.php:1311
+#: app/features/mec/meta_boxes/display_options.php:2153
 msgid "For showing next/previous month navigation."
 msgstr "Pro zobrazení navigace další / předchozí měsíc."
 
-#: app/features/mec/meta_boxes/display_options.php:980
+#: app/features/mec/meta_boxes/display_options.php:1002
 msgid "Maximum events"
 msgstr "Maximum událostí"
 
-#: app/features/mec/meta_boxes/display_options.php:981
+#: app/features/mec/meta_boxes/display_options.php:1003
 msgid "eg. 200"
 msgstr "např. 200"
 
-#: app/features/mec/meta_boxes/display_options.php:1003
+#: app/features/mec/meta_boxes/display_options.php:1025
 msgid "The geolocation feature works only in secure (https) websites."
 msgstr "Funkce geolokace funguje pouze na zabezpečených (https) webech."
 
-#: app/features/mec/meta_boxes/display_options.php:1087
-#: app/features/mec/meta_boxes/display_options.php:1172
+#: app/features/mec/meta_boxes/display_options.php:1109
+#: app/features/mec/meta_boxes/display_options.php:1194
 msgid "Current Week"
 msgstr "Aktuální týden"
 
-#: app/features/mec/meta_boxes/display_options.php:1088
-#: app/features/mec/meta_boxes/display_options.php:1173
+#: app/features/mec/meta_boxes/display_options.php:1110
+#: app/features/mec/meta_boxes/display_options.php:1195
 msgid "Next Week"
 msgstr "Další týden"
 
-#: app/features/mec/meta_boxes/display_options.php:1188
+#: app/features/mec/meta_boxes/display_options.php:1210
 msgid "Number of Days"
 msgstr "Počet dnů"
 
-#: app/features/mec/meta_boxes/display_options.php:1196
+#: app/features/mec/meta_boxes/display_options.php:1218
 msgid "Week Start"
 msgstr "Začátek týdne"
 
-#: app/features/mec/meta_boxes/display_options.php:1198
+#: app/features/mec/meta_boxes/display_options.php:1220
 msgid "Inherite from WordPress options"
 msgstr "Zdědit z možností WordPressu"
 
-#: app/features/mec/meta_boxes/display_options.php:1213
+#: app/features/mec/meta_boxes/display_options.php:1235
 msgid "1:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1214
+#: app/features/mec/meta_boxes/display_options.php:1236
 msgid "2:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1215
+#: app/features/mec/meta_boxes/display_options.php:1237
 msgid "3:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1216
+#: app/features/mec/meta_boxes/display_options.php:1238
 msgid "4:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1217
+#: app/features/mec/meta_boxes/display_options.php:1239
 msgid "5:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1218
+#: app/features/mec/meta_boxes/display_options.php:1240
 msgid "6:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1219
+#: app/features/mec/meta_boxes/display_options.php:1241
 msgid "7:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1220
+#: app/features/mec/meta_boxes/display_options.php:1242
 msgid "8:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1221
+#: app/features/mec/meta_boxes/display_options.php:1243
 msgid "9:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1222
+#: app/features/mec/meta_boxes/display_options.php:1244
 msgid "10:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1223
+#: app/features/mec/meta_boxes/display_options.php:1245
 msgid "11:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1224
+#: app/features/mec/meta_boxes/display_options.php:1246
 msgid "12:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1227
+#: app/features/mec/meta_boxes/display_options.php:1249
 msgid "13:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1228
+#: app/features/mec/meta_boxes/display_options.php:1250
 msgid "14:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1229
+#: app/features/mec/meta_boxes/display_options.php:1251
 msgid "15:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1230
+#: app/features/mec/meta_boxes/display_options.php:1252
 msgid "16:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1231
+#: app/features/mec/meta_boxes/display_options.php:1253
 msgid "17:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1232
+#: app/features/mec/meta_boxes/display_options.php:1254
 msgid "18:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1233
+#: app/features/mec/meta_boxes/display_options.php:1255
 msgid "19:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1234
+#: app/features/mec/meta_boxes/display_options.php:1256
 msgid "20:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1235
+#: app/features/mec/meta_boxes/display_options.php:1257
 msgid "21:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1236
+#: app/features/mec/meta_boxes/display_options.php:1258
 msgid "22:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1237
+#: app/features/mec/meta_boxes/display_options.php:1259
 msgid "23:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1238
+#: app/features/mec/meta_boxes/display_options.php:1260
 msgid "24:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1338
-#: app/features/mec/meta_boxes/display_options.php:1639
+#: app/features/mec/meta_boxes/display_options.php:1360
+#: app/features/mec/meta_boxes/display_options.php:1661
 msgid "Default values are j and F"
 msgstr "Výchozí hodnoty jsou j a F"
 
-#: app/features/mec/meta_boxes/display_options.php:1345
+#: app/features/mec/meta_boxes/display_options.php:1367
 msgid "eg. 24"
 msgstr "např. 24"
 
-#: app/features/mec/meta_boxes/display_options.php:1348
+#: app/features/mec/meta_boxes/display_options.php:1370
 msgid "Filter By"
 msgstr "Filtrovat podle"
 
-#: app/features/mec/meta_boxes/display_options.php:1350
+#: app/features/mec/meta_boxes/display_options.php:1372
 msgid "None"
 msgstr "Žádný"
 
-#: app/features/mec/meta_boxes/display_options.php:1395
+#: app/features/mec/meta_boxes/display_options.php:1417
 msgid "Fit to row"
 msgstr "Přizpůsobit řádku"
 
-#: app/features/mec/meta_boxes/display_options.php:1396
+#: app/features/mec/meta_boxes/display_options.php:1418
 msgid ""
 "Items are arranged into rows. Rows progress vertically. Similar to what you "
 "would expect from a layout that uses CSS floats."
@@ -4017,122 +4032,122 @@ msgstr ""
 "Položky jsou uspořádány do řádků. Řádky postupují svisle. Podobně, co byste "
 "očekávali od rozložení používajícího plovoucí CSS."
 
-#: app/features/mec/meta_boxes/display_options.php:1406
+#: app/features/mec/meta_boxes/display_options.php:1428
 msgid "Convert Masonry to Grid"
 msgstr "Převést zdivo na mřížku"
 
-#: app/features/mec/meta_boxes/display_options.php:1407
+#: app/features/mec/meta_boxes/display_options.php:1429
 msgid "For using this option, your events should come with image"
 msgstr "Pro použití této možnosti by vaše události měly přijít s obrázkem"
 
-#: app/features/mec/meta_boxes/display_options.php:1449
+#: app/features/mec/meta_boxes/display_options.php:1471
 msgid "Default values are d, M and Y"
 msgstr "Výchozí hodnoty jsou d, M a Y"
 
-#: app/features/mec/meta_boxes/display_options.php:1461
+#: app/features/mec/meta_boxes/display_options.php:1483
 msgid "Default values are \"F d\" and l"
 msgstr "Výchozí hodnota je \"F d\" a I"
 
-#: app/features/mec/meta_boxes/display_options.php:1472
+#: app/features/mec/meta_boxes/display_options.php:1494
 msgid "Default value is \"l, F d Y\""
 msgstr "Výchozí hodnota je \"I, F d Y\""
 
-#: app/features/mec/meta_boxes/display_options.php:1530
+#: app/features/mec/meta_boxes/display_options.php:1552
 #: app/features/popup/shortcode.php:228
 msgid "Style 1"
 msgstr "Styl 1"
 
-#: app/features/mec/meta_boxes/display_options.php:1531
+#: app/features/mec/meta_boxes/display_options.php:1553
 #: app/features/popup/shortcode.php:233
 msgid "Style 2"
 msgstr "Styl 2"
 
-#: app/features/mec/meta_boxes/display_options.php:1532
+#: app/features/mec/meta_boxes/display_options.php:1554
 #: app/features/popup/shortcode.php:238
 msgid "Style 3"
 msgstr "Styl 3"
 
-#: app/features/mec/meta_boxes/display_options.php:1542
-#: app/features/mec/meta_boxes/display_options.php:1553
+#: app/features/mec/meta_boxes/display_options.php:1564
+#: app/features/mec/meta_boxes/display_options.php:1575
 msgid "Default value is \"j F Y\""
 msgstr "Výchozí hodnota je \"j F Y\""
 
-#: app/features/mec/meta_boxes/display_options.php:1566
+#: app/features/mec/meta_boxes/display_options.php:1588
 msgid "Default values are j, F and Y"
 msgstr "Výchozí hodnoty jsou j, F a Y"
 
-#: app/features/mec/meta_boxes/display_options.php:1574
-#: app/features/mec/meta_boxes/display_options.php:1647
+#: app/features/mec/meta_boxes/display_options.php:1596
+#: app/features/mec/meta_boxes/display_options.php:1669
 msgid " -- Next Upcoming Event -- "
 msgstr " -- Další nadcházející událost -- "
 
-#: app/features/mec/meta_boxes/display_options.php:1581
+#: app/features/mec/meta_boxes/display_options.php:1603
 msgid "Background Color"
 msgstr "Barva pozadí"
 
-#: app/features/mec/meta_boxes/display_options.php:1698
-#: app/features/mec/meta_boxes/display_options.php:1826
+#: app/features/mec/meta_boxes/display_options.php:1720
+#: app/features/mec/meta_boxes/display_options.php:1848
 #: app/features/popup/shortcode.php:247 app/features/popup/shortcode.php:269
 msgid "Type 1"
 msgstr "Typ 1"
 
-#: app/features/mec/meta_boxes/display_options.php:1699
-#: app/features/mec/meta_boxes/display_options.php:1827
+#: app/features/mec/meta_boxes/display_options.php:1721
+#: app/features/mec/meta_boxes/display_options.php:1849
 #: app/features/popup/shortcode.php:252 app/features/popup/shortcode.php:274
 msgid "Type 2"
 msgstr "Typ 2"
 
-#: app/features/mec/meta_boxes/display_options.php:1700
-#: app/features/mec/meta_boxes/display_options.php:1828
+#: app/features/mec/meta_boxes/display_options.php:1722
+#: app/features/mec/meta_boxes/display_options.php:1850
 #: app/features/popup/shortcode.php:257 app/features/popup/shortcode.php:279
 msgid "Type 3"
 msgstr "Typ 3"
 
-#: app/features/mec/meta_boxes/display_options.php:1701
-#: app/features/mec/meta_boxes/display_options.php:1829
+#: app/features/mec/meta_boxes/display_options.php:1723
+#: app/features/mec/meta_boxes/display_options.php:1851
 #: app/features/popup/shortcode.php:262 app/features/popup/shortcode.php:284
 msgid "Type 4"
 msgstr "Typ 4"
 
-#: app/features/mec/meta_boxes/display_options.php:1726
+#: app/features/mec/meta_boxes/display_options.php:1748
 msgid "Default values are d, F and Y"
 msgstr "Výchozí hodnoty jsou d, F a Y"
 
-#: app/features/mec/meta_boxes/display_options.php:1737
-#: app/features/mec/meta_boxes/display_options.php:1748
+#: app/features/mec/meta_boxes/display_options.php:1759
+#: app/features/mec/meta_boxes/display_options.php:1770
 msgid "Default value is \"M d, Y\""
 msgstr "Výchozí hodnota je \"M d, Y\""
 
-#: app/features/mec/meta_boxes/display_options.php:1767
-#: app/features/mec/meta_boxes/display_options.php:1917
+#: app/features/mec/meta_boxes/display_options.php:1789
+#: app/features/mec/meta_boxes/display_options.php:1939
 msgid "Auto Play Time"
 msgstr "Čas automatického přehrávání"
 
-#: app/features/mec/meta_boxes/display_options.php:1768
-#: app/features/mec/meta_boxes/display_options.php:1918
+#: app/features/mec/meta_boxes/display_options.php:1790
+#: app/features/mec/meta_boxes/display_options.php:1940
 msgid "eg. 3000 default is 3 second"
 msgstr "např. výchozí hodnota 3000 jsou 3 vteřiny"
 
-#: app/features/mec/meta_boxes/display_options.php:1774
+#: app/features/mec/meta_boxes/display_options.php:1796
 msgid "Archive Link"
 msgstr "Odkaz na archiv"
 
-#: app/features/mec/meta_boxes/display_options.php:1778
+#: app/features/mec/meta_boxes/display_options.php:1800
 msgid "Head Text"
 msgstr "Text hlavičky"
 
-#: app/features/mec/meta_boxes/display_options.php:1830
+#: app/features/mec/meta_boxes/display_options.php:1852
 #: app/features/popup/shortcode.php:289
 msgid "Type 5"
 msgstr "Typ 5"
 
-#: app/features/mec/meta_boxes/display_options.php:2084
+#: app/features/mec/meta_boxes/display_options.php:2106
 #, fuzzy
 #| msgid "Default values are j and F"
 msgid "Default values are j and M"
 msgstr "Výchozí hodnoty jsou j a F"
 
-#: app/features/mec/meta_boxes/display_options.php:2135
+#: app/features/mec/meta_boxes/display_options.php:2157
 #, fuzzy
 #| msgid "eg. 6"
 msgid "eg. 60"
@@ -7051,7 +7066,7 @@ msgid "No search result."
 msgstr "Žádný výsledek vyhledávání."
 
 #: app/features/search_bar/search_result.php:12
-#: app/libraries/notifications.php:975 app/libraries/render.php:488
+#: app/libraries/notifications.php:975 app/libraries/render.php:502
 #: app/modules/local-time/details.php:48 app/modules/local-time/type1.php:44
 #: app/modules/local-time/type2.php:46 app/modules/local-time/type3.php:44
 #: app/modules/next-event/details.php:104 app/skins/single.php:166
@@ -7233,11 +7248,6 @@ msgstr ""
 msgid "There is no excerpt because this is a protected post."
 msgstr "Neexistuje výňatek, protože se jedná o chráněný příspěvek."
 
-#: app/libraries/main.php:331 app/libraries/main.php:1814
-#: app/libraries/main.php:1839
-msgid "Grid View"
-msgstr "Zobrazení mřížky"
-
 #: app/libraries/main.php:332 app/libraries/main.php:1815
 #: app/libraries/main.php:1840
 msgid "Agenda View"
@@ -7293,12 +7303,6 @@ msgstr "Zobrazení posuvníku"
 #, fuzzy
 #| msgid "Timetable View"
 msgid "Timeline View"
-msgstr "Zobrazení rozvrhu"
-
-#: app/libraries/main.php:347
-#, fuzzy
-#| msgid "Timetable View"
-msgid "Tile View"
 msgstr "Zobrazení rozvrhu"
 
 #: app/libraries/main.php:385 app/libraries/main.php:5426
@@ -7866,7 +7870,7 @@ msgid "Waiting"
 msgstr "Čekající"
 
 #: app/libraries/main.php:5866 app/libraries/render.php:80
-#: app/libraries/render.php:418
+#: app/libraries/render.php:432
 msgid "Skin controller does not exist."
 msgstr "Ovladač vzhledu neexistuje."
 
@@ -8178,6 +8182,18 @@ msgstr "Žádná událost"
 #: app/skins/full_calendar/tpl.php:122
 msgid "List"
 msgstr "Seznam"
+
+#: app/skins/full_calendar/tpl.php:123
+#, fuzzy
+#| msgid "Grid View"
+msgid "Grid"
+msgstr "Zobrazení mřížky"
+
+#: app/skins/full_calendar/tpl.php:124
+#, fuzzy
+#| msgid "Timetable View"
+msgid "Tile"
+msgstr "Zobrazení rozvrhu"
 
 #: app/skins/masonry.php:255
 msgid "All"

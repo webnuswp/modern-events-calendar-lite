@@ -623,6 +623,8 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_full_calendar_default_view"><?php _e('Default View', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][full_calendar][default_view]" id="mec_skin_full_calendar_default_view">
                         <option value="list" <?php echo (isset($sk_options_full_calendar['default_view']) and $sk_options_full_calendar['default_view'] == 'list') ? 'selected="selected"' : ''; ?>><?php _e('List View', 'modern-events-calendar-lite'); ?></option>
+                        <option value="grid" <?php echo (isset($sk_options_full_calendar['default_view']) and $sk_options_full_calendar['default_view'] == 'grid') ? 'selected="selected"' : ''; ?>><?php _e('Grid View', 'modern-events-calendar-lite'); ?></option>
+                        <option value="tile" <?php echo (isset($sk_options_full_calendar['default_view']) and $sk_options_full_calendar['default_view'] == 'tile') ? 'selected="selected"' : ''; ?>><?php _e('Tile View', 'modern-events-calendar-lite'); ?></option>
                         <option value="yearly" <?php echo (isset($sk_options_full_calendar['default_view']) and $sk_options_full_calendar['default_view'] == 'yearly') ? 'selected="selected"' : ''; ?>><?php _e('Yearly View', 'modern-events-calendar-lite'); ?></option>
                         <option value="monthly" <?php echo (isset($sk_options_full_calendar['default_view']) and $sk_options_full_calendar['default_view'] == 'monthly') ? 'selected="selected"' : ''; ?>><?php _e('Monthly/Calendar View', 'modern-events-calendar-lite'); ?></option>
                         <option value="weekly" <?php echo (isset($sk_options_full_calendar['default_view']) and $sk_options_full_calendar['default_view'] == 'weekly') ? 'selected="selected"' : ''; ?>><?php _e('Weekly View', 'modern-events-calendar-lite'); ?></option>
@@ -661,6 +663,26 @@ $events = $this->main->get_events();
                     <div class="mec-form-row mec-date-format <?php echo (!isset($sk_options_full_calendar['list']) or (isset($sk_options_full_calendar['list']) and $sk_options_full_calendar['list'])) ? '' : 'mec-util-hidden'; ?>">
                         <label class="mec-col-4" for="mec_skin_full_calendar_date_format_list"><?php _e('List View Date Formats', 'modern-events-calendar-lite'); ?></label>
                         <input type="text" class="mec-col-4" name="mec[sk-options][full_calendar][date_format_list]" id="mec_skin_full_calendar_date_format_list" value="<?php esc_attr_e($date_format_list); ?>"/>
+                    </div>
+                </div>
+                <div class="mec-form-row mec-switcher">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_full_calendar_grid"><?php _e('Grid View', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][full_calendar][grid]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][full_calendar][grid]" id="mec_skin_full_calendar_grid" value="1" <?php if(isset($sk_options_full_calendar['grid']) and $sk_options_full_calendar['grid']) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_full_calendar_grid"></label>
+                    </div>
+                </div>
+                <div class="mec-form-row mec-switcher">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_full_calendar_tile"><?php _e('Tile View', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][full_calendar][tile]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][full_calendar][tile]" id="mec_skin_full_calendar_tile" value="1" <?php if(isset($sk_options_full_calendar['tile']) and $sk_options_full_calendar['tile']) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_full_calendar_tile"></label>
                     </div>
                 </div>
                 <div class="mec-skin-full-calendar-yearly-wrap">

@@ -120,6 +120,8 @@ do_action('mec_full_skin_head');
                 <?php if($this->weekly): ?><span class="mec-totalcal-weeklyview<?php if($this->default_view == 'weekly') echo ' mec-totalcalview-selected'; ?>" data-skin="weekly"><?php _e('Weekly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
                 <?php if($this->daily): ?><span class="mec-totalcal-dailyview<?php if($this->default_view == 'daily') echo ' mec-totalcalview-selected'; ?>" data-skin="daily"><?php _e('Daily', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
                 <?php if($this->list): ?><span class="mec-totalcal-listview<?php if($this->default_view == 'list') echo ' mec-totalcalview-selected'; ?>" data-skin="list"><?php _e('List', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                <?php if($this->grid): ?><span class="mec-totalcal-gridview<?php if($this->default_view == 'grid') echo ' mec-totalcalview-selected'; ?>" data-skin="grid"><?php _e('Grid', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                <?php if($this->tile): ?><span class="mec-totalcal-tileview<?php if($this->default_view == 'tile') echo ' mec-totalcalview-selected'; ?>" data-skin="tile"><?php _e('Tile', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
             </div>
         </div>
     </div>

@@ -14,6 +14,8 @@ class MEC_skin_tile extends MEC_skins
     public $skin = 'tile';
     public $load_method = 'month';
 
+    public $reason_for_cancellation;
+    public $display_label;
     public $date_format_clean_1;
     public $date_format_clean_2;
     

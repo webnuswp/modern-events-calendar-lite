@@ -254,6 +254,20 @@ class MEC_render extends MEC_base
     }
 
     /**
+     * Do the tile skin and returns its output
+     * @author Webnus <info@webnus.biz>
+     * @param array $atts
+     * @return string
+     */
+    public function vtile($atts = array())
+    {
+        $atts = apply_filters('mec_vtile_atts', $atts);
+        $skin = 'tile';
+
+        return $this->skin($skin, $atts);
+    }
+
+    /**
      * Do the custom skin and returns its output
      * @author Webnus <info@webnus.biz>
      * @param array $atts

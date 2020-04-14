@@ -1,4 +1,7 @@
-﻿v 5.2.6 – 14 April 2020
+﻿v 5.2.7 – 14 April 2020
+- Fixed: An issue with full calendar. 
+
+v 5.2.6 – 14 April 2020
 - Added: Start and end dates in RSS feeds
 - Increased: Default date generation limit for advanced events
 - Fixed: Showing correct error on Facebook importer (pro)

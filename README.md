@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.4  
-**Stable tag:** 5.2.6  
+**Stable tag:** 5.2.7  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -454,6 +454,9 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+v 5.2.7 – 14 April 2020
+- Fixed: An issue with full calendar.
+
 v 5.2.6 – 14 April 2020
 - Added: Start and end dates in RSS feeds
 - Increased: Default date generation limit for advanced events
