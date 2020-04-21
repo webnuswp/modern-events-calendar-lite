@@ -48,7 +48,7 @@ $query = new WP_Query(array('post_type'=>'mec-events', 'posts_per_page'=>'-1', '
                     <h4 class="mec-send-email-count"><?php echo sprintf(__('You are sending email to %s attendees', 'modern-events-calendar-lite'), '<span>0</span>'); ?></h4>
                     <input type="text" class="widefat" id="mec-send-email-subject" placeholder="<?php echo __('Email Subject', 'modern-events-calendar-lite'); ?>"/><br><br>
                     <div id="mec-send-email-editor-wrap"></div>
-                    <br><p class="description"><?php echo __('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                    <br><p class="description"><?php echo __('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                     <ul>
                         <li><span>%%name%%</span>: <?php echo __('Attendee Name', 'modern-events-calendar-lite'); ?></li>
                     </ul>

@@ -11,19 +11,24 @@ if(!isset($settings['local_time_module_status']) or (isset($settings['local_time
 // Get the visitor Timezone
 $timezone = $this->get_timezone_by_ip();
 
+$minutes    = isset($event->date['start']['minutes']) ? $event->date['start']['minutes'] : '';
+$ampm       = isset($event->date['start']['ampm']) ? $event->date['start']['ampm'] : '';
+$hour       = isset($event->date['end']['hour']) ? $event->date['end']['hour'] : '';
+
 // Timezone is not detected!
 if(!$timezone) return;
+
 // Date Formats
 $date_format1 = (isset($settings['single_date_format1']) and trim($settings['single_date_format1'])) ? $settings['single_date_format1'] : 'M d Y';
 $time_format = get_option('time_format', 'H:i');
 
 $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';
-$occurrence_end_date = trim($occurrence) ? $this->get_end_date_by_occurrence($event->data->ID, (isset($event->data->meta['mec_date']['start']['date']) ? $event->data->meta['mec_date']['start']['date'] : $occurrence)) : '';
+$occurrence_end_date = trim($occurrence) ? $this->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
 
-$gmt_offset_seconds = $this->get_gmt_offset_seconds((trim($occurrence) ? $occurrence : $event->data->meta['mec_date']['start']['date']));
+$gmt_offset_seconds = $this->get_gmt_offset_seconds((trim($occurrence) ? $occurrence : $event->date['start']['date']));
 
-$gmt_start_time = strtotime((trim($occurrence) ? $occurrence : $event->data->meta['mec_date']['start']['date']).' '.sprintf("%02d", $event->data->meta['mec_date']['start']['hour']).':'.sprintf("%02d", $event->data->meta['mec_date']['start']['minutes']).' '.$event->data->meta['mec_date']['start']['ampm']) - $gmt_offset_seconds;
-$gmt_end_time = strtotime((trim($occurrence_end_date) ? $occurrence_end_date : $event->data->meta['mec_date']['end']['date']).' '.sprintf("%02d", ($event->data->meta['mec_date']['end']['hour'] == '0') ? '12' : $event->data->meta['mec_date']['end']['hour']).':'.sprintf("%02d", $event->data->meta['mec_date']['end']['minutes']).' '.$event->data->meta['mec_date']['end']['ampm']) - $gmt_offset_seconds;
+$gmt_start_time = strtotime((trim($occurrence) ? $occurrence : $event->date['start']['date']).' '.sprintf("%02d", $hour).':'.sprintf("%02d", $minutes).' '.$ampm) - $gmt_offset_seconds;
+$gmt_end_time = strtotime((trim($occurrence_end_date) ? $occurrence_end_date : $event->date['end']['date']).' '.sprintf("%02d", ($hour == '0') ? '12' : $hour).':'.sprintf("%02d", $minutes).' '.$ampm) - $gmt_offset_seconds;
 
 $user_timezone = new DateTimeZone($timezone);
 $gmt_timezone = new DateTimeZone('GMT');

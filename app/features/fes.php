@@ -192,7 +192,7 @@ class MEC_feature_fes extends MEC_base
         // Trash the event
         wp_delete_post($post_id);
         
-        $this->main->response(array('success'=>1, 'message'=>__('The event removed!', 'modern-events-calendar-lite')));
+        $this->main->response(array('success'=>1, 'message'=>__('Event removed!', 'modern-events-calendar-lite')));
     }
     
     public function mec_fes_csv_export()
@@ -360,7 +360,7 @@ class MEC_feature_fes extends MEC_base
         if($movefile and !isset($movefile['error']))
         {
             $success = 1;
-            $message = __('The image is uploaded!', 'modern-events-calendar-lite');
+            $message = __('Image uploaded!', 'modern-events-calendar-lite');
             
             $data['url'] = $movefile['url'];
         }
@@ -386,7 +386,7 @@ class MEC_feature_fes extends MEC_base
         if($this->main->get_recaptcha_status('fes'))
         {
             $g_recaptcha_response = isset($_POST['g-recaptcha-response']) ? sanitize_text_field($_POST['g-recaptcha-response']) : NULL;
-            if(!$this->main->get_recaptcha_response($g_recaptcha_response)) $this->main->response(array('success'=>0, 'message'=>__('Captcha is invalid! Please try again.', 'modern-events-calendar-lite'), 'code'=>'CAPTCHA_IS_INVALID'));
+            if(!$this->main->get_recaptcha_response($g_recaptcha_response)) $this->main->response(array('success'=>0, 'message'=>__('Invalid Captcha! Please try again.', 'modern-events-calendar-lite'), 'code'=>'CAPTCHA_IS_INVALID'));
         }
 
         $post_id = isset($mec['post_id']) ? sanitize_text_field($mec['post_id']) : -1;
@@ -1112,7 +1112,7 @@ class MEC_feature_fes extends MEC_base
         }
 
         $message = '';
-        if($status == 'pending') $message = __('The event submitted. It will publish as soon as possible.', 'modern-events-calendar-lite');
+        if($status == 'pending') $message = __('Event submitted. It will publish as soon as possible.', 'modern-events-calendar-lite');
         elseif($status == 'publish') $message = __('The event published.', 'modern-events-calendar-lite');
         
         // Trigger Event

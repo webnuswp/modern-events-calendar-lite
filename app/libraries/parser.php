@@ -155,13 +155,16 @@ class MEC_parser extends MEC_base
                 elseif($file->exists($wp_template_file)) $template = $wp_template_file;
                 else $template = MEC_ABSPATH.'templates'.DS.'archive-mec-events.php';
             }
-            
-            // MEC factory library
-            $factory = $this->getFactory();
-        
-            $factory->filter('the_content', array($this, 'archive_content'));
-            $factory->filter('mec_archive_title', array($this, 'archive_title'));
-            $factory->filter('post_thumbnail_html', array($this, 'archive_thumbnail'));
+
+            add_action('mec_before_main_content', function()
+            {
+                // MEC factory library
+                $factory = $this->getFactory();
+
+                $factory->filter('the_content', array($this, 'archive_content'));
+                $factory->filter('mec_archive_title', array($this, 'archive_title'));
+                $factory->filter('post_thumbnail_html', array($this, 'archive_thumbnail'));
+            });
 		}
         elseif(is_tax('mec_category'))
         {

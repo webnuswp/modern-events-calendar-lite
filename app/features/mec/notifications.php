@@ -39,7 +39,7 @@ $notifications = $this->main->get_notifications();
                                 </label>
                             </div>
                             <div id="mec_notification_booking_notification_container_toggle" class="<?php if(isset($notifications['booking_notification']) and isset($notifications['booking_notification']['status']) and !$notifications['booking_notification']['status']) echo 'mec-util-hidden'; ?>">
-                                <p class="description"><?php _e('It sends to attendee after booking for notifying him/her.', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('Sent to attendee after booking to notify them.', 'modern-events-calendar-lite'); ?></p>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_booking_notification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][booking_notification][subject]" id="mec_notifications_booking_notification_subject" value="<?php echo (isset($notifications['booking_notification']['subject']) ? stripslashes($notifications['booking_notification']['subject']) : ''); ?>" />
@@ -55,7 +55,7 @@ $notifications = $this->main->get_notifications();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -98,7 +98,7 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_booking_notification_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['booking_notification']) ? stripslashes($notifications['booking_notification']['content']) : ''), 'mec_notifications_booking_notification_content', array('textarea_name'=>'mec[notifications][booking_notification][content]')); ?>
                                 </div>
-                                <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                 <ul>
                                     <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
@@ -106,7 +106,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
-                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of placing booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
@@ -152,7 +152,7 @@ $notifications = $this->main->get_notifications();
                                 <span class="mec-tooltip">
                                     <div class="box top">
                                         <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                     </div>
                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                                 </span>
@@ -191,7 +191,7 @@ $notifications = $this->main->get_notifications();
                                 <label for="mec_notifications_email_verification_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                 <?php wp_editor((isset($notifications['email_verification']) ? stripslashes($notifications['email_verification']['content']) : ''), 'mec_notifications_email_verification_content', array('textarea_name'=>'mec[notifications][email_verification][content]')); ?>
                             </div>
-                            <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                            <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                             <ul>
                                 <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
@@ -199,7 +199,7 @@ $notifications = $this->main->get_notifications();
                                 <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
-                                <li><span>%%book_order_time%%</span>: <?php _e('Date and time of placing booking', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
@@ -228,7 +228,7 @@ $notifications = $this->main->get_notifications();
                         <div id="booking_confirmation" class="mec-options-fields">
 
                             <h4 class="mec-form-subtitle"><?php _e('Booking Confirmation', 'modern-events-calendar-lite'); ?></h4>
-                            <p class="description"><?php _e('It sends to attendee after confirming the booking by admin.', 'modern-events-calendar-lite'); ?></p>
+                            <p class="description"><?php _e('Sent to attendee after confirming the booking by admin.', 'modern-events-calendar-lite'); ?></p>
                             <div class="mec-form-row">
                                 <label for="mec_notifications_booking_confirmation_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                 <input type="text" name="mec[notifications][booking_confirmation][subject]" id="mec_notifications_booking_confirmation_subject" value="<?php echo (isset($notifications['booking_confirmation']['subject']) ? stripslashes($notifications['booking_confirmation']['subject']) : ''); ?>" />
@@ -244,7 +244,7 @@ $notifications = $this->main->get_notifications();
                                 <span class="mec-tooltip">
                                     <div class="box top">
                                         <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                     </div>
                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                                 </span>
@@ -287,7 +287,7 @@ $notifications = $this->main->get_notifications();
                                 <label for="mec_notifications_booking_confirmation_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                 <?php wp_editor((isset($notifications['booking_confirmation']) ? stripslashes($notifications['booking_confirmation']['content']) : ''), 'mec_notifications_booking_confirmation_content', array('textarea_name'=>'mec[notifications][booking_confirmation][content]')); ?>
                             </div>
-                            <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                            <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                             <ul>
                                 <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
@@ -295,7 +295,7 @@ $notifications = $this->main->get_notifications();
                                 <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
-                                <li><span>%%book_order_time%%</span>: <?php _e('Date and time of placing booking', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
@@ -331,7 +331,7 @@ $notifications = $this->main->get_notifications();
                                 </label>
                             </div>
                             <div id="mec_notification_cancellation_notification_container_toggle" class="<?php if((isset($notifications['cancellation_notification']) and !$notifications['cancellation_notification']['status']) or !isset($notifications['cancellation_notification'])) echo 'mec-util-hidden'; ?>">
-                                <p class="description"><?php _e('It sends to selected recipients after booking cancellation for notifying them.', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('Sent to selected recipients after booking cancellation to notify them.', 'modern-events-calendar-lite'); ?></p>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_cancellation_notification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][cancellation_notification][subject]" id="mec_notifications_cancellation_notification_subject" value="<?php echo (isset($notifications['cancellation_notification']['subject']) ? stripslashes($notifications['cancellation_notification']['subject']) : 'Your booking is canceled.'); ?>" />
@@ -347,7 +347,7 @@ $notifications = $this->main->get_notifications();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -392,13 +392,13 @@ $notifications = $this->main->get_notifications();
                                 </div>
                                 <div class="mec-form-row">
                                     <input type="checkbox" name="mec[notifications][cancellation_notification][send_to_user]" value="1" id="mec_notifications_cancellation_notification_send_to_user" <?php echo ((isset($notifications['cancellation_notification']['send_to_user']) and $notifications['cancellation_notification']['send_to_user'] == 1) ? 'checked="checked"' : ''); ?> />
-                                    <label for="mec_notifications_cancellation_notification_send_to_user"><?php _e('Send the email to booking user', 'modern-events-calendar-lite'); ?></label>
+                                    <label for="mec_notifications_cancellation_notification_send_to_user"><?php _e('Send the email to the booked user', 'modern-events-calendar-lite'); ?></label>
                                 </div>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_cancellation_notification_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['cancellation_notification']) ? stripslashes($notifications['cancellation_notification']['content']) : ''), 'mec_notifications_cancellation_notification_content', array('textarea_name'=>'mec[notifications][cancellation_notification][content]')); ?>
                                 </div>
-                                <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                 <ul>
                                     <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
@@ -406,7 +406,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
-                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of placing booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
@@ -437,7 +437,7 @@ $notifications = $this->main->get_notifications();
                                 </label>
                             </div>
                             <div id="mec_notification_admin_notification_container_toggle" class="<?php if(isset($notifications['admin_notification']) and isset($notifications['admin_notification']['status']) and !$notifications['admin_notification']['status']) echo 'mec-util-hidden'; ?>">
-                                <p class="description"><?php _e('It sends to admin to notify him/her that a new booking received.', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('Sent to admin to notify them that a new booking has been received.', 'modern-events-calendar-lite'); ?></p>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_admin_notification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][admin_notification][subject]" id="mec_notifications_admin_notification_subject" value="<?php echo (isset($notifications['admin_notification']['subject']) ? stripslashes($notifications['admin_notification']['subject']) : ''); ?>" />
@@ -453,7 +453,7 @@ $notifications = $this->main->get_notifications();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -496,7 +496,7 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_admin_notification_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['admin_notification']) ? stripslashes($notifications['admin_notification']['content']) : ''), 'mec_notifications_admin_notification_content', array('textarea_name'=>'mec[notifications][admin_notification][content]')); ?>
                                 </div>
-                                <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                 <ul>
                                     <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
@@ -504,7 +504,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
-                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of placing booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
@@ -554,7 +554,7 @@ $notifications = $this->main->get_notifications();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -604,7 +604,7 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_booking_reminder_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['booking_reminder']) ? stripslashes($notifications['booking_reminder']['content']) : ''), 'mec_notifications_booking_reminder_content', array('textarea_name'=>'mec[notifications][booking_reminder][content]')); ?>
                                 </div>
-                                <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                 <ul>
                                     <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
@@ -612,7 +612,7 @@ $notifications = $this->main->get_notifications();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
-                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of placing booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
@@ -655,7 +655,7 @@ $notifications = $this->main->get_notifications();
                                         <input value="1" type="checkbox" name="mec[notifications][new_event][send_to_admin]" <?php if((!isset($notifications['new_event']['send_to_admin'])) or (isset($notifications['new_event']['send_to_admin']) and $notifications['new_event']['send_to_admin'])) echo 'checked="checked"'; ?> /> <?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
-                                <p class="description"><?php _e('It sends after adding a new event from frontend event submission or from website backend.', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('Sent after adding a new event from frontend event submission or from website backend.', 'modern-events-calendar-lite'); ?></p>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_new_event_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][new_event][subject]" id="mec_notifications_new_event_subject" value="<?php echo (isset($notifications['new_event']['subject']) ? stripslashes($notifications['new_event']['subject']) : ''); ?>" />
@@ -671,7 +671,7 @@ $notifications = $this->main->get_notifications();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -710,7 +710,7 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_new_event_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['new_event']) ? stripslashes($notifications['new_event']['content']) : ''), 'mec_notifications_new_event_content', array('textarea_name'=>'mec[notifications][new_event][content]')); ?>
                                 </div>
-                                <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                 <ul>
                                     <li><span>%%event_title%%</span>: <?php _e('Title of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_link%%</span>: <?php _e('Link of event', 'modern-events-calendar-lite'); ?></li>
@@ -738,7 +738,7 @@ $notifications = $this->main->get_notifications();
                                 </label>
                             </div>
                             <div id="mec_notification_user_event_publishing_container_toggle" class="<?php if((isset($notifications['user_event_publishing']) and !$notifications['user_event_publishing']['status']) or !isset($notifications['user_event_publishing'])) echo 'mec-util-hidden'; ?>">
-                                <p class="description"><?php _e('It sends after published a new event from frontend event submission or from website backend.', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('Sent after publishing a new event from frontend event submission or from website backend.', 'modern-events-calendar-lite'); ?></p>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_user_event_publishing_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
                                     <input type="text" name="mec[notifications][user_event_publishing][subject]" id="mec_notifications_user_event_publishing_subject" value="<?php echo (isset($notifications['user_event_publishing']['subject']) ? stripslashes($notifications['user_event_publishing']['subject']) : ''); ?>" />
@@ -754,7 +754,7 @@ $notifications = $this->main->get_notifications();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select your desired users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -793,7 +793,7 @@ $notifications = $this->main->get_notifications();
                                     <label for="mec_notifications_user_event_publishing_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['user_event_publishing']) ? stripslashes($notifications['user_event_publishing']['content']) : ''), 'mec_notifications_user_event_publishing_content', array('textarea_name'=>'mec[notifications][user_event_publishing][content]')); ?>
                                 </div>
-                                <p class="description"><?php _e('You can use following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                 <ul>
                                     <li><span>%%event_title%%</span>: <?php _e('Title of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_link%%</span>: <?php _e('Link of event', 'modern-events-calendar-lite'); ?></li>

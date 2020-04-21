@@ -59,43 +59,50 @@ class MEC_feature_search extends MEC_base
         $out = '';
         
         if(is_wp_error($terms) || empty($terms)) return false;
-        $taxonomy_name = ($taxonomy == 'post_tag') ? 'Tag' : str_replace('mec_', '', $taxonomy);
+        $taxonomy_name = ($taxonomy == 'post_tag') ? 'tag' : str_replace('mec_', '', $taxonomy);
 
         switch($taxonomy_name)
         {
             // Message Category
             case 'category':
                 $taxonomy_name = $this->main->m('taxonomy_category', __('Category', 'modern-events-calendar-lite'));
+                $taxonomy_key = 'category';
                 break;
 
             // Message Location
             case 'location':
                 $taxonomy_name = $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'));
+                $taxonomy_key = 'location';
                 break;
 
             // Message Organizer
             case 'organizer':
                 $taxonomy_name = $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'));
+                $taxonomy_key = 'organizer';
                 break;
 
             // Message Organizer
             case 'speaker':
                 $taxonomy_name = $this->main->m('taxonomy_speaker', __('Speaker', 'modern-events-calendar-lite'));
+                $taxonomy_key = 'speaker';
                 break;
 
             // Message Tag
-            case 'Tag':
+            case 'tag':
                 $taxonomy_name =  __('Tag', 'modern-events-calendar-lite');
+                $taxonomy_key = 'tag';
                 break;
 
             // Message label
             case 'label':
-                $taxonomy_name = $this->main->m('taxonomy_label', __('label', 'modern-events-calendar-lite'));
+                $taxonomy_name = $this->main->m('taxonomy_label', __('Label', 'modern-events-calendar-lite'));
+                $taxonomy_key = 'label';
                 break;
 
             // Default Screen
             default:
                 $taxonomy_name = str_replace('mec_', '', $taxonomy);
+                $taxonomy_key = $taxonomy_name;
                 break;
         }
 
@@ -107,11 +114,11 @@ class MEC_feature_search extends MEC_base
             'order'              => 'ASC',
             'show_count'         => 0,
             'hide_empty'         => 0,
-            'include'            =>((isset($taxonomy_name) and trim($taxonomy_name)) ? $taxonomy_name : ''),
+            'include'            => ((isset($taxonomy_name) and trim($taxonomy_name)) ? $taxonomy_name : ''),
             'echo'               => false,
             'selected'           => 0,
             'hierarchical'       => true,
-            'name'               => $taxonomy_name,
+            'name'               => $taxonomy_key,
             'taxonomy'           => $taxonomy,
         );
 
@@ -129,12 +136,13 @@ class MEC_feature_search extends MEC_base
             die();
         }
 
-        $mec_quesries = array();
+        $mec_tag_query = NULL;
+        $mec_queries = array();
 
         if(!empty($_POST['location']))
         {
             $location = sanitize_text_field($_POST['location']);
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy'  => 'mec_location',
                 'field'     => 'id',
                 'terms'     => array($location),
@@ -145,7 +153,7 @@ class MEC_feature_search extends MEC_base
         if(!empty($_POST['category']))
         {
             $category = sanitize_text_field($_POST['category']);
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy'  => 'mec_category',
                 'field'     => 'id',
                 'terms'     => array($category),
@@ -156,7 +164,7 @@ class MEC_feature_search extends MEC_base
         if(!empty($_POST['organizer']))
         {
             $organizer = sanitize_text_field($_POST['organizer']);
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy'  => 'mec_organizer',
                 'field'     => 'id',
                 'terms'     => array($organizer),
@@ -167,7 +175,7 @@ class MEC_feature_search extends MEC_base
         if(!empty($_POST['speaker']))
         {
             $speaker = sanitize_text_field($_POST['speaker']);
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy'  => 'mec_speaker',
                 'field'     => 'id',
                 'terms'     => array($speaker),
@@ -177,19 +185,14 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_POST['tag']))
         {
-            $tag = sanitize_text_field($_POST['tag']);
-            $mec_quesries[] = array(
-                'taxonomy'  => 'post_tag',
-                'field'     => 'id',
-                'terms'     => array($tag),
-                'operator'  => 'IN'
-            );
+            $term = get_term_by('id', sanitize_text_field($_POST['tag']), 'post_tag');
+            if($term) $mec_tag_query = $term->slug;
         }
 
         if(!empty($_POST['label']))
         {
             $label = sanitize_text_field($_POST['label']);
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy'  => 'mec_label',
                 'field'     => 'id',
                 'terms'     => array($label),
@@ -197,12 +200,15 @@ class MEC_feature_search extends MEC_base
             );
         }
 
-        $the_query = new WP_Query(array(
-            'tax_query' => $mec_quesries,
+        $args = array(
+            'tax_query' => $mec_queries,
             's' => esc_attr($_POST['keyword']),
             'post_type' => 'mec-events',
             'post_status' => array('publish'),
-        ));
+        );
+
+        if($mec_tag_query) $args['tag'] = $mec_tag_query;
+        $the_query = new WP_Query($args);
 
         if($the_query->have_posts())
         {
@@ -233,12 +239,14 @@ class MEC_feature_search extends MEC_base
         if(!$query->is_search) return $query;
 
         // Do not change Query if it is not a search related to MEC!
-        if($query->get('post_type') != 'mec-events') return $query;
+        if((is_array($query->get('post_type')) and !in_array('mec-events', $query->get('post_type'))) or (!is_array($query->get('post_type')) and $query->get('post_type') != 'mec-events')) return $query;
 
-        $mec_quesries = array();
+        $mec_tag_query = NULL;
+        $mec_queries = array();
+
         if(!empty($_GET['location']))
         {
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy' => 'mec_location',
                 'field' => 'id',
                 'terms' => array($_GET['location']),
@@ -248,7 +256,7 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_GET['category']))
         {
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy' => 'mec_category',
                 'field' => 'id',
                 'terms' => array($_GET['category']),
@@ -258,7 +266,7 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_GET['organizer']))
         {
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy' => 'mec_organizer',
                 'field' => 'id',
                 'terms' => array($_GET['organizer']),
@@ -268,7 +276,7 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_GET['speaker']))
         {
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy' => 'mec_speaker',
                 'field' => 'id',
                 'terms' => array($_GET['speaker']),
@@ -278,17 +286,13 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_GET['tag']))
         {
-            $mec_quesries[] = array(
-                'taxonomy' => 'post_tag',
-                'field' => 'id',
-                'terms' => array($_GET['tag']),
-                'operator'=> 'IN'
-            );
+            $term = get_term_by('id', $_GET['tag'], 'post_tag');
+            if($term) $mec_tag_query = $term->slug;
         }
 
         if(!empty($_GET['label']))
         {
-            $mec_quesries[] = array(
+            $mec_queries[] = array(
                 'taxonomy' => 'mec_label',
                 'field' => 'id',
                 'terms' => array($_GET['label']),
@@ -302,8 +306,9 @@ class MEC_feature_search extends MEC_base
 
         $current_screen = isset(get_current_screen()->id) ? get_current_screen()->id : false;
         if($current_screen and trim($current_screen) == 'edit-mec-events') $post_types = 'mec-events';
-        
-        $query->set('tax_query', $mec_quesries);
+
+        if($mec_tag_query) $query->set('tag', $mec_tag_query);
+        $query->set('tax_query', $mec_queries);
         $query->set('post_type', $post_types);
 
         return $query;

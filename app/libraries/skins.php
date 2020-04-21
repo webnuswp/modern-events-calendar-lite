@@ -100,6 +100,7 @@ class MEC_skins extends MEC_base
     public $geolocation;
     public $geolocation_focus;
     public $include_events_times;
+    public $localtime;
 
     /**
      * Constructor method
@@ -505,8 +506,17 @@ class MEC_skins extends MEC_base
         }
         elseif($this->show_ongoing_events)
         {
-            $now = current_time('timestamp', 0);
-            $where_OR = "(`tstart`<='".$now."' AND `tend`>='".$now."')";
+            if (in_array($this->skin, ['list', 'grid']) && !(strpos($this->style, 'fluent') === false)) {
+                $now = current_time('timestamp', 0);
+                if ($this->skin_options['start_date_type'] != 'today') {
+                    $startDateTime = strtotime($this->start_date) + (int) (get_option('gmt_offset') * HOUR_IN_SECONDS);
+                    $now = $startDateTime > $now ? $startDateTime : $now;
+                }
+                $where_OR = "(`tstart`>'".$now."' AND `tend`<='".$seconds_end."')";
+            } else {
+                $now = current_time('timestamp', 0);
+                $where_OR = "(`tstart`<='".$now."' AND `tend`>='".$now."')";
+            }
         }
 
         $where_AND = '1';
@@ -547,7 +557,7 @@ class MEC_skins extends MEC_base
                 if($this->hide_time_method == 'end' and $now >= $mec_date->tend) continue;
             }
 
-            if($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel'))))
+            if((in_array($this->skin, ['list', 'grid']) && strpos($this->style, 'fluent') === false) && ($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel')))))
             {
                 // Hide Shown Events on AJAX
                 if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start) and !$this->show_only_expired_events) continue;

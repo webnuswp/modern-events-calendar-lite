@@ -82,8 +82,19 @@ class MEC_envato extends MEC_base
      */
     public static function get_api_url()
     {
-        if(ini_get('allow_url_fopen') and get_headers('https://webnus.biz')[0] != 'HTTP/1.1 200 OK') $api_url = 'https://webnus.net/api';
-        else $api_url = 'http://webnus.biz/webnus.net';
+        if(ini_get('allow_url_fopen'))
+        {
+            
+            if (get_headers('https://webnus.biz')[0] != 'HTTP/1.1 200 OK') {
+                $api_url = 'https://webnus.net/api';
+            } else {
+                $api_url = 'http://webnus.biz/webnus.net';
+            }
+        } 
+        else 
+        {
+            $api_url = 'http://webnus.biz/webnus.net';
+        } 
 
         return $api_url;
     }
@@ -171,6 +182,9 @@ class MEC_envato extends MEC_base
         // Get the remote version
         $version = json_decode(json_encode($this->get_MEC_info('version')->version), true);
 
+        // Set mec update path
+        $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
+
         // If a newer version is available, add the update
         if(version_compare($this->current_version, $version, '<'))
         {
@@ -205,6 +219,7 @@ class MEC_envato extends MEC_base
      */
     public function check_info($false, $action, $arg)
     {
+        $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
         $version = json_decode(json_encode($this->get_MEC_info('version')->version), true);
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/addons-api.json';
         

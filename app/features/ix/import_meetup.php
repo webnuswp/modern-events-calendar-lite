@@ -32,7 +32,7 @@ $ix_options = $this->main->get_ix_options();
                         <label class="mec-col-3" for="mec_ix_meetup_group_url"><?php _e('Group URL', 'modern-events-calendar-lite'); ?></label>
                         <div class="mec-col-4">
                             <input type="text" id="mec_ix_meetup_group_url" name="ix[meetup_group_url]" value="<?php echo (isset($ix_options['meetup_group_url']) ? $ix_options['meetup_group_url'] : ''); ?>" />
-                            <p><?php echo sprintf(__('put only the slug of your group like %s in %s', 'modern-events-calendar-lite'), '<strong>your-group-slug</strong>', 'https://www.meetup.com/your-group-slug/'); ?></p>
+                            <p><?php echo sprintf(__('just put the slug of your group like %s in %s', 'modern-events-calendar-lite'), '<strong>your-group-slug</strong>', 'https://www.meetup.com/your-group-slug/'); ?></p>
                         </div>
                     </div>
                     <div class="mec-options-fields">

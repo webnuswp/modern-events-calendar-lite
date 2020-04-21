@@ -551,9 +551,10 @@ class MEC_book extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $coupon
      * @param int $event_id
+     * @param array $transaction
      * @return int
      */
-    public function coupon_check_validity($coupon, $event_id)
+    public function coupon_check_validity($coupon, $event_id, $transaction)
     {
         $term = get_term_by('name', $coupon, 'mec_coupon');
         $coupon_id = isset($term->term_id) ? $term->term_id : 0;
@@ -585,6 +586,19 @@ class MEC_book extends MEC_base
             }
         }
 
+        // Ticket Limit
+        if($status === 1)
+        {
+            $ticket_limit = get_term_meta($coupon_id, 'ticket_limit', true);
+            if(!trim($ticket_limit)) $ticket_limit = 1;
+
+            $tickets = isset($transaction['tickets']) ? $transaction['tickets'] : array();
+            if($ticket_limit > count($tickets))
+            {
+                $status = -4;
+            }
+        }
+
         return $status;
     }
 
@@ -601,7 +615,7 @@ class MEC_book extends MEC_base
         $event_id = isset($transaction['event_id']) ? $transaction['event_id'] : NULL;
 
         // Verify validity of coupon
-        if($this->coupon_check_validity($coupon, $event_id) != 1) return 0;
+        if($this->coupon_check_validity($coupon, $event_id, $transaction) != 1) return 0;
 
         $total = $transaction['total'];
         $discount = $this->coupon_get_discount($coupon, $total);
@@ -653,9 +667,7 @@ class MEC_book extends MEC_base
     public function coupon_get_id($coupon)
     {
         $term = get_term_by('name', $coupon, 'mec_coupon');
-        $coupon_id = isset($term->term_id) ? $term->term_id : 0;
-
-        return $coupon_id;
+        return isset($term->term_id) ? $term->term_id : 0;
     }
 
     /**

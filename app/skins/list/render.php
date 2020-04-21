@@ -5,8 +5,6 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $settings = $this->main->get_settings();
 $current_month_divider = $this->request->getVar('current_month_divider', 0);
-$this->include_events_times = isset($this->skin_options['include_events_times']) ? $this->skin_options['include_events_times'] : false;
-$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
@@ -61,7 +59,7 @@ $map_events = array();
                         <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?></h4>
                         <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                         <div class="mec-event-detail"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?>
-                        <?php if($this->include_events_times) echo $this->main->mec_include_time_labels($start_time, $end_time); ?>
+                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                     </div>
                         <ul class="mec-event-sharing"><?php echo $this->main->module('links.list', array('event'=>$event)); ?></ul>
                     </div>
@@ -75,7 +73,7 @@ $map_events = array();
                         <div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> <?php echo $this->main->date_i18n($this->date_format_classic_1, strtotime($event->date['start']['date'])); ?></div>
                     <?php else: ?>
                         <div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> <?php echo $this->main->dateify($event, $this->date_format_classic_1); ?></div>
-                        <div class="mec-event-time mec-color"><?php if($this->include_events_times) {echo '<i class="mec-sl-clock"></i>'; echo $this->main->mec_include_time_labels($start_time, $end_time); } ?></div>
+                        <div class="mec-event-time mec-color"><?php if($this->include_events_times) {echo '<i class="mec-sl-clock"></i>'; echo $this->main->display_time($start_time, $end_time); } ?></div>
                     <?php endif; ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                     <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?></h4>
@@ -83,7 +81,7 @@ $map_events = array();
                 <?php elseif($this->style == 'minimal'): ?>
                     <div class="col-md-9 col-sm-9">
                         <div class="mec-event-date mec-bg-color"><span><?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['start']['date'])); ?></span><?php echo $this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['start']['date'])); ?></div>
-                        <?php if($this->include_events_times) echo $this->main->mec_include_time_labels($start_time, $end_time); ?>
+                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                         <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?></h4>
                         <div class="mec-event-detail"><?php echo $this->main->date_i18n($this->date_format_minimal_3, strtotime($event->date['start']['date'])); ?><?php echo (isset($location['name']) ? ', ' . $location['name'] : ''); ?> <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?> </div>
                     </div>
@@ -121,7 +119,7 @@ $map_events = array();
                                         <span class="mec-event-d"><?php echo $this->main->dateify($event, $this->date_format_standard_1); ?></span>
                                     <?php endif; ?>
                                 </div>
-                                <?php echo $this->main->mec_include_time_labels($start_time, $end_time); ?>
+                                <?php echo $this->main->display_time($start_time, $end_time); ?>
                                 <?php if($this->localtime) echo $this->main->module('local-time.type1', array('event'=>$event)); ?>
                                 <?php if(isset($location['name'])): ?>
                                 <div class="mec-venue-details">
@@ -174,7 +172,7 @@ $map_events = array();
                                     <?php else: ?>
                                         <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_acc_1.' '.$this->date_format_acc_2); ?></div>
                                     <?php endif; ?>
-                                    <?php echo $this->main->mec_include_time_labels($start_time, $end_time); ?>
+                                    <?php echo $this->main->display_time($start_time, $end_time); ?>
                                 </div>
                                 <h3 class="mec-toggle-title"><?php echo $event->data->title; ?><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?></h3>
                                 <?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><i class="mec-sl-arrow-down"></i>

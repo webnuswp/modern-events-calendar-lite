@@ -28,7 +28,7 @@ $values = $this->main->get_messages_options();
                 <h2><?php _e('Messages', 'modern-events-calendar-lite'); ?></h2>
                 <div class="mec-container">
                     <form id="mec_messages_form">
-                        <p><?php _e("You can change some MEC messages here simply. For example if you like to change \"REGISTER\" button label, you can do it here. By the Way, if your website is a multilingual website, we recommend you to change the messages/phrases from language files.", 'modern-events-calendar-lite'); ?></p>
+                        <p><?php _e("You can change some MEC messages here. For example if you like to change \"REGISTER\" button label, you can do it here. By the Way, if your website is a multilingual website, we recommend you to change the messages/phrases from language files.", 'modern-events-calendar-lite'); ?></p>
                         <div class="mec-form-row" id="mec_messages_form_container">
                             <ul class="mec-accordion mec-message-categories" id="mec_message_categories_wp">
                                 <?php foreach($messages as $cat_key=>$category): ?>

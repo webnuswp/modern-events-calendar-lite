@@ -236,7 +236,7 @@ $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['
                         <div class="mec-form-row mec-all-day-event">
                             <input type="checkbox" name="mec[date][allday]" id="mec_allday" value="1"
                                    onchange="jQuery('.mec-time-picker').toggle();"/><label
-                                   for="mec_allday"><?php _e('All Day Event', 'modern-events-calendar-lite'); ?></label>
+                                   for="mec_allday"><?php _e('All-day Event', 'modern-events-calendar-lite'); ?></label>
                         </div>
                     </div>
                 </div>

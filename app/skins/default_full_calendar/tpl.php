@@ -51,7 +51,7 @@ do_action('mec_full_skin_head');
             $sf_month_filter_status = true;
             $sf_text_search_status = true;
 
-            $sf_columns = 8;
+            $sf_columns = 7;
         ?>
         <div id="mec_search_form_<?php echo $this->id; ?>">
         <?php if($sf_month_filter_status): $sf_columns -= 3; ?>
@@ -66,7 +66,7 @@ do_action('mec_full_skin_head');
             </div>        
         <?php endif; ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="mec-totalcal-view">
                 <?php if($this->yearly): ?><span class="mec-totalcal-yearlyview<?php if($this->default_view == 'yearly') echo ' mec-totalcalview-selected'; ?>" data-skin="yearly"><?php _e('Yearly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
                 <?php if($this->monthly): ?><span class="mec-totalcal-monthlyview<?php if($this->default_view == 'monthly') echo ' mec-totalcalview-selected'; ?>" data-skin="monthly"><?php _e('Monthly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>

@@ -91,7 +91,7 @@ $pages = get_pages();
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Booking Style', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Choose your Booking style, Please Note: When you set this feature to modal you can not see booking box if you set popoup module view on shortcodes", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                            <div class="content"><p><?php esc_attr_e("Choose your Booking style. Note: When you set this feature to Modal, you cannot see the booking box if you set popup module view on shortcodes", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>

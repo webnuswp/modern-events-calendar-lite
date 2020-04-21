@@ -100,7 +100,7 @@ if($this->getPRO())
                                             <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php _e('Zoom level', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("For Google Maps module in single event page. In Google Maps skin, it will caculate the zoom level automatically based on event boundaries.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                <div class="content"><p><?php esc_attr_e("For Google Maps module in single event page. In Google Maps skin, it will calculate the zoom level automatically based on event boundaries.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -151,7 +151,7 @@ if($this->getPRO())
                                             <span class="mec-tooltip">
                                             <div class="box top">
                                                 <h5 class="title"><?php _e('Google Maps API', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Check it only if another plugin/theme is loading the Google Maps API", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                <div class="content"><p><?php esc_attr_e("Check only if another plugin/theme is loading the Google Maps API", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -342,7 +342,7 @@ if($this->getPRO())
                                         </label>
                                     </div>
                                     <div class="mec-form-row">
-                                        <label class="mec-col-3" for="mec_settings_bp_attendees_module_limit"><?php _e('Attendees Limit', 'modern-events-calendar-lite'); ?></label>
+                                        <label class="mec-col-3" for="mec_settings_bp_attendees_module_limit"><?php _e('Attendee Limit', 'modern-events-calendar-lite'); ?></label>
                                         <div class="mec-col-4">
                                             <input type="text" id="mec_settings_bp_attendees_module_limit" name="mec[settings][bp_attendees_module_limit]" value="<?php echo ((isset($settings['bp_attendees_module_limit']) and trim($settings['bp_attendees_module_limit']) != '') ? $settings['bp_attendees_module_limit'] : '20'); ?>" />
                                         </div>

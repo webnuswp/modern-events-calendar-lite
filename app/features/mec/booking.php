@@ -137,7 +137,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("You can show booking form only at certain time before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event!", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("You can show booking form only at certain times before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event!", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -184,7 +184,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Attendees Form', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Users are able to apply first attendee information for other attendees in the booking form.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                            <div class="content"><p><?php esc_attr_e("Apply the info from the first attendee to all purchased ticket by that user. Uncheck if you want every ticket to have its own attendee’s info.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>                                            
@@ -277,7 +277,7 @@ $gateways_options = $this->main->get_gateways_options();
                                     <input type="hidden" name="mec[settings][coupons_status]" value="0" />
                                     <input onchange="jQuery('#mec_coupons_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][coupons_status]" <?php if(isset($settings['coupons_status']) and $settings['coupons_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable coupons module', 'modern-events-calendar-lite'); ?>
                                 </label>
-                                <p><?php esc_attr_e("After enabling and saving the settings,, you should reload the page to see a new menu on the Dashboard > Booking", 'modern-events-calendar-lite'); ?></p>
+                                <p><?php esc_attr_e("After enabling and saving the settings, you should reload the page to see a new menu on the Dashboard > Booking", 'modern-events-calendar-lite'); ?></p>
                             </div>
                             <div id="mec_coupons_container_toggle" class="<?php if((isset($settings['coupons_status']) and !$settings['coupons_status']) or !isset($settings['coupons_status'])) echo 'mec-util-hidden'; ?>">
                             </div>
@@ -399,7 +399,7 @@ $gateways_options = $this->main->get_gateways_options();
                                                         <span class="mec-tooltip">
                                                             <div class="box top">
                                                                 <h5 class="title"><?php _e('Maximum Per Ticket', 'modern-events-calendar-lite'); ?></h5>
-                                                                <div class="content"><p><?php esc_attr_e("Maximum Per Ticket. Leave it blank for unlimited.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/ticket-variations/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                                <div class="content"><p><?php esc_attr_e("Maximum Per Ticket. Leave blank for unlimited.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/ticket-variations/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                                             </div>
                                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                                         </span>                                                           
@@ -431,7 +431,7 @@ $gateways_options = $this->main->get_gateways_options();
                                                     <span class="mec-tooltip">
                                                         <div class="box top">
                                                             <h5 class="title"><?php _e('Maximum Per Ticket', 'modern-events-calendar-lite'); ?></h5>
-                                                            <div class="content"><p><?php esc_attr_e("Maximum Per Ticket. Leave it blank for unlimited.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/ticket-variations/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                            <div class="content"><p><?php esc_attr_e("Maximum Per Ticket. Leave blank for unlimited.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/ticket-variations/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                                         </div>
                                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                                     </span>                                                      

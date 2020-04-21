@@ -448,6 +448,7 @@ function mec_check_variation_min_max'.$uniqueid.'(variation)
 </script>';
 
 $javascript = apply_filters('mec-javascript-code-of-booking-module', $javascript , $uniqueid);
+
 // Include javascript code into the footer
 if($this->is_ajax()) echo $javascript;
 else $factory->params('footer', $javascript);

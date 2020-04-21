@@ -326,7 +326,7 @@ $this->factory->params('footer', $javascript);
                         </div>
                     </div>
                     <div class="mec-form-row">
-                        <input <?php if($allday == '1') echo 'checked="checked"'; ?> type="checkbox" name="mec[date][allday]" id="mec_allday" value="1" onchange="jQuery('.mec-time-picker').toggle();" /><label for="mec_allday"><?php _e('All Day Event', 'modern-events-calendar-lite'); ?></label>
+                        <input <?php if($allday == '1') echo 'checked="checked"'; ?> type="checkbox" name="mec[date][allday]" id="mec_allday" value="1" onchange="jQuery('.mec-time-picker').toggle();" /><label for="mec_allday"><?php _e('All-day Event', 'modern-events-calendar-lite'); ?></label>
                     </div>
                     <div class="mec-form-row">
                         <input <?php if($hide_time == '1') echo 'checked="checked"'; ?> type="checkbox" name="mec[date][hide_time]" id="mec_hide_time" value="1" /><label for="mec_hide_time"><?php _e('Hide Event Time', 'modern-events-calendar-lite'); ?></label>
@@ -336,8 +336,8 @@ $this->factory->params('footer', $javascript);
                     </div>
                     <div class="mec-form-row">
                         <div class="mec-col-4">
-                            <input type="text" class="" name="mec[date][comment]" id="mec_comment" placeholder="<?php _e('Time Comment', 'modern-events-calendar-lite'); ?>" value="<?php echo esc_attr($comment); ?>" />
-                            <p class="description"><?php _e('It shows next to event time on single event page. You can insert Timezone etc. in this field.', 'modern-events-calendar-lite'); ?></p>
+                            <input type="text" class="" name="mec[date][comment]" id="mec_comment" placeholder="<?php _e('Notes on the time', 'modern-events-calendar-lite'); ?>" value="<?php echo esc_attr($comment); ?>" />
+                            <p class="description"><?php _e('It shows next to event time on the Single Event Page. You can enter notes such as timezone in this field.', 'modern-events-calendar-lite'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -715,7 +715,7 @@ $this->factory->params('footer', $javascript);
                 <div class="mec-form-row">
                     <label class="mec-col-2" for="mec_read_more_link"><?php echo $this->main->m('read_more_link', __('Event Link', 'modern-events-calendar-lite')); ?></label>
                     <input class="mec-col-9" type="text" name="mec[read_more]" id="mec_read_more_link" value="<?php echo esc_attr($read_more); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>" />
-                    <p class="description"><?php _e('If you fill it, it will be replaced instead of default event page link. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description"><?php _e('If you fill it, it will replace the default event page link. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?></p>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-2" for="mec_more_info_link"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></label>
@@ -861,7 +861,7 @@ $this->factory->params('footer', $javascript);
                         <h4><?php echo $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')); ?></h4>
                         <div class="mec-form-row">
                             <input type="text" name="mec[speakers][datas][names]" id="mec_speaker_input_names" placeholder="<?php _e('Speakers Names', 'modern-events-calendar-lite'); ?>" class="" />
-                            <p><?php _e('Separate names with commas Similar Justin, Cris', 'modern-events-calendar-lite'); ?></p>
+                            <p><?php _e('Separate names with commas: Justin, Chris', 'modern-events-calendar-lite'); ?></p>
                             <button class="button" type="button" id="mec_add_speaker_button"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
                         </div>
                         <div class="mec-form-row" id="mec-fes-speakers-list">

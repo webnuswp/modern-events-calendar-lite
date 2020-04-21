@@ -145,7 +145,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 </div>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_tags">
                     <h4><?php _e('Tags', 'modern-events-calendar-lite'); ?></h4>
-                    <p class="description"><?php _e('Insert your desired tags comma separated.', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description"><?php _e('Insert your desired tags separated by commas.', 'modern-events-calendar-lite'); ?></p>
                     <?php $selected_tags = get_post_meta($post->ID, 'tag', true); ?>
                     <input type="text" name="mec_tax_input[mec_tag]" value="<?php echo $selected_tags; ?>" class="widefat" />
                 </div>
@@ -187,7 +187,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                             <input type="checkbox" name="mec[show_past_events]" class="mec-checkbox-toggle" id="mec_show_past_events" value="1" <?php if($show_past_events == '' or $show_past_events == 1) echo 'checked="checked"'; ?> />
                             <label for="mec_show_past_events"></label>
                         </div>
-                        <p class="description"><?php _e('You have ability to include past/expired events if you like so it will show upcoming and expired events based on start date that you selected.', 'modern-events-calendar-lite'); ?></p>
+                        <p class="description"><?php _e('You can include past/expired events if you like so it will show upcoming and expired events based on start date that you selected.', 'modern-events-calendar-lite'); ?></p>
                         <br />
                     </div>
                     <div id="mec_date_only_past_filter">
@@ -201,7 +201,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                                 <input type="checkbox" name="mec[show_only_past_events]" class="mec-checkbox-toggle" id="mec_show_only_past_events" value="1" <?php if($show_only_past_events == 1) echo 'checked="checked"'; ?> />
                                 <label for="mec_show_only_past_events"></label>
                             </div>
-                            <p class="description" style="color: red;"><?php echo sprintf(__('It shows %s expired/past events. It will use selected start date as first day and then go to %s dates.', 'modern-events-calendar-lite'), '<strong>'.__('only', 'modern-events-calendar-lite').'</strong>', '<strong>'.__('older', 'modern-events-calendar-lite').'</strong>'); ?></p>
+                            <p class="description" style="color: red;"><?php echo sprintf(__('It shows %s expired/past events. It will use the selected start date as first day and then go to %s dates.', 'modern-events-calendar-lite'), '<strong>'.__('only', 'modern-events-calendar-lite').'</strong>', '<strong>'.__('older', 'modern-events-calendar-lite').'</strong>'); ?></p>
                         </div>
                         <br />
                     </div>

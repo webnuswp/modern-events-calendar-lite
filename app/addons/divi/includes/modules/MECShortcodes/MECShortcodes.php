@@ -25,7 +25,7 @@ class MECDIVI_MECShortcodes extends ET_Builder_Module {
 				'label'           => esc_html__( 'MEC Shortcodes', 'mecdivi-divi' ),
 				'type'            => 'select',
 				'options' => $calendars,
-				'description'     => esc_html__( 'Input your desired shortcode_id here.', 'mecdivi-divi' ),
+				'description'     => esc_html__( 'Enter the shortcode_id of your choosing here.', 'mecdivi-divi' ),
 			),
 		);
 	}

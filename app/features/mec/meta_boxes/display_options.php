@@ -410,6 +410,18 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Include Events Times -->
+                <div class="mec-form-row mec-switcher mec-include-events-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_grid_include_events_times"><?php _e('Include Events Times', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][grid][include_events_times]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][grid][include_events_times]" id="mec_skin_grid_include_events_times" value="1" <?php if(isset($sk_options_grid['include_events_times']) and trim($sk_options_grid['include_events_times'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_grid_include_events_times"></label>
+                    </div>
+                </div>
+                <!-- End Include Events Times -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label for="mec_skin_grid_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
@@ -606,6 +618,7 @@ $events = $this->main->get_events();
             <!-- Full Calendar -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_full_calendar_skin_options_container">
                 <?php $sk_options_full_calendar = isset($sk_options['full_calendar']) ? $sk_options['full_calendar'] : array(); ?>
+                <?php do_action('mec_skin_options_full_calendar_init', $sk_options_full_calendar); ?>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_full_calendar_start_date_type"><?php _e('Start Date', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][full_calendar][start_date_type]" id="mec_skin_full_calendar_start_date_type" onchange="if(this.value == 'date') jQuery('#mec_skin_full_calendar_start_date_container').show(); else jQuery('#mec_skin_full_calendar_start_date_container').hide();">
@@ -618,7 +631,6 @@ $events = $this->main->get_events();
                         <input class="mec_date_picker" type="text" name="mec[sk-options][full_calendar][start_date]" id="mec_skin_full_calendar_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_full_calendar['start_date'])) echo $sk_options_full_calendar['start_date']; ?>" />
                     </div>
 				</div>
-                <?php do_action('mec_skin_options_full_calendar_init', $sk_options_full_calendar); ?>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_full_calendar_default_view"><?php _e('Default View', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][full_calendar][default_view]" id="mec_skin_full_calendar_default_view">
@@ -714,7 +726,7 @@ $events = $this->main->get_events();
                         if(isset($sk_options_full_calendar['date_format_yearly_2']) and trim($sk_options_full_calendar['date_format_yearly_2']) != '') $date_format_yearly_2 = trim($sk_options_full_calendar['date_format_yearly_2']);
                         elseif(isset($sk_options_yearly_view['modern_date_format2']) and trim($sk_options_yearly_view['modern_date_format2']) != '') $date_format_yearly_2 = trim($sk_options_yearly_view['modern_date_format2']);
                     ?>
-                    <div class="mec-form-row mec-date-format <?php echo (!isset($sk_options_full_calendar['yearly']) or (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly'])) ? '' : 'mec-util-hidden'; ?>">
+                    <div class="mec-form-row mec-date-format mec-not-full_calendar-fluent <?php echo (!isset($sk_options_full_calendar['yearly']) or (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly'])) ? '' : 'mec-util-hidden'; ?>">
                         <label class="mec-col-4" for="mec_skin_full_calendar_date_format_yearly_1"><?php _e('Yearly View Date Formats', 'modern-events-calendar-lite'); ?></label>
                         <input type="text" class="mec-col-2" name="mec[sk-options][full_calendar][date_format_yearly_1]" id="mec_skin_full_calendar_date_format_yearly_1" value="<?php esc_attr_e($date_format_yearly_1); ?>"/>
                         <input type="text" class="mec-col-2" name="mec[sk-options][full_calendar][date_format_yearly_2]" id="mec_skin_full_calendar_date_format_yearly_2" value="<?php esc_attr_e($date_format_yearly_2); ?>"/>
@@ -832,7 +844,7 @@ $events = $this->main->get_events();
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                     </span>	                                        
                 </div>
-                <div class="mec-form-row">
+                <div class="mec-form-row mec-not-yearly_view-fluent">
                     <label class="mec-col-4" for="mec_skin_yearly_view_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][yearly_view][limit]" id="mec_skin_yearly_view_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_yearly_view['limit'])) echo $sk_options_yearly_view['limit']; ?>" />
                 </div>
@@ -939,7 +951,7 @@ $events = $this->main->get_events();
 					</div>
                 </div>
                 <!-- Start Display Label -->
-                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_monthly_view_display_normal_label">
+                <div class="mec-form-row mec-switcher mec-include-events-local-times mec-not-monthly_view-fluent" id="mec_skin_monthly_view_display_normal_label">
 					<div class="mec-col-4">
 						<label for="mec_skin_monthly_view_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
 					</div>
@@ -951,7 +963,7 @@ $events = $this->main->get_events();
                 </div>
                 <!-- End Display Label -->
                 <!-- Start Reason for Cancellation -->
-                <div class="mec-form-row mec-switcher" id="mec_skin_monthly_view_display_reason_for_cancellation">
+                <div class="mec-form-row mec-switcher mec-not-monthly_view-fluent" id="mec_skin_monthly_view_display_reason_for_cancellation">
 					<div class="mec-col-4">
 						<label for="mec_skin_monthly_view_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
 					</div>
@@ -1133,7 +1145,7 @@ $events = $this->main->get_events();
                 </div>
                 <!-- End LocalTime -->
                 <!-- Start Display Label -->
-                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_weekly_view_display_normal_label">
+                <div class="mec-form-row mec-switcher mec-include-events-local-times mec-not-weekly_view-fluent" id="mec_skin_weekly_view_display_normal_label">
 					<div class="mec-col-4">
 						<label for="mec_skin_weekly_view_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
 					</div>
@@ -1145,7 +1157,7 @@ $events = $this->main->get_events();
                 </div>
                 <!-- End Display Label -->
                 <!-- Start Reason for Cancellation -->
-                <div class="mec-form-row mec-switcher" id="mec_skin_weekly_view_display_reason_for_cancellation">
+                <div class="mec-form-row mec-switcher mec-not-weekly_view-fluent" id="mec_skin_weekly_view_display_reason_for_cancellation">
 					<div class="mec-col-4">
 						<label for="mec_skin_weekly_view_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
 					</div>
@@ -1274,7 +1286,7 @@ $events = $this->main->get_events();
                 </div>
                 <!-- End LocalTime -->
                 <!-- Start Display Label -->
-                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_timetable_display_normal_label">
+                <div class="mec-form-row mec-switcher mec-include-events-local-times mec-not-timetable-fluent" id="mec_skin_timetable_display_normal_label">
 					<div class="mec-col-4">
 						<label for="mec_skin_timetable_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
 					</div>
@@ -1286,7 +1298,7 @@ $events = $this->main->get_events();
                 </div>
                 <!-- End Display Label -->
                 <!-- Start Reason for Cancellation -->
-                <div class="mec-form-row mec-switcher" id="mec_skin_timetable_display_reason_for_cancellation">
+                <div class="mec-form-row mec-switcher mec-not-timetable-fluent" id="mec_skin_timetable_display_reason_for_cancellation">
 					<div class="mec-col-4">
 						<label for="mec_skin_timetable_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
 					</div>

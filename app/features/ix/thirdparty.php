@@ -21,7 +21,7 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
             <h3><?php _e('Third Party Plugins', 'modern-events-calendar-lite'); ?></h3>
             <form id="mec_thirdparty_import_form" action="<?php echo $this->main->get_full_url(); ?>" method="POST">
                 <div class="mec-form-row">
-                    <p><?php echo sprintf(__("You can import events from following integrated plugins to %s.", 'modern-events-calendar-lite'), '<strong>'.__('Modern Events Calendar', 'modern-events-calendar-lite').'</strong>'); ?></p>
+                    <p><?php echo sprintf(__("You can import events from the following integrated plugins to %s.", 'modern-events-calendar-lite'), '<strong>'.__('Modern Events Calendar', 'modern-events-calendar-lite').'</strong>'); ?></p>
                 </div>
                 <div class="mec-form-row">
                     <select name="ix[third-party]" id="third_party" title="<?php esc_attr_e('Third Party', 'modern-events-calendar-lite') ?>">

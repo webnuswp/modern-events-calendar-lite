@@ -67,7 +67,7 @@ do_action('mec_full_skin_head');
 
                 // Status of Speakers Feature
                 $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
-                $sf_columns = 8;
+                $sf_columns = 7;
             ?>
         <?php
             if((!empty($sf_category) && $sf_category["type"] == 'dropdown') || (!empty($sf_location) && $sf_location["type"] == 'dropdown') || (!empty($sf_organizer) && $sf_organizer["type"] == 'dropdown') || (!empty($sf_speaker) && $sf_speaker["type"] == 'dropdown') || (!empty($sf_tag) && $sf_tag["type"] == 'dropdown') || (!empty($sf_label) && $sf_label["type"] == 'dropdown')) $wrapper_class = 'class="mec-dropdown-wrap"';
@@ -113,7 +113,7 @@ do_action('mec_full_skin_head');
             </div>        
         <?php endif; ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="mec-totalcal-view">
                 <?php if($this->yearly): ?><span class="mec-totalcal-yearlyview<?php if($this->default_view == 'yearly') echo ' mec-totalcalview-selected'; ?>" data-skin="yearly"><?php _e('Yearly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
                 <?php if($this->monthly): ?><span class="mec-totalcal-monthlyview<?php if($this->default_view == 'monthly') echo ' mec-totalcalview-selected'; ?>" data-skin="monthly"><?php _e('Monthly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>

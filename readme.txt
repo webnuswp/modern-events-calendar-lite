@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 5.2.7
+Stable tag: 5.3.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -187,6 +187,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Ticket limit for coupon
 - Show Normal Label
 - Event Status for Schema
 - Cancellation reason
@@ -364,6 +365,21 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 37. WordPress Event Calendar - Add Shortcode Wizard
 
 == Changelog ==
+v 5.3.0 – 21 April 2020
+- Added: Minimum option for coupons (pro)
+- Added: An option to display event time in grid skin
+- Added: Grid and tile skins to the full calendar skins
+- Added: Dark mode styles for wizards popup
+- Updated: The whole textual interface of the plugin for English
+- Fixed: Locked the "Enter Key" on search bar Ajax mode
+- Fixed: Wrong local-time date on shortcodes
+- Fixed: Display image content on modal popup
+- Fixed: A conflict with Seopress plugin
+- Fixed: A Conflict with Neve theme
+- Fixed: Related evens module
+- Fixed: Search bar
+- Fixed: Some minor issues
+
 v 5.2.7 – 14 April 2020
 - Fixed: An issue with full calendar. 
 

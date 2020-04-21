@@ -183,7 +183,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php _e('Weekends', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Proceed with caution. Default is set to Saturday and Sunday ( you can change 'Week Starts' on WordPress Dashboard > Settings > General - bottom of the page ).", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/general-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                            <div class="content"><p><?php esc_attr_e("Proceed with caution. Default is set to Saturday and Sunday (you can change 'Week Starts' on WordPress Dashboard > Settings > General - bottom of the page).", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/general-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -414,7 +414,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php _e('Category Page Skin', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Default value is List View - But you can change it  Set a skin for all categories.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/archive-pages/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a><a href="https://webnus.net/modern-events-calendar/" target="_blank"><?php _e('See Demo', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                            <div class="content"><p><?php esc_attr_e("Default value is List View - But you can change it to set a skin for all categories.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/archive-pages/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a><a href="https://webnus.net/modern-events-calendar/" target="_blank"><?php _e('See Demo', 'modern-events-calendar-lite'); ?></a></p></div>    
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -640,7 +640,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("User redirects to this page after new event submission. Leave it empty if you want to disable it.", 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e("User is redirected to this page after a new event submission. Leave it empty if you want it disabled.", 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -665,7 +665,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_guest_status]" value="0" />
-                                    <input onchange="jQuery('#mec_fes_guest_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][fes_guest_status]" <?php if(isset($settings['fes_guest_status']) and $settings['fes_guest_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable event submission by guest (Not logged-in) users', 'modern-events-calendar-lite'); ?>
+                                    <input onchange="jQuery('#mec_fes_guest_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][fes_guest_status]" <?php if(isset($settings['fes_guest_status']) and $settings['fes_guest_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable event submission by guest (Not logged in) users', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
                             <div id="mec_fes_guest_status_container_toggle" class="<?php if((isset($settings['fes_guest_status']) and !$settings['fes_guest_status']) or !isset($settings['fes_guest_status'])) echo 'mec-util-hidden'; ?>">
@@ -782,7 +782,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                             </div>
                             <div id="mec_fes_note_container_toggle" class="<?php if((isset($settings['fes_note']) and !$settings['fes_note']) or !isset($settings['fes_note'])) echo 'mec-util-hidden'; ?>">
                                 <div class="mec-form-row">
-                                    <label class="mec-col-3" for="mec_settings_fes_note_visibility"><?php _e('Visibility of Note', 'modern-events-calendar-lite'); ?></label>
+                                    <label class="mec-col-3" for="mec_settings_fes_note_visibility"><?php _e('Note visibility', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
                                         <select id="mec_settings_fes_note_visibility" name="mec[settings][fes_note_visibility]">
                                             <option <?php echo ((isset($settings['fes_note_visibility']) and $settings['fes_note_visibility'] == 'always') ? 'selected="selected"' : ''); ?> value="always"><?php _e('Always', 'modern-events-calendar-lite'); ?></option>
@@ -790,7 +790,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                         </select>
                                         <span class="mec-tooltip">
                                             <div class="box top">
-                                                <h5 class="title"><?php _e('Visibility of Note', 'modern-events-calendar-lite'); ?></h5>
+                                                <h5 class="title"><?php _e('Note visibility', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("Event Note shows on Frontend Submission Form and Edit Event in backend.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/frontend-event-submission/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
@@ -804,7 +804,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                         <div id="user_profile_options" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('User Profile', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
-                                <p><?php echo sprintf(__('Put %s shortcode into your desired page. Then users are able to see history of their bookings.', 'modern-events-calendar-lite'), '<code>[MEC_profile]</code>'); ?></p>
+                                <p><?php echo sprintf(__('Put %s shortcode into your desired page. Then users are able to see the history of their bookings.', 'modern-events-calendar-lite'), '<code>[MEC_profile]</code>'); ?></p>
                             </div>
                         </div>
 
@@ -820,7 +820,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                      <span class="mec-tooltip">
                                         <div class="box">
                                             <h5 class="title"><?php _e('Ajax mode', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("if you enable this option, search button disappeared and to use this feature, text input field must be enabled.", 'modern-events-calendar-lite'); ?></p></div>    
+                                            <div class="content"><p><?php esc_attr_e("if you enable this option, the search button will disappear. To use this feature, text input field must be enabled.", 'modern-events-calendar-lite'); ?></p></div>    
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -927,7 +927,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                             <span class="mec-tooltip">
                                                 <div class="box top">
                                                     <h5 class="title"><?php _e('Subscription Status', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e('If you choose "Subscribe by verification" then an email will send to user by mailchimp for subscription verification.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/mailchimp-integration/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                    <div class="content"><p><?php esc_attr_e('If you choose "Subscribe by verification" then an email will be send to the user by mailchimp for subscription verification.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/mailchimp-integration/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>

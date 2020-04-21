@@ -25,6 +25,8 @@ var mecSingleEventDisplayer = {
                             jQuery(this).closest('a').attr('data-featherlight', 'image');
                         });
                     }
+                } else {
+                    jQuery('.featherlight-content .mec-events-content a img').remove();
                 }
             },
             error: function () {}
@@ -179,7 +181,7 @@ var mecSingleEventDisplayer = {
             }
 
             // Add the onclick event
-            $("#mec_skin_" + settings.id + " .mec-totalcal-box .mec-totalcal-view span").on('click', function (e) {
+            $("#mec_skin_" + settings.id + " .mec-totalcal-box .mec-totalcal-view span:not(.mec-fluent-more-views-icon)").on('click', function (e) {
                 e.preventDefault();
                 var skin = $(this).data('skin');
                 var mec_month_select = $('#mec_sf_month_' + settings.id);
@@ -206,7 +208,14 @@ var mecSingleEventDisplayer = {
                     if(mec_year_select.find('.mec-none-item').length != 0) mec_year_select.find('.mec-none-item').remove();
                 }
 
-                $(this).addClass('mec-totalcalview-selected').siblings().removeClass('mec-totalcalview-selected');
+                $("#mec_skin_" + settings.id + " .mec-totalcal-box .mec-totalcal-view span").removeClass('mec-totalcalview-selected')
+                $(this).addClass('mec-totalcalview-selected');
+                if ($(this).closest('.mec-fluent-more-views-content').length > 0) {
+                    $('.mec-fluent-more-views-icon').addClass('active');
+                    $('.mec-fluent-more-views-content').removeClass('active');
+                } else {
+                    $('.mec-fluent-more-views-icon').removeClass('active');
+                }
 
                 loadSkin(skin);
             });
@@ -287,7 +296,6 @@ var mecSingleEventDisplayer = {
         }, options);
 
         mecFluentYearlyUI(settings.id, settings.year_id);
-        mecFluentCustomScrollbar();
 
         // Initialize Year Navigator
         if (settings.year_navigator) initYearNavigator();
@@ -1536,6 +1544,8 @@ var mecSingleEventDisplayer = {
 
                     // Focus First Active Week
                     mec_focus_week(settings.id, 'timetable');
+
+                    mecFluentCustomScrollbar();
                 },
                 error: function () {}
             });
@@ -2793,6 +2803,7 @@ var mecSingleEventDisplayer = {
             // Add loading Class
             if (jQuery('.mec-modal-result').length === 0) jQuery('.mec-wrap').append('<div class="mec-modal-result"></div>');
             jQuery('.mec-modal-result').addClass('mec-month-navigator-loading');
+            mecFluentCustomScrollbar();
 
             $.ajax({
                 url: settings.ajax_url,
@@ -2834,6 +2845,7 @@ var mecSingleEventDisplayer = {
                             sed();
                         }
                     }
+                    mecFluentCustomScrollbar();
                 },
                 error: function () {}
             });
@@ -3895,17 +3907,57 @@ jQuery(document).ready(function () {
     jQuery(document).on('click', '.mec-fluent-wrap .mec-more-events-icon', mecFluentToggleMoreEvents);
     jQuery(document).on('click', '.mec-fluent-wrap .mec-yearly-calendar', mecFluentYearlyCalendar);
     jQuery(document).on('click', mecFluentOutsideEvent);
+    jQuery(document).on('click', '.mec-fluent-more-views-icon', mecFluentMoreViewsContent);
+    jQuery(document).on('change', '.mec-fluent-wrap .mec-filter-content select, .mec-fluent-wrap .mec-filter-content input', mecFluentSmartFilterIcon);
     // Run
+    mecFluentTimeTableUI();
     mecFluentUI();
     mecFluentNiceSelect();
-    mecFluentCustomScrollbar();
-    mecFluentTimeTableUI();
     mecFluentWrapperFullScreenWidth();
     jQuery(window).on('load', mecFluentWrapperFullScreenWidth);
     jQuery(window).on('resize', mecFluentWrapperFullScreenWidth);
     jQuery(window).on('resize', mecFluentTimeTableUI);
     mecFluentSliderUI();
+    mecFluentCustomScrollbar();
 });
+
+function mecFluentSmartFilterIcon() {
+    var filterContent = jQuery(this).closest('.mec-filter-content');
+    var hasValue = false;
+    if (jQuery(this).closest('.mec-date-search').length > 0) {
+        var yearValue = jQuery(this).closest('.mec-date-search').find('select[id*="mec_sf_year"]').val();
+        var monthValue = jQuery(this).closest('.mec-date-search').find('select[id*="mec_sf_month"]').val();
+        if ((yearValue == 'none' && monthValue == 'none') || (yearValue != 'none' && monthValue != 'none')) {
+            filterContent.hide();
+            if ((yearValue != 'none' && monthValue != 'none')) {
+                hasValue = true;
+            } else {
+                hasValue = false;
+            }
+        } else {
+            return false;
+        }
+    } else {
+        filterContent.hide();
+    }
+    if (!hasValue) {
+        filterContent.find(':not(.mec-date-search)').find('select, input:not([type="hidden"])').each(function () {
+            if (jQuery(this).val()) {
+                hasValue = true;
+                return false;
+            }
+        });
+    }
+    if (hasValue) {
+        jQuery(this).closest('.mec-search-form').find('.mec-filter-icon').addClass('active');
+    } else {
+        jQuery(this).closest('.mec-search-form').find('.mec-filter-icon').removeClass('active');
+    }
+}
+
+function mecFluentMoreViewsContent() {
+    jQuery(this).siblings('.mec-fluent-more-views-content').toggleClass('active');
+}
 
 function mecFluentWrapperFullScreenWidth() {
     if (jQuery('.mec-fluent-bg-wrap').length > 0) {
@@ -3924,11 +3976,25 @@ function mecFluentUI() {
                 left: -jQuery('.mec-search-form.mec-totalcal-box').position().left + 40,
             });
         }
+        if (jQuery('.mec-filter-icon').is(':visible')) {
+            var filterIconLeftPosition = parseInt(jQuery('.mec-search-form.mec-totalcal-box').position().left) + parseInt(jQuery('.mec-filter-icon').position().left) - 25;
+            jQuery('head').find('style[title="mecFluentFilterContentStyle"]').remove().end().append('<style title="mecFluentFilterContentStyle">.mec-fluent-wrap .mec-filter-content:before{left: ' + filterIconLeftPosition + 'px;}.mec-fluent-wrap .mec-filter-content:after{left: ' + (filterIconLeftPosition + 1) + 'px;}</style>');
+        }
     });
     // Hide empty filter content
     if (jQuery('.mec-filter-content').is(':empty')) {
         jQuery('.mec-filter-icon').hide();
     }
+    // Current time position
+    jQuery(window).on('load', function () {
+        jQuery('.mec-fluent-current-time').each(function() {
+            var currentTimeMinutes = jQuery(this).data('time');
+            var height = jQuery(this).closest('.mec-fluent-current-time-cell').height();
+            jQuery(this).css({
+                top: (currentTimeMinutes / 60) * height,
+            });
+        });
+    });
 }
 
 function mecFluentNiceSelect() {
@@ -3941,7 +4007,7 @@ function mecFluentNiceSelect() {
     }
 }
 
-function mecFluentCustomScrollbar() {
+function mecFluentCustomScrollbar(y) {
     if (jQuery('.mec-fluent-wrap').length < 0) {
         return;
     }
@@ -3958,9 +4024,15 @@ function mecFluentCustomScrollbar() {
         });
         jQuery('.mec-custom-scrollbar').getNiceScroll().resize()
         jQuery('.mec-custom-scrollbar').each(function () {
-            if (jQuery(this).find('.mec-cell').find('.mec-event-article').length > 0) {
-                y = jQuery(this).find('.mec-cell').find('.mec-event-article').first().offset().top;
-                jQuery(this).getNiceScroll(0).doScrollTop(y, 120);
+            if (jQuery(this).find('.mec-fluent-current-time-cell').length > 0) {
+                var parentTopOffset = jQuery(this).offset().top;
+                var currentTimeCellOffset = jQuery(this).find('.mec-fluent-current-time-cell').offset().top;
+                jQuery(this).getNiceScroll(0).doScrollTop(currentTimeCellOffset - parentTopOffset - 16, 120);
+            }
+            if (typeof y != 'undefined') {
+                if (jQuery(this).closest('.mec-skin-list-wrap').length > 0 || jQuery(this).closest('.mec-skin-grid-wrap').length > 0) {
+                    jQuery(this).getNiceScroll(0).doScrollTop(0, 120);
+                }
             }
         });
     }
@@ -3971,6 +4043,7 @@ function mecFluentTimeTableUI() {
     var maxHeight = Math.max.apply(null, jQuery('.mec-fluent-wrap.mec-timetable-wrap .mec-cell').map(function () {
         return jQuery(this).height();
     }).get());
+    maxHeight = maxHeight > 87 ? maxHeight : 87;
     jQuery('.mec-fluent-wrap.mec-timetable-wrap .mec-cell').css('min-height', maxHeight + 2);
 }
 
@@ -4041,6 +4114,9 @@ function mecFluentOutsideEvent(e) {
     if (!jQuery(e.target).is('.mec-filter-icon') && !jQuery(e.target).closest('.mec-filter-content').length) {
         jQuery('.mec-filter-content').hide();
     }
+    if (!jQuery(e.target).is('.mec-fluent-more-views-icon') && !jQuery(e.target).closest('.mec-fluent-more-views-content').length) {
+        jQuery('.mec-fluent-more-views-content').removeClass('active');
+    }
 }
 
 function mecFluentYearlyCalendar() {
@@ -4052,6 +4128,7 @@ function mecFluentYearlyCalendar() {
         .find('.mec-yearly-agenda-sec-title span').text(monthName).end()
         .find('.mec-events-agenda').addClass('mec-util-hidden').end()
         .find('.mec-events-agenda[data-month=' + monthNum + ']').removeClass('mec-util-hidden');
+    mecFluentCustomScrollbar();
 }
 
 function mecFluentYearlyUI(eventID, yearID) {
@@ -4136,8 +4213,8 @@ function mecFluentYearlyUI(eventID, yearID) {
         // Load Next Month in background
         setMonth(settings.next_month.year, settings.next_month.month, true);
 
-        active_month = settings.active_month.month;
-        active_year = settings.active_month.year;
+        active_month = initMonth = settings.active_month.month;
+        active_year = initYear = settings.active_month.year;
 
         // Search Widget
         if (settings.sf.container !== '') {
@@ -4164,10 +4241,32 @@ function mecFluentYearlyUI(eventID, yearID) {
             });
         }
 
+        function parseQuery(queryString) {
+            var query = {};
+            var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+            }
+            return query;
+        }
+
+        function updateQueryStringParameter(uri, key, val) {
+            return uri
+                .replace(RegExp("([?&]" + key + "(?=[=&#]|$)[^#&]*|(?=#|$))"), "&" + key + "=" + encodeURIComponent(val))
+                .replace(/^([^?&]+)&/, "$1?");
+        }
+        
         function search(year, month) {
             // Add Loading Class
             if (jQuery('.mec-modal-result').length === 0) jQuery('.mec-wrap').append('<div class="mec-modal-result"></div>');
             jQuery('.mec-modal-result').addClass('mec-month-navigator-loading');
+
+            var ObjAtts = parseQuery(settings.atts);
+            if (!(ObjAtts['sf[month'] || ObjAtts['sf[year]'])) {
+                settings.atts = updateQueryStringParameter(settings.atts.trim(), 'sf[year]', initYear);
+                settings.atts = updateQueryStringParameter(settings.atts.trim(), 'sf[month]', initMonth);
+            }
 
             $.ajax({
                 url: settings.ajax_url,
@@ -4215,7 +4314,7 @@ function mecFluentYearlyUI(eventID, yearID) {
             if ($("#mec_list_view_month_" + settings.id + "_" + month_id).length) {
                 // Toggle Month
                 toggleMonth(month_id);
-                mecFluentCustomScrollbar();
+                mecFluentCustomScrollbar(0);
             } else {
                 if (!do_in_background) {
                     // Add Loading Class
@@ -4263,7 +4362,7 @@ function mecFluentYearlyUI(eventID, yearID) {
                             }
                         }
                         if (!do_in_background) {
-                            mecFluentCustomScrollbar();
+                            mecFluentCustomScrollbar(0);
                         }
                     },
                     error: function () {}
@@ -4294,7 +4393,7 @@ function mecFluentYearlyUI(eventID, yearID) {
 
         function sed() {
             // Single Event Display
-            $("#mec_skin_" + settings.id).off('click').on('click', '.mec-event-title a', function (e) {
+            $(".mec-skin-list-wrap#mec_skin_" + settings.id).off('click').on('click', '[data-event-id]', function (e) {
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -4375,8 +4474,8 @@ function mecFluentYearlyUI(eventID, yearID) {
         // Load Next Month in background
         setMonth(settings.next_month.year, settings.next_month.month, true);
 
-        active_month = settings.active_month.month;
-        active_year = settings.active_month.year;
+        active_month = initMonth = settings.active_month.month;
+        active_year = initYear = settings.active_month.year;
 
         // Search Widget
         if (settings.sf.container !== '') {
@@ -4403,11 +4502,33 @@ function mecFluentYearlyUI(eventID, yearID) {
             });
         }
 
+        function parseQuery(queryString) {
+            var query = {};
+            var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+            }
+            return query;
+        }
+
+        function updateQueryStringParameter(uri, key, val) {
+            return uri
+                .replace(RegExp("([?&]" + key + "(?=[=&#]|$)[^#&]*|(?=#|$))"), "&" + key + "=" + encodeURIComponent(val))
+                .replace(/^([^?&]+)&/, "$1?");
+        }
+
         function search(year, month) {
             // Add Loading Class
             if (jQuery('.mec-modal-result').length === 0) jQuery('.mec-wrap').append('<div class="mec-modal-result"></div>');
             jQuery('.mec-modal-result').addClass('mec-month-navigator-loading');
 
+            var ObjAtts = parseQuery(settings.atts);
+            if (!(ObjAtts['sf[month'] || ObjAtts['sf[year]'])) {
+                settings.atts = updateQueryStringParameter(settings.atts.trim(), 'sf[year]', initYear);
+                settings.atts = updateQueryStringParameter(settings.atts.trim(), 'sf[month]', initMonth);
+            }
+            
             $.ajax({
                 url: settings.ajax_url,
                 data: "action=mec_grid_load_month&mec_year=" + year + "&mec_month=" + month + "&" + settings.atts + "&apply_sf_date=1",
@@ -4533,7 +4654,7 @@ function mecFluentYearlyUI(eventID, yearID) {
 
         function sed() {
             // Single Event Display
-            $("#mec_skin_" + settings.id).off('click').on('click', '.mec-event-title a', function (e) {
+            $(".mec-skin-grid-wrap#mec_skin_" + settings.id).off('click').on('click', '[data-event-id]', function (e) {
                 e.preventDefault();
                 var href = $(this).attr('href');
 

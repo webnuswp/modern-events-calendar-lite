@@ -65,8 +65,8 @@ $ix = $this->main->get_ix_options();
 
                 <div class="mec-form-row mec-syn-schedule">
                     <h2><?php _e('Auto set cronjobs (Once Daily)', 'modern-events-calendar-lite'); ?></h2>
-                    <h4>- <?php _e('First you need to enable above options for each to be able to use this.', 'modern-events-calendar-lite'); ?></h4>
-                    <h4>- <?php _e('If you cannot set Cron Job on your server, you can use the options below. Please make sure to NOT use the following options and set on the server manually together.', 'modern-events-calendar-lite'); ?></h4>
+                    <h4>- <?php _e('First you need to enable the above options for each to be able to use this.', 'modern-events-calendar-lite'); ?></h4>
+                    <h4>- <?php _e('If you cannot set CronJob on your server, you can use the options below. Please make sure to NOT use the following options and setting up the server manually together.', 'modern-events-calendar-lite'); ?></h4>
                     <input type="hidden" name="ix[sync_g_import_auto]" value="0" />
                     <label class="mec-col-3" for="mec_ix_sync_g_import_auto">
                         <input type="checkbox" id="mec_ix_sync_g_import_auto" name="ix[sync_g_import_auto]" value="1" <?php echo (isset($ix['sync_g_import_auto']) and $ix['sync_g_import_auto'] == '1') ? 'checked="checked"' : ''; ?> />

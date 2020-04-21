@@ -28,7 +28,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
         <div class="w-row mec-pro-notice">
             <div class="w-col-sm-12">
                 <div class="info-msg support-box">
-                    <p><?php echo sprintf(__("%s, if you need support,  you can purchase our Extra Support feature through links below:", 'modern-events-calendar-lite'), '<strong>'.__('Dear user', 'modern-events-calendar-lite').'</strong>'); ?></p>
+                    <p><?php echo sprintf(__("%s, if you need support, you can purchase our Extra Support feature through links below:", 'modern-events-calendar-lite'), '<strong>'.__('Dear user', 'modern-events-calendar-lite').'</strong>'); ?></p>
                     <a target="_blank" href="https://webnus.net/checkout?edd_action=add_to_cart&download_id=960896"> Get 12 Month Premium Support </a>
                     <a target="_blank" href="https://webnus.net/checkout?edd_action=add_to_cart&download_id=960724"> Get 6 Month Premium Support </a>
                 </div>
@@ -308,7 +308,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
 
                             <div class="mec-faq-accordion-trigger"><a href=""><?php echo esc_html__('Does MEC have default languages or it needs to be translated?', 'modern-events-calendar-lite'); ?></a></div>
                             <div class="mec-faq-accordion-content">
-                            <?php echo sprintf(__('Yes, for some of the languages MEC has the translation file as default. However, since these translations have been done by the users, they may be incomplete, hence updating them might be required. For more information, please <a href="%s" target="_blank">click here</a>.', 'modern-events-calendar-lite') , 'https://webnus.net/dox/modern-events-calendar/translate-mec/' ); ?>
+                            <?php echo sprintf(__('Yes, for a number of languages MEC has the translation file as default. However, since these translations have been done by the users, they may be incomplete, hence updating them might be required. For more information, please <a href="%s" target="_blank">click here</a>.', 'modern-events-calendar-lite') , 'https://webnus.net/dox/modern-events-calendar/translate-mec/' ); ?>
                             </div>
 
                             <div class="mec-faq-accordion-trigger"><a href=""><?php echo esc_html__('Can I have more than one calendar in one website?', 'modern-events-calendar-lite'); ?></a></div>

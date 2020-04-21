@@ -68,7 +68,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                     <div class="mec-timeline-event-details">
                                         <div class="mec-timeline-event-time mec-color">
-                                            <i class="mec-sl-clock"></i><?php echo $this->main->mec_include_time_labels($start_time, $end_time); ?>
+                                            <i class="mec-sl-clock"></i><?php echo $this->main->display_time($start_time, $end_time); ?>
                                         </div>
                                     </div>
                                     <?php if(!empty($location['address'])): ?>

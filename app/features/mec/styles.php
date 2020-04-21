@@ -26,7 +26,7 @@ $styles = $this->main->get_styles();
                     <form id="mec_styles_form">
                         <div class="mec-form-row">
                             <textarea id="mec_styles_CSS" name="mec[styles][CSS]"><?php echo (isset($styles['CSS']) ? stripslashes($styles['CSS']) : ''); ?></textarea>
-                            <p class="description"><?php _e("If you're a developer or you have some knowledge about CSS codes, you can place your desired styles codes here. These codes will be included in your theme frontend after all styles so they will override MEC default (or theme) styles.", 'modern-events-calendar-lite'); ?></p>
+                            <p class="description"><?php _e("If you're a developer or you have knowledge of CSS codes, you can place your style codes here. These codes will be included in your theme frontend after all styles so they will override MEC default (or theme) styles.", 'modern-events-calendar-lite'); ?></p>
                             <?php wp_nonce_field('mec_options_form'); ?>
                             <button style="display: none;" id="mec_styles_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Save Changes', 'modern-events-calendar-lite'); ?></button>
                         </div>

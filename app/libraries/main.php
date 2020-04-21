@@ -1562,7 +1562,7 @@ class MEC_main extends MEC_base
 					'.$infowindow_thumb.'
                     <a data-event-id="'.$event->data->ID.'" href="'.$link.'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> <span class="mec-map-lightbox-month">'.$event_start_date_month. '</span><span class="mec-map-lightbox-day"> ' . $event_start_date_day . '</span><span class="mec-map-lightbox-year"> ' . $event_start_date_year .  '</span></div></a>
                     <h4 class="mec-event-title">
-                    <div class="mec-map-time" style="display: none">'.$this->mec_include_time_labels($start_time,$end_time).'</div>
+                    <div class="mec-map-time" style="display: none">'.$this->display_time($start_time,$end_time).'</div>
                     <a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$link.'">'.$event->data->title.'</a>
                     '.$this->get_flags($event->data->ID, $event_start_date).'
                     </h4>
@@ -2246,7 +2246,7 @@ class MEC_main extends MEC_base
 
             if(!$mec_confirmed and (!current_user_can('administrator') and !current_user_can('editor')))
             {
-                wp_die(__('Your booking still is not confirmed. You able download it after confirmation!', 'modern-events-calendar-lite'), __('Booking Not Confirmed.', 'modern-events-calendar-lite'));
+                wp_die(__('Your booking still is not confirmed. You can download it after confirmation!', 'modern-events-calendar-lite'), __('Booking Not Confirmed.', 'modern-events-calendar-lite'));
                 exit;
             }
 
@@ -4185,8 +4185,10 @@ class MEC_main extends MEC_base
      * @param array $args
      * @return string
      */
-    public function mec_include_time_labels($start = '', $end = '', $args = array())
+    public function display_time($start = '', $end = '', $args = array())
     {
+        if(!trim($start)) return '';
+
         $class = isset($args['class']) ? esc_attr($args['class']) : 'mec-time-details';
 
         $return = '<div class="'.$class.'">';
@@ -5435,7 +5437,7 @@ class MEC_main extends MEC_base
             'others'=>array(
                 'category'=>array('name'=>__('Others', 'modern-events-calendar-lite')),
                 'messages'=>array(
-                    'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thanks for your booking. Your tickets booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
+                    'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thanks you for booking. Your tickets are  booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
                     'register_button'=>array('label'=>__('Register Button', 'modern-events-calendar-lite'), 'default'=>__('REGISTER', 'modern-events-calendar-lite')),
                     'view_detail'=>array('label'=>__('View Detail Button', 'modern-events-calendar-lite'), 'default'=>__('View Detail', 'modern-events-calendar-lite')),
                     'event_detail'=>array('label'=>__('Event Detail Button', 'modern-events-calendar-lite'), 'default'=>__('Event Detail', 'modern-events-calendar-lite')),
@@ -6298,7 +6300,7 @@ class MEC_main extends MEC_base
         return $user_list;
     }
 
-    public function get_normal_labels($event,$display_label=false)
+    public function get_normal_labels($event, $display_label = false)
     {
         $output = '';
 
@@ -6313,7 +6315,7 @@ class MEC_main extends MEC_base
         return $output ? '<span class="mec-labels-normal">' . $output . '</span>' : $output;
     }
 
-    public function display_cancellation_reason($event_id,$display_reason=false)
+    public function display_cancellation_reason($event_id, $display_reason = false)
     {
         $output = '';
         $reason = get_post_meta($event_id, 'mec_cancelled_reason', true);

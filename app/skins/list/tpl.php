@@ -8,10 +8,9 @@ $current_month_divider = $this->request->getVar('current_month_divider', 0);
 $render_path = $this->get_render_path();
 $styling = $this->main->get_styling();
 
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+$dark_mode = (isset($styling['dark_mode'])) ? $styling['dark_mode'] : '';
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark = '';
 
 ob_start();
 include $render_path;
@@ -65,8 +64,8 @@ do_action('mec_list_skin_head');
         <div class="mec-wrap mec-skin-map-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
             <div class="mec-googlemap-skin" id="mec_googlemap_canvas<?php echo $this->id; ?>" style="height: 500px;">
             <?php 
-            $map = isset($this->settings['default_maps_view'])?$this->settings['default_maps_view']:'google';
-            do_action( 'mec_map_inner_element_tools' ,array('map'=>$map)); 
+                $map = isset($this->settings['default_maps_view']) ? $this->settings['default_maps_view'] : 'google';
+                do_action('mec_map_inner_element_tools', array('map'=>$map));
             ?>
             </div>
             <input type="hidden" id="gmap-data" value="">

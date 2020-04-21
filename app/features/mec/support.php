@@ -117,9 +117,9 @@ defined('MECEXEC') or die();
                                     </div>
                                     <div class="w-box-content">
                                         <?php if(!$this->getPRO()): ?>
-                                            <p><?php echo esc_html__("Webnus is elite and trusted author with high percentage of satisfied user. If you want to use this service you need to upgrade your plugin to Pro version. Click on the following button.", 'modern-events-calendar-lite'); ?></p>
+                                            <p><?php echo esc_html__("Webnus is an elite and trusted author with great user satisfaction. If you want to use this service you need to upgrade your plugin to Pro version. Click on the following button.", 'modern-events-calendar-lite'); ?></p>
                                         <?php else: ?>
-                                            <p><?php echo esc_html__("Webnus is elite and trusted author with high percentage of satisfied user. If you have any issues please don't hesitate to contact us, we will reply as soon as possible.", 'modern-events-calendar-lite'); ?></p>
+                                            <p><?php echo esc_html__("Webnus is an elite and trusted author with great user satisfaction. If you have any issues please don't hesitate to contact us, we will reply as soon as possible.", 'modern-events-calendar-lite'); ?></p>
                                         <?php endif; ?>
                                         <div class="w-button">
                                             <?php if(!$this->getPRO()): ?>

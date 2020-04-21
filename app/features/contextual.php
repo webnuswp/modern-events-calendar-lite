@@ -61,7 +61,7 @@ class MEC_feature_contextual extends MEC_base
                     'id' => 'mec-form',
                     'title' => __('Booking Form', 'modern-events-calendar-lite'),
                     'content' => __('<h2 class="dark-text">Booking Form<hr></h2>
-                        <strong>Build your booking registration form ( This form will be repeat for all attendees ).</strong>                   <iframe width="600" height="300" src="https://www.youtube.com/embed/YM8cCOvgpk0" frameborder="0" allowfullscreen></iframe>', 'modern-events-calendar-lite')
+                        <strong>Build your booking registration form (This form will be used for every attendee).</strong>                   <iframe width="600" height="300" src="https://www.youtube.com/embed/YM8cCOvgpk0" frameborder="0" allowfullscreen></iframe>', 'modern-events-calendar-lite')
                 ));
 
                 $screen->add_help_tab(array
@@ -75,7 +75,7 @@ class MEC_feature_contextual extends MEC_base
                 (
                     'id' => 'mec-notifications',
                     'title' => __('Notifications', 'modern-events-calendar-lite'),
-                    'content' => __('<h2 class="dark-text">Notifications <hr></h2><strong>You can edit your messages in there.</strong><strong>Mec Notificatoin Module</strong><iframe width="600" height="300" src="https://www.youtube.com/embed/ZAA8zVewOj0" frameborder="0" allowfullscreen></iframe>', 'modern-events-calendar-lite')
+                    'content' => __('<h2 class="dark-text">Notifications <hr></h2><strong>You can edit your messages in there.</strong><strong>MEC Notificatoin Module</strong><iframe width="600" height="300" src="https://www.youtube.com/embed/ZAA8zVewOj0" frameborder="0" allowfullscreen></iframe>', 'modern-events-calendar-lite')
                 ));
 
                 break;

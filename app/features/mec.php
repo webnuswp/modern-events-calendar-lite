@@ -285,7 +285,7 @@ class MEC_feature_mec extends MEC_base
         $options = $_REQUEST['content'];
         if($options == 'No-JSON')
         {
-            echo '<div class="mec-message-import-error">' . esc_html__('Your options is not in JSON format. Please insert correct options in this field and try again.' , 'modern-events-calendar-lite') . '</div>';
+            echo '<div class="mec-message-import-error">' . esc_html__('Your option is not in JSON format. Please insert correct options in this field and try again.' , 'modern-events-calendar-lite') . '</div>';
             exit();
         }
         else

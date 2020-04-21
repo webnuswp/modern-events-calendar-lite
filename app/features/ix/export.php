@@ -35,7 +35,7 @@ $events = $this->main->get_events('-1');
             </div>
             <div class="mec-export-certain-bookings">
                 <h3><?php _e('Export certain bookings', 'modern-events-calendar-lite'); ?></h3>
-                <p class="description"><?php echo sprintf(__("For exporting bookings events, you can use bulk actions in %s page.", 'modern-events-calendar-lite'), '<a href="'.$this->main->URL('backend').'edit.php?post_type=mec-books">'.__('Bookings', 'modern-events-calendar-lite').'</a>'); ?></p>
+                <p class="description"><?php echo sprintf(__("For exporting bookings, you can use bulk actions in %s page.", 'modern-events-calendar-lite'), '<a href="'.$this->main->URL('backend').'edit.php?post_type=mec-books">'.__('Bookings', 'modern-events-calendar-lite').'</a>'); ?></p>
             </div>
         </div>
     </div>
