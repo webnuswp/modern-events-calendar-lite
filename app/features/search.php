@@ -301,11 +301,7 @@ class MEC_feature_search extends MEC_base
         }
 
         // wordpress event list search
-        $post_types = array('post', 'mec-events');
-        if(!function_exists('get_current_screen')) require_once(ABSPATH . 'wp-admin/includes/screen.php');
-
-        $current_screen = isset(get_current_screen()->id) ? get_current_screen()->id : false;
-        if($current_screen and trim($current_screen) == 'edit-mec-events') $post_types = 'mec-events';
+        $post_types = array('mec-events');
 
         if($mec_tag_query) $query->set('tag', $mec_tag_query);
         $query->set('tax_query', $mec_queries);

@@ -858,12 +858,13 @@ class MEC_main extends MEC_base
     /**
      * Returns MEC addons message
      * @author Webnus <info@webnus.biz>
-     * @return array
+     * @return string
      */
     public function addons_msg()
     {
         $get_n_option = get_option('mec_addons_notification_option');
-        if ( $get_n_option == 'open' ) return;
+        if($get_n_option == 'open') return '';
+
         return '
         <div class="w-row mec-addons-notification-wrap">
             <div class="w-col-sm-12">
@@ -5262,8 +5263,6 @@ class MEC_main extends MEC_base
     
     function get_client_ip()
     {
-        $ipaddress = '';
-        
         if(isset($_SERVER['HTTP_CLIENT_IP'])) $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
         elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
         elseif(isset($_SERVER['HTTP_X_FORWARDED'])) $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
@@ -5279,6 +5278,12 @@ class MEC_main extends MEC_base
     {
         // Client IP
         $ip = $this->get_client_ip();
+
+        $cache_key = 'mec_visitor_timezone_'.$ip;
+        $cache = $this->getCache();
+
+        // Get From Cache
+        if($cache->has($cache_key)) return $cache->get($cache_key);
         
         // First Provider
         $JSON = $this->get_web_page('http://ip-api.com/json/'.$ip);
@@ -5291,8 +5296,13 @@ class MEC_main extends MEC_base
             $data = json_decode($JSON, true);
         }
         
-        // Second provide returns X instead of false in case of error!
-        return (isset($data['timezone']) and strtolower($data['timezone']) != 'x') ? $data['timezone'] : false;
+        // Second provider returns X instead of false in case of error!
+        $timezone = (isset($data['timezone']) and strtolower($data['timezone']) != 'x') ? $data['timezone'] : false;
+
+        // Add to Cache
+        $cache->set($cache_key, $timezone);
+
+        return $timezone;
     }
     
     public function is_ajax()

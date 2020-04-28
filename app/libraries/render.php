@@ -827,6 +827,9 @@ class MEC_render extends MEC_base
             }
             elseif($repeat_type == 'yearly')
             {
+                // Start from Event Start Date
+                if(strtotime($start_date['date']) > strtotime($original_start_date)) $original_start_date = $start_date['date'];
+
                 $event_days = explode(',', trim($event->mec->day, ', '));
                 $event_months = explode(',', trim($event->mec->month, ', '));
                 

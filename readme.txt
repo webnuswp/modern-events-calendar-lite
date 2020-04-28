@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 5.3.0
+Stable tag: 5.3.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -262,15 +262,17 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Tile](https://webnus.net/modern-events-calendar/tile-view/) View 
 - [Search bar](https://webnus.net/dox/modern-events-calendar/search-bar/) Shortcode
 - RTL support
-- Multiple organizers
+- Multiple Organizers
+- Multiple Locations
 - Event Submission by Guest (not logged-in) Users
 - Event Details/Single Event Page
 - Settings Import/Export Feature
 - Multisite Ready
 - WPML Ready
-- SEO ready
+- SEO Ready
+- SEO Schema
 - Upload Field Options
-- Developer friendly
+- Developer Friendly
 - Shortcode For Page Builders
 - Search Bar Feature
 - Customizable Timetable (*pro*)
@@ -302,6 +304,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Bulk Emails to Attendees (*pro*)
 - Minimum Ticket Option (*pro*)
 - Booking report page (*pro*)
+- Book All Occurrences (*pro*)
 - Stop selling Ticket Option (*pro*)
 - [Organizer payment](https://webnus.net/dox/modern-events-calendar/organizer-payment/) (*pro*)
 - [Individual booking form per event](https://webnus.net/dox/modern-events-calendar/booking-form/) (*pro*)
@@ -365,7 +368,24 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 37. WordPress Event Calendar - Add Shortcode Wizard
 
 == Changelog ==
-v 5.3.0 – 21 April 2020
+= v 5.3.5 – 28 April 2020 =
+- Added: An option to accept one booking for all occurrences of a certain event (pro)
+- Added: Internal cache solution to cache frequently used data
+- Added: Style for taxonomies
+- Disabled: Yearly view by default in full calendar (lite)
+- Updated: French translation (Thanks to Bernard)
+- Used: A new formula for booking price calculation (pro)
+- Fixed: Price calculation after applying percentage coupons (pro)
+- Fixed: Event time form
+- Fixed: Yearly repeat
+- Fixed: Loading local time in skins
+- Fixed: Closing tag in grid skin
+- Fixed: Normal mode of search bar
+- Fixed: An issue in table creation when InnoDB module is not installed on MySQL server
+- Fixed: Display Normal label and Cancellation reason in full calendar
+- Fixed: some PHP notices
+
+= v 5.3.0 – 21 April 2020 =
 - Added: Minimum option for coupons (pro)
 - Added: An option to display event time in grid skin
 - Added: Grid and tile skins to the full calendar skins
@@ -380,10 +400,10 @@ v 5.3.0 – 21 April 2020
 - Fixed: Search bar
 - Fixed: Some minor issues
 
-v 5.2.7 – 14 April 2020
+= v 5.2.7 – 14 April 2020 =
 - Fixed: An issue with full calendar. 
 
-v 5.2.6 – 14 April 2020
+= v 5.2.6 – 14 April 2020 =
 - Added: Start and end dates in RSS feeds
 - Increased: Default date generation limit for advanced events
 - Fixed: Showing correct error on Facebook importer (pro)
@@ -396,7 +416,7 @@ v 5.2.6 – 14 April 2020
 - Fixed: Close button on modal popup view responsive size on mobile and tablet
 - Fixed: Hover style on the grid view skin minimal style
 
-v 5.2.5 – 8 April 2020
+= v 5.2.5 – 8 April 2020 =
 - Added: Normal Label to all skins
 - Added: Cancellation reason to all skins
 - Added: Cancellation reason to single and popup single page

@@ -197,7 +197,7 @@ $this->factory->params('footer', $javascript);
             if(trim($start_time_minutes) == '') $start_time_minutes = 0;
 
             $start_time_ampm = get_post_meta($post_id, 'mec_start_time_ampm', true);
-            if(trim($start_time_ampm) == '') $start_time_minutes = 'AM';
+            if(trim($start_time_ampm) == '') $start_time_ampm = 'AM';
 
             $end_date = get_post_meta($post_id, 'mec_end_date', true);
 

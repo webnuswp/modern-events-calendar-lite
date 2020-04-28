@@ -28,6 +28,7 @@ class MEC_skin_list extends MEC_skins
     public $date_format_fluent_1;
     public $reason_for_cancellation;
     public $display_label;
+    public $loadMoreRunning;
 
     /**
      * Constructor method

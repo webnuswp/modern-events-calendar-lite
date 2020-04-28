@@ -934,18 +934,20 @@ class MEC_factory extends MEC_base
         update_option('mec_version', $this->main->get_version());
     }
 
-        /**
+    /**
      * Add MEC metabox in WordPress dashboard
      * @author Webnus <info@webnus.biz>
      */
     public function mec_widget_news_features()
     {
-        add_meta_box( 'mec_widget_news_features',
+        add_meta_box(
+            'mec_widget_news_features',
             __('Modern Events Calendar', 'modern-events-calendar-lite'),
             array($this, 'mec_render_meta_box'),
             'dashboard',
             'normal',
-            'high');
+            'high'
+        );
     }
 
     /**
@@ -958,7 +960,7 @@ class MEC_factory extends MEC_base
         echo '
         <div class="mec-metabox-head-wrap">
             <div class="mec-metabox-head-version">
-                <img src="'.plugin_dir_url(__FILE__ ) . '../../assets/img/ico-mec-vc.png'.'" />
+                <img src="'.plugin_dir_url(__FILE__ ) . '../../assets/img/ico-mec-vc.png" />
                 <p>'.($this->getPRO() ? __('Modern Events Calendar', 'modern-events-calendar-lite') : __('Modern Events Calendar (Lite)', 'modern-events-calendar-lite')).'</p>
                 <a href="'.esc_html__(admin_url( 'post-new.php?post_type=mec-events' )).'" class="button"><span aria-hidden="true" class="dashicons dashicons-plus"></span> Create New Event</a>
             </div>
@@ -970,19 +972,19 @@ class MEC_factory extends MEC_base
         // Upcoming Events
         $upcoming_events = $this->main->get_upcoming_events(3);
         echo '<div class="mec-metabox-upcoming-wrap"><h3 class="mec-metabox-feed-head">'.esc_html__('Upcoming Events' , 'modern-events-calendar-lite').'</h3><ul>';
-        foreach ($upcoming_events as $date => $content) {
+        foreach($upcoming_events as $date => $content)
+        {
             $event_date = $date;
-            foreach ($content as $array_id => $array_content) {
-             
+            foreach($content as $array_id => $array_content)
+            {
                 $location_id = $array_content->data->meta['mec_location_id'];
                 $event_title = $array_content->data->title;
                 $event_link  = $array_content->data->permalink;
                 $event_date  = $this->main->date_i18n(get_option('date_format'), $array_content->date['start']['date']);
                 $location = get_term($location_id, 'mec_location');
+
                 $locationName = '';
-                if (isset($location->name)) {
-                    $locationName = $location->name;
-                }
+                if(isset($location->name)) $locationName = $location->name;
                 echo '
                 <li>
                     <span aria-hidden="true" class="dashicons dashicons-calendar-alt"></span>
@@ -994,27 +996,28 @@ class MEC_factory extends MEC_base
                     <div style="clear:both"></div>
                 </li>
                 ';
-               
             }
         }
+
         echo '</ul></div>';
 
         $data_url = 'https://webnus.net/wp-json/wninfo/v1/posts';  
-        if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+        if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
         {
             $ctx = stream_context_create(array('http'=>
                 array(
                     'timeout' => 20,
                 )
             ));
+
             $get_data = file_get_contents($data_url, false, $ctx);
-            if ( $get_data !== false AND !empty($get_data) )
+            if($get_data !== false AND !empty($get_data))
             {
                 $obj = json_decode($get_data);
                 $i = count((array)$obj);
             }
         }
-        elseif ( function_exists('curl_version') )
+        elseif(function_exists('curl_version'))
         {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -1022,17 +1025,21 @@ class MEC_factory extends MEC_base
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
             curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
             curl_setopt($ch, CURLOPT_URL, $data_url);
+
             $result = curl_exec($ch);
             curl_close($ch);
             $obj = json_decode($result);
             $i = count((array)$obj);
-        } else {
+        }
+        else
+        {
             $obj = '';
         }
 
         // News
         echo '<h3 class="mec-metabox-feed-head">'.esc_html__('News & Updates' , 'modern-events-calendar-lite').'</h3><div class="mec-metabox-feed-content"><ul>';
-        foreach ($obj as $key => $value) {
+        foreach($obj as $key => $value)
+        {
             echo '
             <li>
                 <a href="'.$value->link.'" target="_blank">'.$value->title.'</a>
@@ -1043,12 +1050,10 @@ class MEC_factory extends MEC_base
         echo '</ul></div>';
 
         // Links
-        echo'
-        <div class="mec-metabox-footer"><a href="https://webnus.net/blog/" target="_blank">'.esc_html__('Blog', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a><a href="https://webnus.net/dox/modern-events-calendar/" target="_blank">'.esc_html__('Help', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
-        if ($this->getPRO()) echo '<a href="https://webnus.net/mec-purchase" target="_blank">'.esc_html__('Go Pro', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
+        echo'<div class="mec-metabox-footer"><a href="https://webnus.net/blog/" target="_blank">'.esc_html__('Blog', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a><a href="https://webnus.net/dox/modern-events-calendar/" target="_blank">'.esc_html__('Help', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
+        if($this->getPRO()) echo '<a href="https://webnus.net/mec-purchase" target="_blank">'.esc_html__('Go Pro', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
         echo '</div>';
     }
-    
 
     /**
      * Add cron jobs

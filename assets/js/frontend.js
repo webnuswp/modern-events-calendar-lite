@@ -4213,6 +4213,8 @@ function mecFluentYearlyUI(eventID, yearID) {
         // Load Next Month in background
         setMonth(settings.next_month.year, settings.next_month.month, true);
 
+        var initMonth;
+        var initYear;
         active_month = initMonth = settings.active_month.month;
         active_year = initYear = settings.active_month.year;
 
@@ -4474,6 +4476,8 @@ function mecFluentYearlyUI(eventID, yearID) {
         // Load Next Month in background
         setMonth(settings.next_month.year, settings.next_month.month, true);
 
+        var initMonth;
+        var initYear;
         active_month = initMonth = settings.active_month.month;
         active_year = initYear = settings.active_month.year;
 

@@ -180,7 +180,7 @@ class MEC_feature_update extends MEC_base
           `dstart` date NOT NULL,
           `dend` date NOT NULL,
           `type` enum('include','exclude') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'include'
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+        ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
         $this->db->q("ALTER TABLE `#__mec_dates` ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `type` (`type`);");
         $this->db->q("ALTER TABLE `#__mec_dates` MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;");
@@ -303,14 +303,16 @@ class MEC_feature_update extends MEC_base
     public function version490()
     {
         // Get Booking Posts
-        $args = array(
+        $bookings = get_posts(array(
             'post_type'  => 'mec-books',
-        );
-        $bookings = get_posts($args);
-        foreach ($bookings as $id => $booking) {
+        ));
+
+        foreach($bookings as $id => $booking)
+        {
             $event_id = get_post_meta($booking->ID, 'mec_event_id', true);
             $location_id = get_post_meta($event_id, 'mec_location_id', true);
-            if ( !empty( $location_id )) update_post_meta($booking->ID, 'mec_booking_location', $location_id);
+
+            if(!empty($location_id)) update_post_meta($booking->ID, 'mec_booking_location', $location_id);
         }
     }
 

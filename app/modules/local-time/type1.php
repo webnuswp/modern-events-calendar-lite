@@ -11,12 +11,12 @@ if(!isset($settings['local_time_module_status']) or (isset($settings['local_time
 // Get the visitor Timezone
 $timezone = $this->get_timezone_by_ip();
 
+// Timezone is not detected!
+if(!$timezone) return;
+
 $minutes    = isset($event->date['start']['minutes']) ? $event->date['start']['minutes'] : '';
 $ampm       = isset($event->date['start']['ampm']) ? $event->date['start']['ampm'] : '';
 $hour       = isset($event->date['end']['hour']) ? $event->date['end']['hour'] : '';
-
-// Timezone is not detected!
-if(!$timezone) return;
 
 // Date Formats
 $date_format1 = (isset($settings['single_date_format1']) and trim($settings['single_date_format1'])) ? $settings['single_date_format1'] : 'M d Y';

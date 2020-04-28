@@ -707,7 +707,7 @@ $events = $this->main->get_events();
                             <?php
                                 if ($this->main->getPRO()) {
                                     echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" onchange="mec_skin_full_calendar_df_mode(this)" value="1"';
-                                    if(!isset($sk_options_full_calendar['yearly']) or (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly'])) echo 'checked="checked"';
+                                    if(isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly']) echo 'checked="checked"';
                                 } else {
                                     echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" value="0"';
                                 }                       
@@ -726,7 +726,7 @@ $events = $this->main->get_events();
                         if(isset($sk_options_full_calendar['date_format_yearly_2']) and trim($sk_options_full_calendar['date_format_yearly_2']) != '') $date_format_yearly_2 = trim($sk_options_full_calendar['date_format_yearly_2']);
                         elseif(isset($sk_options_yearly_view['modern_date_format2']) and trim($sk_options_yearly_view['modern_date_format2']) != '') $date_format_yearly_2 = trim($sk_options_yearly_view['modern_date_format2']);
                     ?>
-                    <div class="mec-form-row mec-date-format mec-not-full_calendar-fluent <?php echo (!isset($sk_options_full_calendar['yearly']) or (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly'])) ? '' : 'mec-util-hidden'; ?>">
+                    <div class="mec-form-row mec-date-format mec-not-full_calendar-fluent <?php echo (isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly']) ? '' : 'mec-util-hidden'; ?>">
                         <label class="mec-col-4" for="mec_skin_full_calendar_date_format_yearly_1"><?php _e('Yearly View Date Formats', 'modern-events-calendar-lite'); ?></label>
                         <input type="text" class="mec-col-2" name="mec[sk-options][full_calendar][date_format_yearly_1]" id="mec_skin_full_calendar_date_format_yearly_1" value="<?php esc_attr_e($date_format_yearly_1); ?>"/>
                         <input type="text" class="mec-col-2" name="mec[sk-options][full_calendar][date_format_yearly_2]" id="mec_skin_full_calendar_date_format_yearly_2" value="<?php esc_attr_e($date_format_yearly_2); ?>"/>

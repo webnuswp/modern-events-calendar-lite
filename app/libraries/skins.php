@@ -208,7 +208,12 @@ class MEC_skins extends MEC_base
         $path = $this->get_path('tpl');
         
         // Apply filters
-        $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, $this->style);
+        $settings = $this->main->get_settings();
+        if ($this->skin == 'single' and (isset($settings['single_single_style']) and $settings['single_single_style'] == 'fluent')) {
+            $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, 'fluent');
+        } else {
+            $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, $this->style);
+        }
         if($filtered_path != $this->skin and $this->file->exists($filtered_path)) $path = $filtered_path;
         
         return $path;

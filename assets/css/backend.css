@@ -8683,9 +8683,216 @@ div#mec_meta_box_date_form .mec-form-row {
 
 
 
+/* MEC Taxonomies Styles */
+.taxonomy-mec_speaker .metabox-prefs .screen-options label,
+.taxonomy-mec_location .metabox-prefs .screen-options label,
+.post-type-mec-books.taxonomy-mec_coupon .metabox-prefs .screen-options label,
+.post-type-mec-events.taxonomy-mec_label .metabox-prefs .screen-options label,
+.post-type-mec-events.taxonomy-mec_category .metabox-prefs .screen-options label,
+.post-type-mec-events.taxonomy-post_tag .metabox-prefs .screen-options label,
+.taxonomy-mec_organizer .metabox-prefs .screen-options label {
+    margin-top: -15px;
+}
+
+.taxonomy-mec_speaker #mec_thumbnail_img img,
+.taxonomy-mec_location #mec_thumbnail_img img,
+.post-type-mec-books.taxonomy-mec_coupon #mec_thumbnail_img img,
+.post-type-mec-events.taxonomy-mec_label #mec_thumbnail_img img,
+.post-type-mec-events.taxonomy-mec_category #mec_thumbnail_img img,
+.post-type-mec-events.taxonomy-post_tag #mec_thumbnail_img img,
+.taxonomy-mec_organizer #mec_thumbnail_img img {
+    margin: 0 0 20px 0;
+    border: solid 1px #ddd;
+    border-radius: 2px;
+}
+
+.taxonomy-mec_speaker .form-wrap label,
+.taxonomy-mec_location .form-wrap label,
+.post-type-mec-books.taxonomy-mec_coupon .form-wrap label,
+.post-type-mec-events.taxonomy-mec_label .form-wrap label,
+.post-type-mec-events.taxonomy-mec_category .form-wrap label,
+.post-type-mec-events.taxonomy-post_tag .form-wrap label,
+.taxonomy-mec_organizer .form-wrap label {
+    padding: 0;
+    margin: 10px 0;
+}
+
+.taxonomy-mec_speaker input[type=number],
+.taxonomy-mec_speaker input[type=text],
+.taxonomy-mec_speaker input[type=url],
+.taxonomy-mec_speaker select,
+.taxonomy-mec_speaker textarea,
+.taxonomy-mec_speaker input[type=text],
+.taxonomy-mec_speaker input[type=search],
+.taxonomy-mec_location input[type=number],
+.taxonomy-mec_location input[type=text],
+.taxonomy-mec_location input[type=url],
+.taxonomy-mec_location select,
+.taxonomy-mec_location textarea,
+.taxonomy-mec_location input[type=text],
+.taxonomy-mec_location input[type=search],
+.post-type-mec-books.taxonomy-mec_coupon input[type=number],
+.post-type-mec-books.taxonomy-mec_coupon input[type=text],
+.post-type-mec-books.taxonomy-mec_coupon input[type=url],
+.post-type-mec-books.taxonomy-mec_coupon select,
+.post-type-mec-books.taxonomy-mec_coupon textarea,
+.post-type-mec-books.taxonomy-mec_coupon input[type=text],
+.post-type-mec-books.taxonomy-mec_coupon input[type=search],
+.post-type-mec-events.taxonomy-mec_label input[type=number],
+.post-type-mec-events.taxonomy-mec_label input[type=text],
+.post-type-mec-events.taxonomy-mec_label input[type=url],
+.post-type-mec-events.taxonomy-mec_label select,
+.post-type-mec-events.taxonomy-mec_label textarea,
+.post-type-mec-events.taxonomy-mec_label input[type=text],
+.post-type-mec-events.taxonomy-mec_label input[type=search],
+.post-type-mec-events.taxonomy-mec_category input[type=number],
+.post-type-mec-events.taxonomy-mec_category input[type=text],
+.post-type-mec-events.taxonomy-mec_category input[type=url],
+.post-type-mec-events.taxonomy-mec_category select,
+.post-type-mec-events.taxonomy-mec_category textarea,
+.post-type-mec-events.taxonomy-mec_category input[type=text],
+.post-type-mec-events.taxonomy-mec_category input[type=search],
+.post-type-mec-events.taxonomy-post_tag input[type=number],
+.post-type-mec-events.taxonomy-post_tag input[type=text],
+.post-type-mec-events.taxonomy-post_tag input[type=url],
+.post-type-mec-events.taxonomy-post_tag select,
+.post-type-mec-events.taxonomy-post_tag textarea,
+.post-type-mec-events.taxonomy-post_tag input[type=text],
+.post-type-mec-events.taxonomy-post_tag input[type=search],
+.taxonomy-mec_organizer input[type=number],
+.taxonomy-mec_organizer input[type=text],
+.taxonomy-mec_organizer input[type=url],
+.taxonomy-mec_organizer select,
+.taxonomy-mec_organizer textarea,
+.taxonomy-mec_organizer input[type=text],
+.taxonomy-mec_organizer input[type=search] {
+    border: solid 1px #ddd;
+    border-radius: 2px;
+    height: 40px;
+    line-height: 38px;
+    padding-left: 10px;
+    box-shadow: 0 3px 10px -2px rgba(0,0,0,.05), inset 0 1px 2px rgba(0,0,0,.02);
+    margin-bottom: 15px;
+}
+
+.taxonomy-mec_speaker textarea,
+.taxonomy-mec_location textarea,
+.post-type-mec-books.taxonomy-mec_coupon textarea,
+.post-type-mec-events.taxonomy-mec_label textarea,
+.post-type-mec-events.taxonomy-mec_category textarea,
+.post-type-mec-events.taxonomy-post_tag textarea,
+.taxonomy-mec_organizer textarea {
+    min-height: 86px;
+}
+
+.taxonomy-mec_speaker .button,
+.taxonomy-mec_location .button,
+.taxonomy-mec_location .button-secondary,
+.post-type-mec-books.taxonomy-mec_coupon .button,
+.post-type-mec-books.taxonomy-mec_coupon .button-secondary,
+.post-type-mec-events.taxonomy-mec_label .button,
+.post-type-mec-events.taxonomy-mec_label .button-secondary,
+.post-type-mec-events.taxonomy-mec_category .button,
+.post-type-mec-events.taxonomy-mec_category .button-secondary,
+.post-type-mec-events.taxonomy-post_tag .button,
+.post-type-mec-events.taxonomy-post_tag .button-secondary,
+.taxonomy-mec_organizer .button,
+.taxonomy-mec_organizer .button-secondary{
+    color: #fff;
+    font-weight: 500;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px -4px #008aff;
+    text-shadow: none;
+    background: #008aff;
+    background: linear-gradient(95deg,#36a2ff 0,#008aff 50%,#0072ff 100%);
+    border: none;
+    transition: .24s;
+    linear-height: 1.4;
+    padding: 6px 22px;
+}
+
+.taxonomy-mec_speaker .mec_upload_image_button,
+.taxonomy-mec_location .mec_upload_image_button,
+.post-type-mec-books.taxonomy-mec_coupon .mec_upload_image_button,
+.post-type-mec-events.taxonomy-mec_label .mec_upload_image_button,
+.post-type-mec-events.taxonomy-mec_category .mec_upload_image_button,
+.post-type-mec-events.taxonomy-post_tag .mec_upload_image_button,
+.taxonomy-mec_organizer .mec_upload_image_button {
+    margin-bottom: 20px;
+}
+
+.taxonomy-mec_speaker .button-secondary:focus,
+.taxonomy-mec_speaker .button.focus,
+.taxonomy-mec_speaker .button:focus,
+.taxonomy-mec_speaker .button:hover,
+.taxonomy-mec_speaker .button-secondary:hover,
+.taxonomy-mec_location .button-secondary:focus,
+.taxonomy-mec_location .button.focus,
+.taxonomy-mec_location .button:focus,
+.taxonomy-mec_location .button:hover,
+.taxonomy-mec_location .button-secondary:hover,
+.post-type-mec-events.taxonomy-mec_label .button-secondary:focus,
+.post-type-mec-events.taxonomy-mec_label .button.focus,
+.post-type-mec-events.taxonomy-mec_label .button:focus,
+.post-type-mec-events.taxonomy-mec_label .button:hover,
+.post-type-mec-events.taxonomy-mec_label .button-secondary:hover,
+.post-type-mec-events.taxonomy-mec_category .button-secondary:focus,
+.post-type-mec-events.taxonomy-mec_category .button.focus,
+.post-type-mec-events.taxonomy-mec_category .button:focus,
+.post-type-mec-events.taxonomy-mec_category .button:hover,
+.post-type-mec-events.taxonomy-mec_category .button-secondary:hover,
+.post-type-mec-books.taxonomy-mec_coupon .button-secondary:focus,
+.post-type-mec-books.taxonomy-mec_coupon .button.focus,
+.post-type-mec-books.taxonomy-mec_coupon .button:focus,
+.post-type-mec-books.taxonomy-mec_coupon .button:hover,
+.post-type-mec-books.taxonomy-mec_coupon .button-secondary:hover,
+.post-type-mec-events.taxonomy-post_tag .button-secondary:focus,
+.post-type-mec-events.taxonomy-post_tag .button.focus,
+.post-type-mec-events.taxonomy-post_tag .button:focus,
+.post-type-mec-events.taxonomy-post_tag .button:hover,
+.post-type-mec-events.taxonomy-post_tag .button-secondary:hover,
+.taxonomy-mec_organizer .button-secondary:focus,
+.taxonomy-mec_organizer .button.focus,
+.taxonomy-mec_organizer .button:focus,
+.taxonomy-mec_organizer .button:hover,
+.taxonomy-mec_organizer .button-secondary:hover {
+    background: #222;
+    background: linear-gradient(95deg,#555 0,#222 50%,#000 100%);
+    box-shadow: 0 5px 23px -7px rgba(0,0,0,.5);
+    cursor: pointer;
+    color: #fff;
+}
 
 
+/* Taxonomies Color Picker */
+.post-type-mec-events.taxonomy-mec_label .button.wp-color-result {
+    background: transparent;
+    text-align: right;
+    padding: 0 0 0 32px;
+    border-radius: 4px;
+    box-shadow: unset;
+    border: 1px solid #ddd;
+}
 
+.post-type-mec-events.taxonomy-mec_label .button.wp-color-result .wp-color-result-text {
+    height: 30px;
+}
+
+.post-type-mec-events.taxonomy-mec_label .wp-picker-container input[type=text].wp-color-picker {
+    width: 70px;
+    margin-top: -10px;
+    height: 32px;
+}
+ 
+.post-type-mec-events.taxonomy-mec_label .wp-picker-default {
+    height: 32px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.post-type-mec-events.taxonomy-mec_label .wp-picker-container .iris-picker {
+    margin-top: -10px;
+}
 
 
 /* MEC - Backend Dark Mode*/

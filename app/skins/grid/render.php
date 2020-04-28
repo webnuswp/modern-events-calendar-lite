@@ -28,11 +28,19 @@ if($this->style == 'colorful')
         if($count == 0 or $count == 5) $col = 4;
         else $col = 12 / $count;
 
+        $close_row = true;
         $rcount = 1 ;
+
         foreach($this->events as $date):
         foreach($date as $event):
+
         $map_events[] = $event;
-        echo ($rcount == 1) ? '<div class="row">' : '';
+        if($rcount == 1)
+        {
+            echo '<div class="row">';
+            $close_row = true;
+        }
+
         echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
         
         $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
@@ -240,13 +248,14 @@ if($this->style == 'colorful')
         {
             echo '</div>';
             $rcount = 0;
+            $close_row = false;
         }
 
         $rcount++;
         ?>
         <?php endforeach; ?>
         <?php endforeach; ?>
-        <?php if(($grid_limit % $count) != 0) echo '</div>'; ?>
+        <?php if($close_row) echo '</div>'; ?>
 	</div>
 </div>
 

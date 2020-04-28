@@ -16,9 +16,14 @@ $availability = $book->get_tickets_availability($event_id, $occurrence);
 
 $date_format = (isset($settings['booking_date_format1']) and trim($settings['booking_date_format1'])) ? $settings['booking_date_format1'] : 'Y-m-d';
 $midnight_event = $this->is_midnight_event($event);
+
+$book_all_occurrences = 0;
+if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_booking']) and isset($event->data->meta['mec_booking']['bookings_all_occurrences'])) $book_all_occurrences = (int) $event->data->meta['mec_booking']['bookings_all_occurrences'];
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
     <h4><?php _e('Book Event', 'modern-events-calendar-lite'); ?></h4>
+
+    <?php if(!$book_all_occurrences): ?>
     <div class="mec-book-first">
         <label for="mec_book_form_date"><?php _e('Date', 'modern-events-calendar-lite'); ?>: </label>
         <select name="book[date]" id="mec_book_form_date" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
@@ -29,6 +34,9 @@ $midnight_event = $this->is_midnight_event($event);
             <?php endforeach; ?>
         </select>
     </div>
+    <?php else: ?>
+    <input type="hidden" name="book[date]" value="<?php echo $dates[0]['start']['date'].':'.$dates[0]['end']['date']; ?>">
+    <?php endif; ?>
     
     <div class="mec-event-tickets-list" id="mec_book_form_tickets_container<?php echo $uniqueid; ?>" data-total-booking-limit="<?php echo isset($availability['total']) ? $availability['total'] : '-1'; ?>">
         <?php foreach($tickets as $ticket_id=>$ticket): $stop_selling = isset($availability['stop_selling_'.$ticket_id]) ? $availability['stop_selling_'.$ticket_id] : false;  $ticket_limit = isset($availability[$ticket_id]) ? $availability[$ticket_id] : -1; if($ticket_limit === '0' and count($dates) <= 1) continue; ?>

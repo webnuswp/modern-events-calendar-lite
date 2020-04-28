@@ -117,6 +117,7 @@ else $factory->params('footer', $javascript);
 <div class="mec-googlemap-details" id="mec_map_canvas<?php echo $uniqueid; ?>" style="height: 500px;">
     <?php do_action( 'mec_map_inner_element_tools' ,$settings); ?>
 </div>
+<?php do_action('mec_map_before_direction'); ?>
 <?php if($get_direction): ?>
 <div class="mec-get-direction">
     <form method="post" action="#" id="mec_get_direction_form<?php echo $uniqueid; ?>" class="clearfix">

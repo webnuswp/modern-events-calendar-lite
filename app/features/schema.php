@@ -127,14 +127,18 @@ class MEC_feature_schema extends MEC_base
             jQuery('input.mec-schema-event-status').on('change', function()
             {
                 var value = jQuery(this).val();
-
-                if(value === 'EventMovedOnline'){
+                if(value === 'EventMovedOnline')
+                {
                     jQuery('#mec_moved_online_link_wrapper').show();
                     jQuery('#mec_cancelled_reason_wrapper').hide();
-                } else if(value === 'EventCancelled') {
+                }
+                else if(value === 'EventCancelled')
+                {
                     jQuery('#mec_moved_online_link_wrapper').hide();
                     jQuery('#mec_cancelled_reason_wrapper').show();
-                } else {
+                }
+                else
+                {
                     jQuery('#mec_moved_online_link_wrapper').hide();
                     jQuery('#mec_cancelled_reason_wrapper').hide();
                 } 
@@ -177,8 +181,6 @@ class MEC_feature_schema extends MEC_base
 
         $display_cancellation_reason_in_single_page = (isset($_mec['display_cancellation_reason_in_single_page']) and !empty($_mec['display_cancellation_reason_in_single_page'])) ? true : false;
         update_post_meta($post_id, 'mec_display_cancellation_reason_in_single_page', $display_cancellation_reason_in_single_page);
-
-
 
         return true;
     }

@@ -324,6 +324,10 @@ function mec_book_form_submit'.$uniqueid.'()
                 jQuery("html,body").animate({
                     scrollTop: jQuery(".mec-events-meta-group-booking").offset().top - 100
                 }, "slow");
+
+                if (jQuery(".mec-single-fluent-wrap").length>0 && typeof jQuery.fn.niceSelect !== "undefined") {
+                    jQuery(".mec-single-fluent-wrap").find("select").niceSelect();
+                }
             }
             else
             {
@@ -367,8 +371,8 @@ function mec_book_apply_coupon'.$uniqueid.'()
 
                 jQuery("#mec_booking'.$uniqueid.' .mec-book-form-coupon .mec-coupon-message").addClass("mec-success").html(data.message).show();
 
-                jQuery("#mec_booking'.$uniqueid.' .mec-book-price-details .mec-book-price-detail-typediscount").remove();
-                jQuery("#mec_booking'.$uniqueid.' .mec-book-price-details").append(data.data.price_details);
+                jQuery("#mec_booking'.$uniqueid.' .mec-book-price-details li").remove();
+                jQuery("#mec_booking'.$uniqueid.' .mec-book-price-details").html(data.data.price_details);
 
                 jQuery("#mec_booking'.$uniqueid.' .mec-book-price-total").html(data.data.price);
                 jQuery("#mec_booking'.$uniqueid.' #mec_do_transaction_paypal_express_form"+data.data.transaction_id+" input[name=amount]").val(data.data.price_raw);
@@ -447,11 +451,15 @@ function mec_check_variation_min_max'.$uniqueid.'(variation)
 }
 </script>';
 
-$javascript = apply_filters('mec-javascript-code-of-booking-module', $javascript , $uniqueid);
+$javascript = apply_filters('mec-javascript-code-of-booking-module', $javascript, $uniqueid);
 
 // Include javascript code into the footer
 if($this->is_ajax()) echo $javascript;
-else $factory->params('footer', $javascript);
+else
+{
+    $factory = $this->getFactory();
+    $factory->params('footer', $javascript);
+}
 ?>
 <div class="mec-booking" id="mec_booking<?php echo $uniqueid; ?>">
     <?php
