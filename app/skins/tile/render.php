@@ -29,6 +29,8 @@ $map_events = array();
                 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
                 $event_color = isset($event->data->meta['mec_color']) ? '#'.$event->data->meta['mec_color'] : '';
                 $background_image = (isset($event->data->featured_image['tileview']) && trim($event->data->featured_image['tileview'])) ? ' url(\''.trim($event->data->featured_image['tileview']).'\')' : '';
+                // Multiple Day Event Class
+                $me_class   = $event_start_date == $event->date['end']['date'] ? '' : 'tile-multipleday-event';
 
                 $label_style = '';
                 if(!empty($event->data->labels))
@@ -45,7 +47,7 @@ $map_events = array();
                 // MEC Schema
                 do_action('mec_schema', $event);
                 ?>
-                <article <?php echo 'style="background:' . $event_color . $background_image. '"'; ?> data-style="<?php echo $label_style; ?>" class="<?php echo ((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event' : ''); ?> mec-event-article mec-tile-item mec-clear <?php echo $this->get_event_classes($event); ?>">
+                <article <?php echo 'style="background:' . $event_color . $background_image. '"'; ?> data-style="<?php echo $label_style; ?>" class="<?php echo ((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event' : ''); ?> mec-event-article mec-tile-item <?php echo $me_class; ?> mec-clear <?php echo $this->get_event_classes($event); ?>">
                     <?php do_action('mec_skin_tile_view', $event); ?>
                     <div class="event-tile-view-head clearfix">
                         <?php if(isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days') : ?>

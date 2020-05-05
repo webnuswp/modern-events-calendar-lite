@@ -18,21 +18,71 @@ foreach($gateways as $gateway)
         break;
     }
 }
+
+$mecFluentEnable = class_exists('MEC_Fluent\Core\pluginBase\MecFluent') && (isset($this->settings['single_single_style']) and $this->settings['single_single_style'] == 'fluent') ? true : false;
+if ($mecFluentEnable) {
+    $ticketsDetails = [];
+    foreach ($raw_tickets as $ticket_id => $count) {
+        if (!isset($event_tickets[$ticket_id])){
+            continue;
+        }
+        $ticketPrice = isset($event_tickets[$ticket_id]['price']) ? $this->book->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d')) : 0;
+        $ticketsDetails[$ticket_id]['name'] = $event_tickets[$ticket_id]['name'];
+        $ticketsDetails[$ticket_id]['count'] = $count;
+        $ticketsDetails[$ticket_id]['price'] = ($ticketPrice*$count);
+    }
+}
 ?>
 <div id="mec_book_payment_form">
     <h4><?php _e('Checkout', 'modern-events-calendar-lite'); ?></h4>
     <div class="mec-book-form-price">
-        <?php if(isset($price_details['details']) and is_array($price_details['details']) and count($price_details['details'])): ?>
-        <ul class="mec-book-price-details">
-            <?php foreach($price_details['details'] as $detail): ?>
-            <li class="mec-book-price-detail mec-book-price-detail-type<?php echo $detail['type']; ?>">
-                <span class="mec-book-price-detail-description"><?php echo $detail['description']; ?></span>
-                <span class="mec-book-price-detail-amount"><?php echo $this->main->render_price($detail['amount']); ?></span>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-        <?php endif; ?>
-        <span class="mec-book-price-total"><?php echo $this->main->render_price($price_details['total']); ?></span>
+    <?php if ($mecFluentEnable) { ?>
+            <?php if ($ticketsDetails) { ?>
+                <div class="mec-book-available-tickets-details">
+                    <div class="mec-book-available-tickets-details-header">
+                        <span><?php esc_html_e('Ticket(s) Name', 'modern-events-calendar-lite'); ?></span>
+                        <span><?php esc_html_e('Qty', 'modern-events-calendar-lite'); ?></span>
+                        <span><?php esc_html_e('Amout', 'modern-events-calendar-lite'); ?></span>
+                    </div>
+                    <div class="mec-book-available-tickets-details-body">
+                        <?php foreach ($ticketsDetails as $ticket) { ?>
+                            <div class="mec-book-available-tickets-details-item">
+                                <span><?php echo esc_html($ticket['name']); ?></span>
+                                <span><?php echo esc_html($ticket['count']); ?></span>
+                                <span><?php echo esc_html($ticket['price']); ?></span>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if(isset($price_details['details']) and is_array($price_details['details']) and count($price_details['details'])): ?>
+                <div class="mec-book-price-details">
+                    <?php foreach($price_details['details'] as $detail): ?>
+                        <div class="mec-book-price-detail mec-book-price-detail-type<?php echo $detail['type']; ?>">
+                            <span></span>
+                            <span class="mec-book-price-detail-description"><?php echo $detail['description']; ?></span>
+                            <span class="mec-book-price-detail-amount"><?php echo $this->main->render_price($detail['amount']); ?></span>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+            <div class="mec-book-price-total">
+                <span class="mec-book-price-total-description"><?php esc_html_e('Total Due', 'modern-events-calendar-lite'); ?></span>
+                <span class="mec-book-price-total-amount"><?php echo $this->main->render_price($price_details['total']); ?></span>
+            </div>
+        <?php } else { ?>
+            <?php if(isset($price_details['details']) and is_array($price_details['details']) and count($price_details['details'])): ?>
+            <ul class="mec-book-price-details">
+                <?php foreach($price_details['details'] as $detail): ?>
+                <li class="mec-book-price-detail mec-book-price-detail-type<?php echo $detail['type']; ?>">
+                    <span class="mec-book-price-detail-description"><?php echo $detail['description']; ?></span>
+                    <span class="mec-book-price-detail-amount"><?php echo $this->main->render_price($detail['amount']); ?></span>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
+            <span class="mec-book-price-total"><?php echo $this->main->render_price($price_details['total']); ?></span>
+        <?php } ?>
     </div>
     <?php if(isset($this->settings['coupons_status']) and $this->settings['coupons_status']): ?>
     <div class="mec-book-form-coupon">

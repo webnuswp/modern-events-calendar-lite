@@ -484,90 +484,17 @@ class MEC_feature_events extends MEC_base
                 </div>
                 <div class="mec-form-row">
                     <div class="mec-col-4">
-                        <input type="text" name="mec[date][start][date]" id="mec_start_date"
-                               value="<?php echo esc_attr( $this->main->standardize_format( $start_date, $datepicker_format ) ); ?>"
-                               placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" autocomplete="off"/>
+                        <input type="text" name="mec[date][start][date]" id="mec_start_date" value="<?php echo esc_attr( $this->main->standardize_format( $start_date, $datepicker_format ) ); ?>" placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" autocomplete="off"/>
                     </div>
-                    <div class="mec-col-6 mec-time-picker
-					<?php
-                    if ($allday == 1) {
-                        echo 'mec-util-hidden';
-                    }
-                    ?>
-					">
-                        <?php
-                        if (isset($this->settings['time_format']) and $this->settings['time_format'] == 24) :
-                            if ($start_time_ampm == 'PM' and $start_time_hour != 12) {
-                                $start_time_hour += 12;
-                            }
-                            if ($start_time_ampm == 'AM' and $start_time_hour == 12) {
-                                $start_time_hour += 12;
-                            }
-                            ?>
-                            <select name="mec[date][start][hour]" id="mec_start_hour">
-                                <?php for ($i = 0; $i <= 23; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($start_time_hour == $i) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <span class="time-dv">:</span>
-                            <select name="mec[date][start][minutes]" id="mec_start_minutes">
-                                <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($start_time_minutes == ($i * 5)) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                <?php endfor; ?>
-                            </select>
-                        <?php else : if($start_time_ampm == 'AM' and $start_time_hour == '0') $start_time_hour = 12; ?>
-                            <select name="mec[date][start][hour]" id="mec_start_hour">
-                                <?php for ($i = 1; $i <= 12; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($start_time_hour == $i) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <span class="time-dv">:</span>
-                            <select name="mec[date][start][minutes]" id="mec_start_minutes">
-                                <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($start_time_minutes == ($i * 5)) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <select name="mec[date][start][ampm]" id="mec_start_ampm">
-                                <option
-                                    <?php
-                                    if ($start_time_ampm == 'AM') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>
-                                        value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                <option
-                                    <?php
-                                    if ($start_time_ampm == 'PM') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>
-                                        value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                            </select>
-                        <?php endif; ?>
+                    <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
+                        <?php $this->main->timepicker(array(
+                            'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                            'time_hour' => $start_time_hour,
+                            'time_minutes' => $start_time_minutes,
+                            'time_ampm' => $start_time_ampm,
+                            'name' => 'mec[date][start]',
+                            'id_key' => 'start_',
+                        )); ?>
                     </div>
                 </div>
                 <div class="mec-title">
@@ -576,90 +503,17 @@ class MEC_feature_events extends MEC_base
                 </div>
                 <div class="mec-form-row">
                     <div class="mec-col-4">
-                        <input type="text" name="mec[date][end][date]" id="mec_end_date"
-                               value="<?php echo esc_attr( $this->main->standardize_format( $end_date, $datepicker_format ) ); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>"
-                               autocomplete="off"/>
+                        <input type="text" name="mec[date][end][date]" id="mec_end_date" value="<?php echo esc_attr( $this->main->standardize_format( $end_date, $datepicker_format ) ); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>" autocomplete="off"/>
                     </div>
-                    <div class="mec-col-6 mec-time-picker
-					<?php
-                    if ($allday == 1) {
-                        echo 'mec-util-hidden';
-                    }
-                    ?>
-					">
-                        <?php
-                        if (isset($this->settings['time_format']) and $this->settings['time_format'] == 24) :
-                            if ($end_time_ampm == 'PM' and $end_time_hour != 12) {
-                                $end_time_hour += 12;
-                            }
-                            if ($end_time_ampm == 'AM' and $end_time_hour == 12) {
-                                $end_time_hour += 12;
-                            }
-                            ?>
-                            <select name="mec[date][end][hour]" id="mec_end_hour">
-                                <?php for ($i = 0; $i <= 23; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($end_time_hour == $i) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <span class="time-dv">:</span>
-                            <select name="mec[date][end][minutes]" id="mec_end_minutes">
-                                <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($end_time_minutes == ($i * 5)) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                <?php endfor; ?>
-                            </select>
-                        <?php else : if($end_time_ampm == 'AM' and $end_time_hour == '0') $end_time_hour = 12; ?>
-                            <select name="mec[date][end][hour]" id="mec_end_hour">
-                                <?php for ($i = 1; $i <= 12; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($end_time_hour == $i) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <span class="time-dv">:</span>
-                            <select name="mec[date][end][minutes]" id="mec_end_minutes">
-                                <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                    <option
-                                        <?php
-                                        if ($end_time_minutes == ($i * 5)) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <select name="mec[date][end][ampm]" id="mec_end_ampm">
-                                <option
-                                    <?php
-                                    if ($end_time_ampm == 'AM') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>
-                                        value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                <option
-                                    <?php
-                                    if ($end_time_ampm == 'PM') {
-                                        echo 'selected="selected"';
-                                    }
-                                    ?>
-                                        value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                            </select>
-                        <?php endif; ?>
+                    <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
+                        <?php $this->main->timepicker(array(
+                            'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                            'time_hour' => $end_time_hour,
+                            'time_minutes' => $end_time_minutes,
+                            'time_ampm' => $end_time_ampm,
+                            'name' => 'mec[date][end]',
+                            'id_key' => 'end_',
+                        )); ?>
                     </div>
                 </div>
                 <?php do_action('add_event_after_time_and_date' ,$post->ID); ?>
@@ -813,44 +667,102 @@ class MEC_feature_events extends MEC_base
                     </div>
                     <div class="mec-form-row" id="mec_exceptions_in_days_container">
                         <div class="mec-form-row">
-                            <div class="mec-col-6">
-                                <input type="text" id="mec_exceptions_in_days_start_date" value=""
-                                       placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format"/>
-                                <input type="text" id="mec_exceptions_in_days_end_date" value=""
-                                       placeholder="<?php _e('End', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format"/>
-                                <button class="button" type="button"
-                                        id="mec_add_in_days"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
-                                <span class="mec-tooltip">
-									<div class="box top">
-										<h5 class="title"><?php _e('Custom Days Repeating', 'modern-events-calendar-lite'); ?></h5>
-										<div class="content"><p><?php esc_attr_e('Add certain days to event occurrence dates. If you have a single day event, start and end dates should be the same, If you have a multiple day event, the start and end dates must be commensurate with the initial date.', 'modern-events-calendar-lite'); ?>
-                                                <a href="https://webnus.net/dox/modern-events-calendar/date-and-time/"
-                                                   target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-									</div>
-									<i title="" class="dashicons-before dashicons-editor-help"></i>
-								</span>
+                            <div class="mec-col-12">
+                                <div class="mec-form-row">
+                                    <div class="mec-col-4">
+                                        <input type="text" id="mec_exceptions_in_days_start_date" value="" placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" title="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format widefat" autocomplete="off"/>
+                                    </div>
+                                    <div class="mec-col-3">
+                                        <?php $this->main->timepicker(array(
+                                            'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                                            'time_hour' => $start_time_hour,
+                                            'time_minutes' => $start_time_minutes,
+                                            'time_ampm' => $start_time_ampm,
+                                            'name' => 'mec[exceptionsdays][start]',
+                                            'id_key' => 'exceptions_in_days_start_',
+                                        )); ?>
+                                    </div>
+                                    <div class="mec-col-5">
+                                        <button class="button" type="button" id="mec_add_in_days"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
+                                        <span class="mec-tooltip">
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('Custom Days Repeating', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content">
+                                                    <p>
+                                                        <?php esc_attr_e('Add certain days to event occurrence dates. If you have a single day event, start and end dates should be the same, If you have a multiple day event, the start and end dates must be commensurate with the initial date.', 'modern-events-calendar-lite'); ?>
+                                                        <a href="https://webnus.net/dox/modern-events-calendar/date-and-time/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-4">
+                                        <input type="text" id="mec_exceptions_in_days_end_date" value="" placeholder="<?php _e('End', 'modern-events-calendar-lite'); ?>" title="<?php _e('End', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format" autocomplete="off"/>
+                                    </div>
+                                    <div class="mec-col-8">
+                                        <?php $this->main->timepicker(array(
+                                            'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                                            'time_hour' => $end_time_hour,
+                                            'time_minutes' => $end_time_minutes,
+                                            'time_ampm' => $end_time_ampm,
+                                            'name' => 'mec[exceptionsdays][end]',
+                                            'id_key' => 'exceptions_in_days_end_',
+                                        )); ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="mec-form-row mec-certain-day" id="mec_in_days">
-                            <?php $i = 1;
-                            foreach ($in_days as $in_day) : ?>
+                            <?php $i = 1; foreach($in_days as $in_day): ?>
                                 <?php
-                                    $in_day = explode( ':', $in_day );
-                                    $first_date = $this->main->standardize_format( $in_day[0], $datepicker_format );
-                                    $second_date = $this->main->standardize_format( $in_day[1], $datepicker_format );
-                                    $in_day = $first_date . ':' . $second_date;
+                                    $in_day = explode(':', $in_day);
+                                    $first_date = $this->main->standardize_format($in_day[0], $datepicker_format);
+                                    $second_date = $this->main->standardize_format($in_day[1], $datepicker_format);
+
+                                    $in_day_start_time = '';
+                                    $in_day_start_time_label = '';
+                                    $in_day_end_time = '';
+                                    $in_day_end_time_label = '';
+
+                                    if(isset($in_day[2]) and isset($in_day[3]))
+                                    {
+                                        $in_day_start_time = $in_day[2];
+                                        $in_day_end_time = $in_day[3];
+
+                                        // If 24 hours format is enabled then convert it back to 12 hours
+                                        if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24)
+                                        {
+                                            $in_day_ex_start = explode('-', $in_day_start_time);
+                                            $in_day_ex_end = explode('-', $in_day_end_time);
+
+                                            $in_day_start_time_label = $this->main->to_24hours($in_day_ex_start[0], $in_day_ex_start[2]).':'.$in_day_ex_start[1];
+                                            $in_day_end_time_label = $this->main->to_24hours($in_day_ex_end[0], $in_day_ex_end[2]).':'.$in_day_ex_end[1];
+                                        }
+                                        else
+                                        {
+                                            $pos = strpos($in_day_start_time, '-');
+                                            if($pos !== false) $in_day_start_time_label = substr_replace($in_day_start_time, ':', $pos, 1);
+
+                                            $pos = strpos($in_day_end_time, '-');
+                                            if($pos !== false) $in_day_end_time_label = substr_replace($in_day_end_time, ':', $pos, 1);
+
+                                            $in_day_start_time_label = str_replace('-', ' ', $in_day_start_time_label);
+                                            $in_day_end_time_label = str_replace('-', ' ', $in_day_end_time_label);
+                                        }
+                                    }
+
+                                    $in_day = $first_date . ':' . $second_date.(trim($in_day_start_time) ? ':'.$in_day_start_time : '').(trim($in_day_end_time) ? ':'.$in_day_end_time : '');
+                                    $in_day_label = $first_date. (trim($in_day_start_time_label) ? ' '.$in_day_start_time_label : '') . ' - ' . $second_date. (trim($in_day_end_time_label) ? ' '.$in_day_end_time_label : '');
                                 ?>
                                 <div class="mec-form-row" id="mec_in_days_row<?php echo $i; ?>">
-                                    <input type="hidden" name="mec[in_days][<?php echo $i; ?>]"
-                                           value="<?php echo $in_day; ?>"/>
-                                    <span class="mec-in-days-day"><?php echo str_replace(':', ' - ', $in_day); ?></span>
-                                    <span class="mec-not-in-days-remove"
-                                          onclick="mec_in_days_remove(<?php echo $i; ?>);">x</span>
+                                    <input type="hidden" name="mec[in_days][<?php echo $i; ?>]" value="<?php echo $in_day; ?>"/>
+                                    <span class="mec-in-days-day"><?php echo $in_day_label; ?></span>
+                                    <span class="mec-not-in-days-remove" onclick="mec_in_days_remove(<?php echo $i; ?>);">x</span>
                                 </div>
-                                <?php
-                                $i++;
-                            endforeach;
-                            ?>
+                            <?php $i++; endforeach; ?>
                         </div>
                         <input type="hidden" id="mec_new_in_days_key" value="<?php echo $i + 1; ?>"/>
                         <div class="mec-util-hidden" id="mec_new_in_days_raw">
@@ -1709,121 +1621,29 @@ class MEC_feature_events extends MEC_base
                             <div class="mec-form-row wn-ticket-time">
                                 <div class="mec-ticket-start-time mec-col-12">
                                     <span><?php esc_html_e('Start Time', 'modern-events-calendar-lite'); ?></span>
-                                    <select name="mec[tickets][<?php echo $key; ?>][ticket_start_time_hour]">
-                                        <?php if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24))
-                                        {
-                                            $hour_format = 'h';
-                                            $count_info = array('start'=>1, 'length'=>12);
-                                        }
-                                        else
-                                        {
-                                            $hour_format = 'H';
-                                            $count_info = array('start'=>0, 'length'=>23);
-                                        }
-
-                                        $render_hour = date($hour_format, strtotime(sprintf('%02d', $ticket['ticket_start_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_start_time_minute']) . (isset($ticket['ticket_start_time_ampm']) ? strtoupper($ticket['ticket_start_time_ampm']) : '')));
-                                        for ($j = $count_info['start']; $j <= $count_info['length']; $j++) : ?>
-                                            <option
-                                                <?php
-                                                if ($render_hour == $j)
-                                                {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo $j; ?>"><?php echo sprintf('%02d', $j); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <span class="time-dv">:</span>
-                                    <select name="mec[tickets][<?php echo $key; ?>][ticket_start_time_minute]">
-                                        <?php for ($k = 0; $k <= 11; $k++) : ?>
-                                            <option
-                                                <?php
-                                                if ($ticket['ticket_start_time_minute'] == ($k * 5)) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo($k * 5); ?>"><?php echo sprintf('%02d', ($k * 5)); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <!-----Start AM/PM Section----->
-                                    <?php if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24)): ?>
-                                    <select name="mec[tickets][<?php echo $key; ?>][ticket_start_time_ampm]">
-                                        <option
-                                            <?php
-                                            if ($ticket['ticket_start_time_ampm'] == 'AM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                        <option
-                                            <?php
-                                            if ($ticket['ticket_start_time_ampm'] == 'PM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                                    </select>
-                                    <?php endif; ?>
-                                    <!-----End AM/PM Section----->
+                                    <?php $this->main->timepicker(array(
+                                        'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                                        'time_hour' => $ticket['ticket_start_time_hour'],
+                                        'time_minutes' => $ticket['ticket_start_time_minute'],
+                                        'time_ampm' => $ticket['ticket_start_time_ampm'],
+                                        'name' => 'mec[tickets]['.$key.']',
+                                        'hour_key' => 'ticket_start_time_hour',
+                                        'minutes_key' => 'ticket_start_time_minute',
+                                        'ampm_key' => 'ticket_start_time_ampm',
+                                    )); ?>
                                 </div>
                                 <div class="mec-ticket-end-time mec-col-12">
                                     <span><?php esc_html_e('End Time', 'modern-events-calendar-lite'); ?></span>
-                                    <select name="mec[tickets][<?php echo $key; ?>][ticket_end_time_hour]">
-                                    <?php if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24))
-                                        {
-                                            $hour_format = 'h';
-                                            $count_info = array('start'=>1, 'length'=>12);
-                                        }
-                                        else
-                                        {
-                                            $hour_format = 'H';
-                                            $count_info = array('start'=>0, 'length'=>23);
-                                        }
-
-                                        $render_hour = date($hour_format, strtotime(sprintf('%02d', $ticket['ticket_end_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_end_time_minute']) . (isset($ticket['ticket_end_time_ampm']) ? strtoupper($ticket['ticket_end_time_ampm']) : '')));
-                                        for ($j = $count_info['start']; $j <= $count_info['length']; $j++) : ?>
-                                            <option
-                                                <?php
-                                                if ($render_hour == $j)
-                                                {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                value="<?php echo $j; ?>"><?php echo sprintf('%02d', $j); ?></option>
-                                    <?php endfor; ?>
-                                    </select>
-                                    <span class="time-dv">:</span>
-                                    <select name="mec[tickets][<?php echo $key; ?>][ticket_end_time_minute]">
-                                        <?php for ($k = 0; $k <= 11; $k++) : ?>
-                                            <option
-                                                <?php
-                                                if ($ticket['ticket_end_time_minute'] == ($k * 5)) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo($k * 5); ?>"><?php echo sprintf('%02d', ($k * 5)); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <!-----Start AM/PM Section----->
-                                    <?php if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24)): ?>
-                                    <select name="mec[tickets][<?php echo $key; ?>][ticket_end_time_ampm]">
-                                        <option
-                                            <?php
-                                            if ($ticket['ticket_end_time_ampm'] == 'AM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                        <option
-                                            <?php
-                                            if ($ticket['ticket_end_time_ampm'] == 'PM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                                    </select>
-                                    <?php endif; ?>
-                                    <!-----End AM/PM Section----->
+                                    <?php $this->main->timepicker(array(
+                                        'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                                        'time_hour' => $ticket['ticket_end_time_hour'],
+                                        'time_minutes' => $ticket['ticket_end_time_minute'],
+                                        'time_ampm' => $ticket['ticket_end_time_ampm'],
+                                        'name' => 'mec[tickets]['.$key.']',
+                                        'hour_key' => 'ticket_end_time_hour',
+                                        'minutes_key' => 'ticket_end_time_minute',
+                                        'ampm_key' => 'ticket_end_time_ampm',
+                                    )); ?>
                                 </div>
                             </div>
                             <div class="mec-form-row">
@@ -1911,9 +1731,8 @@ class MEC_feature_events extends MEC_base
                                             data-key="<?php echo $key; ?>"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
                                 </div>
                                 <div id="mec-ticket-price-dates-<?php echo $key; ?>">
-                                    <?php if (isset($ticket['dates']) and count($ticket['dates'])) : ?>
+                                    <?php $j = 0; if(isset($ticket['dates']) and count($ticket['dates'])) : ?>
                                         <?php
-                                        $j = 0;
                                         foreach ($ticket['dates'] as $p => $price_date) :
                                             if (!is_numeric($p)) {
                                                 continue;
@@ -1984,72 +1803,29 @@ class MEC_feature_events extends MEC_base
                     <div class="mec-form-row wn-ticket-time">
                         <div class="mec-ticket-start-time mec-col-12">
                             <span><?php esc_html_e('Start Time', 'modern-events-calendar-lite'); ?></span>
-                            <select name="mec[tickets][:i:][ticket_start_time_hour]">
-                                <?php if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24)) $count_info = array('start' => 1, 'length' => 12);
-                                    else $count_info = array('start' => 0, 'length' => 23);
-                                        for ($j = $count_info['start']; $j <= $count_info['length']; $j++) : ?>
-                                    <option
-                                        <?php
-                                        if (8 == $j) {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>
-                                            value="<?php echo $j; ?>"><?php echo sprintf('%02d', $j); ?></option>
-                                <?php endfor;?>
-                            </select>
-                            <span class="time-dv">:</span>
-                            <select name="mec[tickets][:i:][ticket_start_time_minute]">
-                                <?php for ($k = 0; $k <= 11; $k++) : ?>
-                                    <option value="<?php echo($k * 5); ?>"><?php echo sprintf('%02d', ($k * 5)); ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <!------ Start Ticket AM/PM Section ------>
-                            <?php  if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24)): ?>
-                            <select name="mec[tickets][:i:][ticket_start_time_ampm]">
-                                <option selected="selected" value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                <option value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                            </select>
-                            <?php endif; ?>
-                            <!------ End Ticket AM/PM Section ------>
+                            <?php $this->main->timepicker(array(
+                                'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                                'time_hour' => 8,
+                                'time_minutes' => 0,
+                                'time_ampm' => 'AM',
+                                'name' => 'mec[tickets][:i:]',
+                                'hour_key' => 'ticket_start_time_hour',
+                                'minutes_key' => 'ticket_start_time_minute',
+                                'ampm_key' => 'ticket_start_time_ampm',
+                            )); ?>
                         </div>
                         <div class="mec-ticket-start-time mec-col-12">
                             <span><?php esc_html_e('End Time', 'modern-events-calendar-lite'); ?></span>
-                            <select name="mec[tickets][:i:][ticket_end_time_hour]">
-                                <?php if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24))
-                                            {
-                                                $count_info = array('start' => 1, 'length' => 12);
-                                                $end_selected = 6;
-                                            }
-                                            else
-                                            {
-                                                $count_info = array('start' => 0, 'length' => 23);
-                                                $end_selected = 18;
-                                            }
-                                            for ($j = $count_info['start']; $j <= $count_info['length']; $j++) : ?>
-                                        <option
-                                            <?php
-                                            if ($end_selected == $j)
-                                            {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="<?php echo $j; ?>"><?php echo sprintf('%02d', $j); ?></option>
-                                <?php endfor;?>
-                            </select>
-                            <span class="time-dv">:</span>
-                            <select name="mec[tickets][:i:][ticket_end_time_minute]">
-                                <?php for ($k = 0; $k <= 11; $k++) : ?>
-                                    <option value="<?php echo($k * 5); ?>"><?php echo sprintf('%02d', ($k * 5)); ?></option>
-                                <?php endfor; ?>
-                            </select>
-                            <!------ Start Ticket AM/PM Section ------>
-                            <?php  if(!isset($this->settings['time_format']) or (isset($this->settings['time_format']) and $this->settings['time_format'] != 24)): ?>
-                            <select name="mec[tickets][:i:][ticket_end_time_ampm]">
-                                <option value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                <option selected="selected" value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                            </select>
-                            <?php endif; ?>
-                            <!------ End Ticket AM/PM Section ------>
+                            <?php $this->main->timepicker(array(
+                                'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
+                                'time_hour' => 6,
+                                'time_minutes' => 0,
+                                'time_ampm' => 'PM',
+                                'name' => 'mec[tickets][:i:]',
+                                'hour_key' => 'ticket_end_time_hour',
+                                'minutes_key' => 'ticket_end_time_minute',
+                                'ampm_key' => 'ticket_end_time_ampm',
+                            )); ?>
                         </div>
                     </div>
                     <div class="mec-form-row">
@@ -2967,11 +2743,78 @@ class MEC_feature_events extends MEC_base
         $in_days = '';
         if(count($in_days_arr))
         {
-           if(isset($in_days_arr[':i:'])) unset($in_days_arr[':i:']);
+            if(isset($in_days_arr[':i:'])) unset($in_days_arr[':i:']);
 
             $in_days_arr = array_map(function($value)
             {
-                return $this->main->standardize_format(explode(':', $value)[0]) . ':' . $this->main->standardize_format(explode(':', $value)[1]);
+                $ex = explode(':', $value);
+
+                $in_days_times = '';
+                if(isset($ex[2]) and isset($ex[3]))
+                {
+                    $in_days_start_time = $ex[2];
+                    $in_days_end_time = $ex[3];
+
+                    // If 24 hours format is enabled then convert it back to 12 hours
+                    if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24)
+                    {
+                        $ex_start_time = explode('-', $in_days_start_time);
+                        $ex_end_time = explode('-', $in_days_end_time);
+
+                        $in_days_start_hour = $ex_start_time[0];
+                        $in_days_start_minutes = $ex_start_time[1];
+                        $in_days_start_ampm = $ex_start_time[2];
+
+                        $in_days_end_hour = $ex_end_time[0];
+                        $in_days_end_minutes = $ex_end_time[1];
+                        $in_days_end_ampm = $ex_end_time[2];
+
+                        if(trim($in_days_start_ampm) == '')
+                        {
+                            if($in_days_start_hour < 12) $in_days_start_ampm = 'AM';
+                            elseif($in_days_start_hour == 12) $in_days_start_ampm = 'PM';
+                            elseif($in_days_start_hour > 12)
+                            {
+                                $in_days_start_hour -= 12;
+                                $in_days_start_ampm = 'PM';
+                            }
+                            elseif($in_days_start_hour == 0)
+                            {
+                                $in_days_start_hour = 12;
+                                $in_days_start_ampm = 'AM';
+                            }
+                        }
+
+                        if(trim($in_days_end_ampm) == '')
+                        {
+                            if($in_days_end_hour < 12) $in_days_end_ampm = 'AM';
+                            elseif($in_days_end_hour == 12) $in_days_end_ampm = 'PM';
+                            elseif($in_days_end_hour > 12)
+                            {
+                                $in_days_end_hour -= 12;
+                                $in_days_end_ampm = 'PM';
+                            }
+                            elseif($in_days_end_hour == 0)
+                            {
+                                $in_days_end_hour = 12;
+                                $in_days_end_ampm = 'AM';
+                            }
+                        }
+
+                        if(strlen($in_days_start_hour) == 1) $in_days_start_hour = '0'.$in_days_start_hour;
+                        if(strlen($in_days_start_minutes) == 1) $in_days_start_minutes = '0'.$in_days_start_minutes;
+
+                        if(strlen($in_days_end_hour) == 1) $in_days_end_hour = '0'.$in_days_end_hour;
+                        if(strlen($in_days_end_minutes) == 1) $in_days_end_minutes = '0'.$in_days_end_minutes;
+
+                        $in_days_start_time = $in_days_start_hour.'-'.$in_days_start_minutes.'-'.$in_days_start_ampm;
+                        $in_days_end_time = $in_days_end_hour.'-'.$in_days_end_minutes.'-'.$in_days_end_ampm;
+                    }
+
+                    $in_days_times = ':'.$in_days_start_time.':'.$in_days_end_time;
+                }
+
+                return $this->main->standardize_format($ex[0]) . ':' . $this->main->standardize_format($ex[1]).$in_days_times;
             }, $in_days_arr);
 
             usort($in_days_arr, function($a, $b)

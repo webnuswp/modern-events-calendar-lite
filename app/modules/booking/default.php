@@ -449,6 +449,11 @@ function mec_check_variation_min_max'.$uniqueid.'(variation)
     if(value > max) jQuery(variation).val(max);
     if(value < min) jQuery(variation).val(min);
 }
+
+'.((defined('DOING_AJAX') and DOING_AJAX) ? 'jQuery(document).ready(function()
+{
+    mec_get_tickets_availability'.$uniqueid.'('.$event->ID.', jQuery("#mec_book_form_date'.$uniqueid.'").val());
+});' : '').'
 </script>';
 
 $javascript = apply_filters('mec-javascript-code-of-booking-module', $javascript, $uniqueid);

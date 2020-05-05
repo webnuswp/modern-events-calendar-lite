@@ -409,7 +409,7 @@ class MEC_book extends MEC_base
         $start_time_hour = sprintf('%02d', get_post_meta($event_id, 'mec_start_time_hour', true));
         $start_time_minute = sprintf('%02d', get_post_meta($event_id, 'mec_start_time_minutes', true));
         $start_time_ampm = get_post_meta($event_id, 'mec_start_time_ampm', true);
-        $event_date = "{$date} {$start_time_hour}:{$start_time_minute}{$start_time_ampm}";
+        $event_date = "{$date} {$start_time_hour}:{$start_time_minute} {$start_time_ampm}";
         
         // No Ticket Found!
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets)))

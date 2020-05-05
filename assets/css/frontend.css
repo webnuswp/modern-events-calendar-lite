@@ -12209,7 +12209,7 @@ ul.mec-weekly-view-dates-events article:before,
 .mec-wrap article[class^="mec-event-countdown-"] .mec-fc-style {
 	top: -3px;
 	font-size: 11px;
-	margin-left: 10px;
+	white-space: nowrap;
 }
 
 .mec-wrap .mec-event-list-modern article.mec-label-canceled .mec-fc-style,
@@ -15805,8 +15805,8 @@ a.mec-timeline-readmore i {
 
 .mec-event-tile-view  article.mec-label-canceled:before,
 .mec-event-tile-view  article.mec-label-featured:before {
-    top: 17px !important;
-    left: 110px !important;
+    /* top: 17px !important;
+    left: 110px !important; */
     height: auto;
 }
 
@@ -15920,6 +15920,72 @@ a.mec-timeline-readmore i {
     }
 }
 
+.mec-event-tile-view article.mec-tile-item.tile-multipleday-event:after {
+    width: 165px;
+}
+
+/* Tile View Responsive */ 
+.mec-event-tile-view .col-md-6.col-sm-6 article.mec-label-canceled:before {
+    top: 100px;
+    left: 140px;
+}
+
+.mec-event-tile-view .col-md-4.col-sm-4 article.mec-label-canceled:before {
+    top: 20px;
+    left: 140px;
+}
+
+@media (min-width: 761px) and (max-width:1200px) {
+
+    .mec-event-tile-view .col-md-3.col-sm-3 {
+        width: 50%;
+    }
+
+    .mec-event-tile-view .col-md-6.col-sm-6 article.mec-label-canceled:before {
+        top: 80px;
+        left: 90px;
+    }
+
+    .mec-event-tile-view .col-md-4.col-sm-4 article.mec-label-canceled:before {
+        top: 40px;
+        left: 70px;
+	}
+	
+	.mec-event-tile-view .col-md-3.col-sm-3 article.mec-label-canceled:before {
+		top: 90px;
+		left: 110px;
+	}
+
+}
+
+@media (min-width: 761px) and (max-width:1024px) {
+    .mec-event-tile-view .col-md-4.col-sm-4 {
+        width: 50%;
+	}
+
+    .mec-event-tile-view .col-md-4.col-sm-4:nth-child(1n+3) {
+        width: 100%;
+    }
+}
+
+@media (max-width: 760px) {
+	.mec-event-tile-view .col-md-3.col-sm-3 {
+        width: 100%;
+	}
+
+    .mec-event-tile-view .col-md-4.col-sm-4 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .mec-event-tile-view .col-md-6.col-sm-6 article.mec-label-canceled:before {
+        top: 100px;
+        left: 80px;
+    }
+}
+
+
 /* Normal Label - Default Style for All Skins */
 .mec-wrap .mec-labels-normal .mec-label-normal,.mec-wrap .mec-cancellation-reason span {
 	position: relative;
@@ -15932,6 +15998,7 @@ a.mec-timeline-readmore i {
     color: #fff;
     padding: 2px 7px;
 	border-radius: 2px;
+	white-space: nowrap;
 }
 .mec-timetable-event .mec-labels-normal .mec-label-normal,
 .tooltipster-box .mec-labels-normal .mec-label-normal,

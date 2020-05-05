@@ -556,7 +556,7 @@ $events = $this->main->get_events();
                     <input class="mec-col-4" type="number" name="mec[sk-options][agenda][limit]" id="mec_skin_agenda_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_agenda['limit'])) echo $sk_options_agenda['limit']; ?>" />
                 </div>
                 <!-- Start LocalTime -->
-                <div class="mec-form-row mec-switcher mec-include-events-local-times mec-not-agenda-fluent">
+                <div class="mec-form-row mec-switcher mec-include-events-local-times">
                     <div class="mec-col-4">
                         <label for="mec_skin_agenda_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
                     </div>
@@ -643,7 +643,7 @@ $events = $this->main->get_events();
                         <option value="daily" <?php echo (isset($sk_options_full_calendar['default_view']) and $sk_options_full_calendar['default_view'] == 'daily') ? 'selected="selected"' : ''; ?>><?php _e('Daily View', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <div class="mec-form-row">
+                <div class="mec-form-row mec-not-full_calendar-fluent">
                     <label class="mec-col-4" for="mec_skin_full_calendar_monthly_style"><?php _e('Monthly Style', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][full_calendar][monthly_style]" id="mec_skin_full_calendar_monthly_style">
                         <option value="clean" <?php echo (isset($sk_options_full_calendar['monthly_style']) and $sk_options_full_calendar['monthly_style'] == 'clean') ? 'selected="selected"' : ''; ?>><?php _e('Clean', 'modern-events-calendar-lite'); ?></option>
@@ -2097,6 +2097,7 @@ $events = $this->main->get_events();
             <!-- Tile View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_tile_skin_options_container">
                 <?php $sk_options_tile = isset($sk_options['tile']) ? $sk_options['tile'] : array(); ?>
+                <?php do_action('mec_skin_options_tile_init', $sk_options_tile); ?>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_tile_start_date_type"><?php _e('Start Date', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][tile][start_date_type]" id="mec_skin_tile_start_date_type" onchange="if(this.value == 'date') jQuery('#mec_skin_tile_start_date_container').show(); else jQuery('#mec_skin_tile_start_date_container').hide();">

@@ -105,8 +105,7 @@ class MEC_skin_countdown extends MEC_skins
         // Get next upcoming event ID
         if($this->event_id == '-1')
         {
-            $event = $this->main->get_next_upcoming_event();
-            $events[] = $event;
+            $events[] = $this->main->get_next_upcoming_event();
         }
         else
         {
@@ -118,7 +117,7 @@ class MEC_skin_countdown extends MEC_skins
             $data->dates = $this->render->dates($this->event_id, $rendered, $this->maximum_dates);
             $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
 
-            $events[] = $data;
+            $events[] = $this->render->after_render($data);
         }
         
         return $events;

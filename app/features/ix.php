@@ -440,6 +440,7 @@ class MEC_feature_ix extends MEC_base
                 (
                     'title'=> (string) $event->title,
                     'content'=> (string) $event->content,
+                    'status'=> (string) ($event->post ? $event->post->post_status : 'publish'),
                     'location_id'=>$location_id,
                     'organizer_id'=>$organizer_id,
                     'date'=>array

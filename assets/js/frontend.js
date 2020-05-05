@@ -28,6 +28,10 @@ var mecSingleEventDisplayer = {
                 } else {
                     jQuery('.featherlight-content .mec-events-content a img').remove();
                 }
+
+                if (typeof mecdata.enableSingleFluent != 'undefined' && mecdata.enableSingleFluent) {
+                    mecFluentSinglePage();
+                }
             },
             error: function () {}
         });
@@ -165,6 +169,9 @@ var mecSingleEventDisplayer = {
         // Set onclick Listeners
         setListeners();
 
+        mecFluentCurrentTimePosition();
+        mecFluentCustomScrollbar();
+
         var sf;
 
         function setListeners() {
@@ -242,6 +249,9 @@ var mecSingleEventDisplayer = {
 
                     // Focus First Active Day
                     mecFocusDay(settings);
+
+                    mecFluentCurrentTimePosition();
+                    mecFluentCustomScrollbar();
                 },
                 error: function () {}
             });
@@ -268,6 +278,9 @@ var mecSingleEventDisplayer = {
 
                     // Focus First Active Week
                     mec_focus_week(settings.id);
+
+                    mecFluentCurrentTimePosition();
+                    mecFluentCustomScrollbar();
                 },
                 error: function () {}
             });
@@ -1184,7 +1197,7 @@ var mecSingleEventDisplayer = {
                 responsiveClass: true,
                 responsive: {
                     0: {
-                        items: 2,
+                        items: owl.closest('.mec-fluent-wrap').length > 0 ? 3 : 2,
                     },
                     479: {
                         items: 4,
@@ -3632,9 +3645,15 @@ function mec_focus_week(id, skin) {
             $(des).closest('.mec-events-agenda').addClass('mec-selected');
             var scrollTopVal = $(des).closest('.mec-events-agenda').offset().top - 35;
 
-            $('html, body').animate({
-                scrollTop: scrollTopVal
-            }, 300);
+            if ($(this).closest('.mec-fluent-wrap').length > 0) {
+                var parent = jQuery(this).closest('.mec-fluent-wrap').find('.mec-yearly-agenda-sec');
+                scrollTopVal = parent.scrollTop() + ($(des).closest('.mec-events-agenda').offset().top - parent.offset().top);
+                jQuery(this).closest('.mec-fluent-wrap').find('.mec-yearly-agenda-sec').getNiceScroll(0).doScrollTop(scrollTopVal - 15, 120);
+            } else {
+                $('html, body').animate({
+                    scrollTop: scrollTopVal
+                }, 300);    
+            }
         });
 
     });
@@ -3915,11 +3934,44 @@ jQuery(document).ready(function () {
     mecFluentNiceSelect();
     mecFluentWrapperFullScreenWidth();
     jQuery(window).on('load', mecFluentWrapperFullScreenWidth);
+    jQuery(window).on('load', mecFluentCurrentTimePosition);
     jQuery(window).on('resize', mecFluentWrapperFullScreenWidth);
     jQuery(window).on('resize', mecFluentTimeTableUI);
     mecFluentSliderUI();
+    mecFluentFullCalendar();
+    jQuery(window).on('resize', mecFluentFullCalendar);
     mecFluentCustomScrollbar();
 });
+
+function mecFluentSinglePage() {
+    if (jQuery().niceScroll) {
+        jQuery('.mec-single-fluent-body .featherlight .mec-single-fluent-wrap').niceScroll({
+            horizrailenabled:false,
+            cursorcolor: '#C1C5C9',
+            cursorwidth: '4px',
+            cursorborderradius: '4px',
+            cursorborder: 'none',
+            railoffset: {
+                left: 10,
+            }
+        });
+    }
+}
+
+function mecFluentFullCalendar() {
+    if (jQuery('.mec-fluent-wrap.mec-skin-full-calendar-container').length > 0) {
+        var widowWidth = jQuery(window).innerWidth();
+        if (widowWidth<=767) {
+            jQuery('.mec-fluent-wrap.mec-skin-full-calendar-container .mec-skin-monthly-view-month-navigator-container, .mec-fluent-wrap.mec-skin-full-calendar-container .mec-calendar-a-month, .mec-fluent-wrap.mec-skin-full-calendar-container .mec-yearly-title-sec').css({
+                paddingTop: jQuery('.mec-fluent-wrap.mec-skin-full-calendar-container').children('.mec-totalcal-box').height() + 40,
+            });
+        } else {
+            jQuery('.mec-fluent-wrap.mec-skin-full-calendar-container .mec-skin-monthly-view-month-navigator-container, .mec-fluent-wrap.mec-skin-full-calendar-container .mec-calendar-a-month, .mec-fluent-wrap.mec-skin-full-calendar-container .mec-yearly-title-sec').css({
+                paddingTop: 32,
+            });
+        }
+    }
+}
 
 function mecFluentSmartFilterIcon() {
     var filterContent = jQuery(this).closest('.mec-filter-content');
@@ -3968,6 +4020,9 @@ function mecFluentWrapperFullScreenWidth() {
 }
 
 function mecFluentUI() {
+    if (typeof mecdata.enableSingleFluent != 'undefined' && mecdata.enableSingleFluent) {
+        jQuery('body').addClass('mec-single-fluent-body');
+    }
     // Set filter content position
     jQuery(window).on('load resize', function () {
         if (jQuery('.mec-filter-content').length > 0) {
@@ -3985,8 +4040,14 @@ function mecFluentUI() {
     if (jQuery('.mec-filter-content').is(':empty')) {
         jQuery('.mec-filter-icon').hide();
     }
-    // Current time position
-    jQuery(window).on('load', function () {
+    // Prevend Default For Event Share Icon
+    jQuery(document).on('click', '.mec-event-share-icon', function(e) {
+        e.preventDefault();
+    });
+}
+
+function mecFluentCurrentTimePosition() {
+    if (jQuery('.mec-fluent-wrap').length > 0) {
         jQuery('.mec-fluent-current-time').each(function() {
             var currentTimeMinutes = jQuery(this).data('time');
             var height = jQuery(this).closest('.mec-fluent-current-time-cell').height();
@@ -3994,7 +4055,7 @@ function mecFluentUI() {
                 top: (currentTimeMinutes / 60) * height,
             });
         });
-    });
+    }
 }
 
 function mecFluentNiceSelect() {
@@ -4011,7 +4072,7 @@ function mecFluentCustomScrollbar(y) {
     if (jQuery('.mec-fluent-wrap').length < 0) {
         return;
     }
-
+    
     if (jQuery().niceScroll) {
         jQuery('.mec-custom-scrollbar').niceScroll({
             cursorcolor: '#C7EBFB',
@@ -4022,12 +4083,19 @@ function mecFluentCustomScrollbar(y) {
                 left: -2,
             }
         });
-        jQuery('.mec-custom-scrollbar').getNiceScroll().resize()
+        jQuery('.mec-custom-scrollbar').getNiceScroll().resize();
         jQuery('.mec-custom-scrollbar').each(function () {
             if (jQuery(this).find('.mec-fluent-current-time-cell').length > 0) {
                 var parentTopOffset = jQuery(this).offset().top;
                 var currentTimeCellOffset = jQuery(this).find('.mec-fluent-current-time-cell').offset().top;
                 jQuery(this).getNiceScroll(0).doScrollTop(currentTimeCellOffset - parentTopOffset - 16, 120);
+                jQuery(this).on('scroll', function () {
+                    if (jQuery(this).getNiceScroll(0).scroll.y != 0) {
+                        jQuery(this).addClass('mec-scrolling');
+                    } else {
+                        jQuery(this).removeClass('mec-scrolling');
+                    }
+                });
             }
             if (typeof y != 'undefined') {
                 if (jQuery(this).closest('.mec-skin-list-wrap').length > 0 || jQuery(this).closest('.mec-skin-grid-wrap').length > 0) {

@@ -230,7 +230,7 @@ class MEC_skin_weekly_view extends MEC_skins
                         'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                     );
                     $data->dates = $dates;
-                    $events[$date][] = $data;
+                    $events[$date][] = $this->render->after_render($data);
                 }
             }
             else

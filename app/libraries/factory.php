@@ -288,7 +288,7 @@ class MEC_factory extends MEC_base
             'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
         ));
 
-        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
+        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js').'?t='.time(), array(), $this->main->get_version());
 
         // Thickbox
         wp_enqueue_media();
@@ -349,7 +349,7 @@ class MEC_factory extends MEC_base
         wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
         wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'));
 
-        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
+        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js').'?t='.time(), array(), $this->main->get_version());
         
         // Include Lity Lightbox
         wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
@@ -520,6 +520,11 @@ class MEC_factory extends MEC_base
         $this->import('app.addons.divi');
         $MEC_addon_divi = new MEC_addon_divi();
         $MEC_addon_divi->init();
+
+        // Import MEC Beaver Builder addon Class
+        $this->import('app.addons.beaver');
+        $MEC_addon_beaver = new MEC_addon_beaver();
+        $MEC_addon_beaver->init();
     }
     
     /**

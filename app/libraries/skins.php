@@ -562,7 +562,7 @@ class MEC_skins extends MEC_base
                 if($this->hide_time_method == 'end' and $now >= $mec_date->tend) continue;
             }
 
-            if((in_array($this->skin, ['list', 'grid']) && strpos($this->style, 'fluent') === false) && ($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel')))))
+            if((in_array($this->skin, ['list', 'grid']) && strpos($this->style, 'fluent') === false) or ($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel')))))
             {
                 // Hide Shown Events on AJAX
                 if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start) and !$this->show_only_expired_events) continue;
@@ -723,7 +723,7 @@ class MEC_skins extends MEC_base
                         'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                     );
 
-                    $events[$date][] = $data;
+                    $events[$date][] = $this->render->after_render($data);
                     $found++;
 
                     if($found >= $this->limit)

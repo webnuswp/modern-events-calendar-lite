@@ -1,4 +1,20 @@
-﻿v 5.3.5 – 28 April 2020
+﻿v 5.4.0 – 5 May 2020
+- Added: An option to add different hours for custom days repeat type
+- Added: An option to keep status of events while importing XML file
+- Added: Compatibility with Rank Math and Schema Markup Rich Snippets
+- Added: Some new guides in filter section of shortcake builder
+- Added: Beaver Builder Shortcode
+- Improved: Booking process in case of free booking (pro)
+- Fixed: Local time on shortcodes
+- Fixed: Tile view responsive on mobile and tablet
+- Fixed: iCal export
+- Fixed: “Show only first day” option in skins
+- Fixed: Ticket availability in popup mode (pro)
+- Fixed: Disable MEC schema codes when Rank Math and Schema Markup Rich Snippets plugins are activated
+- Fixed: Search bar related to disabling the text input
+- Fixed: Reset search of WordPress created by search bar
+
+v 5.3.5 – 28 April 2020
 - Added: An option to accept one booking for all occurrences of a certain event (pro)
 - Added: Internal cache solution to cache frequently used data
 - Added: Style for taxonomies

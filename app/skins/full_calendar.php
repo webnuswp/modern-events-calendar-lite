@@ -85,13 +85,12 @@ class MEC_skin_full_calendar extends MEC_skins
         
         // Default View of Full Calendar
         $this->default_view = isset($this->skin_options['default_view']) ? $this->skin_options['default_view'] : 'list';
-        if(isset($this->skin_options[$this->default_view]) and !$this->skin_options[$this->default_view]) $this->default_view = 'list';
 
         // Default style for Monthly View
         $this->monthly_style = isset($this->skin_options['monthly_style']) ? $this->skin_options['monthly_style'] : 'clean';
         if(isset($this->skin_options[$this->monthly_style]) and !$this->skin_options[$this->monthly_style]) $this->monthly_style = 'clean';
 
-        $this->yearly = isset($this->skin_options['yearly']) ? $this->skin_options['yearly'] : true;
+        $this->yearly = (isset($this->skin_options['yearly']) and $this->getPRO()) ? $this->skin_options['yearly'] : false;
         $this->monthly = isset($this->skin_options['monthly']) ? $this->skin_options['monthly'] : true;
         $this->weekly = isset($this->skin_options['weekly']) ? $this->skin_options['weekly'] : true;
         $this->daily = isset($this->skin_options['daily']) ? $this->skin_options['daily'] : true;
@@ -105,6 +104,9 @@ class MEC_skin_full_calendar extends MEC_skins
             $this->monthly = true;
             $this->list = true;
         }
+
+        // Validate Default View
+        if(isset($this->{$this->default_view}) and !$this->{$this->default_view}) $this->default_view = 'list';
         
         // Set the ID
         if(!isset($this->atts['id'])) $this->atts['id'] = $this->id;

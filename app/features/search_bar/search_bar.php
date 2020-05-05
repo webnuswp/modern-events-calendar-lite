@@ -41,6 +41,12 @@ else
             <input type="search" value="" id="s" name="s" />
         </div>';
     }
+    else
+    {
+        $output .= '
+            <input type="hidden" value="" name="s" />
+        ';
+    }
 
     $output .= '<input class="mec-search-bar-input" id="mec-search-bar-input" type="submit" alt="'.esc_html__('Search', 'modern-events-calendar-lite').'" value="'.esc_html__('Search', 'modern-events-calendar-lite').'" /><input type="hidden" name="post_type" value="mec-events">';
 }

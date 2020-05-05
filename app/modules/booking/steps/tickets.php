@@ -25,8 +25,8 @@ if(isset($event->data) and isset($event->data->meta) and isset($event->data->met
 
     <?php if(!$book_all_occurrences): ?>
     <div class="mec-book-first">
-        <label for="mec_book_form_date"><?php _e('Date', 'modern-events-calendar-lite'); ?>: </label>
-        <select name="book[date]" id="mec_book_form_date" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
+        <label for="mec_book_form_date<?php echo $uniqueid; ?>"><?php _e('Date', 'modern-events-calendar-lite'); ?>: </label>
+        <select name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
             <?php foreach($dates as $date): ?>
             <option value="<?php echo $date['start']['date'].':'.$date['end']['date']; ?>">
                 <?php echo strip_tags($this->date_label($date['start'], $date['end'], $date_format)); ?>

@@ -15,14 +15,18 @@ $speakers = (isset($event->data->speakers) and is_array($event->data->speakers))
 if(!count($speakers)) return false;
 ?>
 <div class="mec-speakers-details mec-frontbox" id="mec_speakers_details">
-    <h3 class="mec-speakers mec-frontbox-title"><?php echo $this->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')); ?></h3>
+    <h3 class="mec-speakers mec-frontbox-title"><?php if (count($speakers) == 1) : echo $this->m('taxonomy_speaker', __('Speaker', 'modern-events-calendar-lite')); else: echo $this->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')); endif; ?></h3>
     <ul>
         <?php foreach($speakers as $speaker): ?>
         <li>
             <div class="mec-speaker-avatar">
                 <a class="mec-color-hover" href="#mec-speaker-info-<?php echo $event->ID.'-'.$speaker['id']; ?>">
                     <?php if(isset($speaker['thumbnail']) and trim($speaker['thumbnail'])): ?>
-                    <img class="mec-border-color-hover" src="<?php echo $speaker['thumbnail']; ?>" alt="<?php echo $speaker['name']; ?>">
+                        <?php if (class_exists('MEC_Fluent\Core\pluginBase\MecFluent') && (isset($settings['single_single_style']) and $settings['single_single_style'] == 'fluent')) { ?>
+                            <img class="mec-border-color-hover" src="<?php echo esc_url(MEC_Fluent\Core\pluginBase\MecFluent::generateCustomThumbnailURL($speaker['thumbnail'], 60, 60, true)); ?>" alt="<?php echo $speaker['name']; ?>">
+                        <?php } else { ?>
+                            <img class="mec-border-color-hover" src="<?php echo $speaker['thumbnail']; ?>" alt="<?php echo $speaker['name']; ?>">
+                        <?php } ?>
                     <?php endif; ?>
                     <span class="mec-speaker-name"><?php echo $speaker['name']; ?></span>
                     <?php if(isset($speaker['job_title']) and trim($speaker['job_title'])): ?>

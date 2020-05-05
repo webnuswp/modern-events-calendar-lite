@@ -202,7 +202,7 @@ class MEC_skin_yearly_view extends MEC_skins
                         'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                     );
 
-                    $events[$date][] = $data;
+                    $events[$date][] = $this->render->after_render($data);
                 }
             }
 

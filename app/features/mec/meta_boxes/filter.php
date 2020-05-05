@@ -66,18 +66,19 @@ $MEC_tax_walker = new MEC_tax_walker();
     <div class="mec-meta-box-fields" id="mec_meta_box_calendar_filter">
         <div class="mec-create-shortcode-tabs-wrap">
             <div class="mec-create-shortcode-tabs-left">
-                <a class="mec-create-shortcode-tabs-link mec-tab-active" data-href="mec_select_categories" href="#"><?php echo esc_html('Categories' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_locations" href="#"><?php echo esc_html('Locations' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_organizers" href="#"><?php echo esc_html('Organizers' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_labels" href="#"><?php echo esc_html('Labels' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_tags" href="#"><?php echo esc_html('Tags' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_authors" href="#"><?php echo esc_html('Authors' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_dates" href="#"><?php echo esc_html('Dates' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link mec-tab-active" data-href="mec_select_categories" href="#"><?php echo esc_html__('Categories' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_locations" href="#"><?php echo esc_html__('Locations' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_organizers" href="#"><?php echo esc_html__('Organizers' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_labels" href="#"><?php echo esc_html__('Labels' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_tags" href="#"><?php echo esc_html__('Tags' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_authors" href="#"><?php echo esc_html__('Authors' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_dates" href="#"><?php echo esc_html__('Dates' ,'modern-events-calendar-lite'); ?></a>
             </div>
             <div class="mec-add-booking-tabs-right">
                 <div class="mec-form-row mec-create-shortcode-tab-content mec-tab-active" id="mec_select_categories">
                     <h4><?php echo $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired categories for filtering the events.', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description" style="color: red;"><?php _e('You will see only those categories that are associated to at-least one event.', 'modern-events-calendar-lite'); ?></p>
                     <select name="mec_tax_input[mec_category][]" multiple="multiple">
                     <?php
                         $selected_categories = explode(',', get_post_meta($post->ID, 'category', true));
@@ -95,6 +96,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_locations">
                     <h4><?php echo $this->main->m('taxonomy_locations', __('Locations', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired locations for filtering the events.', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description" style="color: red;"><?php _e('You will see only those locations that are associated to at-least one event.', 'modern-events-calendar-lite'); ?></p>
                     <select name="mec_tax_input[mec_location][]" multiple="multiple">
                     <?php
                         $selected_locations = explode(',', get_post_meta($post->ID, 'location', true));
@@ -112,6 +114,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_organizers">
                     <h4><?php echo $this->main->m('taxonomy_organizers', __('Organizers', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired organizers for filtering the events.', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description" style="color: red;"><?php _e('You will see only those organizers that are associated to at-least one event.', 'modern-events-calendar-lite'); ?></p>
                     <select name="mec_tax_input[mec_organizer][]" multiple="multiple">
                     <?php
                         $selected_organizers = explode(',', get_post_meta($post->ID, 'organizer', true));
@@ -129,6 +132,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_labels">
                     <h4><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h4>
                     <p class="description"><?php _e('Choose your desired labels for filtering the events.', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description" style="color: red;"><?php _e('You will see only those labels that are associated to at-least one event.', 'modern-events-calendar-lite'); ?></p>
                     <select name="mec_tax_input[mec_label][]" multiple="multiple">
                     <?php
                         $selected_labels = explode(',', get_post_meta($post->ID, 'label', true));
@@ -174,7 +178,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                     ?>
                     </select>
                 </div>
-                <?php do_action('mec_shortcode_filters' , $post->ID , $MEC_tax_walker ); ?>
+                <?php do_action('mec_shortcode_filters', $post->ID, $MEC_tax_walker ); ?>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_dates">
                     <h4><?php _e('Dates', 'modern-events-calendar-lite'); ?></h4>
                     <div class="mec-form-row mec-switcher">

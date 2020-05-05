@@ -8864,6 +8864,44 @@ div#mec_meta_box_date_form .mec-form-row {
 }
 
 
+/* Support Page - Newsletter Icon */
+.m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container .fserv-form-description, .m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container form {
+    padding-left: 105px !important;
+}
+
+.m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container form .fserv-field {
+    width: 40.33333% !important;
+}
+
+.m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container .fserv-form-description {
+    position: relative !important;
+}
+
+.m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container:before {
+    background: url("../img/newsletter-document.png") no-repeat left top;
+    content: "";
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 96px;
+    left: 12px;
+}
+
+@media (max-width: 480px) {
+    .m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container .fserv-form-description, .m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container form {
+        padding-left: 90px !important;
+    }
+
+    .m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container form .fserv-field {
+        width: 40% !important;
+    }
+    
+    .m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container:before {
+        top: 100px;
+        left: 10px;
+    }
+}
+
 /* Taxonomies Color Picker */
 .post-type-mec-events.taxonomy-mec_label .button.wp-color-result {
     background: transparent;

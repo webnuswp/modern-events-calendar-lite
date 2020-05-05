@@ -622,6 +622,46 @@ class MEC_render extends MEC_base
         
         return $data;
     }
+
+    public function after_render($event)
+    {
+        // If event is custom days and current date is available
+        if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_repeat_type']) and $event->data->meta['mec_repeat_type'] === 'custom_days' and isset($event->data->mec) and isset($event->data->mec->days) and isset($event->date) and is_array($event->date) and isset($event->date['start']) and isset($event->date['start']['date']))
+        {
+            $days_str = $event->data->mec->days;
+            if(trim($days_str))
+            {
+                $date = $event->date['start']['date'];
+
+                $periods = explode(',', $days_str);
+                foreach($periods as $period)
+                {
+                    $ex = explode(':', $period);
+
+                    if(isset($ex[0]) and $date === $ex[0] and isset($ex[2]) and isset($ex[3]))
+                    {
+                        $pos = strpos($ex[2], '-');
+                        if($pos !== false) $ex[2] = substr_replace($ex[2], ':', $pos, 1);
+
+                        $pos = strpos($ex[3], '-');
+                        if($pos !== false) $ex[3] = substr_replace($ex[3], ':', $pos, 1);
+
+                        $start_time = $ex[0].' '.str_replace('-', ' ', $ex[2]);
+                        $end_time =  $ex[1].' '.str_replace('-', ' ', $ex[3]);
+
+                        $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
+
+                        $event->data->time = array(
+                            'start'=>$this->main->get_time(strtotime($start_time)),
+                            'end'=>($hide_end_time ? '' : $this->main->get_time(strtotime($end_time)))
+                        );
+                    }
+                }
+            }
+        }
+
+        return $event;
+    }
     
     /**
      * Renders and Returns event dats
@@ -909,10 +949,31 @@ class MEC_render extends MEC_base
 
                     // Date is past
                     if(strtotime($cday[0]) < strtotime($today)) continue;
-                    
+
+                    $cday_start_hour = $event->meta['mec_date']['start']['hour'];
+                    $cday_start_minutes = $event->meta['mec_date']['start']['minutes'];
+                    $cday_start_ampm = $event->meta['mec_date']['start']['ampm'];
+
+                    $cday_end_hour = $event->meta['mec_date']['end']['hour'];
+                    $cday_end_minutes = $event->meta['mec_date']['end']['minutes'];
+                    $cday_end_ampm = $event->meta['mec_date']['end']['ampm'];
+
+                    if(isset($cday[2]) and isset($cday[3]))
+                    {
+                        $cday_start_ex = explode('-', $cday[2]);
+                        $cday_start_hour = $cday_start_ex[0];
+                        $cday_start_minutes = $cday_start_ex[1];
+                        $cday_start_ampm = $cday_start_ex[2];
+
+                        $cday_end_ex = explode('-', $cday[3]);
+                        $cday_end_hour = $cday_end_ex[0];
+                        $cday_end_minutes = $cday_end_ex[1];
+                        $cday_end_ampm = $cday_end_ex[2];
+                    }
+
                     if(!in_array($cday[0], $exceptional_days)) $dates[] = array(
-                        'start'=>array('date'=>$cday[0], 'hour'=>$event->meta['mec_date']['start']['hour'], 'minutes'=>$event->meta['mec_date']['start']['minutes'], 'ampm'=>$event->meta['mec_date']['start']['ampm']),
-                        'end'=>array('date'=>$cday[1], 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']),
+                        'start'=>array('date'=>$cday[0], 'hour'=>$cday_start_hour, 'minutes'=>$cday_start_minutes, 'ampm'=>$cday_start_ampm),
+                        'end'=>array('date'=>$cday[1], 'hour'=>$cday_end_hour, 'minutes'=>$cday_end_minutes, 'ampm'=>$cday_end_ampm),
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>0

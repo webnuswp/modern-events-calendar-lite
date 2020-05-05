@@ -2678,7 +2678,6 @@ class MEC_main extends MEC_base
         $ical .= "METHOD:PUBLISH".PHP_EOL;
         $ical .= "CALSCALE:GREGORIAN".PHP_EOL;
         $ical .= "PRODID:-//WordPress - MECv".$this->get_version()."//EN".PHP_EOL;
-        $ical .= "X-WR-CALNAME:WordPress".PHP_EOL;
         $ical .= "X-ORIGINAL-URL:".$this->URL('site').PHP_EOL;
         $ical .= $events;
         $ical .= "END:VCALENDAR";
@@ -4215,7 +4214,7 @@ class MEC_main extends MEC_base
         $event_period = $this->date_diff($start_date['date'], $end_date['date']);
         $event_period_days = $event_period ? $event_period->days : 0;
         
-        $finish_date = array('date'=>$event->mec->end, 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']);
+        $finish_date = array('date'=>$event->mec->end, 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>(isset($event->meta['mec_date']['end']['ampm']) ? $event->meta['mec_date']['end']['ampm'] : ''));
 
         // Custom Dates
         $db = $this->getDB();
@@ -6349,5 +6348,59 @@ class MEC_main extends MEC_base
         else $return = date($format, strtotime($date));
 
         return $return;
+    }
+
+    public function timepicker($args)
+    {
+        $method = isset($args['method']) ? $args['method'] : 24;
+        $time_hour = isset($args['time_hour']) ? $args['time_hour'] : NULL;
+        $time_minutes = isset($args['time_minutes']) ? $args['time_minutes'] : NULL;
+        $time_ampm = isset($args['time_ampm']) ? $args['time_ampm'] : NULL;
+        $name = isset($args['name']) ? $args['name'] : 'mec[date]';
+        $id_key = isset($args['id_key']) ? $args['id_key'] : '';
+
+        $hour_key = isset($args['hour_key']) ? $args['hour_key'] : 'hour';
+        $minutes_key = isset($args['minutes_key']) ? $args['minutes_key'] : 'minutes';
+        $ampm_key = isset($args['ampm_key']) ? $args['ampm_key'] : 'ampm';
+
+        if($method == 24)
+        {
+            if($time_ampm == 'PM' and $time_hour != 12) $time_hour += 12;
+            if($time_ampm == 'AM' and $time_hour == 12) $time_hour += 12;
+            ?>
+            <select name="<?php echo $name; ?>[<?php echo $hour_key; ?>]" <?php if(trim($id_key)): ?>id="mec_<?php echo $id_key; ?>hour"<?php endif; ?> title="<?php esc_attr_e('Hours', 'modern-events-calendar-lite'); ?>">
+                <?php for ($i = 0; $i <= 23; $i++) : ?>
+                    <option <?php echo ($time_hour == $i) ? 'selected="selected"' : ''; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                <?php endfor; ?>
+            </select>
+            <span class="time-dv">:</span>
+            <select name="<?php echo $name; ?>[<?php echo $minutes_key; ?>]" <?php if(trim($id_key)): ?>id="mec_<?php echo $id_key; ?>minutes"<?php endif; ?> title="<?php esc_attr_e('Minutes', 'modern-events-calendar-lite'); ?>">
+                <?php for ($i = 0; $i <= 11; $i++) : ?>
+                    <option <?php echo ($time_minutes == ($i * 5)) ? 'selected="selected"' : ''; ?> value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
+                <?php endfor; ?>
+            </select>
+            <?php
+        }
+        else
+        {
+            if($time_ampm == 'AM' and $time_hour == '0') $time_hour = 12;
+            ?>
+            <select name="<?php echo $name; ?>[<?php echo $hour_key; ?>]" <?php if(trim($id_key)): ?>id="mec_<?php echo $id_key; ?>hour"<?php endif; ?> title="<?php esc_attr_e('Hours', 'modern-events-calendar-lite'); ?>">
+                <?php for ($i = 1; $i <= 12; $i++) : ?>
+                    <option <?php echo ($time_hour == $i) ? 'selected="selected"' : ''; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                <?php endfor; ?>
+            </select>
+            <span class="time-dv">:</span>
+            <select name="<?php echo $name; ?>[<?php echo $minutes_key; ?>]" <?php if(trim($id_key)): ?>id="mec_<?php echo $id_key; ?>minutes"<?php endif; ?> title="<?php esc_attr_e('Minutes', 'modern-events-calendar-lite'); ?>">
+                <?php for ($i = 0; $i <= 11; $i++) : ?>
+                    <option <?php echo ($time_minutes == ($i * 5)) ? 'selected="selected"' : ''; ?> value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
+                <?php endfor; ?>
+            </select>
+            <select name="<?php echo $name; ?>[<?php echo $ampm_key; ?>]" <?php if(trim($id_key)): ?>id="mec_<?php echo $id_key; ?>ampm"<?php endif; ?> title="<?php esc_attr_e('AM / PM', 'modern-events-calendar-lite'); ?>">
+                <option <?php echo ($time_ampm == 'AM') ? 'selected="selected"' : ''; ?> value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
+                <option <?php echo ($time_ampm == 'PM') ? 'selected="selected"' : ''; ?> value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
+            </select>
+            <?php
+        }
     }
 }

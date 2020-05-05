@@ -9,7 +9,16 @@ $date_ex = explode(':', $date);
 $occurrence = $date_ex[0];
 
 $ticket_variations = $this->main->ticket_variations($event_id);
+unset($ticket_variations[':i:']);
+
+$fees = $this->book->get_fees($event_id);
+unset($fees[':i:']);
+
 $event_tickets = isset($event->data->tickets) ? $event->data->tickets : array();
+
+$total_ticket_prices = 0;
+$has_fees = count($fees) ? true : false;
+$has_variations = count($ticket_variations) ? true : false;
 
 $current_user = wp_get_current_user();
 $first_for_all = (!isset($this->settings['booking_first_for_all']) or (isset($this->settings['booking_first_for_all']) and $this->settings['booking_first_for_all'] == 1)) ? true : false;
@@ -47,12 +56,11 @@ if(!$mec_email)
     );
 }
 ?>
-
 <form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);" novalidate="novalidate" enctype="multipart/form-data" method="post">
     <h4><?php echo apply_filters('mec-attendees-title', __('Attendee\'s Form', 'modern-events-calendar-lite')) ?></h4>
     <ul class="mec-book-tickets-container">
 
-        <?php $j = 0; foreach($tickets as $ticket_id=>$count): if(!$count) continue; $ticket = $event_tickets[$ticket_id]; for($i = 1; $i <= $count; $i++): $j++; ?>
+        <?php $j = 0; foreach($tickets as $ticket_id=>$count): if(!$count) continue; $ticket = $event_tickets[$ticket_id]; for($i = 1; $i <= $count; $i++): $j++; $total_ticket_prices += $this->book->get_ticket_price($ticket, current_time('Y-m-d'));?>
         <li class="mec-book-ticket-container <?php echo (($j > 1 and $first_for_all) ? 'mec-util-hidden' : ''); ?>">
             <?php if(!empty($ticket['name']) || !empty($this->book->get_ticket_price_label($ticket, current_time('Y-m-d')))): ?>
             <h4 class="col-md-12">
@@ -176,6 +184,6 @@ if(!$mec_email)
     <?php wp_nonce_field('mec_book_form_'.$event_id); ?>
     <div class="mec-book-form-btn-wrap">
         <button id="mec-book-form-back-btn-step-2" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php _e('Back', 'modern-events-calendar-lite'); ?></button>
-        <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php _e('Next', 'modern-events-calendar-lite'); ?></button>
+        <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php echo ((!$total_ticket_prices and !$has_fees and !$has_variations) ? __('Submit', 'modern-events-calendar-lite') : __('Next', 'modern-events-calendar-lite')); ?></button>
     </div>
 </form>

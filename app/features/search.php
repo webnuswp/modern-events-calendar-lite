@@ -238,6 +238,9 @@ class MEC_feature_search extends MEC_base
         // Do not change Query if it is not search page!
         if(!$query->is_search) return $query;
 
+        // Do not change anything in Rest API
+        if(defined('REST_REQUEST')) return $query;
+
         // Do not change Query if it is not a search related to MEC!
         if((is_array($query->get('post_type')) and !in_array('mec-events', $query->get('post_type'))) or (!is_array($query->get('post_type')) and $query->get('post_type') != 'mec-events')) return $query;
 

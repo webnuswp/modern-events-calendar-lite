@@ -862,29 +862,100 @@ class MEC_feature_fes extends MEC_base
         $not_in_days_arr = (isset($mec['not_in_days']) and is_array($mec['not_in_days']) and count($mec['not_in_days'])) ? array_unique($mec['not_in_days']) : array();
 
         $in_days = '';
-        if ( count( $in_days_arr ) ) {
-            $in_days_arr = array_map( function( $value ) {
-                return $this->main->standardize_format( explode( ':', $value )[0] ) . ':' . $this->main->standardize_format( explode( ':', $value )[1] );
-            }, $in_days_arr );
+        if(count($in_days_arr))
+        {
+            if(isset($in_days_arr[':i:'])) unset($in_days_arr[':i:']);
+
+            $in_days_arr = array_map(function($value)
+            {
+                $ex = explode(':', $value);
+
+                $in_days_times = '';
+                if(isset($ex[2]) and isset($ex[3]))
+                {
+                    $in_days_start_time = $ex[2];
+                    $in_days_end_time = $ex[3];
+
+                    // If 24 hours format is enabled then convert it back to 12 hours
+                    if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24)
+                    {
+                        $ex_start_time = explode('-', $in_days_start_time);
+                        $ex_end_time = explode('-', $in_days_end_time);
+
+                        $in_days_start_hour = $ex_start_time[0];
+                        $in_days_start_minutes = $ex_start_time[1];
+                        $in_days_start_ampm = $ex_start_time[2];
+
+                        $in_days_end_hour = $ex_end_time[0];
+                        $in_days_end_minutes = $ex_end_time[1];
+                        $in_days_end_ampm = $ex_end_time[2];
+
+                        if(trim($in_days_start_ampm) == '')
+                        {
+                            if($in_days_start_hour < 12) $in_days_start_ampm = 'AM';
+                            elseif($in_days_start_hour == 12) $in_days_start_ampm = 'PM';
+                            elseif($in_days_start_hour > 12)
+                            {
+                                $in_days_start_hour -= 12;
+                                $in_days_start_ampm = 'PM';
+                            }
+                            elseif($in_days_start_hour == 0)
+                            {
+                                $in_days_start_hour = 12;
+                                $in_days_start_ampm = 'AM';
+                            }
+                        }
+
+                        if(trim($in_days_end_ampm) == '')
+                        {
+                            if($in_days_end_hour < 12) $in_days_end_ampm = 'AM';
+                            elseif($in_days_end_hour == 12) $in_days_end_ampm = 'PM';
+                            elseif($in_days_end_hour > 12)
+                            {
+                                $in_days_end_hour -= 12;
+                                $in_days_end_ampm = 'PM';
+                            }
+                            elseif($in_days_end_hour == 0)
+                            {
+                                $in_days_end_hour = 12;
+                                $in_days_end_ampm = 'AM';
+                            }
+                        }
+
+                        if(strlen($in_days_start_hour) == 1) $in_days_start_hour = '0'.$in_days_start_hour;
+                        if(strlen($in_days_start_minutes) == 1) $in_days_start_minutes = '0'.$in_days_start_minutes;
+
+                        if(strlen($in_days_end_hour) == 1) $in_days_end_hour = '0'.$in_days_end_hour;
+                        if(strlen($in_days_end_minutes) == 1) $in_days_end_minutes = '0'.$in_days_end_minutes;
+
+                        $in_days_start_time = $in_days_start_hour.'-'.$in_days_start_minutes.'-'.$in_days_start_ampm;
+                        $in_days_end_time = $in_days_end_hour.'-'.$in_days_end_minutes.'-'.$in_days_end_ampm;
+                    }
+
+                    $in_days_times = ':'.$in_days_start_time.':'.$in_days_end_time;
+                }
+
+                return $this->main->standardize_format($ex[0]) . ':' . $this->main->standardize_format($ex[1]).$in_days_times;
+            }, $in_days_arr);
 
             usort($in_days_arr, function($a, $b)
             {
                 return strtotime(explode(':', $a)[0]) - strtotime(explode(':', $b)[0]);
             });
 
-            foreach ( $in_days_arr as $key => $in_day_arr ) {
-                if ( is_numeric( $key ) ) {
-                    $in_days .= $in_day_arr . ',';
-                }
+            if(!isset($in_days_arr[':i:'])) $in_days_arr[':i:'] = ':val:';
+            foreach($in_days_arr as $key => $in_day_arr)
+            {
+                if(is_numeric($key)) $in_days .= $in_day_arr . ',';
             }
         }
 
         $not_in_days = '';
-        if ( count( $not_in_days_arr ) ) {
-            foreach ( $not_in_days_arr as $key => $not_in_day_arr ) {
-                if ( is_numeric( $key ) ) {
-                    $not_in_days .= $this->main->standardize_format( $not_in_day_arr ) . ',';
-                }
+        if(count($not_in_days_arr))
+        {
+            foreach($not_in_days_arr as $key => $not_in_day_arr)
+            {
+                if(is_numeric($key)) $not_in_days .= $this->main->standardize_format($not_in_day_arr) . ',';
             }
         }
 

@@ -232,7 +232,7 @@ class MEC_skin_tile extends MEC_skins
                         'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                     );
 
-                    $events[$date][] = $data;
+                    $events[$date][] = $this->render->after_render($data);
                     $found++;
 
                     if($this->load_method === 'list' and $found >= $this->limit)

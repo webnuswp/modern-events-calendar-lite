@@ -334,7 +334,7 @@ class MEC_skin_list extends MEC_skins
                             'start'=>array('date'=>$date),
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
-                        $events[$date][] = $data;
+                        $events[$date][] = $this->render->after_render($data);
                         $found++;
                         if($found >= $this->limit) {
                             // Next Offset

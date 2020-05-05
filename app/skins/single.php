@@ -541,7 +541,7 @@ class MEC_skin_single extends MEC_skins
             $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
         }
 
-        $events[] = $data;
+        $events[] = $this->render->after_render($data);
         return $events;
     }
 
@@ -1069,7 +1069,11 @@ class MEC_skin_single extends MEC_skins
             <?php foreach($organizers as $organizer): if($organizer['id'] == $event->data->meta['mec_organizer_id']) continue; ?>
                 <div class="mec-single-event-additional-organizer">
                     <?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
-                        <img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>">
+                        <?php if (class_exists('MEC_Fluent\Core\pluginBase\MecFluent') && (isset($this->settings['single_single_style']) and $this->settings['single_single_style'] == 'fluent')) { ?>
+                            <img class="mec-img-organizer" src="<?php echo esc_url(MEC_Fluent\Core\pluginBase\MecFluent::generateCustomThumbnailURL($organizer['thumbnail'], 83, 83, true)); ?>" alt="<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>">
+                        <?php } else { ?>
+                            <img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>">
+                        <?php } ?>
                     <?php endif; ?>
                     <?php if(isset($organizer['thumbnail'])): ?>
                         <dd class="mec-organizer">

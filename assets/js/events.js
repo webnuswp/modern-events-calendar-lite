@@ -265,14 +265,34 @@ jQuery(document).ready(function($)
         var end = $('#mec_exceptions_in_days_end_date').val();
         if(end === '') return false;
 
-        var value = start + ':' + end;
-        var label = start + ' - ' + end;
+        var start_hour = $('#mec_exceptions_in_days_start_hour').val();
+        if(start_hour.length === 1) start_hour = '0'+start_hour;
+
+        var start_minutes = $('#mec_exceptions_in_days_start_minutes').val();
+        if(start_minutes.length === 1) start_minutes = '0'+start_minutes;
+
+        var start_ampm = $('#mec_exceptions_in_days_start_ampm').val();
+        if(typeof start_ampm === 'undefined') start_ampm = '';
+
+        var end_hour = $('#mec_exceptions_in_days_end_hour').val();
+        if(end_hour.length === 1) end_hour = '0'+end_hour;
+
+        var end_minutes = $('#mec_exceptions_in_days_end_minutes').val();
+        if(end_minutes.length === 1) end_minutes = '0'+end_minutes;
+
+        var end_ampm = $('#mec_exceptions_in_days_end_ampm').val();
+        if(typeof end_ampm === 'undefined') end_ampm = '';
+
+        var value = start + ':' + end + ':' + start_hour + '-' + start_minutes + '-' + start_ampm + ':' + end_hour + '-' + end_minutes + '-' + end_ampm;
+        var label = start + ' ' + start_hour + ':' + start_minutes + ' ' + start_ampm + ' - ' + end + ' ' + end_hour + ':' + end_minutes + ' ' + end_ampm;
+
+        var $key = $('#mec_new_in_days_key');
         
-        var key = $('#mec_new_in_days_key').val();
+        var key = $key.val();
         var html = $('#mec_new_in_days_raw').html().replace(/:i:/g, key).replace(/:val:/g, value).replace(/:label:/g, label);
         
         $('#mec_in_days').append(html);
-        $('#mec_new_in_days_key').val(parseInt(key)+1);
+        $key.val(parseInt(key)+1);
     });
     
     $('#mec_add_not_in_days').on('click', function()

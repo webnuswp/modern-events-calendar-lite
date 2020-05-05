@@ -7,6 +7,12 @@ wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.cs
 wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
 
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
+
+//Compatibility with Rank Math
+$rank_math_options = '';
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')) $rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
+
 if(!is_array($booking_options)) $booking_options = array();
 
 $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) ? $booking_options['bookings_limit_for_users'] : 0;
@@ -497,7 +503,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
 
                 <!-- Register Booking Button -->
                 <?php if($this->main->can_show_booking_module($event) and $single->found_value('register_btn', $settings) == 'on'): ?>
-                    <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ $data_lity = 'onclick="openBookingModal();"'; $data_lity_class = 'mec-booking-data-lity'; }  ?>
+                    <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */ $data_lity_class = 'mec-booking-data-lity'; }  ?>
                     <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if( isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>"  <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php elseif($single->found_value('register_btn', $settings) == 'on' and isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://'): ?>
                     <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')));
@@ -541,7 +547,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
 </div>
 <?php
     // MEC Schema
-    do_action('mec_schema', $event);
+    if ( $rank_math_options != 'event') do_action('mec_schema', $event);
 ?>
 <script>
 // Fix modal speaker in some themes
@@ -553,13 +559,10 @@ jQuery( ".mec-speaker-avatar a" ).click(function(e)
 });
 
 // Fix modal booking in some themes
-function openBookingModal()
+jQuery( ".mec-booking-button.mec-booking-data-lity" ).click(function(e)
 {
-    jQuery( ".mec-booking-button.mec-booking-data-lity" ).on('click',function(e)
-    {
-        e.preventDefault();
-        var book_id =  jQuery(this).attr('href');
-        lity(book_id);
-    });
-}
+    e.preventDefault();
+    var book_id =  jQuery(this).attr('href');
+    lity(book_id);
+});
 </script>

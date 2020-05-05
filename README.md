@@ -3,8 +3,8 @@
 **Donate link:** https://webnus.net  
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
-**Tested up to:** 5.4  
-**Stable tag:** 5.3.5  
+**Tested up to:** 5.4.1  
+**Stable tag:** 5.4.0  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -67,7 +67,7 @@ You can read and compare about the WordPress best event management plugins in ou
 
 
 ## Some New Features 
-*   **Shortcode For Page Builders** - A shortcode which is fully compatible with your Page Builders including: Elementor, Divi Builder, Visual Composer, King Composer
+*   **Shortcode For Page Builders** - A shortcode which is fully compatible with your Page Builders including: Elementor, Divi Builder, Visual Composer, King Composer and Beaver Builder
 *   **Schema Ready** - Event Schema markup to a single page and shortcodes, recommended for SEO
 *   **A particular day of month** - Adding a repeat for a particular day in month, for example, the last Tuseday of the month, with the ability to be a never ending event
 *   **Search Bar shortcode** - Place the shortcode in any page you want and the result of the search will be the events along with all their features. 
@@ -201,6 +201,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Key Features 
+- Different hours for custom days repeat
 - Ticket limit for coupon
 - Show Normal Label
 - Event Status for Schema
@@ -458,6 +459,23 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### v 5.4.0 – 5 May 2020 
+- Added: An option to add different hours for custom days repeat type
+- Added: An option to keep status of events while importing XML file
+- Added: Compatibility with Rank Math and Schema Markup Rich Snippets
+- Added: Some new guides in filter section of shortcake builder
+- Added: Beaver Builder Shortcode
+- Improved: Booking process in case of free booking (pro)
+- Fixed: Local time on shortcodes
+- Fixed: Tile view responsive on mobile and tablet
+- Fixed: iCal export
+- Fixed: “Show only first day” option in skins
+- Fixed: Ticket availability in popup mode (pro)
+- Fixed: Disable MEC schema codes when Rank Math and Schema Markup Rich Snippets plugins are activated
+- Fixed: Search bar related to disabling the text input
+- Fixed: Reset search of WordPress created by search bar
+
 
 ### v 5.3.5 – 28 April 2020 
 - Added: An option to accept one booking for all occurrences of a certain event (pro)

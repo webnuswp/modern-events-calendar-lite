@@ -176,7 +176,7 @@ class MEC_skin_map extends MEC_skins
 
                 // Add the event into the to be sorted array
                 if(!isset($sorted[$event_start_time])) $sorted[$event_start_time] = array();
-                $sorted[$event_start_time][] = $data;
+                $sorted[$event_start_time][] = $this->render->after_render($data);
             }
 
             ksort($sorted, SORT_NUMERIC);
