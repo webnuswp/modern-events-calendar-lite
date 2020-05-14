@@ -3498,11 +3498,12 @@ class MEC_main extends MEC_base
         if($show_booking_form_interval)
         {
             $render_date = (isset($next_date['start']['date']) ? trim($next_date['start']['date']) : date('Y-m-d')) .' '. (isset($next_date['start']['hour']) ? trim(sprintf('%02d', $next_date['start']['hour'])) : date('h', current_time('timestamp', 0))) .':'
-            . (isset($next_date['start']['minutes']) ? trim(sprintf('%02d', $next_date['start']['minutes'])) : date('i', current_time('timestamp', 0))) . (isset($next_date['start']['ampm']) ? trim($next_date['start']['ampm']) : date('a', current_time('timestamp', 0)));
-            if($this->check_date_time_validation('Y-m-d h:ia', strtolower($render_date)))
+            . (isset($next_date['start']['minutes']) ? trim(sprintf('%02d', $next_date['start']['minutes'])) : date('i', current_time('timestamp', 0))) . ' '.(isset($next_date['start']['ampm']) ? trim($next_date['start']['ampm']) : date('a', current_time('timestamp', 0)));
+
+            if($this->check_date_time_validation('Y-m-d h:i a', strtolower($render_date)))
             {
-                $date_diff = $this->date_diff(date('Y-m-d h:ia', current_time('timestamp', 0)), $render_date);
-                if(isset($date_diff->d) and !$date_diff->invert and $date_diff->d < 2)
+                $date_diff = $this->date_diff(date('Y-m-d h:i a', current_time('timestamp', 0)), $render_date);
+                if(isset($date_diff->d) and !$date_diff->invert)
                 {
                     $minute = $date_diff->d * 24 * 60;
                     $minute += $date_diff->h * 60;
@@ -6328,8 +6329,9 @@ class MEC_main extends MEC_base
     {
         $output = '';
         $reason = get_post_meta($event_id, 'mec_cancelled_reason', true);
+        $event_status = get_post_meta($event_id, 'mec_event_status', true);
 
-        if($display_reason != false and isset($reason) and !empty($reason))
+        if(isset($event_status) and $event_status == 'EventCancelled' && $display_reason != false and isset($reason) and !empty($reason)) 
         {
             $output = '<div class="mec-cancellation-reason"><span>'.$reason.'</span></div>';
         }
@@ -6402,5 +6404,95 @@ class MEC_main extends MEC_base
             </select>
             <?php
         }
+    }
+
+    public function holding_status($event)
+    {
+        if($this->is_ongoing($event)) return '<dd><span class="mec-holding-status mec-holding-status-ongoing">'.__('Ongoing...', 'modern-events-calendar-lite').'</span></dd>';
+        elseif($this->is_expired($event)) return '<dd><span class="mec-holding-status mec-holding-status-expired">'.__('Expired!', 'modern-events-calendar-lite').'</span></dd>';
+
+        return '';
+    }
+
+    public function is_ongoing($event)
+    {
+        $now = current_time('Y-m-d H:i:s');
+        $date = $event->date;
+
+        $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : NULL;
+        $end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : NULL;
+
+        if(!$start_date or !$end_date) return false;
+
+        $s_hour = $date['start']['hour'];
+        if(strtoupper($date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+        $start_time = sprintf("%02d", $s_hour).':';
+        $start_time .= sprintf("%02d", $date['start']['minutes']);
+        $start_time .= ' '.trim($date['start']['ampm']);
+
+        $e_hour = $date['end']['hour'];
+        if(strtoupper($date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+
+        $end_time = sprintf("%02d", $e_hour).':';
+        $end_time .= sprintf("%02d", $date['end']['minutes']);
+        $end_time .= ' '.trim($date['end']['ampm']);
+
+        $allday = isset($date['allday']) ? $date['allday'] : 0;
+        if($allday)
+        {
+            $start_time = '12:01 AM';
+            $end_time = '11:59 PM';
+        }
+
+        // The event is ongoing
+        if($this->is_past($start_date.' '.$start_time, $now) and !$this->is_past($end_date.' '.$end_time, $now)) return true;
+        return false;
+    }
+
+    public function is_expired($event)
+    {
+        $now = current_time('Y-m-d H:i:s');
+        $date = $event->date;
+
+        $end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : NULL;
+        if(!$end_date) return false;
+
+        $e_hour = $date['end']['hour'];
+        if(strtoupper($date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+
+        $end_time = sprintf("%02d", $e_hour).':';
+        $end_time .= sprintf("%02d", $date['end']['minutes']);
+        $end_time .= ' '.trim($date['end']['ampm']);
+
+        $allday = isset($date['allday']) ? $date['allday'] : 0;
+        if($allday) $end_time = '11:59 PM';
+
+        // The event is expired
+        if($this->is_past($end_date.' '.$end_time, $now)) return true;
+        return false;
+    }
+
+    public function is_started($event)
+    {
+        $now = current_time('Y-m-d H:i:s');
+        $date = $event->date;
+
+        $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : NULL;
+        if(!$start_date) return false;
+
+        $s_hour = $date['start']['hour'];
+        if(strtoupper($date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+        $start_time = sprintf("%02d", $s_hour).':';
+        $start_time .= sprintf("%02d", $date['start']['minutes']);
+        $start_time .= ' '.trim($date['start']['ampm']);
+
+        $allday = isset($date['allday']) ? $date['allday'] : 0;
+        if($allday) $start_time = '12:01 AM';
+
+        // The event is started
+        if($this->is_past($start_date.' '.$start_time, $now)) return true;
+        return false;
     }
 }

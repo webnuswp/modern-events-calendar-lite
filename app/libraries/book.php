@@ -585,16 +585,34 @@ class MEC_book extends MEC_base
             }
         }
 
-        // Ticket Limit
+        // Minimum Tickets
         if($status === 1)
         {
-            $ticket_limit = get_term_meta($coupon_id, 'ticket_limit', true);
-            if(!trim($ticket_limit)) $ticket_limit = 1;
+            $ticket_minimum = get_term_meta($coupon_id, 'ticket_minimum', true);
+            if(!trim($ticket_minimum)) $ticket_minimum = 1;
 
             $tickets = isset($transaction['tickets']) ? $transaction['tickets'] : array();
-            if($ticket_limit > count($tickets))
+            if(isset($tickets['attachments'])) unset($tickets['attachments']);
+
+            if(count($tickets) < $ticket_minimum)
             {
                 $status = -4;
+            }
+        }
+
+        // Maximum Tickets
+        if($status === 1)
+        {
+            $ticket_maximum = get_term_meta($coupon_id, 'ticket_maximum', true);
+            if(trim($ticket_maximum))
+            {
+                $tickets = isset($transaction['tickets']) ? $transaction['tickets'] : array();
+                if(isset($tickets['attachments'])) unset($tickets['attachments']);
+
+                if(count($tickets) > $ticket_maximum)
+                {
+                    $status = -5;
+                }
             }
         }
 
@@ -663,7 +681,13 @@ class MEC_book extends MEC_base
         $discount_type = get_term_meta($coupon_id, 'discount_type', true);
         $discount = get_term_meta($coupon_id, 'discount', true);
 
-        if($discount_type == 'percent') $discount_amount = ($total*$discount)/100;
+        if($discount_type == 'percent')
+        {
+            $discount_amount = ($total*$discount)/100;
+
+            $discount_max = get_term_meta($coupon_id, 'maximum_discount', true);
+            if(trim($discount_max) and is_numeric($discount_max)) $discount_amount = min($discount_amount, $discount_max);
+        }
         else $discount_amount = min($discount, $total);
 
         return $discount_amount;
@@ -865,5 +889,27 @@ class MEC_book extends MEC_base
 
         foreach($tickets as $ticket_id=>$ticket) $prices[$ticket_id] = $this->get_ticket_price_key($ticket, $date, $key);
         return $prices;
+    }
+
+    public function get_user_booking_limit($event_id)
+    {
+        $unlimited = false;
+        $limit = 12;
+        $mec_settings = $this->main->get_settings();
+        $booking_options = get_post_meta($event_id, 'mec_booking', true);
+
+        // Total user booking limited
+        if(isset($booking_options['bookings_user_limit_unlimited']) and !trim($booking_options['bookings_user_limit_unlimited']))
+        {
+            $limit = (isset($booking_options['bookings_user_limit']) and trim($booking_options['bookings_user_limit'])) ? trim($booking_options['bookings_user_limit']) : $limit;
+        }
+        else
+        {
+            // If Inherit from global options activate
+            if(!isset($mec_settings['booking_limit']) or (isset($mec_settings['booking_limit']) and !trim($mec_settings['booking_limit']))) $unlimited = true;
+            else $limit = trim($mec_settings['booking_limit']);
+        }
+
+        return array($limit, $unlimited);
     }
 }

@@ -225,10 +225,10 @@ class MEC_feature_schema extends MEC_base
             {
                 "@type": "<?php echo (($event_status === 'EventMovedOnline') ? 'VirtualLocation' : 'Place'); ?>",
                 <?php if($event_status === 'EventMovedOnline'): ?>
-                "url": "<?php echo (trim($moved_online_link) ? $moved_online_link : $event_link); ?>",
+                "url": "<?php echo (trim($moved_online_link) ? $moved_online_link : $event_link); ?>"
                 <?php else: ?>
                 "name": "<?php echo (isset($location['name']) ? $location['name'] : ''); ?>",
-                "image": "<?php echo (isset($location['thumbnail']) ? esc_url($location['thumbnail'] ) : '');; ?>",
+                "image": "<?php echo (isset($location['thumbnail']) ? esc_url($location['thumbnail'] ) : ''); ?>",
                 "address": "<?php echo (isset($location['address']) ? $location['address'] : ''); ?>"
                 <?php endif; ?>
             },

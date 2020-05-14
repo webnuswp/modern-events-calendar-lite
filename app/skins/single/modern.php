@@ -5,6 +5,11 @@ defined('MECEXEC') or die();
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
 if(!is_array($booking_options)) $booking_options = array();
 $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_in_single_page', true);
+
+//Compatibility with Rank Math
+$rank_math_options = '';
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')) $rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
     <article class="row mec-single-event mec-single-modern">
@@ -77,8 +82,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                     <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
                     <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if( isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php elseif(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://'): ?>
-                    <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')));
-                     ?></a>
+                    <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php endif; ?>
             </div>
 
@@ -189,6 +193,8 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                             <?php else: ?>
                             <dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
                             <?php endif; ?>
+
+                            <?php echo $this->main->holding_status($event); ?>
                         </div>
 
                         <?php  
@@ -305,7 +311,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
 </div>
 <?php
     // MEC Schema
-    do_action('mec_schema', $event);
+    if ( $rank_math_options != 'event') do_action('mec_schema', $event);
 ?>
 <script>
 jQuery( ".mec-speaker-avatar a" ).click(function(e)

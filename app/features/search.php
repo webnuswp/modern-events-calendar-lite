@@ -128,8 +128,8 @@ class MEC_feature_search extends MEC_base
         return $out;
     }
 
-    public function mec_get_ajax_search_data(){
-
+    public function mec_get_ajax_search_data()
+    {
         if($_POST['length'] < '3')
         {
             _e('Please enter at least 3 characters and try again' , 'modern-events-calendar-lite');
@@ -237,6 +237,9 @@ class MEC_feature_search extends MEC_base
     {
         // Do not change Query if it is not search page!
         if(!$query->is_search) return $query;
+
+        // Do not do anything in Backend
+        if(is_admin()) return $query;
 
         // Do not change anything in Rest API
         if(defined('REST_REQUEST')) return $query;

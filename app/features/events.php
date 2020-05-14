@@ -135,7 +135,6 @@ class MEC_feature_events extends MEC_base
 
         // Event Attendees
         $this->factory->action('wp_ajax_mec_attendees', array($this, 'attendees'));
-        $this->factory->action('wp_ajax_mec_attendees_date_list', array($this, 'attendees_date_list'));
 
         // Mass Email
         $this->factory->action('wp_ajax_mec_mass_email', array($this, 'mass_email'));
@@ -3665,18 +3664,10 @@ class MEC_feature_events extends MEC_base
         }
     }
 
-    public function attendees($id = false, $occurrence = false)
+    public function attendees()
     {
-        $return = true;
-        if(!$id) {
-            $return = false;
-            $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
-        }
-
-        if(!$occurrence) {
-            $return = false;
-            $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
-        }
+        $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
+        $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
 
         $dates = $this->db->select("SELECT `dstart`, `dend` FROM `#__mec_dates` WHERE `post_id`='".$id."' LIMIT 10");
 
@@ -3685,6 +3676,21 @@ class MEC_feature_events extends MEC_base
 
         $tickets = get_post_meta($id, 'mec_tickets', true);
         $ticket_variations = $this->main->ticket_variations($id);
+
+        $date_query = array(
+            array(
+                'year' => date('Y', strtotime($occurrence)),
+                'month'=> date('m', strtotime($occurrence)),
+                'day' => date('d', strtotime($occurrence)),
+            ),
+        );
+
+        $booking_options = get_post_meta($id, 'mec_booking', true);
+        $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+        if($bookings_all_occurrences)
+        {
+            $date_query['compare'] = '<=';
+        }
 
         // Fetch Bookings
         $bookings = get_posts(array(
@@ -3708,13 +3714,7 @@ class MEC_feature_events extends MEC_base
                     'compare' => '=',
                 ),
             ),
-            'date_query' => array(
-                array(
-                    'year' => date('Y', strtotime($occurrence)),
-                    'month'=> date('m', strtotime($occurrence)),
-                    'day' => date('d', strtotime($occurrence)),
-                ),
-            ),
+            'date_query' => $date_query,
         ));
 
         $html = '';
@@ -3724,17 +3724,22 @@ class MEC_feature_events extends MEC_base
         foreach($bookings as $booking)
         {
             $atts = get_post_meta($booking->ID, 'mec_attendees', true);
-            foreach ($atts as $key => $value) {
+            if(isset($atts['attachments'])) unset($atts['attachments']);
+
+            foreach($atts as $key => $value)
+            {
+                if(!is_numeric($key)) continue;
+
                 $atts[$key]['book_id'] = $booking->ID;
                 $atts[$key]['key'] = ($key + 1);
             }
+
             $attendees = array_merge($attendees, $atts);
         }
 
         if(count($attendees))
         {
-            $html .= '
-            <div class="w-clearfix mec-attendees-head">
+            $html .= '<div class="w-clearfix mec-attendees-head">
                 <div class="w-col-xs-1">
                     <span><input type="checkbox" id="mec-send-email-check-all" onchange="mec_send_email_check_all(this);" /></span>
                 </div>
@@ -3749,8 +3754,7 @@ class MEC_feature_events extends MEC_base
                 </div>
                 <div class="w-col-xs-2">
                     <span>'.__('Variations', 'modern-events-calendar-lite').'</span>
-                </div>
-            ';
+                </div>';
 
             $html = apply_filters('mec_attendees_list_header_html', $html);
             $html .= '</div>';
@@ -3759,14 +3763,14 @@ class MEC_feature_events extends MEC_base
             foreach($attendees as $attendee)
             {
                 $key++;
+
                 $html .= '<div class="w-clearfix mec-attendees-content">';
                 $html .= '<div class="w-col-xs-1"><input type="checkbox" onchange="mec_send_email_check(this);" /><span class="mec-util-hidden mec-send-email-attendee-info">'.$attendee['name'].':.:'.$attendee['email'].',</span></div>';
                 $html .= '<div class="w-col-xs-3 name">' . get_avatar($attendee['email']) .$attendee['name'].'</div>';
                 $html .= '<div class="w-col-xs-3 email">'.$attendee['email'] .'</div>';
                 $html .= '<div class="w-col-xs-3 ticket">'.((isset($attendee['id']) and isset($tickets[$attendee['id']]['name'])) ? $tickets[$attendee['id']]['name'] : __('Unknown', 'modern-events-calendar-lite')).'</div>';
 
-                $variations = '';
-                $variations .= '<div class="w-col-xs-2">';
+                $variations = '<div class="w-col-xs-2">';
                 if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
                 {
                     foreach($attendee['variations'] as $variation_id=>$variation_count)
@@ -3776,32 +3780,26 @@ class MEC_feature_events extends MEC_base
                         $variation_title = (isset($ticket_variations[$variation_id]) and isset($ticket_variations[$variation_id]['title'])) ? $ticket_variations[$variation_id]['title'] : '';
                         if(!trim($variation_title)) continue;
 
-                        $variations .= '
-                        <span>+ '.$variation_title.'</span>
-                        <span>('.$variation_count.')</span>
-                        ';
+                        $variations .= '<span>+ '.$variation_title.'</span>
+                        <span>('.$variation_count.')</span>';
                     }
                 }
+
                 $variations .= '</div>';
 
                 $html .= $variations;
                 $html = apply_filters('mec_attendees_list_html', $html, $attendee,$attendee['key'], $attendee['book_id']);
                 $html .= '</div>';
+
                 $index++;
             }
 
-            $email_button = '<p>'.esc_html('If you want to send an email,  first select your attendees and then click in the button below, please.' , 'modern-events-calendar-lite').'</p><button data-id="'.$id.'" onclick="mec_submit_event_email('.$id.');">Send Email</button>';
-
-
+            $email_button = '<p>'.esc_html__('If you want to send an email, first select your attendees and then click in the button below, please.' , 'modern-events-calendar-lite').'</p><button data-id="'.$id.'" onclick="mec_submit_event_email('.$id.');">'.esc_html__('Send Email', 'modern-events-calendar-lite').'</button>';
         }
         else
         {
             $html .= '<p>'.__("No Attendees Found!", 'modern-events-calendar-lite').'</p>';
             $email_button = '';
-        }
-
-        if($return) {
-            return array('html' => $html , 'email_button' => $email_button );
         }
 
         echo json_encode(array('html' => $html , 'email_button' => $email_button ));

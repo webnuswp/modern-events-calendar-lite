@@ -9782,6 +9782,14 @@ li.mec-no-event-found .mec-event-title {
 	text-align: center;
 }
 
+/* Expired and Ongoing Event Label */
+.mec-holding-status-expired {
+    color: #D8000C;
+}
+.mec-holding-status-ongoing {
+    color: #0dbf52;
+}
+
 /* Feather Light Modal */
 body .featherlight .featherlight-content {
     background: transparent;
@@ -9952,6 +9960,11 @@ body .featherlight .featherlight-close-icon:hover {
     body .mec-modal-wrap .mec-single-modal .mec-events-meta-group-countdown {
         padding: 20px 5px 20px 40px;
     }
+}
+
+/* Other themes conflict fix on MEC */
+.mec-single-event-bar dd {
+    margin-left: 0;
 }
 
 /* MEC Toggle List
@@ -15382,12 +15395,12 @@ span.mec-event-export-csv:before,
 }
 
 .mec-events-timeline-wrap:before {
-	width: 1px;
-	content: '';
-	height: 100%;
-	position: absolute;
-	background: #dedede;
-	left: 95px;
+    width: 1px;
+    content: '';
+    height: 100%;
+    position: absolute;
+    background: #b8f5ff;
+    left: 95px;
 }
 
 
@@ -15408,17 +15421,18 @@ span.mec-event-export-csv:before,
 }
 
 .mec-timeline-month-divider {
-	position: absolute;
-	display: block;
-	background: #fff;
-	right: calc(100% - 95px);
-	left: 0;
-	width: 190px;
-	text-align: center;
-	border: 1px solid #dedede;
-	border-radius: 50px;
-	font-size: 15px;
-	padding: 12px 27px;
+    position: absolute;
+    display: block;
+    background: #fff;
+    right: calc(100% - 95px);
+    left: 0;
+    width: 190px;
+    text-align: center;
+    border: 1px solid #b8f5ff;
+    border-radius: 50px;
+    font-size: 15px;
+    padding: 12px 27px;
+    color: #40d9f1;
 }
 
 .mec-timeline-event-date {
@@ -15427,25 +15441,25 @@ span.mec-event-export-csv:before,
 
 .mec-timeline-events-container .mec-timeline-event-date:before {
 	content: '';
-	width: 10px;
-	height: 10px;
+	width: 11px;
+	height: 11px;
 	position: absolute;
-	background: #40D9F1;
+	background: #40d9f1;
 	border-radius: 50px;
 	top: 8px;
-	left: -23px;
-	z-index: 99;
+    left: -24px;
+	z-index: 9;
 }
 
 .mec-timeline-events-container .mec-timeline-event-date:after {
-	content: '';
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	background: rgba(64, 217, 241, 0.3);
-	border-radius: 50px;
-	top: 3px;
-	left: -28px;
+    content: '';
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    background: rgba(64,217,241,.3);
+    border-radius: 50px;
+    top: 3px;
+    left: -29px;
 }
 
 .mec-timeline-event-date {

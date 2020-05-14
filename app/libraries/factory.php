@@ -97,7 +97,7 @@ class MEC_factory extends MEC_base
         $this->action('wp_ajax_mec_save_messages', array($this->main, 'save_options'));
 
         // Dashborad Metabox
-        add_action( 'wp_dashboard_setup', array($this, 'mec_widget_news_features') );
+        add_action('wp_dashboard_setup', array($this, 'mec_widget_news_features'));
     }
     
     /**
@@ -282,13 +282,13 @@ class MEC_factory extends MEC_base
         $settings = $this->main->get_settings();
 
         wp_localize_script('mec-backend-script', 'mec_admin_localize', array(
-            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'ajax_url' => admin_url('admin-ajax.php'),
             'ajax_nonce' => wp_create_nonce('mec_settings_nonce'),
             'mce_items' => $this->main->mce_get_shortcode_list(),
             'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
         ));
 
-        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js').'?t='.time(), array(), $this->main->get_version());
+        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
 
         // Thickbox
         wp_enqueue_media();
@@ -349,7 +349,7 @@ class MEC_factory extends MEC_base
         wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
         wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'));
 
-        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js').'?t='.time(), array(), $this->main->get_version());
+        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
         
         // Include Lity Lightbox
         wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));

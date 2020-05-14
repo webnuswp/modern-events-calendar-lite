@@ -72,7 +72,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 <a class="mec-create-shortcode-tabs-link" data-href="mec_select_labels" href="#"><?php echo esc_html__('Labels' ,'modern-events-calendar-lite'); ?></a>
                 <a class="mec-create-shortcode-tabs-link" data-href="mec_select_tags" href="#"><?php echo esc_html__('Tags' ,'modern-events-calendar-lite'); ?></a>
                 <a class="mec-create-shortcode-tabs-link" data-href="mec_select_authors" href="#"><?php echo esc_html__('Authors' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_dates" href="#"><?php echo esc_html__('Dates' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_holding_statuses" href="#"><?php echo esc_html__('Expired / Ongoing' ,'modern-events-calendar-lite'); ?></a>
             </div>
             <div class="mec-add-booking-tabs-right">
                 <div class="mec-form-row mec-create-shortcode-tab-content mec-tab-active" id="mec_select_categories">
@@ -178,9 +178,9 @@ $MEC_tax_walker = new MEC_tax_walker();
                     ?>
                     </select>
                 </div>
-                <?php do_action('mec_shortcode_filters', $post->ID, $MEC_tax_walker ); ?>
-                <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_dates">
-                    <h4><?php _e('Dates', 'modern-events-calendar-lite'); ?></h4>
+                <?php do_action('mec_shortcode_filters', $post->ID, $MEC_tax_walker); ?>
+                <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_holding_statuses">
+                    <h4><?php _e('Expired Events', 'modern-events-calendar-lite'); ?></h4>
                     <div class="mec-form-row mec-switcher">
                         <?php $show_past_events = get_post_meta($post->ID, 'show_past_events', true); ?>
                         <div class="mec-col-4">
@@ -207,8 +207,8 @@ $MEC_tax_walker = new MEC_tax_walker();
                             </div>
                             <p class="description" style="color: red;"><?php echo sprintf(__('It shows %s expired/past events. It will use the selected start date as first day and then go to %s dates.', 'modern-events-calendar-lite'), '<strong>'.__('only', 'modern-events-calendar-lite').'</strong>', '<strong>'.__('older', 'modern-events-calendar-lite').'</strong>'); ?></p>
                         </div>
-                        <br />
                     </div>
+                    <h4><?php _e('Ongoing Events', 'modern-events-calendar-lite'); ?></h4>
                     <div id="mec_date_ongoing_filter">
                         <div class="mec-form-row mec-switcher">
                             <?php $show_only_ongoing_events = get_post_meta($post->ID, 'show_only_ongoing_events', true); ?>
@@ -220,7 +220,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                                 <input type="checkbox" name="mec[show_only_ongoing_events]" class="mec-checkbox-toggle" id="mec_show_only_ongoing_events" value="1" <?php if($show_only_ongoing_events == 1) echo 'checked="checked"'; ?> />
                                 <label for="mec_show_only_ongoing_events"></label>
                             </div>
-                            <p class="description"><?php _e('It shows only ongoing events on List and Grid skins.', 'modern-events-calendar-lite'); ?></p>
+                            <p class="description"><?php _e('It shows only ongoing events on List, Grid, Agenda and Timeline skins.', 'modern-events-calendar-lite'); ?></p>
                         </div>
                     </div>
                 </div>

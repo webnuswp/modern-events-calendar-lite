@@ -2589,7 +2589,7 @@ var mecSingleEventDisplayer = {
 
         function sed() {
             // Single Event Display
-            $("#mec_skin_" + settings.id + " .mec-event-title a, #mec_skin_" + settings.id + " .mec-booking-button").off('click').on('click', function (e) {
+            $("#mec_skin_" + settings.id + " .mec-timeline-event-image a, #mec_skin_" + settings.id + " .mec-event-title a, #mec_skin_" + settings.id + " .mec-booking-button").off('click').on('click', function (e) {
                 e.preventDefault();
                 var href = $(this).attr('href');
 

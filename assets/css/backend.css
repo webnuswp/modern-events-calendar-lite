@@ -6331,6 +6331,19 @@ a.mec-create-shortcode-tabs-link {
     display: none !important
 }
 
+#webnus-dashboard .mec-intro-section .mec-intro-section-link-tag {
+    font-weight: 500;
+    border-radius: 2px;
+    text-shadow: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    background: #fff;
+    background: linear-gradient(95deg, #fff 0, #fff 50%, #fff 100%) !important;
+    border: 1px solid #e7e7e7;
+    transition: .24s;
+}
+
+#webnus-dashboard .total-bookings button,
+#webnus-dashboard .mec-intro-section .mec-intro-section-link-tag.button-primary,
 button.fserv-button-submit {
     color: #fff !important;
     font-weight: 500 !important;
@@ -6343,6 +6356,18 @@ button.fserv-button-submit {
     transition: .24s !important
 }
 
+#webnus-dashboard .total-bookings button {
+    line-height: 39px;
+    padding: 0 36px;
+}
+
+#webnus-dashboard .mec-intro-section .mec-intro-section-link-tag.button-primary,
+#webnus-dashboard .mec-intro-section .mec-intro-section-link-tag:hover {
+    color: #fff !important;
+}
+
+#webnus-dashboard .total-bookings button:hover,
+#webnus-dashboard .mec-intro-section .mec-intro-section-link-tag:hover,
 button.fserv-button-submit:hover {
     background: #222 !important;
     background: linear-gradient(95deg, #555 0, #222 50%, #000 100%) !important;
@@ -6379,9 +6404,11 @@ input.fserv-input-text {
     border-radius: 2px;
     box-shadow: inset 0 1px 5px rgba(0, 0, 0, .05);
 }
+
 .fserv-field label.error {
     display: none !important;
 }
+
 .fs-notifier {
     position: fixed !important;
     top: 40px !important;
@@ -6549,7 +6576,6 @@ input.fserv-input-text {
     left: 0;
     top: 0;
 }
-
 
 .owl-nav.disabled button {
     background: #fff;
@@ -9872,4 +9898,143 @@ div#mec_cancelled_reason_wrapper label {
 
 .mec-fluent-hidden {
     display: none;
+}
+
+#webnus-dashboard .total-bookings select,
+#webnus-dashboard .total-bookings input[type=text] {
+    border: solid 1px #ddd;
+    border-radius: 2px;
+    height: 40px;
+    line-height: 38px;
+    padding-left: 10px;
+    box-shadow: 0 3px 10px -2px rgba(0,0,0,.05), inset 0 1px 2px rgba(0,0,0,.02);
+}
+
+#webnus-dashboard select {
+    margin-top: -5px;
+}
+
+/* Custom CSS Box */
+#mec_styles_CSS {
+    line-height: 1.6;
+}
+
+/* MEC Backend Responsive Mobile & Tablet */
+@media(max-width: 480px) {
+    /* Top Level Page */ 
+    .toplevel_page_mec-intro .mec-intro-section-ifarme iframe {
+        width: auto !important;
+        height: auto !important;
+    }
+    
+    .w-box.mec-activation input[name=MECPurchaseCode] {
+        min-width: 200px !important;
+        width: 330px;
+    }
+    
+    .w-box.mec-activation {
+        background: #fff;
+    }
+
+    /* Inner Pages */
+    .mec-addons {
+        padding-right: 15px;
+    }
+
+    .mec-report-wrap {
+        margin-top: 20px;
+    }
+
+    .mec-report-select-event-wrap .select2-container--default,
+    .mec-report-select-event-wrap select.mec-reports-selectbox-dates {
+        max-width: 100%;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-content,
+    .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-head {
+        padding: 10px;
+    }
+
+    .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-head span {
+        font-size: 13px;
+    }
+
+    .mec-report-selected-event-attendees-wrap .mec-attendees-content .w-col-xs-3 {
+        word-wrap: break-word;
+    }
+
+    .mec-report-selected-event-attendees-wrap .w-col-xs-3.name img {
+        display: block;
+    }
+
+    .mec-report-selected-event-attendees-wrap input[type=checkbox],
+    .mec-report-selected-event-attendees-wrap input[type=radio] {
+        height: 0.85rem;
+        width: 0.85rem;
+    }
+
+    .wns-be-container .dpr-btn.dpr-save-btn {
+        margin: 0 !important;
+    }
+
+    /* form builder classic */
+    #mec_booking_form .mec-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    #mec_reg_form_fields {
+        padding: 10px;
+    }
+    
+    .mec-search-forms-options-container .mec-form-row select {
+        width: 100%;
+    }
+    #mec_skin_monthly_view_start_date_container {
+        display: unset;
+    }
+    
+    #mec_calendar_display_options input[type=text], 
+    #mec_calendar_display_options select,
+    #mec_calendar_display_options input[type=number]{
+        max-width: 100% !important;
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    #mec_select_tags.mec-create-shortcode-tab-content input[type=text] {
+        width: auto;
+    }
+
+    /* Single Event Page */
+    .mec-add-booking-tabs-right,
+    .mec-add-event-tabs-right,
+    .mec-create-shortcode-tabs-right {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+    
+    #mec_tickets .mec-box {
+        padding: 20px 7px;
+    }
+    
+    .fserv-container form,
+    .fserv-form-description {
+        padding: 10px 15px!important;
+    }
+    
+    .fserv-field {
+        display: inline-block;
+        width: 25%!important;
+        padding: 0!important;
+        margin: 0!important;
+        margin-right: 10px!important;
+    }
+    
+    #webnus-dashboard .total-bookings button {
+        margin: 15px 0;
+    }
+
 }

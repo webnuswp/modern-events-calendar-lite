@@ -101,6 +101,8 @@ class MEC_skins extends MEC_base
     public $geolocation_focus;
     public $include_events_times;
     public $localtime;
+    public $reason_for_cancellation;
+    public $display_label;
 
     /**
      * Constructor method
@@ -511,14 +513,19 @@ class MEC_skins extends MEC_base
         }
         elseif($this->show_ongoing_events)
         {
-            if (in_array($this->skin, ['list', 'grid']) && !(strpos($this->style, 'fluent') === false)) {
+            if(in_array($this->skin, ['list', 'grid']) && !(strpos($this->style, 'fluent') === false))
+            {
                 $now = current_time('timestamp', 0);
-                if ($this->skin_options['start_date_type'] != 'today') {
+                if($this->skin_options['start_date_type'] != 'today')
+                {
                     $startDateTime = strtotime($this->start_date) + (int) (get_option('gmt_offset') * HOUR_IN_SECONDS);
                     $now = $startDateTime > $now ? $startDateTime : $now;
                 }
+
                 $where_OR = "(`tstart`>'".$now."' AND `tend`<='".$seconds_end."')";
-            } else {
+            }
+            else
+            {
                 $now = current_time('timestamp', 0);
                 $where_OR = "(`tstart`<='".$now."' AND `tend`>='".$now."')";
             }
@@ -549,7 +556,7 @@ class MEC_skins extends MEC_base
             $e = strtotime($mec_date->dend);
 
             // Hide Events Based on Start Time
-            if(!$this->show_only_expired_events and !$this->args['mec-past-events'] and $s <= strtotime($today))
+            if(!$this->show_ongoing_events and !$this->show_only_expired_events and !$this->args['mec-past-events'] and $s <= strtotime($today))
             {
                 if($this->hide_time_method == 'start' and $now >= $mec_date->tstart) continue;
                 elseif($this->hide_time_method == 'plus1' and $now >= $mec_date->tstart+3600) continue;
@@ -562,7 +569,7 @@ class MEC_skins extends MEC_base
                 if($this->hide_time_method == 'end' and $now >= $mec_date->tend) continue;
             }
 
-            if((in_array($this->skin, ['list', 'grid']) && strpos($this->style, 'fluent') === false) or ($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel')))))
+            if(!(in_array($this->skin, ['list', 'grid']) && !(strpos($this->style, 'fluent') === false)) && ($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel')))))
             {
                 // Hide Shown Events on AJAX
                 if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start) and !$this->show_only_expired_events) continue;
@@ -823,34 +830,39 @@ class MEC_skins extends MEC_base
         $display_style = $fields = $end_div = '';
         $first_row = 'not-started';
         $display_form = array();
+
         foreach($this->sf_options as $field=>$options)
         {
             $type = isset($options['type']) ? $options['type'] : '';
             $display_form[] = $options['type'];
             $fields_array = array('category', 'location', 'organizer', 'speaker', 'tag', 'label');
-            $fields_array = apply_filters( 'mec_filter_fields_search_array', $fields_array );
-                if(in_array($field,$fields_array) and $first_row == 'not-started')
+            $fields_array = apply_filters('mec_filter_fields_search_array', $fields_array);
+
+            if(in_array($field,$fields_array) and $first_row == 'not-started')
+            {
+                $first_row = 'started';
+                if($this->sf_options['category']['type'] != 'dropdown' and $this->sf_options['location']['type'] != 'dropdown' and $this->sf_options['organizer']['type'] != 'dropdown' and (isset($this->sf_options['speaker']['type']) && $this->sf_options['speaker']['type'] != 'dropdown') and (isset($this->sf_options['tag']['type']) && $this->sf_options['tag']['type'] != 'dropdown') and  $this->sf_options['label']['type'] != 'dropdown')
                 {
-                    $first_row = 'started';
-                    if ( $this->sf_options['category']['type'] != 'dropdown' and $this->sf_options['location']['type'] != 'dropdown' and $this->sf_options['organizer']['type'] != 'dropdown' and  (isset($this->sf_options['speaker']['type']) && $this->sf_options['speaker']['type'] != 'dropdown') and  (isset($this->sf_options['tag']['type']) && $this->sf_options['tag']['type'] != 'dropdown') and  $this->sf_options['label']['type'] != 'dropdown' )
-                    {
-                        $display_style = 'style="display: none;"';
-                    }
-                    $fields .= '<div class="mec-dropdown-wrap" ' . $display_style . '>';
-                    $end_div = '</div>';
+                    $display_style = 'style="display: none;"';
                 }
-                if(!in_array($field, $fields_array) and $first_row == 'started')
-                {
-                    $first_row = 'finished';
-                    $fields .= '</div>';
-                }
-                $fields .= $this->sf_search_field($field, $options);
+
+                $fields .= '<div class="mec-dropdown-wrap" ' . $display_style . '>';
+                $end_div = '</div>';
+            }
+
+            if(!in_array($field, $fields_array) and $first_row == 'started')
+            {
+                $first_row = 'finished';
+                $fields .= '</div>';
+            }
+
+            $fields .= $this->sf_search_field($field, $options);
         }
 
-        $fields = apply_filters( 'mec_filter_fields_search_form',$fields, $this );
+        $fields = apply_filters('mec_filter_fields_search_form', $fields, $this);
 
         $form = '';
-        if(trim($fields) && ( in_array('dropdown', $display_form ) || in_array('text_input', $display_form ) || in_array('address_input', $display_form ) ) ) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
+        if(trim($fields) && (in_array('dropdown', $display_form) || in_array('text_input', $display_form) || in_array('address_input', $display_form))) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
         
         return $form;
     }
@@ -1036,7 +1048,7 @@ class MEC_skins extends MEC_base
             {
                 $time = isset($this->start_date) ? strtotime($this->start_date) : '';
 
-                $skins = array('list', 'grid');
+                $skins = array('list', 'grid', 'agenda');
                 if(isset($this->skin_options['default_view']) and $this->skin_options['default_view'] == 'list') array_push($skins, 'full_calendar');
 
                 $item = __('Select', 'modern-events-calendar-lite');
@@ -1072,8 +1084,6 @@ class MEC_skins extends MEC_base
 
                 for($i = $start_year; $i <= $end_year; $i++)
                 {
-                    $skins = array('list', 'grid');
-                    if(isset($this->skin_options['default_view']) and $this->skin_options['default_view'] == 'list') array_push($skins, 'full_calendar');
                     $selected = (!in_array($this->skin, $skins) and $i == date('Y', current_time('timestamp', 0))) ? 'selected="selected"' : '';
                     $output .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                 }

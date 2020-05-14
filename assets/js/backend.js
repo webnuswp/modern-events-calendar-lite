@@ -405,10 +405,52 @@ jQuery(document).ready(function($)
     })
 });
 
-function mec_skin_full_calendar_df_mode(Context)
+function mec_skin_full_calendar_skin_toggled(Context)
 {
-    var current_item = jQuery(Context).val();
-    jQuery(Context).parent().parent().parent().find('.mec-date-format').toggle();
+    var id = jQuery(Context).attr('id');
+    var checked = jQuery(Context).is(':checked');
+    var default_view = 'list';
+
+    if(id === 'mec_skin_full_calendar_list')
+    {
+        jQuery(Context).parent().parent().parent().find('.mec-date-format').toggle();
+    }
+    else if(id === 'mec_skin_full_calendar_grid')
+    {
+        default_view = 'grid';
+    }
+    else if(id === 'mec_skin_full_calendar_tile')
+    {
+        default_view = 'tile';
+    }
+    else if(id === 'mec_skin_full_calendar_yearly')
+    {
+        jQuery(Context).parent().parent().parent().find('.mec-date-format').toggle();
+        default_view = 'yearly';
+    }
+    else if(id === 'mec_skin_full_calendar_monthly')
+    {
+        jQuery('#mec_full_calendar_monthly_style').toggle();
+        default_view = 'monthly';
+    }
+    else if(id === 'mec_skin_full_calendar_weekly')
+    {
+        default_view = 'weekly';
+    }
+    else if(id === 'mec_skin_full_calendar_daily')
+    {
+        default_view = 'daily';
+    }
+
+    var $dropdown = jQuery('#mec_skin_full_calendar_default_view');
+    var current_value = $dropdown.find('option:selected').prop('value');
+    var $option = $dropdown.find('option[value="'+default_view+'"]');
+
+    if(checked) $option.removeAttr('disabled');
+    else $option.attr('disabled', 'disabled');
+
+    if(current_value === default_view) $dropdown.children('option:enabled').eq(0).prop('selected',true);
+    $dropdown.niceSelect('update');
 }
 
 function mec_event_attendees(ID, occurrence)
@@ -531,7 +573,7 @@ function mec_skin_toggle()
     }
     
     // Show/Hide Ongoing Events
-    if(skin === 'list' || skin === 'grid') jQuery('#mec_date_ongoing_filter').show();
+    if(skin === 'list' || skin === 'grid' || skin === 'agenda' || skin === 'timeline') jQuery('#mec_date_ongoing_filter').show();
     else
     {
         jQuery("#mec_show_only_ongoing_events").attr('checked', false);

@@ -1026,6 +1026,25 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_location_name%%', (isset($location->name) ? $location->name : ''), $message);
         $message = str_replace('%%event_location_address%%', get_term_meta($location_id, 'address', true), $message);
 
+        $additional_locations_name = '';
+        $additional_locations_address = '';
+
+        $additional_locations_ids = get_post_meta($event_id, 'mec_additional_location_ids', true);
+        if(!is_array($additional_locations_ids)) $additional_locations_ids = array();
+
+        foreach($additional_locations_ids as $additional_locations_id)
+        {
+            $additional_location = get_term($additional_locations_id, 'mec_location');
+            if(isset($additional_location->name))
+            {
+                $additional_locations_name .= $additional_location->name.', ';
+                $additional_locations_address .= get_term_meta($additional_locations_id, 'address', true).'<br>';
+            }
+        }
+
+        $message = str_replace('%%event_other_locations_name%%', trim($additional_locations_name, ', '), $message);
+        $message = str_replace('%%event_other_locations_address%%', trim($additional_locations_address, ', '), $message);
+
         $ticket_name = $ticket_start_hour = $ticket_start_minute = $ticket_end_hour = $ticket_end_minute = $ticket_start_ampm = $ticket_end_ampm = '';
 
         $ticket_ids_str = get_post_meta($book_id, 'mec_ticket_id', true);

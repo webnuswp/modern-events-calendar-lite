@@ -64,7 +64,7 @@ class MEC_skin_list extends MEC_skins
     public function initialize($atts)
     {
         $this->atts = $atts;
-        
+
         // Skin Options
         $this->skin_options = (isset($this->atts['sk-options']) and isset($this->atts['sk-options'][$this->skin])) ? $this->atts['sk-options'][$this->skin] : array();
         
@@ -211,10 +211,13 @@ class MEC_skin_list extends MEC_skins
         // Show Past Events
         $this->args['mec-past-events'] = isset($this->atts['show_past_events']) ? $this->atts['show_past_events'] : '0';
 
-        if (strpos($this->style, 'fluent') === false) {
+        if(strpos($this->style, 'fluent') === false)
+        {
             // Start Date
             $this->start_date = $this->get_start_date();
-        } else {
+        }
+        else
+        {
             // Start Date
             list($this->year, $this->month, $this->day) = $this->get_start_date();
             $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-'.$this->day));
@@ -223,14 +226,14 @@ class MEC_skin_list extends MEC_skins
         
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
-
         
         // Show Ongoing Events
         $this->show_ongoing_events = (isset($this->atts['show_only_ongoing_events']) and trim($this->atts['show_only_ongoing_events'])) ? '1' : '0';
         if($this->show_ongoing_events)
         {
             $this->args['mec-show-ongoing-events'] = $this->show_ongoing_events;
-            if (strpos($this->style, 'fluent') === false) {
+            if(strpos($this->style, 'fluent') === false)
+            {
                 $this->maximum_date = $this->start_date;
             }
         }
@@ -243,7 +246,8 @@ class MEC_skin_list extends MEC_skins
         }
         
         // Apply Maximum Date
-        if (strpos($this->style, 'fluent') === false) {
+        if(strpos($this->style, 'fluent') === false)
+        {
             if($this->request->getVar('apply_sf_date', 0) == 1 and isset($this->sf) and isset($this->sf['month']) and trim($this->sf['month'])) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
         }
         
@@ -364,7 +368,7 @@ class MEC_skin_list extends MEC_skins
     /**
      * Returns start day of skin for filtering events
      * @author Webnus <info@webnus.biz>
-     * @return string
+     * @return string|array
      */
     public function get_start_date()
     {
@@ -391,9 +395,9 @@ class MEC_skin_list extends MEC_skins
             if(strtotime($date) > strtotime($now)) $date = $now;
         }
         
-        if (strpos($this->style, 'fluent') === false) {
-            return $date;
-        } else {
+        if(strpos($this->style, 'fluent') === false) return $date;
+        else
+        {
             $time = strtotime($date);
             return array(date('Y', $time), date('m', $time), date('d', $time));
         }
@@ -414,9 +418,12 @@ class MEC_skin_list extends MEC_skins
         $this->initialize($atts);
         
         // Override variables
-        if (strpos($this->style, 'fluent') === false) {
+        if(strpos($this->style, 'fluent') === false)
+        {
             $this->start_date = $this->request->getVar('mec_start_date', date('y-m-d'));
-        } else {
+        }
+        else
+        {
             $this->maximum_date = $this->request->getVar('mec_maximum_date');
             $mecStartDate = $this->request->getVar('mec_start_date', date('y-m-d'));
             $this->start_date = strtotime($mecStartDate) > strtotime($this->maximum_date) ? $this->maximum_date :  $mecStartDate;
@@ -424,6 +431,7 @@ class MEC_skin_list extends MEC_skins
             $this->month = $this->request->getVar('mec_month');
             $this->loadMoreRunning = true;
         }
+
         $this->end_date = $this->start_date;
         $this->offset = $this->request->getVar('mec_offset', 0);
 		
@@ -462,9 +470,11 @@ class MEC_skin_list extends MEC_skins
         $c = 0;
         $break = false;
 
-        do {
+        do
+        {
             if($c > 6) $break = true;
-            if($c and !$break) {
+            if($c and !$break)
+            {
                 if(intval($this->month) == 12)
                 {
                     $this->year = intval($this->year)+1;
@@ -472,16 +482,21 @@ class MEC_skin_list extends MEC_skins
                 }
 
                 $this->month = sprintf("%02d", intval($this->month)+1);
-            } else {
+            }
+            else
+            {
                 // Start Date
                 $this->year = $this->request->getVar('mec_year', current_time('Y'));
                 $this->month = $this->request->getVar('mec_month', current_time('m'));
             }
 
-            if($this->show_only_expired_events) {
+            if($this->show_only_expired_events)
+            {
                 $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-01'));
                 $this->active_day = date('Y-m-t', strtotime($this->year.'-'.$this->month.'-01'));
-            } else {
+            }
+            else
+            {
                 $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-01'));
 
                 $day = current_time('d');
@@ -501,16 +516,15 @@ class MEC_skin_list extends MEC_skins
             $this->fetch();
             
             // Break the loop if not resault
-            if($break) {
-                break;
-            }
+            if($break) break;
 
             // Set active day to current day if not resault
             if(count($this->events)) $this->active_day = key($this->events);
             if($navigator_click) break;
             
             $c++;
-        } while(!count($this->events));
+        }
+        while(!count($this->events));
         
         // Return the output
         $output = $this->output();

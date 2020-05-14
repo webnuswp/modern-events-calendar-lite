@@ -1,4 +1,377 @@
-﻿v 5.4.5 – 14 May 2020
+﻿=== Modern Events Calendar Lite ===
+Contributors: webnus
+Donate link: https://webnus.net
+Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
+Requires at least: 4.0.0
+Tested up to: 5.4.1
+Stable tag: 5.4.5
+Requires PHP: 5.6
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+WordPress event calendar plugin is the best tool used for managing events websites. Modern Events Calendar is a comprehensive events management plugin
+
+== Description ==
+WordPress event calendar plugin is a trending FREE tool used for managing events in websites. Modern Events Calendar is a responsive, mobile-friendly, FREE, and comprehensive events management plugin which is extremely user-friendly and well-designed for displaying the events calendar on the websites, ever easier.
+
+* [Demos](https://webnus.net/modern-events-calendar/)
+* [Documentation](https://webnus.net/dox/modern-events-calendar/)
+* [Tutorials](https://webnus.net/dox/modern-events-calendar/video-tutorials/)
+* [Test Drive](http://webnus.biz/mec-test/)
+
+== WordPress event calendar ==
+[Modern Events Calendar](https://webnus.net/modern-events-calendar/) has been created according to trending design methods and latest technology with attractive design based on practical concept of design.
+We gathered all features of [event calendar](https://webnus.net/modern-events-calendar/) as you desire with advanced booking system ([Pro Version](https://webnus.net/mec-purchase/?ref=17/)) and many other useful options which are practical in real world!
+Using [Modern Events Calendar Lite](https://webnus.net/modern-events-calendar/), you can create different single or [recurring events](https://webnus.net/modern-events-calendar/) and show them in frontend of your website using many modern skins and styles.
+
+https://www.youtube.com/watch?v=GjRVKIwD5jY
+
+Fortunately, though WordPress doesn’t enable these functions out of the box, there’s a plugin you can use. Modern Events Calendar is an easy way to manage events of all kinds on your WordPress site. As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS.
+
+https://www.youtube.com/watch?v=cnVy2YzDMOk
+
+== Covid-19 (Coronavirus) ==
+In MEC 5.2.5 we've prepared 3 very important features to help you during the Covid-19 pandemic. You can now display normal labels and the reason for the event's cancelation in shortcodes and the Single Event Page. You can also set a url for your locations so your location can act as a URL display for livestreams/webinars. 
+
+There is also a feature that was added in the last update. Once you set the status of an event, those changes are reflected in the schema as well so that Google can detect your events' status easier.[Read More](https://webnus.net/modern-events-calendar/covid-19/)
+
+== 10 Best Event Calendar Plugins and Themes for WordPress 2020 ==
+You can read and compare about the WordPress best event management plugins in our recently published article: [10 Best Event Calendar Plugins for WordPress](https://webnus.net/10-best-event-calendar-plugins-and-themes-for-wordpress). We've done a lot of precise explorations to come up with a complete informative article to serve your needs on running an event based website.
+
+== Experts Opinions ==
+>The Modern Events Calendar plugin combined with Divi’s beautiful layouts are an effective combination both in design and functionality. To start things off I’m going to go through the settings we need to get the functionality we want for our event scheduling and booking. There are a ton of options available which really is empowering when you are trying to perfect the user experience when scheduling or booking events.
+><strong>Jason Champagne on Elegant Themes Blog</strong>
+
+>Created to deliver a selection of useful features and a well-designed user experience, the Modern Events Calendar plugin is a tool for publishing events on WordPress websites.  With free and paid versions available, whether you simply want to add basic events publishing functionality to your website or you have more demanding needs, there’s a good chance this plugin will meet your requirements.
+><strong>Joe Fylan on AThemes Blog</strong>
+
+>Hence the name, Modern Events Calendar Lite is a WordPress plugin that follows all the latest trends and regulations. When it comes to creating the niftiest event calendars, this tool might be the perfect solution for what you are up to. And if you are already using another plugin, but you are not fully satisfied, you can import the data quickly and effortlessly, too. The process of setting up the calendar that you require is simple and swift.
+><strong>Vishnu on Colorlib Blog</strong>
+
+>As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS. Modern Events Calendar lets you create great-looking event displays right out of the box, along with advanced features like ticketing and a custom event display builder. You can even integrate with Elementor for more design flexibility, and WooCommerce for more ticketing/payment flexibility.
+><strong>Colin Newcomer on WPlift Blog</strong>
+
+>Many WordPress site owners can benefit from having an online booking system. Integrated online event registration helps your customers purchase tickets, schedule appointments, and sign up for events whenever it’s convenient for them. When it comes to managing events in WordPress, Modern Events Calendar really has it all. From simple calendar displays to personalized bookings with variable tickets, you can create the perfect system to meet your site’s needs.
+><strong>Will Morris on WPmayor Blog</strong>
+
+>If you are running an event website or you want to start a WordPress powered website with booking services, you need a managed WordPress hosting that will not disappoint you and a strong and practical plugin that can provide all the required features. The most important factor in such projects is the user-friendly environment the plugin creates. In this regard, both Lite and Pro versions of Modern Events Calendar (MEC) can help you.
+><strong>Mustaasam Saleem on Cloudways Blog</strong>
+
+>The Modern Events Calendar plugin says quite a bit in its name, since it’s a high-quality, professional, and modern take on your standard events management layout. You can choose from a wide variety of designs, making it an excellent solution for branding and fitting in your website. It also includes a powerful booking system at only $34. Since this is sold on CodeCanyon you’re also signing up for a year of premium support, beating out some of those free plugins we’ve talked about earlier.
+><strong>Brian Jackson on Kinsta Blog</strong>
+
+== Some New Features ==
+*   **Shortcode For Page Builders** - A shortcode which is fully compatible with your Page Builders including: Elementor, Divi Builder, Visual Composer, King Composer and Beaver Builder
+*   **Schema Ready** - Event Schema markup to a single page and shortcodes, recommended for SEO
+*   **A particular day of month** - Adding a repeat for a particular day in month, for example, the last Tuseday of the month, with the ability to be a never ending event
+*   **Search Bar shortcode** - Place the shortcode in any page you want and the result of the search will be the events along with all their features. 
+*   **Custom Archive Skin Feature** - For the category & archives you can simply choose a pre-built skin or a particular skin of the shortcodes just like the archive page.
+*   **Event Status In Submission Form** - It shows the user’s event status in the events list. Therefore, the end users will know about the status of their sent event by the event submission.
+*   **Breadcrumb** - Breadcrumbs for the Single Event Page have the home page link and events archive
+*   **Multiple Location** - Choose several locations for an event and display these widgets in the single event page
+*   **Import From Meetup** - Easily transfer your events from Meetup to MEC, by only a single click.
+
+== User Reviews ==
+>I moved over from a different calendar plugin and found the import process to be easy and straightforward. MEC worked perfectly out of the box.
+>[johnlund1](https://wordpress.org/support/topic/easy-to-import-and-setup/)
+
+>This plugin looks very stylish and works great. It is also well supported for updates which is reassuring. My client is very happy with it because it is fairly easy to use once it’s set up. Thanks for your hard work on this plugin!
+>[SherryBrimacombe](https://wordpress.org/support/topic/stylish-and-easy-to-use-3/)
+
+>I love it… design functionality, features, responsive, support and… M.E. Calendar is growing fast and when I see the changelog, I amazed. I would like the reservation system to be free, but it isn’t… But I love it yet…
+>Thank you for your plugin
+>[gabidoet](https://wordpress.org/support/topic/perfect-in-every-way-possible/)
+
+[All Reviews](https://wordpress.org/support/plugin/modern-events-calendar-lite/reviews/)
+
+== Convert your events in a few seconds ==
+If you are using event-on plugin or the event calendar and you are willing to migrate to [WordPress Events Calendar](https://webnus.net/modern-events-calendar/)’s best plugin then no need to worry about transferring your current content.
+Only by a few clicks in a couple of seconds your current content [events](https://webnus.net/modern-events-calendar/) will be imported automatically with full details.
+
+== Addons ==
+We have begun to create practical [add-ons](https://webnus.net/modern-events-calendar/addons/). Now, you will have access to a wide range of features using them. Please have a look at these add-ons: (MEC Pro requeired)
+- [Woocommerce Integration](https://webnus.net/modern-events-calendar/addons/woocommerce-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/woocommerce-addon/)
+- [Multisite Event Sync](https://webnus.net/modern-events-calendar/addons/multisite-event-sync/) - [Documentation](https://webnus.net/dox/modern-events-calendar/multisite-event-sync/)
+- [User Dashboard](https://webnus.net/modern-events-calendar/addons/user-dashboard/) - [Documentation](https://webnus.net/dox/modern-events-calendar/user-dashboard/)
+- [Event API](https://webnus.net/modern-events-calendar/addons/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
+- [Elementor Single Builder](https://webnus.net/modern-events-calendar/addons/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
+- [Elementor Shortcode Builder](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/shortcode-builder-addon/) 
+- [Elementor Form Builder](https://webnus.net/modern-events-calendar/addons/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
+- [Elementor Shortcode Designer](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-designer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/mec-shortcode-designer-addon/)
+- [Ticket and Invoice](https://webnus.net/modern-events-calendar/addons/ticket-invoice/) - [Documentation](https://webnus.net/dox/modern-events-calendar/ticket-and-invoice-addon/)
+
+== Helpful Documentation ==
+WordPress Events Calendar’s best plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
+
+You can see [plugin demo here](https://webnus.net/modern-events-calendar/)
+You can see [plugin documentation here](https://webnus.net/dox/modern-events-calendar/)
+
+== Main Features ==
+- Import from "The Event Calendar" Plugin
+- Import from "EventOn" Plugin
+- Import from "Events Schedule WP" Plugin
+- Import from "Calendarize It" Plugin
+- Internal XML import and export
+- Single day events
+- Multiple day events
+- All day events
+- [Full Calendar](https://webnus.net/modern-events-calendar/full-calendar/) view
+- [Monthly calendar](https://webnus.net/modern-events-calendar/calendarmonthly-view-modern-style/) view (3 Skins)
+- [Daily](https://webnus.net/modern-events-calendar/daily-view/) view
+- [Weekly](https://webnus.net/modern-events-calendar/weekly-view/) view 
+- [Countdown](https://webnus.net/modern-events-calendar/countdown-type-2/) view (3 Skins)
+- [Grid & cover](https://webnus.net/modern-events-calendar/grid-view-modern-style/) view (10 Skins)
+- [Slider & carousel](https://webnus.net/modern-events-calendar/slider-view-type-2/) view (8 Skins)
+- [List](https://webnus.net/modern-events-calendar/list-view-standard-style/) View (5 Skins)
+- [Timetable](https://webnus.net/modern-events-calendar/timeline-view/) View (3 Skins)
+- [Tile](https://webnus.net/modern-events-calendar/tile-view/) View 
+- Event locations system
+- Event organizer system
+- Multiple organizers
+- [Front-end Event Submission](https://webnus.net/dox/modern-events-calendar/frontend-event-submission/)
+- Never end events
+- Event widgets & sidebar
+- Custom sidebar
+- [QRcode module](https://webnus.net/dox/modern-events-calendar/qr-code-module/)
+- Recurring/Repeating events
+- Shortcodes generator
+- [Direct/Modal link for single event](https://webnus.net/modern-events-calendar/fullcalendar-view-modal-style/)
+- Show/Hide option for search bar
+- Filtering options
+- Google calendar integration
+- Reporting dashboard
+- Local time
+- Manage Notifictions
+- Reminders notification
+- RSS feed
+- Schedule for single event
+- Download .ics file
+- Social share icons
+- Custom Color
+- Feed support for MEC categories
+- Expired Events filter in shortcodes
+- Duplicate event feature
+- Advanced currency options 
+- Support comment form in single event page
+- Insert images for locations and organizers
+- Event countdown
+- Dynamic event labels
+- Dark Mode
+- Local time for all shortcodes
+
+== Integration ==
+- WPML
+- Google Calendar
+- WordPress Multisite
+- Cache plugins compatibility
+- WooCommerce Cart
+- PayPal
+- Stripe
+- WPBakery
+- SEO plugins compatibility
+- Elementor 
+- Mailchimp Subscription
+- Campaign Monitor
+- MailerLite
+- Constant Contact
+- BuddyPress
+- Google Recaptcha
+- Google Map
+
+== Developers ==
+- Completely developer friendly
+- Ability to override archive and single pages in a theme
+- Ability to override skin files in a theme
+- Ability to filter plugin options using WordPress filtering system
+- Ability to fire custom functions using WordPress actions API
+- [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
+
+== Key Features ==
+- Different hours for custom days repeat
+- Ticket limit for coupon
+- Show Normal Label
+- Event Status for Schema
+- Cancellation reason
+- Mailchimp Integration (*pro*)
+- Campaign Monitor Integration (*pro*)
+- MailerLite Integration (*pro*)
+- Constant Contact Integration (*pro*)
+- BuddyPress Integration (*pro*)
+- Archive Page Skins
+- Category Page Skins
+- Category Events Method
+- Single and Multiple Day Events
+- Frontend Events Submission Archive Status
+- Advanced Google Maps (*pro*)
+- Slugs/Permalinks Options
+- Import events from Google Calendar
+- Import From Meetup
+- Import From Facebook
+- Export filtered events into CSV, MS Excel, JSON and XML formats
+- Exceptional Days
+- Google Recaptcha
+- Geolocation for map skin (*pro*)
+- Geolocation for list and grid skin map (*pro*)
+- Event countdown
+- Hourly Schedule
+- Breadcrumbs
+- Event Color
+- Event cost
+- Speakers for Hourly Schedule
+- Full Responsive
+- Gutenberg Ready
+- Speaker Options
+- Event Link Options
+- Translation-ready messages
+- Import from third party plugins
+- Available Widget in all Sidebar
+- Matching Shortcode and Widget
+- Matching Shortcode and Visual Composer
+- Custom CSS
+- Currency options 
+- Daily, Weekday, Weekends, Weekly, Monthly and Yearly Repeating
+- Custom Repeating
+- Certain Weekdays Repeating
+- Advance Repeating
+- Show only one occurrence of the event
+- End Repeating
+- Midnight Hour
+- Advanced categorizing and filtering options
+- Full search bar for all shortcodes
+- Event note for frontend event submission
+- Frontend Event Submission
+- Event Status In Submission Form
+- New Event Notification
+- Customizable Notifications Emails
+- Recurring/Repeating events
+- Next Event Module
+- Custom Booking Form for Single Events
+- Payments for Certain Single Events
+- Shortcode Creator
+- Add Event in the form of wizard
+- Add shortcode in the form of wizard
+- Multiple color skins
+- [Slider](https://webnus.net/modern-events-calendar/slider-view-type-1/) View
+- [Cover](https://webnus.net/modern-events-calendar/cover-view-classic-style/) View
+- [Countdown](https://webnus.net/modern-events-calendar/countdown-type-1/) View
+- [Carousel](https://webnus.net/modern-events-calendar/carousel-type-1/) View
+- [Monthly/Calendar](https://webnus.net/modern-events-calendar/calendarmonthly-view-classic-style/) View
+- [Weekly](https://webnus.net/modern-events-calendar/weekly-view/) View
+- [Daily](https://webnus.net/modern-events-calendar/daily-view/) View
+- [List/Grid](https://webnus.net/modern-events-calendar/list-view-classic-style/) View
+- [Timetable](https://webnus.net/modern-events-calendar/timeline-view/) View
+- [Tile](https://webnus.net/modern-events-calendar/tile-view/) View 
+- [Search bar](https://webnus.net/dox/modern-events-calendar/search-bar/) Shortcode
+- RTL support
+- Multiple Organizers
+- Multiple Locations
+- Event Submission by Guest (not logged-in) Users
+- Event Details/Single Event Page
+- Settings Import/Export Feature
+- Multisite Ready
+- WPML Ready
+- SEO Ready
+- SEO Schema
+- Upload Field Options
+- Developer Friendly
+- Shortcode For Page Builders
+- Search Bar Feature
+- Customizable Timetable (*pro*)
+- Additional Organizers
+- Organizer & Other Organizers Description
+- Multiple Location
+- Choose Weekends
+- Profile page
+- Eruop language completed
+- [Reporting Dashboard](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-intro-page/) (*pro*)
+- [Tile view](https://webnus.net/modern-events-calendar/tile-view/)
+- [Timeline](https://webnus.net/modern-events-calendar/timeline-view/)
+- [List view with Map](https://webnus.net/modern-events-calendar/list-view-classic-style-with-map/) (*pro*)
+- [Grid view with Map](https://webnus.net/modern-events-calendar/grid-view-modern-style-with-map/) (*pro*)
+- [Map view](https://webnus.net/modern-events-calendar/map-view/) (*pro*)
+- [Yearly view](https://webnus.net/modern-events-calendar/yearly-view-clean-style/) (*pro*)
+- [Available spot](https://webnus.net/modern-events-calendar/available-spot/) (*pro*)
+- [Timetable view](https://webnus.net/modern-events-calendar/timetable-view-clean-style/) (*pro*)
+- [Masonry view](https://webnus.net/modern-events-calendar/masonry-view/) (*pro*)
+- [Agenda view](https://webnus.net/modern-events-calendar/agenda-view-clean-style/) (*pro*)
+- [Map view + Directions](https://webnus.net/modern-events-calendar/map-view/) (*pro*)
+- [Import .ics file](https://webnus.net/modern-events-calendar/) (*pro*)
+- [Reminders notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
+- [Cancellation notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
+- [Booking](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
+- [Edit Booking Options](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
+- [Booking reminder notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
+- [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
+- Bulk Emails to Attendees (*pro*)
+- Minimum Ticket Option (*pro*)
+- Minimum and maximum ticket for coupons (*pro*)
+- Maximum discount for coupons (*pro*)
+- Booking report page (*pro*)
+- Book All Occurrences (*pro*)
+- Stop selling Ticket Option (*pro*)
+- [Organizer payment](https://webnus.net/dox/modern-events-calendar/organizer-payment/) (*pro*)
+- [Individual booking form per event](https://webnus.net/dox/modern-events-calendar/booking-form/) (*pro*)
+- [Advanced Tax/Fee system](https://webnus.net/dox/modern-events-calendar/taxes-or-fees/) (*pro*)
+- [Multiple Tickets system](https://webnus.net/dox/modern-events-calendar/tickets-and-taxes-fees/) (*pro*)
+- [Ticket Variations](https://webnus.net/dox/modern-events-calendar/ticket-variations/) (*pro*)
+- [Coupons/Discount system](https://webnus.net/dox/modern-events-calendar/coupons/) (*pro*)
+- [PayPal Integration](https://webnus.net/dox/modern-events-calendar/payment-gateways/) (*pro*)
+- [Booking form builder](https://webnus.net/dox/modern-events-calendar/booking-form/) (*pro*)
+- [Auto verification](https://webnus.net/modern-events-calendar/) (*pro*)
+- [Synchronization](https://webnus.net/dox/modern-events-calendar/import-and-export-events/) (*pro*)
+- [WooCommerce Payment Integreation](https://webnus.net/dox/modern-events-calendar/woocommerce/) (*pro*)
+- [Stripe Payment Integreation](https://webnus.net/modern-events-calendar/) (*pro*)
+- [Auto Update](https://webnus.net/dox/modern-events-calendar/how-to-auto-update-plugin/) (*pro*)
+- [Weather module](https://webnus.net/dox/modern-events-calendar/weather-module/) (*pro*)
+- [PDF invoice](https://webnus.net/modern-events-calendar/) (*pro*)
+- [Implemented 3 payment methods](https://webnus.net/modern-events-calendar/) (*pro*)
+- [CSV export option for bookings](https://webnus.net/dox/modern-events-calendar/export-module/) (*pro*)
+- [MS Excel export option for bookings](https://webnus.net/dox/modern-events-calendar/export-module/) (*pro*)
+- [Create various kind of tickets](https://webnus.net/dox/modern-events-calendar/tickets-and-taxes-fees/) (*pro*)
+- [Set a limit on total bookings](https://webnus.net/dox/modern-events-calendar/add-a-booking-system/) (*pro*)
+- [Set a limit for certain tickets](https://webnus.net/dox/modern-events-calendar/add-a-booking-system/) (*pro*)
+
+== Screenshots ==
+1. WordPress Event Calendar - Full Calendar view
+2. WordPress Event Calendar - Monthly view
+3. WordPress Event Calendar - Slider view
+4. WordPress Event Calendar - Carousel view
+5. WordPress Event Calendar - Countdown view
+6. WordPress Event Calendar - Grid Novel view
+7. WordPress Event Calendar - List view
+8. WordPress Event Calendar - Cover view
+9. WordPress Event Calendar - Weekly view
+10. WordPress Event Calendar - Timetable view
+11. WordPress Event Calendar - Tile View
+12. WordPress Event Calendar - Timeline View
+13. WordPress Event Calendar - Widgets
+14. WordPress Event Calendar - Search Bar
+15. WordPress Event Calendar - Settings 01
+16. WordPress Event Calendar - Settings 02
+17. WordPress Event Calendar - Settings 03
+18. WordPress Event Calendar - Settings 04
+19. WordPress Event Calendar - Settings 05
+20. WordPress Event Calendar - Settings 06
+21. WordPress Event Calendar - Settings 07
+22. WordPress Event Calendar - Settings 08
+23. WordPress Event Calendar - Settings 09
+24. WordPress Event Calendar - Import/Export
+25. WordPress Event Calendar - Single event edit page
+26. WordPress Event Calendar - Single event edit page
+27. WordPress Event Calendar - Single event edit page
+28. WordPress Event Calendar - Single event edit page
+29. WordPress Event Calendar - Single event edit page
+30. WordPress Event Calendar - Shortcode edit page
+31. WordPress Event Calendar - Shortcode edit page
+32. WordPress Event Calendar - Shortcode edit page
+33. WordPress Event Calendar - Shortcode edit page
+34. WordPress Event Calendar - Shortcode edit page
+35. WordPress Event Calendar - Shortcode edit page
+36. WordPress Event Calendar - Add Event Wizard
+37. WordPress Event Calendar - Add Shortcode Wizard
+
+== Changelog ==
+= v 5.4.5 – 14 May 2020 =
 - Added: A holding status label next to date options in single event
 - Added: Minimum and maximum ticket options for coupons (pro)
 - Added: Maximum discount option for coupons (pro)
@@ -17,7 +390,7 @@
 - Fixed: Timeline image link on modal popup
 - Fixed: Schema
 
-v 5.4.0 – 5 May 2020
+= v 5.4.0 – 5 May 2020 =
 - Added: An option to add different hours for custom days repeat type
 - Added: An option to keep status of events while importing XML file
 - Added: Compatibility with Rank Math and Schema Markup Rich Snippets
@@ -33,7 +406,7 @@ v 5.4.0 – 5 May 2020
 - Fixed: Search bar related to disabling the text input
 - Fixed: Reset search of WordPress created by search bar
 
-v 5.3.5 – 28 April 2020
+= v 5.3.5 – 28 April 2020 =
 - Added: An option to accept one booking for all occurrences of a certain event (pro)
 - Added: Internal cache solution to cache frequently used data
 - Added: Style for taxonomies
@@ -50,7 +423,7 @@ v 5.3.5 – 28 April 2020
 - Fixed: Display Normal label and Cancellation reason in full calendar
 - Fixed: some PHP notices
 
-v 5.3.0 – 21 April 2020
+= v 5.3.0 – 21 April 2020 =
 - Added: Minimum option for coupons (pro)
 - Added: An option to display event time in grid skin
 - Added: Grid and tile skins to the full calendar skins
@@ -65,10 +438,10 @@ v 5.3.0 – 21 April 2020
 - Fixed: Search bar
 - Fixed: Some minor issues
 
-v 5.2.7 – 14 April 2020
-- Fixed: An issue with full calendar
+= v 5.2.7 – 14 April 2020 =
+- Fixed: An issue with full calendar. 
 
-v 5.2.6 – 14 April 2020
+= v 5.2.6 – 14 April 2020 =
 - Added: Start and end dates in RSS feeds
 - Increased: Default date generation limit for advanced events
 - Fixed: Showing correct error on Facebook importer (pro)
@@ -81,7 +454,7 @@ v 5.2.6 – 14 April 2020
 - Fixed: Close button on modal popup view responsive size on mobile and tablet
 - Fixed: Hover style on the grid view skin minimal style
 
-v 5.2.5 – 8 April 2020
+= v 5.2.5 – 8 April 2020 =
 - Added: Normal Label to all skins
 - Added: Cancellation reason to all skins
 - Added: Cancellation reason to single and popup single page
@@ -93,7 +466,7 @@ v 5.2.5 – 8 April 2020
 - Fixed: Search when working with expired events
 - Fixed: Some minor issues
 
-v 5.2.3 – 31 March 2020
+= 5.2.3 – 31 March 2020 =
 - Added: SEO Schema section to specify event status due to COVID-19 (New properties for virtual, postponed, and canceled events — <a href="https://bit.ly/2ygWgF4" target="_blank">read more here</a>)
 - Added: A new currency (Israeli Shekel)
 - Changed: The next and back button positions on the booking form (pro)
@@ -104,7 +477,7 @@ v 5.2.3 – 31 March 2020
 - Fixed: Internal cronjob of MEC (pro)
 - Fixed: The "New Event" notification
 
-v 5.2.2 – 24 March 2020
+= 5.2.2 – 24 March 2020 =
 - Added: An option in tile skin to load events in list view
 - Fixed: A display issue in tile skin
 - Fixed: An issue regarding showing red borders in booking modal for required fields (pro)
@@ -114,7 +487,7 @@ v 5.2.2 – 24 March 2020
 - Fixed: Event import (xml file)
 - Fixed: Plugin deletion
 
-v 5.2.1 – 18 March 2020
+= 5.2.1 – 18 March 2020 =
 - Added: New skins in default shortcakes
 - Added: File field in booking edit menu (pro)
 - Added: An option to change the format of the date picker
@@ -134,10 +507,10 @@ v 5.2.1 – 18 March 2020
 - Fixed: Free Booking button when using 100% coupon (pro)
 - Fixed: Some minor issues
 
-v 5.2.0 – 10 March 2020
+= 5.2.0 – 10 March 2020 =
 - Added: Add Event Wizard - hard-refresh is required
 - Added: Custom fields to the booking edit menu (pro)
-- Added: A validation for payment gateway options - hard-refresh is required (pro)
+- Added: A validation for payment gateway options (pro)
 - Added: Address filter
 - Increased: Number of dates in booking edit menu (pro)
 - Fixed: Weather module (pro)
@@ -149,17 +522,17 @@ v 5.2.0 – 10 March 2020
 - Fixed: Widgets view styles
 - Fixed: Some minor issues
 
-v 5.1.8 – 3 March 2020
+= 5.1.8 – 3 March 2020 =
 - Added: Dark Mode
 - Added: Modal method for carousel skin
 - Added: Date formats in full calendar skin for list and yearly skins
 - Improved: security of settings menu.
 - Fixed: Wrong date in Southern hemisphere
 
-v 5.1.7 – 29 February 2020
+= 5.1.7 – 29 February 2020 =
 - Fixed: Improve ajax access for causing XSS security issues
 
-v 5.1.6 – 18 February 2020
+= 5.1.6 – 18 February 2020 =
 - Added: Occurrence to related events module
 - Added: Order time column to the CSV Export (pro)
 - Added: Some strings to WPML compatibility (pro)
@@ -177,7 +550,7 @@ v 5.1.6 – 18 February 2020
 - Fixed: Some warnings in PHP 7.4 (pro)
 - Updated: German translation (Thanks to Marius Kreyßel)
 
-v 5.1.5 – 12 February 2020
+= 5.1.5 – 12 February 2020 =
 - Added: An option to disable "Auto Confirmation" for Pay Locally gateway (pro)
 - Added: Used coupons in booking details view and booking invoice (pro)
 - Added: An option to save Start and End dates of Google calendar import
@@ -194,14 +567,14 @@ v 5.1.5 – 12 February 2020
 - Fixed: Monthly calendar skin simple view responsive mobile size
 - Fixed: Some minor issues
 
-v 5.1.0 – 5 February 2020
+= 5.1.0 – 5 February 2020 =
 - Added: Shortcode wizard - hard-refresh is required
 - Removed: Back button after payment in booking module (pro)
 - Fixed: Read more link in single event page
 - Fixed: An event link issue in map modules
 - Fixed: MEC widget and list view
 
-v 5.0.5 - 29 January 2020
+= 5.0.5 - 29 January 2020 =
 - Added: Versioning to asset files
 - Added: A WordPress cron for booking reminder emails (pro)
 - Fixed: All day events
@@ -217,7 +590,7 @@ v 5.0.5 - 29 January 2020
 - Fixed: Pay button position when cart is invalid (pro)
 - Fixed: Simple monthly calendar style
 
-v 5.0.2 - 22 January 2020
+= 5.0.2 - 22 January 2020 =
 - Added: An ability to add users as recipients in notifications (pro)
 - Added: An ability to add user roles as recipient in notifications (pro)
 - Added: LinkedIn to speakers
@@ -234,7 +607,7 @@ v 5.0.2 - 22 January 2020
 - Fixed: Hide search form option for Timeline shortcode in the backend page
 - Fixed: Some issues concerning PHP 7.4
 
-v 5.0.1 - 14 January 2020
+= 5.0.1 - 14 January 2020 =
 - Added: An option to set maximum date for certain skins
 - Added: Currency to WooCommerce order (pro)
 - Added: Attendees count in backend booking form (pro)
@@ -247,7 +620,7 @@ v 5.0.1 - 14 January 2020
 - Fixed: Month filter in search module
 - Fixed: Some minor issues
 
-v 5.0.0 - 8 January 2020
+= 5.0.0 - 8 January 2020 =
 - Added: An option to change MEC midnight hour for those events that span after the actual midnight
 - Added: A per event option to show only one occurrence of the event
 - Added: "Back Button" for booking form so users can simply navigate to previous step if needed (pro)
@@ -261,7 +634,7 @@ v 5.0.0 - 8 January 2020
 - Fixed: Register link when all tickets are sold (pro)
 - Fixed: Advanced repeat type
 
-v 4.9.5 - 24 December 2019
+= 4.9.5 - 24 December 2019 =
 - Added: An option to set minimum sale for tickets (pro)
 - Added: A new badge for new events to inform administrator
 - Added: An option for Facebook importer to import Facebook link as event link (pro)
@@ -278,7 +651,7 @@ v 4.9.5 - 24 December 2019
 - Fixed: Extra comma in the list view minimal when not having a location
 - Fixed: Some minor issues
 
-v 4.9.0 - 10 December 2019
+= 4.9.0 - 10 December 2019 =
 - Added: An advanced option to edit bookings from backend (pro)
 - Added: Ticket variation option to edit bookings (pro)
 - Added: Recalculate price option for edit bookings (pro)
@@ -300,7 +673,7 @@ v 4.9.0 - 10 December 2019
 - Fixed: Booking reminder notifications (pro)
 - Fixed: Ticket styling in single event edit page (pro)
 
-v 4.8.5 - 28 November 2019
+= 4.8.5 - 28 November 2019 =
 - Added: Attendees menu of all Events menu in WordPress backend (pro)
 - Added: Order time in bookings menu (pro)
 - Added: Filter by order date in bookings menu (pro)
@@ -313,10 +686,10 @@ v 4.8.5 - 28 November 2019
 - Fixed: Not running the Divi shortcodes
 - Fixed: Images in Popup
 
-v 4.8.3 - 25 November 2019
+= 4.8.3 - 25 November 2019 =
 - Fixed: Headers already sent warning
 
-v 4.8.2 - 25 November 2019
+= 4.8.2 - 25 November 2019 =
 - Added: The ticket variations in CSV and Excel exports in Backend and "Front-end Event Submission" (pro)
 - Added: Timeline view
 - Added: Geolocation feature for map feature of list and grid skins (pro)
@@ -326,12 +699,12 @@ v 4.8.2 - 25 November 2019
 - Fixed: A focus issue on daily skin
 - Fixed: Set geographical coordinates when add in single event page (pro)
 
-v 4.8.1 - 13 November 2019
+= 4.8.1 - 13 November 2019 =
 - Fixed: Monthly view (clean style)
 - Fixed: Datepicker
 - Fixed: Google Map view in single event page (pro)
 
-v 4.8.0 - 12 November 2019
+= 4.8.0 - 12 November 2019 =
 - Added: Import events from Event Espresso Plugin
 - Added: Importevents from Events Manager Plugin
 - Added: An option to show event start/end time in list skin
@@ -350,7 +723,7 @@ v 4.8.0 - 12 November 2019
 - Fixed: Some PHP notices
 - Fixed: Some minor issues
 
-v 4.7.7 - 30 October 2019
+= 4.7.7 - 30 October 2019 =
 - Compatibility: WordPress 5.2.4
 - Added: An option to manage waiting time before redirecting to Thank You Page (pro)
 - Added: Display the total amount of purchased tickets in confirmation email (pro)
@@ -362,7 +735,7 @@ v 4.7.7 - 30 October 2019
 - Fixed: Advanced days
 - Fixed: Some minor issues
 
-v 4.7.6 - 22 October 2019
+= 4.7.6 - 22 October 2019 =
 - Added: A guide message in "Show Only Expired Events" section in shortcode builder
 - Added: A new message for booking verification (pro)
 - Improved: Select organizers/locations in add event section
@@ -382,7 +755,7 @@ v 4.7.6 - 22 October 2019
 - Fixed: some PHP notices
 - Fixed: Some minor issues
 
-v 4.7.5 - 15 October 2019
+= 4.7.5 - 15 October 2019 =
 - Added: Name field for Stripe gateways (pro)
 - Added: Cancel links and map view to the profile shortcode (pro)
 - Added: Booking fields to the translatable strings for WPML (pro)
@@ -402,11 +775,11 @@ v 4.7.5 - 15 October 2019
 - Fixed: Settings fields animations on Firefox
 - Fixed: Some minor issues
 
-v 4.7.1 - 02 October 2019
+= 4.7.1 - 02 October 2019 =
 - Fixed: Register button when booking for ongoing events is disable (pro)
 
-v 4.7.0 - 01 October 2019
-- Added: CSV Export for Bookings in "Frontend Event Submission" (pro)
+= 4.7.0 - 01 October 2019 =
+- Added: CSV Export for Bookings in "Front-end Event Submission" (pro)
 - Added: MS Excel Export for Bookings in "Frontend Event Submission" (pro)
 - Removed: Nonce for iCal export button to be compatible with search engines
 - Improved: Front-end event submission form and list style - hard-refresh is required
@@ -422,9 +795,9 @@ v 4.7.0 - 01 October 2019
 - Fixed: Long title in list view > Accordion style
 - Fixed: Ticket availability (pro)
 - Fixed: Countdown module in Available Spot shortcode (pro)
-- Fixed: PHP errors
+- Fixed: PHP errors.
 
-v 4.6.5 - 24 September 2019
+= 4.6.5 - 24 September 2019 =
 - Added: Add mec-past-event for expired events in different skins
 - Added: Event publishing notification for frontend event submission system with guest users 
 - Added: An interval option to display booking module at certain times before the start of the event (pro)
@@ -439,7 +812,7 @@ v 4.6.5 - 24 September 2019
 - Fixed: Toggle Messages in settings
 - Fixed: Some minor issues
 
-v 4.6.0 - 18 September 2019
+= 4.6.0 - 18 September 2019 =
 - Added: Billing info to booking details page in backend (pro)
 - Added: An option to enable booking while event is on going (pro)
 - Added: Ticket time compatibility for 24 hours (pro)
@@ -451,7 +824,7 @@ v 4.6.0 - 18 September 2019
 - Fixed: Time dropdown in search form
 - Fixed: Some minor issues
 
-v 4.5.1 - 11 September 2019
+= 4.5.1 - 11 September 2019 =
 - Compatibility: WordPress 5.2.3
 - Fixed: Showing multiple names and emails in backend booking form (pro)
 - Fixed: Date field in backend of booking form (pro)
@@ -463,7 +836,7 @@ v 4.5.1 - 11 September 2019
 - Fixed: Showing registration form data in backend (pro)
 - Fixed: Ticket filter in booking management menu (pro)
 
-v 4.5.0 - 4 September 2019
+= 4.5.0 - 4 September 2019 =
 - Added: SCA compatibility for Stripe Payment Gateways (pro)
 - Added: Google Maps option in list and Grid skins (pro)
 - Added: A feature to update booking dates when event date is updated (pro)
@@ -472,15 +845,15 @@ v 4.5.0 - 4 September 2019
 - Fixed: Global limit for bookers (pro)
 - Fixed: Twin search strings in backend
 
-v 4.4.9 - 27 August 2019
+= 4.4.9 - 27 August 2019 =
 - Fixed: Ajax live search
 - Fixed: Some minor issue
 
-v 4.4.8 - 22 August 2019
+= 4.4.8 - 22 August 2019 =
 - Fixed: Disabling Schema option
 - Fixed: Some minor issue
 
-v 4.4.7 - 21 August 2019
+= 4.4.7 - 21 August 2019 =
 - Added: Modern style search bar
 - Added: Auto set cronjobs for synchronization
 - Added: An option to not open current day in MEC widget
@@ -494,7 +867,7 @@ v 4.4.7 - 21 August 2019
 - Fixed: Countdown in module view and Countdown skin
 - Fixed: Carousel view and "load more" button in Internet explorer
 
-v 4.4.6 - 13 August 2019
+= 4.4.6 - 13 August 2019 =
 - Added: Ajax live search to search bar
 - Added: Filter before wp_mail (Booking Notification) for developers
 - Fixed: Simple monthly calendar style
@@ -507,7 +880,7 @@ v 4.4.6 - 13 August 2019
 - Fixed: Booking module in some themes (Lity popup)
 - Fixed: Some minor issues
 
-v 4.4.5 - 3 August 2019
+= 4.4.5 - 3 August 2019 =
 - Added: Stripe Connect gateway to divide the booking payment between organizer and site owner
 - Added: Ability to insert new speakers from "Frontend Event Submission"
 - Improved: Only the role of administrators can see the license
@@ -524,7 +897,7 @@ v 4.4.5 - 3 August 2019
 - Fixed: Slider and Carousel view when events don't have featured images
 - Fixed: Some minor issues
 
-v 4.4.0 - 15 July 2019
+= 4.4.0 - 15 July 2019 =
 - Added: Search bar shortcode
 - Added: Organizer payment options
 - Added: MEC shortcode element for the Divi builder
@@ -532,7 +905,7 @@ v 4.4.0 - 15 July 2019
 - Added: An option to limit maximum tickets that someone can book for all the tickets
 - Added: Imperial units to weather module in addition to metric units
 - Added: An option to toggle between imperial and metric units in weather module
-- Added: The developer documentation <a href="https://bit.ly/2NReYuf" target="_blank">link</a>
+- Added: The developer documentation [link](https://bit.ly/2NReYuf)
 - Fixed: "New Window" in more info link when booking is disabled
 - Fixed: Load more button
 - Fixed: Saving the changes in registration form builder
@@ -540,7 +913,7 @@ v 4.4.0 - 15 July 2019
 - Fixed: Masonry view by returning to Isotope library (hard-refresh required)
 - Fixed: Some minor issues
 
-v 4.3.6 - 2 July 2019
+= 4.3.6 - 2 July 2019 =
 - Added: Limit option to full calendar skin in order to show more than 12 events per day
 - Added: Recurring rule to the ICS export on event details page
 - Added: End repeat option for advanced repeat type
@@ -551,9 +924,9 @@ v 4.3.6 - 2 July 2019
 - Fixed: Addon notifications style
 - Fixed: Countdown mobile/tablet style
 
-v 4.3.5 – 27 June 2019
+= 4.3.5 – 27 June 2019 =
 - Compatibility: WordPress 5.2.2
-- Added: Advanced repeating for the "nth" day of the week in a month
+- Added: advanced repeat type.
 - Added: Speaker name to notifications
 - Added: Functions to display widgets separately (For using in custom single event page)
 - Added: do_action('mec_{skin_name}_skin_head'); at top of each shortcode
@@ -568,10 +941,10 @@ v 4.3.5 – 27 June 2019
 - Fixed: saving issue of categorized setting options in backend.
 - Fixed: Some minor issues
 
-v 4.3.2 – 17 June 2019
-- Fixed: Notification tabs in settings
+= 4.3.2 – 17 June 2019 =
+Fixed: Notification tabs in settings
 
-v 4.3.1 – 17 June 2019
+= 4.3.1 – 17 June 2019 =
 - Added: "Number of Days" and "Week Start Day" options to clean style of timetable skin
 - Added: Instagram to speakers
 - Added: Search form to the clean style of timetable skin
@@ -587,7 +960,7 @@ v 4.3.1 – 17 June 2019
 - Fixed: Additional locations in single event modern skin
 - Fixed: Responsive issue in Monthly view (simple style)
 
-v 4.3.0 – 10 June 2019
+= 4.3.0 – 10 June 2019 =
 - Added: Booking cancellation notification
 - Added: New feature to disable admin notification
 - Fixed: Not showing the event when it is on current day and it is not started yet
@@ -595,7 +968,7 @@ v 4.3.0 – 10 June 2019
 - Fixed: Issue regarding showing day title when only 1 day is added
 - Fixed: Some PHP notices
 
-v 4.2.5 – 3 June 2019
+= 4.2.5 – 3 June 2019 =
 - Improved: Tooltip notifications in the admin panel
 - Improved: Notifications tab in settings
 - Added: Breadcrumb in the single event page
@@ -606,7 +979,7 @@ v 4.2.5 – 3 June 2019
 - Fixed: "Load More" button in skins
 - Fixed: Google Calendar Export in email notifications
 
-v 4.2.4 – 28 May 2019
+= 4.2.4 – 28 May 2019 =
 - Improved: slider skin by printing the feature image directly
 - Fixed: Showing only upcoming events of The Events Calendar for import
 - Fixed: Schedule when the event starts at 00:00
@@ -615,7 +988,7 @@ v 4.2.4 – 28 May 2019
 - Fixed: PHP notices on weekly, daily and monthly skins 
 - Fixed: Notifications and booking module
 
-v 4.2.3 – 21 May 2019
+= 4.2.3 – 21 May 2019 =
 - Compatibility: WordPress 5.2.1
 - Added: link to masonry image
 - Added: Gutenberg editor to event edit page
@@ -628,12 +1001,12 @@ v 4.2.3 – 21 May 2019
 - Fixed: Scheduler for generating start time and end time
 - Fixed: Some minor issues
 
-v 4.2.2 – 13 May 2019
+= 4.2.2 – 13 May 2019 =
 - Fixed: Tag filtering issue
 - Fixed: Displaying attendee email in attendees module
 - Fixed: Google export link to include event description in addition to event title
 
-v 4.2.1 – 7 May 2019
+= 4.2.1 – 7 May 2019 =
 - Added: "attachment_url" to MEC RSS
 - Added: Offers (event price) to schema structure
 - Fixed: Displaying comment form on MEC pages when comment is disabled
@@ -647,7 +1020,7 @@ v 4.2.1 – 7 May 2019
 - Fixed: Email in woocommerce paymant
 - Fixed: Some minor issues
 
-v 4.2.0 – 30 April 2019
+= 4.2.0 – 30 April 2019 =
 - Compatibility: WordPress 5.2
 - Added: Additional Location feature
 - Added: MEC_Name and MEC_Email field to edit booking form
@@ -661,7 +1034,7 @@ v 4.2.0 – 30 April 2019
 - Fixed: Attached image in frontend submission form
 - Fixed: Exporting custom day events to Google Calendar in manual export and automated synchronization
 
-v 4.1.0 – 22 April 2019
+= 4.1.0 – 22 April 2019 =
 - Added: Tag and Speaker filter to shortcodes
 - Fixed: Sold out ticket notification
 - Fixed: Modal view when Youtube video is in event content
@@ -676,7 +1049,7 @@ v 4.1.0 – 22 April 2019
 - Fixed: Creating custom days events from frontend
 - Fixed: Displaying events of end day of the month on daily, monthly and weekly skins
 
-v 4.0.0 – 14 April 2019
+= 4.0.0 – 14 April 2019 =
 - Refactored: Search system completely
 - Improved: Search speed
 - Reduced: Number of queries to have better performance
@@ -690,22 +1063,22 @@ v 4.0.0 – 14 April 2019
 - Fixed: Showing all days of multiple events
 - Fixed: Import Facebook Image
 - Fixed: WPML compatibilty in ajax
-- Fixed: Widgets position in single event page (display other widget in MEC sidebar)
+- Fixed: Widgets position in single event page
 - Fixed: Sticky infobar in settings
-- Fixed: Display speaker box
+- Fixed: Speaker box
 - Fixed: Monthly Calendar/Novel responsive
 - Fixed: Some PHP notices
 - Fixed: Some minor issues
 
-v 3.5.2 – 21 March 2019
+= 3.5.2 – 21 March 2019 =
 - Fixed: Slider view
 
-v 3.5.1 – 20 March 2019
+= 3.5.1 – 20 March 2019 =
 - Fixed: Issue in saving settings
 - Fixed: Issue in disable google font
 - Fixed: Issue in frontend event submission of custom days event
 
-v 3.5.0 – 16 March 2019
+= 3.5.0 – 16 March 2019 =
 - Added: Facebook events importer
 - Added: Activation box in welcome page and removed activation tab from MEC settings
 - Added: Ability to define date period for custom days
@@ -719,10 +1092,8 @@ v 3.5.0 – 16 March 2019
 - Fixed: link for image in countdown view type 3
 - Fixed: Checkout button style
 
-v 3.4.6 – 5 March 2019
-- Fixed: Display button in Import/Export tabs.
 
-v 3.4.5 – 27 February 2019
+= 3.4.5 – 27 February 2019 =
 - Added: Disable Google Fonts options due to GDPR
 - Added: Search field for settings
 - Added: Settings import/export feature
@@ -742,19 +1113,19 @@ v 3.4.5 – 27 February 2019
 - Fixed: Showing booking tickets.
 - Fixed: Some PHP notices.
 
-v 3.4.0 – 23 January 2019
+= 3.4.0 – 23 January 2019 =
 - Added: Profile shortcode to show user bookings’ details
 - Added: Import from Meetup
 - Added: Auto sync for importing meetup events
 - Added: Ability to remove hourly schedule days
-- Added: Ability to change ticket price per date periods
+- Added: Ability to change ticket price per date periods (Pro)
 - Fixed: Issue in Meetup and Stripe API
 - Fixed: Daily view in mobile and tablet
 - Fixed: Custom color in masonry category
 - Fixed: Masonry in Elementor tab
 - Fixed: Typography issues
 - Fixed: Google reCaptcha in Frontend submission form
-- Fixed: Booking smooth scroll
+- Fixed: Booking smooth scroll (Pro)
 - Fixed: Event information displaying order in single event page (default skin)
 - Fixed: Date-picker in backend
 - Fixed: Display Grid clean and Monthly View when search box is enable
@@ -763,11 +1134,11 @@ v 3.4.0 – 23 January 2019
 - Fixed: Alt tag for images in Masonry view
 - Fixed: Modal view when click on thumbnails
 - Fixed: Console error (colorBrightness when no event exists)
-- Fixed: HTML tags in paragraph field of booking form both in backend and frontend
+- Fixed: HTML tags in paragraph field of booking form both in backend and frontend (Pro)
 - Fixed: Invalid occurrence date in single event pages
 - Fixed: Some minor issues
 
-v 3.3.5 – 8 December 2018
+= 3.3.5 – 8 December 2018 =
 - Compatibility: WordPress v5.0
 - Improved: WPML Compatibility
 - Fixed: Stripe gateway
@@ -775,7 +1146,7 @@ v 3.3.5 – 8 December 2018
 - Fixed: Time issue on Google calendar import
 - Fixed: Some minor issues
 
-v 3.3.0 – 19 November 2018
+= 3.3.0 – 19 November 2018 =
 - Added: Category filter to the full calendar skin
 - Added: Featured and Canceled styles for events with certain labels
 - Added: Speakers taxonomy
@@ -802,641 +1173,80 @@ v 3.3.0 – 19 November 2018
 - Fixed: Showing ticket name in booking details page in backend
 - Fixed: Typo on exports
 
-v 3.2.0 – 1 October 2018
+= 3.2.0 – 1 October 2018 =
 - Improved: Speed optimization on data rendering of events
 - Improved: Speed optimization on next event module
 - Improved: Speed optimization on database
-- Added: Elementor Shortcode
 - Added: Start/End Time for ticket (Pro version)
 - Added: iCal file download link in email in settings > notifications (%%ics_link%%)
 - Added: Google Calendar link in email in settings > notification (%%google_calendar_link%%)
 
-v 3.1.6 – 10 September 2018
+= 3.1.6 – 10 September 2018 =
 - Fixed: Auto update in PRO version
 
-v 3.1.5 – 9 September 2018
+= 3.1.5 – 9 September 2018 =
 - Fixed: Issue on showing multiple events in unwanted months when the repeat is set to yearly
 - Preparation for Gutenberg Editor
 
-v 3.1.4 – 28 August 2018
+= 3.1.4 – 28 August 2018 =
 - Added: VK social sharing
 - Fixed: Titles containing '&' when shared via email
 - Fixed: Sold-out message when '0' is set for ticket numbers
 
-v 3.1.3 – 21 August 2018
+= 3.1.3 – 21 August 2018 =
 - Fixed: Language pack - you should re-activate plugin in this version (Lite Version)
 
-v 3.1.2 – 31 July 2018
+= 3.1.2 – 31 July 2018 =
 - Fixed: Update from WordPress (Lite Version)
 
-v 3.1.1 –30 July 2018
-- Change admin style
-- Change MEC Pro links to new URL
+= 3.1.1 – 30 July 2018 =
+Changed: Admin style
+Changed: MEC Pro links to new URL
 
-v 3.1.0 – 19 July 2018
-- Updated: Auto Update
+= 3.1.0 – 19 July 2018 =
+* Lite version is released!
 
-v 3.0.0 – 11 June 2018
-- Developed: New "Booking" system
-- Added: Option to uncheck agreement field by default
-- Added: Feature to booking reminder notification to send booking reminder to all attendees instead of main attendee
-- Updated: Translating weekdays on clean style of timetable skin
-- Fixed: Creating one Booking Record for each booking and saving attendees in the booking record instead of saving several records for each booking 
-- Fixed: Sending one email for each booking instead of sending several emails for bookings with several attendees.
-- Fixed: Displaying of price in emails and booking management menu
-- Fixed: Adding booking from website backend
-- Fixed: The structure of exporting from bookings and compatibility with the new system
-- Fixed: Booking Reminder email and compatibility with the new system of attendees saving
-- Fixed: Considering rejected bookings as full spot
-- Fixed: Displaying value of agreement field in the notifications
-- Fixed: Including cancellation link of the booking in booking reminder notification
-- Fixed: Google import by cron job
-- Fixed: Time convention issue on import from third party plugins
-- Fixed: Getting GMT offset for some time-zones
-- Fixed: AM/PM issue at importing from "EventOn" plugin
-- Fixed: Importing issue from "The events calendar" plugin
+== Installation ==
 
-v 2.8.0 – 15 May 2018
-- Developed: Geolocation feature for map skin
-- Developed: Import integration for Calendarize It plugin
-- Added: [MEC_invoice_link] shortcode to show the invoice download link in thank you page
-- Added: Option for category archive page to show expired events instead of upcoming events
-- Added: Option to display price in list skin of full calendar
-- Added: Links for images in list and grid skins
-- Added: Notification tag to show total attendees of a booking into the admin notification
-- Added: WordPress time format for frontend of MEC
-- Updated: The customer of Order and Billing Email If they're not set already.
-- Updated: Owl carousel to 2.3.4
-- Fixed: Not supported language in weather module
-- Fixed: HTML encoding on PDF invoice
-- Fixed: Category filter on some of skins like agenda skin
-- Fixed: Changing the active day in monthly view when new month is loaded
-- Fixed: Word wrapping on PDF Invoice
-- Fixed: Date in yearly view of full calendar skin when placed as events archive skin
-- Fixed: Showing a wrong start / end date when custom days are set as event repeat and the dates are not in correct order
-- Fixed: Hide Search Module metabox when the current skin doesn't support search option
-- Fixed: PHP notice regarding Getting WooCommerce Order ID
-- Fixed: GMT offset rendering
-- Fixed: GMT offset to Time-zone convert
-- Fixed: "Export to Google Calendar" feature
-- Fixed: Image type on iCal export when CDN plugins are installed
-- Fixed: Displaying QRCode and Weather modules on event details page when the layout is set to default and single widget is placed into the MEC single sidebar
-- Fixed: Settings link in "Installed Plugins" menu
-- Fixed: Single widget
-- Fixed: RTL in Owl carousel
-- Fixed: Daily view skin
-- Fixed: Autoplay on mouseleave in Owl carousel
-- Fixed: Current month of monthly view when month picker is not available in search options
-- Fixed: Frontend booking form
-- Applied: some clean coding on list and grid skins
+For installing Modern Events Calendar Lite please follow below steps:
 
-v 2.7.2 – 25 April 2018
-- Fixed: Issue in getting original event ID in multilingual websites
-- Fixed: line break issue in carousel skin
+1. Install Modern Events Calendar Lite either via the WordPress.org plugin directory, or by uploading the files to your server.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
 
-v 2.7.1 – 23 April 2018
-- Added: Import MEC XML Feed feature
-- Added: WP Hook to import events programmatically
-- Added: filter to cancel redirect upon activating
+== Frequently Asked Questions ==
 
-v 2.7.0 – 19 April 2018
-- Added: New feature to cancel the bookings when their related order in WooCommerce is canceled
-- Fixed: Issue in emailed invoice links
-- Fixed: Loop in carousel
-- Fixed: Select 1 ticket in booking form instead of 0 when there is only 1 ticket to book
-- Fixed: Timetable skin
-- Fixed: Typo issues
-- Fixed: PHP notices on map skin
-- Fixed: Multiple instance issue of Google Maps in Accordion style of list skin
-- Fixed: Booking module issue on Accordion style of list skin
-- Fixed: Register menu on Accordion style of list skin
-- Improvement: Google Maps
-- Improvement: Cleanup the codes to optimize speed and queries
-- Updated: Spanish translate (Alexandro Lacadena Gómez)
+= How to upgrade to Pro version? =
 
-v 2.6.3 – 28 March 2018
-- Added: Container Width option for normal and large screens
-- Added: Save Setting notification in backend
-- Updated: Language files
-- Fixed: Multilingual events for tickets and booking and availability
-- Fixed: Display of sharing box in List and Grid type
-- Fixed: Some minor issues
+You can buy the Pro version from [Webnus.net](https://webnus.net/mec-purchase/?ref=17/). After that uninstall the lite version and install the Pro version on your website. If you want to move the data of lite version to Pro version, make sure that you disable the "Remove MEC Data on Plugin Uninstall" option in M.E. Calendar -> Settings menu before uninstalling the lite version.
 
-v 2.6.2 – 15 March 2018
-- Added: "Novel" style in "Grid" view
-- Added: Hungarian language (Thanks to Andreas Novotny)
-- Fixed: "Autoplay" and "Count in row" in Carousel/Slider
-- Fixed: "Coupon" word
-- Fixed: Local Time widget style in single events (default view)
-- Updated: German translate (Thanks to Jürgen König)
-- Updated: Language files
+= How can I create or edit event? =
 
-v 2.6.1 – 8 March 2018
-- Fixed: jQuery Carousel in Slider Shortcode
-- Fixed: jQuery Carousel in MEC Widget
+Alright it’s time to create an event. To add an event, go to WordPress menu and navigate to M.E. Calendar > Add Event. [Follow this image](https://webnus.net/dox/modern-events-calendar/wp-content/uploads/2018/05/single_event_backend-434x1024.png)
 
-v 2.6.0 – 6 March 2018
-- Added: Enable/Disable option for additional organizers so users can disable it completely if they don't need it
-- Added: KingComposer shortcode
-- Added: Ability to import hourly schedule of event-on plugin
-- Improved: Address to geo point convention system to increase its success rate
-- Improved: Documentation
-- Improved: Google Calendar import process
-- Updated: Owl-carousel to version 2.2.1
-- Updated: language files
-- Fixed: Try to convert the address to latitude and longitude on the single event Google Maps module if the geo point is not set or is invalid
-- Fixed: PHP warning on additional organizers
-- Fixed: Some issues on share by email feature
-- Fixed: Search issue by all items (Category, Organizer, Location, Label) on all skins when some items are predefined in the shortcode generator
-- Fixed: Frontend Submission issue in firefox
-- Fixed: Empty checkbox style in Booking form
-- Fixed: Switcher in backend
-- Fixed: Auto Update
-- Fixed: Cost field on "Frontend Event Submission"
-- Fixed: Some PHP notices in different sections like dashboard
-- Fixed: Invoice link on email notifications
-- Fixed: Adjusted the font and column size of PDF invoice for ability to show more words
-- Fixed: Free spots issue on Available Spot skin
-- Fixed: Active date issue on monthly view skin
-- Fixed: Modal issue on yearly view skin
-- Fixed: Some translation issues
-- Fixed: RTL style
+1- Set the date and time of your event. Also, you can set up your event during the whole day and without a specific time, or you can hide the end time from single events page; or both the start and end time.
+Note: You can set event repeats and end repeat for your events here as well.
+2- You can set an hourly schedule for your event. For example, if your event starts at 8 A.M. and continues until 6 P.M., then you can set an hourly schedule from 8 to 10, and specify the plan or content of these two hours. There is no limit for defining hourly schedules.
+3- You can specify the venue, plus the name of the place, address, coordinates, etc.
+4- Here, you can add external links and/or info links to your event so that when your users click on them, they’ll be directed to another page with extra information on the event.
+5- Add your organizer here. You can then fill the form with the information of your organizer. This information includes name, phone number, email address, and website or link.
+6- Add your event cost with its currency label here.
+7- For more information on total booking limit please click [here](https://webnus.net/dox/modern-events-calendar/total-booking-limits/).
+8- Here, you can add tickets for your event. You can create tickets with different titles; if you are going to sell tickets with different prices then this option is what you want.
+Note: If you change the title to the name of a particular day, then the user will know on a certain day the price of the ticket is different.
+9- Enter the information about Fees/Taxes.
 
-v 2.5.0 – 10 February 2018
-- Added: Alert for name and emails if they are empty
-- Added: "Other Organizers" text to the message options so users are able to change the text to their desired label
-- Added: Validation for dropdown fields as well
-- Added: Feature to import from third party plugins to import featured image as well
-- Improved: UTF-8 support of CSV and MS Excel export
-- Fixed: Issue of category link in single skins
-- Fixed: Color issue of labels in modern layout of event details page
-- Fixed: Offset issue when there are many events on one day
-- Fixed: Google error in auto suggestion field when no API key is set
-- Fixed: PHP warning in other organizers when debug mode is enabled
-- Fixed: Hide "Other organizers" completely when there is no organizer
-- Fixed: Some conflicts on total booking limit feature
-- Fixed: Some issues on booking form
-- Fixed: Issue in not hiding "Load More" button on list / grid and agenda skins
-- Fixed: Issue in not appearing "Load More" button on list / grid and agenda skins after search
-- Fixed: Wrong link in the settings tabs
-- Fixed: Sort by date and time in backend via All Events menu
-- Fixed: Some minor issues
+= Can I customize the event pages? =
 
-v 2.4.0 – 8 January 2018
-- Added: Events Schedule WP Plugin third party integration
-- Added: Multiple Organizers Feature
-- Added: Multiple organizers Feature to Frontend Event Submission
-- Added: New style of timetable skin
-- Fixed: Bounce animate conflict with Visual Composer
-- Fixed: Select box style in Booking from in single event page
-- Fixed: A notice in single skin of MEC related to single sidebar
-- Fixed: Some minor issues
+Yes, it is possible. In order to see the related documentations, please [click here](https://webnus.net/dox/modern-events-calendar/mec-theme-integration-guide/).
 
-v 2.3.0 – 12 December 2017
-- Added: Import events from eventon plugin.
-- Added: Import events from The Events Calendar plugin.
-- Added: Masonry skin to available skins.
-- Added: Masonry skin to the archive page available skins.
-- Added: Ability to import categories of Eventon's and The Events Calendar events' to MEC.
-- Fixed: QR Code issue on PDF invoice.
-- Fixed: An offset issue that creates duplicate event issue when the shortcode is set to show only expired events.
-- Fixed: Duplicate month divider issue on list skin.
-- Fixed: Some minor issues.
+= Does MEC have default languages or it needs to be translated? =
 
-v 2.2.6 – 21 November 2017
-- Fixed: Countdown issue on Edge/IE.
+Yes, for some of the languages MEC has the translation file as default. However, since these translations have been done by the users, they may be incomplete, hence updating them might be required. For more information, please [click here](https://webnus.net/dox/modern-events-calendar/translate-mec/).
 
-v 2.2.5 – 19 November 2017
-- Added: Card holder name to the Stripe payment form.
-- Fixed: Two PHP7 compatibility issues on PDF library.
-- Fixed: An output issue on get available spots.
-- Fixed: Issue in getting draft and waiting events on AJAX Call on all skins.
-- Fixed: Issue on downloading event image from Facebook.
-- Fixed: Issue in converting location address to latitude / longitude upon updating the location.
-- Fixed: Issue of ongoing events in showing multiple days events.
-- Fixed: A typo in Google Maps.
-- Fixed: A language compatibility issue in weather widget.
-- Fixed: Issue of showing -1 instead of "Unlimited" word in booking form in some rare cases.
-- Fixed: Some issues regarding total booking limit and ticket availabilities in booking form.
-- Fixed: Some issues about validation on booking form.
-- Fixed: "th" from countdown default date format.
-- Fixed: An issue about coupon limits when bookings are scheduled for future.
-- Fixed: Deselected terms in search widget of all skins.
-- Fixed: An issue in grid skin for showing multiple events' dates.
-- Fixed: Documentation link on welcome page of MEC.
-- Fixed: Booking button sync with styling option.
-- Fixed: Quick changelog demonstration on update.
-- Fixed: An issue regarding single event skins (countdown, cover and available spot skins) when selected event is invalid.
-- Updated: Hide empty terms in shortcode menu for simplifying the user experience.
-- Updated: Applied some clean coding.
+= Can I import/export from/to MEC? =
 
-v 2.2.0 – 16 October 2017
-- Added: Available spot skin focused on remained tickets.
-- Added: Weather Module in all layouts of Event Details page.
-- Added: Booking reminder notification to MEC notifications.
-- Added: An ability to set different days for booking reminder notification.
-- Added: Sn option for disabling "Express Booking Form" (Fill other attendees' information like the first one) feature.
-- Fixed: Sn issue regarding custom days events in "Frontend Event Submission"
-- Fixed: some minor issues.
+Yes, you can get an XML export from MEC data or import the file you've exported to MEC. Also, if you are using one of the following plugins (The event calendar, calendarize it, EventOn, Events Schedule WP Plugin), then you can easily transfer your events to MEC.
 
-v 2.1.0 – 14 September 2017
-- Added: Ability to add booking by admin from backend.
-- Added: PDF invoice for all bookings.
-- Added: "Download Invoice" link to success messages of all payment gateways.
-- Added: Variable %%invoice_link%% for booking notifications to insert a link to invoice download page in emails.
-- Added: Invoice layout for QR Code module
-- Added: Download invoice link to the booking view page in backend.
-- Added: QRcode module to all layouts of event details page including default, modern and lightbox layouts.
-- Added: Ability to have 100% discount on coupons.
-- Added: Expiry date for coupons.
-- Added: Target event option for coupons in order to create coupons for certain events.
-- Fixed: An issue when client applies multiple coupon code or apply a coupon code multiple times.
-- Fixed: An issue regarding importing all day events of Google Calendar.
-- Fixed: An issue in Feature image section of "Frontend Event Submission".
-- Fixed: An issue in UTF8 font of FPDF library.
-- Fixed: Issue of modal method in timetable skin.
-- Updated: Applied some clean coding.
+= Do I lose all my data or customization if I update MEC? =
 
-v 2.0.5 – 17 August 2017
-- Added: timetable skin.
-- Added: timetable skin to available archive skins.
-- Added: introduce tour help to setting and import export modules.
-- Added: two different filters for disabling MEC dashboard elements by third party developers.
-- Added: a patch to make sure "New Event" notification don't send in auto drafts.
-- Improved: details map scenario to only show the current event instead of all events with same location
-- Improved: sort of labels in Add/Edit event page to alphabetical.
-- Fixed: some issues regarding week switching in weekly skin and timetable skin.
-- Fixed: an issue in countdown module of event details page.
-- Fixed: some show date issues on multiple days events in list, grid and carousel skins.
-- Fixed: an issue in "Frontend Event Submission" form regarding adding duplicate events.
-- Fixed: an encoding issue in iCal export button of frontend and iCal export in backend.
-- Fixed: a date issue for multiple days events in clean style of grid skin.
-- Fixed: an issue in local time module when the visitor time-zone didn't find.
-- Fixed: widget carousel and grid style.
-- Fixed: styling issue on slider shortcode.
-- Fixed: some minor issues.
-
-v 2.0.1 – 31 July 2017
-- Fixed: Backend styling issue.
-
-v 2.0.1 – 28 July 2017
-- Fixed: Some minor issues.
-
-v 2.0.0 – 24 July 2017
-- Added: Yearly view skin.
-- Added: Agenda view skin.
-- Added: New setting option framework.
-- Added: Individual booking form per event.
-- Added: Location auto suggest for address field of location taxonomy.
-- Added: "Ticket" and "Tickets" word to translatable messages.
-- Added: Feature for using first attendee information for other tickets and don't filling all the tickets.
-- Added: A feature for disabling Booking notification form.
-- Added: Year skin to the full calendar skin.
-- Added: Agreement field for booking form.
-- Added: Agenda and Yearly view to the available archive skins.
-- Fixed: A quote escape issue on payment HTML comment form.php.
-- Fixed: A quote escape issue on Notification subjects.
-- Fixed: An issue when start date of skins are set to Today.
-- Fixed: Some minor issues.
-
-v 1.9.7 – 14 June 2017
-- Added: price to booking related notifications.
-- Added: feed support for MEC categories just like MEC events.
-- Added: booking price to book exports.
-- Added: an option for showing year ranges in the date filter based on "Include Expired Events" and "Show only expired: events" options.
-- Added: end dates of multiple day events to most of grid styles.
-- Added: a new option for defining static fees to be applied on total amount of booking instead of ticket prices.
-- Added: end date for multiple date events to skins: accordion, Grid clean, Grid Modern, Grid Colorful, Carousel Type3.
-- Improved: date label function for not showing both of end date and start dates if they're same. Also added a class to the end date for using in UI jobs.
-- Improved: tickets availability on booking module.
-- Fixed: referred date issue on some event types.
-- Fixed: an issue in next event module in some rare conditions.
-- Fixed: an issue in custom_days events for showing next occurrence in countdown module.
-- Fixed: Dutch language issues.
-- Fixed: a content display issue on modal and accordion styles.
-- Fixed: an offset issue in list and grid skins.
-- Fixed: an issue in ticket availability.
-- Fixed: an issue in showing attendee name when there are different attendees with same email.
-- Fixed: some date and interval issues in Google and Facebook import and auto sync.
-- Fixed: an issue in category feeds.
-- Fixed: a sorting issue on events.
-- Fixed: an issue in sold out message on tickets.
-- Fixed: owl carousel conflict with themes slider shortcode and carousel shortcode.
-- Fixed: accordion style js issue on multiple shortcodes.
-- Fixed: backend label styles.
-- Fixed: loader issue with ajax response in all shortcodes.
-- Fixed: booking button, google map pins, styling option and booking form css issues.
-- Fixed: date and time sorting issue of map module in single event page and map skin.
-- Fixed: an issue in calculating availability spot of tickets when a booking canceled.
-- Fixed: date option in accordion.
-- Fixed: an issue in the event details countdown.
-
-v 1.9.6 – 23 May 2017
-- Added: Custom sidebar (ability to change single default widget bar, add and remove default sidebar items and add your own widget to single page (default view).)
-- Improved: Single event html (google calendar and iCal).
-- Improved: Change order of back-end event filters to alphabetical order instead of order by count.
-- Fixed: A date time conversion issue in google calendar import and facebook calendar import that happens in some websites in rare conditions.
-- Fixed: Compatibility message on update page.
-
-v 1.9.5.1 – 14 May 2017
-- Added: "Only Expired" filter for showing only expired events in following skins: Monthly View, Weekly View, Daily View.
-- Added: "Ongoing" filter for showing only ongoing events in list/grid skins.
-- Added: "Only Expired" filter for list, grid, full calendar, carousel and slider skins.
-- Added: Descending order feature for expired events.
-- Improved: "Multiple Day Events" Method and include Slider and Carousel skins.
-- Fixed: Next occurence modal style.
-- Fixed: Event attende list style.
-- Fixed: Issue of disabling previous month button in weekly view.
-- Fixed: An issue in calculating available spots of events.
-- Fixed: An issue in showing subscribers and contributers in author filter.
-- Fixed: Some date issues in weekdays and custom days events.
-- Fixed: Don't show ticket when all available spots are sold.
-- Fixed: An issue in showing sold out message.
-- Fixed: HTML issue on Google Calendar Export.
-
-v 1.9.5 – 9 May 2017
-- Added: Toggle List view.
-- Added: Reporting Dashboard.
-- Added: An option for hiding the events based on Start time (Default Value) , End time ,  1 Hour after start time , 2 Hours after start time.
-- Added: Link protocol automatically to organizer if it's not set by client.
-- Added: Show end date for multiple day events in carousel skin.
-- Added: Message Options :
-- Added: Ability to change weekdays abbr
-- Added: Ability to change label of taxonomies such as Label, Location, Organizer and Category
-- Changed: Single Event Page, Add/Edit event page in backend, Frontend Event Submission, Backend menus, Filter Options in shortcodes menu, Search Form Options in the backend and frontend, All events menu in backend, CSV and MS-Excel exports.
-- Fixed: A date issue on modal that created by Next Occurrence method of date.
-- Fixed: Showing wrong end date in list/grid skins when all days are set to show instead of first day.
-- Fixed: End date issue in iCal export. 
-- Fixed: End date issue in Google Calendar link in frontend.
-- Fixed: Requred field style in booking form.
-- Fixed: List view standard issue style.
-- Fixed: Modal counter issues.
-- Fixed: Attende module style.
-- Fixed: Fes form submit button issue on responsive.
-- Fixed: Full Calendar PreLoader isssue in fire fox.
-- Updated: German translate.
-- Updated: Italian translate.
-
-v 1.9.4.1 – 30 April 2017
-- Added: Description field for tickets.
-- Fixed: Some issue about modal.
-
-v 1.9.4 – 25 April 2017
-- Added: Modal option for list skin (Grid, Daily, Weekly, Monthly, Full calendar).
-- Added: Slider view type 5.
-- Added Description field for tickets.
-- Fixed: 2 issues in booking export feature when no booking is selected.
-- Improved: Show "The event is ongoing." message if the event is started but not finished.
-- Improved: "Sold" message if all of event tickets sold instead of showing booking module.
-- Fixed: Issue of event title in the modal.
-- Fixed: Http:// issue in the more info link.
-- Added: Some guide for zoomlevel option of Google Maps in settings menu.
-
-v 1.9.3.1 – 10 April 2017
-- Fixed: an issue on some servers when the booking request is too long and server couldn't respond to the long AJAX requests.
-- Fixed: issue of WP reset password email issue when the email content type is set to HTML instead of plain text.
-- Fixed: an issue in local-time module.
-- Fixed: minor css issue.
-
-v 1.9.3 – 06 April 2017
-- Added: Local Time module for showing event time based on visitor timezone.
-- Added: an option to enable removing MEC Data on uninstall (Disabled by default).
-- Added: Guest Email and Name to the FES.
-- Added: limitation to attendees module.
-- Improved:Show separated price per ticket instead of total price in booking backend menu.
-- Improved: MEC update system to don't run when not needed in order to speed up the initialization.
-- Fixed: an issue on adding fees price to the booking.
-- Fixed: an issue in Custom Days Repeat System.
-- Fixed: an issue on exporting exceptional days to Google Calendar.
-
-v 1.9.2 – 15 March 2017
-- Added: An ability to import old events from Google Calendar.
-- Fixed: A translation issue.
-- Fixed: A GMT date issue on Google Calendar and iCal export.
-- Fixed: An issue on showing selected color in Frontend Event Submission.
-- Fixed: Some front end submisssion ui issue.
-
-v 1.9.1 – 13 March 2017
-- Improved: RTL style.
-- Fixed: An issue with polylang plugin.
-- Fixed: A PHP notice in countdown module.
-- Added: Swedish language files (Thanks to Mats).
-
-v 1.9.0 – 6 March 2017
-- Added: Auto Synchronization for Google Calendar Import/Export and Facebook Import.
-- Added: MEC transaction ID into Stripe description.
-- Added: Organizer, Locations, Hourly Schedule, Tickets, Booking Options, Fess/Taxes sections to the Frontend Event Submission.
-- Added: ability to disable/enable FES sections from settings menu.
-- Fixed: Some issues on Google Calendar and Facebook Calendar Import and Synchronization.
-- Fixed: An issue in countdown skin.
-
-v 1.8.8 – 26 February 2017
-- Added: Slider Shortcode into predefined shortcodes on plugin activation.
-- Hided: organizer element on modern layout if it's not set.
-- Fixed: some issues on adding/editing locations and organizers.
-- Fixed: owl carousel issue on full calendar skin.
-- Fixed: Css issues and countdown issues.
-
-v 1.8.6 – 23 February 2017
-- Fixed: JS and CSS Issues.
-
-v 1.8.5 - 22 February 2017
-- Added: Ability to import facebook event image as featured image of event in Facebook Importer.
-- Added: New auto update and verification
-- Added: %%attendee_full_info%% to booking notification email.
-- Added: Carousel and slider view auto play time option.
-- Added: mailto: and tel: option for organizer email and tel in the single event page.
-- Added: Polish language files (Thanks to Łukasz Szmigiel).
-- Improved: Settings Form Security.
-- Fixed: An XSS issue on the custom styles.
-- Fixed: Default issue for single event layout.
-- Fixed: A PHP notice issue on single event page.
-- Fixed: Issue of not setting Customer on WooCommerce Order when guest user is paying.
-- Fixed: Issue of custom days' events for showing main date of event.
-- Fixed: Issue of not converting notification new lines to paragraph in MEC Notification system.
-- Fixed: 2 notices on PHP7.
-- Fixed: Responsive of sliders issues.
-- Fixed: Option for date suffix.
-- Fixed: Next Event Module.
-- Fixed: Flip countdown issues for days more than hundred.
-- Fixed: Countdown issues on edge / IE.
-- Fixed: Countdown reponsive.
-- Fixed: Event title is mandatory on "Frontend Event Submission" form.
-- Fixed: A conflict between MEC and WC Strip gateway on Stripe payment form.
-- Fixed: Load Google Maps assets (JS and CSS) only when needed instead of loading them always to optimize the speed.
-- Fixed: Load OWL assets (JS and CSS) only when needed instead of loading them always to optimize the speed.
-- Fixed: A translation issue.
-- Fixed: HTML validation.
-- Cleanup: On frontend.js codes.
-- Updated: Brazilian portuguese language (Thanks to Rodrigues Santana).
-- Updated: German language (Thanks to Jürgen König).
-
-v 1.8.0 - 7 February 2017
-- Added: WooCommerce Integration.
-- Added: Next Event module to be shown on single event page.
-- Added: A new style named "Modern" for single events page.
-- Added: Full Slider skin.
-- Added: Time options to "Frontend Event Submission".
-- Added: Ability to set title for gateways to be shown in the checkout form.
-- Added: Activate the only gateway in the checkout form if only 1 gateway is enabled.
-- Fixed: Fixed an issue in booking dates when some dates excluded from event occurrence dates.
-- Fixed: Tags Archive Page issue by adding mec-events CPT into the query.
-- Fixed: Issue of changing year when ignore date option is selected.
-- Fixed: End date issue when an occurrence is selected.
-- Fixed: Some UTC date issues in Add to Google Calendar button and ICS download button in single event page.
-- Updated: German language (Thanks to Jurgen).
-
-v 1.7.0 - 18 January 2017
-- Added: BuddyPress Integration.
-- Added: Showing Attendees list on event details page.
-- Added: Add an activity to user BuddyPress profile after booking a new event.
-- Added: Stripe Payment Gateway.
-- Added: Mailchimp integration to add bookers' data into a certain list with a certain subscription status.
-- Added: New flip countdown skin added.
-- Added: Event note option for frontend event submission.
-- Added: Use Post Excerpt if exists instead of post content in list skin.
-- Added: %%event_note%% placeholder for new event notification.
-- Added: An ability to place %%event_title%% into title of "admin notification" and "new event" notifications.
-- Fixed: Issue about http_build_query function in some servers.
-- Improve: Front end submission UX.
-- Improve: Search month and date can be ignored.
-
-v 1.6.0 - 3 January 2017
-- Added: Google Calendar Integration.
-- Added: Ability to import events from Google Calendar.
-- Added: Ability to add MEC events directly to Google Calendar.
-- Added: Facebook import feature for importing events from a certain Facebook page.
-- Added: Russian language. (Thanks to Runa Simi Tours)
-- Added: An ability to change countdown main color.
-- Added: Ability to export filtered events into CSV, MS Excel, JSON and XML formats.
-- Added: Ability to export all events into CSV, MS Excel, JSON and XML formats.
-- Added: Ability to change weekdays and weekends.
-- Added: A new option to show event date in single event page based on referred date instead of next occurrence.
-- Added: Target window option for "Read More Link".
-- Added: Thank you page for opening after booking.
-- Added: An ability to send "Booking Notification" and "Admin Notification" to event organizer.
-- Updated: Sorting system of events.
-- Updated: Search form in all skins.
-- Fixed: An issue in setting full calendar layout as archive skin.
-- Fixed: Issue of showing expired events in map skin.
-- Fixed: An Issue about next/previous month navigator in monthly, weekly and daily skins.
-- Fixed: Issue of 6th week in weekly view.
-
-v 1.5.1 - 15 December 2016
-- Fixed: Countdown Issues.
-
-v 1.5.0 - 14 December 2016
-- Added: Carousel skin with 3 different styles.
-- Added: Countdown skin with 3 different styles.
-- Added: Turkish language. (Thanks to Toptan Bilgisayar)
-- Added: Brazilian Portuguese language. (Thanks to Rodriguez)
-- Added: Italian language. (Thanks to Michele D'Amico)
-- Added: An ability to include custom fields into CSV and MS Excel exports.
-- Added: Ability to change date format of booking module.
-- Added: Date format option for cover, single and map skins.
-- Added: Date format option for carousel, list and grid skins.
-- Added: An ability to the event cost to insert texts instead of number.
-- Added: A new event repeat option for selecting completely custom days.
-- Added: An ability to hide regular events on some certain dates.
-- Added: a new option for increasing maximum dates in booking form.
-- Added: Mandatory option for check-box and radio buttons in booking form.
-- Added: Ability to change booking status form in booking details page.
-- Updated: Front-end Submission Form.
-- Updated: Change sort method of locations and organizers to alphabetical.
-- Fixed: An issue in showing event description in the skins.
-- Fixed: An issue in search form.
-
-v 1.4.0 - 25 October 2016
-- Added: Full Calendar new skin.
-- Added: Search Form ability for all MEC skins.
-- Added: Ability to search by category, location, organizer and labels to the search form.
-- Added: Text Search option to search form.
-- Added: Year and Month filter to search form.
-- Added: Ability to disable search fields and search form completely.
-- Added: Ability to disable archive event page and replace a normal WordPress page instead.
-- Added: Some new options in "Frontend Event Submission" such as categories, labels and event color.
-- Added: Optional more info link.
-- Updated: List and Grid skins.
-- Fixed: An issue about using two different protocols for backend and frontend of WordPress.
-
-v 1.3.6 - 19 October 2016
-- Added: German language. (Thanks to Jens)
-
-v 1.3.5 - 11 October 2016
-- Added: Ability to upload featured image for events by guest users.
-- Added: Lightbox for showing details of events on map skin.
-- Added: Auto Update feature by purchase code and security token.
-- Added: Duplicate event feature.
-- Added: A new option for showing only first day of multiple day events on list/grid skins.
-- Updated: "Front-end Event Submission" structure.
-- Updated: Map skin interfaces.
-- Fixed: Issue of not showing end date of multiple day events next to start date in single event page and other skins.
-- Fixed: Some issues on notifications.
-- Fixed: Issue of removing featured image.
-- Fixed: Issue of showing past events when "Show Past Event" option is disabled.
-
-v 1.3.0 - 3 October 2016
-- Added: French language. (Thanks to Chris van den Berg)
-- Added: Dutch (Netherlands) language. (Thanks to Mario Leblanc)
-- Added: Category archive skin selector for showing desired skin in category archive pages.
-- Added: New colorful style for grid skin.
-- Added: An option for disabling loading of Google Maps API for fixing conflicts with other third party themes/plugins.
-- Added: A pre-loader style for booking button.
-- Fixed: Social buttons issue on iphone.
-- Fixed: Issue of empty booking form.
-- Fixed: An issue in Google fonts.
-
-v 1.2.5 - 28 September 2016
-- Added: A new repeat type for repeating events on certain weekdays.
-- Added: An option for showing only first day of multiple day events on the calendars instead of all days.
-- Fixed: Issue of invalid currency code for bookings.
-- Fixed: An issue in "Add to Google Calendar" button for setting correct time-zone.
-- Fixed: Issue of showing all days of multiple day events in list/grid skins.
-- Fixed: Calendar/Monthly skin issue.
-
-v 1.2.1 - 26 September 2016
-- Fixed: Issue of count-down module in Safari browser.
-- Fixed: An issue for showing wrong occurrence date for events.
-
-v 1.2.0 - 25 September 2016
-- Added: A new placeholder for showing full attendee data such as name, email and registration form data in the "admin notification email".
-- Added: 24 hours format is added to backend form and "Front-end Submission Form" as well.
-- Added: "Auto Confirm" feature for bookings.
-- Added: "Hide end time" feature for events.
-- Added: Booking form builder is completely re-developed and optimized.
-- Added: Tel and Email fields for Booking form builder.
-- Added: Show registration form data in booking view page in back-end.
-- Fixed: All day time issue on some skins.
-- Fixed: Booking form validation issue.
-- Fixed: Date localization issues on daily view.
-- Fixed: Issue of hiding notification tab when booking feature is disabled.
-- Updated: Applied some clean coding.
-- Updated: Backend Design.
-
-v 1.1.0 - 19 September 2016
-- Added: "Front-end Event Submission" feature. Now all of your website users are able to post/manage their events from front-end.
-- Added: Google re-captcha feature for protecting your website more on booking module and "Front-end Event Submission" feature.
-- Added: A new hour format for showing hours based on 24 hour format on front-end in addition to 12 hour format.
-- Added: Hundreds of currencies for improving internationalization of Modern Events Calendar.
-- Updated: Backend UI design
-- Fixed: Some issues on booking module.
-- Fixed: Date localization issues. Now, month names, week days etc shows based on current language.
-- Fixed: Social icons in grid view
-
-v 1.0.3 - 11 September 2016
-- Added: A new feature for changing mec-category slug/permalink to the desired slug/permalink.
-- Fixed: A time-zone issue on countdown module.
-- Fixed: Some jQuery conflicts.
-
-v 1.0.2 - 07 September 2016
-- Fixed: Some conflicts with other plugins.
-- Fixed: Broken links on support menu.
-
-v 1.0.1 - 06 September 2016
-- Fixed: No event issue on weekly skin.
-- Fixed: "0000-00-00" issue for event end date.
-- Fixed: Some PHP notices.
-- Fixed: Post reset issue on Map skin.
-
-v 1.0.0 - 01 September 2016
-- Initial Release
+If you’ve added a file to the main folder of MEC, this file will be removed after the update. Therefore, please do get a full back up before proceeding with the update process.

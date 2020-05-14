@@ -173,7 +173,6 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-yearly', $atts, $this, 'yearly_view');
-
                 $output = $this->render->vyear($atts);
 
                 break;
@@ -192,7 +191,6 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-monthly', $atts, $this, 'monthly_view');
-                
                 $output = $this->render->vmonth($atts);
                 
                 break;
@@ -210,7 +208,6 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-weekly', $atts, $this, 'weekly_view');
-                
                 $output = $this->render->vweek($atts);
                 
                 break;
@@ -228,7 +225,6 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-daily', $atts, $this, 'daily_view');
-                
                 $output = $this->render->vday($atts);
                 
                 break;
@@ -251,7 +247,6 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-grid', $atts, $this, 'grid');
-
                 $output = $this->render->vgrid($atts);
 
                 break;
@@ -272,7 +267,6 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-tile', $atts, $this, 'tile');
-
                 $output = $this->render->vtile($atts);
 
                 break;
@@ -294,7 +288,6 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-list', $atts, $this, 'list');
-
                 $output = $this->render->vlist($atts);
                 
                 break;

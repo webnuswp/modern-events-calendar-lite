@@ -253,13 +253,13 @@ class MEC_feature_mec extends MEC_base
         if($post_id != 'none')
         {
             $dates = $feature_class->db->select("SELECT `dstart`, `dend` FROM `#__mec_dates` WHERE `post_id`='".$post_id."' LIMIT 100");
-
             $occurrence = reset($dates)->dstart;
+
             echo '<select name="mec-report-event-dates" class="mec-reports-selectbox mec-reports-selectbox-dates" onchange="mec_event_attendees('.$post_id.', this.value);">';
             echo '<option value="none">'.esc_html__( "Select Date" , "mec").'</option>';
             foreach($dates as $date)
             {
-                echo '<option href="#" value="'.$date->dstart.'" '.($occurrence == $date->dstart ? 'class="selected-day"' : '').'>'.(($date->dstart != $date->dend) ? sprintf(__('%s to %s', 'modern-events-calendar-lite'), $date->dstart, $date->dend) : $date->dstart).'</option>';
+                echo '<option value="'.$date->dstart.'" '.($occurrence == $date->dstart ? 'class="selected-day"' : '').'>'.(($date->dstart != $date->dend) ? sprintf(__('%s to %s', 'modern-events-calendar-lite'), $date->dstart, $date->dend) : $date->dstart).'</option>';
             }
             echo '</select>';
         }

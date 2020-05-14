@@ -148,7 +148,7 @@ class MEC_render extends MEC_base
      */
     public function vfull($atts = array())
     {
-        $atts = apply_filters('default', $atts);
+        $atts = apply_filters('mec_vfull_atts', $atts);
         $skin = 'full_calendar';
         
         return $this->skin($skin, $atts);

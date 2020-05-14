@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.4.1  
-**Stable tag:** 5.4.0  
+**Stable tag:** 5.4.5  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -17,7 +17,7 @@ WordPress event calendar plugin is a trending FREE tool used for managing events
 
 * [Demos](https://webnus.net/modern-events-calendar/)
 * [Documentation](https://webnus.net/dox/modern-events-calendar/)
-* [Toturials](https://webnus.net/dox/modern-events-calendar/video-tutorials/)
+* [Tutorials](https://webnus.net/dox/modern-events-calendar/video-tutorials/)
 * [Test Drive](http://webnus.biz/mec-test/)
 
 
@@ -318,6 +318,8 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
 - Bulk Emails to Attendees (*pro*)
 - Minimum Ticket Option (*pro*)
+- Minimum and maximum ticket for coupons (*pro*)
+- Maximum discount for coupons (*pro*)
 - Booking report page (*pro*)
 - Book All Occurrences (*pro*)
 - Stop selling Ticket Option (*pro*)
@@ -459,6 +461,26 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 
 
 ## Changelog 
+
+### v 5.4.5 – 14 May 2020 
+- Added: A holding status label next to date options in single event
+- Added: Minimum and maximum ticket options for coupons (pro)
+- Added: Maximum discount option for coupons (pro)
+- Added: Two placeholders for additional locations name and address
+- Added: Ongoing / Expired options to agenda and timeline skins
+- Improved: UX of shortcake builder
+- Improved: Reports menu to show all attendees of events (pro)
+- Improved: Booking Form to won’t show date and ticket count fields when not applicable (pro)
+- Improved: UX of date options of short-code builder
+- Fixed: “Show Booking Form Interval” option. (pro)
+- Fixed: A search issue in agenda skin (pro)
+- Fixed: An issue in full calendar when used as category archive
+- Fixed: Classic editor of WordPress
+- Fixed: Backend responsive on mobile and tablet 
+- Fixed: Reason for cancellation conditions
+- Fixed: Timeline image link on modal popup
+- Fixed: Schema
+
 
 ### v 5.4.0 – 5 May 2020 
 - Added: An option to add different hours for custom days repeat type
