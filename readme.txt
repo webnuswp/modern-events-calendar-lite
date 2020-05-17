@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.4.1
-Stable tag: 5.4.5
+Stable tag: 5.4.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -371,6 +371,9 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 37. WordPress Event Calendar - Add Shortcode Wizard
 
 == Changelog ==
+= v 5.4.6 – 17 May 2020 =
+- Added: <a href="https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/?ref=17" target="_blank">Fluent-view</a> addon options (Free Addon - limited time)
+
 = v 5.4.5 – 14 May 2020 =
 - Added: A holding status label next to date options in single event
 - Added: Minimum and maximum ticket options for coupons (pro)

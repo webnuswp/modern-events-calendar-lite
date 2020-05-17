@@ -1,4 +1,7 @@
-﻿v 5.4.5 – 14 May 2020
+﻿v 5.4.6 – 17 May 2020
+- Added: <a href="https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/?ref=17" target="_blank">Fluent-view</a> addon options (Free Addon - limited time)
+
+v 5.4.5 – 14 May 2020
 - Added: A holding status label next to date options in single event
 - Added: Minimum and maximum ticket options for coupons (pro)
 - Added: Maximum discount option for coupons (pro)

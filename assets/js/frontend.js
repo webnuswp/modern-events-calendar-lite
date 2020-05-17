@@ -4008,7 +4008,7 @@ function mecFluentSmartFilterIcon() {
 }
 
 function mecFluentMoreViewsContent() {
-    jQuery(this).siblings('.mec-fluent-more-views-content').toggleClass('active');
+    jQuery(this).find('.mec-fluent-more-views-content').toggleClass('active');
 }
 
 function mecFluentWrapperFullScreenWidth() {
