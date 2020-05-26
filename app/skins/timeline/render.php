@@ -91,7 +91,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                                 </div>
                             </div>
                         </div>
-                        <a class="mec-booking-button mec-timeline-readmore mec-bg-color" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Details', 'modern-events-calendar-lite')); ?><i class="mec-sl-arrow-right"></i></a>
+                        <a class="mec-booking-button mec-timeline-readmore mec-bg-color" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?><i class="mec-sl-arrow-right"></i></a>
                     </div>
                 </div>
                 
