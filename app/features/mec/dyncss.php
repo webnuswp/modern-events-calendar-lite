@@ -87,9 +87,8 @@ if(isset($styling['container_normal_width']) && $styling['container_normal_width
 {
 	$mec_container_normal_width = trim( $styling['container_normal_width'] );
 	if( $mec_container_normal_width ) {
-		if( substr($mec_container_normal_width,-2,2)!="px" )
-		{
-			$mec_container_normal_width.='px';
+		if (is_numeric($mec_container_normal_width)) {
+			$mec_container_normal_width .= 'px';
 		}
 	}
 }
@@ -98,9 +97,8 @@ if(isset($styling['container_large_width']) && $styling['container_large_width']
 {
 	$mec_container_large_width = trim( $styling['container_large_width'] );
 	if( $mec_container_large_width ) {
-		if( substr($mec_container_large_width,-2,2)!="px" )
-		{
-			$mec_container_large_width.='px';
+		if (is_numeric($mec_container_large_width)) {
+			$mec_container_large_width .= 'px';
 		}
 	}
 }
@@ -127,14 +125,14 @@ if($mec_h_fontfamily_arr): ?>
 	/* == Custom Fonts For H Tag
 		---------------- */
 	.post-type-archive-mec-events h1, .tax-mec_category h1, .mec-wrap h1, .mec-wrap h2, .mec-wrap h3, .mec-wrap h4, .mec-wrap h5, .mec-wrap h6,.entry-content .mec-wrap h1, .entry-content .mec-wrap h2, .entry-content .mec-wrap h3,.entry-content  .mec-wrap h4, .entry-content .mec-wrap h5, .entry-content .mec-wrap h6
-	{ font-family: '<?php echo $mec_h_fontfamily_arr[0]; ?>', Helvetica, Arial, sans-serif;}
+	{ font-family: '<?php echo $mec_h_fontfamily_arr[0]; ?>', Helvetica, Arial, sans-serif !important;}
 <?php endif;
 
 // render paragraph font familty
 if($mec_p_fontfamily_arr): ?>
 	/* == Custom Fonts For P Tag
 		---------------- */
-	.mec-load-more-button, .mec-events-meta-group-tags a, .mec-events-button, .mec-single-event .mec-event-meta dt, .mec-wrap abbr, .mec-event-schedule-content dl dt, .mec-breadcrumbs a, .mec-breadcrumbs span .mec-event-content p, .mec-wrap p { font-family: '<?php echo $mec_p_fontfamily_arr[0]; ?>',sans-serif; font-weight:300;}
+	.mec-load-more-button, .mec-events-meta-group-tags a, .mec-events-button, .mec-single-event .mec-event-meta dt, .mec-wrap abbr, .mec-event-schedule-content dl dt, .mec-breadcrumbs a, .mec-breadcrumbs span .mec-event-content p, .mec-wrap p { font-family: '<?php echo $mec_p_fontfamily_arr[0]; ?>',sans-serif; font-weight:300 !important;}
 <?php endif;
 
 // render colorskin
@@ -174,18 +172,22 @@ if($color && $color != '#40d9f1'): ?>
 // Render Container Width
 if($mec_container_normal_width): ?>
 @media only screen and (min-width: 1281px) {
-	.mec-container {
-		width: <?php echo $mec_container_normal_width; ?>;
-	}
+	.mec-container,
+    body [id*="mec_skin_"].mec-fluent-wrap {
+        width: <?php echo $mec_container_normal_width; ?> !important;
+        max-width: <?php echo $mec_container_normal_width; ?> !important;
+    }
 }
 <?php endif;
 
 
 if($mec_container_large_width): ?>
 @media only screen and (min-width: 1600px) {
-	.mec-container {
-		width: <?php echo $mec_container_large_width; ?>;
-	}
+	.mec-container,
+    body [id*="mec_skin_"].mec-fluent-wrap {
+        width: <?php echo $mec_container_large_width; ?> !important;
+        max-width: <?php echo $mec_container_large_width; ?> !important;
+    }
 }
 <?php endif;
 
@@ -206,6 +208,22 @@ if($content_color): ?>
 	color: <?php echo $content_color; ?>;
 }
 <?php endif;
+
+if (isset($styling['disable_fluent_height_limitation']) && $styling['disable_fluent_height_limitation']) {
+	?>
+	.mec-fluent-wrap.mec-skin-list-wrap .mec-calendar,
+	.mec-fluent-wrap .mec-skin-weekly-view-events-container,
+	.mec-fluent-wrap .mec-daily-view-events-left-side,
+	.mec-fluent-wrap .mec-daily-view-events-right-side,
+	.mec-fluent-wrap .mec-yearly-view-wrap .mec-yearly-calendar-sec,
+	.mec-fluent-wrap .mec-yearly-view-wrap .mec-yearly-agenda-sec,
+	.mec-fluent-wrap.mec-skin-grid-wrap .mec-calendar,
+	.mec-fluent-wrap.mec-skin-tile-container .mec-calendar,
+	.mec-fluent-wrap.mec-events-agenda-container .mec-events-agenda-wrap {
+		max-height: unset !important;
+	}
+	<?php
+}
 
 // get render content
 $out = '';

@@ -319,7 +319,7 @@ class MEC_skin_single extends MEC_skins
                                         if ($hide_time) {
                                             $data->time = array('start'=>'', 'end'=>'');
                                         } elseif ($allday) {
-                                            $data->time = array('start'=>__('All Day', 'modern-events-calendar-lite'), 'end'=>'');
+                                            $data->time = array('start'=>$this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')), 'end'=>'');
                                         } else {
                                             $data->time = array(
                                                 'start'=>(isset($meta['mec_start_day_seconds']) ? $this->main->get_time($meta['mec_start_day_seconds']) : ''),
@@ -400,20 +400,42 @@ class MEC_skin_single extends MEC_skins
 
     /**
      * Breadcrumbs in Single
+     * @param $page_id
      * @author Webnus <info@webnus.biz>
      */    
     public function display_breadcrumb_widget($page_id)
     {	
         $breadcrumbs_icon = '<i class="mec-color mec-sl-arrow-right"></i>'; // breadcrumbs_icon between crumbs
-        $showCurrent = 1; // 1 - show current post/page title in breadcrumbs, 0 - don't show
-        global $post;
+
+        /**
+         * Home Page
+         */
         $homeURL = esc_url(home_url('/'));
         echo '<div class="mec-address"><a href="' . esc_url($homeURL) . '"> ' . __('Home', 'modern-events-calendar-lite') . ' </a> ' . $breadcrumbs_icon . ' ';
-        $crumbs_title = $this->main->get_archive_title();
-        $MEC_CPT = get_post_type_object(get_post_type());
-        $slug = $MEC_CPT->rewrite;
-        echo '<a href="' . $homeURL . $slug['slug'] . '/">' . $crumbs_title . '</a>';
-        if ($showCurrent == 1) echo ' ' . $breadcrumbs_icon . ' ' . '<span class="mec-current">' . get_the_title($page_id) . '</span></div>';
+
+        $archive_title = $this->main->get_archive_title();
+        $archive_link = get_post_type_archive_link($this->main->get_main_post_type());
+
+        $referer_url = wp_get_referer();
+        if(trim($referer_url))
+        {
+            $referer_page_id = url_to_postid($referer_url);
+            if($referer_page_id)
+            {
+                $archive_link = $referer_url;
+                $archive_title = get_the_title($referer_page_id);
+            }
+        }
+
+        /**
+         * Archive Page
+         */
+        echo '<a href="' . $archive_link . '">' . $archive_title . '</a> ' . $breadcrumbs_icon . ' ';
+
+        /**
+         * Current Event
+         */
+        echo '<span class="mec-current">' . get_the_title($page_id) . '</span></div>';
     }
 
     /**
@@ -433,13 +455,17 @@ class MEC_skin_single extends MEC_skins
         $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
 
         $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : date('Y-m-d');
+        $occurrence_time = isset($_GET['time']) ? sanitize_text_field($_GET['time']) : NULL;
+
+        $md_start = $this->main->get_start_of_multiple_days($this->id, $occurrence);
+        if($md_start) $occurrence = $md_start;
+
+        $md_start_time = $this->main->get_start_time_of_multiple_days($this->id, $occurrence_time);
+        if($md_start_time) $occurrence_time = $md_start_time;
 
         if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
         elseif(strtotime($occurrence))
         {
-            $md_start = $this->main->get_start_of_multiple_days($this->id, $occurrence);
-            if($md_start) $occurrence = $md_start;
-
             $new_occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
             if(in_array($repeat_type, array('monthly')) and date('m', strtotime($new_occurrence)) != date('m', strtotime($occurrence))) $new_occurrence = date('Y-m-d', strtotime($occurrence));
 
@@ -452,7 +478,7 @@ class MEC_skin_single extends MEC_skins
         $data->data = $rendered;
 
         // Get Event Dates
-        $dates = $this->render->dates($this->id, $rendered, $this->maximum_dates, $occurrence);
+        $dates = $this->render->dates($this->id, $rendered, $this->maximum_dates, ($occurrence_time ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
 
         // Remove First Date if it is already started!
         if(!isset($_GET['occurrence']) or (isset($_GET['occurrence']) and !trim($_GET['occurrence'])))
@@ -957,7 +983,7 @@ class MEC_skin_single extends MEC_skins
                         <?php if ($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])) : ?>
                             <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - ' . $event->data->time['end'] : ''); ?></abbr></dd>
                         <?php else : ?>
-                            <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'mec-single-builder'); ?></abbr></dd>
+                            <dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'mec-single-builder')); ?></abbr></dd>
                         <?php endif; ?>
                     </div>
                 <?php

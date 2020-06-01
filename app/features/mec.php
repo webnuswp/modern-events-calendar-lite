@@ -145,6 +145,9 @@ class MEC_feature_mec extends MEC_base
 
         $syncSchedule = $this->getSyncSchedule();
         $this->factory->action('mec_syncScheduler', array($syncSchedule, 'sync'));
+
+        // Dashborad Metaboxes
+        add_action('wp_dashboard_setup', array($this, 'dashboard_widgets'));
     }
 
     /* Activate License */
@@ -1061,5 +1064,272 @@ class MEC_feature_mec extends MEC_base
                 $menu[key($menu_item)][0] .= str_replace('%%count%%', esc_attr($count), $badge);
             }
         }
+    }
+
+    /**
+     * Add MEC metaboxes in WordPress dashboard
+     * @author Webnus <info@webnus.biz>
+     */
+    public function dashboard_widgets()
+    {
+        add_meta_box(
+            'mec_widget_news_features',
+            __('Modern Events Calendar', 'modern-events-calendar-lite'),
+            array($this, 'widget_news'),
+            'dashboard',
+            'normal',
+            'high'
+        );
+
+        add_meta_box(
+            'mec_widget_total_bookings',
+            __('Total Bookings', 'modern-events-calendar-lite'),
+            array($this, 'widget_total_bookings'),
+            'dashboard',
+            'normal',
+            'high'
+        );
+    }
+
+    /**
+     * MEC render metabox in WordPress dashboard
+     * @author Webnus <info@webnus.biz>
+     */
+    public function widget_news()
+    {
+        // Head Section
+        echo '<div class="mec-metabox-head-wrap">
+            <div class="mec-metabox-head-version">
+                <img src="'.plugin_dir_url(__FILE__ ) . '../../assets/img/ico-mec-vc.png" />
+                <p>'.($this->getPRO() ? __('Modern Events Calendar', 'modern-events-calendar-lite') : __('Modern Events Calendar (Lite)', 'modern-events-calendar-lite')).'</p>
+                <a href="'.esc_html__(admin_url( 'post-new.php?post_type=mec-events' )).'" class="button"><span aria-hidden="true" class="dashicons dashicons-plus"></span> Create New Event</a>
+            </div>
+            <div class="mec-metabox-head-button"></div>
+            <div style="clear:both"></div>
+        </div>';
+
+        // Upcoming Events
+        $upcoming_events = $this->main->get_upcoming_events(3);
+        echo '<div class="mec-metabox-upcoming-wrap"><h3 class="mec-metabox-feed-head">'.esc_html__('Upcoming Events' , 'modern-events-calendar-lite').'</h3><ul>';
+        foreach($upcoming_events as $date => $content)
+        {
+            foreach($content as $array_id => $array_content)
+            {
+                $location_id = $array_content->data->meta['mec_location_id'];
+                $event_title = $array_content->data->title;
+                $event_link  = $array_content->data->permalink;
+                $event_date  = $this->main->date_i18n(get_option('date_format'), $array_content->date['start']['date']);
+                $location = get_term($location_id, 'mec_location');
+
+                $locationName = '';
+                if(isset($location->name)) $locationName = $location->name;
+                echo '<li>
+                    <span aria-hidden="true" class="dashicons dashicons-calendar-alt"></span>
+                    <div class="mec-metabox-upcoming-event">
+                        <a href="'.$event_link.'" target="">'.$event_title.'</a>
+                        <div class="mec-metabox-upcoming-event-location">'.$locationName.'</div>
+                    </div>
+                    <div class="mec-metabox-upcoming-event-date">'.$event_date.'</div>
+                    <div style="clear:both"></div>
+                </li>';
+            }
+        }
+
+        echo '</ul></div>';
+
+        $data_url = 'https://webnus.net/wp-json/wninfo/v1/posts';
+        if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
+        {
+            $ctx = stream_context_create(array('http'=>
+                array(
+                    'timeout' => 20,
+                )
+            ));
+
+            $get_data = file_get_contents($data_url, false, $ctx);
+            if($get_data !== false and !empty($get_data))
+            {
+                $obj = json_decode($get_data);
+            }
+        }
+        elseif(function_exists('curl_version'))
+        {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+            curl_setopt($ch, CURLOPT_URL, $data_url);
+
+            $result = curl_exec($ch);
+            curl_close($ch);
+            $obj = json_decode($result);
+        }
+        else
+        {
+            $obj = '';
+        }
+
+        // News
+        if(!empty($obj))
+        {
+            echo '<h3 class="mec-metabox-feed-head">'.esc_html__('News & Updates' , 'modern-events-calendar-lite').'</h3><div class="mec-metabox-feed-content"><ul>';
+            foreach($obj as $key => $value)
+            {
+                echo '<li>
+                    <a href="'.$value->link.'" target="_blank">'.$value->title.'</a>
+                    <p>'.$value->content.'</p>
+                </li>';
+            }
+
+            echo '</ul></div>';
+        }
+
+        // Links
+        echo '<div class="mec-metabox-footer"><a href="https://webnus.net/blog/" target="_blank">'.esc_html__('Blog', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a><a href="https://webnus.net/dox/modern-events-calendar/" target="_blank">'.esc_html__('Help', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
+        if($this->getPRO()) echo '<a href="https://webnus.net/mec-purchase" target="_blank">'.esc_html__('Go Pro', 'modern-events-calendar-lite').'<span aria-hidden="true" class="dashicons dashicons-external"></span></a>';
+        echo '</div>';
+    }
+
+    public function widget_total_bookings()
+    {
+        wp_enqueue_script('mec-chartjs-script', $this->main->asset('js/chartjs.min.js'));
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+        ?>
+        <div class="w-row <?php echo (($current_page == 'dashboard') ? 'mec-dashboard-widget-total-bookings' : ''); ?>">
+            <div class="w-col-sm-12">
+                <div class="w-box total-bookings">
+                    <div class="w-box-head">
+                        <?php echo esc_html__('Total Bookings', 'modern-events-calendar-lite'); ?>
+                    </div>
+                    <div class="w-box-content">
+                        <?php
+                        $start = isset($_GET['start']) ? sanitize_text_field($_GET['start']) : date('Y-m-d', strtotime('-15 days'));
+                        $end = isset($_GET['end']) ? sanitize_text_field($_GET['end']) : date('Y-m-d');
+                        $type = isset($_GET['type']) ? sanitize_text_field($_GET['type']) : 'daily';
+                        $chart = isset($_GET['chart']) ? sanitize_text_field($_GET['chart']) : 'bar';
+
+                        $periods = $this->main->get_date_periods($start, $end, $type);
+
+                        $stats = '';
+                        $labels = '';
+                        foreach($periods as $period)
+                        {
+                            $posts_ids = $this->db->select("SELECT `ID` FROM `#__posts` WHERE `post_type`='".$this->main->get_book_post_type()."' AND `post_date`>='".$period['start']."' AND `post_date`<='".$period['end']."'", 'loadColumn');
+
+                            if(count($posts_ids)) $total_sells = $this->db->select("SELECT SUM(`meta_value`) FROM `#__postmeta` WHERE `meta_key`='mec_price' AND `post_id` IN (".implode(',', $posts_ids).")", 'loadResult');
+                            else $total_sells = 0;
+
+                            $labels .= '"'.$period['label'].'",';
+                            $stats .= $total_sells.',';
+                        }
+
+                        $currency = $this->main->get_currency_sign();
+                        ?>
+                        <ul>
+                            <li><a href="<?php echo add_query_arg(array(
+                                'start' => date('Y-m-01'),
+                                'end' => date('Y-m-t'),
+                                'type' => 'daily',
+                                'chart' => $chart,
+                            )); ?>"><?php _e('This Month', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><a href="<?php echo add_query_arg(array(
+                                'start' => date('Y-m-01', strtotime('-1 Month')),
+                                'end' => date('Y-m-t', strtotime('-1 Month')),
+                                'type' => 'daily',
+                                'chart' => $chart,
+                            )); ?>"><?php _e('Last Month', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><a href="<?php echo add_query_arg(array(
+                                'start' => date('Y-01-01'),
+                                'end' => date('Y-12-31'),
+                                'type' => 'monthly',
+                                'chart' => $chart,
+                            )); ?>"><?php _e('This Year', 'modern-events-calendar-lite'); ?></a></li>
+                            <li><a href="<?php echo add_query_arg(array(
+                                'start' => date('Y-01-01', strtotime('-1 Year')),
+                                'end' => date('Y-12-31', strtotime('-1 Year')),
+                                'type' => 'monthly',
+                                'chart' => $chart,
+                            )); ?>"><?php _e('Last Year', 'modern-events-calendar-lite'); ?></a></li>
+                        </ul>
+                        <form class="mec-sells-filter" method="GET" action="">
+                            <?php if($current_page != 'dashboard'): ?><input type="hidden" name="page" value="mec-intro" /><?php endif; ?>
+                            <input type="text" class="mec_date_picker" name="start" placeholder="<?php esc_attr_e('Start Date', 'modern-events-calendar-lite'); ?>" value="<?php echo $start; ?>" />
+                            <input type="text" class="mec_date_picker" name="end" placeholder="<?php esc_attr_e('End Date', 'modern-events-calendar-lite'); ?>" value="<?php echo $end; ?>" />
+                            <select name="type">
+                                <option value="daily" <?php echo $type == 'daily' ? 'selected="selected"' : ''; ?>><?php _e('Daily', 'modern-events-calendar-lite'); ?></option>
+                                <option value="monthly" <?php echo $type == 'monthly' ? 'selected="selected"' : ''; ?>><?php _e('Monthly', 'modern-events-calendar-lite'); ?></option>
+                                <option value="yearly" <?php echo $type == 'yearly' ? 'selected="selected"' : ''; ?>><?php _e('Yearly', 'modern-events-calendar-lite'); ?></option>
+                            </select>
+                            <select name="chart">
+                                <option value="bar" <?php echo $chart == 'bar' ? 'selected="selected"' : ''; ?>><?php _e('Bar', 'modern-events-calendar-lite'); ?></option>
+                                <option value="line" <?php echo $chart == 'line' ? 'selected="selected"' : ''; ?>><?php _e('Line', 'modern-events-calendar-lite'); ?></option>
+                            </select>
+                            <button type="submit"><?php _e('Filter', 'modern-events-calendar-lite'); ?></button>
+                        </form>
+                        <?php
+                        echo '<canvas id="mec_total_bookings_chart" width="600" height="300"></canvas>';
+                        echo '<script type="text/javascript">
+                            jQuery(document).ready(function()
+                            {
+                                var ctx = document.getElementById("mec_total_bookings_chart");
+                                var mecSellsChart = new Chart(ctx,
+                                {
+                                    type: "'.$chart.'",
+                                    data:
+                                    {
+                                        labels: ['.trim($labels, ', ').'],
+                                        datasets: [
+                                        {
+                                            label: "'.esc_js(sprintf(__('Total Sells (%s)', 'modern-events-calendar-lite'), $currency)).'",
+                                            data: ['.trim($stats, ', ').'],
+                                            backgroundColor: "rgba(159, 216, 255, 0.3)",
+                                            borderColor: "#36A2EB",
+                                            borderWidth: 1
+                                        }]
+                                    }
+                                });
+                            });
+                        </script>';
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function widget_print()
+    {
+        $start_year = $min_start_year = $this->db->select("SELECT MIN(cast(meta_value as unsigned)) AS date FROM `#__postmeta` WHERE `meta_key`='mec_start_date'", 'loadResult');
+        $end_year = $max_end_year = $this->db->select("SELECT MAX(cast(meta_value as unsigned)) AS date FROM `#__postmeta` WHERE `meta_key`='mec_end_date'", 'loadResult');
+        $current_month = current_time('m');
+        ?>
+        <div class="w-row">
+            <div class="w-col-sm-12">
+                <div class="w-box total-bookings print-events">
+                    <div class="w-box-head">
+                        <?php echo esc_html__('Print Calendar', 'modern-events-calendar-lite'); ?>
+                    </div>
+                    <div class="w-box-content">
+                        <form method="GET" action="<?php echo home_url(); ?>" target="_blank">
+                            <input type="hidden" name="method" value="mec-print">
+                            <select name="mec-year" title="<?php esc_attr('Year', 'modern-events-calendar-lite'); ?>">
+                                <?php for($i = $start_year; $i <= $end_year; $i++): ?>
+                                <option value="<?php echo $i; ?>" <?php echo ($i == date('Y', current_time('timestamp', 0))) ? 'selected="selected"' : ''; ?>><?php echo $i; ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <select name="mec-month" title="<?php esc_attr('Month', 'modern-events-calendar-lite'); ?>">
+                                <?php for($i = 1; $i <= 12; $i++): ?>
+                                <option value="<?php echo ($i < 10 ? '0'.$i : $i); ?>" <?php echo ($current_month == $i ? 'selected="selected"' : ''); ?>><?php echo $this->main->date_i18n('F', mktime(0, 0, 0, $i, 10)); ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <button type="submit"><?php _e('Display Events', 'modern-events-calendar-lite'); ?></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
     }
 }

@@ -115,7 +115,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                                 <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                                 <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                                 <?php else: ?>
-                                <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'modern-events-calendar-lite'); ?></abbr></dd>
+                                <dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
                                 <?php endif; ?>
                             </div>
                         <?php
@@ -346,7 +346,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                             <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                                 <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                             <?php else: ?>
-                                <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'modern-events-calendar-lite'); ?></abbr></dd>
+                                <dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
                             <?php endif; ?>
                         </div>
                         <?php

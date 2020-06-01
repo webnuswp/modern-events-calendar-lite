@@ -44,7 +44,7 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
                         <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                             <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                         <?php else: ?>
-                            <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'modern-events-calendar-lite'); ?></abbr></dd>
+                            <dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
                         <?php endif; ?>
                     </div>
                     <?php

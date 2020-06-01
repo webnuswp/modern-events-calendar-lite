@@ -2589,13 +2589,35 @@ span.mec-event-title-soldout {
 }
 
 .mec-price-details i {
-	margin-right: 5px;
+	margin-right: 4px;
 	vertical-align: text-top;
 }
 
 .mec-event-meta-wrap .mec-event-meta .mec-price-details i:before {
 	font-size: 15px;
 }
+
+.mec-event-list-standard .mec-price-details {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 300;
+}
+
+.mec-event-list-standard .mec-price-details i {
+    margin-left: 6px;
+}
+
+.mec-month-side .mec-price-details {
+    margin-left: 2px;
+}
+
+.tooltipster-sidetip.tooltipster-shadow .tooltipster-content .mec-price-details i,
+.mec-event-article .mec-price-details i,
+.mec-month-side .mec-price-details i {
+	padding-top: 4px;
+	vertical-align: unset;
+}
+
 
 @media only screen and (max-width: 960px) {
 	.mec-event-list-standard .mec-topsec {
@@ -5136,6 +5158,7 @@ address.mec-events-address {
 	margin-bottom: 2px;
 }
 
+.tooltipster-sidetip.tooltipster-shadow .tooltipster-content .mec-price-details,
 .mec-tooltip-event-time {
 	font-size: 12px;
 	color: #888;
@@ -6305,22 +6328,22 @@ li.mec-no-event-found .mec-event-title {
 
 .mec-fes-form input::-webkit-input-placeholder {
 	color: #798f96;
-	;
 }
 
 .mec-fes-form input::-moz-placeholder {
 	color: #798f96;
-	;
 }
 
 .mec-fes-form input:-ms-input-placeholder {
 	color: #798f96;
-	;
 }
 
 .mec-fes-form input:-moz-placeholder {
 	color: #798f96;
-	;
+}
+
+#mec-excerpt .mec-form-row .widefat {
+    max-width: 100%;
 }
 
 #mec_more_info_target {
@@ -9651,6 +9674,10 @@ li.mec-no-event-found .mec-event-title {
 	border: none;
 	background: #f7f7f7;
 	box-shadow: none;
+}
+
+.mec-single-modern .col-md-4.mec-no-image .mec-frontbox {
+    margin-top: 20px;
 }
 
 .mec-next-occurrence li {
@@ -15611,13 +15638,13 @@ a.mec-timeline-readmore i {
 }
 
 @media(min-width: 1024px) {
-    .mec-past-event.mec-timeline-event {
+    .mec-timeline-event {
         margin: 50px 0;
     }
 }
 
 @media(max-width: 1023px) {
-    .mec-past-event.mec-timeline-event {
+    .mec-timeline-event {
         margin: 25px 0;
     }
 
@@ -15904,10 +15931,30 @@ a.mec-timeline-readmore i {
     font-size: 10px;
 }
 
+/* Tile View Overlay */
+.mec-event-tile-view article.mec-tile-item .mec-tile-overlay {
+    position: absolute;
+    background: -moz-linear-gradient(180deg,rgba(0,0,0,.35) 0,rgba(0,0,0,.48) 65%,rgba(0,0,0,.72) 100%);
+    background: -webkit-gradient(left top,right top,color-stop(0,rgba(0,0,0,.35)),color-stop(65%,rgba(0,0,0,.48)),color-stop(100%,rgba(0,0,0,.72)));
+    background: -webkit-gradient(180deg,rgba(0,0,0,.35) 0,rgba(0,0,0,.48) 65%,rgba(0,0,0,.72) 100%);
+    background: linear-gradient(180deg,rgba(0,0,0,.35) 0,rgba(0,0,0,.48) 65%,rgba(0,0,0,.72) 100%);
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 22px;
+    z-index: 1;
+}
+
 .mec-wrap .mec-event-tile-view .col-md-3 article.mec-label-canceled:before,
 .mec-wrap .mec-event-tile-view .col-md-3 article.mec-label-featured:before {
     top: 12px;
-    left: 103px;
+	left: 103px;
+	z-index: 9;
 }
 
 .mec-wrap .mec-event-tile-view .col-md-4 article.mec-label-canceled:before,

@@ -251,7 +251,7 @@ if(is_array($fonts))
                                 </span>
                             </div>
                         </div>
-
+                        <?php do_action('mec_end_styling_settings', $styling); ?>
                         <div class="mec-form-row">
                             <?php wp_nonce_field('mec_options_form'); ?>
                             <button  style="display: none;" id="mec_styling_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Save Changes', 'modern-events-calendar-lite'); ?></button>

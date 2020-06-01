@@ -72,30 +72,39 @@ elseif($week_start == 5) // Friday
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                     
                     echo '<div class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative simple-skin-ended">';
-                    echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.$event->data->ID.'-'.$day_id.'" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']).'">';
+                    echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.$event->data->ID.'-'.$day_id.'" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'">';
                     echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation);
                     echo '</a>';
                     echo '</div>';
 
                     $tooltip_content = '';
-                    $tooltip_content .= !empty( $event->data->title) ? '<div class="mec-tooltip-event-title">'.$event->data->title.'</div>' : '' ;
-                    $tooltip_content .= trim($start_time) ? '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>' : '' ;
-                    $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '' ;
-                    $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.$event->data->thumbnails['thumbnail'].'</div>' : '' ;
-                    $tooltip_content .= !empty(!empty($event->data->content)) ? '<div class="mec-tooltip-event-desc">'.$this->main->mec_content_html($event->data->content, 320).' , ...</div>' : '' ;
+                    $tooltip_content .= !empty( $event->data->title) ? '<div class="mec-tooltip-event-title">'.$event->data->title.'</div>' : '';
+                    $tooltip_content .= trim($start_time) ? '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>' : '';
+
+                    if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
+                    {
+                        $tooltip_content .= '<div class="mec-price-details">
+                            <i class="mec-sl-wallet"></i>
+                            <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']).'</span>
+                        </div>';
+                    }
+
+                    $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '';
+                    $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.$event->data->thumbnails['thumbnail'].'</div>' : '';
+                    $tooltip_content .= !empty(!empty($event->data->content)) ? '<div class="mec-tooltip-event-desc">'.$this->main->mec_content_html($event->data->content, 320).' , ...</div>' : '';
                     if($this->localtime) $tooltip_content .= $this->main->module('local-time.type2', array('event'=>$event));
-                    $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '' ;
+                    $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '';
 
                     // MEC Schema
                     do_action('mec_schema', $event);
 
-                    echo '
-                        <div class="tooltip_templates event-single-content-simple">
-                            <div id="mec-tooltip-'.$event->data->ID.'-'.$day_id.'">
-                                '.$tooltip_content.'
-                            </div>
-                        </div>';
+                    echo '<div class="tooltip_templates event-single-content-simple">
+                        <div id="mec-tooltip-'.$event->data->ID.'-'.$day_id.'">
+                            '.$tooltip_content.'
+                        </div>
+                    </div>';
                 }
+
                 echo '</dt>';
             }
             else

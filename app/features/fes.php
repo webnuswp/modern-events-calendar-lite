@@ -351,6 +351,12 @@ class MEC_feature_fes extends MEC_base
         
         // Invalid Extension
         if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION'));
+
+        // Maximum File Size
+        $max_file_size = isset($this->settings['fes_max_file_size']) ? (int) ($this->settings['fes_max_file_size'] * 1000) : (5000 * 1000);
+
+        // Invalid Size
+        if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG'));
         
         $movefile = wp_handle_upload($uploaded_file, array('test_form'=>false));
         
@@ -408,6 +414,7 @@ class MEC_feature_fes extends MEC_base
 
         $post_title = isset($mec['title']) ? sanitize_text_field($mec['title']) : '';
         $post_content = isset($mec['content']) ? $mec['content'] : '';
+        $post_excerpt = isset($mec['excerpt']) ? $mec['excerpt'] : '';
         $post_tags = isset($mec['tags']) ? sanitize_text_field($mec['tags']) : '';
         $post_categories = isset($mec['categories']) ? $mec['categories'] : array();
         $post_speakers = isset($mec['speakers']) ? $mec['speakers'] : array();
@@ -425,13 +432,13 @@ class MEC_feature_fes extends MEC_base
         // Create new event
         if($post_id == -1)
         {
-            $post = array('post_title'=>$post_title, 'post_content'=>$post_content, 'post_type'=>$this->PT, 'post_status'=>$status);
+            $post = array('post_title'=>$post_title, 'post_content'=>$post_content, 'post_excerpt'=>$post_excerpt, 'post_type'=>$this->PT, 'post_status'=>$status);
             $post_id = wp_insert_post($post);
             
             $method = 'added';
         }
         
-        wp_update_post(array('ID'=>$post_id, 'post_title'=>$post_title, 'post_content'=>$post_content));
+        wp_update_post(array('ID'=>$post_id, 'post_title'=>$post_title, 'post_content'=>$post_content, 'post_excerpt'=>$post_excerpt,));
         
         // Categories
         $categories = array();
@@ -940,8 +947,48 @@ class MEC_feature_fes extends MEC_base
 
             usort($in_days_arr, function($a, $b)
             {
-                return strtotime(explode(':', $a)[0]) - strtotime(explode(':', $b)[0]);
+                $ex_a = explode(':', $a);
+                $ex_b = explode(':', $b);
+
+                $date_a = $ex_a[0];
+                $date_b = $ex_b[0];
+
+                $in_day_a_time_label = '';
+                if(isset($ex_a[2]))
+                {
+                    $in_day_a_time = $ex_a[2];
+                    $pos = strpos($in_day_a_time, '-');
+                    if($pos !== false) $in_day_a_time_label = substr_replace($in_day_a_time, ':', $pos, 1);
+
+                    $in_day_a_time_label = str_replace('-', ' ', $in_day_a_time_label);
+                }
+
+                $in_day_b_time_label = '';
+                if(isset($ex_b[2]))
+                {
+                    $in_day_b_time = $ex_b[2];
+                    $pos = strpos($in_day_b_time, '-');
+                    if($pos !== false) $in_day_b_time_label = substr_replace($in_day_b_time, ':', $pos, 1);
+
+                    $in_day_b_time_label = str_replace('-', ' ', $in_day_b_time_label);
+                }
+
+                return strtotime(trim($date_a.' '.$in_day_a_time_label)) - strtotime(trim($date_b.' '.$in_day_b_time_label));
             });
+
+            // Don't allow multiple occurrences per day in Lite version
+            if(!$this->getPRO() or true)
+            {
+                $in_days_unique = array();
+                foreach($in_days_arr as $key => $in_day_arr)
+                {
+                    $ex = explode(':', $in_day_arr);
+                    $in_days_unique_key = $ex[0].'-'.$ex[1];
+
+                    if(isset($in_days_unique[$in_days_unique_key])) unset($in_days_arr[$key]);
+                    $in_days_unique[$in_days_unique_key] = 1;
+                }
+            }
 
             if(!isset($in_days_arr[':i:'])) $in_days_arr[':i:'] = ':val:';
             foreach($in_days_arr as $key => $in_day_arr)

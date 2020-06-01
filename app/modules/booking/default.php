@@ -148,10 +148,13 @@ function mec_toggle_first_for_all'.$uniqueid.'(context)
 function mec_label_first_for_all'.$uniqueid.'(context)
 {
     var input = jQuery("#mec_book_first_for_all'.$uniqueid.'");
-    if (!input.is(":checked")) {
+    if(!input.is(":checked"))
+    {
         input.prop("checked", true);
         mec_toggle_first_for_all'.$uniqueid.'(context);
-    } else {
+    }
+    else
+    {
         input.prop("checked", false);
         mec_toggle_first_for_all'.$uniqueid.'(context);
     }
@@ -292,7 +295,8 @@ function mec_book_form_submit'.$uniqueid.'()
     var fileToUpload = false;
 
     var data = jQuery("#mec_book_form'.$uniqueid.'").serialize();
-    jQuery.ajax({
+    jQuery.ajax(
+    {
         type: "POST",
         url: "'.admin_url('admin-ajax.php', NULL).'",
         data: new FormData(jQuery("#mec_book_form'.$uniqueid.'")[0]),

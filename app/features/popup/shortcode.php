@@ -87,6 +87,13 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="accordion">
                                 <div><?php _e('Accordion', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/list-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-grid">
                             <label class="active">
@@ -124,6 +131,13 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="novel">
                                 <div><?php _e('Novel', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/grid-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-agenda">
                             <label class="active">
@@ -131,6 +145,13 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
                                 <div><?php _e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/agenda-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-full_calendar">
                             <h3><?php _e('Monthly Style', 'modern-events-calendar-lite'); ?></h3>
@@ -149,6 +170,13 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="simple">
                                 <div><?php _e('Simple', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/monthly-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-yearly_view">
                             <label class="active">
@@ -156,6 +184,13 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
                                 <div><?php _e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/yearly-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-monthly_view">
                             <label class="active">
@@ -183,12 +218,43 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="simple">
                                 <div><?php _e('Simple', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/monthly-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-map">
                         </div>
                         <div class="mec-skin-styles mec-styles-daily_view">
+                        <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label class="active">
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/daily-classic.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
+                                <div><?php _e('Classic', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/daily-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-weekly_view">
+                        <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label class="active">
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/weekly-classic.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
+                                <div><?php _e('Classic', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/weekly-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-timetable">
                             <label class="active">
@@ -201,8 +267,27 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
                                 <div><?php _e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/timetable-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-masonry">
+                        <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label class="active">
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/masonry-classic.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
+                                <div><?php _e('Classic', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/masonry-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-cover">
                             <label class="active">
@@ -220,6 +305,28 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
                                 <div><?php _e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/cover-fluent-type1.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type1">
+                                <div><?php _e('Fluent Type 1', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/cover-fluent-type2.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type2">
+                                <div><?php _e('Fluent Type 2', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/cover-fluent-type3.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type3">
+                                <div><?php _e('Fluent Type 3', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/cover-fluent-type4.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type4">
+                                <div><?php _e('Fluent Type 4', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-countdown">
                             <label class="active">
@@ -237,8 +344,32 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="style3">
                                 <div><?php _e('Style 3', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/countdown-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-available_spot">
+                        <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label class="active">
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/available-spot-classic.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
+                                <div><?php _e('Classic', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/available-spot-fluent-type1.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type1">
+                                <div><?php _e('Fluent Type 1', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/available-spot-fluent-type2.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type2">
+                                <div><?php _e('Fluent Type 2', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-carousel">
                             <label class="active">
@@ -261,6 +392,13 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="type4">
                                 <div><?php _e('Type 4', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/carousel-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-slider">
                             <label class="active">
@@ -288,10 +426,29 @@ $settings = $this->main->get_settings();
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="t5">
                                 <div><?php _e('Type 5', 'modern-events-calendar-lite'); ?></div>
                             </label>
+                            <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/slider-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-timeline">
                         </div>
                         <div class="mec-skin-styles mec-styles-tile">
+                        <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
+                            <label class="active">
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/tile-classic.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
+                                <div><?php _e('Classic', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <label>
+                                <span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/popup/tile-fluent.jpg" /></span>
+                                <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
+                                <div><?php _e('Fluent', 'modern-events-calendar-lite'); ?></div>
+                            </label>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -376,6 +533,8 @@ $settings = $this->main->get_settings();
     </div>
 </div>
 <?php if( !isset($settings['sh_as_popup']) || (isset($settings['sh_as_popup']) && $settings['sh_as_popup'] == '1') ) : ?>
+
+<?php if (is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' )) { $fluent = 'fluent-view-activated'; } else { $fluent = 'deactivate'; } ?>
 <script type="text/javascript">
 jQuery(document).ready(function()
 {
@@ -536,19 +695,29 @@ jQuery(document).ready(function()
     {
         current_skin = jQuery('.mec-skins:checked').val();
 
-        // Skip Style Step
-        if(step === 3 && (
-            current_skin === 'map' ||
-            current_skin === 'daily_view' ||
-            current_skin === 'weekly_view' ||
-            current_skin === 'masonry' ||
-            current_skin === 'available_spot' ||
-            current_skin === 'timeline' ||
-            current_skin === 'tile'
-        ))
-        {
-            if(type === 'next') step = 4;
-            else step = 2;
+        if ( '<?php echo $fluent;?>' == 'fluent-view-activated' ) { 
+                if(step === 3 && (
+                current_skin === 'map' ||
+                current_skin === 'timeline'
+            ))
+            {
+                if(type === 'next') step = 4;
+                else step = 2;
+            }
+        } else { // Skip Style Step
+                if(step === 3 && (
+                current_skin === 'map' ||
+                current_skin === 'daily_view' ||
+                current_skin === 'weekly_view' ||
+                current_skin === 'masonry' ||
+                current_skin === 'available_spot' ||
+                current_skin === 'timeline' ||
+                current_skin === 'tile'
+            ))
+            {
+                if(type === 'next') step = 4;
+                else step = 2;
+            }
         }
 
         // Skip Single Event Display Step

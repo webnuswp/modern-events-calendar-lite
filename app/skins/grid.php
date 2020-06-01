@@ -131,6 +131,9 @@ class MEC_skin_grid extends MEC_skins
 			$this->skin_options['count'] = '1';
 			$this->load_more_button = false;
 		}
+
+        // Display Price
+        $this->display_price = (isset($this->skin_options['display_price']) and trim($this->skin_options['display_price'])) ? true : false;
         
         // The count in row
         $this->count = isset($this->skin_options['count']) ? $this->skin_options['count'] : '3';

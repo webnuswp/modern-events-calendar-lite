@@ -1610,6 +1610,10 @@ h5.mec-form-second-title {
     border-radius: 2px
 }
 
+.w-box.print-events {
+    min-height: 134px;
+}
+
 .w-box-head {
     font-weight: 600;
     padding: 20px 72px;
@@ -9879,6 +9883,71 @@ div#mec_widget_news_features .inside {
 .mec-metabox-head-version a {
     padding-left: 6px !important;
 }
+
+#mec_widget_total_bookings .w-box.total-bookings ul li:first-child {
+    margin-left: 1px;
+}
+
+#mec_widget_total_bookings .w-box.total-bookings ul li {
+    padding: 4px 13px 4px 13px;
+    margin-right: 4px;
+}
+
+#mec_widget_total_bookings .w-box.total-bookings ul li:last-child {
+    margin-right: 0;
+}
+
+
+#mec_widget_total_bookings {
+    overflow: hidden;
+}
+
+#mec_widget_total_bookings .inside,
+#mec_widget_total_bookings .w-box {
+    margin: 0;
+    padding-bottom: 0;
+}
+
+#mec_widget_total_bookings .w-col-sm-12 {
+    padding: 0;
+}
+
+#mec_widget_total_bookings .w-box-content button {
+    color: #fff!important;
+    font-weight: 500!important;
+    border-radius: 2px!important;
+    box-shadow: 0 3px 10px -4px #008aff!important;
+    text-shadow: none!important;
+    background: #008aff!important;
+    background: linear-gradient(95deg,#36a2ff 0,#008aff 50%,#0072ff 100%)!important;
+    border: none!important;
+    transition: .24s!important;
+    line-height: 39px;
+    padding: 0 36px;
+    width: calc(33% - 7px);
+    margin-bottom: 14px;
+}
+
+#mec_widget_total_bookings .w-box-content input[type=text],
+#mec_widget_total_bookings .w-box-content select {
+    border: solid 1px #ddd;
+    border-radius: 2px;
+    height: 40px;
+    line-height: 38px;
+    padding-left: 10px;
+    box-shadow: 0 3px 10px -2px rgba(0,0,0,.05), inset 0 1px 2px rgba(0,0,0,.02);
+}
+
+#mec_widget_total_bookings .w-box-content input[type=text] {
+    width: calc(50% - 5px);
+}
+
+#mec_widget_total_bookings .w-box-content select {
+    width: calc(33% - 2px);
+    margin-bottom: 24px;
+    margin-top: 20px;
+}
+
 
 div#mec-schema .mec-form-row label {
     display: inline-block;

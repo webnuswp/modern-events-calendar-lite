@@ -208,8 +208,8 @@ $MEC_tax_walker = new MEC_tax_walker();
                             <p class="description" style="color: red;"><?php echo sprintf(__('It shows %s expired/past events. It will use the selected start date as first day and then go to %s dates.', 'modern-events-calendar-lite'), '<strong>'.__('only', 'modern-events-calendar-lite').'</strong>', '<strong>'.__('older', 'modern-events-calendar-lite').'</strong>'); ?></p>
                         </div>
                     </div>
-                    <h4><?php _e('Ongoing Events', 'modern-events-calendar-lite'); ?></h4>
                     <div id="mec_date_ongoing_filter">
+                        <h4><?php _e('Ongoing Events', 'modern-events-calendar-lite'); ?></h4>
                         <div class="mec-form-row mec-switcher">
                             <?php $show_only_ongoing_events = get_post_meta($post->ID, 'show_only_ongoing_events', true); ?>
                             <div class="mec-col-4">

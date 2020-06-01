@@ -179,6 +179,9 @@ class MEC_skin_yearly_view extends MEC_skins
             // Include Available Events
             $this->args['post__in'] = $IDs;
 
+            // Count of events per day
+            $IDs_count = array_count_values($IDs);
+
             // The Query
             $query = new WP_Query($this->args);
             if($query->have_posts())
@@ -189,20 +192,25 @@ class MEC_skin_yearly_view extends MEC_skins
                 while($query->have_posts())
                 {
                     $query->the_post();
+                    $ID = get_the_ID();
 
-                    $rendered = $this->render->data(get_the_ID());
+                    $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
+                    for($i = 1; $i <= $ID_count; $i++)
+                    {
+                        $rendered = $this->render->data($ID);
 
-                    $data = new stdClass();
-                    $data->ID = get_the_ID();
-                    $data->data = $rendered;
+                        $data = new stdClass();
+                        $data->ID = $ID;
+                        $data->data = $rendered;
 
-                    $data->date = array
-                    (
-                        'start'=>array('date'=>$date),
-                        'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
-                    );
+                        $data->date = array
+                        (
+                            'start'=>array('date'=>$date),
+                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                        );
 
-                    $events[$date][] = $this->render->after_render($data);
+                        $events[$date][] = $this->render->after_render($data, $i);
+                    }
                 }
             }
 

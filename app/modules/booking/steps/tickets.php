@@ -15,6 +15,8 @@ $book = $this->getBook();
 $availability = $book->get_tickets_availability($event_id, $occurrence);
 
 $date_format = (isset($settings['booking_date_format1']) and trim($settings['booking_date_format1'])) ? $settings['booking_date_format1'] : 'Y-m-d';
+if(isset($event->data->meta['mec_repeat_type']) and $event->data->meta['mec_repeat_type'] === 'custom_days') $date_format .= ' '.get_option('time_format');
+
 $midnight_event = $this->is_midnight_event($event);
 
 $book_all_occurrences = 0;

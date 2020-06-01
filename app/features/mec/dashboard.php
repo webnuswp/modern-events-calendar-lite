@@ -363,89 +363,11 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
             </div>
             <?php endif; ?>
         </div>
-        <?php if($booking_status): ?>
-        <div class="w-row">
-            <div class="w-col-sm-12">
-                <div class="w-box total-bookings">
-                    <div class="w-box-head">
-                        <?php echo esc_html__('Total Bookings', 'modern-events-calendar-lite'); ?>
-                    </div>
-                    <div class="w-box-content">
-                        <?php
-                            $start = isset($_GET['start']) ? sanitize_text_field($_GET['start']) : date('Y-m-d', strtotime('-15 days'));
-                            $end = isset($_GET['end']) ? sanitize_text_field($_GET['end']) : date('Y-m-d');
-                            $type = isset($_GET['type']) ? sanitize_text_field($_GET['type']) : 'daily';
-                            $chart = isset($_GET['chart']) ? sanitize_text_field($_GET['chart']) : 'bar';
-                            
-                            $periods = $this->get_date_periods($start, $end, $type);
-                            
-                            $stats = '';
-                            $labels = '';
-                            foreach($periods as $period)
-                            {
-                                $posts_ids = $db->select("SELECT `ID` FROM `#__posts` WHERE `post_type`='".$this->get_book_post_type()."' AND `post_date`>='".$period['start']."' AND `post_date`<='".$period['end']."'", 'loadColumn');
-                                
-                                if(count($posts_ids)) $total_sells = $db->select("SELECT SUM(`meta_value`) FROM `#__postmeta` WHERE `meta_key`='mec_price' AND `post_id` IN (".implode(',', $posts_ids).")", 'loadResult');
-                                else $total_sells = 0;
-                                
-                                $labels .= '"'.$period['label'].'",';
-                                $stats .= $total_sells.',';
-                            }
-                            
-                            $currency = $this->get_currency_sign();
-                        ?>
-                        <ul>
-                            <li><a href="?page=mec-intro&start=<?php echo date('Y-m-01'); ?>&end=<?php echo date('Y-m-t'); ?>&type=daily&chart=<?php echo $chart; ?>"><?php _e('This Month', 'modern-events-calendar-lite'); ?></a></li>
-                            <li><a href="?page=mec-intro&start=<?php echo date('Y-m-01', strtotime('-1 Month')); ?>&end=<?php echo date('Y-m-t', strtotime('-1 Month')); ?>&type=daily&chart=<?php echo $chart; ?>"><?php _e('Last Month', 'modern-events-calendar-lite'); ?></a></li>
-                            <li><a href="?page=mec-intro&start=<?php echo date('Y-01-01'); ?>&end=<?php echo date('Y-12-31'); ?>&type=monthly&chart=<?php echo $chart; ?>"><?php _e('This Year', 'modern-events-calendar-lite'); ?></a></li>
-                            <li><a href="?page=mec-intro&start=<?php echo date('Y-01-01', strtotime('-1 Year')); ?>&end=<?php echo date('Y-12-31', strtotime('-1 Year')); ?>&type=daily&chart=<?php echo $chart; ?>"><?php _e('Last Year', 'modern-events-calendar-lite'); ?></a></li>
-                        </ul>
-                        <form class="mec-sells-filter" method="GET" action="">
-                            <input type="hidden" name="page" value="mec-intro" />
-                            <input type="text" class="mec_date_picker" name="start" placeholder="<?php esc_attr_e('Start Date', 'modern-events-calendar-lite'); ?>" value="<?php echo $start; ?>" />
-                            <input type="text" class="mec_date_picker" name="end" placeholder="<?php esc_attr_e('End Date', 'modern-events-calendar-lite'); ?>" value="<?php echo $end; ?>" />
-                            <select name="type">
-                                <option value="daily" <?php echo $type == 'daily' ? 'selected="selected"' : ''; ?>><?php _e('Daily', 'modern-events-calendar-lite'); ?></option>
-                                <option value="monthly" <?php echo $type == 'monthly' ? 'selected="selected"' : ''; ?>><?php _e('Monthly', 'modern-events-calendar-lite'); ?></option>
-                                <option value="yearly" <?php echo $type == 'yearly' ? 'selected="selected"' : ''; ?>><?php _e('Yearly', 'modern-events-calendar-lite'); ?></option>
-                            </select>
-                            <select name="chart">
-                                <option value="bar" <?php echo $chart == 'bar' ? 'selected="selected"' : ''; ?>><?php _e('Bar', 'modern-events-calendar-lite'); ?></option>
-                                <option value="line" <?php echo $chart == 'line' ? 'selected="selected"' : ''; ?>><?php _e('Line', 'modern-events-calendar-lite'); ?></option>
-                            </select>
-                            <button type="submit"><?php _e('Filter', 'modern-events-calendar-lite'); ?></button>
-                        </form>
-                        <?php
-                            echo '<canvas id="mec_total_bookings_chart" width="600" height="300"></canvas>';
-                            echo '<script type="text/javascript">
-                                jQuery(document).ready(function()
-                                {
-                                    var ctx = document.getElementById("mec_total_bookings_chart");
-                                    var mecSellsChart = new Chart(ctx,
-                                    {
-                                        type: "'.$chart.'",
-                                        data:
-                                        {
-                                            labels: ['.trim($labels, ', ').'],
-                                            datasets: [
-                                            {
-                                                label: "'.esc_js(sprintf(__('Total Sells (%s)', 'modern-events-calendar-lite'), $currency)).'",
-                                                data: ['.trim($stats, ', ').'],
-                                                backgroundColor: "rgba(159, 216, 255, 0.3)",
-                                                borderColor: "#36A2EB",
-                                                borderWidth: 1
-                                            }]
-                                        }
-                                    });
-                                });
-                            </script>';
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php if($booking_status) echo (new MEC_feature_mec())->widget_total_bookings(); ?>
         <?php endif; ?>
-        <?php endif; ?>
+
+        <?php echo (new MEC_feature_mec())->widget_print(); ?>
+
         <div class="w-row">
             <div class="w-col-sm-12">
                 <div class="w-box change-log">

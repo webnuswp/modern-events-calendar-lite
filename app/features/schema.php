@@ -208,7 +208,7 @@ class MEC_feature_schema extends MEC_base
         if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
 
         $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-        $event_link = $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']);
+        $event_link = $this->main->get_event_date_permalink($event, $event->date['start']['date']);
 
         $moved_online_link = (isset($event->data->meta['mec_moved_online_link']) and trim($event->data->meta['mec_moved_online_link'])) ? $event->data->meta['mec_moved_online_link'] : '';
         $cancelled_reason = (isset($event->data->meta['mec_cancelled_reason']) and trim($event->data->meta['mec_cancelled_reason'])) ? $event->data->meta['mec_cancelled_reason'] : '';

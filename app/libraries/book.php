@@ -138,7 +138,7 @@ class MEC_book extends MEC_base
     public function temporary($data = array())
     {
         $transaction_id = $this->get_transaction_id();
-        update_option($transaction_id, $data);
+        update_option($transaction_id, $data, false);
 
         return $transaction_id;
     }
@@ -178,7 +178,7 @@ class MEC_book extends MEC_base
      */
     public function update_transaction($transaction_id, $data)
     {
-        update_option($transaction_id, $data);
+        update_option($transaction_id, $data, false);
     }
 
     /**
@@ -471,7 +471,7 @@ class MEC_book extends MEC_base
                     $ticket_ids_string = trim(get_post_meta(get_the_ID(), 'mec_ticket_id', true), ', ');
                     $ticket_ids_count = array_count_values(explode(',', $ticket_ids_string));
 
-                    $bookings += isset($ticket_ids_count[$ticket_id]) ? $ticket_ids_count[$ticket_id] : 0;
+                    $bookings += (isset($ticket_ids_count[$ticket_id]) and is_numeric($ticket_ids_count[$ticket_id])) ? $ticket_ids_count[$ticket_id] : 0;
                 }
             }
 
@@ -485,7 +485,7 @@ class MEC_book extends MEC_base
             $stop_selling_value = isset($ticket['stop_selling_value']) ? trim($ticket['stop_selling_value']) : 0;
             $stop_selling_type = isset($ticket['stop_selling_type']) ? trim($ticket['stop_selling_type']) : 'day';
             
-            if($stop_selling_value > 0 and $this->main->check_date_time_validation('Y-m-d h:ia', strtolower($event_date)))
+            if($stop_selling_value > 0 and $this->main->check_date_time_validation('Y-m-d h:i a', strtolower($event_date)))
             {
                 if(strtotime("-{$stop_selling_value}{$stop_selling_type}", strtotime($event_date)) <= current_time('timestamp', 0))
                 {

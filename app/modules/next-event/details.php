@@ -21,6 +21,7 @@ $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date[
 if(isset($_GET['occurrence']) and trim($_GET['occurrence'])) $start_date = sanitize_text_field($_GET['occurrence']);
 
 $next_date = array();
+$next_time = array();
 
 // Show next occurrence from other events
 if($method == 'event')
@@ -44,18 +45,29 @@ if($method == 'event')
         'seconds_date'=>($method == 'occurrence' ? date('Y-m-d', strtotime('+1 Day', strtotime($start_date))) : $start_date),
         'seconds'=>$this->time_to_seconds($this->to_24hours($start_hour, $start_ampm), $start_minutes),
         'exclude'=>($method == 'event' ? array($event->ID) : NULL),
-        'include'=>($method == 'occurrence' ? array($event->ID) : NULL),
+        'include'=>NULL,
     ));
 
     // Nothing Found!
     if(!isset($next->data)) return false;
 
     $next_date = $next->date;
+    $next_time = $next->data->time;
 }
 else
 {
     // Nothing Found!
     if(!isset($event->dates) or (isset($event->dates) and !is_array($event->dates)) or (isset($event->dates) and is_array($event->dates) and !count($event->dates))) return false;
+
+    $custom_days = false;
+    if(isset($event->data->meta['mec_repeat_type']) and $event->data->meta['mec_repeat_type'] === 'custom_days')
+    {
+        $custom_days = true;
+        $s_hour = $date['start']['hour'];
+        if(strtoupper($date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+        $start_date .= ' '.sprintf("%02d", $s_hour).':'.sprintf("%02d", $date['start']['minutes']).' '.$date['start']['ampm'];
+    }
 
     $next = $event;
 
@@ -63,10 +75,39 @@ else
     $found = false;
     foreach($event->dates as $occ)
     {
-        if(strtotime($occ['start']['date']) > strtotime($start_date))
+        $start_datetime = $occ['start']['date'];
+        if($custom_days)
+        {
+            $s_hour = $occ['start']['hour'];
+            if(strtoupper($occ['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+            $start_time = sprintf("%02d", $s_hour).':'.sprintf("%02d", $occ['start']['minutes']).' '.$occ['start']['ampm'];
+            $start_datetime .= ' '.$start_time;
+        }
+
+        if(strtotime($start_datetime) > strtotime($start_date))
         {
             $found = true;
             $next_date = $occ;
+            $next_time = $next->data->time;
+
+            if($custom_days)
+            {
+                $end_datetime = $occ['end']['date'];
+                $e_hour = $occ['end']['hour'];
+                if(strtoupper($occ['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+
+                $end_time = sprintf("%02d", $e_hour).':'.sprintf("%02d", $occ['end']['minutes']).' '.$occ['end']['ampm'];
+                $end_datetime .= ' '.$end_time;
+
+                $next_time = array(
+                    'start' => $this->get_time(strtotime($start_datetime)),
+                    'end' => $this->get_time(strtotime($end_datetime)),
+                    'start_raw' => $start_time,
+                    'end_raw' => $end_time,
+                );
+            }
+
             break;
         }
     }
@@ -86,7 +127,7 @@ if($midnight_event) $next_date['end']['date'] = date('Y-m-d', strtotime('-1 Day'
         <h3 class="mec-frontbox-title"><?php echo ($method == 'occurrence' ? __('Next Occurrence', 'modern-events-calendar-lite') : __('Next Event', 'modern-events-calendar-lite')); ?></h3>
         <ul>
             <li>
-                <a href="<?php echo $this->get_event_date_permalink($next->data->permalink, $next_date['start']['date'], true); ?>"><?php echo ($method == 'occurrence' ? __('Go to occurrence page', 'modern-events-calendar-lite') : $next->data->title); ?></a>
+                <a href="<?php echo $this->get_event_date_permalink($next, $next_date['start']['date'], true, $next_time); ?>"><?php echo ($method == 'occurrence' ? __('Go to occurrence page', 'modern-events-calendar-lite') : $next->data->title); ?></a>
             </li>
             <li>
                 <i class="mec-sl-calendar"></i>
@@ -99,9 +140,9 @@ if($midnight_event) $next_date['end']['date'] = date('Y-m-d', strtotime('-1 Day'
                 <i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
                 
                 <?php if($allday == '0' and isset($next->data->time) and trim($next->data->time['start'])): ?>
-                <dd><abbr class="mec-events-abbr"><?php echo $next->data->time['start']; ?><?php echo (trim($next->data->time['end']) ? ' - '.$next->data->time['end'] : ''); ?></abbr></dd>
+                <dd><abbr class="mec-events-abbr"><?php echo $next_time['start']; ?><?php echo (trim($next_time['end']) ? ' - '.$next_time['end'] : ''); ?></abbr></dd>
                 <?php else: ?>
-                <dd><abbr class="mec-events-abbr"><?php _e('All Day', 'modern-events-calendar-lite'); ?></abbr></dd>
+                <dd><abbr class="mec-events-abbr"><?php echo $this->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
                 <?php endif; ?>
             </li>
         </ul>

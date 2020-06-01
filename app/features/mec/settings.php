@@ -663,6 +663,19 @@ $get_n_option = get_option('mec_addons_notification_option');
                             </div>
                             <!-- End FES Thank You Page Time -->
                             <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_fes_max_file_size"><?php _e('Maximum File Size', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-4">
+                                    <input type="number" id="mec_settings_fes_max_file_size" name="mec[settings][fes_max_file_size]" value="<?php echo ((isset($settings['fes_max_file_size']) and trim($settings['fes_max_file_size']) != '0') ? intval($settings['fes_max_file_size']) : '5000'); ?>" placeholder="<?php esc_attr_e('in KB', 'modern-events-calendar-lite'); ?>" />
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Maximum File Size', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("In Kilo Bytes so 5000 means 5MB (Approximately)", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_guest_status]" value="0" />
                                     <input onchange="jQuery('#mec_fes_guest_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][fes_guest_status]" <?php if(isset($settings['fes_guest_status']) and $settings['fes_guest_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable event submission by guest (Not logged in) users', 'modern-events-calendar-lite'); ?>
@@ -765,6 +778,12 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_schema]" value="0" />
                                     <input value="1" type="checkbox" name="mec[settings][fes_section_schema]" <?php if(!isset($settings['fes_section_schema']) or (isset($settings['fes_section_schema']) and $settings['fes_section_schema'])) echo 'checked="checked"'; ?> /> <?php _e('SEO Schema', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][fes_section_excerpt]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_excerpt]" <?php if(isset($settings['fes_section_excerpt']) and $settings['fes_section_excerpt']) echo 'checked="checked"'; ?> /> <?php _e('Excerpt', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
                             <div class="mec-form-row">

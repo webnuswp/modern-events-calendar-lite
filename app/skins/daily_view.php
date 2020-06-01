@@ -77,6 +77,9 @@ class MEC_skin_daily_view extends MEC_skins
         
         // From Widget
         $this->widget = (isset($this->atts['widget']) and trim($this->atts['widget'])) ? true : false;
+
+        // Display Price
+        $this->display_price = (isset($this->skin_options['display_price']) and trim($this->skin_options['display_price'])) ? true : false;
         
         // Init MEC
         $this->args['mec-init'] = true;
@@ -189,6 +192,9 @@ class MEC_skin_daily_view extends MEC_skins
             // Include Available Events
             $this->args['post__in'] = $IDs;
 
+            // Count of events per day
+            $IDs_count = array_count_values($IDs);
+
             // Extending the end date
             $this->end_date = $date;
 
@@ -200,22 +206,27 @@ class MEC_skin_daily_view extends MEC_skins
                 while($query->have_posts())
                 {
                     $query->the_post();
+                    $ID = get_the_ID();
 
                     if(!isset($events[$date])) $events[$date] = array();
 
-                    $rendered = $this->render->data(get_the_ID());
+                    $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
+                    for($i = 1; $i <= $ID_count; $i++)
+                    {
+                        $rendered = $this->render->data($ID);
 
-                    $data = new stdClass();
-                    $data->ID = get_the_ID();
-                    $data->data = $rendered;
+                        $data = new stdClass();
+                        $data->ID = $ID;
+                        $data->data = $rendered;
 
-                    $data->date = array
-                    (
-                        'start'=>array('date'=>$date),
-                        'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
-                    );
+                        $data->date = array
+                        (
+                            'start'=>array('date'=>$date),
+                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                        );
 
-                    $events[$date][] = $this->render->after_render($data);
+                        $events[$date][] = $this->render->after_render($data, $i);
+                    }
                 }
             }
             else

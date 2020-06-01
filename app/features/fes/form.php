@@ -242,6 +242,16 @@ $this->factory->params('footer', $javascript);
             <div class="mec-form-row">
                 <?php wp_editor((isset($post->post_content) ? $post->post_content : ''), 'mec_fes_content', array('textarea_name'=>'mec[content]')); ?>
             </div>
+            <?php if(isset($this->settings['fes_section_excerpt']) && $this->settings['fes_section_excerpt']): ?>
+            <div class="mec-meta-box-fields" id="mec-excerpt">
+                <h4><?php _e('Excerpt', 'modern-events-calendar-lite'); ?></h4>
+                <div class="mec-form-row">
+                    <div class="mec-col-12">
+                        <textarea name="mec[excerpt]" id="mec_fes_excerpt" class="widefat" rows="10" title="<?php esc_attr_e('Optional Event Excerpt', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Optional Event Excerpt', 'modern-events-calendar-lite'); ?>"><?php echo (isset($post->post_excerpt) ? $post->post_excerpt : ''); ?></textarea>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="mec-meta-box-fields" id="mec-date-time">
                 <h4><?php _e('Date and Time', 'modern-events-calendar-lite'); ?></h4>
                 <div id="mec_meta_box_date_form">
@@ -251,7 +261,7 @@ $this->factory->params('footer', $javascript);
                     </div>
                     <div class="mec-form-row">
                         <div class="mec-col-4">
-                            <input type="text" name="mec[date][start][date]" id="mec_start_date" value="<?php echo esc_attr( $this->main->standardize_format( $start_date, $datepicker_format ) ); ?>" placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" class="" />
+                            <input type="text" name="mec[date][start][date]" id="mec_start_date" value="<?php echo esc_attr($this->main->standardize_format($start_date, $datepicker_format)); ?>" placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
                         </div>
                         <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
                             <?php $this->main->timepicker(array(
@@ -270,7 +280,7 @@ $this->factory->params('footer', $javascript);
                     </div>
                     <div class="mec-form-row">
                         <div class="mec-col-4">
-                            <input type="text" name="mec[date][end][date]" id="mec_end_date" value="<?php echo esc_attr( $this->main->standardize_format( $end_date, $datepicker_format ) ); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>" class="" />
+                            <input type="text" name="mec[date][end][date]" id="mec_end_date" value="<?php echo esc_attr($this->main->standardize_format($end_date, $datepicker_format)); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
                         </div>
                         <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
                             <?php $this->main->timepicker(array(

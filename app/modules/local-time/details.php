@@ -45,7 +45,7 @@ $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->
         <li><?php echo sprintf(__('Timezone: %s', 'modern-events-calendar-lite'), '<span>'.$timezone.'</span>'); ?></li>
         <li><?php echo sprintf(__('Date: %s', 'modern-events-calendar-lite'), $this->date_label(array('date'=>date('Y-m-d', $user_start_time)), array('date'=>date('Y-m-d', $user_end_time)), $date_format1)); ?></li>
         <?php if(!$hide_time and trim($time_format)): ?>
-        <li><?php echo sprintf(__('Time: %s', 'modern-events-calendar-lite'), '<span>'.($allday ? __('All Day', 'modern-events-calendar-lite') : ($hide_end_time ? date($time_format, $user_start_time) : date($time_format, $user_start_time).' - '.date($time_format, $user_end_time))).'</span>'); ?></li>
+        <li><?php echo sprintf(__('Time: %s', 'modern-events-calendar-lite'), '<span>'.($allday ? $this->m('all_day', __('All Day' , 'modern-events-calendar-lite')) : ($hide_end_time ? date($time_format, $user_start_time) : date($time_format, $user_start_time).' - '.date($time_format, $user_end_time))).'</span>'); ?></li>
         <?php endif; ?>
     </ul>
 </div>

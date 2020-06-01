@@ -31,7 +31,7 @@ do_action('rss_tag_pre', 'rss2');
     <?php foreach($this->events as $date=>$events): foreach($events as $event): ?>
     <item>
 		<title><?php echo $this->feed->title($event->ID); ?></title>
-		<link><?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?></link>
+		<link><?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?></link>
         
         <?php if(get_comments_number($event->ID) or comments_open($event->ID)): ?>
 		<comments><?php $this->feed->comments_link_feed($event->ID); ?></comments>

@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.4.1
-Stable tag: 5.4.6
+Stable tag: 5.5.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 WordPress event calendar plugin is the best tool used for managing events websites. Modern Events Calendar is a comprehensive events management plugin
 
 == Description ==
-WordPress event calendar plugin is a trending FREE tool used for managing events in websites. Modern Events Calendar is a responsive, mobile-friendly, FREE, and comprehensive events management plugin which is extremely user-friendly and well-designed for displaying the events calendar on the websites, ever easier.
+Best event management plugin is a trending FREE tool used for managing events in websites. Modern Events Calendar is a responsive, mobile-friendly, FREE, and comprehensive events management plugin which is extremely user-friendly and well-designed for displaying the events calendar on the websites, ever easier.
 
 * [Demos](https://webnus.net/modern-events-calendar/)
 * [Documentation](https://webnus.net/dox/modern-events-calendar/)
@@ -26,6 +26,7 @@ Using [Modern Events Calendar Lite](https://webnus.net/modern-events-calendar/),
 
 https://www.youtube.com/watch?v=GjRVKIwD5jY
 
+== Best WordPress Event Management Plugin ==
 Fortunately, though WordPress doesn’t enable these functions out of the box, there’s a plugin you can use. Modern Events Calendar is an easy way to manage events of all kinds on your WordPress site. As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS.
 
 https://www.youtube.com/watch?v=cnVy2YzDMOk
@@ -103,8 +104,8 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 == Helpful Documentation ==
 WordPress Events Calendar’s best plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
 
-You can see [plugin demo here](https://webnus.net/modern-events-calendar/)
-You can see [plugin documentation here](https://webnus.net/dox/modern-events-calendar/)
+You can see [plugin demo](https://webnus.net/modern-events-calendar/)
+You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar/)
 
 == Main Features ==
 - Import from "The Event Calendar" Plugin
@@ -190,6 +191,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Different hours for custom days repeat
 - Ticket limit for coupon
 - Show Normal Label
+- Event Management System
 - Event Status for Schema
 - Cancellation reason
 - Mailchimp Integration (*pro*)
@@ -371,10 +373,31 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 37. WordPress Event Calendar - Add Shortcode Wizard
 
 == Changelog ==
-= v 5.4.6 – 17 May 2020 =
-- Added: <a href="https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/?ref=17" target="_blank">Fluent-view</a> addon options (Free Addon - limited time)
+= 5.5.0 – 1 June 2020 =
+- Added: Price display in all views of full calendar skin
+- Added: A default comment for payment gateways (pro)
+- Added: Total bookings widget in the WordPress dashboard (pro)
+- Added: Print widget in MEC dashboard and provide the ability to print events of a certain month
+- Added: A new option to set a maximum size for images uploaded from “Frontend Event Submission”
+- Added: A new feature to breadcrumb to display referred shortcode instead of archive page
+- Added: Excerpt field to the “Frontend Event Submission”
+- Added: “All day” string to the translate-able strings
+- Added: Advanced repeating string to the translate-able strings
+- Improved: The performance of booking transactions
+- Improved: Sending emails
+- Fixed: Single event page modern style when no set featured image
+- Fixed: Final message for free booking messages
+- Fixed: Google Recaptcha
+- Fixed: Stop selling tickets
+- Fixed: Tile view overlay skin
+- Fixed: Display content's images as Popup
+- Fixed: Some PHP notices
+- Fixed: Some minor issues
 
-= v 5.4.5 – 14 May 2020 =
+= 5.4.6 – 17 May 2020 =
+- Added: <a href="https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/?ref=17" target="_blank">Fluent-view</a> addon options (Free Addon)
+
+= 5.4.5 – 14 May 2020 =
 - Added: A holding status label next to date options in single event
 - Added: Minimum and maximum ticket options for coupons (pro)
 - Added: Maximum discount option for coupons (pro)
@@ -393,7 +416,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Fixed: Timeline image link on modal popup
 - Fixed: Schema
 
-= v 5.4.0 – 5 May 2020 =
+= 5.4.0 – 5 May 2020 =
 - Added: An option to add different hours for custom days repeat type
 - Added: An option to keep status of events while importing XML file
 - Added: Compatibility with Rank Math and Schema Markup Rich Snippets
@@ -409,7 +432,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Fixed: Search bar related to disabling the text input
 - Fixed: Reset search of WordPress created by search bar
 
-= v 5.3.5 – 28 April 2020 =
+= 5.3.5 – 28 April 2020 =
 - Added: An option to accept one booking for all occurrences of a certain event (pro)
 - Added: Internal cache solution to cache frequently used data
 - Added: Style for taxonomies
@@ -426,7 +449,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Fixed: Display Normal label and Cancellation reason in full calendar
 - Fixed: some PHP notices
 
-= v 5.3.0 – 21 April 2020 =
+= 5.3.0 – 21 April 2020 =
 - Added: Minimum option for coupons (pro)
 - Added: An option to display event time in grid skin
 - Added: Grid and tile skins to the full calendar skins
@@ -441,10 +464,10 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Fixed: Search bar
 - Fixed: Some minor issues
 
-= v 5.2.7 – 14 April 2020 =
+= 5.2.7 – 14 April 2020 =
 - Fixed: An issue with full calendar. 
 
-= v 5.2.6 – 14 April 2020 =
+= 5.2.6 – 14 April 2020 =
 - Added: Start and end dates in RSS feeds
 - Increased: Default date generation limit for advanced events
 - Fixed: Showing correct error on Facebook importer (pro)
@@ -457,7 +480,7 @@ You can see [plugin documentation here](https://webnus.net/dox/modern-events-cal
 - Fixed: Close button on modal popup view responsive size on mobile and tablet
 - Fixed: Hover style on the grid view skin minimal style
 
-= v 5.2.5 – 8 April 2020 =
+= 5.2.5 – 8 April 2020 =
 - Added: Normal Label to all skins
 - Added: Cancellation reason to all skins
 - Added: Cancellation reason to single and popup single page

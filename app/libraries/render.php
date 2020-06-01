@@ -492,20 +492,35 @@ class MEC_render extends MEC_base
         $allday = isset($data->meta['mec_allday']) ? $data->meta['mec_allday'] : 0;
         $hide_time = isset($data->meta['mec_hide_time']) ? $data->meta['mec_hide_time'] : 0;
         $hide_end_time = isset($data->meta['mec_hide_end_time']) ? $data->meta['mec_hide_end_time'] : 0;
-        
+
+        $start_time = (isset($meta['mec_start_day_seconds']) ? $this->main->get_time($meta['mec_start_day_seconds']) : '');
+        $end_time = (isset($meta['mec_end_day_seconds']) ? $this->main->get_time($meta['mec_end_day_seconds']) : '');
+
         if($hide_time)
         {
-            $data->time = array('start'=>'', 'end'=>'');
+            $data->time = array(
+                'start'=>'',
+                'end'=>'',
+                'start_raw'=>$start_time,
+                'end_raw'=>$end_time,
+            );
         }
         elseif($allday)
         {
-            $data->time = array('start'=>__('All Day', 'modern-events-calendar-lite'), 'end'=>'');
+            $data->time = array(
+                'start'=>$this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')),
+                'end'=>'',
+                'start_raw'=>$start_time,
+                'end_raw'=>$end_time,
+            );
         }
         else
         {
             $data->time = array(
-                'start'=>(isset($meta['mec_start_day_seconds']) ? $this->main->get_time($meta['mec_start_day_seconds']) : ''),
-                'end'=>($hide_end_time ? '' : (isset($meta['mec_end_day_seconds']) ? $this->main->get_time($meta['mec_end_day_seconds']) : ''))
+                'start'=>$start_time,
+                'end'=>($hide_end_time ? '' : $end_time),
+                'start_raw'=>$start_time,
+                'end_raw'=>$end_time,
             );
         }
 
@@ -623,38 +638,80 @@ class MEC_render extends MEC_base
         return $data;
     }
 
-    public function after_render($event)
+    public function after_render($event, $serie = 1)
     {
         // If event is custom days and current date is available
         if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_repeat_type']) and $event->data->meta['mec_repeat_type'] === 'custom_days' and isset($event->data->mec) and isset($event->data->mec->days) and isset($event->date) and is_array($event->date) and isset($event->date['start']) and isset($event->date['start']['date']))
         {
-            $days_str = $event->data->mec->days;
-            if(trim($days_str))
+            // Time is already available
+            if(isset($event->date['start']['hour']))
             {
-                $date = $event->date['start']['date'];
+                $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
 
-                $periods = explode(',', $days_str);
-                foreach($periods as $period)
+                $s_hour = $event->date['start']['hour'];
+                if(strtoupper($event->date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+                $e_hour = $event->date['end']['hour'];
+                if(strtoupper($event->date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+
+                $start_time = $event->date['start']['date'].' '.sprintf("%02d", $s_hour).':'.sprintf("%02d", $event->date['start']['minutes']).' '.$event->date['start']['ampm'];
+                $end_time = $event->date['end']['date'].' '.sprintf("%02d", $e_hour).':'.sprintf("%02d", $event->date['end']['minutes']).' '.$event->date['end']['ampm'];
+
+                $st = $this->main->get_time(strtotime($start_time));
+                $et = $this->main->get_time(strtotime($end_time));
+
+                $event->data->time = array(
+                    'start'=>$st,
+                    'end'=>($hide_end_time ? '' : $et),
+                    'start_raw'=>$st,
+                    'end_raw'=>$et,
+                );
+            }
+            // Detect the time when not available
+            else
+            {
+                $days_str = $event->data->mec->days;
+                if(trim($days_str))
                 {
-                    $ex = explode(':', $period);
+                    $original_start_date = $event->data->meta['mec_start_date'];
+                    $date = $event->date['start']['date'];
 
-                    if(isset($ex[0]) and $date === $ex[0] and isset($ex[2]) and isset($ex[3]))
+                    // Do not change the hour if it is the first serie of the event
+                    if($original_start_date == $date and $serie == 1) return $event;
+                    if($original_start_date == $date) $serie -= 1;
+
+                    $periods = explode(',', $days_str);
+
+                    $p = 0;
+                    foreach($periods as $period)
                     {
-                        $pos = strpos($ex[2], '-');
-                        if($pos !== false) $ex[2] = substr_replace($ex[2], ':', $pos, 1);
+                        $ex = explode(':', $period);
+                        if(isset($ex[0]) and $date === $ex[0] and isset($ex[2]) and isset($ex[3]))
+                        {
+                            $p++;
+                            if($p !== $serie) continue;
 
-                        $pos = strpos($ex[3], '-');
-                        if($pos !== false) $ex[3] = substr_replace($ex[3], ':', $pos, 1);
+                            $pos = strpos($ex[2], '-');
+                            if($pos !== false) $ex[2] = substr_replace($ex[2], ':', $pos, 1);
 
-                        $start_time = $ex[0].' '.str_replace('-', ' ', $ex[2]);
-                        $end_time =  $ex[1].' '.str_replace('-', ' ', $ex[3]);
+                            $pos = strpos($ex[3], '-');
+                            if($pos !== false) $ex[3] = substr_replace($ex[3], ':', $pos, 1);
 
-                        $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
+                            $start_time = $ex[0].' '.str_replace('-', ' ', $ex[2]);
+                            $end_time =  $ex[1].' '.str_replace('-', ' ', $ex[3]);
 
-                        $event->data->time = array(
-                            'start'=>$this->main->get_time(strtotime($start_time)),
-                            'end'=>($hide_end_time ? '' : $this->main->get_time(strtotime($end_time)))
-                        );
+                            $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
+
+                            $st = $this->main->get_time(strtotime($start_time));
+                            $et = $this->main->get_time(strtotime($end_time));
+
+                            $event->data->time = array(
+                                'start'=>$st,
+                                'end'=>($hide_end_time ? '' : $et),
+                                'start_raw'=>$st,
+                                'end_raw'=>$et,
+                            );
+                        }
                     }
                 }
             }
@@ -925,6 +982,9 @@ class MEC_render extends MEC_base
             elseif($repeat_type == 'custom_days')
             {
                 $custom_days = explode(',', $event->mec->days);
+
+                // Add current time if we're checking today's events
+                if($today == current_time('Y-m-d')) $today .= ' '.current_time('H:i:s');
                 
                 $found = 0;
                 if(strtotime($event->mec->start) >= strtotime($today) and !in_array($event->mec->start, $exceptional_days))
@@ -939,7 +999,7 @@ class MEC_render extends MEC_base
                     
                     $found++;
                 }
-                
+
                 foreach($custom_days as $custom_day)
                 {
                     // Found maximum dates
@@ -947,8 +1007,11 @@ class MEC_render extends MEC_base
 
                     $cday = explode(':', $custom_day);
 
+                    $c_start = $cday[0];
+                    if(isset($cday[2])) $c_start .= ' '.str_replace('-', ' ', substr_replace($cday[2], ':', strpos($cday[2], '-'), 1));
+
                     // Date is past
-                    if(strtotime($cday[0]) < strtotime($today)) continue;
+                    if(strtotime($c_start) < strtotime($today)) continue;
 
                     $cday_start_hour = $event->meta['mec_date']['start']['hour'];
                     $cday_start_minutes = $event->meta['mec_date']['start']['minutes'];

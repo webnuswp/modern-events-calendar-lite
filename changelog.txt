@@ -1,5 +1,26 @@
-﻿v 5.4.6 – 17 May 2020
-- Added: <a href="https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/?ref=17" target="_blank">Fluent-view</a> addon options (Free Addon - limited time)
+﻿v 5.5.0 – 1 June  2020
+- Added: Price display in all views of full calendar skin
+- Added: A default comment for payment gateways (pro)
+- Added: Total bookings widget in the WordPress dashboard (pro)
+- Added: Print widget in MEC dashboard and provide the ability to print events of a certain month
+- Added: A new option to set a maximum size for images uploaded from “Frontend Event Submission”
+- Added: A new feature to breadcrumb to display referred shortcode instead of archive page
+- Added: Excerpt field to the “Frontend Event Submission”
+- Added: “All day” string to the translate-able strings
+- Added: Advanced repeating string to the translate-able strings
+- Improved: The performance of booking transactions (pro)
+- Improved: Sending emails
+- Fixed: Single event page modern style when no set featured image
+- Fixed: Final message for free booking messages (pro)
+- Fixed: Google Recaptcha
+- Fixed: Stop selling tickets (pro)
+- Fixed: Tile view overlay skin
+- Fixed: Display content's images as Popup
+- Fixed: Some PHP notices
+- Fixed: Some minor issues
+
+v 5.4.6 – 17 May 2020
+- Added: <a href="https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/?ref=17" target="_blank">Fluent-view</a> addon options (Free Addon)
 
 v 5.4.5 – 14 May 2020
 - Added: A holding status label next to date options in single event

@@ -667,6 +667,13 @@ class MEC_feature_events extends MEC_base
                     <div class="mec-form-row" id="mec_exceptions_in_days_container">
                         <div class="mec-form-row">
                             <div class="mec-col-12">
+                                <?php if(!$this->getPRO()): ?>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <p class="description"><?php esc_html_e("To add multiple occurrences per day you need Pro version of Modern Events Calendar.", 'modern-events-calendar-lite'); ?></p>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-4">
                                         <input type="text" id="mec_exceptions_in_days_start_date" value="" placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" title="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format widefat" autocomplete="off"/>
@@ -1622,9 +1629,9 @@ class MEC_feature_events extends MEC_base
                                     <span><?php esc_html_e('Start Time', 'modern-events-calendar-lite'); ?></span>
                                     <?php $this->main->timepicker(array(
                                         'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
-                                        'time_hour' => $ticket['ticket_start_time_hour'],
-                                        'time_minutes' => $ticket['ticket_start_time_minute'],
-                                        'time_ampm' => $ticket['ticket_start_time_ampm'],
+                                        'time_hour' => (isset($ticket['ticket_start_time_hour']) ? $ticket['ticket_start_time_hour'] : 8),
+                                        'time_minutes' => (isset($ticket['ticket_start_time_minute']) ? $ticket['ticket_start_time_minute'] : 0),
+                                        'time_ampm' => (isset($ticket['ticket_start_time_ampm']) ? $ticket['ticket_start_time_ampm'] : 'AM'),
                                         'name' => 'mec[tickets]['.$key.']',
                                         'hour_key' => 'ticket_start_time_hour',
                                         'minutes_key' => 'ticket_start_time_minute',
@@ -1635,9 +1642,9 @@ class MEC_feature_events extends MEC_base
                                     <span><?php esc_html_e('End Time', 'modern-events-calendar-lite'); ?></span>
                                     <?php $this->main->timepicker(array(
                                         'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
-                                        'time_hour' => $ticket['ticket_end_time_hour'],
-                                        'time_minutes' => $ticket['ticket_end_time_minute'],
-                                        'time_ampm' => $ticket['ticket_end_time_ampm'],
+                                        'time_hour' => (isset($ticket['ticket_end_time_hour']) ? $ticket['ticket_end_time_hour'] : 6),
+                                        'time_minutes' => (isset($ticket['ticket_end_time_minute']) ? $ticket['ticket_end_time_minute'] : 0),
+                                        'time_ampm' => (isset($ticket['ticket_end_time_ampm']) ? $ticket['ticket_end_time_ampm'] : 'PM'),
                                         'name' => 'mec[tickets]['.$key.']',
                                         'hour_key' => 'ticket_end_time_hour',
                                         'minutes_key' => 'ticket_end_time_minute',
@@ -2818,8 +2825,48 @@ class MEC_feature_events extends MEC_base
 
             usort($in_days_arr, function($a, $b)
             {
-                return strtotime(explode(':', $a)[0]) - strtotime(explode(':', $b)[0]);
+                $ex_a = explode(':', $a);
+                $ex_b = explode(':', $b);
+
+                $date_a = $ex_a[0];
+                $date_b = $ex_b[0];
+
+                $in_day_a_time_label = '';
+                if(isset($ex_a[2]))
+                {
+                    $in_day_a_time = $ex_a[2];
+                    $pos = strpos($in_day_a_time, '-');
+                    if($pos !== false) $in_day_a_time_label = substr_replace($in_day_a_time, ':', $pos, 1);
+
+                    $in_day_a_time_label = str_replace('-', ' ', $in_day_a_time_label);
+                }
+
+                $in_day_b_time_label = '';
+                if(isset($ex_b[2]))
+                {
+                    $in_day_b_time = $ex_b[2];
+                    $pos = strpos($in_day_b_time, '-');
+                    if($pos !== false) $in_day_b_time_label = substr_replace($in_day_b_time, ':', $pos, 1);
+
+                    $in_day_b_time_label = str_replace('-', ' ', $in_day_b_time_label);
+                }
+
+                return strtotime(trim($date_a.' '.$in_day_a_time_label)) - strtotime(trim($date_b.' '.$in_day_b_time_label));
             });
+
+            // Don't allow multiple occurrences per day in Lite version
+            if(!$this->getPRO() or true)
+            {
+                $in_days_unique = array();
+                foreach($in_days_arr as $key => $in_day_arr)
+                {
+                    $ex = explode(':', $in_day_arr);
+                    $in_days_unique_key = $ex[0].'-'.$ex[1];
+
+                    if(isset($in_days_unique[$in_days_unique_key])) unset($in_days_arr[$key]);
+                    $in_days_unique[$in_days_unique_key] = 1;
+                }
+            }
 
             if(!isset($in_days_arr[':i:'])) $in_days_arr[':i:'] = ':val:';
             foreach($in_days_arr as $key => $in_day_arr)

@@ -103,6 +103,7 @@ class MEC_skins extends MEC_base
     public $localtime;
     public $reason_for_cancellation;
     public $display_label;
+    public $display_price;
 
     /**
      * Constructor method
@@ -689,11 +690,14 @@ class MEC_skins extends MEC_base
             // No Event
             if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) continue;
 
+            // Check Finish Date
+            if(isset($this->maximum_date) and strtotime($date) > strtotime($this->maximum_date)) break;
+
             // Include Available Events
             $this->args['post__in'] = $IDs;
 
-            // Check Finish Date
-            if(isset($this->maximum_date) and strtotime($date) > strtotime($this->maximum_date)) break;
+            // Count of events per day
+            $IDs_count = array_count_values($IDs);
 
             // Extending the end date
             $this->end_date = $date;
@@ -717,21 +721,26 @@ class MEC_skins extends MEC_base
                 while($query->have_posts())
                 {
                     $query->the_post();
+                    $ID = get_the_ID();
 
-                    $rendered = $this->render->data(get_the_ID());
+                    $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
+                    for($i = 1; $i <= $ID_count; $i++)
+                    {
+                        $rendered = $this->render->data($ID);
 
-                    $data = new stdClass();
-                    $data->ID = get_the_ID();
-                    $data->data = $rendered;
+                        $data = new stdClass();
+                        $data->ID = $ID;
+                        $data->data = $rendered;
 
-                    $data->date = array
-                    (
-                        'start'=>array('date'=>$date),
-                        'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
-                    );
+                        $data->date = array
+                        (
+                            'start'=>array('date'=>$date),
+                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                        );
 
-                    $events[$date][] = $this->render->after_render($data);
-                    $found++;
+                        $events[$date][] = $this->render->after_render($data, $i);
+                        $found++;
+                    }
 
                     if($found >= $this->limit)
                     {

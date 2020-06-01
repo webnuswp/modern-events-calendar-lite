@@ -56,7 +56,7 @@ else $set_dark = '';
                     <?php endif; ?>
                 </span>
                 <span class="mec-timetable-event-span mec-timetable-event-title">
-                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
+                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
                     <?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 </span>
@@ -116,7 +116,7 @@ else $set_dark = '';
             <?php echo $event_color; ?>
             <div class="mec-timetable-t2-content">
                 <h4 class="mec-event-title">
-                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
+                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
                     <?php echo $this->main->get_flags($event->data->ID, $event_start_date); if(!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
                 </h4>
                 <div class="mec-event-time">
@@ -167,7 +167,7 @@ else $set_dark = '';
                                 if ( $event->data->meta['mec_date']['start']['hour'] == $i ) 
                                 {
                                 ?>
-                                <a class="mec-color-hover" style="background: #<?php echo $event->data->meta['mec_color']; ?>" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event->data->permalink, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
+                                <a class="mec-color-hover" style="background: #<?php echo $event->data->meta['mec_color']; ?>" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
                                 <?php
                                 }  
                                 ?>

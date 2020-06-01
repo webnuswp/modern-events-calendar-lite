@@ -214,21 +214,9 @@ class MEC_notifications extends MEC_base
                 $message = str_replace('%%attendee_full_info%%', $attendees_full_info, $message);
                 $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
             }
-            $message = '
-            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-                <tr>
-                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
 
-                        '.$message.'
+            $message = $this->add_template($message);
 
-                    </div>
-
-
-                    </td>
-                </tr>
-            </table>
-            ';
             // Filter the email
             $mail_arg = array(
                 'to'            => $to,
@@ -320,21 +308,8 @@ class MEC_notifications extends MEC_base
             if(!trim($to) or in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
 
             $message = isset($this->notif_settings['booking_confirmation']['content']) ? $this->content($this->notif_settings['booking_confirmation']['content'], $book_id, $attendee) : '';
-            $message = '
-            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-                <tr>
-                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
+            $message = $this->add_template($message);
 
-                        '.$message.'
-
-                    </div>
-
-
-                    </td>
-                </tr>
-            </table>
-            ';
             // Filter the email
             $mail_arg = array(
                 'to'            => $to,
@@ -371,7 +346,7 @@ class MEC_notifications extends MEC_base
     public function booking_cancellation($book_id)
     {
         $cancellation_notification = apply_filters('mec_booking_cancellation', true);
-        if(!$cancellation_notification) return false;
+        if(!$cancellation_notification) return;
 
         $booker_id = get_post_field('post_author', $book_id);
         $booker = get_userdata($booker_id);
@@ -574,21 +549,9 @@ class MEC_notifications extends MEC_base
 
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
-        $message = '
-        <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-            <tr>
-                <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
 
-                    '.$message.'
+        $message = $this->add_template($message);
 
-                </div>
-
-
-                </td>
-            </tr>
-        </table>
-        ';
         // Filter the email
         $mail_arg = array(
             'to'            => $to,
@@ -664,21 +627,7 @@ class MEC_notifications extends MEC_base
 
             if(!trim($to)) continue;
 
-            $message = '
-            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-                <tr>
-                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
-
-                        '.$message.'
-
-                    </div>
-
-
-                    </td>
-                </tr>
-            </table>
-            ';
+            $message = $this->add_template($message);
 
             // Filter the email
             $mail_arg = array(
@@ -972,7 +921,7 @@ class MEC_notifications extends MEC_base
 
         // Book Time
         $start_seconds = get_post_meta($event_id, 'mec_start_day_seconds', true);
-        $event_start_time = get_post_meta($event_id, 'mec_allday', true) ? __('All Day', 'modern-events-calendar-lite') : $this->main->get_time($start_seconds);
+        $event_start_time = get_post_meta($event_id, 'mec_allday', true) ? $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')) : $this->main->get_time($start_seconds);
 
         // Condition for check some parameter simple hide event time
         if(!get_post_meta( $event_id, 'mec_hide_time', true )) $message = str_replace('%%book_time%%', $event_start_time, $message);
@@ -1190,6 +1139,9 @@ class MEC_notifications extends MEC_base
         return $attendees_full_info;
     }
 
+    /**
+     * Add filters for sender name and sender email
+     */
     public function mec_sender_email_notification_filter()
     {
         // MEC Notification Sender Email
@@ -1199,21 +1151,41 @@ class MEC_notifications extends MEC_base
     
      /**
      * Change Notification Sender Name
+     * @param string $sender_name
      * @return string
      */
-    public function notification_sender_name($email_form)
+    public function notification_sender_name($sender_name)
     {
-        $email_form = (isset($this->settings['booking_sender_name']) and trim($this->settings['booking_sender_name'])) ? trim($this->settings['booking_sender_name']) : $email_form;
-        return $email_form;
+        $sender_name = (isset($this->settings['booking_sender_name']) and trim($this->settings['booking_sender_name'])) ? trim($this->settings['booking_sender_name']) : $sender_name;
+        return $sender_name;
     }
 
     /**
      * Change Notification Sender Email
+     * @param string $sender_email
      * @return string
      */
-    public function notification_sender_email($email)
+    public function notification_sender_email($sender_email)
     {
-        $email = (isset($this->settings['booking_sender_email']) and trim($this->settings['booking_sender_email'])) ? trim($this->settings['booking_sender_email']) : $email;
-        return $email;
+        $sender_email = (isset($this->settings['booking_sender_email']) and trim($this->settings['booking_sender_email'])) ? trim($this->settings['booking_sender_email']) : $sender_email;
+        return $sender_email;
+    }
+
+    /**
+     * Add template to the email content
+     * @param string $content
+     * @return string
+     */
+    public function add_template($content)
+    {
+        return '<table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+            <tr>
+                <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
+                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
+                        '.$content.'
+                    </div>
+                </td>
+            </tr>
+        </table>';
     }
 }

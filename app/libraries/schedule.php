@@ -94,7 +94,7 @@ class MEC_schedule extends MEC_base
             $st = strtotime(trim($date['start']['date'].' '.$start_time, ' :'));
             $et = strtotime(trim($date['end']['date'].' '.$end_time, ' :'));
 
-            $date_id = $this->db->select("SELECT `id` FROM `#__mec_dates` WHERE `post_id`='$event_id' AND `dstart`='$sd' AND `dend`='$ed'", 'loadResult');
+            $date_id = $this->db->select("SELECT `id` FROM `#__mec_dates` WHERE `post_id`='$event_id' AND `tstart`='$st' AND `tend`='$et'", 'loadResult');
 
             // Add new Date
             if(!$date_id) $this->db->q("INSERT INTO `#__mec_dates` (`post_id`,`dstart`,`dend`,`tstart`,`tend`) VALUES ('$event_id','$sd','$ed','$st','$et');");

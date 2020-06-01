@@ -1547,7 +1547,7 @@ class MEC_main extends MEC_base
      */
     public function get_marker_lightbox($event, $date_format = 'M d Y')
     {
-        $link = $this->get_event_date_permalink($event->data->permalink, (isset($event->date['start']) ? $event->date['start']['date'] : NULL));
+        $link = $this->get_event_date_permalink($event, (isset($event->date['start']) ? $event->date['start']['date'] : NULL));
         $infowindow_thumb = trim($event->data->featured_image['thumbnail']) ? '<div class="mec-event-image"><a data-event-id="'.$event->data->ID.'" href="'.$link.'"><img src="'.$event->data->featured_image['thumbnail'].'" alt="'.$event->data->title.'" /></a></div>' : '';
         $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
         $event_start_date_day = !empty($event->date['start']['date']) ? $this->date_i18n('d', strtotime($event->date['start']['date'])) : '';
@@ -2419,7 +2419,56 @@ class MEC_main extends MEC_base
             exit;
         }
     }
-    
+
+    public function print_calendar()
+    {
+        // Print Calendar
+        if(isset($_GET['method']) and sanitize_text_field($_GET['method']) == 'mec-print')
+        {
+            $year = isset($_GET['mec-year']) ? sanitize_text_field($_GET['mec-year']) : NULL;
+            $month = isset($_GET['mec-month']) ? sanitize_text_field($_GET['mec-month']) : NULL;
+
+            // Month and Year are required!
+            if(!trim($year) or !trim($month)) return;
+
+            $start = $year.'-'.$month.'-01';
+            $end = date('Y-m-t', strtotime($start));
+
+            $atts = array();
+            $atts['sk-options']['agenda']['start_date_type'] = 'date';
+            $atts['sk-options']['agenda']['start_date'] = $start;
+            $atts['sk-options']['agenda']['maximum_date_range'] = $end;
+            $atts['sk-options']['agenda']['style'] = 'clean';
+            $atts['sk-options']['agenda']['limit'] = 1000;
+            $atts['sf_status'] = false;
+
+            // Create Skin Object Class
+            $SKO = new MEC_skin_agenda();
+
+            // Initialize the skin
+            $SKO->initialize($atts);
+
+            // Fetch the events
+            $SKO->fetch();
+
+            ob_start();
+            ?>
+            <html>
+                <head>
+                    <?php wp_head(); ?>
+                </head>
+                <body class="<?php body_class('mec-print'); ?>">
+                    <?php echo $SKO->output(); ?>
+                </body>
+            </html>
+            <?php
+            $html = ob_get_clean();
+
+            echo $html;
+            exit;
+        }
+    }
+
     /**
      * Generates ical output
      * @author Webnus <info@webnus.biz>
@@ -4093,15 +4142,34 @@ class MEC_main extends MEC_base
      */
     public function date_label($start, $end, $format, $separator = ' - ')
     {
-        $start_timestamp = strtotime($start['date']);
-        $end_timestamp = strtotime($end['date']);
+        $start_datetime = $start['date'];
+        $end_datetime = $end['date'];
+
+        if(isset($start['hour']))
+        {
+            $s_hour = $start['hour'];
+            if(strtoupper($start['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+            $start_datetime .= ' '.sprintf("%02d", $s_hour).':'.sprintf("%02d", $start['minutes']).' '.$start['ampm'];
+        }
+
+        if(isset($end['hour']))
+        {
+            $e_hour = $end['hour'];
+            if(strtoupper($end['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+
+            $end_datetime .= ' '.sprintf("%02d", $e_hour).':'.sprintf("%02d", $end['minutes']).' '.$end['ampm'];
+        }
+
+        $start_timestamp = strtotime($start_datetime);
+        $end_timestamp = strtotime($end_datetime);
 
         $timezone_GMT = new DateTimeZone("GMT");
         $timezone_site = new DateTimeZone($this->get_timezone());
 
         $dt_now = new DateTime("now", $timezone_GMT);
-        $dt_start = new DateTime($start['date'], $timezone_GMT);
-        $dt_end = new DateTime($end['date'], $timezone_GMT);
+        $dt_start = new DateTime($start_datetime, $timezone_GMT);
+        $dt_end = new DateTime($end_datetime, $timezone_GMT);
 
         $offset_now = $timezone_site->getOffset($dt_now);
         $offset_start = $timezone_site->getOffset($dt_start);
@@ -4764,22 +4832,55 @@ class MEC_main extends MEC_base
     /**
      * Returns Event link with Occurrence Date
      * @author Webnus <info@webnus.biz>
-     * @param string $url
+     * @param string|object $event
      * @param string $date
      * @param boolean $force
+     * @param array $time
      * @return string
      */
-    public function get_event_date_permalink($url, $date = NULL, $force = false)
+    public function get_event_date_permalink($event, $date = NULL, $force = false, $time = NULL)
     {
-        if(is_null($date)) return $url;
-        
         // Get MEC Options
         $settings = $this->get_settings();
-        
-        // Single Page Date method is set to next date
-        if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return $url;
-        
-        return $this->add_qs_var('occurrence', $date, $url);
+
+        if(is_object($event))
+        {
+            // Event Permalink
+            $url = $event->data->permalink;
+
+            // Return same URL if data is not provided
+            if(is_null($date)) return $url;
+
+            // Single Page Date method is set to next date
+            if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return $url;
+
+            // Add Date to the URL
+            $url = $this->add_qs_var('occurrence', $date, $url);
+
+            $repeat_type = (isset($event->data->meta['mec_repeat_type']) ? $event->data->meta['mec_repeat_type'] : '');
+            if($repeat_type == 'custom_days' and isset($event->data->time) and isset($event->data->time['start_raw']))
+            {
+                $timestamp = strtotime($date.' '.((is_array($time) and isset($time['start_raw'])) ? $time['start_raw'] : $event->data->time['start_raw']));
+
+                // Add Time
+                $url = $this->add_qs_var('time', $timestamp, $url);
+            }
+
+            return $url;
+        }
+        else
+        {
+            // Event Permalink
+            $url = $event;
+
+            // Return same URL if data is not provided
+            if(is_null($date)) return $url;
+
+            // Single Page Date method is set to next date
+            if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return $url;
+
+            return $this->add_qs_var('occurrence', $date, $url);
+        }
     }
     
     /**
@@ -5459,6 +5560,7 @@ class MEC_main extends MEC_base
                     'tickets'=>array('label'=>__('Tickets (Plural)', 'modern-events-calendar-lite'), 'default'=>__('Tickets', 'modern-events-calendar-lite')),
                     'other_organizers'=>array('label'=>__('Other Organizers', 'modern-events-calendar-lite'), 'default'=>__('Other Organizers', 'modern-events-calendar-lite')),
                     'other_locations'=>array('label'=>__('Other Locations', 'modern-events-calendar-lite'), 'default'=>__('Other Locations', 'modern-events-calendar-lite')),
+                    'all_day'=>array('label'=>__('All Day', 'modern-events-calendar-lite'), 'default'=>__('All Day', 'modern-events-calendar-lite')),
                 )
             ),
         );
@@ -5713,7 +5815,7 @@ class MEC_main extends MEC_base
         $day = intval($day) == 0 ? intval($day) : intval($day) - 1;
         
         // Sorting days by start of week day number
-        $days = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
+        $days = array(__('Sun', 'modern-events-calendar-lite'), __('Mon', 'modern-events-calendar-lite'), __('Tue', 'modern-events-calendar-lite'), __('Wed', 'modern-events-calendar-lite'), __('Thu', 'modern-events-calendar-lite'), __('Fri', 'modern-events-calendar-lite'), __('Sat', 'modern-events-calendar-lite'));
         $s1 = array_splice($days, $start_of_week, count($days));
         $s2 = array_splice($days, 0, $start_of_week);
         $merge = array_merge($s1, $s2);
@@ -6121,6 +6223,14 @@ class MEC_main extends MEC_base
     {
         $db = $this->getDB();
         return $db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`dstart`='".$date."') OR (`dstart`<'".$date."' AND `dend`>='".$date."')) ORDER BY `dstart` ASC LIMIT 1", 'loadResult');
+    }
+
+    public function get_start_time_of_multiple_days($event_id, $time)
+    {
+        if(!trim($time)) return NULL;
+
+        $db = $this->getDB();
+        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`tstart`='".$time."') OR (`tstart`<'".$time."' AND `tend`>='".$time."')) ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
     }
 
     public function is_midnight_event($event)

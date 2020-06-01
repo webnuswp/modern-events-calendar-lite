@@ -77,6 +77,9 @@ class MEC_skin_weekly_view extends MEC_skins
         
         // From Widget
         $this->widget = (isset($this->atts['widget']) and trim($this->atts['widget'])) ? true : false;
+
+        // Display Price
+        $this->display_price = (isset($this->skin_options['display_price']) and trim($this->skin_options['display_price'])) ? true : false;
         
         // Init MEC
         $this->args['mec-init'] = true;
@@ -195,6 +198,9 @@ class MEC_skin_weekly_view extends MEC_skins
             // Include Available Events
             $this->args['post__in'] = $IDs;
 
+            // Count of events per day
+            $IDs_count = array_count_values($IDs);
+
             // Extending the end date
             $this->end_date = $date;
 
@@ -202,35 +208,41 @@ class MEC_skin_weekly_view extends MEC_skins
             $query = new WP_Query($this->args);
             if(is_array($IDs) and count($IDs) and $query->have_posts())
             {
+                if(!isset($events[$date])) $events[$date] = array();
+
                 // The Loop
                 while($query->have_posts())
                 {
                     $query->the_post();
+                    $ID = get_the_ID();
 
-                    if(!isset($events[$date])) $events[$date] = array();
+                    $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
+                    for($i = 1; $i <= $ID_count; $i++)
+                    {
+                        $rendered = $this->render->data($ID);
 
-                    $rendered = $this->render->data(get_the_ID());
+                        $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
+                        $occurrence = $date;
 
-                    // Event Repeat Type
-                    $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
-                    $occurrence = $date;
+                        if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
+                        elseif(strtotime($occurrence)) $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+                        else $occurrence = NULL;
 
-                    if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
-                    elseif(strtotime($occurrence)) $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
-                    else $occurrence = NULL;
-                    $dates = $this->render->dates(get_the_ID(), $rendered, $this->maximum_dates, $occurrence);
+                        $dates = $this->render->dates(get_the_ID(), $rendered, $this->maximum_dates, $occurrence);
 
-                    $data = new stdClass();
-                    $data->ID = get_the_ID();
-                    $data->data = $rendered;
+                        $data = new stdClass();
+                        $data->ID = $ID;
+                        $data->data = $rendered;
 
-                    $data->date = array
-                    (
-                        'start'=>array('date'=>$date),
-                        'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
-                    );
-                    $data->dates = $dates;
-                    $events[$date][] = $this->render->after_render($data);
+                        $data->dates = $dates;
+                        $data->date = array
+                        (
+                            'start'=>array('date'=>$date),
+                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                        );
+
+                        $events[$date][] = $this->render->after_render($data, $i);
+                    }
                 }
             }
             else

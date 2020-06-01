@@ -208,39 +208,48 @@ class MEC_skin_timetable extends MEC_skins
             // Include Available Events
             $this->args['post__in'] = $IDs;
 
+            // Count of events per day
+            $IDs_count = array_count_values($IDs);
+
             // The Query
             $query = new WP_Query($this->args);
             if(is_array($IDs) and count($IDs) and $query->have_posts())
             {
+                if(!isset($events[$date])) $events[$date] = array();
+
                 // The Loop
                 while($query->have_posts())
                 {
                     $query->the_post();
+                    $ID = get_the_ID();
 
-                    if(!isset($events[$date])) $events[$date] = array();
+                    $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
+                    for($i = 1; $i <= $ID_count; $i++)
+                    {
+                        $rendered = $this->render->data($ID);
 
-                    $rendered = $this->render->data(get_the_ID());
+                        $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
+                        $occurrence = $date;
 
+                        if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
+                        elseif(strtotime($occurrence)) $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+                        else $occurrence = NULL;
 
-                    $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
-                    $occurrence = $date;
+                        $dates = $this->render->dates(get_the_ID(), $rendered, $this->maximum_dates, $occurrence);
 
-                    if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
-                    elseif(strtotime($occurrence)) $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
-                    else $occurrence = NULL;
-                    $dates = $this->render->dates(get_the_ID(), $rendered, $this->maximum_dates, $occurrence);
+                        $data = new stdClass();
+                        $data->ID = $ID;
+                        $data->data = $rendered;
 
-                    $data = new stdClass();
-                    $data->ID = get_the_ID();
-                    $data->data = $rendered;
+                        $data->dates = $dates;
+                        $data->date = array
+                        (
+                            'start'=>array('date'=>$date),
+                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                        );
 
-                    $data->date = array
-                    (
-                        'start'=>array('date'=>$date),
-                        'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
-                    );
-                    $data->dates = $dates;
-                    $events[$date][] = $this->render->after_render($data);
+                        $events[$date][] = $this->render->after_render($data, $i);
+                    }
                 }
             }
             else

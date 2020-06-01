@@ -286,6 +286,9 @@ jQuery(document).ready(function($)
         var value = start + ':' + end + ':' + start_hour + '-' + start_minutes + '-' + start_ampm + ':' + end_hour + '-' + end_minutes + '-' + end_ampm;
         var label = start + ' ' + start_hour + ':' + start_minutes + ' ' + start_ampm + ' - ' + end + ' ' + end_hour + ':' + end_minutes + ' ' + end_ampm;
 
+        // Don't add exactly same occurrences
+        if($('#mec_in_days input[value="'+value+'"]').length > 0) return false;
+
         var $key = $('#mec_new_in_days_key');
         
         var key = $key.val();
