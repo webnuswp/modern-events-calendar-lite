@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_profile $this */
+
 // MEC Cancel
 if(isset($_GET['cancel']) and trim($_GET['cancel']))
 {
@@ -23,6 +25,9 @@ if(isset($_GET['cancel']) and trim($_GET['cancel']))
         }
     }
 }
+
+// Date & Time Format
+$datetime_format = get_option('date_format').' '.get_option('time_format');
 
 // MEC Render
 $render = $this->getRender();
@@ -78,8 +83,9 @@ $id = 1;
             if($confirmed == '1') $status_class = 'mec-book-confirmed';
             elseif($confirmed == '-1') $status_class = 'mec-book-rejected';
             else $status_class = 'mec-book-pending';
+
             $transaction = $this->book->get_transaction($transaction_id);
-            $dates = isset($transaction['date']) ? explode(':', $transaction['date']) : array(date('Y-m-d'), date('Y-m-d'));
+            $timestamps = explode(':', get_post_meta($ID, 'mec_date', true));
 
             // Check If Event Exist
             $db = $this->getDB();
@@ -96,13 +102,14 @@ $id = 1;
                 <span class="mec-event-title"><?php _e('N/A', 'modern-events-calendar-lite'); ?></span>
                 <?php else : ?>
                 <a class="mec-event-title" href="<?php echo get_the_permalink($event->ID); ?>"><?php echo $event->title; ?></a>
+                <?php do_action('mec_profile_event_title', $event, $transaction); ?>
                 <?php endif; ?>
             </td>
             <td>
                  <span class="mec-event-date">
                     <div class="mec-tooltip">
                         <div class="box">
-                            <?php echo trim($dates[0].' '.(isset($event->time['start']) ? $event->time['start'] : '').' - '.(($dates[0] != $dates[1]) ? $dates[1].' ' : '').(isset($event->time['end']) ? $event->time['end'] : ''), '- '); ?>
+                            <?php echo trim(date($datetime_format, $timestamps[0]).' - '.date($datetime_format, $timestamps[1]), '- '); ?>
                         </div>
                         <i class="mec-sl-calendar"></i>
                     </div>
@@ -136,17 +143,11 @@ $id = 1;
                 }
                 ?>
                 <span class="mec-profile-bookings-view-google-map">
-                    <?php
-                        if((isset($location_latitude) and $location_latitude) and (isset($location_longitude) and $location_longitude)) :
-                    ?>
+                    <?php if((isset($location_latitude) and $location_latitude) and (isset($location_longitude) and $location_longitude)): ?>
                     <a target="_blank" href="<?php echo "https://www.google.com/maps?q={$location_latitude},{$location_longitude}"; ?>"><i class="mec-sl-map"></i></a>
-                    <?php
-                        else :
-                    ?>
+                    <?php else: ?>
                     <i class="mec-sl-question mec-profile-no-location"></i>
-                    <?php 
-                        endif;
-                    ?>
+                    <?php endif; ?>
                 </span>
             </td>
             <td>
@@ -160,13 +161,9 @@ $id = 1;
                             $cancellation_url = $this->main->add_query_string($current_url, 'cancel', get_post_meta($ID, 'mec_cancellation_key', true));
                     ?>
                     <a href="<?php echo $cancellation_url; ?>"><i class="mec-fa-calendar-times-o"></i></a>
-                    <?php
-                        else:
-                    ?>
+                    <?php else: ?>
                     <i class="mec-sl-close mec-profile-cancel-booking"></i>
-                    <?php 
-                        endif;
-                    ?>
+                    <?php endif; ?>
                 </span>
             </td>
         </tr>
@@ -194,13 +191,16 @@ $id = 1;
                 if(isset($transaction['tickets']) and is_array($transaction['tickets']) and count($transaction['tickets']))
                 {
                     $person_id = 1;
-                    foreach($transaction['tickets'] as $attendee)
+                    foreach($transaction['tickets'] as $attendee_i => $attendee)
                     {
+                        if(!is_numeric($attendee_i)) continue;
+
                         echo '<div class="mec-booking-attendees-head-content">';
                         echo '<span class="mec-booking-attendee-id">'.$person_id.'</span>';
                         echo '<span class="mec-booking-attendee-name">'.$attendee['name'].'</span>';
                         echo '<span class="mec-booking-attendee-email">'.$attendee['email'].'</span>';
                         echo '<span class="mec-booking-attendee-ticket">'.((isset($event->tickets[$attendee['id']]) ? $event->tickets[$attendee['id']]['name'] : '').' '.(isset($event->tickets[$attendee['id']]) ? $event->tickets[$attendee['id']]['price_label'] : '')).'</span>';
+
                         // Ticket Variations
                         echo '<span class="mec-booking-attendee-ticket-variations">';
                         if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
@@ -213,11 +213,14 @@ $id = 1;
                                 $variation_title = (isset($ticket_variations[$variation_id]) and isset($ticket_variations[$variation_id]['title'])) ? $ticket_variations[$variation_id]['title'] : '';
                                 if(!trim($variation_title)) continue;
 
-                                echo '<span class="mec-booking-attendee-ticket-variations-title">'.'+ '.$variation_title.' ('.$variation_count.')'.'</span>';
+                                echo '<span class="mec-booking-attendee-ticket-variations-title">'.' + '.$variation_title.' ('.$variation_count.')'.'</span>';
                             }
-                        } else {
+                        }
+                        else
+                        {
                             echo '-';
                         }
+
                         echo '</span>';
                         $person_id++;
                         echo '</div>';

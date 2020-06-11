@@ -76,7 +76,8 @@ if(!$mec_email)
 
             <div class="mec-book-reg-field-<?php echo $reg_field['type']; ?> <?php echo ((isset($reg_field['mandatory']) and $reg_field['mandatory']) ? 'mec-reg-mandatory' : ''); ?><?php
             if(isset($reg_field['inline']) && $reg_field['inline'] == 'enable') {
-                echo ' col-md-6'; } else { echo ' col-md-12'; }
+                echo ' col-md-6'; } else if(isset($reg_field['inline_third']) && $reg_field['inline_third'] == 'enable') {
+                echo ' col-md-4'; } else { echo ' col-md-12'; }
         ?>" data-ticket-id="<?php echo $j; ?>" data-field-id="<?php echo $reg_field_id; ?>">
                 <?php if(isset($reg_field['label']) and $reg_field['type'] != 'agreement' &&  $reg_field['type'] != 'name' && $reg_field['type'] != 'mec_email' ): ?><label for="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>"><?php _e($reg_field['label'], 'modern-events-calendar-lite'); ?><?php echo ((isset($reg_field['mandatory']) and $reg_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?></label><?php endif; ?>
 

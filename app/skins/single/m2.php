@@ -168,7 +168,10 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
         <div class="col-md-8">
 
             <div class="mec-event-content">
-                <div class="mec-single-event-description mec-events-content"><?php echo $this->main->get_post_content($event->data->ID); ?></div>
+                <div class="mec-single-event-description mec-events-content">
+                    <?php echo $this->main->get_post_content($event->data->ID); ?>
+                    <?php do_action('mec_accordion_skin_after_content' , $event); ?>
+                </div>
             </div>
 
             <!-- Links Module -->

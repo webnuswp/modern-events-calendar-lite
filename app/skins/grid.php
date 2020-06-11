@@ -301,45 +301,64 @@ class MEC_skin_grid extends MEC_skins
             $events = array();
             foreach($dates as $date=>$IDs) {
                 // No Event
-                if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) {
-                    $events[$date] = array();
-                    continue;
-                }
-                // Include Available Events
-                $this->args['post__in'] = $IDs;
+                if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) continue;
+
                 // Check Finish Date
                 if(isset($this->maximum_date) and strtotime($date) > strtotime($this->maximum_date)) break;
+
+                // Include Available Events
+                $this->args['post__in'] = $IDs;
+
+                // Count of events per day
+                $IDs_count = array_count_values($IDs);
+
                 // Extending the end date
                 $this->end_date = $date;
+
                 // Continue to load rest of events in the first date
                 if($i === 0) $this->args['offset'] = $this->offset;
                 // Load all events in the rest of dates
-                else  {
+                else 
+                {
                     $this->offset = 0;
                     $this->args['offset'] = 0;
                 }
                 // The Query
                 $query = new WP_Query($this->args);
                 if($query->have_posts()) {
+                    if(!isset($events[$date])) $events[$date] = array();
                     // The Loop
                     while($query->have_posts()) {
                         $query->the_post();
-                        if(!isset($events[$date])) $events[$date] = array();
-                        $rendered = $this->render->data(get_the_ID());
-                        $data = new stdClass();
-                        $data->ID = get_the_ID();
-                        $data->data = $rendered;
-                        $data->date = array(
-                            'start'=>array('date'=>$date),
-                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
-                        );
-                        $events[$date][] = $this->render->after_render($data);
-                        $found++;
-                        if($found >= $this->limit) {
+                        $ID = get_the_ID();
+
+                        $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
+                        for($i = 1; $i <= $ID_count; $i++)
+                        {
+                            $rendered = $this->render->data($ID);
+
+                            $data = new stdClass();
+                            $data->ID = $ID;
+                            $data->data = $rendered;
+
+                            $data->date = array
+                            (
+                                'start'=>array('date'=>$date),
+                                'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                            );
+
+                            $events[$date][] = $this->render->after_render($data, $i);
+                            $found++;
+                        }
+
+                        if($found >= $this->limit)
+                        {
                             // Next Offset
                             $this->next_offset = ($query->post_count-($query->current_post+1)) >= 0 ? ($query->current_post+1)+$this->offset : 0;
+
                             // Restore original Post Data
                             wp_reset_postdata();
+
                             break 2;
                         }
                     }

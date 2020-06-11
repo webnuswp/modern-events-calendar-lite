@@ -290,14 +290,16 @@ class MEC_factory extends MEC_base
 
         wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
 
+        // Current Page
+        $page = isset($_GET['page']) ? $_GET['page'] : NULL;
+
         // Thickbox
-        if ( !is_plugin_active( 'visualizer/index.php' ) ) {
-            wp_enqueue_media(); 
-        }
+        // Don't include it in Visualizer Plugin
+        if(strpos($page, 'visualizer') === false) wp_enqueue_media();
 
         // WP Editor
-        $page = isset($_GET['page']) ? $_GET['page'] : NULL; // Don't include it in Divi Theme Builder
-        if(strpos($page, 'et_') === false) wp_enqueue_editor();
+        // Don't include it in some plugins
+        if(strpos($page, 'et_') === false && $page != 'newsletter_emails_editortinymce') wp_enqueue_editor();
     
         // Include WordPress color picker CSS file
         wp_enqueue_style('wp-color-picker');

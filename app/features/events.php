@@ -138,6 +138,9 @@ class MEC_feature_events extends MEC_base
 
         // Mass Email
         $this->factory->action('wp_ajax_mec_mass_email', array($this, 'mass_email'));
+
+        // WPML Duplicate
+        $this->factory->action('icl_make_duplicate', array($this, 'icl_duplicate'), 10, 4);
     }
 
     /**
@@ -2228,57 +2231,44 @@ class MEC_feature_events extends MEC_base
         do_action('mec_events_meta_box_regform_start', $post);
         $global_inheritance = get_post_meta($post->ID, 'mec_reg_fields_global_inheritance', true);
 
-        if (trim($global_inheritance) == '') {
-            $global_inheritance = 1;
-        }
+        if(trim($global_inheritance) == '') $global_inheritance = 1;
         $reg_fields = get_post_meta($post->ID, 'mec_reg_fields', true);
 
         $global_reg_fields = $this->main->get_reg_fields();
-        if ((is_array($reg_fields) and !count($reg_fields)) or (!is_array($reg_fields) and trim($reg_fields) == '')) {
-            $reg_fields = $global_reg_fields;
-        }
+        if((is_array($reg_fields) and !count($reg_fields)) or (!is_array($reg_fields) and trim($reg_fields) == '')) $reg_fields = $global_reg_fields;
 
-        if (!is_array($reg_fields)) {
-            $reg_fields = array();
-        }
+        if(!is_array($reg_fields)) $reg_fields = array();
 
         $mec_name = false;
         $mec_email = false;
-        foreach ($reg_fields as $field) {
-            if (isset($field['type'])) {
-                if ($field['type'] == 'mec_email') {
-                    $mec_email = true;
-                }
-                if ($field['type'] == 'name') {
-                    $mec_name = true;
-                }
-            } else {
-                break;
+
+        foreach($reg_fields as $field)
+        {
+            if(isset($field['type']))
+            {
+                if($field['type'] == 'mec_email') $mec_email = true;
+                if($field['type'] == 'name') $mec_name = true;
             }
+            else break;
         }
 
-        if (!$mec_name) {
-            array_unshift(
-                $reg_fields,
-                [
-                    'mandatory' => '0',
-                    'type' => 'name',
-                    'label' => esc_html__('Name', 'modern-events-calendar-lite'),
-                ]
-            );
+        if(!$mec_name)
+        {
+            array_unshift($reg_fields, array(
+                'mandatory' => '0',
+                'type' => 'name',
+                'label' => esc_html__('Name', 'modern-events-calendar-lite'),
+            ));
         }
 
-        if (!$mec_email) {
-            array_unshift(
-                $reg_fields,
-                [
-                    'mandatory' => '0',
-                    'type' => 'mec_email',
-                    'label' => esc_html__('Email', 'modern-events-calendar-lite'),
-                ]
-            );
+        if(!$mec_email)
+        {
+            array_unshift($reg_fields, array(
+                'mandatory' => '0',
+                'type' => 'mec_email',
+                'label' => esc_html__('Email', 'modern-events-calendar-lite'),
+            ));
         }
-
         ?>
         <div class="mec-meta-box-fields mec-booking-tab-content" id="mec-reg-fields">
             <h4 class="mec-meta-box-header"><?php _e('Booking Form', 'modern-events-calendar-lite'); ?></h4>
@@ -2302,8 +2292,7 @@ class MEC_feature_events extends MEC_base
                 if ($global_inheritance) {
                     echo 'mec-util-hidden';
                 }
-                ?>
-				">
+                ?>">
 
                     <?php /** Don't remove this hidden field **/ ?>
                     <input type="hidden" name="mec[reg_fields]" value=""/>
@@ -2311,38 +2300,25 @@ class MEC_feature_events extends MEC_base
                     <ul id="mec_reg_form_fields">
                         <?php
                         $i = 0;
-                        foreach ($reg_fields as $key => $reg_field) {
-                            if (!is_numeric($key)) {
-                                continue;
-                            }
+                        foreach($reg_fields as $key => $reg_field)
+                        {
+                            if(!is_numeric($key)) continue;
+
                             $i = max($i, $key);
-                            if ($reg_field['type'] == 'text') {
-                                echo $this->main->field_text($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'mec_email') {
-                                echo $this->main->field_mec_email($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'name') {
-                                echo $this->main->field_name($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'email') {
-                                echo $this->main->field_email($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'date') {
-                                echo $this->main->field_date($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'file') {
-                                echo $this->main->field_file($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'tel') {
-                                echo $this->main->field_tel($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'textarea') {
-                                echo $this->main->field_textarea($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'p') {
-                                echo $this->main->field_p($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'checkbox') {
-                                echo $this->main->field_checkbox($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'radio') {
-                                echo $this->main->field_radio($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'select') {
-                                echo $this->main->field_select($key, $reg_field);
-                            } elseif ($reg_field['type'] == 'agreement') {
-                                echo $this->main->field_agreement($key, $reg_field);
-                            }
+
+                            if($reg_field['type'] == 'text') echo $this->main->field_text($key, $reg_field);
+                            elseif($reg_field['type'] == 'mec_email') echo $this->main->field_mec_email($key, $reg_field);
+                            elseif($reg_field['type'] == 'name') echo $this->main->field_name($key, $reg_field);
+                            elseif($reg_field['type'] == 'email') echo $this->main->field_email($key, $reg_field);
+                            elseif($reg_field['type'] == 'date') echo $this->main->field_date($key, $reg_field);
+                            elseif($reg_field['type'] == 'file') echo $this->main->field_file($key, $reg_field);
+                            elseif($reg_field['type'] == 'tel') echo $this->main->field_tel($key, $reg_field);
+                            elseif($reg_field['type'] == 'textarea') echo $this->main->field_textarea($key, $reg_field);
+                            elseif($reg_field['type'] == 'p') echo $this->main->field_p($key, $reg_field);
+                            elseif($reg_field['type'] == 'checkbox') echo $this->main->field_checkbox($key, $reg_field);
+                            elseif($reg_field['type'] == 'radio') echo $this->main->field_radio($key, $reg_field);
+                            elseif($reg_field['type'] == 'select') echo $this->main->field_select($key, $reg_field);
+                            elseif($reg_field['type'] == 'agreement') echo $this->main->field_agreement($key, $reg_field);
                         }
                         ?>
                     </ul>
@@ -2855,7 +2831,7 @@ class MEC_feature_events extends MEC_base
             });
 
             // Don't allow multiple occurrences per day in Lite version
-            if(!$this->getPRO() or true)
+            if(!$this->getPRO())
             {
                 $in_days_unique = array();
                 foreach($in_days_arr as $key => $in_day_arr)
@@ -3716,19 +3692,16 @@ class MEC_feature_events extends MEC_base
         $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
         $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
 
-        $dates = $this->db->select("SELECT `dstart`, `dend` FROM `#__mec_dates` WHERE `post_id`='".$id."' LIMIT 10");
-
-        // Use First Date as active Occurrence
-        if(!$occurrence and is_array($dates) and count($dates)) $occurrence = reset($dates)->dstart;
-
         $tickets = get_post_meta($id, 'mec_tickets', true);
         $ticket_variations = $this->main->ticket_variations($id);
 
         $date_query = array(
             array(
-                'year' => date('Y', strtotime($occurrence)),
-                'month'=> date('m', strtotime($occurrence)),
-                'day' => date('d', strtotime($occurrence)),
+                'year' => date('Y', $occurrence),
+                'month'=> date('m', $occurrence),
+                'day' => date('d', $occurrence),
+                'hour' => date('H', $occurrence),
+                'minute' => date('i', $occurrence),
             ),
         );
 
@@ -3736,7 +3709,9 @@ class MEC_feature_events extends MEC_base
         $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
         if($bookings_all_occurrences)
         {
-            $date_query['compare'] = '<=';
+            $date_query = array(
+                'before' => date('Y-m-d', $occurrence).' 23:59:59',
+            );
         }
 
         // Fetch Bookings
@@ -3803,7 +3778,7 @@ class MEC_feature_events extends MEC_base
                     <span>'.__('Variations', 'modern-events-calendar-lite').'</span>
                 </div>';
 
-            $html = apply_filters('mec_attendees_list_header_html', $html);
+            $html = apply_filters('mec_attendees_list_header_html', $html, $id, $occurrence);
             $html .= '</div>';
             $index = $key = 0;
 
@@ -3900,5 +3875,46 @@ class MEC_feature_events extends MEC_base
         remove_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
 
         wp_die(true);
+    }
+
+    public function icl_duplicate($master_post_id, $lang, $post, $id)
+    {
+        $master = get_post($master_post_id);
+        $target = get_post($id);
+
+        if($master->post_type != $this->PT) return;
+        if($target->post_type != $this->PT) return;
+
+        $master_location_id = get_post_meta($master_post_id, 'mec_location_id', true);
+        $target_location_id = apply_filters('wpml_object_id', $master_location_id, 'mec_location', true, $lang);
+
+        update_post_meta($id, 'mec_location_id', $target_location_id);
+
+        $master_additional_location_ids = get_post_meta($master_post_id, 'mec_additional_location_ids', true);
+        if(!is_array($master_additional_location_ids)) $master_additional_location_ids = array();
+
+        $target_additional_location_ids = array();
+        foreach($master_additional_location_ids as $master_additional_location_id)
+        {
+            $target_additional_location_ids[] = apply_filters('wpml_object_id', $master_additional_location_id, 'mec_location', true, $lang);
+        }
+
+        update_post_meta($id, 'mec_additional_location_ids', $target_additional_location_ids);
+
+        $master_organizer_id = get_post_meta($master_post_id, 'mec_organizer_id', true);
+        $target_organizer_id = apply_filters('wpml_object_id', $master_organizer_id, 'mec_organizer', true, $lang);
+
+        update_post_meta($id, 'mec_organizer_id', $target_organizer_id);
+
+        $master_additional_organizer_ids = get_post_meta($master_post_id, 'mec_additional_organizer_ids', true);
+        if(!is_array($master_additional_organizer_ids)) $master_additional_organizer_ids = array();
+
+        $target_additional_organizer_ids = array();
+        foreach($master_additional_organizer_ids as $master_additional_organizer_id)
+        {
+            $target_additional_organizer_ids[] = apply_filters('wpml_object_id', $master_additional_organizer_id, 'mec_location', true, $lang);
+        }
+
+        update_post_meta($id, 'mec_additional_organizer_ids', $target_additional_organizer_ids);
     }
 }

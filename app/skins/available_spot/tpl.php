@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var $this MEC_skin_available_spot **/
+
 $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
@@ -93,14 +95,21 @@ jQuery(document).ready(function()
 if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
 
+$occurrence_time = isset($event->date['start']['timestamp']) ? $event->date['start']['timestamp'] : strtotime($event->date['start']['date']);
+
 $book = $this->getBook();
-$availability = $book->get_tickets_availability($event->data->ID, $start_date);
+$availability = $book->get_tickets_availability($event->data->ID, $occurrence_time);
 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
 
 $spots = 0;
+$total_spots = -1;
 foreach($availability as $ticket_id=>$count)
 {
-    if(!is_numeric($ticket_id)) continue;
+    if(!is_numeric($ticket_id))
+    {
+        $total_spots = $count;
+        continue;
+    }
 
     if($count != '-1') $spots += $count;
     else
@@ -109,6 +118,8 @@ foreach($availability as $ticket_id=>$count)
         break;
     }
 }
+
+if($total_spots > 0) $spots = min($spots, $total_spots);
 
 do_action('mec_start_skin' , $this->id);
 do_action('mec_available_spot_skin_head');
@@ -176,7 +187,7 @@ do_action('mec_available_spot_skin_head');
                         </div>
                     </div>
                     <div class="mec-event-content">
-                        <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $event_link; ?>"><?php echo $event_title; ?></a><?php echo $this->main->get_flags($event->data->ID, $event_start_date).$event_color; ?></h4>
+                        <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $event_link; ?>"><?php echo $event_title; ?></a><?php echo $this->main->get_flags($event).$event_color; ?></h4>
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation);?>
                         <?php
                             $excerpt = trim($event->data->post->post_excerpt) ? $event->data->post->post_excerpt : '';

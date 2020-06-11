@@ -125,6 +125,22 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_ip_restriction"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <select id="mec_settings_booking_ip_restriction" name="mec[settings][booking_ip_restriction]">
+                                            <option value="1" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 1) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Enabled', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="0" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 0) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
+                                        </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box">
+                                                <h5 class="title"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("If you set limit for total tickets that users can book, MEC will use IP and email to prevent users to book high tickets. You can disable the IP restriction if you don't need it.", 'modern-events-calendar-lite'); ?></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_maximum_dates"><?php _e('Maximum Dates', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
                                         <input type="number" id="mec_settings_booking_maximum_dates" name="mec[settings][booking_maximum_dates]" value="<?php echo ((isset($settings['booking_maximum_dates']) and trim($settings['booking_maximum_dates']) != '') ? $settings['booking_maximum_dates'] : '6'); ?>" placeholder="<?php esc_attr_e('Default is 6', 'modern-events-calendar-lite'); ?>" min="1" />

@@ -540,6 +540,7 @@ class MEC_main extends MEC_base
             __('Campaign Monitor Integration', 'modern-events-calendar-lite') => 'campaign_monitor_option',
             __('MailerLite Integration', 'modern-events-calendar-lite') => 'mailerlite_option',
             __('Constant Contact Integration', 'modern-events-calendar-lite') => 'constantcontact_option',
+            __('Active Campaign Integration', 'modern-events-calendar-lite') => 'active_campaign_option',
             __('Upload Field', 'modern-events-calendar-lite') => 'uploadfield_option',
         ), $active_menu);
 
@@ -1565,7 +1566,7 @@ class MEC_main extends MEC_base
                     <h4 class="mec-event-title">
                     <div class="mec-map-time" style="display: none">'.$this->display_time($start_time,$end_time).'</div>
                     <a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$link.'">'.$event->data->title.'</a>
-                    '.$this->get_flags($event->data->ID, $event_start_date).'
+                    '.$this->get_flags($event).'
                     </h4>
 				</article>
 			</div>
@@ -2147,7 +2148,7 @@ class MEC_main extends MEC_base
      * Set endpoint vars to true
      * @author Webnus <info@webnus.biz>
      * @param array $vars
-     * @return boolean
+     * @return array
      */
     public function filter_request($vars)
     {
@@ -2217,6 +2218,9 @@ class MEC_main extends MEC_base
         {
             // TODO
         }
+
+        // Trigget Actions
+        do_action('mec_gateway_do_endpoints', $this);
     }
 
     public function booking_invoice()
@@ -2241,7 +2245,7 @@ class MEC_main extends MEC_base
             $transaction = $book->get_transaction($transaction_id);
             $event_id = isset($transaction['event_id']) ? $transaction['event_id'] : 0;
 
-            // Dont Show PDF If Booking Confirmation Status Equals Pending
+            // Dont Show PDF If Booking is Pending
             $book_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='".$transaction_id."' AND `meta_key`='mec_transaction_id'", 'loadResult');
             $mec_confirmed = get_post_meta($book_id, 'mec_confirmed', true);
 
@@ -2262,13 +2266,14 @@ class MEC_main extends MEC_base
             $location_id = isset($event->meta['mec_location_id']) ? $event->meta['mec_location_id'] : 0;
             $location = isset($event->locations[$location_id]) ? (trim($event->locations[$location_id]['address']) ? $event->locations[$location_id]['address'] : $event->locations[$location_id]['name']) : '';
 
-            $dates = isset($transaction['date']) ? explode(':', $transaction['date']) : array(date('Y-m-d'), date('Y-m-d'));
+            $dates = isset($transaction['date']) ? explode(':', $transaction['date']) : array(time(), time());
 
             // Get Booking Post
             $booking = $book->get_bookings_by_transaction_id($transaction_id);
 
             $booking_time = isset($booking[0]) ? get_post_meta($booking[0]->ID, 'mec_booking_time', true) : NULL;
-            if(!$booking_time) $booking_time = $dates[0];
+            if(!$booking_time and is_numeric($dates[0])) $booking_time = date('Y-m-d', $dates[0]);
+            else $booking_time = $dates[0];
 
             $booking_time = date('Y-m-d', strtotime($booking_time));
 
@@ -2299,10 +2304,24 @@ class MEC_main extends MEC_base
             $pdf->Write(6, $location);
             $pdf->Ln();
 
+            $date_format = (isset($settings['booking_date_format1']) and trim($settings['booking_date_format1'])) ? $settings['booking_date_format1'] : 'Y-m-d';
+            $time_format = get_option('time_format');
+
+            if(is_numeric($dates[0]) and is_numeric($dates[1]))
+            {
+                $start_datetime = date($date_format.' '.$time_format, $dates[0]);
+                $end_datetime = date($date_format.' '.$time_format, $dates[1]);
+            }
+            else
+            {
+                $start_datetime = $dates[0].' '.$event->data->time['start'];
+                $end_datetime = $dates[1].' '.$event->data->time['end'];
+            }
+
             $pdf->SetFont('DejaVuBold', '', 12);
-            $pdf->Write(6, __('Date', 'modern-events-calendar-lite').': ');
+            $pdf->Write(6, __('Date & Time', 'modern-events-calendar-lite').': ');
             $pdf->SetFont('DejaVu', '', 12);
-            $pdf->Write(6, trim($dates[0].' '.(isset($event->time['start']) ? $event->time['start'] : '').' - '.(($dates[0] != $dates[1]) ? $dates[1].' ' : '').(isset($event->time['end']) ? $event->time['end'] : ''), '- '));
+            $pdf->Write(6, trim($start_datetime).' - '.(($start_datetime != $end_datetime) ? $end_datetime.' ' : ''), '- ');
             $pdf->Ln();
 
             $pdf->SetFont('DejaVuBold', '', 12);
@@ -4272,10 +4291,10 @@ class MEC_main extends MEC_base
      * Returns end date of an event based on start date
      * @author Webnus <info@webnus.biz>
      * @param string $date
-     * @param array $event
+     * @param object $event
      * @return string
      */
-    public function get_end_date($date, $event = array())
+    public function get_end_date($date, $event)
     {
         $start_date = isset($event->meta['mec_date']['start']) ? $event->meta['mec_date']['start'] : array();
         $end_date = isset($event->meta['mec_date']['end']) ? $event->meta['mec_date']['end'] : array();
@@ -5005,13 +5024,13 @@ class MEC_main extends MEC_base
         // Get MEC Options
         $settings = $this->get_settings();
         
-        // Mailchim integration is disabled
+        // Campaign Monitor integration is disabled
         if(!isset($settings['campm_status']) or (isset($settings['campm_status']) and !$settings['campm_status'])) return false;
         
         $api_key = isset($settings['campm_api_key']) ? $settings['campm_api_key'] : '';
         $list_id = isset($settings['campm_list_id']) ? $settings['campm_list_id'] : '';
         
-        // Mailchim credentials are required
+        // Campaign Monitor credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
         
         $booker_id = get_post_field('post_author', $book_id);
@@ -5037,13 +5056,13 @@ class MEC_main extends MEC_base
         // Get MEC Options
         $settings = $this->get_settings();
         
-        // Mailchim integration is disabled
+        // mailerlite integration is disabled
         if(!isset($settings['mailerlite_status']) or (isset($settings['mailerlite_status']) and !$settings['mailerlite_status'])) return false;
         
         $api_key = isset($settings['mailerlite_api_key']) ? $settings['mailerlite_api_key'] : '';
         $list_id = isset($settings['mailerlite_list_id']) ? $settings['mailerlite_list_id'] : '';
         
-        // Mailchim credentials are required
+        // mailerlite credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
         
         $booker_id = get_post_field('post_author', $book_id);
@@ -5066,6 +5085,81 @@ class MEC_main extends MEC_base
         )));
     }
 
+    /**
+     * Add booker information to Active Campaign list
+     * @param int $book_id
+     * @return boolean}int
+     */
+    public function active_campaign_add_subscriber($book_id)
+    {
+        
+        // Get MEC Options
+        $settings = $this->get_settings();
+        
+        // Mailchim integration is disabled
+        if(!isset($settings['active_campaign_status']) or (isset($settings['active_campaign_status']) and !$settings['active_campaign_status'])) return false;
+        
+        $api_url = isset($settings['active_campaign_api_url']) ? $settings['active_campaign_api_url'] : '';
+        $api_key = isset($settings['active_campaign_api_key']) ? $settings['active_campaign_api_key'] : '';
+        $list_id = isset($settings['active_campaign_list_id']) ? $settings['active_campaign_list_id'] : '';
+        
+        // Mailchim credentials are required
+        if(!trim($api_url) or !trim($api_key)) return false;
+        
+        $booker_id = get_post_field('post_author', $book_id);
+        $booker = get_userdata($booker_id);
+        
+        $url = $api_url.'/api/3/contact/sync';
+        
+        $json = json_encode(array
+        (
+            'contact' => array(
+                'email'=>$booker->user_email,
+                'firstName'=>$booker->first_name,
+                'lastName'=>$booker->last_name,
+            ),
+        ));
+        
+        // Execute the Request and Return the Response Code
+        $request = wp_remote_post( $url, array(
+            'body' => $json,
+            'timeout' => '10',
+            'redirection' => '10',
+            'headers' => array('Content-Type' => 'application/json', 'Api-Token' => $api_key),
+        ) );
+
+        if ( is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) != 200 ) {
+            error_log( print_r( $request, true ) );
+        }
+        $response = wp_remote_retrieve_body( $request );
+        
+        // Subscribe to list
+        if (trim($list_id)) {
+            $person = json_decode($response);
+            $new_url = $api_url.'/api/3/contactLists';
+            $new_json = json_encode(array
+            (
+                'contactList' => array(
+                    'list'=>(int)$list_id,
+                    'contact'=>(int)$person->contact->id,
+                    'status'=>1,
+                ),
+            ));
+            $new_request = wp_remote_post( $new_url, array(
+                'body' => $new_json,
+                'timeout' => '10',
+                'redirection' => '10',
+                'headers' => array('Content-Type' => 'application/json', 'Api-Token' => $api_key),
+            ) );
+
+            if ( is_wp_error( $new_request ) || wp_remote_retrieve_response_code( $new_request ) != 200 ) {
+                error_log( print_r( $new_request, true ) );
+            }
+
+            $new_response = wp_remote_retrieve_body( $new_request );
+        }
+    }
+
 
     /**
      * Add booker information to constantcontact list
@@ -5077,13 +5171,13 @@ class MEC_main extends MEC_base
         // Get MEC Options
         $settings = $this->get_settings();
         
-        // Mailchim integration is disabled
+        // constantcontact integration is disabled
         if(!isset($settings['constantcontact_status']) or (isset($settings['constantcontact_status']) and !$settings['constantcontact_status'])) return false;
         
         $api_key = isset($settings['constantcontact_api_key']) ? $settings['constantcontact_api_key'] : '';
         $list_id = isset($settings['constantcontact_list_id']) ? $settings['constantcontact_list_id'] : '';
         
-        // Mailchim credentials are required
+        // constantcontact credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
         
         $booker_id = get_post_field('post_author', $book_id);
@@ -5371,6 +5465,9 @@ class MEC_main extends MEC_base
         elseif(isset($_SERVER['HTTP_FORWARDED'])) $ipaddress = $_SERVER['HTTP_FORWARDED'];
         elseif(isset($_SERVER['REMOTE_ADDR'])) $ipaddress = $_SERVER['REMOTE_ADDR'];
         else $ipaddress = 'UNKNOWN';
+
+        $ips = explode(',', $ipaddress);
+        if(count($ips) > 1) $ipaddress = $ips[0];
 
         return $ipaddress;
     }
@@ -6003,9 +6100,9 @@ class MEC_main extends MEC_base
      * @param string $user_email
      * @param array $ticket_info
      * @param integer $limit
-     * @return array
+     * @return array|boolean
      */
-    public function booking_permitted($user_email, $ticket_info = array(), $limit)
+    public function booking_permitted($user_email, $ticket_info, $limit)
     {
         if(!is_array($ticket_info) or is_array($ticket_info) and count($ticket_info) < 2) return false;
 
@@ -6019,8 +6116,14 @@ class MEC_main extends MEC_base
         $event_id = isset($ticket_info['event_id']) ? intval($ticket_info['event_id']) : 0;
         $count = isset($ticket_info['count']) ? intval($ticket_info['count']) : 0;
 
-        $date = isset($ticket_info['date']) ? $ticket_info['date'] : '';
-        list($year, $month, $day) = explode('-', $date);
+        $timestamp = isset($ticket_info['date']) ? $ticket_info['date'] : '';
+        if(!is_numeric($timestamp)) $timestamp = strtotime($timestamp);
+
+        $year = date('Y', $timestamp);
+        $month = date('m', $timestamp);
+        $day = date('d', $timestamp);
+        $hour = date('H', $timestamp);
+        $minutes = date('i', $timestamp);
 
         $permission = true;
         $query = new WP_Query(array
@@ -6032,6 +6135,8 @@ class MEC_main extends MEC_base
             'year'=>$year,
             'monthnum'=>$month,
             'day'=>$day,
+            'hour'=>$hour,
+            'minute'=>$minutes,
             'meta_query'=>array
             (
                 array('key'=>'mec_event_id', 'value'=>$event_id, 'compare'=>'='),
@@ -6056,7 +6161,7 @@ class MEC_main extends MEC_base
 
         if(($bookings + $count) > $limit) $permission = false;
 
-        return array("booking_count" => $bookings, "permission" => $permission);
+        return array('booking_count' => $bookings, 'permission' => $permission);
     }
 
     public function booking_permitted_by_ip($event_id, $limit, $ticket_info = array())
@@ -6064,9 +6169,16 @@ class MEC_main extends MEC_base
         if(!is_array($ticket_info) or count($ticket_info) < 2) return false;
 
         $count = isset($ticket_info['count']) ? intval($ticket_info['count']) : 0;
-        $date = isset($ticket_info['date']) ? $ticket_info['date'] : '';
 
-        list($year, $month, $day) = explode('-', $date);
+        $timestamp = isset($ticket_info['date']) ? $ticket_info['date'] : '';
+        if(!is_numeric($timestamp)) $timestamp = strtotime($timestamp);
+
+        $year = date('Y', $timestamp);
+        $month = date('m', $timestamp);
+        $day = date('d', $timestamp);
+        $hour = date('H', $timestamp);
+        $minutes = date('i', $timestamp);
+
         $attendee_ip = $this->get_client_ip();
 
         $args = array(
@@ -6076,6 +6188,8 @@ class MEC_main extends MEC_base
             'year'=>$year,
             'monthnum'=>$month,
             'day'=>$day,
+            'hour'=>$hour,
+            'minute'=>$minutes,
             'meta_query' => array
             (
                 array(
@@ -6128,13 +6242,24 @@ class MEC_main extends MEC_base
     /**
      * Return SoldOut Or A Few Tickets Label
      * @author Webnus <info@webnus.biz>
-     * @param string $event_id
+     * @param string|object $event
      * @param string $date
      * @return string|boolean
      */
-    public function get_flags($event_id, $date)
+    public function get_flags($event, $date = NULL)
     {
-        if((!isset($event_id) or !trim($event_id)) or (!isset($date) or !trim($date))) return false;
+        if(is_object($event))
+        {
+            $event_id = $event->data->ID;
+            $timestamp = $event->data->time['start_timestamp'];
+        }
+        else
+        {
+            $event_id = $event;
+            $timestamp = strtotime($date);
+        }
+
+        if((!isset($event_id) or !trim($event_id)) or !trim($timestamp)) return false;
 
         // MEC Settings
         $settings = $this->get_settings();
@@ -6146,19 +6271,25 @@ class MEC_main extends MEC_base
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets))) return false;
 
-        // Convert Date
-        $date = $this->get_start_of_multiple_days($event_id, $date);
+        // Convert Timestamp
+        $timestamp = $this->get_start_time_of_multiple_days($event_id, $timestamp);
 
         $book = $this->getBook();
-        $is_soldout = $book->get_tickets_availability($event_id, $date);
-    
-        if(isset($is_soldout))
+        $availability = $book->get_tickets_availability($event_id, $timestamp);
+
+        if(is_array($availability) and count($availability))
         {
-            $add_css_class = current($is_soldout) ? 'mec-few-tickets' : '';
+            $remained_tickets = 0;
+            foreach($availability as $ticket_id => $remained)
+            {
+                if(is_numeric($ticket_id)) $remained_tickets += $remained;
+            }
+
+            $add_css_class = $remained_tickets ? 'mec-few-tickets' : '';
             $output_tag = ' <span class="mec-event-title-soldout ' . $add_css_class . '"><span class=soldout>%%title%%</span></span> ';
             
             // Check For Return SoldOut Label Exist.
-            if(current($is_soldout) === 0) return str_replace('%%title%%', __('Sold Out', 'modern-events-calendar-lite'), $output_tag) . '<input type="hidden" value="%%soldout%%"/>';
+            if($remained_tickets === 0) return str_replace('%%title%%', __('Sold Out', 'modern-events-calendar-lite'), $output_tag) . '<input type="hidden" value="%%soldout%%"/>';
     
             $booking_options = get_post_meta($event_id, 'mec_booking', true);
             $total_bookings_limit = (isset($booking_options['bookings_limit']) and trim($booking_options['bookings_limit'])) ? $booking_options['bookings_limit'] : 100;
@@ -6166,7 +6297,7 @@ class MEC_main extends MEC_base
             if($bookings_limit_unlimited == '1') $total_bookings_limit = -1;
     
             // Check For Return A Few Label Exist.
-            if(($total_bookings_limit > 0) and (current($is_soldout) <= round(((10 * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
+            if(($total_bookings_limit > 0) and ($remained_tickets <= round(((15 * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
     
             return false;
         }
@@ -6174,15 +6305,15 @@ class MEC_main extends MEC_base
         return false;
     }
 
-    public function is_soldout($event_id, $date)
+    public function is_soldout($event, $date)
     {
-        return $this->get_flags($event_id, $date);
+        return $this->get_flags($event, $date);
     }
     
     /**
      * Add Query String To URL
      * @param string $url
-     * @param array $key
+     * @param string $key
      * @param string $value
      * @resourse wp-mix.com
      * @return string
@@ -6230,7 +6361,7 @@ class MEC_main extends MEC_base
         if(!trim($time)) return NULL;
 
         $db = $this->getDB();
-        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`tstart`='".$time."') OR (`tstart`<'".$time."' AND `tend`>='".$time."')) ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
+        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`tstart`='".$time."') OR (`tstart`<'".$time."' AND `tend`>'".$time."')) ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
     }
 
     public function is_midnight_event($event)

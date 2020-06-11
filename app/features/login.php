@@ -7,10 +7,7 @@ defined('MECEXEC') or die();
  */
 class MEC_feature_login extends MEC_base
 {
-
     public $factory;
-    public $main;
-    public $settings;
 
     /**
      * Constructor method
@@ -20,13 +17,6 @@ class MEC_feature_login extends MEC_base
     {
         // Import MEC Factory
         $this->factory = $this->getFactory();
-        
-        // Import MEC Main
-        $this->main = $this->getMain();
-
-        // MEC Settings
-        $this->settings = $this->main->get_settings();
-
     }
     
     /**
@@ -44,7 +34,6 @@ class MEC_feature_login extends MEC_base
 
     public function mec_ajax_login_data()
     {
-        
         // Check if our nonce is set.
         if(!isset($_POST['mec_login_nonce'])) return;
         
@@ -56,11 +45,14 @@ class MEC_feature_login extends MEC_base
         $info['user_password'] = $_POST['password'];
         $info['remember'] = true;
 
-        $user_signon = wp_signon( $info, false );
-        if ( is_wp_error($user_signon) ){
-            echo json_encode(array('loggedin'=>false, 'message'=>__('<strong>'.esc_html('Wrong username or password, reloading...' , 'modern-events-calendar-lite').'</strong>')));
-        } else {
-            echo json_encode(array('loggedin'=>true, 'message'=>__('<strong>'.esc_html('Login successful, redirecting...' , 'modern-events-calendar-lite').'</strong>')));
+        $user_signon = wp_signon($info, false);
+        if(is_wp_error($user_signon))
+        {
+            echo json_encode(array('loggedin'=>false, 'message'=>__('<strong>'.esc_html__('Wrong username or password, reloading...' , 'modern-events-calendar-lite').'</strong>')));
+        }
+        else
+        {
+            echo json_encode(array('loggedin'=>true, 'message'=>__('<strong>'.esc_html__('Login successful, redirecting...' , 'modern-events-calendar-lite').'</strong>')));
         }
 
         die();

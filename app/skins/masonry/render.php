@@ -139,7 +139,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                                 }
                             ?>
                             <div class="mec-event-content">
-                                <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
+                                <?php $soldout = $this->main->get_flags($event); ?>
                                 <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
                                 <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
                                 <div class="mec-event-description mec-events-content">

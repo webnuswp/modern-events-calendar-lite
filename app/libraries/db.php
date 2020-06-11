@@ -155,11 +155,21 @@ class MEC_db extends MEC_base
 	{
         // Get WordPress DB object
 		$wpdb = $this->get_DBO();
-        
+
+		$charset = $wpdb->charset;
+		if(!trim($charset)) $charset = 'utf8';
+
+		$collate = $wpdb->collate;
+        if(!trim($collate))
+        {
+            $charset = 'utf8';
+            $collate = 'utf8_unicode_ci';
+        }
+
         $query = str_replace('#__blogs', $wpdb->base_prefix.'blogs', $query);
 		$query = str_replace('#__', $wpdb->prefix, $query);
-		$query = str_replace('[:CHARSET:]', $wpdb->charset, $query);
-		$query = str_replace('[:COLLATE:]', $wpdb->collate, $query);
+		$query = str_replace('[:CHARSET:]', $charset, $query);
+		$query = str_replace('[:COLLATE:]', $collate, $query);
 
         return $query;
 	}

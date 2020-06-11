@@ -82,6 +82,8 @@ function mec_fes_upload_featured_image()
     fd.append("_wpnonce", "'.wp_create_nonce('mec_fes_upload_featured_image').'");
     fd.append("file", jQuery("#mec_featured_image_file").prop("files")[0]);
     
+    jQuery("#mec_fes_thumbnail_error").html("").addClass("mec-util-hidden");
+    
     jQuery.ajax(
     {
         url: "'.admin_url('admin-ajax.php', NULL).'",
@@ -93,10 +95,17 @@ function mec_fes_upload_featured_image()
     })
     .done(function(data)
     {
-        jQuery("#mec_fes_thumbnail").val(data.data.url);
-        jQuery("#mec_featured_image_file").val("");
-        jQuery("#mec_fes_thumbnail_img").html("<img src=\""+data.data.url+"\" />");
-        jQuery("#mec_fes_remove_image_button").removeClass("mec-util-hidden");
+        if(data.success)
+        {
+            jQuery("#mec_fes_thumbnail").val(data.data.url);
+            jQuery("#mec_featured_image_file").val("");
+            jQuery("#mec_fes_thumbnail_img").html("<img src=\""+data.data.url+"\" />");
+            jQuery("#mec_fes_remove_image_button").removeClass("mec-util-hidden");
+        }
+        else
+        {
+            jQuery("#mec_fes_thumbnail_error").html(data.message).removeClass("mec-util-hidden");
+        }
     });
     
     return false;
@@ -236,7 +245,7 @@ $this->factory->params('footer', $javascript);
 
         <div class="mec-fes-form-cntt">
             <div class="mec-form-row">
-                <label for="mec_fes_title"><?php _e('Title', 'modern-events-calendar-lite'); ?></label>
+                <label for="mec_fes_title"><?php _e('Title', 'modern-events-calendar-lite'); ?><span>*</span></label>
                 <input type="text" name="mec[title]" id="mec_fes_title" value="<?php echo (isset($post->post_title) ? $post->post_title : ''); ?>" required="required" />
             </div>
             <div class="mec-form-row">
@@ -736,11 +745,11 @@ $this->factory->params('footer', $javascript);
             <div class="mec-meta-box-fields" id="mec-guest-email-link">
                 <h4><?php _e('User Data', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
-                    <label class="mec-col-2" for="mec_guest_email"><?php _e('Email', 'modern-events-calendar-lite'); ?></label>
+                    <label class="mec-col-2" for="mec_guest_email"><?php _e('Email', 'modern-events-calendar-lite'); ?><span>*</span></label>
                     <input class="mec-col-7" type="email" required="required" name="mec[fes_guest_email]" id="mec_guest_email" value="<?php echo esc_attr($guest_email); ?>" placeholder="<?php _e('eg. yourname@gmail.com', 'modern-events-calendar-lite'); ?>" />
                 </div>
                 <div class="mec-form-row">
-                    <label class="mec-col-2" for="mec_guest_name"><?php _e('Name', 'modern-events-calendar-lite'); ?></label>
+                    <label class="mec-col-2" for="mec_guest_name"><?php _e('Name', 'modern-events-calendar-lite'); ?><span>*</span></label>
                     <input class="mec-col-7" type="text" required="required" name="mec[fes_guest_name]" id="mec_guest_name" value="<?php echo esc_attr($guest_name); ?>" placeholder="<?php _e('eg. John Smith', 'modern-events-calendar-lite'); ?>" />
                 </div>
             </div>
@@ -801,6 +810,8 @@ $this->factory->params('footer', $javascript);
                     <input type="hidden" id="mec_fes_thumbnail" name="mec[featured_image]" value="<?php if(isset($attachment_id) and intval($attachment_id)) the_guid($attachment_id); ?>" />
                     <input type="file" id="mec_featured_image_file" onchange="mec_fes_upload_featured_image();" />
                     <span id="mec_fes_remove_image_button" class="<?php echo (trim($featured_image) ? '' : 'mec-util-hidden'); ?>"><?php _e('Remove Image', 'modern-events-calendar-lite'); ?></span>
+
+                    <div class="mec-error mec-util-hidden" id="mec_fes_thumbnail_error"></div>
                 </div>
             </div>
             <?php endif; ?>

@@ -342,7 +342,7 @@ class MEC_feature_fes extends MEC_base
         $uploaded_file = isset($_FILES['file']) ? $_FILES['file'] : NULL;
         
         // No file
-        if(!$uploaded_file) $this->main->response(array('success'=>0, 'code'=>'NO_FILE'));
+        if(!$uploaded_file) $this->main->response(array('success'=>0, 'code'=>'NO_FILE', 'message'=>esc_html__('Please upload an image.', 'modern-events-calendar-lite')));
         
         $allowed = array('gif', 'jpeg', 'jpg', 'png');
         
@@ -350,13 +350,13 @@ class MEC_feature_fes extends MEC_base
         $extension = end($ex);
         
         // Invalid Extension
-        if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION'));
+        if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION', 'message'=>sprintf(esc_html__('image extension is invalid. You can upload %s images.', 'modern-events-calendar-lite'), implode(', ', $allowed))));
 
         // Maximum File Size
         $max_file_size = isset($this->settings['fes_max_file_size']) ? (int) ($this->settings['fes_max_file_size'] * 1000) : (5000 * 1000);
 
         // Invalid Size
-        if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG'));
+        if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG', 'message'=>sprintf(esc_html__('Image is too big. Maximum size is %s KB.', 'modern-events-calendar-lite'), ($max_file_size / 1000))));
         
         $movefile = wp_handle_upload($uploaded_file, array('test_form'=>false));
         
@@ -404,6 +404,9 @@ class MEC_feature_fes extends MEC_base
         if(!is_array($event)) $event = array();
 
         $booking_date_update = false;
+        $past_start_date = '';
+        $past_end_date = '';
+
         if(count($event))
         {
             $past_start_date = (isset($event['start']) and trim($event['start'])) ? $event['start'] : '';
@@ -977,7 +980,7 @@ class MEC_feature_fes extends MEC_base
             });
 
             // Don't allow multiple occurrences per day in Lite version
-            if(!$this->getPRO() or true)
+            if(!$this->getPRO())
             {
                 $in_days_unique = array();
                 foreach($in_days_arr as $key => $in_day_arr)

@@ -493,8 +493,11 @@ class MEC_render extends MEC_base
         $hide_time = isset($data->meta['mec_hide_time']) ? $data->meta['mec_hide_time'] : 0;
         $hide_end_time = isset($data->meta['mec_hide_end_time']) ? $data->meta['mec_hide_end_time'] : 0;
 
-        $start_time = (isset($meta['mec_start_day_seconds']) ? $this->main->get_time($meta['mec_start_day_seconds']) : '');
-        $end_time = (isset($meta['mec_end_day_seconds']) ? $this->main->get_time($meta['mec_end_day_seconds']) : '');
+        $start_timestamp = (isset($meta['mec_start_day_seconds']) ? $meta['mec_start_day_seconds'] : '');
+        $end_timestamp = (isset($meta['mec_end_day_seconds']) ? $meta['mec_end_day_seconds'] : '');
+
+        $start_time = $this->main->get_time($start_timestamp);
+        $end_time = $this->main->get_time($end_timestamp);
 
         if($hide_time)
         {
@@ -503,6 +506,8 @@ class MEC_render extends MEC_base
                 'end'=>'',
                 'start_raw'=>$start_time,
                 'end_raw'=>$end_time,
+                'start_timestamp'=>$start_timestamp,
+                'end_timestamp'=>$end_timestamp,
             );
         }
         elseif($allday)
@@ -512,6 +517,8 @@ class MEC_render extends MEC_base
                 'end'=>'',
                 'start_raw'=>$start_time,
                 'end_raw'=>$end_time,
+                'start_timestamp'=>$start_timestamp,
+                'end_timestamp'=>$end_timestamp,
             );
         }
         else
@@ -521,6 +528,8 @@ class MEC_render extends MEC_base
                 'end'=>($hide_end_time ? '' : $end_time),
                 'start_raw'=>$start_time,
                 'end_raw'=>$end_time,
+                'start_timestamp'=>$start_timestamp,
+                'end_timestamp'=>$end_timestamp,
             );
         }
 
@@ -632,6 +641,9 @@ class MEC_render extends MEC_base
         if($d2 < $d1) $data->meta['event_past'] = true;
         else $data->meta['event_past'] = false;
 
+        // Apply Filters
+        $data = apply_filters('mec_render_event_data', $data, $post_id);
+
         // Set to cache
         wp_cache_set($post_id, $data, 'mec-events-data', 43200);
         
@@ -657,14 +669,19 @@ class MEC_render extends MEC_base
                 $start_time = $event->date['start']['date'].' '.sprintf("%02d", $s_hour).':'.sprintf("%02d", $event->date['start']['minutes']).' '.$event->date['start']['ampm'];
                 $end_time = $event->date['end']['date'].' '.sprintf("%02d", $e_hour).':'.sprintf("%02d", $event->date['end']['minutes']).' '.$event->date['end']['ampm'];
 
-                $st = $this->main->get_time(strtotime($start_time));
-                $et = $this->main->get_time(strtotime($end_time));
+                $start_timestamp = strtotime($start_time);
+                $end_timestamp = strtotime($end_time);
+
+                $st = $this->main->get_time($start_timestamp);
+                $et = $this->main->get_time($end_timestamp);
 
                 $event->data->time = array(
                     'start'=>$st,
                     'end'=>($hide_end_time ? '' : $et),
                     'start_raw'=>$st,
                     'end_raw'=>$et,
+                    'start_timestamp'=>$start_timestamp,
+                    'end_timestamp'=>$end_timestamp,
                 );
             }
             // Detect the time when not available
@@ -686,7 +703,7 @@ class MEC_render extends MEC_base
                     foreach($periods as $period)
                     {
                         $ex = explode(':', $period);
-                        if(isset($ex[0]) and $date === $ex[0] and isset($ex[2]) and isset($ex[3]))
+                        if(isset($ex[0]) and ($date === $ex[0] or (isset($ex[1]) and strtotime($date) > strtotime($ex[0]) and strtotime($date) <= strtotime($ex[1]))) and isset($ex[2]) and isset($ex[3]))
                         {
                             $p++;
                             if($p !== $serie) continue;
@@ -702,18 +719,37 @@ class MEC_render extends MEC_base
 
                             $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
 
-                            $st = $this->main->get_time(strtotime($start_time));
-                            $et = $this->main->get_time(strtotime($end_time));
+                            $start_timestamp = strtotime($start_time);
+                            $end_timestamp = strtotime($end_time);
+
+                            $st = $this->main->get_time($start_timestamp);
+                            $et = $this->main->get_time($end_timestamp);
 
                             $event->data->time = array(
                                 'start'=>$st,
                                 'end'=>($hide_end_time ? '' : $et),
                                 'start_raw'=>$st,
                                 'end_raw'=>$et,
+                                'start_timestamp'=>$start_timestamp,
+                                'end_timestamp'=>$end_timestamp,
                             );
                         }
                     }
                 }
+            }
+        }
+        elseif(isset($event->data) and isset($event->data->time) and isset($event->data->time['start_raw']) and isset($event->data->time['end_raw']))
+        {
+            $start_time = $event->date['start']['date'].' '.$event->data->time['start_raw'];
+            $end_time = $event->date['end']['date'].' '.$event->data->time['end_raw'];
+
+            $start_timestamp = strtotime($start_time);
+            $end_timestamp = strtotime($end_time);
+
+            if($start_timestamp and $end_timestamp)
+            {
+                $event->data->time['start_timestamp'] = $start_timestamp;
+                $event->data->time['end_timestamp'] = $end_timestamp;
             }
         }
 
@@ -767,23 +803,23 @@ class MEC_render extends MEC_base
         // Normal event
         if(isset($event->mec->repeat) and $event->mec->repeat == '0')
         {
-            $dates[] = array(
+            $dates[] = $this->add_timestamps(array(
                 'start'=>$start_date,
                 'end'=>$end_date,
                 'allday'=>$allday,
                 'hide_time'=>$hide_time,
                 'past'=>$past
-            );
+            ));
         }
         elseif($past)
         {
-            $dates[] = array(
+            $dates[] = $this->add_timestamps(array(
                 'start'=>$start_date,
                 'end'=>$end_date,
                 'allday'=>$allday,
                 'hide_time'=>$hide_time,
                 'past'=>$past
-            );
+            ));
         }
         elseif(!$past)
         {
@@ -802,13 +838,13 @@ class MEC_render extends MEC_base
                 else $remained_days_to_next_repeat = $repeat_interval - ($passed_days%$repeat_interval);
 
                 $start_date = date('Y-m-d', strtotime('+'.$remained_days_to_next_repeat.' Days', strtotime($today)));
-                if(!$this->main->is_past($finish_date['date'], $start_date) and !in_array($start_date, $exceptional_days)) $dates[] = array(
+                if(!$this->main->is_past($finish_date['date'], $start_date) and !in_array($start_date, $exceptional_days)) $dates[] = $this->add_timestamps(array(
                     'start'=>array('date'=>$start_date, 'hour'=>$event->meta['mec_date']['start']['hour'], 'minutes'=>$event->meta['mec_date']['start']['minutes'], 'ampm'=>$event->meta['mec_date']['start']['ampm']),
                     'end'=>array('date'=>date('Y-m-d', strtotime('+'.$event_period_days.' Days', strtotime($start_date))), 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']),
                     'allday'=>$allday,
                     'hide_time'=>$hide_time,
                     'past'=>0
-                );
+                ));
                 
                 for($i=2; $i<=$maximum; $i++)
                 {
@@ -817,13 +853,13 @@ class MEC_render extends MEC_base
                     // Event finished
                     if($this->main->is_past($finish_date['date'], $start_date)) break;
                     
-                    if(!in_array($start_date, $exceptional_days)) $dates[] = array(
+                    if(!in_array($start_date, $exceptional_days)) $dates[] = $this->add_timestamps(array(
                         'start'=>array('date'=>$start_date, 'hour'=>$event->meta['mec_date']['start']['hour'], 'minutes'=>$event->meta['mec_date']['start']['minutes'], 'ampm'=>$event->meta['mec_date']['start']['ampm']),
                         'end'=>array('date'=>date('Y-m-d', strtotime('+'.$event_period_days.' Days', strtotime($start_date))), 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']),
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>0
-                    );
+                    ));
                 }
             }
             elseif(in_array($repeat_type, array('weekday', 'weekend', 'certain_weekdays')))
@@ -854,13 +890,13 @@ class MEC_render extends MEC_base
                     }
                     
                     $start_date = $today;
-                    if(!in_array($start_date, $exceptional_days)) $dates[] = array(
+                    if(!in_array($start_date, $exceptional_days)) $dates[] = $this->add_timestamps(array(
                         'start'=>array('date'=>$start_date, 'hour'=>$event->meta['mec_date']['start']['hour'], 'minutes'=>$event->meta['mec_date']['start']['minutes'], 'ampm'=>$event->meta['mec_date']['start']['ampm']),
                         'end'=>array('date'=>date('Y-m-d', strtotime('+'.$event_period_days.' Days', strtotime($start_date))), 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']),
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>0
-                    );
+                    ));
                     
                     $today = date('Y-m-d', strtotime('+1 Days', strtotime($today)));
                     $today_id = date('N', strtotime($today));
@@ -910,13 +946,13 @@ class MEC_render extends MEC_base
                         continue;
                     }
                     
-                    if(!in_array($start_date, $exceptional_days)) $dates[] = array(
+                    if(!in_array($start_date, $exceptional_days)) $dates[] = $this->add_timestamps(array(
                         'start'=>array('date'=>$start_date, 'hour'=>$event->meta['mec_date']['start']['hour'], 'minutes'=>$event->meta['mec_date']['start']['minutes'], 'ampm'=>$event->meta['mec_date']['start']['ampm']),
                         'end'=>array('date'=>date('Y-m-d', strtotime('+'.$event_period_days.' Days', strtotime($start_date))), 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']),
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>0
-                    );
+                    ));
                     
                     $found++;
                     $i++;
@@ -967,13 +1003,13 @@ class MEC_render extends MEC_base
                     }
                     
                     $start_date = $event_date;
-                    if(!in_array($start_date, $exceptional_days)) $dates[] = array(
+                    if(!in_array($start_date, $exceptional_days)) $dates[] = $this->add_timestamps(array(
                         'start'=>array('date'=>$start_date, 'hour'=>$event->meta['mec_date']['start']['hour'], 'minutes'=>$event->meta['mec_date']['start']['minutes'], 'ampm'=>$event->meta['mec_date']['start']['ampm']),
                         'end'=>array('date'=>date('Y-m-d', strtotime('+'.$event_period_days.' Days', strtotime($start_date))), 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']),
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>0
-                    );
+                    ));
                     
                     $found++;
                     $i++;
@@ -987,15 +1023,15 @@ class MEC_render extends MEC_base
                 if($today == current_time('Y-m-d')) $today .= ' '.current_time('H:i:s');
                 
                 $found = 0;
-                if(strtotime($event->mec->start) >= strtotime($today) and !in_array($event->mec->start, $exceptional_days))
+                if((strtotime($event->mec->start) + $event->meta['mec_start_day_seconds']) >= strtotime($today) and !in_array($event->mec->start, $exceptional_days))
                 {
-                    $dates[] = array(
+                    $dates[] = $this->add_timestamps(array(
                         'start'=>array('date'=>$event->mec->start, 'hour'=>$event->meta['mec_date']['start']['hour'], 'minutes'=>$event->meta['mec_date']['start']['minutes'], 'ampm'=>$event->meta['mec_date']['start']['ampm']),
                         'end'=>array('date'=>$event->mec->end, 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>$event->meta['mec_date']['end']['ampm']),
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>0
-                    );
+                    ));
                     
                     $found++;
                 }
@@ -1034,13 +1070,13 @@ class MEC_render extends MEC_base
                         $cday_end_ampm = $cday_end_ex[2];
                     }
 
-                    if(!in_array($cday[0], $exceptional_days)) $dates[] = array(
+                    if(!in_array($cday[0], $exceptional_days)) $dates[] = $this->add_timestamps(array(
                         'start'=>array('date'=>$cday[0], 'hour'=>$cday_start_hour, 'minutes'=>$cday_start_minutes, 'ampm'=>$cday_start_ampm),
                         'end'=>array('date'=>$cday[1], 'hour'=>$cday_end_hour, 'minutes'=>$cday_end_minutes, 'ampm'=>$cday_end_ampm),
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>0
-                    );
+                    ));
                     
                     $found++;
                 }
@@ -1048,13 +1084,13 @@ class MEC_render extends MEC_base
                 // No future date found so the event is passed
                 if(!count($dates))
                 {
-                    $dates[] = array(
+                    $dates[] = $this->add_timestamps(array(
                         'start'=>$start_date,
                         'end'=>$finish_date,
                         'allday'=>$allday,
                         'hide_time'=>$hide_time,
                         'past'=>$past
-                    );
+                    ));
                 }
             }
             elseif($repeat_type == 'advanced')
@@ -1114,13 +1150,13 @@ class MEC_render extends MEC_base
         // Include default start date to results
         if(!$this->main->is_past($start_date['date'], $referer_date) and !in_array($start_date['date'], $exceptional_days)) 
         {
-            $dates[] = array(
+            $dates[] = $this->add_timestamps(array(
                 'start' => $start_date,
                 'end' => $end_date,
                 'allday' => $allday,
                 'hide_time' => $hide_time,
                 'past' => 0,
-            );
+            ));
     
             if($mode == 'render') $i++;
         }
@@ -1151,7 +1187,7 @@ class MEC_render extends MEC_base
                 if($this->main->is_past($start, $referer_date) or in_array($start, $exceptional_days)) continue;
     
                 // Add dates
-                $dates[] = array(
+                $dates[] = $this->add_timestamps(array(
                     'start' => array(
                         'date' => $start,
                         'hour' => $start_date['hour'],
@@ -1167,7 +1203,7 @@ class MEC_render extends MEC_base
                     'allday' => $allday,
                     'hide_time' => $hide_time,
                     'past' => 0,
-                );
+                ));
     
                 $i++;
             }
@@ -1257,5 +1293,37 @@ class MEC_render extends MEC_base
         }
         
         return apply_filters('mec_render_markers', $points);
+    }
+
+    public function add_timestamps($date)
+    {
+        $start = (isset($date['start']) and is_array($date['start'])) ? $date['start'] : array();
+        $end = (isset($date['end']) and is_array($date['end'])) ? $date['end'] : array();
+
+        if(!count($start) or !count($end)) return $date;
+
+        $s_hour = $start['hour'];
+        if(strtoupper($start['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+        $e_hour = $end['hour'];
+        if(strtoupper($end['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+
+        $start_time = $start['date'].' '.sprintf("%02d", $s_hour).':'.sprintf("%02d", $start['minutes']).' '.$start['ampm'];
+        $end_time = $end['date'].' '.sprintf("%02d", $e_hour).':'.sprintf("%02d", $end['minutes']).' '.$end['ampm'];
+
+        $start['timestamp'] = strtotime($start_time);
+        $end['timestamp'] = strtotime($end_time);
+
+        $allday = isset($date['allday']) ? $date['allday'] : 0;
+        $hide_time = isset($date['hide_time']) ? $date['hide_time'] : 0;
+        $past = isset($date['past']) ? $date['past'] : 0;
+
+        return array(
+            'start' => $start,
+            'end' => $end,
+            'allday' => $allday,
+            'hide_time' => $hide_time,
+            'past' => $past,
+        );
     }
 }

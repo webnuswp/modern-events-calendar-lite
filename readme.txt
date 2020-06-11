@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.4.1
-Stable tag: 5.5.0
+Tested up to: 5.4.2
+Stable tag: 5.6.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -188,7 +188,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Multiple occurrences in one day
 - Different hours for custom days repeat
+- WordPress dashboard widgets
 - Ticket limit for coupon
 - Show Normal Label
 - Event Management System
@@ -206,6 +208,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Frontend Events Submission Archive Status
 - Advanced Google Maps (*pro*)
 - Slugs/Permalinks Options
+- Print events widget
 - Import events from Google Calendar
 - Import From Meetup
 - Import From Facebook
@@ -236,6 +239,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Certain Weekdays Repeating
 - Advance Repeating
 - Show only one occurrence of the event
+- Multiple occurrences in one day
 - End Repeating
 - Midnight Hour
 - Advanced categorizing and filtering options
@@ -371,9 +375,37 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 35. WordPress Event Calendar - Shortcode edit page
 36. WordPress Event Calendar - Add Event Wizard
 37. WordPress Event Calendar - Add Shortcode Wizard
+38. WordPress Event Calendar - Single event(Fluent View Layouts Addon)
+39. WordPress Event Calendar - Monthly view(Fluent View Layouts Addon)
+40. WordPress Event Calendar - Available spot view(Fluent View Layouts Addon)
+41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
-= 5.5.0 – 1 June 2020 =
+= 5.6.0 – 11 June  2020 =
+- Refactored: booking system to be compatible with multiple occurrences in one day (pro)
+- Added: Multiple occurrences in one day
+- Added: %%ticket_name_time%% placeholder in notifications (pro)
+- Added: An option to disable booking restrictions with User IP (pro)
+- Added: An option to automatically map event locations and organizers with the translated ones in WPML duplicate (pro)
+- Added: Some filter and actions for third party developers
+- Added: Front-end event submission required form
+- Added: Active Campaign integration (pro)
+- Improved: The next event module to work with multiple occurrences in one day
+- Improved: %%ticket_name%% and %%ticket_time%% placeholders to print multiple data if available (pro)
+- Improved: The login shortcode (pro)
+- Improved: The local time module to work with multiple occurrences in one day
+- Improved: The map module in list and grid skins (pro)
+- Removed: Total bookings widget in the WordPress dashboard (lite)
+- Fixed: “Reports” page regarding showing those attendees that bought all occurrences of an event at once (pro)
+- Fixed: Available spots skin regarding showing remained spots (pro)
+- Fixed: “Stop Selling” ticket option (pro)
+- Fixed: A conflict with “Visualizer Table and Charts” plugin
+- Fixed: A conflict with “Advanced Ads” plugin
+- Fixed: A conflict with “Newsletter” plugin
+- Fixed: Showing sold-out flag (pro)
+- Fixed: Related events module
+
+= 5.5.0 – 1 June  2020 =
 - Added: Price display in all views of full calendar skin
 - Added: A default comment for payment gateways (pro)
 - Added: Total bookings widget in the WordPress dashboard (pro)

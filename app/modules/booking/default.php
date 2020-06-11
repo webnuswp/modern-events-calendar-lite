@@ -50,6 +50,7 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
         dataType: "JSON",
         success: function(data)
         {
+            console.log(data);
             // Remove the loading Class to the ticket list
             jQuery("#mec_booking'.$uniqueid.' .mec-event-tickets-list").removeClass("loading");
             jQuery("#mec_booking'.$uniqueid.' .mec-event-tickets-list input").prop("disabled", false);

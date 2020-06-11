@@ -1026,6 +1026,36 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 </div>
                             </div>
 
+                            <div id="active_campaign_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('Active Campaign Integration', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][active_campaign_status]" value="0" />
+                                        <input onchange="jQuery('#mec_active_campaign_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][active_campaign_status]" <?php if(isset($settings['active_campaign_status']) and $settings['active_campaign_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable Active Campaign Integration', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_active_campaign_status_container_toggle" class="<?php if((isset($settings['active_campaign_status']) and !$settings['active_campaign_status']) or !isset($settings['active_campaign_status'])) echo 'mec-util-hidden'; ?>">
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_active_campaign_api_url"><?php _e('API URL', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_active_campaign_api_url" name="mec[settings][active_campaign_api_url]" value="<?php echo ((isset($settings['active_campaign_api_url']) and trim($settings['active_campaign_api_url']) != '') ? $settings['active_campaign_api_url'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_active_campaign_api_key"><?php _e('API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_active_campaign_api_key" name="mec[settings][active_campaign_api_key]" value="<?php echo ((isset($settings['active_campaign_api_key']) and trim($settings['active_campaign_api_key']) != '') ? $settings['active_campaign_api_key'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_active_campaign_list_id"><?php _e('List ID', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_active_campaign_list_id" name="mec[settings][active_campaign_list_id]" value="<?php echo ((isset($settings['active_campaign_list_id']) and trim($settings['active_campaign_list_id']) != '') ? $settings['active_campaign_list_id'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         <?php endif; ?>
 
                         <div id="uploadfield_option" class="mec-options-fields">

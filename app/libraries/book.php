@@ -207,8 +207,11 @@ class MEC_book extends MEC_base
         $transaction = $this->get_transaction($transaction_id);
         $event_id = $transaction['event_id'];
 
+        $attention_date = isset($transaction['date']) ? $transaction['date'] : '';
+        $attention_times = explode(':', $attention_date);
+
         // Default values
-        if(!isset($values['post_date'])) $values['post_date'] = $transaction['date'];
+        if(!isset($values['post_date'])) $values['post_date'] = date('Y-m-d H:i:s', trim($attention_times[0]));
         if(!isset($values['post_status'])) $values['post_status'] = 'publish';
 
         $book_id = wp_insert_post($values);
@@ -230,11 +233,16 @@ class MEC_book extends MEC_base
         update_post_meta($book_id, 'mec_ticket_id', $ticket_ids);
         update_post_meta($book_id, 'mec_booking_time', current_time('Y-m-d H:i:s'));
 
+        update_post_meta($book_id, 'mec_attention_time', $attention_date);
+        update_post_meta($book_id, 'mec_attention_time_start', $attention_times[0]);
+        update_post_meta($book_id, 'mec_attention_time_end', $attention_times[1]);
+
         // For Badget Bubble Notification Alert Count From It.
         update_post_meta($book_id, 'mec_book_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
         $location_id = get_post_meta($event_id, 'mec_location_id', true);
         if(!empty($location_id)) update_post_meta($book_id, 'mec_booking_location', $location_id);
+
         if(isset($values['mec_attendees']))
         {
             foreach($values['mec_attendees'] as $k => $mec_attendee)
@@ -396,20 +404,19 @@ class MEC_book extends MEC_base
      * Returns ticket availabilities of an event for a certain date
      * @author Webnus <info@webnus.biz>
      * @param int $event_id
-     * @param string $date
+     * @param int $timestamp
      * @param string $mode
      * @return array|integer
      */
-    public function get_tickets_availability($event_id, $date, $mode = 'availability')
+    public function get_tickets_availability($event_id, $timestamp, $mode = 'availability')
     {
+        if(!is_numeric($timestamp)) $timestamp = strtotime($timestamp);
+
         $availability = array();
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
 
         // Ticket Selling Stop
-        $start_time_hour = sprintf('%02d', get_post_meta($event_id, 'mec_start_time_hour', true));
-        $start_time_minute = sprintf('%02d', get_post_meta($event_id, 'mec_start_time_minutes', true));
-        $start_time_ampm = get_post_meta($event_id, 'mec_start_time_ampm', true);
-        $event_date = "{$date} {$start_time_hour}:{$start_time_minute} {$start_time_ampm}";
+        $event_date = date('Y-m-d h:i a', $timestamp);
         
         // No Ticket Found!
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets)))
@@ -429,14 +436,14 @@ class MEC_book extends MEC_base
         // Total Booking Limit
         $total_bookings_limit_original = $total_bookings_limit;
 
-        $ex = explode(':', $date);
-        $date = $ex[0];
+        $ex = explode(':', $timestamp);
+        $timestamp = (int) $ex[0];
 
-        $ex = explode('-', $date);
-
-        $year = isset($ex[0]) ? $ex[0] : NULL;
-        $month = isset($ex[1]) ? $ex[1] : NULL;
-        $day = isset($ex[2]) ? $ex[2] : NULL;
+        $year = date('Y', $timestamp);
+        $month = date('m', $timestamp);
+        $day = date('d', $timestamp);
+        $hour = date('H', $timestamp);
+        $minutes = date('i', $timestamp);
 
         $booked = 0;
         foreach($tickets as $ticket_id=>$ticket)
@@ -451,6 +458,8 @@ class MEC_book extends MEC_base
                 'year'=>$year,
                 'monthnum'=>$month,
                 'day'=>$day,
+                'hour'=>$hour,
+                'minute'=>$minutes,
                 'meta_query'=>array
                 (
                     array('key'=>'mec_event_id', 'value'=>$event_id, 'compare'=>'='),
@@ -911,5 +920,25 @@ class MEC_book extends MEC_base
         }
 
         return array($limit, $unlimited);
+    }
+
+    public function timestamp($start, $end)
+    {
+        // Timestamp is already available
+        if(isset($start['timestamp']) and isset($end['timestamp']))
+        {
+            return $start['timestamp'].':'.$end['timestamp'];
+        }
+
+        $s_hour = $start['hour'];
+        if(strtoupper($start['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+
+        $e_hour = $end['hour'];
+        if(strtoupper($end['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+
+        $start_time = $start['date'].' '.sprintf("%02d", $s_hour).':'.sprintf("%02d", $start['minutes']).' '.$start['ampm'];
+        $end_time = $end['date'].' '.sprintf("%02d", $e_hour).':'.sprintf("%02d", $end['minutes']).' '.$end['ampm'];
+
+        return strtotime($start_time).':'.strtotime($end_time);
     }
 }

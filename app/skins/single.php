@@ -305,66 +305,48 @@ class MEC_skin_single extends MEC_skins
                                     </a>
                                     <div class="mec-date-wrap<?php echo get_the_post_thumbnail(get_the_ID(), 'thumblist') ? ' mec-has-img' : ''; ?>">
                                         <?php
+                                        $rendered = $this->render->data(get_the_ID());
                                         $dates = $this->render->dates(get_the_ID(), NULL, 1, date('Y-m-d', strtotime('Yesterday')));
-                                        $d = isset($dates[0]) ? $dates[0] : array();
-                                        $mec_date = (isset($d['start']) and isset($d['start']['date'])) ? $d['start']['date'] : get_post_meta(get_the_ID(), 'mec_start_date', true);
-                                        $event_start_date = !empty($d['start']['date']) ? $d['start']['date'] : '';
-    
+
                                         $data = new stdClass();
-                                        $meta = $this->main->get_post_meta(get_the_ID());
-                                        $data->meta = $meta;
-                                        $allday = isset($data->meta['mec_allday']) ? $data->meta['mec_allday'] : 0;
-                                        $hide_time = isset($data->meta['mec_hide_time']) ? $data->meta['mec_hide_time'] : 0;
-                                        $hide_end_time = isset($data->meta['mec_hide_end_time']) ? $data->meta['mec_hide_end_time'] : 0;
-                                        if ($hide_time) {
-                                            $data->time = array('start'=>'', 'end'=>'');
-                                        } elseif ($allday) {
-                                            $data->time = array('start'=>$this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')), 'end'=>'');
-                                        } else {
-                                            $data->time = array(
-                                                'start'=>(isset($meta['mec_start_day_seconds']) ? $this->main->get_time($meta['mec_start_day_seconds']) : ''),
-                                                'end'=>($hide_end_time ? '' : (isset($meta['mec_end_day_seconds']) ? $this->main->get_time($meta['mec_end_day_seconds']) : ''))
-                                            );
-                                        }
-                                        $start_time = (isset($data->time) ? $data->time['start'] : '');
-                                        $end_time = (isset($data->time) ? $data->time['end'] : '');
-    
-                                        $data->tickets = isset($meta['mec_tickets']) ? $meta['mec_tickets'] : array();
+                                        $data->ID = get_the_ID();
+                                        $data->data = $rendered;
+                                        $data->dates = $dates;
+                                        $data->date = $dates[0];
+
+                                        $event = $this->render->after_render($data);
                                         ?>
                                         <div class="mec-event-date">
-                                            <span class="mec-event-day-num"><?php echo $this->main->date_i18n('d', strtotime($mec_date)); ?></span>
-                                            <span><?php echo $this->main->date_i18n('F, Y', strtotime($mec_date)); ?></span>
+                                            <span class="mec-event-day-num"><?php echo $this->main->date_i18n('d', strtotime($event->date['start']['date'])); ?></span>
+                                            <span><?php echo $this->main->date_i18n('F, Y', strtotime($event->date['start']['date'])); ?></span>
                                         </div>
                                         <div class="mec-event-day">
-                                            <span><?php echo $this->main->date_i18n('l', strtotime($mec_date)); ?></span>
+                                            <span><?php echo $this->main->date_i18n('l', strtotime($event->date['start']['date'])); ?></span>
                                         </div>
                                     </div>
                                 </figure>
                                 <div class="mec-related-content">
                                     <div class="mec-related-event-content">
                                         <h5 class="mec-event-title">
-                                            <a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink(get_the_permalink(), $mec_date); ?>"><?php echo get_the_title(); ?></a>
+                                            <a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date'], false, $event->data->time); ?>"><?php echo get_the_title(); ?></a>
                                         </h5>
+
                                         <?php
-                                        $locations = [];
-                                        $locationID = get_post_meta(get_the_ID(), 'mec_location_id', true);
-                                        $terms = wp_get_post_terms(get_the_ID(), 'mec_location', array('fields'=>'all'));
-                                        foreach($terms as $term) {
-                                            $locations[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name, 'address'=>get_metadata('term', $term->term_id, 'address', true), 'latitude'=>get_metadata('term', $term->term_id, 'latitude', true), 'longitude'=>get_metadata('term', $term->term_id, 'longitude', true), 'url'=>get_metadata('term', $term->term_id, 'url', true), 'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true));
-                                        }
-                                        $location = isset($locations[$locationID])? $locations[$locationID] : array();
+                                            $location_id = isset($event->data->meta['mec_location_id']) ? $event->data->meta['mec_location_id'] : 0;
+                                            $location = (isset($event->data->locations) and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array();
                                         ?>
-                                        <?php if (isset($location['address']) and trim($location['address'])) : ?>
+                                        <?php if(isset($location['address']) and trim($location['address'])): ?>
                                             <div class="mec-event-location">
                                                 <i class="mec-sl-location-pin"></i>
                                                 <address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address>
                                             </div>
                                         <?php endif; ?>
-                                        <?php echo $this->main->display_time($start_time, $end_time); ?>
+
+                                        <?php echo $this->main->display_time($event->data->time['start'], $event->data->time['end']); ?>
                                     </div>
                                     <div class="mec-event-footer">
-                                        <?php $soldout = $this->main->get_flags(get_the_ID(), $event_start_date); ?>
-                                        <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink(get_the_permalink(), $mec_date); ?>"><?php echo (is_array($data->tickets) and count($data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'mec-fl')) : $this->main->m('view_detail', __('View Detail', 'mec-fl')) ; ?></a>
+                                        <?php $soldout = $this->main->get_flags($event); ?>
+                                        <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date'], false, $event->data->time); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'mec-fl')) : $this->main->m('view_detail', __('View Detail', 'mec-fl')) ; ?></a>
                                         <?php if(isset($this->settings['social_network_status']) and $this->settings['social_network_status'] != '0') : ?>
                                             <ul class="mec-event-sharing-wrap">
                                                 <li class="mec-event-share">
@@ -374,12 +356,6 @@ class MEC_skin_single extends MEC_skins
                                                 </li>
                                                 <li>
                                                     <ul class="mec-event-sharing">
-                                                        <?php
-                                                        $event = new stdClass();
-                                                        $event->data = new stdClass();
-                                                        $event->data->permalink = get_the_permalink();
-                                                        $event->data->title = get_the_title();
-                                                        ?>
                                                         <?php echo $this->main->module('links.list', array('event'=>$event)); ?>
                                                     </ul>
                                                 </li>
@@ -574,7 +550,7 @@ class MEC_skin_single extends MEC_skins
     // Get event
     public function get_event_mec($event_ID)
     {
-        // Original Event ID for Multilingual Websites
+        /// Original Event ID for Multilingual Websites
         $original_event_id = $this->main->get_original_event($event_ID);
 
         $events = array();
@@ -583,16 +559,90 @@ class MEC_skin_single extends MEC_skins
         // Event Repeat Type
         $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
 
-        $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : NULL;
-        
-        if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days'))) $occurrence = date('Y-m-d', strtotime($occurrence));
-        elseif(strtotime($occurrence)) $occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+        $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : date('Y-m-d');
+        $occurrence_time = isset($_GET['time']) ? sanitize_text_field($_GET['time']) : NULL;
+
+        $md_start = $this->main->get_start_of_multiple_days($event_ID, $occurrence);
+        if($md_start) $occurrence = $md_start;
+
+        $md_start_time = $this->main->get_start_time_of_multiple_days($event_ID, $occurrence_time);
+        if($md_start_time) $occurrence_time = $md_start_time;
+
+        if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
+        elseif(strtotime($occurrence))
+        {
+            $new_occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+            if(in_array($repeat_type, array('monthly')) and date('m', strtotime($new_occurrence)) != date('m', strtotime($occurrence))) $new_occurrence = date('Y-m-d', strtotime($occurrence));
+
+            $occurrence = $new_occurrence;
+        }
         else $occurrence = NULL;
 
         $data = new stdClass();
         $data->ID = $event_ID;
         $data->data = $rendered;
-        $data->dates = $this->render->dates($event_ID, $rendered, $this->maximum_dates, $occurrence);
+
+        // Get Event Dates
+        $dates = $this->render->dates($event_ID, $rendered, $this->maximum_dates, ($occurrence_time ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
+
+        // Remove First Date if it is already started!
+        if(!isset($_GET['occurrence']) or (isset($_GET['occurrence']) and !trim($_GET['occurrence'])))
+        {
+            $start_date = (isset($dates[0]['start']) and isset($dates[0]['start']['date'])) ? $dates[0]['start']['date'] : current_time('Y-m-d H:i:s');
+            $end_date = (isset($dates[0]['end']) and isset($dates[0]['end']['date'])) ? $dates[0]['end']['date'] : current_time('Y-m-d H:i:s');
+
+            $s_time = '';
+            if(!empty($dates))
+            {
+                $s_time .= sprintf("%02d", $dates[0]['start']['hour']).':';
+                $s_time .= sprintf("%02d", $dates[0]['start']['minutes']);
+                $s_time .= trim($dates[0]['start']['ampm']);
+            }
+
+            $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.$s_time));
+
+            $e_time = '';
+            if(!empty($dates))
+            {
+                $e_time .= sprintf("%02d", $dates[0]['end']['hour']).':';
+                $e_time .= sprintf("%02d", $dates[0]['end']['minutes']);
+                $e_time .= trim($dates[0]['end']['ampm']);
+            }
+
+            $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.$e_time));
+
+            $d1 = new DateTime($start_time);
+            $d2 = new DateTime(current_time("D M j Y G:i:s"));
+            $d3 = new DateTime($end_time);
+
+            // MEC Settings
+            $settings = $this->main->get_settings();
+
+            // Booking OnGoing Event Option
+            $ongoing_event_book = (isset($settings['booking_ongoing']) and $settings['booking_ongoing'] == '1') ? true : false;
+            if($ongoing_event_book)
+            {
+                if($d3 < $d2)
+                {
+                    unset($dates[0]);
+
+                    // Get Event Dates
+                    $dates = $this->render->dates($event_ID, $rendered, $this->maximum_dates);
+                }
+            }
+            else
+            {
+                if($d1 < $d2)
+                {
+                    unset($dates[0]);
+
+                    // Get Event Dates
+                    $dates = $this->render->dates($event_ID, $rendered, $this->maximum_dates);
+                }
+            }
+        }
+
+        $data->dates = $dates;
         $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
 
         // Set some data from original event in multilingual websites
@@ -622,7 +672,7 @@ class MEC_skin_single extends MEC_skins
             $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
         }
 
-        $events[] = $data;
+        $events[] = $this->render->after_render($data);
         return $events;
     }
 
@@ -793,18 +843,21 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_category_widget($event)
     {
-        if (isset($event->data->categories)) {
+        if(isset($event->data->categories))
+        {
             echo '<div class="mec-single-event-category mec-event-meta mec-frontbox">';
             ?>
             <i class="mec-sl-folder"></i>
             <dt><?php echo $this->main->m('taxonomy_categories', __('Category', 'modern-events-calendar-lite')); ?></dt>
             <?php
-            foreach ($event->data->categories as $category) {
+            foreach($event->data->categories as $category)
+            {
                 $icon = get_metadata('term', $category['id'], 'mec_cat_icon', true);
                 $icon = isset($icon) && $icon != '' ? '<i class="' . $icon . ' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
                 echo '<dd class="mec-events-event-categories">
                     <a href="' . get_term_link($category['id'], 'mec_category') . '" class="mec-color-hover" rel="tag">' . $icon . $category['name'] . '</a></dd>';
             }
+
             echo '</div>';
         }
     }
@@ -815,7 +868,8 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_cost_widget($event)
     {
-        if (isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '') {
+        if(isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
+        {
             echo '<div class="mec-event-meta">';
             ?>
             <div class="mec-event-cost">
@@ -898,7 +952,8 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_more_info_widget($event)
     {
-        if (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') {
+        if(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://')
+        {
             echo '<div class="mec-event-meta">';
             ?>
             <div class="mec-event-more-info">

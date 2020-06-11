@@ -1,4 +1,28 @@
-﻿v 5.5.0 – 1 June  2020
+﻿v 5.6.0 – 11 June  2020
+- Refactored: booking system to be compatible with multiple occurrences in one day (pro)
+- Added: Multiple occurrences in one day
+- Added: %%ticket_name_time%% placeholder in notifications (pro)
+- Added: An option to disable booking restrictions with User IP (pro)
+- Added: An option to automatically map event locations and organizers with the translated ones in WPML duplicate (pro)
+- Added: Some filter and actions for third party developers
+- Added: Front-end event submission required form
+- Added: Active Campaign integration (pro)
+- Improved: The next event module to work with multiple occurrences in one day
+- Improved: %%ticket_name%% and %%ticket_time%% placeholders to print multiple data if available (pro)
+- Improved: The login shortcode (pro)
+- Improved: The local time module to work with multiple occurrences in one day
+- Improved: The map module in list and grid skins (pro)
+- Removed: Total bookings widget in the WordPress dashboard (lite)
+- Fixed: “Reports” page regarding showing those attendees that bought all occurrences of an event at once (pro)
+- Fixed: Available spots skin regarding showing remained spots (pro)
+- Fixed: “Stop Selling” ticket option (pro)
+- Fixed: A conflict with “Visualizer Table and Charts” plugin
+- Fixed: A conflict with “Advanced Ads” plugin
+- Fixed: A conflict with “Newsletter” plugin
+- Fixed: Showing sold-out flag (pro)
+- Fixed: Related events module
+
+v 5.5.0 – 1 June  2020
 - Added: Price display in all views of full calendar skin
 - Added: A default comment for payment gateways (pro)
 - Added: Total bookings widget in the WordPress dashboard (pro)

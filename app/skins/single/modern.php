@@ -2,6 +2,10 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+$single = new MEC_skin_single();
+wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
+wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
+
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
 if(!is_array($booking_options)) $booking_options = array();
 $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_in_single_page', true);
@@ -26,11 +30,11 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
         <div class="mec-events-event-image"><?php echo $event->data->thumbnails['full']; ?><?php do_action('mec_custom_dev_image_section', $event); ?></div>
         <div class="col-md-4<?php if (empty($event->data->thumbnails['full'])) echo ' mec-no-image';?>">
-            
+            <?php if ( $single->found_value('event_orgnizer', $settings) == 'on' || $single->found_value('register_btn', $settings) == 'on'  ) : ?>
             <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and in_array($event->data->meta['mec_organizer_id'], array('0', '1')) and !trim($event->data->meta['mec_more_info'])) ? 'mec-util-hidden' : '') ; ?>">
                 <?php
                 // Event Organizer
-                if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]))
+                if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]) and $single->found_value('event_orgnizer', $settings) == 'on')
                 {
                     $organizer = $event->data->organizers[$event->data->meta['mec_organizer_id']];
                     ?>
@@ -78,25 +82,26 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                 ?>
 
                 <!-- Register Booking Button -->
-                <?php if($this->main->can_show_booking_module($event)): ?>
+                <?php if($this->main->can_show_booking_module($event) and $single->found_value('register_btn', $settings) == 'on'): ?>
                     <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
                     <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if( isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php elseif(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://'): ?>
                     <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php endif; ?>
             </div>
-
+            <?php endif; ?>
             <!-- Speakers Module -->
-            <?php echo $this->main->module('speakers.details', array('event'=>$event)); ?>
+            <?php if($single->found_value('event_speakers', $settings) == 'on') echo $this->main->module('speakers.details', array('event'=>$event)); ?>
 
             <!-- Local Time Module -->
-            <?php echo $this->main->module('local-time.details', array('event'=>$event)); ?>
+            <?php  if($single->found_value('local_time', $settings) == 'on') echo $this->main->module('local-time.details', array('event'=>$event)); ?>
             
+            <?php if ( $single->found_value('event_location', $settings) == 'on' || $single->found_value('event_categories', $settings) == 'on' || $single->found_value('more_info', $settings) == 'on' ) : ?>
             <div class="mec-event-meta mec-color-before mec-frontbox">
                 
                 <?php
                     // Event Location
-                    if(isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]))
+                    if(isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]) and $single->found_value('event_location', $settings) == 'on')
                     {
                         $location = $event->data->locations[$event->data->meta['mec_location_id']];
                         ?>
@@ -124,7 +129,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
                 <?php
                     // Event Categories
-                    if(isset($event->data->categories) and !empty($event->data->categories))
+                    if(isset($event->data->categories) and !empty($event->data->categories) and $single->found_value('event_categories', $settings) == 'on')
                     {
                         ?>
                         <div class="mec-single-event-category">
@@ -146,7 +151,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
                 <?php
                     // More Info
-                    if(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://')
+                    if(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://' and $single->found_value('more_info', $settings) == 'on')
                     {
                         ?>
                         <div class="mec-event-more-info">
@@ -159,18 +164,18 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                 ?>
                 
             </div>
-
+            <?php endif; ?>
             <!-- Attendees List Module -->
-            <?php echo $this->main->module('attendees-list.details', array('event'=>$event)); ?>
+            <?php if($single->found_value('attende_module', $settings) == 'on') echo $this->main->module('attendees-list.details', array('event'=>$event)); ?>
             
             <!-- Next Previous Module -->
-            <?php echo $this->main->module('next-event.details', array('event'=>$event)); ?>
+            <?php if($single->found_value('next_module', $settings) == 'on') echo $this->main->module('next-event.details', array('event'=>$event)); ?>
             
             <!-- Weather Module -->
-            <?php echo $this->main->module('weather.details', array('event'=>$event)); ?>
+            <?php if($single->found_value('weather_module', $settings) == 'on') echo $this->main->module('weather.details', array('event'=>$event)); ?>
 
             <!-- QRCode Module -->
-            <?php echo $this->main->module('qrcode.details', array('event'=>$event)); ?>
+            <?php if($single->found_value('qrcode_module', $settings) == 'on') echo $this->main->module('qrcode.details', array('event'=>$event)); ?>
 
             <!-- Widgets -->
             <?php dynamic_sidebar('mec-single-sidebar'); ?>

@@ -62,7 +62,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                             </div>
                             <div class="mec-timeline-left-content">
                                 <div class="mec-timeline-main-content">
-                                    <?php $soldout = $this->main->get_flags($event->data->ID, $event_start_date); ?>
+                                    <?php $soldout = $this->main->get_flags($event); ?>
                                     <h4 class="mec-event-title"><a data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" class="mec-color-hover"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
                                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>

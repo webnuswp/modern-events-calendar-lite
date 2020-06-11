@@ -62,6 +62,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '4.6.1', '<')) $this->version461();
         if(version_compare($version, '4.9.0', '<')) $this->version490();
         if(version_compare($version, '5.0.5', '<')) $this->version505();
+        if(version_compare($version, '5.5.1', '<')) $this->version551();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -305,6 +306,7 @@ class MEC_feature_update extends MEC_base
         // Get Booking Posts
         $bookings = get_posts(array(
             'post_type'  => 'mec-books',
+            'numberposts'  => '-1',
         ));
 
         foreach($bookings as $id => $booking)
@@ -319,5 +321,46 @@ class MEC_feature_update extends MEC_base
     public function version505()
     {
         if(!wp_next_scheduled('mec_syncScheduler')) wp_schedule_event(time(), 'daily', 'mec_syncScheduler');
+    }
+
+    public function version551()
+    {
+        // Get Booking Posts
+        $bookings = get_posts(array(
+            'post_type'  => 'mec-books',
+            'numberposts'  => '-1',
+        ));
+
+        foreach($bookings as $id => $booking)
+        {
+            $event_id = get_post_meta($booking->ID, 'mec_event_id', true);
+
+            $start_time_int = (int) get_post_meta($event_id, 'mec_start_day_seconds', true);
+            $end_time_int = (int) get_post_meta($event_id, 'mec_end_day_seconds', true);
+
+            $start_time = $this->main->get_time($start_time_int);
+            $end_time = $this->main->get_time($end_time_int);
+
+            $mec_date = get_post_meta($booking->ID, 'mec_date', true);
+            list($start_date, $end_date) = explode(':', $mec_date);
+
+            if(is_numeric($start_date) or is_numeric($end_date)) continue;
+
+            $start_datetime = $start_date.' '.$start_time;
+            $end_datetime = $end_date.' '.$end_time;
+
+            // Update MEC Date
+            update_post_meta($booking->ID, 'mec_date', strtotime($start_datetime).':'.strtotime($end_datetime));
+
+            $post_date = date('Y-m-d H:i:s', strtotime($start_datetime));
+            $gmt_date = get_gmt_from_date($post_date);
+
+            // Update Booking Date
+            wp_update_post(array(
+                'ID' => $booking->ID,
+                'post_date' => $post_date,
+                'post_date_gmt' => $gmt_date,
+            ));
+        }
     }
 }
