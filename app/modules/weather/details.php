@@ -32,7 +32,7 @@ $imperial = (isset($settings['weather_module_imperial_units']) and $settings['we
 
 ?>
 <div class="mec-weather-details mec-frontbox" id="mec_weather_details">
-    <h3 class="mec-weather mec-frontbox-title"><?php _e('Weather', 'mec'); ?></h3>
+    <h3 class="mec-weather mec-frontbox-title"><?php _e('Weather', 'modern-events-calendar-lite'); ?></h3>
 
     <!-- mec weather start -->
     <div class="mec-weather-box">
@@ -49,11 +49,11 @@ $imperial = (isset($settings['weather_module_imperial_units']) and $settings['we
                 <?php endif; ?>
 
                 <?php if(isset($weather['temp_c'])): ?>
-                    <div class="mec-weather-summary-temp" data-c="<?php _e( ' °C', 'mec' ); ?>" data-f="<?php _e( ' °F', 'mec' ); ?>">
+                    <div class="mec-weather-summary-temp" data-c="<?php _e( ' °C', 'modern-events-calendar-lite' ); ?>" data-f="<?php _e( ' °F', 'modern-events-calendar-lite' ); ?>">
                         <?php if(!$imperial): echo round($weather['temp_c']); ?>
-                            <var><?php _e(' °C', 'mec'); ?></var>
+                            <var><?php _e(' °C', 'modern-events-calendar-lite'); ?></var>
                         <?php else: echo $this->weather_unit_convert($weather['temp_c'], 'C_TO_F'); ?>
-                            <var><?php _e(' °F', 'mec'); ?></var>
+                            <var><?php _e(' °F', 'modern-events-calendar-lite'); ?></var>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
@@ -62,21 +62,21 @@ $imperial = (isset($settings['weather_module_imperial_units']) and $settings['we
             </div>
             
             <?php if(isset($settings['weather_module_change_units_button']) and $settings['weather_module_change_units_button']): ?>
-            <span data-imperial="<?php _e('°Imperial', 'mec'); ?>" data-metric="<?php _e('°Metric', 'mec'); ?>" class="degrees-mode"><?php if(!$imperial) _e('°Imperial', 'mec'); else _e('°Metric', 'mec'); ?></span>
+            <span data-imperial="<?php _e('°Imperial', 'modern-events-calendar-lite'); ?>" data-metric="<?php _e('°Metric', 'modern-events-calendar-lite'); ?>" class="degrees-mode"><?php if(!$imperial) _e('°Imperial', 'modern-events-calendar-lite'); else _e('°Metric', 'modern-events-calendar-lite'); ?></span>
             <?php endif ?>
             
             <div class="mec-weather-extras">
 
                 <?php if(isset($weather['wind_kph'])): ?>
-                <div class="mec-weather-wind" data-kph="<?php _e(' KPH', 'mec'); ?>" data-mph="<?php _e(' MPH', 'mec'); ?>"><span><?php _e('Wind', 'mec'); ?>: </span><?php if(!$imperial) echo round($weather['wind_kph']); else  echo $this->weather_unit_convert($weather['wind_kph'], 'KM_TO_M');?><var><?php if(!$imperial) _e(' KPH', 'mec'); else _e(' MPH', 'mec'); ?></var></div>
+                <div class="mec-weather-wind" data-kph="<?php _e(' KPH', 'modern-events-calendar-lite'); ?>" data-mph="<?php _e(' MPH', 'modern-events-calendar-lite'); ?>"><span><?php _e('Wind', 'modern-events-calendar-lite'); ?>: </span><?php if(!$imperial) echo round($weather['wind_kph']); else  echo $this->weather_unit_convert($weather['wind_kph'], 'KM_TO_M');?><var><?php if(!$imperial) _e(' KPH', 'modern-events-calendar-lite'); else _e(' MPH', 'modern-events-calendar-lite'); ?></var></div>
                 <?php endif; ?>
 
                 <?php if(isset($weather['humidity'])): ?>
-                    <div class="mec-weather-humidity"><span><?php _e('Humidity', 'mec'); ?>:</span> <?php echo round($weather['humidity']); ?><var><?php _e(' %','mec'); ?></var></div>
+                    <div class="mec-weather-humidity"><span><?php _e('Humidity', 'modern-events-calendar-lite'); ?>:</span> <?php echo round($weather['humidity']); ?><var><?php _e(' %','modern-events-calendar-lite'); ?></var></div>
                 <?php endif; ?>
 
                 <?php if(isset($weather['vis_km'])): ?>
-                    <div class="mec-weather-visibility" data-kph="<?php _e(' KM', 'mec'); ?>" data-mph="<?php _e(' Miles', 'mec'); ?>"><span><?php _e('Visibility', 'mec'); ?>: </span><?php if(!$imperial) echo round($weather['vis_km']); else  echo $this->weather_unit_convert($weather['vis_km'], 'KM_TO_M');?><var><?php if(!$imperial) _e(' KM','mec'); else _e(' Miles','mec'); ?></var></div>
+                    <div class="mec-weather-visibility" data-kph="<?php _e(' KM', 'modern-events-calendar-lite'); ?>" data-mph="<?php _e(' Miles', 'modern-events-calendar-lite'); ?>"><span><?php _e('Visibility', 'modern-events-calendar-lite'); ?>: </span><?php if(!$imperial) echo round($weather['vis_km']); else  echo $this->weather_unit_convert($weather['vis_km'], 'KM_TO_M');?><var><?php if(!$imperial) _e(' KM','modern-events-calendar-lite'); else _e(' Miles','modern-events-calendar-lite'); ?></var></div>
                 <?php endif; ?>
         
             </div>
