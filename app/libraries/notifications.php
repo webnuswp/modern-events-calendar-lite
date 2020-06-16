@@ -110,6 +110,8 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%verification_link%%', $link, $message);
             $message = str_replace('%%link%%', $link, $message);
 
+            $message = $this->add_template($message);
+
             // Filter the email
             $mail_arg = array(
                 'to'            => $to,

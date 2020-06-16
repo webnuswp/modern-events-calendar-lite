@@ -221,6 +221,9 @@ class MEC_skin_tile extends MEC_skins
             {
                 if(!isset($events[$date])) $events[$date] = array();
 
+                // Day Events
+                $d = array();
+
                 // The Loop
                 while($query->have_posts())
                 {
@@ -242,7 +245,7 @@ class MEC_skin_tile extends MEC_skins
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
 
-                        $events[$date][] = $this->render->after_render($data, $i);
+                        $d[] = $this->render->after_render($data, $i);
                         $found++;
                     }
 
@@ -257,6 +260,9 @@ class MEC_skin_tile extends MEC_skins
                         break 2;
                     }
                 }
+
+                usort($d, array($this, 'sort_day_events'));
+                $events[$date] = $d;
             }
 
             // Restore original Post Data

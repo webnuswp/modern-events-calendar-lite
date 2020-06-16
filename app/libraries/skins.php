@@ -514,7 +514,7 @@ class MEC_skins extends MEC_base
         }
         elseif($this->show_ongoing_events)
         {
-            if(in_array($this->skin, ['list', 'grid']) && !(strpos($this->style, 'fluent') === false))
+            if(in_array($this->skin, array('list', 'grid')) && !(strpos($this->style, 'fluent') === false))
             {
                 $now = current_time('timestamp', 0);
                 if($this->skin_options['start_date_type'] != 'today')
@@ -570,7 +570,7 @@ class MEC_skins extends MEC_base
                 if($this->hide_time_method == 'end' and $now >= $mec_date->tend) continue;
             }
 
-            if(!(in_array($this->skin, ['list', 'grid']) && !(strpos($this->style, 'fluent') === false)) && ($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel')))))
+            if(!(in_array($this->skin, array('list', 'grid')) && !(strpos($this->style, 'fluent') === false)) && ($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel', 'agenda', 'tile')))))
             {
                 // Hide Shown Events on AJAX
                 if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start) and !$this->show_only_expired_events) continue;
@@ -717,6 +717,9 @@ class MEC_skins extends MEC_base
             {
                 if(!isset($events[$date])) $events[$date] = array();
 
+                // Day Events
+                $d = array();
+
                 // The Loop
                 while($query->have_posts())
                 {
@@ -738,7 +741,7 @@ class MEC_skins extends MEC_base
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
 
-                        $events[$date][] = $this->render->after_render($data, $i);
+                        $d[] = $this->render->after_render($data, $i);
                         $found++;
                     }
 
@@ -753,6 +756,9 @@ class MEC_skins extends MEC_base
                         break 2;
                     }
                 }
+
+                usort($d, array($this, 'sort_day_events'));
+                $events[$date] = $d;
             }
 
             // Restore original Post Data
@@ -1196,16 +1202,30 @@ class MEC_skins extends MEC_base
         $locations = explode(',', $address);
         $query = "SELECT `term_id` FROM `#__termmeta` WHERE `meta_key` = 'address'";
 
-        foreach($locations as $location)
-            if(trim($location)) $query .= " AND `meta_value` LIKE '%" . trim($location) . "%'";
+        foreach($locations as $location) if(trim($location)) $query .= " AND `meta_value` LIKE '%" . trim($location) . "%'";
 
         $locations_id = $this->db->select($query, 'loadAssocList');
 
-        $return = array_map(function($value)
+        return array_map(function($value)
         {
             return intval($value['term_id']);
         }, $locations_id);
+    }
 
-        return $return;
+    public function sort_day_events($a, $b)
+    {
+        $a_timestamp = $a->data->time['start_timestamp'];
+        $b_timestamp = $b->data->time['start_timestamp'];
+
+        $a_start_date = $a->date['start']['date'];
+        $a_end_date = $a->date['end']['date'];
+        $b_start_date = $b->date['start']['date'];
+        $b_end_date = $b->date['end']['date'];
+
+        if($a_start_date !== $a_end_date) $a_timestamp = strtotime($a_start_date.' '.$a->data->time['start_raw']);
+        if($b_start_date !== $b_end_date) $b_timestamp = strtotime($b_start_date.' '.$b->data->time['start_raw']);
+
+        if($a_timestamp == $b_timestamp) return 0;
+        return ($a_timestamp > $b_timestamp) ? +1 : -1;
     }
 }

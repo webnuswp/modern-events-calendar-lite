@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_main $this */
+
 // MEC Settings
 $settings = $this->get_settings();
 
@@ -29,7 +31,8 @@ if(!$this->can_show_booking_module($event) and strtotime($start_date) > time()) 
 $attendees = array();
 foreach($bookings as $booking)
 {
-    $attendees[$booking->post_author] = $booking->ID;
+    if(!isset($attendees[$booking->post_author])) $attendees[$booking->post_author] = array();
+    $attendees[$booking->post_author][] = $booking->ID;
 }
 ?>
 <div class="mec-attendees-list-details mec-frontbox" id="mec_attendees_list_details">
@@ -38,7 +41,7 @@ foreach($bookings as $booking)
     <p><?php _e('No attendee found! Be the first one to book!', 'modern-events-calendar-lite'); ?></p>
     <?php else: ?>
     <ul>
-        <?php do_action('mec_attendeed_hook', $attendees); foreach($attendees as $attendee_id=>$booking_id): ?>
+        <?php do_action('mec_attendeed_hook', $attendees); foreach($attendees as $attendee_id=>$attendee_bookings): ?>
         <li>
             <div class="mec-attendee-avatar">
                 <a href="<?php echo bp_core_get_user_domain($attendee_id); ?>" title="<?php echo bp_core_get_user_displayname($attendee_id); ?>">
@@ -51,54 +54,42 @@ foreach($bookings as $booking)
 
                 $name = trim($user->first_name.' '.$user->last_name);
                 if(!$name) $name = $user->display_name;
+
+                $total_attendees = 0;
+                foreach($attendee_bookings as $booking_id) $total_attendees += $book->get_total_attendees($booking_id);
             ?>
             <div class="mec-attendee-profile-link">
-                <?php echo '<a href="'.$link.'">'.$name.'</a>' . '<span class="mec-attendee-profile-ticket-number mec-bg-color">'. $book->get_total_attendees($booking_id) .'</span>' . '<span class="mec-color-hover"> ' . esc_html__( 'tickets' , 'modern-events-calendar-lite' ) . '<i class="mec-sl-arrow-down"></i></span>' ; ?>
+                <?php echo '<a href="'.$link.'">'.$name.'</a>' . '<span class="mec-attendee-profile-ticket-number mec-bg-color">'. $total_attendees .'</span>' . '<span class="mec-color-hover"> ' . esc_html__( 'tickets' , 'modern-events-calendar-lite' ) . '<i class="mec-sl-arrow-down"></i></span>' ; ?>
             </div>
 
             <!-- MEC BuddyPress Integration Attendees Modules -->
             <div class="mec-attendees-toggle mec-util-hidden">
             <?php
-                $mec_attendees = array_filter(get_post_meta($booking_id, 'mec_attendees', true));
-                $mec_attendees_count = count($mec_attendees);
-
-                // For Sorting And Filtering MEC Attendees Array.
-                for($i = 0; $i < $mec_attendees_count; $i++)
+                $un_attendees = array();
+                foreach($attendee_bookings as $booking_id)
                 {
-                    if(array_key_exists($mec_attendees[$i]['email'], $mec_attendees))
+                    $mec_attendees = get_post_meta($booking_id, 'mec_attendees', true);
+                    foreach($mec_attendees as $mec_attendee_key => $mec_attendee)
                     {
-                        $mec_attendees[$mec_attendees[$i]['email']]['count'] += $mec_attendees[$i]['count'];
-                    }
-                    else
-                    {
-                        $mec_attendees[$mec_attendees[$i]['email']] = $mec_attendees[$i];
-                    }
+                        if(!is_numeric($mec_attendee_key)) continue;
 
-                    unset($mec_attendees[$mec_attendees[$i]['email']]['id']);
-                    unset($mec_attendees[$mec_attendees[$i]['email']]['reg']);
-                    unset($mec_attendees[$mec_attendees[$i]['email']]['variations']);
-                    unset($mec_attendees[$i]);
+                        $email = isset($mec_attendee['email']) ? $mec_attendee['email'] : NULL;
+                        if(!$email) continue;
+
+                        if(!isset($un_attendees[$email])) $un_attendees[$email] = $mec_attendee;
+                        else $un_attendees[$email]['count'] += $mec_attendee['count'];
+                    }
                 }
 
                 // For Display Sorting Output.
-                foreach($mec_attendees as $mec_attendee)
+                foreach($un_attendees as $mec_attendee)
                 {
                     ?>
                     <div class="mec-attendees-item clearfix">
                         <?php
-                            $new_attendee_array = array(  'email' => '', 'name' => '', 'count' => ''  );
-                            foreach($mec_attendee as $mec_attendee_item_key => $mec_attendee_item_value)
-                            {
-                                if( $mec_attendee_item_key == 'count' ) $new_attendee_array['count'] = $mec_attendee_item_value;
-                                if( $mec_attendee_item_key == 'name' ) $new_attendee_array['name'] = $mec_attendee_item_value;
-                                if( $mec_attendee_item_key == 'email' ) $new_attendee_array['email'] = $mec_attendee_item_value;
-                            }
-                            foreach ($new_attendee_array as $new_attendee_key => $new_attendee_value ) {
-                                if ( $new_attendee_key == 'email' ) echo '<div class="mec-attendee-avatar-sec">'. get_avatar($new_attendee_value , '50') .'</div>';
-                                if ( $new_attendee_key == 'name' ) echo '<div class="mec-attendee-profile-name-sec">'. $new_attendee_value .'</div>';
-                                if ( $new_attendee_key == 'count' ) echo '<span class="mec-attendee-profile-ticket-sec">'. $new_attendee_value . ( $new_attendee_value > 1 ? ' tickets' : ' ticket' ) . '</span>';
-                            }  
-                            
+                            echo '<div class="mec-attendee-avatar-sec">'. get_avatar($mec_attendee['email'], '50') .'</div>';
+                            echo '<div class="mec-attendee-profile-name-sec">'. $mec_attendee['name'] .'</div>';
+                            echo '<span class="mec-attendee-profile-ticket-sec">'. sprintf(_n('%s ticket', '%s tickets', $mec_attendee['count'], 'modern-events-calendar-lite'), $mec_attendee['count']) . '</span>';
                         ?>
                     </div>
                     <?php

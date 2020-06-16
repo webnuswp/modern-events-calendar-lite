@@ -2739,7 +2739,7 @@ class MEC_feature_ix extends MEC_base
             $args = array();
             $args['timeMin'] = date('Y-m-d\TH:i:s', strtotime($start_date)).$gmt_offset;
             $args['timeMax'] = date('Y-m-d\TH:i:s', strtotime($end_date)).$gmt_offset;
-            $args['maxResults'] = 500;
+            $args['maxResults'] = 50000;
 
             $response = $service->events->listEvents($calendar_id, $args);
             

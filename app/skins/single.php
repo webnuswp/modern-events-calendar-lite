@@ -161,9 +161,20 @@ class MEC_skin_single extends MEC_skins
                 <h3 class="mec-rec-events-title"><?php echo __('Related Events', 'modern-events-calendar-lite'); ?></h3>
                 <div class="mec-related-events">
                     <?php while($query->have_posts()): $query->the_post(); ?>
+                        <?php
+                            $dates = $this->render->dates(get_the_ID(), NULL, 1, date('Y-m-d', strtotime('Yesterday')));
+                            $d = isset($dates[0]) ? $dates[0] : array();
+
+                            // Don't show Expired Events
+                            $timestamp = (isset($d['start']) and isset($d['start']['timestamp'])) ? $d['start']['timestamp'] : 0;
+                            if($timestamp > 0 and $timestamp < current_time('timestamp')) continue;
+
+                            $mec_date = (isset($d['start']) and isset($d['start']['date'])) ? $d['start']['date'] : get_post_meta(get_the_ID(), 'mec_start_date', true);
+                            $date = $this->main->date_i18n(get_option('date_format'), strtotime($mec_date));
+                        ?>
                         <article class="mec-related-event-post col-md-3 col-sm-3">
                             <figure>
-                                <a href="<?php echo get_the_permalink(); ?>">
+                                <a href="<?php echo $this->main->get_event_date_permalink(get_the_permalink(), $mec_date); ?>">
                                     <?php
                                         if(get_the_post_thumbnail(get_the_ID(), 'thumblist')) echo get_the_post_thumbnail(get_the_ID(), 'thumblist');
                                         else echo '<img src="' . plugin_dir_url(__FILE__) . '../../assets/img/no-image.png" />';
@@ -172,15 +183,7 @@ class MEC_skin_single extends MEC_skins
                             </figure>
                             <div class="mec-related-event-content">
                                 <span>
-                                    <?php
-                                        $dates = $this->render->dates(get_the_ID(), NULL, 1, date('Y-m-d', strtotime('Yesterday')));
-                                        $d = isset($dates[0]) ? $dates[0] : array();
-
-                                        $mec_date = (isset($d['start']) and isset($d['start']['date'])) ? $d['start']['date'] : get_post_meta(get_the_ID(), 'mec_start_date', true);
-                                        $date = $this->main->date_i18n(get_option('date_format'), strtotime($mec_date));
-
-                                        echo $date;
-                                    ?>
+                                    <?php echo $date; ?>
                                 </span>
                                 <h5>
                                     <a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink(get_the_permalink(), $mec_date); ?>"><?php echo get_the_title(); ?></a>
@@ -1058,8 +1061,8 @@ class MEC_skin_single extends MEC_skins
         
         if ($this->main->can_show_booking_module($event)) : ?>
             <div class="mec-reg-btn mec-frontbox">
-                <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ $data_lity = 'data-lity'; $data_lity_class = 'mec-booking-data-lity'; }  ?>
-                <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if (isset($this->settings['single_booking_style']) and $this->settings['single_booking_style'] != 'modal') echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'mec-single-builder'))); ?></a>
+                <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
+                <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if( isset($this->settings['single_booking_style']) and $this->settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
             <?php elseif (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') : ?>
                 <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if (isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html(trim($event->data->meta['mec_more_info_title']), 'mec-single-builder');
                 else echo esc_html($this->main->m('register_button', __('REGISTER', 'mec-single-builder')));

@@ -27,6 +27,7 @@ if(isset($event->data) and isset($event->data->meta) and isset($event->data->met
 // User Booking Limits
 list($user_ticket_limit, $user_ticket_unlimited) = $book->get_user_booking_limit($event_id);
 ?>
+
 <form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
     <h4><?php _e('Book Event', 'modern-events-calendar-lite'); ?></h4>
 

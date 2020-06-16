@@ -75,81 +75,16 @@ $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['
                                        value="<?php echo esc_attr( $this->main->standardize_format( $start_date, $datepicker_format ) ); ?>"
                                        placeholder="<?php _e('Start Date', 'modern-events-calendar-lite'); ?>" autocomplete="off"/>
                             </div>
-                            <div class="mec-col-6 mec-time-picker">
-                                <?php
-                                if (isset($settings['time_format']) and $settings['time_format'] == 24) :
-                                    if ((isset($start_time_ampm) and $start_time_ampm == 'PM') and $start_time_hour != 12) {
-                                        $start_time_hour += 12;
-                                    }
-                                    if ((isset($start_time_ampm) and $start_time_ampm == 'AM') and $start_time_hour == 12) {
-                                        $start_time_hour += 12;
-                                    }
-                                    ?>
-                                    <select name="mec[date][start][hour]" id="mec_start_hour" class="mec_start_hour wn-mec-select-popup">
-                                        <?php for ($i = 0; $i <= 23; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($start_time_hour == $i) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <span class="time-dv">:</span>
-                                    <select name="mec[date][start][minutes]" id="mec_start_minutes" class="mec_start_minutes wn-mec-select-popup">
-                                        <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($start_time_minutes == ($i * 5)) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                <?php else : if($start_time_ampm == 'AM' and $start_time_hour == '0') $start_time_hour = 12; ?>
-                                    <select name="mec[date][start][hour]" id="mec_start_hour" class="mec_start_hour wn-mec-select-popup">
-                                        <?php for ($i = 1; $i <= 12; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($start_time_hour == $i) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <span class="time-dv">:</span>
-                                    <select name="mec[date][start][minutes]" id="mec_start_minutes" class="mec_start_minutes wn-mec-select-popup">
-                                        <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($start_time_minutes == ($i * 5)) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <select name="mec[date][start][ampm]" id="mec_start_ampm" class="mec_start_ampm wn-mec-select-popup">
-                                        <option
-                                            <?php
-                                            if (isset($start_time_ampm) and $start_time_ampm == 'AM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                        <option
-                                            <?php
-                                            if (isset($start_time_ampm) and $start_time_ampm == 'PM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                                    </select>
-                                <?php endif; ?>
-                            </div>
+                            <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
+                            <?php $this->main->timepicker(array(
+                                'method' => $this->settings['time_format'],
+                                'time_hour' => $start_time_hour,
+                                'time_minutes' => $start_time_minutes,
+                                'time_ampm' => $start_time_ampm,
+                                'name' => 'mec[date][start]',
+                                'id_key' => 'start_',
+                            )); ?>
+                        </div>
                         </div>
                         <div class="mec-form-row">
                             <div class="mec-col-4">
@@ -157,80 +92,15 @@ $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['
                                        value="<?php echo esc_attr( $this->main->standardize_format( $end_date, $datepicker_format ) ); ?>" placeholder="<?php _e('End Date', 'modern-events-calendar-lite'); ?>"
                                        autocomplete="off"/>
                             </div>
-                            <div class="mec-col-6 mec-time-picker">
-                                <?php
-                                if (isset($settings['time_format']) and $settings['time_format'] == 24) :
-                                    if ((isset($end_time_ampm) and $end_time_ampm == 'PM') and $end_time_hour != 12) {
-                                        $end_time_hour += 12;
-                                    }
-                                    if ((isset($end_time_ampm) and $end_time_ampm == 'AM') and $end_time_hour == 12) {
-                                        $end_time_hour += 12;
-                                    }
-                                    ?>
-                                    <select name="mec[date][end][hour]" id="mec_end_hour" class="mec_end_hour wn-mec-select-popup">
-                                        <?php for ($i = 0; $i <= 23; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($end_time_hour == $i) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <span class="time-dv">:</span>
-                                    <select name="mec[date][end][minutes]" id="mec_end_minutes" class="mec_end_minutes wn-mec-select-popup">
-                                        <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($end_time_minutes == ($i * 5)) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                <?php else : if($end_time_ampm == 'AM' and $end_time_hour == '0') $end_time_hour = 12; ?>
-                                    <select name="mec[date][end][hour]" id="mec_end_hour" class="mec_end_hour wn-mec-select-popup">
-                                        <?php for ($i = 1; $i <= 12; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($end_time_hour == $i) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <span class="time-dv">:</span>
-                                    <select name="mec[date][end][minutes]" id="mec_end_minutes" class="mec_end_minutes wn-mec-select-popup">
-                                        <?php for ($i = 0; $i <= 11; $i++) : ?>
-                                            <option
-                                                <?php
-                                                if ($end_time_minutes == ($i * 5)) {
-                                                    echo 'selected="selected"';
-                                                }
-                                                ?>
-                                                    value="<?php echo($i * 5); ?>"><?php echo sprintf('%02d', ($i * 5)); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                    <select name="mec[date][end][ampm]" id="mec_end_ampm" class="mec_end_ampm wn-mec-select-popup">
-                                        <option
-                                            <?php
-                                            if ($end_time_ampm == 'AM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="AM"><?php _e('AM', 'modern-events-calendar-lite'); ?></option>
-                                        <option
-                                            <?php
-                                            if ($end_time_ampm == 'PM') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>
-                                                value="PM"><?php _e('PM', 'modern-events-calendar-lite'); ?></option>
-                                    </select>
-                                <?php endif; ?>
+                            <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
+                                <?php $this->main->timepicker(array(
+                                    'method' => $this->settings['time_format'],
+                                    'time_hour' => $end_time_hour,
+                                    'time_minutes' => $end_time_minutes,
+                                    'time_ampm' => $end_time_ampm,
+                                    'name' => 'mec[date][end]',
+                                    'id_key' => 'end_',
+                                )); ?>
                             </div>
                         </div>
                         <div class="mec-form-row mec-all-day-event">
@@ -414,6 +284,12 @@ jQuery(document).ready(function()
     var $organizer_add = jQuery('#mec_popup_add_organizer');
     var $organizer_dropdown = jQuery('#mec_popup_organizer_id');
     var $steps_content = jQuery('.mec-steps-content');
+
+    // Appending Div
+    jQuery(document).on('lity:open', function(event, instance)
+    {
+        jQuery('.mec-time-picker select').addClass('wn-mec-select-popup').niceSelect();
+    });
 
     if(jQuery('.mec-steps-content .wn-mec-select-popup').length > 0) jQuery('.mec-steps-content .wn-mec-select-popup').niceSelect();
 

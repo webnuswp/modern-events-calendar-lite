@@ -1102,7 +1102,9 @@ class MEC_feature_mec extends MEC_base
             'normal',
             'high'
         );
-        if ( $this->getPRO() ):
+
+        if($this->getPRO())
+        {
             add_meta_box(
                 'mec_widget_total_bookings',
                 __('Total Bookings', 'modern-events-calendar-lite'),
@@ -1111,7 +1113,7 @@ class MEC_feature_mec extends MEC_base
                 'normal',
                 'high'
             );
-        endif;
+        }
     }
 
     /**

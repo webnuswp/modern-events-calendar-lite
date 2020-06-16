@@ -208,12 +208,37 @@
 	.mec-wrap .mec-agenda-events-wrap {float: left;}
 	.mec-wrap .mec-yearly-view-wrap .mec-yearly-calendar-sec {float: right;}
 	.mec-wrap .mec-yearly-agenda-sec {float: left; padding: 0 20px 0  0;}
+	.rtl .mec-yearly-view-wrap .mec-yearly-title-sec { direction: rtl;}
+	.rtl .mec-yearly-view-wrap .mec-yearly-title-sec .mec-previous-year {right: 20px;left: auto;}
+	.rtl .mec-yearly-view-wrap .mec-yearly-title-sec .mec-next-year {left: 20px;right: auto;direction: ltr;}
+	.rtl .mec-yearly-view-wrap .mec-yearly-title-sec .mec-next-year .mec-sl-angle-right:before { content: "\e605";}
+	.rtl .mec-yearly-view-wrap .mec-yearly-title-sec .mec-previous-year .mec-sl-angle-left:before { content: "\e606";}
 
 	/* #Calendar/Monthly View
 	================================================== */
 	/* Calendar/Monthly View > Classic */
 	.mec-wrap .mec-calendar.mec-event-calendar-classic .mec-calendar-events-sec { text-align:right;}
 	.mec-wrap .mec-skin-monthly-view-month-navigator-container .mec-calendar-events-sec h3.mec-color.mec-table-side-day { float: right;}
+	.rtl .mec-calendar.mec-event-calendar-classic dl dt {text-align: right;}
+	.rtl .mec-calendar.mec-event-calendar-classic .mec-has-event:after {left: auto;right: 7px;}
+	.rtl .mec-box-calendar.mec-calendar.mec-event-calendar-classic .mec-calendar-side .mec-next-month {right: auto;}
+	.rtl .mec-box-calendar.mec-calendar.mec-event-calendar-classic .mec-calendar-side .mec-previous-month {left: auto;}
+	.rtl .mec-wrap .mec-calendar .mec-event-article .mec-event-title {direction: rtl;}
+
+	/* Calendar/Monthly View > Clean */
+	.rtl .mec-calendar .mec-calendar-events-side { border-right: 1px solid #efefef;}
+	.rtl .mec-calendar .mec-event-article,
+	.rtl .mec-month-navigator { direction: ltr;}
+	.rtl .mec-calendar .mec-calendar-side .mec-previous-month { border-bottom-left-radius: 6px; border-bottom-right-radius: 0; border-left: 1px solid #efefef; border-right: 0; left: auto; right: 0; direction: rtl;}
+	.rtl .mec-wrap .mec-calendar .mec-event-article .mec-event-image { float: right; margin-left: 20px; margin-right: 0;}
+	.rtl .mec-wrap article:not([class^=mec-event-countdown]):not([class^=mec-event-cover-]).mec-label-canceled:before,
+	.rtl .mec-wrap article:not([class^=mec-event-countdown]):not([class^=mec-event-cover-]).mec-label-featured:before { z-index: 1; position: absolute; top: 25px; right: auto; left: -37px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; background: #04de78; padding: 2px 40px; color: #fff; -ms-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg);}
+	.rtl .mec-calendar .mec-calendar-side .mec-next-month { border-bottom-right-radius: 6px; border-bottom-left-radius: 0; border-right: 1px solid #efefef; border-left: 0; left: 0; right: auto; direction: rtl;}
+	.rtl .mec-calendar .mec-calendar-side .mec-next-month .mec-sl-angle-right:before { content: "\e605";}
+	.rtl .mec-calendar .mec-calendar-side .mec-previous-month .mec-sl-angle-left:before { content: "\e606";}
+	.rtl .event-color,
+	.rtl .mec-event-article i { margin-right: 0; margin-right: 10px;}
+
 
 	/* #Slider View
 	================================================== */

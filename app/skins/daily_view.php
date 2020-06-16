@@ -202,13 +202,16 @@ class MEC_skin_daily_view extends MEC_skins
             $query = new WP_Query($this->args);
             if(is_array($IDs) and count($IDs) and $query->have_posts())
             {
+                if(!isset($events[$date])) $events[$date] = array();
+
+                // Day Events
+                $d = array();
+
                 // The Loop
                 while($query->have_posts())
                 {
                     $query->the_post();
                     $ID = get_the_ID();
-
-                    if(!isset($events[$date])) $events[$date] = array();
 
                     $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
                     for($i = 1; $i <= $ID_count; $i++)
@@ -225,9 +228,12 @@ class MEC_skin_daily_view extends MEC_skins
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
 
-                        $events[$date][] = $this->render->after_render($data, $i);
+                        $d[] = $this->render->after_render($data, $i);
                     }
                 }
+
+                usort($d, array($this, 'sort_day_events'));
+                $events[$date] = $d;
             }
             else
             {

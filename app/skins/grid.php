@@ -262,44 +262,53 @@ class MEC_skin_grid extends MEC_skins
      */
     public function search()
     {
-        if (strpos($this->style, 'fluent') === false) {
+        if(strpos($this->style, 'fluent') === false)
+        {
             return parent::search();
-        } else {
-            if( $this->show_only_expired_events) {
-                if ($this->loadMoreRunning) {
+        }
+        else
+        {
+            if($this->show_only_expired_events)
+            {
+                if($this->loadMoreRunning)
+                {
                     $start = $this->start_date;
-                    if ($this->month == date('m', current_time('timestamp', 0))) {
-                        $end = date('Y-m-d', current_time('timestamp', 0));
-                    } else {
-                        $end = date('Y-m-t', strtotime($this->start_date));
-                    }
-                } else {
+
+                    if($this->month == date('m', current_time('timestamp', 0))) $end = date('Y-m-d', current_time('timestamp', 0));
+                    else $end = date('Y-m-t', strtotime($this->start_date));
+                }
+                else
+                {
                     $now = current_time('timestamp', 0);
                     $startDateTime = strtotime(date($this->year.$this->month.'t')) + (int) (get_option('gmt_offset') * HOUR_IN_SECONDS);
                     $now = $startDateTime < $now ? $startDateTime : $now;
+
                     $start = date('Y-m-d H:i:s', $now);
                     $end = date('Y-m-d', strtotime($this->year.$this->month.'01'));
                 }
-            } else {
+            }
+            else
+            {
                 $start = $this->start_date;
                 $end = date('Y-m-t', strtotime($this->start_date));
             }
+
             // Date Events
-            if ($this->show_only_expired_events && $this->loadMoreRunning) {
-                $this->show_only_expired_events = '0';
-            }
+            if($this->show_only_expired_events && $this->loadMoreRunning) $this->show_only_expired_events = '0';
+
             $dates = $this->period($start, $end, true);
             ksort($dates);
-            if ($this->show_only_expired_events && $this->loadMoreRunning) {
-                $this->show_only_expired_events = '1';
-            }
+
+            if($this->show_only_expired_events && $this->loadMoreRunning) $this->show_only_expired_events = '1';
+
             // Limit
             $this->args['posts_per_page'] = $this->limit;
 
             $i = 0;
             $found = 0;
             $events = array();
-            foreach($dates as $date=>$IDs) {
+            foreach($dates as $date=>$IDs)
+            {
                 // No Event
                 if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) continue;
 
@@ -323,12 +332,19 @@ class MEC_skin_grid extends MEC_skins
                     $this->offset = 0;
                     $this->args['offset'] = 0;
                 }
+
                 // The Query
                 $query = new WP_Query($this->args);
-                if($query->have_posts()) {
+                if($query->have_posts())
+                {
                     if(!isset($events[$date])) $events[$date] = array();
+
+                    // Day Events
+                    $d = array();
+
                     // The Loop
-                    while($query->have_posts()) {
+                    while($query->have_posts())
+                    {
                         $query->the_post();
                         $ID = get_the_ID();
 
@@ -347,7 +363,7 @@ class MEC_skin_grid extends MEC_skins
                                 'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                             );
 
-                            $events[$date][] = $this->render->after_render($data, $i);
+                            $d[] = $this->render->after_render($data, $i);
                             $found++;
                         }
 
@@ -362,16 +378,23 @@ class MEC_skin_grid extends MEC_skins
                             break 2;
                         }
                     }
+
+                    usort($d, array($this, 'sort_day_events'));
+                    $events[$date] = $d;
                 }
+
                 // Restore original Post Data
                 wp_reset_postdata();
                 $i++;
             }
+
             // Set Offset for Last Page
-            if($found < $this->limit) {
+            if($found < $this->limit)
+            {
                 // Next Offset
                 $this->next_offset = $found;
             }
+
             // Set found events
             $this->found = $found;
             

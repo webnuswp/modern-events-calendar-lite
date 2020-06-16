@@ -325,7 +325,6 @@ jQuery( ".mec-speaker-avatar a" ).click(function(e)
     var id =  jQuery(this).attr('href');
     lity(id);
 });
-
 // Fix modal booking in some themes
 jQuery( ".mec-booking-button.mec-booking-data-lity" ).click(function(e)
 {

@@ -3835,22 +3835,22 @@ class MEC_feature_events extends MEC_base
         // Current User is not Permitted
         if(!current_user_can('publish_posts')) $this->main->response(array('success'=>0, 'code'=>'NO_ACCESS'));
 
-        $mail_recipients_info = isset($_POST['mail_recipients_info']) ? sanitize_text_field($_POST['mail_recipients_info']) : '';
+        $mail_recipients_info = isset($_POST['mail_recipients_info']) ? trim(sanitize_text_field($_POST['mail_recipients_info']), ', ') : '';
         $mail_subject = isset($_POST['mail_subject']) ? sanitize_text_field($_POST['mail_subject']) : '';
         $mail_content = isset($_POST['mail_content']) ? $_POST['mail_content'] : '';
-
-        if(substr($mail_recipients_info, -1) == ',') $mail_recipients_info = substr($mail_recipients_info, 0, -1);
-
-        $send_mail_user = array();
-        $render_recipients = explode(',', $mail_recipients_info);
+        
+        $render_recipients = array_unique(explode(',', $mail_recipients_info));
         $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        // Set Email Type to HTML
+        add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
 
         foreach($render_recipients as $recipient)
         {
             $render_recipient = explode(':.:', $recipient);
-
+            
             $to = isset($render_recipient[1]) ? trim($render_recipient[1]) : '';
-            if(isset($send_mail_user[$to])) continue;
+            if(!trim($to)) continue;
 
             $message = $mail_content;
             $message = str_replace('%%name%%', (isset($render_recipient[0]) ? trim($render_recipient[0]) : ''), $message);
@@ -3867,8 +3867,6 @@ class MEC_feature_events extends MEC_base
 
             // Send the mail
             wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
-
-            $send_mail_user[$mail_arg['to']] = '';
         }
 
         // Remove the HTML Email filter

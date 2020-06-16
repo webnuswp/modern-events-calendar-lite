@@ -430,6 +430,7 @@ class MEC_book extends MEC_base
 
         $total_bookings_limit = (isset($booking_options['bookings_limit']) and trim($booking_options['bookings_limit'])) ? $booking_options['bookings_limit'] : 100;
         $bookings_limit_unlimited = isset($booking_options['bookings_limit_unlimited']) ? $booking_options['bookings_limit_unlimited'] : 0;
+        $book_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? (int) $booking_options['bookings_all_occurrences'] : 0;
 
         if($bookings_limit_unlimited == '1') $total_bookings_limit = '-1';
 
@@ -445,22 +446,36 @@ class MEC_book extends MEC_base
         $hour = date('H', $timestamp);
         $minutes = date('i', $timestamp);
 
+        if(!$book_all_occurrences)
+        {
+            $date_query = array(
+                array(
+                    'year'=>$year,
+                    'monthnum'=>$month,
+                    'day'=>$day,
+                    'hour'=>$hour,
+                    'minute'=>$minutes,
+                ),
+            );
+        }
+        else
+        {
+            $date_query = array(
+                'before' => date('Y-m-d', $timestamp).' 23:59:59',
+            );
+        }
+
         $booked = 0;
         foreach($tickets as $ticket_id=>$ticket)
         {
             $limit = (isset($ticket['limit']) and trim($ticket['limit']) != '') ? $ticket['limit'] : -1;
 
-            $query = new WP_Query(array
-            (
-                'post_type'=>$this->PT,
-                'posts_per_page'=>-1,
-                'post_status'=>array('publish', 'pending', 'draft', 'future', 'private'),
-                'year'=>$year,
-                'monthnum'=>$month,
-                'day'=>$day,
-                'hour'=>$hour,
-                'minute'=>$minutes,
-                'meta_query'=>array
+            $query = new WP_Query(array(
+                'post_type' => $this->PT,
+                'posts_per_page' => -1,
+                'post_status' => array('publish', 'pending', 'draft', 'future', 'private'),
+                'date_query'=> $date_query,
+                'meta_query' => array
                 (
                     array('key'=>'mec_event_id', 'value'=>$event_id, 'compare'=>'='),
                     array('key'=>'mec_ticket_id', 'value'=>','.$ticket_id.',', 'compare'=>'LIKE'),

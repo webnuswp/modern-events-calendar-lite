@@ -8661,6 +8661,42 @@ div#mec_meta_box_date_form .mec-form-row {
 }
 
 
+/* Wizard Time Picker */
+.mec-add-event-popup .mec-steps-content-container .mec-time-picker .wn-mec-select-popup {
+    min-width: 64px;
+}
+
+.mec-add-event-popup .mec-steps-content-container .mec-time-picker .wn-mec-select-popup .list {
+    overflow-y: scroll !important;
+    height: 288px;
+    margin-top: 4px !important;
+    box-shadow: 0 1px 9px rgba(0,0,0,.1);
+    border-radius: 0;
+}
+
+.mec-add-event-popup .mec-steps-content-container .mec-time-picker .wn-mec-select-popup .list::-webkit-scrollbar-track {
+    background-color: #f6f6f6;
+}
+
+.mec-add-event-popup .mec-steps-content-container .mec-time-picker .wn-mec-select-popup .list::-webkit-scrollbar {
+    width: 3px;
+    background-color: #f6f6f6;
+}
+
+.mec-add-event-popup .mec-steps-content-container .mec-time-picker .wn-mec-select-popup .list::-webkit-scrollbar-thumb {
+    background-color: rgba(26,175,251,.16);
+}
+
+.mec-add-event-popup .mec-steps-content-container .mec-time-picker .wn-mec-select-popup:last-child .list {
+    overflow: unset !important;
+    height: unset;
+}
+
+/* Fixed Admin Column issue on all event page and Wizard */
+.ac-mec-events.ac-search-enabled .tablenav .ac-search>*:not(#ac-s).lity-hide {
+    display: none;
+}
+
 /* Go Pro page */
 .mec-go-pro-content-title {
     font-size: 20px;
@@ -9578,7 +9614,7 @@ div#mec_meta_box_date_form .mec-form-row {
 }
 
 /* Wizard > Dark Mode */
-.mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup,
+.mec-admin-dark-mode .mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup,
 .mec-admin-dark-mode .lity.mec-add-event-popup,
 .mec-admin-dark-mode .mec-add-shortcode-popup div#mec_popup_shortcode,
 .mec-admin-dark-mode .lity.mec-add-shortcode-popup {
@@ -9641,6 +9677,25 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode .mec-steps-content h3,
 .mec-admin-dark-mode .mec-add-shortcode-popup .mec-steps-content-container.mec-steps-content-6 .mec-popup-shortcode-code code {
     color: #D2D2D2;
+}
+
+.mec-admin-dark-mode .mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup .option.focus,
+.mec-admin-dark-mode .mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup .option.selected.focus,
+.mec-admin-dark-mode .mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup .option:hover {
+    background: #000;
+}
+
+.mec-admin-dark-mode .mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup .list {
+    background: #282828;
+}
+
+.mec-admin-dark-mode .mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup .list::-webkit-scrollbar-track {
+    background-color: #333;
+}
+
+.mec-admin-dark-mode .mec-add-event-popup .mec-steps-content-container .wn-mec-select-popup .list::-webkit-scrollbar {
+    width: 3px;
+    background-color: #333;
 }
 
 /* Wizard Copy Button */

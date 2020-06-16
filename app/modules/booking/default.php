@@ -326,11 +326,13 @@ function mec_book_form_submit'.$uniqueid.'()
                 {
                     setTimeout(function(){window.location.href = data.data.redirect_to;}, 2000);
                 }
+                
                 jQuery("html,body").animate({
                     scrollTop: jQuery(".mec-events-meta-group-booking").offset().top - 100
                 }, "slow");
 
-                if (jQuery(".mec-single-fluent-wrap").length>0 && typeof jQuery.fn.niceSelect !== "undefined") {
+                if(jQuery(".mec-single-fluent-wrap").length>0 && typeof jQuery.fn.niceSelect !== "undefined")
+                {
                     jQuery(".mec-single-fluent-wrap").find("select").niceSelect();
                 }
             }

@@ -39,7 +39,8 @@ class MEC_addon_divi extends MEC_base
     {
         // Divi is not installed
         $theme = wp_get_theme(); // gets the current theme
-        if('Divi' != $theme->name) return false;
+
+        if('Divi' != $theme->get_template()) return false;
 
         add_action('divi_extensions_init', array($this, 'mecdivi_initialize_extension'));
         add_filter('et_builder_load_actions', array($this, 'add_ajax_actions'));

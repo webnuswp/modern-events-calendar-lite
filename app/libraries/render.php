@@ -321,7 +321,7 @@ class MEC_render extends MEC_base
 
         if(!isset($this->settings['default_skin_archive']) or (isset($this->settings['default_skin_archive']) and trim($this->settings['default_skin_archive']) == ''))
         {
-            return $this->vmonth(array_merge($atts, array('sk-options'=>array('monthly_view'=>array('style'=>$monthly_skin)))));
+            return $this->vdefaultfull($atts);
         }
 
         if($this->settings['default_skin_archive'] == 'monthly_view') $content = $this->vmonth(array_merge($atts, array('sk-options'=>array('monthly_view'=>array('style'=>$monthly_skin)))));

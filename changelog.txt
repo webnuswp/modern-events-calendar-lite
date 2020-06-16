@@ -1,5 +1,32 @@
-﻿v 5.6.0 – 11 June  2020
-- Refactored: booking system to be compatible with multiple occurrences in one day (pro)
+﻿v 5.6.1 – 16 June 2020
+- Improved: Backend speed by refactoring the backend CSS and JS loading
+- Improved: Show errors upon featured image uploads in Frontend Event Submission if needed
+- Improved: The plugin uninstallation by removing more data
+- Improved: The related events module by hiding expired events
+- Improved: The loading of multiple day events in tile and agenda skins (pro)
+- Improved: The attendees module of BuddyPress integration (pro)
+- Updated: Whatsapp share URL
+- Optimized: Mass email sending in the reports menu (pro)
+- Fixed: Local time module that occurs in some rare conditions
+- Fixed: Location auto-suggest fields when the API key is not inserted (pro)
+- Fixed: Booking message in case of free booking (pro)
+- Fixed: Booking module regarding displaying extra elements after a successful booking (pro)
+- Fixed: Notification placeholders (pro)
+- Fixed: Ordering custom days events
+- Fixed: Google Calendar import
+- Fixed: Stripe payment (pro)
+- Fixed: Default configuration of full calendar skin
+- Fixed: Divi builder in Divi child themes
+- Fixed: Availability of “Sell all occurrences” events (pro)
+- Fixed: Some issues in profile short-code regarding date and time format (pro)
+- Fixed: Some issues related to Pro features in Lite version
+- Fixed: Monthly Calendar RTL
+- Fixed: Wizard dark mode
+- Fixed: Wizard time picker
+- Fixed: A conflict with “Admin column” plugin
+
+v 5.6.0 – 11 June 2020
+- Refactored: Booking system to be compatible with multiple occurrences in one day (pro)
 - Added: Multiple occurrences in one day
 - Added: %%ticket_name_time%% placeholder in notifications (pro)
 - Added: An option to disable booking restrictions with User IP (pro)
@@ -22,7 +49,7 @@
 - Fixed: Showing sold-out flag (pro)
 - Fixed: Related events module
 
-v 5.5.0 – 1 June  2020
+v 5.5.0 – 1 June 2020
 - Added: Price display in all views of full calendar skin
 - Added: A default comment for payment gateways (pro)
 - Added: Total bookings widget in the WordPress dashboard (pro)

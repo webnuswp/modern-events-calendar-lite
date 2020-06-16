@@ -366,7 +366,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
         <?php if($booking_status) echo (new MEC_feature_mec())->widget_total_bookings(); ?>
         <?php endif; ?>
 
-        <?php echo (new MEC_feature_mec())->widget_print(); ?>
+        <?php if($this->getPRO()) echo (new MEC_feature_mec())->widget_print(); ?>
 
         <div class="w-row">
             <div class="w-col-sm-12">

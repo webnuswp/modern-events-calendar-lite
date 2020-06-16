@@ -63,7 +63,7 @@ if($this->style == 'colorful')
             $i = 0;
             $found = 0;
             $events = array();
-
+            $current_month_divider = $this->request->getVar('current_month_divider', 0);
             foreach($dates as $date=>$IDs)
             {
                 // No Event
@@ -90,10 +90,7 @@ if($this->style == 'colorful')
                     $this->args['offset'] = 0;
                 }
 
-                $month_id = date('Ym', strtotime($date));
-                if($this->count == '1' and $this->month_divider and $month_id != $current_month_divider): $current_month_divider = $month_id; ?>
-                    <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?php echo date('Ym', strtotime($date)); ?>-<?php echo $this->id; ?>"><span><?php echo $this->main->date_i18n('F Y', strtotime($date)); ?></span><i class="mec-sl-arrow-down"></i></div>
-                <?php endif;
+                
 
                 // The Query
                 $query = new WP_Query($this->args);
@@ -123,6 +120,10 @@ if($this->style == 'colorful')
                                 'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                             );
 
+                            $month_id = date('Ym', strtotime($date));
+                            if($this->count == '1' and $this->month_divider and $month_id != $current_month_divider): $current_month_divider = $month_id; ?>
+                                <div class="mec-month-divider" data-toggle-divider="mec-toggle-<?php echo date('Ym', strtotime($date)); ?>-<?php echo $this->id; ?>"><span><?php echo $this->main->date_i18n('F Y', strtotime($date)); ?></span><i class="mec-sl-arrow-down"></i></div>
+                            <?php endif;
                             
 
                             $events[$date][] = $this->render->after_render($data, $i);

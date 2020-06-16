@@ -1793,7 +1793,7 @@ class MEC_main extends MEC_base
         $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
         if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
 
-        return '<li class="mec-event-social-icon"><a class="whatsapp" href="https://wa.me/?text='.rawurlencode($url).'" title="'.__('Share on WhatsApp', 'modern-events-calendar-lite').'"><i class="mec-fa-whatsapp"></i></a></li>';
+        return '<li class="mec-event-social-icon"><a class="whatsapp" href="whatsapp://send/?text='.rawurlencode($url).'" title="'.__('Share on WhatsApp', 'modern-events-calendar-lite').'"><i class="mec-fa-whatsapp"></i></a></li>';
 
     }
 
@@ -2442,7 +2442,7 @@ class MEC_main extends MEC_base
     public function print_calendar()
     {
         // Print Calendar
-        if(isset($_GET['method']) and sanitize_text_field($_GET['method']) == 'mec-print')
+        if(isset($_GET['method']) and sanitize_text_field($_GET['method']) == 'mec-print' and $this->getPro())
         {
             $year = isset($_GET['mec-year']) ? sanitize_text_field($_GET['mec-year']) : NULL;
             $month = isset($_GET['mec-month']) ? sanitize_text_field($_GET['mec-month']) : NULL;
@@ -3924,24 +3924,33 @@ class MEC_main extends MEC_base
     {
         if(post_type_exists($post_type))
         {
-            $args = array('post_type' => $post_type, 'post_status' => 'publish', 'posts_per_page'   => -1, 'order' => 'DESC');
-            $shortcodes_list = get_posts($args);
+            $shortcodes_list = get_posts(array(
+                'post_type' => $post_type,
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
+                'order' => 'DESC'
+            ));
+
             if(count($shortcodes_list))
             {
                 $shortcodes = array();
                 $shortcodes['shortcodes'] = array();
+
                 foreach($shortcodes_list as $shortcode)
                 {
                     $shortcode_item = array();
                     $shortcode_item['ID'] = $shortcode->ID;
+
                     // PostName
                     $shortcode_item['PN'] = $shortcode->post_name;
                     array_push($shortcodes['shortcodes'], $shortcode_item);
                 }
+
                 $shortcodes['mce_title'] =  __('M.E. Calender', 'modern-events-calendar-lite');
                 return json_encode($shortcodes);
             }
         }
+
         return false;
     }
 
@@ -5405,8 +5414,9 @@ class MEC_main extends MEC_base
     
     /**
      * Load Google Maps assets
+     * @var $define_settings
      */
-    public function load_map_assets($define_settings=null)
+    public function load_map_assets($define_settings = null)
     {
         if($this->getPRO())
         {
