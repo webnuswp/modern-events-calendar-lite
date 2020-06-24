@@ -3785,16 +3785,14 @@ function mec_focus_week(id, skin) {
         $('.mec-event-export-csv, .mec-event-export-excel').click(function()
         {
             var mec_event_id = $(this).parent().parent().data('event-id');
-            var booking_data = $(this).parent().parent().find('.mec-fes-btn-date .mec-certain-user-booking-ids').val();
-            var certain_data = $(this).parent().parent().find('.fes-export-date-active').data('ids');
-            
-            if(typeof booking_data == 'undefined') booking_data = ',';
-            if(typeof certain_data != 'undefined') booking_data = certain_data;
 
-            booking_data = booking_data.substr(0, booking_data.length -1);
-            $.ajax({
+            var time = $(this).parent().parent().find($('.fes-export-date-active')).data('time');
+            if(typeof time === 'undefined') time = 0;
+
+            $.ajax(
+            {
                 url: mecdata.ajax_url,
-                data: "action=mec_fes_csv_export&fes_nonce=" + mecdata.fes_nonce + "&mec_event_id=" + mec_event_id + "&booking_ids=" + booking_data,
+                data: "action=mec_fes_csv_export&fes_nonce=" + mecdata.fes_nonce + "&mec_event_id=" + mec_event_id + "&timestamp=" + time,
                 dataType: 'json',
                 type: "post",
                 success: function (res) {

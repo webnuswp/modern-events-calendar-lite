@@ -395,13 +395,30 @@ jQuery(document).ready(function($)
     // Set onclick listener for add option fields
     mec_reg_fields_option_listeners();
 
-    // Advanced Reapiting
+    // Advanced Repeating
     $('#mec-advanced-wraper ul > ul > li').click(function()
     {
         if($(this).attr('class') == '') $(this).attr('class', 'mec-active');
         else $(this).attr('class', '');
         $('#mec_date_repeat_advanced').val($('#mec-advanced-wraper div:first-child > ul').find('.mec-active').find('span').text().slice(0, -1));
     });
+
+    $('#mec_event_form_field_types button').on('click', function()
+    {
+        var type = $(this).data('type');
+
+        var key  = $('#mec_new_event_field_key').val();
+        var html = $('#mec_event_field_'+type).html().replace(/:i:/g, key);
+
+        $('#mec_event_form_fields').append(html);
+        $('#mec_new_event_field_key').val(parseInt(key)+1);
+
+        // Set onclick listener for add option fields
+        mec_event_fields_option_listeners();
+    });
+
+    // Set onclick listener for add option fields
+    mec_event_fields_option_listeners();
 });
 
 function mec_location_toggle()
@@ -535,7 +552,7 @@ function mec_remove_ticket_variation(key)
 
 function mec_reg_fields_option_listeners()
 {
-    jQuery('button.mec-reg-field-add-option').on('click', function()
+    jQuery('button.mec-reg-field-add-option').off('click').on('click', function()
     {
         var field_id = jQuery(this).data('field-id');
         var key = jQuery('#mec_new_reg_field_option_key_'+field_id).val();
@@ -590,4 +607,40 @@ function mec_handle_add_price_date_button(e)
 function mec_ticket_price_remove(ticket_key, price_key)
 {
     jQuery("#mec_ticket_price_raw_"+ticket_key+"_"+price_key).remove();
+}
+
+function mec_event_fields_option_listeners()
+{
+    jQuery('button.mec-event-field-add-option').off('click').on('click', function()
+    {
+        var field_id = jQuery(this).data('field-id');
+        var key = jQuery('#mec_new_event_field_option_key_'+field_id).val();
+        var html = jQuery('#mec_event_field_option').html().replace(/:i:/g, key).replace(/:fi:/g, field_id);
+
+        jQuery('#mec_event_fields_'+field_id+'_options_container').append(html);
+        jQuery('#mec_new_event_field_option_key_'+field_id).val(parseInt(key)+1);
+    });
+
+    if(typeof jQuery.fn.sortable !== 'undefined')
+    {
+        jQuery("#mec_event_form_fields").sortable(
+        {
+            handle: '.mec_event_field_sort'
+        });
+
+        jQuery(".mec_event_fields_options_container").sortable(
+        {
+            handle: '.mec_event_field_option_sort'
+        });
+    }
+}
+
+function mec_event_fields_option_remove(field_key, key)
+{
+    jQuery("#mec_event_fields_option_"+field_key+"_"+key).remove();
+}
+
+function mec_event_fields_remove(key)
+{
+    jQuery("#mec_event_fields_"+key).remove();
 }

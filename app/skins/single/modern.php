@@ -266,6 +266,9 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                 <div class="mec-single-event-description mec-events-content"><?php the_content(); ?><?php do_action('mec_custom_dev_content_section' , $event); ?></div>
             </div>
 
+            <!-- Custom Data Fields -->
+            <?php $this->display_data_fields($event); ?>
+
             <!-- Links Module -->
             <?php echo $this->main->module('links.details', array('event'=>$event)); ?>
 
@@ -288,7 +291,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             <?php $this->display_hourly_schedules_widget($event); ?>
             
             <!-- Booking Module -->
-            <?php if($this->main->is_sold($event, (trim($occurrence) ? $occurrence : $event->date['start']['date'])) and count($event->dates) <= 1): ?>
+            <?php if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
             <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); ?></div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
@@ -312,6 +315,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
         </div>
     </article>
+
     <?php $this->display_related_posts_widget($event->ID); ?>
 </div>
 <?php

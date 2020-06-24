@@ -207,16 +207,6 @@ class MEC_notifications extends MEC_base
             if(!trim($to) or in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
 
             $message = isset($this->notif_settings['booking_notification']['content']) ? $this->content($this->notif_settings['booking_notification']['content'], $book_id, $attendee) : '';
-
-            // Attendee Full Information
-            if(strpos($message, '%%attendee_full_info%%') !== false or strpos($message, '%%attendees_full_info%%') !== false)
-            {
-                $attendees_full_info = $this->get_full_attendees_info($book_id);
-
-                $message = str_replace('%%attendee_full_info%%', $attendees_full_info, $message);
-                $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
-            }
-
             $message = $this->add_template($message);
 
             // Filter the email
@@ -444,29 +434,8 @@ class MEC_notifications extends MEC_base
             // Book Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
 
-            // Attendee Full Information
-            if(strpos($message, '%%attendee_full_info%%') !== false or strpos($message, '%%attendees_full_info%%') !== false)
-            {
-                $attendees_full_info = $this->get_full_attendees_info($book_id);
+            $message = $this->add_template($message);
 
-                $message = str_replace('%%attendee_full_info%%', $attendees_full_info, $message);
-                $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
-            }
-            $message = '
-            <table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; width: 100%; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
-                <tr>
-                    <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                    <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
-
-                        '.$message.'
-
-                    </div>
-
-
-                    </td>
-                </tr>
-            </table>
-            ';
             // Filter the email
             $mail_arg = array(
                 'to'            => $mailto,
@@ -536,15 +505,6 @@ class MEC_notifications extends MEC_base
 
         // Book Data
         $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
-
-        // Attendee Full Information
-        if(strpos($message, '%%attendee_full_info%%') !== false or strpos($message, '%%attendees_full_info%%') !== false)
-        {
-            $attendees_full_info = $this->get_full_attendees_info($book_id);
-
-            $message = str_replace('%%attendee_full_info%%', $attendees_full_info, $message);
-            $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
-        }
 
         // Changing some sender email info.
         $this->mec_sender_email_notification_filter();
@@ -731,6 +691,25 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_status%%', $status, $message);
         $message = str_replace('%%event_note%%', get_post_meta($event_id, 'mec_note', true), $message);
 
+        // Data Fields
+        $event_fields = $this->main->get_event_fields();
+        $event_fields_data = get_post_meta($event_id, 'mec_fields', true);
+        if(!is_array($event_fields_data)) $event_fields_data = array();
+
+        foreach($event_fields as $f => $event_field)
+        {
+            if(!is_numeric($f)) continue;
+
+            $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
+            if(trim($field_value) === '') continue;
+
+            $event_field_name = isset($event_field['label']) ? $event_field['label'] : '';
+            if(is_array($field_value)) $field_value = implode(', ', $field_value);
+
+            $message = str_replace('%%event_field_'.$f.'%%', trim($field_value, ', '), $message);
+            $message = str_replace('%%event_field_'.$f.'_with_name%%', trim((trim($event_field_name) ? $event_field_name.': ' : '').trim($field_value, ', ')), $message);
+        }
+
         // Notification Subject
         $subject = str_replace('%%event_title%%', get_the_title($event_id), $subject);
 
@@ -819,6 +798,25 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($post->ID, 'mec_end_date', true))), $message);
             $message = str_replace('%%event_status%%', $status, $message);
             $message = str_replace('%%event_note%%', get_post_meta($post->ID, 'mec_note', true), $message);
+
+            // Data Fields
+            $event_fields = $this->main->get_event_fields();
+            $event_fields_data = get_post_meta($post->ID, 'mec_fields', true);
+            if(!is_array($event_fields_data)) $event_fields_data = array();
+
+            foreach($event_fields as $f => $event_field)
+            {
+                if(!is_numeric($f)) continue;
+
+                $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
+                if(trim($field_value) === '') continue;
+
+                $event_field_name = isset($event_field['label']) ? $event_field['label'] : '';
+                if(is_array($field_value)) $field_value = implode(', ', $field_value);
+
+                $message = str_replace('%%event_field_'.$f.'%%', trim($field_value, ', '), $message);
+                $message = str_replace('%%event_field_'.$f.'_with_name%%', trim((trim($event_field_name) ? $event_field_name.': ' : '').trim($field_value, ', ')), $message);
+            }
 
             // Notification Subject
             $subject = str_replace('%%event_title%%', get_the_title($post->ID), $subject);
@@ -947,6 +945,19 @@ class MEC_notifications extends MEC_base
         // Booked Tickets
         if(count($mec_date) == 2 and isset($mec_date[0])) $message = str_replace('%%amount_tickets%%', $this->book->get_tickets_availability($event_id, $mec_date[0], 'reservation'), $message);
 
+        // Attendee Full Information
+        if(strpos($message, '%%attendee_full_info%%') !== false or strpos($message, '%%attendees_full_info%%') !== false)
+        {
+            $attendees_full_info = $this->get_full_attendees_info($book_id);
+
+            $message = str_replace('%%attendee_full_info%%', $attendees_full_info, $message);
+            $message = str_replace('%%attendees_full_info%%', $attendees_full_info, $message);
+        }
+
+        // Booking IDs
+        $message = str_replace('%%booking_id%%', $book_id, $message);
+        $message = str_replace('%%booking_transaction_id%%', $transaction_id, $message);
+
         // Event Data
         $organizer_id = get_post_meta($event_id, 'mec_organizer_id', true);
         $location_id = get_post_meta($event_id, 'mec_location_id', true);
@@ -954,6 +965,25 @@ class MEC_notifications extends MEC_base
 
         $organizer = get_term($organizer_id, 'mec_organizer');
         $location = get_term($location_id, 'mec_location');
+
+        // Data Fields
+        $event_fields = $this->main->get_event_fields();
+        $event_fields_data = get_post_meta($event_id, 'mec_fields', true);
+        if(!is_array($event_fields_data)) $event_fields_data = array();
+
+        foreach($event_fields as $f => $event_field)
+        {
+            if(!is_numeric($f)) continue;
+
+            $event_field_name = isset($event_field['label']) ? $event_field['label'] : '';
+            $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
+            if(trim($field_value) === '') continue;
+
+            if(is_array($field_value)) $field_value = implode(', ', $field_value);
+
+            $message = str_replace('%%event_field_'.$f.'%%', trim($field_value, ', '), $message);
+            $message = str_replace('%%event_field_'.$f.'_with_name%%', trim((trim($event_field_name) ? $event_field_name.': ' : '').trim($field_value, ', ')), $message);
+        }
 
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
         $message = str_replace('%%event_link%%', get_post_permalink($event_id), $message);
@@ -1109,11 +1139,24 @@ class MEC_notifications extends MEC_base
         if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) $attendees = array(get_post_meta($book_id, 'mec_attendee', true));
 
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
-
         $reg_fields = $this->main->get_reg_fields($event_id);
+
+        $attachments = (isset($attendees['attachments']) and is_array($attendees['attachments'])) ? $attendees['attachments'] : array();
+        $attachment_field = array();
+        if(count($attachments))
+        {
+            foreach($reg_fields as $reg_field_id => $reg_field)
+            {
+                if(!is_numeric($reg_field_id)) continue;
+                if($reg_field['type'] !== 'file') continue;
+
+                $attachment_field = $reg_field;
+                break;
+            }
+        }
+
         foreach($attendees as $key=>$attendee)
         {
-            if(isset($attendee[0]['MEC_TYPE_OF_DATA'])) continue;
             if($key === 'attachments') continue;
 
             $reg_form = isset($attendee['reg']) ? $attendee['reg'] : array();
@@ -1146,6 +1189,12 @@ class MEC_notifications extends MEC_base
             }
 
             $attendees_full_info .= "\r\n";
+        }
+
+        // Attachment
+        if(count($attachments))
+        {
+            $attendees_full_info .= __($attachment_field['label'], 'modern-events-calendar-lite').': <a href="'.esc_url($attachments[0]['url']).'" target="_blank">'.esc_url($attachments[0]['url']).'</a>'."\r\n";
         }
 
         return $attendees_full_info;

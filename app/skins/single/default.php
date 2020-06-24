@@ -19,12 +19,12 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_in_single_page', true);
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
-    <?php do_action('mec_top_single_event' , get_the_ID()); ?>
+    <?php do_action('mec_top_single_event', get_the_ID()); ?>
     <article class="row mec-single-event">
 
         <!-- start breadcrumbs -->
         <?php
-        $breadcrumbs_settings = isset( $settings['breadcrumbs'] ) ? $settings['breadcrumbs'] : '';
+        $breadcrumbs_settings = isset($settings['breadcrumbs']) ? $settings['breadcrumbs'] : '';
         if($breadcrumbs_settings == '1' ): ?>
             <div class="mec-breadcrumbs">
                 <?php $single->display_breadcrumb_widget( get_the_ID() ); ?>
@@ -39,6 +39,10 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                 <h1 class="mec-single-title"><?php the_title(); ?></h1>
                 <div class="mec-single-event-description mec-events-content"><?php the_content(); ?></div>
             </div>
+
+            <!-- Custom Data Fields -->
+            <?php $this->display_data_fields($event); ?>
+
             <div class="mec-event-info-mobile"></div>
 
             <!-- Export Module -->
@@ -55,7 +59,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
             <?php $this->display_hourly_schedules_widget($event); ?>
 
             <!-- Booking Module -->
-            <?php if ( !empty($event->date) ): if($this->main->is_sold($event, (trim($occurrence) ? $occurrence : $event->date['start']['date'])) and count($event->dates) <= 1): ?>
+            <?php if ( !empty($event->date) ): if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
             <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); ?></div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
@@ -78,6 +82,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
             </div>
 
         </div>
+
         <?php if(!is_active_sidebar('mec-single-sidebar')): ?>
         <div class="col-md-4">
 
@@ -549,7 +554,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
 </div>
 <?php
     // MEC Schema
-    if ( $rank_math_options != 'event') do_action('mec_schema', $event);
+    if($rank_math_options != 'event') do_action('mec_schema', $event);
 ?>
 <script>
 // Fix modal speaker in some themes

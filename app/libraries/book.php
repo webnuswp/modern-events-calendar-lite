@@ -201,7 +201,7 @@ class MEC_book extends MEC_base
             if(trim($book_status) == 'trash') unset($db_transaction_ids[$db_transaction_id->post_id]);
         }
 
-        if(count($db_transaction_ids)) exit;
+        if(count($db_transaction_ids)) return;
 
         // Transaction Data
         $transaction = $this->get_transaction($transaction_id);
@@ -415,9 +415,6 @@ class MEC_book extends MEC_base
         $availability = array();
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
 
-        // Ticket Selling Stop
-        $event_date = date('Y-m-d h:i a', $timestamp);
-        
         // No Ticket Found!
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets)))
         {
@@ -445,6 +442,9 @@ class MEC_book extends MEC_base
         $day = date('d', $timestamp);
         $hour = date('H', $timestamp);
         $minutes = date('i', $timestamp);
+
+        // Ticket Selling Stop
+        $event_date = date('Y-m-d h:i a', $timestamp);
 
         if(!$book_all_occurrences)
         {
@@ -508,7 +508,7 @@ class MEC_book extends MEC_base
             // Ticket Selling Stop
             $stop_selling_value = isset($ticket['stop_selling_value']) ? trim($ticket['stop_selling_value']) : 0;
             $stop_selling_type = isset($ticket['stop_selling_type']) ? trim($ticket['stop_selling_type']) : 'day';
-            
+
             if($stop_selling_value > 0 and $this->main->check_date_time_validation('Y-m-d h:i a', strtolower($event_date)))
             {
                 if(strtotime("-{$stop_selling_value}{$stop_selling_type}", strtotime($event_date)) <= current_time('timestamp', 0))

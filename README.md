@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.4.2  
-**Stable tag:** 5.6.1  
+**Stable tag:** 5.6.5  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -13,7 +13,7 @@ WordPress event calendar plugin is the best tool used for managing events websit
 
 
 ## Description 
-Best event management plugin is a trending FREE tool used for managing events in websites. Modern Events Calendar is a responsive, mobile-friendly, FREE, and comprehensive events management plugin which is extremely user-friendly and well-designed for displaying the events calendar on the websites, ever easier.
+WordPress event calendar plugin is the best tool used for managing events websites. Modern Events Calendar is a comprehensive events management plugin Modern Events Calendar is a responsive, mobile-friendly, FREE, and comprehensive events management plugin which is extremely user-friendly and well-designed for displaying the events calendar on the websites, ever easier.
 
 * [Demos](https://webnus.net/modern-events-calendar/)
 * [Documentation](https://webnus.net/dox/modern-events-calendar/)
@@ -120,7 +120,7 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 
 
 ## Helpful Documentation 
-WordPress Events Calendar’s best plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
+Best event management plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
 
 You can see [plugin demo](https://webnus.net/modern-events-calendar/)
 You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar/)
@@ -211,6 +211,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Key Features 
+- Custom event fields
 - Multiple occurrences in one day
 - Different hours for custom days repeat
 - WordPress dashboard widgets (*pro*)
@@ -488,6 +489,29 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog 
+
+### 5.6.5 – 24 June 2020 
+- Added: Custom Fields for event in backend
+- Added: Custom Fields for event in Frontend Submission Form
+- Added: Showing event data fields in event backend form
+- Added: showing event data fields in Frontend Event Submission
+- Added: Rearrange ability for Custom Fields
+- Added: An option to disable/enable the display of event fields in single skins
+- Added: Placeholders for data fields to be included in the notifications
+- Added: File URL to the %%attendees_full_info%% placeholder (pro)
+- Added: A new option in Reports menu to show all attendees of “Sell all occurrences by one booking” events (pro)
+- Added: An option to hide booking date and time in invoice of “Sell all occurrences by one booking” events (pro)
+- Fixed: Showing booking Google Recaptcha option (lite)
+- Fixed: Showing expired events
+- Fixed: Showing sold out label
+- Fixed: Date filter of booking manage page (pro)
+- Fixed: Showing dates and times in single events page in special cases
+- Fixed: The price of tickets (pro)
+- Fixed: iCal export in “All day” events
+- Fixed: The limit of events
+- Fixed: BuddyPress integration (pro)
+- Fixed: Some notices
+
 
 ### 5.6.1 – 16 June 2020 
 - Improved: Backend speed by refactoring the backend CSS and JS loading

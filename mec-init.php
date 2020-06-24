@@ -212,7 +212,8 @@ class MEC
     {
         // MEC File library
         $file = MEC::getInstance('app.libraries.filesystem', 'MEC_file');
-        if (!$this->getPRO()) {
+        if(!$file->getPRO())
+        {
             // Get current locale
             $locale = apply_filters('plugin_locale', get_locale(), 'modern-events-calendar-lite');
             
@@ -229,7 +230,9 @@ class MEC
             {
                 load_plugin_textdomain('modern-events-calendar-lite', false, dirname(plugin_basename(__FILE__)).DS.'languages'.DS);
             }
-        } else {
+        }
+        else
+        {
             // Get current locale
             $locale = apply_filters('plugin_locale', get_locale(), 'modern-events-calendar-lite');
             

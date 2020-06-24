@@ -693,11 +693,13 @@ body.post-type-mec-books th.column-author {
     }
 }
 
+#mec_event_form_fields,
 #mec_reg_form_fields {
     background: #eee;
     padding: 20px
 }
 
+#mec_event_form_fields li,
 #mec_reg_form_fields li {
     margin: 4px;
     border-radius: 2px;
@@ -707,16 +709,19 @@ body.post-type-mec-books th.column-author {
     transition: all .3s ease
 }
 
+#mec_event_form_fields li ul,
 #mec_reg_form_fields li ul {
     padding-top: 15px;
     padding-bottom: 15px;
     margin: 1px
 }
 
+#mec_event_form_fields li ul li,
 #mec_reg_form_fields li ul li {
     padding: 7px 30px 7px 46px
 }
 
+#mec_event_form_fields span.mec_event_field_type,
 #mec_reg_form_fields span.mec_reg_field_type {
     font-size: 11px;
     font-weight: 600;
@@ -725,18 +730,29 @@ body.post-type-mec-books th.column-author {
     letter-spacing: 2px
 }
 
-#mec_reg_form_fields span.mec_reg_field_option_sort,#mec_reg_form_fields span.mec_reg_field_remove,#mec_reg_form_fields span.mec_reg_field_sort {
+#mec_event_form_fields span.mec_event_field_option_sort,
+#mec_event_form_fields span.mec_event_field_remove,
+#mec_event_form_fields span.mec_event_field_sort,
+#mec_reg_form_fields span.mec_reg_field_option_sort,
+#mec_reg_form_fields span.mec_reg_field_remove,
+#mec_reg_form_fields span.mec_reg_field_sort {
     font-size: 0;
     color: #fff
 }
 
+#mec_event_form_fields span.mec_event_field_remove,
 #mec_reg_form_fields span.mec_reg_field_remove {
     position: absolute;
     right: 0;
     top: 0
 }
 
-#mec_reg_form_fields span.mec_reg_field_option_sort:before,#mec_reg_form_fields span.mec_reg_field_remove:before,#mec_reg_form_fields span.mec_reg_field_sort:before {
+#mec_event_form_fields span.mec_event_field_option_sort:before,
+#mec_event_form_fields span.mec_event_field_remove:before,
+#mec_event_form_fields span.mec_event_field_sort:before,
+#mec_reg_form_fields span.mec_reg_field_option_sort:before,
+#mec_reg_form_fields span.mec_reg_field_remove:before,
+#mec_reg_form_fields span.mec_reg_field_sort:before {
     position: absolute;
     left: 10px;
     top: 20px;
@@ -750,6 +766,7 @@ body.post-type-mec-books th.column-author {
     color: #888
 }
 
+#mec_event_form_fields span.mec_event_field_remove:before,
 #mec_reg_form_fields span.mec_reg_field_remove:before {
     content: "\e082";
     width: 20px;
@@ -760,6 +777,7 @@ body.post-type-mec-books th.column-author {
     cursor: pointer
 }
 
+#mec_event_form_fields span.mec_event_field_option_sort:before,
 #mec_reg_form_fields span.mec_reg_field_option_sort:before {
     font-size: 13px;
     left: 2px;
@@ -768,16 +786,19 @@ body.post-type-mec-books th.column-author {
     height: 14px
 }
 
+#mec_event_form_fields li ul li span.mec_event_field_remove,
 #mec_reg_form_fields li ul li span.mec_reg_field_remove {
     right: auto;
     left: 60px;
     top: 2px
 }
 
+#mec_event_form_fields p.mec_event_field_options,
 #mec_reg_form_fields p.mec_reg_field_options {
     margin: 6px 0 8px
 }
 
+#mec_event_form_fields input[type=number],#mec_event_form_fields input[type=text],#mec_event_form_fields select,#mec_event_form_fields textarea,
 #mec_reg_form_fields input[type=number],#mec_reg_form_fields input[type=text],#mec_reg_form_fields select,#mec_reg_form_fields textarea {
     min-width: 260px;
     min-height: 34px;
@@ -785,10 +806,12 @@ body.post-type-mec-books th.column-author {
     margin-top: 7px
 }
 
+#mec_event_form_fields textarea,
 #mec_reg_form_fields textarea {
     min-height: 66px
 }
 
+#mec_event_form_field_types button,#mec_event_form_fields button,
 #mec_reg_form_field_types button,#mec_reg_form_fields button {
     position: relative;
     outline: 0;
@@ -808,11 +831,13 @@ body.post-type-mec-books th.column-author {
     box-shadow: 0 0 3px rgba(0,0,0,.03)
 }
 
+#mec_event_form_field_types button:hover,#mec_event_form_fields button:hover,
 #mec_reg_form_field_types button:hover,#mec_reg_form_fields button:hover {
     border-color: #008aff;
     box-shadow: 0 0 7px rgba(0,0,0,.1)
 }
 
+#mec_event_form_field_types button:before,#mec_event_form_fields button:before,
 #mec_reg_form_field_types button:before,#mec_reg_form_fields button:before {
     position: absolute;
     left: 12px;
@@ -823,11 +848,13 @@ body.post-type-mec-books th.column-author {
     display: inline-block
 }
 
+#mec_event_form_field_types button.red:hover,#mec_event_form_fields button.red:hover,
 #mec_reg_form_field_types button.red:hover,#mec_reg_form_fields button.red:hover {
     border-color: red;
     box-shadow: 0 0 7px rgba(0,0,0,.1)
 }
 
+#mec_event_form_field_types button.red:before,#mec_event_form_fields button.red:before,
 #mec_reg_form_field_types button.red:before,#mec_reg_form_fields button.red:before {
     position: absolute;
     left: 12px;
@@ -838,7 +865,15 @@ body.post-type-mec-books th.column-author {
     display: inline-block
 }
 
+#mec_event_form_fields .mec_event_notification_placeholder {
+    padding: 2px;
+    display: block;
+    margin: 10px 0 20px;
+}
+
+
 @media (max-width: 768px) {
+    #mec_event_form_fields input[type=number],#mec_event_form_fields input[type=text],#mec_event_form_fields select,#mec_event_form_fields textarea,
     #mec_reg_form_fields input[type=number],#mec_reg_form_fields input[type=text],#mec_reg_form_fields select,#mec_reg_form_fields textarea {
         min-width:80px;
         width: 100%
@@ -899,7 +934,7 @@ body.post-type-mec-books th.column-author {
 }
 
 .mec-form-row input[type=radio] {
-    margin: 5px 0
+    margin: 5px 6px 0 0;
 }
 
 .mec-form-row select {
@@ -928,6 +963,11 @@ body.post-type-mec-books th.column-author {
 
 .mec-form-row label {
     margin: 10px 0
+}
+
+#mec-event-data .mec-form-row label {
+    margin: 10px 0;
+    display: block;
 }
 
 .mec-form-row input[type=checkbox] {
@@ -4114,17 +4154,19 @@ textarea.mec-import-settings-content {
     width: 100%;
 }
 
+#mec-event-data input[type=text], #mec-event-data input[type=tel], #mec-event-data input[type=date], #mec-event-data input[type=email], #mec-event-data input[type=url], #mec-event-data textarea, #mec-event-data select,
 #mec_select_tags.mec-create-shortcode-tab-content input[type=text],
 #mec_settings_weather_module_api_key {
     width: 262px;
 }
 
+#mec-event-data input[type=text], #mec-event-data input[type=tel], #mec-event-data input[type=date], #mec-event-data input[type=email], #mec-event-data input[type=url], #mec-event-data textarea, #mec-event-data select,
 #mec_meta_box_date_form input[type=text],
-#mec_exceptions_not_in_days_date,
-#mec_meta_box_calendar_skin_options input[type=text].mec_date_picker {
+#mec_exceptions_not_in_days_date {
     max-width: 262px;
 }
 
+#mec-event-data input[type=text].mec_date_picker.mec-col-4
 #mec_meta_box_calendar_skin_options input[type=text].mec_date_picker.mec-col-4 {
     max-width: 32.33333333%;
 }
@@ -5699,9 +5741,25 @@ a.mec-create-shortcode-tabs-link {
     padding-right: 20px;
 }
 
+#mec-event-data .mec-form-row label {
+    margin-right: 14px;
+}
+
+.mec-form-row input[type=date]::-webkit-calendar-picker-indicator {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA0QjQ2N0QwQjQ4MzExRUE4RDdFREZDRTUxMUVERTM5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA0QjQ2N0QxQjQ4MzExRUE4RDdFREZDRTUxMUVERTM5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDRCNDY3Q0VCNDgzMTFFQThEN0VERkNFNTExRURFMzkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDRCNDY3Q0ZCNDgzMTFFQThEN0VERkNFNTExRURFMzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6WW71PAAAGIklEQVR42qRX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');
+    background-position: center;
+    background-size: cover;
+    width: 10px;
+    height: 12px;
+    display: block;
+}
+
 .mec-form-row input[type=number],
 .mec-form-row input[type=text],
 .mec-form-row input[type=url],
+.mec-form-row input[type=tel],
+.mec-form-row input[type=email],
+.mec-form-row input[type=date],
 .mec-form-row select,
 .mec-form-row textarea,
 .mec-form-row.mec-skin-list-date-format-container input[type=text],
@@ -9004,6 +9062,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.m-e-calendar_page_MEC-support #webnus-dashboard .mec-pro-notice .info-msg,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-ix .mec-container,
 .mec-admin-dark-mode.post-type-mec-events .components-popover__content,
+.mec-admin-dark-mode.post-type-mec-events #mec_event_form_fields li,
 .mec-admin-dark-mode.post-type-mec-events #mec_reg_form_fields li,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-main,
 .mec-admin-dark-mode .wns-be-sidebar .wns-be-group-menu>li.active>a,
@@ -9013,7 +9072,9 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-content,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-main,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-infobar,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields button, 
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_field_types button, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields li,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields li,
 .mec-admin-dark-mode.post-type-mec-events #screen-meta-links .show-settings,
 .mec-admin-dark-mode.post-type-mec-events #screen-meta,
@@ -9086,6 +9147,7 @@ div#mec_meta_box_date_form .mec-form-row {
 }
 
 .mec-admin-dark-mode.m-e-calendar_page_MEC-ix .mec-form-row.mec-syn-schedule,
+.mec-admin-dark-mode.post-type-mec-events #mec_event_form_fields,
 .mec-admin-dark-mode.post-type-mec-events #mec_reg_form_fields,
 .mec-admin-dark-mode #mec_calendar_filter .mec-add-booking-tabs-left a,
 .mec-admin-dark-mode #mec_calendar_filter .mec-add-event-tabs-left a,
@@ -9147,6 +9209,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .tmce-active .switch-tmce,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-switch-editor,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-container--default .select2-selection--multiple,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings  #mec_event_form_fields button, 
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings  #mec_reg_form_field_types button, 
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-footer,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .mec-custom-msg-notification-set-box.extra,
@@ -9220,7 +9283,9 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.post-type-mec-events .mec-xi-google-import-events .mec-select-deselect-actions li,
 .mec-admin-dark-mode.post-type-mec-events input[type=checkbox],
 .mec-admin-dark-mode.post-type-mec-events input[type=radio],
+.mec-admin-dark-mode.post-type-mec-events #mec_event_form_fields button,
 .mec-admin-dark-mode.post-type-mec-events #mec_reg_form_field_types button,
+.mec-admin-dark-mode.post-type-mec-events #mec_event_form_fields button,
 .mec-admin-dark-mode.post-type-mec-events #mec_reg_form_fields button,
 .mec-admin-dark-mode.post-type-mec-events .wp-admin p label input[type=checkbox],
 .mec-admin-dark-mode.post-type-mec-events .components-form-token-field__input-container,
@@ -9229,7 +9294,9 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.toplevel_page_mec-intro .w-box.mec-activation input[name=MECPurchaseCode],
 .mec-admin-dark-mode.m-e-calendar_page_MEC-addons,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-core-ui .quicktags-toolbar input.button.button-small,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields button,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_field_types button,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields button,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields button,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .quicktags-toolbar,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec-invoice-custom-css,
@@ -9401,6 +9468,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode .mec-message-categories li.mec-acc-label,
 .mec-admin-dark-mode #mec_styles_form #mec_styles_CSS,
 .mec-admin-dark-mode #mec-advanced-wraper div:first-child>ul>ul>li,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields {
     background: #000;
 }
@@ -10109,6 +10177,7 @@ div#mec_cancelled_reason_wrapper label {
         padding-right: 0;
     }
     
+    #mec_event_form_fields,
     #mec_reg_form_fields {
         padding: 10px;
     }

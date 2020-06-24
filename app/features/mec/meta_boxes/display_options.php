@@ -16,7 +16,7 @@ $sk_options = get_post_meta($post->ID, 'sk-options', true);
 $events = $this->main->get_events();
 ?>
 <div class="mec-calendar-metabox">
-    
+
     <!-- SKIN OPTIONS -->
     <div class="mec-meta-box-fields" id="mec_meta_box_calendar_skin_options">
         <div class="mec-form-row">
@@ -29,9 +29,9 @@ $events = $this->main->get_events();
                 <?php endforeach; ?>
             </select>
         </div>
-        
+
         <div class="mec-skins-options-container">
-            
+
             <!-- List View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_list_skin_options_container">
                 <?php $sk_options_list = isset($sk_options['list']) ? $sk_options['list'] : array(); ?>
@@ -81,7 +81,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "M d Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/list-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                     
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-list-date-format-container <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] != 'M d Y') echo 'mec-util-hidden'; ?>" id="mec_skin_list_date_format_minimal_container">
                     <label class="mec-col-4" for="mec_skin_list_minimal_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -94,7 +94,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, M and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/list-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-list-date-format-container <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] != 'modern') echo 'mec-util-hidden'; ?>" id="mec_skin_list_date_format_modern_container">
                     <label class="mec-col-4" for="mec_skin_list_modern_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -107,7 +107,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/list-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-list-date-format-container <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] != 'standard') echo 'mec-util-hidden'; ?>" id="mec_skin_list_date_format_standard_container">
                     <label class="mec-col-4" for="mec_skin_list_standard_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -118,7 +118,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "M d"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/list-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-list-date-format-container <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] != 'accordion') echo 'mec-util-hidden'; ?>" id="mec_skin_list_date_format_accordion_container">
                     <label class="mec-col-4" for="mec_skin_list_accordion_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -130,7 +130,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('TDefault values are d and F', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/list-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_list_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
@@ -257,7 +257,7 @@ $events = $this->main->get_events();
                 </div>
                 <?php do_action('mec_skin_options_list_end', $sk_options_list); ?>
             </div>
-            
+
             <!-- Grid View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_grid_skin_options_container">
                 <?php $sk_options_grid = isset($sk_options['grid']) ? $sk_options['grid'] : array(); ?>
@@ -309,7 +309,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "d F Y', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/grid-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-grid-date-format-container <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] != 'clean') echo 'mec-util-hidden'; ?>" id="mec_skin_grid_date_format_clean_container">
                     <label class="mec-col-4" for="mec_skin_grid_clean_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -321,7 +321,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d and F', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/grid-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-grid-date-format-container <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] != 'minimal') echo 'mec-util-hidden'; ?>" id="mec_skin_grid_date_format_minimal_container">
                     <label class="mec-col-4" for="mec_skin_grid_minimal_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -333,7 +333,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d and M', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/grid-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-grid-date-format-container <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] != 'modern') echo 'mec-util-hidden'; ?>" id="mec_skin_grid_date_format_modern_container">
                     <label class="mec-col-4" for="mec_skin_grid_modern_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -346,7 +346,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/grid-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-grid-date-format-container <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] != 'simple') echo 'mec-util-hidden'; ?>" id="mec_skin_grid_date_format_simple_container">
                     <label class="mec-col-4" for="mec_skin_grid_simple_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -357,7 +357,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "M d Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/grid-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-grid-date-format-container <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] != 'colorful') echo 'mec-util-hidden'; ?>" id="mec_skin_grid_date_format_colorful_container">
                     <label class="mec-col-4" for="mec_skin_grid_colorful_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -370,7 +370,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/grid-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-grid-date-format-container <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] != 'novel') echo 'mec-util-hidden'; ?>" id="mec_skin_grid_date_format_novel_container">
                     <label class="mec-col-4" for="mec_skin_grid_novel_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -381,7 +381,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "d F Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/grid-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_grid_count"><?php _e('Count in row', 'modern-events-calendar-lite'); ?></label>
@@ -549,7 +549,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are l and F j', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/agenda-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_agenda_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
@@ -614,7 +614,7 @@ $events = $this->main->get_events();
                 <?php echo $this->sed_method_field('agenda', (isset($sk_options_agenda['sed_method']) ? $sk_options_agenda['sed_method'] : 0), (isset($sk_options_agenda['image_popup']) ? $sk_options_agenda['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_agenda_end', $sk_options_agenda); ?>
             </div>
-            
+
             <!-- Full Calendar -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_full_calendar_skin_options_container">
                 <?php $sk_options_full_calendar = isset($sk_options['full_calendar']) ? $sk_options['full_calendar'] : array(); ?>
@@ -668,7 +668,7 @@ $events = $this->main->get_events();
                     </div>
                     <?php
                         $date_format_list = 'd M';
-                            
+
                         if(isset($sk_options_full_calendar['date_format_list']) and trim($sk_options_full_calendar['date_format_list']) != '') $date_format_list = trim(trim($sk_options_full_calendar['date_format_list']));
                         elseif(isset($sk_options_list['standard_date_format1']) and trim($sk_options_list['standard_date_format1']) != '') $date_format_list = trim($sk_options_list['standard_date_format1']);
                     ?>
@@ -710,7 +710,7 @@ $events = $this->main->get_events();
                                     if(isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly']) echo 'checked="checked"';
                                 } else {
                                     echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" value="0"';
-                                }                       
+                                }
                             ?> />
                             <label for="mec_skin_full_calendar_yearly"></label>
                         </div>
@@ -842,7 +842,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are l and F j', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/yearly-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-not-yearly_view-fluent">
                     <label class="mec-col-4" for="mec_skin_yearly_view_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
@@ -988,7 +988,7 @@ $events = $this->main->get_events();
                 <?php echo $this->sed_method_field('monthly_view', (isset($sk_options_monthly_view['sed_method']) ? $sk_options_monthly_view['sed_method'] : 0), (isset($sk_options_monthly_view['image_popup']) ? $sk_options_monthly_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_monthly_view_end', $sk_options_monthly_view); ?>
             </div>
-            
+
             <!-- Map Skin -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_map_skin_options_container">
 
@@ -1037,7 +1037,7 @@ $events = $this->main->get_events();
                 <p class="description"><?php _e('The geolocation feature works only in secure (https) websites.', 'modern-events-calendar-lite'); ?></p>
                 <?php do_action( 'mec_location_shortcode_filter', $post ); ?>
             </div>
-            
+
             <!-- Daily View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_daily_view_skin_options_container">
                 <?php $sk_options_daily_view = isset($sk_options['daily_view']) ? $sk_options['daily_view'] : array(); ?>
@@ -1051,7 +1051,7 @@ $events = $this->main->get_events();
                         <option value="start_next_month" <?php if(isset($sk_options_daily_view['start_date_type']) and $sk_options_daily_view['start_date_type'] == 'start_next_month') echo 'selected="selected"'; ?>><?php _e('Start of Next Month', 'modern-events-calendar-lite'); ?></option>
                         <option value="date" <?php if(isset($sk_options_daily_view['start_date_type']) and $sk_options_daily_view['start_date_type'] == 'date') echo 'selected="selected"'; ?>><?php _e('On a certain date', 'modern-events-calendar-lite'); ?></option>
                     </select>
-                
+
                     <div class="mec-col-4 <?php if(!isset($sk_options_daily_view['start_date_type']) or (isset($sk_options_daily_view['start_date_type']) and $sk_options_daily_view['start_date_type'] != 'date')) echo 'mec-util-hidden'; ?>" id="mec_skin_daily_view_start_date_container">
                         <input class="mec_date_picker" type="text" name="mec[sk-options][daily_view][start_date]" id="mec_skin_daily_view_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_daily_view['start_date'])) echo $sk_options_daily_view['start_date']; ?>" />
                     </div>
@@ -1110,7 +1110,7 @@ $events = $this->main->get_events();
                 <?php echo $this->sed_method_field('daily_view', (isset($sk_options_daily_view['sed_method']) ? $sk_options_daily_view['sed_method'] : 0), (isset($sk_options_daily_view['image_popup']) ? $sk_options_daily_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_daily_view_end', $sk_options_daily_view); ?>
             </div>
-            
+
             <!-- Weekly View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_weekly_view_skin_options_container">
                 <?php $sk_options_weekly_view = isset($sk_options['weekly_view']) ? $sk_options['weekly_view'] : array(); ?>
@@ -1270,7 +1270,7 @@ $events = $this->main->get_events();
                             <option value="22" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '22') echo 'selected="selected"'; ?>><?php _e('22:00', 'modern-events-calendar-lite'); ?></option>
                             <option value="23" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '23') echo 'selected="selected"'; ?>><?php _e('23:00', 'modern-events-calendar-lite'); ?></option>
                             <option value="24" <?php if(isset($sk_options_timetable['end_time']) and $sk_options_timetable['end_time'] == '24') echo 'selected="selected"'; ?>><?php _e('24:00', 'modern-events-calendar-lite'); ?></option>
-                        </select>                                        
+                        </select>
                     </div>
                 </div>
                 <!-- Start LocalTime -->
@@ -1372,7 +1372,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are j and F', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/masonry-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_masonry_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
@@ -1459,7 +1459,7 @@ $events = $this->main->get_events();
                 <?php echo $this->sed_method_field('masonry', (isset($sk_options_masonry['sed_method']) ? $sk_options_masonry['sed_method'] : 0), (isset($sk_options_masonry['image_popup']) ? $sk_options_masonry['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_masonry_end', $sk_options_masonry); ?>
             </div>
-            
+
             <!-- Cover -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_cover_skin_options_container">
                 <?php $sk_options_cover = isset($sk_options['cover']) ? $sk_options['cover'] : array(); ?>
@@ -1483,7 +1483,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, M and Y', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/cover-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-cover-date-format-container <?php if(isset($sk_options_cover['style']) and $sk_options_cover['style'] != 'classic') echo 'mec-util-hidden'; ?>" id="mec_skin_cover_date_format_classic_container">
                     <label class="mec-col-4" for="mec_skin_cover_date_format_classic1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1495,7 +1495,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are "F d" and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/cover-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-cover-date-format-container <?php if(isset($sk_options_cover['style']) and $sk_options_cover['style'] != 'modern') echo 'mec-util-hidden'; ?>" id="mec_skin_cover_date_format_modern_container">
                     <label class="mec-col-4" for="mec_skin_cover_date_format_modern1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1506,7 +1506,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "l, F d Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/cover-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_cover_event_id"><?php _e('Event', 'modern-events-calendar-lite'); ?></label>
@@ -1554,7 +1554,7 @@ $events = $this->main->get_events();
                 <!-- End Display Reason for Cancellation -->
                 <?php do_action('mec_skin_options_cover_end', $sk_options_cover); ?>
             </div>
-            
+
             <!-- CountDown -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_countdown_skin_options_container">
                 <?php $sk_options_countdown = isset($sk_options['countdown']) ? $sk_options['countdown'] : array(); ?>
@@ -1576,7 +1576,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "j F Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/countdown-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-countdown-date-format-container <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] != 'style2') echo 'mec-util-hidden'; ?>" id="mec_skin_countdown_date_format_style2_container">
                     <label class="mec-col-4" for="mec_skin_countdown_date_format_style21"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1587,7 +1587,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "j F Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/countdown-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-countdown-date-format-container <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] != 'style3') echo 'mec-util-hidden'; ?>" id="mec_skin_countdown_date_format_style3_container">
                     <label class="mec-col-4" for="mec_skin_countdown_date_format_style31"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1600,7 +1600,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are j, F and Y', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/countdown-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_countdown_event_id"><?php _e('Event', 'modern-events-calendar-lite'); ?></label>
@@ -1760,7 +1760,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and Y', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/carousel-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-carousel-date-format-container <?php if(isset($sk_options_carousel['style']) and $sk_options_carousel['style'] != 'type2') echo 'mec-util-hidden'; ?>" id="mec_skin_carousel_date_format_type2_container">
                     <label class="mec-col-4" for="mec_skin_carousel_type2_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1771,7 +1771,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "M d, Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/carousel-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-carousel-date-format-container <?php if(isset($sk_options_carousel['style']) and $sk_options_carousel['style'] != 'type3') echo 'mec-util-hidden'; ?>" id="mec_skin_carousel_date_format_type3_container">
                     <label class="mec-col-4" for="mec_skin_carousel_type3_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1782,7 +1782,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "M d, Y"', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/carousel-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_carousel_count"><?php _e('Count in row', 'modern-events-calendar-lite'); ?></label>
@@ -1850,7 +1850,7 @@ $events = $this->main->get_events();
                 <!-- End Display Reason for Cancellation -->
                 <?php do_action('mec_skin_options_carousel_end', $sk_options_carousel); ?>
             </div>
-            
+
             <!-- Slider View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_slider_skin_options_container">
                 <?php $sk_options_slider = isset($sk_options['slider']) ? $sk_options['slider'] : array(); ?>
@@ -1877,7 +1877,7 @@ $events = $this->main->get_events();
                     <div class="mec-col-4 <?php if(!isset($sk_options_slider['start_date_type']) or (isset($sk_options_slider['start_date_type']) and $sk_options_slider['start_date_type'] != 'date')) echo 'mec-util-hidden'; ?>" id="mec_skin_slider_start_date_container">
                         <input class="mec_date_picker" type="text" name="mec[sk-options][slider][start_date]" id="mec_skin_slider_start_date" placeholder="<?php echo sprintf(__('eg. %s', 'modern-events-calendar-lite'), date('Y-n-d')); ?>" value="<?php if(isset($sk_options_slider['start_date'])) echo $sk_options_slider['start_date']; ?>" />
                     </div>
-                </div>                
+                </div>
                 <div class="mec-form-row mec-skin-slider-date-format-container <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] != 't1') echo 'mec-util-hidden'; ?>" id="mec_skin_slider_date_format_t1_container">
                     <label class="mec-col-4" for="mec_skin_slider_type1_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-2" name="mec[sk-options][slider][type1_date_format1]" id="mec_skin_slider_type1_date_format1" value="<?php echo ((isset($sk_options_slider['type1_date_format1']) and trim($sk_options_slider['type1_date_format1']) != '') ? $sk_options_slider['type1_date_format1'] : 'd'); ?>" />
@@ -1889,7 +1889,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/slider-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-slider-date-format-container <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] != 't2') echo 'mec-util-hidden'; ?>" id="mec_skin_slider_date_format_t2_container">
                     <label class="mec-col-4" for="mec_skin_slider_type2_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1902,7 +1902,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/slider-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-slider-date-format-container <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] != 't3') echo 'mec-util-hidden'; ?>" id="mec_skin_slider_date_format_t3_container">
                     <label class="mec-col-4" for="mec_skin_slider_type3_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1915,7 +1915,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/slider-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row mec-skin-slider-date-format-container <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] != 't4') echo 'mec-util-hidden'; ?>" id="mec_skin_slider_date_format_t4_container">
                     <label class="mec-col-4" for="mec_skin_slider_type4_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
@@ -1928,8 +1928,8 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/slider-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
-                </div>                
+                    </span>
+                </div>
                 <div class="mec-form-row mec-skin-slider-date-format-container <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] != 't5') echo 'mec-util-hidden'; ?>" id="mec_skin_slider_date_format_t5_container">
                     <label class="mec-col-4" for="mec_skin_slider_type5_date_format1"><?php _e('Date Formats', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-2" name="mec[sk-options][slider][type5_date_format1]" id="mec_skin_slider_type5_date_format1" value="<?php echo ((isset($sk_options_slider['type5_date_format1']) and trim($sk_options_slider['type5_date_format1']) != '') ? $sk_options_slider['type5_date_format1'] : 'd'); ?>" />
@@ -1941,7 +1941,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default values are d, F and l', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/slider-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_slider_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
@@ -2029,7 +2029,7 @@ $events = $this->main->get_events();
                             <div class="content"><p><?php esc_attr_e('Default value is "d F Y', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/timeline-view-skin/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>	                                        
+                    </span>
                 </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_timeline_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
@@ -2226,7 +2226,7 @@ $events = $this->main->get_events();
         jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="accordion"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-accordion.png" /></span>');
         jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-list-view.png" /></span>');
 
-        /** Grid View Skins */ 
+        /** Grid View Skins */
         jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-classic.png" /></span>');
         jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-clean.png" /></span>');
         jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="minimal"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-minimal.png" /></span>');
@@ -2313,7 +2313,7 @@ $events = $this->main->get_events();
         jQuery('#mec_masonry_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/masonry/masonry-classic.png" /></span>');
         jQuery('#mec_masonry_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-masonry-view.png" /></span>');
 
-        /** Tile View Skins */ 
+        /** Tile View Skins */
         jQuery('#mec_tile_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/tile/tile-classic.png" /></span>');
         jQuery('#mec_tile_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-tile-view.png" /></span>');
 

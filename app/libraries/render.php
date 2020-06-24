@@ -493,8 +493,8 @@ class MEC_render extends MEC_base
         $hide_time = isset($data->meta['mec_hide_time']) ? $data->meta['mec_hide_time'] : 0;
         $hide_end_time = isset($data->meta['mec_hide_end_time']) ? $data->meta['mec_hide_end_time'] : 0;
 
-        $start_timestamp = (isset($meta['mec_start_day_seconds']) ? $meta['mec_start_day_seconds'] : '');
-        $end_timestamp = (isset($meta['mec_end_day_seconds']) ? $meta['mec_end_day_seconds'] : '');
+        $start_timestamp = (isset($meta['mec_start_day_seconds']) ? (strtotime($meta['mec_start_date'])+$meta['mec_start_day_seconds']) : strtotime($meta['mec_start_date']));
+        $end_timestamp = (isset($meta['mec_end_day_seconds']) ? (strtotime($meta['mec_end_date'])+$meta['mec_end_day_seconds']) : strtotime($meta['mec_end_date']));
 
         $start_time = $this->main->get_time($start_timestamp);
         $end_time = $this->main->get_time($end_timestamp);
@@ -940,7 +940,7 @@ class MEC_render extends MEC_base
                     $start_date = $year.'-'.$month.'-'.$day;
                     $end_time = $hour.':'.$minutes.$ampm;
 
-                    if((strtotime($start_date.' '.$end_time) < current_time('timestamp', 0)) or (strtotime($start_date.' '.$end_time) < strtotime($original_start_date)))
+                    if(strtotime($start_date.' '.$end_time) < strtotime($original_start_date))
                     {
                         $i++;
                         continue;

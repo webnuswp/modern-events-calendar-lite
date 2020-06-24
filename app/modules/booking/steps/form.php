@@ -17,6 +17,7 @@ unset($fees[':i:']);
 $event_tickets = isset($event->data->tickets) ? $event->data->tickets : array();
 
 $total_ticket_prices = 0;
+$check_free_tickets_booking = apply_filters('check_free_tickets_booking', 1);
 $has_fees = count($fees) ? true : false;
 $has_variations = count($ticket_variations) ? true : false;
 
@@ -185,6 +186,6 @@ if(!$mec_email)
     <?php wp_nonce_field('mec_book_form_'.$event_id); ?>
     <div class="mec-book-form-btn-wrap">
         <button id="mec-book-form-back-btn-step-2" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php _e('Back', 'modern-events-calendar-lite'); ?></button>
-        <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php echo ((!$total_ticket_prices and !$has_fees and !$has_variations) ? __('Submit', 'modern-events-calendar-lite') : __('Next', 'modern-events-calendar-lite')); ?></button>
+        <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php echo ((!$total_ticket_prices and !$has_fees and !$has_variations && $check_free_tickets_booking) ? __('Submit', 'modern-events-calendar-lite') : __('Next', 'modern-events-calendar-lite')); ?></button>
     </div>
 </form>

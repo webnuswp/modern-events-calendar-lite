@@ -2,8 +2,13 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_fes $this */
+
 // The Query
 $query = new WP_Query(array('post_type'=>$this->PT, 'author'=>get_current_user_id(), 'posts_per_page'=>'-1', 'post_status'=>array('pending', 'draft', 'future', 'publish')));
+
+// Date Format
+$date_format = get_option('date_format');
 
 // Generating javascript code of countdown module
 $javascript = '<script type="text/javascript">
@@ -86,86 +91,38 @@ $this->factory->params('footer', $javascript);
             <span class="mec-fes-event-view mec-event-status <?php echo $status['status_class']; ?>"><?php echo $status['label']; ?></span>
             <div class="mec-fes-export-wrapper mec-modal-wrap lity-hide" id="mec-fes-export-wrapper-<?php echo get_the_ID(); ?>" data-event-id="<?php echo get_the_ID(); ?>">
                 <div class="mec-fes-btn-date">                    
-                    <?php
-                    $mec_repeat_info = get_post_meta(get_the_ID(), 'mec_repeat', true);
-                    $ids_text_field = '';
+                    <?php $mec_repeat_info = get_post_meta(get_the_ID(), 'mec_repeat', true); if(isset($mec_repeat_info['status']) and $mec_repeat_info['status']): ?>
+                        <ul class="mec-export-list-wrapper">
+                            <?php
+                            $past_week = strtotime('-7 days', current_time('timestamp', 0));
 
-                    if(isset($mec_repeat_info['status']) and $mec_repeat_info['status']):
-                    ?>
-                    <ul class="mec-export-list-wrapper">
-                    <?php
-                    $past_month = strtotime('-1month', current_time('timestamp', 0));
-                    
-                    $render = $this->getRender();
-                    $dates = $render->dates(get_the_ID(), NULL, 15, date('Y-m-d', $past_month));
+                            $render = $this->getRender();
+                            $dates = $render->dates(get_the_ID(), NULL, 15, date('Y-m-d', $past_week));
 
-                    // Attnedees
-                    $current_user_id = is_user_logged_in() ? get_current_user_id() : false;
-                    $current_user_books = $this->db->select("SELECT `ID` FROM `#__posts` WHERE `post_type`='mec-books' AND `post_author`={$current_user_id}", 'loadAssocList');
-                    $all_books_ids_info = array();
-
-                    if(is_array($current_user_books) and count($current_user_books)):
-                        
-                        foreach($current_user_books as $current_user_book):
-
-                            $book_ids_info = array();
-                            $book_ids_info['id'] = $current_user_book['ID'];
-                            $book_ids_info['info'] = array();
-                            $books_meta_info = $this->db->select("SELECT `post_id`, `meta_key`, `meta_value` FROM `#__postmeta` WHERE `post_id`={$current_user_book['ID']}", 'loadAssocList');
-                            
-                            if(is_array($books_meta_info) and count($books_meta_info))
+                            $book = $this->getBook();
+                            foreach($dates as $date)
                             {
-                                $books_data = array();
-                                foreach($books_meta_info as $book_meta_info)
+                                if(isset($date['start']['date']) and isset($date['end']['date']))
                                 {
-                                    $books_data = array_merge($books_data, array(trim($book_meta_info['meta_key']) => $book_meta_info['meta_value']));
-                                }
-                                $book_ids_info['info'] = $books_data;
-                                array_push($all_books_ids_info, $book_ids_info);
+                                    $attendees_count = 0;
 
-                                if(get_the_ID() == $book_ids_info['info']['mec_event_id']) $ids_text_field .= $book_ids_info['id'] . ',';
-                            }
-                        endforeach;
-                    endif;
-                    foreach($dates as $date):
-                        
-                        if(isset($date['start']['date']) and isset($date['end']['date'])):
-
-                            $attendees_count = 0;
-                            $certain_date_ids = "";
-                            $render_date = trim($date['start']['date']).':'.trim($date['end']['date']);
-                            foreach($all_books_ids_info as $book_info)
-                            {
-                                if((isset($book_info['info']['mec_date']) and trim($book_info['info']['mec_date']) == $render_date) and (isset($book_info['info']['mec_event_id']) and trim($book_info['info']['mec_event_id']) == get_the_ID()))
-                                {
-                                    if(isset($book_info['info']['mec_attendees']))
+                                    $bookings = $this->main->get_bookings(get_the_ID(), $date['start']['timestamp']);
+                                    foreach($bookings as $booking)
                                     {
-
-                                        $attendees_info = unserialize($book_info['info']['mec_attendees']);
-                                        $certain_date_ids .= $book_info['id'] . ',';
-                                        foreach($attendees_info as $attendees_info)
-                                        {
-                                            $attendees_count += $attendees_info['count'];
-                                        }
+                                        $attendees_count += $book->get_total_attendees($booking->ID);
                                     }
+                            ?>
+                                <li class="mec-export-list-item" data-time="<?php echo $date['start']['timestamp']; ?>"><?php echo $this->main->date_label($date['start'], $date['end'], $date_format); ?> <span class="mec-export-badge"><?php echo $attendees_count; ?></span></li>
+                            <?php
                                 }
                             }
-                    ?>
-                        <li class="mec-export-list-item" data-ids="<?php echo $certain_date_ids; ?>"><?php echo trim($date['start']['date']); ?> <span class="mec-export-badge"><?php echo $attendees_count; ?></span></li>
-                    <?php  
-                        endif;
-                    endforeach; 
-                    ?>
-                    </ul>
+                            ?>
+                        </ul>
                     <?php endif; ?>
-                    <input type="hidden" class="mec-certain-user-booking-ids" value="<?php echo $ids_text_field; ?>">
                 </div>
-                <?php
-                $mec_repeat_info = get_post_meta(get_the_ID(), 'mec_repeat', true);
-                ?>
                 <div class="mec-fes-btn-export">
-                    <span class="mec-event-export-csv">CSV</span>
-                    <span class="mec-event-export-excel">MS EXCEL</span>
+                    <span class="mec-event-export-csv"><?php esc_html_e('CSV', 'modern-events-calendar-lite'); ?></span>
+                    <span class="mec-event-export-excel"><?php esc_html_e('MS EXCEL', 'modern-events-calendar-lite'); ?></span>
                 </div>
             </div>
         </li>

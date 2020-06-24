@@ -256,6 +256,10 @@ class MEC_feature_mec extends MEC_base
 
         $event_id = $_POST['event_id'];
         $feature_class = new MEC_feature_mec();
+
+        $booking_options = get_post_meta($event_id, 'mec_booking', true);
+        $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+
         if($event_id != 'none')
         {
             $dates = $feature_class->db->select("SELECT `tstart`, `tend` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' LIMIT 100");
@@ -266,6 +270,11 @@ class MEC_feature_mec extends MEC_base
 
             echo '<select name="mec-report-event-dates" class="mec-reports-selectbox mec-reports-selectbox-dates" onchange="mec_event_attendees('.$event_id.', this.value);">';
             echo '<option value="none">'.esc_html__( "Select Date" , "mec").'</option>';
+
+            if($bookings_all_occurrences)
+            {
+                echo '<option value="all">'.esc_html__( "All" , "mec").'</option>';
+            }
 
             foreach($dates as $date)
             {

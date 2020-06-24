@@ -17,16 +17,16 @@ if(!isset($settings['bp_attendees_module']) or (isset($settings['bp_attendees_mo
 if(!function_exists('bp_activity_add')) return;
 
 $date = $event->date;
-$start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : date('Y-m-d');
+$timestamp = (isset($date['start']) and isset($date['start']['timestamp'])) ? $date['start']['timestamp'] : current_time('timestamp');
 
-$limit = isset($settings['bp_attendees_module_limit']) ? $settings['bp_attendees_module_limit'] : 20;
-$bookings = $this->get_bookings($event->data->ID, $start_date, $limit);
+$limit = isset($settings['bp_attendees_module_limit']) ? $settings['bp_attendees_module_limit'] : 30;
+$bookings = $this->get_bookings($event->data->ID, $timestamp, $limit);
 
 // Book Library
 $book = $this->getBook();
 
 // Start Date belongs to future but booking module cannot show so return without any output
-if(!$this->can_show_booking_module($event) and strtotime($start_date) > time()) return;
+if(!$this->can_show_booking_module($event) and $timestamp > time()) return;
 
 $attendees = array();
 foreach($bookings as $booking)

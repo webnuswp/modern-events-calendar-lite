@@ -197,15 +197,25 @@ class MEC_feature_fes extends MEC_base
     
     public function mec_fes_csv_export()
     {
-        if((!isset($_POST['mec_event_id'])) or (!isset($_POST['booking_ids'])) or (!isset($_POST['fes_nonce'])) or (!wp_verify_nonce($_POST['fes_nonce'], 'mec_fes_nonce'))) die(json_encode(array('ex' => "error")));
+        if((!isset($_POST['mec_event_id'])) or (!isset($_POST['fes_nonce'])) or (!wp_verify_nonce($_POST['fes_nonce'], 'mec_fes_nonce'))) die(json_encode(array('ex' => "error")));
 
         $event_id = intval($_POST['mec_event_id']);
-        $booking_ids = sanitize_text_field($_POST['booking_ids']);
+        $timestamp = isset($_POST['timestamp']) ? sanitize_text_field($_POST['timestamp']) : 0;
+        $booking_ids = '';
         
         ob_start();
         header('Content-Type: text/csv; charset=utf-8');
 
-        $post_ids = trim($booking_ids) ? explode(',', $booking_ids) : array();
+        if($timestamp)
+        {
+            $bookings = $this->main->get_bookings(get_the_ID(), $timestamp);
+            foreach($bookings as $booking)
+            {
+                $booking_ids .= $booking->ID.',';
+            }
+        }
+
+        $post_ids = trim($booking_ids) ? explode(',', trim($booking_ids, ', ')) : array();
         
         if(!count($post_ids))
         {
@@ -222,6 +232,7 @@ class MEC_feature_fes extends MEC_base
 
         $columns = array(__('ID', 'modern-events-calendar-lite'), __('Event', 'modern-events-calendar-lite'), __('Date', 'modern-events-calendar-lite'), __('Order Time', 'modern-events-calendar-lite'), $this->main->m('ticket', __('Ticket', 'modern-events-calendar-lite')), __('Transaction ID', 'modern-events-calendar-lite'), __('Total Price', 'modern-events-calendar-lite'), __('Name', 'modern-events-calendar-lite'), __('Email', 'modern-events-calendar-lite'), __('Ticket Variation', 'modern-events-calendar-lite'), __('Confirmation', 'modern-events-calendar-lite'), __('Verification', 'modern-events-calendar-lite'));
         $columns = apply_filters('mec_csv_export_columns', $columns);
+
         $reg_fields = $this->main->get_reg_fields($main_event_id);
         foreach($reg_fields as $reg_field_key=>$reg_field)
         {
@@ -236,6 +247,7 @@ class MEC_feature_fes extends MEC_base
 
             $columns[] = $label;
         }
+
         $columns[] = 'Attachments';
         $output = fopen('php://output', 'w');
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
@@ -259,7 +271,6 @@ class MEC_feature_fes extends MEC_base
             
             $confirmed = $this->main->get_confirmation_label(get_post_meta($post_id, 'mec_confirmed', true));
             $verified = $this->main->get_verification_label(get_post_meta($post_id, 'mec_verified', true));
-            $get_variations = array();
 
             $attachments = '';
             if(isset($attendees['attachments'])) 
@@ -270,32 +281,22 @@ class MEC_feature_fes extends MEC_base
                 }
             }
 
-            // Ticket Variations
-            if(isset($attendees) and is_array($attendees) and count($attendees))
-            {
-                $book = $this->getBook();
-                $transaction_id = get_post_meta($post_id, 'mec_transaction_id', true);
-                $ticket_variations = $this->main->ticket_variations($post_id);
-                $get_variations = $book->get_transaction($transaction_id);
-            }
+            $book = $this->getBook();
+            $ticket_variations = $this->main->ticket_variations($post_id);
+            $transaction = $book->get_transaction($transaction_id);
 
             $counter = 0;
             foreach($attendees as $key => $attendee)
             {
+                if($key === 'attachments') continue;
+                if(isset($attendee[0]['MEC_TYPE_OF_DATA'])) continue;
+
                 $ticket_variations_output = '';
-                if($key === 'attachments')
+                if(isset($transaction['tickets']) and is_array($transaction['tickets']) and isset($transaction['tickets'][$counter]) and isset($transaction['tickets'][$counter]['variations']))
                 {
-                    continue;
-                }
-                if(isset($attendee[0]['MEC_TYPE_OF_DATA']))
-                {
-                    continue;
-                }
-                if(isset($get_variations['tickets']) and is_array($get_variations['tickets']) and isset($get_variations['tickets'][$counter]) and isset($get_variations['tickets'][$counter]['variations']))
-                {
-                    for($i = 1; $i <= count($get_variations['tickets'][$counter]['variations']); $i++)
+                    foreach($transaction['tickets'][$counter]['variations'] as $variation_id => $variation_count)
                     {
-                        if((int) $get_variations['tickets'][$counter]['variations'][$i] > 0) $ticket_variations_output .= $ticket_variations[$i]['title'].": ( ".$get_variations['tickets'][$counter]['variations'][$i].' )'."\n";
+                        if($variation_count > 0) $ticket_variations_output .= $ticket_variations[$variation_id]['title'].": ( ".$variation_count.' )'."\n";
                     }
                 }
 
@@ -315,11 +316,13 @@ class MEC_feature_fes extends MEC_base
 
                     $booking[] = isset($reg_form[$field_id]) ? ((is_string($reg_form[$field_id]) and trim($reg_form[$field_id])) ? $reg_form[$field_id] : (is_array($reg_form[$field_id]) ? implode(' | ', $reg_form[$field_id]) : '---')) : '';
                 }
+
                 if($attachments)
                 {
                     $booking[]  = $attachments;
                     $attachments = '';
                 }
+
                 fputcsv($output, $booking);
                 $counter++;
             }
@@ -1172,8 +1175,6 @@ class MEC_feature_fes extends MEC_base
         $cancelled_reason = (isset($mec['cancelled_reason']) and filter_var($mec['cancelled_reason'], FILTER_VALIDATE_URL)) ? esc_url($mec['cancelled_reason']) : '';
         update_post_meta($post_id, 'mec_cancelled_reason', $cancelled_reason);
 
-        do_action('save_fes_meta_action' , $post_id , $mec);
-
         if($booking_date_update)
         {
             $render_date = $past_start_date . ':' . $past_end_date;
@@ -1227,10 +1228,14 @@ class MEC_feature_fes extends MEC_base
             }
         }
 
+        // MEC Fields
+        $fields = (isset($mec['fields']) and is_array($mec['fields'])) ? $mec['fields'] : array();
+        update_post_meta($post_id, 'mec_fields', $fields);
+
+        do_action('save_fes_meta_action', $post_id, $mec);
+
         // For Event Notification Badge.
-        if(isset($_REQUEST['mec']['post_id']) and trim($_REQUEST['mec']['post_id']) == '-1') {
-            update_post_meta($post_id, 'mec_event_date_submit', date('YmdHis', current_time('timestamp', 0)));
-        }
+        if(isset($_REQUEST['mec']['post_id']) and trim($_REQUEST['mec']['post_id']) == '-1') update_post_meta($post_id, 'mec_event_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
         $message = '';
         if($status == 'pending') $message = __('Event submitted. It will publish as soon as possible.', 'modern-events-calendar-lite');

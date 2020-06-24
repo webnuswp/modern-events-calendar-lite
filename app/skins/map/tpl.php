@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 // MEC Settings
 $settings = $this->main->get_settings();
-$settings['view_mode'] = isset($this->atts['location_view_mode'])?$this->atts['location_view_mode']:'normal';
+$settings['view_mode'] = isset($this->atts['sk-options']['map']['view_mode'])?$this->atts['sk-options']['map']['view_mode']:'normal';
 $settings['map'] = isset($settings['default_maps_view'])?$settings['default_maps_view']:'google';
 
 // Return the data if called by AJAX
@@ -56,10 +56,10 @@ do_action('mec_map_skin_head');
 ?>
 <?php if($settings['view_mode'] == 'normal') : ?>
 <div class="mec-wrap mec-skin-map-container <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->id; ?>">
-    
+
     <?php if($this->sf_status) echo $this->sf_search_form(); ?>
     <?php do_action('mec_map_skin_before_form',$settings); ?>
-    
+
     <?php if(count($this->events)): ?>
     <div class="mec-googlemap-skin" id="mec_map_canvas<?php echo $this->id; ?>" style="height: 500px;">
         <?php do_action( 'mec_map_inner_element_tools' ,$settings); ?>
@@ -67,7 +67,7 @@ do_action('mec_map_skin_head');
     <?php else: ?>
     <p class="mec-error"><?php _e('No events found!', 'modern-events-calendar-lite'); ?></p>
     <?php endif; ?>
-    
+
 </div>
 <?php else: ?>
 <div class="mec-wrap">

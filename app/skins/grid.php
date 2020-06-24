@@ -372,6 +372,9 @@ class MEC_skin_grid extends MEC_skins
                             // Next Offset
                             $this->next_offset = ($query->post_count-($query->current_post+1)) >= 0 ? ($query->current_post+1)+$this->offset : 0;
 
+                            usort($d, array($this, 'sort_day_events'));
+                            $events[$date] = $d;
+
                             // Restore original Post Data
                             wp_reset_postdata();
 

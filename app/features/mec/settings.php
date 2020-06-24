@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_mec $this */
+
 $settings = $this->main->get_settings();
 $archive_skins = $this->main->get_archive_skins();
 $category_skins = $this->main->get_category_skins();
@@ -556,12 +558,16 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 </label>
                             </div>
                             <div id="mec_google_recaptcha_container_toggle" class="<?php if((isset($settings['google_recaptcha_status']) and !$settings['google_recaptcha_status']) or !isset($settings['google_recaptcha_status'])) echo 'mec-util-hidden'; ?>">
+
+                                <?php if($this->getPro()): ?>
                                 <div class="mec-form-row">
                                     <label>
                                         <input type="hidden" name="mec[settings][google_recaptcha_booking]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][google_recaptcha_booking]" <?php if(isset($settings['google_recaptcha_booking']) and $settings['google_recaptcha_booking']) echo 'checked="checked"'; ?> /> <?php _e('Enable on booking form', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
+                                <?php endif; ?>
+
                                 <div class="mec-form-row">
                                     <label>
                                         <input type="hidden" name="mec[settings][google_recaptcha_fes]" value="0" />
@@ -690,6 +696,12 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 </div>
                             </div>
                             <h4 class="mec-form-subtitle"><?php _e('Frontend Event Submission Sections', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][fes_section_data_fields]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_data_fields]" <?php if(!isset($settings['fes_section_data_fields']) or (isset($settings['fes_section_data_fields']) and $settings['fes_section_data_fields'])) echo 'checked="checked"'; ?> /> <?php _e('Event Data Fields', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_event_links]" value="0" />

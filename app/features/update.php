@@ -338,12 +338,13 @@ class MEC_feature_update extends MEC_base
             $start_time_int = (int) get_post_meta($event_id, 'mec_start_day_seconds', true);
             $end_time_int = (int) get_post_meta($event_id, 'mec_end_day_seconds', true);
 
-            $start_time = $this->main->get_time($start_time_int);
-            $end_time = $this->main->get_time($end_time_int);
+            $start_time = gmdate('H:i:s', $start_time_int);
+            $end_time = gmdate('H:i:s', $end_time_int);
 
             $mec_date = get_post_meta($booking->ID, 'mec_date', true);
-            list($start_date, $end_date) = explode(':', $mec_date);
+            if(is_array($mec_date) and isset($mec_date['start']) and isset($mec_date['start']['date'])) $mec_date = $mec_date['start']['date'].':'.$mec_date['end']['date'];
 
+            list($start_date, $end_date) = explode(':', $mec_date);
             if(is_numeric($start_date) or is_numeric($end_date)) continue;
 
             $start_datetime = $start_date.' '.$start_time;

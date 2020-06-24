@@ -522,7 +522,8 @@ class MEC_main extends MEC_base
     /**
      * Returns MEC settings menus
      * @author Webnus <info@webnus.biz>
-     * @return array
+     * @param string $active_menu
+     * @return void
      */
     public function get_sidebar_menu($active_menu = 'settings')
     {
@@ -546,6 +547,7 @@ class MEC_main extends MEC_base
 
         $single_event = apply_filters('mec-settings-item-single_event', array(
             __('Single Event Page', 'modern-events-calendar-lite') => 'event_options',
+            __('Custom Fields', 'modern-events-calendar-lite') => 'event_form_option',
             __('Countdown Options', 'modern-events-calendar-lite') => 'countdown_option',
             __('Exceptional Days', 'modern-events-calendar-lite') => 'exceptional_option',
             __('Additional Organizers', 'modern-events-calendar-lite') => 'additional_organizers',
@@ -584,7 +586,6 @@ class MEC_main extends MEC_base
             __('New Event', 'modern-events-calendar-lite') => 'new_event',
             __('User Event Publishing', 'modern-events-calendar-lite') => 'user_event_publishing',
         ), $active_menu);
-
         ?>
         <ul class="wns-be-group-menu">
 
@@ -807,7 +808,7 @@ class MEC_main extends MEC_base
         <script type="text/javascript">
         jQuery(document).ready(function()
         {   
-            if ( jQuery('.mec-settings-menu').hasClass('active') )
+            if(jQuery('.mec-settings-menu').hasClass('active'))
             {
                 jQuery('.mec-settings-menu.active').find('ul li:first-of-type').addClass('active');
             }
@@ -827,22 +828,19 @@ class MEC_main extends MEC_base
                         scrollTop: jQuery("#"+ContentId+"").offset().top - 140
                     }, 300);
                 });
+
                 var hash = window.location.hash.replace('#', '');
                 jQuery('[data-id="'+hash+'"]').trigger('click');        
-            });   
-
-            
+            });
 
             jQuery(".wns-be-sidebar li ul li").on('click', function(event)
             {
                 jQuery(".wns-be-sidebar li ul li").removeClass('active');
                 jQuery(this).addClass('active');
             });
-
         });
         </script>
     <?php
-    
     }
 
     /**
@@ -989,7 +987,20 @@ class MEC_main extends MEC_base
             }
         }
 
-        return apply_filters( 'mec_get_reg_fields', $reg_fields, $event_id );
+        return apply_filters('mec_get_reg_fields', $reg_fields, $event_id);
+    }
+
+    /**
+     * Returns event form fields
+     * @author Webnus <info@webnus.biz>
+     * @return array
+     */
+    public function get_event_fields()
+    {
+        $options = $this->get_options();
+        $event_fields = isset($options['event_fields']) ? $options['event_fields'] : array();
+
+        return apply_filters('mec_get_event_fields', $event_fields);
     }
 
     /**
@@ -1125,6 +1136,7 @@ class MEC_main extends MEC_base
         // Get mec options
         $mec = $request->getVar('mec', array());
         if(isset($mec['reg_fields']) and !is_array($mec['reg_fields'])) $mec['reg_fields'] = array();
+        if(isset($mec['event_fields']) and !is_array($mec['event_fields'])) $mec['event_fields'] = array();
 
         $filtered = array();
         foreach($mec as $key=>$value) $filtered[$key] = (is_array($value) ? $value : array());
@@ -1161,6 +1173,31 @@ class MEC_main extends MEC_base
         {
             $current['reg_fields'] = array();
             $current['reg_fields'] = $filtered['reg_fields'];
+        }
+
+        // Bellow conditional block codes is used for sortable event form items.
+        if(isset($filtered['event_fields']))
+        {
+            if(is_array($filtered['event_fields']))
+            {
+                $filtered_event_fields_count = count($filtered['event_fields']);
+                if($filtered_event_fields_count)
+                {
+                    $filtered_event_fields_slice_first = array_slice($filtered['event_fields'], 0, $filtered_event_fields_count - 2);
+                    $filtered_event_fields_slice_last = array_slice($filtered['event_fields'], ($filtered_event_fields_count - 2), $filtered_event_fields_count, true);
+                    $filtered['event_fields'] = array_merge($filtered_event_fields_slice_first, $filtered_event_fields_slice_last);
+                }
+            }
+            else
+            {
+                $filtered['event_fields'] = array();
+            }
+        }
+
+        if(isset($current['event_fields']) and isset($filtered['event_fields']))
+        {
+            $current['event_fields'] = array();
+            $current['event_fields'] = $filtered['event_fields'];
         }
         
         // Generate New Options
@@ -2318,11 +2355,16 @@ class MEC_main extends MEC_base
                 $end_datetime = $dates[1].' '.$event->data->time['end'];
             }
 
-            $pdf->SetFont('DejaVuBold', '', 12);
-            $pdf->Write(6, __('Date & Time', 'modern-events-calendar-lite').': ');
-            $pdf->SetFont('DejaVu', '', 12);
-            $pdf->Write(6, trim($start_datetime).' - '.(($start_datetime != $end_datetime) ? $end_datetime.' ' : ''), '- ');
-            $pdf->Ln();
+            $booking_options = isset($event->meta['mec_booking']) ? $event->meta['mec_booking'] : array();
+            $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+            if(!$bookings_all_occurrences)
+            {
+                $pdf->SetFont('DejaVuBold', '', 12);
+                $pdf->Write(6, __('Date & Time', 'modern-events-calendar-lite').': ');
+                $pdf->SetFont('DejaVu', '', 12);
+                $pdf->Write(6, trim($start_datetime).' - '.(($start_datetime != $end_datetime) ? $end_datetime.' ' : ''), '- ');
+                $pdf->Ln();
+            }
 
             $pdf->SetFont('DejaVuBold', '', 12);
             $pdf->Write(6, __('Transaction ID', 'modern-events-calendar-lite').': ');
@@ -2605,12 +2647,13 @@ class MEC_main extends MEC_base
         $modified = strtotime($event->post->post_modified);
 
         $rrules = $this->get_ical_rrules($event);
+        $time_format = (isset($event->meta['mec_date']) and isset($event->meta['mec_date']['allday']) and $event->meta['mec_date']['allday']) ? 'Ymd' : 'Ymd\\THi00\\Z';
 
         $ical  = "BEGIN:VEVENT".PHP_EOL;
         $ical .= "UID:MEC-".md5($event_id)."@".$this->get_domain().PHP_EOL;
-        $ical .= "DTSTART:".gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)).PHP_EOL;
-        $ical .= "DTEND:".gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)).PHP_EOL;
-        $ical .= "DTSTAMP:".gmdate('Ymd\\THi00\\Z', ($stamp - $gmt_offset_seconds)).PHP_EOL;
+        $ical .= "DTSTART:".gmdate($time_format, ($start_time - $gmt_offset_seconds)).PHP_EOL;
+        $ical .= "DTEND:".gmdate($time_format, ($end_time - $gmt_offset_seconds)).PHP_EOL;
+        $ical .= "DTSTAMP:".gmdate($time_format, ($stamp - $gmt_offset_seconds)).PHP_EOL;
 
         if(is_array($rrules) and count($rrules))
         {
@@ -2705,12 +2748,13 @@ class MEC_main extends MEC_base
         
         $stamp = strtotime($event->post->post_date);
         $modified = strtotime($event->post->post_modified);
+        $time_format = (isset($event->meta['mec_date']) and isset($event->meta['mec_date']['allday']) and $event->meta['mec_date']['allday']) ? 'Ymd' : 'Ymd\\THi00\\Z';
 
         $ical  = "BEGIN:VEVENT".PHP_EOL;
         $ical .= "UID:MEC-".md5($event_id)."@".$this->get_domain().PHP_EOL;
-        $ical .= "DTSTART:".gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)).PHP_EOL;
-        $ical .= "DTEND:".gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)).PHP_EOL;
-        $ical .= "DTSTAMP:".gmdate('Ymd\\THi00\\Z', ($stamp - $gmt_offset_seconds)).PHP_EOL;
+        $ical .= "DTSTART:".gmdate($time_format, ($start_time - $gmt_offset_seconds)).PHP_EOL;
+        $ical .= "DTEND:".gmdate($time_format, ($end_time - $gmt_offset_seconds)).PHP_EOL;
+        $ical .= "DTSTAMP:".gmdate($time_format, ($stamp - $gmt_offset_seconds)).PHP_EOL;
         $ical .= "CREATED:".date('Ymd', $stamp).PHP_EOL;
         $ical .= "LAST-MODIFIED:".date('Ymd', $modified).PHP_EOL;
         $ical .= "SUMMARY:".html_entity_decode($event->title, ENT_NOQUOTES, 'UTF-8').PHP_EOL;
@@ -2869,58 +2913,57 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_text($key, $values = array())
+    public function field_text($key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Text', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Text', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="text" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="text" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
             </div>
         </li>';
-        
-        return $field;
     }
-
 
     /**
      * Show text field options in booking form
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-     public function field_name($key, $values = array())
+     public function field_name($key, $values = array(), $prefix = 'reg')
      {
-         $field = '<li id="mec_reg_fields_'.$key.'">
-             <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-             <span class="mec_reg_field_type">'.__('MEC Name', 'modern-events-calendar-lite').'</span>
-             <p class="mec_reg_field_options" style="display:none">
-                 <label for="mec_reg_fields_'.$key.'_mandatory">
-                     <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="1" />
-                     <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" checked="checked" disabled />
+         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+             <span class="mec_'.$prefix.'_field_type">'.__('MEC Name', 'modern-events-calendar-lite').'</span>
+             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+             <p class="mec_'.$prefix.'_field_options" style="display:none">
+                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" />
+                     <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" checked="checked" disabled />
                      '.__('Required Field', 'modern-events-calendar-lite').'
                  </label>
              </p>
-             <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
              <div>
-                 <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="name" />
-                 <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="name" />
+                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
              </div>
          </li>';
-         
-         return $field;
      }
 
      /**
@@ -2928,58 +2971,86 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-     public function field_mec_email($key, $values = array())
+     public function field_mec_email($key, $values = array(), $prefix = 'reg')
      {
-         $field = '<li id="mec_reg_fields_'.$key.'">
-             <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-             <span class="mec_reg_field_type">'.__('MEC Email', 'modern-events-calendar-lite').'</span>
-             <p class="mec_reg_field_options" style="display:none">
-                 <label for="mec_reg_fields_'.$key.'_mandatory">
-                     <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="1" />
-                     <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" checked="checked" disabled />
+         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+             <span class="mec_'.$prefix.'_field_type">'.__('MEC Email', 'modern-events-calendar-lite').'</span>
+             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+             <p class="mec_'.$prefix.'_field_options" style="display:none">
+                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" />
+                     <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" checked="checked" disabled />
                      '.__('Required Field', 'modern-events-calendar-lite').'
                  </label>
              </p>
-             <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
              <div>
-                 <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="mec_email" />
-                 <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="mec_email" />
+                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
              </div>
          </li>';
-         
-         return $field;
      }
-
     
     /**
      * Show email field options in booking form
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_email($key, $values = array())
+    public function field_email($key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Email', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Email', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="email" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="email" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
             </div>
         </li>';
-        
-        return $field;
+    }
+
+    /**
+     * Show URL field options in forms
+     * @author Webnus <info@webnus.biz>
+     * @param string $key
+     * @param array $values
+     * @param string $prefix
+     * @return string
+     */
+    public function field_url($key, $values = array(), $prefix = 'reg')
+    {
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('URL', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    '.__('Required Field', 'modern-events-calendar-lite').'
+                </label>
+            </p>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <div>
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="url" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+            </div>
+        </li>';
     }
 
     /**
@@ -2987,28 +3058,28 @@ class MEC_main extends MEC_base
     * @author Webnus <info@webnus.biz>
     * @param string $key
     * @param array $values
+    * @param string $prefix
     * @return string
     */
-    public function field_file($key, $values = array())
+    public function field_file($key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('File', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('File', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="file" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="file" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
             </div>
         </li>';
-        
-        return $field;
     }
 
     /**
@@ -3016,28 +3087,28 @@ class MEC_main extends MEC_base
     * @author Webnus <info@webnus.biz>
     * @param string $key
     * @param array $values
+    * @param string $prefix
     * @return string
     */
-    public function field_date($key, $values = array())
+    public function field_date($key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Date', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Date', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="date" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="date" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
             </div>
         </li>';
-        
-        return $field;
     }
     
     /**
@@ -3045,28 +3116,28 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_tel($key, $values = array())
+    public function field_tel($key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Tel', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Tel', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="tel" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="tel" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
             </div>
         </li>';
-        
-        return $field;
     }
     
     /**
@@ -3074,28 +3145,28 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_textarea($key, $values = array())
+    public function field_textarea($key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Textarea', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Textarea', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="textarea" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="textarea" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
             </div>
         </li>';
-        
-        return $field;
     }
     
     /**
@@ -3103,22 +3174,21 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_p($key, $values = array())
+    public function field_p($key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Paragraph', 'modern-events-calendar-lite').'</span>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+        return '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Paragraph', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="p" />
-                <textarea name="mec[reg_fields]['.$key.'][content]">'.(isset($values['content']) ? htmlentities(stripslashes($values['content'])) : '').'</textarea>
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="p" />
+                <textarea name="mec['.$prefix.'_fields]['.$key.'][content]">'.(isset($values['content']) ? htmlentities(stripslashes($values['content'])) : '').'</textarea>
                 <p class="description">'.__('HTML and shortcode are allowed.').'</p>
             </div>
         </li>';
-        
-        return $field;
     }
     
     /**
@@ -3126,39 +3196,41 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_checkbox($key, $values = array())
+    public function field_checkbox($key, $values = array(), $prefix = 'reg')
     {
         $i = 0;
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Checkboxes', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Checkboxes', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="checkbox" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
-                <ul id="mec_reg_fields_'.$key.'_options_container" class="mec_reg_fields_options_container">';
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="checkbox" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
         {
             foreach($values['options'] as $option_key=>$option)
             {
                 $i = max($i, $option_key);
-                $field .= $this->field_option($key, $option_key, $values);
+                $field .= $this->field_option($key, $option_key, $values, $prefix);
             }
         }
         
         $field .= '</ul>
-                <button type="button" class="mec-reg-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
-                <input type="hidden" id="mec_new_reg_field_option_key_'.$key.'" value="'.($i+1).'" />
+                <button type="button" class="mec-'.$prefix.'-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
+                <input type="hidden" id="mec_new_'.$prefix.'_field_option_key_'.$key.'" value="'.($i+1).'" />
             </div>
         </li>';
         
@@ -3170,39 +3242,41 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_radio($key, $values = array())
+    public function field_radio($key, $values = array(), $prefix = 'reg')
     {
         $i = 0;
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Radio Buttons', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Radio Buttons', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="radio" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
-                <ul id="mec_reg_fields_'.$key.'_options_container" class="mec_reg_fields_options_container">';
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="radio" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
         {
             foreach($values['options'] as $option_key=>$option)
             {
                 $i = max($i, $option_key);
-                $field .= $this->field_option($key, $option_key, $values);
+                $field .= $this->field_option($key, $option_key, $values, $prefix);
             }
         }
         
         $field .= '</ul>
-                <button type="button" class="mec-reg-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
-                <input type="hidden" id="mec_new_reg_field_option_key_'.$key.'" value="'.($i+1).'" />
+                <button type="button" class="mec-'.$prefix.'-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
+                <input type="hidden" id="mec_new_'.$prefix.'_field_option_key_'.$key.'" value="'.($i+1).'" />
             </div>
         </li>';
         
@@ -3214,39 +3288,41 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_select($key, $values = array())
+    public function field_select($key, $values = array(), $prefix = 'reg')
     {
         $i = 0;
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Dropdown', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+        $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Dropdown', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="select" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
-                <ul id="mec_reg_fields_'.$key.'_options_container" class="mec_reg_fields_options_container">';
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="select" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
         {
             foreach($values['options'] as $option_key=>$option)
             {
                 $i = max($i, $option_key);
-                $field .= $this->field_option($key, $option_key, $values);
+                $field .= $this->field_option($key, $option_key, $values, $prefix);
             }
         }
         
         $field .= '</ul>
-                <button type="button" class="mec-reg-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
-                <input type="hidden" id="mec_new_reg_field_option_key_'.$key.'" value="'.($i+1).'" />
+                <button type="button" class="mec-'.$prefix.'-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
+                <input type="hidden" id="mec_new_'.$prefix.'_field_option_key_'.$key.'" value="'.($i+1).'" />
             </div>
         </li>';
         
@@ -3258,31 +3334,33 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_agreement($key, $values = array())
+    public function field_agreement($key, $values = array(), $prefix = 'reg')
     {
         // WordPress Pages
         $pages = get_pages();
 
         $i = 0;
-        $field = '<li id="mec_reg_fields_'.$key.'">
-            <span class="mec_reg_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span class="mec_reg_field_type">'.__('Agreement', 'modern-events-calendar-lite').'</span>
-            <p class="mec_reg_field_options">
-                <label for="mec_reg_fields_'.$key.'_mandatory">
-                    <input type="hidden" name="mec[reg_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec[reg_fields]['.$key.'][mandatory]" value="1" id="mec_reg_fields_'.$key.'_mandatory" '.((!isset($values['mandatory']) or (isset($values['mandatory']) and $values['mandatory'])) ? 'checked="checked"' : '').' />
+        $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
+            <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span class="mec_'.$prefix.'_field_type">'.__('Agreement', 'modern-events-calendar-lite').'</span>
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            <p class="mec_'.$prefix.'_field_options">
+                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((!isset($values['mandatory']) or (isset($values['mandatory']) and $values['mandatory'])) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
-            <span onclick="mec_reg_fields_remove('.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
-                <input type="hidden" name="mec[reg_fields]['.$key.'][type]" value="agreement" />
-                <input type="text" name="mec[reg_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : 'I agree with %s').'" /><p class="description">'.__('Instead of %s, the page title with a link will be show.', 'modern-events-calendar-lite').'</p>
+                <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="agreement" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : 'I agree with %s').'" /><p class="description">'.__('Instead of %s, the page title with a link will be show.', 'modern-events-calendar-lite').'</p>
                 <div>
-                    <label for="mec_reg_fields_'.$key.'_page">'.__('Agreement Page', 'modern-events-calendar-lite').'</label>
-                    <select id="mec_reg_fields_'.$key.'_page" name="mec[reg_fields]['.$key.'][page]">';
+                    <label for="mec_'.$prefix.'_fields_'.$key.'_page">'.__('Agreement Page', 'modern-events-calendar-lite').'</label>
+                    <select id="mec_'.$prefix.'_fields_'.$key.'_page" name="mec['.$prefix.'_fields]['.$key.'][page]">';
 
                     $page_options = '';
                     foreach($pages as $page) $page_options .= '<option '.((isset($values['page']) and $values['page'] == $page->ID) ? 'selected="selected"' : '').' value="'.$page->ID.'">'.$page->post_title.'</option>';
@@ -3290,13 +3368,13 @@ class MEC_main extends MEC_base
                     $field .= $page_options.'</select>
                 </div>
                 <div>
-                    <label for="mec_reg_fields_'.$key.'_status">'.__('Status', 'modern-events-calendar-lite').'</label>
-                    <select id="mec_reg_fields_'.$key.'_status" name="mec[reg_fields]['.$key.'][status]">
+                    <label for="mec_'.$prefix.'_fields_'.$key.'_status">'.__('Status', 'modern-events-calendar-lite').'</label>
+                    <select id="mec_'.$prefix.'_fields_'.$key.'_status" name="mec['.$prefix.'_fields]['.$key.'][status]">
                         <option value="checked" '.((isset($values['status']) and $values['status'] == 'checked') ? 'selected="selected"' : '').'>'.__('Checked by default', 'modern-events-calendar-lite').'</option>
                         <option value="unchecked" '.((isset($values['status']) and $values['status'] == 'unchecked') ? 'selected="selected"' : '').'>'.__('Unchecked by default', 'modern-events-calendar-lite').'</option>
                     </select>
                 </div>
-                <input type="hidden" id="mec_new_reg_field_option_key_'.$key.'" value="'.($i+1).'" />
+                <input type="hidden" id="mec_new_'.$prefix.'_field_option_key_'.$key.'" value="'.($i+1).'" />
             </div>
         </li>';
 
@@ -3309,17 +3387,16 @@ class MEC_main extends MEC_base
      * @param string $field_key
      * @param string $key
      * @param array $values
+     * @param string $prefix
      * @return string
      */
-    public function field_option($field_key, $key, $values = array())
+    public function field_option($field_key, $key, $values = array(), $prefix = 'reg')
     {
-        $field = '<li id="mec_reg_fields_option_'.$field_key.'_'.$key.'">
-            <span class="mec_reg_field_option_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
-            <span onclick="mec_reg_fields_option_remove('.$field_key.','.$key.');" class="mec_reg_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
-            <input type="text" name="mec[reg_fields]['.$field_key.'][options]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this option', 'modern-events-calendar-lite').'" value="'.((isset($values['options']) and isset($values['options'][$key])) ? esc_attr(stripslashes($values['options'][$key]['label'])) : '').'" />
+        return '<li id="mec_'.$prefix.'_fields_option_'.$field_key.'_'.$key.'">
+            <span class="mec_'.$prefix.'_field_option_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
+            <span onclick="mec_'.$prefix.'_fields_option_remove('.$field_key.','.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
+            <input type="text" name="mec['.$prefix.'_fields]['.$field_key.'][options]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this option', 'modern-events-calendar-lite').'" value="'.((isset($values['options']) and isset($values['options'][$key])) ? esc_attr(stripslashes($values['options'][$key]['label'])) : '').'" />
         </li>';
-        
-        return $field;
     }
     
     /**
@@ -5216,12 +5293,41 @@ class MEC_main extends MEC_base
     /**
      * Returns Booking of a certain event at certain date
      * @param int $event_id
-     * @param string $date
+     * @param integer $timestamp
+     * @param integer|string $limit
      * @return array
      */
-    public function get_bookings($event_id, $date, $limit = '-1')
+    public function get_bookings($event_id, $timestamp, $limit = '-1')
     {
-        $time = strtotime($date);
+        $booking_options = get_post_meta($event_id, 'mec_booking', true);
+        if(!is_array($booking_options)) $booking_options = array();
+
+        $book_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? (int) $booking_options['bookings_all_occurrences'] : 0;
+
+        $year = date('Y', $timestamp);
+        $month = date('m', $timestamp);
+        $day = date('d', $timestamp);
+        $hour = date('H', $timestamp);
+        $minutes = date('i', $timestamp);
+
+        if(!$book_all_occurrences)
+        {
+            $date_query = array(
+                array(
+                    'year'=>$year,
+                    'monthnum'=>$month,
+                    'day'=>$day,
+                    'hour'=>$hour,
+                    'minute'=>$minutes,
+                ),
+            );
+        }
+        else
+        {
+            $date_query = array(
+                'before' => date('Y-m-d', $timestamp).' 23:59:59',
+            );
+        }
         
         $q = new WP_Query();
         return $q->query(array
@@ -5229,6 +5335,7 @@ class MEC_main extends MEC_base
             'post_type'=>$this->get_book_post_type(),
             'posts_per_page'=>$limit,
             'post_status'=>array('future', 'publish'),
+            'date_query'=>$date_query,
             'meta_query'=>array
             (
                 array(
@@ -5243,10 +5350,7 @@ class MEC_main extends MEC_base
                     'key'=>'mec_verified',
                     'value'=>1,
                 ),
-            ),
-            'year'=>date('Y', $time),
-            'monthnum'=>date('n', $time),
-            'day'=>date('j', $time),
+            )
         ));
     }
     
@@ -5527,14 +5631,15 @@ class MEC_main extends MEC_base
         wp_enqueue_script('mec-flipcount-script', $this->asset('js/flipcount.js'));
     }
     
-    public function is_sold($event, $date)
+    public function is_sold($event, $date = NULL)
     {
         $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
+        $timestamp = (isset($event->date['start']) and isset($event->date['start']['timestamp'])) ? $event->date['start']['timestamp'] : $date;
         
         // No Tickets
         if(!count($tickets)) return false;
         
-        $bookings = $this->get_bookings($event->data->ID, $date);
+        $bookings = $this->get_bookings($event->data->ID, $timestamp);
         
         // No Bookings
         if(!count($bookings)) return false;

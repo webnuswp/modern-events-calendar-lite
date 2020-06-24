@@ -494,6 +494,9 @@ class MEC_skins extends MEC_base
         // Search till the end of End Date!
         if(date('H:i:s', strtotime($end)) == '00:00:00') $end .= ' 23:59:59';
 
+        // Search From last second of start date
+        if($this->show_only_expired_events and date('Y-m-d', strtotime($start)) !== current_time('Y-m-d') and date('H:i:s', strtotime($start)) == '00:00:00') $start .= ' 23:59:59';
+
         $seconds_start = strtotime($start);
         $seconds_end = strtotime($end);
 
@@ -703,7 +706,7 @@ class MEC_skins extends MEC_base
             $this->end_date = $date;
 
             // Continue to load rest of events in the first date
-            if($i === 0) $this->args['offset'] = $this->offset;
+            if($i === 0 and $this->start_date === $date) $this->args['offset'] = $this->offset;
             // Load all events in the rest of dates
             else 
             {
@@ -749,6 +752,9 @@ class MEC_skins extends MEC_base
                     {
                         // Next Offset
                         $this->next_offset = ($query->post_count-($query->current_post+1)) >= 0 ? ($query->current_post+1)+$this->offset : 0;
+
+                        usort($d, array($this, 'sort_day_events'));
+                        $events[$date] = $d;
 
                         // Restore original Post Data
                         wp_reset_postdata();

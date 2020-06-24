@@ -442,7 +442,7 @@ class MEC_skin_single extends MEC_skins
         $md_start_time = $this->main->get_start_time_of_multiple_days($this->id, $occurrence_time);
         if($md_start_time) $occurrence_time = $md_start_time;
 
-        if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend'))) $occurrence = date('Y-m-d', strtotime($occurrence));
+        if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend', 'advanced'))) $occurrence = date('Y-m-d', strtotime($occurrence));
         elseif(strtotime($occurrence))
         {
             $new_occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
@@ -827,8 +827,8 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_booking_widget($event, $event_m)
     {
-        $occurrence = (isset($event->date['start']['date']) ? $event->date['start']['date'] : (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : ''));
-        if($this->main->is_sold($event, (trim($occurrence) ? $occurrence : $event->date['start']['date'])) and count($event->dates) <= 1) : ?>
+        if($this->main->is_sold($event) and count($event->dates) <= 1):
+        ?>
             <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); ?></div>
         <?php elseif($this->main->can_show_booking_module($event)):
             $data_lity_class = '';
@@ -1326,5 +1326,53 @@ class MEC_skin_single extends MEC_skins
             <?php endforeach; endif; ?>
         </div>
         <?php endif;
+    }
+
+    public function display_data_fields($event)
+    {
+        $display = isset($this->settings['display_event_fields']) ? (boolean) $this->settings['display_event_fields'] : true;
+        if(!$display) return;
+
+        $fields = $this->main->get_event_fields();
+        if(!is_array($fields) or (is_array($fields) and !count($fields))) return;
+
+        $data = (isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_fields']) and is_array($event->data->meta['mec_fields'])) ? $event->data->meta['mec_fields'] : get_post_meta($event->ID, 'mec_fields', true);
+        if(!is_array($data) or (is_array($data) and !count($data))) return;
+
+        foreach($fields as $n => $item): if(!is_numeric($n)) continue; // n meaning number 
+            $result = isset($data[$n]) ? $data[$n] : NULL; if((!is_array($result) and trim($result) == '') or (is_array($result) and !count($result))) continue;
+            $content = isset($field['type']) ? $field['type'] : 'text';
+        endforeach;
+        if ( isset($content) && $content != NULL ) {
+        ?>
+        <div class="mec-event-data-fields mec-frontbox">
+            <ul class="mec-event-data-field-items">
+                <?php foreach($fields as $f => $field): if(!is_numeric($f)) continue; ?>
+                <?php
+                    $value = isset($data[$f]) ? $data[$f] : NULL;
+                    if((!is_array($value) and trim($value) == '') or (is_array($value) and !count($value))) continue;
+
+                    $type = isset($field['type']) ? $field['type'] : 'text';
+                ?>
+                <li class="mec-event-data-field-item">
+                    <?php if(isset($field['label'])): ?>
+                    <span class="mec-event-data-field-name"><?php esc_html_e($field['label'], 'modern-events-calendar-lite'); ?>: </span>
+                    <?php endif; ?>
+
+                    <?php if($type === 'email'): ?>
+                        <span class="mec-event-data-field-value"><a href="mailto:<?php echo esc_attr($value); ?>"><?php echo esc_html($value); ?></a></span>
+                    <?php elseif($type === 'tel'): ?>
+                        <span class="mec-event-data-field-value"><a href="tel:<?php echo esc_attr($value); ?>"><?php echo esc_html($value); ?></a></span>
+                    <?php elseif($type === 'url'): ?>
+                        <span class="mec-event-data-field-value"><a href="<?php echo esc_url($value); ?>" target="_blank"><?php echo esc_html($value); ?></a></span>
+                    <?php else: ?>
+                        <span class="mec-event-data-field-value"><?php echo (is_array($value) ? esc_html(implode(', ', $value)) : esc_html($value)) ?></span>
+                    <?php endif; ?>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php
+        }
     }
 }

@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_mec $this */
+
 $settings = $this->main->get_settings();
 
 $fees = isset($settings['fees']) ? $settings['fees'] : array();

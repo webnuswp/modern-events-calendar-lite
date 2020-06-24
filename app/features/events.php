@@ -70,11 +70,18 @@ class MEC_feature_events extends MEC_base
         $this->factory->action('mec_metabox_details', array($this, 'meta_box_hourly_schedule'), 30);
         $this->factory->action('mec_metabox_details', array($this, 'meta_box_links'), 40);
         $this->factory->action('mec_metabox_details', array($this, 'meta_box_cost'), 50);
+        $this->factory->action('mec_metabox_details', array($this, 'meta_box_fields'), 60);
 
         // Hourly Schedule for FES
         if(!isset($this->settings['fes_section_hourly_schedule']) or (isset($this->settings['fes_section_hourly_schedule']) and $this->settings['fes_section_hourly_schedule']))
         {
             $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_hourly_schedule'), 30);
+        }
+
+        // Data Fields for FES
+        if(!isset($this->settings['fes_section_data_fields']) or (isset($this->settings['fes_section_data_fields']) and $this->settings['fes_section_data_fields']))
+        {
+            $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_fields'), 20);
         }
 
         // Show exceptional days if enabled
@@ -323,15 +330,18 @@ class MEC_feature_events extends MEC_base
 
         $fes_guest_email = get_post_meta($post->ID, 'fes_guest_email', true);
         $fes_guest_name = get_post_meta($post->ID, 'fes_guest_name', true);
+
+        $event_fields = $this->main->get_event_fields();
     ?>
         <div class="mec-add-event-tabs-wrap">
             <div class="mec-add-event-tabs-left">
                 <?php
                 $activated = '';
-                $single_event_meta_title = apply_filters('mec-single-event-meta-title', array(
+                $tabs = array(
                     __('FES Details', 'modern-events-calendar-lite') => 'mec_meta_box_fes_form',
                     __('Date And Time', 'modern-events-calendar-lite') => 'mec_meta_box_date_form',
                     __('Event Repeating', 'modern-events-calendar-lite') => 'mec_meta_box_repeat_form',
+                    __('Event Data', 'modern-events-calendar-lite') => 'mec-event-data',
                     __('Exceptional Days', 'modern-events-calendar-lite') => 'mec-exceptional-days',
                     __('Hourly Schedule', 'modern-events-calendar-lite') => 'mec-hourly-schedule',
                     __('Location/Venue', 'modern-events-calendar-lite') => 'mec-location',
@@ -339,7 +349,9 @@ class MEC_feature_events extends MEC_base
                     __('Organizer', 'modern-events-calendar-lite') => 'mec-organizer',
                     __('Cost', 'modern-events-calendar-lite') => 'mec-cost',
                     __('SEO Schema / Event Status', 'modern-events-calendar-lite') => 'mec-schema',
-                ), $activated);
+                );
+
+                $single_event_meta_title = apply_filters('mec-single-event-meta-title', $tabs, $activated);
 
                 foreach($single_event_meta_title as $link_name => $link_address)
                 {
@@ -350,6 +362,10 @@ class MEC_feature_events extends MEC_base
                     elseif($link_address == 'mec-exceptional-days')
                     {
                         if(isset($this->settings['exceptional_days']) and $this->settings['exceptional_days']) echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                    }
+                    elseif($link_address == 'mec-event-data')
+                    {
+                        if(count($event_fields)) echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
                     }
                     else
                     {
@@ -1096,7 +1112,79 @@ class MEC_feature_events extends MEC_base
         <?php
     }
 
+    public function meta_box_fields($post)
+    {
+        $event_fields = $this->main->get_event_fields();
+        $data = get_post_meta($post->ID, 'mec_fields', true);
+        ?>
+        <div class="mec-meta-box-fields mec-event-tab-content" id="mec-event-data">
+            <h4><?php echo __('Event Data', 'modern-events-calendar-lite'); ?></h4>
 
+            <?php foreach($event_fields as $j => $event_field): if(!is_numeric($j)) continue; ?>
+            <div class="mec-form-row">
+
+                <div class="mec-col-2">
+                    <?php
+                        $event_field_name = isset($event_field['label']) ? strtolower(str_replace([' ',',',':','"',"'"], '_', $event_field['label'])) : '';
+                        $value = isset($data[$j]) ? $data[$j] : NULL;
+                    ?>
+                    <?php if(isset($event_field['label'])): ?><label for="mec_event_fields_<?php echo $j; ?>"><?php _e($event_field['label'], 'modern-events-calendar-lite'); ?><?php echo ((isset($event_field['mandatory']) and $event_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?></label><?php endif; ?>
+                </div>
+
+                <div class="mec-col-10">
+                    <?php /** Text **/ if($event_field['type'] == 'text'): ?>
+                        <input id="mec_event_fields_<?php echo $j; ?>" type="text" name="mec[fields][<?php echo $j; ?>]" value="<?php echo esc_attr($value); ?>" placeholder="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?> />
+
+                    <?php /** Email **/ elseif($event_field['type'] == 'email'): ?>
+                        <input id="mec_event_fields_<?php echo $j; ?>" type="email" name="mec[fields][<?php echo $j; ?>]" value="<?php echo esc_attr($value); ?>" placeholder="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?> />
+
+                    <?php /** URL **/ elseif($event_field['type'] == 'url'): ?>
+                        <input id="mec_event_fields_<?php echo $j; ?>" type="url" name="mec[fields][<?php echo $j; ?>]" value="<?php echo esc_attr($value); ?>" placeholder="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?> />
+
+                    <?php /** Date **/ elseif($event_field['type'] == 'date'): ?>
+                        <input id="mec_event_fields_<?php echo $j; ?>" type="date" name="mec[fields][<?php echo $j; ?>]" value="<?php echo esc_attr($value); ?>" placeholder="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?> min="1970-01-01" max="2099-12-31" />
+
+                    <?php /** Tel **/ elseif($event_field['type'] == 'tel'): ?>
+                        <input id="mec_event_fields_<?php echo $j; ?>" oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" type="tel" name="mec[fields][<?php echo $j; ?>]" value="<?php echo esc_attr($value); ?>" placeholder="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?> />
+
+                    <?php /** Textarea **/ elseif($event_field['type'] == 'textarea'): ?>
+                        <textarea id="mec_event_fields_<?php echo $j; ?>" name="mec[fields][<?php echo $j; ?>]" placeholder="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?>><?php echo esc_textarea($value); ?></textarea>
+
+                    <?php /** Paragraph **/ elseif($event_field['type'] == 'p'):
+                        echo '<p>'.do_shortcode(stripslashes($event_field['content'])).'</p>';
+                        ?>
+
+                    <?php /** Dropdown **/ elseif($event_field['type'] == 'select'): ?>
+                        <select id="mec_event_fields_<?php echo $j; ?>" name="mec[fields][<?php echo $j; ?>]" title="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?>>
+                            <?php foreach($event_field['options'] as $event_field_option): ?>
+                                <option value="<?php esc_attr_e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" <?php echo ($event_field_option['label'] == $value ? 'selected="selected"' : ''); ?>><?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                    <?php /** Radio **/ elseif($event_field['type'] == 'radio'): ?>
+                        <?php foreach($event_field['options'] as $event_field_option): ?>
+                            <label for="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>">
+                                <input type="radio" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ($event_field_option['label'] == $value ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" />
+                                <?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>
+                            </label>
+                        <?php endforeach; ?>
+
+                    <?php /** Checkbox **/ elseif($event_field['type'] == 'checkbox'): ?>
+                        <?php foreach($event_field['options'] as $event_field_option): ?>
+                            <label for="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>">
+                                <input type="checkbox" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ((is_array($value) and in_array($event_field_option['label'], $value)) ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>][]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" />
+                                <?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>
+                            </label>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+
+            </div>
+            <?php endforeach; ?>
+
+        </div>
+        <?php
+    }
 
     /**
      * Show exceptions options of event into the Add/Edit event page
@@ -1758,10 +1846,10 @@ class MEC_feature_events extends MEC_base
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][end]"
                                                            value="<?php echo isset($price_date['end']) ? $this->main->standardize_format( $price_date['end'], $datepicker_format ) : $this->main->standardize_format( date( 'Y-m-d', strtotime( '+10 days' ) ), $datepicker_format ); ?>"
                                                            placeholder="<?php esc_attr_e('End', 'modern-events-calendar-lite'); ?>"/>
-                                                    <input class="mec-col-3" type="text"
+                                                    <input class="mec-col-3" type="number"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][price]"
                                                            value="<?php echo isset($price_date['price']) ? $price_date['price'] : ''; ?>"
-                                                           placeholder="<?php esc_attr_e('Price', 'modern-events-calendar-lite'); ?>"/>
+                                                           placeholder="<?php esc_attr_e('Price', 'modern-events-calendar-lite'); ?>" min="0" step="0.01"/>
                                                     <input class="mec-col-2" type="text"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][label]"
                                                            value="<?php echo isset($price_date['label']) ? $price_date['label'] : ''; ?>"
@@ -1786,9 +1874,9 @@ class MEC_feature_events extends MEC_base
                                                    name="mec[tickets][<?php echo $key; ?>][dates][:j:][end]"
                                                    value="<?php echo $this->main->standardize_format( date( 'Y-m-d', strtotime( '+10 days' ) ), $datepicker_format ); ?>"
                                                    placeholder="<?php esc_attr_e('End', 'modern-events-calendar-lite'); ?>"/>
-                                            <input class="mec-col-3" type="text"
+                                            <input class="mec-col-3" type="number"
                                                    name="mec[tickets][<?php echo $key; ?>][dates][:j:][price]"
-                                                   placeholder="<?php esc_attr_e('Price', 'modern-events-calendar-lite'); ?>"/>
+                                                   placeholder="<?php esc_attr_e('Price', 'modern-events-calendar-lite'); ?>" min="0" step="0.01"/>
                                             <input class="mec-col-2" type="text"
                                                    name="mec[tickets][<?php echo $key; ?>][dates][:j:][label]"
                                                    placeholder="<?php esc_attr_e('Label', 'modern-events-calendar-lite'); ?>"/>
@@ -1923,8 +2011,8 @@ class MEC_feature_events extends MEC_base
                                            name="mec[tickets][:i:][dates][:j:][end]"
                                            value="<?php echo $this->main->standardize_format( date( 'Y-m-d', strtotime( '+10 days' ) ), $datepicker_format ); ?>"
                                            placeholder="<?php esc_attr_e('End', 'modern-events-calendar-lite'); ?>"/>
-                                    <input class="mec-col-3" type="text" name="mec[tickets][:i:][dates][:j:][price]"
-                                           placeholder="<?php esc_attr_e('Price', 'modern-events-calendar-lite'); ?>"/>
+                                    <input class="mec-col-3" type="number" name="mec[tickets][:i:][dates][:j:][price]"
+                                           placeholder="<?php esc_attr_e('Price', 'modern-events-calendar-lite'); ?>" min="0" step="0.01"/>
                                     <input class="mec-col-2" type="text" name="mec[tickets][:i:][dates][:j:][label]"
                                            placeholder="<?php esc_attr_e('Label', 'modern-events-calendar-lite'); ?>"/>
                                     <button class="button mec-col-1" type="button"
@@ -3072,6 +3160,10 @@ class MEC_feature_events extends MEC_base
             }
         }
 
+        // MEC Fields
+        $fields = (isset($_mec['fields']) and is_array($_mec['fields'])) ? $_mec['fields'] : array();
+        update_post_meta($post_id, 'mec_fields', $fields);
+
         $mec_update = (isset($_REQUEST['original_publish']) and strtolower(trim($_REQUEST['original_publish'])) == 'publish') ? false : true;
         do_action('mec_after_publish_admin_event', $post_id, $mec_update);
     }
@@ -3691,6 +3783,7 @@ class MEC_feature_events extends MEC_base
     {
         $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
         $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
+        if($occurrence == 'all') $occurrence = strtotime('+100 years');
 
         $tickets = get_post_meta($id, 'mec_tickets', true);
         $ticket_variations = $this->main->ticket_variations($id);

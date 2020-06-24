@@ -174,6 +174,9 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
                 </div>
             </div>
 
+            <!-- Custom Data Fields -->
+            <?php $this->display_data_fields($event); ?>
+
             <!-- Links Module -->
             <?php echo $this->main->module('links.details', array('event'=>$event)); ?>
 
@@ -189,7 +192,7 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
             <?php $this->display_hourly_schedules_widget($event); ?>
 
             <!-- Booking Module -->
-            <?php if($this->main->is_sold($event, (trim($occurrence) ? $occurrence : $event->date['start']['date'])) and count($event->dates) <= 1): ?>
+            <?php if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
             <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); ?></div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-events-meta-group mec-events-meta-group-booking">
@@ -209,6 +212,7 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
             <div class="mec-events-meta-group mec-events-meta-group-tags">
                 <?php the_tags(__('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
             </div>
+
         </div>
     </article>
 </div>

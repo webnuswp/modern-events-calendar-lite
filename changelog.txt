@@ -1,4 +1,26 @@
-﻿v 5.6.1 – 16 June 2020
+﻿v 5.6.5 – 24 June 2020
+- Added: Custom Fields for event in backend
+- Added: Custom Fields for event in Frontend Submission Form
+- Added: Showing event data fields in event backend form
+- Added: showing event data fields in Frontend Event Submission
+- Added: Rearrange ability for Custom Fields
+- Added: An option to disable/enable the display of event fields in single skins
+- Added: Placeholders for data fields to be included in the notifications
+- Added: File URL to the %%attendees_full_info%% placeholder (pro)
+- Added: A new option in Reports menu to show all attendees of “Sell all occurrences by one booking” events (pro)
+- Added: An option to hide booking date and time in invoice of “Sell all occurrences by one booking” events (pro)
+- Fixed: Showing booking Google Recaptcha option (lite)
+- Fixed: Showing expired events
+- Fixed: Showing sold out label
+- Fixed: Date filter of booking manage page (pro)
+- Fixed: Showing dates and times in single events page in special cases
+- Fixed: The price of tickets (pro)
+- Fixed: iCal export in “All day” events
+- Fixed: The limit of events
+- Fixed: BuddyPress integration (pro)
+- Fixed: Some notices
+
+v 5.6.1 – 16 June 2020
 - Improved: Backend speed by refactoring the backend CSS and JS loading
 - Improved: Show errors upon featured image uploads in Frontend Event Submission if needed
 - Improved: The plugin uninstallation by removing more data
