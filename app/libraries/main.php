@@ -5824,7 +5824,8 @@ class MEC_main extends MEC_base
         ))) $locale = 'en';
 
         // Dark Sky Provider
-        $JSON = $this->get_web_page('https://api.darksky.net/forecast/'.$settings['weather_module_api_key'].'/'.$lat.','.$lng.','.strtotime($datetime).'?exclude=minutely,hourly,daily,alerts&units=ca&lang='.$locale);
+        // $JSON = $this->get_web_page('https://api.darksky.net/forecast/'.$settings['weather_module_api_key'].'/'.$lat.','.$lng.','.strtotime($datetime).'?exclude=minutely,hourly,daily,alerts&units=ca&lang='.$locale);
+        $JSON = $this->get_web_page('https://api.weatherapi.com/v1/forecast.json?key='.$settings['weather_module_api_key'].'&q='.$lat.','.$lng);
         $data = json_decode($JSON, true);
 
         return (isset($data['currently']) ? $data['currently'] : false);
