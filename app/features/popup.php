@@ -83,6 +83,7 @@ class MEC_feature_popup extends MEC_base
         $sed = isset($params['sed']) ? $params['sed'] : 0;
         $style = isset($params['style']) ? $params['style'] : 'clean';
         $event = isset($params['event']) ? $params['event'] : 0;
+        $custom_style = isset($params['custom_style']) ? $params['custom_style'] : '';
 
         $skin_options = array(
             'list' => array(
@@ -209,6 +210,9 @@ class MEC_feature_popup extends MEC_base
                 'start_date' => '',
                 'count' => 4,
                 'next_previous_button' => 1,
+            ),
+            'custom' => array(
+                'style' => $custom_style,
             ),
         );
 

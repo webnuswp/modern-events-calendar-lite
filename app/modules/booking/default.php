@@ -246,7 +246,7 @@ function mec_book_form_submit'.$uniqueid.'()
             else jQuery(this).removeClass("mec-red-notification");
         });
 
-        jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-reg-field-tel.mec-reg-mandatory, .mec-book-ticket-container .mec-book-reg-field-email.mec-reg-mandatory, .mec-book-ticket-container .mec-book-reg-field-text.mec-reg-mandatory").filter(":visible").each(function(i)
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-reg-field-tel.mec-reg-mandatory, .mec-book-ticket-container .mec-book-reg-field-email.mec-reg-mandatory, .mec-book-ticket-container .mec-book-reg-field-date.mec-reg-mandatory, .mec-book-ticket-container .mec-book-reg-field-text.mec-reg-mandatory").filter(":visible").each(function(i)
         {
             var ticket_id = jQuery(this).data("ticket-id");
             var field_id = jQuery(this).data("field-id");
@@ -278,6 +278,79 @@ function mec_book_form_submit'.$uniqueid.'()
             var field_id = jQuery(this).data("field-id");
 
             if(!jQuery("#mec_book_form'.$uniqueid.' textarea[name=\'book[tickets]["+ticket_id+"][reg]["+field_id+"]\']").val())
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
+        
+        // Fixed Fields
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-text.mec-reg-mandatory, #mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-date.mec-reg-mandatory, #mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-email.mec-reg-mandatory, #mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-tel.mec-reg-mandatory").filter(":visible").each(function(i)
+        {
+            var field_id = jQuery(this).data("field-id");
+
+            if(!jQuery("#mec_book_form'.$uniqueid.' input[name=\'book[fields]["+field_id+"]\']").val())
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
+        
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-checkbox.mec-reg-mandatory").filter(":visible").each(function(i)
+        {
+            var field_id = jQuery(this).data("field-id");
+
+            if(!jQuery("#mec_book_form'.$uniqueid.' input[name=\'book[fields]["+field_id+"][]\']").is(":checked"))
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
+        
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-radio.mec-reg-mandatory").filter(":visible").each(function(i)
+        {
+            var field_id = jQuery(this).data("field-id");
+
+            if(!jQuery("#mec_book_form'.$uniqueid.' input[name=\'book[fields]["+field_id+"]\']:checked").val())
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
+
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-agreement.mec-reg-mandatory").filter(":visible").each(function(i)
+        {
+            var field_id = jQuery(this).data("field-id");
+
+            if(!jQuery("#mec_book_form'.$uniqueid.' input[name=\'book[fields]["+field_id+"]\']:checked").val())
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
+        
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-select.mec-reg-mandatory").filter(":visible").each(function(i)
+        {
+            var field_id = jQuery(this).data("field-id");
+
+            if(!jQuery("#mec_book_form'.$uniqueid.' select[name=\'book[fields]["+field_id+"]\']").val())
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
+
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-bfixed-fields-container .mec-book-bfixed-field-textarea.mec-reg-mandatory").filter(":visible").each(function(i)
+        {
+            var field_id = jQuery(this).data("field-id");
+
+            if(!jQuery("#mec_book_form'.$uniqueid.' textarea[name=\'book[fields]["+field_id+"]\']").val())
             {
                 valid = false;
                 jQuery(this).addClass("mec-red-notification");

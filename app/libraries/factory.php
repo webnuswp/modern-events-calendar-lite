@@ -234,7 +234,6 @@ class MEC_factory extends MEC_base
      */
     public function load_backend_assets()
     {
-
         if($this->should_include_assets('backend'))
         {
             // Get Current Screen
@@ -333,7 +332,7 @@ class MEC_factory extends MEC_base
         if(class_exists('ET_Builder_Element')) $this->main->load_isotope_assets();
 
         include_once(ABSPATH.'wp-admin/includes/plugin.php');
-        if(is_plugin_active( 'elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
+        if(is_plugin_active('elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
         
         wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'));
         wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'));
@@ -1060,6 +1059,7 @@ class MEC_factory extends MEC_base
             $screen = get_current_screen();
 
             $base = $screen->base;
+            $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
             $post_type = $screen->post_type;
             $taxonomy = $screen->taxonomy;
 
@@ -1077,15 +1077,24 @@ class MEC_factory extends MEC_base
             if(method_exists($screen, 'is_block_editor') and $screen->is_block_editor()) return true;
 
             // It's one of MEC pages or the pages that MEC should work fine
-            if(trim($base) and in_array($base, array(
+            if((trim($base) and in_array($base, array(
                 'toplevel_page_mec-intro',
                 'm-e-calendar_page_MEC-settings',
                 'm-e-calendar_page_MEC-addons',
                 'm-e-calendar_page_MEC-report',
                 'm-e-calendar_page_MEC-ix',
                 'm-e-calendar_page_MEC-support',
+                'm-e-calendar_page_MEC-go-pro',
                 'widgets',
-            ))) return true;
+            ))) or (trim($page) and in_array($page, array(
+                'mec-intro',
+                'MEC-settings',
+                'MEC-addons',
+                'MEC-report',
+                'MEC-ix',
+                'MEC-support',
+                'MEC-go-pro',
+            )))) return true;
 
             return apply_filters('mec_include_backend_assets', false);
         }

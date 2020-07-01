@@ -2,6 +2,11 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_books $this */
+/** @var array $raw_tickets */
+/** @var array $price_details */
+/** @var string $transaction_id */
+
 $event_id = $event->ID;
 $gateways = $this->main->get_gateways();
 
@@ -20,12 +25,13 @@ foreach($gateways as $gateway)
 }
 
 $mecFluentEnable = class_exists('MEC_Fluent\Core\pluginBase\MecFluent') && (isset($this->settings['single_single_style']) and $this->settings['single_single_style'] == 'fluent') ? true : false;
-if ($mecFluentEnable) {
+if($mecFluentEnable)
+{
     $ticketsDetails = [];
-    foreach ($raw_tickets as $ticket_id => $count) {
-        if (!isset($event_tickets[$ticket_id])){
-            continue;
-        }
+    foreach($raw_tickets as $ticket_id => $count)
+    {
+        if(!isset($event_tickets[$ticket_id])) continue;
+
         $ticketPrice = isset($event_tickets[$ticket_id]['price']) ? $this->book->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d')) : 0;
         $ticketsDetails[$ticket_id]['name'] = $event_tickets[$ticket_id]['name'];
         $ticketsDetails[$ticket_id]['count'] = $count;

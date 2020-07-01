@@ -450,6 +450,22 @@ $settings = $this->main->get_settings();
                             </label>
                             <?php } ?>
                         </div>
+                        <div class="mec-skin-styles mec-styles-custom">
+                        <?php
+                        $args = [
+                            'post_type'   => 'mec_designer',
+                            'post_status' => 'publish',
+                            'order'       => 'DESC',
+                        ];
+                        $styles = new WP_Query( $args );
+                        ?>
+                        <h3 for="mec_shortcode_custom_style"><?php _e('Select Style', 'modern-events-calendar-lite'); ?></h3>
+                        <select class="mec-col-4 wn-mec-select" name="shortcode[custom_style]" id="mec_skin_custom_style">
+                            <?php foreach ( $styles->get_posts() as $post ) : ?>
+                                <option value="<?php echo esc_attr( $post->ID ) ?>" <?php isset( $sk_options_custom['style'] ) ? selected( $sk_options_custom['style'], $post->ID, true) : ''; ?> ><?php echo esc_html( $post->post_title ); ?></option>';
+                            <?php endforeach; ?>
+                        </select>
+                        </div>
                     </div>
                 </div>
                 <div class="mec-steps-content mec-steps-content-4">

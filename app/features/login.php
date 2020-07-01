@@ -45,7 +45,7 @@ class MEC_feature_login extends MEC_base
         $info['user_password'] = $_POST['password'];
         $info['remember'] = true;
 
-        $user_signon = wp_signon($info, false);
+        $user_signon = wp_signon($info, true); // secure_cookie set true.
         if(is_wp_error($user_signon))
         {
             echo json_encode(array('loggedin'=>false, 'message'=>__('<strong>'.esc_html__('Wrong username or password, reloading...' , 'modern-events-calendar-lite').'</strong>')));

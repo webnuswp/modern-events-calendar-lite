@@ -12,6 +12,9 @@ $ticket_variations = isset($settings['ticket_variations']) ? $settings['ticket_v
 // WordPress Pages
 $pages = get_pages();
 
+// User Roles
+$roles = array_reverse(wp_roles()->roles);
+
 // Verify the Purchase Code
 $verify = NULL;
 if($this->getPRO())
@@ -20,10 +23,13 @@ if($this->getPRO())
     $verify = $envato->get_MEC_info('dl');
 }
 
+$bfixed_fields = $this->main->get_bfixed_fields();
+if(!is_array($bfixed_fields)) $bfixed_fields = array();
 
 // Booking form
 $mec_email  = false;
 $mec_name   = false;
+
 $reg_fields = $this->main->get_reg_fields();
 if(!is_array($reg_fields)) $reg_fields = array();
 
@@ -127,6 +133,22 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <label for="mec_settings_booking_limit_collapse">
+                                            <input type="hidden" name="mec[settings][booking_limit_collapse]" value="0" />
+                                            <input type="checkbox" name="mec[settings][booking_limit_collapse]" id="mec_settings_booking_limit_collapse" <?php echo ((!isset($settings['booking_limit_collapse']) or (isset($settings['booking_limit_collapse']) and $settings['booking_limit_collapse'] == '1')) ? 'checked="checked"' : ''); ?> value="1" />
+                                            <?php _e('Collapse Ticket Selection', 'modern-events-calendar-lite'); ?>
+                                        </label>
+                                        <span class="mec-tooltip">
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('Collapse Ticket Selection', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("If you set the user limit to 1 then MEC collapse the ticket selection in booking form if your event has only 1 ticket. You can disable this feature by unchecking this checkbox.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_ip_restriction"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
                                         <select id="mec_settings_booking_ip_restriction" name="mec[settings][booking_ip_restriction]">
@@ -193,6 +215,24 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_user_role"><?php _e('User Role', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <select id="mec_settings_booking_user_role" name="mec[settings][booking_user_role]">
+                                            <option value="">----</option>
+                                            <?php foreach($roles as $role => $r): ?>
+                                                <option <?php echo ((isset($settings['booking_user_role']) and $settings['booking_user_role'] == $role) ? 'selected="selected"' : ''); ?> value="<?php echo $role; ?>"><?php echo $r['name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('User Role', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("MEC creates a user for main attendee after each booking. Default role of the user is subscriber but you can change it if needed.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
                                     <div class="mec-col-12">
                                         <label for="mec_settings_booking_first_for_all">
                                             <input type="hidden" name="mec[settings][booking_first_for_all]" value="0" />
@@ -200,12 +240,12 @@ $gateways_options = $this->main->get_gateways_options();
                                             <?php _e('Enable Express Attendees Form', 'modern-events-calendar-lite'); ?>
                                         </label>
                                         <span class="mec-tooltip">
-                                        <div class="box top">
-                                            <h5 class="title"><?php _e('Attendees Form', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Apply the info from the first attendee to all purchased ticket by that user. Uncheck if you want every ticket to have its own attendee’s info.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
-                                        </div>
-                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                    </span>                                            
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('Attendees Form', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Apply the info from the first attendee to all purchased ticket by that user. Uncheck if you want every ticket to have its own attendee’s info.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
@@ -464,118 +504,192 @@ $gateways_options = $this->main->get_gateways_options();
 
                         <div id="booking_form_option" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Booking Form', 'modern-events-calendar-lite'); ?></h4>
-                            <div class="mec-container">
-                                <?php do_action( 'before_mec_reg_fields_form' ); ?>
-                                <?php do_action( 'mec_reg_fields_form_start' ); ?>
-                                <div class="mec-form-row" id="mec_reg_form_container">
-                                    <?php /** Don't remove this hidden field **/ ?>
-                                    <input type="hidden" name="mec[reg_fields]" value="" />
+                            <div class="mec-booking-per-attendee-fields">
+                                <h5 class="mec-form-subtitle"><?php _e('Per Attendee Fields', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="mec-container">
+                                    <?php do_action('before_mec_reg_fields_form'); ?>
+                                    <?php do_action('mec_reg_fields_form_start'); ?>
+                                    <div class="mec-form-row" id="mec_reg_form_container">
+                                        <?php /** Don't remove this hidden field **/ ?>
+                                        <input type="hidden" name="mec[reg_fields]" value="" />
 
-                                    <ul id="mec_reg_form_fields">
-                                        <?php
-                                        $i = 0;
-                                        foreach ( $reg_fields as $key => $reg_field ) {
-                                            if ( ! is_numeric( $key ) ) {
-                                                continue;
-                                            }
-                                            $i = max( $i, $key );
+                                        <ul id="mec_reg_form_fields">
+                                            <?php
+                                            $i = 0;
+                                            foreach($reg_fields as $key => $reg_field)
+                                            {
+                                                if(!is_numeric($key)) continue;
+                                                $i = max( $i, $key );
 
-                                            if ( $reg_field['type'] == 'text' ) {
-                                                echo $this->main->field_text( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'name' ) {
-                                                echo $this->main->field_name( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'mec_email' ) {
-                                                echo $this->main->field_mec_email( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'email' ) {
-                                                echo $this->main->field_email( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'date' ) {
-                                                echo $this->main->field_date( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'file' ) {
-                                                echo $this->main->field_file( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'tel' ) {
-                                                echo $this->main->field_tel( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'textarea' ) {
-                                                echo $this->main->field_textarea( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'p' ) {
-                                                echo $this->main->field_p( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'checkbox' ) {
-                                                echo $this->main->field_checkbox( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'radio' ) {
-                                                echo $this->main->field_radio( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'select' ) {
-                                                echo $this->main->field_select( $key, $reg_field );
-                                            } elseif ( $reg_field['type'] == 'agreement' ) {
-                                                echo $this->main->field_agreement( $key, $reg_field );
+                                                if($reg_field['type'] == 'text') echo $this->main->field_text( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'name') echo $this->main->field_name( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'mec_email') echo $this->main->field_mec_email( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'email') echo $this->main->field_email( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'date') echo $this->main->field_date( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'file') echo $this->main->field_file( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'tel') echo $this->main->field_tel( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'textarea') echo $this->main->field_textarea( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'p') echo $this->main->field_p( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'checkbox') echo $this->main->field_checkbox( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'radio') echo $this->main->field_radio( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'select') echo $this->main->field_select( $key, $reg_field );
+                                                elseif($reg_field['type'] == 'agreement') echo $this->main->field_agreement( $key, $reg_field );
                                             }
-                                        }
-                                        ?>
-                                    </ul>
-                                    <div id="mec_reg_form_field_types">
-                                        <button type="button" class="button red" data-type="name"><?php _e( 'MEC Name', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button red" data-type="mec_email"><?php _e( 'MEC Email', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="text"><?php _e( 'Text', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="email"><?php _e( 'Email', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="date"><?php _e( 'Date', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="tel"><?php _e( 'Tel', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="file"><?php _e( 'File', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="textarea"><?php _e( 'Textarea', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="checkbox"><?php _e( 'Checkboxes', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="radio"><?php _e( 'Radio Buttons', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="select"><?php _e( 'Dropdown', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="agreement"><?php _e( 'Agreement', 'modern-events-calendar-lite' ); ?></button>
-                                        <button type="button" class="button" data-type="p"><?php _e( 'Paragraph', 'modern-events-calendar-lite' ); ?></button>
+                                            ?>
+                                        </ul>
+                                        <div id="mec_reg_form_field_types">
+                                            <button type="button" class="button red" data-type="name"><?php _e( 'MEC Name', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button red" data-type="mec_email"><?php _e( 'MEC Email', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="text"><?php _e( 'Text', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="email"><?php _e( 'Email', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="date"><?php _e( 'Date', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="tel"><?php _e( 'Tel', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="file"><?php _e( 'File', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="textarea"><?php _e( 'Textarea', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="checkbox"><?php _e( 'Checkboxes', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="radio"><?php _e( 'Radio Buttons', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="select"><?php _e( 'Dropdown', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="agreement"><?php _e( 'Agreement', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="p"><?php _e( 'Paragraph', 'modern-events-calendar-lite' ); ?></button>
+                                        </div>
+                                        <?php do_action( 'mec_reg_fields_form_end' ); ?>
                                     </div>
-                                    <?php do_action( 'mec_reg_fields_form_end' ); ?>
+                                    <?php do_action( 'after_mec_reg_fields_form' ); ?>
                                 </div>
-                                <div class="mec-form-row">
-                                    <?php wp_nonce_field( 'mec_options_form' ); ?>
-                                    <button  style="display: none;" id="mec_reg_fields_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e( 'Save Changes', 'modern-events-calendar-lite' ); ?></button>
+                                <input type="hidden" id="mec_new_reg_field_key" value="<?php echo $i + 1; ?>" />
+                                <div class="mec-util-hidden">
+                                    <div id="mec_reg_field_text">
+                                        <?php echo $this->main->field_text( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_email">
+                                        <?php echo $this->main->field_email( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_mec_email">
+                                        <?php echo $this->main->field_mec_email( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_name">
+                                        <?php echo $this->main->field_name( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_tel">
+                                        <?php echo $this->main->field_tel( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_date">
+                                        <?php echo $this->main->field_date( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_file">
+                                        <?php echo $this->main->field_file( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_textarea">
+                                        <?php echo $this->main->field_textarea( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_checkbox">
+                                        <?php echo $this->main->field_checkbox( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_radio">
+                                        <?php echo $this->main->field_radio( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_select">
+                                        <?php echo $this->main->field_select( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_agreement">
+                                        <?php echo $this->main->field_agreement( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_p">
+                                        <?php echo $this->main->field_p( ':i:' ); ?>
+                                    </div>
+                                    <div id="mec_reg_field_option">
+                                        <?php echo $this->main->field_option( ':fi:', ':i:' ); ?>
+                                    </div>
                                 </div>
-                                <?php do_action( 'after_mec_reg_fields_form' ); ?>
                             </div>
-                            <input type="hidden" id="mec_new_reg_field_key" value="<?php echo $i + 1; ?>" />
-                            <div class="mec-util-hidden">
-                                <div id="mec_reg_field_text">
-                                    <?php echo $this->main->field_text( ':i:' ); ?>
+                            <div class="mec-booking-fixed-fields">
+                                <h5 class="mec-form-subtitle"><?php _e('Fixed Fields', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="mec-container">
+                                    <?php do_action('before_mec_bfixed_fields_form'); ?>
+                                    <?php do_action('mec_bfixed_fields_form_start'); ?>
+                                    <div class="mec-form-row" id="mec_bfixed_form_container">
+                                        <?php /** Don't remove this hidden field **/ ?>
+                                        <input type="hidden" name="mec[bfixed_fields]" value="" />
+
+                                        <ul id="mec_bfixed_form_fields">
+                                            <?php
+                                            $b = 0;
+                                            foreach($bfixed_fields as $key => $bfixed_field)
+                                            {
+                                                if(!is_numeric($key)) continue;
+                                                $b = max($b, $key);
+
+                                                if($bfixed_field['type'] == 'text') echo $this->main->field_text( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'name') echo $this->main->field_name( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'mec_email') echo $this->main->field_mec_email( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'email') echo $this->main->field_email( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'date') echo $this->main->field_date( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'file') echo $this->main->field_file( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'tel') echo $this->main->field_tel( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'textarea') echo $this->main->field_textarea( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'p') echo $this->main->field_p( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'checkbox') echo $this->main->field_checkbox( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'radio') echo $this->main->field_radio( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'select') echo $this->main->field_select( $key, $bfixed_field, 'bfixed' );
+                                                elseif($bfixed_field['type'] == 'agreement') echo $this->main->field_agreement( $key, $bfixed_field, 'bfixed' );
+                                            }
+                                            ?>
+                                        </ul>
+                                        <div id="mec_bfixed_form_field_types">
+                                            <button type="button" class="button" data-type="text"><?php _e( 'Text', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="email"><?php _e( 'Email', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="date"><?php _e( 'Date', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="tel"><?php _e( 'Tel', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="textarea"><?php _e( 'Textarea', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="checkbox"><?php _e( 'Checkboxes', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="radio"><?php _e( 'Radio Buttons', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="select"><?php _e( 'Dropdown', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="agreement"><?php _e( 'Agreement', 'modern-events-calendar-lite' ); ?></button>
+                                            <button type="button" class="button" data-type="p"><?php _e( 'Paragraph', 'modern-events-calendar-lite' ); ?></button>
+                                        </div>
+                                        <?php do_action( 'mec_bfixed_fields_form_end' ); ?>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <?php wp_nonce_field( 'mec_options_form' ); ?>
+                                        <button  style="display: none;" id="mec_reg_fields_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e( 'Save Changes', 'modern-events-calendar-lite' ); ?></button>
+                                    </div>
+                                    <?php do_action( 'after_mec_bfixed_fields_form' ); ?>
                                 </div>
-                                <div id="mec_reg_field_email">
-                                    <?php echo $this->main->field_email( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_mec_email">
-                                    <?php echo $this->main->field_mec_email( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_name">
-                                    <?php echo $this->main->field_name( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_tel">
-                                    <?php echo $this->main->field_tel( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_date">
-                                    <?php echo $this->main->field_date( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_file">
-                                    <?php echo $this->main->field_file( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_textarea">
-                                    <?php echo $this->main->field_textarea( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_checkbox">
-                                    <?php echo $this->main->field_checkbox( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_radio">
-                                    <?php echo $this->main->field_radio( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_select">
-                                    <?php echo $this->main->field_select( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_agreement">
-                                    <?php echo $this->main->field_agreement( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_p">
-                                    <?php echo $this->main->field_p( ':i:' ); ?>
-                                </div>
-                                <div id="mec_reg_field_option">
-                                    <?php echo $this->main->field_option( ':fi:', ':i:' ); ?>
+                                <input type="hidden" id="mec_new_bfixed_field_key" value="<?php echo $b + 1; ?>" />
+                                <div class="mec-util-hidden">
+                                    <div id="mec_bfixed_field_text">
+                                        <?php echo $this->main->field_text(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_email">
+                                        <?php echo $this->main->field_email(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_tel">
+                                        <?php echo $this->main->field_tel(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_date">
+                                        <?php echo $this->main->field_date(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_textarea">
+                                        <?php echo $this->main->field_textarea(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_checkbox">
+                                        <?php echo $this->main->field_checkbox(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_radio">
+                                        <?php echo $this->main->field_radio(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_select">
+                                        <?php echo $this->main->field_select(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_agreement">
+                                        <?php echo $this->main->field_agreement(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_p">
+                                        <?php echo $this->main->field_p(':i:', array(), 'bfixed'); ?>
+                                    </div>
+                                    <div id="mec_bfixed_field_option">
+                                        <?php echo $this->main->field_option(':fi:', ':i:', array(), 'bfixed'); ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -768,6 +768,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     <input value="1" type="checkbox" name="mec[settings][fes_section_hourly_schedule]" <?php if(!isset($settings['fes_section_hourly_schedule']) or (isset($settings['fes_section_hourly_schedule']) and $settings['fes_section_hourly_schedule'])) echo 'checked="checked"'; ?> /> <?php _e('Hourly Schedule', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
+                            <?php if (  $this->getPRO() ) : ?>
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_booking]" value="0" />
@@ -786,6 +787,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     <input value="1" type="checkbox" name="mec[settings][fes_section_ticket_variations]" <?php if(!isset($settings['fes_section_ticket_variations']) or (isset($settings['fes_section_ticket_variations']) and $settings['fes_section_ticket_variations'])) echo 'checked="checked"'; ?> /> <?php _e('Ticket Variations / Options', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
+                            <?php endif; ?>
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_schema]" value="0" />
@@ -966,6 +968,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     </div>
                                 </div>
                             </div>
+
                             <div id="campaign_monitor_option" class="mec-options-fields">
                                 <h4 class="mec-form-subtitle"><?php _e('Campaign Monitor Integration', 'modern-events-calendar-lite'); ?></h4>
                                 <div class="mec-form-row">
@@ -1068,25 +1071,25 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 </div>
                             </div>
 
-                        <?php endif; ?>
+                            <div id="uploadfield_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('Upload Field Options', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_booking_form_upload_field_mime_types"><?php _e('Mime types', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <input type="text" id="mec_booking_form_upload_field_mime_types" name="mec[settings][upload_field_mime_types]" placeholder="jpeg,jpg,png,pdf" value="<?php echo ((isset($settings['upload_field_mime_types']) and trim($settings['upload_field_mime_types']) != '') ? $settings['upload_field_mime_types'] : ''); ?>" />
+                                    </div>
+                                    <p class="description"><?php echo __('Split mime types with ",".', 'modern-events-calendar-lite'); ?> <br /> <?php esc_attr_e("Default: jpeg,jpg,png,pdf", 'modern-events-calendar-lite'); ?></p>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_booking_form_upload_field_max_upload_size"><?php _e('Maximum file size', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <input type="number" id="mec_booking_form_upload_field_max_upload_size" name="mec[settings][upload_field_max_upload_size]" value="<?php echo ((isset($settings['upload_field_max_upload_size']) and trim($settings['upload_field_max_upload_size']) != '') ? $settings['upload_field_max_upload_size'] : ''); ?>" />
+                                    </div>
+                                    <p class="description"><?php echo __('The unit is Megabyte "MB"', 'modern-events-calendar-lite'); ?></p>
+                                </div>
+                            </div>
 
-                        <div id="uploadfield_option" class="mec-options-fields">
-                            <h4 class="mec-form-subtitle"><?php _e('Upload Field Options', 'modern-events-calendar-lite'); ?></h4>
-                            <div class="mec-form-row">
-                                <label class="mec-col-3" for="mec_booking_form_upload_field_mime_types"><?php _e('Mime types', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
-                                    <input type="text" id="mec_booking_form_upload_field_mime_types" name="mec[settings][upload_field_mime_types]" placeholder="jpeg,jpg,png,pdf" value="<?php echo ((isset($settings['upload_field_mime_types']) and trim($settings['upload_field_mime_types']) != '') ? $settings['upload_field_mime_types'] : ''); ?>" />
-                                </div>
-                                <p class="description"><?php echo __('Split mime types with ",".', 'modern-events-calendar-lite'); ?> <br /> <?php esc_attr_e("Default: jpeg,jpg,png,pdf", 'modern-events-calendar-lite'); ?></p>
-                            </div>
-                            <div class="mec-form-row">
-                                <label class="mec-col-3" for="mec_booking_form_upload_field_max_upload_size"><?php _e('Maximum file size', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
-                                    <input type="number" id="mec_booking_form_upload_field_max_upload_size" name="mec[settings][upload_field_max_upload_size]" value="<?php echo ((isset($settings['upload_field_max_upload_size']) and trim($settings['upload_field_max_upload_size']) != '') ? $settings['upload_field_max_upload_size'] : ''); ?>" />
-                                </div>
-                                <p class="description"><?php echo __('The unit is Megabyte "MB"', 'modern-events-calendar-lite'); ?></p>
-                            </div>
-                        </div>
+                        <?php endif; ?>
 
                         <?php do_action('mec-settings-page-before-form-end',$settings) ?>
 

@@ -16,6 +16,7 @@ do_action('rss_tag_pre', 'rss2');
 	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
 	xmlns:mec="http://webnus.net/rss/mec/"
+    xmlns:media="http://search.yahoo.com/mrss/"
 	<?php do_action('rss2_ns'); ?>>
 <channel>
 	<title><?php wp_title_rss(); ?></title>
@@ -51,6 +52,10 @@ do_action('rss_tag_pre', 'rss2');
         <?php if(get_comments_number($event->ID) or comments_open($event->ID)): ?>
 		<wfw:commentRss><?php echo esc_url(get_post_comments_feed_link($event->ID, 'rss2')); ?></wfw:commentRss>
 		<slash:comments><?php echo get_comments_number($event->ID); ?></slash:comments>
+        <?php endif; ?>
+
+        <?php if(has_post_thumbnail($event->ID)): $thumbnail_ID = get_post_thumbnail_id($event->ID); $thumbnail = wp_get_attachment_image_src($thumbnail_ID, 'large'); ?>
+        <media:content medium="image" url="<?php echo $thumbnail[0]; ?>" width="<?php echo $thumbnail[1]; ?>" height="<?php echo $thumbnail[2]; ?>" />
         <?php endif; ?>
 
         <mec:startDate><?php echo $date; ?></mec:startDate>

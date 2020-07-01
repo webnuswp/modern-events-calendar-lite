@@ -4,6 +4,7 @@ defined('MECEXEC') or die();
 
 $event_id = $event->ID;
 $reg_fields = $this->main->get_reg_fields($event_id);
+$bfixed_fields = $this->main->get_bfixed_fields($event_id);
 
 $date_ex = explode(':', $date);
 $occurrence = $date_ex[0];
@@ -59,6 +60,69 @@ if(!$mec_email)
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);" novalidate="novalidate" enctype="multipart/form-data" method="post">
     <h4><?php echo apply_filters('mec-attendees-title', __('Attendee\'s Form', 'modern-events-calendar-lite')) ?></h4>
+
+    <?php if(is_array($bfixed_fields) and count($bfixed_fields)): ?>
+    <ul class="mec-book-bfixed-fields-container">
+        <?php foreach($bfixed_fields as $bfixed_field_id=>$bfixed_field): if(!is_numeric($bfixed_field_id) or !isset($bfixed_field['type'])) continue; ?>
+        <li class="mec-book-bfixed-field-<?php echo $bfixed_field['type']; ?> <?php echo ((isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) ? 'mec-reg-mandatory' : ''); ?>" data-field-id="<?php echo $bfixed_field_id; ?>">
+
+            <?php if(isset($bfixed_field['label']) and $bfixed_field['type'] != 'agreement'): ?>
+            <label for="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>"><?php _e($bfixed_field['label'], 'modern-events-calendar-lite'); ?><?php echo ((isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?></label>
+            <?php endif; ?>
+
+            <?php /** Text **/ if($bfixed_field['type'] == 'text'): ?>
+            <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="text" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) echo 'placeholder="'.$bfixed_field['placeholder'].'" '; ?> <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> />
+
+            <?php /** Date **/ elseif($bfixed_field['type'] == 'date'): ?>
+            <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="date" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> min="1970-01-01" max="2099-12-31" />
+
+            <?php /** Email **/ elseif($bfixed_field['type'] == 'email'): ?>
+            <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="email" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> />
+
+            <?php /** Tel **/ elseif($bfixed_field['type'] == 'tel'): ?>
+            <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" type="tel" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> />
+
+            <?php /** Textarea **/ elseif($bfixed_field['type'] == 'textarea'): ?>
+            <textarea id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" name="book[fields][<?php echo $bfixed_field_id; ?>]" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?>></textarea>
+
+            <?php /** Dropdown **/ elseif($bfixed_field['type'] == 'select'): ?>
+            <select id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" name="book[fields][<?php echo $bfixed_field_id; ?>]" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?>>
+                <?php foreach($bfixed_field['options'] as $bfixed_field_option): ?>
+                <option value="<?php esc_attr_e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?>"><?php _e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?></option>
+                <?php endforeach; ?>
+            </select>
+
+            <?php /** Radio **/ elseif($bfixed_field['type'] == 'radio'): ?>
+            <?php foreach($bfixed_field['options'] as $bfixed_field_option): ?>
+            <label for="mec_book_bfixed_field_reg<?php echo $bfixed_field_id.'_'.strtolower(str_replace(' ', '_', $bfixed_field_option['label'])); ?>">
+                <input type="radio" id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id.'_'.strtolower(str_replace(' ', '_', $bfixed_field_option['label'])); ?>" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="<?php _e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?>" />
+                <?php _e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?>
+            </label>
+            <?php endforeach; ?>
+
+            <?php /** Checkbox **/ elseif($bfixed_field['type'] == 'checkbox'): ?>
+            <?php foreach($bfixed_field['options'] as $bfixed_field_option): ?>
+            <label for="mec_book_bfixed_field_reg<?php echo $bfixed_field_id.'_'.strtolower(str_replace(' ', '_', $bfixed_field_option['label'])); ?>">
+                <input type="checkbox" id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id.'_'.strtolower(str_replace(' ', '_', $bfixed_field_option['label'])); ?>" name="book[fields][<?php echo $bfixed_field_id; ?>][]" value="<?php _e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?>" />
+                <?php _e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?>
+            </label>
+            <?php endforeach; ?>
+
+            <?php /** Agreement **/ elseif($bfixed_field['type'] == 'agreement'): ?>
+            <label for="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>">
+                <input type="checkbox" id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="1" <?php echo (!isset($bfixed_field['status']) or (isset($bfixed_field['status']) and $bfixed_field['status'] == 'checked')) ? 'checked="checked"' : ''; ?> onchange="mec_agreement_change(this);"/>
+                <?php echo ((isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?>
+                <?php echo sprintf(__(stripslashes($bfixed_field['label']), 'modern-events-calendar-lite'), '<a href="'.get_the_permalink($bfixed_field['page']).'" target="_blank">'.get_the_title($bfixed_field['page']).'</a>'); ?>
+            </label>
+
+            <?php /** Paragraph **/ elseif($bfixed_field['type'] == 'p'): ?>
+            <p><?php echo do_shortcode(stripslashes($bfixed_field['content'])); ?></p>
+            <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
+
     <ul class="mec-book-tickets-container">
 
         <?php $j = 0; foreach($tickets as $ticket_id=>$count): if(!$count) continue; $ticket = $event_tickets[$ticket_id]; for($i = 1; $i <= $count; $i++): $j++; $total_ticket_prices += $this->book->get_ticket_price($ticket, current_time('Y-m-d'));?>
@@ -94,6 +158,7 @@ if(!$mec_email)
 
                 <?php /** Text **/ elseif($reg_field['type'] == 'text'): ?>
                 <input id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" type="text" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) {_e($reg_field['placeholder'], 'modern-events-calendar-lite');} else {_e($reg_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) echo 'placeholder="'.$reg_field['placeholder'].'" '; ?> <?php if(isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> />
+
                 <?php /** Date **/ elseif($reg_field['type'] == 'date'): ?>
                 <input id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" type="date" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) {_e($reg_field['placeholder'], 'modern-events-calendar-lite');} else {_e($reg_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> min="1970-01-01" max="2099-12-31" />
 

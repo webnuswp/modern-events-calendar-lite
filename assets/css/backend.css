@@ -693,12 +693,14 @@ body.post-type-mec-books th.column-author {
     }
 }
 
+#mec_bfixed_form_fields,
 #mec_event_form_fields,
 #mec_reg_form_fields {
     background: #eee;
     padding: 20px
 }
 
+#mec_bfixed_form_fields li,
 #mec_event_form_fields li,
 #mec_reg_form_fields li {
     margin: 4px;
@@ -709,6 +711,8 @@ body.post-type-mec-books th.column-author {
     transition: all .3s ease
 }
 
+
+#mec_bfixed_form_fields li ul,
 #mec_event_form_fields li ul,
 #mec_reg_form_fields li ul {
     padding-top: 15px;
@@ -716,11 +720,13 @@ body.post-type-mec-books th.column-author {
     margin: 1px
 }
 
+#mec_bfixed_form_fields li ul li,
 #mec_event_form_fields li ul li,
 #mec_reg_form_fields li ul li {
     padding: 7px 30px 7px 46px
 }
 
+#mec_bfixed_form_fields span.mec_event_field_type,
 #mec_event_form_fields span.mec_event_field_type,
 #mec_reg_form_fields span.mec_reg_field_type {
     font-size: 11px;
@@ -730,6 +736,9 @@ body.post-type-mec-books th.column-author {
     letter-spacing: 2px
 }
 
+#mec_bfixed_form_fields span.mec_bfixed_field_option_sort,
+#mec_bfixed_form_fields span.mec_bfixed_field_remove,
+#mec_bfixed_form_fields span.mec_bfixed_field_sort,
 #mec_event_form_fields span.mec_event_field_option_sort,
 #mec_event_form_fields span.mec_event_field_remove,
 #mec_event_form_fields span.mec_event_field_sort,
@@ -740,6 +749,7 @@ body.post-type-mec-books th.column-author {
     color: #fff
 }
 
+#mec_bfixed_form_fields span.mec_bfixed_field_remove,
 #mec_event_form_fields span.mec_event_field_remove,
 #mec_reg_form_fields span.mec_reg_field_remove {
     position: absolute;
@@ -747,6 +757,9 @@ body.post-type-mec-books th.column-author {
     top: 0
 }
 
+#mec_bfixed_form_fields span.mec_bfixed_field_option_sort:before,
+#mec_bfixed_form_fields span.mec_bfixed_field_remove:before,
+#mec_bfixed_form_fields span.mec_bfixed_field_sort:before,
 #mec_event_form_fields span.mec_event_field_option_sort:before,
 #mec_event_form_fields span.mec_event_field_remove:before,
 #mec_event_form_fields span.mec_event_field_sort:before,
@@ -766,6 +779,7 @@ body.post-type-mec-books th.column-author {
     color: #888
 }
 
+#mec_bfixed_form_fields span.mec_bfixed_field_remove:before,
 #mec_event_form_fields span.mec_event_field_remove:before,
 #mec_reg_form_fields span.mec_reg_field_remove:before {
     content: "\e082";
@@ -777,6 +791,7 @@ body.post-type-mec-books th.column-author {
     cursor: pointer
 }
 
+#mec_bfixed_form_fields span.mec_bfixed_field_option_sort:before,
 #mec_event_form_fields span.mec_event_field_option_sort:before,
 #mec_reg_form_fields span.mec_reg_field_option_sort:before {
     font-size: 13px;
@@ -786,6 +801,7 @@ body.post-type-mec-books th.column-author {
     height: 14px
 }
 
+#mec_bfixed_form_fields li ul li span.mec_bfixed_field_remove,
 #mec_event_form_fields li ul li span.mec_event_field_remove,
 #mec_reg_form_fields li ul li span.mec_reg_field_remove {
     right: auto;
@@ -793,11 +809,13 @@ body.post-type-mec-books th.column-author {
     top: 2px
 }
 
+#mec_bfixed_form_fields p.mec_bfixed_field_options,
 #mec_event_form_fields p.mec_event_field_options,
 #mec_reg_form_fields p.mec_reg_field_options {
     margin: 6px 0 8px
 }
 
+#mec_bfixed_form_fields input[type=number],#mec_bfixed_form_fields input[type=text],#mec_bfixed_form_fields select,#mec_bfixed_form_fields textarea,
 #mec_event_form_fields input[type=number],#mec_event_form_fields input[type=text],#mec_event_form_fields select,#mec_event_form_fields textarea,
 #mec_reg_form_fields input[type=number],#mec_reg_form_fields input[type=text],#mec_reg_form_fields select,#mec_reg_form_fields textarea {
     min-width: 260px;
@@ -806,11 +824,13 @@ body.post-type-mec-books th.column-author {
     margin-top: 7px
 }
 
+#mec_bfixed_form_fields textarea,
 #mec_event_form_fields textarea,
 #mec_reg_form_fields textarea {
     min-height: 66px
 }
 
+#mec_bfixed_form_field_types button,#mec_bfixed_form_fields button,
 #mec_event_form_field_types button,#mec_event_form_fields button,
 #mec_reg_form_field_types button,#mec_reg_form_fields button {
     position: relative;
@@ -831,12 +851,14 @@ body.post-type-mec-books th.column-author {
     box-shadow: 0 0 3px rgba(0,0,0,.03)
 }
 
+#mec_bfixed_form_field_types button:hover,#mec_bfixed_form_fields button:hover,
 #mec_event_form_field_types button:hover,#mec_event_form_fields button:hover,
 #mec_reg_form_field_types button:hover,#mec_reg_form_fields button:hover {
     border-color: #008aff;
     box-shadow: 0 0 7px rgba(0,0,0,.1)
 }
 
+#mec_bfixed_form_field_types button:before,#mec_bfixed_form_fields button:before,
 #mec_event_form_field_types button:before,#mec_event_form_fields button:before,
 #mec_reg_form_field_types button:before,#mec_reg_form_fields button:before {
     position: absolute;
@@ -848,12 +870,14 @@ body.post-type-mec-books th.column-author {
     display: inline-block
 }
 
+#mec_bfixed_form_field_types button.red:hover,#mec_bfixed_form_fields button.red:hover,
 #mec_event_form_field_types button.red:hover,#mec_event_form_fields button.red:hover,
 #mec_reg_form_field_types button.red:hover,#mec_reg_form_fields button.red:hover {
     border-color: red;
     box-shadow: 0 0 7px rgba(0,0,0,.1)
 }
 
+#mec_bfixed_form_field_types button.red:before,#mec_bfixed_form_fields button.red:before,
 #mec_event_form_field_types button.red:before,#mec_event_form_fields button.red:before,
 #mec_reg_form_field_types button.red:before,#mec_reg_form_fields button.red:before {
     position: absolute;
@@ -865,20 +889,22 @@ body.post-type-mec-books th.column-author {
     display: inline-block
 }
 
+#mec_bfixed_form_fields .mec_bfixed_notification_placeholder, 
 #mec_event_form_fields .mec_event_notification_placeholder {
     padding: 2px;
     display: block;
     margin: 10px 0 20px;
 }
 
-
 @media (max-width: 768px) {
+    #mec_bfixed_form_fields input[type=number],#mec_bfixed_form_fields input[type=text],#mec_bfixed_form_fields select,#mec_bfixed_form_fields textarea,
     #mec_event_form_fields input[type=number],#mec_event_form_fields input[type=text],#mec_event_form_fields select,#mec_event_form_fields textarea,
     #mec_reg_form_fields input[type=number],#mec_reg_form_fields input[type=text],#mec_reg_form_fields select,#mec_reg_form_fields textarea {
         min-width:80px;
         width: 100%
     }
 }
+
 
 .mec-form-row {
     margin: 0 auto 16px;
@@ -8931,7 +8957,6 @@ div#mec_meta_box_date_form .mec-form-row {
     background: linear-gradient(95deg,#36a2ff 0,#008aff 50%,#0072ff 100%);
     border: none;
     transition: .24s;
-    linear-height: 1.4;
     padding: 6px 22px;
 }
 
@@ -9074,8 +9099,10 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-infobar,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields button, 
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_field_types button, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_bfixed_form_fields button, 
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields li,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields li,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_bfixed_form_fields li,
 .mec-admin-dark-mode.post-type-mec-events #screen-meta-links .show-settings,
 .mec-admin-dark-mode.post-type-mec-events #screen-meta,
 .mec-admin-dark-mode.post-type-mec-events div.mce-toolbar-grp,
@@ -9112,6 +9139,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode .w-clearfix.w-box.mec-addons-notification-box-wrap span,
 .mec-admin-dark-mode .w-clearfix.w-box.mec-cmsg-notification-box-wrap span,
 .mec-admin-dark-mode .w-box,
+.mec-admin-dark-mode #webnus-dashboard .mec-pro-notice .info-msg,
 .mec-admin-dark-mode .wns-be-main,
 .mec-admin-dark-mode .wns-be-main .mec-container,
 .mec-admin-dark-mode #mec_metabox_details,
@@ -9168,6 +9196,11 @@ div#mec_meta_box_date_form .mec-form-row {
     color: #000;
 }
 
+.mec-admin-dark-mode ul#adminmenu a.wp-has-current-submenu:after,
+.mec-admin-dark-mode ul#adminmenu>li.current>a.current:after{
+    border-right-color: #23282d;
+}
+
 .mec-admin-dark-mode.m-e-calendar_page_MEC-report .select2-dropdown,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-container--default .select2-selection--multiple,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_gateways_form li .mec-gateway-options-form,
@@ -9209,8 +9242,9 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .tmce-active .switch-tmce,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wp-switch-editor,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .select2-container--default .select2-selection--multiple,
-.mec-admin-dark-mode.m-e-calendar_page_MEC-settings  #mec_event_form_fields button, 
-.mec-admin-dark-mode.m-e-calendar_page_MEC-settings  #mec_reg_form_field_types button, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields button, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_field_types button, 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_bfixed_form_fields button, 
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .wns-be-container #wns-be-footer,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings .mec-custom-msg-notification-set-box.extra,
 .mec-admin-dark-mode.post-type-mec_calendars .mec-custom-nice-select ul.list li.option,
@@ -9259,6 +9293,7 @@ div#mec_meta_box_date_form .mec-form-row {
     border-color: #353535;
 }
 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-go-pro,
 .mec-admin-dark-mode.post-type-mec-books input[type=email],
 .mec-admin-dark-mode.post-type-mec-books input[type=url],
 .mec-admin-dark-mode.post-type-mec-books select,
@@ -9469,6 +9504,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode #mec_styles_form #mec_styles_CSS,
 .mec-admin-dark-mode #mec-advanced-wraper div:first-child>ul>ul>li,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_event_form_fields,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_bfixed_form_fields,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-settings #mec_reg_form_fields {
     background: #000;
 }
@@ -9543,6 +9579,8 @@ div#mec_meta_box_date_form .mec-form-row {
     color: #D2D2D2;
 }
 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report h2,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-report h4,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-support #webnus-dashboard .mec-faq-accordion-trigger a,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-report .mec-report-selected-event-attendees-wrap .w-clearfix.mec-attendees-head span,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-ix h1,
@@ -9602,6 +9640,8 @@ div#mec_meta_box_date_form .mec-form-row {
     color: #fff !important;
 }
 
+.mec-admin-dark-mode.m-e-calendar_page_MEC-go-pro,
+.mec-admin-dark-mode.m-e-calendar_page_MEC-go-pro h1,
 .mec-admin-dark-mode.post-type-mec-books,
 .mec-admin-dark-mode.post-type-mec-books h1,
 .mec-admin-dark-mode.m-e-calendar_page_MEC-support,
@@ -9621,8 +9661,8 @@ div#mec_meta_box_date_form .mec-form-row {
     color: #D2D2D2;
 }
 
-.mec-admin-dark-mode.m-e-calendar_page_MEC-report .w-theme-version,
-.mec-admin-dark-mode.toplevel_page_mec-intro .w-theme-version {
+.mec-admin-dark-mode .w-theme-version,
+.mec-admin-dark-mode .w-theme-version {
     box-shadow: 0 3px 30px -4px #000;
     background: #000;
     background: linear-gradient(95deg,#000 0,#282828 50%,#1f1f1f 100%);
@@ -9880,10 +9920,52 @@ div#mec_meta_box_date_form .mec-form-row {
     background: #282828;
 }
 
+.mec-admin-dark-mode.taxonomy-mec_tag .button,
+.mec-admin-dark-mode.taxonomy-mec_category .button,
+.mec-admin-dark-mode.taxonomy-mec_label .button,
+.mec-admin-dark-mode.taxonomy-mec_location .button,
+.mec-admin-dark-mode.taxonomy-mec_organizer .button,
+.mec-admin-dark-mode.taxonomy-mec_speaker .button {
+    box-shadow: 0 3px 10px -4px #000 !important;
+}
+
 .mec-admin-dark-mode.post-type-mec_calendars .wn-mec-select .option .wn-hover-img-sh img,
 .mec-admin-dark-mode.post-type-mec_calendars .mec-switcher input+label:after {
     background: #282828;
 }
+
+/* Media Dark Mode */
+.mec-admin-dark-mode .media-router .media-menu-item:focus {
+    box-shadow: unset;
+}
+
+.mec-admin-dark-mode .media-router .media-menu-item {
+    background: #282828;
+    color: #ffff;
+}
+
+.mec-admin-dark-mode .media-router .media-menu-item:hover {
+    color: #d2d2d2;
+}
+
+.mec-admin-dark-mode .media-router .active,
+.mec-admin-dark-mode .media-router .media-menu-item.active:last-child {
+    background: #000;
+    color: #666;
+    border-color: #282828;
+}
+
+.mec-admin-dark-mode .attachment-info,
+.mec-admin-dark-mode .media-frame-toolbar .media-toolbar {
+    border-color: #282828;
+}
+
+.mec-admin-dark-mode .wp-core-ui .attachment-preview,
+.mec-admin-dark-mode.post-type-mec-events .button:hover {
+    background: #000 !important;
+}
+
+
 
 /* Dashboard Widget */
 .mec-metabox-head-version img,.mec-metabox-head-version p {
@@ -10230,4 +10312,52 @@ div#mec_cancelled_reason_wrapper label {
         margin: 15px 0;
     }
 
+}
+
+/* Popup Custom Design */
+.mec-skin-styles.mec-styles-custom {
+    padding-left: 0 !important;
+    top: 40%;
+    position: absolute;
+    width: 330px;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.mec-skin-styles.mec-styles-custom .nice-select {
+    box-shadow: 0 3px 13px -5px rgba(0, 0, 0, .1), inset 0 1px 2px rgba(0, 0, 0, .07);
+    clear: unset !important;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid 1px #e8e8e8;
+    box-sizing: border-box;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    height: 42px;
+    line-height: 40px;
+    outline: 0;
+    padding-left: 18px;
+    padding-right: 30px;
+    position: relative;
+    text-align: left !important;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    width: 300px !important;
+}
+
+.mec-styles-custom h3 {
+    font-size: 13px;
+    font-weight: 400;
+    color: #707070;
 }

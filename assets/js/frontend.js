@@ -3706,25 +3706,34 @@ function mec_focus_week(id, skin) {
         return Math.round((0.6214 * parseFloat(value)));
     }
 
-    $(document).ready(function ($) {
+    $(document).ready(function ($)
+    {
         var degree = $('.mec-weather-summary-temp');
         var weather_extra = $('.mec-weather-extras');
         var wind = weather_extra.children('.mec-weather-wind');
         var visibility = weather_extra.children('.mec-weather-visibility');
+        var feelslike = weather_extra.children('.mec-weather-feels-like');
 
         //  Events
-        $('.degrees-mode').click(function () {
+        $('.degrees-mode').on('click', function()
+        {
             var degree_mode = degree.children('var').text().trim();
             var wind_text = wind.text().substring(5);
             var visibility_text = visibility.text().substring(11);
+            var feelslike_text = feelslike.text().substring(12);
 
-            if (degree_mode == degree.data('c').trim()) {
+            if(degree_mode == degree.data('c').trim())
+            {
                 degree.html(convertToF(parseInt(degree.text())) + ' <var>' + degree.data('f') + '</var>');
+                feelslike.html('<span>Feels Like:</span> ' + convertToF(parseInt(feelslike_text)) + ' <var>' + feelslike.data('f') + '</var>');
                 wind.html('<span>Wind:</span> ' + KPHToMPH(parseInt(wind_text)) + '<var>' + wind.data('mph') + '</var>');
                 visibility.html('<span>Visibility:</span> ' + KPHToMPH(parseInt(visibility_text)) + '<var>' + visibility.data('mph') + '</var>');
                 $(this).text($(this).data('metric'));
-            } else if (degree_mode == degree.data('f').trim()) {
+            }
+            else if(degree_mode == degree.data('f').trim())
+            {
                 degree.html(convertToC(parseInt(degree.text())) + ' <var>' + degree.data('c') + '</var>');
+                feelslike.html('<span>Feels Like:</span> ' + convertToC(parseInt(feelslike_text)) + ' <var>' + feelslike.data('c') + '</var>');
                 wind.html('<span>Wind:</span> ' + MPHToKPH(parseInt(wind_text)) + '<var>' + wind.data('kph') + '</var>');
                 visibility.html('<span>Visibility:</span> ' + MPHToKPH(parseInt(visibility_text)) + '<var>' + visibility.data('kph') + '</var>');
                 $(this).text($(this).data('imperial'));

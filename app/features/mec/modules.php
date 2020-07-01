@@ -27,7 +27,6 @@ if($this->getPRO())
 
     <div class="wns-be-sidebar">
         <?php $this->main->get_sidebar_menu('modules'); ?>
-        
     </div>
 
     <div class="wns-be-main">
@@ -236,10 +235,16 @@ if($this->getPRO())
                                 </div>
                                 <div id="mec_weather_module_container_toggle" class="<?php if((isset($settings['weather_module_status']) and !$settings['weather_module_status']) or !isset($settings['weather_module_status'])) echo 'mec-util-hidden'; ?>">
                                     <div class="mec-form-row">
-                                        <label class="mec-col-3" for="mec_settings_weather_module_api_key"><?php _e('API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <label class="mec-col-3" for="mec_settings_weather_module_wa_api_key"><?php _e('weatherapi.com API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-8">
+                                            <input type="text" name="mec[settings][weather_module_wa_api_key]" id="mec_settings_weather_module_wa_api_key" value="<?php echo ((isset($settings['weather_module_wa_api_key']) and trim($settings['weather_module_wa_api_key']) != '') ? $settings['weather_module_wa_api_key'] : ''); ?>">
+                                            <p><?php echo sprintf(__('You can get a free one at %s', 'modern-events-calendar-lite'), '<a href="https://www.weatherapi.com/signup.aspx" target="_blank">weatherapi.com</a>'); ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_weather_module_api_key"><?php _e('darksky.net API Key', 'modern-events-calendar-lite'); ?></label>
                                         <div class="mec-col-8">
                                             <input type="text" name="mec[settings][weather_module_api_key]" id="mec_settings_weather_module_api_key" value="<?php echo ((isset($settings['weather_module_api_key']) and trim($settings['weather_module_api_key']) != '') ? $settings['weather_module_api_key'] : ''); ?>">
-                                            <p><?php echo sprintf(__('You can get a free API Key from %s', 'modern-events-calendar-lite'), '<a target="_blank" href="https://darksky.net/dev/register">https://darksky.net/dev/register</a>'); ?></p>
                                         </div>
                                     </div>
                                     <div class="mec-form-row">

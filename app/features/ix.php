@@ -3904,7 +3904,7 @@ class MEC_feature_ix extends MEC_base
         }
 
         $events = array();
-        $next_page = 'https://graph.facebook.com/v3.2/'.$fb_page_id.'/events/?access_token='.$this->fb_access_token;
+        $next_page = 'https://graph.facebook.com/v7.0/'.$fb_page_id.'/events/?access_token='.$this->fb_access_token;
         
         do
         {
@@ -3951,7 +3951,7 @@ class MEC_feature_ix extends MEC_base
         $post_ids = array();
         foreach($f_events as $f_event_id)
         {
-            $events_result = $this->main->get_web_page('https://graph.facebook.com/v5.0/'.$f_event_id.'?access_token='.$this->fb_access_token);
+            $events_result = $this->main->get_web_page('https://graph.facebook.com/v7.0/'.$f_event_id.'?fields=name,place,description,start_time,end_time,cover&access_token='.$this->fb_access_token);
             $event = json_decode($events_result, true);
 
             // An error Occurred
@@ -4076,14 +4076,10 @@ class MEC_feature_ix extends MEC_base
             
             // Set location to the post
             if($location_id) wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
-
-            // Set the Featured Image
-            $photos_results = $this->main->get_web_page('https://graph.facebook.com/v3.2/'.$f_event_id.'?fields=cover&access_token='.$this->fb_access_token);
-            $photos = json_decode($photos_results, true);
             
-            if(!has_post_thumbnail($post_id) and isset($photos['cover']) and is_array($photos['cover']) and count($photos['cover']))
+            if(!has_post_thumbnail($post_id) and isset($event['cover']) and is_array($event['cover']) and count($event['cover']))
             {
-                $photo = $this->main->get_web_page($photos['cover']['source']);
+                $photo = $this->main->get_web_page($event['cover']['source']);
                 $file_name = md5($post_id).'.'.$this->main->get_image_type_by_buffer($photo);
                 
                 $path = rtrim($wp_upload_dir['path'], DS.' ').DS.$file_name;
@@ -4100,7 +4096,7 @@ class MEC_feature_ix extends MEC_base
     public function f_calendar_import_get_page($link)
     {
         $this->fb_access_token = isset($this->ix['facebook_app_token']) ? $this->ix['facebook_app_token'] : NULL;
-        $fb_page_result = $this->main->get_web_page('https://graph.facebook.com/v3.2/?access_token='.$this->fb_access_token.'&id='.$link);
+        $fb_page_result = $this->main->get_web_page('https://graph.facebook.com/v7.0/?access_token='.$this->fb_access_token.'&id='.$link);
 
         return json_decode($fb_page_result, true);
     }

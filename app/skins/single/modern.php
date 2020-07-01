@@ -333,7 +333,7 @@ jQuery( ".mec-speaker-avatar a" ).click(function(e)
 jQuery( ".mec-booking-button.mec-booking-data-lity" ).click(function(e)
 {
     e.preventDefault();
-    var book_id =  jQuery(this).attr('href');
+    var book_id =  jQuery(this).attr('href'); 
     lity(book_id);
 });
 </script>

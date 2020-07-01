@@ -26,8 +26,32 @@ if(isset($event->data) and isset($event->data->meta) and isset($event->data->met
 
 // User Booking Limits
 list($user_ticket_limit, $user_ticket_unlimited) = $book->get_user_booking_limit($event_id);
-?>
 
+// Show Booking Form Interval
+$show_booking_form_interval = (isset($settings['show_booking_form_interval'])) ? $settings['show_booking_form_interval'] : 0;
+if($show_booking_form_interval)
+{
+    $filtered_dates = array();
+    foreach($dates as $date)
+    {
+        $date_diff = $this->date_diff(date('Y-m-d h:i a', current_time('timestamp', 0)), date('Y-m-d h:i a', $date['start']['timestamp']));
+        if(isset($date_diff->days) and !$date_diff->invert)
+        {
+            $minute = $date_diff->days * 24 * 60;
+            $minute += $date_diff->h * 60;
+            $minute += $date_diff->i;
+
+            if($minute > $show_booking_form_interval) continue;
+        }
+
+        $filtered_dates[] = $date;
+    }
+
+    $dates = $filtered_dates;
+}
+
+$collapse_ticket_selection = (!isset($settings['booking_limit_collapse']) or (isset($settings['booking_limit_collapse']) and $settings['booking_limit_collapse']) ? true : false);
+?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
     <h4><?php _e('Book Event', 'modern-events-calendar-lite'); ?></h4>
 
@@ -54,7 +78,7 @@ list($user_ticket_limit, $user_ticket_unlimited) = $book->get_user_booking_limit
                 <span class="mec-event-ticket-price"><?php echo (isset($ticket['price_label']) ? $book->get_ticket_price_label($ticket, current_time('Y-m-d')) : ''); ?></span>
                 <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo __($ticket['description'], 'modern-events-calendar-lite'); ?></p><?php endif; ?>
 
-                <?php if(!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1): ?>
+                <?php if(!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1 and $collapse_ticket_selection): ?>
                     <input type="hidden" name="book[tickets][<?php echo $ticket_id; ?>]" value="1" />
                     <p><?php _e('1 Ticket selected.', 'modern-events-calendar-lite'); ?></p>
                 <?php else: ?>

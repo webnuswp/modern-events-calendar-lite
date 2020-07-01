@@ -2992,6 +2992,10 @@ span.mec-event-title-soldout {
 	padding-left: 0;
 }
 
+.mec-single-event .mec-booking .mec-book-bfixed-fields-container {
+    padding-left:15px;
+}
+
 .mec-single-event .mec-events-meta-group-booking ul li {
 	padding: 0;
 	list-style: none;
@@ -3138,6 +3142,11 @@ button#mec-book-form-back-btn-step-3 {
 
 .lity-content .mec-book-form-next-button {
     float: left;
+}
+
+.lity-content .mec-book-bfixed-fields-container {
+    list-style: none;
+    padding-left: 0;
 }
 
 .mec-single-event .mec-book-first,
@@ -6318,6 +6327,9 @@ li.mec-no-event-found .mec-event-title {
 	font-family: inherit;
 }
 
+.lity-content .mec-events-meta-group-booking input[type=date]::-webkit-calendar-picker-indicator,
+.lity-content #mec_fes_form input[type="date"]::-webkit-calendar-picker-indicator,
+.mec-single-event .mec-events-meta-group-booking input[type=date]::-webkit-calendar-picker-indicator,
 #mec_fes_form input[type="date"]::-webkit-calendar-picker-indicator {
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA0QjQ2N0QwQjQ4MzExRUE4RDdFREZDRTUxMUVERTM5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA0QjQ2N0QxQjQ4MzExRUE4RDdFREZDRTUxMUVERTM5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDRCNDY3Q0VCNDgzMTFFQThEN0VERkNFNTExRURFMzkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDRCNDY3Q0ZCNDgzMTFFQThEN0VERkNFNTExRURFMzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6WW71PAAAGIklEQVR42qRX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');
     background-position: center;
@@ -14430,8 +14442,10 @@ article.mec-search-bar-result {
 
 
 /* front-end submition new edition */
+ul#mec_bfixed_form_fields li .mec_bfixed_field_remove,
 ul#mec_reg_form_fields li .mec_reg_field_remove,
 .mec-booking-tab-content .mec-reg-field-add-option,
+.mec-booking-tab-content .mec-bfixed-field-add-option,
 .mec-booking-tab-content .button,
 .mec-fes-form .mec-form-row .button:not(.wp-color-result),
 .mec-fes-form input[type=file] {
@@ -14452,6 +14466,8 @@ ul#mec_reg_form_fields li .mec_reg_field_remove,
 	border: 2px solid #cfeff5;
 	box-shadow: 0 2px 6px -3px #cfeff5;
 }
+
+.mec-booking-tab-content .mec-bfixed-field-add-option:hover,
 .mec-booking-tab-content .mec-reg-field-add-option:hover,
 .mec-booking-tab-content .button:hover,
 .mec-fes-form .mec-form-row .button:not(.wp-color-result):hover {
@@ -14503,15 +14519,17 @@ ul#mec_reg_form_fields li .mec_reg_field_remove,
 	padding: 0;
 }
 
+#mec_bfixed_form_fields li,
 #mec_reg_form_fields li {
     list-style: none;
 }
-
+ul#mec_bfixed_form_fields,
 ul#mec_reg_form_fields {
     padding: 0;
     margin: 0;
 }
 
+ul#mec_bfixed_form_fields li,
 ul#mec_reg_form_fields li {
     background: #f8feff;
     margin: 6px -20px;
@@ -14523,6 +14541,7 @@ ul#mec_reg_form_fields li {
     position: relative;
 }
 
+ul#mec_bfixed_form_fields li .mec_bfixed_field_remove,
 ul#mec_reg_form_fields li .mec_reg_field_remove {
     position: absolute;
     right: 10px;
@@ -14540,6 +14559,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove {
     letter-spacing: 0.4px
 }
 
+ul#mec_bfixed_form_fields li .mec_bfixed_field_remove:hover,
 ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	background: #ea6485;
 	color: #fff;
@@ -14548,6 +14568,8 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 }
 
 /* from backend */
+#mec_bfixed_form_fields input[type=checkbox],
+#mec_bfixed_form_fields input[type=radio],
 #mec_reg_form_fields input[type=checkbox],
 #mec_reg_form_fields input[type=radio],
 .mec-form-row input[type=checkbox],
@@ -14571,6 +14593,8 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	-moz-appearance: none;
 }
 
+#mec_bfixed_form_fields input[type=checkbox]:focus,
+#mec_bfixed_form_fields input[type=radio]:focus,
 #mec_reg_form_fields input[type=checkbox]:focus,
 #mec_reg_form_fields input[type=radio]:focus,
 .mec-form-row input[type=checkbox]:focus,
@@ -14578,6 +14602,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	outline: none;
 }
 
+#mec_bfixed_form_fields input[type=radio],
 #mec_reg_form_fields input[type=radio],
 .mec-form-row input[type=radio] {
 	-webkit-appearance: none;
@@ -14588,6 +14613,8 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	vertical-align: middle;
 }
 
+#mec_bfixed_form_fields input[type=checkbox]:hover,
+#mec_bfixed_form_fields input[type=radio]:hover,
 #mec_reg_form_fields input[type=checkbox]:hover,
 #mec_reg_form_fields input[type=radio]:hover,
 .mec-form-row input[type=checkbox]:hover,
@@ -14595,6 +14622,8 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	border-color: #40d9f1;
 }
 
+#mec_bfixed_form_fields input[type=checkbox]:checked,
+#mec_bfixed_form_fields input[type=radio]:checked,
 #mec_reg_form_fields input[type=checkbox]:checked,
 #mec_reg_form_fields input[type=radio]:checked,
 .mec-fes-form .mec-form-row input[type=checkbox]:checked,
@@ -14610,6 +14639,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	box-shadow: 0 1px 6px -2px #40d9f1, inset 0 0 0 3px #fff !important;
 }
 
+#mec_bfixed_form_fields input[type=checkbox]:checked::before,
 #mec_reg_form_fields input[type=checkbox]:checked::before,
 .mec-form-row input[type=checkbox]:checked:before {
 	content: "";
@@ -14651,6 +14681,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	}
 }
 
+#mec_bfixed_form_field_types .button,
 #mec_reg_form_field_types .button {
     position: relative;
     outline: 0;
@@ -14691,6 +14722,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
     color: #fff;
 }
 
+#mec_bfixed_form_field_types .button:before,
 #mec_reg_form_field_types .button:before {
     position: absolute;
     left: 12px;
@@ -14706,6 +14738,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 }
 
 #mec_reg_form_field_types .button.red:hover:before,
+#mec_bfixed_form_field_types .button:hover:before,
 #mec_reg_form_field_types .button:hover:before {
     color: #fff;
 }
@@ -14754,6 +14787,57 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
     border: 2px solid #40d9f1;
     background: #40d9f1;
 }
+
+.mec-fes-form #mec_reg_form_fields span.mec_reg_field_sort,
+.mec-fes-form #mec_bfixed_form_fields span.mec_bfixed_field_sort {
+    font-size: 0;
+    color: #fff;
+    padding-left: 20px;
+}
+
+.mec-fes-form #mec_reg_form_fields .mec_reg_field_options,
+.mec-fes-form #mec_bfixed_form_fields .mec_bfixed_field_option_sort,
+.mec-fes-form #mec_reg_form_fields span.mec_reg_field_option_sort {
+    font-size: 0;
+}
+
+.mec-fes-form #mec_reg_form_fields span.mec_reg_field_option_sort:before,
+.mec-fes-form #mec_reg_form_fields span.mec_reg_field_options:before,
+.mec-fes-form #mec_reg_form_fields span.mec_reg_field_sort:before,
+.mec-fes-form #mec_bfixed_form_fields span.mec_bfixed_field_option_sort:before,
+.mec-fes-form #mec_bfixed_form_fields span.mec_bfixed_field_sort:before {
+    position: absolute;
+    left: px;
+    top: 12px;
+    width: 80px;
+    height: 20px;
+    display: block;
+    cursor: move;
+    font-family: simple-line-icons;
+    content: "\e023";
+    font-size: 18px;
+    color: #888
+}
+
+.mec-fes-form #mec_reg_form_fields span.mec_reg_field_option_sort:before,
+.mec-fes-form #mec_reg_form_fields span.mec_reg_field_options:before,
+.mec-fes-form #mec_bfixed_form_fields span.mec_bfixed_field_option_sort:before {
+    font-size: 13px;
+    left: 2px;
+    top: 26px;
+    width: 14px;
+    height: 14px
+}
+
+.mec-fes-form #mec_reg_form_fields .mec_reg_field_options,
+.mec-fes-form #mec_bfixed_form_fields .mec_bfixed_field_options {
+    margin-top: 20px;
+}
+
+.mec-fes-form #mec_fes_form #mec_bfixed_form_fields .mec_bfixed_notification_placeholder {
+    font-size: 0;
+}
+
 
 .mec-form-row select+span.mec-tooltip,
 .mec-form-row input+span.mec-tooltip {

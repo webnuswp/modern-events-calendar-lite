@@ -1159,6 +1159,11 @@ class MEC_feature_fes extends MEC_base
 
         update_post_meta($post_id, 'mec_reg_fields', $reg_fields);
 
+        $bfixed_fields = isset($mec['bfixed_fields']) ? $mec['bfixed_fields'] : array();
+        if($reg_fields_global_inheritance) $bfixed_fields = array();
+
+        update_post_meta($post_id, 'mec_bfixed_fields', $bfixed_fields);
+
         // Organizer Payment Options
         $op = isset($mec['op']) ? $mec['op'] : array();
         update_post_meta($post_id, 'mec_op', $op);

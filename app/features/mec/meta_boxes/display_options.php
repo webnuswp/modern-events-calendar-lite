@@ -6,6 +6,7 @@ defined('MECEXEC') or die();
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if(is_plugin_active('advanced-custom-fields/acf.php')) remove_action('admin_footer', 'acf_enqueue_uploader', 5);
 if(is_plugin_active('advanced-custom-fields-pro/acf.php')) remove_action('admin_footer', 'acf_enqueue_uploader', 5);
+if(is_plugin_active('wp-recipe-maker/wp-recipe-maker.php')) remove_action('admin_footer', array( 'WPRM_Modal', 'add_modal_content' ));
 
 // Skin Options
 $skins = $this->main->get_skins();
@@ -1331,7 +1332,7 @@ $events = $this->main->get_events();
             <!-- Masonry View -->
             <div class="mec-skin-options-container mec-util-hidden" id="mec_masonry_skin_options_container">
                 <?php if(!$this->main->getPRO()): ?>
-                <div class="info-msg"><?php echo sprintf(__("%s is required to use synchronization feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
+                <div class="info-msg"><?php echo sprintf(__("%s is required to use this skin.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
                 <?php endif; ?>
 
                 <?php $sk_options_masonry = isset($sk_options['masonry']) ? $sk_options['masonry'] : array(); ?>
@@ -2242,6 +2243,8 @@ $events = $this->main->get_events();
 
         /** FullCalendar View Skins */
         jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="list"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-list.png" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="grid"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-modern.png" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="tile"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/tile/tile-classic.png" /></span>');
         jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="daily"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-daily.png" /></span>');
         jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="weekly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-weekly.png" /></span>');
         jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="monthly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-monthly.png" /></span>');

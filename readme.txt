@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.4.2
-Stable tag: 5.6.5
+Stable tag: 5.7.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -195,6 +195,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- User Role created after booking
+- Sort payment gateways
+- Booking fixed fields per booking
 - Custom event fields
 - Multiple occurrences in one day
 - Different hours for custom days repeat
@@ -389,6 +392,28 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 5.7.0 – 1 July 2020 =
+- Added: WeatherAPI.com provider for weather module (pro)
+- Added: A new feature to sort payment gateways in backend and frontend (pro)
+- Added: A new feature to assign a certain role to users created after booking (pro)
+- Added: A date filter option in booking management menu (pro)
+- Added: Booking fixed fields which are per booking instead of per attendee (pro)
+- Added: %%attendees_full_info%% placeholder to all notifications (pro)
+- Added: %%payment_gateway%% placeholder (pro)
+- Added: %%booking_id%% placeholder (pro)
+- Added: %%booking_transaction_id%% placeholder (pro)
+- Added: %% ticket_name%% and %%ticket_time%% placeholders to notifications (pro)
+- Improved: The Facebook Importer
+- Improved: The attendees section of Frontend Submission
+- Fixed: An issue related to event time in booking notifications (pro)
+- Fixed: Some issues in free gateway (pro)
+- Fixed: An issue in “Show Booking Form Interval” option (pro)
+- Fixed: Some issues in MEC backend menus in different languages
+- Fixed: An issue in showing 0 attendees in Frontend Submission
+- Fixed: A conflict with “WP Recipe Maker plugin
+- Fixed: A conflict with “Learn Press” plugin
+- Fixed: Booking modal responsive on mobile (pro)
+
 = 5.6.5 – 24 June 2020 =
 - Added: Custom Fields for event in backend
 - Added: Custom Fields for event in Frontend Submission Form

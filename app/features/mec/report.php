@@ -1,19 +1,23 @@
 <?php
 /** no direct access **/
 defined('MECEXEC') or die();
-$query = new WP_Query(array('post_type'=>'mec-events', 'posts_per_page'=>'-1', 'post_status'=>array('pending', 'draft', 'future', 'publish')));
 
-
+$query = new WP_Query(array(
+    'post_type' => 'mec-events',
+    'posts_per_page' => '-1',
+    'post_status' => array('pending', 'draft', 'future', 'publish')
+));
 ?>
 <div id="webnus-dashboard" class="wrap about-wrap mec-addons">
     <div class="welcome-head w-clearfix">
         <div class="w-row">
             <div class="w-col-sm-9">
                 <h1> <?php echo __('Booking Report', 'modern-events-calendar-lite'); ?> </h1>
-                <p><?php echo esc_html('Using this section, you can see the list of participant attendees by the order of date.', 'modern-events-calendar-lite'); ?></p>
+                <p><?php echo esc_html__('Using this section, you can see the list of participant attendees by the order of date.', 'modern-events-calendar-lite'); ?></p>
             </div>
             <div class="w-col-sm-3">
-                <img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w.png'; ?>" />
+                <?php $styling = $this->main->get_styling(); $darkadmin_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : ''; if ($darkadmin_mode == 1): $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w2.png'; else: $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w.png'; endif; ?>
+                <img src="<?php echo $darklogo; ?>" />
                 <span class="w-theme-version"><?php echo __('Version', 'modern-events-calendar-lite'); ?> <?php echo MEC_VERSION; ?></span>
             </div>
         </div>
@@ -24,22 +28,23 @@ $query = new WP_Query(array('post_type'=>'mec-events', 'posts_per_page'=>'-1', '
                 <div class="w-row">
                     <div class="w-col-sm-12">
                         <select name="mec-report-event-id" class="mec-reports-selectbox mec-reports-selectbox-event">
-                            <option value="none"><?php echo esc_html( 'Select event' , 'modern-events-calendar-lite'); ?></option>
+                            <option value="none"><?php echo esc_html__( 'Select event' , 'modern-events-calendar-lite'); ?></option>
                             <?php 
-                            if($query->have_posts()):
-                                while($query->have_posts()): $query->the_post();
-                                echo '<option value="'.get_the_ID().'">' . get_the_title() . '</option>';
-                                endwhile;
-                            endif;
+                                if($query->have_posts())
+                                {
+                                    while($query->have_posts())
+                                    {
+                                        $query->the_post();
+                                        echo '<option value="'.get_the_ID().'">' . get_the_title() . '</option>';
+                                    }
+                                }
                             ?>
                         </select>
-                        <?php  
-                        ?>
                     </div>
                 </div>
             </div>
             <div class="mec-report-sendmail-wrap"><div class="w-row"><div class="w-col-sm-12"></div></div></div>
-            <div class="mec-report-backtoselect-wrap"><div class="w-row"><div class="w-col-sm-12"><button><?php echo esc_html('Back to list', 'modern-events-calendar-lite'); ?></button></div></div></div>
+            <div class="mec-report-backtoselect-wrap"><div class="w-row"><div class="w-col-sm-12"><button><?php echo esc_html__('Back to list', 'modern-events-calendar-lite'); ?></button></div></div></div>
             <div class="mec-report-selected-event-attendees-wrap"><div class="w-row"><div class="w-col-sm-12"></div></div></div>
             <div class="mec-report-sendmail-form-wrap"><div class="w-row"><div class="w-col-sm-12">
                 <?php $send_email_label = __('Send Email', 'modern-events-calendar-lite'); ?>

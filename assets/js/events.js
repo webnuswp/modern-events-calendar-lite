@@ -419,6 +419,23 @@ jQuery(document).ready(function($)
 
     // Set onclick listener for add option fields
     mec_event_fields_option_listeners();
+
+    $('#mec_bfixed_form_field_types button').on('click', function()
+    {
+        var type = $(this).data('type');
+
+        var key  = $('#mec_new_bfixed_field_key').val();
+        var html = $('#mec_bfixed_field_'+type).html().replace(/:i:/g, key);
+
+        $('#mec_bfixed_form_fields').append(html);
+        $('#mec_new_bfixed_field_key').val(parseInt(key)+1);
+
+        // Set onclick listener for add option fields
+        mec_bfixed_fields_option_listeners();
+    });
+
+    // Set onclick listener for add option fields
+    mec_bfixed_fields_option_listeners();
 });
 
 function mec_location_toggle()
@@ -643,4 +660,40 @@ function mec_event_fields_option_remove(field_key, key)
 function mec_event_fields_remove(key)
 {
     jQuery("#mec_event_fields_"+key).remove();
+}
+
+function mec_bfixed_fields_option_listeners()
+{
+    jQuery('button.mec-bfixed-field-add-option').off('click').on('click', function()
+    {
+        var field_id = jQuery(this).data('field-id');
+        var key = jQuery('#mec_new_bfixed_field_option_key_'+field_id).val();
+        var html = jQuery('#mec_bfixed_field_option').html().replace(/:i:/g, key).replace(/:fi:/g, field_id);
+
+        jQuery('#mec_bfixed_fields_'+field_id+'_options_container').append(html);
+        jQuery('#mec_new_bfixed_field_option_key_'+field_id).val(parseInt(key)+1);
+    });
+
+    if(typeof jQuery.fn.sortable !== 'undefined')
+    {
+        jQuery("#mec_bfixed_form_fields").sortable(
+        {
+            handle: '.mec_bfixed_field_sort'
+        });
+
+        jQuery(".mec_bfixed_fields_options_container").sortable(
+        {
+            handle: '.mec_bfixed_field_option_sort'
+        });
+    }
+}
+
+function mec_bfixed_fields_option_remove(field_key, key)
+{
+    jQuery("#mec_bfixed_fields_option_"+field_key+"_"+key).remove();
+}
+
+function mec_bfixed_fields_remove(key)
+{
+    jQuery("#mec_bfixed_fields_"+key).remove();
 }

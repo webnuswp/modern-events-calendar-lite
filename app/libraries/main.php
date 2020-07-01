@@ -598,7 +598,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'settings' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($settings as $settings_name => $settings_link) : ?>
                 <?php
-                if ( $settings_link == 'mailchimp_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
+                if ( $settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'uploadfield_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
                     if (  $this->getPRO() ) : ?>
                     <li>
                         <a 
@@ -991,6 +991,33 @@ class MEC_main extends MEC_base
     }
 
     /**
+     * Returns booking fixed fields
+     * @author Webnus <info@webnus.biz>
+     * @param integer $event_id
+     * @return array
+     */
+    public function get_bfixed_fields($event_id = NULL)
+    {
+        $options = $this->get_options();
+        $bfixed_fields = isset($options['bfixed_fields']) ? $options['bfixed_fields'] : array();
+
+        // Event Fields
+        if($event_id)
+        {
+            $global_inheritance = get_post_meta($event_id, 'mec_reg_fields_global_inheritance', true);
+            if(trim($global_inheritance) == '') $global_inheritance = 1;
+
+            if(!$global_inheritance)
+            {
+                $event_bfixed_fields = get_post_meta($event_id, 'mec_bfixed_fields', true);
+                if(is_array($event_bfixed_fields)) $bfixed_fields = $event_bfixed_fields;
+            }
+        }
+
+        return apply_filters('mec_get_bfixed_fields', $bfixed_fields, $event_id);
+    }
+
+    /**
      * Returns event form fields
      * @author Webnus <info@webnus.biz>
      * @return array
@@ -1136,6 +1163,7 @@ class MEC_main extends MEC_base
         // Get mec options
         $mec = $request->getVar('mec', array());
         if(isset($mec['reg_fields']) and !is_array($mec['reg_fields'])) $mec['reg_fields'] = array();
+        if(isset($mec['bfixed_fields']) and !is_array($mec['bfixed_fields'])) $mec['bfixed_fields'] = array();
         if(isset($mec['event_fields']) and !is_array($mec['event_fields'])) $mec['event_fields'] = array();
 
         $filtered = array();
@@ -1173,6 +1201,31 @@ class MEC_main extends MEC_base
         {
             $current['reg_fields'] = array();
             $current['reg_fields'] = $filtered['reg_fields'];
+        }
+
+        // Bellow conditional block codes is used for sortable booking fixed form items.
+        if(isset($filtered['bfixed_fields']))
+        {
+            if(is_array($filtered['bfixed_fields']))
+            {
+                $filtered_bfixed_fields_count = count($filtered['bfixed_fields']);
+                if($filtered_bfixed_fields_count)
+                {
+                    $filtered_bfixed_fields_slice_first = array_slice($filtered['bfixed_fields'], 0, $filtered_bfixed_fields_count - 2);
+                    $filtered_bfixed_fields_slice_last = array_slice($filtered['bfixed_fields'], ($filtered_bfixed_fields_count - 2), $filtered_bfixed_fields_count, true);
+                    $filtered['bfixed_fields'] = array_merge($filtered_bfixed_fields_slice_first, $filtered_bfixed_fields_slice_last);
+                }
+            }
+            else
+            {
+                $filtered['bfixed_fields'] = array();
+            }
+        }
+
+        if(isset($current['bfixed_fields']) and isset($filtered['bfixed_fields']))
+        {
+            $current['bfixed_fields'] = array();
+            $current['bfixed_fields'] = $filtered['bfixed_fields'];
         }
 
         // Bellow conditional block codes is used for sortable event form items.
@@ -2372,6 +2425,33 @@ class MEC_main extends MEC_base
             $pdf->Write(6, $transaction_id);
             $pdf->Ln();
 
+            $bfixed_fields = $this->get_bfixed_fields($event_id);
+
+            if(is_array($bfixed_fields) and count($bfixed_fields) and isset($transaction['fields']) and is_array($transaction['fields']) and count($transaction['fields']))
+            {
+                $pdf->SetFont('DejaVuBold', '', 16);
+                $pdf->Write(20, __('Booking Fields', 'modern-events-calendar-lite'));
+                $pdf->Ln();
+
+                foreach($bfixed_fields as $bfixed_field_id => $bfixed_field)
+                {
+                    if(!is_numeric($bfixed_field_id)) continue;
+
+                    $bfixed_value = isset($transaction['fields'][$bfixed_field_id]) ? $transaction['fields'][$bfixed_field_id] : NULL;
+                    if(!$bfixed_value) continue;
+
+                    $bfixed_type = isset($bfixed_field['type']) ? $bfixed_field['type'] : NULL;
+                    $bfixed_label = isset($bfixed_field['label']) ? $bfixed_field['label'] : '';
+
+                    if($bfixed_type != 'agreement')
+                    {
+                        $pdf->SetFont('DejaVu', '', 12);
+                        $pdf->Write(6, $bfixed_label.": ".(is_array($bfixed_value) ? implode(',', $bfixed_value) : $bfixed_value));
+                        $pdf->Ln();
+                    }
+                }
+            }
+
             // Attendees
             if(isset($transaction['tickets']) and is_array($transaction['tickets']) and count($transaction['tickets']))
             {
@@ -2921,7 +3001,7 @@ class MEC_main extends MEC_base
         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Text', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -2950,7 +3030,7 @@ class MEC_main extends MEC_base
          return '<li id="mec_'.$prefix.'_fields_'.$key.'">
              <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
              <span class="mec_'.$prefix.'_field_type">'.__('MEC Name', 'modern-events-calendar-lite').'</span>
-             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
              <p class="mec_'.$prefix.'_field_options" style="display:none">
                  <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                      <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" />
@@ -2979,7 +3059,7 @@ class MEC_main extends MEC_base
          return '<li id="mec_'.$prefix.'_fields_'.$key.'">
              <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
              <span class="mec_'.$prefix.'_field_type">'.__('MEC Email', 'modern-events-calendar-lite').'</span>
-             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
              <p class="mec_'.$prefix.'_field_options" style="display:none">
                  <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                      <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" />
@@ -3008,7 +3088,7 @@ class MEC_main extends MEC_base
         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Email', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3037,7 +3117,7 @@ class MEC_main extends MEC_base
         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('URL', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3066,7 +3146,7 @@ class MEC_main extends MEC_base
         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('File', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3095,7 +3175,7 @@ class MEC_main extends MEC_base
         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Date', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3124,7 +3204,7 @@ class MEC_main extends MEC_base
         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Tel', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3153,7 +3233,7 @@ class MEC_main extends MEC_base
         return '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Textarea', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3205,7 +3285,7 @@ class MEC_main extends MEC_base
         $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Checkboxes', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3251,7 +3331,7 @@ class MEC_main extends MEC_base
         $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Radio Buttons', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3297,7 +3377,7 @@ class MEC_main extends MEC_base
         $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Dropdown', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3346,7 +3426,7 @@ class MEC_main extends MEC_base
         $field = '<li id="mec_'.$prefix.'_fields_'.$key.'">
             <span class="mec_'.$prefix.'_field_sort">'.__('Sort', 'modern-events-calendar-lite').'</span>
             <span class="mec_'.$prefix.'_field_type">'.__('Agreement', 'modern-events-calendar-lite').'</span>
-            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : '').'
+            '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
@@ -3648,14 +3728,14 @@ class MEC_main extends MEC_base
             if($this->check_date_time_validation('Y-m-d h:i a', strtolower($render_date)))
             {
                 $date_diff = $this->date_diff(date('Y-m-d h:i a', current_time('timestamp', 0)), $render_date);
-                if(isset($date_diff->d) and !$date_diff->invert)
+                if(isset($date_diff->days) and !$date_diff->invert)
                 {
-                    $minute = $date_diff->d * 24 * 60;
+                    $minute = $date_diff->days * 24 * 60;
                     $minute += $date_diff->h * 60;
                     $minute += $date_diff->i;
     
                     if($minute > $show_booking_form_interval) return false;
-                }   
+                }
             }
         }
 
@@ -5729,53 +5809,100 @@ class MEC_main extends MEC_base
     
     public function get_messages()
     {
-        $messages = array(
-            'taxonomies'=>array(
-                'category'=>array('name'=>__('Taxonomies', 'modern-events-calendar-lite')),
-                'messages'=>array(
-                    'taxonomy_categories'=>array('label'=>__('Category Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Categories', 'modern-events-calendar-lite')),
-                    'taxonomy_category'=>array('label'=>__('Category Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Category', 'modern-events-calendar-lite')),
-                    'taxonomy_labels'=>array('label'=>__('Label Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Labels', 'modern-events-calendar-lite')),
-                    'taxonomy_label'=>array('label'=>__('Label Singular Label', 'modern-events-calendar-lite'), 'default'=>__('label', 'modern-events-calendar-lite')),
-                    'taxonomy_locations'=>array('label'=>__('Location Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Locations', 'modern-events-calendar-lite')),
-                    'taxonomy_location'=>array('label'=>__('Location Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Location', 'modern-events-calendar-lite')),
-                    'taxonomy_organizers'=>array('label'=>__('Organizer Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Organizers', 'modern-events-calendar-lite')),
-                    'taxonomy_organizer'=>array('label'=>__('Organizer Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Organizer', 'modern-events-calendar-lite')),
-                    'taxonomy_speakers'=>array('label'=>__('Speaker Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Speakers', 'modern-events-calendar-lite')),
-                    'taxonomy_speaker'=>array('label'=>__('Speaker Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Speaker', 'modern-events-calendar-lite')),
-                )
-            ),
-            'weekdays'=>array(
-                'category'=>array('name'=>__('Weekdays', 'modern-events-calendar-lite')),
-                'messages'=>array(
-                    'weekdays_su'=>array('label'=>__('Sunday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('SU', 'modern-events-calendar-lite')),
-                    'weekdays_mo'=>array('label'=>__('Monday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('MO', 'modern-events-calendar-lite')),
-                    'weekdays_tu'=>array('label'=>__('Tuesday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('TU', 'modern-events-calendar-lite')),
-                    'weekdays_we'=>array('label'=>__('Wednesday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('WE', 'modern-events-calendar-lite')),
-                    'weekdays_th'=>array('label'=>__('Thursday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('TH', 'modern-events-calendar-lite')),
-                    'weekdays_fr'=>array('label'=>__('Friday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('FR', 'modern-events-calendar-lite')),
-                    'weekdays_sa'=>array('label'=>__('Saturday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('SA', 'modern-events-calendar-lite')),
-                )
-            ),
-            'others'=>array(
-                'category'=>array('name'=>__('Others', 'modern-events-calendar-lite')),
-                'messages'=>array(
-                    'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thanks you for booking. Your tickets are  booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
-                    'register_button'=>array('label'=>__('Register Button', 'modern-events-calendar-lite'), 'default'=>__('REGISTER', 'modern-events-calendar-lite')),
-                    'view_detail'=>array('label'=>__('View Detail Button', 'modern-events-calendar-lite'), 'default'=>__('View Detail', 'modern-events-calendar-lite')),
-                    'event_detail'=>array('label'=>__('Event Detail Button', 'modern-events-calendar-lite'), 'default'=>__('Event Detail', 'modern-events-calendar-lite')),
-                    'read_more_link'=>array('label'=>__('Event Link', 'modern-events-calendar-lite'), 'default'=>__('Event Link', 'modern-events-calendar-lite')),
-                    'more_info_link'=>array('label'=>__('More Info Link', 'modern-events-calendar-lite'), 'default'=>__('More Info', 'modern-events-calendar-lite')),
-                    'event_cost'=>array('label'=>__('Event Cost', 'modern-events-calendar-lite'), 'default'=>__('Event Cost', 'modern-events-calendar-lite')),
-                    'cost'=>array('label'=>__('Cost', 'modern-events-calendar-lite'), 'default'=>__('Cost', 'modern-events-calendar-lite')),
-                    'ticket'=>array('label'=>__('Ticket (Singular)', 'modern-events-calendar-lite'), 'default'=>__('Ticket', 'modern-events-calendar-lite')),
-                    'tickets'=>array('label'=>__('Tickets (Plural)', 'modern-events-calendar-lite'), 'default'=>__('Tickets', 'modern-events-calendar-lite')),
-                    'other_organizers'=>array('label'=>__('Other Organizers', 'modern-events-calendar-lite'), 'default'=>__('Other Organizers', 'modern-events-calendar-lite')),
-                    'other_locations'=>array('label'=>__('Other Locations', 'modern-events-calendar-lite'), 'default'=>__('Other Locations', 'modern-events-calendar-lite')),
-                    'all_day'=>array('label'=>__('All Day', 'modern-events-calendar-lite'), 'default'=>__('All Day', 'modern-events-calendar-lite')),
-                )
-            ),
-        );
+        if($this->getPRO()):
+            $messages = array(
+                'taxonomies'=>array(
+                    'category'=>array('name'=>__('Taxonomies', 'modern-events-calendar-lite')),
+                    'messages'=>array(
+                        'taxonomy_categories'=>array('label'=>__('Category Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Categories', 'modern-events-calendar-lite')),
+                        'taxonomy_category'=>array('label'=>__('Category Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Category', 'modern-events-calendar-lite')),
+                        'taxonomy_labels'=>array('label'=>__('Label Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Labels', 'modern-events-calendar-lite')),
+                        'taxonomy_label'=>array('label'=>__('Label Singular Label', 'modern-events-calendar-lite'), 'default'=>__('label', 'modern-events-calendar-lite')),
+                        'taxonomy_locations'=>array('label'=>__('Location Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Locations', 'modern-events-calendar-lite')),
+                        'taxonomy_location'=>array('label'=>__('Location Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Location', 'modern-events-calendar-lite')),
+                        'taxonomy_organizers'=>array('label'=>__('Organizer Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Organizers', 'modern-events-calendar-lite')),
+                        'taxonomy_organizer'=>array('label'=>__('Organizer Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Organizer', 'modern-events-calendar-lite')),
+                        'taxonomy_speakers'=>array('label'=>__('Speaker Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Speakers', 'modern-events-calendar-lite')),
+                        'taxonomy_speaker'=>array('label'=>__('Speaker Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Speaker', 'modern-events-calendar-lite')),
+                    )
+                ),
+                'weekdays'=>array(
+                    'category'=>array('name'=>__('Weekdays', 'modern-events-calendar-lite')),
+                    'messages'=>array(
+                        'weekdays_su'=>array('label'=>__('Sunday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('SU', 'modern-events-calendar-lite')),
+                        'weekdays_mo'=>array('label'=>__('Monday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('MO', 'modern-events-calendar-lite')),
+                        'weekdays_tu'=>array('label'=>__('Tuesday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('TU', 'modern-events-calendar-lite')),
+                        'weekdays_we'=>array('label'=>__('Wednesday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('WE', 'modern-events-calendar-lite')),
+                        'weekdays_th'=>array('label'=>__('Thursday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('TH', 'modern-events-calendar-lite')),
+                        'weekdays_fr'=>array('label'=>__('Friday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('FR', 'modern-events-calendar-lite')),
+                        'weekdays_sa'=>array('label'=>__('Saturday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('SA', 'modern-events-calendar-lite')),
+                    )
+                ),
+                'others'=>array(
+                    'category'=>array('name'=>__('Others', 'modern-events-calendar-lite')),
+                    'messages'=>array(
+                        'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thanks you for booking. Your tickets are  booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
+                        'register_button'=>array('label'=>__('Register Button', 'modern-events-calendar-lite'), 'default'=>__('REGISTER', 'modern-events-calendar-lite')),
+                        'view_detail'=>array('label'=>__('View Detail Button', 'modern-events-calendar-lite'), 'default'=>__('View Detail', 'modern-events-calendar-lite')),
+                        'event_detail'=>array('label'=>__('Event Detail Button', 'modern-events-calendar-lite'), 'default'=>__('Event Detail', 'modern-events-calendar-lite')),
+                        'read_more_link'=>array('label'=>__('Event Link', 'modern-events-calendar-lite'), 'default'=>__('Event Link', 'modern-events-calendar-lite')),
+                        'more_info_link'=>array('label'=>__('More Info Link', 'modern-events-calendar-lite'), 'default'=>__('More Info', 'modern-events-calendar-lite')),
+                        'event_cost'=>array('label'=>__('Event Cost', 'modern-events-calendar-lite'), 'default'=>__('Event Cost', 'modern-events-calendar-lite')),
+                        'cost'=>array('label'=>__('Cost', 'modern-events-calendar-lite'), 'default'=>__('Cost', 'modern-events-calendar-lite')),
+                        'ticket'=>array('label'=>__('Ticket (Singular)', 'modern-events-calendar-lite'), 'default'=>__('Ticket', 'modern-events-calendar-lite')),
+                        'tickets'=>array('label'=>__('Tickets (Plural)', 'modern-events-calendar-lite'), 'default'=>__('Tickets', 'modern-events-calendar-lite')),
+                        'other_organizers'=>array('label'=>__('Other Organizers', 'modern-events-calendar-lite'), 'default'=>__('Other Organizers', 'modern-events-calendar-lite')),
+                        'other_locations'=>array('label'=>__('Other Locations', 'modern-events-calendar-lite'), 'default'=>__('Other Locations', 'modern-events-calendar-lite')),
+                        'all_day'=>array('label'=>__('All Day', 'modern-events-calendar-lite'), 'default'=>__('All Day', 'modern-events-calendar-lite')),
+                    )
+                ),
+            );
+        else:
+            $messages = array(
+                'taxonomies'=>array(
+                    'category'=>array('name'=>__('Taxonomies', 'modern-events-calendar-lite')),
+                    'messages'=>array(
+                        'taxonomy_categories'=>array('label'=>__('Category Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Categories', 'modern-events-calendar-lite')),
+                        'taxonomy_category'=>array('label'=>__('Category Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Category', 'modern-events-calendar-lite')),
+                        'taxonomy_labels'=>array('label'=>__('Label Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Labels', 'modern-events-calendar-lite')),
+                        'taxonomy_label'=>array('label'=>__('Label Singular Label', 'modern-events-calendar-lite'), 'default'=>__('label', 'modern-events-calendar-lite')),
+                        'taxonomy_locations'=>array('label'=>__('Location Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Locations', 'modern-events-calendar-lite')),
+                        'taxonomy_location'=>array('label'=>__('Location Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Location', 'modern-events-calendar-lite')),
+                        'taxonomy_organizers'=>array('label'=>__('Organizer Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Organizers', 'modern-events-calendar-lite')),
+                        'taxonomy_organizer'=>array('label'=>__('Organizer Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Organizer', 'modern-events-calendar-lite')),
+                        'taxonomy_speakers'=>array('label'=>__('Speaker Plural Label', 'modern-events-calendar-lite'), 'default'=>__('Speakers', 'modern-events-calendar-lite')),
+                        'taxonomy_speaker'=>array('label'=>__('Speaker Singular Label', 'modern-events-calendar-lite'), 'default'=>__('Speaker', 'modern-events-calendar-lite')),
+                    )
+                ),
+                'weekdays'=>array(
+                    'category'=>array('name'=>__('Weekdays', 'modern-events-calendar-lite')),
+                    'messages'=>array(
+                        'weekdays_su'=>array('label'=>__('Sunday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('SU', 'modern-events-calendar-lite')),
+                        'weekdays_mo'=>array('label'=>__('Monday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('MO', 'modern-events-calendar-lite')),
+                        'weekdays_tu'=>array('label'=>__('Tuesday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('TU', 'modern-events-calendar-lite')),
+                        'weekdays_we'=>array('label'=>__('Wednesday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('WE', 'modern-events-calendar-lite')),
+                        'weekdays_th'=>array('label'=>__('Thursday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('TH', 'modern-events-calendar-lite')),
+                        'weekdays_fr'=>array('label'=>__('Friday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('FR', 'modern-events-calendar-lite')),
+                        'weekdays_sa'=>array('label'=>__('Saturday abbreviation', 'modern-events-calendar-lite'), 'default'=>__('SA', 'modern-events-calendar-lite')),
+                    )
+                ),
+                'others'=>array(
+                    'category'=>array('name'=>__('Others', 'modern-events-calendar-lite')),
+                    'messages'=>array(
+                        'register_button'=>array('label'=>__('Register Button', 'modern-events-calendar-lite'), 'default'=>__('REGISTER', 'modern-events-calendar-lite')),
+                        'view_detail'=>array('label'=>__('View Detail Button', 'modern-events-calendar-lite'), 'default'=>__('View Detail', 'modern-events-calendar-lite')),
+                        'event_detail'=>array('label'=>__('Event Detail Button', 'modern-events-calendar-lite'), 'default'=>__('Event Detail', 'modern-events-calendar-lite')),
+                        'read_more_link'=>array('label'=>__('Event Link', 'modern-events-calendar-lite'), 'default'=>__('Event Link', 'modern-events-calendar-lite')),
+                        'more_info_link'=>array('label'=>__('More Info Link', 'modern-events-calendar-lite'), 'default'=>__('More Info', 'modern-events-calendar-lite')),
+                        'event_cost'=>array('label'=>__('Event Cost', 'modern-events-calendar-lite'), 'default'=>__('Event Cost', 'modern-events-calendar-lite')),
+                        'cost'=>array('label'=>__('Cost', 'modern-events-calendar-lite'), 'default'=>__('Cost', 'modern-events-calendar-lite')),
+                        'other_organizers'=>array('label'=>__('Other Organizers', 'modern-events-calendar-lite'), 'default'=>__('Other Organizers', 'modern-events-calendar-lite')),
+                        'other_locations'=>array('label'=>__('Other Locations', 'modern-events-calendar-lite'), 'default'=>__('Other Locations', 'modern-events-calendar-lite')),
+                        'all_day'=>array('label'=>__('All Day', 'modern-events-calendar-lite'), 'default'=>__('All Day', 'modern-events-calendar-lite')),
+                    )
+                ),
+            );
+        endif;
 
         return apply_filters('mec_messages', $messages);
     }
@@ -5799,19 +5926,14 @@ class MEC_main extends MEC_base
 
     /**
      * Get Weather from the data provider
+     * @param $apikey
      * @param $lat
      * @param $lng
      * @param $datetime
      * @return bool|array
      */
-    public function get_weather($lat, $lng, $datetime)
+    public function get_weather_darksky($apikey, $lat, $lng, $datetime)
     {
-        // MEC Settings
-        $settings = $this->get_settings();
-
-        // API KEY is required!
-        if(!isset($settings['weather_module_api_key']) or (isset($settings['weather_module_api_key']) and !trim($settings['weather_module_api_key']))) return false;
-
         $locale = substr(get_locale(), 0, 2);
 
         // Set the language to English if it's not included in available languages
@@ -5824,10 +5946,38 @@ class MEC_main extends MEC_base
         ))) $locale = 'en';
 
         // Dark Sky Provider
-        $JSON = $this->get_web_page('https://api.darksky.net/forecast/'.$settings['weather_module_api_key'].'/'.$lat.','.$lng.','.strtotime($datetime).'?exclude=minutely,hourly,daily,alerts&units=ca&lang='.$locale);
+        $JSON = $this->get_web_page('https://api.darksky.net/forecast/'.$apikey.'/'.$lat.','.$lng.','.strtotime($datetime).'?exclude=minutely,hourly,daily,alerts&units=ca&lang='.$locale);
         $data = json_decode($JSON, true);
 
         return (isset($data['currently']) ? $data['currently'] : false);
+    }
+
+    /**
+     * Get Weather from the data provider
+     * @param $apikey
+     * @param $lat
+     * @param $lng
+     * @param $datetime
+     * @return bool|array
+     */
+    public function get_weather_wa($apikey, $lat, $lng, $datetime)
+    {
+        $locale = substr(get_locale(), 0, 2);
+
+        // Set the language to English if it's not included in available languages
+        if(!in_array($locale, array
+        (
+            'ar', 'bn', 'bg', 'zh', 'zh_tw', 'cs', 'da', 'nl', 'fi', 'fr', 'de', 'el',
+            'hi', 'hu', 'it', 'ja', 'jv', 'ko', 'zh_cmn', 'mr', 'pl', 'pt', 'pa', 'ro', 'ru',
+            'si', 'si', 'sk', 'es', 'sv', 'ta', 'te', 'tr', 'uk', 'ur', 'vi', 'zh_wuu', 'zh_hsn',
+            'zh_yue', 'zu'
+        ))) $locale = 'en';
+
+        // Dark Sky Provider
+        $JSON = $this->get_web_page('https://api.weatherapi.com/v1/current.json?key='.$apikey.'&q='.$lat.','.$lng.'&lang='.$locale);
+        $data = json_decode($JSON, true);
+
+        return (isset($data['current']) ? $data['current'] : false);
     }
     
     /**

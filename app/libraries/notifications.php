@@ -242,6 +242,9 @@ class MEC_notifications extends MEC_base
      */
     public function booking_confirmation($book_id, $mode = 'manually')
     {
+        // Booking Confirmation is disabled
+        if(isset($this->notif_settings['booking_confirmation']['status']) and !$this->notif_settings['booking_confirmation']['status']) return false;
+
         $confirmation_notification = apply_filters('mec_booking_confirmation', true);
         if(!$confirmation_notification) return false;
 
@@ -897,17 +900,19 @@ class MEC_notifications extends MEC_base
 
         // Book Data
         $transaction_id = get_post_meta($book_id, 'mec_transaction_id', true);
+        $transaction = $this->book->get_transaction($transaction_id);
 
         $date_format = get_option('date_format');
         $time_format = get_option('time_format');
 
-        $book_date = get_post_meta($book_id, 'mec_date', true);
-        if(trim($book_date) and strpos($book_date, ':') !== false)
+        $timestamps = get_post_meta($book_id, 'mec_date', true);
+        list($start_timestamp, $end_timestamp) = explode(':', $timestamps);
+
+        if(trim($timestamps) and strpos($timestamps, ':') !== false)
         {
-            $ex = explode(':', $book_date);
-            if(isset($ex[0]) and isset($ex[1]) and trim($ex[0]) != trim($ex[1]))
+            if(trim($start_timestamp) != trim($end_timestamp))
             {
-                $book_date = sprintf(__('%s to %s', 'modern-events-calendar-lite'), $this->main->date_i18n($date_format.' '.$time_format, $ex[0]), $this->main->date_i18n($date_format.' '.$time_format, $ex[1]));
+                $book_date = sprintf(__('%s to %s', 'modern-events-calendar-lite'), $this->main->date_i18n($date_format.' '.$time_format, $start_timestamp), $this->main->date_i18n($date_format.' '.$time_format, $end_timestamp));
             }
             else $book_date = get_the_date($date_format.' '.$time_format, $book_id);
         }
@@ -920,11 +925,10 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%book_order_time%%', $this->main->date_i18n($date_format.' '.$time_format, strtotime($order_time)), $message);
 
         // Book Time
-        $start_seconds = get_post_meta($event_id, 'mec_start_day_seconds', true);
-        $event_start_time = get_post_meta($event_id, 'mec_allday', true) ? $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')) : $this->main->get_time($start_seconds);
+        $event_start_time = get_post_meta($event_id, 'mec_allday', true) ? $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')) : $this->main->get_time($start_timestamp);
 
         // Condition for check some parameter simple hide event time
-        if(!get_post_meta( $event_id, 'mec_hide_time', true )) $message = str_replace('%%book_time%%', $event_start_time, $message);
+        if(!get_post_meta($event_id, 'mec_hide_time', true)) $message = str_replace('%%book_time%%', $event_start_time, $message);
         else $message = str_replace('%%book_time%%', '', $message);
 
         $message = str_replace('%%invoice_link%%', $this->book->get_invoice_link($transaction_id), $message);
@@ -957,6 +961,29 @@ class MEC_notifications extends MEC_base
         // Booking IDs
         $message = str_replace('%%booking_id%%', $book_id, $message);
         $message = str_replace('%%booking_transaction_id%%', $transaction_id, $message);
+
+        // Payment Gateway
+        $message = str_replace('%%payment_gateway%%', get_post_meta($book_id, 'mec_gateway_label', true), $message);
+
+        // Data Fields
+        $bfixed_fields = $this->main->get_bfixed_fields($event_id);
+
+        if(is_array($bfixed_fields) and count($bfixed_fields) and isset($transaction['fields']) and is_array($transaction['fields']) and count($transaction['fields']))
+        {
+            foreach($bfixed_fields as $b => $bfixed_field)
+            {
+                if(!is_numeric($b)) continue;
+
+                $bfixed_field_name = isset($bfixed_field['label']) ? $bfixed_field['label'] : '';
+                $bfixed_value = isset($transaction['fields'][$b]) ? $transaction['fields'][$b] : NULL;
+                if(trim($bfixed_value) === '') continue;
+
+                if(is_array($bfixed_value)) $bfixed_value = implode(', ', $bfixed_value);
+
+                $message = str_replace('%%booking_field_'.$b.'%%', trim($bfixed_value, ', '), $message);
+                $message = str_replace('%%booking_field_'.$b.'_with_name%%', trim((trim($bfixed_field_name) ? $bfixed_field_name.': ' : '').trim($bfixed_value, ', ')), $message);
+            }
+        }
 
         // Event Data
         $organizer_id = get_post_meta($event_id, 'mec_organizer_id', true);
@@ -1079,30 +1106,13 @@ class MEC_notifications extends MEC_base
 
         $message = str_replace('%%ticket_name_time%%', trim($ticket_name_time, ', '), $message);
 
-        $ticket_start_time_info = ' '.sprintf("%02d", $ticket_start_hour).':'.sprintf("%02d", $ticket_start_minute).' '.$ticket_start_ampm;
-        $ticket_end_time_info = ' '.sprintf("%02d", $ticket_end_hour).':'.sprintf("%02d", $ticket_end_minute).' '.$ticket_end_ampm;
-
-        $start_time = strtotime(get_the_date('Y-m-d', $book_id) . $ticket_start_time_info);
-        $end_time = strtotime(get_the_date('Y-m-d', $book_id). $ticket_end_time_info);
-
-        if(isset($book_date) and strpos($book_date, __('to', 'modern-events-calendar-lite')) !== false)
-        {
-            $explode_time = explode(__('to', 'modern-events-calendar-lite'), $book_date);
-
-            if(isset($explode_time) and count($explode_time) == 2)
-            {
-                $start_time = strtotime(trim($explode_time[0]) . $ticket_start_time_info);
-                $end_time = strtotime(trim($explode_time[1]) . $ticket_end_time_info);
-            }
-        }
-
-        $gmt_offset_seconds = $this->main->get_gmt_offset_seconds($start_time);
+        $gmt_offset_seconds = $this->main->get_gmt_offset_seconds($start_timestamp);
         $event_title = get_the_title($event_id);
         $event_info = get_post($event_id);
         $event_content = trim($event_info->post_content) ? strip_shortcodes(strip_tags($event_info->post_content)) : $event_title;
 
         $google_caneldar_location = get_term_meta($location_id, 'address', true);
-        $google_caneldar_link = '<a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://www.google.com/calendar/event?action=TEMPLATE&text= ' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_caneldar_location) ? '&location=' . urlencode($google_caneldar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
+        $google_caneldar_link = '<a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_caneldar_location) ? '&location=' . urlencode($google_caneldar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
         $ical_export_link  = '<a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="' . $this->main->ical_URL_email($event_id, $book_id, get_the_date('Y-m-d', $book_id)) . '">'. __('+ iCal export', 'modern-events-calendar-lite') . '</a>';
 
         $message = str_replace('%%google_calendar_link%%', $google_caneldar_link, $message);

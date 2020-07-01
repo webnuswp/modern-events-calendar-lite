@@ -31,7 +31,7 @@ $map_events = array();
                 $background_image = (isset($event->data->featured_image['tileview']) && trim($event->data->featured_image['tileview'])) ? ' url(\''.trim($event->data->featured_image['tileview']).'\')' : '';
 
                 // Multiple Day Event Class
-                $me_class   = $event_start_date == $event->date['end']['date'] ? '' : 'tile-multipleday-event';
+                $me_class   = $event_start_date == $event->date['end']['date'] || (isset($settings['multiple_day_show_method']) && $settings['multiple_day_show_method'] == 'all_days') ? '' : 'tile-multipleday-event';
 
                 $label_style = '';
                 if(!empty($event->data->labels))
@@ -62,7 +62,7 @@ $map_events = array();
                     </div>
                     <div class="mec-event-content">
                         <div class="mec-event-detail">
-                            <?php echo (isset($location['name']) ? '<i class="mec-sl-location-pin"></i>' . $location['name'] : ''); ?>
+                            <?php echo (isset($location['name']) ? '<span class="mec-event-loc-place"><i class="mec-sl-location-pin"></i>' . $location['name'] . '</span>' : ''); ?>
                             <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
                                 <div class="mec-price-details">
                                     <i class="mec-sl-wallet"></i>
