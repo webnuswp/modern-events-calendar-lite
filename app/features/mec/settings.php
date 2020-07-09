@@ -21,6 +21,7 @@ if($this->getPRO())
     $verify = $envato->get_MEC_info('dl');
 }
 
+echo $this->main->mec_custom_msg_2('yes', 'yes');
 echo $this->main->mec_custom_msg('', '');
 
 // Display Addons Notification
@@ -768,7 +769,8 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     <input value="1" type="checkbox" name="mec[settings][fes_section_hourly_schedule]" <?php if(!isset($settings['fes_section_hourly_schedule']) or (isset($settings['fes_section_hourly_schedule']) and $settings['fes_section_hourly_schedule'])) echo 'checked="checked"'; ?> /> <?php _e('Hourly Schedule', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
-                            <?php if (  $this->getPRO() ) : ?>
+
+                            <?php if($this->getPRO()): ?>
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_booking]" value="0" />
@@ -788,6 +790,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 </label>
                             </div>
                             <?php endif; ?>
+
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_schema]" value="0" />
@@ -800,6 +803,16 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     <input value="1" type="checkbox" name="mec[settings][fes_section_excerpt]" <?php if(isset($settings['fes_section_excerpt']) and $settings['fes_section_excerpt']) echo 'checked="checked"'; ?> /> <?php _e('Excerpt', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
+
+                            <?php if(isset($settings['downloadable_file_status']) and $settings['downloadable_file_status']): ?>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][fes_section_downloadable_file]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_downloadable_file]" <?php if(!isset($settings['fes_section_downloadable_file']) or (isset($settings['fes_section_downloadable_file']) and $settings['fes_section_downloadable_file'])) echo 'checked="checked"'; ?> /> <?php _e('Downloadable File', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <?php endif; ?>
+
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_note]" value="0" />

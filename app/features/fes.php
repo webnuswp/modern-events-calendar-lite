@@ -1237,6 +1237,13 @@ class MEC_feature_fes extends MEC_base
         $fields = (isset($mec['fields']) and is_array($mec['fields'])) ? $mec['fields'] : array();
         update_post_meta($post_id, 'mec_fields', $fields);
 
+        // Downloadable File
+        if(isset($mec['downloadable_file']))
+        {
+            $dl_file = isset($mec['downloadable_file']) ? $mec['downloadable_file'] : '';
+            update_post_meta($post_id, 'mec_dl_file', $dl_file);
+        }
+
         do_action('save_fes_meta_action', $post_id, $mec);
 
         // For Event Notification Badge.

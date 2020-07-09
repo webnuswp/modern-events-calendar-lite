@@ -1013,7 +1013,7 @@ class MEC_notifications extends MEC_base
         }
 
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
-        $message = str_replace('%%event_link%%', get_post_permalink($event_id), $message);
+        $message = str_replace('%%event_link%%', $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp)), $message);
         $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($event_id, 'mec_start_date', true))), $message);
         $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($event_id, 'mec_end_date', true))), $message);
 
@@ -1111,12 +1111,16 @@ class MEC_notifications extends MEC_base
         $event_info = get_post($event_id);
         $event_content = trim($event_info->post_content) ? strip_shortcodes(strip_tags($event_info->post_content)) : $event_title;
 
-        $google_caneldar_location = get_term_meta($location_id, 'address', true);
-        $google_caneldar_link = '<a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_caneldar_location) ? '&location=' . urlencode($google_caneldar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
-        $ical_export_link  = '<a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="' . $this->main->ical_URL_email($event_id, $book_id, get_the_date('Y-m-d', $book_id)) . '">'. __('+ iCal export', 'modern-events-calendar-lite') . '</a>';
+        $google_calendar_location = get_term_meta($location_id, 'address', true);
+        $google_calendar_link = '<a href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
+        $ical_export_link  = '<a href="' . $this->main->ical_URL_email($event_id, $book_id, get_the_date('Y-m-d', $book_id)) . '">'. __('+ iCal export', 'modern-events-calendar-lite') . '</a>';
 
-        $message = str_replace('%%google_calendar_link%%', $google_caneldar_link, $message);
+        $message = str_replace('%%google_calendar_link%%', $google_calendar_link, $message);
         $message = str_replace('%%ics_link%%', $ical_export_link, $message);
+
+        // Downloadable File
+        $dl_file = $this->book->get_dl_file_link($book_id);
+        $message = str_replace('%%dl_file%%', $dl_file, $message);
 
         return $message;
     }

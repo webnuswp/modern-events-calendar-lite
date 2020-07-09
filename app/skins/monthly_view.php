@@ -216,7 +216,7 @@ class MEC_skin_monthly_view extends MEC_skins
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
 
-                        $d[] = $this->render->after_render($data, $i);
+                        $d[] = $this->render->after_render($data, $this, $i);
                     }
                 }
 
@@ -284,7 +284,7 @@ class MEC_skin_monthly_view extends MEC_skins
 
         do
         {
-            if($c > 6) $break = true;
+            if($c > 12) $break = true;
             if($c and !$break)
             {
                 if(intval($this->month) == 12)

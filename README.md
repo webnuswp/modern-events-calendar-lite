@@ -1,10 +1,10 @@
-﻿# Modern Events Calendar Lite
+﻿# Modern Events Calendar Lite ===
 **Contributors:** webnus  
 **Donate link:** https://webnus.net  
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.4.2  
-**Stable tag:** 5.7.0  
+**Stable tag:** 5.7.5  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -211,9 +211,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Key Features 
-- User Role created after booking
-- Sort payment gateways
-- Booking fixed fields per booking
+- Download-able file feature  (*pro*)
+- Sort payment gateways (*pro*)
+- Booking fixed fields per booking (*pro*)
 - Custom event fields
 - Multiple occurrences in one day
 - Different hours for custom days repeat
@@ -341,7 +341,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Maximum discount for coupons (*pro*)
 - Booking report page (*pro*)
 - Book All Occurrences (*pro*)
+- Total User Booking Limits (*pro*)
 - Stop selling Ticket Option (*pro*)
+- Sell all occurrences by one booking (*pro*)
 - [Organizer payment](https://webnus.net/dox/modern-events-calendar/organizer-payment/) (*pro*)
 - [Individual booking form per event](https://webnus.net/dox/modern-events-calendar/booking-form/) (*pro*)
 - [Advanced Tax/Fee system](https://webnus.net/dox/modern-events-calendar/taxes-or-fees/) (*pro*)
@@ -493,6 +495,28 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ## Changelog 
 
+### 5.7.5 – 9 July 2020 
+- Refactored: The booking reminder to accept hours interval instead of days (pro)
+- Added: A download-able file feature. This file can be downloaded after confirmed booking by bookers (pro)
+- Added: A placeholder to include the downloadable file link in booking notifications (pro)
+- Added: An option to disable confirmation email (pro)
+- Added: A feature to show attendees of bookings in main booking manage page (pro)
+- Added: Featured image of events into the RSS feed
+- Added: Available tickets if user is restricted to book only 1 ticket (pro)
+- Improved: The stripe payment by sending payer email (pro)
+- Improved: The display of time for those multiple days events that last after midnight
+- Improved: The search module to show searched events
+- Improved: The “Show Booking Form Interval” option to be more compatible with “Sell All Occurrences” events (pro)
+- Updated: Polish translation (Thanks to Monika Osowicz)
+- Fixed: Some issues in fixed and per attendee booking fields (pro)
+- Fixed: Some issues in event fields
+- Fixed: Some translation issue in single event modules
+- Fixed: An issue in booking module loaded in popup event (pro)
+- Fixed: An issue in google calendar link in email notifications
+- Fixed: An issue in event link for recurring events in email notifications
+- Fixed: An issue in archive page meta title
+
+
 ### 5.7.0 – 1 July 2020 
 - Added: WeatherAPI.com provider for weather module (pro)
 - Added: A new feature to sort payment gateways in backend and frontend (pro)
@@ -503,7 +527,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Added: %%payment_gateway%% placeholder (pro)
 - Added: %%booking_id%% placeholder (pro)
 - Added: %%booking_transaction_id%% placeholder (pro)
-- Added: %% ticket_name%% and %%ticket_time%% placeholders to notifications (pro)
+- Added: %%ticket_name%% and %%ticket_time%% placeholders to notifications (pro)
 - Improved: The Facebook Importer
 - Improved: The attendees section of Frontend Submission
 - Fixed: An issue related to event time in booking notifications (pro)

@@ -253,4 +253,14 @@ class MEC_parser extends MEC_base
         $event_id = get_the_ID();
         return $this->render->vsingle(array('id'=>$event_id, 'content'=>$content));
     }
+
+    public function archive_document_title($title)
+    {
+        if(is_post_type_archive($this->main->get_main_post_type()) && !is_search())
+        {
+            return $this->main->get_archive_title();
+        }
+
+        return $title;
+    }
 }

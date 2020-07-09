@@ -585,6 +585,9 @@ class MEC_skins extends MEC_base
             }
             else
             {
+                $diff = $this->main->date_diff($mec_date->dstart, $mec_date->dend);
+                $days_long = (isset($diff->days) and !$diff->invert) ? $diff->days : 0;
+
                 while($s <= $e)
                 {
                     if((!$this->show_only_expired_events and $seconds_start <= $s and $s <= $seconds_end) or ($this->show_only_expired_events and $seconds_start >= $s and $s >= $seconds_end))
@@ -613,7 +616,7 @@ class MEC_skins extends MEC_base
                             if(strpos($days, $d) === false)
                             {
                                 $midnight = $s+(3600*$midnight_hour);
-                                if($midnight >= $mec_date->tend) break;
+                                if($days_long == '1' and $midnight >= $mec_date->tend) break;
 
                                 $dates[$d][] = $mec_date->post_id;
                             }
@@ -622,7 +625,7 @@ class MEC_skins extends MEC_base
                         else
                         {
                             $midnight = $s+(3600*$midnight_hour);
-                            if($midnight >= $mec_date->tend) break;
+                            if($days_long == '1' and $midnight >= $mec_date->tend) break;
 
                             $dates[$d][] = $mec_date->post_id;
                         }
@@ -744,7 +747,7 @@ class MEC_skins extends MEC_base
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
 
-                        $d[] = $this->render->after_render($data, $i);
+                        $d[] = $this->render->after_render($data, $this, $i);
                         $found++;
                     }
 
@@ -1220,16 +1223,11 @@ class MEC_skins extends MEC_base
 
     public function sort_day_events($a, $b)
     {
-        $a_timestamp = $a->data->time['start_timestamp'];
-        $b_timestamp = $b->data->time['start_timestamp'];
-
         $a_start_date = $a->date['start']['date'];
-        $a_end_date = $a->date['end']['date'];
         $b_start_date = $b->date['start']['date'];
-        $b_end_date = $b->date['end']['date'];
 
-        if($a_start_date !== $a_end_date) $a_timestamp = strtotime($a_start_date.' '.$a->data->time['start_raw']);
-        if($b_start_date !== $b_end_date) $b_timestamp = strtotime($b_start_date.' '.$b->data->time['start_raw']);
+        $a_timestamp = strtotime($a_start_date.' '.$a->data->time['start_raw']);
+        $b_timestamp = strtotime($b_start_date.' '.$b->data->time['start_raw']);
 
         if($a_timestamp == $b_timestamp) return 0;
         return ($a_timestamp > $b_timestamp) ? +1 : -1;

@@ -49,8 +49,6 @@ if($show_booking_form_interval)
 
     $dates = $filtered_dates;
 }
-
-$collapse_ticket_selection = (!isset($settings['booking_limit_collapse']) or (isset($settings['booking_limit_collapse']) and $settings['booking_limit_collapse']) ? true : false);
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
     <h4><?php _e('Book Event', 'modern-events-calendar-lite'); ?></h4>
@@ -67,7 +65,7 @@ $collapse_ticket_selection = (!isset($settings['booking_limit_collapse']) or (is
         </select>
     </div>
     <?php else: ?>
-    <input type="hidden" name="book[date]" value="<?php echo $book->timestamp($dates[0]['start'], $dates[0]['end']); ?>">
+    <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" value="<?php echo $book->timestamp($dates[0]['start'], $dates[0]['end']); ?>">
     <?php endif; ?>
     
     <div class="mec-event-tickets-list" id="mec_book_form_tickets_container<?php echo $uniqueid; ?>" data-total-booking-limit="<?php echo isset($availability['total']) ? $availability['total'] : '-1'; ?>">
@@ -78,9 +76,12 @@ $collapse_ticket_selection = (!isset($settings['booking_limit_collapse']) or (is
                 <span class="mec-event-ticket-price"><?php echo (isset($ticket['price_label']) ? $book->get_ticket_price_label($ticket, current_time('Y-m-d')) : ''); ?></span>
                 <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo __($ticket['description'], 'modern-events-calendar-lite'); ?></p><?php endif; ?>
 
-                <?php if(!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1 and $collapse_ticket_selection): ?>
+                <?php if(!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1): ?>
                     <input type="hidden" name="book[tickets][<?php echo $ticket_id; ?>]" value="1" />
-                    <p><?php _e('1 Ticket selected.', 'modern-events-calendar-lite'); ?></p>
+                    <p>
+                        <?php _e('1 Ticket selected.', 'modern-events-calendar-lite'); ?>
+                        <div class="mec-event-ticket-available"><?php echo sprintf(__('Available %s: <span>%s</span>', 'modern-events-calendar-lite'), $this->m('tickets', __('Tickets', 'modern-events-calendar-lite')), ($ticket['unlimited'] ? __('Unlimited', 'modern-events-calendar-lite') : ($ticket_limit != '-1' ? $ticket_limit : __('Unlimited', 'modern-events-calendar-lite')))); ?></div>
+                    </p>
                 <?php else: ?>
                 <div>
                     <input type="number" class="mec-book-ticket-limit" name="book[tickets][<?php echo $ticket_id; ?>]" title="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo $default_ticket_number; ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" onchange="mec_check_tickets_availability<?php echo $uniqueid; ?>(<?php echo $ticket_id; ?>, this.value);" />

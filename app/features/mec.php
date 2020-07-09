@@ -138,6 +138,7 @@ class MEC_feature_mec extends MEC_base
 
         // Close Custom Text Notification
         $this->factory->action('wp_ajax_close_cmsg_notification', array($this, 'close_cmsg_notification'));
+        $this->factory->action('wp_ajax_close_cmsg_2_notification', array($this, 'close_cmsg_2_notification'));
 
         // Close Custom Text Notification
         $this->factory->action('wp_ajax_report_event_dates', array($this, 'report_event_dates'));
@@ -225,6 +226,20 @@ class MEC_feature_mec extends MEC_base
             exit();
         }
         update_option('mec_addons_notification_option', 'open');
+        wp_die();
+    }
+
+    /* Close addons notification */
+    public function close_cmsg_2_notification()
+    {
+        // Current User is not Permitted
+        if(!current_user_can('manage_options')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
+        if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce'))
+        {
+            exit();
+        }
+        update_option('mec_custom_msg_2_close_option', 'open');
         wp_die();
     }
 

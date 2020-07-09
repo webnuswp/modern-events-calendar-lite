@@ -650,7 +650,13 @@ class MEC_render extends MEC_base
         return $data;
     }
 
-    public function after_render($event, $serie = 1)
+    /**
+     * @param $event
+     * @param MEC_skins $skin
+     * @param int $serie
+     * @return mixed
+     */
+    public function after_render($event, $skin, $serie = 1)
     {
         // If event is custom days and current date is available
         if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_repeat_type']) and $event->data->meta['mec_repeat_type'] === 'custom_days' and isset($event->data->mec) and isset($event->data->mec->days) and isset($event->date) and is_array($event->date) and isset($event->date['start']) and isset($event->date['start']['date']))
@@ -750,6 +756,71 @@ class MEC_render extends MEC_base
             {
                 $event->data->time['start_timestamp'] = $start_timestamp;
                 $event->data->time['end_timestamp'] = $end_timestamp;
+            }
+        }
+
+        if($skin->skin != 'single' and !($skin->multiple_days_method == 'first_day' or ($skin->multiple_days_method == 'first_day_listgrid' and in_array($skin->skin, array('list', 'grid', 'slider', 'carousel', 'agenda', 'tile')))))
+        {
+            // MEC Cache
+            $cache = $this->getCache();
+
+            // Cache Key
+            $key = $event->data->ID.'-'.$event->date['end']['date'];
+
+            // Is Midnight Event
+            $midnight = $this->main->is_midnight_event($event);
+
+            // Improve Time for Multiple Day Events
+            if($cache->has($key) or ($event->date['start']['date'] !== $event->date['end']['date'] and !$midnight))
+            {
+                $allday = isset($event->data->meta['mec_allday']) ? $event->data->meta['mec_allday'] : 0;
+                $hide_time = isset($event->data->meta['mec_hide_time']) ? $event->data->meta['mec_hide_time'] : 0;
+                $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
+
+                // Get From Cache (Last Day)
+                if($cache->has($key) and $event->date['start']['date'] === $event->date['end']['date'])
+                {
+                    list($new_start_time, $new_end_time) = $cache->get($key);
+
+                    // Delete the Cache
+                    $cache->delete($key);
+                }
+                // Get From Cache (Between Days)
+                elseif($cache->has($key) and $event->date['start']['date'] !== $event->date['end']['date'])
+                {
+                    $new_start_time = $this->main->get_time(0);
+                    $new_end_time = $this->main->get_time((24*3600));
+                }
+                // First Day
+                else
+                {
+                    $new_start_time = $event->data->time['start_raw'];
+                    $new_end_time = $this->main->get_time((24*3600));
+                    $second_start_time = $this->main->get_time(0);
+                    $second_end_time = $event->data->time['end_raw'];
+
+                    // Set to Cache
+                    $cache->set($key, array($second_start_time, $second_end_time));
+                }
+
+                $event->data->time['start_raw'] = $new_start_time;
+                $event->data->time['end_raw'] = $new_end_time;
+
+                if($hide_time)
+                {
+                    $event->data->time['start'] = '';
+                    $event->data->time['end'] = '';
+                }
+                elseif($allday)
+                {
+                    $event->data->time['start'] = $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite'));
+                    $event->data->time['end'] = '';
+                }
+                else
+                {
+                    $event->data->time['start'] = $new_start_time;
+                    $event->data->time['end'] = ($hide_end_time ? '' : $new_end_time);
+                }
             }
         }
 

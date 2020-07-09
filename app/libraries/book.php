@@ -807,6 +807,22 @@ class MEC_book extends MEC_base
         return apply_filters('mec_booking_invoice_url', $main->add_qs_var('id', $transaction_id, $url), $transaction_id);
     }
 
+    /**
+     * Get Downloadable file link for certain transaction
+     * @author Webnus <info@webnus.biz>
+     * @param $book_id
+     * @return string
+     */
+    public function get_dl_file_link($book_id)
+    {
+        if(!isset($this->settings['downloadable_file_status']) or (isset($this->settings['downloadable_file_status']) and !$this->settings['downloadable_file_status'])) return '';
+
+        $event_id = get_post_meta($book_id, 'mec_event_id', true);
+        $dl_file_id = get_post_meta($event_id, 'mec_dl_file', true);
+
+        return apply_filters('mec_booking_dl_file_url', ($dl_file_id ? wp_get_attachment_url($dl_file_id) : ''), $book_id);
+    }
+
     public function get_bookings_by_transaction_id($transaction_id)
     {
         $main = $this->getMain();
@@ -853,6 +869,24 @@ class MEC_book extends MEC_base
         }
 
         return $count;
+    }
+
+    public function get_attendees($book_id)
+    {
+        $attendees = get_post_meta($book_id, 'mec_attendees', true);
+        $clean = array();
+
+        if(is_array($attendees))
+        {
+            foreach($attendees as $key => $attendee)
+            {
+                if($key === 'attachments') continue;
+
+                $clean[$key] = $attendee;
+            }
+        }
+
+        return $clean;
     }
 
     public function get_transaction_id_book_id($book_id)
@@ -955,5 +989,11 @@ class MEC_book extends MEC_base
         $end_time = $end['date'].' '.sprintf("%02d", $e_hour).':'.sprintf("%02d", $end['minutes']).' '.$end['ampm'];
 
         return strtotime($start_time).':'.strtotime($end_time);
+    }
+
+    public function get_event_id_by_transaction_id($transaction_id)
+    {
+        $transaction = $this->get_transaction($transaction_id);
+        return (isset($transaction['event_id']) ? $transaction['event_id'] : 0);
     }
 }

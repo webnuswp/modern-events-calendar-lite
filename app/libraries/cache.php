@@ -50,4 +50,15 @@ class MEC_cache
     {
         return (isset(self::$cache[$key]) ? self::$cache[$key] : NULL);
     }
+
+    public static function delete($key)
+    {
+        if(MEC_cache::has($key))
+        {
+            unset(self::$cache[$key]);
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -63,6 +63,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '4.9.0', '<')) $this->version490();
         if(version_compare($version, '5.0.5', '<')) $this->version505();
         if(version_compare($version, '5.5.1', '<')) $this->version551();
+        if(version_compare($version, '5.7.1', '<')) $this->version571();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -362,6 +363,35 @@ class MEC_feature_update extends MEC_base
                 'post_date' => $post_date,
                 'post_date_gmt' => $gmt_date,
             ));
+        }
+    }
+
+    public function version571()
+    {
+        // Get current MEC options
+        $current = get_option('mec_options', array());
+        if(is_string($current) and trim($current) == '') $current = array();
+
+        if(!isset($current['notifications']['booking_reminder'])) return;
+        if(isset($current['notifications']['booking_reminder']['hours'])) return;
+
+        // Change Days to Hours
+        $days = explode(',', trim($current['notifications']['booking_reminder']['days'], ', '));
+
+        $hours = '';
+        foreach($days as $day)
+        {
+            $hours .= ($day * 24).',';
+        }
+
+        $current['notifications']['booking_reminder']['hours'] = trim($hours, ', ');
+        unset($current['notifications']['booking_reminder']['days']);
+
+        // Update it only if options already exists.
+        if(get_option('mec_options') !== false)
+        {
+            // Save new options
+            update_option('mec_options', $current);
         }
     }
 }

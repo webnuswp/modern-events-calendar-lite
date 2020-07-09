@@ -893,6 +893,66 @@ class MEC_main extends MEC_base
     }
 
     /**
+     * Returns MEC custom message 2
+     * @author Webnus <info@webnus.biz>
+     * @return array
+     */
+    public function mec_custom_msg_2($display_option = '', $message = '')
+    {
+        $get_cmsg_display_option = get_option('mec_custom_msg_2_display_option');
+
+        $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
+        if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+        {
+            $ctx = stream_context_create(array('http'=>
+                array(
+                    'timeout' => 20,
+                )
+            ));
+            $get_data = file_get_contents($data_url, false, $ctx);
+            if ( $get_data !== false AND !empty($get_data) )
+            {
+                $obj = json_decode($get_data);
+                $i = count((array)$obj);
+            }
+        }
+        elseif ( function_exists('curl_version') )
+        {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+            curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+            curl_setopt($ch, CURLOPT_URL, $data_url);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            $obj = json_decode($result);
+            $i = count((array)$obj);
+        } else {
+            $obj = '';
+        }
+
+        if ( !empty( $obj ) ) :
+            foreach ($obj as $key => $value) {
+                $html = $value->html;
+                $display = $value->display;
+            }
+
+            if ( $get_cmsg_display_option != $display ) :
+                update_option( 'mec_custom_msg_2_display_option', $display );
+                update_option('mec_custom_msg_2_close_option', 'close');
+                return $html;
+            elseif ( $get_cmsg_display_option == $display ) :
+                $get_cmsg_close_option = get_option('mec_custom_msg_2_close_option');
+                if ( $get_cmsg_close_option == 'open' ) return;
+                return $html;
+            endif;
+        else:
+            return '';
+        endif;
+    }
+
+    /**
      * Returns MEC custom message
      * @author Webnus <info@webnus.biz>
      * @return array
@@ -1181,20 +1241,7 @@ class MEC_main extends MEC_base
         // Bellow conditional block codes is used for sortable booking form items.
         if(isset($filtered['reg_fields']))
         {
-            if(is_array($filtered['reg_fields']))
-            {
-                $filtered_reg_fields_count = count($filtered['reg_fields']);
-                if($filtered_reg_fields_count)
-                {
-                    $filtered_reg_fields_slice_first = array_slice($filtered['reg_fields'], 0, $filtered_reg_fields_count - 2);
-                    $filtered_reg_fields_slice_last = array_slice($filtered['reg_fields'], ($filtered_reg_fields_count - 2), $filtered_reg_fields_count, true);
-                    $filtered['reg_fields'] = array_merge($filtered_reg_fields_slice_first, $filtered_reg_fields_slice_last);
-                }
-            }
-            else
-            {
-                $filtered['reg_fields'] = array();
-            }
+            if(!is_array($filtered['reg_fields'])) $filtered['reg_fields'] = array();
         }
         
         if(isset($current['reg_fields']) and isset($filtered['reg_fields']))
@@ -1206,20 +1253,7 @@ class MEC_main extends MEC_base
         // Bellow conditional block codes is used for sortable booking fixed form items.
         if(isset($filtered['bfixed_fields']))
         {
-            if(is_array($filtered['bfixed_fields']))
-            {
-                $filtered_bfixed_fields_count = count($filtered['bfixed_fields']);
-                if($filtered_bfixed_fields_count)
-                {
-                    $filtered_bfixed_fields_slice_first = array_slice($filtered['bfixed_fields'], 0, $filtered_bfixed_fields_count - 2);
-                    $filtered_bfixed_fields_slice_last = array_slice($filtered['bfixed_fields'], ($filtered_bfixed_fields_count - 2), $filtered_bfixed_fields_count, true);
-                    $filtered['bfixed_fields'] = array_merge($filtered_bfixed_fields_slice_first, $filtered_bfixed_fields_slice_last);
-                }
-            }
-            else
-            {
-                $filtered['bfixed_fields'] = array();
-            }
+            if(!is_array($filtered['bfixed_fields'])) $filtered['bfixed_fields'] = array();
         }
 
         if(isset($current['bfixed_fields']) and isset($filtered['bfixed_fields']))
@@ -1231,20 +1265,7 @@ class MEC_main extends MEC_base
         // Bellow conditional block codes is used for sortable event form items.
         if(isset($filtered['event_fields']))
         {
-            if(is_array($filtered['event_fields']))
-            {
-                $filtered_event_fields_count = count($filtered['event_fields']);
-                if($filtered_event_fields_count)
-                {
-                    $filtered_event_fields_slice_first = array_slice($filtered['event_fields'], 0, $filtered_event_fields_count - 2);
-                    $filtered_event_fields_slice_last = array_slice($filtered['event_fields'], ($filtered_event_fields_count - 2), $filtered_event_fields_count, true);
-                    $filtered['event_fields'] = array_merge($filtered_event_fields_slice_first, $filtered_event_fields_slice_last);
-                }
-            }
-            else
-            {
-                $filtered['event_fields'] = array();
-            }
+            if(!is_array($filtered['event_fields'])) $filtered['event_fields'] = array();
         }
 
         if(isset($current['event_fields']) and isset($filtered['event_fields']))
@@ -3717,13 +3738,25 @@ class MEC_main extends MEC_base
         // No Dates or no Tickets
         if(!count($dates) or !count($tickets)) return false;
 
+        $book_all_occurrences = 0;
+        if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_booking']) and isset($event->data->meta['mec_booking']['bookings_all_occurrences'])) $book_all_occurrences = (int) $event->data->meta['mec_booking']['bookings_all_occurrences'];
+
         $show_booking_form_interval = (isset($settings['show_booking_form_interval'])) ? $settings['show_booking_form_interval'] : 0;
 
         // Check Show Booking Form Time
         if($show_booking_form_interval)
         {
-            $render_date = (isset($next_date['start']['date']) ? trim($next_date['start']['date']) : date('Y-m-d')) .' '. (isset($next_date['start']['hour']) ? trim(sprintf('%02d', $next_date['start']['hour'])) : date('h', current_time('timestamp', 0))) .':'
-            . (isset($next_date['start']['minutes']) ? trim(sprintf('%02d', $next_date['start']['minutes'])) : date('i', current_time('timestamp', 0))) . ' '.(isset($next_date['start']['ampm']) ? trim($next_date['start']['ampm']) : date('a', current_time('timestamp', 0)));
+            if($book_all_occurrences)
+            {
+                $db = $this->getDB();
+                $first_timestamp = $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event->data->ID."' ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
+                $render_date = date('Y-m-d h:i a', $first_timestamp);
+            }
+            else
+            {
+                $render_date = (isset($next_date['start']['date']) ? trim($next_date['start']['date']) : date('Y-m-d')) .' '. (isset($next_date['start']['hour']) ? trim(sprintf('%02d', $next_date['start']['hour'])) : date('h', current_time('timestamp', 0))) .':'
+                . (isset($next_date['start']['minutes']) ? trim(sprintf('%02d', $next_date['start']['minutes'])) : date('i', current_time('timestamp', 0))) . ' '.(isset($next_date['start']['ampm']) ? trim($next_date['start']['ampm']) : date('a', current_time('timestamp', 0)));
+            }
 
             if($this->check_date_time_validation('Y-m-d h:i a', strtolower($render_date)))
             {
@@ -5033,7 +5066,7 @@ class MEC_main extends MEC_base
             // Event Permalink
             $url = $event->data->permalink;
 
-            // Return same URL if data is not provided
+            // Return same URL if date is not provided
             if(is_null($date)) return $url;
 
             // Single Page Date method is set to next date
@@ -6637,16 +6670,17 @@ class MEC_main extends MEC_base
         $start_timestamp = strtotime($event->date['start']['date']);
         $end_timestamp = strtotime($event->date['end']['date']);
 
-        $time = sprintf("%02d", $event->data->meta['mec_end_time_hour']).':';
-        $time .= sprintf("%02d", $event->data->meta['mec_end_time_minutes']).' ';
-        $time .= $event->data->meta['mec_end_time_ampm'];
+        $diff = $this->date_diff($event->date['start']['date'], $event->date['end']['date']);
+        $days = (isset($diff->days) and !$diff->invert) ? $diff->days : 0;
+
+        $time = $event->data->time['end_raw'];
 
         // Midnight Hour
         $midnight_hour = (isset($settings['midnight_hour']) and $settings['midnight_hour']) ? $settings['midnight_hour'] : 0;
         $midnight = $end_timestamp+(3600*$midnight_hour);
 
         // End Date is before Midnight
-        if($start_timestamp < $end_timestamp and $midnight >= strtotime($event->date['end']['date'].' '.$time)) return true;
+        if($days == 1 and $start_timestamp < $end_timestamp and $midnight >= strtotime($event->date['end']['date'].' '.$time)) return true;
 
         return false;
     }

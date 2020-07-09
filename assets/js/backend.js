@@ -368,6 +368,22 @@ jQuery(document).ready(function($)
         });
     });
 
+    $('.mec-cmsg-2-notification-box-wrap span').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: mec_admin_localize.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'close_cmsg_2_notification',
+                nonce: mec_admin_localize.ajax_nonce,
+            },
+            success: function (response) {
+                $(".mec-custom-msg-2-notification-set-box").fadeOut(100, function () { $(this).remove(); });
+                $(".mec-custom-msg-2-notification-wrap").fadeOut(100, function () { $(this).remove(); });
+            },
+        });
+    });
+
     /* Load event dates in Report page */
     if ( $('.mec-reports-selectbox-event').length > 0 )
     {

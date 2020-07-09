@@ -151,6 +151,8 @@ class MEC_factory extends MEC_base
         $this->filter('mec_vagenda_atts', array($this->main, 'add_search_filters'));
         $this->filter('mce_buttons', array($this->main, 'add_mce_buttons'));
         $this->filter('mce_external_plugins', array($this->main, 'add_mce_external_plugins'));
+
+        $this->filter('pre_get_document_title', array($this->parser, 'archive_document_title'));
     }
     
     /**
@@ -1013,7 +1015,9 @@ class MEC_factory extends MEC_base
             delete_option('mec_gfont');
             delete_option('mec_dyncss');
             delete_option('mec_custom_msg_display_option');
+            delete_option('mec_custom_msg_2_display_option');
             delete_option('mec_custom_msg_close_option');
+            delete_option('mec_custom_msg_2_close_option');
             delete_option('mec_category_children');
         }
     }

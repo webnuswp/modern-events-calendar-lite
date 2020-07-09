@@ -126,7 +126,7 @@ if($this->style == 'colorful')
                             <?php endif;
                             
 
-                            $events[$date][] = $this->render->after_render($data, $i);
+                            $events[$date][] = $this->render->after_render($data, $this, $i);
                             update_option( 'mec_sd_time_option', $data->date['start']['date'], true);
                             update_option( 'mec_sdn_time_option', $data->date['end']['date'], true);
                             update_option( 'mec_st_time_option', $data->data->time['start'], true);

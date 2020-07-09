@@ -108,7 +108,7 @@ class MEC_skin_cover extends MEC_skins
         $data->dates = $this->render->dates($this->event_id, $rendered, $this->maximum_dates);
         $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
 
-        $events[] = $this->render->after_render($data);
+        $events[] = $this->render->after_render($data, $this);
         
         return $events;
     }

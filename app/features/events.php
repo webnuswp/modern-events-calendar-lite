@@ -121,7 +121,7 @@ class MEC_feature_events extends MEC_base
         }
 
         // Show ticket variations meta box only if the module is enabled
-        if(isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'])
+        if($booking_status and isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'])
         {
             $this->factory->action('mec_metabox_booking', array($this, 'meta_box_ticket_variations'), 16);
 
@@ -1558,6 +1558,9 @@ class MEC_feature_events extends MEC_base
                 <a class="mec-add-booking-tabs-link" data-href="mec-reg-fields" href="#"><?php echo esc_html__('Booking Form' ,'modern-events-calendar-lite'); ?></a>
                 <?php if(isset($gateway_settings['op_status']) && $gateway_settings['op_status'] == 1): ?>
                 <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_op_form" href="#"><?php echo esc_html__('Organizer Payment' ,'modern-events-calendar-lite'); ?></a>
+                <?php endif; ?>
+                <?php if(isset($this->settings['downloadable_file_status']) and $this->settings['downloadable_file_status']): ?>
+                <a class="mec-add-booking-tabs-link" data-href="mec-downloadable-file" href="#"><?php echo esc_html__('Downloadable File' ,'modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
                 <?php do_action('add_event_booking_sections_left_menu'); ?>
             </div>
@@ -3258,6 +3261,13 @@ class MEC_feature_events extends MEC_base
         // MEC Fields
         $fields = (isset($_mec['fields']) and is_array($_mec['fields'])) ? $_mec['fields'] : array();
         update_post_meta($post_id, 'mec_fields', $fields);
+
+        // Downloadable File
+        if(isset($_mec['downloadable_file']))
+        {
+            $dl_file = isset($_mec['downloadable_file']) ? $_mec['downloadable_file'] : '';
+            update_post_meta($post_id, 'mec_dl_file', $dl_file);
+        }
 
         $mec_update = (isset($_REQUEST['original_publish']) and strtolower(trim($_REQUEST['original_publish'])) == 'publish') ? false : true;
         do_action('mec_after_publish_admin_event', $post_id, $mec_update);

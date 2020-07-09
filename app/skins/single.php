@@ -317,7 +317,7 @@ class MEC_skin_single extends MEC_skins
                                         $data->dates = $dates;
                                         $data->date = $dates[0];
 
-                                        $event = $this->render->after_render($data);
+                                        $event = $this->render->after_render($data, $this);
                                         ?>
                                         <div class="mec-event-date">
                                             <span class="mec-event-day-num"><?php echo $this->main->date_i18n('d', strtotime($event->date['start']['date'])); ?></span>
@@ -546,7 +546,7 @@ class MEC_skin_single extends MEC_skins
             $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
         }
 
-        $events[] = $this->render->after_render($data);
+        $events[] = $this->render->after_render($data, $this);
         return $events;
     }
 
@@ -675,7 +675,7 @@ class MEC_skin_single extends MEC_skins
             $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
         }
 
-        $events[] = $this->render->after_render($data);
+        $events[] = $this->render->after_render($data, $this);
         return $events;
     }
 

@@ -133,22 +133,6 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
-                                    <div class="mec-col-12">
-                                        <label for="mec_settings_booking_limit_collapse">
-                                            <input type="hidden" name="mec[settings][booking_limit_collapse]" value="0" />
-                                            <input type="checkbox" name="mec[settings][booking_limit_collapse]" id="mec_settings_booking_limit_collapse" <?php echo ((!isset($settings['booking_limit_collapse']) or (isset($settings['booking_limit_collapse']) and $settings['booking_limit_collapse'] == '1')) ? 'checked="checked"' : ''); ?> value="1" />
-                                            <?php _e('Collapse Ticket Selection', 'modern-events-calendar-lite'); ?>
-                                        </label>
-                                        <span class="mec-tooltip">
-                                            <div class="box top">
-                                                <h5 class="title"><?php _e('Collapse Ticket Selection', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("If you set the user limit to 1 then MEC collapse the ticket selection in booking form if your event has only 1 ticket. You can disable this feature by unchecking this checkbox.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                            </div>
-                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_ip_restriction"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
                                         <select id="mec_settings_booking_ip_restriction" name="mec[settings][booking_ip_restriction]">
@@ -268,6 +252,24 @@ $gateways_options = $this->main->get_gateways_options();
                                                 value="1" />
                                             <?php _e('Enable Booking for Ongoing Events', 'modern-events-calendar-lite'); ?>
                                         </label>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <label for="mec_settings_booking_downloadable_file_status">
+                                            <input type="hidden" name="mec[settings][downloadable_file_status]" value="0" />
+                                            <input type="checkbox" name="mec[settings][downloadable_file_status]" id="mec_settings_booking_downloadable_file_status"
+                                                <?php echo ((isset($settings['downloadable_file_status']) and $settings['downloadable_file_status'] == '1') ? 'checked="checked"' : ''); ?>
+                                                   value="1" />
+                                            <?php _e('Enable Downloadable File', 'modern-events-calendar-lite'); ?>
+                                        </label>
+                                        <span class="mec-tooltip">
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('Downloadable File', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("By enabling this feature, You can upload a file for each event and bookers are able to download it after booking.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
                                 </div>
                                 <?php do_action('add_booking_variables', $settings); ?>

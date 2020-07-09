@@ -84,12 +84,8 @@ class MEC_envato extends MEC_base
     {
         if(ini_get('allow_url_fopen'))
         {
-            
-            if (get_headers('https://webnus.biz')[0] != 'HTTP/1.1 200 OK') {
-                $api_url = 'https://webnus.net/api';
-            } else {
-                $api_url = 'http://webnus.biz/webnus.net';
-            }
+            if(get_headers('https://webnus.biz')[0] != 'HTTP/1.1 200 OK') $api_url = 'https://webnus.net/api';
+            else $api_url = 'http://webnus.biz/webnus.net';
         } 
         else 
         {
@@ -237,6 +233,7 @@ class MEC_envato extends MEC_base
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_URL, $data_url);
+
             $result = curl_exec($ch);
             curl_close($ch);
             $obj = json_decode($result);
@@ -323,6 +320,7 @@ class MEC_envato extends MEC_base
             'body' => null,
             'timeout' => '120',
             'redirection' => '10',
+            'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
         )));
         
         if($JSON != '') return json_decode($JSON);

@@ -4759,6 +4759,7 @@ form#mec_reg_fields_form label {
 }
 
 .w-clearfix.w-box.mec-addons-notification-box-wrap span,
+.w-clearfix.w-box.mec-cmsg-2-notification-box-wrap span,
 .w-clearfix.w-box.mec-cmsg-notification-box-wrap span {
     right: 0;
     left: unset;
@@ -4768,6 +4769,7 @@ form#mec_reg_fields_form label {
 }
 
 .w-clearfix.w-box.mec-addons-notification-box-wrap span i,
+.w-clearfix.w-box.mec-cmsg-2-notification-box-wrap span i,
 .w-clearfix.w-box.mec-cmsg-notification-box-wrap span i {
     font-size: 28px;
     vertical-align: sub;
@@ -6020,10 +6022,15 @@ a.mec-create-shortcode-tabs-link {
     margin-right: 6px;
 }
 
+#mec_meta_box_downloadable_file_options #mec_downloadable_file_remove_image_button,
 .mec-meta-box-fields .mec-form-row .button:not(.wp-color-result) {
     height: 37px;
     margin-top: 1px;
     box-shadow: inset 0 2px 4px #fff, inset 0 -2px 4px rgba(0, 0, 0, .05), 0 2px 2px rgba(0, 0, 0, .06);
+}
+
+#mec_meta_box_downloadable_file_options #mec_downloadable_file_remove_image_button {
+    margin-top: 12px;
 }
 
 #mec-read-more .mec-form-row span.mec-tooltip {
@@ -9138,6 +9145,7 @@ div#mec_meta_box_date_form .mec-form-row {
 .mec-admin-dark-mode .w-box-content pre,
 .mec-admin-dark-mode .w-clearfix.w-box.mec-addons-notification-box-wrap span,
 .mec-admin-dark-mode .w-clearfix.w-box.mec-cmsg-notification-box-wrap span,
+.mec-admin-dark-mode .w-clearfix.w-box.mec-cmsg-2-notification-box-wrap span,
 .mec-admin-dark-mode .w-box,
 .mec-admin-dark-mode #webnus-dashboard .mec-pro-notice .info-msg,
 .mec-admin-dark-mode .wns-be-main,
@@ -9965,6 +9973,89 @@ div#mec_meta_box_date_form .mec-form-row {
     background: #000 !important;
 }
 
+/* MEC Booking Attendees Hover Box - Attendees Tooltip */
+.post-type-mec-books .attendees .mec-booking-attendees-tooltip {
+    position: relative;
+}
+
+.post-type-mec-books .attendees strong {
+    line-height: 26px;
+    padding-left: 26px;
+}
+
+.post-type-mec-books .attendees .mec-booking-attendees-tooltip:before {
+    position: absolute;
+    content: "\e001";
+    font-family: simple-line-icons;
+    margin: 12px 0;
+    top: -30px;
+    left: 0;
+    font-size: 18px;
+    line-height: 12px;
+    color: #40d9f1;
+    padding: 0 60px 5px 0;
+}
+
+.post-type-mec-books .attendees .mec-booking-attendees-tooltip ul {
+    position: absolute;
+    min-width: 300px;
+    max-width: 600px;
+    display: inline-block;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #535a61;
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: .5px;
+    line-height: 1.3;
+    z-index: 9999999;
+    box-sizing: border-box;
+    box-shadow: 0 4px 45px -8px #444b50;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .23s;
+    padding: 23px 20px 20px 20px;
+    border-radius: 8px;
+    margin-top: -13px;
+}
+
+.post-type-mec-books .attendees .mec-booking-attendees-tooltip ul:before {
+    display: block;
+    content: ''!important;
+    position: absolute!important;
+    width: 12px;
+    height: 12px;
+    left: -10px!important;
+    top: 50%!important;
+    transform: translate(50%,-50%) rotate(-45deg)!important;
+    background-color: #535a61!important;
+    box-shadow: 0 8px 9px -4px #535a61!important;
+    z-index: 0!important;
+}
+
+.post-type-mec-books .attendees .mec-booking-attendees-tooltip:hover ul {
+    visibility: visible;
+    opacity: 1;
+}
+
+.post-type-mec-books .attendees .mec-booking-attendees-tooltip ul a {
+    color: #40d9f1;
+    margin-bottom: 14px;
+    margin-left: 0;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: .5px;
+    position: relative;
+    text-decoration: none;
+    display: block;
+    width: max-content;
+}
+
+.post-type-mec-books .attendees .mec-booking-attendees-tooltip ul li:last-child a {
+    margin-bottom: 0;
+}
 
 
 /* Dashboard Widget */
