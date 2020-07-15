@@ -317,9 +317,6 @@ var mecSingleEventDisplayer = {
         // Initialize Year Navigator
         if (settings.year_navigator) initYearNavigator();
 
-        // Load Next Year in background
-        if (settings.year_navigator) setYear(settings.next_year.year, true);
-
         // Set onclick Listeners
         setListeners();
 
@@ -536,9 +533,6 @@ var mecSingleEventDisplayer = {
 
         // Initialize Month Navigator
         if (settings.month_navigator) initMonthNavigator();
-
-        // Load Next Month in background
-        setMonth(settings.next_month.year, settings.next_month.month, true);
 
         active_month = settings.active_month.month;
         active_year = settings.active_month.year;
@@ -3740,7 +3734,7 @@ function mec_focus_week(id, skin) {
             }
         });
 
-        $('a').on('click', function () {})
+        $('a').on('click', function () {});
 
         // FES Speakers Adding
         $('#mec_add_speaker_button').on('click', function () {
@@ -4773,3 +4767,14 @@ function mecFluentYearlyUI(eventID, yearID) {
         }
     };
 }(jQuery));
+
+// Booking Shortcode Scripts
+jQuery(document).ready(function () {
+    if (jQuery('.mec-booking-shortcode').length < 0) {
+        return;
+    }
+    // Events
+    if (jQuery().niceSelect) {
+        jQuery('.mec-booking-shortcode').find('.mec-book-first').find('select').niceSelect();
+    }
+});

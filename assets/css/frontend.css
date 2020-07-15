@@ -16864,5 +16864,554 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
     color: #D2D2D2;
 }
 
+/* Booking Shortcode */
+.mec-events-meta-group-booking-shortcode {
+	background-color: #e6f7ff;
+	padding: 40px;
+	position: relative;
+}
 
+
+.mec-booking-shortcode .mec-event-tickets-list.mec-sell-all-occurrences {
+	width: 100%;
+}
+
+.mec-booking-shortcode .mec-book-reg-field-mec_email {
+	width: 48%;
+	display: inline-block;
+	margin-right: 30px;
+}
+
+.mec-booking-shortcode .mec-book-reg-field-name {
+	width: 48%;
+	display: inline-block;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-expiration-date-month {
+	width: 48%;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 30px;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-cvv2 {
+	width: 48%;
+	display: inline-block;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-expiration-date-month .nice-select {
+	width: 48%;
+	display: inline-block;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-expiration-date-month label {
+	width: 100%;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-expiration-date-month .nice-select:first-of-type {
+	margin-right: 10px;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-card-type,
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-first-name,
+.mec-booking-shortcode .mec-form-row.mec-name-stripe {
+	width: 48%;
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 30px;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-cc-number,
+.mec-booking-shortcode .mec-form-row.mec-paypal-credit-card-last-name,
+.mec-booking-shortcode .mec-form-row.mec-email-stripe {
+	width: 48%;
+	display: inline-block;
+}
+
+.mec-events-meta-group-booking .mec-booking-shortcode .StripeElement {
+	height: 56px;
+	padding: 19px 12px 0;
+	max-width: 420px;
+}
+
+.mec-booking-shortcode .nice-select,
+.mec-booking-shortcode input {
+	float: none;
+	border: 1px solid #c7ebfb !important;
+	border-radius: 3px;
+	background-color: #fff;
+	height: 41px;
+	line-height: 39px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin: 0;
+	margin-bottom: 24px !important;
+	color: #00acf8;
+	font-size: 14px;
+	font-weight: 400;
+	box-shadow: none !important;
+	min-height: unset;
+	min-width: unset;
+	padding-top: 0;
+	padding-bottom: 0;
+
+}
+
+.mec-booking-shortcode .mec-gateway-message.mec-success {
+	margin-bottom: -20px;
+	font-size: 14px;
+}
+
+.mec-booking-shortcode .mec-form-row.mec-name-stripe {
+	margin-bottom: 0 !important;
+}
+
+.mec-booking-shortcode .mec-book-form-gateways [id*="mec_book_form_gateway_checkout"] input[type="text"],
+.mec-events-meta-group-booking .mec-booking-shortcode .StripeElement{
+	border: 1px solid #c7ebfb !important;
+	border-radius: 3px;
+	box-shadow: none !important;
+}
+
+.mec-booking-shortcode .nice-select ul {
+	width: 100%;
+}
+
+.mec-booking-shortcode label,
+.mec-booking-shortcode .mec-event-ticket-name,
+.mec-booking-shortcode .mec-event-ticket-price,
+.mec-booking-shortcode .mec-ticket-variation-name,
+.mec-booking-shortcode .mec-ticket-variation-price {
+	font-size: 14px;
+	line-height: 19px;
+	font-weight: 400;
+	color: #00acf8;
+	padding-right: 5px;
+	margin: 0 0 4px !important;
+}
+
+.mec-booking-shortcode span.mec-event-ticket-available {
+	margin-top: -22px !important;
+	margin-bottom: 28px !important;
+	display: block;
+	font-size: 11px;
+	letter-spacing: 0.5px;
+	font-weight: 300;
+	color: #80abbf;
+}
+
+.mec-booking-shortcode button {
+	background-color: #00acf8;
+	border-radius: 2px;
+	box-shadow: 0 2px 2px rgba(0, 172, 248, 0.27);
+	font-weight: 500;
+	font-size: 11px;
+	letter-spacing: 0.5px;
+	margin: 0;
+	min-width: 116px;
+	padding: 16px 15px 14px;
+	float: none;
+	position: relative;
+	border: none;
+	color: #fff;
+	display: inline-block;
+}
+
+.mec-booking-shortcode .mec-booking-form-container ul li {
+	list-style: none;
+}
+
+.mec-booking-shortcode .mec-booking-form-container ul {
+	padding: 0;
+}
+
+.mec-events-meta-group-booking-shortcode .mec-error {
+	background-color: #ff017e;
+	color: #fff;
+	margin: 20px 0 0;
+	padding: 10px 15px;
+	border-radius: 3px;
+}
+
+.mec-booking-shortcode .mec-book-ticket-variation h5 {
+	margin: 0px 0 4px;
+}
+
+.mec-booking-shortcode .mec-book-available-tickets-details-header{
+	border-bottom: 2px solid #00acf8;
+}
+.mec-booking-shortcode .mec-book-available-tickets-details-header,
+.mec-booking-shortcode .mec-book-available-tickets-details-item,
+.mec-booking-shortcode .mec-book-price-detail {
+	display: -webkit-box;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.mec-booking-shortcode .mec-book-available-tickets-details-header span,
+.mec-booking-shortcode .mec-book-available-tickets-details-item span,
+.mec-booking-shortcode .mec-book-price-detail span {
+	-webkit-box-flex: 1.97;
+	flex: 1.97 1.97 0;
+	min-height: 1px;
+	font-size: 14px;
+	line-height: 22px;
+	color: #616264;
+	font-weight: 500;
+	padding-bottom: 20px;
+	padding-top:20px;
+}
+
+.mec-booking-shortcode .mec-book-available-tickets-details span:nth-of-type(2),
+.mec-booking-shortcode .mec-book-available-tickets-details-item span:nth-of-type(2),
+.mec-booking-shortcode .mec-book-price-detail span:nth-of-type(2) {
+	-webkit-box-flex: 1;
+	flex: 1 1 0;
+}
+
+.mec-booking-shortcode .mec-book-available-tickets-details span:last-child,
+.mec-booking-shortcode .mec-book-available-tickets-details-item span:last-child,
+.mec-booking-shortcode .mec-book-price-detail span:last-child {
+	-webkit-box-flex: 1.085;
+	flex: 1.085 1.085 0;
+}
+.mec-booking-shortcode .mec-book-available-tickets-details-header span {
+	padding-bottom: 11px;
+}
+
+.mec-booking-shortcode .mec-book-available-tickets-details-item span {
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.mec-booking-shortcode span.mec-book-price-detail-description,
+.mec-booking-shortcode span.mec-book-price-detail-amount {
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 500;
+	padding: 6px 0;
+	color: #000;
+}
+
+.mec-booking-shortcode span.mec-book-price-detail-amount {
+	color: #777;
+}
+
+/* .mec-booking-shortcode .mec-book-price-total {
+	background-color: #fff;
+	padding: 27px 37px;
+	border-radius: 3px;
+	margin-top: 15px;
+	margin-bottom: 28px;
+	width: 52%;
+	max-width: 100%;
+	display: -webkit-box;
+	display: flex;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	float: right;
+} */
+
+.mec-booking-shortcode .mec-book-form-gateways label {
+    cursor: pointer;
+}
+
+.mec-booking-shortcode .mec-book-form-gateways label {
+    cursor: pointer;
+}
+
+.mec-booking-shortcode span.mec-book-price-detail-description {
+    padding: 6px 13px 6px 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #00acf8;
+}
+
+.mec-booking-shortcode ul.mec-book-price-details li {
+    border-right: 1px solid #c7ebfb!important;
+}
+
+.mec-booking-shortcode span.mec-book-price-total {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 700;
+    color: #2BBC10;
+    margin-top: 20px;
+    margin-bottom: 35px;
+    display: inline-block;
+}
+
+.mec-booking-shortcode  ul.mec-book-price-details {
+    border: 1px solid #c7ebfb!important;
+    border-radius: 3px;
+    box-shadow: none!important;
+}
+.mec-booking-shortcode span.mec-book-price-total-description {
+	font-size: 18px;
+	line-height: 22px;
+	font-weight: 700;
+	color: #000;
+}
+
+.mec-booking-shortcode span.mec-book-price-total-amount {
+	font-size: 22px;
+	line-height: 22px;
+	font-weight: 700;
+	color: #2bbc10;
+}
+
+.mec-booking-shortcode .mec-book-form-price {
+	clear: both;
+	position: relative;
+}
+.mec-booking-shortcode .mec-book-form-gateway-label input[type="radio"]:after {
+	content: "";
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	background-color: #fff;
+	border-radius: 50%;
+	cursor: pointer;
+	position: absolute;
+	top: 4px;
+	left: 3px;
+}
+
+.mec-booking-shortcode .mec-book-form-gateway-label input[type="radio"]:before {
+	box-shadow: none;
+	border: 2px solid #a8e4ff;
+	width: 17px;
+	height: 17px;
+	position: absolute;
+	top: -9px;
+	left: -2px;
+	margin: 0;
+	content: "";
+	display: inline-block;
+	background: #fff;
+	border-radius: 18px;
+	cursor: pointer;
+	position: relative;
+}
+
+.mec-booking-shortcode .mec-book-form-gateway-label {
+	-webkit-box-flex: 0;
+	flex: 0 0 50%;
+	margin-bottom: 14px;
+	padding-right: 15px;
+}
+.mec-booking-shortcode .mec-book-form-gateways {
+	display: -webkit-box;
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+}
+
+.mec-booking-shortcode .mec-book-form-gateway-checkout {
+	-webkit-box-flex: 0;
+	flex: 0 0 100%;
+	max-width: 100%;
+}
+
+.mec-booking-shortcode input::-webkit-input-placeholder,
+.mec-booking-shortcode textarea::-webkit-input-placeholder {
+	color: #afe6ff;
+}
+
+.mec-booking-shortcode input::-moz-placeholder,
+.mec-booking-shortcode textarea::-moz-placeholder {
+	color: #afe6ff;
+}
+
+.mec-booking-shortcode input:-ms-input-placeholder,
+.mec-booking-shortcode textarea:-ms-input-placeholder {
+	color: #afe6ff;
+}
+
+.mec-booking-shortcode input:-moz-placeholder,
+.mec-booking-shortcode textarea:-moz-placeholder {
+	color: #afe6ff;
+}
+
+.mec-booking-shortcode input[type="radio"]:checked:before {
+	border: 2px solid #a8e4ff;
+	box-shadow: none;
+}
+.mec-booking-shortcode input[type="radio"]:checked:after {
+	background-color: #00acf8;
+}
+.mec-booking-shortcode .mec-book-form-gateway-label label input {
+	position: relative;
+	cursor: pointer;
+	margin: 0 !important;
+	height: auto;
+	margin-right: 4px !important;
+}
+.mec-booking-shortcode .mec-click-pay button[type="submit"] {
+	position: absolute;
+	left: 190px;
+	bottom: 40px;
+}
+.mec-booking-shortcode button#mec-book-form-btn-step-2 {
+	margin-left: 30px;
+}
+
+.mec-booking-shortcode .mec-ticket-name {
+	display: inline-block;
+	background-color: #fff;
+	border-radius: 3px;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: 400;
+	color: #00acf8;
+	padding: 8px 13px;
+	letter-spacing: 0;
+}
+
+.mec-booking-shortcode .mec_book_first_for_all {
+	display: none;
+}
+
+.mec-booking-shortcode li.mec-first-for-all-wrapper {
+	margin-bottom: 20px;
+}
+
+.mec-booking-shortcode label.wn-checkbox-label:before {
+	display: inline-block;
+	-moz-transform-origin: left top;
+	-ms-transform-origin: left top;
+	-o-transform-origin: left top;
+	-webkit-transform-origin: left top;
+	transform-origin: left top;
+	content: '';
+	-webkit-transition: opacity ease .5;
+	-moz-transition: opacity ease .5;
+	transition: opacity ease .5;
+	position: absolute;
+	background-color: #00acf8;
+	width: 2px;
+	-webkit-transform: rotate(-138deg);
+	transform: rotate(-138deg);
+}
+
+.mec-booking-shortcode label.wn-checkbox-label {
+	position: relative;
+	display: inline-block;
+	-moz-transition: border-color ease .2s;
+	-o-transition: border-color ease .2s;
+	-webkit-transition: border-color ease .2s;
+	transition: border-color ease .2s;
+	cursor: pointer;
+	vertical-align: middle;
+	font-size: 14px;
+	line-height: 19px;
+	font-weight: 400;
+	color: #00acf8;
+	margin: 0 0 4px !important;
+	padding: 0;
+	background-color: #fff;
+	border: 2px solid #a8e4ff;
+	width: 17px;
+	height: 17px;
+	border-radius: 3px;
+	margin-right: 9px !important;
+	box-shadow: none;
+}
+
+.mec-booking-shortcode label.wn-checkbox-label:after {
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	-moz-animation: dothabottomcheck 80ms ease 0s forwards;
+	-o-animation: dothabottomcheck 80ms ease 0s forwards;
+	-webkit-animation: dothabottomcheck 80ms ease 0s forwards;
+	animation: dothabottomcheck 80ms ease 0s forwards;
+	content: '';
+	display: inline-block;
+	-moz-transform-origin: left top;
+	-ms-transform-origin: left top;
+	-o-transform-origin: left top;
+	-webkit-transform-origin: left top;
+	transform-origin: left top;
+	content: '';
+	-webkit-transition: opacity ease .5;
+	-moz-transition: opacity ease .5;
+	transition: opacity ease .5;
+	position: absolute;
+	background-color: #00acf8;
+	width: 2px;
+
+}
+.mec-booking-shortcode input[type="checkbox"]:checked+.wn-checkbox-label::after {
+	height: 5px;
+	left: 2px;
+	top: 7px;
+	-moz-animation: dothatopcheck .16s ease 0s forwards;
+	-o-animation: dothatopcheck .16s ease 0s forwards;
+	-webkit-animation: dothatopcheck .16s ease 0s forwards;
+	animation: dothatopcheck .16s ease 0s forwards;
+}
+.mec-booking-shortcode input[type="checkbox"]:checked+.wn-checkbox-label::before {
+	height: 6px;
+	left: 7px;
+	top: 9px;
+	-moz-animation: dothatopcheck .16s ease 0s forwards;
+	-o-animation: dothatopcheck .16s ease 0s forwards;
+	-webkit-animation: dothatopcheck .16s ease 0s forwards;
+	animation: dothatopcheck .16s ease 0s forwards;
+}
+
+.mec-booking-shortcode button[type="submit"],
+.mec-booking-shortcode button[type="button"] {
+	font-weight: 500;
+	font-size: 13px;
+	letter-spacing: 0.5px;
+	line-height: 16px;
+	outline: none;
+}
+
+.mec-booking-shortcode button.mec-book-form-back-button {
+	background-color: #afe6ff;
+	box-shadow: 0 2px 2px rgba(175, 230, 255, 0.27);
+}
+
+.mec-booking-shortcode button[type="submit"]:hover,
+.mec-booking-shortcode button[type="button"]:hover {
+	background-color: #000;
+	text-decoration: none;
+	box-shadow: 0 4px 10px rgba(1, 2, 4, 0.32);
+}
+
+.mec-booking-shortcode a.button:after,
+.mec-booking-shortcode button[type=submit]:after {
+	display: none;
+	width: 13px;
+	height: 13px;
+	border-top: 0;
+	border-right: .1em solid #f0f1f1;
+	border-bottom: .1em solid #fbfbfb;
+	border-left: .1em solid #fff;
+	content: "";
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-animation: mecloader 1.1s infinite linear;
+	animation: mecloader 1.1s infinite linear;
+	background: rgba(0, 0, 0, 0);
+	position: absolute;
+	top: 18px;
+	right: 20px;
+	border-radius: 50%;
+	z-index: 999999999999;
+}
+.mec-booking-shortcode a.button.loading:after,
+.mec-booking-shortcode button[type=submit].loading:after {
+	display: block;
+}
+.mec-booking-shortcode .mec-book-form-coupon {
+    margin-bottom: 35px;
+}
 /* --------------------- */

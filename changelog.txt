@@ -1,4 +1,19 @@
-﻿v 5.7.5 – 9 July 2020
+﻿v 5.8.0 – 15 July 2020
+- Added: Booking shortcode to include booking module for certain events into any WP page / posts (pro)
+- Added: A new system to don’t re-import Google Calendar events when they’re modified in the website
+- Refactored: The midnight and multiple day events
+- Improved: Speed optimization
+- Improved: The “Event User Publishing” notification to send notification to event owner when there is no guest email
+- Fixed: Showing booking button when all tickets are sold out (pro)
+- Fixed: Booking form of modal window (pro)
+- Fixed: Apostrophe issue in event fields
+- Fixed: Inserting none numeric characters in number fields (pro)
+- Fixed: Some translation issues
+- Fixed: Some issues in notifications settings menu in MEC lite
+- Fixed: Unlimited ticket variations (pro)
+- Fixed: %%event-start-date%% and %%event-end-date%% placeholders (pro)
+
+v 5.7.5 – 9 July 2020
 - Refactored: The booking reminder to accept hours interval instead of days (pro)
 - Added: A download-able file feature. This file can be downloaded after confirmed booking by bookers (pro)
 - Added: A placeholder to include the downloadable file link in booking notifications (pro)

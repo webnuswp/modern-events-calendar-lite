@@ -66,6 +66,10 @@ class MEC_feature_ix extends MEC_base
 
         // Import XML File
         $this->factory->action('mec_import_file', array($this, 'import_do'));
+
+        // Modified Flag
+        $this->factory->action('mec_after_publish_admin_event', array($this, 'modified_flag'), 10, 2);
+        $this->factory->action('mec_fes_updated', array($this, 'modified_flag'), 10, 2);
     }
     
     /**
@@ -4099,5 +4103,18 @@ class MEC_feature_ix extends MEC_base
         $fb_page_result = $this->main->get_web_page('https://graph.facebook.com/v7.0/?access_token='.$this->fb_access_token.'&id='.$link);
 
         return json_decode($fb_page_result, true);
+    }
+
+    public function modified_flag($event_id, $update = false)
+    {
+        if(!$update) return false;
+
+        $source = get_post_meta($event_id, 'mec_source', true);
+
+        if(!trim($source)) return false;
+        if(!in_array($source, array('google-calendar', 'facebook-calendar'))) return false;
+
+        update_post_meta($event_id, 'mec_ix_modified', true);
+        return true;
     }
 }

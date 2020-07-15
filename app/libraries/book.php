@@ -460,9 +460,7 @@ class MEC_book extends MEC_base
         }
         else
         {
-            $date_query = array(
-                'before' => date('Y-m-d', $timestamp).' 23:59:59',
-            );
+            $date_query = array();
         }
 
         $booked = 0;

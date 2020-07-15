@@ -3,10 +3,26 @@
 defined('MECEXEC') or die();
 
 /** @var $this MEC_main **/
+/** @var $from_shortcode bool **/
+/** @var $ticket_id integer **/
 
 $event_id = $event->ID;
 $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
 $dates = isset($event->dates) ? $event->dates : array($event->date);
+
+if($ticket_id)
+{
+    $new_tickets = array();
+    foreach($tickets as $t_id => $ticket)
+    {
+        if((int) $t_id === (int) $ticket_id)
+        {
+            $new_tickets[$t_id] = $ticket;
+        }
+    }
+
+    if(count($new_tickets)) $tickets = $new_tickets;
+}
 
 $occurrence_time = isset($dates[0]['start']['timestamp']) ? $dates[0]['start']['timestamp'] : strtotime($dates[0]['start']['date']);
 
@@ -49,14 +65,34 @@ if($show_booking_form_interval)
 
     $dates = $filtered_dates;
 }
+
+$available_spots = 0;
+$total_spots = -1;
+foreach($availability as $ticket_id=>$count)
+{
+    if(!is_numeric($ticket_id))
+    {
+        $total_spots = $count;
+        continue;
+    }
+
+    if($count != '-1') $available_spots += $count;
+    else
+    {
+        $available_spots = -1;
+        break;
+    }
+}
+
+if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
-    <h4><?php _e('Book Event', 'modern-events-calendar-lite'); ?></h4>
+    <h4><?php echo ($from_shortcode ? $event->data->post->post_title : __('Book Event', 'modern-events-calendar-lite')); ?></h4>
 
     <?php if(!$book_all_occurrences and count($dates) > 1): ?>
     <div class="mec-book-first">
         <label for="mec_book_form_date<?php echo $uniqueid; ?>"><?php _e('Date', 'modern-events-calendar-lite'); ?>: </label>
-        <select name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
+        <select class="mec-custom-nice-select" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
             <?php foreach($dates as $date): ?>
             <option value="<?php echo $book->timestamp($date['start'], $date['end']); ?>">
                 <?php echo strip_tags($this->date_label($date['start'], $date['end'], $date_format)); ?>
@@ -67,8 +103,8 @@ if($show_booking_form_interval)
     <?php else: ?>
     <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" value="<?php echo $book->timestamp($dates[0]['start'], $dates[0]['end']); ?>">
     <?php endif; ?>
-    
-    <div class="mec-event-tickets-list" id="mec_book_form_tickets_container<?php echo $uniqueid; ?>" data-total-booking-limit="<?php echo isset($availability['total']) ? $availability['total'] : '-1'; ?>">
+
+    <div class="mec-event-tickets-list <?php echo (!$book_all_occurrences and count($dates) > 1) ? '' : 'mec-sell-all-occurrences'; ?>" id="mec_book_form_tickets_container<?php echo $uniqueid; ?>" data-total-booking-limit="<?php echo isset($availability['total']) ? $availability['total'] : '-1'; ?>">
         <?php foreach($tickets as $ticket_id=>$ticket): $stop_selling = isset($availability['stop_selling_'.$ticket_id]) ? $availability['stop_selling_'.$ticket_id] : false; $ticket_limit = isset($availability[$ticket_id]) ? $availability[$ticket_id] : -1; if($ticket_limit === '0' and count($dates) <= 1) continue; ?>
         <div class="mec-event-ticket mec-event-ticket<?php echo $ticket_limit; ?>" id="mec_event_ticket<?php echo $ticket_id; ?>">
             <div class="mec-ticket-available-spots <?php echo ($ticket_limit == '0' ? 'mec-util-hidden' : ''); ?>">
@@ -84,7 +120,7 @@ if($show_booking_form_interval)
                     </p>
                 <?php else: ?>
                 <div>
-                    <input type="number" class="mec-book-ticket-limit" name="book[tickets][<?php echo $ticket_id; ?>]" title="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo $default_ticket_number; ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" onchange="mec_check_tickets_availability<?php echo $uniqueid; ?>(<?php echo $ticket_id; ?>, this.value);" />
+                    <input onkeydown="return event.keyCode !== 69" type="number" class="mec-book-ticket-limit" name="book[tickets][<?php echo $ticket_id; ?>]" title="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo $default_ticket_number; ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" onchange="mec_check_tickets_availability<?php echo $uniqueid; ?>(<?php echo $ticket_id; ?>, this.value);" />
                 </div>
                 <span class="mec-event-ticket-available"><?php echo sprintf(__('Available %s: <span>%s</span>', 'modern-events-calendar-lite'), $this->m('tickets', __('Tickets', 'modern-events-calendar-lite')), ($ticket['unlimited'] ? __('Unlimited', 'modern-events-calendar-lite') : ($ticket_limit != '-1' ? $ticket_limit : __('Unlimited', 'modern-events-calendar-lite')))); ?></span>
                 <?php endif; ?>
@@ -121,5 +157,19 @@ if($show_booking_form_interval)
     <input type="hidden" name="uniqueid" value="<?php echo $uniqueid; ?>" />
     <input type="hidden" name="step" value="1" />
     <?php wp_nonce_field('mec_book_form_'.$event_id); ?>
-    <button id="mec-book-form-btn-step-1" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php _e('Next', 'modern-events-calendar-lite'); ?></button>
+    <button id="mec-book-form-btn-step-1" <?php if($available_spots == '0') echo 'style="display: none;"'; ?> type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php _e('Next', 'modern-events-calendar-lite'); ?></button>
 </form>
+<?php if ($from_shortcode) : ?>
+<style>.nice-select{-webkit-tap-highlight-color:transparent;background-color:#fff;border-radius:5px;border:solid 1px #e8e8e8;box-sizing:border-box;clear:both;cursor:pointer;display:block;float:left;font-family:inherit;font-size:14px;font-weight:400;height:42px;line-height:40px;outline:0;padding-left:18px;padding-right:30px;position:relative;text-align:left!important;-webkit-transition:all .2s ease-in-out;transition:all .2s ease-in-out;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;white-space:nowrap;width:auto}.nice-select:hover{border-color:#dbdbdb}.nice-select.open,.nice-select:active,.nice-select:focus{border-color:#999}.nice-select:after{border-bottom:2px solid #999;border-right:2px solid #999;content:'';display:block;height:5px;margin-top:-4px;pointer-events:none;position:absolute;right:12px;top:50%;-webkit-transform-origin:66% 66%;-ms-transform-origin:66% 66%;transform-origin:66% 66%;-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);-webkit-transition:all .15s ease-in-out;transition:all .15s ease-in-out;width:5px}.nice-select.open:after{-webkit-transform:rotate(-135deg);-ms-transform:rotate(-135deg);transform:rotate(-135deg)}.nice-select.open .list{opacity:1;pointer-events:auto;-webkit-transform:scale(1) translateY(0);-ms-transform:scale(1) translateY(0);transform:scale(1) translateY(0)}.nice-select.disabled{border-color:#ededed;color:#999;pointer-events:none}.nice-select.disabled:after{border-color:#ccc}.nice-select.wide{width:100%}.nice-select.wide .list{left:0!important;right:0!important}.nice-select.right{float:right}.nice-select.right .list{left:auto;right:0}.nice-select.small{font-size:12px;height:36px;line-height:34px}.nice-select.small:after{height:4px;width:4px}.nice-select.small .option{line-height:34px;min-height:34px}.nice-select .list{background-color:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(68,68,68,.11);box-sizing:border-box;margin-top:4px;opacity:0;overflow:hidden;padding:0;pointer-events:none;position:absolute;top:100%;left:0;-webkit-transform-origin:50% 0;-ms-transform-origin:50% 0;transform-origin:50% 0;-webkit-transform:scale(.75) translateY(-21px);-ms-transform:scale(.75) translateY(-21px);transform:scale(.75) translateY(-21px);-webkit-transition:all .2s cubic-bezier(.5,0,0,1.25),opacity .15s ease-out;transition:all .2s cubic-bezier(.5,0,0,1.25),opacity .15s ease-out;z-index:9}.nice-select .list:hover .option:not(:hover){background-color:transparent!important}.nice-select .option{cursor:pointer;font-weight:400;line-height:40px;list-style:none;min-height:40px;outline:0;padding-left:18px;padding-right:29px;text-align:left;-webkit-transition:all .2s;transition:all .2s}.nice-select .option.focus,.nice-select .option.selected.focus,.nice-select .option:hover{background-color:#f6f6f6}.nice-select .option.selected{font-weight:700}.nice-select .option.disabled{background-color:transparent;color:#999;cursor:default}.no-csspointerevents .nice-select .list{display:none}.no-csspointerevents .nice-select.open .list{display:block}</style>
+<script type="text/javascript" src="<?php echo $this->asset('js/jquery.nice-select.min.js'); ?>"></script>
+<script>
+    jQuery(document).ready(function () {
+        if (jQuery('.mec-booking-shortcode').length < 0) {
+            return;
+        }
+        // Events
+        jQuery('.mec-booking-shortcode').find('select').niceSelect();
+        
+    });
+</script>
+<?php endif; ?>

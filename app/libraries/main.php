@@ -557,6 +557,7 @@ class MEC_main extends MEC_base
 
         $booking = apply_filters('mec-settings-item-booking', array(
             __('Booking', 'modern-events-calendar-lite') => 'booking_option',
+            __('Booking Shortcode', 'modern-events-calendar-lite') => 'booking_shortcode',
             __('Coupons', 'modern-events-calendar-lite') => 'coupon_option',
             __('Taxes / Fees', 'modern-events-calendar-lite') => 'taxes_option',
             __('Ticket Variations & Options', 'modern-events-calendar-lite') => 'ticket_variations_option',
@@ -576,16 +577,24 @@ class MEC_main extends MEC_base
             __('BuddyPress Integration', 'modern-events-calendar-lite') => 'buddy_option',
         ), $active_menu);
 
-        $notifications = apply_filters('mec-settings-item-notifications', array(
-            __('Booking', 'modern-events-calendar-lite') => 'booking_notification',
-            __('Booking Verification', 'modern-events-calendar-lite') => 'booking_verification',
-            __('Booking Confirmation', 'modern-events-calendar-lite') => 'booking_confirmation',
-            __('Booking Cancellation', 'modern-events-calendar-lite') => 'cancellation_notification',
-            __('Booking Reminder', 'modern-events-calendar-lite') => 'booking_reminder',
-            __('Admin', 'modern-events-calendar-lite') => 'admin_notification',
+        $notifications_items = array(
             __('New Event', 'modern-events-calendar-lite') => 'new_event',
             __('User Event Publishing', 'modern-events-calendar-lite') => 'user_event_publishing',
-        ), $active_menu);
+        );
+
+        if($this->getPro())
+        {
+            $notifications_items = array_merge(array(
+                __('Booking', 'modern-events-calendar-lite') => 'booking_notification',
+                __('Booking Verification', 'modern-events-calendar-lite') => 'booking_verification',
+                __('Booking Confirmation', 'modern-events-calendar-lite') => 'booking_confirmation',
+                __('Booking Cancellation', 'modern-events-calendar-lite') => 'cancellation_notification',
+                __('Booking Reminder', 'modern-events-calendar-lite') => 'booking_reminder',
+                __('Admin', 'modern-events-calendar-lite') => 'admin_notification',
+            ), $notifications_items);
+        }
+
+        $notifications = apply_filters('mec-settings-item-notifications', $notifications_items, $active_menu);
         ?>
         <ul class="wns-be-group-menu">
 
@@ -739,7 +748,7 @@ class MEC_main extends MEC_base
 
             <!-- Notifications -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'notifications' ? 'active' : ''; ?>">
-                <a href="<?php echo $this->add_qs_var('tab', 'MEC-notifications'); ?>" id="" class="wns-be-group-tab-link-a">
+                <a href="<?php echo $this->add_qs_var('tab', 'MEC-notifications').(!$this->getPRO() ? '#new_event' : ''); ?>" id="" class="wns-be-group-tab-link-a">
                     <i class="mec-sl-envelope"></i> 
                     <span class="wns-be-group-menu-title"><?php  _e('Notifications', 'modern-events-calendar-lite'); ?></span>
                 </a>
@@ -882,7 +891,7 @@ class MEC_main extends MEC_base
                                     <li>'.__('<strong>Multisite Event Sync:</strong> Sync events between your subsites and main websites. Changes in the main one will be inherited by the subsites. you can set these up in the admin panel.' , 'modern-events-calendar-lite').'</li>
                                     <li>'.__('<strong>User Dashboard:</strong> Create exclusive pages for users. These pages can contain ticket purchase information, information about registered events. Users can now log in to purchase tickets.', 'modern-events-calendar-lite').'</li>
                                 </ol>
-                                <a href="https://webnus.net/modern-events-calendar/addons/?ref=17" target="_blank">'.esc_html('find out more', 'modern-events-calendar-lite').'</a>
+                                <a href="https://webnus.net/modern-events-calendar/addons/?ref=17" target="_blank">'.esc_html__('find out more', 'modern-events-calendar-lite').'</a>
                             </div>
                         </div>
                     </div>
@@ -3033,7 +3042,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="text" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
             </div>
         </li>';
     }
@@ -3062,7 +3071,7 @@ class MEC_main extends MEC_base
              <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
              <div>
                  <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="name" />
-                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
              </div>
          </li>';
      }
@@ -3091,7 +3100,7 @@ class MEC_main extends MEC_base
              <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
              <div>
                  <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="mec_email" />
-                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
              </div>
          </li>';
      }
@@ -3120,7 +3129,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="email" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
             </div>
         </li>';
     }
@@ -3149,7 +3158,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="url" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
             </div>
         </li>';
     }
@@ -3178,7 +3187,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="file" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
             </div>
         </li>';
     }
@@ -3207,7 +3216,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="date" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
             </div>
         </li>';
     }
@@ -3236,7 +3245,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="tel" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
             </div>
         </li>';
     }
@@ -3265,7 +3274,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="textarea" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
             </div>
         </li>';
     }
@@ -3317,7 +3326,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="checkbox" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
@@ -3363,7 +3372,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="radio" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
@@ -3409,7 +3418,7 @@ class MEC_main extends MEC_base
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="select" />
-                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? $values['label'] : '').'" />
+                <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
@@ -6593,7 +6602,7 @@ class MEC_main extends MEC_base
             $total_bookings_limit = (isset($booking_options['bookings_limit']) and trim($booking_options['bookings_limit'])) ? $booking_options['bookings_limit'] : 100;
             $bookings_limit_unlimited = isset($booking_options['bookings_limit_unlimited']) ? $booking_options['bookings_limit_unlimited'] : 0;
             if($bookings_limit_unlimited == '1') $total_bookings_limit = -1;
-    
+            
             // Check For Return A Few Label Exist.
             if(($total_bookings_limit > 0) and ($remained_tickets <= round(((15 * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
     

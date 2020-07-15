@@ -1128,7 +1128,7 @@ class MEC_feature_events extends MEC_base
                         $event_field_name = isset($event_field['label']) ? strtolower(str_replace([' ',',',':','"',"'"], '_', $event_field['label'])) : '';
                         $value = isset($data[$j]) ? $data[$j] : NULL;
                     ?>
-                    <?php if(isset($event_field['label'])): ?><label for="mec_event_fields_<?php echo $j; ?>"><?php _e($event_field['label'], 'modern-events-calendar-lite'); ?><?php echo ((isset($event_field['mandatory']) and $event_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?></label><?php endif; ?>
+                    <?php if(isset($event_field['label'])): ?><label for="mec_event_fields_<?php echo $j; ?>"><?php _e(stripslashes($event_field['label']), 'modern-events-calendar-lite'); ?><?php echo ((isset($event_field['mandatory']) and $event_field['mandatory']) ? '<span class="wbmec-mandatory">*</span>' : ''); ?></label><?php endif; ?>
                 </div>
 
                 <div class="mec-col-10">
@@ -1713,6 +1713,7 @@ class MEC_feature_events extends MEC_base
                         $i = max($i, $key);
                         ?>
                         <div class="mec-box" id="mec_ticket_row<?php echo $key; ?>">
+                            <div class="mec-ticket-id" title="<?php esc_attr_e('Ticket ID', 'modern-events-calendar-lite'); ?>"><span class="mec-ticket-id-title"><?php esc_attr_e('ID', 'modern-events-calendar-lite'); ?>: </span><?php echo $key; ?></div>
                             <div class="mec-form-row">
                                 <input type="text" class="mec-col-12" name="mec[tickets][<?php echo $key; ?>][name]"
                                        placeholder="<?php esc_attr_e('Ticket Name', 'modern-events-calendar-lite'); ?>"
@@ -1896,6 +1897,7 @@ class MEC_feature_events extends MEC_base
             <input type="hidden" id="mec_new_ticket_key" value="<?php echo $i + 1; ?>"/>
             <div class="mec-util-hidden" id="mec_new_ticket_raw">
                 <div class="mec-box" id="mec_ticket_row:i:">
+                    <div class="mec-ticket-id" title="<?php esc_attr_e('Ticket ID', 'modern-events-calendar-lite'); ?>"><span class="mec-ticket-id-title"><?php esc_attr_e('ID', 'modern-events-calendar-lite'); ?>: </span>:i:</div>
                     <div class="mec-form-row">
                         <input class="mec-col-12" type="text" name="mec[tickets][:i:][name]"
                                placeholder="<?php esc_attr_e('Ticket Name', 'modern-events-calendar-lite'); ?>"/>

@@ -1064,7 +1064,7 @@ class MEC_skin_single extends MEC_skins
                 <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
                 <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if( isset($this->settings['single_booking_style']) and $this->settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
             <?php elseif (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') : ?>
-                <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if (isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite');
+                <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if (isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite');
                 else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')));
                 ?></a>
             </div>
@@ -1356,7 +1356,7 @@ class MEC_skin_single extends MEC_skins
                 ?>
                 <li class="mec-event-data-field-item">
                     <?php if(isset($field['label'])): ?>
-                    <span class="mec-event-data-field-name"><?php esc_html_e($field['label'], 'modern-events-calendar-lite'); ?>: </span>
+                    <span class="mec-event-data-field-name"><?php esc_html_e(stripslashes($field['label']), 'modern-events-calendar-lite'); ?>: </span>
                     <?php endif; ?>
 
                     <?php if($type === 'email'): ?>
@@ -1366,7 +1366,7 @@ class MEC_skin_single extends MEC_skins
                     <?php elseif($type === 'url'): ?>
                         <span class="mec-event-data-field-value"><a href="<?php echo esc_url($value); ?>" target="_blank"><?php echo esc_html($value); ?></a></span>
                     <?php else: ?>
-                        <span class="mec-event-data-field-value"><?php echo (is_array($value) ? esc_html(implode(', ', $value)) : esc_html($value)) ?></span>
+                        <span class="mec-event-data-field-value"><?php echo (is_array($value) ? esc_html(stripslashes(implode(', ', $value))) : esc_html(stripslashes($value))) ?></span>
                     <?php endif; ?>
                 </li>
                 <?php endforeach; ?>

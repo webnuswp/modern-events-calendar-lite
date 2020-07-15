@@ -4170,6 +4170,18 @@ textarea.mec-import-settings-content {
     }
 }
 
+.mec-ticket-id {
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 400;
+    color: #008aff;
+    padding: 0 0 8px;
+    margin-top: -6px;
+    margin-bottom: 14px;
+    cursor: default;
+}
+
+
 /* Single Event Page Fields + Shortcode Page Fields + Payment Gatway in Setting Page */
 #mec_meta_box_hourly_schedule_days .mec-form-row input[type=text],
 #mec_meta_box_tickets_form .mec-form-row input[type=text] {

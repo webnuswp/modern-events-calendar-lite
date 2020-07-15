@@ -326,6 +326,22 @@ $gateways_options = $this->main->get_gateways_options();
 
                         <?php if(isset($this->settings['booking_status']) and $this->settings['booking_status']): ?>
 
+                        <div id="booking_shortcode" class="mec-options-fields">
+                            <h4 class="mec-form-subtitle"><?php _e('Booking Shortcode', 'modern-events-calendar-lite'); ?></h4>
+
+                            <?php if(!$this->main->getPRO()): ?>
+                            <div class="info-msg"><?php echo sprintf(__("%s is required to use this feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
+                            <?php else: ?>
+
+                            <div class="mec-form-row">
+                                <div class="mec-col-12">
+                                    <p><?php echo sprintf(__("Booking module is available in the event details page but if you like to embed booking module of certain event into a custom WP page or post or any shortcode compatible widgets, all you need to do is to insert %s shortcode into the page content and place the event id instead of 1.", 'modern-events-calendar-lite'), '<strong>[mec-booking event-id="1"]</strong>'); ?></p>
+                                    <p><?php echo sprintf(__('Also, you can insert %s if you like to show only one of the available tickets in booking module. Instead of 1 you should insert the ticket ID. This parameter is optional.', 'modern-events-calendar-lite'), '<strong>ticket-id="1"</strong>'); ?></p>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+
                         <div id="coupon_option" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Coupons', 'modern-events-calendar-lite'); ?></h4>
 

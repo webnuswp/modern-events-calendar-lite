@@ -76,6 +76,7 @@ if($mecFluentEnable)
                 <span class="mec-book-price-total-description"><?php esc_html_e('Total Due', 'modern-events-calendar-lite'); ?></span>
                 <span class="mec-book-price-total-amount"><?php echo $this->main->render_price($price_details['total']); ?></span>
             </div>
+            <div style="clear:both"></div>
         <?php } else { ?>
             <?php if(isset($price_details['details']) and is_array($price_details['details']) and count($price_details['details'])): ?>
             <ul class="mec-book-price-details">

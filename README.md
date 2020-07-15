@@ -1,10 +1,10 @@
-﻿# Modern Events Calendar Lite ===
+﻿# Modern Events Calendar Lite
 **Contributors:** webnus  
 **Donate link:** https://webnus.net  
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.4.2  
-**Stable tag:** 5.7.5  
+**Stable tag:** 5.8.0  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -211,6 +211,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Key Features 
+- Booking shortcode  (*pro*)
 - Download-able file feature  (*pro*)
 - Sort payment gateways (*pro*)
 - Booking fixed fields per booking (*pro*)
@@ -494,6 +495,22 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog 
+
+### 5.8.0 – 15 July 2020 
+- Added: Booking shortcode to include booking module for certain events into any WP page / posts (pro)
+- Added: A new system to don’t re-import Google Calendar events when they’re modified in the website
+- Refactored: The midnight and multiple day events
+- Improved: Speed optimization
+- Improved: The “Event User Publishing” notification to send notification to event owner when there is no guest email
+- Fixed: Showing booking button when all tickets are sold out (pro)
+- Fixed: Booking form of modal window (pro)
+- Fixed: Apostrophe issue in event fields
+- Fixed: Inserting none numeric characters in number fields (pro)
+- Fixed: Some translation issues
+- Fixed: Some issues in notifications settings menu in MEC lite
+- Fixed: Unlimited ticket variations (pro)
+- Fixed: %%event-start-date%% and %%event-end-date%% placeholders (pro)
+
 
 ### 5.7.5 – 9 July 2020 
 - Refactored: The booking reminder to accept hours interval instead of days (pro)

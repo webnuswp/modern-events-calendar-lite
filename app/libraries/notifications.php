@@ -736,8 +736,8 @@ class MEC_notifications extends MEC_base
     * @author Webnus <info@webnus.biz>
     * @param string $new
     * @param string $old
-    * @param object $post
-    * @return void
+    * @param WP_Post $post
+    * @return boolean
     */
     public function user_event_publishing($new, $old, $post)
     {
@@ -749,15 +749,21 @@ class MEC_notifications extends MEC_base
 
         if(($new == 'publish') and ($old != 'publish') and ($post->post_type == $event_PT))
         {
-            $guest_email = get_post_meta($post->ID, 'fes_guest_email', true);
+            $email = get_post_meta($post->ID, 'fes_guest_email', true);
 
             // Not Set Guest User Email
-            if(!trim($guest_email) or !filter_var($guest_email, FILTER_VALIDATE_EMAIL)) return;
+            if(!trim($email) or !filter_var($email, FILTER_VALIDATE_EMAIL))
+            {
+                $event_owner = get_userdata($post->post_author);
+                $email = $event_owner->user_email;
+            }
+
+            if(!trim($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
 
             $guest_name = get_post_meta($post->ID, 'fes_guest_name', true);
             $status = get_post_status($post->ID);
 
-            $to = $guest_email;
+            $to = $email;
             $subject = (isset($this->notif_settings['user_event_publishing']['subject']) and trim($this->notif_settings['user_event_publishing']['subject'])) ? __($this->notif_settings['user_event_publishing']['subject'], 'modern-events-calendar-lite') : __('Your event is published.', 'modern-events-calendar-lite');
             $headers = array('Content-Type: text/html; charset=UTF-8');
 
@@ -1014,8 +1020,8 @@ class MEC_notifications extends MEC_base
 
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
         $message = str_replace('%%event_link%%', $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp)), $message);
-        $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($event_id, 'mec_start_date', true))), $message);
-        $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($event_id, 'mec_end_date', true))), $message);
+        $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), $start_timestamp), $message);
+        $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), $end_timestamp), $message);
 
         $featured_image = '';
         $thumbnail_url = get_the_post_thumbnail_url($event_id, 'medium');

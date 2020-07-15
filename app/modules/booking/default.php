@@ -26,6 +26,10 @@ if(!count($dates)) return;
 // No Tickets
 if(!count($tickets)) return;
 
+// Shortcode Options
+if(!isset($from_shortcode)) $from_shortcode = false;
+if(!isset($ticket_id)) $ticket_id = NULL;
+
 // Generate JavaScript code of Booking Module
 $javascript = '<script type="text/javascript">
 var mec_tickets_availability_ajax'.$uniqueid.' = false;
@@ -33,7 +37,7 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
 {
     // Add loading Class to the ticket list
     jQuery(".mec-event-tickets-list").addClass("loading");
-    jQuery(".mec-event-tickets-list input").prop("disabled", true);
+    jQuery("#mec_booking'.$uniqueid.' .mec-event-tickets-list input").prop("disabled", true);
 
     // Abort previous request
     if(mec_tickets_availability_ajax'.$uniqueid.') mec_tickets_availability_ajax'.$uniqueid.'.abort();
@@ -50,7 +54,6 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
         dataType: "JSON",
         success: function(data)
         {
-            console.log(data);
             // Remove the loading Class to the ticket list
             jQuery("#mec_booking'.$uniqueid.' .mec-event-tickets-list").removeClass("loading");
             jQuery("#mec_booking'.$uniqueid.' .mec-event-tickets-list input").prop("disabled", false);
@@ -58,14 +61,23 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
             // Set Total Booking Limit
             if(typeof data.availability.total != "undefined") jQuery("#mec_booking'.$uniqueid.' #mec_book_form_tickets_container'.$uniqueid.'").data("total-booking-limit", data.availability.total);
 
+            var available_spots = 0;
+            //console.log(data.availability);
+            
             for(ticket_id in data.availability)
             {
                 var limit = data.availability[ticket_id];
+                
+                if(ticket_id != "total")
+                {
+                    if(limit != "-1" && available_spots != "-1") available_spots += parseInt(limit);
+                    else available_spots = "-1";
+                }
 
                 jQuery("#mec_booking'.$uniqueid.' #mec_event_ticket"+ticket_id).addClass(".mec-event-ticket"+limit);
 
-                if(data.availability["stop_selling_"+ticket_id]) jQuery("#mec-ticket-message-"+ticket_id).attr("class", "mec-ticket-unavailable-spots mec-error").find("div").html(jQuery("#mec-ticket-message-sales-"+ticket_id).val());
-                else jQuery("#mec-ticket-message-"+ticket_id).attr("class", "mec-ticket-unavailable-spots info-msg").find("div").html(jQuery("#mec-ticket-message-sold-out-"+ticket_id).val());
+                if(data.availability["stop_selling_"+ticket_id]) jQuery("#mec_booking'.$uniqueid.' #mec-ticket-message-"+ticket_id).attr("class", "mec-ticket-unavailable-spots mec-error").find("div").html(jQuery("#mec_booking'.$uniqueid.' #mec-ticket-message-sales-"+ticket_id).val());
+                else jQuery("#mec_booking'.$uniqueid.' #mec-ticket-message-"+ticket_id).attr("class", "mec-ticket-unavailable-spots info-msg").find("div").html(jQuery("#mec_booking'.$uniqueid.' #mec-ticket-message-sold-out-"+ticket_id).val());
 
                 // There are some available spots
                 if(limit != "0")
@@ -105,6 +117,10 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
             // Remove Preloader
             jQuery(".mec-loader").remove();
             jQuery(".mec-event-tickets-list").removeClass("mec-cover-loader");
+            
+            // Disable or Enable Button
+            if(available_spots == "0") jQuery("#mec_booking'.$uniqueid.' #mec-book-form-btn-step-1").hide();
+            else jQuery("#mec_booking'.$uniqueid.' #mec-book-form-btn-step-1").show();
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
@@ -546,7 +562,7 @@ else
     $factory->params('footer', $javascript);
 }
 ?>
-<div class="mec-booking" id="mec_booking<?php echo $uniqueid; ?>">
+<div class="mec-booking <?php echo ($from_shortcode ? 'mec-booking-shortcode' : ''); ?>" id="mec_booking<?php echo $uniqueid; ?>">
     <?php
         include MEC::import('app.modules.booking.steps.tickets', true, true);
     ?>
