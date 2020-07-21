@@ -30,6 +30,9 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
         <div class="mec-events-event-image"><?php echo $event->data->thumbnails['full']; ?><?php do_action('mec_custom_dev_image_section', $event); ?></div>
         <div class="col-md-4<?php if (empty($event->data->thumbnails['full'])) echo ' mec-no-image';?>">
+
+            <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
+
             <?php if ( $single->found_value('event_orgnizer', $settings) == 'on' || $single->found_value('register_btn', $settings) == 'on'  ) : ?>
             <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and in_array($event->data->meta['mec_organizer_id'], array('0', '1')) and !trim($event->data->meta['mec_more_info'])) ? 'mec-util-hidden' : '') ; ?>">
                 <?php
@@ -97,7 +100,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             <?php  if($single->found_value('local_time', $settings) == 'on') echo $this->main->module('local-time.details', array('event'=>$event)); ?>
             
             <?php if ( $single->found_value('event_location', $settings) == 'on' || $single->found_value('event_categories', $settings) == 'on' || $single->found_value('more_info', $settings) == 'on' ) : ?>
-            <div class="mec-event-meta mec-color-before mec-frontbox">
+            <div class="mec-event-meta mec-color-before mec-frontbox <?php if (empty($event->data->locations[$event->data->meta['mec_location_id']]) || $single->found_value('event_location', $settings) == '') echo 'mec-util-hidden'; ?>">
                 
                 <?php
                     // Event Location
@@ -265,6 +268,8 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                 <h1 class="mec-single-title"><?php the_title(); ?></h1>
                 <div class="mec-single-event-description mec-events-content"><?php the_content(); ?><?php do_action('mec_custom_dev_content_section' , $event); ?></div>
             </div>
+
+            <?php do_action('mec_single_after_content', $event ); ?>
 
             <!-- Custom Data Fields -->
             <?php $this->display_data_fields($event); ?>

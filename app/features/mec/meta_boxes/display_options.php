@@ -243,6 +243,7 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Set Map Geolocation -->
+                <?php echo $this->booking_button_field('list', (isset($sk_options_list['booking_button']) ? $sk_options_list['booking_button'] : 0)); ?>
                 <div class="mec-sed-methode-container">
                     <?php echo $this->sed_method_field('list', (isset($sk_options_list['sed_method']) ? $sk_options_list['sed_method'] : 0), (isset($sk_options_list['image_popup']) ? $sk_options_list['image_popup'] : 0)); ?>
                 </div>
@@ -495,6 +496,7 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Set Map Geolocation -->
+                <?php echo $this->booking_button_field('grid', (isset($sk_options_grid['booking_button']) ? $sk_options_grid['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('grid', (isset($sk_options_grid['sed_method']) ? $sk_options_grid['sed_method'] : 0), (isset($sk_options_grid['image_popup']) ? $sk_options_grid['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_grid_end', $sk_options_grid); ?>
             </div>
@@ -612,6 +614,7 @@ $events = $this->main->get_events();
                         <label for="mec_skin_agenda_month_divider"></label>
                     </div>
                 </div>
+                <?php echo $this->booking_button_field('agenda', (isset($sk_options_agenda['booking_button']) ? $sk_options_agenda['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('agenda', (isset($sk_options_agenda['sed_method']) ? $sk_options_agenda['sed_method'] : 0), (isset($sk_options_agenda['image_popup']) ? $sk_options_agenda['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_agenda_end', $sk_options_agenda); ?>
             </div>
@@ -803,6 +806,7 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Reason for Cancellation -->
+                <?php echo $this->booking_button_field('full_calendar', (isset($sk_options_full_calendar['booking_button']) ? $sk_options_full_calendar['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('full_calendar', (isset($sk_options_full_calendar['sed_method']) ? $sk_options_full_calendar['sed_method'] : 0), (isset($sk_options_full_calendar['image_popup']) ? $sk_options_full_calendar['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_full_calendar_end', $sk_options_full_calendar); ?>
             </div>
@@ -896,6 +900,7 @@ $events = $this->main->get_events();
                 </div>
                 <!-- End Display Reason for Cancellation -->
                 <p class="description"><?php _e('For showing next/previous year navigation.', 'modern-events-calendar-lite'); ?></p>
+                <?php echo $this->booking_button_field('yearly_view', (isset($sk_options_yearly_view['booking_button']) ? $sk_options_yearly_view['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('yearly_view', (isset($sk_options_yearly_view['sed_method']) ? $sk_options_yearly_view['sed_method'] : 0), (isset($sk_options_yearly_view['image_popup']) ? $sk_options_yearly_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_yearly_view_end', $sk_options_yearly_view); ?>
             </div>
@@ -986,6 +991,7 @@ $events = $this->main->get_events();
 					</div>
 				</div> -->
                 <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
+                <?php echo $this->booking_button_field('monthly_view', (isset($sk_options_monthly_view['booking_button']) ? $sk_options_monthly_view['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('monthly_view', (isset($sk_options_monthly_view['sed_method']) ? $sk_options_monthly_view['sed_method'] : 0), (isset($sk_options_monthly_view['image_popup']) ? $sk_options_monthly_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_monthly_view_end', $sk_options_monthly_view); ?>
             </div>
@@ -1108,6 +1114,7 @@ $events = $this->main->get_events();
                 </div>
                 <!-- End Display Reason for Cancellation -->
                 <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
+                <?php echo $this->booking_button_field('daily_view', (isset($sk_options_daily_view['booking_button']) ? $sk_options_daily_view['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('daily_view', (isset($sk_options_daily_view['sed_method']) ? $sk_options_daily_view['sed_method'] : 0), (isset($sk_options_daily_view['image_popup']) ? $sk_options_daily_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_daily_view_end', $sk_options_daily_view); ?>
             </div>
@@ -1180,6 +1187,7 @@ $events = $this->main->get_events();
 					</div>
                 </div>
                 <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
+                <?php echo $this->booking_button_field('weekly_view', (isset($sk_options_weekly_view['booking_button']) ? $sk_options_weekly_view['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('weekly_view', (isset($sk_options_weekly_view['sed_method']) ? $sk_options_weekly_view['sed_method'] : 0), (isset($sk_options_weekly_view['image_popup']) ? $sk_options_weekly_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_weekly_view_end', $sk_options_weekly_view); ?>
             </div>
@@ -1324,6 +1332,7 @@ $events = $this->main->get_events();
                     <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 </div>
                 <div class="mec-timetable-sed-methode-container">
+                    <?php echo $this->booking_button_field('timetable', (isset($sk_options_timetable['booking_button']) ? $sk_options_timetable['booking_button'] : 0)); ?>
                     <?php echo $this->sed_method_field('timetable', (isset($sk_options_timetable['sed_method']) ? $sk_options_timetable['sed_method'] : 0), (isset($sk_options_timetable['image_popup']) ? $sk_options_timetable['image_popup'] : 0)); ?>
                 </div>
                 <?php do_action('mec_skin_options_timetable_end', $sk_options_timetable); ?>
@@ -1457,6 +1466,7 @@ $events = $this->main->get_events();
                         <label for="mec_skin_masonry_load_more_button"></label>
                     </div>
                 </div>
+                <?php echo $this->booking_button_field('masonry', (isset($sk_options_masonry['booking_button']) ? $sk_options_masonry['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('masonry', (isset($sk_options_masonry['sed_method']) ? $sk_options_masonry['sed_method'] : 0), (isset($sk_options_masonry['image_popup']) ? $sk_options_masonry['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_masonry_end', $sk_options_masonry); ?>
             </div>
@@ -1802,6 +1812,7 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_carousel_autoplay"><?php _e('Auto Play Time', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][carousel][autoplay]" id="mec_skin_carousel_autoplay" placeholder="<?php _e('eg. 3000 default is 3 second', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_carousel['autoplay']) && $sk_options_carousel['autoplay'] != '' ) echo $sk_options_carousel['autoplay']; ?>" />
                 </div>
+                <?php echo $this->booking_button_field('carousel', (isset($sk_options_carousel['booking_button']) ? $sk_options_carousel['booking_button'] : 0)); ?>
                 <div class="mec-sed-methode-container">
                     <?php echo $this->sed_method_field('carousel', (isset($sk_options_carousel['sed_method']) ? $sk_options_carousel['sed_method'] : 0), (isset($sk_options_carousel['image_popup']) ? $sk_options_carousel['image_popup'] : 0)); ?>
                 </div>
@@ -2092,6 +2103,7 @@ $events = $this->main->get_events();
                         <label for="mec_skin_timeline_month_divider"></label>
                     </div>
                 </div>
+                <?php echo $this->booking_button_field('timeline', (isset($sk_options_timeline['booking_button']) ? $sk_options_timeline['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('timeline', (isset($sk_options_timeline['sed_method']) ? $sk_options_timeline['sed_method'] : 0), (isset($sk_options_timeline['image_popup']) ? $sk_options_timeline['image_popup'] : 0)); ?>
             </div>
 
@@ -2181,6 +2193,7 @@ $events = $this->main->get_events();
                         </div>
                     </div>
                 </div>
+                <?php echo $this->booking_button_field('tile', (isset($sk_options_tile['booking_button']) ? $sk_options_tile['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('tile', (isset($sk_options_tile['sed_method']) ? $sk_options_tile['sed_method'] : 0), (isset($sk_options_tile['image_popup']) ? $sk_options_tile['image_popup'] : 0)); ?>
             </div>
 

@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.4.2  
-**Stable tag:** 5.8.0  
+**Stable tag:** 5.8.5  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -178,6 +178,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Dynamic event labels
 - Dark Mode
 - Local time for all shortcodes
+- Book event button for all shortcodes
 
 
 ## Integration 
@@ -211,6 +212,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Key Features 
+- Booking Button in Modal Window for All Shortcodes (*pro*)
+- Notifications Per Event  (*pro*)
 - Booking shortcode  (*pro*)
 - Download-able file feature  (*pro*)
 - Sort payment gateways (*pro*)
@@ -495,6 +498,19 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog 
+
+### 5.8.5 – 21 July 2020 
+- Added: Booking button to all skins and ability to open the booking button in modal window (pro)
+- Added: An ability to change subject and content of notifications per event (pro)
+- Added: %%book_datetime%% placeholder to show book date and time together (pro)
+- Improved: The %%book_date%% and %%book_time%% placeholders (pro)
+- Hide: Subtotal in WooCommerce checkout for orders created by MEC (pro)
+- Fixed Number of attendees in added bookings from backend (pro)
+- Fixed Showing times of same day events in some situations
+- Fixed Expired events and “Show only one Ocuurrence option”
+- Fixed Showing an invalid sold out label (pro)
+- Fixed SEO Schema
+
 
 ### 5.8.0 – 15 July 2020 
 - Added: Booking shortcode to include booking module for certain events into any WP page / posts (pro)

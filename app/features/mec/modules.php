@@ -361,6 +361,16 @@ if($this->getPRO())
                                 </div>
                             </div>
 
+                            <div id="notifications_per_event" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('Notifications Per Event', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][notif_per_event]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][notif_per_event]" <?php if(isset($settings['notif_per_event']) and $settings['notif_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Edit Notifications Per Event', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                            </div>
+
                         <?php endif; ?>
 
                         <div class="mec-options-fields">

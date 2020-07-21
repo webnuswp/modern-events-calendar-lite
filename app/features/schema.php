@@ -219,8 +219,8 @@ class MEC_feature_schema extends MEC_base
             "@context": "http://schema.org",
             "@type": "Event",
             "eventStatus": "https://schema.org/<?php echo $event_status; ?>",
-            "startDate": "<?php echo !empty($event->data->meta['mec_date']['start']['date']) ? $event->data->meta['mec_date']['start']['date'] : ''; ?>",
-            "endDate": "<?php echo !empty($event->data->meta['mec_date']['end']['date']) ? $event->data->meta['mec_date']['end']['date'] : ''; ?>",
+            "startDate": "<?php echo $event->date['start']['date']; ?>",
+            "endDate": "<?php echo $event->date['start']['date']; ?>",
             "location":
             {
                 "@type": "<?php echo (($event_status === 'EventMovedOnline') ? 'VirtualLocation' : 'Place'); ?>",

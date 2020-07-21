@@ -138,6 +138,7 @@ else $set_dark = '';
                     <?php endif; ?>
                 </div>
                 <?php if($this->localtime) echo $this->main->module('local-time.type1', array('event'=>$event)); ?>
+                <?php echo $this->booking_button($event); ?>
             </div>
         </article>
         <?php endforeach; ?>

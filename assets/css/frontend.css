@@ -2853,6 +2853,354 @@ span.mec-event-title-soldout {
     padding-right: 3px;
 }
 
+/* Register Button for Shortcodes + Modal Booking
+	-------------------------- */
+.mec-booking-modal {
+	background-color: #e6f7ff;
+}
+
+.mec-booking-modal .mec-booking-shortcode .mec-book-form-gateway-label input[type=radio]:before {
+	top: -1px;
+}
+
+.mec-modal-booking-button {
+    box-shadow: none;
+    transition: all .21s ease;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #fff;
+    color: #767676;
+    border: 1px solid #e8e8e8;
+    padding: 12px 16px;
+    line-height: 37px;
+    height: 38px;
+    margin: 12px 0;
+}
+
+.mec-modal-booking-button:hover {
+    background: #191919;
+    color: #fff;
+    border-color: #191919;
+}
+
+
+.mec-modal-booking-button.mec-mb-icon i {
+    font-size: 14px;
+}
+
+/* Custom Style */
+.mec-event-list-classic .mec-modal-booking-button {
+    height: 0;
+    line-height: 1;
+    margin: 7px 0 0;
+    display: inline-table;
+    letter-spacing: 0;
+    padding: 12px 14px;
+}
+
+.mec-timetable-t2-col .mec-modal-booking-button,
+.mec-event-container-classic .mec-modal-booking-button,
+.mec-calendar-events-side .mec-modal-booking-button,
+.mec-event-grid-minimal .mec-modal-booking-button,
+.mec-event-list-minimal .mec-modal-booking-button {
+    margin: 0;
+    color: #282828;
+    font-size: 12px;
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    position: relative;
+    padding: 0 0 0 24px;
+    background: 0 0;
+    text-align: left;
+    display: inline;
+    border: 0;
+    font-weight: 700;
+}
+
+.mec-timetable-t2-col .mec-modal-booking-button {
+	color: #fff;
+	padding-left: 19px;
+}
+
+.mec-timetable-t2-col .mec-modal-booking-button:hover {
+	color: #282828;
+}
+
+.mec-event-list-minimal .mec-modal-booking-button {
+	margin: 0 4px 0 84px;
+}
+
+.mec-event-container-classic .mec-modal-booking-button:before,
+.mec-calendar-events-side .mec-modal-booking-button:before,
+.mec-event-grid-minimal .mec-modal-booking-button:before,
+.mec-event-list-minimal .mec-modal-booking-button:before {
+    content: '';
+    position: absolute;
+    background: #7a7272;
+    width: 18px;
+    height: 1px;
+    left: 0;
+    top: 45%;
+    transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+}
+
+.mec-skin-carousel-container .mec-modal-booking-button {
+    line-height: 70px;
+}
+
+.mec-event-list-modern .mec-modal-booking-button.mec-mb-icon {
+    border-radius: 1px;
+    letter-spacing: 2px;
+    border: 1px solid #e6e6e6;
+    color: #333;
+    background-color: #fff;
+    padding: 13px 12px 13px 14px;
+    font-weight: 700;
+    box-shadow: 0 2px 0 0 rgba(0,0,0,.016);
+    transition: all .28s ease;
+    line-height: unset;
+}
+
+.mec-event-list-modern .mec-modal-booking-button.mec-mb-icon:hover {
+    border-color: #222;
+    background: #222;
+    color: #fff;
+}
+
+.mec-skin-carousel-container .mec-event-footer-carousel-type2 .mec-modal-booking-button,
+.mec-event-footer .mec-modal-booking-button {
+    position: absolute;
+    top: 20px;
+    right: 125px;
+	margin: 0;
+	padding: 0 16px;
+    line-height: 37px;
+}
+
+.mec-skin-carousel-container .mec-event-footer-carousel-type2 .mec-modal-booking-button {
+	top: 0;
+	line-height: 41px;
+	height: 41px;
+	right: 121px;
+}
+
+.mec-skin-carousel-container .mec-event-footer-carousel-type3 .mec-modal-booking-button {
+    line-height: 18px;
+    font-size: 12px;
+    letter-spacing: 0;
+    float: right;
+    height: 41px;
+    margin: 0 12px 0 0;
+}
+
+.mec-skin-carousel-container .mec-owl-crousel-skin-type4 .mec-modal-booking-button {
+    color: #fff;
+    background-color: #191919;
+    border: 2px #191919 solid;
+    padding: 10px 14px;
+    letter-spacing: 1.5px;
+    font-size: 11px;
+    font-weight: 700;
+    font-style: normal;
+    transition: all .22s ease;
+    text-decoration: none;
+    margin: 0 0 0 12px;
+}
+
+.mec-skin-carousel-container .mec-owl-crousel-skin-type4 .mec-modal-booking-button:hover {
+    color: #191919;
+    background-color: #fff;
+    border: 2px #fff solid;
+}
+
+.mec-event-grid-modern .mec-event-footer .mec-modal-booking-button {
+    right: auto;
+    left: 110px;
+}
+
+.mec-events-agenda .mec-modal-booking-button,
+.mec-event-grid-simple .mec-modal-booking-button {
+    margin: 0;
+    font-size: 12px;
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    position: relative;
+    padding: 0;
+    background: 0 0;
+    text-align: left;
+    display: inline;
+    border: 0;
+    font-weight: 700;
+}
+
+.mec-events-agenda .mec-modal-booking-button {
+    display: block;
+    height: unset;
+    padding-left: 173px;
+    line-height: 14px;
+    margin-bottom: 7px;
+}
+
+.mec-yearly-view-wrap .mec-modal-booking-button {
+	margin: 0;
+	padding-left: 14px;
+	text-transform: capitalize;
+}
+
+.mec-event-grid-novel .mec-event-footer .mec-modal-booking-button.mec-mb-icon {
+	right: auto;
+	left: 238px;
+    width: 36px;
+    height: 36px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 10px;
+    border-color: rgba(255,255,255,.1);
+    background-color: rgba(0,0,0,0);
+    color: #fff;
+    border-radius: 36px;
+}
+
+.mec-event-grid-novel .mec-event-footer .mec-modal-booking-button.mec-mb-icon:hover {
+    background-color: rgba(255,255,255,.1);
+}
+
+.mec-events-yearlu .mec-modal-booking-button:hover,
+.mec-events-agenda .mec-modal-booking-button:hover,
+.mec-event-grid-simple .mec-modal-booking-button:hover {
+	color: #191919;
+}
+
+.mec-event-masonry .mec-event-footer .mec-modal-booking-button {
+    font-size: 12px;
+    padding: 0 31px;
+    line-height: 49px;
+    height: 50px;
+    top: 0;
+    box-shadow: 0 5px 11px -3px rgba(0,0,0,.05);
+    right: auto;
+    left: 155px;
+}
+
+.mec-timeline-event .mec-modal-booking-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    padding: 7px 20px 7px;
+    line-height: 22px;
+    height: unset;
+	border: unset;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 13px;
+	letter-spacing: 0;
+    margin: 0;
+    border-radius: 0 0 0 10px;
+}
+
+.mec-timeline-event .mec-modal-booking-button:hover {
+    background: #191919;
+    color: #fff;
+}
+
+.mec-skin-daily-view-events-container .mec-modal-booking-button,
+.mec-weekly-view-dates-events .mec-event-article .mec-modal-booking-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    line-height: 26px;
+    height: 49px;
+    border: unset;
+    text-align: center;
+    display: inline-block;
+    background: #ededed;
+    color: #191919;
+    padding: 12px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all .24s ease;
+    margin: 0;
+}
+.mec-skin-daily-view-events-container .mec-modal-booking-button:hover,
+.mec-weekly-view-dates-events .mec-event-article .mec-modal-booking-button:hover {
+    background: #292929;
+    color: #fff;
+}
+
+@media(max-width: 1023px) {
+	.mec-skin-daily-view-events-container .mec-modal-booking-button,
+    .mec-weekly-view-dates-events .mec-event-article .mec-modal-booking-button {
+        position: relative;
+        top: unset;
+        transform: unset;
+        margin: 14px 16px 0;
+        padding: 8px;
+        line-height: 20px;
+        height: 35px;
+    }    
+}
+
+@media(max-width:768px) {
+	.featherlight .featherlight-inner {
+		width: 100%;
+	}
+
+	.mec-events-agenda .mec-modal-booking-button {
+		padding: 0;
+	}
+}
+
+@media(max-width:480px) {
+	.mec-booking-modal .mec-events-meta-group-booking-shortcode {
+		padding: 20px;
+	}
+
+	.mec-booking-modal .mec-booking-shortcode .mec-book-reg-field-name,
+	.mec-booking-modal .mec-booking-shortcode .mec-book-reg-field-mec_email {
+		width: 100%;
+	}
+
+	.mec-booking-modal .mec-booking-shortcode button#mec-book-form-btn-step-2 {
+		margin-left: 20px;
+	}
+
+	.mec-booking-modal .mec-booking-shortcode .mec-click-pay button[type=submit] {
+		bottom: 22px;
+	}
+
+    .mec-calendar-events-side .mec-modal-booking-button:before,
+    .mec-event-container-classic .mec-modal-booking-button:before,
+    .mec-event-grid-minimal .mec-modal-booking-button:before,
+    .mec-event-list-minimal .mec-modal-booking-button:before {
+        display: none;
+	}
+	
+    .mec-calendar-events-side .mec-modal-booking-button,
+    .mec-event-container-classic .mec-modal-booking-button,
+    .mec-event-grid-minimal .mec-modal-booking-button,
+    .mec-event-list-minimal .mec-modal-booking-button,
+    .mec-timetable-t2-col .mec-modal-booking-button {
+        margin: 0;
+        padding: 0;
+	}
+
+	.mec-event-grid-modern .mec-event-footer .mec-booking-button {
+		top: 20px;
+	}
+	
+
+
+
+
+}
 
 /* MEC Event- Single
 	-------------------------- */
@@ -5212,6 +5560,10 @@ address.mec-events-address {
 	box-shadow: 0 -1px 30px -2px rgba(0, 0, 0, 0.15) !important;
 }
 
+.tooltipster-box .mec-tooltip-event-desc {
+    margin-bottom: 12px;
+}
+
 .tooltipster-sidetip .tooltipster-arrow {
 	overflow: visible !important;
 }
@@ -5302,6 +5654,7 @@ address.mec-events-address {
 .mec-calendar.mec-calendar-daily .mec-calendar-day-events .mec-event-article {
 	padding-left: 15px;
 	padding-right: 15px;
+	position: relative;
 }
 
 .mec-calendar.mec-calendar-daily .mec-calendar-a-month {
@@ -9852,7 +10205,7 @@ li.mec-no-event-found .mec-event-title {
 body .featherlight .featherlight-content {
     background: transparent;
     overflow: unset;
-    z-index: 9999;
+	z-index: 9999;
 }
 
 body .featherlight .featherlight-close-icon {
@@ -9894,6 +10247,10 @@ body .featherlight .featherlight-close-icon:hover {
 }
 
 @media (max-width: 480px) {
+	body .featherlight .featherlight-content {
+		width: 95%;
+	}
+
     .mec-wrap span.flip-clock-divider {
         width: 7px;
     }
@@ -15547,7 +15904,8 @@ span.mec-event-export-csv:before,
     float: left;
     width: calc(100% - 300px);
     padding-left: 15px;
-    padding-right: 15px;
+	padding-right: 15px;
+	position: relative;
 }
 
 .mec-timeline-month-divider {

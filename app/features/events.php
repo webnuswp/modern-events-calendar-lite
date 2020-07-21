@@ -349,6 +349,7 @@ class MEC_feature_events extends MEC_base
                     __('Organizer', 'modern-events-calendar-lite') => 'mec-organizer',
                     __('Cost', 'modern-events-calendar-lite') => 'mec-cost',
                     __('SEO Schema / Event Status', 'modern-events-calendar-lite') => 'mec-schema',
+                    __('Notifications', 'modern-events-calendar-lite') => 'mec-notifications',
                 );
 
                 $single_event_meta_title = apply_filters('mec-single-event-meta-title', $tabs, $activated);
@@ -366,6 +367,10 @@ class MEC_feature_events extends MEC_base
                     elseif($link_address == 'mec-event-data')
                     {
                         if(count($event_fields)) echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                    }
+                    elseif($link_address == 'mec-notifications')
+                    {
+                        if(isset($this->settings['notif_per_event']) and $this->settings['notif_per_event']) echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
                     }
                     else
                     {
@@ -3269,6 +3274,13 @@ class MEC_feature_events extends MEC_base
         {
             $dl_file = isset($_mec['downloadable_file']) ? $_mec['downloadable_file'] : '';
             update_post_meta($post_id, 'mec_dl_file', $dl_file);
+        }
+
+        // Notifications
+        if(isset($_mec['notifications']))
+        {
+            $notifications = (isset($_mec['notifications']) and is_array($_mec['notifications'])) ? $_mec['notifications'] : array();
+            update_post_meta($post_id, 'mec_notifications', $notifications);
         }
 
         $mec_update = (isset($_REQUEST['original_publish']) and strtolower(trim($_REQUEST['original_publish'])) == 'publish') ? false : true;

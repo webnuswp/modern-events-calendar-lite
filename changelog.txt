@@ -1,4 +1,16 @@
-﻿v 5.8.0 – 15 July 2020
+﻿v 5.8.5 – 21 July 2020
+- Added: Booking button to all skins and ability to open the booking button in modal window (pro)
+- Added: An ability to change subject and content of notifications per event (pro)
+- Added: %%book_datetime%% placeholder to show book date and time together (pro)
+- Improved: The %%book_date%% and %%book_time%% placeholders (pro)
+- Hide: Subtotal in WooCommerce checkout for orders created by MEC (pro)
+- Fixed: Number of attendees in added bookings from backend (pro)
+- Fixed: Showing times of same day events in some situations
+- Fixed: Expired events and “Show only one Occurrence option”
+- Fixed: Showing an invalid sold out label (pro)
+- Fixed: SEO Schema
+
+v 5.8.0 – 15 July 2020
 - Added: Booking shortcode to include booking module for certain events into any WP page / posts (pro)
 - Added: A new system to don’t re-import Google Calendar events when they’re modified in the website
 - Refactored: The midnight and multiple day events

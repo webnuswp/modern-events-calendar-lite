@@ -80,6 +80,9 @@ class MEC_factory extends MEC_base
 
         // MEC Print Feature
         $this->action('init', array($this->main, 'print_calendar'), 9999);
+
+        // MEC Print Feature
+        $this->action('wp', array($this->main, 'booking_modal'), 9999);
         
         // Redirect to MEC Dashboard
         $this->action('admin_init', array($this->main, 'mec_redirect_after_activate'));
@@ -915,7 +918,7 @@ class MEC_factory extends MEC_base
             foreach($calendars as $calendar)
             {
                 // Calendar exists
-                if(post_exists($calendar['title'], 'modern-events-calendar-lite')) continue;
+                if(post_exists($calendar['title'], 'MEC')) continue;
 
                 $post = array('post_title'=>$calendar['title'], 'post_content'=>'MEC', 'post_type'=>'mec_calendars', 'post_status'=>'publish');
                 $post_id = wp_insert_post($post);

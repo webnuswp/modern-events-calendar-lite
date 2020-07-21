@@ -40,6 +40,8 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                 <div class="mec-single-event-description mec-events-content"><?php the_content(); ?></div>
             </div>
 
+            <?php do_action('mec_single_after_content', $event ); ?>
+
             <!-- Custom Data Fields -->
             <?php $this->display_data_fields($event); ?>
 
@@ -144,6 +146,8 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                         <?php
                     }
                 ?>
+
+                <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
                 
                 <?php
                     // More Info
@@ -176,6 +180,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                         <?php
                     }
                 ?>
+
 
                 <?php
                     // Event Location
@@ -407,6 +412,8 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                     <?php
                 }
                 ?>
+
+                <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
 
                 <?php
                 // Event Location

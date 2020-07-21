@@ -40,6 +40,12 @@ class MEC_skins extends MEC_base
      * @var int
      */
 	public $next_offset = 0;
+
+    /**
+     * Display Booking Method
+     * @var int
+     */
+    public $booking_button = 0;
 	
     /**
      * Single Event Display Method
@@ -212,11 +218,10 @@ class MEC_skins extends MEC_base
         
         // Apply filters
         $settings = $this->main->get_settings();
-        if ($this->skin == 'single' and (isset($settings['single_single_style']) and $settings['single_single_style'] == 'fluent')) {
-            $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, 'fluent');
-        } else {
-            $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, $this->style);
-        }
+
+        if($this->skin == 'single' and (isset($settings['single_single_style']) and $settings['single_single_style'] == 'fluent')) $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, 'fluent');
+        else $filtered_path = apply_filters('mec_get_skin_tpl_path', $this->skin, $this->style);
+
         if($filtered_path != $this->skin and $this->file->exists($filtered_path)) $path = $filtered_path;
         
         return $path;
@@ -639,6 +644,7 @@ class MEC_skins extends MEC_base
         // Show only one occurrence of events
         $first_event = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart` >= {$now} GROUP BY `post_id` ORDER BY `tstart` ASC");
 
+        $did_one_occurrence = array();
         foreach($dates as $date => $event_ids)
         {
             if(!is_array($event_ids) or (is_array($event_ids) and !count($event_ids))) continue;
@@ -648,13 +654,18 @@ class MEC_skins extends MEC_base
                 $one_occurrence = get_post_meta($event_id, 'one_occurrence', true);
                 if($one_occurrence != '1') continue;
 
-                if(isset($first_event[$event_id]->tstart) and strtotime($date) >= $first_event[$event_id]->tstart)
+                if(isset($first_event[$event_id]->tstart) and date('Y-m-d', strtotime($date)) != date('Y-m-d', $first_event[$event_id]->tstart))
                 {
                     $dates[$date][$index] = '';
                 }
+                else
+                {
+                    if(in_array($event_id, $did_one_occurrence)) $dates[$date][$index] = '';
+                    else $did_one_occurrence[] = $event_id;
+                }
             }
         }
-        
+
         return $dates;
     }
     
@@ -1231,5 +1242,20 @@ class MEC_skins extends MEC_base
 
         if($a_timestamp == $b_timestamp) return 0;
         return ($a_timestamp > $b_timestamp) ? +1 : -1;
+    }
+
+    public function booking_button($event, $type = 'button') 
+    {
+        if(!$this->booking_button) return '';
+        if(!$this->main->can_show_booking_module($event)) return '';
+        if($this->main->is_sold($event, $event->data->time['start_timestamp'])) return '';
+
+        $link = $this->main->get_event_date_permalink($event, $event->date['start']['date']);
+        $link = $this->main->add_qs_var('method', 'mec-booking-modal', $link);
+
+        $modal = 'data-featherlight="iframe" data-featherlight-iframe-height="450" data-featherlight-iframe-width="700"';
+
+        if($type === 'button') return '<a class="mec-modal-booking-button mec-mb-button" href="'.esc_url($link).'" '.$modal.'>'.$this->main->m('register_button', __('Book Event', 'modern-events-calendar-lite')).'</a>';
+        else return '<a class="mec-modal-booking-button mec-mb-icon" title="' . __('Book Event', 'modern-events-calendar-lite') . '" href="'.esc_url($link).'" '.$modal.'><i class="mec-sl-note"></i></a>';
     }
 }

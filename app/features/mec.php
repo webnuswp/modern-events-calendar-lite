@@ -948,6 +948,7 @@ class MEC_feature_mec extends MEC_base
      * Single Event Display Method
      * @param string $skin
      * @param int $value
+     * @param int $image_popup
      * @return string
      */
     public function sed_method_field($skin, $value = 0, $image_popup = 0)
@@ -978,6 +979,22 @@ class MEC_feature_mec extends MEC_base
                 </ul>
             </div>
         </div>' . $image_popup_html;
+    }
+
+    public function booking_button_field($skin, $value = 0)
+    {
+        $booking_status = (!isset($this->settings['booking_status']) or (isset($this->settings['booking_status']) and !$this->settings['booking_status'])) ? false : true;
+        if(!$booking_status) return '';
+
+        return '<div class="mec-form-row mec-booking-button-wrap mec-switcher">
+            <div class="mec-col-4">
+                <label for="mec_skin_'.$skin.'_booking_button">'.__('Booking Button / Icon', 'modern-events-calendar-lite').'</label>
+            </div>
+            <div class="mec-col-4">
+                <input type="hidden" name="mec[sk-options]['.$skin.'][booking_button]" value="0" />
+                <input type="checkbox" name="mec[sk-options]['.$skin.'][booking_button]" id="mec_skin_'.$skin.'_booking_button" value="1" '.($value == '1' ? 'checked="checked"' : '').' /><label for="mec_skin_'.$skin.'_booking_button"></label>
+            </div>
+        </div>';
     }
 
     /**

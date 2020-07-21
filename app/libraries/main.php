@@ -592,6 +592,8 @@ class MEC_main extends MEC_base
                 __('Booking Reminder', 'modern-events-calendar-lite') => 'booking_reminder',
                 __('Admin', 'modern-events-calendar-lite') => 'admin_notification',
             ), $notifications_items);
+
+            $modules[__('Notifications Per Event', 'modern-events-calendar-lite')] = 'notifications_per_event';
         }
 
         $notifications = apply_filters('mec-settings-item-notifications', $notifications_items, $active_menu);
@@ -672,7 +674,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'booking' ? 'subsection' : 'mec-settings-submenu'; ?>">
 
                 <?php foreach ($booking as $booking_name => $booking_link) : ?>
-                <?php if ( $booking_link == 'coupon_option' || $booking_link == 'taxes_option' || $booking_link == 'ticket_variations_option' || $booking_link == 'booking_form_option' || $booking_link == 'payment_gateways_option' ): ?>
+                <?php if ( $booking_link == 'coupon_option' || $booking_link == 'taxes_option' || $booking_link == 'ticket_variations_option' || $booking_link == 'booking_form_option' || $booking_link == 'payment_gateways_option' || $booking_link == 'booking_shortcode' ): ?>
                     <?php if ( isset($options['booking_status']) and $options['booking_status'] ) : ?>
                     <li>
                         <a 
@@ -2640,6 +2642,38 @@ class MEC_main extends MEC_base
         }
     }
 
+    public function booking_modal()
+    {
+        // Print Calendar
+        if(isset($_GET['method']) and sanitize_text_field($_GET['method']) == 'mec-booking-modal' and $this->getPro())
+        {
+            global $post;
+
+            // Current Post is not Event
+            if($post->post_type != $this->get_main_post_type()) return;
+
+            $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : NULL;
+            $time = isset($_GET['time']) ? sanitize_text_field($_GET['time']) : NULL;
+
+            ob_start();
+            ?>
+            <html>
+            <head>
+                <?php wp_head(); ?>
+            </head>
+            <body <?php body_class('mec-booking-modal'); ?>>
+                <?php echo do_shortcode('[mec-booking event-id="'.$post->ID.'"]'); ?>
+                <?php wp_footer(); ?>
+            </body>
+            </html>
+            <?php
+            $html = ob_get_clean();
+
+            echo $html;
+            exit;
+        }
+    }
+
     /**
      * Generates ical output
      * @author Webnus <info@webnus.biz>
@@ -3741,7 +3775,7 @@ class MEC_main extends MEC_base
         if(!isset($settings['booking_status']) or (isset($settings['booking_status']) and !$settings['booking_status'])) return false;
 
         $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
-        $dates = isset($event->dates) ? $event->dates : array();
+        $dates = isset($event->dates) ? $event->dates : (isset($event->date) ? $event->date : array());
         $next_date = isset($dates[0]) ? $dates[0] : (isset($event->date) ? $event->date : array());
 
         // No Dates or no Tickets
@@ -3796,7 +3830,9 @@ class MEC_main extends MEC_base
 
             if(!trim($event->data->meta['mec_repeat_status']))
             {
-                $render_date .= ' ' . sprintf('%02d', $next_date['start']['hour']) . ':' . sprintf('%02d', $next_date['start']['minutes']) . trim($next_date['start']['ampm']);
+                if(isset($next_date['start']['hour'])) $render_date .= ' ' . sprintf('%02d', $next_date['start']['hour']) . ':' . sprintf('%02d', $next_date['start']['minutes']) . trim($next_date['start']['ampm']);
+                else $render_date .= ' '.date('h:ia', $event->data->time['start_timestamp']);
+
                 $time_format .= ' h:ia';
             }
 
@@ -5760,29 +5796,21 @@ class MEC_main extends MEC_base
         
         // No Tickets
         if(!count($tickets)) return false;
-        
-        $bookings = $this->get_bookings($event->data->ID, $timestamp);
-        
-        // No Bookings
-        if(!count($bookings)) return false;
-        
-        $available_spots = '0';
-        foreach($tickets as $ticket)
+
+        $book = $this->getBook();
+        $availability = $book->get_tickets_availability($event->data->ID, $timestamp);
+
+        if(is_array($availability) and count($availability))
         {
-            if((isset($ticket['unlimited']) and $ticket['unlimited']) or !trim($ticket['limit']))
+            $remained_tickets = 0;
+            foreach($availability as $ticket_id => $remained)
             {
-                $available_spots = '-1';
-                break;
+                if(is_numeric($ticket_id)) $remained_tickets += $remained;
             }
-            
-            $available_spots += $ticket['limit'];
+
+            // Check For Return SoldOut Label Exist.
+            if($remained_tickets === 0) return true;
         }
-        
-        // There are unlimitted spots
-        if($available_spots == '-1') return false;
-        
-        // Bookings are higher than available spots so event is sold
-        if(count($bookings) >= $available_spots) return true;
         
         return false;
     }
@@ -6660,7 +6688,7 @@ class MEC_main extends MEC_base
     public function get_start_of_multiple_days($event_id, $date)
     {
         $db = $this->getDB();
-        return $db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`dstart`='".$date."') OR (`dstart`<'".$date."' AND `dend`>='".$date."')) ORDER BY `dstart` ASC LIMIT 1", 'loadResult');
+        return $db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`dstart`='".$date."') OR (`dstart`<'".$date."' AND `dend`>='".$date."')) ORDER BY `dstart` DESC LIMIT 1", 'loadResult');
     }
 
     public function get_start_time_of_multiple_days($event_id, $time)
@@ -6668,7 +6696,7 @@ class MEC_main extends MEC_base
         if(!trim($time)) return NULL;
 
         $db = $this->getDB();
-        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`tstart`='".$time."') OR (`tstart`<'".$time."' AND `tend`>'".$time."')) ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
+        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`tstart`='".$time."') OR (`tstart`<'".$time."' AND `tend`>'".$time."')) ORDER BY `tstart` DESC LIMIT 1", 'loadResult');
     }
 
     public function is_midnight_event($event)

@@ -73,7 +73,7 @@ elseif($week_start == 5) // Friday
                     
                     echo '<div class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative simple-skin-ended">';
                     echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.$event->data->ID.'-'.$day_id.'" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'">';
-                    echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation);
+                    echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation).do_action('mec_shortcode_virtual_badge', $event->data->ID );
                     echo '</a>';
                     echo '</div>';
 
@@ -94,6 +94,7 @@ elseif($week_start == 5) // Friday
                     $tooltip_content .= !empty(!empty($event->data->content)) ? '<div class="mec-tooltip-event-desc">'.$this->main->mec_content_html($event->data->content, 320).' , ...</div>' : '';
                     if($this->localtime) $tooltip_content .= $this->main->module('local-time.type2', array('event'=>$event));
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '';
+                    $tooltip_content .= $this->booking_button($event);
 
                     // MEC Schema
                     do_action('mec_schema', $event);

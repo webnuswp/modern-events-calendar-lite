@@ -157,6 +157,8 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
             <?php echo $this->main->module('local-time.details', array('event'=>$event)); ?>
             
             <div class="mec-event-meta mec-color-before mec-frontbox">
+
+                <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
                 
                 <?php
                 // Event Location
@@ -245,6 +247,8 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
             <div class="mec-event-content">
                 <div class="mec-single-event-description mec-events-content"><?php echo $this->main->get_post_content($event->data->ID); ?></div>
             </div>
+
+            <?php do_action('mec_single_after_content', $event ); ?>
 
             <!-- Custom Data Fields -->
             <?php $this->display_data_fields($event); ?>

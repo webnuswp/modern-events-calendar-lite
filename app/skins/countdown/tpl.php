@@ -116,7 +116,7 @@ do_action('mec_countdown_skin_head');
         <div class="mec-event-countdown-part1 col-md-4">
             <div class="mec-event-upcoming"><?php echo sprintf(__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
             <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?><?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
-            <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
+            <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
         </div>
         <div class="mec-event-countdown-part2 col-md-5">
             <div class="mec-event-date-place">
@@ -162,7 +162,7 @@ do_action('mec_countdown_skin_head');
         <div class="mec-event-countdown-part1 col-md-4">
             <div class="mec-event-upcoming"><?php echo sprintf(__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
             <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?><?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
-            <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?>
+            <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
         </div>
         <div class="mec-event-countdown-part2 col-md-5">
             <div class="mec-event-date-place">
@@ -217,7 +217,7 @@ do_action('mec_countdown_skin_head');
                     <span class="mec-date3"><?php echo $this->main->date_i18n($this->date_format_style33, strtotime($event_date)); ?></span>
                 </div>
                 <div class="mec-event-title-link">
-                    <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?><?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?></h4>
+                    <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?><?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                     <a class="mec-event-link" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('Event Detail', 'modern-events-calendar-lite')); ?></a>
                 </div>
                 <div class="mec-event-countdown" id="mec_skin_countdown<?php echo $this->id; ?>">
