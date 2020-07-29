@@ -296,12 +296,12 @@ class MEC_feature_fes extends MEC_base
                 {
                     foreach($transaction['tickets'][$counter]['variations'] as $variation_id => $variation_count)
                     {
-                        if($variation_count > 0) $ticket_variations_output .= $ticket_variations[$variation_id]['title'].": ( ".$variation_count.' )'."\n";
+                        if($variation_count > 0) $ticket_variations_output .= $ticket_variations[$variation_id]['title'].": ( ".$variation_count.' )'.", ";
                     }
                 }
 
                 $ticket_id = isset($attendee['id']) ? $attendee['id'] : get_post_meta($post_id, 'mec_ticket_id', true);
-                $booking = array($post_id, get_the_title($event_id), get_the_date('', $post_id), $order_time, (isset($tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : __('Unknown', 'modern-events-calendar-lite')), $transaction_id, $this->main->render_price(($price ? $price : 0)), (isset($attendee['name']) ? $attendee['name'] : (isset($booker->first_name) ? trim($booker->first_name.' '.$booker->last_name) : '')), (isset($attendee['email']) ? $attendee['email'] : @$booker->user_email), $ticket_variations_output, $confirmed, $verified);
+                $booking = array($post_id, get_the_title($event_id), get_the_date('', $post_id), $order_time, (isset($tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : __('Unknown', 'modern-events-calendar-lite')), $transaction_id, $this->main->render_price(($price ? $price : 0)), (isset($attendee['name']) ? $attendee['name'] : (isset($booker->first_name) ? trim($booker->first_name.' '.$booker->last_name) : '')), (isset($attendee['email']) ? $attendee['email'] : @$booker->user_email), trim($ticket_variations_output, ', '), $confirmed, $verified);
                 $booking = apply_filters('mec_csv_export_booking', $booking, $post_id, $event_id);
 
                 $reg_form = isset($attendee['reg']) ? $attendee['reg'] : array();

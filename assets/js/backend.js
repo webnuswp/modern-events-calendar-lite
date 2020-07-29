@@ -22,19 +22,24 @@ jQuery(document).ready(function($)
     });
 
     // MEC Accordion
-    $('.mec-accordion .mec-acc-label').on('click', function()
+    $('.mec-accordion .mec-acc-label .mec-acc-cat-name').on('click', function()
     {
-        var key = $(this).attr('data-key');
-        var status = $(this).attr('data-status');
-
+        var key = $(this).parent().attr('data-key');
+        var status = $(this).parent().attr('data-status');
+        
         // Open the accordion
         if(status === 'close')
         {
             $('.mec-accordion .mec-acc-label ul').hide();
             $('.mec-accordion .mec-acc-label').attr('data-status', 'close');
-            $(this).attr('data-status', 'open');
+            $(this).parent().attr('data-status', 'open');
             $('#mec-acc-'+key).show();
+        } else {
+            $('.mec-accordion .mec-acc-label ul').hide();
+            $('.mec-accordion .mec-acc-label').attr('data-status', 'close');
+            $('#mec-acc-'+key).hide();
         }
+
     });
 
     // MEC Select, Deselect, Toggle
@@ -177,10 +182,11 @@ jQuery(document).ready(function($)
                     {
                         var search_label = $(this).find('label.mec-col-3').text().toLowerCase();
                         var search_title = $(this).find('h4.mec-form-subtitle').text().toLowerCase();
+                        var search_title = $(this).find('.mec-form-row').text().toLowerCase();
                         if ((!search_label || search_label == "") && (!search_title || search_title == "")) {
                             return false;
                         }
-                        if ($(this).find('label.mec-col-3').text().toLowerCase().indexOf(value) > -1 || $(this).find('h4.mec-form-subtitle').text().toLowerCase().indexOf(value) > -1) {
+                        if ($(this).find('label.mec-col-3').text().toLowerCase().indexOf(value) > -1 || $(this).find('h4.mec-form-subtitle').text().toLowerCase().indexOf(value) > -1 || $(this).find('.mec-form-row').text().toLowerCase().indexOf(value) > -1) {
                             $('.mec-options-fields').hide();
                             $('.mec-options-fields').removeClass('active');
                             $('.wns-be-group-menu .subsection .mec-settings-menu li').removeClass('active');
@@ -207,6 +213,29 @@ jQuery(document).ready(function($)
                         searchStr.show();
                         searchStr.addClass('active')
                     });
+
+                    jQuery("#wns-be-content .mec-form-row").each(function() {
+                        if (value != "" && $(this).text().search(new RegExp(value, 'gi')) != -1) {
+                            jQuery(this).addClass("results");
+                        } else if (value != "" && $(this).text().search(value) != 1) {
+                            jQuery(this).addClass("noresults");
+                        }
+                    });
+
+                    jQuery("#wns-be-content ul li").each(function() {
+                        if (value != "" && $(this).text().search(new RegExp(value, 'gi')) != -1) {
+                            jQuery(this).addClass("enable");
+                        } else if (value != "" && $(this).text().search(value) != 1) {
+                            jQuery(this).addClass("disable");
+                        }
+                    });
+
+                }
+                if ( !value || value == "" ) {
+                    jQuery(".results").removeClass("results");
+                    jQuery(".noresults").removeClass("noresults");
+                    jQuery(".enable").removeClass("enable");
+                    jQuery(".disable").removeClass("disable");
                 }
             }
         });

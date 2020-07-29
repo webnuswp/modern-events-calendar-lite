@@ -392,6 +392,18 @@ class MEC_feature_events extends MEC_base
                 jQuery(this).addClass("mec-tab-active");
                 jQuery("#" + href ).addClass("mec-tab-active");
             });
+            jQuery("#publish").on("click", function () {
+                var fields = jQuery("#mec-event-data").find("select, textarea, input").serializeArray();
+                jQuery.each(fields, function(i, field) {
+                    if (!field.value) {
+                        var xdf = jQuery("#mec_metabox_details .mec-add-event-tabs-left .mec-add-event-tabs-link[data-href='mec-event-data']");
+                        jQuery("#mec_metabox_details .mec-add-event-tabs-left .mec-add-event-tabs-link").removeClass("mec-tab-active");
+                        jQuery("#mec_metabox_details .mec-add-event-tabs-right .mec-event-tab-content").removeClass("mec-tab-active");
+                        jQuery(xdf).addClass("mec-tab-active");
+                        jQuery(".mec-add-event-tabs-right #mec-event-data").addClass("mec-tab-active");
+                    }
+                });
+            });
         </script>
     <?php
     }
@@ -1162,7 +1174,7 @@ class MEC_feature_events extends MEC_base
                     <?php /** Dropdown **/ elseif($event_field['type'] == 'select'): ?>
                         <select id="mec_event_fields_<?php echo $j; ?>" name="mec[fields][<?php echo $j; ?>]" title="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?>>
                             <?php foreach($event_field['options'] as $event_field_option): ?>
-                                <option value="<?php esc_attr_e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" <?php echo ($event_field_option['label'] == $value ? 'selected="selected"' : ''); ?>><?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?></option>
+                                <option value="<?php esc_attr_e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" <?php echo ($event_field_option['label'] == $value ? 'selected="selected"' : ''); ?>><?php _e(stripslashes($event_field_option['label']), 'modern-events-calendar-lite'); ?></option>
                             <?php endforeach; ?>
                         </select>
 
@@ -1170,7 +1182,7 @@ class MEC_feature_events extends MEC_base
                         <?php foreach($event_field['options'] as $event_field_option): ?>
                             <label for="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>">
                                 <input type="radio" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ($event_field_option['label'] == $value ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" />
-                                <?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>
+                                <?php _e(stripslashes($event_field_option['label']), 'modern-events-calendar-lite'); ?>
                             </label>
                         <?php endforeach; ?>
 
@@ -1178,7 +1190,7 @@ class MEC_feature_events extends MEC_base
                         <?php foreach($event_field['options'] as $event_field_option): ?>
                             <label for="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>">
                                 <input type="checkbox" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ((is_array($value) and in_array($event_field_option['label'], $value)) ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>][]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" />
-                                <?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>
+                                <?php _e(stripslashes($event_field_option['label']), 'modern-events-calendar-lite'); ?>
                             </label>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -3602,90 +3614,57 @@ class MEC_feature_events extends MEC_base
         $wp_list_table = _get_list_table('WP_Posts_List_Table');
 
         $action = $wp_list_table->current_action();
-        if (!$action) {
-            return false;
-        }
+        if(!$action) return false;
 
         $post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : 'post';
-        if ($post_type != $this->PT) {
-            return false;
-        }
+        if($post_type != $this->PT) return false;
 
         check_admin_referer('bulk-posts');
 
         // MEC Render Library
         $render = $this->getRender();
 
-        switch ($action) {
+        switch($action)
+        {
             case 'ical-export':
+
                 $post_ids = $_GET['post'];
                 $events = '';
 
-                foreach ($post_ids as $post_id) {
-                    $events .= $this->main->ical_single((int)$post_id);
-                }
-
+                foreach($post_ids as $post_id) $events .= $this->main->ical_single((int) $post_id);
                 $ical_calendar = $this->main->ical_calendar($events);
 
                 header('Content-type: application/force-download; charset=utf-8');
                 header('Content-Disposition: attachment; filename="mec-events-' . date('YmdTHi') . '.ics"');
 
                 echo $ical_calendar;
-                exit;
 
+                exit;
                 break;
+
             case 'csv-export':
+            case 'ms-excel-export':
+
                 header('Content-Type: text/csv; charset=utf-8');
                 header('Content-Disposition: attachment; filename=bookings-' . md5(time() . mt_rand(100, 999)) . '.csv');
 
                 $post_ids = $_GET['post'];
                 $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
 
-                $output = fopen('php://output', 'w');
-                fputcsv($output, $columns);
+                // Event Fields
+                $fields = $this->main->get_event_fields();
+                if(!is_array($fields)) $fields = array();
 
-                foreach ($post_ids as $post_id) {
-                    $post_id = (int)$post_id;
+                foreach($fields as $f => $field)
+                {
+                    if(!is_numeric($f)) continue;
+                    if(!isset($field['label']) or (isset($field['label']) and trim($field['label']) == '')) continue;
 
-                    $data = $render->data($post_id);
-
-                    $dates = $render->dates($post_id, $data);
-                    $date = $dates[0];
-
-                    $location = isset($data->locations[$data->meta['mec_location_id']]) ? $data->locations[$data->meta['mec_location_id']] : array();
-                    $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();
-
-                    $event = array(
-                        $post_id,
-                        $data->title,
-                        $date['start']['date'],
-                        $data->time['start'],
-                        $date['end']['date'],
-                        $data->time['end'],
-                        $data->permalink,
-                        (isset($location['address']) ? $location['address'] : (isset($location['name']) ? $location['name'] : '')),
-                        (isset($organizer['name']) ? $organizer['name'] : ''),
-                        (isset($organizer['tel']) ? $organizer['tel'] : ''),
-                        (isset($organizer['email']) ? $organizer['email'] : ''),
-                        (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']),
-                    );
-
-                    fputcsv($output, $event);
+                    $columns[] = stripslashes($field['label']);
                 }
 
-                exit;
-
-                break;
-            case 'ms-excel-export':
-                header('Content-Type: application/vnd.ms-excel; charset=utf-8');
-                header('Content-Disposition: attachment; filename=bookings-' . md5(time() . mt_rand(100, 999)) . '.csv');
-
-                $post_ids = $_GET['post'];
-                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
-
                 $output = fopen('php://output', 'w');
-                fwrite($output, "sep=\t" . PHP_EOL);
-                fputcsv($output, $columns, "\t");
+                fputcsv($output, $columns);
 
                 foreach($post_ids as $post_id)
                 {
@@ -3714,19 +3693,26 @@ class MEC_feature_events extends MEC_base
                         (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']),
                     );
 
-                    fputcsv($output, $event, "\t");
+                    if(isset($data->fields) and is_array($data->fields) and count($data->fields))
+                    {
+                        foreach($data->fields as $field)
+                        {
+                            $event[] = $field['value'];
+                        }
+                    }
+
+                    fputcsv($output, $event);
                 }
 
                 exit;
-
                 break;
-            case 'xml-export':
-                $post_ids = $_GET['post'];
-                $events = array();
 
-                foreach ($post_ids as $post_id) {
-                    $events[] = $this->main->export_single((int)$post_id);
-                }
+            case 'xml-export':
+
+                $post_ids = $_GET['post'];
+
+                $events = array();
+                foreach($post_ids as $post_id) $events[] = $this->main->export_single((int) $post_id);
 
                 $xml_feed = $this->main->xml_convert(array('events' => $events));
 
@@ -3734,34 +3720,34 @@ class MEC_feature_events extends MEC_base
                 header('Content-Disposition: attachment; filename="mec-events-' . date('YmdTHi') . '.xml"');
 
                 echo $xml_feed;
+
                 exit;
-
                 break;
-            case 'json-export':
-                $post_ids = $_GET['post'];
-                $events = array();
 
-                foreach ($post_ids as $post_id) {
-                    $events[] = $this->main->export_single((int)$post_id);
-                }
+            case 'json-export':
+
+                $post_ids = $_GET['post'];
+
+                $events = array();
+                foreach ($post_ids as $post_id) $events[] = $this->main->export_single((int) $post_id);
 
                 header('Content-type: application/force-download; charset=utf-8');
                 header('Content-Disposition: attachment; filename="mec-events-' . date('YmdTHi') . '.json"');
 
                 echo json_encode($events);
+
                 exit;
-
                 break;
+
             case 'duplicate':
-                $post_ids = $_GET['post'];
 
-                foreach ($post_ids as $post_id) {
-                    $this->main->duplicate((int)$post_id);
-                }
+                $post_ids = $_GET['post'];
+                foreach($post_ids as $post_id) $this->main->duplicate((int)$post_id);
 
                 break;
+
             default:
-                return;
+                return false;
         }
 
         wp_redirect('edit.php?post_type=' . $this->main->get_main_post_type());
@@ -4053,6 +4039,10 @@ class MEC_feature_events extends MEC_base
         
         $render_recipients = array_unique(explode(',', $mail_recipients_info));
         $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        // Changing some sender email info.
+        $notifications = $this->getNotifications();
+        $notifications->mec_sender_email_notification_filter();
 
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));

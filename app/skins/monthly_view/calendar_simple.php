@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_monthly_view $this */
+
 // table headings
 $headings = $this->main->get_weekday_abbr_labels();
 echo '<dl class="mec-calendar-table-head"><dt class="mec-calendar-day-head">'.implode('</dt><dt class="mec-calendar-day-head">', $headings).'</dt></dl>';
@@ -67,13 +69,22 @@ elseif($week_start == 5) // Friday
                 echo '<dt class="mec-calendar-day'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'"><div class="'.$selected_day_date.'">'.$list_day.'</div>';
                 foreach($events[$today] as $event)
                 {
-                    $event_color = isset($event->data->meta['mec_color'])? '#'.$event->data->meta['mec_color']:'';
+                    $event_color = isset($event->data->meta['mec_color']) ? '#'.$event->data->meta['mec_color'] : '';
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
-                    
+
+                    // Event Content
+                    if(!$this->cache->has($event->data->ID.'_content'))
+                    {
+                        $event_content = ((isset($event->data->content) and trim($event->data->content) != '') ? $this->main->mec_content_html($event->data->content, 320) : '');
+                        $this->cache->set($event->data->ID.'_content', $event_content);
+                    }
+                    else $event_content = $this->cache->get($event->data->ID.'_content');
+
                     echo '<div class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative simple-skin-ended">';
                     echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.$event->data->ID.'-'.$day_id.'" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'">';
-                    echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation).do_action('mec_shortcode_virtual_badge', $event->data->ID );
+                    echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation);
+                    do_action('mec_shortcode_virtual_badge', $event->data->ID);
                     echo '</a>';
                     echo '</div>';
 
@@ -83,15 +94,23 @@ elseif($week_start == 5) // Friday
 
                     if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
                     {
+                        // Event Content
+                        if(!$this->cache->has($event->data->ID.'_cost'))
+                        {
+                            $event_cost = (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']);
+                            $this->cache->set($event->data->ID.'_cost', $event_cost);
+                        }
+                        else $event_cost = $this->cache->get($event->data->ID.'_cost');
+
                         $tooltip_content .= '<div class="mec-price-details">
                             <i class="mec-sl-wallet"></i>
-                            <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']).'</span>
+                            <span>'.$event_cost.'</span>
                         </div>';
                     }
 
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '';
                     $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.$event->data->thumbnails['thumbnail'].'</div>' : '';
-                    $tooltip_content .= !empty(!empty($event->data->content)) ? '<div class="mec-tooltip-event-desc">'.$this->main->mec_content_html($event->data->content, 320).' , ...</div>' : '';
+                    $tooltip_content .= !empty($event->data->content) ? '<div class="mec-tooltip-event-desc">'.$event_content.' , ...</div>' : '';
                     if($this->localtime) $tooltip_content .= $this->main->module('local-time.type2', array('event'=>$event));
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '';
                     $tooltip_content .= $this->booking_button($event);

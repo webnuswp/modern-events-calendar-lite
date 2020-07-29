@@ -484,6 +484,8 @@ class MEC_render extends MEC_base
         
         // All Meta Data
         $meta = $this->main->get_post_meta($post_id);
+        if(isset($meta['mec_notifications'])) unset($meta['mec_notifications']);
+
         $data->meta = $meta;
         
         // All MEC Data
@@ -576,6 +578,7 @@ class MEC_render extends MEC_base
             'full'=>$full,
             'tileview'=>$tileview
         ], $post_id);
+
         $data->thumbnails = $dataThumbnails;
 
         // Featured image URLs
@@ -623,6 +626,25 @@ class MEC_render extends MEC_base
                     'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true)
                 );
             }
+        }
+
+        // Event Fields
+        $fields = $this->main->get_event_fields();
+        if(!is_array($fields)) $fields = array();
+
+        $fields_data = (isset($data->meta['mec_fields']) and is_array($data->meta['mec_fields'])) ? $data->meta['mec_fields'] : get_post_meta($post_id, 'mec_fields', true);
+        if(!is_array($fields_data)) $fields_data = array();
+
+        foreach($fields as $f => $field)
+        {
+            if(!is_numeric($f)) continue;
+
+            $field_value = isset($fields_data[$f]) ? (is_array($fields_data[$f]) ? implode(', ', $fields_data[$f]) : $fields_data[$f]) : NULL;
+
+            $data->fields[] = array(
+                'label' => (isset($field['label']) ? esc_html__(stripslashes($field['label']), 'modern-events-calendar-lite') : ''),
+                'value' => stripslashes($field_value),
+            );
         }
         
         // Add mec event past index to array.

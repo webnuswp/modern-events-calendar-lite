@@ -173,7 +173,7 @@ class MEC_feature_speakers extends MEC_base
                 <button type="button" class="mec_remove_image_button button <?php echo (!trim($thumbnail) ? 'mec-util-hidden' : ''); ?>"><?php echo __('Remove image', 'modern-events-calendar-lite'); ?></button>
             </td>
         </tr>
-        <?php do_action( 'mec_edit_speaker_extra_fields' , $term ); ?>
+        <?php do_action('mec_edit_speaker_extra_fields', $term); ?>
     <?php
     }
     
@@ -219,7 +219,7 @@ class MEC_feature_speakers extends MEC_base
             <button type="button" class="mec_upload_image_button button" id="mec_thumbnail_button"><?php echo __('Upload/Add image', 'modern-events-calendar-lite'); ?></button>
             <button type="button" class="mec_remove_image_button button mec-util-hidden"><?php echo __('Remove image', 'modern-events-calendar-lite'); ?></button>
         </div>
-        <?php do_action( 'mec_add_speaker_extra_fields' ); ?>
+        <?php do_action('mec_add_speaker_extra_fields'); ?>
     <?php
     }
     
@@ -249,7 +249,7 @@ class MEC_feature_speakers extends MEC_base
         update_term_meta($term_id, 'thumbnail', $thumbnail);
 
 
-        do_action( 'mec_save_speaker_extra_fields' , $term_id );
+        do_action('mec_save_speaker_extra_fields', $term_id);
     }
     
     /**

@@ -110,6 +110,7 @@ class MEC_skins extends MEC_base
     public $reason_for_cancellation;
     public $display_label;
     public $display_price;
+    public $cache;
 
     /**
      * Constructor method
@@ -149,6 +150,9 @@ class MEC_skins extends MEC_base
         
         // Hide event on start or on end
         $this->hide_time_method = $this->main->get_hide_time_method();
+
+        // Cache
+        $this->cache = $this->getCache();
     }
     
     /**
@@ -1082,6 +1086,7 @@ class MEC_skins extends MEC_base
             if($type == 'dropdown')
             {
                 $time = isset($this->start_date) ? strtotime($this->start_date) : '';
+                $now = current_time('timestamp', 0);
 
                 $skins = array('list', 'grid', 'agenda');
                 if(isset($this->skin_options['default_view']) and $this->skin_options['default_view'] == 'list') array_push($skins, 'full_calendar');
@@ -1096,8 +1101,14 @@ class MEC_skins extends MEC_base
                 $output .= $option;
                 $Y = date('Y', $time);
 
-                for($i = 1; $i <= 12; $i++) $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'" >'.$this->main->date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
-                $output .= '</select><select id="mec_sf_year_'.$this->id.'">'.$option;
+                for($i = 1; $i <= 12; $i++)
+                {
+                    $selected = (!in_array($this->skin, $skins) and $i == date('n', $now)) ? 'selected="selected"' : '';
+                    $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'" '.$selected.'>'.$this->main->date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
+                }
+
+                $output .= '</select>';
+                $output .= '<select id="mec_sf_year_'.$this->id.'">'.$option;
 
                 $start_year = $min_start_year = $this->db->select("SELECT MIN(cast(meta_value as unsigned)) AS date FROM `#__postmeta` WHERE `meta_key`='mec_start_date'", 'loadResult');
                 $end_year = $max_end_year = $this->db->select("SELECT MAX(cast(meta_value as unsigned)) AS date FROM `#__postmeta` WHERE `meta_key`='mec_end_date'", 'loadResult');
@@ -1119,7 +1130,7 @@ class MEC_skins extends MEC_base
 
                 for($i = $start_year; $i <= $end_year; $i++)
                 {
-                    $selected = (!in_array($this->skin, $skins) and $i == date('Y', current_time('timestamp', 0))) ? 'selected="selected"' : '';
+                    $selected = (!in_array($this->skin, $skins) and $i == date('Y', $now)) ? 'selected="selected"' : '';
                     $output .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
                 }
 

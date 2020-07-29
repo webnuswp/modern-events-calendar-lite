@@ -268,7 +268,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                                 <i class="mec-sl-sitemap"></i>
                                 <h6><?php _e('Website', 'modern-events-calendar-lite'); ?></h6>
                                 <span><a href="<?php echo (strpos($organizer['url'], 'http') === false ? 'http://'.$organizer['url'] : $organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $organizer['url']; ?></a></span>
-                                <?php do_action( 'mec_single_default_organizer', $organizer ); ?>
+                                <?php do_action('mec_single_default_organizer', $organizer); ?>
                             </dd>
                             <?php endif;
                             $organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer');  if($organizer_description_setting == '1'): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>
@@ -501,7 +501,7 @@ $display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_i
                             <i class="mec-sl-sitemap"></i>
                             <h6><?php _e('Website', 'modern-events-calendar-lite'); ?></h6>
                             <span><a href="<?php echo (strpos($organizer['url'], 'http') === false ? 'http://'.$organizer['url'] : $organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $organizer['url']; ?></a></span>
-                            <?php do_action( 'mec_single_default_organizer', $organizer ); ?>
+                            <?php do_action('mec_single_default_organizer', $organizer); ?>
                         </dd>
                         <?php endif;
                         $organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer');  if($organizer_description_setting == '1'): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>

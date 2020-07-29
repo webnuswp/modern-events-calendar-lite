@@ -33,7 +33,7 @@ $values = $this->main->get_messages_options();
                             <ul class="mec-accordion mec-message-categories" id="mec_message_categories_wp">
                                 <?php foreach($messages as $cat_key=>$category): ?>
                                     <li class="mec-acc-label" data-key="<?php echo $cat_key; ?>" data-status="close">
-                                        <?php echo $category['category']['name']; ?>
+                                        <div class="mec-acc-cat-name"><?php echo $category['category']['name']; ?></div>
                                         <ul id="mec-acc-<?php echo $cat_key; ?>">
                                             <?php foreach($category['messages'] as $key=>$message): ?>
                                                 <li>

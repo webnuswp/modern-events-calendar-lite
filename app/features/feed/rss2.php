@@ -17,7 +17,8 @@ do_action('rss_tag_pre', 'rss2');
 	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
 	xmlns:mec="http://webnus.net/rss/mec/"
     xmlns:media="http://search.yahoo.com/mrss/"
-	<?php do_action('rss2_ns'); ?>>
+	<?php do_action('rss2_ns'); ?>
+    <?php do_action('mec_rss2_ns'); ?>>
 <channel>
 	<title><?php wp_title_rss(); ?></title>
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
@@ -61,8 +62,17 @@ do_action('rss_tag_pre', 'rss2');
         <mec:startDate><?php echo $date; ?></mec:startDate>
         <mec:endDate><?php echo $this->main->get_end_date_by_occurrence($event->ID, $date); ?></mec:endDate>
 
+        <?php if(isset($event->data->meta) and isset($event->data->meta['mec_cost']) and trim($event->data->meta['mec_cost'])): ?>
+        <mec:cost><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']); ?></mec:cost>
+        <?php endif; ?>
+
+        <?php if(isset($event->data->categories) and is_array($event->data->categories) and count($event->data->categories)): ?>
+        <mec:category><?php $categories = ''; foreach($event->data->categories as $category) $categories .= $category['name'].', '; echo trim($categories, ', ') ?></mec:category>
+        <?php endif; ?>
+
         <?php $this->feed->enclosure_rss($event->ID); ?>
         <?php do_action('rss2_item'); ?>
+        <?php do_action('mec_rss2_item'); ?>
 	</item>
     <?php endforeach; endforeach; ?>
 

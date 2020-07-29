@@ -152,12 +152,6 @@ class MEC_feature_notifications extends MEC_base
             'booking_reminder' => array(
                 'label' => __('Booking Reminder', 'modern-events-calendar-lite')
             ),
-            // 'new_event' => array(
-            //     'label' => __('New Event', 'modern-events-calendar-lite')
-            // ),
-            // 'user_event_publishing' => array(
-            //     'label' => __('User Event Publishing', 'modern-events-calendar-lite')
-            // ),
         );
     }
 }

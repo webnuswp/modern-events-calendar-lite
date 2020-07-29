@@ -4,7 +4,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue  
 **Requires at least:** 4.0.0  
 **Tested up to:** 5.4.2  
-**Stable tag:** 5.8.5  
+**Stable tag:** 5.9.0  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
@@ -117,6 +117,8 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 - [Advanced Map](https://webnus.net/modern-events-calendar/addons/advanced-map/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-advanced-map-add-on/)
 - [Advanced Reports](https://webnus.net/modern-events-calendar/addons/advanced-reports/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-advanced-reports-add-on/)
 - [Fluent-view Layouts](https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-fluent-view-layouts-add-on/)
+- [Zapier Integration](https://webnus.net/modern-events-calendar/addons/zapier-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zapier-integration-addon/)
+- [Virtual Events](https://webnus.net/modern-events-calendar/addons/virtual-events/) - [Documentation](https://webnus.net/dox/modern-events-calendar/virtual-events-addon/)
 
 
 ## Helpful Documentation 
@@ -240,6 +242,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Advanced Google Maps (*pro*)
 - Slugs/Permalinks Options
 - Print events widget
+- Import/Export Bookings  (*pro*)
 - Import events from Google Calendar
 - Import From Meetup
 - Import From Facebook
@@ -339,6 +342,10 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Edit Booking Options](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
 - [Booking reminder notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
+- Verification email (*pro*)
+- Confirmation email (*pro*)
+- Cancellation email (*pro*)
+- Restrict The Booking Cancellation time (*pro*)
 - Bulk Emails to Attendees (*pro*)
 - Minimum Ticket Option (*pro*)
 - Minimum and maximum ticket for coupons (*pro*)
@@ -498,6 +505,31 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog 
+
+### 5.9.0 – 29 July 2020 
+- Added: An ability to import bookings from CSV file (pro)
+- Added: An option to restrict the booking cancellation time (pro)
+- Added: Cost and categories to the RSS feed
+- Added: Booking fields to the CSV and MS Excel export of the events (pro)
+- Added: Event end date and time to the booking CSV export (pro)
+- Added: Some hooks for customizing the events RSS feed
+- Improved: The booking system by removing transaction data after removing the booking (pro)
+- Improved: Add booking from the backend to insert attendee email in the booking title in addition to the attendee name (pro)
+- Improved: The load time of simple style of monthly skin
+- Improved: The way of printing ticket variations in booking export (pro)
+- Improved: The notification per event system (pro)
+- Improved: Searching on MEC settings
+- Fixed: Update events when custom fields form has required fields
+- Fixed: Some issues related to booking fixed fields (pro)
+- Fixed: Some issues regarding event fields
+- Fixed: A conflict in booking edit form when some new required fields added to booking form (pro)
+- Fixed: Search widget related to the default value of month filter
+- Fixed: Report email about sender name and email (pro)
+- Fixed: Booking expired events in some conditions (pro)
+- Fixed: Showing google ReCaptcha when the event is sold (pro)
+- Fixed: Showing wrong end dates for multiple-day events in the single event page
+- Fixed: Booking ongoing events when the already even started (pro)
+
 
 ### 5.8.5 – 21 July 2020 
 - Added: Booking button to all skins and ability to open the booking button in modal window (pro)

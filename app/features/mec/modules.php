@@ -156,7 +156,7 @@ if($this->getPRO())
                                         </span>
                                         </div>
                                     </div>
-                                    <?php do_action( 'mec_map_options_after' ,$settings); ?>
+                                    <?php do_action('mec_map_options_after', $settings); ?>
                                 </div>
                                 <?php endif; ?>
                             </div>
@@ -358,16 +358,6 @@ if($this->getPRO())
                                             <input value="1" type="checkbox" name="mec[settings][bp_add_activity]" <?php if(isset($settings['bp_add_activity']) and $settings['bp_add_activity']) echo 'checked="checked"'; ?> /> <?php _e('Add booking activity to user profile', 'modern-events-calendar-lite'); ?>
                                         </label>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div id="notifications_per_event" class="mec-options-fields">
-                                <h4 class="mec-form-subtitle"><?php _e('Notifications Per Event', 'modern-events-calendar-lite'); ?></h4>
-                                <div class="mec-form-row">
-                                    <label>
-                                        <input type="hidden" name="mec[settings][notif_per_event]" value="0" />
-                                        <input value="1" type="checkbox" name="mec[settings][notif_per_event]" <?php if(isset($settings['notif_per_event']) and $settings['notif_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Edit Notifications Per Event', 'modern-events-calendar-lite'); ?>
-                                    </label>
                                 </div>
                             </div>
 

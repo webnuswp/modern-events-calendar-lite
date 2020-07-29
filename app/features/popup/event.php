@@ -77,7 +77,7 @@ $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['
                             </div>
                             <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
                             <?php $this->main->timepicker(array(
-                                'method' => $this->settings['time_format'],
+                                'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                 'time_hour' => $start_time_hour,
                                 'time_minutes' => $start_time_minutes,
                                 'time_ampm' => $start_time_ampm,
@@ -94,7 +94,7 @@ $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['
                             </div>
                             <div class="mec-col-6 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
                                 <?php $this->main->timepicker(array(
-                                    'method' => $this->settings['time_format'],
+                                    'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                     'time_hour' => $end_time_hour,
                                     'time_minutes' => $end_time_minutes,
                                     'time_ampm' => $end_time_ampm,

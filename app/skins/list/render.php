@@ -136,7 +136,7 @@ $map_events = array();
                                     <span><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']); ?></span>
                                 </div>
                                 <?php endif; ?>
-                                <?php do_action( 'mec_list_standard_right_box', $event); ?>
+                                <?php do_action('mec_list_standard_right_box', $event); ?>
                             </div>
                         </div>
                     </div>

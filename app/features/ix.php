@@ -189,12 +189,218 @@ class MEC_feature_ix extends MEC_base
 
         $this->response = array();
         if($this->action == 'import-start') $this->response = $this->import_start();
+        elseif($this->action == 'import-start-bookings') $this->response = $this->import_start_bookings();
 
         $path = MEC::import('app.features.ix.import', true, true);
 
         ob_start();
         include $path;
         echo $output = ob_get_clean();
+    }
+
+    public function import_start_bookings()
+    {
+        $feed_file = $_FILES['feed'];
+
+        // File is not uploaded
+        if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => __('Please upload a CSV file.', 'modern-events-calendar-lite'));
+
+        // File Type is not valid
+        if(!isset($feed_file['type']) or (isset($feed_file['type']) and !in_array(strtolower($feed_file['type']), array('text/csv', 'application/vnd.ms-excel')))) return array('success' => 0, 'message' => __('The file type should be CSV.', 'modern-events-calendar-lite'));
+
+        // Upload the File
+        $upload_dir = wp_upload_dir();
+
+        $target_path = $upload_dir['basedir'].'/'.basename($feed_file['name']);
+        $uploaded = move_uploaded_file($feed_file['tmp_name'], $target_path);
+
+        // Error on Upload
+        if(!$uploaded) return array('success' => 0, 'message' => __("An error occurred during the file upload! Please check permissions!", 'modern-events-calendar-lite'));
+
+        if(($h = fopen($target_path, 'r')) !== false)
+        {
+            // MEC Libraries
+            $gateway = new MEC_gateway();
+            $book = $this->getBook();
+
+            $bookings = array();
+            while(($data = fgetcsv($h, 1000, ",")) !== false)
+            {
+                $booking_id = $data[0];
+                if(!is_numeric($booking_id)) continue;
+
+                $event_title = $data[1];
+                $event_id = post_exists($event_title, '', '', $this->main->get_main_post_type());
+
+                // Event not Found
+                if(!$event_id) continue;
+
+                $tickets = get_post_meta($event_id, 'mec_tickets', true);
+                if(!is_array($tickets)) $tickets = array();
+
+                $ticket_id = 0;
+                $ticket_name = $data[5];
+
+                foreach($tickets as $tid => $ticket)
+                {
+                    if(strtolower($ticket['name']) == strtolower($ticket_name))
+                    {
+                        $ticket_id = $tid;
+                        break;
+                    }
+                }
+
+                // Ticket ID not found!
+                if(!$ticket_id) continue;
+
+                $transaction_id = $data[6];
+
+                // Transaction Exists
+                $transaction_exists = $book->get_transaction($transaction_id);
+                if(is_array($transaction_exists) and count($transaction_exists)) continue;
+
+                $start_datetime = $data[2];
+                $end_datetime = $data[3];
+                $name = $data[8];
+                $email = $data[9];
+
+                $confirmed_label = $data[11];
+                if($confirmed_label == __('Confirmed', 'modern-events-calendar-lite')) $confirmed = 1;
+                elseif($confirmed_label == __('Rejected', 'modern-events-calendar-lite')) $confirmed = -1;
+                else $confirmed = 0;
+
+                $verified_label = $data[12];
+                if($verified_label == __('Verified', 'modern-events-calendar-lite')) $verified = 1;
+                elseif($verified_label == __('Canceled', 'modern-events-calendar-lite')) $verified = -1;
+                else $verified = 0;
+
+                $ticket_variations = explode(',', $data[10]);
+                $variations = $this->main->ticket_variations($event_id);
+
+                $v = array();
+                foreach($variations as $vid => $variation)
+                {
+                    foreach($ticket_variations as $ticket_variation)
+                    {
+                        $variation_ex = explode(':', $ticket_variation);
+                        if(!isset($variation_ex[1])) continue;
+
+                        $variation_name = $variation_ex[0];
+                        $variation_count = trim($variation_ex[1], '() ');
+
+                        if(strtolower($variation['title']) == strtolower($variation_name))
+                        {
+                            $v[$vid] = $variation_count;
+                        }
+                    }
+                }
+
+                if(!isset($bookings[$transaction_id])) $bookings[$transaction_id] = array('tickets' => array());
+
+                $bookings[$transaction_id]['tickets'][] = array(
+                    'email' => $email,
+                    'name' => $name,
+                    'variations' => $v,
+                    'id' => $ticket_id,
+                    'count' => 1
+                );
+
+                if(!isset($bookings[$transaction_id]['date'])) $bookings[$transaction_id]['date'] = strtotime($start_datetime).':'.strtotime($end_datetime);
+                if(!isset($bookings[$transaction_id]['event_id'])) $bookings[$transaction_id]['event_id'] = $event_id;
+                if(!isset($bookings[$transaction_id]['confirmed'])) $bookings[$transaction_id]['confirmed'] = $confirmed;
+                if(!isset($bookings[$transaction_id]['verified'])) $bookings[$transaction_id]['verified'] = $verified;
+            }
+
+            fclose($h);
+
+            foreach($bookings as $transaction_id => $transaction)
+            {
+                $event_id = $transaction['event_id'];
+                $tickets = $transaction['tickets'];
+
+                $event_tickets = get_post_meta($event_id, 'mec_tickets', true);
+                if(!is_array($event_tickets)) $event_tickets = array();
+
+                $raw_tickets = array();
+                $raw_variations = array();
+
+                foreach($tickets as $ticket)
+                {
+                    if(!isset($raw_tickets[$ticket['id']])) $raw_tickets[$ticket['id']] = 1;
+                    else $raw_tickets[$ticket['id']] += 1;
+
+                    if(isset($ticket['variations']) and is_array($ticket['variations']) and count($ticket['variations']))
+                    {
+                        foreach($ticket['variations'] as $variation_id => $variation_count)
+                        {
+                            if(!trim($variation_count)) continue;
+
+                            if(!isset($raw_variations[$variation_id])) $raw_variations[$variation_id] = $variation_count;
+                            else $raw_variations[$variation_id] += $variation_count;
+                        }
+                    }
+                }
+
+                // Calculate price of bookings
+                $price_details = $book->get_price_details($raw_tickets, $event_id, $event_tickets, $raw_variations);
+
+                $transaction['price_details'] = $price_details;
+                $transaction['total'] = $price_details['total'];
+                $transaction['discount'] = 0;
+                $transaction['price'] = $price_details['total'];
+                $transaction['coupon'] = NULL;
+
+                update_option($transaction_id, $transaction, false);
+
+                $attendees = isset($transaction['tickets']) ? $transaction['tickets'] : array();
+
+                $attention_date = isset($transaction['date']) ? $transaction['date'] : '';
+                $attention_times = explode(':', $attention_date);
+                $date = date('Y-m-d H:i:s', trim($attention_times[0]));
+
+                $main_attendee = isset($attendees[0]) ? $attendees[0] : array();
+                $name = isset($main_attendee['name']) ? $main_attendee['name'] : '';
+
+                $ticket_ids = '';
+                $attendees_info = array();
+
+                foreach($attendees as $i => $attendee)
+                {
+                    if(!is_numeric($i)) continue;
+
+                    $ticket_ids .= $attendee['id'] . ',';
+                    if(!array_key_exists($attendee['email'], $attendees_info)) $attendees_info[$attendee['email']] = array('count' => $attendee['count']);
+                    else $attendees_info[$attendee['email']]['count'] = ($attendees_info[$attendee['email']]['count'] + $attendee['count']);
+                }
+
+                $ticket_ids = ',' . trim($ticket_ids, ', ') . ',';
+                $user_id = $gateway->register_user($main_attendee);
+
+                $book_subject = $name.' - '.get_userdata($user_id)->user_email;
+                $book_id = $book->add(
+                    array(
+                        'post_author' => $user_id,
+                        'post_type' => $this->main->get_book_post_type(),
+                        'post_title' => $book_subject,
+                        'post_date' => $date,
+                        'attendees_info' => $attendees_info,
+                        'mec_attendees' => $attendees
+                    ),
+                    $transaction_id,
+                    $ticket_ids
+                );
+
+                update_post_meta($book_id, 'mec_gateway', 'MEC_gateway');
+                update_post_meta($book_id, 'mec_gateway_label', $gateway->label());
+                update_post_meta($book_id, 'mec_confirmed', $transaction['confirmed']);
+                update_post_meta($book_id, 'mec_verified', $transaction['verified']);
+            }
+        }
+
+        // Delete File
+        unlink($target_path);
+
+        return array('success' => 1, 'message' => __('The bookings are imported successfully!', 'modern-events-calendar-lite'));
     }
 
     public function import_start()

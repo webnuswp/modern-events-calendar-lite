@@ -155,7 +155,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                             <?php $mec_options = get_option('mec_options'); ?>
                             <div class="box-addon-activation-toggle-head"><i class="mec-sl-plus"></i><span><?php _e('Activate Addons', 'modern-events-calendar-lite'); ?></span></div>
                             <div class="box-addon-activation-toggle-content">
-                                <?php do_action( 'addons_activation' ); ?>
+                                <?php do_action('addons_activation'); ?>
                             </div>
                         </div>
                     </div>
@@ -237,7 +237,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                             <?php $mec_options = get_option('mec_options'); ?>
                             <div class="box-addon-activation-toggle-head"><i class="mec-sl-plus"></i><span><?php _e('Activate Addons', 'modern-events-calendar-lite'); ?></span></div>
                             <div class="box-addon-activation-toggle-content">
-                                <?php do_action( 'addons_activation' ); ?>
+                                <?php do_action('addons_activation'); ?>
                             </div>
                         </div>
                     </div>

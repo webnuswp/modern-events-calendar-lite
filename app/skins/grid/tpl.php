@@ -60,7 +60,7 @@ do_action('mec_grid_skin_head');
             <div class="mec-googlemap-skin" id="mec_googlemap_canvas<?php echo $this->id; ?>" style="height: 500px;">
             <?php 
             $map = isset($this->settings['default_maps_view'])?$this->settings['default_maps_view']:'google';
-            do_action( 'mec_map_inner_element_tools' ,array('map'=>$map));
+            do_action('mec_map_inner_element_tools', array('map'=>$map));
             ?>
             </div>
             <input type="hidden" id="gmap-data" value="">

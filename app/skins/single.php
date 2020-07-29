@@ -499,9 +499,6 @@ class MEC_skin_single extends MEC_skins
                 if($d3 < $d2)
                 {
                     unset($dates[0]);
-
-                    // Get Event Dates
-                    $dates = $this->render->dates($this->id, $rendered, $this->maximum_dates);
                 }
             }
             else
@@ -509,14 +506,11 @@ class MEC_skin_single extends MEC_skins
                 if($d1 < $d2)
                 {
                     unset($dates[0]);
-
-                    // Get Event Dates
-                    $dates = $this->render->dates($this->id, $rendered, $this->maximum_dates);
                 }
             }
         }
 
-        $data->dates = $dates;
+        $data->dates = array_values($dates);
         $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
 
         // Set some data from original event in multilingual websites
@@ -547,6 +541,7 @@ class MEC_skin_single extends MEC_skins
         }
 
         $events[] = $this->render->after_render($data, $this);
+
         return $events;
     }
 
@@ -924,7 +919,7 @@ class MEC_skin_single extends MEC_skins
     {
         $this->date_format1 = (isset($this->settings['single_date_format1']) and trim($this->settings['single_date_format1'])) ? $this->settings['single_date_format1'] : 'M d Y';
         $occurrence = (isset($event->date['start']['date']) ? $event->date['start']['date'] : (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : ''));
-        $occurrence_end_date = trim($occurrence) ? $this->main->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
+        $occurrence_end_date = (isset($event->date['end']['date']) ? $event->date['end']['date'] : (trim($occurrence) ? $this->main->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : ''));
         $midnight_event = $this->main->is_midnight_event($event);
 
         echo '<div class="mec-event-meta">';
@@ -1341,7 +1336,7 @@ class MEC_skin_single extends MEC_skins
 
         foreach($fields as $n => $item): if(!is_numeric($n)) continue; // n meaning number 
             $result = isset($data[$n]) ? $data[$n] : NULL; if((!is_array($result) and trim($result) == '') or (is_array($result) and !count($result))) continue;
-            $content = isset($field['type']) ? $field['type'] : 'text';
+            $content = isset($item['type']) ? $item['type'] : 'text';
         endforeach;
         if ( isset($content) && $content != NULL ) {
         ?>

@@ -231,7 +231,7 @@ class MEC_notifications extends MEC_base
                 'attachments'   => array(),
             );
 
-            $mail_arg = apply_filters( 'mec_before_send_booking_notification', $mail_arg, $book_id, 'booking_notification');
+            $mail_arg = apply_filters('mec_before_send_booking_notification', $mail_arg, $book_id, 'booking_notification');
 
             // Send the mail
             wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
@@ -334,7 +334,7 @@ class MEC_notifications extends MEC_base
                 'attachments'   => array(),
             );
 
-            $mail_arg = apply_filters( 'mec_before_send_booking_confirmation', $mail_arg, $book_id, 'booking_confirmation');
+            $mail_arg = apply_filters('mec_before_send_booking_confirmation', $mail_arg, $book_id, 'booking_confirmation');
 
             // Send the mail
             wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
@@ -473,7 +473,7 @@ class MEC_notifications extends MEC_base
                 'attachments'   => array(),
             );
 
-            $mail_arg = apply_filters( 'mec_before_send_booking_cancellation', $mail_arg, $book_id, 'booking_cancellation');
+            $mail_arg = apply_filters('mec_before_send_booking_cancellation', $mail_arg, $book_id, 'booking_cancellation');
 
             // Send the mail
             wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
@@ -556,7 +556,8 @@ class MEC_notifications extends MEC_base
             'headers'       => $headers,
             'attachments'   => array(),
         );
-        $mail_arg = apply_filters( 'mec_before_send_admin_notification', $mail_arg, $book_id, 'admin_notification');
+
+        $mail_arg = apply_filters('mec_before_send_admin_notification', $mail_arg, $book_id, 'admin_notification');
 
         // Send the mail
         wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
@@ -1043,7 +1044,7 @@ class MEC_notifications extends MEC_base
         // Payment Gateway
         $message = str_replace('%%payment_gateway%%', get_post_meta($book_id, 'mec_gateway_label', true), $message);
 
-        // Data Fields
+        // Booking Fixed Fields
         $bfixed_fields = $this->main->get_bfixed_fields($event_id);
 
         if(is_array($bfixed_fields) and count($bfixed_fields) and isset($transaction['fields']) and is_array($transaction['fields']) and count($transaction['fields']))
@@ -1058,8 +1059,8 @@ class MEC_notifications extends MEC_base
 
                 if(is_array($bfixed_value)) $bfixed_value = implode(', ', $bfixed_value);
 
-                $message = str_replace('%%booking_field_'.$b.'%%', trim($bfixed_value, ', '), $message);
-                $message = str_replace('%%booking_field_'.$b.'_with_name%%', trim((trim($bfixed_field_name) ? $bfixed_field_name.': ' : '').trim($bfixed_value, ', ')), $message);
+                $message = str_replace('%%booking_field_'.$b.'%%', trim(stripslashes($bfixed_value), ', '), $message);
+                $message = str_replace('%%booking_field_'.$b.'_with_name%%', trim((trim($bfixed_field_name) ? stripslashes($bfixed_field_name).': ' : '').trim(stripslashes($bfixed_value), ', ')), $message);
             }
         }
 
@@ -1086,8 +1087,8 @@ class MEC_notifications extends MEC_base
 
             if(is_array($field_value)) $field_value = implode(', ', $field_value);
 
-            $message = str_replace('%%event_field_'.$f.'%%', trim($field_value, ', '), $message);
-            $message = str_replace('%%event_field_'.$f.'_with_name%%', trim((trim($event_field_name) ? $event_field_name.': ' : '').trim($field_value, ', ')), $message);
+            $message = str_replace('%%event_field_'.$f.'%%', trim(stripslashes($field_value), ', '), $message);
+            $message = str_replace('%%event_field_'.$f.'_with_name%%', trim((trim($event_field_name) ? stripslashes($event_field_name).': ' : '').trim(stripslashes($field_value), ', ')), $message);
         }
 
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);

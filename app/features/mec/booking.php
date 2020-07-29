@@ -168,6 +168,28 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_cancellation_period_time"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-6">
+                                        <input type="number" id="mec_settings_cancellation_period_time" name="mec[settings][cancellation_period_time]" value="<?php echo ((isset($settings['cancellation_period_time']) and trim($settings['cancellation_period_time']) != '') ? $settings['cancellation_period_time'] : ''); ?>" placeholder="<?php esc_attr_e('e.g 5', 'modern-events-calendar-lite'); ?>" />
+                                        <select name="mec[settings][cancellation_period_p]" title="<?php esc_attr_e('Period', 'modern-events-calendar-lite'); ?>">
+                                            <option value="hour" <?php echo (isset($settings['cancellation_period_p']) and $settings['cancellation_period_p'] == 'hour') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Hour(s)', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="day" <?php echo (isset($settings['cancellation_period_p']) and $settings['cancellation_period_p'] == 'day') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Day(s)', 'modern-events-calendar-lite'); ?></option>
+                                        </select>
+                                        <select name="mec[settings][cancellation_period_type]" title="<?php esc_attr_e('Type', 'modern-events-calendar-lite'); ?>">
+                                            <option value="before" <?php echo (isset($settings['cancellation_period_type']) and $settings['cancellation_period_type'] == 'before') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Before', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="after" <?php echo (isset($settings['cancellation_period_type']) and $settings['cancellation_period_type'] == 'after') ? 'selected="selected"' : ''; ?>><?php esc_html_e('After', 'modern-events-calendar-lite'); ?></option>
+                                        </select>
+                                        <?php esc_html_e('Event Start', 'modern-events-calendar-lite'); ?>
+                                        <span class="mec-tooltip">
+                                            <div class="box">
+                                                <h5 class="title"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("You can restrict the ability to cancel bookings. Leave empty for cancellation at any time. For example if you insert 5 hours before event start then bookers are able to cancel their booking before this time and after that they're not able to do that.", 'modern-events-calendar-lite'); ?></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_thankyou_page"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
                                         <select id="mec_settings_booking_thankyou_page" name="mec[settings][booking_thankyou_page]">
@@ -570,9 +592,9 @@ $gateways_options = $this->main->get_gateways_options();
                                             <button type="button" class="button" data-type="agreement"><?php _e( 'Agreement', 'modern-events-calendar-lite' ); ?></button>
                                             <button type="button" class="button" data-type="p"><?php _e( 'Paragraph', 'modern-events-calendar-lite' ); ?></button>
                                         </div>
-                                        <?php do_action( 'mec_reg_fields_form_end' ); ?>
+                                        <?php do_action('mec_reg_fields_form_end'); ?>
                                     </div>
-                                    <?php do_action( 'after_mec_reg_fields_form' ); ?>
+                                    <?php do_action('after_mec_reg_fields_form'); ?>
                                 </div>
                                 <input type="hidden" id="mec_new_reg_field_key" value="<?php echo $i + 1; ?>" />
                                 <div class="mec-util-hidden">
@@ -665,13 +687,13 @@ $gateways_options = $this->main->get_gateways_options();
                                             <button type="button" class="button" data-type="agreement"><?php _e( 'Agreement', 'modern-events-calendar-lite' ); ?></button>
                                             <button type="button" class="button" data-type="p"><?php _e( 'Paragraph', 'modern-events-calendar-lite' ); ?></button>
                                         </div>
-                                        <?php do_action( 'mec_bfixed_fields_form_end' ); ?>
+                                        <?php do_action('mec_bfixed_fields_form_end'); ?>
                                     </div>
                                     <div class="mec-form-row">
-                                        <?php wp_nonce_field( 'mec_options_form' ); ?>
+                                        <?php wp_nonce_field('mec_options_form'); ?>
                                         <button  style="display: none;" id="mec_reg_fields_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e( 'Save Changes', 'modern-events-calendar-lite' ); ?></button>
                                     </div>
-                                    <?php do_action( 'after_mec_bfixed_fields_form' ); ?>
+                                    <?php do_action('after_mec_bfixed_fields_form'); ?>
                                 </div>
                                 <input type="hidden" id="mec_new_bfixed_field_key" value="<?php echo $b + 1; ?>" />
                                 <div class="mec-util-hidden">

@@ -115,7 +115,7 @@ elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) echo $ja
 else $factory->params('footer', $javascript);
 ?>
 <div class="mec-googlemap-details" id="mec_map_canvas<?php echo $uniqueid; ?>" style="height: 500px;">
-    <?php do_action( 'mec_map_inner_element_tools' ,$settings); ?>
+    <?php do_action('mec_map_inner_element_tools', $settings); ?>
 </div>
 <?php do_action('mec_map_before_direction'); ?>
 <?php if($get_direction): ?>

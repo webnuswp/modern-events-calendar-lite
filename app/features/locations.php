@@ -371,7 +371,7 @@ class MEC_feature_locations extends MEC_base
                 <div class="mec-form-row">
                     <input type="url" name="mec[location][url]" id="mec_location_url" value="" placeholder="<?php _e('Location Website', 'modern-events-calendar-lite'); ?>" />
                 </div>
-                <?php do_action( 'mec_location_after_new_form' ); ?>
+                <?php do_action('mec_location_after_new_form'); ?>
                 <?php /* Don't show this section in FES */ if(is_admin()): ?>
 				<div class="mec-form-row mec-thumbnail-row">
 					<div id="mec_location_thumbnail_img"></div>

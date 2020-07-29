@@ -593,7 +593,7 @@ class MEC_main extends MEC_base
                 __('Admin', 'modern-events-calendar-lite') => 'admin_notification',
             ), $notifications_items);
 
-            $modules[__('Notifications Per Event', 'modern-events-calendar-lite')] = 'notifications_per_event';
+            $notifications_items[__('Notifications Per Event', 'modern-events-calendar-lite')] = 'notifications_per_event';
         }
 
         $notifications = apply_filters('mec-settings-item-notifications', $notifications_items, $active_menu);
@@ -2323,7 +2323,37 @@ class MEC_main extends MEC_base
                 echo '<p class="mec-error">'.__('Your booking already canceled!', 'modern-events-calendar-lite').'</p>';
                 return false;
             }
-            
+
+            $timestamps = explode(':', get_post_meta($book_id, 'mec_date', true));
+            $start = $timestamps[0];
+            $end = $timestamps[1];
+
+            $right_now = current_time('timestamp', 0);
+            if($right_now >= $end)
+            {
+                echo '<p class="mec-error">'.__('The event is already finished!', 'modern-events-calendar-lite').'</p>';
+                return false;
+            }
+
+            // MEC Settings
+            $settings = $this->get_settings();
+
+            $cancellation_period_time = isset($settings['cancellation_period_time']) ? $settings['cancellation_period_time'] : 0;
+            $cancellation_period_p = isset($settings['cancellation_period_p']) ? $settings['cancellation_period_p'] : 'hour';
+            $cancellation_period_type = isset($settings['cancellation_period_type']) ? $settings['cancellation_period_type'] : 'before';
+
+            if($cancellation_period_time)
+            {
+                if($cancellation_period_type == 'before') $max_time = ($start - ($cancellation_period_time * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
+                else $max_time = ($start + ($cancellation_period_time * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
+
+                if($right_now >= $max_time)
+                {
+                    echo '<p class="mec-error">'.__("The cancelation window is passed.", 'modern-events-calendar-lite').'</p>';
+                    return false;
+                }
+            }
+
             $book = $this->getBook();
             if($book->cancel($book_id)) echo '<p class="mec-success">'.__('Your booking successfully canceled.', 'modern-events-calendar-lite').'</p>';
             else echo '<p class="mec-error">'.__('Your booking cannot be canceled.', 'modern-events-calendar-lite').'</p>';
