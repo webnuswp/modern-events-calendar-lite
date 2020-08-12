@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.4.2
-Stable tag: 5.9.0
+Tested up to: 5.5
+Stable tag: 5.9.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -91,6 +91,9 @@ You can read and compare about the WordPress best event management plugins in ou
 == Convert your events in a few seconds ==
 If you are using event-on plugin or the event calendar and you are willing to migrate to [WordPress Events Calendar](https://webnus.net/modern-events-calendar/)’s best plugin then no need to worry about transferring your current content.
 Only by a few clicks in a couple of seconds your current content [events](https://webnus.net/modern-events-calendar/) will be imported automatically with full details.
+
+== Virtual Events Addon ==
+With this addon you can organize virtual events as easily and effectively as possible. You can set the events on private or public view, and send details of your online event to attendees (link and password to join). If you use Webinar apps such as Zoom, Webex, Microsoft Team, Google Meet, Google Classroom, Zoho, Fresh, or even organization specific platforms then this addon is a must have. [Read More](https://webnus.net/modern-events-calendar/addons/virtual-events/)
 
 == Addons ==
 We have begun to create practical [add-ons](https://webnus.net/modern-events-calendar/addons/). Now, you will have access to a wide range of features using them. Please have a look at these add-ons: (MEC Pro requeired)
@@ -198,6 +201,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Change event parameters per occurrence (*pro*)
+- Set booking limit per different occurrences (pro)
 - Booking Button in Modal Window for All Shortcodes (*pro*)
 - Notifications Per Event  (*pro*)
 - Booking shortcode  (*pro*)
@@ -405,6 +410,29 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 5.9.5 – 12 August 2020 =
+- Added: A new system to provide ability to change event parameters per occurrence
+- Added: An ability to set booking limit per different occurrences (pro)
+- Added: An ability to provide a per event discount for ticket prices to logged users (pro)
+- Added: Two new placeholders to display next occurrences of booked event (pro)
+- Added: A new placeholder to generate google calendar link for next occurrences of the booked event (pro)
+- Added: 3 new messages to the configurable messages in Settings->Messages (pro)
+- Added: Next occurrences dates of event in booking module when the event is set to “Sell All Occurrences By One Booking” (pro)
+- Added: Some hooks to the event link for third party developers
+- Improved: The dates creation function to don’t create dates more than 7 years
+- Improved: The Buddypress integration to don’t show user emails and use their display name and full name (pro)
+- Improved: The date limit on booking form (pro)
+- Improved: Booking Settings (pro)
+- Fixed: Constant Contact Integration (pro)
+- Fixed: Ticket Variations and blank field (pro)
+- Fixed: Imported countdown, available spot, and cover shortcakes (pro)
+- Fixed: An issue when Fluent add-on is not installed
+- Fixed: Importing advanced repeat events from Google
+- Fixed: Showing dates in event details page
+- Fixed: Exporting attendees from the frontend dashboard (pro)
+- Fixed: Set Google fonts on widgets
+- Fixed: some PHP notices
+
 = 5.9.0 – 29 July 2020 =
 - Added: An ability to import bookings from CSV file (pro)
 - Added: An option to restrict the booking cancellation time (pro)
@@ -1460,9 +1488,13 @@ Note: You can set event repeats and end repeat for your events here as well.
 Note: If you change the title to the name of a particular day, then the user will know on a certain day the price of the ticket is different.
 9- Enter the information about Fees/Taxes.
 
-= Can I customize the event pages? =
+= How can I create or edit shortcode? =
 
-Yes, it is possible. In order to see the related documentations, please [click here](https://webnus.net/dox/modern-events-calendar/mec-theme-integration-guide/).
+After adding your event, Modern Event Calendar enables you to make a calendar from all of the events with adorable skins, nice and tidy styles. Also, it has a powerful filtering tool to create a new calendar. Click on Custom MEC > Shortcode > Add Shortcode. This is the overview of adding a calendar with custom shortcodes [Find more](https://webnus.net/dox/modern-events-calendar/making-advance-shortcodes-in-modern-event-calendar/).
+
+= Can I customize the event pages and shortcodes? =
+
+Yes, it is possible. In order to see the related documentations, please [click here](https://webnus.net/dox/modern-events-calendar/category/developer-document/).
 
 = Does MEC have default languages or it needs to be translated? =
 
@@ -1470,8 +1502,18 @@ Yes, for some of the languages MEC has the translation file as default. However,
 
 = Can I import/export from/to MEC? =
 
-Yes, you can get an XML export from MEC data or import the file you've exported to MEC. Also, if you are using one of the following plugins (The event calendar, calendarize it, EventOn, Events Schedule WP Plugin), then you can easily transfer your events to MEC.
+Yes, you can get an XML export from MEC data or import the file you've exported to MEC. Also, if you are using one of the following plugins (The event calendar, calendarize it, EventOn, Events Schedule WP Plugin), then you can easily transfer your events to MEC, [click here](https://webnus.net/dox/modern-events-calendar/import-and-export-events/).
 
 = Do I lose all my data or customization if I update MEC? =
 
 If you’ve added a file to the main folder of MEC, this file will be removed after the update. Therefore, please do get a full back up before proceeding with the update process.
+
+= How can I use the Fron-end event submission? =
+
+You can select a static page for Event List and Add List page using this option. It is similar to the main WordPress settings for Homepage and Post page. The difference is that you should put a specified shortcode (below the “select” option) into whatever page that you want.
+Therefore, from the first drop-down menu you can choose your static page to show the events created by your users. The second drop-down menu is used to set the page for add/edit events by your users.
+Note: You can also copy the shortcode written in front of each option and then place it in the page that you want to set as your static event list page or add/edit page [click here](https://webnus.net/dox/modern-events-calendar/frontend-event-submission/) to find more about front-end event submission.
+
+= How can I read more FAQs about MEC? =
+
+We have collected all frequently asked questions in [this link](https://webnus.net/dox/modern-events-calendar/category/faq/). You can also use [knowledge](https://webnus.net/dox/modern-events-calendar/category/knowledge/) and [troubleshooting](https://webnus.net/dox/modern-events-calendar/category/troubleshooting/) to find solutions if you have any issue or contact us on [Webnus Support](https://webnus.net/support/)

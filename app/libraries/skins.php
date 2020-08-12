@@ -53,11 +53,6 @@ class MEC_skins extends MEC_base
      */
     public $sed_method = '0';
 
-    /**
-     * @var MEC_schedule
-     */
-    public $schedule;
-
     public $factory;
     public $main;
     public $db;
@@ -135,9 +130,6 @@ class MEC_skins extends MEC_base
         
         // MEC request library
         $this->request = $this->getRequest();
-
-        // MEC schedule library
-        $this->schedule = $this->getSchedule();
 
         // MEC Settings
         $this->settings = $this->main->get_settings();
@@ -385,7 +377,7 @@ class MEC_skins extends MEC_base
             );
         }
 
-        $tax_query = apply_filters( 'mec_map_tax_query',$tax_query, $this->atts );
+        $tax_query = apply_filters('mec_map_tax_query', $tax_query, $this->atts);
         
         return $tax_query;
     }
@@ -400,7 +392,7 @@ class MEC_skins extends MEC_base
         $meta_query = array();
         $meta_query['relation'] = 'AND';
 
-        $meta_query = apply_filters( 'mec_map_meta_query',$meta_query, $this->atts );
+        $meta_query = apply_filters('mec_map_meta_query', $meta_query, $this->atts);
         
         return $meta_query;
     }
@@ -872,12 +864,11 @@ class MEC_skins extends MEC_base
 
         foreach($this->sf_options as $field=>$options)
         {
-            $type = isset($options['type']) ? $options['type'] : '';
             $display_form[] = $options['type'];
             $fields_array = array('category', 'location', 'organizer', 'speaker', 'tag', 'label');
             $fields_array = apply_filters('mec_filter_fields_search_array', $fields_array);
 
-            if(in_array($field,$fields_array) and $first_row == 'not-started')
+            if(in_array($field, $fields_array) and $first_row == 'not-started')
             {
                 $first_row = 'started';
                 if($this->sf_options['category']['type'] != 'dropdown' and $this->sf_options['location']['type'] != 'dropdown' and $this->sf_options['organizer']['type'] != 'dropdown' and (isset($this->sf_options['speaker']['type']) && $this->sf_options['speaker']['type'] != 'dropdown') and (isset($this->sf_options['tag']['type']) && $this->sf_options['tag']['type'] != 'dropdown') and  $this->sf_options['label']['type'] != 'dropdown')
@@ -886,7 +877,6 @@ class MEC_skins extends MEC_base
                 }
 
                 $fields .= '<div class="mec-dropdown-wrap" ' . $display_style . '>';
-                $end_div = '</div>';
             }
 
             if(!in_array($field, $fields_array) and $first_row == 'started')
@@ -1157,7 +1147,7 @@ class MEC_skins extends MEC_base
                 </div>';
             }
         }
-        $output = apply_filters('mec_search_fields_to_box',$output,$field,$type,$this->atts,$this->id);
+        $output = apply_filters('mec_search_fields_to_box', $output,$field,$type,$this->atts,$this->id);
 
         return $output;
     }
@@ -1215,7 +1205,7 @@ class MEC_skins extends MEC_base
             }
         }
         
-        $atts = apply_filters('add_to_search_box_query',$atts, $sf );
+        $atts = apply_filters('add_to_search_box_query', $atts, $sf );
         
         return $atts;
     }

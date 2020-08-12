@@ -1202,39 +1202,86 @@ class MEC_feature_mec extends MEC_base
         }
 
         echo '</ul></div>';
+        $mec_get_webnus_news_time = get_option('mec_get_webnus_news_time');
+        $mec_get_webnus_news_html = get_option('mec_get_webnus_news_html');
 
-        $data_url = 'https://webnus.net/wp-json/wninfo/v1/posts';
-        if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
-        {
-            $ctx = stream_context_create(array('http'=>
-                array(
-                    'timeout' => 20,
-                )
-            ));
-
-            $get_data = file_get_contents($data_url, false, $ctx);
-            if($get_data !== false and !empty($get_data))
+        if ( !isset($mec_get_webnus_news_time)) {
+            $data_url = 'https://webnus.net/wp-json/wninfo/v1/posts';
+            if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
             {
-                $obj = json_decode($get_data);
+                $ctx = stream_context_create(array('http'=>
+                    array(
+                        'timeout' => 20,
+                    )
+                ));
+
+                $get_data = file_get_contents($data_url, false, $ctx);
+                if($get_data !== false and !empty($get_data))
+                {
+                    $obj = json_decode($get_data);
+                }
+            }
+            elseif(function_exists('curl_version'))
+            {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+                curl_setopt($ch, CURLOPT_URL, $data_url);
+
+                $result = curl_exec($ch);
+                curl_close($ch);
+                $obj = json_decode($result);
+            }
+            else
+            {
+                $obj = '';
+            }
+            update_option('mec_get_webnus_news_time', date("Y-m-d"));
+            update_option('mec_get_webnus_news_html', $obj);
+        } else {
+            if ( strtotime(date("Y-m-d")) > strtotime($mec_get_webnus_news_time) ) {
+                $data_url = 'https://webnus.net/wp-json/wninfo/v1/posts';
+                if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
+                {
+                    $ctx = stream_context_create(array('http'=>
+                        array(
+                            'timeout' => 20,
+                        )
+                    ));
+
+                    $get_data = file_get_contents($data_url, false, $ctx);
+                    if($get_data !== false and !empty($get_data))
+                    {
+                        $obj = json_decode($get_data);
+                    }
+                }
+                elseif(function_exists('curl_version'))
+                {
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+                    curl_setopt($ch, CURLOPT_URL, $data_url);
+
+                    $result = curl_exec($ch);
+                    curl_close($ch);
+                    $obj = json_decode($result);
+                }
+                else
+                {
+                    $obj = '';
+                }
+                update_option('mec_get_webnus_news_time', date("Y-m-d"));
+                update_option('mec_get_webnus_news_html', $obj);
+            } else {
+                $obj = get_option('mec_get_webnus_news_html');
             }
         }
-        elseif(function_exists('curl_version'))
-        {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
-            curl_setopt($ch, CURLOPT_URL, $data_url);
-
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $obj = json_decode($result);
-        }
-        else
-        {
-            $obj = '';
-        }
+        
+        
 
         // News
         if(!empty($obj))

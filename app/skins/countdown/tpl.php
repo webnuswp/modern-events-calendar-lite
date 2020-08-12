@@ -86,7 +86,7 @@ jQuery(document).ready(function()
 {
     jQuery("#mec_skin_countdown'.$this->id.'").mecCountDown(
     {
-        date: "'.(($ongoing and (isset($event->data->meta['mec_repeat_status']) and $event->data->meta['mec_repeat_status'] == 0)) ? $end_time : $start_time).$gmt_offset.'",
+        date: "'.($ongoing ? $end_time : $start_time).$gmt_offset.'",
         format: "off"
     },
     function()

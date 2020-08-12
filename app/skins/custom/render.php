@@ -216,7 +216,7 @@ if(isset($map_eventss) and !empty($map_eventss))
     $map_data->sf_status = null;
     $map_data->main = $this->main;
     
-    $map_javascript = apply_filters( 'mec_map_load_script',$map_javascript, $map_data,$settings );
+    $map_javascript = apply_filters('mec_map_load_script', $map_javascript, $map_data, $settings);
 
     // Include javascript code into the page
     if($this->main->is_ajax()) echo $map_javascript;

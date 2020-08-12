@@ -131,9 +131,9 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                                 // Safe Excerpt for UTF-8 Strings
                                 if(!trim($excerpt))
                                 {
-                                    $excerpt_count  = apply_filters( 'MEC_masonry_excerpt', '9' );
+                                    $excerpt_count  = apply_filters('MEC_masonry_excerpt', '9');
                                     $ex = explode(' ', strip_tags(strip_shortcodes($event->data->post->post_content)));
-                                    $words = array_slice($ex, 0, apply_filters( 'MEC_masonry_excerpt', '9' ));
+                                    $words = array_slice($ex, 0, apply_filters('MEC_masonry_excerpt', '9'));
 
                                     $excerpt = implode(' ', $words);
                                 }

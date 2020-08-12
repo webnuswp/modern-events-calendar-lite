@@ -34,3 +34,13 @@ CREATE TABLE IF NOT EXISTS `#__mec_dates` (
 
 ALTER TABLE `#__mec_dates` ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `tstart` (`tstart`), ADD KEY `tend` (`tend`);
 ALTER TABLE `#__mec_dates` MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+CREATE TABLE IF NOT EXISTS `#__mec_occurrences` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `post_id` int(10) UNSIGNED NOT NULL,
+  `occurrence` int(10) UNSIGNED NOT NULL,
+  `params` text COLLATE [:COLLATE:]
+) DEFAULT CHARSET=[:CHARSET:] COLLATE=[:COLLATE:];
+
+ALTER TABLE `#__mec_occurrences` ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `occurrence` (`occurrence`);
+ALTER TABLE `#__mec_occurrences` MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;

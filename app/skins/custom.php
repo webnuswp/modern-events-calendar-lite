@@ -46,6 +46,7 @@ class MEC_skin_custom extends MEC_skins
         
         // The style
         $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'modern';
+        if($this->style == 'fluent' and !is_plugin_active('mec-fluent-layouts/mec-fluent-layouts.php')) $this->style = 'modern';
 
         $this->month_divider = isset($this->skin_options['month_divider']) ? $this->skin_options['month_divider'] : true;
         

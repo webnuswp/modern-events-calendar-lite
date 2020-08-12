@@ -106,6 +106,7 @@ $gateways_options = $this->main->get_gateways_options();
                                 </label>
                             </div>
                             <div id="mec_booking_container_toggle" class="<?php if((isset($settings['booking_status']) and !$settings['booking_status']) or !isset($settings['booking_status'])) echo 'mec-util-hidden'; ?>">
+                                <h5 class="title"><?php _e('Date Options', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_date_format1"><?php _e('Date Format', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
@@ -120,40 +121,12 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
-                                    <label class="mec-col-3" for="mec_settings_booking_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
-                                        <input type="number" id="mec_settings_booking_limit" name="mec[settings][booking_limit]" value="<?php echo ((isset($settings['booking_limit']) and trim($settings['booking_limit']) != '') ? $settings['booking_limit'] : ''); ?>" placeholder="<?php esc_attr_e('Default is empty', 'modern-events-calendar-lite'); ?>" />
-                                        <span class="mec-tooltip">
-                                            <div class="box">
-                                                <h5 class="title"><?php _e('Booking Limit', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Total tickets that a user can book. It is useful if you're providing free tickets. Leave it empty for unlimited booking.", 'modern-events-calendar-lite'); ?></p></div>
-                                            </div>
-                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="mec-form-row">
-                                    <label class="mec-col-3" for="mec_settings_booking_ip_restriction"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
-                                        <select id="mec_settings_booking_ip_restriction" name="mec[settings][booking_ip_restriction]">
-                                            <option value="1" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 1) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Enabled', 'modern-events-calendar-lite'); ?></option>
-                                            <option value="0" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 0) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
-                                        </select>
-                                        <span class="mec-tooltip">
-                                            <div class="box">
-                                                <h5 class="title"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("If you set limit for total tickets that users can book, MEC will use IP and email to prevent users to book high tickets. You can disable the IP restriction if you don't need it.", 'modern-events-calendar-lite'); ?></p></div>
-                                            </div>
-                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_maximum_dates"><?php _e('Maximum Dates', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
                                         <input type="number" id="mec_settings_booking_maximum_dates" name="mec[settings][booking_maximum_dates]" value="<?php echo ((isset($settings['booking_maximum_dates']) and trim($settings['booking_maximum_dates']) != '') ? $settings['booking_maximum_dates'] : '6'); ?>" placeholder="<?php esc_attr_e('Default is 6', 'modern-events-calendar-lite'); ?>" min="1" />
                                     </div>
                                 </div>
+                                <h5 class="title"><?php _e('Interval Options', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_show_booking_form_interval"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
@@ -189,6 +162,57 @@ $gateways_options = $this->main->get_gateways_options();
                                         </span>
                                     </div>
                                 </div>
+                                <h5 class="title"><?php _e('User Role', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_user_role"><?php _e('User Role', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <select id="mec_settings_booking_user_role" name="mec[settings][booking_user_role]">
+                                            <option value="">----</option>
+                                            <?php foreach($roles as $role => $r): ?>
+                                                <option <?php echo ((isset($settings['booking_user_role']) and $settings['booking_user_role'] == $role) ? 'selected="selected"' : ''); ?> value="<?php echo $role; ?>"><?php echo $r['name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('User Role', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("MEC creates a user for main attendee after each booking. Default role of the user is subscriber but you can change it if needed.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <h5 class="mec-form-subtitle"><?php _e('Limitation', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <input type="number" id="mec_settings_booking_limit" name="mec[settings][booking_limit]" value="<?php echo ((isset($settings['booking_limit']) and trim($settings['booking_limit']) != '') ? $settings['booking_limit'] : ''); ?>" placeholder="<?php esc_attr_e('Default is empty', 'modern-events-calendar-lite'); ?>" />
+                                        <span class="mec-tooltip">
+                                            <div class="box">
+                                                <h5 class="title"><?php _e('Booking Limit', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Total tickets that a user can book. It is useful if you're providing free tickets. Leave it empty for unlimited booking.", 'modern-events-calendar-lite'); ?></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_ip_restriction"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <select id="mec_settings_booking_ip_restriction" name="mec[settings][booking_ip_restriction]">
+                                            <option value="1" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 1) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Enabled', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="0" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 0) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
+                                        </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box">
+                                                <h5 class="title"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("If you set limit for total tickets that users can book, MEC will use IP and email to prevent users to book high tickets. You can disable the IP restriction if you don't need it.", 'modern-events-calendar-lite'); ?></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <h5 class="mec-form-subtitle"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_thankyou_page"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
@@ -220,24 +244,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         </span>
                                     </div>
                                 </div>
-                                <div class="mec-form-row">
-                                    <label class="mec-col-3" for="mec_settings_booking_user_role"><?php _e('User Role', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
-                                        <select id="mec_settings_booking_user_role" name="mec[settings][booking_user_role]">
-                                            <option value="">----</option>
-                                            <?php foreach($roles as $role => $r): ?>
-                                                <option <?php echo ((isset($settings['booking_user_role']) and $settings['booking_user_role'] == $role) ? 'selected="selected"' : ''); ?> value="<?php echo $role; ?>"><?php echo $r['name']; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <span class="mec-tooltip">
-                                            <div class="box top">
-                                                <h5 class="title"><?php _e('User Role', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("MEC creates a user for main attendee after each booking. Default role of the user is subscriber but you can change it if needed.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                            </div>
-                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                        </span>
-                                    </div>
-                                </div>
+                                <h5 class="mec-form-subtitle"><?php _e('Booking Elements', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
                                         <label for="mec_settings_booking_first_for_all">

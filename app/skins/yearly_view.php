@@ -64,6 +64,7 @@ class MEC_skin_yearly_view extends MEC_skins
         
         // The style
         $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'modern';
+        if($this->style == 'fluent' and !is_plugin_active('mec-fluent-layouts/mec-fluent-layouts.php')) $this->style = 'modern';
 
         // reason_for_cancellation
         $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;

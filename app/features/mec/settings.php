@@ -4,6 +4,12 @@ defined('MECEXEC') or die();
 
 /** @var MEC_feature_mec $this */
 
+use Ctct\Components\Contacts\Contact;
+use Ctct\ConstantContact;
+use Ctct\Exceptions\CtctException;
+require_once MEC_ABSPATH.'/app/api/Ctct/autoload.php';
+require_once MEC_ABSPATH.'/app/api/Ctct/vendor/autoload.php';
+
 $settings = $this->main->get_settings();
 $archive_skins = $this->main->get_archive_skins();
 $category_skins = $this->main->get_category_skins();
@@ -813,6 +819,15 @@ $get_n_option = get_option('mec_addons_notification_option');
                             </div>
                             <?php endif; ?>
 
+                            <?php if(isset($settings['per_occurrences_status']) and $settings['per_occurrences_status']): ?>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][fes_section_occurrences]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_occurrences]" <?php if(!isset($settings['fes_section_occurrences']) or (isset($settings['fes_section_occurrences']) and $settings['fes_section_occurrences'])) echo 'checked="checked"'; ?> /> <?php _e('Occurrences', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <?php endif; ?>
+
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_note]" value="0" />
@@ -1046,9 +1061,50 @@ $get_n_option = get_option('mec_addons_notification_option');
                                         </div>
                                     </div>
                                     <div class="mec-form-row">
-                                        <label class="mec-col-3" for="mec_settings_constantcontact_list_id"><?php _e('List ID', 'modern-events-calendar-lite'); ?></label>
+                                        <label class="mec-col-3" for="mec_settings_constantcontact_access_token"><?php _e('Access Token', 'modern-events-calendar-lite'); ?></label>
                                         <div class="mec-col-4">
-                                            <input type="text" id="mec_settings_constantcontact_list_id" name="mec[settings][constantcontact_list_id]" value="<?php echo ((isset($settings['constantcontact_list_id']) and trim($settings['constantcontact_list_id']) != '') ? $settings['constantcontact_list_id'] : ''); ?>" />
+                                            <input type="text" id="mec_settings_constantcontact_access_token" name="mec[settings][constantcontact_access_token]" value="<?php echo ((isset($settings['constantcontact_access_token']) and trim($settings['constantcontact_access_token']) != '') ? $settings['constantcontact_access_token'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                    <?php
+
+                                    if ( isset($settings['constantcontact_access_token']) and trim($settings['constantcontact_access_token']) != '' and isset($settings['constantcontact_api_key']) and trim($settings['constantcontact_api_key']) != '' ){
+                                        $cc = new ConstantContact($settings['constantcontact_api_key']);
+                                        try {
+                                            $lists = $cc->listService->getLists($settings['constantcontact_access_token']);
+                                        } catch (CtctException $ex) {
+                                            foreach ($ex->getErrors() as $error) {
+                                                print_r($error);
+                                            }
+                                            if (!isset($lists)) {
+                                                $lists = null;
+                                            }
+                                        }
+                                    }
+                                    
+                                    ?>
+                                    
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_constantcontact_list_id"><?php _e('Select List', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <select name="mec[settings][constantcontact_list_id]" id="mec_settings_constantcontact_list_id">
+                                                <?php
+                                                if ( isset($lists) and !empty($lists)) {
+                                                    foreach ($lists as $list) {
+                                                    ?>
+                                                        <option <?php if(isset($settings['constantcontact_list_id']) and $list->id == $settings['constantcontact_list_id']) echo 'selected="selected"'; ?> value="<?php echo $list->id ; ?>"><?php echo $list->name ; ?></option>
+                                                    <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                            <span class="mec-tooltip">
+                                                <div class="box">
+                                                    <h5 class="title"><?php _e('Select List', 'modern-events-calendar-lite'); ?></h5>
+                                                    <div class="content"><p><?php esc_attr_e("Please fill in the API key and Access Token field and save settings. after that, please refresh the page and select a list.", 'modern-events-calendar-lite'); ?></p></div>    
+                                                </div>
+                                                <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -1104,7 +1160,7 @@ $get_n_option = get_option('mec_addons_notification_option');
 
                         <?php endif; ?>
 
-                        <?php do_action('mec-settings-page-before-form-end',$settings) ?>
+                        <?php do_action('mec-settings-page-before-form-end', $settings) ?>
 
                         <div class="mec-options-fields">
                             <?php wp_nonce_field('mec_options_form'); ?>

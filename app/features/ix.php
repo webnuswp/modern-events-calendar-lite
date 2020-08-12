@@ -3126,7 +3126,7 @@ class MEC_feature_ix extends MEC_base
 
                     $rule[$key] = $value;
                 }
-                
+
                 $interval = NULL;
                 $year = NULL;
                 $month = NULL;
@@ -3134,6 +3134,8 @@ class MEC_feature_ix extends MEC_base
                 $week = NULL;
                 $weekday = NULL;
                 $weekdays = NULL;
+                $weekdays = NULL;
+                $advanced_days = NULL;
 
                 if($rule['freq'] == 'daily')
                 {
@@ -3144,6 +3146,25 @@ class MEC_feature_ix extends MEC_base
                 {
                     $repeat_type = 'weekly';
                     $interval = isset($rule['interval']) ? $rule['interval']*7 : 7;
+                }
+                elseif($rule['freq'] == 'monthly' and isset($rule['byday']) and trim($rule['byday']))
+                {
+                    $repeat_type = 'advanced';
+
+                    $adv_week = (isset($rule['bysetpos']) and trim($rule['bysetpos']) != '') ? $rule['bysetpos'] : (int) substr($rule['byday'], 0, -2);
+                    if($adv_week < 0) $adv_week = 'l';
+
+                    $adv_day = str_replace($adv_week, '', $rule['byday']);
+
+                    $mec_adv_day = 'Sat';
+                    if($adv_day == 'su') $mec_adv_day = 'Sun';
+                    elseif($adv_day == 'mo') $mec_adv_day = 'Mon';
+                    elseif($adv_day == 'tu') $mec_adv_day = 'Tue';
+                    elseif($adv_day == 'we') $mec_adv_day = 'Wed';
+                    elseif($adv_day == 'th') $mec_adv_day = 'Thu';
+                    elseif($adv_day == 'fr') $mec_adv_day = 'Fri';
+
+                    $advanced_days = array($mec_adv_day.'.'.$adv_week);
                 }
                 elseif($rule['freq'] == 'monthly')
                 {
@@ -3241,6 +3262,7 @@ class MEC_feature_ix extends MEC_base
                 $week = NULL;
                 $weekday = NULL;
                 $weekdays = NULL;
+                $advanced_days = NULL;
             }
 
             $args = array
@@ -3294,7 +3316,8 @@ class MEC_feature_ix extends MEC_base
                     'mec_gcal_id'=>$gcal_id,
                     'mec_gcal_calendar_id'=>$calendar_id,
                     'mec_g_recurrence_rule'=>$g_recurrence_rule,
-                    'mec_allday'=>$allday
+                    'mec_allday'=>$allday,
+                    'mec_advanced_days'=>$advanced_days,
                 )
             );
             
@@ -3940,34 +3963,26 @@ class MEC_feature_ix extends MEC_base
             
             $dates = $render->dates($mec_event_id, $data);
             $date = isset($dates[0]) ? $dates[0] : array();
-            
+
             $location = isset($data->locations[$data->meta['mec_location_id']]) ? $data->locations[$data->meta['mec_location_id']] : array();
             $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();
 
             $recurrence = $this->main->get_ical_rrules($data);
 
-            $start_time = sprintf("%02d", $data->meta['mec_start_time_hour']).':';
-            $start_time .= sprintf("%02d", $data->meta['mec_start_time_minutes']).' ';
-            $start_time .= $data->meta['mec_start_time_ampm'];
-
             $start = array(
-                'dateTime'=>date('Y-m-d\TH:i:s', strtotime($date['start']['date'].' '.$start_time)).$gmt_offset,
+                'dateTime'=>date('Y-m-d\TH:i:s', $date['start']['timestamp']).$gmt_offset,
                 'timeZone'=>$timezone,
             );
 
-            $end_time = sprintf("%02d", $data->meta['mec_end_time_hour']).':';
-            $end_time .= sprintf("%02d", $data->meta['mec_end_time_minutes']).' ';
-            $end_time .= $data->meta['mec_end_time_ampm'];
-
             $end = array(
-                'dateTime'=>date('Y-m-d\TH:i:s', strtotime($date['end']['date'].' '.$end_time)).$gmt_offset,
+                'dateTime'=>date('Y-m-d\TH:i:s', $date['end']['timestamp']).$gmt_offset,
                 'timeZone'=>$timezone,
             );
 
             $allday = isset($data->meta['mec_allday']) ? $data->meta['mec_allday'] : 0;
             if($allday)
             {
-                $start['dateTime'] = date('Y-m-d\T00:00:00', strtotime($start['dateTime'])).$gmt_offset;
+                $start['dateTime'] = date('Y-m-d\T00:00:00', $date['start']['timestamp']).$gmt_offset;
                 $end['dateTime'] = date('Y-m-d\T00:00:00', strtotime('+1 Day', strtotime($end['dateTime']))).$gmt_offset;
             }
 

@@ -89,7 +89,7 @@ $map_events = array();
                         <div class="mec-event-detail"><?php echo $this->main->date_i18n($this->date_format_minimal_3, strtotime($event->date['start']['date'])); ?><?php echo (isset($location['name']) ? ', <span class="mec-event-loc-place">' . $location['name'] .'</span>' : ''); ?> <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?> </div>
                         <?php echo $this->booking_button($event); ?>
                     </div>
-                    <div class="col-md-3 col-sm-3 btn-wrapper"><?php do_action('before_mec_list_minimal_button',$event); ?><a class="mec-detail-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a></div>
+                    <div class="col-md-3 col-sm-3 btn-wrapper"><?php do_action('before_mec_list_minimal_button', $event); ?><a class="mec-detail-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a></div>
                 <?php elseif($this->style == 'standard'): ?>
                     <?php
                         $excerpt = trim($event->data->post->post_excerpt) ? $event->data->post->post_excerpt : '';

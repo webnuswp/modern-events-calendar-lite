@@ -693,6 +693,7 @@ body.post-type-mec-books th.column-author {
     }
 }
 
+#mec-occurrences .mec-occurrences-list,
 #mec_bfixed_form_fields,
 #mec_event_form_fields,
 #mec_reg_form_fields {
@@ -700,6 +701,7 @@ body.post-type-mec-books th.column-author {
     padding: 20px
 }
 
+#mec-occurrences .mec-occurrences-list li,
 #mec_bfixed_form_fields li,
 #mec_event_form_fields li,
 #mec_reg_form_fields li {
@@ -736,6 +738,7 @@ body.post-type-mec-books th.column-author {
     letter-spacing: 2px
 }
 
+#mec-occurrences .mec-occurrences-list .mec-occurrences-delete-button,
 #mec_bfixed_form_fields span.mec_bfixed_field_option_sort,
 #mec_bfixed_form_fields span.mec_bfixed_field_remove,
 #mec_bfixed_form_fields span.mec_bfixed_field_sort,
@@ -749,6 +752,7 @@ body.post-type-mec-books th.column-author {
     color: #fff
 }
 
+#mec-occurrences .mec-occurrences-list .mec-occurrences-delete-button,
 #mec_bfixed_form_fields span.mec_bfixed_field_remove,
 #mec_event_form_fields span.mec_event_field_remove,
 #mec_reg_form_fields span.mec_reg_field_remove {
@@ -757,6 +761,7 @@ body.post-type-mec-books th.column-author {
     top: 0
 }
 
+#mec-occurrences .mec-occurrences-list .mec-occurrences-delete-button:before,
 #mec_bfixed_form_fields span.mec_bfixed_field_option_sort:before,
 #mec_bfixed_form_fields span.mec_bfixed_field_remove:before,
 #mec_bfixed_form_fields span.mec_bfixed_field_sort:before,
@@ -779,6 +784,11 @@ body.post-type-mec-books th.column-author {
     color: #888
 }
 
+#mec-occurrences .mec-occurrences-list .mec-occurrences-delete-button:before {
+    font-weight: 400;
+}
+
+#mec-occurrences .mec-occurrences-list .mec-occurrences-delete-button:before,
 #mec_bfixed_form_fields span.mec_bfixed_field_remove:before,
 #mec_event_form_fields span.mec_event_field_remove:before,
 #mec_reg_form_fields span.mec_reg_field_remove:before {
@@ -969,7 +979,7 @@ body.post-type-mec-books th.column-author {
 
 /* WordPress 3 select */
 .mec-form-row select {
-    min-width: 65px;
+    min-width: 83px;
 }
 
 .ui-datepicker select {
@@ -1023,7 +1033,7 @@ body.post-type-mec-books th.column-author {
 .mec-form-row .mec-col-4 select,
 .mec-form-row .mec-col-4 textarea,
 .mec-form-row .mec-col-4 input[type=number] {
-    width: 75%;
+    width: 80%;
 }
 
 .mec-form-row .description {
@@ -5807,6 +5817,16 @@ a.mec-create-shortcode-tabs-link {
 .mec-form-row input[type=tel],
 .mec-form-row input[type=email],
 .mec-form-row input[type=date],
+.mec-occurrences-wrapper input[type=number],
+.mec-occurrences-wrapper input[type=number],
+.mec-occurrences-wrapper input[type=text],
+.mec-occurrences-wrapper input[type=url],
+.mec-occurrences-wrapper input[type=tel],
+.mec-occurrences-wrapper input[type=email],
+.mec-occurrences-wrapper input[type=date],
+.mec-occurrences-wrapper input[type=number],
+.mec-occurrences-wrapper select,
+.mec-occurrences-wrapper textarea,
 .mec-form-row select,
 .mec-form-row textarea,
 .mec-form-row.mec-skin-list-date-format-container input[type=text],
@@ -6041,9 +6061,10 @@ a.mec-create-shortcode-tabs-link {
     margin-right: 6px;
 }
 
+.mec-occurrences-wrapper .button:not(.wp-color-result),
 #mec_meta_box_downloadable_file_options #mec_downloadable_file_remove_image_button,
 .mec-meta-box-fields .mec-form-row .button:not(.wp-color-result) {
-    height: 37px;
+    height: 39px;
     margin-top: 1px;
     box-shadow: inset 0 2px 4px #fff, inset 0 -2px 4px rgba(0, 0, 0, .05), 0 2px 2px rgba(0, 0, 0, .06);
 }
@@ -6055,6 +6076,19 @@ a.mec-create-shortcode-tabs-link {
 #mec-read-more .mec-form-row span.mec-tooltip {
     top: 2px;
     left: -4px;
+}
+
+/* Occurrences Edit */
+#mec-occurrences .mec-occurrences-list h3 {
+    margin-top: 0;
+}
+
+#mec-occurrences .mec-occurrences-list .mec-form-row {
+    margin-bottom: 0;
+}
+
+#mec-occurrences .mec-occurrences-list .mec-form-row label {
+    line-height: 40px;
 }
 
 /* Search Setting */

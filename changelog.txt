@@ -1,4 +1,27 @@
-﻿v 5.9.0 – 29 July 2020
+﻿v 5.9.5 – 12 August 2020
+- Added: A new system to provide ability to change event parameters per occurrence (pro)
+- Added: An ability to set booking limit per different occurrences (pro)
+- Added: An ability to provide a per event discount for ticket prices to logged users (pro)
+- Added: Two new placeholders to display next occurrences of booked event (pro)
+- Added: A new placeholder to generate google calendar link for next occurrences of the booked event (pro)
+- Added: 3 new messages to the configurable messages in Settings->Messages (pro)
+- Added: Next occurrences dates of event in booking module when the event is set to “Sell All Occurrences By One Booking” (pro)
+- Added: Some hooks to the event link for third party developers
+- Improved: The dates creation function to don’t create dates more than 7 years
+- Improved: The Buddypress integration to don’t show user emails and use their display name and full name (pro)
+- Improved: The date limit on booking form (pro)
+- Improved: Booking Settings (pro)
+- Fixed: Constant Contact Integration (pro)
+- Fixed: Ticket Variations and blank field (pro)
+- Fixed: Imported countdown, available spot, and cover shortcakes (pro)
+- Fixed: An issue when Fluent add-on is not installed
+- Fixed: Importing advanced repeat events from Google
+- Fixed: Showing dates in event details page
+- Fixed: Exporting attendees from the frontend dashboard (pro)
+- Fixed: Set Google fonts on widgets
+- Fixed: some PHP notices
+
+v 5.9.0 – 29 July 2020
 - Added: An ability to import bookings from CSV file (pro)
 - Added: An option to restrict the booking cancellation time (pro)
 - Added: Cost and categories to the RSS feed

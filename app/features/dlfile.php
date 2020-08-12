@@ -117,7 +117,7 @@ class MEC_feature_dlfile extends MEC_base
             });
         });
         </script>
-        <div class="mec-meta-box-fields mec-event-tab-content" id="mec-downloadable-file">
+        <div class="mec-meta-box-fields mec-booking-tab-content" id="mec-downloadable-file">
             <h4><?php _e('Downloadable File', 'modern-events-calendar-lite'); ?></h4>
             <div id="mec_meta_box_downloadable_file_options">
                 <input type="hidden" id="mec_downloadable_file" name="mec[downloadable_file]" value="<?php echo $file_id; ?>">

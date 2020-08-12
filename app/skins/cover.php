@@ -68,6 +68,7 @@ class MEC_skin_cover extends MEC_skins
         
         // The style
         $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'classic';
+        if($this->style == 'fluent' and !is_plugin_active('mec-fluent-layouts/mec-fluent-layouts.php')) $this->style = 'classic';
         
         // Override the style if the style forced by us in a widget etc
         if(isset($this->atts['style']) and trim($this->atts['style']) != '') $this->style = $this->atts['style'];
@@ -99,6 +100,8 @@ class MEC_skin_cover extends MEC_skins
      */
     public function search()
     {
+        if(!get_post($this->event_id)) return array();
+
         $events = array();
         $rendered = $this->render->data($this->event_id, (isset($this->atts['content']) ? $this->atts['content'] : ''));
         

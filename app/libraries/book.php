@@ -53,7 +53,7 @@ class MEC_book extends MEC_base
 
             $total_tickets_count += $count;
 
-            $t_price = (isset($event_tickets[$ticket_id]) and isset($event_tickets[$ticket_id]['price'])) ? $this->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d')) : 0;
+            $t_price = (isset($event_tickets[$ticket_id]) and isset($event_tickets[$ticket_id]['price'])) ? $this->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d'), $event_id) : 0;
             $total = $total+($t_price*$count);
         }
 
@@ -430,6 +430,9 @@ class MEC_book extends MEC_base
         $book_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? (int) $booking_options['bookings_all_occurrences'] : 0;
 
         if($bookings_limit_unlimited == '1') $total_bookings_limit = '-1';
+
+        // Get Per Occurrence
+        $total_bookings_limit = MEC_feature_occurrences::param($event_id, $timestamp, 'bookings_limit', $total_bookings_limit);
 
         // Total Booking Limit
         $total_bookings_limit_original = $total_bookings_limit;
@@ -892,22 +895,22 @@ class MEC_book extends MEC_base
         return get_post_meta($book_id, 'mec_transaction_id', true);
     }
 
-    public function get_ticket_price_label($ticket, $date)
+    public function get_ticket_price_label($ticket, $date, $event_id)
     {
-        return $this->get_ticket_price_key($ticket, $date, 'price_label');
+        return $this->get_ticket_price_key($ticket, $date, $event_id, 'price_label');
     }
 
-    public function get_ticket_price($ticket, $date)
+    public function get_ticket_price($ticket, $date, $event_id)
     {
-        return $this->get_ticket_price_key($ticket, $date, 'price');
+        return $this->get_ticket_price_key($ticket, $date, $event_id, 'price');
     }
 
-    public function get_ticket_price_key($ticket, $date, $key)
+    public function get_ticket_price_key($ticket, $date, $event_id, $key)
     {
         $data = isset($ticket[$key]) ? $ticket[$key] : NULL;
-        $price_dates = (isset($ticket['dates']) and is_array($ticket['dates'])) ? $ticket['dates'] : array();
 
-        if(!count($price_dates)) return $data;
+        $price_dates = (isset($ticket['dates']) and is_array($ticket['dates'])) ? $ticket['dates'] : array();
+        if(!count($price_dates)) return $this->get_price_for_loggedin_users($event_id, $data, $key);
 
         $time = strtotime($date);
         foreach($price_dates as $k => $price_date)
@@ -924,7 +927,7 @@ class MEC_book extends MEC_base
             }
         }
 
-        return $data;
+        return $this->get_price_for_loggedin_users($event_id, $data, $key);
     }
 
     /**
@@ -943,8 +946,30 @@ class MEC_book extends MEC_base
         // No Ticket Found!
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets))) return $prices;
 
-        foreach($tickets as $ticket_id=>$ticket) $prices[$ticket_id] = $this->get_ticket_price_key($ticket, $date, $key);
+        foreach($tickets as $ticket_id=>$ticket) $prices[$ticket_id] = $this->get_ticket_price_key($ticket, $date, $event_id, $key);
         return $prices;
+    }
+
+    public function get_price_for_loggedin_users($event_id, $price, $type = 'price')
+    {
+        $booking_options = get_post_meta($event_id, 'mec_booking', true);
+        if(!is_array($booking_options)) $booking_options = array();
+
+        $loggedin_discount = isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : '';
+        if(trim($loggedin_discount) and is_numeric($loggedin_discount) and is_user_logged_in())
+        {
+            if($type === 'price_label' and !is_numeric($price))
+            {
+                $numeric = preg_replace("/[^0-9.]/", '', $price);
+                if(is_numeric($numeric)) $price = $this->main->render_price(($numeric - (($numeric * $loggedin_discount) / 100)));
+            }
+            else
+            {
+                $price = $price - (($price * $loggedin_discount) / 100);
+            }
+        }
+
+        return $price;
     }
 
     public function get_user_booking_limit($event_id)

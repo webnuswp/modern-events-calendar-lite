@@ -52,8 +52,8 @@ foreach($bookings as $booking)
                 $link = bp_core_get_userlink($attendee_id, false, true);
                 $user = get_userdata($attendee_id);
 
-                $name = trim($user->first_name.' '.$user->last_name);
-                if(!$name) $name = $user->display_name;
+                $name = $user->display_name;
+                if(!$name or is_email($name)) $name = trim($user->first_name.' '.$user->last_name);
 
                 $total_attendees = 0;
                 foreach($attendee_bookings as $booking_id) $total_attendees += $book->get_total_attendees($booking_id);
@@ -88,7 +88,7 @@ foreach($bookings as $booking)
                     <div class="mec-attendees-item clearfix">
                         <?php
                             echo '<div class="mec-attendee-avatar-sec">'. get_avatar($mec_attendee['email'], '50') .'</div>';
-                            echo '<div class="mec-attendee-profile-name-sec">'. $mec_attendee['name'] .'</div>';
+                            echo '<div class="mec-attendee-profile-name-sec">'. (!is_email($mec_attendee['name']) ? $mec_attendee['name'] : 'N/A') .'</div>';
                             echo '<span class="mec-attendee-profile-ticket-sec">'. sprintf(_n('%s ticket', '%s tickets', $mec_attendee['count'], 'modern-events-calendar-lite'), $mec_attendee['count']) . '</span>';
                         ?>
                     </div>

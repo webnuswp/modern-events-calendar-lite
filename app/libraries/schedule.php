@@ -48,6 +48,9 @@ class MEC_schedule extends MEC_base
         // Get Start Date
         $start = $this->time($event_id, 'max', 'Y-m-d');
 
+        // Don't create dates more than next 7 years!
+        if(strtotime($start) > strtotime('+7 years', current_time('timestamp', 0))) return;
+
         // Append Schedule
         $this->schedule($event_id, $start, $maximum);
     }

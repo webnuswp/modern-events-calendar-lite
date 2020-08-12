@@ -352,7 +352,7 @@ class MEC_feature_events extends MEC_base
                     __('Notifications', 'modern-events-calendar-lite') => 'mec-notifications',
                 );
 
-                $single_event_meta_title = apply_filters('mec-single-event-meta-title', $tabs, $activated);
+                $single_event_meta_title = apply_filters('mec-single-event-meta-title', $tabs, $activated, $post);
 
                 foreach($single_event_meta_title as $link_name => $link_address)
                 {
@@ -1173,9 +1173,9 @@ class MEC_feature_events extends MEC_base
 
                     <?php /** Dropdown **/ elseif($event_field['type'] == 'select'): ?>
                         <select id="mec_event_fields_<?php echo $j; ?>" name="mec[fields][<?php echo $j; ?>]" title="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?>>
-                            <?php foreach($event_field['options'] as $event_field_option): ?>
+                            <?php if(isset($event_field['options']) and is_array($event_field['options'])): foreach($event_field['options'] as $event_field_option): ?>
                                 <option value="<?php esc_attr_e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" <?php echo ($event_field_option['label'] == $value ? 'selected="selected"' : ''); ?>><?php _e(stripslashes($event_field_option['label']), 'modern-events-calendar-lite'); ?></option>
-                            <?php endforeach; ?>
+                            <?php endforeach; endif; ?>
                         </select>
 
                     <?php /** Radio **/ elseif($event_field['type'] == 'radio'): ?>
@@ -1187,12 +1187,12 @@ class MEC_feature_events extends MEC_base
                         <?php endforeach; ?>
 
                     <?php /** Checkbox **/ elseif($event_field['type'] == 'checkbox'): ?>
-                        <?php foreach($event_field['options'] as $event_field_option): ?>
+                        <?php if(isset($event_field['options']) and is_array($event_field['options'])): foreach($event_field['options'] as $event_field_option): ?>
                             <label for="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>">
                                 <input type="checkbox" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ((is_array($value) and in_array($event_field_option['label'], $value)) ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>][]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" />
                                 <?php _e(stripslashes($event_field_option['label']), 'modern-events-calendar-lite'); ?>
                             </label>
-                        <?php endforeach; ?>
+                        <?php endforeach; endif; ?>
                     <?php endif; ?>
                 </div>
 
@@ -1614,6 +1614,7 @@ class MEC_feature_events extends MEC_base
         $bookings_user_limit = isset($booking_options['bookings_user_limit']) ? $booking_options['bookings_user_limit'] : '';
         $bookings_user_limit_unlimited = isset($booking_options['bookings_user_limit_unlimited']) ? $booking_options['bookings_user_limit_unlimited'] : true;
         $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+        $loggedin_discount = isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : '';
         ?>
         <div id="mec-booking">
             <div class="mec-meta-box-fields mec-booking-tab-content mec-tab-active" id="mec_meta_box_booking_options_form_1">
@@ -1645,6 +1646,19 @@ class MEC_feature_events extends MEC_base
                     </label>
                     <input class="mec-col-4 <?php echo ($bookings_limit_unlimited == 1) ? 'mec-util-hidden' : ''; ?>" type="text" name="mec[booking][bookings_limit]" id="mec_bookings_limit"
                            value="<?php echo esc_attr($bookings_limit); ?>" placeholder="<?php _e('100', 'modern-events-calendar-lite'); ?>"/>
+                </div>
+                <h4 class="mec-title"><label for="mec_bookings_loggedin_discount"><?php _e('Discount for loggedin members', 'modern-events-calendar-lite'); ?></label></h4>
+                <div class="mec-form-row">
+                    <input class="mec-col-4" type="text" name="mec[booking][loggedin_discount]" id="mec_bookings_loggedin_discount" value="<?php echo esc_attr($loggedin_discount); ?>" placeholder="<?php _e('5', 'modern-events-calendar-lite'); ?>">
+                    <span class="mec-tooltip">
+                        <div class="box">
+                            <h5 class="title"><?php _e('Loggedin members discount', 'modern-events-calendar-lite'); ?></h5>
+                            <div class="content">
+                                <p><?php echo sprintf(esc_html__("You can provide a discount to loggedin users for %s prices. The discount is in percentage."), '<strong>'.__('tickets', 'modern-events-calendar-lite').'</strong>'); ?></p>
+                            </div>
+                        </div>
+                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                    </span>
                 </div>
                 <h4 class="mec-title"><?php _e('Book All Occurrences', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
@@ -3297,6 +3311,9 @@ class MEC_feature_events extends MEC_base
 
         $mec_update = (isset($_REQUEST['original_publish']) and strtolower(trim($_REQUEST['original_publish'])) == 'publish') ? false : true;
         do_action('mec_after_publish_admin_event', $post_id, $mec_update);
+
+        // Save Event Data
+        do_action('mec_save_event_data', $post_id, $_mec);
     }
 
     public function quick_edit($post_id)
@@ -3339,6 +3356,7 @@ class MEC_feature_events extends MEC_base
     {
         $this->db->q("DELETE FROM `#__mec_events` WHERE `post_id`='$post_id'");
         $this->db->q("DELETE FROM `#__mec_dates` WHERE `post_id`='$post_id'");
+        $this->db->q("DELETE FROM `#__mec_occurrences` WHERE `post_id`='$post_id'");
 
         return true;
     }

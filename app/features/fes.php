@@ -208,7 +208,7 @@ class MEC_feature_fes extends MEC_base
 
         if($timestamp)
         {
-            $bookings = $this->main->get_bookings(get_the_ID(), $timestamp);
+            $bookings = $this->main->get_bookings($event_id, $timestamp);
             foreach($bookings as $booking)
             {
                 $booking_ids .= $booking->ID.',';
@@ -220,7 +220,7 @@ class MEC_feature_fes extends MEC_base
         if(!count($post_ids))
         {
             $books = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_event_id' AND `meta_value`={$event_id}", 'loadAssocList');
-            foreach ($books as $book) if(isset($book['post_id'])) $post_ids[] = $book['post_id'];
+            foreach($books as $book) if(isset($book['post_id'])) $post_ids[] = $book['post_id'];
         }
 
         $event_ids = array();
@@ -1256,6 +1256,9 @@ class MEC_feature_fes extends MEC_base
         // Trigger Event
         if($method == 'updated') do_action('mec_fes_updated', $post_id , 'update');
         else do_action('mec_fes_added', $post_id , '');
+
+        // Save Event Data
+        do_action('mec_save_event_data', $post_id, $mec);
         
         $this->main->response(array(
             'success' => 1,

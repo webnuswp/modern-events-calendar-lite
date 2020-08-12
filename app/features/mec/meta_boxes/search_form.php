@@ -91,7 +91,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_list['text_search']) and isset($sf_options_list['text_search']['type']) and $sf_options_list['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_list_search_form',$sf_options_list); ?>
+                <?php do_action('mec_list_search_form', $sf_options_list); ?>
             </div>
             
             <!-- Grid View -->
@@ -161,7 +161,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_grid['text_search']) and isset($sf_options_grid['text_search']['type']) and $sf_options_grid['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_grid_search_form',$sf_options_grid); ?>
+                <?php do_action('mec_grid_search_form', $sf_options_grid); ?>
             </div>
 
             <!-- Agenda View -->
@@ -231,7 +231,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_agenda['text_search']) and isset($sf_options_agenda['text_search']['type']) and $sf_options_agenda['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_agenda_search_form',$sf_options_agenda); ?>
+                <?php do_action('mec_agenda_search_form', $sf_options_agenda); ?>
             </div>
             
             <!-- Full Calendar -->
@@ -301,7 +301,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_full_calendar['text_search']) and isset($sf_options_full_calendar['text_search']['type']) and $sf_options_full_calendar['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_full_calendar_search_form',$sf_options_full_calendar); ?>
+                <?php do_action('mec_full_calendar_search_form', $sf_options_full_calendar); ?>
             </div>
             
             <!-- Monthly View -->
@@ -371,7 +371,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_monthly_view['text_search']) and isset($sf_options_monthly_view['text_search']['type']) and $sf_options_monthly_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_monthly_search_form',$sf_options_monthly_view); ?>
+                <?php do_action('mec_monthly_search_form', $sf_options_monthly_view); ?>
             </div>
 
             <!-- Yearly View -->
@@ -441,7 +441,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_yearly_view['text_search']) and isset($sf_options_yearly_view['text_search']['type']) and $sf_options_yearly_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_yearly_search_form',$sf_options_yearly_view); ?>
+                <?php do_action('mec_yearly_search_form', $sf_options_yearly_view); ?>
             </div>
             
             <!-- Map Skin -->
@@ -504,7 +504,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_map['text_search']) and isset($sf_options_map['text_search']['type']) and $sf_options_map['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_map_search_form',$sf_options_map); ?>
+                <?php do_action('mec_map_search_form', $sf_options_map); ?>
             </div>
             
             <!-- Daily View -->
@@ -574,7 +574,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_daily_view['text_search']) and isset($sf_options_daily_view['text_search']['type']) and $sf_options_daily_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_daily_search_form',$sf_options_daily_view); ?>
+                <?php do_action('mec_daily_search_form', $sf_options_daily_view); ?>
             </div>
             
             <!-- Weekly View -->
@@ -644,7 +644,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_weekly_view['text_search']) and isset($sf_options_weekly_view['text_search']['type']) and $sf_options_weekly_view['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_weekly_search_form',$sf_options_weekly_view); ?>
+                <?php do_action('mec_weekly_search_form', $sf_options_weekly_view); ?>
             </div>
 
             <!-- Timetable View -->
@@ -714,7 +714,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_timetable['text_search']) and isset($sf_options_timetable['text_search']['type']) and $sf_options_timetable['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_timetable_search_form',$sf_options_timetable); ?>
+                <?php do_action('mec_timetable_search_form', $sf_options_timetable); ?>
             </div>
 
             <!-- Masonry View -->
@@ -820,7 +820,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="text_input" <?php if(isset($sf_options_tile['text_search']) and isset($sf_options_tile['text_search']['type']) and $sf_options_tile['text_search']['type'] == 'text_input') echo 'selected="selected"'; ?>><?php _e('Text Input', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
-                <?php do_action('mec_tile_search_form',$sf_options_tile); ?>
+                <?php do_action('mec_tile_search_form', $sf_options_tile); ?>
             </div>
             
             <!-- Custom Skins -->

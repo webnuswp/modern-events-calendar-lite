@@ -348,6 +348,16 @@ $event_fields = $this->main->get_event_fields();
                             </div>
                         </div>
 
+                        <div id="per_occurrences" class="mec-options-fields">
+                            <h4 class="mec-form-subtitle"><?php _e('Edit Per Occurrences', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][per_occurrences_status]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][per_occurrences_status]" <?php if(isset($settings['per_occurrences_status']) and $settings['per_occurrences_status']) echo 'checked="checked"'; ?> /> <?php _e('Ability to edit some event information per occurrence', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="mec-options-fields">
                             <?php wp_nonce_field('mec_options_form'); ?>
                             <button style="display: none;" id="mec_single_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Save Changes', 'modern-events-calendar-lite'); ?></button>

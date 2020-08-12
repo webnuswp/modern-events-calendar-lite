@@ -15,7 +15,7 @@ class MEC_skin_single extends MEC_skins
 
     public $uniqueid;
     public $date_format1;
-    
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -24,7 +24,7 @@ class MEC_skin_single extends MEC_skins
     {
         parent::__construct();
     }
-    
+
     /**
      * Registers skin actions into WordPress
      * @author Webnus <info@webnus.biz>
@@ -34,7 +34,7 @@ class MEC_skin_single extends MEC_skins
         $this->factory->action('wp_ajax_mec_load_single_page', array($this, 'load_single_page'));
         $this->factory->action('wp_ajax_nopriv_mec_load_single_page', array($this, 'load_single_page'));
     }
-    
+
     /**
      * Initialize the skin
      * @author Webnus <info@webnus.biz>
@@ -46,26 +46,26 @@ class MEC_skin_single extends MEC_skins
 
         // MEC Settings
         $this->settings = $this->main->get_settings();
-        
+
         // Date Formats
         $this->date_format1 = (isset($this->settings['single_date_format1']) and trim($this->settings['single_date_format1'])) ? $this->settings['single_date_format1'] : 'M d Y';
 
         // Single Event Layout
         $this->layout = isset($this->atts['layout']) ? $this->atts['layout'] : NULL;
-        
+
         // Search Form Status
         $this->sf_status = false;
-        
+
         // HTML class
         $this->html_class = '';
         if(isset($this->atts['html-class']) and trim($this->atts['html-class']) != '') $this->html_class = $this->atts['html-class'];
-        
+
         // From Widget
         $this->widget = (isset($this->atts['widget']) and trim($this->atts['widget'])) ? true : false;
-        
+
         // Init MEC
         $this->args['mec-skin'] = $this->skin;
-        
+
         $this->id = isset($this->atts['id']) ? $this->atts['id'] : 0;
         $this->uniqueid = mt_rand(1000, 10000);
         $this->maximum_dates = isset($this->atts['maximum_dates']) ? $this->atts['maximum_dates'] : 6;
@@ -75,7 +75,7 @@ class MEC_skin_single extends MEC_skins
      * Related Post in Single
      * @author Webnus <info@webnus.biz>
      * @param integer $event_id
-     */    
+     */
     public function display_related_posts_widget($event_id)
     {
         if(!isset($this->settings['related_events'])) return;
@@ -203,7 +203,7 @@ class MEC_skin_single extends MEC_skins
      * Fluent Related Post in Single
      * @author Webnus <info@webnus.biz>
      * @param integer $event_id
-     */    
+     */
     public function fluent_display_related_posts_widget($event_id)
     {
         if (!is_plugin_active('mec-fluent-layouts/mec-fluent-layouts.php')) return;
@@ -381,9 +381,9 @@ class MEC_skin_single extends MEC_skins
      * Breadcrumbs in Single
      * @param $page_id
      * @author Webnus <info@webnus.biz>
-     */    
+     */
     public function display_breadcrumb_widget($page_id)
-    {	
+    {
         $breadcrumbs_icon = '<i class="mec-color mec-sl-arrow-right"></i>'; // breadcrumbs_icon between crumbs
 
         /**
@@ -460,7 +460,7 @@ class MEC_skin_single extends MEC_skins
         $dates = $this->render->dates($this->id, $rendered, $this->maximum_dates, ($occurrence_time ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
 
         // Remove First Date if it is already started!
-        if(!isset($_GET['occurrence']) or (isset($_GET['occurrence']) and !trim($_GET['occurrence'])))
+        if(count($dates) > 1 and (!isset($_GET['occurrence']) or (isset($_GET['occurrence']) and !trim($_GET['occurrence']))))
         {
             $start_date = (isset($dates[0]['start']) and isset($dates[0]['start']['date'])) ? $dates[0]['start']['date'] : current_time('Y-m-d H:i:s');
             $end_date = (isset($dates[0]['end']) and isset($dates[0]['end']['date'])) ? $dates[0]['end']['date'] : current_time('Y-m-d H:i:s');
@@ -683,15 +683,18 @@ class MEC_skin_single extends MEC_skins
     {
         $id = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : 0;
         $layout = isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'm1';
-        
+
+        do_action('mec-ajax-load-single-page-before', $id);
         // Initialize the skin
         $this->initialize(array('id'=>$id, 'layout'=>$layout));
-        
+
         // Fetch the events
         $this->fetch();
-        
+
         // Return the output
         echo $this->output();
+
+        do_action('mec-ajax-load-single-page-after', $id);
         exit;
     }
 
@@ -704,7 +707,7 @@ class MEC_skin_single extends MEC_skins
     public function found_value($k, $arr)
     {
         $dummy = new Mec_Single_Widget();
-        $settings = $dummy->get_settings(); 
+        $settings = $dummy->get_settings();
 
         $arr = end($settings);
         $ids = array();
@@ -755,7 +758,7 @@ class MEC_skin_single extends MEC_skins
                 </div>
             </div>
         </div>
-        <?php 
+        <?php
     }
 
     /**
@@ -801,7 +804,7 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_local_time_widget($event)
     {
-        echo '<div class="mec-event-meta mec-local-time-details mec-frontbox">';			
+        echo '<div class="mec-event-meta mec-local-time-details mec-frontbox">';
         echo $this->main->module('local-time.details', array('event'=>$event));
         echo '</div>';
     }
@@ -890,7 +893,7 @@ class MEC_skin_single extends MEC_skins
         echo $this->main->module('countdown.details', array('event' => $event));
         echo '</div>';
     }
-    
+
     /**
      * @param object export widget
      * @return void
@@ -1053,7 +1056,7 @@ class MEC_skin_single extends MEC_skins
     {
         // MEC Settings
         $settings = $this->main->get_settings();
-        
+
         if ($this->main->can_show_booking_module($event)) : ?>
             <div class="mec-reg-btn mec-frontbox">
                 <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
@@ -1107,7 +1110,7 @@ class MEC_skin_single extends MEC_skins
                 <h6><?php _e('Phone', 'modern-events-calendar-lite'); ?></h6>
                 <a href="tel:<?php echo $organizer['tel']; ?>"><?php echo $organizer['tel']; ?></a>
             </dd>
-            <?php endif; 
+            <?php endif;
             if(isset($organizer['email']) && !empty($organizer['email'])): ?>
             <dd class="mec-organizer-email">
                 <i class="mec-sl-envelope"></i>
@@ -1334,7 +1337,7 @@ class MEC_skin_single extends MEC_skins
         $data = (isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_fields']) and is_array($event->data->meta['mec_fields'])) ? $event->data->meta['mec_fields'] : get_post_meta($event->ID, 'mec_fields', true);
         if(!is_array($data) or (is_array($data) and !count($data))) return;
 
-        foreach($fields as $n => $item): if(!is_numeric($n)) continue; // n meaning number 
+        foreach($fields as $n => $item): if(!is_numeric($n)) continue; // n meaning number
             $result = isset($data[$n]) ? $data[$n] : NULL; if((!is_array($result) and trim($result) == '') or (is_array($result) and !count($result))) continue;
             $content = isset($item['type']) ? $item['type'] : 'text';
         endforeach;

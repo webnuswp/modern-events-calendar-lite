@@ -105,7 +105,7 @@ function mec_init_gmap'.$uniqueid.'()
     p'.$uniqueid.'.init();
 }
 </script>';
-$javascript = apply_filters( 'mec_map_load_script',$javascript, $map_data,$settings );
+$javascript = apply_filters('mec_map_load_script', $javascript, $map_data, $settings);
 
 if(!function_exists('is_plugin_active')) include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 

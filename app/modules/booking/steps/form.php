@@ -59,7 +59,7 @@ if(!$mec_email)
 }
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);" novalidate="novalidate" enctype="multipart/form-data" method="post">
-    <h4><?php echo apply_filters('mec-attendees-title', __('Attendee\'s Form', 'modern-events-calendar-lite')) ?></h4>
+    <h4><?php echo apply_filters('mec-booking-attendees-title', __('Attendee\'s Form', 'modern-events-calendar-lite'), $event_id) ?></h4>
 
     <?php if(is_array($bfixed_fields) and count($bfixed_fields)): ?>
     <ul class="mec-book-bfixed-fields-container">
@@ -74,7 +74,7 @@ if(!$mec_email)
             <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="text" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) echo 'placeholder="'.$bfixed_field['placeholder'].'" '; ?> <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> />
 
             <?php /** Date **/ elseif($bfixed_field['type'] == 'date'): ?>
-            <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="date" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> min="1970-01-01" max="2099-12-31" />
+            <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="date" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> min="<?php echo esc_attr(date('Y-m-d', strtotime('-100 years'))); ?>" max="<?php echo esc_attr(date('Y-m-d', strtotime('+100 years'))); ?>" />
 
             <?php /** Email **/ elseif($bfixed_field['type'] == 'email'): ?>
             <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="email" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if(isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {_e($bfixed_field['placeholder'], 'modern-events-calendar-lite');} else {_e($bfixed_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> />
@@ -125,12 +125,12 @@ if(!$mec_email)
 
     <ul class="mec-book-tickets-container">
 
-        <?php $j = 0; foreach($tickets as $ticket_id=>$count): if(!$count) continue; $ticket = $event_tickets[$ticket_id]; for($i = 1; $i <= $count; $i++): $j++; $total_ticket_prices += $this->book->get_ticket_price($ticket, current_time('Y-m-d'));?>
+        <?php $j = 0; foreach($tickets as $ticket_id=>$count): if(!$count) continue; $ticket = $event_tickets[$ticket_id]; for($i = 1; $i <= $count; $i++): $j++; $total_ticket_prices += $this->book->get_ticket_price($ticket, current_time('Y-m-d'), $event_id);?>
         <li class="mec-book-ticket-container <?php echo (($j > 1 and $first_for_all) ? 'mec-util-hidden' : ''); ?>">
-            <?php if(!empty($ticket['name']) || !empty($this->book->get_ticket_price_label($ticket, current_time('Y-m-d')))): ?>
+            <?php if(!empty($ticket['name']) || !empty($this->book->get_ticket_price_label($ticket, current_time('Y-m-d'), $event_id))): ?>
             <h4 class="col-md-12">
                 <span class="mec-ticket-name"><?php echo __($ticket['name'], 'modern-events-calendar-lite'); ?></span>
-                <span class="mec-ticket-price"><?php echo $this->book->get_ticket_price_label($ticket, current_time('Y-m-d')); ?></span>
+                <span class="mec-ticket-price"><?php echo $this->book->get_ticket_price_label($ticket, current_time('Y-m-d'), $event_id); ?></span>
             </h4>
             <?php endif; ?>
 
@@ -160,7 +160,7 @@ if(!$mec_email)
                 <input id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" type="text" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) {_e($reg_field['placeholder'], 'modern-events-calendar-lite');} else {_e($reg_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) echo 'placeholder="'.$reg_field['placeholder'].'" '; ?> <?php if(isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> />
 
                 <?php /** Date **/ elseif($reg_field['type'] == 'date'): ?>
-                <input id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" type="date" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) {_e($reg_field['placeholder'], 'modern-events-calendar-lite');} else {_e($reg_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> min="1970-01-01" max="2099-12-31" />
+                <input id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" type="date" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) {_e($reg_field['placeholder'], 'modern-events-calendar-lite');} else {_e($reg_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> min="<?php echo esc_attr(date('Y-m-d', strtotime('-100 years'))); ?>" max="<?php echo esc_attr(date('Y-m-d', strtotime('+100 years'))); ?>" />
 
                 <?php /** File **/ elseif($reg_field['type'] == 'file'): ?>
                 <input id="mec_book_reg_field_reg<?php echo $j.'_'.$reg_field_id; ?>" type="file" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if(isset($reg_field['placeholder']) and $reg_field['placeholder']) {_e($reg_field['placeholder'], 'modern-events-calendar-lite');} else {_e($reg_field['label'], 'modern-events-calendar-lite');}; ?>" <?php if(isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> />
@@ -263,6 +263,6 @@ if(!$mec_email)
         }
         // Events
         jQuery('.mec-booking-shortcode').find('select').niceSelect();
-        
+
     });
 </script>

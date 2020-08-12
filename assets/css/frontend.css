@@ -3392,6 +3392,17 @@ button#mec-book-form-back-btn-step-3 {
 	float: none;
 }
 
+/* Booking Occurrences list */
+.mec-next-occ-booking,
+.mec-next-occ-booking-p {
+    padding-left: 15px;
+}
+
+.lity-container .mec-next-occ-booking,
+.lity-container .mec-next-occ-booking-p {
+    padding-left: 0;
+}
+
 /* Pay Buttons Position */
 .mec-single-event .mec-events-meta-group-booking .mec-click-pay {
     max-width: 350px;

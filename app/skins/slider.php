@@ -76,6 +76,7 @@ class MEC_skin_slider extends MEC_skins
         
         // The style
         $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'type1';
+        if($this->style == 'fluent' and !is_plugin_active('mec-fluent-layouts/mec-fluent-layouts.php')) $this->style = 'type1';
         
         // The auto play time
         $this->autoplay = (isset($this->skin_options['autoplay']) and trim($this->skin_options['autoplay']) != '') ? $this->skin_options['autoplay'] : 3000;

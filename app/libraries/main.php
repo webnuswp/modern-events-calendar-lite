@@ -3,7 +3,9 @@
 defined('MECEXEC') or die();
 
 use ICal\ICal;
-
+use Ctct\Components\Contacts\Contact;
+use Ctct\ConstantContact;
+use Ctct\Exceptions\CtctException;
 /**
  * Webnus MEC main class.
  * @author Webnus <info@webnus.biz>
@@ -553,6 +555,7 @@ class MEC_main extends MEC_base
             __('Additional Organizers', 'modern-events-calendar-lite') => 'additional_organizers',
             __('Additional Locations', 'modern-events-calendar-lite') => 'additional_locations',
             __('Related Events', 'modern-events-calendar-lite') => 'related_events',
+            __('Edit Per Occurrences', 'modern-events-calendar-lite') => 'per_occurrences',
         ), $active_menu);
 
         $booking = apply_filters('mec-settings-item-booking', array(
@@ -903,7 +906,7 @@ class MEC_main extends MEC_base
         ';
     }
 
-    /**
+        /**
      * Returns MEC custom message 2
      * @author Webnus <info@webnus.biz>
      * @return array
@@ -911,42 +914,97 @@ class MEC_main extends MEC_base
     public function mec_custom_msg_2($display_option = '', $message = '')
     {
         $get_cmsg_display_option = get_option('mec_custom_msg_2_display_option');
+        $get_mec_saved_message_time = get_option('mec_saved_message_2_time');
 
-        $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
-        if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
-        {
-            $ctx = stream_context_create(array('http'=>
-                array(
-                    'timeout' => 20,
-                )
-            ));
-            $get_data = file_get_contents($data_url, false, $ctx);
-            if ( $get_data !== false AND !empty($get_data) )
+        
+        if ( !isset($get_mec_saved_message_time) ) :
+            $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
+            if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
-                $obj = json_decode($get_data);
-                $i = count((array)$obj);
+                $ctx = stream_context_create(array('http'=>
+                    array(
+                        'timeout' => 20,
+                    )
+                ));
+                $get_data = file_get_contents($data_url, false, $ctx);
+                if ( $get_data !== false AND !empty($get_data) )
+                {
+                    $obj = json_decode($get_data);
+                    $i = count((array)$obj);
+                }
             }
-        }
-        elseif ( function_exists('curl_version') )
-        {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
-            curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
-            curl_setopt($ch, CURLOPT_URL, $data_url);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $obj = json_decode($result);
-            $i = count((array)$obj);
-        } else {
-            $obj = '';
-        }
+            elseif ( function_exists('curl_version') )
+            {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+                curl_setopt($ch, CURLOPT_URL, $data_url);
+                $result = curl_exec($ch);
+                curl_close($ch);
+                $obj = json_decode($result);
+                $i = count((array)$obj);
+            } else {
+                $obj = '';
+            }
+            update_option('mec_saved_message_2_time', date("Y-m-d"));
+        else:
+            if ( strtotime(date("Y-m-d")) > strtotime($get_mec_saved_message_time) ) {
+                $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
+                if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+                {
+                    $ctx = stream_context_create(array('http'=>
+                        array(
+                            'timeout' => 20,
+                        )
+                    ));
+                    $get_data = file_get_contents($data_url, false, $ctx);
+                    if ( $get_data !== false AND !empty($get_data) )
+                    {
+                        $obj = json_decode($get_data);
+                        $i = count((array)$obj);
+                    }
+                }
+                elseif ( function_exists('curl_version') )
+                {
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+                    curl_setopt($ch, CURLOPT_URL, $data_url);
+                    $result = curl_exec($ch);
+                    curl_close($ch);
+                    $obj = json_decode($result);
+                    $i = count((array)$obj);
+                } else {
+                    $obj = '';
+                }
+                update_option('mec_saved_message_2_time', date("Y-m-d"));
+            } else {
+                $mec_custom_msg_html = get_option('mec_custom_msg_2_html');
+                $mec_custom_msg_display = get_option('mec_custom_msg_2_display');
+                if ( $get_cmsg_display_option != $mec_custom_msg_display ) :
+                    update_option( 'mec_custom_msg_2_display_option', $mec_custom_msg_display );
+                    update_option('mec_custom_msg_2_close_option', 'close');
+                    update_option('mec_saved_message_2_time', date("Y-m-d"));
+                    return $mec_custom_msg_html;
+                elseif ( $get_cmsg_display_option == $mec_custom_msg_display ) :
+                    $get_cmsg_close_option = get_option('mec_custom_msg_2_close_option');
+                    update_option('mec_saved_message_2_time', date("Y-m-d"));
+                    if ( $get_cmsg_close_option == 'open' ) return;
+                    return $mec_custom_msg_html;
+                endif;
+            }
+        endif;
 
         if ( !empty( $obj ) ) :
             foreach ($obj as $key => $value) {
                 $html = $value->html;
+                update_option('mec_custom_msg_2_html', $html);
                 $display = $value->display;
+                update_option('mec_custom_msg_2_display', $display);
             }
 
             if ( $get_cmsg_display_option != $display ) :
@@ -971,42 +1029,95 @@ class MEC_main extends MEC_base
     public function mec_custom_msg($display_option = '', $message = '')
     {
         $get_cmsg_display_option = get_option('mec_custom_msg_display_option');
-
-        $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
-        if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
-        {
-            $ctx = stream_context_create(array('http'=>
-                array(
-                    'timeout' => 20,
-                )
-            ));
-            $get_data = file_get_contents($data_url, false, $ctx);
-            if ( $get_data !== false AND !empty($get_data) )
+        $get_mec_saved_message_time = get_option('mec_saved_message_time');
+        if (!isset($get_mec_saved_message_time)) :
+            $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
+            if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
-                $obj = json_decode($get_data);
-                $i = count((array)$obj);
+                $ctx = stream_context_create(array('http'=>
+                    array(
+                        'timeout' => 20,
+                    )
+                ));
+                $get_data = file_get_contents($data_url, false, $ctx);
+                if ( $get_data !== false AND !empty($get_data) )
+                {
+                    $obj = json_decode($get_data);
+                    $i = count((array)$obj);
+                }
             }
-        }
-        elseif ( function_exists('curl_version') )
-        {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
-            curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
-            curl_setopt($ch, CURLOPT_URL, $data_url);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $obj = json_decode($result);
-            $i = count((array)$obj);
-        } else {
-            $obj = '';
-        }
+            elseif ( function_exists('curl_version') )
+            {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+                curl_setopt($ch, CURLOPT_URL, $data_url);
+                $result = curl_exec($ch);
+                curl_close($ch);
+                $obj = json_decode($result);
+                $i = count((array)$obj);
+            } else {
+                $obj = '';
+            }
+            update_option('mec_saved_message_time', date("Y-m-d"));
+        else:
+            if ( strtotime(date("Y-m-d")) > strtotime($get_mec_saved_message_time) ) {
+                $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
+                if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+                {
+                    $ctx = stream_context_create(array('http'=>
+                        array(
+                            'timeout' => 20,
+                        )
+                    ));
+                    $get_data = file_get_contents($data_url, false, $ctx);
+                    if ( $get_data !== false AND !empty($get_data) )
+                    {
+                        $obj = json_decode($get_data);
+                        $i = count((array)$obj);
+                    }
+                }
+                elseif ( function_exists('curl_version') )
+                {
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
+                    curl_setopt($ch, CURLOPT_URL, $data_url);
+                    $result = curl_exec($ch);
+                    curl_close($ch);
+                    $obj = json_decode($result);
+                    $i = count((array)$obj);
+                } else {
+                    $obj = '';
+                }
+                update_option('mec_saved_message_time', date("Y-m-d"));
+            } else {
+                $mec_custom_msg_html = get_option('mec_custom_msg_html');
+                $mec_custom_msg_display = get_option('mec_custom_msg_display');
+                if ( $get_cmsg_display_option != $mec_custom_msg_display ) :
+                    update_option( 'mec_custom_msg_display_option', $mec_custom_msg_display );
+                    update_option('mec_custom_msg_close_option', 'close');
+                    update_option('mec_saved_message_time', date("Y-m-d"));
+                    return $mec_custom_msg_html;
+                elseif ( $get_cmsg_display_option == $mec_custom_msg_display ) :
+                    $get_cmsg_close_option = get_option('mec_custom_msg_close_option');
+                    update_option('mec_saved_message_time', date("Y-m-d"));
+                    if ( $get_cmsg_close_option == 'open' ) return;
+                    return $mec_custom_msg_html;
+                endif;
+            }
+        endif;
 
         if ( !empty( $obj ) ) :
             foreach ($obj as $key => $value) {
                 $html = $value->html;
+                update_option('mec_custom_msg_html', $html);
                 $display = $value->display;
+                update_option('mec_custom_msg_display', $display);
             }
 
             if ( $get_cmsg_display_option != $display ) :
@@ -1021,8 +1132,7 @@ class MEC_main extends MEC_base
         else:
             return '';
         endif;
-    }
-
+    }    
     /**
      * Returns MEC settings
      * @author Webnus <info@webnus.biz>
@@ -1247,7 +1357,7 @@ class MEC_main extends MEC_base
         // Validations
         if(isset($filtered['settings']) and isset($filtered['settings']['slug'])) $filtered['settings']['slug'] = strtolower(str_replace(' ', '-', $filtered['settings']['slug']));
         if(isset($filtered['settings']) and isset($filtered['settings']['category_slug'])) $filtered['settings']['category_slug'] = strtolower(str_replace(' ', '-', $filtered['settings']['category_slug']));
-        if(isset($filtered['settings']) and isset($filtered['settings']['custom_archive'])) $filtered['settings']['custom_archive'] = isset($filtered['settings']['custom_archive']) ? str_replace('\"','"',$filtered['settings']['custom_archive']) : '';
+        if(isset($filtered['settings']) and isset($filtered['settings']['custom_archive'])) $filtered['settings']['custom_archive'] = isset($filtered['settings']['custom_archive']) ? str_replace('\"','"', $filtered['settings']['custom_archive']) : '';
 
         // Bellow conditional block codes is used for sortable booking form items.
         if(isset($filtered['reg_fields']))
@@ -2534,7 +2644,7 @@ class MEC_main extends MEC_base
                     $pdf->Write(6, $attendee['email']);
                     $pdf->Ln();
 
-                    $pdf->Write(6, ((isset($event->tickets[$attendee['id']]) ? __($this->m('ticket', __('Ticket', 'modern-events-calendar-lite'))).': '.$event->tickets[$attendee['id']]['name'] : '').' '.(isset($event->tickets[$attendee['id']]) ? $book->get_ticket_price_label($event->tickets[$attendee['id']], $booking_time) : '')));
+                    $pdf->Write(6, ((isset($event->tickets[$attendee['id']]) ? __($this->m('ticket', __('Ticket', 'modern-events-calendar-lite'))).': '.$event->tickets[$attendee['id']]['name'] : '').' '.(isset($event->tickets[$attendee['id']]) ? $book->get_ticket_price_label($event->tickets[$attendee['id']], $booking_time, $event_id) : '')));
 
                     // Ticket Variations
                     if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
@@ -4658,7 +4768,7 @@ class MEC_main extends MEC_base
     public function create_mec_tables()
     {
         // MEC Events table already exists
-        if($this->table_exists('mec_events') and $this->table_exists('mec_dates')) return true;
+        if($this->table_exists('mec_events') and $this->table_exists('mec_dates') and $this->table_exists('mec_occurrences')) return true;
         
         // MEC File library
         $file = $this->getFile();
@@ -5142,10 +5252,10 @@ class MEC_main extends MEC_base
             $url = $event->data->permalink;
 
             // Return same URL if date is not provided
-            if(is_null($date)) return $url;
+            if(is_null($date)) return apply_filters('mec_event_permalink', $url);
 
             // Single Page Date method is set to next date
-            if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return $url;
+            if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return apply_filters('mec_event_permalink', $url);
 
             // Add Date to the URL
             $url = $this->add_qs_var('occurrence', $date, $url);
@@ -5159,7 +5269,7 @@ class MEC_main extends MEC_base
                 $url = $this->add_qs_var('time', $timestamp, $url);
             }
 
-            return $url;
+            return apply_filters('mec_event_permalink', $url);
         }
         else
         {
@@ -5167,12 +5277,12 @@ class MEC_main extends MEC_base
             $url = $event;
 
             // Return same URL if data is not provided
-            if(is_null($date)) return $url;
+            if(is_null($date)) return apply_filters('mec_event_permalink', $url);
 
             // Single Page Date method is set to next date
-            if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return $url;
+            if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return apply_filters('mec_event_permalink', $url);
 
-            return $this->add_qs_var('occurrence', $date, $url);
+            return apply_filters('mec_event_permalink', $this->add_qs_var('occurrence', $date, $url));
         }
     }
     
@@ -5442,6 +5552,8 @@ class MEC_main extends MEC_base
      */
     public function constantcontact_add_subscriber($book_id)
     {
+        require_once MEC_ABSPATH.'/app/api/Ctct/autoload.php';
+        require_once MEC_ABSPATH.'/app/api/Ctct/vendor/autoload.php';
         // Get MEC Options
         $settings = $this->get_settings();
         
@@ -5449,33 +5561,78 @@ class MEC_main extends MEC_base
         if(!isset($settings['constantcontact_status']) or (isset($settings['constantcontact_status']) and !$settings['constantcontact_status'])) return false;
         
         $api_key = isset($settings['constantcontact_api_key']) ? $settings['constantcontact_api_key'] : '';
+        $access_token = isset($settings['constantcontact_access_token']) ? $settings['constantcontact_access_token'] : '';
         $list_id = isset($settings['constantcontact_list_id']) ? $settings['constantcontact_list_id'] : '';
-        
+
         // constantcontact credentials are required
-        if(!trim($api_key) or !trim($list_id)) return false;
-        
+        if(!trim($api_key) or !trim($access_token) or !trim($list_id)) return false;
+
         $booker_id = get_post_field('post_author', $book_id);
         $booker = get_userdata($booker_id);
-        
-        $url = 'https://api.cc.email/v3';
 
-        $json = json_encode(array
-        (
-            'email_address'=> [
-                'address' => $booker->user_email
-            ],
-            'first_name'=> $booker->first_name,
-            'last_name'=> $booker->last_name,
-            'list_memberships' => $list_id,
-        ));
+        $cc = new ConstantContact($api_key);
 
-        // Execute the Request and Return the Response Code
-        return wp_remote_retrieve_response_code(wp_remote_post($url, array(
-            'body' => $json,
-            'timeout' => '10',
-            'redirection' => '10',
-            'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$api_key),
-        )));
+        $action = "Getting Contact By Email Address";
+        try {
+            // check to see if a contact with the email address already exists in the account
+            $response = $cc->contactService->getContacts($access_token, array("email" => $booker->user_email));
+
+            // create a new contact if one does not exist
+            if (empty($response->results)) {
+                $action = "Creating Contact";
+
+                $contact = new Contact();
+                $contact->addEmail($booker->user_email);
+                $contact->addList($list_id);
+                $contact->first_name = $booker->first_name;
+                $contact->last_name = $booker->last_name;
+
+                /*
+                * The third parameter of addContact defaults to false, but if this were set to true it would tell Constant
+                * Contact that this action is being performed by the contact themselves, and gives the ability to
+                * opt contacts back in and trigger Welcome/Change-of-interest emails.
+                *
+                * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
+                */
+                $returnContact = $cc->contactService->addContact($access_token, $contact, true);
+               
+
+                // update the existing contact if address already existed
+            } else {
+                $action = "Updating Contact";
+
+                $contact = $response->results[0];
+                if ($contact instanceof Contact) {
+                    $contact->addList($list_id);
+                    $contact->first_name = $booker->first_name;
+                    $contact->last_name = $booker->last_name;
+
+                    /*
+                    * The third parameter of updateContact defaults to false, but if this were set to true it would tell
+                    * Constant Contact that this action is being performed by the contact themselves, and gives the ability to
+                    * opt contacts back in and trigger Welcome/Change-of-interest emails.
+                    *
+                    * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
+                    */
+                    $returnContact = $cc->contactService->updateContact($access_token, $contact, true);
+                   
+                } else {
+                    $e = new CtctException();
+                    $e->setErrors(array("type", "Contact type not returned"));
+                    throw $e;
+                    
+                }
+            }
+
+            // catch any exceptions thrown during the process and print the errors to screen
+        } catch (CtctException $ex) {
+            echo '<span class="label label-important">Error ' . $action . '</span>';
+            echo '<div class="container alert-error"><pre class="failure-pre">';
+            print_r($ex->getErrors());
+            echo '</pre></div>';
+          
+            die();
+        }
     }
     
     /**
@@ -5909,7 +6066,8 @@ class MEC_main extends MEC_base
     
     public function get_messages()
     {
-        if($this->getPRO()):
+        if($this->getPRO())
+        {
             $messages = array(
                 'taxonomies'=>array(
                     'category'=>array('name'=>__('Taxonomies', 'modern-events-calendar-lite')),
@@ -5941,7 +6099,10 @@ class MEC_main extends MEC_base
                 'others'=>array(
                     'category'=>array('name'=>__('Others', 'modern-events-calendar-lite')),
                     'messages'=>array(
-                        'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thanks you for booking. Your tickets are  booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
+                        'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thanks you for booking. Your tickets are booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
+                        'booking_restriction_message1'=>array('label'=>__('Booking Restriction Message 1', 'modern-events-calendar-lite'), 'default'=>__('You selected %s tickets to book but maximum number of tikets per user is %s tickets.', 'modern-events-calendar-lite')),
+                        'booking_restriction_message2'=>array('label'=>__('Booking Restriction Message 2', 'modern-events-calendar-lite'), 'default'=>__('You booked %s tickets till now but maximum number of tickets per user is %s tickets.', 'modern-events-calendar-lite')),
+                        'booking_restriction_message3'=>array('label'=>__('Booking IP Restriction Message', 'modern-events-calendar-lite'), 'default'=>__('Maximum allowed number of tickets that you can book is %s.', 'modern-events-calendar-lite')),
                         'register_button'=>array('label'=>__('Register Button', 'modern-events-calendar-lite'), 'default'=>__('REGISTER', 'modern-events-calendar-lite')),
                         'view_detail'=>array('label'=>__('View Detail Button', 'modern-events-calendar-lite'), 'default'=>__('View Detail', 'modern-events-calendar-lite')),
                         'event_detail'=>array('label'=>__('Event Detail Button', 'modern-events-calendar-lite'), 'default'=>__('Event Detail', 'modern-events-calendar-lite')),
@@ -5957,7 +6118,9 @@ class MEC_main extends MEC_base
                     )
                 ),
             );
-        else:
+        }
+        else
+        {
             $messages = array(
                 'taxonomies'=>array(
                     'category'=>array('name'=>__('Taxonomies', 'modern-events-calendar-lite')),
@@ -6002,7 +6165,7 @@ class MEC_main extends MEC_base
                     )
                 ),
             );
-        endif;
+        }
 
         return apply_filters('mec_messages', $messages);
     }
@@ -6345,6 +6508,8 @@ class MEC_main extends MEC_base
                 $ex = explode('.', $first_rule);
 
                 $bysetpos = isset($ex[1]) ? $ex[1] : NULL;
+                if(strtolower($bysetpos) == 'l') $bysetpos = -1;
+
                 $byday_mapping = array('MON'=>'MO', 'TUE'=>'TU', 'WED'=>'WE', 'THU'=>'TH', 'FRI'=>'FR', 'SAT'=>'SA', 'SUN'=>'SU');
                 $byday = $byday_mapping[strtoupper($ex[0])];
 
@@ -6660,6 +6825,9 @@ class MEC_main extends MEC_base
             $total_bookings_limit = (isset($booking_options['bookings_limit']) and trim($booking_options['bookings_limit'])) ? $booking_options['bookings_limit'] : 100;
             $bookings_limit_unlimited = isset($booking_options['bookings_limit_unlimited']) ? $booking_options['bookings_limit_unlimited'] : 0;
             if($bookings_limit_unlimited == '1') $total_bookings_limit = -1;
+
+            // Get Per Occurrence
+            $total_bookings_limit = MEC_feature_occurrences::param($event_id, $timestamp, 'bookings_limit', $total_bookings_limit);
             
             // Check For Return A Few Label Exist.
             if(($total_bookings_limit > 0) and ($remained_tickets <= round(((15 * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);

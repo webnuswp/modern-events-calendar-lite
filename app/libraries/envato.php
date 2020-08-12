@@ -72,7 +72,7 @@ class MEC_envato extends MEC_base
 
         // Plugin Slug
         list($slice1, $slice2) = explode('/', $this->plugin_slug);
-        $this->slug = str_replace('.php', '', $slice2);
+        $this->slug = str_replace('.php', '', $slice2);        
     }
 
     /**
@@ -216,7 +216,7 @@ class MEC_envato extends MEC_base
     public function check_info($false, $action, $arg)
     {
         $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
-        $version = json_decode(json_encode($this->get_MEC_info('version')->version), true);
+        $version = $this->get_MEC_info('version')->version ? json_decode(json_encode($this->get_MEC_info('version')->version), true) : get_option('mec_save_version_number');
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/addons-api.json';
         
         if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
@@ -296,7 +296,38 @@ class MEC_envato extends MEC_base
 		}
 
 		return false;
-	}
+    }
+    
+    /* Save version to database */
+    public function mec_version_in_database() {
+        $mec_save_version_date = get_option('mec_save_version_date');
+        if (!$mec_save_version_date) {
+            $JSON = wp_remote_retrieve_body(wp_remote_get(self::get_api_url() . '/plugin-api/version', array(
+                'body' => null,
+                'timeout' => '120',
+                'redirection' => '10',
+                'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+            )));
+            $JSON = json_decode($JSON);
+            update_option('mec_save_version_number', $JSON->version);
+            update_option('mec_save_version_date', date("Y-m-d"));
+            return true;
+        } else {
+            if ( strtotime(date("Y-m-d")) > strtotime($mec_save_version_date) ) {
+                $JSON = wp_remote_retrieve_body(wp_remote_get(self::get_api_url() . '/plugin-api/version', array(
+                    'body' => null,
+                    'timeout' => '120',
+                    'redirection' => '10',
+                    'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+                )));
+                $JSON = json_decode($JSON);
+                update_option('mec_save_version_number', $JSON->version);
+                update_option('mec_save_version_date', date("Y-m-d"));
+                return true;
+            }
+            return false;
+        }
+    }
 
     /**
      * Return details from envato
@@ -311,10 +342,19 @@ class MEC_envato extends MEC_base
         $product_name = $this->get_product_name();
         $url = get_home_url();
 
-        if($type == 'remove') $verify_url = 'https://webnus.net/api/remove?id='.$code;
-        elseif($type == 'dl') $verify_url = self::get_api_url() . '/plugin-api/verify?item_name=' . urlencode($product_name) . '&id=' . $code . '&url=' . $url;
-        elseif($type == 'version') $verify_url = self::get_api_url() . '/plugin-api/version';
-        else return NULL;
+        if($type == 'remove') {
+            $verify_url = 'https://webnus.net/api/remove?id='.$code;
+        } elseif($type == 'dl') {
+            $verify_url = self::get_api_url() . '/plugin-api/verify?item_name=' . urlencode($product_name) . '&id=' . $code . '&url=' . $url;
+        } elseif($type == 'version') {
+            if ( $this->mec_version_in_database() ) {
+                $verify_url = self::get_api_url() . '/plugin-api/version';
+            } else {
+                return NULL;
+            }
+        } else {
+            return NULL;
+        }
 
         $JSON = wp_remote_retrieve_body(wp_remote_get($verify_url, array(
             'body' => null,

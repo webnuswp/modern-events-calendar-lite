@@ -55,7 +55,7 @@ if(is_array($fonts))
                         <h4 class="mec-form-subtitle"><?php esc_html_e('Color Skin', 'modern-events-calendar-lite' ); ?></h4>
                         <div class="mec-form-row">
                             <div class="mec-col-3">
-                                <p><?php esc_html_e('Predefined Color Skin', 'modern-events-calendar-lite' ); ?></p>
+                                <span><?php esc_html_e('Predefined Color Skin', 'modern-events-calendar-lite' ); ?></span>
                             </div>
                             <div class="mec-col-6">
                                 <ul class="mec-image-select-wrap">
@@ -98,7 +98,7 @@ if(is_array($fonts))
                         </div>
                         <div class="mec-form-row">
                             <div class="mec-col-3">
-                                <p><?php esc_html_e('Custom Color Skin', 'modern-events-calendar-lite' ); ?></p>
+                                <span><?php esc_html_e('Custom Color Skin', 'modern-events-calendar-lite' ); ?></span>
                             </div>
                             <div class="mec-col-6">
                                 <input type="text" class="wp-color-picker-field" id="mec_settings_color" name="mec[styling][color]" value="<?php echo (isset($styling['color']) ? $styling['color'] : ''); ?>" data-default-color="" />
@@ -127,7 +127,7 @@ if(is_array($fonts))
                         <h4 class="mec-form-subtitle"><?php esc_html_e('Advanced Color Options (shortcodes)', 'modern-events-calendar-lite' ); ?></h4>
                         <div class="mec-form-row">
                             <div class="mec-col-3">
-                                <p><?php esc_html_e('Title', 'modern-events-calendar-lite' ); ?></p>
+                                <span><?php esc_html_e('Title', 'modern-events-calendar-lite' ); ?></span>
                             </div>
                             <div class="mec-col-6">
                                 <input type="text" class="wp-color-picker-field" id="mec_settings_title_color" name="mec[styling][title_color]" value="<?php echo (isset($styling['title_color']) ? $styling['title_color'] : ''); ?>" data-default-color="" />
@@ -136,7 +136,7 @@ if(is_array($fonts))
                         
                         <div class="mec-form-row">
                             <div class="mec-col-3">
-                                <p><?php esc_html_e('Title Hover', 'modern-events-calendar-lite' ); ?></p>
+                                <span><?php esc_html_e('Title Hover', 'modern-events-calendar-lite' ); ?></span>
                             </div>
                             <div class="mec-col-6">
                                 <input type="text" class="wp-color-picker-field" id="mec_settings_title_color_hover" name="mec[styling][title_color_hover]" value="<?php echo (isset($styling['title_color_hover']) ? $styling['title_color_hover'] : ''); ?>" data-default-color="" />
@@ -145,7 +145,7 @@ if(is_array($fonts))
 
                         <div class="mec-form-row">
                             <div class="mec-col-3">
-                                <p><?php esc_html_e('Content', 'modern-events-calendar-lite' ); ?></p>
+                                <span><?php esc_html_e('Content', 'modern-events-calendar-lite' ); ?></span>
                             </div>
                             <div class="mec-col-6">
                                 <input type="text" class="wp-color-picker-field" id="mec_settings_content_color" name="mec[styling][content_color]" value="<?php echo (isset($styling['content_color']) ? $styling['content_color'] : ''); ?>" data-default-color="" />

@@ -173,6 +173,28 @@ class MEC_db extends MEC_base
 
         return $query;
 	}
+
+    public function escape($parameter)
+    {
+        $database = $this->get_DBO();
+        global $wp_version;
+
+        if(is_array($parameter))
+        {
+            $return_data = array();
+            foreach($parameter as $key=>$value)
+            {
+                $return_data[$key] = $this->escape($value);
+            }
+        }
+        else
+        {
+            if(version_compare($wp_version, '3.6', '<')) $return_data = $database->escape($parameter);
+            else $return_data = esc_sql($parameter);
+        }
+
+        return $return_data;
+    }
     
     /**
      * Returns WordPres DB Object

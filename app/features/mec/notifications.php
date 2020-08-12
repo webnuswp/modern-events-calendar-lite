@@ -106,6 +106,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -137,6 +139,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%dl_file%%</span>: <?php _e('Link to the downloadable file', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%google_calendar_link%%</span>: <?php _e('Add to Google Calendar', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%google_calendar_link_next_occurrences%%</span>: <?php _e('Add to Google Calendar Links for next 20 occurrences', 'modern-events-calendar-lite'); ?></li>
                                     <?php do_action('mec_extra_field_notifications'); ?>
                                 </ul>
                             </div>
@@ -208,6 +211,8 @@ $settings = $this->main->get_settings();
                                 <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -239,6 +244,7 @@ $settings = $this->main->get_settings();
                                 <li><span>%%dl_file%%</span>: <?php _e('Link to the downloadable file', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%google_calendar_link%%</span>: <?php _e('Add to Google Calendar', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%google_calendar_link_next_occurrences%%</span>: <?php _e('Add to Google Calendar Links for next 20 occurrences', 'modern-events-calendar-lite'); ?></li>
                                 <?php do_action('mec_extra_field_notifications'); ?>
                             </ul>
 
@@ -322,6 +328,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -354,6 +362,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%dl_file%%</span>: <?php _e('Link to the downloadable file', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%google_calendar_link%%</span>: <?php _e('Add to Google Calendar', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%google_calendar_link_next_occurrences%%</span>: <?php _e('Add to Google Calendar Links for next 20 occurrences', 'modern-events-calendar-lite'); ?></li>
                                     <?php do_action('mec_extra_field_notifications'); ?>
                                 </ul>
 
@@ -445,6 +454,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -553,6 +564,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -671,6 +684,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -701,6 +716,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%dl_file%%</span>: <?php _e('Link to the downloadable file', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%google_calendar_link%%</span>: <?php _e('Add to Google Calendar', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%google_calendar_link_next_occurrences%%</span>: <?php _e('Add to Google Calendar Links for next 20 occurrences', 'modern-events-calendar-lite'); ?></li>
                                 </ul>
                             </div>
                         </div>

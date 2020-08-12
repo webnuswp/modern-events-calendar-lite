@@ -64,6 +64,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.0.5', '<')) $this->version505();
         if(version_compare($version, '5.5.1', '<')) $this->version551();
         if(version_compare($version, '5.7.1', '<')) $this->version571();
+        if(version_compare($version, '6.0.0', '<')) $this->version600();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -181,8 +182,8 @@ class MEC_feature_update extends MEC_base
           `post_id` int(10) NOT NULL,
           `dstart` date NOT NULL,
           `dend` date NOT NULL,
-          `type` enum('include','exclude') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'include'
-        ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+          `type` enum('include','exclude') COLLATE [:COLLATE:] NOT NULL DEFAULT 'include'
+        ) DEFAULT CHARSET=[:CHARSET:] COLLATE=[:COLLATE:];");
 
         $this->db->q("ALTER TABLE `#__mec_dates` ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `type` (`type`);");
         $this->db->q("ALTER TABLE `#__mec_dates` MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;");
@@ -393,5 +394,18 @@ class MEC_feature_update extends MEC_base
             // Save new options
             update_option('mec_options', $current);
         }
+    }
+
+    public function version600()
+    {
+        $this->db->q("CREATE TABLE IF NOT EXISTS `#__mec_occurrences` (
+          `id` int(10) UNSIGNED NOT NULL,
+          `post_id` int(10) UNSIGNED NOT NULL,
+          `occurrence` int(10) UNSIGNED NOT NULL,
+          `params` text COLLATE [:COLLATE:]
+        ) DEFAULT CHARSET=[:CHARSET:] COLLATE=[:COLLATE:];");
+
+        $this->db->q("ALTER TABLE `#__mec_occurrences` ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `occurrence` (`occurrence`);");
+        $this->db->q("ALTER TABLE `#__mec_occurrences` MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;");
     }
 }

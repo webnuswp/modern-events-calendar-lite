@@ -1015,7 +1015,7 @@ class QRinputItem {
 		}
 	
 		if(!QRinput::check($mode, $size, $setData)) {
-			throw new Exception('Error m:'.$mode.',s:'.$size.',d:'.join(',',$setData));
+			throw new Exception('Error m:'.$mode.',s:'.$size.',d:'.join(',', $setData));
 			return null;
 		}
 		

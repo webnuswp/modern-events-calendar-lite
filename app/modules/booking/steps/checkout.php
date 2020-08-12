@@ -32,7 +32,7 @@ if($mecFluentEnable)
     {
         if(!isset($event_tickets[$ticket_id])) continue;
 
-        $ticketPrice = isset($event_tickets[$ticket_id]['price']) ? $this->book->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d')) : 0;
+        $ticketPrice = isset($event_tickets[$ticket_id]['price']) ? $this->book->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d'), $event_id) : 0;
         $ticketsDetails[$ticket_id]['name'] = $event_tickets[$ticket_id]['name'];
         $ticketsDetails[$ticket_id]['count'] = $count;
         $ticketsDetails[$ticket_id]['price'] = ($ticketPrice*$count);

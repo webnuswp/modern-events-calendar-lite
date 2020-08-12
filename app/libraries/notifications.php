@@ -932,6 +932,9 @@ class MEC_notifications extends MEC_base
         $name = (isset($booker->first_name) ? trim($booker->first_name.' '.(isset($booker->last_name) ? $booker->last_name : '')) : '');
         $email = (isset($booker->user_email) ? $booker->user_email : '');
 
+        // DB
+        $db = $this->getDB();
+
         /**
          * Get the data from Attendee instead of main booker user
          */
@@ -1205,6 +1208,43 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%virtual_link%%', get_post_meta($event_id, 'mec_virtual_link_url', true), $message);
         $message = str_replace('%%virtual_password%%', get_post_meta($event_id, 'mec_virtual_password', true), $message);
         $message = str_replace('%%virtual_embed%%', get_post_meta($event_id, 'mec_virtual_embed', true), $message);
+
+        // Next Occurrences
+        $next_occurrences = $db->select("SELECT `tstart`, `tend` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND `tstart`>='".$start_timestamp."' ORDER BY `tstart` ASC LIMIT 20", 'loadAssocList');
+
+        $google_calendar_links = '';
+        $book_date_next_occurrences = '';
+        $book_datetime_next_occurrences = '';
+
+        // Occurrences
+        foreach($next_occurrences as $next_occurrence)
+        {
+            // Book Date
+            if(isset($next_occurrence['tstart']) and trim($next_occurrence['tstart']) and isset($next_occurrence['tend']) and trim($next_occurrence['tend']))
+            {
+                if(trim($next_occurrence['tstart']) != trim($next_occurrence['tend']))
+                {
+                    $book_date_next_occurrences .= sprintf(__('%s to %s', 'modern-events-calendar-lite'), $this->main->date_i18n($date_format, $next_occurrence['tstart']), $this->main->date_i18n($date_format, $next_occurrence['tend'])).'<br>';
+                    $book_datetime_next_occurrences .= sprintf(__('%s to %s', 'modern-events-calendar-lite'), $this->main->date_i18n($date_format.((!$allday and !$hide_time) ? ' '.$time_format : ''), $next_occurrence['tstart']), $this->main->date_i18n($date_format.((!$allday and !$hide_time and !$hide_end_time) ? ' '.$time_format : ''), $next_occurrence['tend'])).'<br>';
+                }
+                else
+                {
+                    $book_date_next_occurrences .= $this->main->date_i18n($date_format, $next_occurrence['tstart']).'<br>';
+                    $book_datetime_next_occurrences .= $this->main->date_i18n($date_format.((!$allday and !$hide_time) ? ' '.$time_format : ''), $next_occurrence['tstart']).'<br>';
+                }
+            }
+            else
+            {
+                $book_date_next_occurrences .= $this->main->date_i18n($date_format, $next_occurrence['tstart']).'<br>';
+                $book_datetime_next_occurrences .= $this->main->date_i18n($date_format.((!$allday and !$hide_time) ? ' '.$time_format : ''), $next_occurrence['tstart']).'<br>';
+            }
+
+            $google_calendar_links .= '<a href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($next_occurrence['tstart'] - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($next_occurrence['tend'] - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . sprintf(__('+ %s to Google Calendar', 'modern-events-calendar-lite'), date($date_format .' '.$time_format, $next_occurrence['tstart'])) . '</a><br>';
+        }
+
+        $message = str_replace('%%google_calendar_link_next_occurrences%%', $google_calendar_links, $message);
+        $message = str_replace('%%book_date_next_occurrences%%', $book_date_next_occurrences, $message);
+        $message = str_replace('%%book_datetime_next_occurrences%%', $book_datetime_next_occurrences, $message);
 
         return $message;
     }

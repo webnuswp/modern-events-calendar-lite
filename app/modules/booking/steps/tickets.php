@@ -100,6 +100,12 @@ if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
             <?php endforeach; ?>
         </select>
     </div>
+    <?php elseif($book_all_occurrences): ?>
+    <p class="mec-next-occ-booking-p">
+        <?php esc_html_e('By booking this event you can attend to all the occurrences. Some of them are listed below but they might be more.', 'modern-events-calendar-lite'); ?>
+        <div class="mec-next-occ-booking"><?php foreach($dates as $date) echo $this->date_label($date['start'], $date['end'], $date_format)."<br>"; ?></div>
+    </p>
+    <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" value="<?php echo $book->timestamp($dates[0]['start'], $dates[0]['end']); ?>">
     <?php else: ?>
     <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" value="<?php echo $book->timestamp($dates[0]['start'], $dates[0]['end']); ?>">
     <?php endif; ?>
@@ -109,7 +115,7 @@ if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
         <div class="mec-event-ticket mec-event-ticket<?php echo $ticket_limit; ?>" id="mec_event_ticket<?php echo $ticket_id; ?>">
             <div class="mec-ticket-available-spots <?php echo ($ticket_limit == '0' ? 'mec-util-hidden' : ''); ?>">
                 <span class="mec-event-ticket-name"><?php echo (isset($ticket['name']) ? __($ticket['name'], 'modern-events-calendar-lite') : ''); ?></span>
-                <span class="mec-event-ticket-price"><?php echo (isset($ticket['price_label']) ? $book->get_ticket_price_label($ticket, current_time('Y-m-d')) : ''); ?></span>
+                <span class="mec-event-ticket-price"><?php echo (isset($ticket['price_label']) ? $book->get_ticket_price_label($ticket, current_time('Y-m-d'), $event_id) : ''); ?></span>
                 <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo __($ticket['description'], 'modern-events-calendar-lite'); ?></p><?php endif; ?>
 
                 <?php if(!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1): ?>
