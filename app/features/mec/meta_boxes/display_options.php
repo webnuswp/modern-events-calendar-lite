@@ -1836,6 +1836,18 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End LocalTime -->
+                <!-- Start Include Events Times -->
+                <div class="mec-form-row mec-switcher mec-include-events-times">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_carousel_include_events_times"><?php _e('Include Events Times', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][carousel][include_events_times]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][carousel][include_events_times]" id="mec_skin_carousel_include_events_times" value="1" <?php if(isset($sk_options_carousel['include_events_times']) and trim($sk_options_carousel['include_events_times'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_carousel_include_events_times"></label>
+                    </div>
+                </div>
+                <!-- End Include Events Times -->
                 <!-- Start Display Label -->
                 <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_carousel_display_normal_label">
 					<div class="mec-col-4">

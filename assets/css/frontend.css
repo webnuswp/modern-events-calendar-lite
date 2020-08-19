@@ -364,7 +364,7 @@
 /* MEC Current Day Event Toggle 
 	-------------------------- */
 #mec-active-current {
-	display: block !important;
+	display: block;
 }
 
 .current-hide #mec-active-current {

@@ -551,7 +551,7 @@ class MEC_feature_events extends MEC_base
                         )); ?>
                     </div>
                 </div>
-                <?php do_action('add_event_after_time_and_date' ,$post->ID); ?>
+                <?php do_action('add_event_after_time_and_date', $post->ID); ?>
                 <div class="mec-form-row mec-all-day-event">
                     <input
                         <?php
@@ -4026,7 +4026,7 @@ class MEC_feature_events extends MEC_base
                 $variations .= '</div>';
 
                 $html .= $variations;
-                $html = apply_filters('mec_attendees_list_html', $html, $attendee,$attendee['key'], $attendee['book_id']);
+                $html = apply_filters('mec_attendees_list_html', $html, $attendee, $attendee['key'], $attendee['book_id']);
                 $html .= '</div>';
 
                 $index++;

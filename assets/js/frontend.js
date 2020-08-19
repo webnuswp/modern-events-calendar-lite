@@ -207,7 +207,16 @@ var mecSingleEventDisplayer = {
                     });
                 }
 
-                if(skin == 'list')
+                if(mec_month_select.val() == 'none')
+                {
+                    mec_month_select.find('option').each(function()
+                    {
+                        var option_val = $(this).val();
+                        if(option_val == mecdata.current_month) mec_month_select.val(option_val);
+                    });
+                }
+
+                if(skin == 'list' || skin == 'grid' || skin == 'agenda')
                 {
                     var mec_filter_none = '<option class="mec-none-item" value="none">' + $('#mec-filter-none').val() + '</option>';
                     if(mec_month_select.find('.mec-none-item').length == 0) mec_month_select.prepend(mec_filter_none);

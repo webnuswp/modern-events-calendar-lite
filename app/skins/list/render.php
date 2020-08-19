@@ -36,8 +36,8 @@ $map_events = array();
                         foreach($event->data->labels as $label)
                         {
                             if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-                            if($label['style']  == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
-                            elseif($label['style']  == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
+                            if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
+                            elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
                         }
                     }
 
@@ -155,7 +155,7 @@ $map_events = array();
                             </li>
                         </ul>
                         <?php endif; ?>
-                        <?php do_action('mec_standard_booking_button' ,$event ); ?>
+                        <?php do_action('mec_standard_booking_button', $event ); ?>
                         <?php echo $this->booking_button($event); ?>
                         <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
                     </div>

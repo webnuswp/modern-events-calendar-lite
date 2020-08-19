@@ -1006,9 +1006,8 @@ class MEC_render extends MEC_base
                 $event_days = explode(',', trim($event->mec->day, ', '));
                 
                 $event_start_day = $event_days[0];
-                $event_end_day = $event_days[(count($event_days)-1)];
-                
-                $event_period_days = $event_end_day - $event_start_day;
+                $event_period_days = ($this->main->date_diff($start_date['date'], $end_date['date']))->days;
+
                 $found = 0;
                 $i = 0;
                 
@@ -1060,9 +1059,8 @@ class MEC_render extends MEC_base
                 $event_months = explode(',', trim($event->mec->month, ', '));
                 
                 $event_start_day = $event_days[0];
-                $event_end_day = $event_days[(count($event_days)-1)];
-                
-                $event_period_days = $event_end_day - $event_start_day;
+                $event_period_days = ($this->main->date_diff($start_date['date'], $end_date['date']))->days;
+
                 $found = 0;
                 $i = 0;
 

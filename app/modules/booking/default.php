@@ -402,6 +402,13 @@ function mec_book_form_submit'.$uniqueid.'()
 
             if(data.success)
             {
+                // Redirect to Checkout Page
+                if(typeof data.data.checkout != "undefined" && data.data.checkout != "")
+                {
+                    window.location.href = data.data.checkout;
+                    return;
+                }
+                
                 jQuery("#mec_booking'.$uniqueid.'").html(data.output);
 
                 // Show Invoice Link

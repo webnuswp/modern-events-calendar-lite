@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.5
-Stable tag: 5.9.5
+Stable tag: 5.10.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -201,6 +201,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Use WooCommerce as Booking and Payment System (*pro*)
+- Cancel bookings after cancelation or refund of WC order (*pro*)
 - Change event parameters per occurrence (*pro*)
 - Set booking limit per different occurrences (pro)
 - Booking Button in Modal Window for All Shortcodes (*pro*)
@@ -410,6 +412,22 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 5.10.0 – 19 August 2020 =
+- Added: An option to use WooCommerce as Booking and Payment System (pro)
+- Added: An ability to cancel bookings after cancelation or refund of WC order (pro)
+- Added: An ability to see whole events on timetable skin even if some of week days are before or after the current month (pro)
+- Added: Two new placeholders in notification placeholders for event link and more info link (pro)
+- Added: Time display in carousel skin
+- Added: An option to display price per attendee in email notifications instead of total booking price (pro)
+- Added: Website field for the speakers
+- Improved: The event schema by adding more items
+- Fixed: Month filter of full calendar search
+- Fixed: translatable "Sold Out!" string (pro)
+- Fixed: Regarding showing correct dates on single skin
+- Fixed: Conflict with Divi Theme Builder
+- Fixed: Conflict with WPBakery Page Builder Select2
+- Fixed: Current day without event issue on Monthly/Calendar skin classic style
+
 = 5.9.5 – 12 August 2020 =
 - Added: A new system to provide ability to change event parameters per occurrence
 - Added: An ability to set booking limit per different occurrences (pro)

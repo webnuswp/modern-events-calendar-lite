@@ -176,7 +176,7 @@ class MEC_envato extends MEC_base
         if(empty($transient->checked)) return $transient;
 
         // Get the remote version
-        $version = json_decode(json_encode($this->get_MEC_info('version')->version), true);
+        $version = (isset($this->get_MEC_info('version')->version) and !empty($this->get_MEC_info('version')->version)) ? json_decode(json_encode($this->get_MEC_info('version')->version), true) : get_option('mec_save_version_number');
 
         // Set mec update path
         $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;

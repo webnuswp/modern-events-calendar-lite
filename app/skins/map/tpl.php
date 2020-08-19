@@ -44,7 +44,7 @@ if(count($this->events))
     });
     </script>';
 
-    $javascript = apply_filters('mec_map_load_script', $javascript, $this,$settings);
+    $javascript = apply_filters('mec_map_load_script', $javascript, $this, $settings);
 
     // Include javascript code into the page
     if($this->main->is_ajax()) echo $javascript;

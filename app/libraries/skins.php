@@ -621,7 +621,6 @@ class MEC_skins extends MEC_base
 
                                 $dates[$d][] = $mec_date->post_id;
                             }
-                            else $dates[$d][] = NULL;
                         }
                         else
                         {
@@ -914,7 +913,6 @@ class MEC_skins extends MEC_base
         $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
         
         $output = '';
-        
         if($field == 'category')
         {
             if($type == 'dropdown')
@@ -1147,8 +1145,8 @@ class MEC_skins extends MEC_base
                 </div>';
             }
         }
-        $output = apply_filters('mec_search_fields_to_box', $output,$field,$type,$this->atts,$this->id);
 
+        $output = apply_filters('mec_search_fields_to_box', $output, $field, $type, $this->atts, $this->id);
         return $output;
     }
     

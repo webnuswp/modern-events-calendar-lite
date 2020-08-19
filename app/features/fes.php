@@ -466,7 +466,7 @@ class MEC_feature_fes extends MEC_base
         foreach($post_labels as $post_label=>$value) $labels[] = (int) $post_label;
         
         wp_set_post_terms($post_id, $labels, 'mec_label');
-        do_action('mec_label_change_to_radio' , $labels, $post_labels,$post_id);
+        do_action('mec_label_change_to_radio', $labels, $post_labels, $post_id);
         
         // Color
         $color = isset($mec['color']) ? sanitize_text_field(trim($mec['color'], '# ')) : '';

@@ -1025,6 +1025,13 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%book_price%%', $this->main->render_price(($price ? $price : 0)), $message);
         $message = str_replace('%%total_attendees%%', $this->book->get_total_attendees($book_id), $message);
 
+        // Attendee Price
+        if(isset($attendee['email']))
+        {
+            $attendee_price = $this->book->get_attendee_price($transaction, $attendee['email']);
+            $message = str_replace('%%attendee_price%%', $this->main->render_price(($attendee_price ? $attendee_price : $price)), $message);
+        }
+
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
         $mec_date = explode(':', get_post_meta($book_id, 'mec_date', true));
 
@@ -1096,6 +1103,8 @@ class MEC_notifications extends MEC_base
 
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
         $message = str_replace('%%event_link%%', $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp)), $message);
+        $message = str_replace('%%event_more_info%%', esc_url(get_post_meta($event_id, 'mec_read_more', true)), $message);
+        $message = str_replace('%%event_other_info%%', esc_url(get_post_meta($event_id, 'mec_more_info', true)), $message);
         $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), $start_timestamp), $message);
         $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), $end_timestamp), $message);
 

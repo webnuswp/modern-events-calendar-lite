@@ -588,7 +588,7 @@ class MEC_main extends MEC_base
         if($this->getPro())
         {
             $notifications_items = array_merge(array(
-                __('Booking', 'modern-events-calendar-lite') => 'booking_notification',
+                __('Booking', 'modern-events-calendar-lite') => 'booking_notification_section',
                 __('Booking Verification', 'modern-events-calendar-lite') => 'booking_verification',
                 __('Booking Confirmation', 'modern-events-calendar-lite') => 'booking_confirmation',
                 __('Booking Cancellation', 'modern-events-calendar-lite') => 'cancellation_notification',
@@ -1357,7 +1357,7 @@ class MEC_main extends MEC_base
         // Validations
         if(isset($filtered['settings']) and isset($filtered['settings']['slug'])) $filtered['settings']['slug'] = strtolower(str_replace(' ', '-', $filtered['settings']['slug']));
         if(isset($filtered['settings']) and isset($filtered['settings']['category_slug'])) $filtered['settings']['category_slug'] = strtolower(str_replace(' ', '-', $filtered['settings']['category_slug']));
-        if(isset($filtered['settings']) and isset($filtered['settings']['custom_archive'])) $filtered['settings']['custom_archive'] = isset($filtered['settings']['custom_archive']) ? str_replace('\"','"', $filtered['settings']['custom_archive']) : '';
+        if(isset($filtered['settings']) and isset($filtered['settings']['custom_archive'])) $filtered['settings']['custom_archive'] = isset($filtered['settings']['custom_archive']) ? str_replace('\"', '"', $filtered['settings']['custom_archive']) : '';
 
         // Bellow conditional block codes is used for sortable booking form items.
         if(isset($filtered['reg_fields']))
@@ -1796,7 +1796,7 @@ class MEC_main extends MEC_base
 					'.$infowindow_thumb.'
                     <a data-event-id="'.$event->data->ID.'" href="'.$link.'"><div class="mec-event-date mec-color"><i class="mec-sl-calendar"></i> <span class="mec-map-lightbox-month">'.$event_start_date_month. '</span><span class="mec-map-lightbox-day"> ' . $event_start_date_day . '</span><span class="mec-map-lightbox-year"> ' . $event_start_date_year .  '</span></div></a>
                     <h4 class="mec-event-title">
-                    <div class="mec-map-time" style="display: none">'.$this->display_time($start_time,$end_time).'</div>
+                    <div class="mec-map-time" style="display: none">'.$this->display_time($start_time, $end_time).'</div>
                     <a data-event-id="'.$event->data->ID.'" class="mec-color-hover" href="'.$link.'">'.$event->data->title.'</a>
                     '.$this->get_flags($event).'
                     </h4>
@@ -4013,11 +4013,12 @@ class MEC_main extends MEC_base
         if(!isset($settings['countdown_status']) or (isset($settings['countdown_status']) and !$settings['countdown_status'])) return false;
 
         $date = $event->date;
-
         $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : date('Y-m-d');
 
+        $ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_method']) == 'end') ? true : false;
+
         // The event is Expired/Passed
-        if($this->is_past($start_date, date('Y-m-d'))) return false;
+        if($this->is_past($start_date, date('Y-m-d')) and !$ongoing) return false;
         
         return true;
     }
@@ -4277,18 +4278,22 @@ class MEC_main extends MEC_base
         return $buttons;
     }
 
-     /**
-     * Filter TinyMce plugins
-     * @author Webnus <info@webnus.biz>
-     * @param array $plugins
-     * @return array
-     */
+    /**
+    * Filter TinyMce plugins
+    * @author Webnus <info@webnus.biz>
+    * @param array $plugins
+    * @return array
+    */
     public function add_mce_external_plugins($plugins)
     {
-        $plugins['mec_mce_buttons'] = $this->asset('js/backend.js');
+        if( is_plugin_active('js_composer/js_composer.php')) : $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
+        elseif ( (!isset($this->settings['gutenberg']) or (isset($this->settings['gutenberg']) and $this->settings['gutenberg'])) ) : $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
+        else: $plugins['mec_mce_buttons'] = $this->asset('js/backend.js');
+        endif;
+
         return $plugins;
     }
-
+    
     /**
      * Return JSON output id and the name of a post type
      * @author Webnus <info@webnus.biz>
@@ -6508,8 +6513,6 @@ class MEC_main extends MEC_base
                 $ex = explode('.', $first_rule);
 
                 $bysetpos = isset($ex[1]) ? $ex[1] : NULL;
-                if(strtolower($bysetpos) == 'l') $bysetpos = -1;
-
                 $byday_mapping = array('MON'=>'MO', 'TUE'=>'TU', 'WED'=>'WE', 'THU'=>'TH', 'FRI'=>'FR', 'SAT'=>'SA', 'SUN'=>'SU');
                 $byday = $byday_mapping[strtoupper($ex[0])];
 

@@ -982,6 +982,10 @@ body.post-type-mec-books th.column-author {
     min-width: 83px;
 }
 
+#mec_meta_box_repeat_form .mec-form-row select {
+    min-width: 65px;
+}
+
 .ui-datepicker select {
     min-width: 60px;
 }
@@ -1215,30 +1219,30 @@ div#mec_gateways_form_container .mec-required.mec-mandatory {
     border: 1px solid red;
 }
 
-#mec_notifications_form label {
+#booking_notification_section label {
     display: inline-block;
     min-width: 160px
 }
 
-div#booking_notification iframe {
+div#booking_notification_section iframe {
     height: 300px !important;
 }
 
-#mec_notifications_form input[type=text],#mec_notifications_form select {
+#booking_notification_section input[type=text],#booking_notification_section select {
     min-width: 300px
 }
 
 @media (max-width: 536px) {
-    #mec_notifications_form input[type=text],#mec_notifications_form select {
+    #booking_notification_section input[type=text],#booking_notification_section select {
         min-width:100%
     }
 }
 
-#mec_notifications_form .wp-editor-container {
+#booking_notification_section .wp-editor-container {
     margin-bottom: 45px
 }
 
-#mec_notifications_form ul li:last-child .wp-editor-container {
+#booking_notification_section ul li:last-child .wp-editor-container {
     margin-bottom: 0
 }
 
@@ -2005,7 +2009,6 @@ p.mec_dash_count {
 
 .w-box.total-bookings ul li {
     display: inline-block;
-    padding: 4px 12px;
     background: #f1f1f1;
     margin-right: 5px;
     border-radius: 3px
@@ -2015,6 +2018,48 @@ p.mec_dash_count {
     background: #fff;
     border: 1px solid #e9e9e9
 }
+
+.w-box.total-bookings ul li {
+    padding: 0;
+    transition: all .1s ease;
+}
+
+.w-box.total-bookings ul li a {
+    padding: 6px 20px;
+    display: inline-block;
+    border-radius: 3px;
+    text-transform: none;
+    font-size: 13px;
+    letter-spacing: .4px;
+    transition: all .1s ease;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.w-box.total-bookings ul li.active {
+    background: #38d5ed;
+}
+
+.w-box.total-bookings ul li:hover {
+    background: #000;
+    box-shadow: 0 2px 3px -2px #222;
+}
+
+#webnus-dashboard .w-box.total-bookings ul li a {
+    color: #000;
+}
+
+#webnus-dashboard .w-box.total-bookings ul li.active a,
+#webnus-dashboard .w-box.total-bookings ul li:hover a {
+    color: #fff;
+}
+
+#webnus-dashboard .w-box.total-bookings ul li a:focus {
+    box-shadow: unset;
+    outline: unset;
+    outline-offset: 0;
+}
+
 
 .info-msg,.mec-error,.mec-success,.warning-msg {
     margin: 10px 0;
@@ -10272,7 +10317,6 @@ div#mec_widget_news_features .inside {
 }
 
 #mec_widget_total_bookings .w-box.total-bookings ul li {
-    padding: 4px 13px 4px 13px;
     margin-right: 4px;
 }
 
@@ -10280,6 +10324,13 @@ div#mec_widget_news_features .inside {
     margin-right: 0;
 }
 
+#mec_widget_total_bookings .w-box.total-bookings ul li a {
+    color: #000;
+}
+
+#mec_widget_total_bookings .w-box.total-bookings ul li:hover a {
+    color: #fff;
+}
 
 #mec_widget_total_bookings {
     overflow: hidden;

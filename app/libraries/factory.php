@@ -279,6 +279,9 @@ class MEC_factory extends MEC_base
             // Include MEC backend script file
             wp_enqueue_script('mec-backend-script', $this->main->asset('js/backend.js'), $dependencies, $this->main->get_version());
 
+            // Block Editor
+            // wp_enqueue_script('mec-external-script', $this->main->asset('js/mec-external.js'), $dependencies, $this->main->get_version());
+
             // Settings
             $settings = $this->main->get_settings();
 
@@ -347,7 +350,7 @@ class MEC_factory extends MEC_base
         wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'));
 
         // Include MEC frontend script files
-        wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
+        wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version().'.'.time());
         wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'));
 
         wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
@@ -383,6 +386,7 @@ class MEC_factory extends MEC_base
             'ajax_url' => admin_url('admin-ajax.php'),
             'fes_nonce' => wp_create_nonce('mec_fes_nonce'),
             'current_year' => date('Y', current_time('timestamp', 0)),
+            'current_month' => date('m', current_time('timestamp', 0)),
             'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
         ));
         

@@ -29,7 +29,7 @@ $settings = $this->main->get_settings();
                         <!-- <ul> -->
                         <?php if($this->main->getPRO() and isset($this->settings['booking_status']) and $this->settings['booking_status']): ?>
 
-                        <div id="booking_notification" class="mec-options-fields active">
+                        <div id="booking_notification_section" class="mec-options-fields active">
 
                             <h4 class="mec-form-subtitle"><?php _e('Booking', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
@@ -126,6 +126,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_address%%</span>: <?php _e('Additional locations address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_more_info%%</span>: <?php _e('Event more info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_info%%</span>: <?php _e('Event other info link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_id%%</span>: <?php _e('Booking ID', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_transaction_id%%</span>: <?php _e('Transaction ID of Booking', 'modern-events-calendar-lite'); ?></li>
@@ -231,6 +233,8 @@ $settings = $this->main->get_settings();
                                 <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_other_locations_address%%</span>: <?php _e('Additional locations address of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_more_info%%</span>: <?php _e('Event more info link', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_other_info%%</span>: <?php _e('Event other info link', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%booking_id%%</span>: <?php _e('Booking ID', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%booking_transaction_id%%</span>: <?php _e('Transaction ID of Booking', 'modern-events-calendar-lite'); ?></li>
@@ -331,6 +335,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%attendee_price%%</span>: <?php _e('Attendee Price', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
@@ -348,6 +353,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_address%%</span>: <?php _e('Additional locations address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_more_info%%</span>: <?php _e('Event more info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_info%%</span>: <?php _e('Event other info link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_id%%</span>: <?php _e('Booking ID', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_transaction_id%%</span>: <?php _e('Transaction ID of Booking', 'modern-events-calendar-lite'); ?></li>
@@ -582,6 +589,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_address%%</span>: <?php _e('Additional locations address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_more_info%%</span>: <?php _e('Event more info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_info%%</span>: <?php _e('Event other info link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_id%%</span>: <?php _e('Booking ID', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_transaction_id%%</span>: <?php _e('Transaction ID of Booking', 'modern-events-calendar-lite'); ?></li>
@@ -702,6 +711,8 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_address%%</span>: <?php _e('Additional locations address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_more_info%%</span>: <?php _e('Event more info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_info%%</span>: <?php _e('Event other info link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_id%%</span>: <?php _e('Booking ID', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%booking_transaction_id%%</span>: <?php _e('Transaction ID of Booking', 'modern-events-calendar-lite'); ?></li>

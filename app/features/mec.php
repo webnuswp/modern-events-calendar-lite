@@ -1202,78 +1202,19 @@ class MEC_feature_mec extends MEC_base
         }
 
         echo '</ul></div>';
+
         $mec_get_webnus_news_time = get_option('mec_get_webnus_news_time');
         $mec_get_webnus_news_html = get_option('mec_get_webnus_news_html');
 
-        if ( !isset($mec_get_webnus_news_time)) {
-            $data_url = 'https://webnus.net/wp-json/wninfo/v1/posts';
-            if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
-            {
-                $ctx = stream_context_create(array('http'=>
-                    array(
-                        'timeout' => 20,
-                    )
-                ));
-
-                $get_data = file_get_contents($data_url, false, $ctx);
-                if($get_data !== false and !empty($get_data))
-                {
-                    $obj = json_decode($get_data);
-                }
-            }
-            elseif(function_exists('curl_version'))
-            {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
-                curl_setopt($ch, CURLOPT_URL, $data_url);
-
-                $result = curl_exec($ch);
-                curl_close($ch);
-                $obj = json_decode($result);
-            }
-            else
-            {
-                $obj = '';
-            }
+        if ( !isset($mec_get_webnus_news_time) || !$mec_get_webnus_news_time ) {
+            $data_url = wp_remote_get( 'https://webnus.net/wp-json/wninfo/v1/posts', ['user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36']);
+            $obj = json_decode($data_url['body']);
             update_option('mec_get_webnus_news_time', date("Y-m-d"));
             update_option('mec_get_webnus_news_html', $obj);
         } else {
             if ( strtotime(date("Y-m-d")) > strtotime($mec_get_webnus_news_time) ) {
-                $data_url = 'https://webnus.net/wp-json/wninfo/v1/posts';
-                if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))
-                {
-                    $ctx = stream_context_create(array('http'=>
-                        array(
-                            'timeout' => 20,
-                        )
-                    ));
-
-                    $get_data = file_get_contents($data_url, false, $ctx);
-                    if($get_data !== false and !empty($get_data))
-                    {
-                        $obj = json_decode($get_data);
-                    }
-                }
-                elseif(function_exists('curl_version'))
-                {
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-                    curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
-                    curl_setopt($ch, CURLOPT_URL, $data_url);
-
-                    $result = curl_exec($ch);
-                    curl_close($ch);
-                    $obj = json_decode($result);
-                }
-                else
-                {
-                    $obj = '';
-                }
+                $data_url = wp_remote_get( 'https://webnus.net/wp-json/wninfo/v1/posts', ['user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36']);
+                $obj = json_decode($data_url['body']);
                 update_option('mec_get_webnus_news_time', date("Y-m-d"));
                 update_option('mec_get_webnus_news_html', $obj);
             } else {
@@ -1340,31 +1281,43 @@ class MEC_feature_mec extends MEC_base
                         $currency = $this->main->get_currency_sign();
                         ?>
                         <ul>
-                            <li><a href="<?php echo add_query_arg(array(
+                            <li class="mec-chart-this-month"><a href="<?php echo add_query_arg(array(
+                                'sort' => 'this_month',
                                 'start' => date('Y-m-01'),
                                 'end' => date('Y-m-t'),
                                 'type' => 'daily',
                                 'chart' => $chart,
                             )); ?>"><?php _e('This Month', 'modern-events-calendar-lite'); ?></a></li>
-                            <li><a href="<?php echo add_query_arg(array(
+                            <li class="mec-chart-last-month"><a href="<?php echo add_query_arg(array(
+                                'sort' => 'last_month',
                                 'start' => date('Y-m-01', strtotime('-1 Month')),
                                 'end' => date('Y-m-t', strtotime('-1 Month')),
                                 'type' => 'daily',
                                 'chart' => $chart,
                             )); ?>"><?php _e('Last Month', 'modern-events-calendar-lite'); ?></a></li>
-                            <li><a href="<?php echo add_query_arg(array(
+                            <li class="mec-chart-this-year"><a href="<?php echo add_query_arg(array(
+                                'sort' => 'this_year',
                                 'start' => date('Y-01-01'),
                                 'end' => date('Y-12-31'),
                                 'type' => 'monthly',
                                 'chart' => $chart,
                             )); ?>"><?php _e('This Year', 'modern-events-calendar-lite'); ?></a></li>
-                            <li><a href="<?php echo add_query_arg(array(
+                            <li class="mec-chart-last-year"><a href="<?php echo add_query_arg(array(
+                                'sort' => 'last_year',
                                 'start' => date('Y-01-01', strtotime('-1 Year')),
                                 'end' => date('Y-12-31', strtotime('-1 Year')),
                                 'type' => 'monthly',
                                 'chart' => $chart,
                             )); ?>"><?php _e('Last Year', 'modern-events-calendar-lite'); ?></a></li>
                         </ul>
+                        <script>
+                            jQuery(document).ready(function($) {
+                                if(window.location.href.indexOf("page=mec-intro&sort=this_month") >= 0) jQuery('.mec-chart-this-month').addClass('active')
+                                if(window.location.href.indexOf("page=mec-intro&sort=last_month") >= 0) jQuery('.mec-chart-last-month').addClass('active')
+                                if(window.location.href.indexOf("page=mec-intro&sort=this_year") >= 0) jQuery('.mec-chart-this-year').addClass('active')
+                                if(window.location.href.indexOf("page=mec-intro&sort=last_year") >= 0) jQuery('.mec-chart-last-year').addClass('active')
+                            });
+                        </script>
                         <form class="mec-sells-filter" method="GET" action="">
                             <?php if($current_page != 'dashboard'): ?><input type="hidden" name="page" value="mec-intro" /><?php endif; ?>
                             <input type="text" class="mec_date_picker" name="start" placeholder="<?php esc_attr_e('Start Date', 'modern-events-calendar-lite'); ?>" value="<?php echo $start; ?>" />

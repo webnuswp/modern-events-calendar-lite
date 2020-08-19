@@ -61,6 +61,10 @@ if(!count($speakers)) return false;
                         <?php if($email = trim(get_term_meta($speaker['id'], 'email', true))): ?>
                             <a href="mailto:<?php echo $email; ?>" target="_blank"><i class="mec-fa-envelope"></i></a>
                         <?php endif; ?>
+                        <!-- Speaker Website page -->
+                        <?php if($website = trim(get_term_meta($speaker['id'], 'website', true))): ?>
+                        <a href="<?php echo $website; ?>" target="_blank"><i class="mec-fa-external-link-square"></i></a>
+                        <?php endif; ?>
                         <!-- Speaker Facebook page -->
                         <?php if($facebook = trim(get_term_meta($speaker['id'], 'facebook', true))): ?>
                         <a href="<?php echo $facebook; ?>" target="_blank"><i class="mec-fa-facebook"></i></a>

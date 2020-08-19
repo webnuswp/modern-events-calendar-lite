@@ -5,10 +5,8 @@ defined('MECEXEC') or die();
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin']) or isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
-$this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
-
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-carousel-<?php echo $this->style; ?>">
@@ -27,6 +25,8 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                 $event_date = (isset($event->date['start']) ? $event->date['start']['date'] : $event->data->meta['mec_start_date']);
                 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
+                $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
+                $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
 
                 $label_style = '';
                 if(!empty($event->data->labels))
@@ -64,6 +64,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                     <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event); ?></h4>
                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                     <p class="mec-carousel-event-location"><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
+                    <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                     <?php echo $this->booking_button($event); ?>
                 </div>
@@ -90,6 +91,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                         <?php do_action('mec_carousel_type2_after_title' , $event); ?>
                         <p class="mec-carousel-event-location"><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
+                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                     </div>
                     <div class="mec-event-footer-carousel-type2">
@@ -129,6 +131,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <span class="mec-event-date-info"><?php echo $this->main->dateify($event, $this->date_format_type3_1); ?></span>
                         <?php endif; ?>
                         <?php $soldout = $this->main->get_flags($event); ?>
+                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                         <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout; ?></h4>
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
@@ -168,6 +171,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         <div class="mec-event-date">
                             <span class="mec-color"><?php echo $this->main->date_i18n('F d', strtotime($event_date)); ?></span> <?php echo $this->main->date_i18n('l', strtotime($event_date)); ?>
                         </div>
+                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                         <h4 class="mec-event-title"><?php echo $event->data->title.$this->main->get_flags($event).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
@@ -183,12 +187,12 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
         <div class="row mec-carousel-type4-head">
             <div class="col-md-6 col-xs-6">
                 <div class="mec-carousel-type4-head-link">
-                    <?php if(!empty( $this->archive_link )) : ?><a class="mec-bg-color-hover" href="<?php echo esc_html($this->archive_link); ?>"><?php esc_html_e('View All Events' , 'modern-events-calendar-lite'); ?></a><?php endif; ?>
+                    <?php if(!empty($this->archive_link)): ?><a class="mec-bg-color-hover" href="<?php echo esc_html($this->archive_link); ?>"><?php esc_html_e('View All Events' , 'modern-events-calendar-lite'); ?></a><?php endif; ?>
                 </div>
             </div>
             <div class="col-md-6 col-xs-6">
                 <div class="mec-carousel-type4-head-title">
-                    <?php if(!empty( $this->head_text )) : ?><?php esc_html_e($this->head_text); ?><?php endif; ?>
+                    <?php if(!empty($this->head_text)): ?><?php esc_html_e($this->head_text); ?><?php endif; ?>
                 </div>
             </div>
         </div>

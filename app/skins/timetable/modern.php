@@ -25,12 +25,12 @@ foreach($this->weeks as $week_number=>$week)
         $i++;
     }
     
-    $weeks .= '<dl class="mec-weekly-view-week" id="mec_weekly_view_week_'.$this->id.'_'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-id="'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-number="' . $week_number . '" data-max-weeks="'.count($this->weeks).'">';
+    $weeks .= '<dl class="mec-weekly-view-week '.(($week_number == $this->week_of_days[$this->active_date]) ? 'mec-weekly-view-week-active' : '').'" id="mec_weekly_view_week_'.$this->id.'_'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-id="'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-number="' . $week_number . '" data-max-weeks="'.count($this->weeks).'">';
     foreach($week as $day)
     {
         $time = strtotime($day);
         $count = isset($this->events[$day]) ? count($this->events[$day]) : 0;
-        $weeks .= '<dt data-date-id="'.date('Ymd', $time).'" data-events-count="'.$count.'" class="'.((strtotime($day) < $current_month_time or strtotime($day) >= $_1month_after or !$count) ? 'mec-timetable-has-no-event ' : '').(($day == $this->active_date) ? 'mec-timetable-day-active' : '').'">'
+        $weeks .= '<dt data-date-id="'.date('Ymd', $time).'" data-events-count="'.$count.'" class="'.(!$count ? 'mec-timetable-has-no-event ' : '').(($day == $this->active_date) ? 'mec-timetable-day-active' : '').'">'
                 .'<span>'.$this->main->date_i18n('D', $time).'</span> '
                 .$this->main->date_i18n('j', $time)
                 .'</dt>';
@@ -97,7 +97,7 @@ jQuery(document).ready(function()
     {
         id: "'.$this->id.'",
         today: "'.date('Ymd', strtotime($this->start_date)).'",
-        week: "'.$this->week_of_days[$this->today].'",
+        week: "'.$this->week_of_days[$this->active_date].'",
         month_id: "'.date('Ym', $current_month_time).'",
         active_day: "'.date('Ymd', strtotime($this->active_date)).'",
         month_navigator: '.($this->next_previous_button ? 1 : 0).',

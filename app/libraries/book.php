@@ -38,9 +38,10 @@ class MEC_book extends MEC_base
      * @param int $event_id
      * @param array $event_tickets
      * @param array $variations
+     * @param boolean $apply_fees
      * @return array
      */
-    public function get_price_details($tickets, $event_id, $event_tickets, $variations = array())
+    public function get_price_details($tickets, $event_id, $event_tickets, $variations = array(), $apply_fees = true)
     {
         $total = 0;
         $details = array();
@@ -87,7 +88,7 @@ class MEC_book extends MEC_base
         $total_fee_amount = 0;
 
         // Fees module is enabled
-        if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
+        if($apply_fees and isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
         {
             $fees = $this->get_fees($event_id);
 
@@ -1018,5 +1019,54 @@ class MEC_book extends MEC_base
     {
         $transaction = $this->get_transaction($transaction_id);
         return (isset($transaction['event_id']) ? $transaction['event_id'] : 0);
+    }
+
+    public function get_attendee_price($transaction, $email)
+    {
+        if(!is_array($transaction)) $transaction = $this->get_transaction($transaction);
+
+        // No Attendees found!
+        if(!isset($transaction['tickets']) or (isset($transaction['tickets']) and !is_array($transaction['tickets']))) return false;
+
+        $attendee = array();
+        foreach($transaction['tickets'] as $key => $ticket)
+        {
+            if(!is_numeric($key)) continue;
+
+            if($ticket['email'] == $email)
+            {
+                $attendee = $ticket;
+                break;
+            }
+        }
+
+        // Attendee not found
+        if(!count($attendee)) return false;
+
+        $event_id = isset($transaction['event_id']) ? $transaction['event_id'] : 0;
+        if(!$event_id) return false;
+
+        $tickets = get_post_meta($event_id, 'mec_tickets', true);
+
+        $dates = explode(':', $transaction['date']);
+
+        $ticket_price = isset($tickets[$attendee['id']]) ? $this->get_ticket_price($tickets[$attendee['id']], $dates[0], $event_id) : 0;
+        if(!$ticket_price) return false;
+
+        $variation_price = 0;
+
+        // Ticket Variations
+        if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
+        {
+            $ticket_variations = $this->main->ticket_variations($event_id);
+            foreach($attendee['variations'] as $variation_id=>$variation_count)
+            {
+                if(!$variation_count or ($variation_count and $variation_count < 0)) continue;
+
+                $variation_price += isset($ticket_variations[$variation_id]['price']) ? $ticket_variations[$variation_id]['price'] : 0;
+            }
+        }
+
+        return ($ticket_price+$variation_price);
     }
 }

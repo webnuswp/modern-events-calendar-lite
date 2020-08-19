@@ -91,6 +91,10 @@ class MEC_skin_carousel extends MEC_skins
         // reason_for_cancellation
         $this->reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
+        // Event Times
+        $this->include_events_times = isset($this->skin_options['include_events_times']) ? $this->skin_options['include_events_times'] : false;
+        $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
+
         // display_label
         $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
         
