@@ -188,7 +188,7 @@ do_action('mec_available_spot_skin_head');
                     </div>
                     <div class="mec-event-content">
                         <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $event_link; ?>"><?php echo $event_title; ?></a><?php echo $this->main->get_flags($event).$event_color; ?></h4>
-                        <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event->data->ID, $reason_for_cancellation);?>
+                        <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);?>
                         <?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                         <?php
                             $excerpt = trim($event->data->post->post_excerpt) ? $event->data->post->post_excerpt : '';

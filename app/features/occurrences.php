@@ -124,6 +124,7 @@ class MEC_feature_occurrences extends MEC_base
             mec_trigger_load_dates();
             mec_trigger_add_occurrence();
             mec_trigger_delete_occurrence();
+            mec_trigger_occurrence_schema();
         });
 
         function mec_trigger_load_dates()
@@ -191,6 +192,7 @@ class MEC_feature_occurrences extends MEC_base
                         $list.prepend(response.html);
 
                         mec_trigger_delete_occurrence();
+                        mec_trigger_occurrence_schema();
                     }
 
                     // Enable the Form
@@ -232,6 +234,31 @@ class MEC_feature_occurrences extends MEC_base
                         $occurrence.removeClass('mec-loading');
                     }
                 });
+            });
+        }
+
+        function mec_trigger_occurrence_schema()
+        {
+            jQuery('#mec-occurrences input.mec-schema-event-status').off('change').on('change', function()
+            {
+                var id = jQuery(this).data('id');
+                var value = jQuery(this).val();
+
+                if(value === 'EventMovedOnline')
+                {
+                    jQuery('#mec_occurrences_'+id+'_moved_online_link_wrapper').show();
+                    jQuery('#mec_occurrences_'+id+'_cancelled_reason_wrapper').hide();
+                }
+                else if(value === 'EventCancelled')
+                {
+                    jQuery('#mec_occurrences_'+id+'_moved_online_link_wrapper').hide();
+                    jQuery('#mec_occurrences_'+id+'_cancelled_reason_wrapper').show();
+                }
+                else
+                {
+                    jQuery('#mec_occurrences_'+id+'_moved_online_link_wrapper').hide();
+                    jQuery('#mec_occurrences_'+id+'_cancelled_reason_wrapper').hide();
+                }
             });
         }
         </script>
@@ -334,14 +361,83 @@ class MEC_feature_occurrences extends MEC_base
         $date_format = get_option('date_format');
         $time_format = get_option('time_format');
         $datetime_format = $date_format.' '.$time_format;
+
+        $event_status = (isset($params['event_status']) and trim($params['event_status'])) ? $params['event_status'] : 'EventScheduled';
+        $moved_online_link = (isset($params['moved_online_link']) and trim($params['moved_online_link'])) ? $params['moved_online_link'] : '';
+        $cancelled_reason = (isset($params['cancelled_reason']) and trim($params['cancelled_reason'])) ? $params['cancelled_reason'] : '';
+        $display_cancellation_reason_in_single_page = (isset($params['display_cancellation_reason_in_single_page']) and trim($params['display_cancellation_reason_in_single_page'])) ? $params['display_cancellation_reason_in_single_page'] : '';
         ?>
         <li id="mec_occurrences_<?php echo $occurrence_id; ?>">
             <h3><span class="mec-occurrences-delete-button" data-id="<?php echo $occurrence_id; ?>"><?php esc_html_e('Delete', 'modern-events-calendar-lite'); ?></span><?php echo date_i18n($datetime_format, $data['occurrence']); ?></h3>
             <input type="hidden" name="mec[occurrences][<?php echo $occurrence_id; ?>][id]" value="<?php esc_attr_e($occurrence_id); ?>">
+
             <div class="mec-form-row">
                 <div class="mec-col-3"><label for="mec_occurrences_<?php echo $occurrence_id; ?>_bookings_limit"><?php esc_attr_e('Total Booking Limit', 'modern-events-calendar-lite'); ?></label></div>
                 <div class="mec-col-9"><input id="mec_occurrences_<?php echo $occurrence_id; ?>_bookings_limit" name="mec[occurrences][<?php echo $occurrence_id; ?>][bookings_limit]" type="number" value="<?php echo (isset($params['bookings_limit']) ? esc_attr($params['bookings_limit']) : ''); ?>"></div>
             </div>
+
+            <div class="mec-form-row">
+                <div class="mec-col-12">
+                    <div class="mec-form-row">
+                        <label>
+                            <input data-id="<?php echo $occurrence_id; ?>" class="mec-schema-event-status" type="radio" name="mec[occurrences][<?php echo $occurrence_id; ?>][event_status]" value="EventScheduled" <?php echo ($event_status == 'EventScheduled' ? 'checked' : ''); ?>>
+                            <?php _e('Scheduled', 'modern-events-calendar-lite'); ?>
+                        </label>
+                        <p class="description"><?php _e('For active events!', 'modern-events-calendar-lite'); ?></p>
+                    </div>
+                    <div class="mec-form-row">
+                        <label>
+                            <input data-id="<?php echo $occurrence_id; ?>" class="mec-schema-event-status" type="radio" name="mec[occurrences][<?php echo $occurrence_id; ?>][event_status]" value="EventPostponed" <?php echo ($event_status == 'EventPostponed' ? 'checked' : ''); ?>>
+                            <?php _e('Postponed', 'modern-events-calendar-lite'); ?>
+                        </label>
+                        <p class="description"><?php _e('If you postponed an event then you can use this status!', 'modern-events-calendar-lite'); ?></p>
+                    </div>
+                    <div class="mec-form-row">
+                        <label>
+                            <input data-id="<?php echo $occurrence_id; ?>" class="mec-schema-event-status" type="radio" name="mec[occurrences][<?php echo $occurrence_id; ?>][event_status]" value="EventCancelled" <?php echo ($event_status == 'EventCancelled' ? 'checked' : ''); ?>>
+                            <?php _e('Cancelled', 'modern-events-calendar-lite'); ?>
+                        </label>
+                        <p class="description"><?php _e('If you cancelled an event then you should select this status!', 'modern-events-calendar-lite'); ?></p>
+                    </div>
+                    <div id="mec_occurrences_<?php echo $occurrence_id; ?>_cancelled_reason_wrapper" class="event-status-schema" <?php echo ($event_status == 'EventCancelled' ? '' : 'style="display: none;"'); ?>>
+                        <div class="mec-form-row">
+                            <label class="mec-col-2" for="mec_occurrences_<?php echo $occurrence_id; ?>_cancelled_reason"><?php _e('Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+                            <input class="mec-col-9" type="text" id="mec_occurrences_<?php echo $occurrence_id; ?>_cancelled_reason" name="mec[occurrences][<?php echo $occurrence_id; ?>][cancelled_reason]" value="<?php echo $cancelled_reason; ?>" placeholder="<?php esc_html_e('Please write your reasons here', 'modern-events-calendar-lite'); ?>">
+                        </div>
+                        <div>
+                            <p class="description"><?php _e('This will be displayed in Single Event and Shortcode/Calendar Pages', 'modern-events-calendar-lite'); ?></p>
+                        </div>
+                        <div class="mec-form-row">
+                            <input type="hidden" name="mec[occurrences][<?php echo $occurrence_id; ?>][display_cancellation_reason_in_single_page]" value="0">
+                            <input
+                                <?php
+                                if (isset($display_cancellation_reason_in_single_page) and $display_cancellation_reason_in_single_page == true) {
+                                    echo 'checked="checked"';
+                                }
+                                ?>
+                                    type="checkbox" name="mec[occurrences][<?php echo $occurrence_id; ?>][display_cancellation_reason_in_single_page]" id="mec_occurrences_<?php echo $occurrence_id; ?>_display_cancellation_reason_in_single_page" value="1">
+                            <label for="mec_occurrences_<?php echo $occurrence_id; ?>_display_cancellation_reason_in_single_page"><?php _e('Display in single event page', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                    </div>
+                    <div class="mec-form-row">
+                        <label>
+                            <input data-id="<?php echo $occurrence_id; ?>" class="mec-schema-event-status" type="radio" name="mec[occurrences][<?php echo $occurrence_id; ?>][event_status]" value="EventMovedOnline" <?php echo ($event_status == 'EventMovedOnline' ? 'checked' : ''); ?>>
+                            <?php _e('Moved Online', 'modern-events-calendar-lite'); ?>
+                        </label>
+                        <p class="description"><?php _e('For the events that moved online!', 'modern-events-calendar-lite'); ?></p>
+                    </div>
+                    <div id="mec_occurrences_<?php echo $occurrence_id; ?>_moved_online_link_wrapper" class="event-status-schema" <?php echo ($event_status == 'EventMovedOnline' ? '' : 'style="display: none;"'); ?>>
+                        <div class="mec-form-row">
+                            <label class="mec-col-2" for="mec_occurrences_<?php echo $occurrence_id; ?>_moved_online_link"><?php _e('Online Link', 'modern-events-calendar-lite'); ?></label>
+                            <input class="mec-col-9" type="url" id="mec_occurrences_<?php echo $occurrence_id; ?>_moved_online_link" name="mec[occurrences][<?php echo $occurrence_id; ?>][moved_online_link]" value="<?php echo $moved_online_link; ?>" placeholder="https://online-platform.com/event-id">
+                        </div>
+                        <div>
+                            <p class="description"><?php _e('Link to join online event. If you leave it empty event link will be used.', 'modern-events-calendar-lite'); ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </li>
         <?php
     }

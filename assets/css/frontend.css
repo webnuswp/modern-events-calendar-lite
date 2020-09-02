@@ -3398,6 +3398,11 @@ button#mec-book-form-back-btn-step-3 {
     padding-left: 15px;
 }
 
+/* Registration */
+.mec-book-username-password-wrapper {
+    padding: 0 15px;
+}
+
 .lity-container .mec-next-occ-booking,
 .lity-container .mec-next-occ-booking-p {
     padding-left: 0;

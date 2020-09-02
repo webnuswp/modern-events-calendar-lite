@@ -219,4 +219,15 @@ abstract class MEC_base extends MEC
     {
         return MEC::getInstance('app.libraries.wc');
     }
+
+    /**
+     * Returns User instance
+     * @final
+     * @author Webnus <info@webnus.biz>
+     * @return MEC_user instance
+     */
+    final public function getUser()
+    {
+        return MEC::getInstance('app.libraries.user');
+    }
 }

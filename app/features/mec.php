@@ -1204,25 +1204,29 @@ class MEC_feature_mec extends MEC_base
         echo '</ul></div>';
 
         $mec_get_webnus_news_time = get_option('mec_get_webnus_news_time');
-        $mec_get_webnus_news_html = get_option('mec_get_webnus_news_html');
-
-        if ( !isset($mec_get_webnus_news_time) || !$mec_get_webnus_news_time ) {
+        if(!isset($mec_get_webnus_news_time) || !$mec_get_webnus_news_time)
+        {
             $data_url = wp_remote_get( 'https://webnus.net/wp-json/wninfo/v1/posts', ['user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36']);
-            $obj = json_decode($data_url['body']);
+            $obj = ((is_array($data_url) and isset($data_url['body'])) ? json_decode($data_url['body']) : '');
+
             update_option('mec_get_webnus_news_time', date("Y-m-d"));
             update_option('mec_get_webnus_news_html', $obj);
-        } else {
-            if ( strtotime(date("Y-m-d")) > strtotime($mec_get_webnus_news_time) ) {
+        }
+        else
+        {
+            if(strtotime(date("Y-m-d")) > strtotime($mec_get_webnus_news_time))
+            {
                 $data_url = wp_remote_get( 'https://webnus.net/wp-json/wninfo/v1/posts', ['user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36']);
-                $obj = json_decode($data_url['body']);
+                $obj = ((is_array($data_url) and isset($data_url['body'])) ? json_decode($data_url['body']) : '');
+
                 update_option('mec_get_webnus_news_time', date("Y-m-d"));
                 update_option('mec_get_webnus_news_html', $obj);
-            } else {
+            }
+            else
+            {
                 $obj = get_option('mec_get_webnus_news_html');
             }
         }
-        
-        
 
         // News
         if(!empty($obj))

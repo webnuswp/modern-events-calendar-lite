@@ -252,13 +252,15 @@ class MEC_feature_fes extends MEC_base
         $output = fopen('php://output', 'w');
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
         fputcsv($output, $columns);
+
+        // MEC User
+        $u = $this->getUser();
         
         foreach($post_ids as $post_id)
         {
             $post_id = (int) $post_id;
 
             $event_id = get_post_meta($post_id, 'mec_event_id', true);
-            $booker_id = get_post_field('post_author', $post_id);
             $transaction_id = get_post_meta($post_id, 'mec_transaction_id', true);
             $order_time = get_post_meta($post_id, 'mec_booking_time', true);
             $tickets = get_post_meta($event_id, 'mec_tickets', true);
@@ -267,7 +269,7 @@ class MEC_feature_fes extends MEC_base
             if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) $attendees = array(get_post_meta($post_id, 'mec_attendee', true));
 
             $price = get_post_meta($post_id, 'mec_price', true);
-            $booker = get_userdata($booker_id);
+            $booker = $u->booking($post_id);
             
             $confirmed = $this->main->get_confirmation_label(get_post_meta($post_id, 'mec_confirmed', true));
             $verified = $this->main->get_verification_label(get_post_meta($post_id, 'mec_verified', true));

@@ -195,6 +195,9 @@ class MEC_wc extends MEC_base
         // MEC Settings
         $settings = $main->get_settings();
 
+        // MEC User
+        $u = $this->getUser();
+
         // Create Bookings
         $book_ids = array();
         foreach($mec as $event_id => $b)
@@ -273,7 +276,7 @@ class MEC_wc extends MEC_base
             $ticket_ids = ',' . trim($ticket_ids, ', ') . ',';
             $user_id = $gateway->register_user($main_attendee);
 
-            $book_subject = $name.' - '.get_userdata($user_id)->user_email;
+            $book_subject = $name.' - '.$u->get($user_id)->user_email;
             $book_id = $book->add(
                 array(
                     'post_author' => $user_id,
@@ -286,6 +289,9 @@ class MEC_wc extends MEC_base
                 $transaction_id,
                 $ticket_ids
             );
+
+            // Assign User
+            $u->assign($book_id, $user_id);
 
             update_post_meta($book_id, 'mec_gateway', 'MEC_gateway_woocommerce');
             update_post_meta($book_id, 'mec_gateway_label', $gateway->label());

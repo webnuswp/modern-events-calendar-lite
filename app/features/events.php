@@ -489,6 +489,7 @@ class MEC_feature_events extends MEC_base
 
         $fes_guest_email = get_post_meta($post->ID, 'fes_guest_email', true);
         $fes_guest_name = get_post_meta($post->ID, 'fes_guest_name', true);
+        $imported_from_google = get_post_meta($post->ID, 'mec_imported_from_google', true);
         ?>
         <div class="mec-meta-box-fields" id="mec-date-time">
             <?php if ( ($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)) ) : ?>
@@ -511,6 +512,11 @@ class MEC_feature_events extends MEC_base
                 </div>
             <?php endif; ?>
             <?php do_action('start_mec_custom_fields', $post); ?>
+
+            <?php if($imported_from_google): ?>
+            <p class="info-msg"><?php esc_html_e("This event is imported from Google calendar so if you modify it, it would overwrite in the next import from Google.", 'modern-events-calendar-lite'); ?></p>
+            <?php endif; ?>
+
             <div id="mec_meta_box_date_form" class="mec-event-tab-content">
                 <h4><?php _e('Date and Time', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-title">
@@ -2027,6 +2033,7 @@ class MEC_feature_events extends MEC_base
                         <button class="button remove" type="button"
                                 onclick="mec_ticket_remove(:i:)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M14.95 6.46L11.41 10l3.54 3.54l-1.41 1.41L10 11.42l-3.53 3.53l-1.42-1.42L8.58 10L5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"/></svg></button>
                     </div>
+                    <?php do_action('custom_field_dynamic_ticket'); ?>
                     <div id="mec_price_per_dates_container_:i:">
                         <div class="mec-form-row">
                             <h4><?php _e('Price per Date', 'modern-events-calendar-lite'); ?></h4>
@@ -3974,6 +3981,8 @@ class MEC_feature_events extends MEC_base
 
             $attendees = array_merge($attendees, $atts);
         }
+
+        $attendees = apply_filters('mec_attendees_list_data',$id, $attendees,$occurrence);
 
         if(count($attendees))
         {

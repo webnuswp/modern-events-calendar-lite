@@ -13,6 +13,7 @@ class MEC_notifications extends MEC_base
     public $notif_settings;
     public $settings;
     public $book;
+    public $u;
 
     /**
      * Constructor method
@@ -34,6 +35,9 @@ class MEC_notifications extends MEC_base
 
         // MEC Book
         $this->book = $this->getBook();
+
+        // MEC User
+        $this->u = $this->getUser();
     }
 
     /**
@@ -44,9 +48,7 @@ class MEC_notifications extends MEC_base
      */
     public function email_verification($book_id)
     {
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
-
+        $booker = $this->u->booking($book_id);
         if(!isset($booker->user_email)) return false;
 
         $price = get_post_meta($book_id, 'mec_price', true);
@@ -153,9 +155,7 @@ class MEC_notifications extends MEC_base
         $booking_notification = apply_filters('mec_booking_notification', true);
         if(!$booking_notification) return false;
 
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
-
+        $booker = $this->u->booking($book_id);
         if(!isset($booker->user_email)) return false;
 
         // Booking Notification is disabled
@@ -261,9 +261,7 @@ class MEC_notifications extends MEC_base
         $confirmation_notification = apply_filters('mec_booking_confirmation', true);
         if(!$confirmation_notification) return false;
 
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
-
+        $booker = $this->u->booking($book_id);
         if(!isset($booker->user_email)) return false;
 
         $send_email_state =  (isset($this->settings['booking_auto_confirm_send_email']) and $this->settings['booking_auto_confirm_send_email'] == '1') ? true : false;
@@ -363,8 +361,7 @@ class MEC_notifications extends MEC_base
         $cancellation_notification = apply_filters('mec_booking_cancellation', true);
         if(!$cancellation_notification) return;
 
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
+        $booker = $this->u->booking($book_id);
 
         // Cancelling Notification is disabled
         if(!isset($this->notif_settings['cancellation_notification']['status']) or isset($this->notif_settings['cancellation_notification']['status']) and !$this->notif_settings['cancellation_notification']['status']) return;
@@ -574,9 +571,7 @@ class MEC_notifications extends MEC_base
      */
     public function booking_reminder($book_id)
     {
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
-
+        $booker = $this->u->booking($book_id);
         if(!isset($booker->user_email)) return false;
 
         // Event ID
@@ -758,6 +753,11 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%virtual_password%%', get_post_meta($event_id, 'mec_virtual_password', true), $message);
         $message = str_replace('%%virtual_embed%%', get_post_meta($event_id, 'mec_virtual_embed', true), $message);
 
+        $message = str_replace('%%zoom_join%%', get_post_meta($event_id, 'mec_zoom_join_url', true), $message);
+        $message = str_replace('%%zoom_link%%', get_post_meta($event_id, 'mec_zoom_link_url', true), $message);
+        $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
+        $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
+
         // Notification Subject
         $subject = str_replace('%%event_title%%', get_the_title($event_id), $subject);
 
@@ -880,6 +880,11 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%virtual_password%%', get_post_meta($post->ID, 'mec_virtual_password', true), $message);
             $message = str_replace('%%virtual_embed%%', get_post_meta($post->ID, 'mec_virtual_embed', true), $message);
 
+            $message = str_replace('%%zoom_join%%', get_post_meta($post->ID, 'mec_zoom_join_url', true), $message);
+            $message = str_replace('%%zoom_link%%', get_post_meta($post->ID, 'mec_zoom_link_url', true), $message);
+            $message = str_replace('%%zoom_password%%', get_post_meta($post->ID, 'mec_zoom_password', true), $message);
+            $message = str_replace('%%zoom_embed%%', get_post_meta($post->ID, 'mec_zoom_embed', true), $message);
+
             // Notification Subject
             $subject = str_replace('%%event_title%%', get_the_title($post->ID), $subject);
 
@@ -922,8 +927,7 @@ class MEC_notifications extends MEC_base
      */
     public function content($message, $book_id, $attendee = array())
     {
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
+        $booker = $this->u->booking($book_id);
 
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
 
@@ -1108,6 +1112,9 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), $start_timestamp), $message);
         $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), $end_timestamp), $message);
 
+        $online_link = MEC_feature_occurrences::param($event_id, $start_timestamp, 'moved_online_link', get_post_meta($event_id, 'mec_moved_online_link', true));
+        $message = str_replace('%%online_link%%', esc_url($online_link), $message);
+
         $featured_image = '';
         $thumbnail_url = get_the_post_thumbnail_url($event_id, 'medium');
         if(trim($thumbnail_url)) $featured_image = '<img src="'.$thumbnail_url.'">';
@@ -1218,6 +1225,11 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%virtual_password%%', get_post_meta($event_id, 'mec_virtual_password', true), $message);
         $message = str_replace('%%virtual_embed%%', get_post_meta($event_id, 'mec_virtual_embed', true), $message);
 
+        $message = str_replace('%%zoom_join%%', get_post_meta($event_id, 'mec_zoom_join_url', true), $message);
+            $message = str_replace('%%zoom_link%%', get_post_meta($event_id, 'mec_zoom_link_url', true), $message);
+            $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
+            $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
+
         // Next Occurrences
         $next_occurrences = $db->select("SELECT `tstart`, `tend` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND `tstart`>='".$start_timestamp."' ORDER BY `tstart` ASC LIMIT 20", 'loadAssocList');
 
@@ -1317,6 +1329,8 @@ class MEC_notifications extends MEC_base
                 {
                     // Placeholder Keys
                     if(!is_numeric($field_id)) continue;
+
+                    $reg_fields = apply_filters( 'mec_booking_notification_reg_fields', $reg_fields, $field_id);
 
                     $type = $reg_fields[$field_id]['type'];
 

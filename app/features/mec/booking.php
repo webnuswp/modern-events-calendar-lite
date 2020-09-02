@@ -162,23 +162,57 @@ $gateways_options = $this->main->get_gateways_options();
                                         </span>
                                     </div>
                                 </div>
-                                <h5 class="title"><?php _e('User Role', 'modern-events-calendar-lite'); ?></h5>
+                                <h5 class="title"><?php _e('User Registration', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
-                                    <label class="mec-col-3" for="mec_settings_booking_user_role"><?php _e('User Role', 'modern-events-calendar-lite'); ?></label>
+                                    <label class="mec-col-3" for="mec_settings_booking_registration"><?php _e('Registration', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-4">
-                                        <select id="mec_settings_booking_user_role" name="mec[settings][booking_user_role]">
-                                            <option value="">----</option>
-                                            <?php foreach($roles as $role => $r): ?>
-                                                <option <?php echo ((isset($settings['booking_user_role']) and $settings['booking_user_role'] == $role) ? 'selected="selected"' : ''); ?> value="<?php echo $role; ?>"><?php echo $r['name']; ?></option>
-                                            <?php endforeach; ?>
+                                        <select id="mec_settings_booking_registration" name="mec[settings][booking_registration]" onchange="jQuery('#mec_settings_booking_registration_wrapper').toggleClass('w-hidden');">
+                                            <option <?php echo ((isset($settings['booking_registration']) and $settings['booking_registration'] == '1') ? 'selected="selected"' : ''); ?> value="1"><?php echo esc_html__('Enabled', 'modern-events-calendar-lite'); ?></option>
+                                            <option <?php echo ((isset($settings['booking_registration']) and $settings['booking_registration'] == '0') ? 'selected="selected"' : ''); ?> value="0"><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
                                         </select>
                                         <span class="mec-tooltip">
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('Registration', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("If enabled MEC would create a WordPress User for main attendees. It's recommended to keep it enabled.", 'modern-events-calendar-lite'); ?></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="mec_settings_booking_registration_wrapper" class="<?php echo (!isset($settings['booking_registration']) or (isset($settings['booking_registration']) and $settings['booking_registration'])) ? "" : "w-hidden"; ?>">
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_booking_user_role"><?php _e('User Role', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <select id="mec_settings_booking_user_role" name="mec[settings][booking_user_role]">
+                                                <option value="">----</option>
+                                                <?php foreach($roles as $role => $r): ?>
+                                                    <option <?php echo ((isset($settings['booking_user_role']) and $settings['booking_user_role'] == $role) ? 'selected="selected"' : ''); ?> value="<?php echo $role; ?>"><?php echo $r['name']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <span class="mec-tooltip">
                                             <div class="box top">
                                                 <h5 class="title"><?php _e('User Role', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("MEC creates a user for main attendee after each booking. Default role of the user is subscriber but you can change it if needed.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_booking_userpass"><?php _e('Username & Password', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <select id="mec_settings_booking_userpass" name="mec[settings][booking_userpass]">
+                                                <option value="auto" <?php echo ((isset($settings['booking_userpass']) and trim($settings['booking_userpass']) == 'auto') ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Auto', 'modern-events-calendar-lite'); ?></option>
+                                                <option value="manual" <?php echo ((isset($settings['booking_userpass']) and trim($settings['booking_userpass']) == 'manual') ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Manual', 'modern-events-calendar-lite'); ?></option>
+                                            </select>
+                                            <span class="mec-tooltip">
+                                            <div class="box">
+                                                <h5 class="title"><?php _e('Username & Password', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("If you set it to manual option then users can insert a username and password during the booking for registration otherwise MEC use their email and an auto generated password.", 'modern-events-calendar-lite'); ?></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -354,6 +388,8 @@ $gateways_options = $this->main->get_gateways_options();
                         </div>
 
                         <?php if(isset($this->settings['booking_status']) and $this->settings['booking_status']): ?>
+
+                        <?php do_action( 'mec_reg_menu_start',$this->main, $this->settings ); ?>
 
                         <div id="booking_shortcode" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Booking Shortcode', 'modern-events-calendar-lite'); ?></h4>

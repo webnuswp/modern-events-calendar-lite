@@ -66,10 +66,6 @@ class MEC_feature_ix extends MEC_base
 
         // Import XML File
         $this->factory->action('mec_import_file', array($this, 'import_do'));
-
-        // Modified Flag
-        $this->factory->action('mec_after_publish_admin_event', array($this, 'modified_flag'), 10, 2);
-        $this->factory->action('mec_fes_updated', array($this, 'modified_flag'), 10, 2);
     }
     
     /**
@@ -190,7 +186,8 @@ class MEC_feature_ix extends MEC_base
         $this->response = array();
         if($this->action == 'import-start') $this->response = $this->import_start();
         elseif($this->action == 'import-start-bookings') $this->response = $this->import_start_bookings();
-
+        elseif(!empty($this->action)) $this->response = apply_filters( 'mec_import_item_action', $this->action ); 
+        
         $path = MEC::import('app.features.ix.import', true, true);
 
         ob_start();
@@ -313,6 +310,9 @@ class MEC_feature_ix extends MEC_base
 
             fclose($h);
 
+            // MEC User
+            $u = $this->getUser();
+
             foreach($bookings as $transaction_id => $transaction)
             {
                 $event_id = $transaction['event_id'];
@@ -376,7 +376,7 @@ class MEC_feature_ix extends MEC_base
                 $ticket_ids = ',' . trim($ticket_ids, ', ') . ',';
                 $user_id = $gateway->register_user($main_attendee);
 
-                $book_subject = $name.' - '.get_userdata($user_id)->user_email;
+                $book_subject = $name.' - '.$u->get($user_id)->user_email;
                 $book_id = $book->add(
                     array(
                         'post_author' => $user_id,
@@ -389,6 +389,9 @@ class MEC_feature_ix extends MEC_base
                     $transaction_id,
                     $ticket_ids
                 );
+
+                // Assign User
+                $u->assign($book_id, $user_id);
 
                 update_post_meta($book_id, 'mec_gateway', 'MEC_gateway');
                 update_post_meta($book_id, 'mec_gateway_label', $gateway->label());
@@ -3322,6 +3325,9 @@ class MEC_feature_ix extends MEC_base
             );
             
             $post_id = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='$gcal_id' AND `meta_key`='mec_gcal_id'", 'loadResult');
+
+            // Imported From Google
+            if(!post_exists($title, $description, '', $this->main->get_main_post_type())) $args['meta']['mec_imported_from_google'] = 1;
             
             // Insert the event into MEC
             $post_id = $this->main->save_event($args, $post_id);
@@ -4324,18 +4330,5 @@ class MEC_feature_ix extends MEC_base
         $fb_page_result = $this->main->get_web_page('https://graph.facebook.com/v7.0/?access_token='.$this->fb_access_token.'&id='.$link);
 
         return json_decode($fb_page_result, true);
-    }
-
-    public function modified_flag($event_id, $update = false)
-    {
-        if(!$update) return false;
-
-        $source = get_post_meta($event_id, 'mec_source', true);
-
-        if(!trim($source)) return false;
-        if(!in_array($source, array('google-calendar', 'facebook-calendar'))) return false;
-
-        update_post_meta($event_id, 'mec_ix_modified', true);
-        return true;
     }
 }

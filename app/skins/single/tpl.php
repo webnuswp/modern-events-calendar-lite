@@ -13,4 +13,5 @@ $occurrence_end_date = (isset($event->date['end']['date']) ? $event->date['end']
 if(isset($this->layout) and trim($this->layout)) include MEC::import('app.skins.single.'.$this->layout, true, true);
 elseif(!isset($settings['single_single_style']) or (isset($settings['single_single_style']) and $settings['single_single_style'] == 'default')) include MEC::import('app.skins.single.default', true, true);
 elseif(!isset($settings['single_single_style']) or (isset($settings['single_single_style']) and $settings['single_single_style'] == 'builder')) include MEC::import('app.skins.single.builder', true, true);
+elseif(!isset($settings['single_single_style']) or (isset($settings['single_single_style']) and $settings['single_single_style'] == 'divi-builder')) include MEC::import('app.skins.single.divi-builder', true, true);
 else include MEC::import('app.skins.single.modern', true, true);

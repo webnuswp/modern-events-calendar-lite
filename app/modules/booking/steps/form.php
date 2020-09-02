@@ -25,6 +25,9 @@ $has_variations = count($ticket_variations) ? true : false;
 $current_user = wp_get_current_user();
 $first_for_all = (!isset($this->settings['booking_first_for_all']) or (isset($this->settings['booking_first_for_all']) and $this->settings['booking_first_for_all'] == 1)) ? true : false;
 
+// Username & Password Method
+$booking_userpass = (isset($this->settings['booking_userpass']) and trim($this->settings['booking_userpass'])) ? $this->settings['booking_userpass'] : 'auto';
+
 $mec_email = false;
 $mec_name = false;
 foreach($reg_fields as $field)
@@ -242,6 +245,21 @@ if(!$mec_email)
         <?php endif; ?>
 
     </ul>
+
+    <?php if($booking_userpass == 'manual' and !is_user_logged_in()): ?>
+    <div class="mec-book-username-password-wrapper">
+        <h3><?php esc_html_e('Registration', 'modern-events-calendar-lite'); ?></h3>
+        <div>
+            <label for="mec_book_form_username"><?php esc_html_e('Username', 'modern-events-calendar-lite'); ?></label>
+            <input type="text" name="book[username]" id="mec_book_form_username">
+        </div>
+        <div>
+            <label for="mec_book_form_password"><?php esc_html_e('Password', 'modern-events-calendar-lite'); ?></label>
+            <input type="password" name="book[password]" id="mec_book_form_password">
+        </div>
+    </div>
+    <?php endif; ?>
+
     <input type="hidden" name="book[date]" value="<?php echo $date; ?>" />
     <input type="hidden" name="book[event_id]" value="<?php echo $event_id; ?>" />
     <input type="hidden" name="action" value="mec_book_form" />

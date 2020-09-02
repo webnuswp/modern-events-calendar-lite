@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.5
-Stable tag: 5.10.0
+Tested up to: 5.5.1
+Stable tag: 5.10.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -201,6 +201,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Prevent user account (*pro*)
+- Create an account with a custom username and password (*pro*)
 - Use WooCommerce as Booking and Payment System (*pro*)
 - Cancel bookings after cancelation or refund of WC order (*pro*)
 - Change event parameters per occurrence (*pro*)
@@ -358,6 +360,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Synchronization](https://webnus.net/dox/modern-events-calendar/import-and-export-events/) (*pro*)
 - [WooCommerce Payment Integreation](https://webnus.net/dox/modern-events-calendar/woocommerce/) (*pro*)
 - [Stripe Payment Integreation](https://webnus.net/modern-events-calendar/) (*pro*)
+- [iDEAL payment for the Stripe gateway](https://webnus.net/modern-events-calendar/) (*pro*)
 - [Auto Update](https://webnus.net/dox/modern-events-calendar/how-to-auto-update-plugin/) (*pro*)
 - [Weather module](https://webnus.net/dox/modern-events-calendar/weather-module/) (*pro*)
 - [PDF invoice](https://webnus.net/modern-events-calendar/) (*pro*)
@@ -412,6 +415,19 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 5.10.5 – 2 September 2020 =
+- Added: An ability to prevent user creation when booking in WordPress (pro)
+- Added: An ability to change the event status per occurrence (pro)
+- Added: An ability to insert username and password fields for main attendee during the booking (pro)
+- Added: New %%online_link%% placeholder for email notifications (pro)
+- Added: iDEAL payment to the stripe gateway (pro)
+- Improved: Google synchronization (pro)
+- Improved: Image inclusion in RSS feed
+- Defined: Some of PHP functions in the MEC core in order to be compatible with older versions of PHP
+- Hide: Some features in MEC lite (lite)
+- Fixed: Some PHP errors on special conditions
+- Fixed: Some PHP notices
+
 = 5.10.0 – 19 August 2020 =
 - Added: An option to use WooCommerce as Booking and Payment System (pro)
 - Added: An ability to cancel bookings after cancelation or refund of WC order (pro)

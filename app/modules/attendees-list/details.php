@@ -34,6 +34,9 @@ foreach($bookings as $booking)
     if(!isset($attendees[$booking->post_author])) $attendees[$booking->post_author] = array();
     $attendees[$booking->post_author][] = $booking->ID;
 }
+
+// MEC User
+$u = $this->getUser();
 ?>
 <div class="mec-attendees-list-details mec-frontbox" id="mec_attendees_list_details">
     <h3 class="mec-attendees-list mec-frontbox-title"><?php _e('Event Attendees', 'modern-events-calendar-lite'); ?></h3>
@@ -50,7 +53,7 @@ foreach($bookings as $booking)
             </div>
             <?php
                 $link = bp_core_get_userlink($attendee_id, false, true);
-                $user = get_userdata($attendee_id);
+                $user = $u->get($attendee_id);
 
                 $name = $user->display_name;
                 if(!$name or is_email($name)) $name = trim($user->first_name.' '.$user->last_name);

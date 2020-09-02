@@ -241,6 +241,7 @@ $this->factory->params('footer', $javascript);
 
             // This date format used for datepicker
             $datepicker_format = (isset($this->settings['datepicker_format']) and trim($this->settings['datepicker_format'])) ? $this->settings['datepicker_format'] : 'Y-m-d';
+            $imported_from_google = get_post_meta($post_id, 'mec_imported_from_google', true);
         ?>
 
         <div class="mec-fes-form-cntt">
@@ -261,6 +262,11 @@ $this->factory->params('footer', $javascript);
                 </div>
             </div>
             <?php endif; ?>
+
+            <?php if($imported_from_google): ?>
+            <p class="info-msg"><?php esc_html_e("This event is imported from Google calendar so if you modify it would overwrite in the next import from Google.", 'modern-events-calendar-lite'); ?></p>
+            <?php endif; ?>
+
             <div class="mec-meta-box-fields" id="mec-date-time">
                 <h4><?php _e('Date and Time', 'modern-events-calendar-lite'); ?></h4>
                 <div id="mec_meta_box_date_form">

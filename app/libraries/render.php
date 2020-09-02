@@ -766,7 +766,7 @@ class MEC_render extends MEC_base
                 }
             }
         }
-        elseif(isset($event->data) and isset($event->data->time) and isset($event->data->time['start_raw']) and isset($event->data->time['end_raw']))
+        elseif(isset($event->data) and isset($event->data->time) and isset($event->data->time['start_raw']) and isset($event->data->time['end_raw']) and isset($event->date) and isset($event->date['start']) and isset($event->date['end']))
         {
             $start_time = $event->date['start']['date'].' '.$event->data->time['start_raw'];
             $end_time = $event->date['end']['date'].' '.$event->data->time['end_raw'];
@@ -1004,9 +1004,10 @@ class MEC_render extends MEC_base
                 if(strtotime($start_date['date']) > strtotime($original_start_date)) $original_start_date = $start_date['date'];
 
                 $event_days = explode(',', trim($event->mec->day, ', '));
-                
                 $event_start_day = $event_days[0];
-                $event_period_days = ($this->main->date_diff($start_date['date'], $end_date['date']))->days;
+
+                $diff = $this->main->date_diff($start_date['date'], $end_date['date']);
+                $event_period_days = $diff->days;
 
                 $found = 0;
                 $i = 0;

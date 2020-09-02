@@ -8,7 +8,6 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
 
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
 if(!is_array($booking_options)) $booking_options = array();
-$display_reason = get_post_meta(get_the_ID(), 'mec_display_cancellation_reason_in_single_page', true);
 
 //Compatibility with Rank Math
 $rank_math_options = '';
@@ -264,12 +263,12 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             </div>
 
             <div class="mec-event-content">
-                <?php echo $this->main->display_cancellation_reason($event->data->ID, $display_reason); ?>
+                <?php echo $this->main->display_cancellation_reason($event, $this->display_cancellation_reason); ?>
                 <h1 class="mec-single-title"><?php the_title(); ?></h1>
                 <div class="mec-single-event-description mec-events-content"><?php the_content(); ?><?php do_action('mec_custom_dev_content_section' , $event); ?></div>
             </div>
 
-            <?php do_action('mec_single_after_content', $event ); ?>
+            <?php do_action('mec_single_after_content', $event); ?>
 
             <!-- Custom Data Fields -->
             <?php $this->display_data_fields($event); ?>
@@ -297,7 +296,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             
             <!-- Booking Module -->
             <?php if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
-            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); ?></div>
+            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="<?php echo $data_lity_class; ?>mec-events-meta-group mec-events-meta-group-booking">

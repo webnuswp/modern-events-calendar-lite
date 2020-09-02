@@ -88,7 +88,7 @@ class MEC_feature_schema extends MEC_base
             <div id="mec_cancelled_reason_wrapper" class="event-status-schema" <?php echo ($event_status == 'EventCancelled' ? '' : 'style="display: none;"'); ?>>
                 <div class="mec-form-row">
                     <label class="mec-col-2" for="mec_cancelled_reason"><?php _e('Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
-                    <input class="mec-col-9" type="text" id="mec_cancelled_reason" name="mec[cancelled_reason]" value="<?php echo $cancelled_reason; ?>" placeholder="Please write your reasons here">
+                    <input class="mec-col-9" type="text" id="mec_cancelled_reason" name="mec[cancelled_reason]" value="<?php echo $cancelled_reason; ?>" placeholder="<?php esc_html_e('Please write your reasons here', 'modern-events-calendar-lite'); ?>">
                 </div>
                 <div>
                     <p class="description"><?php _e('This will be displayed in Single Event and Shortcode/Calendar Pages', 'modern-events-calendar-lite'); ?></p>
@@ -204,7 +204,11 @@ class MEC_feature_schema extends MEC_base
             }
         }
 
+        $start_timestamp = (isset($event->data->time['start_timestamp']) ? $event->data->time['start_timestamp'] : (isset($event->date['start']['timestamp']) ? $event->date['start']['timestamp'] : strtotime($event->date['start']['date'])));
+
         $event_status = (isset($event->data->meta['mec_event_status']) and trim($event->data->meta['mec_event_status'])) ? $event->data->meta['mec_event_status'] : 'EventScheduled';
+        $event_status = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'event_status', $event_status);
+
         if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
 
         $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
@@ -214,8 +218,7 @@ class MEC_feature_schema extends MEC_base
         $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
 
         $moved_online_link = (isset($event->data->meta['mec_moved_online_link']) and trim($event->data->meta['mec_moved_online_link'])) ? $event->data->meta['mec_moved_online_link'] : '';
-        $cancelled_reason = (isset($event->data->meta['mec_cancelled_reason']) and trim($event->data->meta['mec_cancelled_reason'])) ? $event->data->meta['mec_cancelled_reason'] : '';
-        $display_cancellation_reason_in_single_page = (isset($event->data->meta['mec_display_cancellation_reason_in_single_page']) and trim($event->data->meta['mec_display_cancellation_reason_in_single_page'])) ? $event->data->meta['mec_display_cancellation_reason_in_single_page'] : '';
+        $moved_online_link = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'moved_online_link', $moved_online_link);
         ?>
         <script type="application/ld+json">
         {

@@ -87,21 +87,21 @@ jQuery(document).ready(function()
     var futureDate = new Date("'.($ongoing ? $end_time : $start_time).$gmt_offset.'");
     var currentDate = new Date();
     var diff = parseInt((futureDate.getTime() / 1000 - currentDate.getTime() / 1000));
-    
+
     function dayDiff(first, second)
     {
         return (second-first)/(1000*3600*24);
     }
-    
+
     if(dayDiff(currentDate, futureDate) < 100) jQuery(".clock").addClass("twodaydigits");
     else jQuery(".clock").addClass("threedaydigits");
-    
+
     if(diff < 0)
     {
         diff = 0;
         jQuery(".countdown-message").html();
     }
-    
+
     clock = jQuery(".clock").FlipClock(diff,
     {
         clockFace: "DailyCounter",
@@ -138,13 +138,13 @@ if(!function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/inclu
                     <p class="mec-timeRefDays label-w"><?php _e('days', 'modern-events-calendar-lite'); ?></p>
                 </li>
             </div>
-            <div class="hours-w block-w">    
+            <div class="hours-w block-w">
                 <li>
                     <i class="icon-w mec-fa-clock-o"></i>
                     <span class="mec-hours">00</span>
                     <p class="mec-timeRefHours label-w"><?php _e('hours', 'modern-events-calendar-lite'); ?></p>
                 </li>
-            </div>  
+            </div>
             <div class="minutes-w block-w">
                 <li>
                     <i class="icon-w mec-li_clock"></i>
@@ -167,9 +167,9 @@ if(!function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/inclu
     if($this->is_ajax()) echo $flipjs;
     elseif(is_plugin_active( 'mec-single-builder/mec-single-builder.php'))
     {
-        wp_enqueue_script('mec-flipcount-script', $this->asset('js/flipcount.js'));      
+        wp_enqueue_script('mec-flipcount-script', $this->asset('js/flipcount.js'));
         echo $flipjs;
-    }  
+    }
     else
     {
         // Include FlipCount library

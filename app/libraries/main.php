@@ -555,7 +555,6 @@ class MEC_main extends MEC_base
             __('Additional Organizers', 'modern-events-calendar-lite') => 'additional_organizers',
             __('Additional Locations', 'modern-events-calendar-lite') => 'additional_locations',
             __('Related Events', 'modern-events-calendar-lite') => 'related_events',
-            __('Edit Per Occurrences', 'modern-events-calendar-lite') => 'per_occurrences',
         ), $active_menu);
 
         $booking = apply_filters('mec-settings-item-booking', array(
@@ -597,6 +596,7 @@ class MEC_main extends MEC_base
             ), $notifications_items);
 
             $notifications_items[__('Notifications Per Event', 'modern-events-calendar-lite')] = 'notifications_per_event';
+            $single_event[__('Edit Per Occurrences', 'modern-events-calendar-lite')] = 'per_occurrences';
         }
 
         $notifications = apply_filters('mec-settings-item-notifications', $notifications_items, $active_menu);
@@ -1415,6 +1415,8 @@ class MEC_main extends MEC_base
             // Overwrite Old Value
             else $final[$key] = $value;
         }
+
+        $final = apply_filters( 'mec_save_options_final',$final );
 
         // MEC Save Options
         do_action('mec_save_options', $final);
@@ -4773,7 +4775,7 @@ class MEC_main extends MEC_base
     public function create_mec_tables()
     {
         // MEC Events table already exists
-        if($this->table_exists('mec_events') and $this->table_exists('mec_dates') and $this->table_exists('mec_occurrences')) return true;
+        if($this->table_exists('mec_events') and $this->table_exists('mec_dates') and $this->table_exists('mec_occurrences') and $this->table_exists('mec_users')) return true;
         
         // MEC File library
         $file = $this->getFile();
@@ -5374,9 +5376,10 @@ class MEC_main extends MEC_base
         
         // Mailchim credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
-        
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
+
+        // MEC User
+        $u = $this->getUser();
+        $booker = $u->booking($book_id);
         
         $data_center = substr($api_key, strpos($api_key, '-') + 1);
         $url = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/';
@@ -5421,9 +5424,10 @@ class MEC_main extends MEC_base
         
         // Campaign Monitor credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
-        
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
+
+        // MEC User
+        $u = $this->getUser();
+        $booker = $u->booking($book_id);
 
         $wrap = new CS_REST_Subscribers($list_id, $api_key);
         $result = $wrap->add(array(
@@ -5433,7 +5437,6 @@ class MEC_main extends MEC_base
             'Resubscribe' => true
         ));
     }
-
 
     /**
      * Add booker information to mailerlite list
@@ -5453,9 +5456,10 @@ class MEC_main extends MEC_base
         
         // mailerlite credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
-        
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
+
+        // MEC User
+        $u = $this->getUser();
+        $booker = $u->booking($book_id);
         
         $url = 'https://api.mailerlite.com/api/v2/groups/'.$list_id.'/subscribers';
         
@@ -5481,7 +5485,6 @@ class MEC_main extends MEC_base
      */
     public function active_campaign_add_subscriber($book_id)
     {
-        
         // Get MEC Options
         $settings = $this->get_settings();
         
@@ -5494,9 +5497,10 @@ class MEC_main extends MEC_base
         
         // Mailchim credentials are required
         if(!trim($api_url) or !trim($api_key)) return false;
-        
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
+
+        // MEC User
+        $u = $this->getUser();
+        $booker = $u->booking($book_id);
         
         $url = $api_url.'/api/3/contact/sync';
         
@@ -5559,6 +5563,7 @@ class MEC_main extends MEC_base
     {
         require_once MEC_ABSPATH.'/app/api/Ctct/autoload.php';
         require_once MEC_ABSPATH.'/app/api/Ctct/vendor/autoload.php';
+
         // Get MEC Options
         $settings = $this->get_settings();
         
@@ -5572,8 +5577,9 @@ class MEC_main extends MEC_base
         // constantcontact credentials are required
         if(!trim($api_key) or !trim($access_token) or !trim($list_id)) return false;
 
-        $booker_id = get_post_field('post_author', $book_id);
-        $booker = get_userdata($booker_id);
+        // MEC User
+        $u = $this->getUser();
+        $booker = $u->booking($book_id);
 
         $cc = new ConstantContact($api_key);
 
@@ -5625,7 +5631,6 @@ class MEC_main extends MEC_base
                     $e = new CtctException();
                     $e->setErrors(array("type", "Contact type not returned"));
                     throw $e;
-                    
                 }
             }
 
@@ -6640,8 +6645,8 @@ class MEC_main extends MEC_base
         if(!is_array($ticket_info) or is_array($ticket_info) and count($ticket_info) < 2) return false;
 
         $user_email = sanitize_email($user_email);
-        $user = get_user_by('email', $user_email);
-        $user_id = (isset($user->data) and isset($user->data->ID)) ? $user->data->ID : 0;
+        $user = $this->getUser()->by_email($user_email);
+        $user_id = isset($user->ID) ? $user->ID : 0;
 
         // It's the first booking of this email
         if(!$user_id) return true;
@@ -7103,13 +7108,18 @@ class MEC_main extends MEC_base
         return $output ? '<span class="mec-labels-normal">' . $output . '</span>' : $output;
     }
 
-    public function display_cancellation_reason($event_id, $display_reason = false)
+    public function display_cancellation_reason($event, $display_reason = false)
     {
-        $output = '';
-        $reason = get_post_meta($event_id, 'mec_cancelled_reason', true);
-        $event_status = get_post_meta($event_id, 'mec_event_status', true);
+        $start_timestamp = (isset($event->data->time['start_timestamp']) ? $event->data->time['start_timestamp'] : (isset($event->date['start']['timestamp']) ? $event->date['start']['timestamp'] : strtotime($event->date['start']['date'])));
 
-        if(isset($event_status) and $event_status == 'EventCancelled' && $display_reason != false and isset($reason) and !empty($reason)) 
+        $event_status = (isset($event->data->meta['mec_event_status']) and trim($event->data->meta['mec_event_status'])) ? $event->data->meta['mec_event_status'] : 'EventScheduled';
+        $event_status = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'event_status', $event_status);
+
+        $reason = get_post_meta($event->ID, 'mec_cancelled_reason', true);
+        $reason = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'cancelled_reason', $reason);
+
+        $output = '';
+        if(isset($event_status) and $event_status == 'EventCancelled' && $display_reason != false and isset($reason) and !empty($reason))
         {
             $output = '<div class="mec-cancellation-reason"><span>'.$reason.'</span></div>';
         }
@@ -7272,5 +7282,25 @@ class MEC_main extends MEC_base
         // The event is started
         if($this->is_past($start_date.' '.$start_time, $now)) return true;
         return false;
+    }
+
+    public function array_key_first($arr)
+    {
+        if(!function_exists('array_key_first'))
+        {
+            reset($arr);
+            return key($arr);
+        }
+        else return array_key_first($arr);
+    }
+
+    public function array_key_last($arr)
+    {
+        if(!function_exists('array_key_last'))
+        {
+            end($arr);
+            return key($arr);
+        }
+        else return array_key_last($arr);
     }
 }

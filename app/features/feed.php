@@ -24,6 +24,7 @@ class MEC_feature_feed extends MEC_base
     public $feed;
     public $PT;
     public $events;
+    public $settings;
 
     /**
      * Constructor method
@@ -42,6 +43,9 @@ class MEC_feature_feed extends MEC_base
         
         // MEC Post Type Name
         $this->PT = $this->main->get_main_post_type();
+
+        // General Settings
+        $this->settings = $this->main->get_settings();
     }
     
     /**
@@ -52,6 +56,12 @@ class MEC_feature_feed extends MEC_base
     {
         remove_all_actions('do_feed_rss2');
         $this->factory->action('do_feed_rss2', array($this, 'rss2'), 10, 1);
+
+        // Include Featured Image
+        if(!isset($this->settings['include_image_in_feed']) or (isset($this->settings['include_image_in_feed']) and $this->settings['include_image_in_feed']))
+        {
+            add_filter('get_the_excerpt', array($this, 'include_featured_image'), 10, 2);
+        }
     }
     
     /**
@@ -107,5 +117,18 @@ class MEC_feature_feed extends MEC_base
         $EO->search();
         
         return $EO->fetch();
+    }
+
+    /**
+     * @param string $excerpt
+     * @param WP_Post $post
+     * @return string
+     */
+    public function include_featured_image($excerpt, $post)
+    {
+        $image = get_the_post_thumbnail($post);
+        if(trim($image)) $excerpt = $image.' '.$excerpt;
+
+        return $excerpt;
     }
 }

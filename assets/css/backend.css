@@ -970,7 +970,7 @@ body.post-type-mec-books th.column-author {
 }
 
 .mec-form-row input[type=radio] {
-    margin: 5px 6px 0 0;
+    margin: 0 6px 0 0;
 }
 
 .mec-form-row select {
@@ -2025,7 +2025,7 @@ p.mec_dash_count {
 }
 
 .w-box.total-bookings ul li a {
-    padding: 6px 20px;
+    padding: 6px 12px;
     display: inline-block;
     border-radius: 3px;
     text-transform: none;
@@ -6134,6 +6134,20 @@ a.mec-create-shortcode-tabs-link {
 
 #mec-occurrences .mec-occurrences-list .mec-form-row label {
     line-height: 40px;
+    width: 120px;
+    display: inline-block;
+    margin: 0;
+}
+
+#mec-occurrences .mec-occurrences-list .mec-form-row .event-status-schema label {
+    width: auto;
+    min-width: 160px;
+}
+
+#mec-occurrences .mec-occurrences-list .mec-form-row .event-status-schema p {
+    border: unset;
+    padding-left: 0;
+    margin-left: 0;
 }
 
 /* Search Setting */

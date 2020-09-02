@@ -4,11 +4,10 @@ defined('MECEXEC') or die();
 
 $booking_options = get_post_meta($event->data->ID, 'mec_booking', true);
 if(!is_array($booking_options)) $booking_options = array();
-$display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reason_in_single_page', true);
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?> mec-modal-wrap" id="mec_skin_<?php echo $this->uniqueid; ?>">
     <article class="mec-single-event mec-single-modern mec-single-modal">
-        <?php echo $this->main->display_cancellation_reason($event->data->ID, $display_reason); ?>
+        <?php echo $this->main->display_cancellation_reason($event, $this->display_cancellation_reason); ?>
         <h1 class="mec-single-title"><?php echo get_the_title($event->data->ID); ?></h1>
         <div class="mec-single-event-bar">
             <?php
@@ -276,7 +275,7 @@ $display_reason = get_post_meta($event->data->ID, 'mec_display_cancellation_reas
 
             <!-- Booking Module -->
             <?php if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
-            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); ?></div>
+            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-events-meta-group mec-events-meta-group-booking">
                 <?php

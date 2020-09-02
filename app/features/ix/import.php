@@ -46,6 +46,8 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
             <div class="info-msg"><?php echo sprintf(__("%s is required to use this feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
             <?php endif; ?>
 
+            <?php do_action( 'mec_import_item',$this ); ?>
+
             <br><h3><?php _e('Import Booking CSV File', 'modern-events-calendar-lite'); ?></h3>
             <?php if($this->getPRO()): ?>
             <form id="mec_import_csv_booking_form" action="<?php echo $this->main->get_full_url(); ?>" method="POST" enctype="multipart/form-data">

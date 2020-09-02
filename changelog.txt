@@ -1,4 +1,17 @@
-﻿v 5.10.0 – 19 August 2020
+﻿v 5.10.5 – 2 September 2020
+- Added: An ability to prevent user creation when booking in WordPress (pro)
+- Added: An ability to change the event status per occurrence (pro)
+- Added: An ability to insert username and password fields for main attendee during the booking (pro)
+- Added: New %%online_link%% placeholder for email notifications (pro)
+- Added: iDEAL payment to the stripe gateway (pro)
+- Improved: Google synchronization (pro)
+- Improved: Image inclusion in RSS feed
+- Defined: Some of PHP functions in the MEC core in order to be compatible with older versions of PHP
+- Hide: Some features in MEC lite (lite)
+- Fixed: Some PHP errors on special conditions
+- Fixed: Some PHP notices
+
+v 5.10.0 – 19 August 2020
 - Added: An option to use WooCommerce as Booking and Payment System (pro)
 - Added: An ability to cancel bookings after cancelation or refund of WC order (pro)
 - Added: An ability to see whole events on timetable skin even if some of week days are before or after the current month (pro)
