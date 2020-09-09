@@ -171,7 +171,7 @@ if(!is_array($booking_options)) $booking_options = array();
             <div class="mec-event-content">
                 <div class="mec-single-event-description mec-events-content">
                     <?php echo $this->main->get_post_content($event->data->ID); ?>
-                    <?php do_action('mec_accordion_skin_after_content' , $event); ?>
+                    <?php do_action('mec_accordion_skin_after_content', $event); ?>
                 </div>
             </div>
 
@@ -196,7 +196,7 @@ if(!is_array($booking_options)) $booking_options = array();
 
             <!-- Booking Module -->
             <?php if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
-            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
+            <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>"class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-events-meta-group mec-events-meta-group-booking">
                 <?php

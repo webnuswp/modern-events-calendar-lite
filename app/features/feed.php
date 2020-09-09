@@ -124,8 +124,18 @@ class MEC_feature_feed extends MEC_base
      * @param WP_Post $post
      * @return string
      */
-    public function include_featured_image($excerpt, $post)
+    public function include_featured_image($excerpt, $post = NULL)
     {
+        // Only RSS
+        if(!is_feed()) return $excerpt;
+
+        // Get Current Post
+        if(!$post) $post = get_post();
+        if(!$post) return $excerpt;
+
+        // It's not event
+        if($post->post_type != $this->main->get_main_post_type()) return $excerpt;
+
         $image = get_the_post_thumbnail($post);
         if(trim($image)) $excerpt = $image.' '.$excerpt;
 

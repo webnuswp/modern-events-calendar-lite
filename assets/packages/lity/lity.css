@@ -19,6 +19,7 @@
 }
 .lity.lity-opened {
   opacity: 1;
+  z-index: 9999999999;
 }
 .lity.lity-closed {
   opacity: 0;

@@ -169,7 +169,7 @@ class MEC_feature_mec extends MEC_base
 
         $options['product_name'] = $_REQUEST['content']['LicenseTypeJson'];
         $options['purchase_code'] = $_REQUEST['content']['PurchaseCodeJson'];
-        update_option( 'mec_options' , $options);
+        update_option( 'mec_options', $options);
 
         $verify = NULL;
         if($this->getPRO())
@@ -346,7 +346,7 @@ class MEC_feature_mec extends MEC_base
             }
             else
             {
-                update_option('mec_options' , $options);
+                update_option('mec_options', $options);
                 echo '<div class="mec-message-import-success">' . esc_html__('Your options imported successfuly.', 'modern-events-calendar-lite') . '</div>';
             }
         }
@@ -600,7 +600,7 @@ class MEC_feature_mec extends MEC_base
         update_post_meta($post_id, 'tag', $tags);
         update_post_meta($post_id, 'author', $authors);
 
-        do_action('mec_shortcode_filters_save' , $post_id , $terms );
+        do_action('mec_shortcode_filters_save', $post_id, $terms );
 
         $mec = isset($_POST['mec']) ? $_POST['mec'] : array();
 

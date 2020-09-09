@@ -161,11 +161,26 @@ class MEC_skin_monthly_view extends MEC_skins
         {
             $start = date('Y-m-d H:i:s', current_time('timestamp', 0));
             $end = $this->start_date;
+
+            $this->weeks = $this->main->split_to_weeks($end, $start);
+
+            $this->week_of_days = array();
+            foreach($this->weeks as $week_number=>$week) foreach($week as $day) $this->week_of_days[$day] = $week_number;
+
+            $end = $this->main->array_key_first($this->week_of_days);
         }
         else
         {
             $start = $this->start_date;
             $end = date('Y-m-t', strtotime($this->start_date));
+
+            $this->weeks = $this->main->split_to_weeks($start, $end);
+
+            $this->week_of_days = array();
+            foreach($this->weeks as $week_number=>$week) foreach($week as $day) $this->week_of_days[$day] = $week_number;
+
+            $start = $this->main->array_key_first($this->week_of_days);
+            $end = $this->main->array_key_last($this->week_of_days);
         }
 
         // Date Events
@@ -338,7 +353,7 @@ class MEC_skin_monthly_view extends MEC_skins
             }
 
             // Set active day to current day if not resault
-            if(count($this->events)) $this->active_day = key($this->events);
+            if(count($this->events) and date('m', strtotime(key($this->events))) == $this->month) $this->active_day = key($this->events);
             if($navigator_click) break;
           
             $c++;

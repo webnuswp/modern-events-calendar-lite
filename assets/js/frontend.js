@@ -157,6 +157,16 @@ var mecSingleEventDisplayer = {
 
 }(jQuery));
 
+jQuery(document).ready(function($)
+{
+    // Select2
+    jQuery(".mec-fes-form-cntt #mec-location select, .mec-fes-form-cntt #mec-organizer select").select2();
+    // Location select2
+    jQuery("#mec_location_id").select2();
+    // Organizer Select2
+    jQuery("#mec_organizer_id").select2();
+});
+
 // MEC FULL CALENDAR PLUGIN
 (function ($) {
     $.fn.mecFullCalendar = function (options) {

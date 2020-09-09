@@ -3964,6 +3964,7 @@ class MEC_feature_events extends MEC_base
 
         $html = '';
 
+
         // Attendees
         $attendees = array();
         foreach($bookings as $booking)
@@ -3982,7 +3983,7 @@ class MEC_feature_events extends MEC_base
             $attendees = array_merge($attendees, $atts);
         }
 
-        $attendees = apply_filters('mec_attendees_list_data',$id, $attendees,$occurrence);
+        $attendees = apply_filters('mec_attendees_list_data',$attendees, $id,$occurrence);
 
         if(count($attendees))
         {
@@ -4063,7 +4064,7 @@ class MEC_feature_events extends MEC_base
         $mail_recipients_info = isset($_POST['mail_recipients_info']) ? trim(sanitize_text_field($_POST['mail_recipients_info']), ', ') : '';
         $mail_subject = isset($_POST['mail_subject']) ? sanitize_text_field($_POST['mail_subject']) : '';
         $mail_content = isset($_POST['mail_content']) ? $_POST['mail_content'] : '';
-        
+
         $render_recipients = array_unique(explode(',', $mail_recipients_info));
         $headers = array('Content-Type: text/html; charset=UTF-8');
 
@@ -4077,7 +4078,7 @@ class MEC_feature_events extends MEC_base
         foreach($render_recipients as $recipient)
         {
             $render_recipient = explode(':.:', $recipient);
-            
+
             $to = isset($render_recipient[1]) ? trim($render_recipient[1]) : '';
             if(!trim($to)) continue;
 
@@ -4143,5 +4144,12 @@ class MEC_feature_events extends MEC_base
         }
 
         update_post_meta($id, 'mec_additional_organizer_ids', $target_additional_organizer_ids);
+
+        // MEC Tables
+        $this->db->q("INSERT INTO `#__mec_events` (`post_id`, `start`, `end`, `repeat`, `rinterval`, `year`, `month`, `day`, `week`, `weekday`, `weekdays`, `days`, `not_in_days`, `time_start`, `time_end`) SELECT '".$id."', `start`, `end`, `repeat`, `rinterval`, `year`, `month`, `day`, `week`, `weekday`, `weekdays`, `days`, `not_in_days`, `time_start`, `time_end` FROM `#__mec_events` WHERE `post_id`='".$master_post_id."'");
+
+        // Update Schedule
+        $schedule = $this->getSchedule();
+        $schedule->reschedule($id);
     }
 }

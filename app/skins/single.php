@@ -1363,7 +1363,7 @@ class MEC_skin_single extends MEC_skins
 
                     $type = isset($field['type']) ? $field['type'] : 'text';
                 ?>
-                <li class="mec-event-data-field-item">
+                <li class="mec-event-data-field-item mec-field-item-<?php echo $type ?>">
                     <?php if(isset($field['label'])): ?>
                     <span class="mec-event-data-field-name"><?php esc_html_e(stripslashes($field['label']), 'modern-events-calendar-lite'); ?>: </span>
                     <?php endif; ?>

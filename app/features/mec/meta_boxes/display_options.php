@@ -44,7 +44,7 @@ $events = $this->main->get_events();
                         <option value="modern" <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] == 'modern') echo 'selected="selected"'; ?>><?php _e('Modern', 'modern-events-calendar-lite'); ?></option>
                         <option value="standard" <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] == 'standard') echo 'selected="selected"'; ?>><?php _e('Standard', 'modern-events-calendar-lite'); ?></option>
                         <option value="accordion" <?php if(isset($sk_options_list['style']) and $sk_options_list['style'] == 'accordion') echo 'selected="selected"'; ?>><?php _e('Accordion', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_list_fluent' , $sk_options_list['style'] ); ?>
+                        <?php do_action('mec_list_fluent', $sk_options_list['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -273,7 +273,7 @@ $events = $this->main->get_events();
                         <option value="simple" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'simple') echo 'selected="selected"'; ?>><?php _e('Simple', 'modern-events-calendar-lite'); ?></option>
                         <option value="colorful" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'colorful') echo 'selected="selected"'; ?>><?php _e('Colorful', 'modern-events-calendar-lite'); ?></option>
                         <option value="novel" <?php if(isset($sk_options_grid['style']) and $sk_options_grid['style'] == 'novel') echo 'selected="selected"'; ?>><?php _e('Novel', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_grid_fluent' , $sk_options_grid['style'] ); ?>
+                        <?php do_action('mec_grid_fluent', $sk_options_grid['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -513,7 +513,7 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_agenda_style"><?php _e('Style', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][agenda][style]" id="mec_skin_agenda_style" onchange="mec_skin_style_changed('agenda', this.value);">
                         <option value="clean" <?php if(isset($sk_options_agenda['style']) and $sk_options_agenda['style'] == 'clean') echo 'selected="selected"'; ?>><?php _e('Clean', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_agenda_fluent' , $sk_options_agenda['style'] ); ?>
+                        <?php do_action('mec_agenda_fluent', $sk_options_agenda['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -823,7 +823,7 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_yearly_view_style"><?php _e('Style', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][yearly_view][style]" id="mec_skin_yearly_view_style" onchange="mec_skin_style_changed('yearly_view', this.value);">
                         <option value="modern" <?php if(isset($sk_options_yearly_view['style']) and $sk_options_yearly_view['style'] == 'modern') echo 'selected="selected"'; ?>><?php _e('Modern', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_yearly_fluent' , $sk_options_yearly_view['style'] ); ?>
+                        <?php do_action('mec_yearly_fluent', $sk_options_yearly_view['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -916,7 +916,7 @@ $events = $this->main->get_events();
                         <option value="modern" <?php if(isset($sk_options_monthly_view['style']) and $sk_options_monthly_view['style'] == 'modern') echo 'selected="selected"'; ?>><?php _e('Modern', 'modern-events-calendar-lite'); ?></option>
                         <option value="novel" <?php if(isset($sk_options_monthly_view['style']) and $sk_options_monthly_view['style'] == 'novel') echo 'selected="selected"'; ?>><?php _e('Novel', 'modern-events-calendar-lite'); ?></option>
                         <option value="simple" <?php if(isset($sk_options_monthly_view['style']) and $sk_options_monthly_view['style'] == 'simple') echo 'selected="selected"'; ?>><?php _e('Simple', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_monthly_fluent' , $sk_options_monthly_view['style'] ); ?>
+                        <?php do_action('mec_monthly_fluent', $sk_options_monthly_view['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -1206,7 +1206,7 @@ $events = $this->main->get_events();
                         <option value="modern" <?php if(isset($sk_options_timetable['style']) and $sk_options_timetable['style'] == 'modern') echo 'selected="selected"'; ?>><?php _e('Modern', 'modern-events-calendar-lite'); ?></option>
                         <option value="clean" <?php if(isset($sk_options_timetable['style']) and $sk_options_timetable['style'] == 'clean') echo 'selected="selected"'; ?>><?php _e('Clean', 'modern-events-calendar-lite'); ?></option>
                         <!-- <option value="classic" <?php if(isset($sk_options_timetable['style']) and $sk_options_timetable['style'] == 'classic') echo 'selected="selected"'; ?>><?php _e('Classic', 'modern-events-calendar-lite'); ?></option> -->
-                        <?php do_action('mec_timetable_fluent' , $sk_options_timetable['style'] ); ?>
+                        <?php do_action('mec_timetable_fluent', $sk_options_timetable['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -1575,7 +1575,7 @@ $events = $this->main->get_events();
 						<option value="style1" <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] == 'style1') echo 'selected="selected"'; ?>><?php _e('Style 1', 'modern-events-calendar-lite'); ?></option>
                         <option value="style2" <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] == 'style2') echo 'selected="selected"'; ?>><?php _e('Style 2', 'modern-events-calendar-lite'); ?></option>
                         <option value="style3" <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] == 'style3') echo 'selected="selected"'; ?>><?php _e('Style 3', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_countdown_fluent' , $sk_options_countdown['style'] ); ?>
+                        <?php do_action('mec_countdown_fluent', $sk_options_countdown['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row mec-skin-countdown-date-format-container <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] != 'clean') echo 'mec-util-hidden'; ?>" id="mec_skin_countdown_date_format_style1_container">
@@ -1744,7 +1744,7 @@ $events = $this->main->get_events();
                         <option value="type2" <?php if(isset($sk_options_carousel['style']) and $sk_options_carousel['style'] == 'type2') echo 'selected="selected"'; ?>><?php _e('Type 2', 'modern-events-calendar-lite'); ?></option>
                         <option value="type3" <?php if(isset($sk_options_carousel['style']) and $sk_options_carousel['style'] == 'type3') echo 'selected="selected"'; ?>><?php _e('Type 3', 'modern-events-calendar-lite'); ?></option>
                         <option value="type4" <?php if(isset($sk_options_carousel['style']) and $sk_options_carousel['style'] == 'type4') echo 'selected="selected"'; ?>><?php _e('Type 4', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_carousel_fluent' , $sk_options_carousel['style'] ); ?>
+                        <?php do_action('mec_carousel_fluent', $sk_options_carousel['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -1886,7 +1886,7 @@ $events = $this->main->get_events();
                         <option value="t3" <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] == 't3') echo 'selected="selected"'; ?>><?php _e('Type 3', 'modern-events-calendar-lite'); ?></option>
                         <option value="t4" <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] == 't4') echo 'selected="selected"'; ?>><?php _e('Type 4', 'modern-events-calendar-lite'); ?></option>
                         <option value="t5" <?php if(isset($sk_options_slider['style']) and $sk_options_slider['style'] == 't5') echo 'selected="selected"'; ?>><?php _e('Type 5', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_slider_fluent' , $sk_options_slider['style'] ); ?>
+                        <?php do_action('mec_slider_fluent', $sk_options_slider['style'] ); ?>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -2224,131 +2224,131 @@ $events = $this->main->get_events();
             $this.text('');
             $this.append('<span class="wn-mec-text">'+$name+'</span>');
         });
-        jQuery('.mec-custom-nice-select li[data-value="list"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="grid"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="agenda"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/agenda.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="full_calendar"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full_calendar.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="yearly_view"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/yearly.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="monthly_view"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="daily_view"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/daily.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="weekly_view"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/weekly.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="timetable"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/timetable.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="masonry"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/masonry.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="map"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/map.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="cover"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/cover.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="countdown"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/countdown.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="available_spot"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/available_spot.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="carousel"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/carousel.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="slider"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="timeline"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/timeline.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="tile"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/tile.svg" /></div>');
-        jQuery('.mec-custom-nice-select li[data-value="custom"]').prepend('<div class="wn-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/shortcode-designer.svg" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="list"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/list.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="grid"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="agenda"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/agenda.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="full_calendar"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/full_calendar.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="yearly_view"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/yearly.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="monthly_view"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="daily_view"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/daily.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="weekly_view"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/weekly.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="timetable"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/timetable.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="masonry"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/masonry.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="map"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/map.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="cover"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/cover.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="countdown"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/countdown.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="available_spot"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/available_spot.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="carousel"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/carousel.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="slider"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/slider.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="timeline"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/timeline.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="tile"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/tile.svg'; ?>" /></div>');
+        jQuery('.mec-custom-nice-select li[data-value="custom"]').prepend('<div class="wn-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/shortcode-designer.svg'; ?>" /></div>');
 
         /** List View Skins */
-        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-classic.png" /></span>');
-        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="minimal"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-minimal.png" /></span>');
-        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-modern.png" /></span>');
-        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="standard"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-standard.png" /></span>');
-        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="accordion"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/list/list-accordion.png" /></span>');
-        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-list-view.png" /></span>');
+        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/list/list-classic.png'; ?>" /></span>');
+        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="minimal"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/list/list-minimal.png'; ?>" /></span>');
+        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/list/list-modern.png'; ?>" /></span>');
+        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="standard"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/list/list-standard.png'; ?>" /></span>');
+        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="accordion"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/list/list-accordion.png'; ?>" /></span>');
+        jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-list-view.png'; ?>" /></span>');
 
         /** Grid View Skins */
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-classic.png" /></span>');
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-clean.png" /></span>');
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="minimal"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-minimal.png" /></span>');
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-modern.png" /></span>');
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="simple"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-simple.png" /></span>');
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="colorful"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-colorful.png" /></span>');
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="novel"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-novel.png" /></span>');
-        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-grid-view.png" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-classic.png'; ?>" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-clean.png'; ?>" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="minimal"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-minimal.png'; ?>" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-modern.png'; ?>" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="simple"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-simple.png'; ?>" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="colorful"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-colorful.png'; ?>" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="novel"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-novel.png'; ?>" /></span>');
+        jQuery('#mec_grid_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-grid-view.png'; ?>" /></span>');
 
         /** Agenda View Skins */
-        jQuery('#mec_agenda_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/agenda/agenda-clean.png" /></span>');
-        jQuery('#mec_agenda_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-agenda-view.png" /></span>');
+        jQuery('#mec_agenda_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/agenda/agenda-clean.png'; ?>" /></span>');
+        jQuery('#mec_agenda_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-agenda-view.png'; ?>" /></span>');
 
         /** FullCalendar View Skins */
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="list"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-list.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="grid"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/grid/grid-modern.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="tile"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/tile/tile-classic.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="daily"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-daily.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="weekly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-weekly.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="monthly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-monthly.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="yearly"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-yearly.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-full-calendar-view.png" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="list"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/full-calendar/full-calendar-list.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="grid"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/grid/grid-modern.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="tile"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/tile/tile-classic.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="daily"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/full-calendar/full-calendar-daily.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="weekly"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/full-calendar/full-calendar-weekly.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="monthly"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/full-calendar/full-calendar-monthly.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="yearly"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/full-calendar/full-calendar-yearly.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-full-calendar-view.png'; ?>" /></span>');
 
         /** FullCalendar View Skins > Monthly Style */
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/full-calendar/full-calendar-monthly.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-clean.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="novel"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-novel.png" /></span>');
-        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="simple"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-simple.png" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/full-calendar/full-calendar-monthly.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-clean.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="novel"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-novel.png'; ?>" /></span>');
+        jQuery('#mec_full_calendar_skin_options_container .mec-form-row .nice-select .list li[data-value="simple"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-simple.png'; ?>" /></span>');
 
         /** Yearly View Skins */
-        jQuery('#mec_yearly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/yearly/yearly-modern.png" /></span>');
-        jQuery('#mec_yearly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-yearly-view.png" /></span>');
+        jQuery('#mec_yearly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/yearly/yearly-modern.png'; ?>" /></span>');
+        jQuery('#mec_yearly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-yearly-view.png'; ?>" /></span>');
 
         /** Monthly View Skins */
-        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-classic.png" /></span>');
-        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-clean.png" /></span>');
-        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-modern.png" /></span>');
-        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="novel"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-novel.png" /></span>');
-        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="simple"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/monthly/monthly-simple.png" /></span>');
-        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-monthly-view.png" /></span>');
+        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-classic.png'; ?>" /></span>');
+        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-clean.png'; ?>" /></span>');
+        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-modern.png'; ?>" /></span>');
+        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="novel"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-novel.png'; ?>" /></span>');
+        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="simple"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/monthly/monthly-simple.png'; ?>" /></span>');
+        jQuery('#mec_monthly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-monthly-view.png'; ?>" /></span>');
 
         /** Time Table View Skins */
-        jQuery('#mec_timetable_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/time-table/time-table-modern.png" /></span>');
-        jQuery('#mec_timetable_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/time-table/time-table-clean.png" /></span>');
-        jQuery('#mec_timetable_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-time-table-view.png" /></span>');
+        jQuery('#mec_timetable_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/time-table/time-table-modern.png'; ?>" /></span>');
+        jQuery('#mec_timetable_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/time-table/time-table-clean.png'; ?>" /></span>');
+        jQuery('#mec_timetable_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-time-table-view.png'; ?>" /></span>');
 
         /** Cover View Skins */
-        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/cover/cover-classic.png" /></span>');
-        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/cover/cover-clean.png" /></span>');
-        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/cover/cover-modern.png" /></span>');
-        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type1"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-cover-view-type1.png" /></span>');
-        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type2"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-cover-view-type2.png" /></span>');
-        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type3"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-cover-view-type3.png" /></span>');
-        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type4"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-cover-view-type4.png" /></span>');
+        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/cover/cover-classic.png'; ?>" /></span>');
+        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="clean"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/cover/cover-clean.png'; ?>" /></span>');
+        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="modern"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/cover/cover-modern.png'; ?>" /></span>');
+        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type1"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-cover-view-type1.png'; ?>" /></span>');
+        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type2"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-cover-view-type2.png'; ?>" /></span>');
+        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type3"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-cover-view-type3.png'; ?>" /></span>');
+        jQuery('#mec_cover_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type4"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-cover-view-type4.png'; ?>" /></span>');
 
         /** Countdown View Skins */
-        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="style1"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/countdown/countdown-type-1.png" /></span>');
-        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="style2"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/countdown/countdown-type-2.png" /></span>');
-        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="style3"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/countdown/countdown-type-3.png" /></span>');
-        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-countdown-view.png" /></span>');
+        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="style1"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/countdown/countdown-type-1.png'; ?>" /></span>');
+        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="style2"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/countdown/countdown-type-2.png'; ?>" /></span>');
+        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="style3"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/countdown/countdown-type-3.png'; ?>" /></span>');
+        jQuery('#mec_countdown_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-countdown-view.png'; ?>" /></span>');
 
         /** Carousel View Skins */
-        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type1"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/carousel/carousel-type-1.png" /></span>');
-        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type2"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/carousel/carousel-type-2.png" /></span>');
-        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type3"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/carousel/carousel-type-3.png" /></span>');
-        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type4"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/carousel/carousel-type-4.png" /></span>');
-        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-carousel-view.png" /></span>');
+        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type1"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/carousel/carousel-type-1.png'; ?>" /></span>');
+        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type2"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/carousel/carousel-type-2.png'; ?>" /></span>');
+        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type3"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/carousel/carousel-type-3.png'; ?>" /></span>');
+        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="type4"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/carousel/carousel-type-4.png'; ?>" /></span>');
+        jQuery('#mec_carousel_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-carousel-view.png'; ?>" /></span>');
 
         /** Slider View Skins */
-        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t1"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider/slider-type-1.png" /></span>');
-        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t2"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider/slider-type-2.png" /></span>');
-        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t3"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider/slider-type-3.png" /></span>');
-        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t4"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider/slider-type-4.png" /></span>');
-        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t5"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/slider/slider-type-5.png" /></span>');
-        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-slider-view.png" /></span>');
+        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t1"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/slider/slider-type-1.png'; ?>" /></span>');
+        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t2"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/slider/slider-type-2.png'; ?>" /></span>');
+        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t3"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/slider/slider-type-3.png'; ?>" /></span>');
+        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t4"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/slider/slider-type-4.png'; ?>" /></span>');
+        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="t5"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/slider/slider-type-5.png'; ?>" /></span>');
+        jQuery('#mec_slider_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-slider-view.png'; ?>" /></span>');
 
         /** Daily View Skins */
-        jQuery('#mec_daily_view_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/daily/daily-classic.png" /></span>');
-        jQuery('#mec_daily_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-daily-view.png" /></span>');
+        jQuery('#mec_daily_view_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/daily/daily-classic.png'; ?>" /></span>');
+        jQuery('#mec_daily_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-daily-view.png'; ?>" /></span>');
 
         /** Weekly View Skins */
-        jQuery('#mec_weekly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/weekly/weekly-classic.png" /></span>');
-        jQuery('#mec_weekly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-weekly-view.png" /></span>');
+        jQuery('#mec_weekly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/weekly/weekly-classic.png'; ?>" /></span>');
+        jQuery('#mec_weekly_view_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-weekly-view.png'; ?>" /></span>');
 
         /** Masonry View Skins */
-        jQuery('#mec_masonry_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/masonry/masonry-classic.png" /></span>');
-        jQuery('#mec_masonry_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-masonry-view.png" /></span>');
+        jQuery('#mec_masonry_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/masonry/masonry-classic.png'; ?>" /></span>');
+        jQuery('#mec_masonry_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-masonry-view.png'; ?>" /></span>');
 
         /** Tile View Skins */
-        jQuery('#mec_tile_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/tile/tile-classic.png" /></span>');
-        jQuery('#mec_tile_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-tile-view.png" /></span>');
+        jQuery('#mec_tile_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/tile/tile-classic.png'; ?>" /></span>');
+        jQuery('#mec_tile_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-tile-view.png'; ?>" /></span>');
 
         /** Available Spot View Skins */
-        jQuery('#mec_available_spot_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/available-spot/available-spot-classic.png" /></span>');
-        jQuery('#mec_available_spot_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type1"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-available-spot-view-type1.png" /></span>');
-        jQuery('#mec_available_spot_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type2"]').append('<span class="wn-hover-img-sh"><img src="https://webnus.net/modern-events-calendar/wp-content/skins/fluent/fluent-available-spot-view-type2.png" /></span>');
+        jQuery('#mec_available_spot_skin_options_container .mec-form-row .nice-select .list li[data-value="classic"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/available-spot/available-spot-classic.png'; ?>" /></span>');
+        jQuery('#mec_available_spot_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type1"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-available-spot-view-type1.png'; ?>" /></span>');
+        jQuery('#mec_available_spot_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type2"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-available-spot-view-type2.png'; ?>" /></span>');
 
 
     });

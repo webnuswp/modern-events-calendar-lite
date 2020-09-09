@@ -121,7 +121,7 @@ foreach($availability as $ticket_id=>$count)
 
 if($total_spots > 0) $spots = min($spots, $total_spots);
 
-do_action('mec_start_skin' , $this->id);
+do_action('mec_start_skin', $this->id);
 do_action('mec_available_spot_skin_head');
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">

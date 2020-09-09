@@ -108,7 +108,8 @@ else
     $events_side      = '<div class="mec-calendar-events-side mec-clear"><div class="mec-month-side" id="mec_month_side_'.$this->id.'_'.date('Ym', $current_month_time).'">'.$this->events_str.'</div></div>';
     $div_footer       = '<div class="mec-event-footer"></div>';
 }
-do_action('mec_start_skin' , $this->id);
+
+do_action('mec_start_skin', $this->id);
 do_action('mec_monthly_skin_head');
 ?>
 <div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin . ' ' . $this->html_class . ' ' . $set_dark; ?>">

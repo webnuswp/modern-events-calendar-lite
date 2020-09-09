@@ -1646,6 +1646,8 @@ class MEC_main extends MEC_base
             {
                 $date->add(new DateInterval('P1D'));
                 $weeks[$weekNumber][] = $date->format('Y-m-d');
+
+                if($date->format('w') == $end_day_of_week) $weekNumber++;
             }
         }
         
@@ -2895,7 +2897,7 @@ class MEC_main extends MEC_base
         return $url;
     }
 
-    public function ical_URL_email($event_id, $book_id , $occurrence = '')
+    public function ical_URL_email($event_id, $book_id, $occurrence = '')
     {
         $url = $this->URL('site');
         $url = $this->add_qs_var('method', 'ical-email', $url);
@@ -6310,6 +6312,16 @@ class MEC_main extends MEC_base
             }
 
             return $original_id;
+        }
+        // Poly Lang is installed and activated
+        elseif(function_exists('pll_default_language'))
+        {
+            $def = pll_default_language();
+
+            $translations = pll_get_post_translations($event_id);
+            if(!is_array($translations) or (is_array($translations) and !count($translations))) return $event_id;
+
+            if(isset($translations[$def]) and is_numeric($translations[$def])) return $translations[$def];
         }
         else return $event_id;
     }

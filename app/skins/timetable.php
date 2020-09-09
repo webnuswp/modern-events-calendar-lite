@@ -177,8 +177,16 @@ class MEC_skin_timetable extends MEC_skins
      */
     public function search()
     {
-        $start = $this->main->array_key_first($this->week_of_days);
-        $end = $this->maximum_date ? $this->maximum_date : $this->main->array_key_last($this->week_of_days);
+        if($this->style == 'clean' || $this->style == 'classic' || $this->style == 'fluent')
+        {
+            $start = $this->start_date;
+            $end = $this->maximum_date ? $this->maximum_date : date('Y-m-t', strtotime($this->start_date));
+        }
+        else
+        {
+            $start = $this->main->array_key_first($this->week_of_days);
+            $end = $this->maximum_date ? $this->maximum_date : $this->main->array_key_last($this->week_of_days);
+        }
 
         // Date Events
         $dates = $this->period($start, $end);

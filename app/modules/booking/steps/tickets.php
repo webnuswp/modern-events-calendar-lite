@@ -105,7 +105,7 @@ if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
     </div>
     <?php elseif($book_all_occurrences): ?>
     <p class="mec-next-occ-booking-p">
-        <?php esc_html_e('By booking this event you can attend to all the occurrences. Some of them are listed below but they might be more.', 'modern-events-calendar-lite'); ?>
+        <?php esc_html_e('By booking this event you can attend all occurrences. Some of them are listed below but there might be more.', 'modern-events-calendar-lite'); ?>
         <div class="mec-next-occ-booking"><?php foreach($dates as $date) echo $this->date_label($date['start'], $date['end'], $date_format)."<br>"; ?></div>
     </p>
     <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" value="<?php echo $book->timestamp($dates[0]['start'], $dates[0]['end']); ?>">

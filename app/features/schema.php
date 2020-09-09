@@ -267,6 +267,6 @@ class MEC_feature_schema extends MEC_base
     {
         ob_start();
         do_action('mec_schema', $event);
-        return ob_get_flush();
+        return ob_get_clean();
     }
 }

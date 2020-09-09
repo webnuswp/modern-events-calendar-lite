@@ -593,7 +593,7 @@ class TTFontFile {
 		$n = 0;
 		$fsLastCharIndex = 0;	// maximum Unicode index (character code) in this font, according to the cmap subtable for platform ID 3 and platform- specific encoding ID 0 or 1.
 		foreach($subsetglyphs AS $originalGlyphIdx => $uni) {
-			$fsLastCharIndex = max($fsLastCharIndex , $uni);
+			$fsLastCharIndex = max($fsLastCharIndex, $uni);
 			$glyphSet[$originalGlyphIdx] = $n;	// old glyphID to new glyphID
 			$n++;
 		}
@@ -1050,7 +1050,7 @@ class TTFontFile {
 			$stm .= (pack("Nnnnn", 0x74727565, $numTables, $searchRange, $entrySelector, $rangeShift));	// Mac
 		}
 		else {
-			$stm .= (pack("Nnnnn", 0x00010000 , $numTables, $searchRange, $entrySelector, $rangeShift));	// Windows
+			$stm .= (pack("Nnnnn", 0x00010000, $numTables, $searchRange, $entrySelector, $rangeShift));	// Windows
 		}
 
 		// Table directory

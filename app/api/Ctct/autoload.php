@@ -1,6 +1,6 @@
 <?php
-require_once('SplClassLoader.php');
+require_once('CtcSplClassLoader.php');
 
 // Load the Ctct namespace
-$loader = new \Ctct\SplClassLoader('Ctct', dirname(__DIR__));
+$loader = new \Ctct\CtcSplClassLoader('Ctct', dirname(__DIR__));
 $loader->register();

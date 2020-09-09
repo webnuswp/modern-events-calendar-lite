@@ -458,7 +458,6 @@ class MEC_notifications extends MEC_base
 
             // Book Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
-
             $message = $this->add_template($message);
 
             // Filter the email
@@ -739,7 +738,13 @@ class MEC_notifications extends MEC_base
             if(!is_numeric($f)) continue;
 
             $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
-            if(trim($field_value) === '') continue;
+            if(trim($field_value) === '')
+            {
+                $message = str_replace('%%event_field_'.$f.'%%', '', $message);
+                $message = str_replace('%%event_field_'.$f.'_with_name%%', '', $message);
+
+                continue;
+            }
 
             $event_field_name = isset($event_field['label']) ? $event_field['label'] : '';
             if(is_array($field_value)) $field_value = implode(', ', $field_value);
@@ -866,7 +871,13 @@ class MEC_notifications extends MEC_base
                 if(!is_numeric($f)) continue;
 
                 $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
-                if(trim($field_value) === '') continue;
+                if(trim($field_value) === '')
+                {
+                    $message = str_replace('%%event_field_'.$f.'%%', '', $message);
+                    $message = str_replace('%%event_field_'.$f.'_with_name%%', '', $message);
+
+                    continue;
+                }
 
                 $event_field_name = isset($event_field['label']) ? $event_field['label'] : '';
                 if(is_array($field_value)) $field_value = implode(', ', $field_value);
@@ -1097,7 +1108,13 @@ class MEC_notifications extends MEC_base
 
             $event_field_name = isset($event_field['label']) ? $event_field['label'] : '';
             $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
-            if(trim($field_value) === '') continue;
+            if(trim($field_value) === '')
+            {
+                $message = str_replace('%%event_field_'.$f.'%%', '', $message);
+                $message = str_replace('%%event_field_'.$f.'_with_name%%', '', $message);
+
+                continue;
+            }
 
             if(is_array($field_value)) $field_value = implode(', ', $field_value);
 

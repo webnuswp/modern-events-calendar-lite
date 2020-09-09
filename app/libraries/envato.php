@@ -216,7 +216,7 @@ class MEC_envato extends MEC_base
     public function check_info($false, $action, $arg)
     {
         $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
-        $version = $this->get_MEC_info('version')->version ? json_decode(json_encode($this->get_MEC_info('version')->version), true) : get_option('mec_save_version_number');
+        $version = (isset($this->get_MEC_info('version')->version) and !empty($this->get_MEC_info('version')->version)) ? json_decode(json_encode($this->get_MEC_info('version')->version), true) : get_option('mec_save_version_number');
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/addons-api.json';
         
         if(function_exists('file_get_contents') && ini_get('allow_url_fopen'))

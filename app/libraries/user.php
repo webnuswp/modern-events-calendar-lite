@@ -105,7 +105,7 @@ class MEC_user extends MEC_base
     public function assign($booking_id, $user_id)
     {
         // Registration is disabled
-        if(isset($this->settings['booking_registration']) and !$this->settings['booking_registration']) update_post_meta($booking_id, 'mec_user_id', $user_id);
+        if(isset($this->settings['booking_registration']) and !$this->settings['booking_registration'] and !get_user_by('ID', $user_id)) update_post_meta($booking_id, 'mec_user_id', $user_id);
         else update_post_meta($booking_id, 'mec_user_id', 'wp');
     }
 

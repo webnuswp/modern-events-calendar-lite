@@ -238,7 +238,7 @@ class MEC_feature_organizers extends MEC_base
                 break;
         }
 
-        return apply_filters('organizer_filter_column_content', $content , $column_name, $term_id);
+        return apply_filters('organizer_filter_column_content', $content, $column_name, $term_id);
     }
     
     /**

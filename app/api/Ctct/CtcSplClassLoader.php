@@ -2,14 +2,14 @@
 namespace Ctct;
 
 /**
- * SplClassLoader implementation that implements the technical interoperability
+ * CtcSplClassLoader implementation that implements the technical interoperability
  * standards for PHP 5.3 namespaces and class names.
  *
  * http://groups.google.com/group/php-standards/web/final-proposal
  *
  *     // Example which loads classes for the Doctrine Common package in the
  *     // Doctrine\Common namespace.
- *     $classLoader = new SplClassLoader('Doctrine\Common', '/path/to/doctrine');
+ *     $classLoader = new CtcSplClassLoader('Doctrine\Common', '/path/to/doctrine');
  *     $classLoader->register();
  *
  * @author Jonathan H. Wage <jonwage@gmail.com>
@@ -19,14 +19,14 @@ namespace Ctct;
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  */
 
-class SplClassLoader {
+class CtcSplClassLoader {
     private $fileExtension = '.php';
     private $namespace;
     private $includePath;
     private $namespaceSeparator = '\\';
 
     /**
-     * Creates a new <tt>SplClassLoader</tt> that loads classes of the
+     * Creates a new <tt>CtcSplClassLoader</tt> that loads classes of the
      * specified namespace.
      *
      * @param string $ns The namespace to use.

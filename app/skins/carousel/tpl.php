@@ -40,7 +40,7 @@ jQuery(document).ready(function()
 // Include javascript code into the page
 if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
-do_action('mec_start_skin' , $this->id);
+do_action('mec_start_skin', $this->id);
 do_action('mec_carousel_skin_head');
 ?>
 <div class="mec-wrap mec-skin-carousel-container<?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">

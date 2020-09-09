@@ -178,10 +178,10 @@ if($this->style == 'colorful')
                 <?php endif; ?>
                 <div class="mec-event-detail"><div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div></div>
             </div>
-            <div class="mec-event-image"><?php do_action('display_mec_clean_image' , $event ); ?><a data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->thumbnails['medium']; ?></a></div>
+            <div class="mec-event-image"><?php do_action('display_mec_clean_image', $event ); ?><a data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->thumbnails['medium']; ?></a></div>
             <div class="mec-event-content">
-                <?php do_action('display_mec_tai' , $event ); ?>
-                <?php do_action('mec_clean_custom_head' , $event , $event_color ); ?>
+                <?php do_action('display_mec_tai', $event ); ?>
+                <?php do_action('mec_clean_custom_head', $event, $event_color ); ?>
                 <?php $soldout = $this->main->get_flags($event); ?>
                 <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                 <p class="mec-grid-event-location"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></p>

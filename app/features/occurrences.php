@@ -39,7 +39,7 @@ class MEC_feature_occurrences extends MEC_base
     public function init()
     {
         // Occurrences Status
-        $occurrences_status = (isset($this->settings['per_occurrences_status']) and $this->settings['per_occurrences_status']);
+        $occurrences_status = (isset($this->settings['per_occurrences_status']) and $this->settings['per_occurrences_status'] and $this->getPRO());
 
         // Feature is not enabled
         if(!$occurrences_status) return;

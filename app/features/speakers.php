@@ -321,7 +321,7 @@ class MEC_feature_speakers extends MEC_base
                 break;
         }
 
-        return apply_filters('speaker_filter_column_content', $content , $column_name, $term_id);
+        return apply_filters('speaker_filter_column_content', $content, $column_name, $term_id);
     }
 
     /**

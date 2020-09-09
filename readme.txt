@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.5.1
-Stable tag: 5.10.5
+Stable tag: 5.11.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -111,6 +111,8 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 - [Fluent-view Layouts](https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-fluent-view-layouts-add-on/)
 - [Zapier Integration](https://webnus.net/modern-events-calendar/addons/zapier-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zapier-integration-addon/)
 - [Virtual Events](https://webnus.net/modern-events-calendar/addons/virtual-events/) - [Documentation](https://webnus.net/dox/modern-events-calendar/virtual-events-addon/)
+- [Waiting List](https://webnus.net/modern-events-calendar/addons/waiting-list/) - [Documentation](https://webnus.net/dox/modern-events-calendar/waiting-list-addon/)
+- [Divi Single Builder](https://webnus.net/modern-events-calendar/addons/divi-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/divi-single-builder-for-mec/)
 
 == Helpful Documentation ==
 Best event management plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
@@ -201,6 +203,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Refund bookings paid by Stripe gateway (*pro*)
 - Prevent user account (*pro*)
 - Create an account with a custom username and password (*pro*)
 - Use WooCommerce as Booking and Payment System (*pro*)
@@ -415,7 +418,25 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
-= 5.10.5 – 2 September 2020 =
+= 5.11.5 – 9 September 2020 =
+- Added: Compatibility with Polylang (pro)
+- Added: An ability to show events of previous month and next month in monthly skin when some days are visible in current month
+- Added: Ability to refund bookings from backend when paid by Stripe gateway (pro)
+- Added: A custom class for custom fields
+- Improved: Stripe payment system (pro)
+- Updated: Dutch (Netherlands) language (Thanks to Elmar)
+- Updated: French translation (Thanks to Michael Berthoud)
+- Fixed: Constant Contact class (pro)
+- Fixed: Some issues with WPML (pro)
+- Fixed: Featured image in RSS feed
+- Fixed: An issue regarding showing event field placeholders in email notifications (pro)
+- Fixed: An issue in booking modal (pro)
+- Fixed: A PHP version conflict in timetable skin (pro)
+- Fixed: Some PHP notices in timetable skin (pro)
+- Fixed: Some issues regarding cancellation notification (pro)
+- Fixed: Some minor issues
+
+= 5.11.0 – 2 September 2020 =
 - Added: An ability to prevent user creation when booking in WordPress (pro)
 - Added: An ability to change the event status per occurrence (pro)
 - Added: An ability to insert username and password fields for main attendee during the booking (pro)

@@ -493,7 +493,7 @@ class MEC_skins extends MEC_base
     public function period($start, $end, $exclude = false)
     {
         // Search till the end of End Date!
-        if(date('H:i:s', strtotime($end)) == '00:00:00') $end .= ' 23:59:59';
+        if(!$this->show_only_expired_events and date('H:i:s', strtotime($end)) == '00:00:00') $end .= ' 23:59:59';
 
         // Search From last second of start date
         if($this->show_only_expired_events and date('Y-m-d', strtotime($start)) !== current_time('Y-m-d') and date('H:i:s', strtotime($start)) == '00:00:00') $start .= ' 23:59:59';

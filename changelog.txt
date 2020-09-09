@@ -1,4 +1,22 @@
-﻿v 5.10.5 – 2 September 2020
+﻿v 5.11.5 – 9 September 2020
+- Added: Compatibility with Polylang (pro)
+- Added: An ability to show events of previous month and next month in monthly skin when some days are visible in current month
+- Added: Ability to refund bookings from backend when paid by Stripe gateway (pro)
+- Added: A custom class for custom fields
+- Improved: Stripe payment system (pro)
+- Updated: Dutch (Netherlands) language (Thanks to Elmar)
+- Updated: French translation (Thanks to Michael Berthoud)
+- Fixed: Constant Contact class (pro)
+- Fixed: Some issues with WPML (pro)
+- Fixed: Featured image in RSS feed
+- Fixed: An issue regarding showing event field placeholders in email notifications (pro)
+- Fixed: An issue in booking modal (pro)
+- Fixed: A PHP version conflict in timetable skin (pro)
+- Fixed: Some PHP notices in timetable skin (pro)
+- Fixed: Some issues regarding cancellation notification (pro)
+- Fixed: Some minor issues
+
+v 5.11.0 – 2 September 2020
 - Added: An ability to prevent user creation when booking in WordPress (pro)
 - Added: An ability to change the event status per occurrence (pro)
 - Added: An ability to insert username and password fields for main attendee during the booking (pro)

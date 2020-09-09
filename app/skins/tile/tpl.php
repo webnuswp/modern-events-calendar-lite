@@ -105,7 +105,7 @@ $dark_mode = (isset($styling['dark_mode'])) ? $styling['dark_mode'] : '';
 if($dark_mode == 1) $set_dark = 'mec-dark-mode';
 else $set_dark ='';
 
-do_action('mec_start_skin' , $this->id);
+do_action('mec_start_skin', $this->id);
 do_action('mec_tile_head');
 ?>
 <div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin . ' ' . $this->html_class . ' ' . $set_dark; ?>">

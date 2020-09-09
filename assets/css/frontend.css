@@ -4686,6 +4686,7 @@ address.mec-events-address {
 	vertical-align: middle;
 	cursor: pointer;
 }
+
 .mec-attendees-list-details span.mec-attendee-profile-ticket-number {
 	border-radius: 50px;
 	width: 20px;
@@ -4694,7 +4695,13 @@ address.mec-events-address {
 	text-align: center;
 	color: #fff;
 	margin-right: 4px;
+	line-height: 20px;
 }
+
+#wrap .mec-attendees-list-details span.mec-attendee-profile-ticket-number {
+    line-height: 19px;
+}
+
 .mec-attendees-list-details .mec-attendee-profile-link span i {
 	vertical-align: middle;
 	font-size: 9px;
@@ -5513,6 +5520,11 @@ address.mec-events-address {
 	.mec-event-container-simple .mec-monthly-tooltip h4 {
 		font-size: 12px;
 	}
+
+    .mec-calendar-side {
+        min-width: 600px !important;
+        overflow-x: scroll;
+    }
 }
 
 
@@ -6657,6 +6669,10 @@ li.mec-no-event-found .mec-event-title {
 	margin: 0;
 	display: inline-block;
 	vertical-align: top;
+}
+
+#wrap .mec-fes-form input+label {
+    padding-top: 0;
 }
 
 .mec-fes-form .post-status {
@@ -11081,7 +11097,7 @@ body .featherlight .featherlight-close-icon:hover {
 	color: #fff;
 	padding: 15px 15px 20px;
 	text-align: left;
-	height: 130px;
+	height: 185px;
 	margin-bottom: 1px;
 	overflow: hidden;
 }
@@ -11098,7 +11114,7 @@ body .featherlight .featherlight-close-icon:hover {
 	color: #fff;
 	font-size: 15px;
 	font-weight: 600;
-	white-space: nowrap;
+	white-space: pre-line;
 	overflow: hidden;
 }
 
@@ -14472,6 +14488,11 @@ article.mec-search-bar-result {
 }
 
 /* Related Events */
+.mec-related-events {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
 .mec-related-events-wrap {
 	margin-top: 50px;
 }
@@ -15052,6 +15073,15 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 		border-color: #fff;
 		transform: translate3d(0, -12px, 0) rotate(45deg);
 	}
+}
+
+/* Deep Theme and BuddyPress style on MEC Event Data */
+#wrap #mec-event-data input[type=radio] {
+    position: relative;
+}
+
+#wrap #mec-event-data input[type="radio"]:empty::before {
+    display: none;
 }
 
 #mec_bfixed_form_field_types .button,

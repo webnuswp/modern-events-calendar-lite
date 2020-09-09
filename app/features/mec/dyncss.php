@@ -124,7 +124,7 @@ ob_start();
 if($mec_h_fontfamily_arr): ?>
 	/* == Custom Fonts For H Tag
 		---------------- */
-	.mec-hourly-schedule-speaker-name, .mec-hourly-schedule-speaker-job-title, .post-type-archive-mec-events h1, .tax-mec_category h1, .mec-wrap h1, .mec-wrap h2, .mec-wrap h3, .mec-wrap h4, .mec-wrap h5, .mec-wrap h6,.entry-content .mec-wrap h1, .entry-content .mec-wrap h2, .entry-content .mec-wrap h3,.entry-content  .mec-wrap h4, .entry-content .mec-wrap h5, .entry-content .mec-wrap h6
+	.mec-hourly-schedule-speaker-name, .mec-events-meta-group-countdown .countdown-w span, .mec-single-event .mec-event-meta dt, .mec-hourly-schedule-speaker-job-title, .post-type-archive-mec-events h1, .mec-ticket-available-spots .mec-event-ticket-name, .tax-mec_category h1, .mec-wrap h1, .mec-wrap h2, .mec-wrap h3, .mec-wrap h4, .mec-wrap h5, .mec-wrap h6,.entry-content .mec-wrap h1, .entry-content .mec-wrap h2, .entry-content .mec-wrap h3,.entry-content  .mec-wrap h4, .entry-content .mec-wrap h5, .entry-content .mec-wrap h6
 	{ font-family: '<?php echo $mec_h_fontfamily_arr[0]; ?>', Helvetica, Arial, sans-serif !important;}
 <?php endif;
 
@@ -132,7 +132,7 @@ if($mec_h_fontfamily_arr): ?>
 if($mec_p_fontfamily_arr): ?>
 	/* == Custom Fonts For P Tag
 		---------------- */
-	.mec-single-event .mec-event-meta .mec-events-event-cost, .mec-next-occ-booking span, .mec-hourly-schedule-speaker-description, .mec-single-event .mec-speakers-details ul li .mec-speaker-job-title, .mec-single-event .mec-speakers-details ul li .mec-speaker-name, .mec-event-data-field-items, .mec-load-more-button, .mec-events-meta-group-tags a, .mec-events-button, .mec-single-event .mec-event-meta dt, .mec-wrap abbr, .mec-event-schedule-content dl dt, .mec-breadcrumbs a, .mec-breadcrumbs span .mec-event-content p, .mec-wrap p { font-family: '<?php echo $mec_p_fontfamily_arr[0]; ?>',sans-serif; font-weight:300 !important;}
+	.mec-single-event .mec-event-meta .mec-events-event-cost, .mec-event-data-fields .mec-event-data-field-item .mec-event-data-field-value, .mec-event-data-fields .mec-event-data-field-item .mec-event-data-field-name, .mec-wrap .info-msg div, .mec-wrap .mec-error div, .mec-wrap .mec-success div, .mec-wrap .warning-msg div, .mec-breadcrumbs .mec-current, .mec-events-meta-group-tags, .mec-single-event .mec-events-meta-group-booking .mec-event-ticket-available, .mec-single-modern .mec-single-event-bar>div dd, .mec-single-event .mec-event-meta dd, .mec-single-event .mec-event-meta dd a, .mec-next-occ-booking span, .mec-hourly-schedule-speaker-description, .mec-single-event .mec-speakers-details ul li .mec-speaker-job-title, .mec-single-event .mec-speakers-details ul li .mec-speaker-name, .mec-event-data-field-items, .mec-load-more-button, .mec-events-meta-group-tags a, .mec-events-button, .mec-wrap abbr, .mec-event-schedule-content dl dt, .mec-breadcrumbs a, .mec-breadcrumbs span .mec-event-content p, .mec-wrap p { font-family: '<?php echo $mec_p_fontfamily_arr[0]; ?>',sans-serif; font-weight:300 !important;}
 <?php endif;
 
 // render colorskin

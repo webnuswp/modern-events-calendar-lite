@@ -15,6 +15,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')) $rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
+    <?php do_action('mec_top_single_event', get_the_ID()); ?>
     <article class="row mec-single-event mec-single-modern">
 
         <!-- start breadcrumbs -->
@@ -265,7 +266,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             <div class="mec-event-content">
                 <?php echo $this->main->display_cancellation_reason($event, $this->display_cancellation_reason); ?>
                 <h1 class="mec-single-title"><?php the_title(); ?></h1>
-                <div class="mec-single-event-description mec-events-content"><?php the_content(); ?><?php do_action('mec_custom_dev_content_section' , $event); ?></div>
+                <div class="mec-single-event-description mec-events-content"><?php the_content(); ?><?php do_action('mec_custom_dev_content_section', $event); ?></div>
             </div>
 
             <?php do_action('mec_single_after_content', $event); ?>
@@ -296,7 +297,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             
             <!-- Booking Module -->
             <?php if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
-            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
+            <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="<?php echo $data_lity_class; ?>mec-events-meta-group mec-events-meta-group-booking">

@@ -53,7 +53,7 @@ if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
 else: $set_dark ='';
 endif;
 
-do_action('mec_start_skin' , $this->id);
+do_action('mec_start_skin', $this->id);
 do_action('mec_agenda_skin_head');
 ?>
 <div class="mec-wrap mec-events-agenda-container <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">

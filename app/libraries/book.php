@@ -377,11 +377,9 @@ class MEC_book extends MEC_base
     public function cancel($book_id)
     {
         $verified = -1;
-        $verified = apply_filters( 'mec_verified_value',$verified, $book_id );
+        $verified = apply_filters('mec_verified_value', $verified, $book_id);
 
-        if($verified != -1){
-            return true;
-        }
+        if($verified != -1) return true;
 
         update_post_meta($book_id, 'mec_verified', -1);
         update_post_meta($book_id, 'mec_cancelled_date', date('Y-m-d H:i:s', current_time('timestamp', 0)));

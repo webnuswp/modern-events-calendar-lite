@@ -64,7 +64,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                         <?php if(!$this->getPRO()): ?>
                         <span><a href="https://wordpress.org/support/plugin/modern-events-calendar-lite/reviews/#new-post" target="_blank"><?php echo _x('Rate the plugin ★★★★★', 'plugin rate', 'modern-events-calendar-lite'); ?></a></span>
                         <?php endif; ?>
-                        <?php if(version_compare(MEC_VERSION , $version, '<')): ?>
+                        <?php if(version_compare(MEC_VERSION, $version, '<')): ?>
                         <span class="mec-tooltip">
                             <div class="box">
                                 <h5 class="title"><?php _e('Update', 'modern-events-calendar-lite'); ?></h5>

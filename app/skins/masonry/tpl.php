@@ -54,7 +54,7 @@ if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
 else: $set_dark ='';
 endif;
 
-do_action('mec_start_skin' , $this->id);
+do_action('mec_start_skin', $this->id);
 do_action('mec_masonry_skin_head');
 ?>
 <div class="mec-wrap mec-skin-masonry-container<?php echo $event_colorskin; ?><?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>" data-filterby="<?php echo trim($this->filter_by) ? trim($this->filter_by) : ''; ?>" data-sortascending="<?php echo (isset($this->show_only_expired_events) and $this->show_only_expired_events) ? false : true; ?>">

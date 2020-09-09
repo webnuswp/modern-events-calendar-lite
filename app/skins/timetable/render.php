@@ -16,9 +16,9 @@ else $set_dark = '';
 ?>
 <?php if($this->style == 'modern'): ?>
 <div class="mec-timetable-day-events mec-clear mec-weekly-view-dates-events <?php echo $set_dark; ?>">
-    <?php foreach($this->events as $date=>$events): $week = $this->week_of_days[$date]; ?>
+    <?php foreach($this->events as $date=>$events): $week = (isset($this->week_of_days[$date]) ? $this->week_of_days[$date] : 0); ?>
     <?php
-        if(!isset($has_events[$week]))
+        if(!isset($has_events[$week]) and isset($this->weeks[$week]))
         {
             foreach($this->weeks[$week] as $weekday) if(isset($this->events[$weekday]) and count($this->events[$weekday])) $has_events[$week] = true;
         }
@@ -37,7 +37,7 @@ else $set_dark = '';
                 $label_style = '';
                 if(!empty($event->data->labels))
                 {
-                    foreach( $event->data->labels as $label)
+                    foreach($event->data->labels as $label)
                     {
                         if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
                         if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured', 'modern-events-calendar-lite');
@@ -74,7 +74,7 @@ else $set_dark = '';
                     <?php endif; ?>
                 </span>
             </article>
-            <?php do_action('mec_timetable_view_content' , $event , $this , $date , $label_style); ?>
+            <?php do_action('mec_timetable_view_content', $event, $this, $date, $label_style); ?>
         <?php endforeach; ?>
     </div>
     

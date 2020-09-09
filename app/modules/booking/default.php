@@ -378,8 +378,7 @@ function mec_book_form_submit'.$uniqueid.'()
     }
 
     // Add loading Class to the button
-    jQuery("#mec_book_form'.$uniqueid.' button[type=submit]").addClass("loading");
-    jQuery("#mec_book_form'.$uniqueid.' button[type=submit]").attr("disabled" , "true");
+    jQuery("#mec_book_form'.$uniqueid.' button[type=submit]").addClass("loading").attr("disabled" , "true");
     jQuery("#mec_booking_message'.$uniqueid.'").removeClass("mec-success mec-error").hide();
 
     var fileToUpload = false;
@@ -397,8 +396,7 @@ function mec_book_form_submit'.$uniqueid.'()
         success: function(data)
         {
             // Remove the loading Class to the button
-            jQuery("#mec_book_form'.$uniqueid.' button[type=submit]").removeClass("loading");
-            jQuery("#mec_book_form'.$uniqueid.' button[type=submit]").removeAttr("disabled");
+            jQuery("#mec_book_form'.$uniqueid.' button[type=submit]").removeClass("loading").removeAttr("disabled");
 
             if(data.success)
             {

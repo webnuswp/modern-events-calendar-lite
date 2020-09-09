@@ -350,7 +350,7 @@ class MEC_factory extends MEC_base
         wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'));
 
         // Include MEC frontend script files
-        wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version().'.'.time());
+        wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
         wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'));
 
         wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
