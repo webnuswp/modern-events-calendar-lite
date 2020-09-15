@@ -366,4 +366,15 @@ class MEC_skin_monthly_view extends MEC_skins
         echo json_encode($output);
         exit;
     }
+
+    public function day_label($time)
+    {
+        $date_suffix = (isset($this->settings['date_suffix']) && $this->settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
+
+        if($this->main->is_day_first())
+        {
+            return '<h6 class="mec-table-side-title">'.sprintf(__('Events for %s %s', 'modern-events-calendar-lite'), '<span class="mec-color mec-table-side-day"> '.$date_suffix.'</span>', $this->main->date_i18n('F', $time)).'</h6>';
+        }
+        else return '<h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), $this->main->date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '.$date_suffix.'</h3>';
+    }
 }

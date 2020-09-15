@@ -71,7 +71,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                             ?>
                             <div class="mec-addon-box-title"><img src="<?php esc_html_e($value->img); ?>" /><span><?php esc_html_e($value->name); ?></span></div>
                             <?php if ( $value->comingsoon == 'false' ) : ?> 
-                            <div class="mec-addon-box-version"><span><?php esc_html_e('Version' , 'modern-events-calendar-lite'); ?> <strong><?php esc_html_e($addons_json['version']); ?></strong></span></div>
+                            <div class="mec-addon-box-version"><span><?php esc_html_e('Version', 'modern-events-calendar-lite'); ?> <strong><?php esc_html_e($addons_json['version']); ?></strong></span></div>
                             <?php endif; ?>
                         </div>
                         <div class="mec-addon-box-body">
@@ -85,7 +85,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                             <a class="mec-addon-box-purchase" href="<?php esc_html_e($value->page); ?>" target="_blank"><i class="mec-sl-link"></i><div class="wn-p-t-right"><div class="wn-p-t-text-content"><h5>Details</h5>Learn everything about this addon</div><i></i></div></a>
                             <a class="mec-addon-box-purchase" href="<?php esc_html_e($value->purchase); ?>" target="_blank"><i class="mec-sl-basket"></i><div class="wn-p-t-right"><div class="wn-p-t-text-content"><h5>Add To Cart</h5>Add to cart and continue purchasing</div><i></i></div></a>
                             <?php else : ?>
-                            <div class="mec-addon-box-comingsoon"><?php esc_html_e('Coming Soon' , 'modern-events-calendar-lite'); ?></div>
+                            <div class="mec-addon-box-comingsoon"><?php esc_html_e('Coming Soon', 'modern-events-calendar-lite'); ?></div>
                             <?php endif; ?>
                         </div>
                     </div>

@@ -834,7 +834,7 @@ class MEC_skin_single extends MEC_skins
     {
         if($this->main->is_sold($event) and count($event->dates) <= 1):
         ?>
-            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'wpl'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
+            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
         <?php elseif($this->main->can_show_booking_module($event)):
             $data_lity_class = '';
             if(isset($this->settings['single_booking_style']) and $this->settings['single_booking_style'] == 'modal') $data_lity_class = 'lity-hide '; ?>

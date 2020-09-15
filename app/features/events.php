@@ -1569,21 +1569,21 @@ class MEC_feature_events extends MEC_base
     ?>
         <div class="mec-add-booking-tabs-wrap">
             <div class="mec-add-booking-tabs-left">
-                <a class="mec-add-booking-tabs-link mec-tab-active" data-href="mec_meta_box_booking_options_form_1" href="#"><?php echo esc_html__('Booking Options' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_booking_options_form_2" href="#"><?php echo esc_html__('Total User Booking Limits' ,'modern-events-calendar-lite'); ?></a>
-                <a class="mec-add-booking-tabs-link" data-href="mec-tickets" href="#"><?php echo esc_html__('Tickets' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link mec-tab-active" data-href="mec_meta_box_booking_options_form_1" href="#"><?php echo esc_html__('Booking Options','modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_booking_options_form_2" href="#"><?php echo esc_html__('Total User Booking Limits','modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link" data-href="mec-tickets" href="#"><?php echo esc_html__('Tickets','modern-events-calendar-lite'); ?></a>
                 <?php if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status']) : ?>
-                <a class="mec-add-booking-tabs-link" data-href="mec-fees" href="#"><?php echo esc_html__('Fees' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link" data-href="mec-fees" href="#"><?php echo esc_html__('Fees','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
                 <?php if(isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status']) : ?>
-                <a class="mec-add-booking-tabs-link" data-href="mec-ticket-variations" href="#"><?php echo esc_html__('Ticket Variations / Options' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link" data-href="mec-ticket-variations" href="#"><?php echo esc_html__('Ticket Variations / Options','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
-                <a class="mec-add-booking-tabs-link" data-href="mec-reg-fields" href="#"><?php echo esc_html__('Booking Form' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link" data-href="mec-reg-fields" href="#"><?php echo esc_html__('Booking Form','modern-events-calendar-lite'); ?></a>
                 <?php if(isset($gateway_settings['op_status']) && $gateway_settings['op_status'] == 1): ?>
-                <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_op_form" href="#"><?php echo esc_html__('Organizer Payment' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_op_form" href="#"><?php echo esc_html__('Organizer Payment','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
                 <?php if(isset($this->settings['downloadable_file_status']) and $this->settings['downloadable_file_status']): ?>
-                <a class="mec-add-booking-tabs-link" data-href="mec-downloadable-file" href="#"><?php echo esc_html__('Downloadable File' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-add-booking-tabs-link" data-href="mec-downloadable-file" href="#"><?php echo esc_html__('Downloadable File','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
                 <?php do_action('add_event_booking_sections_left_menu'); ?>
             </div>
@@ -1620,7 +1620,11 @@ class MEC_feature_events extends MEC_base
         $bookings_user_limit = isset($booking_options['bookings_user_limit']) ? $booking_options['bookings_user_limit'] : '';
         $bookings_user_limit_unlimited = isset($booking_options['bookings_user_limit_unlimited']) ? $booking_options['bookings_user_limit_unlimited'] : true;
         $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+
         $loggedin_discount = isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : '';
+
+        global $wp_roles;
+        $roles = $wp_roles->get_names();
         ?>
         <div id="mec-booking">
             <div class="mec-meta-box-fields mec-booking-tab-content mec-tab-active" id="mec_meta_box_booking_options_form_1">
@@ -1653,19 +1657,15 @@ class MEC_feature_events extends MEC_base
                     <input class="mec-col-4 <?php echo ($bookings_limit_unlimited == 1) ? 'mec-util-hidden' : ''; ?>" type="text" name="mec[booking][bookings_limit]" id="mec_bookings_limit"
                            value="<?php echo esc_attr($bookings_limit); ?>" placeholder="<?php _e('100', 'modern-events-calendar-lite'); ?>"/>
                 </div>
-                <h4 class="mec-title"><label for="mec_bookings_loggedin_discount"><?php _e('Discount for loggedin members', 'modern-events-calendar-lite'); ?></label></h4>
+                <h4 class="mec-title"><?php _e('Discount per user roles', 'modern-events-calendar-lite'); ?></h4>
+                <?php foreach($roles as $role_key => $role_name): $role_discount = isset($booking_options['roles_discount_'.$role_key]) ? $booking_options['roles_discount_'.$role_key] : $loggedin_discount; ?>
                 <div class="mec-form-row">
-                    <input class="mec-col-4" type="text" name="mec[booking][loggedin_discount]" id="mec_bookings_loggedin_discount" value="<?php echo esc_attr($loggedin_discount); ?>" placeholder="<?php _e('5', 'modern-events-calendar-lite'); ?>">
-                    <span class="mec-tooltip">
-                        <div class="box">
-                            <h5 class="title"><?php _e('Loggedin members discount', 'modern-events-calendar-lite'); ?></h5>
-                            <div class="content">
-                                <p><?php echo sprintf(esc_html__("You can provide a discount to loggedin users for %s prices. The discount is in percentage."), '<strong>'.__('tickets', 'modern-events-calendar-lite').'</strong>'); ?></p>
-                            </div>
-                        </div>
-                        <i title="" class="dashicons-before dashicons-editor-help"></i>
-                    </span>
+                    <div class="mec-col-2">
+                        <label for="mec_bookings_roles_discount_<?php echo $role_key; ?>"><?php echo $role_name; ?></label>
+                    </div>
+                    <input class="mec-col-4" type="text" name="mec[booking][roles_discount_<?php echo $role_key; ?>]" id="mec_bookings_roles_discount_<?php echo $role_key; ?>" value="<?php echo esc_attr($role_discount); ?>" placeholder="<?php _e('5', 'modern-events-calendar-lite'); ?>">
                 </div>
+                <?php endforeach; ?>
                 <h4 class="mec-title"><?php _e('Book All Occurrences', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_bookings_all_occurrences">
@@ -3454,7 +3454,7 @@ class MEC_feature_events extends MEC_base
         // Lightbox
         echo '
             <div id="mec_manage_events_lightbox" class="lity-hide">
-                <div class="mec-attendees-list-head">'. esc_html__('Attendees List' , 'modern-events-calendar-lite') .'</div>
+                <div class="mec-attendees-list-head">'. esc_html__('Attendees List', 'modern-events-calendar-lite') .'</div>
                 <div class="mec-attendees-list-wrap">
                     <div class="mec-attendees-list-left">
                         <div class="mec-attendees-list-left-menu mec-owl-carousel mec-owl-theme">
@@ -4042,7 +4042,7 @@ class MEC_feature_events extends MEC_base
                 $index++;
             }
 
-            $email_button = '<p>'.esc_html__('If you want to send an email, first select your attendees and then click in the button below, please.' , 'modern-events-calendar-lite').'</p><button data-id="'.$id.'" onclick="mec_submit_event_email('.$id.');">'.esc_html__('Send Email', 'modern-events-calendar-lite').'</button>';
+            $email_button = '<p>'.esc_html__('If you want to send an email, first select your attendees and then click in the button below, please.', 'modern-events-calendar-lite').'</p><button data-id="'.$id.'" onclick="mec_submit_event_email('.$id.');">'.esc_html__('Send Email', 'modern-events-calendar-lite').'</button>';
         }
         else
         {

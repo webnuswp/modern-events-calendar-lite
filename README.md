@@ -5,7 +5,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
 **Tested up to:** 5.5.1 \
-**Stable tag:** 5.11.5 \
+**Stable tag:** 5.12.0 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -228,6 +228,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ## Key Features
 
+- Discount per user roles (*pro*)
 - Refund bookings paid by Stripe gateway (*pro*)
 - Prevent user account (*pro*)
 - Create an account with a custom username and password (*pro*)
@@ -567,6 +568,22 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.12.0 – 15 September 2020
+
+- Added: An option to provide a discount per user roles (pro)
+- Added: An option to show the date number before the month in Monthly Skin
+- Added: Ongoing events in the Map Skin (pro)
+- Added: An option to open event in a new window for shortcodes
+- Changed: "Separate Window" to "New Window" for Single Event Display Method
+- Improved: The Weekly Skin regarding the showing dates of the previous month and the next month (pro)
+- Improved: The feature of discount for logged in users (pro)
+- Improved: The WC integration to fill the booking form before adding to the cart process (pro)
+- Fixed: Showing the invoice link after a successful booking (pro)
+- Fixed: Regarding the show of the post image twice on some WordPress themes
+- Fixed: Regarding the reports menu on multilingual websites (pro)
+- Fixed: Timetable Skin (pro)
+- Fixed: Some notices
 
 ### 5.11.5 – 9 September 2020
 

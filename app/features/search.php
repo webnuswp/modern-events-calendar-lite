@@ -132,7 +132,7 @@ class MEC_feature_search extends MEC_base
     {
         if($_POST['length'] < '3')
         {
-            _e('Please enter at least 3 characters and try again' , 'modern-events-calendar-lite');
+            _e('Please enter at least 3 characters and try again', 'modern-events-calendar-lite');
             die();
         }
 

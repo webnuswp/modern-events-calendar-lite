@@ -30,7 +30,7 @@ foreach($this->weeks as $week_number=>$week)
     {
         $time = strtotime($day);
         $count = isset($this->events[$day]) ? count($this->events[$day]) : 0;
-        $weeks .= '<dt data-events-count="'.$count.'" class="'.((strtotime($day) < $current_month_time or strtotime($day) >= $_1month_after)? 'mec-weekly-disabled' : '').'">'
+        $weeks .= '<dt data-events-count="'.$count.'" class="'.((strtotime($day) < $current_month_time or strtotime($day) >= $_1month_after) ? 'mec-weekly-disabled mec-table-nullday' : '').'">'
                 .'<span class="mec-weekly-view-weekday">'.$this->main->date_i18n('D', $time).'</span> '
                 .'<span class="mec-weekly-view-monthday">'.$this->main->date_i18n('j', $time).'</span> '
                 .'</dt>';
@@ -88,6 +88,9 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
     exit;
 }
 
+$sed_method = $this->sed_method;
+if ($sed_method == 'new') $sed_method = '0';
+
 // Generating javascript code tpl
 $javascript = '<script type="text/javascript">
 jQuery(document).ready(function()
@@ -104,7 +107,7 @@ jQuery(document).ready(function()
         changeWeekElement: "#mec_skin_'.$this->id.' .mec-load-week",
         atts: "'.http_build_query(array('atts'=>$this->atts), '', '&').'",
         ajax_url: "'.admin_url('admin-ajax.php', NULL).'",
-        sed_method: "'.$this->sed_method.'",
+        sed_method: "'.$sed_method.'",
         image_popup: "'.$this->image_popup.'",
         sf:
         {

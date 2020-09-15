@@ -48,11 +48,11 @@ class MEC_feature_login extends MEC_base
         $user_signon = wp_signon($info, true); // secure_cookie set true.
         if(is_wp_error($user_signon))
         {
-            echo json_encode(array('loggedin'=>false, 'message'=>__('<strong>'.esc_html__('Wrong username or password, reloading...' , 'modern-events-calendar-lite').'</strong>')));
+            echo json_encode(array('loggedin'=>false, 'message'=>__('<strong>'.esc_html__('Wrong username or password, reloading...', 'modern-events-calendar-lite').'</strong>')));
         }
         else
         {
-            echo json_encode(array('loggedin'=>true, 'message'=>__('<strong>'.esc_html__('Login successful, redirecting...' , 'modern-events-calendar-lite').'</strong>')));
+            echo json_encode(array('loggedin'=>true, 'message'=>__('<strong>'.esc_html__('Login successful, redirecting...', 'modern-events-calendar-lite').'</strong>')));
         }
 
         die();

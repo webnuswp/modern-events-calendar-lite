@@ -9,6 +9,10 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
+// Single Event Display Method
+$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
+$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
+
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-masonry">
@@ -140,14 +144,14 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             ?>
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event); ?>
-                                <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
+                                <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
                                 <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                 <div class="mec-event-description mec-events-content">
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                 </div>
                             </div>
                             <div class="mec-event-footer">
-                                <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" target="_self"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
+                                <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
                                 <?php echo $this->booking_button($event); ?>
                                 <?php do_action('mec_masonry_button', $event); ?>
                             </div>

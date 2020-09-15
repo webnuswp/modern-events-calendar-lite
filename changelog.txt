@@ -1,4 +1,19 @@
-﻿v 5.11.5 – 9 September 2020
+﻿v 5.12.0 – 15 September 2020
+- Added: An option to provide a discount per user roles (pro)
+- Added: An option to show the date number before the month in Monthly Skin
+- Added: Ongoing events in the Map Skin (pro)
+- Added: An option to open event in a new window for shortcodes
+- Changed: "Separate Window" to "New Window"
+- Improved: The Weekly Skin regarding the showing dates of the previous month and the next month (pro)
+- Improved: The feature of discount for logged in users (pro)
+- Improved: The WC integration to fill the booking form before adding to the cart process (pro)
+- Fixed: Showing the invoice link after a successful booking (pro)
+- Fixed: Regarding the show of the post image twice on some WordPress themes
+- Fixed: Regarding the reports menu on multilingual websites (pro)
+- Fixed: Timetable Skin (pro)
+- Fixed: Some notices
+
+v 5.11.5 – 9 September 2020
 - Added: Compatibility with Polylang (pro)
 - Added: An ability to show events of previous month and next month in monthly skin when some days are visible in current month
 - Added: Ability to refund bookings from backend when paid by Stripe gateway (pro)

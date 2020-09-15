@@ -15,6 +15,9 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
     exit;
 }
 
+$sed_method = $this->sed_method;
+if ($sed_method == 'new') $sed_method = '0';
+
 // Inclue Isotope Assets
 $this->main->load_isotope_assets();
 
@@ -30,7 +33,7 @@ jQuery(document).ready(function()
 		offset: "'.$this->next_offset.'",
         atts: "'.http_build_query(array('atts'=>$this->atts), '', '&').'",
         ajax_url: "'.admin_url('admin-ajax.php', NULL).'",
-        sed_method: "'.$this->sed_method.'",
+        sed_method: "'.$sed_method.'",
         image_popup: "'.$this->image_popup.'",
         masonry_like_grid: "'.$this->masonry_like_grid.'",
         fit_to_row: "'.$this->fit_to_row.'",

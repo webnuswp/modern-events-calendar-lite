@@ -7315,4 +7315,27 @@ class MEC_main extends MEC_base
         }
         else return array_key_last($arr);
     }
+
+    public function is_day_first()
+    {
+        $format = get_option('date_format');
+        $chars = str_split($format);
+
+        $status = true;
+        foreach($chars as $char)
+        {
+            if(in_array($char, array('d', 'D', 'j', 'l', 'N', 'S', 'w', 'z')))
+            {
+                $status = true;
+                break;
+            }
+            elseif(in_array($char, array('F', 'm', 'M', 'n')))
+            {
+                $status = false;
+                break;
+            }
+        }
+
+        return $status;
+    }
 }

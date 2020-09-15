@@ -16,7 +16,7 @@ $query = new WP_Query(array(
                 <p><?php echo esc_html__('Using this section, you can see the list of participant attendees by the order of date.', 'modern-events-calendar-lite'); ?></p>
             </div>
             <div class="w-col-sm-3">
-                <?php $styling = $this->main->get_styling(); $darkadmin_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : ''; if ($darkadmin_mode == 1): $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w2.png'; else: $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w.png'; endif; ?>
+                <?php $styling = $this->main->get_styling(); $darkadmin_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : ''; if($darkadmin_mode == 1): $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w2.png'; else: $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w.png'; endif; ?>
                 <img src="<?php echo $darklogo; ?>" />
                 <span class="w-theme-version"><?php echo __('Version', 'modern-events-calendar-lite'); ?> <?php echo MEC_VERSION; ?></span>
             </div>
@@ -35,7 +35,11 @@ $query = new WP_Query(array(
                                     while($query->have_posts())
                                     {
                                         $query->the_post();
-                                        echo '<option value="'.get_the_ID().'">' . get_the_title() . '</option>';
+
+                                        $ID = get_the_ID();
+                                        if($this->main->get_original_event($ID) !== $ID) $ID = $this->main->get_original_event($ID);
+
+                                        echo '<option value="'.$ID.'">' . get_the_title() . '</option>';
                                     }
                                 }
                             ?>

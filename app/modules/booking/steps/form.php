@@ -16,6 +16,14 @@ unset($ticket_variations[':i:']);
 $fees = $this->book->get_fees($event_id);
 unset($fees[':i:']);
 
+// WC System
+$WC_status = (isset($this->settings['wc_status']) and $this->settings['wc_status'] and class_exists('WooCommerce')) ? true : false;
+if($WC_status)
+{
+    $ticket_variations = array();
+    $fees = array();
+}
+
 $event_tickets = isset($event->data->tickets) ? $event->data->tickets : array();
 
 $total_ticket_prices = 0;
@@ -333,7 +341,7 @@ if (!$mec_email) {
     <?php wp_nonce_field('mec_book_form_' . $event_id); ?>
     <div class="mec-book-form-btn-wrap">
         <button id="mec-book-form-back-btn-step-2" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php _e('Back', 'modern-events-calendar-lite'); ?></button>
-        <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php echo ((!$total_ticket_prices and !$has_fees and !$has_variations && $check_free_tickets_booking) ? __('Submit', 'modern-events-calendar-lite') : __('Next', 'modern-events-calendar-lite')); ?></button>
+        <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php echo ($WC_status ? __('Add to Cart', 'modern-events-calendar-lite') : ((!$total_ticket_prices and !$has_fees and !$has_variations && $check_free_tickets_booking) ? __('Submit', 'modern-events-calendar-lite') : __('Next', 'modern-events-calendar-lite'))); ?></button>
     </div>
 </form>
 <style>

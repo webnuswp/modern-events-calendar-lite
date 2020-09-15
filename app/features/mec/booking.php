@@ -75,7 +75,7 @@ $gateways_options = $this->main->get_gateways_options();
     <div id="wns-be-infobar">
         <div class="mec-search-settings-wrap">
             <i class="mec-sl-magnifier"></i>
-            <input id="mec-search-settings" type="text" placeholder="<?php esc_html_e('Search...' ,'modern-events-calendar-lite'); ?>">
+            <input id="mec-search-settings" type="text" placeholder="<?php esc_html_e('Search...','modern-events-calendar-lite'); ?>">
         </div>
         <a id="" class="dpr-btn dpr-save-btn"><?php _e('Save Changes', 'modern-events-calendar-lite'); ?></a>
     </div>
@@ -793,7 +793,6 @@ $gateways_options = $this->main->get_gateways_options();
                                             <p><?php esc_html_e("You cannot use following MEC features so you should use WooCommerc and its addons if you need them.", 'modern-events-calendar-lite'); ?></p>
                                             <ul>
                                                 <li><?php esc_html_e('Payment gateways', 'modern-events-calendar-lite'); ?></li>
-                                                <li><?php esc_html_e('Booking Fields', 'modern-events-calendar-lite'); ?></li>
                                                 <li><?php esc_html_e('Price per dates of tickets', 'modern-events-calendar-lite'); ?></li>
                                                 <li><?php esc_html_e('Coupons', 'modern-events-calendar-lite'); ?></li>
                                                 <li><?php esc_html_e('Ticket variations', 'modern-events-calendar-lite'); ?></li>

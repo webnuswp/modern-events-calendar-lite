@@ -474,7 +474,11 @@ $settings = $this->main->get_settings();
                         <div>
                             <label>
                                 <input type="radio" name="shortcode[sed]" value="0" checked>
-                                <?php _e('Separate Window', 'modern-events-calendar-lite'); ?>
+                                <?php _e('Current Window', 'modern-events-calendar-lite'); ?>
+                            </label>
+                            <label>
+                                <input type="radio" name="shortcode[sed]" value="new" checked>
+                                <?php _e('New Window', 'modern-events-calendar-lite'); ?>
                             </label>
                             <label>
                                 <input type="radio" name="shortcode[sed]" value="m1">

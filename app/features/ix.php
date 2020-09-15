@@ -4204,7 +4204,7 @@ class MEC_feature_ix extends MEC_base
                 (
                     'name'=>trim($location_name),
                     'address'=>$location_address,
-                    'latitude'=>!empty($location['location']['latitude']) ? $location['location']['latitude'] : '' ,
+                    'latitude'=>!empty($location['location']['latitude']) ? $location['location']['latitude'] : '',
                     'longitude'=>!empty($location['location']['longitude']) ? $location['location']['longitude'] : '',
                 ));
             }

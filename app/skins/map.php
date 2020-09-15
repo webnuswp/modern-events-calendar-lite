@@ -165,9 +165,9 @@ class MEC_skin_map extends MEC_skins
                 $data = new stdClass();
                 $data->ID = $event_id;
                 $data->data = $rendered;
-                $data->dates = $this->render->dates($event_id, $rendered, 1);
+                $data->dates = $this->render->dates($event_id, $rendered, 1, date('Y-m-d', strtotime('Yesterday')));
                 $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
-                
+
                 // Proceed to next event if it's expired
                 if((isset($this->atts['show_past_events']) and !$this->atts['show_past_events']) and strtotime($data->date['start']['date']) < strtotime($this->start_date)) continue;
 

@@ -78,6 +78,7 @@ class MEC_feature_wc extends MEC_base
     {
         if($meta->key == 'mec_event_id') $display_key = __('Event', 'modern-events-calendar-lite');
         elseif($meta->key == 'mec_date') $display_key = __('Date', 'modern-events-calendar-lite');
+        elseif($meta->key == 'mec_transaction_id') $display_key = __('Transaction ID', 'modern-events-calendar-lite');
 
         return $display_key;
     }
@@ -85,6 +86,7 @@ class MEC_feature_wc extends MEC_base
     public function display_value($display_value, $meta)
     {
         if($meta->key == 'mec_event_id') $display_value = '<a href="'.get_permalink($meta->value).'">'.get_the_title($meta->value).'</a>';
+        elseif($meta->key == 'mec_transaction_id') $display_value = $meta->value;
         elseif($meta->key == 'mec_date')
         {
             $date_format = (isset($this->settings['booking_date_format1']) and trim($this->settings['booking_date_format1'])) ? $this->settings['booking_date_format1'] : 'Y-m-d';

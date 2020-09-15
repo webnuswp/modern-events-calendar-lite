@@ -181,7 +181,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                         <div class="box-mec-avtivation">
                             <?php 
                                 $mec_options = get_option('mec_options');
-                                $one_license = $five_license = $ten_license = $product_license = '';
+                                $one_license = $five_license = $ten_license = $appsumo =  $product_license = '';
 
                                 if(!empty($mec_options) && isset($mec_options['product_name']))
                                 {
@@ -196,6 +196,10 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                                     elseif($mec_options['product_name'] == '10 License for MEC Plugin')
                                     {
                                         $ten_license = 'checked';
+                                    }
+                                    elseif($mec_options['product_name'] == 'appsumo')
+                                    {
+                                        $appsumo = 'checked';
                                     }
 
                                     if($mec_options['product_name'] != '')
@@ -212,6 +216,8 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                                     <label for="FiveLicense"><span></span>5 License</label>
                                     <input type="radio" id="TenLicense" value="10 License for MEC Plugin" name="MECLicense" class="<?php echo esc_html($ten_license); ?>" />
                                     <label for="TenLicense"><span></span>10 License</label>
+                                    <input type="radio" id="Appsumo" value="appsumo" name="MECLicense" class="<?php echo esc_html($appsumo); ?>" />
+                                    <label for="Appsumo"><span></span>AppSumo</label>
                                 </div>
                                 <div class="LicenseField">
                                     <input type="password" placeholder="Put your purchase code here" name="MECPurchaseCode" value="<?php echo esc_html($product_license); ?>">

@@ -9,11 +9,13 @@ echo '<dl class="mec-calendar-table-head"><dt class="mec-calendar-day-head">'.im
 // Start day of week
 $week_start = $this->main->get_first_day_of_week();
 
-// Get date suffix 
-$settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
+// Single Event Display Method
+$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
+$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
 
 // days and weeks vars
 $running_day = date('w', mktime(0, 0, 0, $month, 1, $year));
@@ -51,7 +53,6 @@ $events_str = '';
         {
             $list_day = ($days_in_previous_month - ($running_day-1-$x));
             $time = strtotime(($month == 1 ? ($year - 1) : $year).'-'.($month == 1 ? 12 : ($month - 1)).'-'.$list_day);
-            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
             $today = date('Y-m-d', $time);
             $day_id = date('Ymd', $time);
@@ -61,7 +62,7 @@ $events_str = '';
             if(isset($events[$today]) and count($events[$today]))
             {
                 echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', strtotime($year.'-'.$month.'-01')).'"><a href="#" class="mec-has-event-a">'.$list_day.'</a></dt>';
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), $this->main->date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
+                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
 
                 foreach($events[$today] as $event)
                 {
@@ -96,7 +97,7 @@ $events_str = '';
 
                     $events_str .= $after_time_filter;
                     $event_color = isset($event->data->meta['mec_color'])?'<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>':'';
-                    $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'">'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
+                    $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target_url.'>'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
                     $events_str .='</h4>';
                     if($this->localtime) $events_str .= $this->main->module('local-time.type3', array('event'=>$event));
@@ -131,7 +132,6 @@ $events_str = '';
         for($list_day = 1; $list_day <= $days_in_month; $list_day++)
         {
             $time = strtotime($year.'-'.$month.'-'.$list_day);
-            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
             $today = date('Y-m-d', $time);
             $day_id = date('Ymd', $time);
@@ -141,7 +141,7 @@ $events_str = '';
             if(isset($events[$today]) and count($events[$today]))
             {
                 echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'"><a href="#" class="mec-has-event-a">'.$list_day.'</a></dt>';
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), $this->main->date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
+                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
                 
                 foreach($events[$today] as $event)
                 {
@@ -176,7 +176,7 @@ $events_str = '';
 
                     $events_str .= $after_time_filter;
                     $event_color = isset($event->data->meta['mec_color'])?'<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>':'';
-                    $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'">'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
+                    $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target_url.'>'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
                     $events_str .='</h4>';
                     if($this->localtime) $events_str .= $this->main->module('local-time.type3', array('event'=>$event));
@@ -203,7 +203,7 @@ $events_str = '';
             {
                 echo '<dt class="mec-calendar-day'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'">'.$list_day.'</dt>';
                 
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), $this->main->date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
+                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
                 $events_str .= '<article class="mec-event-article">';
                 $events_str .= '<div class="mec-event-detail">'.__('No Events', 'modern-events-calendar-lite').'</div>';
                 $events_str .= '</article>';
@@ -235,7 +235,6 @@ $events_str = '';
             {
                 $list_day = $x;
                 $time = strtotime(($month == 12 ? ($year + 1) : $year).'-'.($month == 12 ? 1 : ($month + 1)).'-'.$list_day);
-                $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
                 $today = date('Y-m-d', $time);
                 $day_id = date('Ymd', $time);
@@ -245,7 +244,7 @@ $events_str = '';
                 if(isset($events[$today]) and count($events[$today]))
                 {
                     echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', strtotime($year.'-'.$month.'-01')).'"><a href="#" class="mec-has-event-a">'.$list_day.'</a></dt>';
-                    $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'><h6 class="mec-table-side-title">'.sprintf(__('Events for %s', 'modern-events-calendar-lite'), $this->main->date_i18n('F', $time)).'</h6><h3 class="mec-color mec-table-side-day"> '. $date_suffix .'</h3>';
+                    $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
 
                     foreach($events[$today] as $event)
                     {
@@ -279,10 +278,12 @@ $events_str = '';
                         if(has_filter('monthly_event_after_time')) $after_time_filter = apply_filters('monthly_event_after_time', $events_str, $event);
 
                         $events_str .= $after_time_filter;
-                        $event_color = isset($event->data->meta['mec_color'])?'<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>':'';
-                        $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'">'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
+                        $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
+
+                        $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target_url.'>'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                         if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
                         $events_str .='</h4>';
+
                         if($this->localtime) $events_str .= $this->main->module('local-time.type3', array('event'=>$event));
                         $events_str .= '<div class="mec-event-detail"><div class="mec-event-loc-place">'.(isset($location['name']) ? $location['name'] : '').'</div></div>';
                         $events_str .= $this->booking_button($event);
@@ -290,9 +291,9 @@ $events_str = '';
                         if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
                         {
                             $events_str .= '<div class="mec-price-details">
-                            <i class="mec-sl-wallet"></i>
-                            <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']).'</span>
-                        </div>';
+                                <i class="mec-sl-wallet"></i>
+                                <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']).'</span>
+                            </div>';
                         }
 
                         if(has_filter('monthly_event_right_box')) $events_filter = apply_filters('monthly_event_right_box', $events_str, $event);

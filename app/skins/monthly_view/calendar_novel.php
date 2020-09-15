@@ -9,10 +9,12 @@ echo '<dl class="mec-calendar-table-head"><dt class="mec-calendar-day-head">'.im
 // Start day of week
 $week_start = $this->main->get_first_day_of_week();
 
-// Get date suffix 
-$settings = $this->main->get_settings();
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
+
+// Single Event Display Method
+$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
+$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
 
 // days and weeks vars
 $running_day = date('w', mktime(0, 0, 0, $month, 1, $year));
@@ -53,7 +55,6 @@ elseif($week_start == 5) // Friday
         for($list_day = 1; $list_day <= $days_in_month; $list_day++)
         {
             $time = strtotime($year.'-'.$month.'-'.$list_day);
-            $date_suffix = (isset($settings['date_suffix']) && $settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
             $today = date('Y-m-d', $time);
             $day_id = date('Ymd', $time);
@@ -84,7 +85,7 @@ elseif($week_start == 5) // Friday
                     // MEC Schema
                     do_action('mec_schema', $event);
 
-                    echo '<a class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'event-single-link-novel" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'"><div style="background:'.$event_color.'" class="mec-single-event-novel mec-event-article '.$this->get_event_classes($event).'">';
+                    echo '<a class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'event-single-link-novel" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target_url.'><div style="background:'.$event_color.'" class="mec-single-event-novel mec-event-article '.$this->get_event_classes($event).'">';
                     echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     do_action('mec_shortcode_virtual_badge', $event->data->ID );
 
