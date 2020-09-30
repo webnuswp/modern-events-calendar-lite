@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.5.1
-Stable tag: 5.12.0
+Stable tag: 5.12.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -113,6 +113,7 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 - [Virtual Events](https://webnus.net/modern-events-calendar/addons/virtual-events/) - [Documentation](https://webnus.net/dox/modern-events-calendar/virtual-events-addon/)
 - [Waiting List](https://webnus.net/modern-events-calendar/addons/waiting-list/) - [Documentation](https://webnus.net/dox/modern-events-calendar/waiting-list-addon/)
 - [Divi Single Builder](https://webnus.net/modern-events-calendar/addons/divi-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/divi-single-builder-for-mec/)
+- [Zoom Integration](https://webnus.net/modern-events-calendar/addons/zoom-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zoom-integration-addon/)
 
 == Helpful Documentation ==
 Best event management plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
@@ -203,6 +204,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Set different timezone per event
+- Set coupons for multiple events
+- Lock pre-filled fields (*pro*)
 - Discount per user roles (*pro*)
 - Refund bookings paid by Stripe gateway (*pro*)
 - Prevent user account (*pro*)
@@ -419,6 +423,31 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 5.12.5 – 30 September 2020 =
+- Added: An ability to set different timezone per event
+- Added: An option to disable/enable timezone per event feature
+- Added: An ability to set coupons for multiple events for better management (pro)
+- Added: An option to disable links to single event pages in different skins
+- Added: An option to lock pre-filled fields and make them read-only in booking form (pro)
+- Added: 3 placeholders for additional organizers (pro)
+- Added: Event fixed fields to the booking export (pro)
+- Added: Event start date in reports menu (pro)
+- Added: An option to show categories in list and grid skins
+- Added: Location name into the CSV export (pro)
+- Added: A function for displaying related events in single event pages
+- Added: An option to disable admin notification for admin of website but keep it enabled for other recipients (pro)
+- Improved: The Frontend Event Submission by adding a user for the guest user and assigning it as an event owner after event approval by admin
+- Improved: The website speed by loading JS and CSS files into the website footer
+- Improved: The database queries to speed up the frontend views
+- Removed: Constant Contact .zip file
+- Fixed: An issue in “Show only one occurrence” events in very special conditions
+- Fixed: Some query issues during the update
+- Fixed: An issue in Import/Export cron jobs (pro)
+- Fixed: An issue in required radio fields
+- Fixed: An issue in the headline of the checkout step (pro)
+- Fixed: Some translation issues
+- Fixed: Some issues
+
 = 5.12.0 – 15 September 2020 =
 - Added: An option to provide a discount per user roles (pro)
 - Added: An option to show the date number before the month in Monthly Skin

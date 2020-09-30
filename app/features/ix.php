@@ -3745,7 +3745,7 @@ class MEC_feature_ix extends MEC_base
                 header('Content-Type: text/csv; charset=utf-8');
                 header('Content-Disposition: attachment; filename="mec-events-'.md5(time().mt_rand(100, 999)).'.csv"');
                 
-                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), __('Location', 'modern-events-calendar-lite'), __('Organizer', 'modern-events-calendar-lite'), __('Organizer Tel', 'modern-events-calendar-lite'), __('Organizer Email', 'modern-events-calendar-lite'), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
+                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), __('Organizer Tel', 'modern-events-calendar-lite'), __('Organizer Email', 'modern-events-calendar-lite'), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
                 
                 $output = fopen('php://output', 'w');
                 fputcsv($output, $columns);
@@ -3768,7 +3768,8 @@ class MEC_feature_ix extends MEC_base
                         $date['end']['date'],
                         $data->time['end'],
                         $data->permalink,
-                        (isset($location['address']) ? $location['address'] : (isset($location['name']) ? $location['name'] : '')),
+                        (isset($location['name']) ? $location['name'] : ''),
+                        (isset($location['address']) ? $location['address'] : ''),
                         (isset($organizer['name']) ? $organizer['name'] : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
@@ -3786,7 +3787,7 @@ class MEC_feature_ix extends MEC_base
                 header('Content-Type: application/vnd.ms-excel; charset=utf-8');
                 header('Content-Disposition: attachment; filename="mec-events-'.md5(time().mt_rand(100, 999)).'.csv"');
                 
-                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), __('Location', 'modern-events-calendar-lite'), __('Organizer', 'modern-events-calendar-lite'), __('Organizer Tel', 'modern-events-calendar-lite'), __('Organizer Email', 'modern-events-calendar-lite'), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
+                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), __('Organizer Tel', 'modern-events-calendar-lite'), __('Organizer Email', 'modern-events-calendar-lite'), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
                 
                 $output = fopen('php://output', 'w');
                 fwrite($output, "sep=\t".PHP_EOL);
@@ -3810,7 +3811,8 @@ class MEC_feature_ix extends MEC_base
                         $date['end']['date'],
                         $data->time['end'],
                         $data->permalink,
-                        (isset($location['address']) ? $location['address'] : (isset($location['name']) ? $location['name'] : '')),
+                        (isset($location['name']) ? $location['name'] : ''),
+                        (isset($location['address']) ? $location['address'] : ''),
                         (isset($organizer['name']) ? $organizer['name'] : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
@@ -3955,10 +3957,6 @@ class MEC_feature_ix extends MEC_base
         // MEC Render Library
         $render = $this->getRender();
         
-        // Timezone Options
-        $timezone = $this->main->get_timezone();
-        $gmt_offset = $this->main->get_gmt_offset();
-        
         $g_events_not_inserted = array();
         $g_events_inserted = array();
         $g_events_updated = array();
@@ -3969,6 +3967,10 @@ class MEC_feature_ix extends MEC_base
             
             $dates = $render->dates($mec_event_id, $data);
             $date = isset($dates[0]) ? $dates[0] : array();
+
+            // Timezone Options
+            $timezone = $this->main->get_timezone($mec_event_id);
+            $gmt_offset = $this->main->get_gmt_offset($mec_event_id);
 
             $location = isset($data->locations[$data->meta['mec_location_id']]) ? $data->locations[$data->meta['mec_location_id']] : array();
             $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();

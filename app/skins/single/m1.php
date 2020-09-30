@@ -244,7 +244,7 @@ if(!is_array($booking_options)) $booking_options = array();
         <div class="col-md-8">
 
             <div class="mec-event-content">
-                <div class="mec-single-event-description mec-events-content"><?php echo $this->main->get_post_content($event->data->ID); ?></div>
+                <div class="mec-single-event-description mec-events-content"><?php echo $this->main->get_post_content($event); ?></div>
             </div>
 
             <?php do_action('mec_single_after_content', $event ); ?>

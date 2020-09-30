@@ -105,6 +105,13 @@ $event_fields = $this->main->get_event_fields();
                             </div>
                             <?php endif;?>
                             <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_tz_per_event"><?php _e('Timezone Per Event', 'modern-events-calendar-lite'); ?></label>
+                                <label id="mec_settings_tz_per_event" >
+                                    <input type="hidden" name="mec[settings][tz_per_event]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][tz_per_event]" <?php if(isset($settings['tz_per_event']) and $settings['tz_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Enable', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div class="mec-form-row">
                             <label class="mec-col-3" for="mec_settings_gutenberg"><?php _e('Disable Block Editor (Gutenberg)', 'modern-events-calendar-lite'); ?></label>
                                 <label id="mec_settings_gutenberg" >
                                     <input type="hidden" name="mec[settings][gutenberg]" value="0" />

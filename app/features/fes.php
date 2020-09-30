@@ -62,6 +62,9 @@ class MEC_feature_fes extends MEC_base
 
         // Remove the event
         $this->factory->action('wp_ajax_mec_fes_remove', array($this, 'fes_remove'));
+
+        // Event Published
+        $this->factory->action('transition_post_status', array($this, 'status_changed'), 10, 3);
     }
     
     /**
@@ -689,6 +692,7 @@ class MEC_feature_fes extends MEC_base
         $hide_time = isset($date['hide_time']) ? 1 : 0;
         $hide_end_time = isset($date['hide_end_time']) ? 1 : 0;
         $comment = isset($date['comment']) ? $date['comment'] : '';
+        $timezone = (isset($mec['timezone']) and trim($mec['timezone']) != '') ? sanitize_text_field($mec['timezone']) : 'global';
         
         // Set start time and end time if event is all day
         if($allday == 1)
@@ -757,6 +761,7 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_hide_time', $hide_time);
         update_post_meta($post_id, 'mec_hide_end_time', $hide_end_time);
         update_post_meta($post_id, 'mec_comment', $comment);
+        update_post_meta($post_id, 'mec_timezone', $timezone);
         update_post_meta($post_id, 'mec_repeat_status', $repeat_status);
         update_post_meta($post_id, 'mec_repeat_type', $repeat_type);
         update_post_meta($post_id, 'mec_repeat_interval', $repeat_interval);
@@ -1288,6 +1293,60 @@ class MEC_feature_fes extends MEC_base
     {
         if(isset($this->settings['fes_list_page']) and trim($this->settings['fes_list_page'])) return get_permalink($this->settings['fes_list_page']);
         else return $this->main->add_qs_var('vlist', 1, $this->main->remove_qs_var('post_id'));
+    }
+
+    /**
+     * @param string $new_status
+     * @param string $old_status
+     * @param WP_Post $post
+     */
+    public function status_changed($new_status, $old_status, $post)
+    {
+        // User creation is not enabled
+        if(!isset($this->settings['fes_guest_user_creation']) or (isset($this->settings['fes_guest_user_creation']) and !$this->settings['fes_guest_user_creation'])) return;
+
+        if(('publish' === $new_status && 'publish' !== $old_status) && $this->PT === $post->post_type)
+        {
+            $guest_email = get_post_meta($post->ID, 'fes_guest_email', true);
+            if(!trim($guest_email) or (trim($guest_email) and !is_email($guest_email))) return;
+
+            $user_id = 0;
+            $user_exists = email_exists($guest_email);
+
+            if($user_exists and $user_exists == $post->post_author) return;
+            elseif($user_exists) $user_id = $user_exists;
+            else
+            {
+                $registered = register_new_user($guest_email, $guest_email);
+                if(!is_wp_error($registered))
+                {
+                    $user_id = $registered;
+
+                    $guest_name = get_post_meta($post->ID, 'fes_guest_name', true);
+                    $ex = explode(' ', $guest_name);
+
+                    $first_name = $ex[0];
+                    unset($ex[0]);
+
+                    $last_name = implode(' ', $ex);
+
+                    wp_update_user(array(
+                        'ID' => $user_id,
+                        'first_name' => $first_name,
+                        'last_name' => $last_name,
+                    ));
+
+                    $user = new WP_User($user_id);
+                    $user->set_role('author');
+                }
+            }
+
+            if($user_id)
+            {
+                $db = $this->getDB();
+                $db->q("UPDATE `#__posts` SET `post_author`='$user_id' WHERE `ID`='".$post->ID."'");
+            }
+        }
     }
 }
 

@@ -75,12 +75,16 @@ class MEC_skin_single extends MEC_skins
     /**
      * Related Post in Single
      * @author Webnus <info@webnus.biz>
-     * @param integer $event_id
+     * @param mixed $event
      */
-    public function display_related_posts_widget($event_id)
+    public function display_related_posts_widget($event)
     {
         if(!isset($this->settings['related_events'])) return;
         if(isset($this->settings['related_events']) && $this->settings['related_events'] != '1') return;
+
+        if(is_numeric($event)) $event_id = $event;
+        elseif(is_object($event) and isset($event->ID)) $event_id = $event->ID;
+        else return;
 
         $related_args = array(
             'post_type' => 'mec-events',
@@ -692,6 +696,7 @@ class MEC_skin_single extends MEC_skins
         $layout = isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'm1';
 
         do_action('mec-ajax-load-single-page-before', $id);
+
         // Initialize the skin
         $this->initialize(array('id'=>$id, 'layout'=>$layout));
 
@@ -745,9 +750,10 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_social_widget($event)
     {
-        if (!isset($this->settings['social_network_status']) or (isset($this->settings['social_network_status']) and !$this->settings['social_network_status'])) return;
+        if(!isset($this->settings['social_network_status']) or (isset($this->settings['social_network_status']) and !$this->settings['social_network_status'])) return;
+
         $url = isset($event->data->permalink) ? $event->data->permalink : '';
-        if (trim($url) == '') return;
+        if(trim($url) == '') return;
         $socials = $this->main->get_social_networks();
         ?>
         <div class="mec-event-social mec-frontbox">
@@ -756,9 +762,10 @@ class MEC_skin_single extends MEC_skins
                 <div class="mec-links-details">
                     <ul>
                         <?php
-                        foreach ($socials as $social) {
-                            if (!isset($this->settings['sn'][$social['id']]) or (isset($this->settings['sn'][$social['id']]) and !$this->settings['sn'][$social['id']])) continue;
-                            if (is_callable($social['function'])) echo call_user_func($social['function'], $url, $event);
+                        foreach($socials as $social)
+                        {
+                            if(!isset($this->settings['sn'][$social['id']]) or (isset($this->settings['sn'][$social['id']]) and !$this->settings['sn'][$social['id']])) continue;
+                            if(is_callable($social['function'])) echo call_user_func($social['function'], $url, $event);
                         }
                         ?>
                     </ul>

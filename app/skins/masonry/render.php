@@ -8,11 +8,6 @@ $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
-
-// Single Event Display Method
-$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
-$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
-
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-masonry">
@@ -95,9 +90,9 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
 
                     <article data-style="<?php echo $label_style; ?>" class="mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
                         <?php if(isset($event->data->featured_image) and $this->masonry_like_grid): ?>
-                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" data-event-id="<?php echo $event->data->ID; ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'thumblist'); ?></a></div>
+                            <div class="mec-masonry-img"><?php echo $this->display_link($event, get_the_post_thumbnail($event->data->ID , 'thumblist'), ''); ?></div>
                         <?php elseif(isset($event->data->featured_image) and isset($event->data->featured_image['full']) and trim($event->data->featured_image['full'])): ?>
-                            <div class="mec-masonry-img" ><a href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" data-event-id="<?php echo $event->data->ID; ?>"><?php echo get_the_post_thumbnail($event->data->ID , 'full'); ?></a></div>
+                            <div class="mec-masonry-img"><?php echo $this->display_link($event, get_the_post_thumbnail($event->data->ID , 'full'), ''); ?></div>
                         <?php endif; ?>
 
                         <div class="mec-masonry-content mec-event-grid-modern">
@@ -144,14 +139,14 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                             ?>
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event); ?>
-                                <h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
+                                <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?></h4>
                                 <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                 <div class="mec-event-description mec-events-content">
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                 </div>
                             </div>
                             <div class="mec-event-footer">
-                                <a class="mec-booking-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
+                                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                                 <?php echo $this->booking_button($event); ?>
                                 <?php do_action('mec_masonry_button', $event); ?>
                             </div>

@@ -14,11 +14,6 @@ $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
-
-// Single Event Display Method
-$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
-$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
-
 ?>
 <div class="mec-yearly-calendar-sec">
     <?php echo $months_html ?>
@@ -74,9 +69,9 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                             ?>
                         </span>
                         <span class="mec-agenda-event-title">
-                            <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a>
+                            <?php echo $this->display_link($event); ?>
                             <?php echo $event_color; ?>
-                            <?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
+                            <?php if(!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                             <?php echo $this->booking_button($event); ?>
                             <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                         </span>

@@ -1060,7 +1060,7 @@ class MEC_render extends MEC_base
                 $event_months = explode(',', trim($event->mec->month, ', '));
                 
                 $event_start_day = $event_days[0];
-                $event_period_days = ($this->main->date_diff($start_date['date'], $end_date['date']))->days;
+                $event_period_days = $this->main->date_diff($start_date['date'], $end_date['date'])->days;
 
                 $found = 0;
                 $i = 0;

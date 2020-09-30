@@ -392,17 +392,14 @@ class MEC_feature_events extends MEC_base
                 jQuery(this).addClass("mec-tab-active");
                 jQuery("#" + href ).addClass("mec-tab-active");
             });
-            jQuery("#publish").on("click", function () {
-                var fields = jQuery("#mec-event-data").find("select, textarea, input").serializeArray();
-                jQuery.each(fields, function(i, field) {
-                    if (!field.value) {
-                        var xdf = jQuery("#mec_metabox_details .mec-add-event-tabs-left .mec-add-event-tabs-link[data-href='mec-event-data']");
-                        jQuery("#mec_metabox_details .mec-add-event-tabs-left .mec-add-event-tabs-link").removeClass("mec-tab-active");
-                        jQuery("#mec_metabox_details .mec-add-event-tabs-right .mec-event-tab-content").removeClass("mec-tab-active");
-                        jQuery(xdf).addClass("mec-tab-active");
-                        jQuery(".mec-add-event-tabs-right #mec-event-data").addClass("mec-tab-active");
-                    }
-                });
+
+            jQuery("#publish").on("click", function()
+            {
+                var xdf = jQuery("#mec_metabox_details .mec-add-event-tabs-left .mec-add-event-tabs-link[data-href='mec-event-data']");
+                jQuery("#mec_metabox_details .mec-add-event-tabs-left .mec-add-event-tabs-link").removeClass("mec-tab-active");
+                jQuery("#mec_metabox_details .mec-add-event-tabs-right .mec-event-tab-content").removeClass("mec-tab-active");
+                jQuery(xdf).addClass("mec-tab-active");
+                jQuery(".mec-add-event-tabs-right #mec-event-data").addClass("mec-tab-active");
             });
         </script>
     <?php
@@ -490,6 +487,9 @@ class MEC_feature_events extends MEC_base
         $fes_guest_email = get_post_meta($post->ID, 'fes_guest_email', true);
         $fes_guest_name = get_post_meta($post->ID, 'fes_guest_name', true);
         $imported_from_google = get_post_meta($post->ID, 'mec_imported_from_google', true);
+
+        $event_timezone = get_post_meta($post->ID, 'mec_timezone', true);
+        if(trim($event_timezone) == '') $event_timezone = 'global';
         ?>
         <div class="mec-meta-box-fields" id="mec-date-time">
             <?php if ( ($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)) ) : ?>
@@ -605,6 +605,23 @@ class MEC_feature_events extends MEC_base
 						</span>
                     </div>
                 </div>
+
+                <?php if(isset($this->settings['tz_per_event']) and $this->settings['tz_per_event']): ?>
+                <div class="mec-form-row mec-timezone-event">
+                    <div class="mec-title">
+                        <label for="mec_event_timezone"><?php esc_html_e('Timezone', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-form-row">
+                        <div class="mec-col-4">
+                            <select name="mec[timezone]" id="mec_event_timezone">
+                                <option value="global"><?php esc_html_e('Inherit from global options'); ?></option>
+                                <?php echo $this->main->timezones($event_timezone); ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
             </div>
             <div id="mec_meta_box_repeat_form" class="mec-event-tab-content">
                 <h4><?php _e('Repeating', 'modern-events-calendar-lite'); ?></h4>
@@ -1185,9 +1202,9 @@ class MEC_feature_events extends MEC_base
                         </select>
 
                     <?php /** Radio **/ elseif($event_field['type'] == 'radio'): ?>
-                        <?php foreach($event_field['options'] as $event_field_option): ?>
+                        <?php $r = 0; foreach($event_field['options'] as $event_field_option): $r++; ?>
                             <label for="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>">
-                                <input type="radio" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ($event_field_option['label'] == $value ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" />
+                                <input type="radio" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ($event_field_option['label'] == $value ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" <?php if($r == 1 and isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?> />
                                 <?php _e(stripslashes($event_field_option['label']), 'modern-events-calendar-lite'); ?>
                             </label>
                         <?php endforeach; ?>
@@ -2745,6 +2762,7 @@ class MEC_feature_events extends MEC_base
         $hide_time = isset($date['hide_time']) ? 1 : 0;
         $hide_end_time = isset($date['hide_end_time']) ? 1 : 0;
         $comment = isset($date['comment']) ? $date['comment'] : '';
+        $timezone = (isset($_mec['timezone']) and trim($_mec['timezone']) != '') ? sanitize_text_field($_mec['timezone']) : 'global';
 
         // Set start time and end time if event is all day
         if($allday == 1)
@@ -2799,6 +2817,7 @@ class MEC_feature_events extends MEC_base
         update_post_meta($post_id, 'mec_hide_time', $hide_time);
         update_post_meta($post_id, 'mec_hide_end_time', $hide_end_time);
         update_post_meta($post_id, 'mec_comment', $comment);
+        update_post_meta($post_id, 'mec_timezone', $timezone);
 
         do_action('update_custom_post_meta', $date, $post_id);
 
@@ -3611,8 +3630,8 @@ class MEC_feature_events extends MEC_base
             ?>
             <script type="text/javascript">
                 jQuery(document).ready(function () {
-                    jQuery('<option>').val('ical-export').text('<?php echo __('iCal Export', 'modern-events-calendar-lite'); ?>').appendTo("select[name='action']");
-                    jQuery('<option>').val('ical-export').text('<?php echo __('iCal Export', 'modern-events-calendar-lite'); ?>').appendTo("select[name='action2']");
+                    jQuery('<option>').val('ical-export').text('<?php echo __('iCal / Outlook Export', 'modern-events-calendar-lite'); ?>').appendTo("select[name='action']");
+                    jQuery('<option>').val('ical-export').text('<?php echo __('iCal / Outlook Export', 'modern-events-calendar-lite'); ?>').appendTo("select[name='action2']");
 
                     jQuery('<option>').val('csv-export').text('<?php echo __('CSV Export', 'modern-events-calendar-lite'); ?>').appendTo("select[name='action']");
                     jQuery('<option>').val('csv-export').text('<?php echo __('CSV Export', 'modern-events-calendar-lite'); ?>').appendTo("select[name='action2']");
@@ -3674,7 +3693,7 @@ class MEC_feature_events extends MEC_base
                 header('Content-Disposition: attachment; filename=bookings-' . md5(time() . mt_rand(100, 999)) . '.csv');
 
                 $post_ids = $_GET['post'];
-                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
+                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
 
                 // Event Fields
                 $fields = $this->main->get_event_fields();
@@ -3711,7 +3730,8 @@ class MEC_feature_events extends MEC_base
                         $date['end']['date'],
                         $data->time['end'],
                         $data->permalink,
-                        (isset($location['address']) ? $location['address'] : (isset($location['name']) ? $location['name'] : '')),
+                        (isset($location['name']) ? $location['name'] : ''),
+                        (isset($location['address']) ? $location['address'] : ''),
                         (isset($organizer['name']) ? $organizer['name'] : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),

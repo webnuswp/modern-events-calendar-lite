@@ -242,6 +242,8 @@ class MEC_feature_locations extends MEC_base
         update_term_meta($term_id, 'longitude', $longitude);
         update_term_meta($term_id, 'url', $url);
         update_term_meta($term_id, 'thumbnail', $thumbnail);
+
+        do_action('mec_save_location_extra_fields', $term_id);
     }
     
     /**

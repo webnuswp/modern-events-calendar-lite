@@ -609,8 +609,17 @@ class MEC_book extends MEC_base
         // Event Specification
         if($status === 1)
         {
-            $target_event = get_term_meta($coupon_id, 'target_event', true);
-            if(trim($target_event) and trim($event_id) and $target_event != $event_id)
+            $all_events = get_term_meta($coupon_id, 'target_event', true);
+            if(trim($all_events) == '') $all_events = 1;
+
+            $target_events = get_term_meta($coupon_id, 'target_events', true);
+            if(!is_array($target_events))
+            {
+                $target_events = array();
+                if($all_events and $all_events != 1) $target_events[] = $all_events;
+            }
+
+            if(!$all_events and is_array($target_events) and count($target_events) and !in_array($event_id, $target_events))
             {
                 $status = -3;
             }

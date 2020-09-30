@@ -170,12 +170,12 @@ if(!is_array($booking_options)) $booking_options = array();
 
             <div class="mec-event-content">
                 <div class="mec-single-event-description mec-events-content">
-                    <?php echo $this->main->get_post_content($event->data->ID); ?>
+                    <?php echo $this->main->get_post_content($event); ?>
                     <?php do_action('mec_accordion_skin_after_content', $event); ?>
                 </div>
             </div>
 
-            <?php do_action('mec_single_after_content', $event ); ?>
+            <?php do_action('mec_single_after_content', $event); ?>
 
             <!-- Custom Data Fields -->
             <?php $this->display_data_fields($event); ?>

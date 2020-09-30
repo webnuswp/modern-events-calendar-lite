@@ -342,27 +342,27 @@ class MEC_factory extends MEC_base
         include_once(ABSPATH.'wp-admin/includes/plugin.php');
         if(is_plugin_active('elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
         
-        wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'));
-        wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'));
+        wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'), array(), $this->main->get_version(), true);
+        wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'), array(), $this->main->get_version(), true);
 
         // Include Select2
-        wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'));
-        wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'));
+        wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'), array(), $this->main->get_version(), true);
+        wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'), array(), $this->main->get_version());
 
         // Include MEC frontend script files
         wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
-        wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'));
+        wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'), array(), $this->main->get_version(), true);
 
         wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
         
         // Include Lity Lightbox
-        wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
+        wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'), array(), $this->main->get_version(), true);
 
         // Include color brightness
-        wp_enqueue_script('mec-colorbrightness-script', $this->main->asset('packages/colorbrightness/colorbrightness.min.js'));
+        wp_enqueue_script('mec-colorbrightness-script', $this->main->asset('packages/colorbrightness/colorbrightness.min.js'), array(), $this->main->get_version(), true);
         
         // Include MEC frontend JS libraries
-        wp_enqueue_script('mec-owl-carousel-script', $this->main->asset('packages/owl-carousel/owl.carousel.min.js'));
+        wp_enqueue_script('mec-owl-carousel-script', $this->main->asset('packages/owl-carousel/owl.carousel.min.js'), array(), $this->main->get_version(), true);
 
         if(did_action('elementor/loaded')) $elementor_edit_mode = (\Elementor\Plugin::$instance->editor->is_edit_mode() == false) ? 'no' : 'yes';
         else $elementor_edit_mode = 'no';
@@ -395,7 +395,7 @@ class MEC_factory extends MEC_base
         
         // Include Google Recaptcha Javascript API
         $grecaptcha_include = apply_filters('mec_grecaptcha_include', true);
-        if($grecaptcha_include) wp_enqueue_script('recaptcha', '//www.google.com/recaptcha/api.js?hl='.str_replace('_', '-', $locale));
+        if($grecaptcha_include) wp_enqueue_script('recaptcha', '//www.google.com/recaptcha/api.js?hl='.str_replace('_', '-', $locale), array(), $this->main->get_version(), true);
         
         // Include MEC frontend CSS files
         wp_enqueue_style('mec-font-icons', $this->main->asset('css/iconfonts.css'));

@@ -17,6 +17,11 @@ class MEC_user extends MEC_base
      * @var MEC_db
      */
     public $db;
+
+    /**
+     * @var MEC_cache
+     */
+    public $cache;
     public $settings;
 
     /**
@@ -30,6 +35,9 @@ class MEC_user extends MEC_base
 
         // MEC DB Library
         $this->db = $this->getDB();
+
+        // MEC Cache Library
+        $this->cache = $this->getCache();
 
         // MEC settings
         $this->settings = $this->main->get_settings();
@@ -128,7 +136,7 @@ class MEC_user extends MEC_base
 
     public function mec($id)
     {
-        $data = $this->db->select("SELECT * FROM `#__mec_users` WHERE `id`='".((int) $id)."'", 'loadObject');
+        $data = $this->db->select("SELECT * FROM `#__mec_users` WHERE `id`=".((int) $id), 'loadObject');
         if(!$data) return NULL;
 
         $user = new stdClass();
@@ -146,7 +154,19 @@ class MEC_user extends MEC_base
 
     public function wp($id)
     {
-        return get_userdata($id);
+        $cache_key = 'mec_wp_user_'.$id;
+
+        // Get From Cache
+        if($this->cache->has($cache_key)) return $this->cache->get($cache_key);
+        else
+        {
+            $user = get_userdata($id);
+
+            // Add to Cache
+            $this->cache->set($cache_key, $user);
+
+            return $user;
+        }
     }
 
     public function booking($id)

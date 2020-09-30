@@ -287,7 +287,7 @@ class MEC_skin_list extends MEC_skins
                 else
                 {
                     $now = current_time('timestamp', 0);
-                    $startDateTime = strtotime(date($this->year.$this->month.'t')) + (int) (get_option('gmt_offset') * HOUR_IN_SECONDS);
+                    $startDateTime = strtotime(date($this->year.$this->month.'t')) + (int) $this->main->get_gmt_offset_seconds();
                     $now = $startDateTime < $now ? $startDateTime : $now;
 
                     $start = date('Y-m-d H:i:s', $now);

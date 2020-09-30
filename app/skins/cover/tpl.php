@@ -21,7 +21,6 @@ $event_location = isset($event->data->locations[$event->data->meta['mec_location
 $event_organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
 $event_date = (isset($event->date['start']) ? $event->date['start']['date'] : $event->data->meta['mec_start_date']);
 $event_link = (isset($event->data->permalink) and trim($event->data->permalink)) ? $this->main->get_event_date_permalink($event, $event_date) : get_permalink($event->data->ID);
-$event_title = $event->data->title;
 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
 $event_thumb = $event->data->thumbnails['large']; 
 $event_thumb_url = $event->data->featured_image['large'];
@@ -49,12 +48,12 @@ do_action('mec_cover_skin_head');
     if($this->style == 'modern' and $event_thumb_url): ?>
     <article class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-cover-modern <?php echo $this->get_event_classes($event); ?>" style="background: url('<?php echo $event_thumb_url; ?>'); height: 678px;background-size: cover;">
         <a href="<?php echo $event_link; ?>" class="mec-event-cover-a">
-        <div class="mec-event-overlay mec-bg-color"></div>
+            <div class="mec-event-overlay mec-bg-color"></div>
             <div class="mec-event-detail">
                 <?php if(empty($label_style)) echo '<div class="mec-event-tag mec-color">' . __('featured event', 'modern-events-calendar-lite') . ' </div>'; else echo '<span class="mec-fc-style">'.$label_style.'</span>';  ?>
                 <div class="mec-event-date"><?php echo $this->main->date_i18n($this->date_format_modern1, strtotime($event_date)).((isset($event->data->time) and trim($event->data->time['start'])) ? ' - '.$event->data->time['start'] : ''); ?></div>
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event).$event_color; ?></h4>
+                <h4 class="mec-event-title"><?php echo $event->data->title.$this->main->get_flags($event).$event_color; ?></h4>
                 <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                 <div class="mec-event-place"><?php echo (isset($event_location['name']) ? $event_location['name'] : ''); ?></div>
             </div>
@@ -71,12 +70,12 @@ do_action('mec_cover_skin_head');
                 <span class="mec-color"><?php echo $this->main->date_i18n($this->date_format_classic1, strtotime($event_date)); ?></span> <?php echo $this->main->date_i18n($this->date_format_classic2, strtotime($event_date)); ?>
             </div>
             <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
-            <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
-            <div class="mec-btn-wrapper"><a class="mec-event-button" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a></div>
+            <h4 class="mec-event-title"><?php echo $event->data->title.$this->main->get_flags($event).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
+            <div class="mec-btn-wrapper"><?php echo $this->display_link($event, $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button'); ?></div>
         </div>
         <?php elseif($this->style == 'clean'): ?>
         <div class="mec-event-content">
-            <h4 class="mec-event-title"><a href="<?php echo $event_link; ?>"><?php echo $event_title; ?></a><?php echo $this->main->get_flags($event).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
+            <h4 class="mec-event-title"><?php echo $this->display_link($event, NULL, ''); ?><?php echo $this->main->get_flags($event).$event_color; ?><?php if ( !empty($label_style) ) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
             <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
             <?php if(isset($event_organizer['name'])): ?><div class="mec-event-place"><?php echo (isset($event_organizer['name']) ? $event_organizer['name'] : ''); ?></div><?php endif; ?>
         </div>

@@ -10,10 +10,6 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
-// Single Event Display Method
-$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
-$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
-
 $dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
 if($dark_mode == 1) $set_dark = 'mec-dark-mode';
 else $set_dark = '';
@@ -60,7 +56,7 @@ else $set_dark = '';
                     <?php endif; ?>
                 </span>
                 <span class="mec-timetable-event-span mec-timetable-event-title">
-                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?>
+                    <?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?>
                     <?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 </span>
@@ -120,7 +116,7 @@ else $set_dark = '';
             <?php echo $event_color; ?>
             <div class="mec-timetable-t2-content">
                 <h4 class="mec-event-title">
-                    <a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a>
+                    <?php echo $this->display_link($event); ?>
                     <?php echo $this->main->get_flags($event); if(!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
                 </h4>
                 <div class="mec-event-time">
@@ -165,17 +161,10 @@ else $set_dark = '';
                 <tr class="mec-timetable-row-wrap mec-timetable-row-<?php echo $i; ?>" height="110">
                     <td style="vertical-align:middle;text-align: center;"><?php echo $i; ?>:00</td>
                     <?php foreach($this->events as $date=>$events): ?>
-                        <?php if ( !empty ( $events ) ) : ?>
+                        <?php if(!empty($events)): ?>
                         <td colspan="1" style="vertical-align:top;text-align: center;">
                             <?php foreach($events as $event): ?>
-                                <?php 
-                                if ( $event->data->meta['mec_date']['start']['hour'] == $i ) 
-                                {
-                                ?>
-                                <a class="mec-color-hover" style="background: #<?php echo $event->data->meta['mec_color']; ?>" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a>
-                                <?php
-                                }  
-                                ?>
+                                <?php if($event->data->meta['mec_date']['start']['hour'] == $i) echo $this->display_link($event, NULL, NULL, 'style="background: #'.$event->data->meta['mec_color'].'"'); ?>
                             <?php endforeach; ?>
                         </td>
                         <?php else: ?>

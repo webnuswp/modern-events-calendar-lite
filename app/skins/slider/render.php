@@ -8,7 +8,6 @@ $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
-
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-slider-<?php echo $this->style; ?>-wrap" >
@@ -63,12 +62,12 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         </div>
                         <div class="mec-event-content">
                             <?php $soldout = $this->main->get_flags($event); ?>
-                            <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
+                            <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                             <div class="mec-event-detail"><div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></div></div>
                             <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                         </div>
                         <div class="mec-event-footer">
-                            <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
+                            <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't2'): ?>
@@ -83,7 +82,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         </div>
                         <div class="mec-event-content">
                             <?php $soldout = $this->main->get_flags($event); ?>
-                            <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
+                            <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?></h4>
                             <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                             <div class="mec-event-detail">
                                 <span class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></span>
@@ -91,7 +90,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             </div>
                         </div>
                         <div class="mec-event-footer">
-                            <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
+                            <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't3'): ?>
@@ -105,7 +104,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         </div>
                         <div class="mec-event-content">
                             <?php $soldout = $this->main->get_flags($event); ?>
-                            <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
+                            <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?></h4>
                             <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                             <div class="mec-event-detail">
                                 <span class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></span>
@@ -113,7 +112,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             </div>
                         </div>
                         <div class="mec-slider-t3-footer">
-                            <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
+                            <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't4'): ?>
@@ -128,7 +127,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         </div>
                         <div class="mec-event-content">
                             <?php $soldout = $this->main->get_flags($event); ?>
-                            <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
+                            <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?></h4>
                             <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                             <div class="mec-event-detail">
                                 <span class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></span>
@@ -136,7 +135,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             </div>
                         </div>
                         <div class="mec-slider-t4-footer">
-                            <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
+                            <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't5'): ?>
@@ -163,14 +162,14 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         </div>
                         <div class="mec-event-content">
                             <?php $soldout = $this->main->get_flags($event); ?>
-                            <h4 class="mec-event-title"><a class="mec-color-hover" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo $event->data->title; ?></a><?php echo $soldout.$event_color; ?></h4>
+                            <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?></h4>
                             <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                             <div class="mec-event-description mec-events-content">
                                 <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                             </div>
                         </div>
                         <div class="mec-event-footer">
-                            <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')); ?></a>
+                            <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                         </div>
                     </div>
                 <?php endif; ?>

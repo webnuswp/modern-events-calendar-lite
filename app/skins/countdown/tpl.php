@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_countdown $this */
+
 $styling = $this->main->get_styling();
 $event = $this->events[0];
 $settings = $this->main->get_settings();
@@ -20,7 +22,6 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
 $event_location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
 $event_organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
 $event_date = (isset($event->date['start']) ? $event->date['start']['date'] : $event->data->meta['mec_start_date']);
-$event_link = (isset($event->data->permalink) and trim($event->data->permalink)) ? $this->main->get_event_date_permalink($event, $event_date) : get_permalink($event->data->ID);
 $event_title = $event->data->title;
 
 $label_style = '';
@@ -75,7 +76,7 @@ if($ongoing) if($d3 < $d2) $ongoing = false;
 // Skip if event is ongoing
 if($d1 < $d2 and !$ongoing) return;
 
-$gmt_offset = $this->main->get_gmt_offset();
+$gmt_offset = $this->main->get_gmt_offset($event);
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') === false) $gmt_offset = ' : '.$gmt_offset;
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') == true) $gmt_offset = substr(trim($gmt_offset), 0 , 3);
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true) $gmt_offset = substr(trim($gmt_offset), 2 , 3);
@@ -154,7 +155,7 @@ do_action('mec_countdown_skin_head');
             <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
         </div>
         <div class="mec-event-countdown-part3 col-md-3">
-            <a class="mec-event-button" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a>
+            <?php echo $this->display_link($event, $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button'); ?>
         </div>
     </article>
     <?php elseif($this->style == 'style2'): ?>
@@ -200,7 +201,7 @@ do_action('mec_countdown_skin_head');
             <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
         </div>
         <div class="mec-event-countdown-part3 col-md-3">
-            <a class="mec-event-button" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a>
+            <?php echo $this->display_link($event, $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button'); ?>
         </div>
     </article>
     <?php elseif($this->style == 'style3'): ?>
@@ -218,7 +219,7 @@ do_action('mec_countdown_skin_head');
                 </div>
                 <div class="mec-event-title-link">
                     <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?><?php if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
-                    <a class="mec-event-link" href="<?php echo $event_link; ?>"><?php echo $this->main->m('event_detail', __('Event Detail', 'modern-events-calendar-lite')); ?></a>
+                    <?php echo $this->display_link($event, $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-link'); ?>
                 </div>
                 <div class="mec-event-countdown" id="mec_skin_countdown<?php echo $this->id; ?>">
                     <ul class="clockdiv" id="countdown">
@@ -252,7 +253,7 @@ do_action('mec_countdown_skin_head');
         </div>
         <div class="mec-event-countdown-part2">
             <div class="mec-event-image">
-                <a href="<?php echo $event_link; ?>"><?php echo $event->data->thumbnails['meccarouselthumb']; ?></a>
+                <?php echo $this->display_link($event, $event->data->thumbnails['meccarouselthumb'], ''); ?>
             </div>
         </div>
     </article>

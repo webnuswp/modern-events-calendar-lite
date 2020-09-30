@@ -7,11 +7,6 @@ $event_colorskin = (isset($styling['mec_colorskin']) or isset($styling['color'])
 $settings = $this->main->get_settings();
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
-
-// Single Event Display Method
-$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
-$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
-
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?>">
     <div class="mec-event-carousel-<?php echo $this->style; ?>">
@@ -51,11 +46,8 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                     <div class="mec-event-date mec-color">
                         <div class="mec-event-image">
                         <?php 
-                            if ($event->data->thumbnails['meccarouselthumb']) {
-                                echo $event->data->thumbnails['meccarouselthumb'];
-                            } else {
-                                echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
-                            }
+                            if($event->data->thumbnails['meccarouselthumb']) echo $event->data->thumbnails['meccarouselthumb'];
+                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
                         ?>
                         </div>
                         <div class="mec-event-date-carousel">
@@ -66,7 +58,7 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                     </div>
                 </div>
                 <div class="mec-event-carousel-content">
-                    <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a><?php echo $this->main->get_flags($event); ?></h4>
+                    <h4 class="mec-event-carousel-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event); ?></h4>
                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                     <p class="mec-carousel-event-location"><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
                     <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
@@ -77,11 +69,8 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                 <div class="event-carousel-type2-head clearfix">
                     <div class="mec-event-image">
                         <?php 
-                            if ($event->data->thumbnails['meccarouselthumb']) {
-                                echo $event->data->thumbnails['meccarouselthumb'];
-                            } else {
-                                echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
-                            }
+                            if($event->data->thumbnails['meccarouselthumb']) echo $event->data->thumbnails['meccarouselthumb'];
+                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
                         ?>
                     </div>
                     <div class="mec-event-carousel-content-type2">
@@ -92,7 +81,7 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                         <?php endif; ?>
                         <?php do_action('mec_carousel_type2_before_title', $event); ?>
                         <?php $soldout = $this->main->get_flags($event); ?>
-                        <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a><?php echo $soldout; ?></h4>
+                        <h4 class="mec-event-carousel-title"><?php echo $this->display_link($event); ?><?php echo $soldout; ?></h4>
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                         <?php do_action('mec_carousel_type2_after_title', $event); ?>
                         <p class="mec-carousel-event-location"><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
@@ -114,7 +103,7 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                             </li>
                         </ul>
                         <?php endif; ?>
-                        <a class="mec-booking-button mec-bg-color-hover mec-border-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
+                        <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button mec-bg-color-hover mec-border-color-hover'); ?>
                         <?php echo $this->booking_button($event); ?>
                     </div>
                 </div>
@@ -122,11 +111,8 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                 <div class="event-carousel-type3-head clearfix">
                     <div class="mec-event-image">
                         <?php 
-                            if ($event->data->thumbnails['meccarouselthumb']) {
-                                echo $event->data->thumbnails['meccarouselthumb'];
-                            } else {
-                                echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
-                            }
+                            if($event->data->thumbnails['meccarouselthumb']) echo $event->data->thumbnails['meccarouselthumb'];
+                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
                         ?>
                     </div>
                     <div class="mec-event-footer-carousel-type3">
@@ -138,10 +124,10 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                         <?php $soldout = $this->main->get_flags($event); ?>
                         <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                        <h4 class="mec-event-carousel-title"><a class="mec-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $event->data->title; ?></a><?php echo $soldout; ?></h4>
+                        <h4 class="mec-event-carousel-title"><?php echo $this->display_link($event); ?><?php echo $soldout; ?></h4>
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                         <p class="mec-carousel-event-location"><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
-                        <?php if($settings['social_network_status'] != '0') : ?>
+                        <?php if($settings['social_network_status'] != '0'): ?>
                             <ul class="mec-event-sharing-wrap">
                                 <li class="mec-event-share">
                                     <a href="#" class="mec-event-share-icon">
@@ -155,7 +141,7 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                                 </li>
                             </ul>
                         <?php endif; ?>
-                        <a class="mec-booking-button mec-bg-color-hover mec-border-color-hover" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
+                        <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button mec-bg-color-hover mec-border-color-hover'); ?>
                         <?php echo $this->booking_button($event); ?>
                     </div>
                 </div>
@@ -163,11 +149,8 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                 <div class="event-carousel-type4-head clearfix">
                     <div class="mec-event-image">
                         <?php 
-                            if ($event->data->thumbnails['full']) {
-                                echo $event->data->thumbnails['full'];
-                            } else {
-                                echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
-                            }
+                            if($event->data->thumbnails['full']) echo $event->data->thumbnails['full'];
+                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
                         ?>
                     </div>
                     <div class="mec-event-overlay"></div>
@@ -180,7 +163,7 @@ $target_url = ($target_set == 'new') ? 'target="_blank"' : '';
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                         <h4 class="mec-event-title"><?php echo $event->data->title.$this->main->get_flags($event).$event_color; ?><?php if(!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
-                        <div class="mec-btn-wrapper"><a class="mec-event-button" data-event-id="<?php echo $event->data->ID; ?>" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" <?php echo $target_url;?>><?php echo $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')); ?></a><?php echo $this->booking_button($event); ?></div>
+                        <div class="mec-btn-wrapper"><?php echo $this->display_link($event, ($this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite'))), 'mec-event-button'); ?><?php echo $this->booking_button($event); ?></div>
                     </div>
                 </div>
                 <?php endif; ?>

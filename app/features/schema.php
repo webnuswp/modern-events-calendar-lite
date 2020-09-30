@@ -206,8 +206,11 @@ class MEC_feature_schema extends MEC_base
 
         $start_timestamp = (isset($event->data->time['start_timestamp']) ? $event->data->time['start_timestamp'] : (isset($event->date['start']['timestamp']) ? $event->date['start']['timestamp'] : strtotime($event->date['start']['date'])));
 
+        // All Params
+        $params = MEC_feature_occurrences::param($event->ID, $start_timestamp, '*');
+
         $event_status = (isset($event->data->meta['mec_event_status']) and trim($event->data->meta['mec_event_status'])) ? $event->data->meta['mec_event_status'] : 'EventScheduled';
-        $event_status = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'event_status', $event_status);
+        $event_status = (isset($params['event_status']) and trim($params['event_status']) != '') ? $params['event_status'] : $event_status;
 
         if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
 
@@ -218,7 +221,7 @@ class MEC_feature_schema extends MEC_base
         $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
 
         $moved_online_link = (isset($event->data->meta['mec_moved_online_link']) and trim($event->data->meta['mec_moved_online_link'])) ? $event->data->meta['mec_moved_online_link'] : '';
-        $moved_online_link = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'moved_online_link', $moved_online_link);
+        $moved_online_link = (isset($params['moved_online_link']) and trim($params['moved_online_link']) != '') ? $params['moved_online_link'] : $moved_online_link;
         ?>
         <script type="application/ld+json">
         {

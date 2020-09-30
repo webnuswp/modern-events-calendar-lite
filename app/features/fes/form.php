@@ -242,6 +242,9 @@ $this->factory->params('footer', $javascript);
             // This date format used for datepicker
             $datepicker_format = (isset($this->settings['datepicker_format']) and trim($this->settings['datepicker_format'])) ? $this->settings['datepicker_format'] : 'Y-m-d';
             $imported_from_google = get_post_meta($post_id, 'mec_imported_from_google', true);
+
+            $event_timezone = get_post_meta($post->ID, 'mec_timezone', true);
+            if(trim($event_timezone) == '') $event_timezone = 'global';
         ?>
 
         <div class="mec-fes-form-cntt">
@@ -323,6 +326,23 @@ $this->factory->params('footer', $javascript);
                             <p class="description"><?php _e('It shows next to event time on the Single Event Page. You can enter notes such as timezone in this field.', 'modern-events-calendar-lite'); ?></p>
                         </div>
                     </div>
+
+                    <?php if(isset($this->settings['tz_per_event']) and $this->settings['tz_per_event']): ?>
+                    <div class="mec-form-row mec-timezone-event">
+                        <div class="mec-title">
+                            <label for="mec_event_timezone"><?php esc_html_e('Timezone', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-form-row">
+                            <div class="mec-col-4">
+                                <select name="mec[timezone]" id="mec_event_timezone">
+                                    <option value="global"><?php esc_html_e('Inherit from global options'); ?></option>
+                                    <?php echo $this->main->timezones($event_timezone); ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
                 </div>
                 <div id="mec_meta_box_repeat_form">
                     <div class="mec-form-row">
@@ -937,6 +957,18 @@ $this->factory->params('footer', $javascript);
                         </div>
                     </div>
             <?php endif; ?>
+
+            <!-- Virtual Section -->
+            <?php if(isset($this->settings['fes_section_virtual_events']) && $this->settings['fes_section_virtual_events']):
+
+                if ( $post->ID != -1 && $post == "" ) {
+                    $post = get_post_meta($post->ID, 'meta_box_virtual', true);
+                }
+
+                do_action('mec_virtual_event_form', $post);
+
+            endif; ?>
+
         </div>
         <div class="mec-form-row mec-fes-submit-wide">
             <?php if($this->main->get_recaptcha_status('fes')): ?><div class="mec-form-row mec-google-recaptcha"><div class="g-recaptcha" data-sitekey="<?php echo $this->settings['google_recaptcha_sitekey']; ?>"></div></div><?php endif; ?>

@@ -523,7 +523,7 @@ class MEC_skins extends MEC_base
                 $now = current_time('timestamp', 0);
                 if($this->skin_options['start_date_type'] != 'today')
                 {
-                    $startDateTime = strtotime($this->start_date) + (int) (get_option('gmt_offset') * HOUR_IN_SECONDS);
+                    $startDateTime = strtotime($this->start_date) + (int) $this->main->get_gmt_offset_seconds();
                     $now = $startDateTime > $now ? $startDateTime : $now;
                 }
 
@@ -637,7 +637,7 @@ class MEC_skins extends MEC_base
         }
 
         // Show only one occurrence of events
-        $first_event = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart` >= {$now} GROUP BY `post_id` ORDER BY `tstart` ASC");
+        $first_event = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart` >= {$now} ORDER BY `tstart` ASC");
 
         $did_one_occurrence = array();
         foreach($dates as $date => $event_ids)
@@ -692,6 +692,7 @@ class MEC_skins extends MEC_base
 
         // Limit
         $this->args['posts_per_page'] = 1000;
+        $dates = apply_filters( 'mec_event_dates_search', $dates,$start,$end,$this );
 
         $i = 0;
         $found = 0;
@@ -1256,5 +1257,39 @@ class MEC_skins extends MEC_base
 
         if($type === 'button') return '<a class="mec-modal-booking-button mec-mb-button" href="'.esc_url($link).'" '.$modal.'>'.$this->main->m('register_button', __('Book Event', 'modern-events-calendar-lite')).'</a>';
         else return '<a class="mec-modal-booking-button mec-mb-icon" title="' . __('Book Event', 'modern-events-calendar-lite') . '" href="'.esc_url($link).'" '.$modal.'><i class="mec-sl-note"></i></a>';
+    }
+
+    public function display_categories($event)
+    {
+        $output = '';
+
+        $status = isset($this->skin_options['display_categories']) ? (boolean) $this->skin_options['display_categories'] : false;
+        if($status and is_object($event) and isset($event->data->categories) and count($event->data->categories))
+        {
+            foreach($event->data->categories as $category)
+            {
+                if(isset($category['name']) and trim($category['name'])) $output .= '<li class="mec-category"><a class="mec-color-hover" href="'.esc_url(get_term_link($category['id'])).'" target="_blank">' . trim($category['name']) . '</a></li>';
+            }
+        }
+
+        return $output ? '<ul class="mec-categories">' . $output . '</ul>' : $output;
+    }
+
+    public function display_link($event, $title = NULL, $class = NULL, $attributes = NULL)
+    {
+        // Event Title
+        if(is_null($title)) $title = $event->data->title;
+
+        // Link Class
+        if(is_null($class)) $class = 'mec-color-hover';
+
+        $method = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
+
+        // Link is disabled
+        if($method == 'no' and in_array($class, array('mec-booking-button', 'mec-detail-button', 'mec-booking-button mec-bg-color-hover mec-border-color-hover', 'mec-event-link'))) return '';
+        elseif($method == 'no') return $title;
+
+        $target = ($method == 'new' ? 'target="_blank"' : '');
+        return '<a '.($class ? 'class="'.$class.'"' : '').' '.($attributes ? $attributes : '').' data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target.'>'.$title.'</a>';
     }
 }

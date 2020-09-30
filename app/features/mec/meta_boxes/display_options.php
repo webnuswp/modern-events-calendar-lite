@@ -3,10 +3,11 @@
 defined('MECEXEC') or die();
 
 // Fix conflict between ACF and niceSelect
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+
 if(is_plugin_active('advanced-custom-fields/acf.php')) remove_action('admin_footer', 'acf_enqueue_uploader', 5);
 if(is_plugin_active('advanced-custom-fields-pro/acf.php')) remove_action('admin_footer', 'acf_enqueue_uploader', 5);
-if(is_plugin_active('wp-recipe-maker/wp-recipe-maker.php')) remove_action('admin_footer', array( 'WPRM_Modal', 'add_modal_content' ));
+if(is_plugin_active('wp-recipe-maker/wp-recipe-maker.php')) remove_action('admin_footer', array('WPRM_Modal', 'add_modal_content'));
 
 // Skin Options
 $skins = $this->main->get_skins();
@@ -193,6 +194,18 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Label -->
+                <!-- Start Display Categories -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_list_display_categories_wp">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_list_display_categories"><?php _e('Display Categories', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][list][display_categories]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][list][display_categories]" id="mec_skin_list_display_categories" value="1" <?php if(isset($sk_options_list['display_categories']) and trim($sk_options_list['display_categories'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_list_display_categories"></label>
+                    </div>
+                </div>
+                <!-- End Display Categories -->
                 <!-- Start Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher" id="mec_skin_list_display_reason_for_cancellation">
 					<div class="mec-col-4">
@@ -446,6 +459,18 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Label -->
+                <!-- Start Display Categories -->
+                <div class="mec-form-row mec-switcher" id="mec_skin_grid_display_categories_wp">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_grid_display_categories"><?php _e('Display Categories', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][grid][display_categories]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][grid][display_categories]" id="mec_skin_grid_display_categories" value="1" <?php if(isset($sk_options_grid['display_categories']) and trim($sk_options_grid['display_categories'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_grid_display_categories"></label>
+                    </div>
+                </div>
+                <!-- End Display Categories -->
                 <!-- Start Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher" id="mec_skin_grid_display_reason_for_cancellation">
 					<div class="mec-col-4">

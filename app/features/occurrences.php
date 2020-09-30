@@ -485,19 +485,31 @@ class MEC_feature_occurrences extends MEC_base
     public static function param($post_id, $timestamp, $key, $default = NULL)
     {
         $o = new MEC_feature_occurrences();
-        $db = $o->getDB();
 
-        $JSON = $db->select("SELECT `params` FROM `#__mec_occurrences` WHERE `post_id`='".$db->escape($post_id)."' AND `occurrence`='".$db->escape($timestamp)."' ORDER BY `id` DESC LIMIT 1", 'loadResult');
+        $cache_key = 'mec_occ_param_'.$post_id.'_'.$timestamp;
+        $cache = $o->getCache();
 
-        if(!trim($JSON)) $params = array();
+        // Get From Cache
+        if($cache->has($cache_key)) $params = $cache->get($cache_key);
         else
         {
-            $params = json_decode($JSON, true);
+            $db = $o->getDB();
+            $JSON = $db->select("SELECT `params` FROM `#__mec_occurrences` WHERE `post_id`='".$db->escape($post_id)."' AND `occurrence`='".$db->escape($timestamp)."' ORDER BY `id` DESC LIMIT 1", 'loadResult');
 
-            if(!is_array($params)) $params = array();
+            if(!trim($JSON)) $params = array();
+            else
+            {
+                $params = json_decode($JSON, true);
+            }
         }
 
-        if(isset($params[$key]) and trim($params[$key]) != '') return $params[$key];
+        if(!is_array($params)) $params = array();
+
+        // Add to Cache
+        $cache->set($cache_key, $params);
+
+        if($key == '*') return $params;
+        elseif(isset($params[$key]) and trim($params[$key]) != '') return $params[$key];
         else return $default;
     }
 }

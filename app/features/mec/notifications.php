@@ -29,7 +29,7 @@ $settings = $this->main->get_settings();
                         <!-- <ul> -->
                         <?php if($this->main->getPRO() and isset($this->settings['booking_status']) and $this->settings['booking_status']): ?>
 
-                        <?php do_action( 'mec_notification_menu_start',$this->main, $notifications ); ?>
+                        <?php do_action( 'mec_notification_menu_start', $this->main, $notifications ); ?>
 
                         <div id="booking_notification_section" class="mec-options-fields active">
 
@@ -123,6 +123,9 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -231,6 +234,9 @@ $settings = $this->main->get_settings();
                                 <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -352,6 +358,9 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -479,6 +488,9 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -561,6 +573,10 @@ $settings = $this->main->get_settings();
                                     </span>
                                 </div>
                                 <div class="mec-form-row">
+                                    <input type="checkbox" name="mec[notifications][admin_notification][send_to_admin]" value="1" id="mec_notifications_admin_notification_send_to_admin" <?php echo ((!isset($notifications['admin_notification']['send_to_admin']) or $notifications['admin_notification']['send_to_admin'] == 1) ? 'checked="checked"' : ''); ?> />
+                                    <label for="mec_notifications_admin_notification_send_to_admin"><?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?></label>
+                                </div>
+                                <div class="mec-form-row">
                                     <input type="checkbox" name="mec[notifications][admin_notification][send_to_organizer]" value="1" id="mec_notifications_admin_notification_send_to_organizer" <?php echo ((isset($notifications['admin_notification']['send_to_organizer']) and $notifications['admin_notification']['send_to_organizer'] == 1) ? 'checked="checked"' : ''); ?> />
                                     <label for="mec_notifications_admin_notification_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
                                 </div>
@@ -589,6 +605,9 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -712,6 +731,9 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>

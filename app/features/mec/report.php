@@ -39,7 +39,10 @@ $query = new WP_Query(array(
                                         $ID = get_the_ID();
                                         if($this->main->get_original_event($ID) !== $ID) $ID = $this->main->get_original_event($ID);
 
-                                        echo '<option value="'.$ID.'">' . get_the_title() . '</option>';
+                                        $start_date = get_post_meta($ID, 'mec_start_date', true);
+                                        $date_format = get_option('date_format');
+
+                                        echo '<option value="'.$ID.'">' . sprintf(__('%s (from %s)', 'modern-events-calendar-lite'), get_the_title(), date($date_format, strtotime($start_date))) . '</option>';
                                     }
                                 }
                             ?>

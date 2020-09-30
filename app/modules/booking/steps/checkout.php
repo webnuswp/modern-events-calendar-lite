@@ -39,7 +39,7 @@ if($mecFluentEnable)
     }
 }
 ?>
-<div id="mec_book_payment_form">
+<div id="mec_book_payment_form" class="mec-booking-form-container mec-wrap-checkout row">
     <h4><?php _e('Checkout', 'modern-events-calendar-lite'); ?></h4>
     <div class="mec-book-form-price">
     <?php if ($mecFluentEnable) { ?>

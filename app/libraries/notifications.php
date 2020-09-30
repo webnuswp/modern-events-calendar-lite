@@ -219,7 +219,7 @@ class MEC_notifications extends MEC_base
 
             $message = isset($this->notif_settings['booking_notification']['content']) ? $this->notif_settings['booking_notification']['content'] : '';
             $message = $this->content($this->get_content($message, 'booking_notification', $event_id), $book_id, $attendee);
-
+            
             $message = $this->add_template($message);
 
             // Filter the email
@@ -515,6 +515,22 @@ class MEC_notifications extends MEC_base
         // Unique Recipients
         $recipients = array_unique($recipients);
 
+        // Don't send the email to admin
+        if(isset($this->notif_settings['admin_notification']['send_to_admin']) and !$this->notif_settings['admin_notification']['send_to_admin'])
+        {
+            if(is_array($recipients) and count($recipients))
+            {
+                $to = current($recipients);
+                unset($recipients[0]);
+            }
+            elseif(isset($this->notif_settings['admin_notification']['send_to_organizer']) and $this->notif_settings['admin_notification']['send_to_organizer'] == 1)
+            {
+                $organizer_email = $this->get_booking_organizer_email($book_id);
+                if($organizer_email !== false) $to = $organizer_email;
+            }
+            else return;
+        }
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
@@ -527,7 +543,7 @@ class MEC_notifications extends MEC_base
         if(isset($this->notif_settings['admin_notification']['send_to_organizer']) and $this->notif_settings['admin_notification']['send_to_organizer'] == 1)
         {
             $organizer_email = $this->get_booking_organizer_email($book_id);
-            if($organizer_email !== false) $headers[] = 'CC: '.trim($organizer_email);
+            if($organizer_email !== false and $organizer_email != $to) $headers[] = 'CC: '.trim($organizer_email);
         }
 
         $message = isset($this->notif_settings['admin_notification']['content']) ? $this->notif_settings['admin_notification']['content'] : '';
@@ -1142,6 +1158,28 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_organizer_tel%%', get_term_meta($organizer_id, 'tel', true), $message);
         $message = str_replace('%%event_organizer_email%%', get_term_meta($organizer_id, 'email', true), $message);
 
+        $additional_organizers_name = '';
+        $additional_organizers_tel = '';
+        $additional_organizers_email = '';
+
+        $additional_organizers_ids = get_post_meta($event_id, 'mec_additional_organizer_ids', true);
+        if(!is_array($additional_organizers_ids)) $additional_organizers_ids = array();
+
+        foreach($additional_organizers_ids as $additional_organizers_id)
+        {
+            $additional_organizer = get_term($additional_organizers_id, 'mec_organizer');
+            if(isset($additional_organizer->name))
+            {
+                $additional_organizers_name .= $additional_organizer->name.', ';
+                $additional_organizers_tel .= get_term_meta($additional_organizers_id, 'tel', true).'<br>';
+                $additional_organizers_email .= get_term_meta($additional_organizers_id, 'email', true).'<br>';
+            }
+        }
+
+        $message = str_replace('%%event_other_organizers_name%%', trim($additional_organizers_name, ', '), $message);
+        $message = str_replace('%%event_other_organizers_tel%%', trim($additional_organizers_tel, ', '), $message);
+        $message = str_replace('%%event_other_organizers_email%%', trim($additional_organizers_email, ', '), $message);
+
         $speaker_name = array();
         foreach($speaker_id as $speaker) $speaker_name[] = isset($speaker->name) ? $speaker->name : null;
 
@@ -1221,14 +1259,14 @@ class MEC_notifications extends MEC_base
 
         $message = str_replace('%%ticket_name_time%%', trim($ticket_name_time, ', '), $message);
 
-        $gmt_offset_seconds = $this->main->get_gmt_offset_seconds($start_timestamp);
+        $gmt_offset_seconds = $this->main->get_gmt_offset_seconds($start_timestamp, $event_id);
         $event_title = get_the_title($event_id);
         $event_info = get_post($event_id);
         $event_content = trim($event_info->post_content) ? strip_shortcodes(strip_tags($event_info->post_content)) : $event_title;
 
         $google_calendar_location = get_term_meta($location_id, 'address', true);
         $google_calendar_link = '<a href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
-        $ical_export_link  = '<a href="' . $this->main->ical_URL_email($event_id, $book_id, get_the_date('Y-m-d', $book_id)) . '">'. __('+ iCal export', 'modern-events-calendar-lite') . '</a>';
+        $ical_export_link  = '<a href="' . $this->main->ical_URL_email($event_id, $book_id, get_the_date('Y-m-d', $book_id)) . '">'. __('+ iCal / Outlook export', 'modern-events-calendar-lite') . '</a>';
 
         $message = str_replace('%%google_calendar_link%%', $google_calendar_link, $message);
         $message = str_replace('%%ics_link%%', $ical_export_link, $message);
@@ -1243,9 +1281,9 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%virtual_embed%%', get_post_meta($event_id, 'mec_virtual_embed', true), $message);
 
         $message = str_replace('%%zoom_join%%', get_post_meta($event_id, 'mec_zoom_join_url', true), $message);
-            $message = str_replace('%%zoom_link%%', get_post_meta($event_id, 'mec_zoom_link_url', true), $message);
-            $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
-            $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
+        $message = str_replace('%%zoom_link%%', get_post_meta($event_id, 'mec_zoom_link_url', true), $message);
+        $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
+        $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
 
         // Next Occurrences
         $next_occurrences = $db->select("SELECT `tstart`, `tend` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND `tstart`>='".$start_timestamp."' ORDER BY `tstart` ASC LIMIT 20", 'loadAssocList');

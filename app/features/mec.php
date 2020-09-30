@@ -980,6 +980,7 @@ class MEC_feature_mec extends MEC_base
                     <li data-method="0" class="'.(!$value ? 'active' : '').'">'.__('Current Window', 'modern-events-calendar-lite').'</li>
                     <li data-method="new" class="'.($value === 'new' ? 'active' : '').'">'.__('New Window', 'modern-events-calendar-lite').'</li>
                     <li data-method="m1" class="'.($value === 'm1' ? 'active' : '').'">'.__('Modal Popup', 'modern-events-calendar-lite').'</li>
+                    <li data-method="no" class="'.($value === 'no' ? 'active' : '').'">'.__('Disable Link', 'modern-events-calendar-lite').'</li>
                 </ul>
             </div>
         </div>' . $image_popup_html;
@@ -1319,12 +1320,13 @@ class MEC_feature_mec extends MEC_base
                             )); ?>"><?php _e('Last Year', 'modern-events-calendar-lite'); ?></a></li>
                         </ul>
                         <script>
-                            jQuery(document).ready(function($) {
-                                if(window.location.href.indexOf("page=mec-intro&sort=this_month") >= 0) jQuery('.mec-chart-this-month').addClass('active')
-                                if(window.location.href.indexOf("page=mec-intro&sort=last_month") >= 0) jQuery('.mec-chart-last-month').addClass('active')
-                                if(window.location.href.indexOf("page=mec-intro&sort=this_year") >= 0) jQuery('.mec-chart-this-year').addClass('active')
-                                if(window.location.href.indexOf("page=mec-intro&sort=last_year") >= 0) jQuery('.mec-chart-last-year').addClass('active')
-                            });
+                        jQuery(document).ready(function($)
+                        {
+                            if(window.location.href.indexOf("page=mec-intro&sort=this_month") >= 0) jQuery('.mec-chart-this-month').addClass('active');
+                            if(window.location.href.indexOf("page=mec-intro&sort=last_month") >= 0) jQuery('.mec-chart-last-month').addClass('active');
+                            if(window.location.href.indexOf("page=mec-intro&sort=this_year") >= 0) jQuery('.mec-chart-this-year').addClass('active');
+                            if(window.location.href.indexOf("page=mec-intro&sort=last_year") >= 0) jQuery('.mec-chart-last-year').addClass('active');
+                        });
                         </script>
                         <form class="mec-sells-filter" method="GET" action="">
                             <?php if($current_page != 'dashboard'): ?><input type="hidden" name="page" value="mec-intro" /><?php endif; ?>

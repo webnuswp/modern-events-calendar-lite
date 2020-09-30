@@ -709,6 +709,12 @@ $get_n_option = get_option('mec_addons_notification_option');
                                         <input value="1" type="checkbox" name="mec[settings][fes_guest_name_email]" <?php if(!isset($settings['fes_guest_name_email']) or (isset($settings['fes_guest_name_email']) and $settings['fes_guest_name_email'])) echo 'checked="checked"'; ?> /> <?php _e('Enable mandatory email and name for guest user', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_guest_user_creation]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_guest_user_creation]" <?php if(isset($settings['fes_guest_user_creation']) and $settings['fes_guest_user_creation']) echo 'checked="checked"'; ?> /> <?php _e('Automatically create users after event publish and assign event to the created user', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
                             </div>
                             <h4 class="mec-form-subtitle"><?php _e('Frontend Event Submission Sections', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
@@ -832,6 +838,15 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_occurrences]" value="0" />
                                     <input value="1" type="checkbox" name="mec[settings][fes_section_occurrences]" <?php if(!isset($settings['fes_section_occurrences']) or (isset($settings['fes_section_occurrences']) and $settings['fes_section_occurrences'])) echo 'checked="checked"'; ?> /> <?php _e('Occurrences', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if(is_plugin_active('mec-virtual-events/mec-virtual-events.php')): ?>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][fes_section_virtual_events]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_virtual_events]" <?php if(!isset($settings['fes_section_virtual_events']) or (isset($settings['fes_section_virtual_events']) and $settings['fes_section_virtual_events'])) echo 'checked="checked"'; ?> /> <?php _e('Virtual Event', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
                             <?php endif; ?>

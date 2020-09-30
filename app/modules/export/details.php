@@ -37,14 +37,14 @@ if((is_null($start_date_temp) or is_null($start_hour_temp) or is_null($start_min
 
 $start_time = strtotime((trim($occurrence) ? $occurrence : $start_date_temp).' '.sprintf("%02d", $start_hour_temp).':'.sprintf("%02d", $start_minutes_temp).' '.$start_ampm_temp);
 $end_time = strtotime((trim($occurrence_end_date) ? $occurrence_end_date : $end_date_temp).' '.sprintf("%02d", $end_hour_temp).':'.sprintf("%02d", $end_minutes_temp).' '.$end_ampm_temp);
-$gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time);
+$gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
 ?>
 <div class="mec-event-export-module mec-frontbox">
      <div class="mec-event-exporting">
         <div class="mec-export-details">
             <ul>
                 <?php if($settings['sn']['googlecal']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://www.google.com/calendar/event?action=TEMPLATE&text=<?php echo urlencode($title); ?>&dates=<?php echo gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)); ?>/<?php echo gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)); ?>&details=<?php echo urlencode($content).$location; ?>" target="_blank"><?php echo __('+ Add to Google Calendar', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
-                <?php if($settings['sn']['ical']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="<?php echo $this->ical_URL($event->data->ID); ?>"><?php echo __('+ iCal export', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
+                <?php if($settings['sn']['ical']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="<?php echo $this->ical_URL($event->data->ID); ?>"><?php echo __('+ iCal / Outlook export', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
             </ul>
         </div>
     </div>

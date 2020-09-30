@@ -13,10 +13,6 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
-// Single Event Display Method
-$target_set = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : false;
-$target_url = ($target_set == 'new') ? 'target="_blank"' : '';
-
 // days and weeks vars
 $running_day = date('w', mktime(0, 0, 0, $month, 1, $year));
 $days_in_month = date('t', mktime(0, 0, 0, $month, 1, $year));
@@ -93,7 +89,7 @@ $events_str = '';
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                     if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
                     $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
-                    $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target_url.'>'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
+                    $events_str .= '<h4 class="mec-event-title">'.$this->display_link($event).$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
                     $events_str .='</h4>';
 
@@ -158,7 +154,7 @@ $events_str = '';
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                     if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
                     $event_color =  isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
-                    $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target_url.'>'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
+                    $events_str .= '<h4 class="mec-event-title">'.$this->display_link($event).$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
                     $events_str .='</h4>';
                     
@@ -250,7 +246,7 @@ $events_str = '';
                         $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                         if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
                         $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
-                        $events_str .= '<h4 class="mec-event-title"><a class="mec-color-hover" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target_url.'>'.$event->data->title.'</a>'.$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
+                        $events_str .= '<h4 class="mec-event-title">'.$this->display_link($event).$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                         if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
                         $events_str .='</h4>';
 

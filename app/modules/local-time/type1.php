@@ -21,7 +21,7 @@ $end_time = isset($event->data->time['end_raw']) ? $event->data->time['end_raw']
 $date_format1 = (isset($settings['single_date_format1']) and trim($settings['single_date_format1'])) ? $settings['single_date_format1'] : 'M d Y';
 $time_format = get_option('time_format', 'H:i');
 
-$gmt_offset_seconds = $this->get_gmt_offset_seconds($event->date['start']['date']);
+$gmt_offset_seconds = $this->get_gmt_offset_seconds($event->date['start']['date'], $event);
 
 $gmt_start_time = strtotime($event->date['start']['date'].' '.$start_time) - $gmt_offset_seconds;
 $gmt_end_time = strtotime($event->date['end']['date'].' '.$end_time) - $gmt_offset_seconds;

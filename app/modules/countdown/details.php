@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_main $this */
+
 // MEC Settings
 $settings = $this->get_settings();
 
@@ -39,9 +41,6 @@ if(!empty($date))
 $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.$s_time));
 $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.$e_time));
 
-// Timezone
-$timezone = $this->get_timezone();
-
 $d1 = new DateTime($start_time);
 $d2 = new DateTime(current_time("D M j Y G:i:s"));
 $d3 = new DateTime($end_time);
@@ -59,9 +58,9 @@ elseif($d1 < $d2 and !$ongoing)
     return;
 }
 
-$gmt_offset = $this->get_gmt_offset();
+$gmt_offset = $this->get_gmt_offset($event);
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') === false) $gmt_offset = ' : '.$gmt_offset;
-if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') == true)$gmt_offset = substr(trim($gmt_offset), 0 , 3);
+if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') == true) $gmt_offset = substr(trim($gmt_offset), 0 , 3);
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true) $gmt_offset = substr(trim($gmt_offset), 2 , 3);
 
 // Generating javascript code of countdown default module

@@ -291,12 +291,15 @@ class MEC_main extends MEC_base
     
     /**
      * @author Webnus <info@webnus.biz>
-     * @param int $post_id
+     * @param mixed $event
      * @return string
      */
-    public function get_post_content($post_id)
+    public function get_post_content($event)
     {
-        $post = get_post($post_id);
+        if(is_object($event)) $event_id = $event->data->ID;
+        else $event_id = $event;
+
+        $post = get_post($event_id);
         if(!$post) return NULL;
 
         $content = apply_filters('the_content', $post->post_content);
@@ -2930,7 +2933,7 @@ class MEC_main extends MEC_base
         $start_time = strtotime((trim($occurrence) ? $occurrence : $dates[0]['start']['date']).' '.sprintf("%02d", $dates[0]['start']['hour']).':'.sprintf("%02d", $dates[0]['start']['minutes']).' '.$dates[0]['start']['ampm']);
         $end_time = strtotime((trim($occurrence_end_date) ? $occurrence_end_date : $dates[0]['end']['date']).' '.sprintf("%02d", $dates[0]['end']['hour']).':'.sprintf("%02d", $dates[0]['end']['minutes']).' '.$dates[0]['end']['ampm']);
         
-        $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time);
+        $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
         $stamp = strtotime($event->post->post_date);
         $modified = strtotime($event->post->post_modified);
 
@@ -3032,7 +3035,7 @@ class MEC_main extends MEC_base
         $start_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_start_hour).':'.sprintf("%02d", $ticket_start_minute).' '.$ticket_start_ampm);
         $end_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_end_hour).':'.sprintf("%02d", $ticket_end_minute).' '.$ticket_end_ampm);
         
-        $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time);
+        $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
         
         $stamp = strtotime($event->post->post_date);
         $modified = strtotime($event->post->post_modified);
@@ -3936,7 +3939,7 @@ class MEC_main extends MEC_base
             if($book_all_occurrences)
             {
                 $db = $this->getDB();
-                $first_timestamp = $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event->data->ID."' ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
+                $first_timestamp = $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`=".$event->data->ID." ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
                 $render_date = date('Y-m-d h:i a', $first_timestamp);
             }
             else
@@ -4030,11 +4033,21 @@ class MEC_main extends MEC_base
     /**
      * Get default timezone of WordPress
      * @author Webnus <info@webnus.biz>
+     * @param mixed $event
      * @return string
      */
-    public function get_timezone()
+    public function get_timezone($event = NULL)
     {
-        $timezone_string = get_option('timezone_string');
+        if(!is_null($event))
+        {
+            $event_id = ((is_object($event) and isset($event->ID)) ? $event->ID : $event);
+            $timezone = get_post_meta($event_id, 'mec_timezone', true);
+
+            if(trim($timezone) != '' and $timezone != 'global') $timezone_string = $timezone;
+            else $timezone_string = get_option('timezone_string');
+        }
+        else $timezone_string = get_option('timezone_string');
+
         $gmt_offset = get_option('gmt_offset');
         
         if(trim($timezone_string) == '' and trim($gmt_offset)) $timezone_string = $this->get_timezone_by_offset($gmt_offset);
@@ -4049,11 +4062,27 @@ class MEC_main extends MEC_base
     /**
      * Get GMT offset based on hours:minutes
      * @author Webnus <info@webnus.biz>
+     * @param mixed $event
      * @return string
      */
-    public function get_gmt_offset()
+    public function get_gmt_offset($event = NULL)
     {
-        $gmt_offset = get_option('gmt_offset');
+        if(!is_null($event))
+        {
+            $event_id = ((is_object($event) and isset($event->ID)) ? $event->ID : $event);
+            $timezone = get_post_meta($event_id, 'mec_timezone', true);
+
+            if(trim($timezone) != '' and $timezone != 'global')
+            {
+                $UTC = new DateTimeZone('UTC');
+                $TZ = new DateTimeZone($timezone);
+
+                $gmt_offset_seconds = $TZ->getOffset((new DateTime('now', $UTC)));
+                $gmt_offset = ($gmt_offset_seconds / HOUR_IN_SECONDS);
+            }
+            else $gmt_offset = get_option('gmt_offset');
+        }
+        else $gmt_offset = get_option('gmt_offset');
 
         $minutes = $gmt_offset*60;
         $hour_minutes = sprintf("%02d", $minutes%60);
@@ -4072,13 +4101,14 @@ class MEC_main extends MEC_base
      * Get GMT offset based on seconds
      * @author Webnus <info@webnus.biz>
      * @param $date
+     * @param mixed $event
      * @return string
      */
-    public function get_gmt_offset_seconds($date = NULL)
+    public function get_gmt_offset_seconds($date = NULL, $event = NULL)
     {
         if($date)
         {
-            $timezone = new DateTimeZone($this->get_timezone());
+            $timezone = new DateTimeZone($this->get_timezone($event));
 
             // Convert to Date
             if(is_numeric($date)) $date = date('Y-m-d', $date);
@@ -4089,7 +4119,7 @@ class MEC_main extends MEC_base
         else
         {
             $gmt_offset = get_option('gmt_offset');
-            $seconds = $gmt_offset*3600;
+            $seconds = $gmt_offset * HOUR_IN_SECONDS;
 
             return (substr($gmt_offset, 0, 1) == '-' ? '' : '+').$seconds;
         }
@@ -5924,7 +5954,7 @@ class MEC_main extends MEC_base
     public function load_isotope_assets()
     {
         // Isotope JS file
-        wp_enqueue_script('mec-isotope-script', $this->asset('js/isotope.pkgd.min.js'));
+        wp_enqueue_script('mec-isotope-script', $this->asset('js/isotope.pkgd.min.js'), array(), $this->get_version(), true);
     }
     
     function get_client_ip()
@@ -6475,7 +6505,7 @@ class MEC_main extends MEC_base
         $recurrence = array();
         if(isset($event->mec->repeat) and $event->mec->repeat)
         {
-            $gmt_offset = $this->get_gmt_offset();
+            $gmt_offset = $this->get_gmt_offset($event);
             $finish = ($event->mec->end != '0000-00-00' ? date('Ymd\THis\Z', strtotime($event->mec->end.' '.$event->time['end'])) : '');
             $freq = '';
             $interval = '1';
@@ -6914,7 +6944,7 @@ class MEC_main extends MEC_base
         if(!trim($time)) return NULL;
 
         $db = $this->getDB();
-        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`tstart`='".$time."') OR (`tstart`<'".$time."' AND `tend`>'".$time."')) ORDER BY `tstart` DESC LIMIT 1", 'loadResult');
+        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`=".$event_id." AND ((`tstart`=".$time.") OR (`tstart`<".$time." AND `tend`>".$time.")) ORDER BY `tstart` DESC LIMIT 1", 'loadResult');
     }
 
     public function is_midnight_event($event)
@@ -7124,11 +7154,14 @@ class MEC_main extends MEC_base
     {
         $start_timestamp = (isset($event->data->time['start_timestamp']) ? $event->data->time['start_timestamp'] : (isset($event->date['start']['timestamp']) ? $event->date['start']['timestamp'] : strtotime($event->date['start']['date'])));
 
+        // All Params
+        $params = MEC_feature_occurrences::param($event->ID, $start_timestamp, '*');
+
         $event_status = (isset($event->data->meta['mec_event_status']) and trim($event->data->meta['mec_event_status'])) ? $event->data->meta['mec_event_status'] : 'EventScheduled';
-        $event_status = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'event_status', $event_status);
+        $event_status = (isset($params['event_status']) and trim($params['event_status']) != '') ? $params['event_status'] : $event_status;
 
         $reason = get_post_meta($event->ID, 'mec_cancelled_reason', true);
-        $reason = MEC_feature_occurrences::param($event->ID, $start_timestamp, 'cancelled_reason', $reason);
+        $reason = (isset($params['cancelled_reason']) and trim($params['cancelled_reason']) != '') ? $params['cancelled_reason'] : $reason;
 
         $output = '';
         if(isset($event_status) and $event_status == 'EventCancelled' && $display_reason != false and isset($reason) and !empty($reason))
@@ -7337,5 +7370,15 @@ class MEC_main extends MEC_base
         }
 
         return $status;
+    }
+
+    public function timezones($selected)
+    {
+        $output = wp_timezone_choice($selected);
+
+        $ex = explode('<optgroup', $output);
+        unset($ex[count($ex) - 1]);
+
+        return implode('<optgroup', $ex);
     }
 }
