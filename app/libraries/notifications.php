@@ -44,9 +44,10 @@ class MEC_notifications extends MEC_base
      * Send email verification notification
      * @author Webnus <info@webnus.biz>
      * @param int $book_id
+     * @param string $mode
      * @return boolean
      */
-    public function email_verification($book_id)
+    public function email_verification($book_id, $mode = 'auto')
     {
         $booker = $this->u->booking($book_id);
         if(!isset($booker->user_email)) return false;
@@ -54,10 +55,10 @@ class MEC_notifications extends MEC_base
         $price = get_post_meta($book_id, 'mec_price', true);
 
         // Auto verification for free bookings is enabled so don't send the verification email
-        if($price <= 0 and isset($this->settings['booking_auto_verify_free']) and $this->settings['booking_auto_verify_free'] == 1) return false;
+        if($mode == 'auto' and $price <= 0 and isset($this->settings['booking_auto_verify_free']) and $this->settings['booking_auto_verify_free'] == 1) return false;
 
         // Auto verification for paid bookings is enabled so don't send the verification email
-        if($price > 0 and isset($this->settings['booking_auto_verify_paid']) and $this->settings['booking_auto_verify_paid'] == 1) return false;
+        if($mode == 'auto' and $price > 0 and isset($this->settings['booking_auto_verify_paid']) and $this->settings['booking_auto_verify_paid'] == 1) return false;
 
         // Event ID
         $event_id = get_post_meta($book_id, 'mec_event_id', true);

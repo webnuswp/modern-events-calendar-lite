@@ -558,6 +558,7 @@ class MEC_main extends MEC_base
             __('Additional Organizers', 'modern-events-calendar-lite') => 'additional_organizers',
             __('Additional Locations', 'modern-events-calendar-lite') => 'additional_locations',
             __('Related Events', 'modern-events-calendar-lite') => 'related_events',
+            __('Next / Previous Events', 'modern-events-calendar-lite') => 'next_previous_events',
         ), $active_menu);
 
         $booking = apply_filters('mec-settings-item-booking', array(
@@ -2380,7 +2381,10 @@ class MEC_main extends MEC_base
      */
     public function get_version()
     {
-        return MEC_VERSION;
+        $version = MEC_VERSION;
+
+        if(defined('WP_DEBUG') and WP_DEBUG) $version .= '.'.time();
+        return $version;
     }
     
     /**
@@ -4022,7 +4026,11 @@ class MEC_main extends MEC_base
         $date = $event->date;
         $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : date('Y-m-d');
 
-        $ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_method']) == 'end') ? true : false;
+        $countdown_method = get_post_meta($event->ID, 'mec_countdown_method', true);
+        if(trim($countdown_method) == '') $countdown_method = 'global';
+
+        if($countdown_method == 'global') $ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_method']) == 'end') ? true : false;
+        else $ongoing = ($countdown_method == 'end') ? true : false;
 
         // The event is Expired/Passed
         if($this->is_past($start_date, date('Y-m-d')) and !$ongoing) return false;
@@ -4580,9 +4588,10 @@ class MEC_main extends MEC_base
      * @param array $end
      * @param string $format
      * @param string $separator
+     * @param boolean $minify
      * @return string
      */
-    public function date_label($start, $end, $format, $separator = ' - ')
+    public function date_label($start, $end, $format, $separator = ' - ', $minify = true)
     {
         $start_datetime = $start['date'];
         $end_datetime = $end['date'];
@@ -4636,7 +4645,33 @@ class MEC_main extends MEC_base
             $end_date = date_i18n($format, $end_timestamp);
 
             if($start_date == $end_date) return '<span class="mec-start-date-label" itemprop="startDate">' . $start_date . '</span>';
-            else return '<span class="mec-start-date-label" itemprop="startDate">' . date_i18n($format, $start_timestamp).'</span><span class="mec-end-date-label" itemprop="endDate">'.$separator.date_i18n($format, $end_timestamp).'</span>';
+            else
+            {
+                $start_m = date('m', $start_timestamp);
+                $end_m = date('m', $end_timestamp);
+
+                // Same Month but Different Days
+                if($minify and $start_m == $end_m and date('d', $start_timestamp) != date('d', $end_timestamp))
+                {
+                    $day_format = 'j';
+                    if(strpos($format, 'l') !== false) $day_format = 'l';
+                    elseif(strpos($format, 'd') !== false) $day_format = 'd';
+                    elseif(strpos($format, 'D') !== false) $day_format = 'D';
+
+                    $month_format = 'F';
+                    if(strpos($format, 'm') !== false) $month_format = 'm';
+                    elseif(strpos($format, 'M') !== false) $month_format = 'M';
+                    elseif(strpos($format, 'n') !== false) $month_format = 'n';
+
+                    $start_d = date_i18n($day_format, $start_timestamp);
+                    $end_d = date_i18n($day_format, $end_timestamp);
+
+                    $start_m = date_i18n($month_format, $start_timestamp);
+
+                    return '<span class="mec-start-date-label" itemprop="startDate">' .($this->is_day_first($format) ? ($start_d . ' - ' . $end_d . ' ' . $start_m) : ($start_m .' '. $start_d . ' - ' . $end_d)). '</span>';
+                }
+                else return '<span class="mec-start-date-label" itemprop="startDate">'.date_i18n($format, $start_timestamp).'</span><span class="mec-end-date-label" itemprop="endDate">'.$separator.date_i18n($format, $end_timestamp).'</span>';
+            }
         }
     }
 
@@ -5761,7 +5796,7 @@ class MEC_main extends MEC_base
     /**
      * Get Next event based on datetime of current event
      * @param array $atts
-     * @return array
+     * @return object
      */
     public function get_next_event($atts = array())
     {
@@ -5779,7 +5814,7 @@ class MEC_main extends MEC_base
         $events = $list->events;
         $key = key($events);
 
-        return (isset($events[$key][0]) ? $events[$key][0] : array());
+        return (isset($events[$key][0]) ? $events[$key][0] : (new stdClass()));
     }
     
     /**
@@ -7349,9 +7384,9 @@ class MEC_main extends MEC_base
         else return array_key_last($arr);
     }
 
-    public function is_day_first()
+    public function is_day_first($format = NULL)
     {
-        $format = get_option('date_format');
+        if(!trim($format)) $format = get_option('date_format');
         $chars = str_split($format);
 
         $status = true;

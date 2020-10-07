@@ -72,6 +72,8 @@ class MEC_feature_wc extends MEC_base
 
         $this->factory->filter('woocommerce_order_item_display_meta_key', array($this, 'display_key'), 10, 2);
         $this->factory->filter('woocommerce_order_item_display_meta_value', array($this, 'display_value'), 10, 2);
+        $this->factory->filter('woocommerce_cart_item_name', array($this, 'display_name'), 10, 2);
+        $this->factory->filter('woocommerce_cart_item_thumbnail', array($this, 'display_thumbnail'), 10, 2);
     }
 
     public function display_key($display_key, $meta)
@@ -101,5 +103,33 @@ class MEC_feature_wc extends MEC_base
         }
 
         return $display_value;
+    }
+
+    public function display_name($name, $item)
+    {
+        if(!isset($item['mec_event_id']) or (isset($item['mec_event_id']) and !trim($item['mec_event_id']))) return $name;
+        if(!isset($item['mec_date']) or (isset($item['mec_date']) and !trim($item['mec_date']))) return $name;
+
+        $timestamps = explode(':', $item['mec_date']);
+
+        $date_format = (isset($this->settings['booking_date_format1']) and trim($this->settings['booking_date_format1'])) ? $this->settings['booking_date_format1'] : get_option('date_format');
+        $start_date = date($date_format, $timestamps[0]);
+
+        $name .= ' ('.$start_date.')';
+        return $name;
+    }
+
+    public function display_thumbnail($image, $item)
+    {
+        if(!isset($item['mec_event_id']) or (isset($item['mec_event_id']) and !trim($item['mec_event_id']))) return $image;
+        if(!isset($item['product_id']) or (isset($item['product_id']) and !trim($item['product_id']))) return $image;
+
+        $product_id = $item['product_id'];
+        if(has_post_thumbnail($product_id)) return $image;
+
+        $event_id = $item['mec_event_id'];
+        if(has_post_thumbnail($event_id)) return get_the_post_thumbnail($event_id);
+
+        return $image;
     }
 }

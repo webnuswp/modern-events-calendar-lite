@@ -204,6 +204,127 @@ class MEC_skin_single extends MEC_skins
         wp_reset_postdata();
     }
 
+    public function display_next_previous_events($event)
+    {
+        if(!isset($this->settings['next_previous_events'])) return;
+        if(isset($this->settings['next_previous_events']) && $this->settings['next_previous_events'] != '1') return;
+
+        if(is_numeric($event)) $event_id = $event;
+        elseif(is_object($event) and isset($event->ID)) $event_id = $event->ID;
+        else return;
+
+        $date = $event->date;
+        $timestamp = (isset($date['start']) and isset($date['start']['timestamp'])) ? $date['start']['timestamp'] : NULL;
+
+        $args = array(
+            'post_type' => 'mec-events',
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+            'orderby' => 'ASC',
+            'tax_query' => array(),
+        );
+
+        if(isset($this->settings['next_previous_events_category']) && $this->settings['next_previous_events_category'] == 1)
+        {
+            $post_terms = wp_get_object_terms($event_id, 'mec_category', array('fields'=>'slugs'));
+            $args['tax_query'][] = array(
+                'taxonomy' => 'mec_category',
+                'field'    => 'slug',
+                'terms' => $post_terms
+            );
+        }
+
+        if(isset($this->settings['next_previous_events_organizer']) && $this->settings['next_previous_events_organizer'] == 1)
+        {
+            $post_terms = wp_get_object_terms($event_id, 'mec_organizer', array('fields'=>'slugs'));
+            $args['tax_query'][] = array(
+                'taxonomy' => 'mec_organizer',
+                'field'    => 'slug',
+                'terms' => $post_terms
+            );
+        }
+
+        if(isset($this->settings['next_previous_events_location']) && $this->settings['next_previous_events_location'] == 1)
+        {
+            $post_terms = wp_get_object_terms($event_id, 'mec_location', array('fields'=>'slugs'));
+            $args['tax_query'][] = array(
+                'taxonomy' => 'mec_location',
+                'field'    => 'slug',
+                'terms' => $post_terms
+            );
+        }
+
+        if(isset($this->settings['next_previous_events_speaker']) && $this->settings['next_previous_events_speaker'] == 1)
+        {
+            $post_terms = wp_get_object_terms($event_id, 'mec_speaker', array('fields'=>'slugs'));
+            $args['tax_query'][] = array(
+                'taxonomy' => 'mec_speaker',
+                'field'    => 'slug',
+                'terms' => $post_terms
+            );
+        }
+
+        if(isset($this->settings['next_previous_events_label']) && $this->settings['next_previous_events_label'] == 1)
+        {
+            $post_terms = wp_get_object_terms($event_id, 'mec_label', array('fields'=>'slugs'));
+            $args['tax_query'][] = array(
+                'taxonomy' => 'mec_label',
+                'field'    => 'slug',
+                'terms' => $post_terms
+            );
+        }
+
+        if(isset($this->settings['next_previous_events_tag']) && $this->settings['next_previous_events_tag'] == 1)
+        {
+            $post_terms = wp_get_object_terms($event_id, 'post_tag', array('fields'=>'slugs'));
+            $args['tax_query'][] = array(
+                'taxonomy' => 'post_tag',
+                'field'    => 'slug',
+                'terms' => $post_terms
+            );
+        }
+
+        $args['tax_query']['relation'] = 'OR';
+        $args = apply_filters('mec_next_previous_query', $args, $event_id);
+
+        $IDs = array();
+
+        $query = new WP_Query($args);
+        if($query->have_posts())
+        {
+            while($query->have_posts())
+            {
+                $query->the_post();
+                $IDs[] = get_the_ID();
+            }
+        }
+
+        wp_reset_postdata();
+
+        // No Event Found!
+        if(!count($IDs)) return;
+
+        $p = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart`<'".$timestamp."' AND `post_id` IN (".implode(',', $IDs).") ORDER BY `tstart` DESC LIMIT 1", 'loadAssoc');
+        $n = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart`>'".$timestamp."' AND `post_id` IN (".implode(',', $IDs).") ORDER BY `tstart` ASC LIMIT 1", 'loadAssoc');
+
+        // No Event Found!
+        if(!isset($p['post_id']) and !isset($n['post_id'])) return;
+
+        echo '<ul class="mec-next-previous-events">';
+
+        if($p['post_id'])
+        {
+            echo '<li class="mec-previous-event"><a class="mec-color mec-bg-color-hover mec-border-color" href="'.$this->main->get_event_date_permalink(get_permalink($p['post_id']), date('Y-m-d', $p['tstart'])).'"><i class="mec-fa-long-arrow-left"></i>'. __('PRV Event', 'modern-events-calendar-lite') .'</a></li>';
+        }
+
+        if($n['post_id'])
+        {
+            echo '<li class="mec-next-event"><a class="mec-color mec-bg-color-hover mec-border-color" href="'.$this->main->get_event_date_permalink(get_permalink($n['post_id']), date('Y-m-d', $n['tstart'])).'">'. __('NXT Event', 'modern-events-calendar-lite') .'<i class="mec-fa-long-arrow-right"></i></a></li>';
+        }
+
+        echo '</ul>';
+    }
+
     /**
      * Fluent Related Post in Single
      * @author Webnus <info@webnus.biz>
@@ -559,10 +680,15 @@ class MEC_skin_single extends MEC_skins
     // Get event
     public function get_event_mec($event_ID)
     {
+        if(get_post_type( $event_ID ) != 'mec-events') {
+            return false;
+        }
+
         /// Original Event ID for Multilingual Websites
         $original_event_id = $this->main->get_original_event($event_ID);
 
         $events = array();
+
         $rendered = $this->render->data($event_ID, (isset($this->atts['content']) ? $this->atts['content'] : ''));
 
         // Event Repeat Type

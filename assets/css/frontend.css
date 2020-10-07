@@ -14693,6 +14693,68 @@ article.mec-search-bar-result {
 	transition: all 0.3s ease;
 }
 
+/* Next / Previous Events */
+.mec-next-previous-events {
+    width: 100%;
+    display: block;
+    padding: 0;
+}
+
+.mec-next-previous-events li {
+    list-style: none;
+    width: 50%;
+    display: inline-block;
+    margin: 40px 0 40px;
+}
+
+.mec-next-previous-events li a {
+    padding: 9px 14px 9px 14px;
+    border: 1px solid #000;
+    transition: .3s;
+}
+
+.mec-next-previous-events li a:hover {
+    color: #fff;
+}
+
+.mec-previous-event {
+    float: left;
+    text-align: left;
+}
+
+.mec-next-event {
+    float: right;
+    text-align: right;
+}
+
+.mec-next-previous-events .mec-previous-event i {
+    padding-right: 20px;
+}
+
+.mec-next-previous-events .mec-next-event i {
+    padding-left: 20px;
+}
+
+@media(max-width: 480px) {
+    .mec-next-previous-events li {
+        list-style: none;
+        width: 100%;
+        display: block;
+        margin: 10px 0;
+        float: unset;
+    }
+
+    .mec-next-previous-events li a {
+        width: 100%;
+        max-width: 100%;
+        float: unset;
+        display: block;
+        text-align: center;
+        font-size: 16px;
+    }
+}
+
+
 /* Fronrend Organizer Payment */
 .mec-fes-form-cntt #mec-organizer-payments ul {
 	list-style: none;

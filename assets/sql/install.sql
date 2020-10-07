@@ -49,12 +49,13 @@ CREATE TABLE IF NOT EXISTS `#__mec_users` (
   `id` int(10) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(127) NOT NULL,
   `reg` TEXT NULL DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) DEFAULT CHARSET=[:CHARSET:] COLLATE=[:COLLATE:];
 
-ALTER TABLE `#__mec_users` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
+ALTER TABLE `#__mec_users` ADD PRIMARY KEY (`id`);
 ALTER TABLE `#__mec_users` MODIFY `id` int NOT NULL AUTO_INCREMENT;
 ALTER TABLE `#__mec_users` AUTO_INCREMENT=1000000;
+ALTER TABLE `#__mec_users` ADD UNIQUE KEY `email` (`email`);

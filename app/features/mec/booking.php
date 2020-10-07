@@ -804,7 +804,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <input type="hidden" name="mec[settings][wc_status]" value="0" />
                                             <input id="mec_gateways_wc_status" onchange="jQuery('#mec_payment_options_wrapper, #mec_gateways_wc_status_guide').toggleClass('w-hidden');" value="1" type="checkbox" name="mec[settings][wc_status]" <?php if(isset($settings['wc_status']) and $settings['wc_status']) echo 'checked="checked"'; ?> /> <?php _e('Use WooCommerce as Payment System', 'modern-events-calendar-lite'); ?>
                                         </label>
-                                        <p><?php esc_html_e("By enabling this feature, tickets will be added to WC cart and all payment process would be done by WooCommerce so all of MEC payment related modules will be disabled. To configure your desired gateways and booking fields etc, you need to configure WooCommerce on your website.", 'modern-events-calendar-lite'); ?></p>
+                                        <p><?php esc_html_e("By enabling this feature, tickets will be added to WooCommerce cart and all payment process would be done by WooCommerce so all of MEC payment related modules will be disabled. To configure your desired gateways and booking fields etc, you need to configure WooCommerce on your website.", 'modern-events-calendar-lite'); ?></p>
                                         <div id="mec_gateways_wc_status_guide" class="<?php if(!isset($settings['wc_status']) or (isset($settings['wc_status']) and !$settings['wc_status'])) echo 'w-hidden'; ?>">
                                             <p><?php esc_html_e("You cannot use following MEC features so you should use WooCommerc and its addons if you need them.", 'modern-events-calendar-lite'); ?></p>
                                             <ul>
@@ -815,8 +815,8 @@ $gateways_options = $this->main->get_gateways_options();
                                                 <li><?php esc_html_e('Taxes / Fees', 'modern-events-calendar-lite'); ?></li>
                                             </ul>
 
-                                            <div class="mec-form-row">
-                                                <label class="mec-col-3" for="mec_gateways_wc_autoorder_complete"><?php _e('Automatically complete WC orders', 'modern-events-calendar-lite'); ?></label>
+                                            <div class="mec-form-row" style="margin-top: 40px;">
+                                                <label class="mec-col-3" for="mec_gateways_wc_autoorder_complete"><?php _e('Automatically complete WooCommerce orders', 'modern-events-calendar-lite'); ?></label>
                                                 <div class="mec-col-4">
                                                     <select id="mec_gateways_wc_autoorder_complete" name="mec[settings][wc_autoorder_complete]">
                                                         <option value="1" <?php echo((isset($settings['wc_autoorder_complete']) and $settings['wc_autoorder_complete'] == '1') ? 'selected="selected"' : ''); ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
@@ -824,7 +824,7 @@ $gateways_options = $this->main->get_gateways_options();
                                                     </select>
                                                     <span class="mec-tooltip">
                                                         <div class="box top">
-                                                            <h5 class="title"><?php _e('Auto WC orders', 'modern-events-calendar-lite'); ?></h5>
+                                                            <h5 class="title"><?php _e('Auto WooCommerce orders', 'modern-events-calendar-lite'); ?></h5>
                                                             <div class="content"><p><?php esc_attr_e('It applies only to the orders that are related to MEC.', 'modern-events-calendar-lite'); ?>
                                                             <a href="https://webnus.net/dox/modern-events-calendar/woocommerce/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                                         </div>
@@ -839,6 +839,23 @@ $gateways_options = $this->main->get_gateways_options();
                                                         <option value="cart" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'cart') ? 'selected="selected"' : ''); ?>><?php _e('Redirect to Cart', 'modern-events-calendar-lite'); ?></option>
                                                         <option value="checkout" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'checkout') ? 'selected="selected"' : ''); ?>><?php _e('Redirect to Checkout', 'modern-events-calendar-lite'); ?></option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="mec-form-row">
+                                                <label class="mec-col-3" for="mec_gateways_wc_booking_form"><?php _e('MEC Booking Form', 'modern-events-calendar-lite'); ?></label>
+                                                <div class="mec-col-4">
+                                                    <select id="mec_gateways_wc_booking_form" name="mec[settings][wc_booking_form]">
+                                                        <option value="0" <?php echo((isset($settings['wc_booking_form']) and $settings['wc_booking_form'] == '0') ? 'selected="selected"' : ''); ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                                                        <option value="1" <?php echo((isset($settings['wc_booking_form']) and $settings['wc_booking_form'] == '1') ? 'selected="selected"' : ''); ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
+                                                    </select>
+                                                    <span class="mec-tooltip">
+                                                        <div class="box top">
+                                                            <h5 class="title"><?php _e('Booking Form', 'modern-events-calendar-lite'); ?></h5>
+                                                            <div class="content"><p><?php esc_attr_e('If enabled then users should fill the booking form in MEC and then they will be redirected to checkout.', 'modern-events-calendar-lite'); ?>
+                                                            <a href="https://webnus.net/dox/modern-events-calendar/woocommerce/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                        </div>
+                                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -866,6 +883,21 @@ $gateways_options = $this->main->get_gateways_options();
                                                 <div class="box">
                                                     <h5 class="title"><?php _e('Organizer Payment', 'modern-events-calendar-lite'); ?></h5>
                                                     <div class="content"><p><?php esc_attr_e("By enabling this module, organizers are able to insert their own payment credentials for enabled gateways per event and receive the payments directly!", 'modern-events-calendar-lite'); ?></p></div>
+                                                </div>
+                                                <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <div class="mec-col-4">
+                                            <label>
+                                                <input type="hidden" name="mec[gateways][gateways_per_event]" value="0" />
+                                                <input id="mec_gateways_op_status" value="1" type="checkbox" name="mec[gateways][gateways_per_event]" <?php if(isset($gateways_options['gateways_per_event']) and $gateways_options['gateways_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Disable / Enable payment gateways per event', 'modern-events-calendar-lite'); ?>
+                                            </label>
+                                            <span class="mec-tooltip">
+                                                <div class="box">
+                                                    <h5 class="title"><?php _e('Payment Gateways Per Event', 'modern-events-calendar-lite'); ?></h5>
+                                                    <div class="content"><p><?php esc_attr_e("By enabling this module, users are able to disable / enable payment gateways per event", 'modern-events-calendar-lite'); ?></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>

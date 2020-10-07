@@ -556,7 +556,10 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
         </div>
         <?php endif; ?>
     </article>
+
     <?php $this->display_related_posts_widget($event->ID); ?>
+    <?php $this->display_next_previous_events($event); ?>
+
 </div>
 <?php
     // MEC Schema
@@ -564,7 +567,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 ?>
 <script>
 // Fix modal speaker in some themes
-jQuery( ".mec-speaker-avatar a" ).click(function(e)
+jQuery(".mec-speaker-avatar a").click(function(e)
 {
     e.preventDefault();
     var id =  jQuery(this).attr('href');
@@ -572,7 +575,8 @@ jQuery( ".mec-speaker-avatar a" ).click(function(e)
 });
 
 // Fix modal booking in some themes
-jQuery(window).on('load', function() {
+jQuery(window).on('load', function()
+{
     jQuery( ".mec-booking-button.mec-booking-data-lity" ).click(function(e)
     {
         e.preventDefault();

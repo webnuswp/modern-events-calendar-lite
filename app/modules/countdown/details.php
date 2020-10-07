@@ -3,6 +3,7 @@
 defined('MECEXEC') or die();
 
 /** @var MEC_main $this */
+/** @var MEC_factory $factory */
 
 // MEC Settings
 $settings = $this->get_settings();
@@ -45,7 +46,11 @@ $d1 = new DateTime($start_time);
 $d2 = new DateTime(current_time("D M j Y G:i:s"));
 $d3 = new DateTime($end_time);
 
-$ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_method']) == 'end') ? true : false;
+$countdown_method = get_post_meta($event->ID, 'mec_countdown_method', true);
+if(trim($countdown_method) == '') $countdown_method = 'global';
+
+if($countdown_method == 'global') $ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_method']) == 'end') ? true : false;
+else $ongoing = ($countdown_method == 'end') ? true : false;
 
 if($d3 < $d2)
 {

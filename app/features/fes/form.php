@@ -221,6 +221,7 @@ $this->factory->params('footer', $javascript);
 
             $repeat_status = get_post_meta($post_id, 'mec_repeat_status', true);
             $repeat_type = get_post_meta($post_id, 'mec_repeat_type', true);
+            if(trim($repeat_type) == '') $repeat_type = 'daily';
 
             $repeat_interval = get_post_meta($post_id, 'mec_repeat_interval', true);
             if(trim($repeat_interval) == '' and in_array($repeat_type, array('daily', 'weekly'))) $repeat_interval = 1;
@@ -245,6 +246,9 @@ $this->factory->params('footer', $javascript);
 
             $event_timezone = get_post_meta($post->ID, 'mec_timezone', true);
             if(trim($event_timezone) == '') $event_timezone = 'global';
+
+            $countdown_method = get_post_meta($post->ID, 'mec_countdown_method', true);
+            if(trim($countdown_method) == '') $countdown_method = 'global';
         ?>
 
         <div class="mec-fes-form-cntt">
@@ -339,6 +343,19 @@ $this->factory->params('footer', $javascript);
                                     <?php echo $this->main->timezones($event_timezone); ?>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if(isset($this->settings['countdown_status']) and $this->settings['countdown_status']): ?>
+                    <h4><?php _e('Countdown Method', 'modern-events-calendar-lite'); ?></h4>
+                    <div class="mec-form-row">
+                        <div class="mec-col-4">
+                            <select name="mec[countdown_method]" id="mec_countdown_method" title="<?php esc_attr_e('Countdown Method', 'modern-events-calendar-lite'); ?>">
+                                <option value="global" <?php if('global' == $countdown_method) echo 'selected="selected"'; ?>><?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?></option>
+                                <option value="start" <?php if('start' == $countdown_method) echo 'selected="selected"'; ?>><?php _e('Count to Event Start', 'modern-events-calendar-lite'); ?></option>
+                                <option value="end" <?php if('end' == $countdown_method) echo 'selected="selected"'; ?>><?php _e('Count to Event End', 'modern-events-calendar-lite'); ?></option>
+                            </select>
                         </div>
                     </div>
                     <?php endif; ?>

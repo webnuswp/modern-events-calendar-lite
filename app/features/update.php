@@ -66,6 +66,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.7.1', '<')) $this->version571();
         if(version_compare($version, '5.10.0', '<')) $this->version5100();
         if(version_compare($version, '5.11.0', '<')) $this->version5110();
+        if(version_compare($version, '5.12.6', '<')) $this->version5126();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -416,14 +417,43 @@ class MEC_feature_update extends MEC_base
           `id` int(10) NOT NULL,
           `first_name` varchar(255) NOT NULL,
           `last_name` varchar(255) NOT NULL,
-          `email` varchar(255) NOT NULL,
+          `email` varchar(127) NOT NULL,
           `reg` TEXT NULL DEFAULT NULL,
           `created_at` datetime DEFAULT NULL,
           `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) DEFAULT CHARSET=[:CHARSET:] COLLATE=[:COLLATE:];");
 
-        $this->db->q("ALTER TABLE `#__mec_users` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);");
+        $this->db->q("ALTER TABLE `#__mec_users` ADD PRIMARY KEY (`id`);");
         $this->db->q("ALTER TABLE `#__mec_users` MODIFY `id` int NOT NULL AUTO_INCREMENT;");
         $this->db->q("ALTER TABLE `#__mec_users` AUTO_INCREMENT=1000000;");
+        $this->db->q("ALTER TABLE `#__mec_users` ADD UNIQUE KEY `email` (`email`);");
+    }
+
+    public function version5126()
+    {
+        $all = $this->db->select("SELECT * FROM `#__mec_users`", 'loadAssoc');
+        $zeros = $this->db->select("SELECT * FROM `#__mec_users` WHERE `id`='0'", 'loadAssoc');
+
+        if( is_array($all) )
+        {
+            if(!count($all))
+            {
+                $this->db->q("DROP TABLE `#__mec_users`");
+                $this->version5110();
+            }
+            elseif(count($zeros))
+            {
+                $this->db->q("TRUNCATE `#__mec_users`");
+                $this->db->q("ALTER TABLE `#__mec_users` CHANGE `email` `email` VARCHAR(127) NOT NULL;");
+                $this->db->q("ALTER TABLE `#__mec_users` ADD PRIMARY KEY (`id`);");
+                $this->db->q("ALTER TABLE `#__mec_users` MODIFY `id` int NOT NULL AUTO_INCREMENT;");
+                $this->db->q("ALTER TABLE `#__mec_users` AUTO_INCREMENT=1000000;");
+                $this->db->q("ALTER TABLE `#__mec_users` ADD UNIQUE KEY `email` (`email`);");
+            }
+            else
+            {
+                $this->db->q("ALTER TABLE `#__mec_users` CHANGE `email` `email` VARCHAR(127) NOT NULL;");
+            }
+        }
     }
 }

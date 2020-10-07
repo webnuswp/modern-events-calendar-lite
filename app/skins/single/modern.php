@@ -322,6 +322,8 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
     </article>
 
     <?php $this->display_related_posts_widget($event->ID); ?>
+    <?php $this->display_next_previous_events($event); ?>
+
 </div>
 <?php
     // MEC Schema

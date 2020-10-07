@@ -5,7 +5,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
 **Tested up to:** 5.5.1 \
-**Stable tag:** 5.12.5 \
+**Stable tag:** 5.12.6 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -229,6 +229,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ## Key Features
 
+- Resend booking verification and confirmation email (*pro*)
+- Countdown method per event
 - Set different timezone per event
 - Set coupons for multiple events
 - Lock pre-filled fields (*pro*)
@@ -241,9 +243,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Change event parameters per occurrence (*pro*)
 - Set booking limit per different occurrences (pro)
 - Booking Button in Modal Window for All Shortcodes (*pro*)
-- Notifications Per Event  (*pro*)
-- Booking shortcode  (*pro*)
-- Download-able file feature  (*pro*)
+- Notifications Per Event (*pro*)
+- Booking shortcode (*pro*)
+- Download-able file feature (*pro*)
 - Sort payment gateways (*pro*)
 - Booking fixed fields per booking (*pro*)
 - Custom event fields
@@ -311,6 +313,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Customizable Notifications Emails
 - Recurring/Repeating events
 - Next Event Module
+- Next/Previous Module
+- Related Events Module
 - Custom Booking Form for Single Events (*pro*)
 - Payments for Certain Single Events (*pro*)
 - Shortcode Creator
@@ -572,6 +576,22 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.12.6 – 7 October 2020
+
+- Added: An option to change the countdown method per event
+- Added: A new option to WooCommerce system to disable/enable MEC booking form (pro)
+- Added: A new ability to resend booking verification email (pro)
+- Added: An ability to resend booking confirmation email (pro)
+- Added: An option to disable/enable payment gateways per event (pro)
+- Added: Next/Previous module
+- Improved: The WooCommerce system to automatically load event featured image if the ticket product doesn’t have any image (pro)
+- Improved: The WooCommerce system to consider coupon and price after discount (pro)
+- Improved: The WooCommerce system to display booking date next to the ticket name (pro)
+- Fixed: An issue in showing date labels
+- Fixed: An issue in yearly view to automatically load the event if hidden (pro)
+- Fixed: An issue in the default value of repeat interval
+- Fixed: A jQuery issue
 
 ### 5.12.5 – 30 September 2020
 

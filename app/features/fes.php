@@ -693,6 +693,7 @@ class MEC_feature_fes extends MEC_base
         $hide_end_time = isset($date['hide_end_time']) ? 1 : 0;
         $comment = isset($date['comment']) ? $date['comment'] : '';
         $timezone = (isset($mec['timezone']) and trim($mec['timezone']) != '') ? sanitize_text_field($mec['timezone']) : 'global';
+        $countdown_method = (isset($mec['countdown_method']) and trim($mec['countdown_method']) != '') ? sanitize_text_field($mec['countdown_method']) : 'global';
         
         // Set start time and end time if event is all day
         if($allday == 1)
@@ -762,6 +763,7 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_hide_end_time', $hide_end_time);
         update_post_meta($post_id, 'mec_comment', $comment);
         update_post_meta($post_id, 'mec_timezone', $timezone);
+        update_post_meta($post_id, 'mec_countdown_method', $countdown_method);
         update_post_meta($post_id, 'mec_repeat_status', $repeat_status);
         update_post_meta($post_id, 'mec_repeat_type', $repeat_type);
         update_post_meta($post_id, 'mec_repeat_interval', $repeat_interval);

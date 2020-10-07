@@ -463,6 +463,7 @@ class MEC_feature_events extends MEC_base
 
         $repeat_status = get_post_meta($post->ID, 'mec_repeat_status', true);
         $repeat_type = get_post_meta($post->ID, 'mec_repeat_type', true);
+        if(trim($repeat_type) == '') $repeat_type = 'daily';
 
         $repeat_interval = get_post_meta($post->ID, 'mec_repeat_interval', true);
         if(trim($repeat_interval) == '' and in_array($repeat_type, array('daily', 'weekly'))) $repeat_interval = 1;
@@ -490,25 +491,28 @@ class MEC_feature_events extends MEC_base
 
         $event_timezone = get_post_meta($post->ID, 'mec_timezone', true);
         if(trim($event_timezone) == '') $event_timezone = 'global';
+
+        $countdown_method = get_post_meta($post->ID, 'mec_countdown_method', true);
+        if(trim($countdown_method) == '') $countdown_method = 'global';
         ?>
         <div class="mec-meta-box-fields" id="mec-date-time">
-            <?php if ( ($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)) ) : ?>
+            <?php if(($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name))): ?>
                 <div id="mec_meta_box_fes_form" class="mec-event-tab-content">
             <?php endif; ?>
-            <?php if ($note_visibility and trim($note)) : ?>
+            <?php if($note_visibility and trim($note)): ?>
                 <div class="mec-event-note">
                     <h4><?php _e('Note for reviewer', 'modern-events-calendar-lite'); ?></h4>
                     <p><?php echo $note; ?></p>
                 </div>
             <?php endif; ?>
-            <?php if (trim($fes_guest_email) and trim($fes_guest_name)) : ?>
+            <?php if(trim($fes_guest_email) and trim($fes_guest_name)): ?>
                 <div class="mec-guest-data">
                     <h4><?php _e('Guest Data', 'modern-events-calendar-lite'); ?></h4>
                     <p><strong><?php _e('Name', 'modern-events-calendar-lite'); ?>:</strong> <?php echo $fes_guest_name; ?></p>
                     <p><strong><?php _e('Email', 'modern-events-calendar-lite'); ?>:</strong> <?php echo $fes_guest_email; ?></p>
                 </div>
             <?php endif; ?>
-            <?php if ( ($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name)) ) : ?>
+            <?php if(($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name))): ?>
                 </div>
             <?php endif; ?>
             <?php do_action('start_mec_custom_fields', $post); ?>
@@ -622,6 +626,19 @@ class MEC_feature_events extends MEC_base
                 </div>
                 <?php endif; ?>
 
+                <?php if(isset($this->settings['countdown_status']) and $this->settings['countdown_status']): ?>
+                <h4><?php _e('Countdown Method', 'modern-events-calendar-lite'); ?></h4>
+                <div class="mec-form-row">
+                    <div class="mec-col-4">
+                        <select name="mec[countdown_method]" id="mec_countdown_method" title="<?php esc_attr_e('Countdown Method', 'modern-events-calendar-lite'); ?>">
+                            <option value="global" <?php if('global' == $countdown_method) echo 'selected="selected"'; ?>><?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?></option>
+                            <option value="start" <?php if('start' == $countdown_method) echo 'selected="selected"'; ?>><?php _e('Count to Event Start', 'modern-events-calendar-lite'); ?></option>
+                            <option value="end" <?php if('end' == $countdown_method) echo 'selected="selected"'; ?>><?php _e('Count to Event End', 'modern-events-calendar-lite'); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <?php endif; ?>
+
             </div>
             <div id="mec_meta_box_repeat_form" class="mec-event-tab-content">
                 <h4><?php _e('Repeating', 'modern-events-calendar-lite'); ?></h4>
@@ -715,7 +732,7 @@ class MEC_feature_events extends MEC_base
                         <label class="mec-col-3"><?php _e('Week Days', 'modern-events-calendar-lite'); ?></label>
                         <?php
                             $weekdays = $this->main->get_weekday_i18n_labels();
-                            foreach($weekdays as $weekday) :
+                            foreach($weekdays as $weekday):
                         ?>
                         <label>
                             <input type="checkbox" name="mec[date][repeat][certain_weekdays][]"
@@ -1534,9 +1551,11 @@ class MEC_feature_events extends MEC_base
             <div class="mec-form-row">
                 <label class="mec-col-2"
                        for="mec_read_more_link"><?php echo $this->main->m('read_more_link', __('Event Link', 'modern-events-calendar-lite')); ?></label>
-                <input class="mec-col-9" type="text" name="mec[read_more]" id="mec_read_more_link"
+                <input class="mec-col-7" type="text" name="mec[read_more]" id="mec_read_more_link"
                        value="<?php echo esc_attr($read_more); ?>"
                        placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>"/>
+                                       <?php do_action('extra_event_link', $post->ID); ?>
+
                 <span class="mec-tooltip">
 					<div class="box top">
 						<h5 class="title"><?php _e('Event Link', 'modern-events-calendar-lite'); ?></h5>
@@ -1550,7 +1569,7 @@ class MEC_feature_events extends MEC_base
             <div class="mec-form-row">
                 <label class="mec-col-2"
                        for="mec_more_info_link"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></label>
-                <input class="mec-col-5" type="text" name="mec[more_info]" id="mec_more_info_link"
+                <input class="mec-col-3" type="text" name="mec[more_info]" id="mec_more_info_link"
                        value="<?php echo esc_attr($more_info); ?>"
                        placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>"/>
                 <input class="mec-col-2" type="text" name="mec[more_info_title]" id="mec_more_info_title"
@@ -1582,17 +1601,17 @@ class MEC_feature_events extends MEC_base
      */
     public function meta_box_booking($post)
     {
-        $gateway_settings = $this->main->get_gateways_options()
+        $gateway_settings = $this->main->get_gateways_options();
     ?>
         <div class="mec-add-booking-tabs-wrap">
             <div class="mec-add-booking-tabs-left">
                 <a class="mec-add-booking-tabs-link mec-tab-active" data-href="mec_meta_box_booking_options_form_1" href="#"><?php echo esc_html__('Booking Options','modern-events-calendar-lite'); ?></a>
                 <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_booking_options_form_2" href="#"><?php echo esc_html__('Total User Booking Limits','modern-events-calendar-lite'); ?></a>
                 <a class="mec-add-booking-tabs-link" data-href="mec-tickets" href="#"><?php echo esc_html__('Tickets','modern-events-calendar-lite'); ?></a>
-                <?php if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status']) : ?>
+                <?php if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status']): ?>
                 <a class="mec-add-booking-tabs-link" data-href="mec-fees" href="#"><?php echo esc_html__('Fees','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
-                <?php if(isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status']) : ?>
+                <?php if(isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status']): ?>
                 <a class="mec-add-booking-tabs-link" data-href="mec-ticket-variations" href="#"><?php echo esc_html__('Ticket Variations / Options','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
                 <a class="mec-add-booking-tabs-link" data-href="mec-reg-fields" href="#"><?php echo esc_html__('Booking Form','modern-events-calendar-lite'); ?></a>
@@ -1601,6 +1620,9 @@ class MEC_feature_events extends MEC_base
                 <?php endif; ?>
                 <?php if(isset($this->settings['downloadable_file_status']) and $this->settings['downloadable_file_status']): ?>
                 <a class="mec-add-booking-tabs-link" data-href="mec-downloadable-file" href="#"><?php echo esc_html__('Downloadable File','modern-events-calendar-lite'); ?></a>
+                <?php endif; ?>
+                <?php if(isset($gateway_settings['gateways_per_event']) and $gateway_settings['gateways_per_event']): ?>
+                <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_booking_options_form_gateways_per_event" href="#"><?php echo esc_html__('Payment Gateways','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
                 <?php do_action('add_event_booking_sections_left_menu'); ?>
             </div>
@@ -1642,6 +1664,16 @@ class MEC_feature_events extends MEC_base
 
         global $wp_roles;
         $roles = $wp_roles->get_names();
+
+        $gateway_settings = $this->main->get_gateways_options();
+        $gateways = $this->main->get_gateways();
+
+        $enableds_gateways = array();
+        foreach($gateways as $gateway)
+        {
+            if(!$gateway->enabled()) continue;
+            $enableds_gateways[] = $gateway;
+        }
         ?>
         <div id="mec-booking">
             <div class="mec-meta-box-fields mec-booking-tab-content mec-tab-active" id="mec_meta_box_booking_options_form_1">
@@ -1727,6 +1759,24 @@ class MEC_feature_events extends MEC_base
                             value="<?php echo esc_attr($bookings_user_limit); ?>" placeholder="<?php _e('12', 'modern-events-calendar-lite'); ?>"/>
                 </div>
             </div>
+
+            <?php if(isset($gateway_settings['gateways_per_event']) and $gateway_settings['gateways_per_event']): ?>
+            <div class="mec-meta-box-fields mec-booking-tab-content" id="mec_meta_box_booking_options_form_gateways_per_event">
+                <h4 class="mec-title"><?php _e('Disabled Gateways', 'modern-events-calendar-lite'); ?></h4>
+                <p class="description"><?php esc_html_e("You can disable some of the following payment gateways by checking them otherwise they will be enabled.", 'modern-events-calendar-lite'); ?></p>
+
+                <?php foreach($enableds_gateways as $g): ?>
+                <div class="mec-form-row" style="margin-bottom: 0;">
+                    <label class="mec-col-4">
+                        <input type="hidden" name="mec[booking][gateways_<?php echo $g->id(); ?>_disabled]" value="0"/>
+                        <input type="checkbox" value="1" name="mec[booking][gateways_<?php echo $g->id(); ?>_disabled]" <?php echo (isset($booking_options['gateways_'.$g->id().'_disabled']) and $booking_options['gateways_'.$g->id().'_disabled']) ? 'checked="checked"' : ''; ?> />
+                        <?php echo $g->title(); ?>
+                    </label>
+                </div>
+                <?php endforeach; ?>
+
+            </div>
+            <?php endif; ?>
         </div>
         <?php
     }
@@ -2763,6 +2813,7 @@ class MEC_feature_events extends MEC_base
         $hide_end_time = isset($date['hide_end_time']) ? 1 : 0;
         $comment = isset($date['comment']) ? $date['comment'] : '';
         $timezone = (isset($_mec['timezone']) and trim($_mec['timezone']) != '') ? sanitize_text_field($_mec['timezone']) : 'global';
+        $countdown_method = (isset($_mec['countdown_method']) and trim($_mec['countdown_method']) != '') ? sanitize_text_field($_mec['countdown_method']) : 'global';
 
         // Set start time and end time if event is all day
         if($allday == 1)
@@ -2818,6 +2869,7 @@ class MEC_feature_events extends MEC_base
         update_post_meta($post_id, 'mec_hide_end_time', $hide_end_time);
         update_post_meta($post_id, 'mec_comment', $comment);
         update_post_meta($post_id, 'mec_timezone', $timezone);
+        update_post_meta($post_id, 'mec_countdown_method', $countdown_method);
 
         do_action('update_custom_post_meta', $date, $post_id);
 
