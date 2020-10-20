@@ -275,7 +275,7 @@ class MEC_render extends MEC_base
      */
     public function vcustom($atts)
     {
-        if(isset($this->settings['custom_archive']) && !empty($this->settings['custom_archive'])) echo do_shortcode( $this->settings['custom_archive'] );
+        if(isset($this->settings['custom_archive']) && !empty($this->settings['custom_archive'])) return do_shortcode($this->settings['custom_archive']);
     }
     
     /**
@@ -380,6 +380,19 @@ class MEC_render extends MEC_base
         $list_skin = (isset($this->settings['list_category_skin']) and trim($this->settings['list_category_skin']) != '') ? $this->settings['list_category_skin'] : 'standard';
         $grid_skin = (isset($this->settings['grid_category_skin']) and trim($this->settings['grid_category_skin']) != '') ? $this->settings['grid_category_skin'] : 'classic';
         $timetable_skin = (isset($this->settings['timetable_category_skin']) and trim($this->settings['timetable_category_skin']) != '') ? $this->settings['timetable_category_skin'] : 'modern';
+
+        if($skin == 'custom')
+        {
+            $category_custom_shortcode = (isset($this->settings['custom_archive_category']) and trim($this->settings['custom_archive_category']) != '') ? trim(stripslashes($this->settings['custom_archive_category'])) : '';
+            $category_custom_shortcode = str_replace(']', ' ]', $category_custom_shortcode);
+            $shortcode_params = shortcode_parse_atts($category_custom_shortcode);
+
+            if(is_array($shortcode_params) and isset($shortcode_params['id']))
+            {
+                $atts = $this->parse($shortcode_params['id'], $atts);
+                $skin = isset($atts['skin']) ? $atts['skin'] : '';
+            }
+        }
 
         if($skin == 'full_calendar') $content = $this->vfull($atts);
         elseif($skin == 'yearly_view') $content = $this->vyear($atts);

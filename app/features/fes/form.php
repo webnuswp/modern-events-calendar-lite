@@ -253,7 +253,7 @@ $this->factory->params('footer', $javascript);
 
         <div class="mec-fes-form-cntt">
             <div class="mec-form-row">
-                <label for="mec_fes_title"><?php _e('Title', 'modern-events-calendar-lite'); ?><span>*</span></label>
+                <label for="mec_fes_title"><?php _e('Title', 'modern-events-calendar-lite'); ?> <span class="mec-required">*</span></label>
                 <input type="text" name="mec[title]" id="mec_fes_title" value="<?php echo (isset($post->post_title) ? $post->post_title : ''); ?>" required="required" />
             </div>
             <div class="mec-form-row">
@@ -261,10 +261,10 @@ $this->factory->params('footer', $javascript);
             </div>
             <?php if(isset($this->settings['fes_section_excerpt']) && $this->settings['fes_section_excerpt']): ?>
             <div class="mec-meta-box-fields" id="mec-excerpt">
-                <h4><?php _e('Excerpt', 'modern-events-calendar-lite'); ?></h4>
+                <h4><?php _e('Excerpt', 'modern-events-calendar-lite'); ?> <?php echo ((isset($this->settings['fes_required_excerpt']) and $this->settings['fes_required_excerpt']) ? '<span class="mec-required">*</span>' : ''); ?></h4>
                 <div class="mec-form-row">
                     <div class="mec-col-12">
-                        <textarea name="mec[excerpt]" id="mec_fes_excerpt" class="widefat" rows="10" title="<?php esc_attr_e('Optional Event Excerpt', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Optional Event Excerpt', 'modern-events-calendar-lite'); ?>"><?php echo (isset($post->post_excerpt) ? $post->post_excerpt : ''); ?></textarea>
+                        <textarea name="mec[excerpt]" id="mec_fes_excerpt" class="widefat" rows="10" title="<?php esc_attr_e('Optional Event Excerpt', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Optional Event Excerpt', 'modern-events-calendar-lite'); ?>" <?php echo ((isset($this->settings['fes_required_excerpt']) and $this->settings['fes_required_excerpt']) ? 'required' : ''); ?>><?php echo (isset($post->post_excerpt) ? $post->post_excerpt : ''); ?></textarea>
                     </div>
                 </div>
             </div>
@@ -809,13 +809,13 @@ $this->factory->params('footer', $javascript);
             <div class="mec-meta-box-fields" id="mec-event-links">
                 <h4><?php _e('Event Links', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
-                    <label class="mec-col-2" for="mec_read_more_link"><?php echo $this->main->m('read_more_link', __('Event Link', 'modern-events-calendar-lite')); ?></label>
-                    <input class="mec-col-9" type="text" name="mec[read_more]" id="mec_read_more_link" value="<?php echo esc_attr($read_more); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>" />
+                    <label class="mec-col-2" for="mec_read_more_link"><?php echo $this->main->m('read_more_link', __('Event Link', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_event_link']) and $this->settings['fes_required_event_link']) ? '<span class="mec-required">*</span>' : ''); ?></label>
+                    <input class="mec-col-9" type="text" name="mec[read_more]" id="mec_read_more_link" value="<?php echo esc_attr($read_more); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>" <?php echo ((isset($this->settings['fes_required_event_link']) and $this->settings['fes_required_event_link']) ? 'required' : ''); ?> />
                     <p class="description"><?php _e('If you fill it, it will replace the default event page link. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?></p>
                 </div>
                 <div class="mec-form-row">
-                    <label class="mec-col-2" for="mec_more_info_link"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></label>
-                    <input class="mec-col-5" type="text" name="mec[more_info]" id="mec_more_info_link" value="<?php echo esc_attr($more_info); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>" />
+                    <label class="mec-col-2" for="mec_more_info_link"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_more_info_link']) and $this->settings['fes_required_more_info_link']) ? '<span class="mec-required">*</span>' : ''); ?></label>
+                    <input class="mec-col-5" type="text" name="mec[more_info]" id="mec_more_info_link" value="<?php echo esc_attr($more_info); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>" <?php echo ((isset($this->settings['fes_required_more_info_link']) and $this->settings['fes_required_more_info_link']) ? 'required' : ''); ?> />
                     <input class="mec-col-2" type="text" name="mec[more_info_title]" id="mec_more_info_title" value="<?php echo esc_attr($more_info_title); ?>" placeholder="<?php _e('More Information', 'modern-events-calendar-lite'); ?>" />
                     <select class="mec-col-2" name="mec[more_info_target]" id="mec_more_info_target">
                         <option value="_self" <?php echo ($more_info_target == '_self' ? 'selected="selected"' : ''); ?>><?php _e('Current Window', 'modern-events-calendar-lite'); ?></option>
@@ -830,10 +830,10 @@ $this->factory->params('footer', $javascript);
             <?php if(!isset($this->settings['fes_section_cost']) or (isset($this->settings['fes_section_cost']) and $this->settings['fes_section_cost'])): ?>
             <?php $cost = get_post_meta($post_id, 'mec_cost', true); ?>
             <div class="mec-meta-box-fields" id="mec-event-cost">
-                <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?></h4>
+                <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? '<span class="mec-required">*</span>' : ''); ?></h4>
                 <div id="mec_meta_box_cost_form">
                     <div class="mec-form-row">
-                        <input type="text" class="mec-col-3" name="mec[cost]" id="mec_cost" value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" />
+                        <input type="text" class="mec-col-3" name="mec[cost]" id="mec_cost" value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? 'required' : ''); ?> />
                     </div>
                 </div>
             </div>
@@ -862,14 +862,14 @@ $this->factory->params('footer', $javascript);
             <!-- Event Category Section -->
             <?php if(!isset($this->settings['fes_section_categories']) or (isset($this->settings['fes_section_categories']) and $this->settings['fes_section_categories'])): ?>
             <div class="mec-meta-box-fields" id="mec-categories">
-                <h4><?php echo $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')); ?></h4>
+                <h4><?php echo $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_category']) and $this->settings['fes_required_category']) ? '<span class="mec-required">*</span>' : ''); ?></h4>
                 <div class="mec-form-row">
                     <?php 
                         wp_list_categories(array(
-                            'taxonomy'    => 'mec_category',
+                            'taxonomy' => 'mec_category',
                             'hide_empty' => false,
-                            'title_li'           => '',
-                            'walker'          => new FES_Custom_Walker($post_id),
+                            'title_li' => '',
+                            'walker' => new FES_Custom_Walker($post_id),
                         ));
                     ?>
                 </div>
@@ -888,7 +888,7 @@ $this->factory->params('footer', $javascript);
             ?>
             <?php if(count($label_terms)): ?>
             <div class="mec-meta-box-fields" id="mec-labels">
-                <h4><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h4>
+                <h4><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_label']) and $this->settings['fes_required_label']) ? '<span class="mec-required">*</span>' : ''); ?></h4>
                 <div class="mec-form-row">
                     <?php foreach($label_terms as $label_term): ?>
                     <label for="mec_fes_labels<?php echo $label_term->term_id; ?>">
@@ -983,6 +983,17 @@ $this->factory->params('footer', $javascript);
                 }
 
                 do_action('mec_virtual_event_form', $post);
+
+            endif; ?>
+
+            <!-- Zoom Event Section -->
+            <?php if(isset($this->settings['fes_section_zoom_integration']) && $this->settings['fes_section_zoom_integration']):
+
+                if ( $post->ID != -1 && $post == "" ) {
+                    $post = get_post_meta($post->ID, 'meta_box_virtual', true);
+                }
+
+                do_action('mec_zoom_event_form', $post);
 
             endif; ?>
 

@@ -1254,9 +1254,10 @@ class MEC_skins extends MEC_base
         $link = $this->main->add_qs_var('method', 'mec-booking-modal', $link);
 
         $modal = 'data-featherlight="iframe" data-featherlight-iframe-height="450" data-featherlight-iframe-width="700"';
+        $title = $this->main->m('booking_button', __('Book Event', 'modern-events-calendar-lite'));
 
-        if($type === 'button') return '<a class="mec-modal-booking-button mec-mb-button" href="'.esc_url($link).'" '.$modal.'>'.$this->main->m('register_button', __('Book Event', 'modern-events-calendar-lite')).'</a>';
-        else return '<a class="mec-modal-booking-button mec-mb-icon" title="' . __('Book Event', 'modern-events-calendar-lite') . '" href="'.esc_url($link).'" '.$modal.'><i class="mec-sl-note"></i></a>';
+        if($type === 'button') return '<a class="mec-modal-booking-button mec-mb-button" href="'.esc_url($link).'" '.$modal.'>'.esc_html($title).'</a>';
+        else return '<a class="mec-modal-booking-button mec-mb-icon" title="' . esc_attr($title) . '" href="'.esc_url($link).'" '.$modal.'><i class="mec-sl-note"></i></a>';
     }
 
     public function display_categories($event)

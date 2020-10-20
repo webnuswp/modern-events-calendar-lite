@@ -14,7 +14,8 @@ class MEC_feature_fes extends MEC_base
     public $settings;
     public $PT;
     public $render;
-    
+    public $relative_link = false;
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -80,8 +81,11 @@ class MEC_feature_fes extends MEC_base
         
         if(isset($_GET['vlist']) and $_GET['vlist'] == 1)
         {
-            return $this->vlist();
+            return $this->vlist($atts);
         }
+
+        // Force to Relative Link
+        $this->relative_link = (isset($atts['relative-link']) and $atts['relative-link']);
         
         // Show login/register message if user is not logged in and guest submission is not enabled.
         if(!is_user_logged_in() and (!isset($this->settings['fes_guest_status']) or (isset($this->settings['fes_guest_status']) and $this->settings['fes_guest_status'] == '0')))
@@ -145,6 +149,9 @@ class MEC_feature_fes extends MEC_base
         if(!is_array($atts)) $atts = array();
         
         $post_id = isset($_GET['post_id']) ? sanitize_text_field($_GET['post_id']) : NULL;
+
+        // Force to Relative Link
+        $this->relative_link = (isset($atts['relative-link']) and $atts['relative-link']);
         
         // Show a warning to current user if modification of post is not possible for him/her
         if($post_id > 0 and !current_user_can('edit_post', $post_id))
@@ -158,7 +165,7 @@ class MEC_feature_fes extends MEC_base
         }
         elseif($post_id == -1 or ($post_id > 0 and current_user_can('edit_post', $post_id)))
         {
-            return $this->vform();
+            return $this->vform($atts);
         }
         
         // Show login/register message if user is not logged in
@@ -431,8 +438,18 @@ class MEC_feature_fes extends MEC_base
         $post_speakers = isset($mec['speakers']) ? $mec['speakers'] : array();
         $post_labels = isset($mec['labels']) ? $mec['labels'] : array();
         $featured_image = isset($mec['featured_image']) ? sanitize_text_field($mec['featured_image']) : '';
-        
+
+        // Title is Required
         if(!trim($post_title)) $this->main->response(array('success'=>0, 'message'=>__('Please fill event title field!', 'modern-events-calendar-lite'), 'code'=>'TITLE_IS_EMPTY'));
+
+        // Body is Required
+        if(isset($this->settings['fes_required_body']) and $this->settings['fes_required_body'] and !trim($post_content)) $this->main->response(array('success'=>0, 'message'=>__('Please fill event body field!', 'modern-events-calendar-lite'), 'code'=>'BODY_IS_EMPTY'));
+
+        // Category is Required
+        if(isset($this->settings['fes_required_category']) and $this->settings['fes_required_category'] and is_array($post_categories) and !count($post_categories)) $this->main->response(array('success'=>0, 'message'=>__('Please select at-least one category!', 'modern-events-calendar-lite'), 'code'=>'CATEGORY_IS_EMPTY'));
+
+        // Label is Required
+        if(isset($this->settings['fes_required_label']) and $this->settings['fes_required_label'] and is_array($post_labels) and !count($post_labels)) $this->main->response(array('success'=>0, 'message'=>__('Please select at-least one label!', 'modern-events-calendar-lite'), 'code'=>'LABEL_IS_EMPTY'));
         
         // Post Status
         $status = 'pending';
@@ -1281,19 +1298,19 @@ class MEC_feature_fes extends MEC_base
     
     public function link_add_event()
     {
-        if(isset($this->settings['fes_form_page']) and trim($this->settings['fes_form_page'])) return get_permalink($this->settings['fes_form_page']);
+        if(!$this->relative_link and isset($this->settings['fes_form_page']) and trim($this->settings['fes_form_page'])) return get_permalink($this->settings['fes_form_page']);
         else return $this->main->add_qs_var('post_id', '-1', $this->main->remove_qs_var('vlist'));
     }
     
     public function link_edit_event($post_id)
     {
-        if(isset($this->settings['fes_form_page']) and trim($this->settings['fes_form_page'])) return $this->main->add_qs_var('post_id', $post_id, get_permalink($this->settings['fes_form_page']));
+        if(!$this->relative_link and isset($this->settings['fes_form_page']) and trim($this->settings['fes_form_page'])) return $this->main->add_qs_var('post_id', $post_id, get_permalink($this->settings['fes_form_page']));
         else return $this->main->add_qs_var('post_id', $post_id, $this->main->remove_qs_var('vlist'));
     }
     
     public function link_list_events()
     {
-        if(isset($this->settings['fes_list_page']) and trim($this->settings['fes_list_page'])) return get_permalink($this->settings['fes_list_page']);
+        if(!$this->relative_link and isset($this->settings['fes_list_page']) and trim($this->settings['fes_list_page'])) return get_permalink($this->settings['fes_list_page']);
         else return $this->main->add_qs_var('vlist', 1, $this->main->remove_qs_var('post_id'));
     }
 

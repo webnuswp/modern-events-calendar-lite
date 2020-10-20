@@ -1740,6 +1740,20 @@ class MEC_feature_events extends MEC_base
                         </span>
                     </label>
                 </div>
+                <h4 class="mec-title"><?php _e('Interval Options', 'modern-events-calendar-lite'); ?></h4>
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_booking_show_booking_form_interval"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <input type="number" id="mec_booking_show_booking_form_interval" name="mec[booking][show_booking_form_interval]" value="<?php echo ((isset($booking_options['show_booking_form_interval']) and trim($booking_options['show_booking_form_interval']) != '') ? $booking_options['show_booking_form_interval'] : ''); ?>" placeholder="<?php esc_attr_e('Minutes (e.g 5)', 'modern-events-calendar-lite'); ?>" />
+                        <span class="mec-tooltip">
+                            <div class="box">
+                                <h5 class="title"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="content"><p><?php esc_attr_e("You can show booking form only at certain times before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event! One day is 1440 minutes.", 'modern-events-calendar-lite'); ?></p></div>
+                            </div>
+                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="mec-meta-box-fields mec-booking-tab-content" id="mec_meta_box_booking_options_form_2">
                 <h4 class="mec-title"><label for="mec_bookings_user_limit"><?php _e('Total user booking limits', 'modern-events-calendar-lite'); ?></label></h4>
@@ -4055,7 +4069,12 @@ class MEC_feature_events extends MEC_base
             $attendees = array_merge($attendees, $atts);
         }
 
-        $attendees = apply_filters('mec_attendees_list_data',$attendees, $id,$occurrence);
+        $attendees = apply_filters('mec_attendees_list_data', $attendees, $id, $occurrence);
+
+        usort($attendees, function($a, $b)
+        {
+            return strcmp($a['name'], $b['name']);
+        });
 
         if(count($attendees))
         {
@@ -4136,6 +4155,7 @@ class MEC_feature_events extends MEC_base
         $mail_recipients_info = isset($_POST['mail_recipients_info']) ? trim(sanitize_text_field($_POST['mail_recipients_info']), ', ') : '';
         $mail_subject = isset($_POST['mail_subject']) ? sanitize_text_field($_POST['mail_subject']) : '';
         $mail_content = isset($_POST['mail_content']) ? $_POST['mail_content'] : '';
+        $mail_copy = isset($_POST['mail_copy']) ? $_POST['mail_copy'] : 0;
 
         $render_recipients = array_unique(explode(',', $mail_recipients_info));
         $headers = array('Content-Type: text/html; charset=UTF-8');
@@ -4143,6 +4163,9 @@ class MEC_feature_events extends MEC_base
         // Changing some sender email info.
         $notifications = $this->getNotifications();
         $notifications->mec_sender_email_notification_filter();
+
+        // Send to Admin
+        if($mail_copy) $render_recipients[] = 'Admin:.:'.get_option('admin_email');
 
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));

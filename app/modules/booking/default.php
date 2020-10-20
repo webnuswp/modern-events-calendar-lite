@@ -186,7 +186,7 @@ function mec_book_form_submit'.$uniqueid.'()
     {
         var valid = true;
 
-        jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-field-name.mec-reg-mandatory").filter(":visible").each(function(i)
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-reg-field-mec_email.mec-reg-mandatory").filter(":visible").each(function(i)
         {
             var ticket_id = jQuery(this).data("ticket-id");
 
@@ -198,7 +198,7 @@ function mec_book_form_submit'.$uniqueid.'()
             else jQuery(this).removeClass("mec-red-notification");
         });
 
-        jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-field-email.mec-reg-mandatory").filter(":visible").each(function(i)
+        jQuery("#mec_book_form'.$uniqueid.' .mec-book-ticket-container .mec-book-reg-field-name.mec-reg-mandatory").filter(":visible").each(function(i)
         {
             var ticket_id = jQuery(this).data("ticket-id");
 

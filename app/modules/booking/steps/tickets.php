@@ -10,6 +10,9 @@ $event_id = $event->ID;
 $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
 $dates = isset($event->dates) ? $event->dates : array($event->date);
 
+$booking_options = get_post_meta($event_id, 'mec_booking', true);
+if(!is_array($booking_options)) $booking_options = array();
+
 // WC System
 $WC_status = (isset($settings['wc_status']) and $settings['wc_status'] and class_exists('WooCommerce')) ? true : false;
 $WC_booking_form = (isset($settings['wc_booking_form']) and $settings['wc_booking_form']) ? true : false;
@@ -49,6 +52,8 @@ list($user_ticket_limit, $user_ticket_unlimited) = $book->get_user_booking_limit
 
 // Show Booking Form Interval
 $show_booking_form_interval = (isset($settings['show_booking_form_interval'])) ? $settings['show_booking_form_interval'] : 0;
+if(isset($booking_options['show_booking_form_interval']) and trim($booking_options['show_booking_form_interval']) != '') $show_booking_form_interval = $booking_options['show_booking_form_interval'];
+
 if($show_booking_form_interval)
 {
     $filtered_dates = array();

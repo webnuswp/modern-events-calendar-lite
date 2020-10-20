@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_grid $this */
+
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
@@ -98,7 +100,7 @@ if($this->style == 'colorful')
                 <?php endif; ?>
             </div>
             <div class="mec-event-footer">
-                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
+                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                 <?php echo $this->booking_button($event); ?>
                 <?php if($settings['social_network_status'] != '0'): ?>
                 <ul class="mec-event-sharing-wrap">
@@ -156,7 +158,7 @@ if($this->style == 'colorful')
                 </ul>
                 <?php endif; ?>
                 <?php echo $this->booking_button($event); ?>
-                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
+                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
             </div>
         <?php elseif($this->style == 'minimal'): ?>
             <div class="mec-event-date mec-bg-color-hover mec-border-color-hover mec-color"><span><?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['start']['date'])); ?></span><?php echo $this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['start']['date'])); ?></div>
@@ -191,8 +193,8 @@ if($this->style == 'colorful')
             </div>
             <div class="mec-event-image"><?php do_action('display_mec_clean_image', $event ); ?><?php echo $this->display_link($event, $event->data->thumbnails['medium'], ''); ?></div>
             <div class="mec-event-content">
-                <?php do_action('display_mec_tai', $event ); ?>
-                <?php do_action('mec_clean_custom_head', $event, $event_color ); ?>
+                <?php do_action('display_mec_tai', $event); ?>
+                <?php do_action('mec_clean_custom_head', $event, $event_color); ?>
                 <?php $soldout = $this->main->get_flags($event); ?>
                 <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                 <p class="mec-grid-event-location"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></p>
@@ -214,7 +216,7 @@ if($this->style == 'colorful')
                 <?php endif; ?>
                 <?php do_action('mec_grid_clean_booking_button', $event); ?>
                 <?php echo $this->booking_button($event); ?>
-                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
+                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
             </div>
         <?php elseif($this->style == 'novel'): ?>
             <div class="novel-grad-bg"></div>
@@ -235,7 +237,7 @@ if($this->style == 'colorful')
                         echo $this->display_categories($event);
                     ?>
                     <div class="mec-event-footer mec-color">
-                        <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
+                        <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                         <?php if($settings['social_network_status'] != '0') : ?>
                         <ul class="mec-event-sharing-wrap">
                             <li class="mec-event-share">

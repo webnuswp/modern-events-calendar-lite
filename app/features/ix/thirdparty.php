@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_ix $this */
+
 $third_parties = $this->main->get_integrated_plugins_for_import();
 ?>
 <div class="wrap" id="mec-wrap">

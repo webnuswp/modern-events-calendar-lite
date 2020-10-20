@@ -504,32 +504,37 @@ class MEC_factory extends MEC_base
      */
     public function load_addons()
     {
-        // Import MEC VC addon Class
+        // Import MEC VC addon
         $this->import('app.addons.VC');
         
         $MEC_addon_VC = new MEC_addon_VC();
         $MEC_addon_VC->init();
 
-        // Import MEC KC addon Class
+        // Import MEC KC addon
         $this->import('app.addons.KC');
 
         $MEC_addon_KC = new MEC_addon_KC();
         $MEC_addon_KC->init();
 
-        // Import MEC Elementor addon Class
+        // Import MEC Elementor addon
         $this->import('app.addons.elementor');
         $MEC_addon_elementor = new MEC_addon_elementor();
         $MEC_addon_elementor->init();
 
-        // Import MEC Divi addon Class
+        // Import MEC Divi addon
         $this->import('app.addons.divi');
         $MEC_addon_divi = new MEC_addon_divi();
         $MEC_addon_divi->init();
 
-        // Import MEC Beaver Builder addon Class
+        // Import MEC Beaver Builder addon
         $this->import('app.addons.beaver');
         $MEC_addon_beaver = new MEC_addon_beaver();
         $MEC_addon_beaver->init();
+
+        // Import MEC LearnDash addon
+        $this->import('app.addons.learndash');
+        $MEC_addon_ld = new MEC_addon_learndash();
+        $MEC_addon_ld->init();
     }
     
     /**

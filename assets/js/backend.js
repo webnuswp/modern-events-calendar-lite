@@ -691,6 +691,7 @@ jQuery(document).ready(function()
         var mail_subject = jQuery('#mec-send-email-subject').val();
         var mail_content = wp.editor.getContent('editor' + jQuery(this).data('id'));
         var mail_message = jQuery('#mec-send-email-message');
+        var mail_copy = jQuery('#mec-send-admin-copy').is(':checked') ? 1 : 0;
 
         if(data_send.length == 0) mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-no-user-selected').val()).show();
         else if(mail_subject.length == 0) mail_message.attr('class', 'mec-util-hidden mec-error').html(jQuery('#mec-send-email-empty-subject').val()).show();
@@ -708,7 +709,8 @@ jQuery(document).ready(function()
                     nonce: mec_admin_localize.ajax_nonce,
                     mail_recipients_info: data_send,
                     mail_subject: mail_subject,
-                    mail_content: mail_content
+                    mail_content: mail_content,
+                    mail_copy: mail_copy
                 },
                 success: function(response)
                 {

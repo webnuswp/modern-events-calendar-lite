@@ -150,7 +150,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("You can show booking form only at certain times before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event!", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("You can show booking form only at certain times before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event! One day is 1440 minutes.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>

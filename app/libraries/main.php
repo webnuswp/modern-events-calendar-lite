@@ -581,6 +581,7 @@ class MEC_main extends MEC_base
             __('Social Networks', 'modern-events-calendar-lite') => 'social_options',
             __('Next Event', 'modern-events-calendar-lite') => 'next_event_option',
             __('BuddyPress Integration', 'modern-events-calendar-lite') => 'buddy_option',
+            __('LearnDash Integration', 'modern-events-calendar-lite') => 'learndash_options',
         ), $active_menu);
 
         $notifications_items = array(
@@ -2081,6 +2082,7 @@ class MEC_main extends MEC_base
             array('skin'=>'grid', 'name'=>__('Grid View', 'modern-events-calendar-lite')),
             array('skin'=>'agenda', 'name'=>__('Agenda View', 'modern-events-calendar-lite')),
             array('skin'=>'map', 'name'=>__('Map View', 'modern-events-calendar-lite')),
+            array('skin'=>'custom', 'name'=>__('Custom Shortcode', 'modern-events-calendar-lite')),
         );
         
         return apply_filters('mec_category_skins', $category_skins);
@@ -3932,10 +3934,14 @@ class MEC_main extends MEC_base
         // No Dates or no Tickets
         if(!count($dates) or !count($tickets)) return false;
 
+        // Booking Options
+        $booking_options = (isset($event->data->meta['mec_booking']) and is_array($event->data->meta['mec_booking'])) ? $event->data->meta['mec_booking'] : array();
+
         $book_all_occurrences = 0;
-        if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_booking']) and isset($event->data->meta['mec_booking']['bookings_all_occurrences'])) $book_all_occurrences = (int) $event->data->meta['mec_booking']['bookings_all_occurrences'];
+        if(isset($event->data) and isset($event->data->meta) and isset($booking_options['bookings_all_occurrences'])) $book_all_occurrences = (int) $booking_options['bookings_all_occurrences'];
 
         $show_booking_form_interval = (isset($settings['show_booking_form_interval'])) ? $settings['show_booking_form_interval'] : 0;
+        if(isset($booking_options['show_booking_form_interval']) and trim($booking_options['show_booking_form_interval']) != '') $show_booking_form_interval = $booking_options['show_booking_form_interval'];
 
         // Check Show Booking Form Time
         if($show_booking_form_interval)
@@ -5200,6 +5206,7 @@ class MEC_main extends MEC_base
         $longitude = (isset($location['longitude']) and trim($location['longitude'])) ? $location['longitude'] : 0;
         $address = isset($location['address']) ? $location['address'] : '';
         $thumbnail = isset($location['thumbnail']) ? $location['thumbnail'] : '';
+        $url = isset($location['url']) ? $location['url'] : '';
 
         if(!trim($latitude) or !trim($longitude))
         {
@@ -5212,6 +5219,7 @@ class MEC_main extends MEC_base
         update_term_meta($location_id, 'address', $address);
         update_term_meta($location_id, 'latitude', $latitude);
         update_term_meta($location_id, 'longitude', $longitude);
+        update_term_meta($location_id, 'url', $url);
         if(trim($thumbnail)) update_term_meta($location_id, 'thumbnail', $thumbnail);
 
         return $location_id;
@@ -5423,6 +5431,54 @@ class MEC_main extends MEC_base
         update_post_meta($book_id, 'mec_bp_activity_id', $activity_id);
         
         return $activity_id;
+    }
+
+    public function bp_add_profile_menu()
+    {
+        // Get MEC Options
+        $settings = $this->get_settings();
+
+        // BuddyPress integration is disabled
+        if(!isset($settings['bp_status']) or (isset($settings['bp_status']) and !$settings['bp_status'])) return false;
+
+        // BuddyPress events menus is disabled
+        if(!isset($settings['bp_profile_menu']) or (isset($settings['bp_profile_menu']) and !$settings['bp_profile_menu'])) return false;
+
+        // User is not logged in
+        if(!is_user_logged_in()) return false;
+
+        global $bp;
+
+        // Loggedin User is not Displayed User
+        if(!isset($bp->displayed_user) or (isset($bp->displayed_user) and isset($bp->displayed_user->id) and get_current_user_id() != $bp->displayed_user->id)) return false;
+
+        bp_core_new_nav_item(array(
+            'name' => __('Events', 'modern-events-calendar-lite'),
+            'slug' => 'mec-events',
+            'screen_function' => array($this, 'bp_profile_menu_screen'),
+            'position' => 30,
+            'parent_url' => bp_loggedin_user_domain() . '/mec-events/',
+            'parent_slug' => $bp->profile->slug,
+            'default_subnav_slug' => 'events'
+        ));
+    }
+
+    public function bp_profile_menu_screen()
+    {
+        add_action('bp_template_title', array($this, 'bp_profile_menu_title'));
+        add_action('bp_template_content', array($this, 'bp_profile_menu_content'));
+
+        bp_core_load_template(array('buddypress/members/single/plugins'));
+    }
+
+    public function bp_profile_menu_title()
+    {
+        echo esc_html__('Events', 'modern-events-calendar-lite');
+    }
+
+    public function bp_profile_menu_content()
+    {
+        echo do_shortcode('[MEC_fes_list relative-link="1"]');
     }
     
     /**
@@ -6180,6 +6236,7 @@ class MEC_main extends MEC_base
                         'booking_restriction_message1'=>array('label'=>__('Booking Restriction Message 1', 'modern-events-calendar-lite'), 'default'=>__('You selected %s tickets to book but maximum number of tikets per user is %s tickets.', 'modern-events-calendar-lite')),
                         'booking_restriction_message2'=>array('label'=>__('Booking Restriction Message 2', 'modern-events-calendar-lite'), 'default'=>__('You booked %s tickets till now but maximum number of tickets per user is %s tickets.', 'modern-events-calendar-lite')),
                         'booking_restriction_message3'=>array('label'=>__('Booking IP Restriction Message', 'modern-events-calendar-lite'), 'default'=>__('Maximum allowed number of tickets that you can book is %s.', 'modern-events-calendar-lite')),
+                        'booking_button'=>array('label'=>__('Booking Button', 'modern-events-calendar-lite'), 'default'=>__('Book Event', 'modern-events-calendar-lite')),
                         'register_button'=>array('label'=>__('Register Button', 'modern-events-calendar-lite'), 'default'=>__('REGISTER', 'modern-events-calendar-lite')),
                         'view_detail'=>array('label'=>__('View Detail Button', 'modern-events-calendar-lite'), 'default'=>__('View Detail', 'modern-events-calendar-lite')),
                         'event_detail'=>array('label'=>__('Event Detail Button', 'modern-events-calendar-lite'), 'default'=>__('Event Detail', 'modern-events-calendar-lite')),
@@ -6353,6 +6410,7 @@ class MEC_main extends MEC_base
             'event-espresso' => __('Event Espresso', 'modern-events-calendar-lite'),
             'events-manager-recurring' => __('Events Manager (Recurring)', 'modern-events-calendar-lite'),
             'events-manager-single' => __('Events Manager (Single)', 'modern-events-calendar-lite'),
+            'wp-event-manager' => __('WP Event Manager', 'modern-events-calendar-lite'),
         );
     }
 

@@ -1156,6 +1156,13 @@ class MEC_feature_ix extends MEC_base
                 'meta_compare' => 'NOT EXISTS'
             ));
         }
+        elseif($third_party == 'wp-event-manager' and class_exists('WP_Event_Manager'))
+        {
+            $events = get_posts(array(
+                'posts_per_page' => -1,
+                'post_type' => 'event_listing',
+            ));
+        }
         else return array('success'=>0, 'message'=>__("Third Party plugin is not installed and activated!", 'modern-events-calendar-lite'));
 
         return array(
@@ -1178,6 +1185,7 @@ class MEC_feature_ix extends MEC_base
         elseif($third_party == 'event-espresso') return $this->thirdparty_es_import_do();
         elseif($third_party == 'events-manager-recurring') return $this->thirdparty_emr_import_do();
         elseif($third_party == 'events-manager-single') return $this->thirdparty_ems_import_do();
+        elseif($third_party == 'wp-event-manager') return $this->thirdparty_wpem_import_do();
 
         return array('success'=>0, 'message'=>__('Third Party plugin is invalid!', 'modern-events-calendar-lite'));
     }
@@ -2868,6 +2876,230 @@ class MEC_feature_ix extends MEC_base
 
             // Set location to the post
             if($location_id) wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
+
+            // Set categories to the post
+            if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);
+
+            // Set Features Image
+            if(isset($this->ix['import_featured_image']) and $this->ix['import_featured_image'] and $thumbnail_id = get_post_thumbnail_id($ID))
+            {
+                set_post_thumbnail($post_id, $thumbnail_id);
+            }
+
+            $count++;
+        }
+
+        return array('success'=>1, 'data'=>$count);
+    }
+
+    public function thirdparty_wpem_import_do()
+    {
+        $IDs = isset($_POST['tp-events']) ? $_POST['tp-events'] : array();
+
+        $count = 0;
+        foreach($IDs as $ID)
+        {
+            $post = get_post($ID);
+            $metas = $this->main->get_post_meta($ID);
+
+            // Event Title and Content
+            $title = $post->post_title;
+            $description = $post->post_content;
+            $third_party_id = $ID;
+
+            // Event location
+            $location = get_post($metas['_event_venue_ids']);
+            $location_id = 1;
+
+            // Import Event Locations into MEC locations
+            if(isset($this->ix['import_locations']) and $this->ix['import_locations'] and isset($location->ID))
+            {
+                $l_metas = $this->main->get_post_meta($location->ID);
+                $thumbnail = has_post_thumbnail($location->ID) ? get_the_post_thumbnail_url($location->ID, 'full') : '';
+
+                $location_id = $this->main->save_location(array
+                (
+                    'name'=>trim($location->post_title),
+                    'address'=>(isset($l_metas['_venue_description']) ? $l_metas['_venue_description'] : ''),
+                    'latitude'=>0,
+                    'longitude'=>0,
+                    'thumbnail'=>$thumbnail
+                ));
+            }
+
+            // Event Organizer
+            $organizers = $metas['_event_organizer_ids'];
+            $organizer = (isset($organizers[0]) ? get_post($organizers[0]) : new stdClass());
+
+            if(isset($organizers[0])) unset($organizers[0]);
+            $wpem_additional_organizers_ids = $organizers;
+
+            $organizer_id = 1;
+            $additional_organizers_ids = array();
+
+            // Import Event Organizer into MEC organizers
+            if(isset($this->ix['import_organizers']) and $this->ix['import_organizers'] and isset($organizer->ID))
+            {
+                $o_metas = $this->main->get_post_meta($organizer->ID);
+
+                $organizer_id = $this->main->save_organizer(array
+                (
+                    'name'=>trim($organizer->post_title),
+                    'tel'=>'',
+                    'email'=>(isset($o_metas['_organizer_email']) ? $o_metas['_organizer_email'] : ''),
+                    'url'=>(isset($o_metas['_organizer_website']) ? $o_metas['_organizer_website'] : ''),
+                ));
+
+                if(is_array($wpem_additional_organizers_ids) and count($wpem_additional_organizers_ids))
+                {
+                    foreach($wpem_additional_organizers_ids as $wpem_additional_organizers_id)
+                    {
+                        $o_organizer = get_post($wpem_additional_organizers_id);
+                        $o_metas = $this->main->get_post_meta($wpem_additional_organizers_id);
+
+                        $additional_organizers_ids[] = $this->main->save_organizer(array
+                        (
+                            'name'=>trim($o_organizer->post_title),
+                            'tel'=>'',
+                            'email'=>(isset($o_metas['_organizer_email']) ? $o_metas['_organizer_email'] : ''),
+                            'url'=>(isset($o_metas['_organizer_website']) ? $o_metas['_organizer_website'] : ''),
+                        ));
+                    }
+                }
+            }
+
+            // Event Categories
+            $categories = wp_get_post_terms($ID, 'event_listing_category');
+            $category_ids = array();
+
+            // Import Event Categories into MEC categories
+            if(isset($this->ix['import_categories']) and $this->ix['import_categories'] and count($categories))
+            {
+                foreach($categories as $category)
+                {
+                    $category_id = $this->main->save_category(array
+                    (
+                        'name'=>trim($category->name),
+                    ));
+
+                    if($category_id) $category_ids[] = $category_id;
+                }
+            }
+
+            // Event Start Date and Time
+            $date_start = new DateTime(date('Y-m-d G:i', strtotime($metas['_event_start_date'])));
+
+            $start_date = $date_start->format('Y-m-d');
+            $start_hour = $date_start->format('g');
+            $start_minutes = $date_start->format('i');
+            $start_ampm = $date_start->format('A');
+
+            // Event End Date and Time
+            $date_end = new DateTime(date('Y-m-d G:i', strtotime($metas['_event_end_date'])));
+
+            $end_date = $date_end->format('Y-m-d');
+            $end_hour = $date_end->format('g');
+            $end_minutes = $date_end->format('i');
+            $end_ampm = $date_end->format('A');
+
+            // Event Time Options
+            $hide_end_time = 0;
+            $allday = 0;
+
+            // Single Event
+            $repeat_status = 0;
+            $repeat_type = '';
+            $interval = NULL;
+            $finish = $end_date;
+            $year = NULL;
+            $month = NULL;
+            $day = NULL;
+            $week = NULL;
+            $weekday = NULL;
+            $weekdays = NULL;
+            $days = NULL;
+
+            $args = array
+            (
+                'title'=>$title,
+                'content'=>$description,
+                'location_id'=>$location_id,
+                'organizer_id'=>$organizer_id,
+                'date'=>array
+                (
+                    'start'=>array(
+                        'date'=>$start_date,
+                        'hour'=>$start_hour,
+                        'minutes'=>$start_minutes,
+                        'ampm'=>$start_ampm,
+                    ),
+                    'end'=>array(
+                        'date'=>$end_date,
+                        'hour'=>$end_hour,
+                        'minutes'=>$end_minutes,
+                        'ampm'=>$end_ampm,
+                    ),
+                    'repeat'=>array(
+                        'end'=>'date',
+                        'end_at_date'=>$finish,
+                        'end_at_occurrences'=>10,
+                    ),
+                    'allday'=>$allday,
+                    'comment'=>'',
+                    'hide_time'=>0,
+                    'hide_end_time'=>$hide_end_time,
+                ),
+                'start'=>$start_date,
+                'start_time_hour'=>$start_hour,
+                'start_time_minutes'=>$start_minutes,
+                'start_time_ampm'=>$start_ampm,
+                'end'=>$end_date,
+                'end_time_hour'=>$end_hour,
+                'end_time_minutes'=>$end_minutes,
+                'end_time_ampm'=>$end_ampm,
+                'repeat_status'=>$repeat_status,
+                'repeat_type'=>$repeat_type,
+                'interval'=>$interval,
+                'finish'=>$finish,
+                'year'=>$year,
+                'month'=>$month,
+                'day'=>$day,
+                'week'=>$week,
+                'weekday'=>$weekday,
+                'weekdays'=>$weekdays,
+                'days'=>$days,
+                'meta'=>array
+                (
+                    'mec_source'=>'the-events-calendar',
+                    'mec_tec_id'=>$third_party_id,
+                    'mec_allday'=>$allday,
+                    'hide_end_time'=>$hide_end_time,
+                    'mec_repeat_end'=>'date',
+                    'mec_repeat_end_at_occurrences'=>9,
+                    'mec_repeat_end_at_date'=>$finish,
+                    'mec_in_days'=>$days,
+                    'mec_more_info'=>'',
+                    'mec_cost'=>'',
+                )
+            );
+
+            $post_id = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='$third_party_id' AND `meta_key`='mec_tec_id'", 'loadResult');
+
+            // Insert the event into MEC
+            $post_id = $this->main->save_event($args, $post_id);
+
+            // Set location to the post
+            if($location_id) wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
+
+            // Set organizer to the post
+            if($organizer_id) wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
+
+            // Set additional organizers
+            if(is_array($additional_organizers_ids) and count($additional_organizers_ids))
+            {
+                foreach($additional_organizers_ids as $additional_organizers_id) wp_set_object_terms($post_id, (int) $additional_organizers_id, 'mec_organizer', true);
+                update_post_meta($post_id, 'mec_additional_organizer_ids', $additional_organizers_ids);
+            }
 
             // Set categories to the post
             if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);

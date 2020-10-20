@@ -979,7 +979,7 @@ body.post-type-mec-books th.column-author {
 
 /* WordPress 3 select */
 .mec-form-row select {
-    min-width: 83px;
+    min-width: 87px;
 }
 
 #mec_meta_box_repeat_form .mec-form-row select {
@@ -1037,7 +1037,7 @@ body.post-type-mec-books th.column-author {
 .mec-form-row .mec-col-4 select,
 .mec-form-row .mec-col-4 textarea,
 .mec-form-row .mec-col-4 input[type=number] {
-    width: 80%;
+    width: 82%;
 }
 
 .mec-form-row .description {
@@ -4186,7 +4186,7 @@ textarea.mec-import-settings-content {
 
 #ticket_variations_option input[type=text].mec-col-12,
 #taxes_option .mec-form-row input[type=text].mec-col-12 {
-    max-width: 554px
+    max-width: 575px;
 }
 
 .mec-booking-tab-content .mec-form-row textarea {
@@ -5806,6 +5806,59 @@ a.mec-create-shortcode-tabs-link {
 .mec-booking-tab-content.mec-tab-active,
 .mec-create-shortcode-tab-content.mec-tab-active {
     animation: fadeEffect2 0.31s
+}
+
+@media (min-width: 1199px) and (max-width:1280px) {
+    .mec-add-booking-tabs-right,
+    .mec-add-event-tabs-right,
+    .mec-create-shortcode-tabs-right {
+        padding: 0 0 0 10px;
+    }
+
+    #mec_meta_box_hourly_schedule_days {
+        padding: 0 40px 0 0;
+    }
+
+    #mec_meta_box_hourly_schedule_days .mec-form-row.mec-box {
+        margin-right: -40px;
+    }
+
+    #mec_meta_box_hourly_schedule_days .mec-col-1,
+    #mec_meta_box_hourly_schedule_days .mec-col-6,
+    #mec_meta_box_hourly_schedule_days .mec-col-3 {
+        width: 24%;
+    }
+
+    .mec-form-row .mec-time-picker select {
+        min-width: 60px;
+    }
+
+    #mec_countdown_method,
+    #mec_repeat_type {
+        min-width: 220px;
+        width: 220px;
+    }
+
+    #mec_exceptions_in_days_container .mec-col-4 {
+        width: 25%;
+    }
+
+    #mec_exceptions_in_days_container .mec-col-3 {
+        width: 50%;
+    }
+
+    #mec_exceptions_in_days_container .mec-col-5 {
+        width: 20%;
+    }
+
+    #mec_exceptions_in_days_container input[type=text] {
+        width: 95%;
+    }
+
+    #mec_repeat_certain_weekdays_container label:not(.mec-col-3) {
+        display: block;
+        padding-left: 25%;
+    }
 }
 
 @media (max-width: 550px) {

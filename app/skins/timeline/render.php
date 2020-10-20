@@ -65,33 +65,31 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                                     <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
                                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
+                                    <?php echo $this->display_categories($event); ?>
                                     <div class="mec-timeline-event-details">
                                         <div class="mec-timeline-event-time mec-color">
                                             <i class="mec-sl-clock"></i><?php echo $this->main->display_time($start_time, $end_time); ?>
                                         </div>
                                     </div>
                                     <?php if(!empty($location['address'])): ?>
-                                    <div class="mec-timeline-event-details">
-                                        <div class="mec-timeline-event-location mec-color">
-                                            <address class="mec-timeline-event-address"><i class="mec-sl-location-pin"></i><span><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address>
+                                        <div class="mec-timeline-event-details">
+                                            <div class="mec-timeline-event-location mec-color">
+                                                <address class="mec-timeline-event-address"><i class="mec-sl-location-pin"></i><span><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <?php  if($this->localtime) 
-                                    {
-                                    ?>
-                                    <div class="mec-timeline-event-details">
-                                        <div class="mec-timeline-event-local-time mec-color">
-                                            <?php echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
+                                        <?php if($this->localtime): ?>
+                                        <div class="mec-timeline-event-details">
+                                            <div class="mec-timeline-event-local-time mec-color">
+                                                <?php echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <?php
-                                    }
-                                endif; ?>
+                                        <?php endif; ?>
+                                <?php endif; ?>
                                 <?php echo $this->booking_button($event); ?>
                                 </div>
                             </div>
                         </div>
-                        <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Details', 'modern-events-calendar-lite'))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color'); ?>
+                        <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Details', 'modern-events-calendar-lite'))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color'); ?>
                     </div>
                 </div>
                 

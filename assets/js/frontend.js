@@ -3418,6 +3418,20 @@ jQuery(document).ready(function($)
                 loadMore();
             });
 
+            $("#mec_skin_" + settings.id + " article").off("click").on("click", function(e)
+            {
+                // Link Clicked
+                if(e.target.nodeName.toLowerCase() === 'a') return;
+
+                var href = $(this).data('href');
+                if(!href) return;
+
+                var target = $(this).data('target');
+
+                if(target === 'blank') window.open(href, '_blank');
+                else document.location.href = href;
+            });
+
             // Add the onclick event
             $("#mec_skin_" + settings.id + " .mec-has-event").off("click").on('click', function(e)
             {

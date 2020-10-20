@@ -15,8 +15,8 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
         foreach($this->events as $date):
         foreach($date as $event):
 
-            $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-            $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']])? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
+            $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+            $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
             $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
 
             $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
@@ -141,12 +141,13 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                                 <?php $soldout = $this->main->get_flags($event); ?>
                                 <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?></h4>
                                 <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
+                                <?php echo $this->display_categories($event); ?>
                                 <div class="mec-event-description mec-events-content">
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                 </div>
                             </div>
                             <div class="mec-event-footer">
-                                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
+                                <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                                 <?php echo $this->booking_button($event); ?>
                                 <?php do_action('mec_masonry_button', $event); ?>
                             </div>

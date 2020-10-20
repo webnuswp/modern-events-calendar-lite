@@ -437,14 +437,14 @@ class MEC_book extends MEC_base
 
         if($bookings_limit_unlimited == '1') $total_bookings_limit = '-1';
 
+        $ex = explode(':', $timestamp);
+        $timestamp = (int) $ex[0];
+
         // Get Per Occurrence
         $total_bookings_limit = MEC_feature_occurrences::param($event_id, $timestamp, 'bookings_limit', $total_bookings_limit);
 
         // Total Booking Limit
         $total_bookings_limit_original = $total_bookings_limit;
-
-        $ex = explode(':', $timestamp);
-        $timestamp = (int) $ex[0];
 
         $year = date('Y', $timestamp);
         $month = date('m', $timestamp);

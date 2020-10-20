@@ -69,6 +69,7 @@ class MEC_feature_wc extends MEC_base
         $this->factory->action('woocommerce_new_order_item', array($wc, 'meta'), 10, 2);
         $this->factory->action('woocommerce_order_status_cancelled', array($wc, 'cancelled'), 10, 1);
         $this->factory->action('woocommerce_order_status_refunded', array($wc, 'cancelled'), 10, 1);
+        $this->factory->action('woocommerce_after_checkout_validation', array($this, 'validate'),10,2);
 
         $this->factory->filter('woocommerce_order_item_display_meta_key', array($this, 'display_key'), 10, 2);
         $this->factory->filter('woocommerce_order_item_display_meta_value', array($this, 'display_value'), 10, 2);
@@ -131,5 +132,45 @@ class MEC_feature_wc extends MEC_base
         if(has_post_thumbnail($event_id)) return get_the_post_thumbnail($event_id);
 
         return $image;
+    }
+
+    public function validate($data, $errors)
+    {
+        // Cart Items
+        $items = WC()->cart->get_cart();
+
+        // Book
+        $book = $this->getBook();
+
+        foreach($items as $key => $item)
+        {
+            $event_id = (isset($item['mec_event_id']) ? $item['mec_event_id'] : NULL);
+
+            if(!$event_id) continue;
+
+            $product_id = (isset($item['product_id']) ? $item['product_id'] : NULL);
+            $mec_ticket = get_post_meta($product_id, 'mec_ticket', true);
+
+            $ex = explode(':', $mec_ticket);
+            $ticket_id = (isset($ex[1]) ? $ex[1] : NULL);
+
+            if(!$ticket_id) continue;
+
+            $date = (isset($item['mec_date']) ? $item['mec_date'] : NULL);
+            $ex = explode(':', $date);
+            $timestamps = $ex[0];
+
+            $quantity = (isset($item['quantity']) ? $item['quantity'] : 1);
+            $availability = $book->get_tickets_availability($event_id, $timestamps);
+
+            $tickets = get_post_meta($event_id, 'mec_tickets', true);
+
+            // Ticket is not available
+            if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id])) and $availability[$ticket_id] < $quantity)
+            {
+                if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
+                else $errors->add('validation', sprintf(__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
+            }
+        }
     }
 }

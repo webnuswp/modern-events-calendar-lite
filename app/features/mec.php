@@ -85,6 +85,7 @@ class MEC_feature_mec extends MEC_base
         $this->factory->action('mec_booking_confirmed', array($this->main, 'bp_add_activity'), 10);
         $this->factory->action('mec_booking_verified', array($this->main, 'bp_add_activity'), 10);
         $this->factory->action('bp_register_activity_actions', array($this->main, 'bp_register_activity_actions'), 10);
+        $this->factory->action('bp_setup_nav', array($this->main, 'bp_add_profile_menu'));
 
         // Mailchimp Integration
         $this->factory->action('mec_booking_verified', array($this->main, 'mailchimp_add_subscriber'), 10);
@@ -307,7 +308,7 @@ class MEC_feature_mec extends MEC_base
                     'ampm' => date('A', $date->tend),
                 );
 
-                echo '<option value="'.$date->tstart.'" '.($occurrence == $date->tstart ? 'class="selected-day"' : '').'>'.strip_tags($this->main->date_label($start, $end, $date_format)).'</option>';
+                echo '<option value="'.$date->tstart.'" '.($occurrence == $date->tstart ? 'class="selected-day"' : '').'>'.strip_tags($this->main->date_label($start, $end, $date_format, ' - ', false)).'</option>';
             }
 
             echo '</select>';
@@ -604,7 +605,13 @@ class MEC_feature_mec extends MEC_base
 
         do_action('mec_shortcode_filters_save', $post_id, $terms );
 
-        $mec = isset($_POST['mec']) ? $_POST['mec'] : array();
+        $mec = (isset($_POST['mec']) ? $_POST['mec'] : array());
+
+        $skin = (isset($mec['skin']) ? $mec['skin'] : '');
+        $start_date_type = ((isset($mec['sk-options'][$skin]) and isset($mec['sk-options'][$skin]['start_date_type'])) ? $mec['sk-options'][$skin]['start_date_type'] : 'today');
+
+        // Enable "Show Past Events" option since the start date is past
+        if(in_array($start_date_type, array('yesterday', 'start_last_year', 'start_last_month', 'start_last_week'))) $mec['show_past_events'] = 1;
 
         foreach($mec as $key=>$value) update_post_meta($post_id, $key, $value);
     }

@@ -32,6 +32,8 @@ $query = new WP_Query(array(
                             <?php 
                                 if($query->have_posts())
                                 {
+                                    $date_format = get_option('date_format');
+
                                     while($query->have_posts())
                                     {
                                         $query->the_post();
@@ -40,7 +42,6 @@ $query = new WP_Query(array(
                                         if($this->main->get_original_event($ID) !== $ID) $ID = $this->main->get_original_event($ID);
 
                                         $start_date = get_post_meta($ID, 'mec_start_date', true);
-                                        $date_format = get_option('date_format');
 
                                         echo '<option value="'.$ID.'">' . sprintf(__('%s (from %s)', 'modern-events-calendar-lite'), get_the_title(), date($date_format, strtotime($start_date))) . '</option>';
                                     }
@@ -60,7 +61,9 @@ $query = new WP_Query(array(
                     <h4 class="mec-send-email-count"><?php echo sprintf(__('You are sending email to %s attendees', 'modern-events-calendar-lite'), '<span>0</span>'); ?></h4>
                     <input type="text" class="widefat" id="mec-send-email-subject" placeholder="<?php echo __('Email Subject', 'modern-events-calendar-lite'); ?>"/><br><br>
                     <div id="mec-send-email-editor-wrap"></div>
-                    <br><p class="description"><?php echo __('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
+                    <br>
+                    <label><input type="checkbox" id="mec-send-admin-copy" value="1"><?php echo __('Send a copy to admin', 'modern-events-calendar-lite'); ?></label>
+                    <br><br><p class="description"><?php echo __('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                     <ul>
                         <li><span>%%name%%</span>: <?php echo __('Attendee Name', 'modern-events-calendar-lite'); ?></li>
                     </ul>

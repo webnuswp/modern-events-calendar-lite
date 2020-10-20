@@ -17,6 +17,7 @@
             <key name="*">
                 <key name="name" />
                 <key name="description" />
+                <key name="price_label" />
             </key>
         </key>
     </custom-fields-texts>
@@ -27,6 +28,12 @@
             </key>
             <key name="reg_fields">
                 <key name="*"/>
+            </key>
+            <key name="gateways">
+                <key name="*">
+                    <key name="title" />
+                    <key name="comment" />
+                </key>
             </key>
         </key>
     </admin-texts>

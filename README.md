@@ -5,7 +5,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
 **Tested up to:** 5.5.1 \
-**Stable tag:** 5.12.6 \
+**Stable tag:** 5.13.0 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -134,6 +134,9 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 - [Waiting List](https://webnus.net/modern-events-calendar/addons/waiting-list/) - [Documentation](https://webnus.net/dox/modern-events-calendar/waiting-list-addon/)
 - [Divi Single Builder](https://webnus.net/modern-events-calendar/addons/divi-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/divi-single-builder-for-mec/)
 - [Zoom Integration](https://webnus.net/modern-events-calendar/addons/zoom-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zoom-integration-addon/)
+- [Advanced Organizer](https://webnus.net/modern-events-calendar/addons/advanced-organizer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-organizer-addon/)
+- [Advanced Speaker](https://webnus.net/modern-events-calendar/addons/advanced-speaker/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-speaker-addon/)
+- [Advanced Location](https://webnus.net/modern-events-calendar/addons/advanced-location/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-location-addon/)
 
 ## Helpful Documentation
 
@@ -215,6 +218,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Constant Contact
 - Active Campaign
 - BuddyPress
+- Learn Dash
 - Google Recaptcha
 - Google Map
 
@@ -576,6 +580,32 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.13.0 – 20 October 2020
+
+- Added: Learn dash integration by linking a course to any ticket and enrolling the user to learn dash course after booking (pro)
+- Added: A new integration with BuddyPress by showing the “Frontend Event Submission” on the profile menu
+- Added: Category display to tile, masonry, timeline, daily, weekly and minimal style of list skin (pro)
+- Added: An ability to import events from WP Event Manager plugin (pro)
+- Added: Occurrence dates on booking edit page in the backend of “Sell all occurrences by one booking” (pro)
+- Added: An option to change the start time of ticket sale per event
+- Added: An ability to make some fields mandatory in “Frontend Event Submission” (pro)
+- Added: An option to set required fields in “Frontend Event Submission”
+- Added: Yesterday, Last Week, Last Month, and Last Year to the start date options
+- Added: Custom shortcake option for category archive pages
+- Added: A new option in the reports menu to send a copy of the email to the website admin (pro)
+- Improved: The WooCommerce Payment System to validate the availability of tickets before checkout (pro)
+- Improved: The label of booking button by adding a separate option in the messages panel (pro)
+- Improved: The tile skin by making the image clickable
+- Improved: The last PayPal error on Gateway options (pro)
+- Improved: The report menu by sorting the attendees alphabetically (pro)
+- Fixed: Some issues in MEC registration system (pro)
+- Fixed: An issue in manual username and password fields (pro)
+- Fixed: An issue with event filter in manage bookings menu in backend  on multilingual websites (pro)
+- Fixed: Some multilingual issues reported by WPML team
+- Fixed: An issue in required name and email on register form (pro)
+- Fixed: Recaptcha layout on modal popup (pro)
+- Fixed: Some minor issues
 
 ### 5.12.6 – 7 October 2020
 

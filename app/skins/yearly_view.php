@@ -243,6 +243,7 @@ class MEC_skin_yearly_view extends MEC_skins
 
         if(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'start_current_year') $date = date('Y-m-d', strtotime('first day of January '.current_time('Y')));
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'start_next_year') $date = date('Y-m-d', strtotime('first day of January '.(current_time('Y')+1)));
+        elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'start_last_year') $date = date('Y-m-d', strtotime('first day of January '.(current_time('Y')-1)));
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'date') $date = date('Y-m-d', strtotime($this->skin_options['start_date']));
         
         // Hide past events
