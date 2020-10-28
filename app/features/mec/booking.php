@@ -132,6 +132,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <select id="mec_settings_booking_lock_prefilled" name="mec[settings][booking_lock_prefilled]">
                                             <option value="0" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '0') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Disabled', 'modern-events-calendar-lite'); ?></option>
                                             <option value="1" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '1') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="2" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '2') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled Only for Main Attendee', 'modern-events-calendar-lite'); ?></option>
                                         </select>
                                         <span class="mec-tooltip">
                                             <div class="box">

@@ -6,6 +6,7 @@ use ICal\ICal;
 use Ctct\Components\Contacts\Contact;
 use Ctct\ConstantContact;
 use Ctct\Exceptions\CtctException;
+
 /**
  * Webnus MEC main class.
  * @author Webnus <info@webnus.biz>
@@ -2925,18 +2926,40 @@ class MEC_main extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param int $event_id
      * @param string $occurrence
+     * @param string $occurrence_time
      * @return string
      */
-    public function ical_single($event_id, $occurrence = '')
+    public function ical_single($event_id, $occurrence = '', $occurrence_time = '')
     {
         // MEC Render Library
         $render = $this->getRender();
         
         $event = $render->data($event_id);
-        $dates = $render->dates($event_id, $event, 2, $occurrence);
+
+        // Event Repeat Type
+        $repeat_type = (!empty($event->meta['mec_repeat_type']) ? $event->meta['mec_repeat_type'] : '');
+
+        $md_start = $this->get_start_of_multiple_days($event_id, $occurrence);
+        if($md_start) $occurrence = $md_start;
         
-        $occurrence_end_date = trim($occurrence) ? $this->get_end_date_by_occurrence($event_id, (isset($dates[0]['start']['date']) ? $dates[0]['start']['date'] : $occurrence)) : '';
-        $start_time = strtotime((trim($occurrence) ? $occurrence : $dates[0]['start']['date']).' '.sprintf("%02d", $dates[0]['start']['hour']).':'.sprintf("%02d", $dates[0]['start']['minutes']).' '.$dates[0]['start']['ampm']);
+        $occurrence_end_date = (trim($occurrence) ? $this->get_end_date_by_occurrence($event_id, $occurrence) : '');
+
+        $md_start_time = $this->get_start_time_of_multiple_days($event_id, $occurrence_time);
+        if($md_start_time) $occurrence_time = $md_start_time;
+
+        if(strtotime($occurrence) and in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend', 'advanced'))) $occurrence = date('Y-m-d', strtotime($occurrence));
+        elseif(strtotime($occurrence))
+        {
+            $new_occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+            if(in_array($repeat_type, array('monthly')) and date('m', strtotime($new_occurrence)) != date('m', strtotime($occurrence))) $new_occurrence = date('Y-m-d', strtotime($occurrence));
+
+            $occurrence = $new_occurrence;
+        }
+        else $occurrence = NULL;
+
+        $dates = $render->dates($event_id, $event, 2, (trim($occurrence_time) ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
+
+        $start_time = strtotime(((isset($dates[0]) and trim($dates[0]['start']['date'])) ? $dates[0]['start']['date'] : $occurrence).' '.sprintf("%02d", $dates[0]['start']['hour']).':'.sprintf("%02d", $dates[0]['start']['minutes']).' '.$dates[0]['start']['ampm']);
         $end_time = strtotime((trim($occurrence_end_date) ? $occurrence_end_date : $dates[0]['end']['date']).' '.sprintf("%02d", $dates[0]['end']['hour']).':'.sprintf("%02d", $dates[0]['end']['minutes']).' '.$dates[0]['end']['ampm']);
         
         $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
@@ -4669,12 +4692,37 @@ class MEC_main extends MEC_base
                     elseif(strpos($format, 'M') !== false) $month_format = 'M';
                     elseif(strpos($format, 'n') !== false) $month_format = 'n';
 
+                    $year_format = '';
+                    if(strpos($format, 'Y') !== false) $year_format = 'Y';
+                    elseif(strpos($format, 'y') !== false) $year_format = 'y';
+
                     $start_d = date_i18n($day_format, $start_timestamp);
                     $end_d = date_i18n($day_format, $end_timestamp);
 
                     $start_m = date_i18n($month_format, $start_timestamp);
+                    $start_y = (trim($year_format) ? date_i18n($year_format, $start_timestamp) : '');
 
-                    return '<span class="mec-start-date-label" itemprop="startDate">' .($this->is_day_first($format) ? ($start_d . ' - ' . $end_d . ' ' . $start_m) : ($start_m .' '. $start_d . ' - ' . $end_d)). '</span>';
+                    $chars = str_split($format);
+
+                    $date_label = '';
+                    foreach($chars as $char)
+                    {
+                        if(in_array($char, array('d', 'D', 'j', 'l', 'N', 'S', 'w', 'z')))
+                        {
+                            $date_label .= $start_d . ' - ' . $end_d;
+                        }
+                        elseif(in_array($char, array('F', 'm', 'M', 'n')))
+                        {
+                            $date_label .= $start_m;
+                        }
+                        elseif(in_array($char, array('Y', 'y', 'o')))
+                        {
+                            $date_label .= $start_y;
+                        }
+                        else $date_label .= $char;
+                    }
+
+                    return '<span class="mec-start-date-label" itemprop="startDate">' .$date_label. '</span>';
                 }
                 else return '<span class="mec-start-date-label" itemprop="startDate">'.date_i18n($format, $start_timestamp).'</span><span class="mec-end-date-label" itemprop="endDate">'.$separator.date_i18n($format, $end_timestamp).'</span>';
             }
@@ -5993,40 +6041,33 @@ class MEC_main extends MEC_base
         
         return $found;
     }
-    
+
     /**
      * Load Google Maps assets
      * @var $define_settings
+     * @return bool
      */
     public function load_map_assets($define_settings = null)
     {
-        if($this->getPRO())
-        {
-            // MEC Settings
-            $settings = $this->get_settings();
+        if(!$this->getPRO()) return false;
 
-            $assets = array('js'=>array(), 'css'=>array());
+        // MEC Settings
+        $settings = $this->get_settings();
 
-            $gm_include = apply_filters('mec_gm_include', true);
-            if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '');
-            
-            $assets['js']['mec-richmarker-script'] = $this->asset('packages/richmarker/richmarker.min.js'); // Google Maps Rich Marker
-            $assets['js']['mec-clustering-script'] = $this->asset('packages/clusterer/markerclusterer.min.js'); // Google Maps Clustering
-            $assets['js']['mec-googlemap-script'] = $this->asset('js/googlemap.js'); // Google Maps Javascript API
+        $assets = array('js'=>array(), 'css'=>array());
 
-            // Apply Filters
-            $assets = apply_filters('mec_map_assets_include', $assets, $this, $define_settings);
+        $gm_include = apply_filters('mec_gm_include', true);
+        if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '').'&language='.$this->get_current_language();
 
-            if(count($assets['js']) > 0)
-            {
-                foreach($assets['js'] as $key => $link) wp_enqueue_script($key, $link);
-            }
+        $assets['js']['mec-richmarker-script'] = $this->asset('packages/richmarker/richmarker.min.js'); // Google Maps Rich Marker
+        $assets['js']['mec-clustering-script'] = $this->asset('packages/clusterer/markerclusterer.min.js'); // Google Maps Clustering
+        $assets['js']['mec-googlemap-script'] = $this->asset('js/googlemap.js'); // Google Maps Javascript API
 
-            if(count($assets['css']) > 0)
-            {
-                foreach($assets['css'] as $key => $link) wp_enqueue_style($key, $link);
-            }
-        }
+        // Apply Filters
+        $assets = apply_filters('mec_map_assets_include', $assets, $this, $define_settings);
+
+        if(count($assets['js']) > 0) foreach($assets['js'] as $key => $link) wp_enqueue_script($key, $link, array(), $this->get_version());
+        if(count($assets['css']) > 0) foreach($assets['css'] as $key => $link) wp_enqueue_style($key, $link, array(), $this->get_version());
     }
     
     /**
@@ -6111,7 +6152,7 @@ class MEC_main extends MEC_base
     
     public function is_sold($event, $date = NULL)
     {
-        $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
+        $tickets = (isset($event->data->tickets) and is_array($event->data->tickets)) ? $event->data->tickets : array();
         $timestamp = (isset($event->date['start']) and isset($event->date['start']['timestamp'])) ? $event->date['start']['timestamp'] : $date;
         
         // No Tickets
@@ -7456,6 +7497,29 @@ class MEC_main extends MEC_base
                 break;
             }
             elseif(in_array($char, array('F', 'm', 'M', 'n')))
+            {
+                $status = false;
+                break;
+            }
+        }
+
+        return $status;
+    }
+
+    public function is_year_first($format = NULL)
+    {
+        if(!trim($format)) $format = get_option('date_format');
+        $chars = str_split($format);
+
+        $status = true;
+        foreach($chars as $char)
+        {
+            if(in_array($char, array('Y', 'y', 'o')))
+            {
+                $status = true;
+                break;
+            }
+            elseif(in_array($char, array('F', 'm', 'M', 'n', 'd', 'D', 'j', 'l', 'N', 'S', 'w', 'z')))
             {
                 $status = false;
                 break;

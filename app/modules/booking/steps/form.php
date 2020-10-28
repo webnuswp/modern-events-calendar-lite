@@ -39,7 +39,7 @@ $booking_register = (isset($this->settings['booking_registration']) and !$this->
 $booking_userpass = (isset($this->settings['booking_userpass']) and trim($this->settings['booking_userpass'])) ? $this->settings['booking_userpass'] : 'auto';
 
 // Lock Pre-filled Fields
-$lock_prefilled = (isset($this->settings['booking_lock_prefilled']) and trim($this->settings['booking_lock_prefilled']) != '') ? (boolean) $this->settings['booking_lock_prefilled'] : false;
+$lock_prefilled = (isset($this->settings['booking_lock_prefilled']) and trim($this->settings['booking_lock_prefilled']) != '') ? $this->settings['booking_lock_prefilled'] : 0;
 
 $mec_email = false;
 $mec_name = false;
@@ -200,12 +200,12 @@ if(!$mec_email)
                                     _e($reg_field['placeholder'], 'modern-events-calendar-lite');
                                 } else {
                                     _e($reg_field['label'], 'modern-events-calendar-lite');
-                                }; ?>" required <?php echo ((isset($current_user->user_firstname) and trim($current_user->user_firstname) and $lock_prefilled) ? 'readonly' : ''); ?> />
+                                }; ?>" required <?php echo ((isset($current_user->user_firstname) and trim($current_user->user_firstname) and ($lock_prefilled == 1 or ($lock_prefilled == 2 and $j == 1))) ? 'readonly' : ''); ?> />
 
                             <?php /** MEC Email **/ elseif ($reg_field['type'] == 'mec_email') : ?>
                                 <?php $reg_field['label'] = ($reg_field['label']) ? $reg_field['label'] : 'Email'; ?>
                                 <label for="mec_book_reg_field_email<?php echo $reg_field_id; ?>"><?php _e($reg_field['label'], 'modern-events-calendar-lite'); ?><span class="wbmec-mandatory">*</span></label>
-                                <input id="mec_book_reg_field_email<?php echo $reg_field_id; ?>" type="email" name="book[tickets][<?php echo $j; ?>][email]" value="<?php echo isset($current_user->user_email) ? $current_user->user_email : ''; ?>" placeholder="<?php _e('Email', 'modern-events-calendar-lite'); ?>" required <?php echo ((isset($current_user->user_email) and trim($current_user->user_email) and $lock_prefilled) ? 'readonly' : ''); ?> />
+                                <input id="mec_book_reg_field_email<?php echo $reg_field_id; ?>" type="email" name="book[tickets][<?php echo $j; ?>][email]" value="<?php echo isset($current_user->user_email) ? $current_user->user_email : ''; ?>" placeholder="<?php _e('Email', 'modern-events-calendar-lite'); ?>" required <?php echo ((isset($current_user->user_email) and trim($current_user->user_email) and ($lock_prefilled == 1 or ($lock_prefilled == 2 and $j == 1))) ? 'readonly' : ''); ?> />
 
                             <?php /** Text **/ elseif ($reg_field['type'] == 'text') : ?>
                                 <input id="mec_book_reg_field_reg<?php echo $j . '_' . $reg_field_id; ?>" type="text" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if (isset($reg_field['placeholder']) and $reg_field['placeholder']) {

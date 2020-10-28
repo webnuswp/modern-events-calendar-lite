@@ -306,12 +306,8 @@ class MEC_feature_search extends MEC_base
             );
         }
 
-        // wordpress event list search
-        $post_types = array('mec-events');
-
         if($mec_tag_query) $query->set('tag', $mec_tag_query);
-        $query->set('tax_query', $mec_queries);
-        $query->set('post_type', $post_types);
+        if(count($mec_queries)) $query->set('tax_query', $mec_queries);
 
         return $query;
     }

@@ -82,7 +82,7 @@ $map_events = array();
                     <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                     <?php if(isset($location['name'])): ?><div class="mec-event-detail"><div class="mec-event-loc-place"><i class="mec-sl-map-marker"></i> <?php echo (isset($location['name']) ? $location['name'] : ''); ?></div></div><?php endif; ?>
                     <?php echo $this->display_categories($event); ?>
-                    <?php do_action('mec_list_classic_after_location', $event); ?>
+                    <?php do_action('mec_list_classic_after_location', $event, $this->skin_options); ?>
                     <?php echo $this->booking_button($event); ?>
                 <?php elseif($this->style == 'minimal'): ?>
                     <div class="col-md-9 col-sm-9">

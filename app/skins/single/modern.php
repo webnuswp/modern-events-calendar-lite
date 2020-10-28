@@ -20,7 +20,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
         <!-- start breadcrumbs -->
         <?php
-        $breadcrumbs_settings = isset( $settings['breadcrumbs'] ) ? $settings['breadcrumbs'] : '';
+        $breadcrumbs_settings = isset($settings['breadcrumbs']) ? $settings['breadcrumbs'] : '';
         if($breadcrumbs_settings == '1'): $breadcrumbs = new MEC_skin_single(); ?>
             <div class="mec-breadcrumbs mec-breadcrumbs-modern">
                 <?php $breadcrumbs->display_breadcrumb_widget(get_the_ID()); ?>
@@ -31,10 +31,10 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
         <div class="mec-events-event-image"><?php echo $event->data->thumbnails['full']; ?><?php do_action('mec_custom_dev_image_section', $event); ?></div>
         <div class="col-md-4<?php if (empty($event->data->thumbnails['full'])) echo ' mec-no-image';?>">
 
-            <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
+            <?php do_action('mec_single_virtual_badge', $event->data->ID); ?>
 
-            <?php if ( $single->found_value('event_orgnizer', $settings) == 'on' || $single->found_value('register_btn', $settings) == 'on'  ) : ?>
-            <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and in_array($event->data->meta['mec_organizer_id'], array('0', '1')) and !trim($event->data->meta['mec_more_info'])) ? 'mec-util-hidden' : '') ; ?>">
+            <?php if($single->found_value('event_orgnizer', $settings) == 'on' || $single->found_value('register_btn', $settings) == 'on'): ?>
+            <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and in_array($event->data->meta['mec_organizer_id'], array('0', '1')) and (!trim($event->data->meta['mec_more_info']) or (trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] == 'http://'))) ? 'mec-util-hidden' : ''); ?>">
                 <?php
                 // Event Organizer
                 if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]) and $single->found_value('event_orgnizer', $settings) == 'on')

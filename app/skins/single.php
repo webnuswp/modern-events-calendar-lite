@@ -557,7 +557,7 @@ class MEC_skin_single extends MEC_skins
         $rendered = $this->render->data($this->id, (isset($this->atts['content']) ? $this->atts['content'] : ''));
 
         // Event Repeat Type
-        $repeat_type = !empty($rendered->meta['mec_repeat_type']) ?  $rendered->meta['mec_repeat_type'] : '';
+        $repeat_type = (!empty($rendered->meta['mec_repeat_type']) ? $rendered->meta['mec_repeat_type'] : '');
 
         $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : date('Y-m-d');
         $occurrence_time = isset($_GET['time']) ? sanitize_text_field($_GET['time']) : NULL;
@@ -643,6 +643,7 @@ class MEC_skin_single extends MEC_skins
         if($this->id != $original_event_id)
         {
             $original_tickets = get_post_meta($original_event_id, 'mec_tickets', true);
+            if(!is_array($original_tickets)) $original_tickets = array();
 
             $rendered_tickets = array();
             foreach($original_tickets as $ticket_id=>$original_ticket)

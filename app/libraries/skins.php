@@ -511,6 +511,7 @@ class MEC_skins extends MEC_base
 
             if($this->hide_time_method == 'plus1') $seconds_start -= 3600;
             elseif($this->hide_time_method == 'plus2') $seconds_start -= 7200;
+            elseif($this->hide_time_method == 'plus10') $seconds_start -= 36000;
             elseif($this->hide_time_method == 'end') $column = 'tend';
 
             $order = "`tstart` DESC";
@@ -566,6 +567,7 @@ class MEC_skins extends MEC_base
                 if($this->hide_time_method == 'start' and $now >= $mec_date->tstart) continue;
                 elseif($this->hide_time_method == 'plus1' and $now >= $mec_date->tstart+3600) continue;
                 elseif($this->hide_time_method == 'plus2' and $now >= $mec_date->tstart+7200) continue;
+                elseif($this->hide_time_method == 'plus10' and $now >= $mec_date->tstart+36000) continue;
             }
 
             // Hide Events Based on End Time
@@ -692,7 +694,7 @@ class MEC_skins extends MEC_base
 
         // Limit
         $this->args['posts_per_page'] = 1000;
-        $dates = apply_filters( 'mec_event_dates_search', $dates,$start,$end,$this );
+        $dates = apply_filters('mec_event_dates_search', $dates, $start, $end, $this);
 
         $i = 0;
         $found = 0;

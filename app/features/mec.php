@@ -588,7 +588,7 @@ class MEC_feature_mec extends MEC_base
         $tags = (isset($terms['mec_tag'])) ? explode(',', trim($terms['mec_tag'])) : '';
         $authors = (isset($terms['mec_author']) and is_array($terms['mec_author'])) ? implode(',', $terms['mec_author']) : '';
 
-        // Fox tags
+        // Fix tags
         if(is_array($tags) and count($tags) == 1 and trim($tags[0]) == '') $tags = array();
         if(is_array($tags))
         {
@@ -610,8 +610,12 @@ class MEC_feature_mec extends MEC_base
         $skin = (isset($mec['skin']) ? $mec['skin'] : '');
         $start_date_type = ((isset($mec['sk-options'][$skin]) and isset($mec['sk-options'][$skin]['start_date_type'])) ? $mec['sk-options'][$skin]['start_date_type'] : 'today');
 
+        $ongoing = ((isset($mec['show_only_ongoing_events']) and $mec['show_only_ongoing_events']) ? 1 : 0);
+
+        // Set start date to Today because of showing ongoing events
+        if($ongoing and in_array($skin, array('list', 'grid', 'agenda', 'timeline'))) $mec['sk-options'][$skin]['start_date_type'] = 'today';
         // Enable "Show Past Events" option since the start date is past
-        if(in_array($start_date_type, array('yesterday', 'start_last_year', 'start_last_month', 'start_last_week'))) $mec['show_past_events'] = 1;
+        elseif(in_array($start_date_type, array('yesterday', 'start_last_year', 'start_last_month', 'start_last_week'))) $mec['show_past_events'] = 1;
 
         foreach($mec as $key=>$value) update_post_meta($post_id, $key, $value);
     }

@@ -373,6 +373,17 @@ function mec_book_form_submit'.$uniqueid.'()
             }
             else jQuery(this).removeClass("mec-red-notification");
         });
+        
+        // Manual Username and Password
+        jQuery("#mec_book_form'.$uniqueid.' #mec_book_form_username, #mec_book_form'.$uniqueid.' #mec_book_form_password").filter(":visible").each(function(i)
+        {
+            if(!jQuery(this).val())
+            {
+                valid = false;
+                jQuery(this).addClass("mec-red-notification");
+            }
+            else jQuery(this).removeClass("mec-red-notification");
+        });
 
         if(!valid) return false;
     }

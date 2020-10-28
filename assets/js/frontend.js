@@ -1563,7 +1563,7 @@ jQuery(document).ready(function($)
 
             // Show related events
             $('#mec_skin_' + settings.id + ' .mec-weekly-view-date-events').addClass('mec-util-hidden');
-            $('#mec_weekly_view_date_events' + settings.id + '_' + day).removeClass('mec-util-hidden');
+            $('.mec_weekly_view_date_events' + settings.id + '_' + day).removeClass('mec-util-hidden').show();
         }
 
         function initMonthNavigator(month_id) {

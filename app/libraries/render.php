@@ -564,7 +564,7 @@ class MEC_render extends MEC_base
 
         $data->hourly_schedules = $hourly_schedules;
 
-        $data->tickets = isset($meta['mec_tickets']) ? $meta['mec_tickets'] : array();
+        $data->tickets = ((isset($meta['mec_tickets']) and is_array($meta['mec_tickets'])) ? $meta['mec_tickets'] : array());
         $data->color = isset($meta['mec_color']) ? $meta['mec_color'] : '';
         $data->permalink = ((isset($meta['mec_read_more']) and filter_var($meta['mec_read_more'], FILTER_VALIDATE_URL)) ? $meta['mec_read_more'] : get_post_permalink($post_id));
         
@@ -825,6 +825,8 @@ class MEC_render extends MEC_base
                 {
                     $new_start_time = $this->main->get_time(0);
                     $new_end_time = $this->main->get_time((24*3600));
+
+                    $allday = 1;
                 }
                 // First Day
                 else
@@ -1360,6 +1362,8 @@ class MEC_render extends MEC_base
         
         foreach($events as $event)
         {
+            if(!is_object($event)) continue;
+
             $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
             
             $latitude = isset($location['latitude']) ? $location['latitude'] : '';

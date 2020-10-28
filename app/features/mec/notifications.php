@@ -119,6 +119,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -230,6 +231,7 @@ $settings = $this->main->get_settings();
                                 <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                 <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -354,6 +356,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -573,7 +576,8 @@ $settings = $this->main->get_settings();
                                     </span>
                                 </div>
                                 <div class="mec-form-row">
-                                    <input type="checkbox" name="mec[notifications][admin_notification][send_to_admin]" value="1" id="mec_notifications_admin_notification_send_to_admin" <?php echo ((!isset($notifications['admin_notification']['send_to_admin']) or $notifications['admin_notification']['send_to_admin'] == 1) ? 'checked="checked"' : ''); ?> />
+                                    <input type="hidden" name="mec[notifications][admin_notification][send_to_admin]" value="0" />
+                                    <input type="checkbox" name="mec[notifications][admin_notification][send_to_admin]" value="1" id="mec_notifications_admin_notification_send_to_admin" <?php echo ((!isset($notifications['admin_notification']['send_to_admin']) or (isset($notifications['admin_notification']['send_to_admin']) and $notifications['admin_notification']['send_to_admin'] == 1)) ? 'checked="checked"' : ''); ?> />
                                     <label for="mec_notifications_admin_notification_send_to_admin"><?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?></label>
                                 </div>
                                 <div class="mec-form-row">
@@ -840,6 +844,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_link%%</span>: <?php _e('Link of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_status%%</span>: <?php _e('Status of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_note%%</span>: <?php _e('Event Note', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
@@ -924,6 +929,7 @@ $settings = $this->main->get_settings();
                                     <li><span>%%event_link%%</span>: <?php _e('Link of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_status%%</span>: <?php _e('Status of event', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%event_note%%</span>: <?php _e('Event Note', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>

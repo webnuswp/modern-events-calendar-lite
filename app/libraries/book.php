@@ -416,6 +416,9 @@ class MEC_book extends MEC_base
      */
     public function get_tickets_availability($event_id, $timestamp, $mode = 'availability')
     {
+        $ex = explode(':', $timestamp);
+        $timestamp = $ex[0];
+
         if(!is_numeric($timestamp)) $timestamp = strtotime($timestamp);
 
         $availability = array();
@@ -436,9 +439,6 @@ class MEC_book extends MEC_base
         $book_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? (int) $booking_options['bookings_all_occurrences'] : 0;
 
         if($bookings_limit_unlimited == '1') $total_bookings_limit = '-1';
-
-        $ex = explode(':', $timestamp);
-        $timestamp = (int) $ex[0];
 
         // Get Per Occurrence
         $total_bookings_limit = MEC_feature_occurrences::param($event_id, $timestamp, 'bookings_limit', $total_bookings_limit);
@@ -504,13 +504,13 @@ class MEC_book extends MEC_base
 
                     $bookings += (isset($ticket_ids_count[$ticket_id]) and is_numeric($ticket_ids_count[$ticket_id])) ? $ticket_ids_count[$ticket_id] : 0;
                 }
+
+                // Restore original Post Data
+                wp_reset_postdata();
             }
 
             if($total_bookings_limit > 0) $total_bookings_limit = max(($total_bookings_limit - $bookings), 0);
             $booked += $bookings;
-
-            // Restore original Post Data
-            wp_reset_postdata();
 
             // Ticket Selling Stop
             $stop_selling_value = isset($ticket['stop_selling_value']) ? trim($ticket['stop_selling_value']) : 0;

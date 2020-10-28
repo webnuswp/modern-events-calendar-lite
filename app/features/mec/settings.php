@@ -66,6 +66,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                                         <option value="plus1" <?php if(isset($settings['hide_time_method']) and 'plus1' == $settings['hide_time_method']) echo 'selected="selected"'; ?>><?php _e('+1 Hour after start', 'modern-events-calendar-lite'); ?></option>
                                         <option value="plus2" <?php if(isset($settings['hide_time_method']) and 'plus2' == $settings['hide_time_method']) echo 'selected="selected"'; ?>><?php _e('+2 Hours after start', 'modern-events-calendar-lite'); ?></option>
                                         <option value="end" <?php if(isset($settings['hide_time_method']) and 'end' == $settings['hide_time_method']) echo 'selected="selected"'; ?>><?php _e('On Event End', 'modern-events-calendar-lite'); ?></option>
+                                        <?php do_action('mec_hide_time_methods', $settings); ?>
                                     </select>
                                     <span class="mec-tooltip">
                                         <div class="box">

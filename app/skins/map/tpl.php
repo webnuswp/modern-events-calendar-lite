@@ -31,7 +31,7 @@ if(count($this->events))
             icon: "'.apply_filters('mec_marker_icon', $this->main->asset('img/m-04.png')).'",
             styles: '.((isset($settings['google_maps_style']) and trim($settings['google_maps_style']) != '') ? $this->main->get_googlemap_style($settings['google_maps_style']) : "''").',
             markers: '.json_encode($events_data).',
-            HTML5geolocation: '.$this->geolocation.',
+            geolocation: '.$this->geolocation.',
             geolocation_focus: '.$this->geolocation_focus.',
             clustering_images: "'.$this->main->asset('img/cluster1/m').'",
             getDirection: 0,

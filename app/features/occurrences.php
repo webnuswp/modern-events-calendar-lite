@@ -484,7 +484,7 @@ class MEC_feature_occurrences extends MEC_base
 
     public static function param($post_id, $timestamp, $key, $default = NULL)
     {
-        $o = new MEC_feature_occurrences();
+        $o = new MEC_main();
 
         $cache_key = 'mec_occ_param_'.$post_id.'_'.$timestamp;
         $cache = $o->getCache();

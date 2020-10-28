@@ -11,7 +11,7 @@
             icon: '../img/m-01.png',
             markers: {},
             sf: {},
-            HTML5geolocation: 0,
+            geolocation: 0,
             getDirection: 0,
             directionOptions: {
                 form: '#mec_get_direction_form',
@@ -144,7 +144,7 @@
             }
 
             // Geolocation
-            if((settings.HTML5geolocation || (options.geolocation !== 'undefined' && options.geolocation === true)) && navigator.geolocation)
+            if((settings.geolocation !== 'undefined' && settings.geolocation) && navigator.geolocation)
             {
                 navigator.geolocation.getCurrentPosition(function (position)
                 {

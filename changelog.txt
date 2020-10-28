@@ -1,4 +1,19 @@
-﻿v 5.13.0 – 20 October 2020
+﻿v 5.13.1 – 28 October 2020
+- Added: An option to disable “Lock pre-filled fields” for other attendees (pro)
+- Added: A new placeholder to show “Event Timezone” in email notifications (pro)
+- Fixed: Registration button box on single event pages (pro)
+- Fixed: Date field in booking form (pro)
+- Fixed: Showing time of multiple day events
+- Fixed: An issue in search bar
+- Fixed: Admin notification (pro)
+- Fixed: Booking module (pro)
+- Fixed: An issue in iCal export module
+- Fixed: An issue in language of Google maps (pro)
+- Fixed: Geolocation feature of map skins (pro)
+- Fixed: Date format of multiple day events
+- Fixed: Some PHP notices and warnings
+
+v 5.13.0 – 20 October 2020
 - Added: Learn dash integration by linking a course to any ticket and enrolling the user to learn dash course after booking (pro)
 - Added: A new integration with BuddyPress by showing the “Frontend Event Submission” on the profile menu
 - Added: Category display to tile, masonry, timeline, daily, weekly and minimal style of list skin (pro)

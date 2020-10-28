@@ -5,7 +5,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
 **Tested up to:** 5.5.1 \
-**Stable tag:** 5.13.0 \
+**Stable tag:** 5.13.1 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -580,6 +580,22 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.13.1 – 28 October 2020
+
+- Added: An option to disable “Lock pre-filled fields” for other attendees (pro)
+- Added: A new placeholder to show “Event Timezone” in email notifications (pro)
+- Fixed: Registration button box on single event pages (pro)
+- Fixed: Date field in booking form (pro)
+- Fixed: Showing time of multiple day events
+- Fixed: An issue in search bar
+- Fixed: Admin notification (pro)
+- Fixed: Booking module (pro)
+- Fixed: An issue in iCal export module
+- Fixed: An issue in language of Google maps (pro)
+- Fixed: Geolocation feature of map skins (pro)
+- Fixed: Date format of multiple day events
+- Fixed: Some PHP notices and warnings
 
 ### 5.13.0 – 20 October 2020
 
