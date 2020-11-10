@@ -102,15 +102,20 @@ class MEC_feature_mec extends MEC_base
         // Active Campaign Integration
         $this->factory->action('mec_booking_verified', array($this->main, 'active_campaign_add_subscriber'), 10);
 
+        // AWeber Integration
+        $this->factory->action('mec_booking_verified', array($this->main, 'aweber_add_subscriber'), 10);
+
         // MEC Notifications
         $this->factory->action('mec_booking_completed', array($this->notifications, 'email_verification'), 10);
         $this->factory->action('mec_booking_completed', array($this->notifications, 'booking_notification'), 11);
         $this->factory->action('mec_booking_completed', array($this->notifications, 'admin_notification'), 12);
         $this->factory->action('mec_booking_confirmed', array($this->notifications, 'booking_confirmation'), 10, 2);
         $this->factory->action('mec_booking_canceled', array($this->notifications, 'booking_cancellation'), 12);
+        $this->factory->action('mec_booking_rejected', array($this->notifications, 'booking_rejection'), 12);
         $this->factory->action('mec_fes_added', array($this->notifications, 'new_event'), 50, 2);
         $this->factory->action('mec_after_publish_admin_event', array($this->notifications, 'new_event'), 10, 2);
         $this->factory->action('mec_event_published', array($this->notifications, 'user_event_publishing'), 10, 3);
+        $this->factory->action('mec_event_soldout', array($this->notifications, 'event_soldout'), 10, 2);
 
         $this->page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : 'MEC-settings';
 

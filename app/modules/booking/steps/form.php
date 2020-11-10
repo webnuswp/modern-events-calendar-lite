@@ -3,9 +3,11 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var $this MEC_feature_books **/
+
 $event_id = $event->ID;
-$reg_fields = $this->main->get_reg_fields($event_id);
-$bfixed_fields = $this->main->get_bfixed_fields($event_id);
+$reg_fields = $this->main->get_reg_fields($event_id, $translated_event_id);
+$bfixed_fields = $this->main->get_bfixed_fields($event_id, $translated_event_id);
 
 $date_ex = explode(':', $date);
 $occurrence = $date_ex[0];

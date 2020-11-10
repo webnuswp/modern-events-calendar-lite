@@ -118,7 +118,6 @@ class MEC_addon_learndash extends MEC_base
         foreach($courses as $course_id)
         {
             ld_update_course_access($user->ID, $course_id, false);
-            $this->main->debug_log($course_id.' '.$user->ID);
         }
     }
 }

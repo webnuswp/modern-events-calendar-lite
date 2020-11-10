@@ -1754,6 +1754,27 @@ class MEC_feature_events extends MEC_base
                         </span>
                     </div>
                 </div>
+                <h4><?php _e('Automatic Approval', 'modern-events-calendar-lite'); ?></h4>
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_booking_auto_verify"><?php _e('Email Verification', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <select name="mec[booking][auto_verify]" id="mec_booking_auto_verify">
+                            <option value="global" <?php if(isset($booking_options['auto_verify']) and 'global' == $booking_options['auto_verify']) echo 'selected="selected"'; ?>><?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?></option>
+                            <option value="0" <?php if(isset($booking_options['auto_verify']) and '0' == $booking_options['auto_verify']) echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                            <option value="1" <?php if(isset($booking_options['auto_verify']) and '1' == $booking_options['auto_verify']) echo 'selected="selected"'; ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_booking_auto_confirm"><?php _e('Booking Confirmation', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <select name="mec[booking][auto_confirm]" id="mec_booking_auto_confirm">
+                            <option value="global" <?php if(isset($booking_options['auto_confirm']) and 'global' == $booking_options['auto_confirm']) echo 'selected="selected"'; ?>><?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?></option>
+                            <option value="0" <?php if(isset($booking_options['auto_confirm']) and '0' == $booking_options['auto_confirm']) echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                            <option value="1" <?php if(isset($booking_options['auto_confirm']) and '1' == $booking_options['auto_confirm']) echo 'selected="selected"'; ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="mec-meta-box-fields mec-booking-tab-content" id="mec_meta_box_booking_options_form_2">
                 <h4 class="mec-title"><label for="mec_bookings_user_limit"><?php _e('Total user booking limits', 'modern-events-calendar-lite'); ?></label></h4>
@@ -2490,6 +2511,11 @@ class MEC_feature_events extends MEC_base
         ?>
         <div class="mec-meta-box-fields mec-booking-tab-content" id="mec-reg-fields">
             <h4 class="mec-meta-box-header"><?php _e('Booking Form', 'modern-events-calendar-lite'); ?></h4>
+
+            <?php if($post->ID != $this->main->get_original_event($post->ID)) : ?>
+            <p class="warning-msg"><?php _e("You're translating an event so MEC will use the original event for booking form. You can only translate the field name and options. Please define exact fields that you defined in the original event here.", 'modern-events-calendar-lite'); ?></p>
+            <?php endif; ?>
+
             <div id="mec_meta_box_reg_fields_form">
                 <div class="mec-form-row">
                     <label>
@@ -3759,7 +3785,7 @@ class MEC_feature_events extends MEC_base
                 header('Content-Disposition: attachment; filename=bookings-' . md5(time() . mt_rand(100, 999)) . '.csv');
 
                 $post_ids = $_GET['post'];
-                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
+                $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Description', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')), __('Featured Image', 'modern-events-calendar-lite'));
 
                 // Event Fields
                 $fields = $this->main->get_event_fields();
@@ -3791,6 +3817,7 @@ class MEC_feature_events extends MEC_base
                     $event = array(
                         $post_id,
                         $data->title,
+                        html_entity_decode(strip_tags($data->content), ENT_QUOTES | ENT_HTML5),
                         $date['start']['date'],
                         $data->time['start'],
                         $date['end']['date'],
@@ -3802,14 +3829,12 @@ class MEC_feature_events extends MEC_base
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
                         (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']),
+                        get_the_post_thumbnail_url($post_id)
                     );
 
                     if(isset($data->fields) and is_array($data->fields) and count($data->fields))
                     {
-                        foreach($data->fields as $field)
-                        {
-                            $event[] = $field['value'];
-                        }
+                        foreach($data->fields as $field) $event[] = $field['value'];
                     }
 
                     fputcsv($output, $event);

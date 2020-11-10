@@ -6,6 +6,9 @@ defined('MECEXEC') or die();
 /** @var $from_shortcode bool **/
 /** @var $ticket_id integer **/
 
+global $post;
+$translated_event_id = $post->ID;
+
 $event_id = $event->ID;
 $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
 $dates = isset($event->dates) ? $event->dates : array($event->date);
@@ -170,6 +173,7 @@ if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
     <?php if(($available_spots or (!$book_all_occurrences and count($dates) > 1)) and $this->get_recaptcha_status('booking')): ?><div class="mec-google-recaptcha"><div id="g-recaptcha" class="g-recaptcha" data-sitekey="<?php echo $settings['google_recaptcha_sitekey']; ?>"></div></div><?php endif; ?>
     <input type="hidden" name="action" value="mec_book_form" />
     <input type="hidden" name="event_id" value="<?php echo $event_id; ?>" />
+    <input type="hidden" name="translated_event_id" value="<?php echo $translated_event_id; ?>" />
     <input type="hidden" name="uniqueid" value="<?php echo $uniqueid; ?>" />
     <input type="hidden" name="step" value="1" />
     <?php wp_nonce_field('mec_book_form_'.$event_id); ?>

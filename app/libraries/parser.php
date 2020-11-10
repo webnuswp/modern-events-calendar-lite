@@ -55,13 +55,19 @@ class MEC_parser extends MEC_base
             global $wp_rewrite;
         }
         
+        $rules = $this->get_rewrite_rules();
+        $wp_rewrite->rules = $rules + $wp_rewrite->rules;
+    }
+
+    public function get_rewrite_rules()
+    {
         // MEC main slug
         $slug = $this->main->get_main_slug();
-        
+
         // MEC main post type name
         $PT = $this->main->get_main_post_type();
-        
-        $rules = array(
+
+        return array(
             '(?:'.$slug.')/(\d{4}-\d{2})/?$'=>'index.php?post_type='.$PT.'&MecDisplay=month&MecDate=$matches[1]',
             '(?:'.$slug.')/(?:yearly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=year',
             '(?:'.$slug.')/(?:monthly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=month',
@@ -76,8 +82,6 @@ class MEC_parser extends MEC_base
             '(?:'.$slug.')/?$'=>'index.php?post_type='.$PT.'&MecDisplay=default',
             '(?:'.$slug.')/(feed|rdf|rss|rss2|atom)/?$'=>'index.php?post_type='.$PT.'&feed=$matches[1]',
         );
-
-        $wp_rewrite->rules = $rules + $wp_rewrite->rules;
     }
     
     /**

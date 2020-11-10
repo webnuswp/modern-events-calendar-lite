@@ -309,8 +309,15 @@ if($this->getPRO())
                                     <div class="mec-col-4">
                                         <select id="mec_settings_next_event_module_method" name="mec[settings][next_event_module_method]">
                                             <option value="occurrence" <?php echo ((isset($settings['next_event_module_method']) and $settings['next_event_module_method'] == 'occurrence') ? 'selected="selected"' : ''); ?>><?php _e('Next Occurrence of Current Event', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="multiple" <?php echo ((isset($settings['next_event_module_method']) and $settings['next_event_module_method'] == 'multiple') ? 'selected="selected"' : ''); ?>><?php _e('Multiple Occurrences of Current Event', 'modern-events-calendar-lite'); ?></option>
                                             <option value="event" <?php echo ((isset($settings['next_event_module_method']) and $settings['next_event_module_method'] == 'event') ? 'selected="selected"' : ''); ?>><?php _e('Next Occurrence of Other Events', 'modern-events-calendar-lite'); ?></option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row" id="mec_settings_next_event_module_multiple_count_wrapper" style="<?php echo ((isset($settings['next_event_module_method']) and $settings['next_event_module_method'] == 'multiple') ? '' : 'display: none;'); ?>">
+                                    <label class="mec-col-3" for="mec_settings_next_event_module_multiple_count"><?php _e('Count of Events', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <input type="number" id="mec_settings_next_event_module_multiple_count" name="mec[settings][next_event_module_multiple_count]" value="<?php echo ((isset($settings['next_event_module_multiple_count']) and trim($settings['next_event_module_multiple_count']) != '') ? $settings['next_event_module_multiple_count'] : '10'); ?>" />
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
@@ -318,12 +325,12 @@ if($this->getPRO())
                                     <div class="mec-col-4">
                                         <input type="text" id="mec_settings_next_event_module_date_format1" name="mec[settings][next_event_module_date_format1]" value="<?php echo ((isset($settings['next_event_module_date_format1']) and trim($settings['next_event_module_date_format1']) != '') ? $settings['next_event_module_date_format1'] : 'M d Y'); ?>" />
                                         <span class="mec-tooltip">
-                                        <div class="box top">
-                                            <h5 class="title"><?php _e('Date Format', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Default is M d Y", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/next-event-module/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                        </div>
-                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                    </span>
+                                            <div class="box top">
+                                                <h5 class="title"><?php _e('Date Format', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Default is M d Y", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/next-event-module/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -401,6 +408,15 @@ jQuery(document).ready(function()
     {
         event.preventDefault();
         jQuery("#mec_modules_form_button").trigger('click');
+    });
+
+    jQuery('#mec_settings_next_event_module_method').on('change', function()
+    {
+        var value = jQuery(this).val();
+        var $wrapper = jQuery('#mec_settings_next_event_module_multiple_count_wrapper');
+
+        if(value === 'multiple') $wrapper.show();
+        else $wrapper.hide();
     });
 });
 

@@ -2,17 +2,26 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_main $this */
+
 // MEC Settings
 $settings = $this->get_settings();
 
 // The module is disabled
 if(!isset($settings['next_event_module_status']) or (isset($settings['next_event_module_status']) and !$settings['next_event_module_status'])) return;
 
-// Date Format
-$date_format1 = isset($settings['next_event_module_date_format1']) ? $settings['next_event_module_date_format1'] : 'M d Y';
-
 // Next Event Method
 $method = isset($settings['next_event_module_method']) ? $settings['next_event_module_method'] : 'occurrence';
+
+// Multiple Occurrences
+if($method == 'multiple')
+{
+    include MEC::import('app.modules.next-event.multiple', true, true);
+    return;
+}
+
+// Date Format
+$date_format1 = isset($settings['next_event_module_date_format1']) ? $settings['next_event_module_date_format1'] : 'M d Y';
 
 $date = array();
 if(!empty($event->date)) $date = $event->date;

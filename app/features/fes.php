@@ -460,6 +460,9 @@ class MEC_feature_fes extends MEC_base
         // Create new event
         if($post_id == -1)
         {
+            // Force Status
+            if(isset($this->settings['fes_new_event_status']) and trim($this->settings['fes_new_event_status'])) $status = $this->settings['fes_new_event_status'];
+
             $post = array('post_title'=>$post_title, 'post_content'=>$post_content, 'post_excerpt'=>$post_excerpt, 'post_type'=>$this->PT, 'post_status'=>$status);
             $post_id = wp_insert_post($post);
             
@@ -1285,13 +1288,16 @@ class MEC_feature_fes extends MEC_base
 
         // Save Event Data
         do_action('mec_save_event_data', $post_id, $mec);
+
+        $redirect_to = ((isset($this->settings['fes_thankyou_page']) and trim($this->settings['fes_thankyou_page'])) ? get_permalink(intval($this->settings['fes_thankyou_page'])) : '');
+        if(isset($this->settings['fes_thankyou_page_url']) and trim($this->settings['fes_thankyou_page_url'])) $redirect_to = esc_url($this->settings['fes_thankyou_page_url']);
         
         $this->main->response(array(
             'success' => 1,
             'message' => $message,
             'data'=> array(
                 'post_id' => $post_id,
-                'redirect_to' => (isset($this->settings['fes_thankyou_page']) and trim($this->settings['fes_thankyou_page'])) ? get_permalink(intval($this->settings['fes_thankyou_page'])) : '',
+                'redirect_to' => $redirect_to,
             ),
         ));
     }

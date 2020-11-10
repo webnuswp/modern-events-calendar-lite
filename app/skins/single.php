@@ -88,10 +88,11 @@ class MEC_skin_single extends MEC_skins
 
         $related_args = array(
             'post_type' => 'mec-events',
-            'posts_per_page' => 4,
+            'posts_per_page' => 8,
             'post_status' => 'publish',
             'post__not_in' => array($event_id),
-            'orderby' => 'ASC',
+            'order' => 'ASC',
+            'orderby' => 'post_date',
             'tax_query' => array(),
         );
 
@@ -158,6 +159,9 @@ class MEC_skin_single extends MEC_skins
         $related_args['tax_query']['relation'] = 'OR';
         $related_args = apply_filters('mec_add_to_related_post_query', $related_args, $event_id);
 
+        $now = current_time('timestamp');
+        $printed = 0;
+
         $query = new WP_Query($related_args);
         if($query->have_posts())
         {
@@ -165,15 +169,28 @@ class MEC_skin_single extends MEC_skins
             <div class="row mec-related-events-wrap">
                 <h3 class="mec-rec-events-title"><?php echo __('Related Events', 'modern-events-calendar-lite'); ?></h3>
                 <div class="mec-related-events">
-                    <?php while($query->have_posts()): $query->the_post(); ?>
+                    <?php while($query->have_posts()): if($printed >= 4) break; $query->the_post(); ?>
                         <?php
-                            $dates = $this->render->dates(get_the_ID(), NULL, 1, date('Y-m-d', strtotime('Yesterday')));
+                            // Event Repeat Type
+                            $repeat_type = get_post_meta(get_the_ID(), 'mec_repeat_type', true);
+
+                            $occurrence = date('Y-m-d');
+                            if(!in_array($repeat_type, array('certain_weekdays', 'custom_days', 'weekday', 'weekend', 'advanced'))) $occurrence = date('Y-m-d', strtotime($occurrence));
+                            {
+                                $new_occurrence = date('Y-m-d', strtotime('-1 day', strtotime($occurrence)));
+                                if(in_array($repeat_type, array('monthly')) and date('m', strtotime($new_occurrence)) != date('m', strtotime($occurrence))) $new_occurrence = date('Y-m-d', strtotime($occurrence));
+
+                                $occurrence = $new_occurrence;
+                            }
+
+                            $dates = $this->render->dates(get_the_ID(), NULL, 1, $occurrence);
                             $d = isset($dates[0]) ? $dates[0] : array();
 
                             // Don't show Expired Events
                             $timestamp = (isset($d['start']) and isset($d['start']['timestamp'])) ? $d['start']['timestamp'] : 0;
-                            if($timestamp > 0 and $timestamp < current_time('timestamp')) continue;
+                            if($timestamp > 0 and $timestamp < $now) continue;
 
+                            $printed += 1;
                             $mec_date = (isset($d['start']) and isset($d['start']['date'])) ? $d['start']['date'] : get_post_meta(get_the_ID(), 'mec_start_date', true);
                             $date = $this->main->date_i18n(get_option('date_format'), strtotime($mec_date));
                         ?>
@@ -688,8 +705,10 @@ class MEC_skin_single extends MEC_skins
         /// Original Event ID for Multilingual Websites
         $original_event_id = $this->main->get_original_event($event_ID);
 
-        $events = array();
+        // MEC Settings
+        $settings = $this->main->get_settings();
 
+        $events = array();
         $rendered = $this->render->data($event_ID, (isset($this->atts['content']) ? $this->atts['content'] : ''));
 
         // Event Repeat Type
@@ -718,8 +737,11 @@ class MEC_skin_single extends MEC_skins
         $data->ID = $event_ID;
         $data->data = $rendered;
 
+        $maximum_dates = $this->maximum_dates;
+        if(isset($settings['booking_maximum_dates']) and trim($settings['booking_maximum_dates'])) $maximum_dates = $settings['booking_maximum_dates'];
+
         // Get Event Dates
-        $dates = $this->render->dates($event_ID, $rendered, $this->maximum_dates, ($occurrence_time ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
+        $dates = $this->render->dates($event_ID, $rendered, $maximum_dates, ($occurrence_time ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
 
         // Remove First Date if it is already started!
         if(!isset($_GET['occurrence']) or (isset($_GET['occurrence']) and !trim($_GET['occurrence'])))
@@ -751,9 +773,6 @@ class MEC_skin_single extends MEC_skins
             $d2 = new DateTime(current_time("D M j Y G:i:s"));
             $d3 = new DateTime($end_time);
 
-            // MEC Settings
-            $settings = $this->main->get_settings();
-
             // Booking OnGoing Event Option
             $ongoing_event_book = (isset($settings['booking_ongoing']) and $settings['booking_ongoing'] == '1') ? true : false;
             if($ongoing_event_book)
@@ -763,7 +782,7 @@ class MEC_skin_single extends MEC_skins
                     unset($dates[0]);
 
                     // Get Event Dates
-                    $dates = $this->render->dates($event_ID, $rendered, $this->maximum_dates);
+                    $dates = $this->render->dates($event_ID, $rendered, $maximum_dates);
                 }
             }
             else
@@ -773,7 +792,7 @@ class MEC_skin_single extends MEC_skins
                     unset($dates[0]);
 
                     // Get Event Dates
-                    $dates = $this->render->dates($event_ID, $rendered, $this->maximum_dates);
+                    $dates = $this->render->dates($event_ID, $rendered, $maximum_dates);
                 }
             }
         }
@@ -804,7 +823,7 @@ class MEC_skin_single extends MEC_skins
             else $data->data->tickets = $original_tickets;
 
             $data->ID = $original_event_id;
-            $data->dates = $this->render->dates($original_event_id, $rendered, $this->maximum_dates, $occurrence);
+            $data->dates = $this->render->dates($original_event_id, $rendered, $maximum_dates, $occurrence);
             $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
         }
 
@@ -825,7 +844,11 @@ class MEC_skin_single extends MEC_skins
         do_action('mec-ajax-load-single-page-before', $id);
 
         // Initialize the skin
-        $this->initialize(array('id'=>$id, 'layout'=>$layout));
+        $this->initialize(array(
+            'id'=>$id,
+            'layout'=>$layout,
+            'maximum_dates'=>(isset($this->settings['booking_maximum_dates']) ? $this->settings['booking_maximum_dates'] : 6)
+        ));
 
         // Fetch the events
         $this->fetch();
@@ -960,15 +983,15 @@ class MEC_skin_single extends MEC_skins
     }
 
     /**
-     * @param $event object
-     * @param $event_m object
+     * @param object $event
+     * @param array $event_m
      * @return void
      */
     public function display_booking_widget($event, $event_m)
     {
         if($this->main->is_sold($event) and count($event->dates) <= 1):
         ?>
-            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
+            <div class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); do_action('mec_booking_sold_out',$event, NULL, NULL, array($event->date)); ?></div>
         <?php elseif($this->main->can_show_booking_module($event)):
             $data_lity_class = '';
             if(isset($this->settings['single_booking_style']) and $this->settings['single_booking_style'] == 'modal') $data_lity_class = 'lity-hide '; ?>

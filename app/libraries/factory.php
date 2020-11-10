@@ -875,6 +875,35 @@ class MEC_factory extends MEC_base
 
                     Regards,
                     %%blog_name%%"
+                ),
+                'event_soldout'=>array
+                (
+                    'status'=>'0',
+                    'subject'=>'Your event is soldout!',
+                    'recipients'=>'',
+                    'send_to_admin'=>'1',
+                    'send_to_organizer'=>'1',
+                    'content'=>"Hi %%name%%,
+
+                    For your information, your %%event_title%% event at %%book_date%% is soldout.
+        
+                    Regards,
+                    %%blog_name%%"
+                ),
+                'booking_rejection'=>array
+                (
+                    'status'=>'0',
+                    'subject'=>'Your booking got rejected!',
+                    'recipients'=>'',
+                    'send_to_admin'=>'0',
+                    'send_to_organizer'=>'1',
+                    'send_to_user'=>'1',
+                    'content'=>"Hi %%name%%,
+
+                    For your information, your booking for %%event_title%% at %%book_date%% is rejected.
+        
+                    Regards,
+                    %%blog_name%%"
                 )
             ),
         );
@@ -973,7 +1002,8 @@ class MEC_factory extends MEC_base
         
         // Settings
         $settings = $main->get_settings();
-        
+
+        // Purge data on uninstall
         if(isset($settings['remove_data_on_uninstall']) and $settings['remove_data_on_uninstall'])
         {
             // Database Object
@@ -982,6 +1012,8 @@ class MEC_factory extends MEC_base
             // Drop Tables
             $db->q("DROP TABLE IF EXISTS `#__mec_events`");
             $db->q("DROP TABLE IF EXISTS `#__mec_dates`");
+            $db->q("DROP TABLE IF EXISTS `#__mec_users`");
+            $db->q("DROP TABLE IF EXISTS `#__mec_occurrences`");
 
             // Removing MEC posts and postmeta data
             $posts = $db->select("SELECT ID FROM `#__posts` WHERE `post_type`='mec-events' OR `post_type`='mec_calendars' OR `post_type`='mec-books'", 'loadAssocList');

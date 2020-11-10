@@ -14744,7 +14744,7 @@ article.mec-search-bar-result {
     transition: .3s;
 }
 
-.mec-next-previous-events li a:hover {
+.mec-wrap .mec-next-previous-events li a:hover {
     color: #fff;
 }
 
@@ -14766,6 +14766,55 @@ article.mec-search-bar-result {
     padding-left: 20px;
 }
 
+.mec-next-multiple ul {
+    padding: 0;
+}
+
+.mec-next-multiple ul li a {
+    display: block;
+    position: relative;
+    padding: 11px 14px 9px;
+    z-index: 9;
+}
+
+.mec-next-multiple ul .mec-time,
+.mec-next-multiple ul .mec-date {
+    display: inline-block;
+    width: 50%;
+}
+
+.mec-next-multiple ul .mec-date {
+    float: left;
+    text-align: left;
+}
+
+.mec-next-multiple ul .mec-time {
+    text-align: right;
+    position: relative;
+    z-index: -1;
+}
+
+.mec-next-multiple ul .mec-time dd {
+	margin: 0;
+}
+
+.mec-next-multiple ul .mec-time .mec-events-abbr,
+.mec-next-multiple ul .mec-date .mec-start-date-label {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+@media(max-width: 1280px) {
+	.mec-next-multiple ul li a {
+		padding: 7px 9px 5px;
+	}
+
+	.mec-next-multiple ul .mec-time .mec-events-abbr,
+	.mec-next-multiple ul .mec-date .mec-start-date-label {
+		font-size: 12px;
+	}
+}
+
 @media(max-width: 480px) {
     .mec-next-previous-events li {
         list-style: none;
@@ -14782,7 +14831,7 @@ article.mec-search-bar-result {
         display: block;
         text-align: center;
         font-size: 16px;
-    }
+	}
 }
 
 

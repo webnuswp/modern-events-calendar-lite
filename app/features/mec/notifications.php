@@ -330,11 +330,149 @@ $settings = $this->main->get_settings();
                                 </div>
                                 <div class="mec-form-row">
                                     <input type="checkbox" name="mec[notifications][booking_confirmation][send_single_one_email]" value="1" id="mec_notifications_booking_confirmation_send_single_one_email" <?php echo ((isset($notifications['booking_confirmation']['send_single_one_email']) and $notifications['booking_confirmation']['send_single_one_email'] == 1) ? 'checked="checked"' : ''); ?> />
-                                    <label for="mec_notifications_booking_confirmation_send_single_one_email"><?php _e('Send One Single Email Only To First Attendee', 'modern-events-calendar-lite'); ?></label>
+                                    <label for="mec_notifications_booking_confirmation_send_single_one_email"><?php _e('Send one single email only to first attendee', 'modern-events-calendar-lite'); ?></label>
                                 </div>
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_booking_confirmation_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['booking_confirmation']) ? stripslashes($notifications['booking_confirmation']['content']) : ''), 'mec_notifications_booking_confirmation_content', array('textarea_name'=>'mec[notifications][booking_confirmation][content]')); ?>
+                                </div>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <ul>
+                                    <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%user_email%%</span>: <?php _e('Email of attendee', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date_next_occurrences%%</span>: <?php _e('Date of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime_next_occurrences%%</span>: <?php _e('Date and Time of next 20 occurrences of booked event (including the booked date)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_price%%</span>: <?php _e('Booking Price', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%attendee_price%%</span>: <?php _e('Attendee Price', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_order_time%%</span>: <?php _e('Date and time of booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_title%%</span>: <?php _e('Event title', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_locations_address%%</span>: <?php _e('Additional locations address of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_more_info%%</span>: <?php _e('Event more info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_info%%</span>: <?php _e('Event other info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%online_link%%</span>: <?php _e('Event online link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%attendees_full_info%%</span>: <?php _e('Full Attendee info such as booking form data, name, email etc.', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%booking_id%%</span>: <?php _e('Booking ID', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%booking_transaction_id%%</span>: <?php _e('Transaction ID of Booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%cancellation_link%%</span>: <?php _e('Booking cancellation link.', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%invoice_link%%</span>: <?php _e('Invoice Link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%total_attendees%%</span>: <?php _e('Total attendees of current booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets (Total attendees of all bookings)', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%ticket_name%%</span>: <?php _e('Ticket name', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%ticket_time%%</span>: <?php _e('Ticket time', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%ticket_name_time%%</span>: <?php _e('Ticket name & time', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%payment_gateway%%</span>: <?php _e('Payment Gateway', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%dl_file%%</span>: <?php _e('Link to the downloadable file', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%ics_link%%</span>: <?php _e('Download ICS file', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%google_calendar_link%%</span>: <?php _e('Add to Google Calendar', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%google_calendar_link_next_occurrences%%</span>: <?php _e('Add to Google Calendar Links for next 20 occurrences', 'modern-events-calendar-lite'); ?></li>
+                                    <?php do_action('mec_extra_field_notifications'); ?>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <div id="booking_rejection" class="mec-options-fields">
+
+                            <h4 class="mec-form-subtitle"><?php _e('Booking Rejection', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[notifications][booking_rejection][status]" value="0" />
+                                    <input onchange="jQuery('#mec_notification_booking_rejection_container_toggle').toggle();" value="1" type="checkbox" name="mec[notifications][booking_rejection][status]" <?php if((isset($notifications['booking_rejection']) and isset($notifications['booking_rejection']['status']) and $notifications['booking_rejection']['status'])) echo 'checked="checked"'; ?> /> <?php _e('Enable booking rejection', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div id="mec_notification_booking_rejection_container_toggle" class="<?php if(!isset($notifications['booking_rejection']) or (isset($notifications['booking_rejection']) and isset($notifications['booking_rejection']['status']) and !$notifications['booking_rejection']['status'])) echo 'mec-util-hidden'; ?>">
+
+                                <p class="description"><?php _e('Sent to attendee after booking rejection by admin.', 'modern-events-calendar-lite'); ?></p>
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_rejection_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
+                                    <input type="text" name="mec[notifications][booking_rejection][subject]" id="mec_notifications_booking_rejection_subject" value="<?php echo (isset($notifications['booking_rejection']['subject']) ? stripslashes($notifications['booking_rejection']['subject']) : ''); ?>" />
+                                </div>
+
+                                <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_rejection_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                    $users = isset($notifications['booking_rejection']['receiver_users']) ? $notifications['booking_rejection']['receiver_users'] : array();
+                                    echo $this->main->get_users_dropdown($users, 'booking_rejection');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_rejection_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                    $roles = isset($notifications['booking_rejection']['receiver_roles']) ? $notifications['booking_rejection']['receiver_roles'] : array();
+                                    echo $this->main->get_roles_dropdown($roles, 'booking_rejection');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_rejection_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
+                                    <input type="text" name="mec[notifications][booking_rejection][recipients]" id="mec_notifications_booking_rejection_recipients" value="<?php echo (isset($notifications['booking_rejection']['recipients']) ? $notifications['booking_rejection']['recipients'] : ''); ?>" />
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+
+                                <div class="mec-form-row">
+                                    <input type="checkbox" name="mec[notifications][booking_rejection][send_to_admin]" value="1" id="mec_notifications_booking_rejection_send_to_admin" <?php echo ((!isset($notifications['booking_rejection']['send_to_admin']) or $notifications['booking_rejection']['send_to_admin'] == 1) ? 'checked="checked"' : ''); ?> />
+                                    <label for="mec_notifications_booking_rejection_send_to_admin"><?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?></label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <input type="checkbox" name="mec[notifications][booking_rejection][send_to_organizer]" value="1" id="mec_notifications_booking_rejection_send_to_organizer" <?php echo ((isset($notifications['booking_rejection']['send_to_organizer']) and $notifications['booking_rejection']['send_to_organizer'] == 1) ? 'checked="checked"' : ''); ?> />
+                                    <label for="mec_notifications_booking_rejection_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <input type="checkbox" name="mec[notifications][booking_rejection][send_to_user]" value="1" id="mec_notifications_booking_rejection_send_to_user" <?php echo ((isset($notifications['booking_rejection']['send_to_user']) and $notifications['booking_rejection']['send_to_user'] == 1) ? 'checked="checked"' : ''); ?> />
+                                    <label for="mec_notifications_booking_rejection_send_to_user"><?php _e('Send the email to the booked user', 'modern-events-calendar-lite'); ?></label>
+                                </div>
+
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_booking_rejection_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
+                                    <?php wp_editor((isset($notifications['booking_rejection']) ? stripslashes($notifications['booking_rejection']['content']) : ''), 'mec_notifications_booking_rejection_content', array('textarea_name'=>'mec[notifications][booking_rejection][content]')); ?>
                                 </div>
                                 <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                 <ul>
@@ -631,6 +769,115 @@ $settings = $this->main->get_settings();
                                     <li><span>%%ticket_name_time%%</span>: <?php _e('Ticket name & time', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%payment_gateway%%</span>: <?php _e('Payment Gateway', 'modern-events-calendar-lite'); ?></li>
                                     <li><span>%%dl_file%%</span>: <?php _e('Link to the downloadable file', 'modern-events-calendar-lite'); ?></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="event_soldout" class="mec-options-fields">
+
+                            <h4 class="mec-form-subtitle"><?php _e('Event Soldout', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[notifications][event_soldout][status]" value="0" />
+                                    <input onchange="jQuery('#mec_notification_event_soldout_container_toggle').toggle();" value="1" type="checkbox" name="mec[notifications][event_soldout][status]" <?php if(!isset($notifications['event_soldout']['status']) or (isset($notifications['event_soldout']['status']) and $notifications['event_soldout']['status'])) echo 'checked="checked"'; ?> /> <?php _e('Enable event soldout notification', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div id="mec_notification_event_soldout_container_toggle" class="<?php if(isset($notifications['event_soldout']) and isset($notifications['event_soldout']['status']) and !$notifications['event_soldout']['status']) echo 'mec-util-hidden'; ?>">
+                                <p class="description"><?php _e('Sent to admin and / or event organizer to notify them that an event is soldout.', 'modern-events-calendar-lite'); ?></p>
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_event_soldout_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
+                                    <input type="text" name="mec[notifications][event_soldout][subject]" id="mec_notifications_event_soldout_subject" value="<?php echo (isset($notifications['event_soldout']['subject']) ? stripslashes($notifications['event_soldout']['subject']) : ''); ?>" />
+                                </div>
+
+                                <!-- Start Receiver Users -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_event_soldout_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                    $users = isset($notifications['event_soldout']['receiver_users']) ? $notifications['event_soldout']['receiver_users'] : array();
+                                    echo $this->main->get_users_dropdown($users, 'event_soldout');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                                </div>
+                                <!-- End Receiver Users -->
+
+                                <!-- Start Receiver Roles -->
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_event_soldout_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                                    <?php
+                                    $roles = isset($notifications['event_soldout']['receiver_roles']) ? $notifications['event_soldout']['receiver_roles'] : array();
+                                    echo $this->main->get_roles_dropdown($roles, 'event_soldout');
+                                    ?>
+                                    <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                                </div>
+                                <!-- End Receiver Roles -->
+
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_event_soldout_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
+                                    <input type="text" name="mec[notifications][event_soldout][recipients]" id="mec_notifications_event_soldout_recipients" value="<?php echo (isset($notifications['event_soldout']['recipients']) ? $notifications['event_soldout']['recipients'] : ''); ?>" />
+                                    <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                                </div>
+                                <div class="mec-form-row">
+                                    <input type="hidden" name="mec[notifications][event_soldout][send_to_admin]" value="0" />
+                                    <input type="checkbox" name="mec[notifications][event_soldout][send_to_admin]" value="1" id="mec_notifications_event_soldout_send_to_admin" <?php echo ((!isset($notifications['event_soldout']['send_to_admin']) or (isset($notifications['event_soldout']['send_to_admin']) and $notifications['event_soldout']['send_to_admin'] == 1)) ? 'checked="checked"' : ''); ?> />
+                                    <label for="mec_notifications_event_soldout_send_to_admin"><?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?></label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <input type="checkbox" name="mec[notifications][event_soldout][send_to_organizer]" value="1" id="mec_notifications_event_soldout_send_to_organizer" <?php echo ((isset($notifications['event_soldout']['send_to_organizer']) and $notifications['event_soldout']['send_to_organizer'] == 1) ? 'checked="checked"' : ''); ?> />
+                                    <label for="mec_notifications_event_soldout_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label for="mec_notifications_event_soldout_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
+                                    <?php wp_editor((isset($notifications['event_soldout']) ? stripslashes($notifications['event_soldout']['content']) : ''), 'mec_notifications_event_soldout_content', array('textarea_name'=>'mec[notifications][event_soldout][content]')); ?>
+                                </div>
+                                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
+                                <ul>
+                                    <li><span>%%first_name%%</span>: <?php _e('First name of attendee', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%last_name%%</span>: <?php _e('Last name of attendee', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%user_email%%</span>: <?php _e('Email of attendee', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_date%%</span>: <?php _e('Booked date of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_time%%</span>: <?php _e('Booked time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%book_datetime%%</span>: <?php _e('Booked date and time of event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%blog_name%%</span>: <?php _e('Your website title', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_title%%</span>: <?php _e('Event title', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_organizer_tel%%</span>: <?php _e('Organizer tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_organizer_email%%</span>: <?php _e('Organizer email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_name%%</span>: <?php _e('Additional organizers name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_tel%%</span>: <?php _e('Additional organizers tel of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_organizers_email%%</span>: <?php _e('Additional organizers email of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_location_name%%</span>: <?php _e('Location name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_location_address%%</span>: <?php _e('Location address of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_locations_name%%</span>: <?php _e('Additional locations name of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_locations_address%%</span>: <?php _e('Additional locations address of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_featured_image%%</span>: <?php _e('Featured image of booked event', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_more_info%%</span>: <?php _e('Event more info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%event_other_info%%</span>: <?php _e('Event other info link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%online_link%%</span>: <?php _e('Event online link', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%admin_link%%</span>: <?php _e('Admin booking management link.', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%total_attendees%%</span>: <?php _e('Total attendees of current booking', 'modern-events-calendar-lite'); ?></li>
+                                    <li><span>%%amount_tickets%%</span>: <?php _e('Amount of Booked Tickets (Total attendees of all bookings)', 'modern-events-calendar-lite'); ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -995,6 +1242,9 @@ jQuery("#mec_notifications_form").on('submit', function(event)
     
     jQuery("#mec_notifications_booking_confirmation_content-html").click();
     jQuery("#mec_notifications_booking_confirmation_content-tmce").click();
+
+    jQuery("#mec_notifications_booking_rejection_content-html").click();
+    jQuery("#mec_notifications_booking_rejection_content-tmce").click();
     
     jQuery("#mec_notifications_admin_notification_content-html").click();
     jQuery("#mec_notifications_admin_notification_content-tmce").click();
@@ -1007,6 +1257,9 @@ jQuery("#mec_notifications_form").on('submit', function(event)
 
     jQuery("#mec_notifications_user_event_publishing_content-html").click();
     jQuery("#mec_notifications_user_event_publishing_content-tmce").click();
+
+    jQuery("#mec_notifications_event_soldout_content-html").click();
+    jQuery("#mec_notifications_event_soldout_content-tmce").click();
 
     <?php do_action( 'mec_notification_menu_js' ); ?>
 });

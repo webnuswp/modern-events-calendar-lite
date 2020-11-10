@@ -4,8 +4,8 @@
 **Donate link:** https://webnus.net \
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
-**Tested up to:** 5.5.1 \
-**Stable tag:** 5.13.1 \
+**Tested up to:** 5.5.3 \
+**Stable tag:** 5.13.5 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -532,7 +532,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ### 30. WordPress Event Calendar - Shortcode edit page
 
-[missing image]
+![WordPress Event Calendar - Shortcode edit page](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-30.png)
 
 ### 31. WordPress Event Calendar - Shortcode edit page
 
@@ -580,6 +580,30 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.13.5 – 10 November 2020
+
+- Added: “Event Sold-out” notification (pro)
+- Added: “Booking Rejection” notification (pro)
+- Added: Ability to translate booking fields in the translated event in multilingual websites (pro)
+- Added: An option to exclude admin from recipients in admin booking notification (pro)
+- Added: An option to specify the status of new events submitted from “Frontend Submission”
+- Added: An option to redirect users to a certain URL after submitting events from the frontend instead of the WordPress page
+- Added: Event description and featured image to the CSV export (pro)
+- Added: An option to change auto verification status and auto-confirmation status per event instead of the global option (pro)
+- Added: A new option to the existing “Next Event” module to display multiple occurrences of the current event instead of only one occurrence
+- Added: A new integration with AWeber email marketing platform (pro)
+- Improved: memory usage
+- Fixed: Booking over total slots (pro)
+- Fixed: Masonry skin (pro)
+- Fixed: Reminder notification (pro)
+- Fixed: Verification and cancellation links (pro)
+- Fixed: An display issue regarding the location on PDF invoice (pro)
+- Fixed: Event popup
+- Fixed: Booking dates of custom single pages
+- Fixed: Booking validation on payment step (pro)
+- Fixed: Color style on the map view shortcode and next/previous module
+- Fixed: some PHP notices
 
 ### 5.13.1 – 28 October 2020
 

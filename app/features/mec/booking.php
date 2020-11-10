@@ -126,23 +126,6 @@ $gateways_options = $this->main->get_gateways_options();
                                         <input type="number" id="mec_settings_booking_maximum_dates" name="mec[settings][booking_maximum_dates]" value="<?php echo ((isset($settings['booking_maximum_dates']) and trim($settings['booking_maximum_dates']) != '') ? $settings['booking_maximum_dates'] : '6'); ?>" placeholder="<?php esc_attr_e('Default is 6', 'modern-events-calendar-lite'); ?>" min="1" />
                                     </div>
                                 </div>
-                                <div class="mec-form-row">
-                                    <label class="mec-col-3" for="mec_settings_booking_lock_prefilled"><?php _e('Lock Pre-filled Fields', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
-                                        <select id="mec_settings_booking_lock_prefilled" name="mec[settings][booking_lock_prefilled]">
-                                            <option value="0" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '0') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                                            <option value="1" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '1') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled', 'modern-events-calendar-lite'); ?></option>
-                                            <option value="2" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '2') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled Only for Main Attendee', 'modern-events-calendar-lite'); ?></option>
-                                        </select>
-                                        <span class="mec-tooltip">
-                                            <div class="box">
-                                                <h5 class="title"><?php _e('Lock Pre-filled Fields', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("When users are logged in, name and email fields will be pre-filled but users can change them. If you enable the lock, then logged in users cannot change the pre-filled fields.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                            </div>
-                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                        </span>
-                                    </div>
-                                </div>
                                 <h5 class="title"><?php _e('Interval Options', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_show_booking_form_interval"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></label>
@@ -258,6 +241,23 @@ $gateways_options = $this->main->get_gateways_options();
                                             <div class="box">
                                                 <h5 class="title"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("If you set limit for total tickets that users can book, MEC will use IP and email to prevent users to book high tickets. You can disable the IP restriction if you don't need it.", 'modern-events-calendar-lite'); ?></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_lock_prefilled"><?php _e('Lock Pre-filled Fields', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <select id="mec_settings_booking_lock_prefilled" name="mec[settings][booking_lock_prefilled]">
+                                            <option value="0" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '0') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="1" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '1') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="2" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '2') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled Only for Main Attendee', 'modern-events-calendar-lite'); ?></option>
+                                        </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box">
+                                                <h5 class="title"><?php _e('Lock Pre-filled Fields', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("When users are logged in, name and email fields will be pre-filled but users can change them. If you enable the lock, then logged in users cannot change the pre-filled fields.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>

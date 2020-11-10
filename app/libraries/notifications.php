@@ -54,14 +54,16 @@ class MEC_notifications extends MEC_base
 
         $price = get_post_meta($book_id, 'mec_price', true);
 
-        // Auto verification for free bookings is enabled so don't send the verification email
-        if($mode == 'auto' and $price <= 0 and isset($this->settings['booking_auto_verify_free']) and $this->settings['booking_auto_verify_free'] == 1) return false;
-
-        // Auto verification for paid bookings is enabled so don't send the verification email
-        if($mode == 'auto' and $price > 0 and isset($this->settings['booking_auto_verify_paid']) and $this->settings['booking_auto_verify_paid'] == 1) return false;
-
         // Event ID
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
+
+        list($auto_verify_free, $auto_verify_paid) = $this->book->get_auto_verification_status($event_id);
+
+        // Auto verification for free bookings is enabled so don't send the verification email
+        if($mode == 'auto' and $price <= 0 and $auto_verify_free) return false;
+
+        // Auto verification for paid bookings is enabled so don't send the verification email
+        if($mode == 'auto' and $price > 0 and $auto_verify_paid) return false;
 
         $subject = isset($this->notif_settings['email_verification']['subject']) ? __($this->notif_settings['email_verification']['subject'], 'modern-events-calendar-lite') : __('Please verify your email.', 'modern-events-calendar-lite');
         $subject = $this->content($this->get_subject($subject, 'email_verification', $event_id), $book_id);
@@ -351,7 +353,7 @@ class MEC_notifications extends MEC_base
         return true;
     }
 
-      /**
+    /**
      * Send booking cancellation
      * @author Webnus <info@webnus.biz>
      * @param int $book_id
@@ -365,7 +367,7 @@ class MEC_notifications extends MEC_base
         $booker = $this->u->booking($book_id);
 
         // Cancelling Notification is disabled
-        if(!isset($this->notif_settings['cancellation_notification']['status']) or isset($this->notif_settings['cancellation_notification']['status']) and !$this->notif_settings['cancellation_notification']['status']) return;
+        if(!isset($this->notif_settings['cancellation_notification']['status']) or (isset($this->notif_settings['cancellation_notification']['status']) and !$this->notif_settings['cancellation_notification']['status'])) return;
 
         $tos = array();
 
@@ -471,6 +473,137 @@ class MEC_notifications extends MEC_base
             );
 
             $mail_arg = apply_filters('mec_before_send_booking_cancellation', $mail_arg, $book_id, 'booking_cancellation');
+
+            // Send the mail
+            wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
+
+            $i++;
+        }
+
+        // Remove the HTML Email filter
+        remove_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
+    }
+
+    /**
+     * Send booking rejection
+     * @author Webnus <info@webnus.biz>
+     * @param int $book_id
+     * @return void
+     */
+    public function booking_rejection($book_id)
+    {
+        $rejection_notification = apply_filters('mec_booking_rejection', true);
+        if(!$rejection_notification) return;
+
+        $booker = $this->u->booking($book_id);
+
+        // Rejection Notification is disabled
+        if(!isset($this->notif_settings['booking_rejection']['status']) or (isset($this->notif_settings['booking_rejection']['status']) and !$this->notif_settings['booking_rejection']['status'])) return;
+
+        $tos = array();
+
+        // Send the notification to admin
+        if(isset($this->notif_settings['booking_rejection']['send_to_admin']) and $this->notif_settings['booking_rejection']['send_to_admin'] == 1)
+        {
+            $tos[] = get_bloginfo('admin_email');
+        }
+
+        // Send the notification to event organizer
+        if(isset($this->notif_settings['booking_rejection']['send_to_organizer']) and $this->notif_settings['booking_rejection']['send_to_organizer'] == 1)
+        {
+            $organizer_email = $this->get_booking_organizer_email($book_id);
+            if($organizer_email !== false) $tos[] = trim($organizer_email);
+        }
+
+        // Send the notification to event user
+        if(isset($this->notif_settings['booking_rejection']['send_to_user']) and $this->notif_settings['booking_rejection']['send_to_user'] == 1)
+        {
+            if(isset($booker->user_email) and $booker->user_email)
+            {
+                // Attendees
+                $attendees = get_post_meta($book_id, 'mec_attendees', true);
+                if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) $attendees = array(get_post_meta($book_id, 'mec_attendee', true));
+
+                // For When sended email time, And  prevention of email repeat send
+                $done_emails = array();
+
+                // Send the emails
+                foreach($attendees as $attendee)
+                {
+                    if(isset($attendee['email']) and !in_array($attendee['email'], $done_emails))
+                    {
+                        $tos[] = $attendee;
+                        $done_emails[] = $attendee['email'];
+                    }
+                }
+            }
+        }
+
+        // No Recipient
+        if(!count($tos)) return;
+
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        $recipients_str = isset($this->notif_settings['booking_rejection']['recipients']) ? $this->notif_settings['booking_rejection']['recipients'] : '';
+        $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
+
+        $users = isset($this->notif_settings['booking_rejection']['receiver_users']) ? $this->notif_settings['booking_rejection']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['booking_rejection']['receiver_roles']) ? $this->notif_settings['booking_rejection']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
+
+        foreach($recipients as $recipient)
+        {
+            // Skip if it's not a valid email
+            if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
+
+            $headers[] = 'BCC: '.$recipient;
+        }
+
+        // Event ID
+        $event_id = get_post_meta($book_id, 'mec_event_id', true);
+
+        $subject = isset($this->notif_settings['booking_rejection']['subject']) ? __($this->notif_settings['booking_rejection']['subject'], 'modern-events-calendar-lite') : __('booking rejected.', 'modern-events-calendar-lite');
+        $subject = $this->content($this->get_subject($subject, 'booking_rejection', $event_id), $book_id);
+
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
+
+        // Set Email Type to HTML
+        add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
+
+        // Send the mail
+        $i = 1;
+        foreach($tos as $to)
+        {
+            $mailto = (is_array($to) and isset($to['email'])) ? $to['email'] : $to;
+
+            if(!trim($mailto) or !filter_var($mailto, FILTER_VALIDATE_EMAIL)) continue;
+            if($i > 1) $headers = array('Content-Type: text/html; charset=UTF-8');
+
+            $message = isset($this->notif_settings['booking_rejection']['content']) ? $this->notif_settings['booking_rejection']['content'] : '';
+            $message = $this->content($this->get_content($message, 'booking_rejection', $event_id), $book_id, (is_array($to) ? $to : NULL));
+
+            // Book Data
+            $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
+            $message = $this->add_template($message);
+
+            // Filter the email
+            $mail_arg = array(
+                'to'            => $mailto,
+                'subject'       => $subject,
+                'message'       => $message,
+                'headers'       => $headers,
+                'attachments'   => array(),
+            );
+
+            $mail_arg = apply_filters('mec_before_send_booking_rejection', $mail_arg, $book_id, 'booking_rejection');
 
             // Send the mail
             wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
@@ -799,7 +932,7 @@ class MEC_notifications extends MEC_base
         return true;
     }
 
-    /**
+   /**
     * Send new event published notification
     * @author Webnus <info@webnus.biz>
     * @param string $new
@@ -876,7 +1009,7 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%event_link%%', get_post_permalink($post->ID), $message);
             $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($post->ID, 'mec_start_date', true))), $message);
             $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($post->ID, 'mec_end_date', true))), $message);
-            $message = str_replace('%%event_timezone%%', $this->main->get_timezone($event_id), $message);
+            $message = str_replace('%%event_timezone%%', $this->main->get_timezone($post->ID), $message);
             $message = str_replace('%%event_status%%', $status, $message);
             $message = str_replace('%%event_note%%', get_post_meta($post->ID, 'mec_note', true), $message);
 
@@ -930,6 +1063,102 @@ class MEC_notifications extends MEC_base
             // Remove the HTML Email filter
             remove_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
         }
+    }
+
+    public function event_soldout($event_id, $book_id)
+    {
+        $event_soldout = apply_filters('mec_event_soldout_notification', true);
+        if(!$event_soldout) return;
+
+        // Event Soldout Notification is disabled
+        if(!isset($this->notif_settings['event_soldout']['status']) or (isset($this->notif_settings['event_soldout']['status']) and !$this->notif_settings['event_soldout']['status'])) return;
+
+        $tos = array();
+
+        // Send the notification to admin
+        if(isset($this->notif_settings['event_soldout']['send_to_admin']) and $this->notif_settings['event_soldout']['send_to_admin'] == 1)
+        {
+            $tos[] = get_bloginfo('admin_email');
+        }
+
+        // Send the notification to event organizer
+        if(isset($this->notif_settings['event_soldout']['send_to_organizer']) and $this->notif_settings['event_soldout']['send_to_organizer'] == 1)
+        {
+            $organizer_email = $this->get_booking_organizer_email($book_id);
+            if($organizer_email !== false) $tos[] = trim($organizer_email);
+        }
+
+        // No Recipient
+        if(!count($tos)) return;
+
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        $recipients_str = isset($this->notif_settings['event_soldout']['recipients']) ? $this->notif_settings['event_soldout']['recipients'] : '';
+        $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
+
+        $users = isset($this->notif_settings['event_soldout']['receiver_users']) ? $this->notif_settings['event_soldout']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['event_soldout']['receiver_roles']) ? $this->notif_settings['event_soldout']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_unique($recipients);
+
+        foreach($recipients as $recipient)
+        {
+            // Skip if it's not a valid email
+            if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
+
+            $headers[] = 'BCC: '.$recipient;
+        }
+
+        $subject = isset($this->notif_settings['event_soldout']['subject']) ? __($this->notif_settings['event_soldout']['subject'], 'modern-events-calendar-lite') : __('Event is soldout!', 'modern-events-calendar-lite');
+        $subject = $this->content($this->get_subject($subject, 'event_soldout', $event_id), $book_id);
+
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
+
+        // Set Email Type to HTML
+        add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
+
+        // Send the mail
+        $i = 1;
+        foreach($tos as $to)
+        {
+            $mailto = (is_array($to) and isset($to['email'])) ? $to['email'] : $to;
+
+            if(!trim($mailto) or !filter_var($mailto, FILTER_VALIDATE_EMAIL)) continue;
+            if($i > 1) $headers = array('Content-Type: text/html; charset=UTF-8');
+
+            $message = isset($this->notif_settings['event_soldout']['content']) ? $this->notif_settings['event_soldout']['content'] : '';
+            $message = $this->content($this->get_content($message, 'event_soldout', $event_id), $book_id, (is_array($to) ? $to : NULL));
+
+            // Book Data
+            $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
+            $message = $this->add_template($message);
+
+            // Filter the email
+            $mail_arg = array(
+                'to'            => $mailto,
+                'subject'       => $subject,
+                'message'       => $message,
+                'headers'       => $headers,
+                'attachments'   => array(),
+            );
+
+            $mail_arg = apply_filters('mec_before_send_event_soldout', $mail_arg, $book_id, 'event_soldout');
+
+            // Send the mail
+            wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
+
+            $i++;
+        }
+
+        // Remove the HTML Email filter
+        remove_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
     }
 
     /**
@@ -1430,7 +1659,7 @@ class MEC_notifications extends MEC_base
         add_filter('wp_mail_from', array($this, 'notification_sender_email'));
     }
     
-     /**
+    /**
      * Change Notification Sender Name
      * @param string $sender_name
      * @return string
@@ -1470,6 +1699,13 @@ class MEC_notifications extends MEC_base
         </table>';
     }
 
+    /**
+     * Get notification subject
+     * @param $value
+     * @param $notification_key
+     * @param $event_id
+     * @return mixed
+     */
     public function get_subject($value, $notification_key, $event_id)
     {
         $values = get_post_meta($event_id, 'mec_notifications', true);
@@ -1483,6 +1719,13 @@ class MEC_notifications extends MEC_base
         return ((isset($notification['subject']) and trim($notification['subject'])) ? $notification['subject'] : $value);
     }
 
+    /**
+     * Get Notification Content
+     * @param $value
+     * @param $notification_key
+     * @param $event_id
+     * @return mixed
+     */
     public function get_content($value, $notification_key, $event_id)
     {
         $values = get_post_meta($event_id, 'mec_notifications', true);

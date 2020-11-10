@@ -146,23 +146,29 @@ class MEC_feature_notifications extends MEC_base
     public function get_notifications()
     {
         return array(
-            'email_verification' => array(
-                'label' => __('Email Verification', 'modern-events-calendar-lite')
-            ),
             'booking_notification' => array(
                 'label' => __('Booking Notification', 'modern-events-calendar-lite')
             ),
             'booking_confirmation' => array(
                 'label' => __('Booking Confirmation', 'modern-events-calendar-lite')
             ),
+            'booking_rejection' => array(
+                'label' => __('Booking Rejection', 'modern-events-calendar-lite')
+            ),
+            'email_verification' => array(
+                'label' => __('Email Verification', 'modern-events-calendar-lite')
+            ),
             'cancellation_notification' => array(
                 'label' => __('Booking Cancellation', 'modern-events-calendar-lite')
             ),
-            'admin_notification' => array(
-                'label' => __('Admin Notification', 'modern-events-calendar-lite')
-            ),
             'booking_reminder' => array(
                 'label' => __('Booking Reminder', 'modern-events-calendar-lite')
+            ),
+            'event_soldout' => array(
+                'label' => __('Event Soldout', 'modern-events-calendar-lite')
+            ),
+            'admin_notification' => array(
+                'label' => __('Admin Notification', 'modern-events-calendar-lite')
             ),
         );
     }

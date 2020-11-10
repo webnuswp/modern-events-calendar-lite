@@ -55,97 +55,99 @@ $output .= '</form></div>';
 echo $output;
 ?>
 <script type="text/javascript">
-jQuery("#keyword").typeWatch(
-{
-    wait: 400,
-    callback: function(value)
+jQuery(document).ready(function($) {
+    jQuery("#keyword").typeWatch(
     {
-        if(!value || value == "")
+        wait: 400,
+        callback: function(value)
         {
-            jQuery('#mec-ajax-search-result-wrap').css({opacity: '0', visibility: 'hidden' });
-        }
-        else
-        {
-            var keyword = jQuery('#keyword').val(),
-                minLength = 3,
-                searchWrap = jQuery('.mec-search-bar-wrap');
-
-            var category = '',
-                location = '',
-                organizer = '',
-                speaker = '',
-                tag = '',
-                label = '';
-
-            if(keyword.length >= minLength) keyword = jQuery('#keyword').val();
-            if(keyword.length == 0) keyword = 'empty';
-
-            if(jQuery('#category').length > 0)
+            if(!value || value == "")
             {
-                if(searchWrap.find('#category').val().length !== 0) category = searchWrap.find('#category').val();
+                jQuery('#mec-ajax-search-result-wrap').css({opacity: '0', visibility: 'hidden' });
             }
-
-            if(jQuery('#location').length > 0)
+            else
             {
-                if(searchWrap.find('#location').val().length !== 0) location = searchWrap.find('#location').val();
-            }
+                var keyword = jQuery('#keyword').val(),
+                    minLength = 3,
+                    searchWrap = jQuery('.mec-search-bar-wrap');
 
-            if(jQuery('#organizer').length > 0)
-            {
-                if(searchWrap.find('#organizer').val().length !== 0) organizer = searchWrap.find('#organizer').val();
-            }
+                var category = '',
+                    location = '',
+                    organizer = '',
+                    speaker = '',
+                    tag = '',
+                    label = '';
 
-            if(jQuery('#speaker').length > 0)
-            {
-                if(searchWrap.find('#speaker').val().length !== 0) speaker = searchWrap.find('#speaker').val();
-            }
+                if(keyword.length >= minLength) keyword = jQuery('#keyword').val();
+                if(keyword.length == 0) keyword = 'empty';
 
-            if(jQuery('#tag').length > 0)
-            {
-                if(searchWrap.find('#tag').val().length !== 0) tag = searchWrap.find('#tag').val();
-            }
-
-            if(jQuery('#label').length > 0)
-            {
-                if(searchWrap.find('#label').val().length !== 0) label = searchWrap.find('#label').val();
-            }
-
-            jQuery.ajax(
-            {
-                url: '<?php echo admin_url('admin-ajax.php'); ?>',
-                type: 'post',
-                data: {
-                    action: 'mec_get_ajax_search_data',
-                    keyword: keyword,
-                    length : keyword.length,
-                    category: category,
-                    location: location,
-                    organizer: organizer,
-                    speaker: speaker,
-                    tag: tag,
-                    label: label
-                },
-                success: function(data)
+                if(jQuery('#category').length > 0)
                 {
-                    jQuery('#mec-ajax-search-result-wrap').css(
-                    {
-                        opacity: '1',
-                        visibility: 'visible'
-                    });
-
-                    if(keyword != 'empty') jQuery('.mec-ajax-search-result-events').html(data);
+                    if(searchWrap.find('#category').val().length !== 0) category = searchWrap.find('#category').val();
                 }
-            });
-        }
-    }
-});
 
-// Locked Press ENTER KEY
-jQuery("#keyword").ready(function($)
-{
-    $(".mec-ajax-search-result").keypress(function(e)
+                if(jQuery('#location').length > 0)
+                {
+                    if(searchWrap.find('#location').val().length !== 0) location = searchWrap.find('#location').val();
+                }
+
+                if(jQuery('#organizer').length > 0)
+                {
+                    if(searchWrap.find('#organizer').val().length !== 0) organizer = searchWrap.find('#organizer').val();
+                }
+
+                if(jQuery('#speaker').length > 0)
+                {
+                    if(searchWrap.find('#speaker').val().length !== 0) speaker = searchWrap.find('#speaker').val();
+                }
+
+                if(jQuery('#tag').length > 0)
+                {
+                    if(searchWrap.find('#tag').val().length !== 0) tag = searchWrap.find('#tag').val();
+                }
+
+                if(jQuery('#label').length > 0)
+                {
+                    if(searchWrap.find('#label').val().length !== 0) label = searchWrap.find('#label').val();
+                }
+
+                jQuery.ajax(
+                {
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    type: 'post',
+                    data: {
+                        action: 'mec_get_ajax_search_data',
+                        keyword: keyword,
+                        length : keyword.length,
+                        category: category,
+                        location: location,
+                        organizer: organizer,
+                        speaker: speaker,
+                        tag: tag,
+                        label: label
+                    },
+                    success: function(data)
+                    {
+                        jQuery('#mec-ajax-search-result-wrap').css(
+                        {
+                            opacity: '1',
+                            visibility: 'visible'
+                        });
+
+                        if(keyword != 'empty') jQuery('.mec-ajax-search-result-events').html(data);
+                    }
+                });
+            }
+        }
+    });
+
+    // Locked Press ENTER KEY
+    jQuery("#keyword").ready(function($)
     {
-        if(e.which == 13) return false;
+        $(".mec-ajax-search-result").keypress(function(e)
+        {
+            if(e.which == 13) return false;
+        });
     });
 });
 </script>

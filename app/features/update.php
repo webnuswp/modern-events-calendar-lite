@@ -67,6 +67,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.10.0', '<')) $this->version5100();
         if(version_compare($version, '5.11.0', '<')) $this->version5110();
         if(version_compare($version, '5.12.6', '<')) $this->version5126();
+        // if(version_compare($version, '5.13.5', '<')) $this->version5135();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -451,6 +452,52 @@ class MEC_feature_update extends MEC_base
         else
         {
             $this->db->q("ALTER TABLE `#__mec_users` CHANGE `email` `email` VARCHAR(127) NOT NULL;");
+        }
+    }
+
+    public function version5135()
+    {
+        // Get current MEC options
+        $current = get_option('mec_options', array());
+        if(is_string($current) and trim($current) == '') $current = array();
+
+        // Merge new options with previous options
+        $current['notifications']['booking_rejection'] = array
+        (
+            'status'=>'0',
+            'subject'=>'Your booking got rejected!',
+            'recipients'=>'',
+            'send_to_admin'=>'0',
+            'send_to_organizer'=>'1',
+            'send_to_user'=>'1',
+            'content'=>"Hi %%name%%,
+
+            For your information, your booking for %%event_title%% at %%book_datetime%% is rejected.
+
+            Regards,
+            %%blog_name%%"
+        );
+
+        $current['notifications']['event_soldout'] = array
+        (
+            'status'=>'0',
+            'subject'=>'Your event is soldout!',
+            'recipients'=>'',
+            'send_to_admin'=>'1',
+            'send_to_organizer'=>'1',
+            'content'=>"Hi %%name%%,
+
+            For your information, your %%event_title%% event at %%book_datetime%% is soldout.
+
+            Regards,
+            %%blog_name%%"
+        );
+
+        // Update it only if options already exists.
+        if(get_option('mec_options') !== false)
+        {
+            // Save new options
+            update_option('mec_options', $current);
         }
     }
 }

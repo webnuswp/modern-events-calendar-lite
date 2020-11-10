@@ -652,6 +652,16 @@ $get_n_option = get_option('mec_addons_notification_option');
                                 </div>
                                 <p class="description"><?php echo sprintf(__('Put %s shortcode into the page.', 'modern-events-calendar-lite'), '<code>[MEC_fes_form]</code>'); ?></p>
                             </div>
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_fes_new_event_status"><?php _e('New Events Status', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-4">
+                                    <select id="mec_settings_fes_new_event_status" name="mec[settings][fes_new_event_status]">
+                                        <option value=""><?php esc_html_e('Let WordPress decide', 'modern-events-calendar-lite'); ?></option>
+                                        <option <?php echo ((isset($settings['fes_new_event_status']) and $settings['fes_new_event_status'] == 'pending') ? 'selected="selected"' : ''); ?> value="pending"><?php esc_html_e('Pending', 'modern-events-calendar-lite'); ?></option>
+                                        <option <?php echo ((isset($settings['fes_new_event_status']) and $settings['fes_new_event_status'] == 'publish') ? 'selected="selected"' : ''); ?> value="publish"><?php esc_html_e('Publish', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                </div>
+                            </div>
                             <!-- Start FES Thank You Page -->
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_fes_thankyou_page"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></label>
@@ -666,6 +676,19 @@ $get_n_option = get_option('mec_addons_notification_option');
                                         <div class="box top">
                                             <h5 class="title"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content"><p><?php esc_attr_e("User is redirected to this page after a new event submission. Leave it empty if you want it disabled.", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_fes_thankyou_page_url"><?php _e('Thank You Page URL', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-4">
+                                    <input type="url" id="mec_settings_fes_thankyou_page_url" name="mec[settings][fes_thankyou_page_url]" value="<?php echo ((isset($settings['fes_thankyou_page_url']) and trim($settings['fes_thankyou_page_url']) != '') ? esc_url($settings['fes_thankyou_page_url']) : ''); ?>" placeholder="<?php echo esc_attr('http://yoursite/com/desired-url/'); ?>" />
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('Thank You Page URL', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("If filled it will use instead of thank you page set above.", 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -1191,6 +1214,26 @@ $get_n_option = get_option('mec_addons_notification_option');
                                             <input type="text" id="mec_settings_active_campaign_list_id" name="mec[settings][active_campaign_list_id]" value="<?php echo ((isset($settings['active_campaign_list_id']) and trim($settings['active_campaign_list_id']) != '') ? $settings['active_campaign_list_id'] : ''); ?>" />
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div id="aweber_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('AWeber Integration', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][aweber_status]" value="0" />
+                                        <input onchange="jQuery('#mec_aweber_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][aweber_status]" <?php if(isset($settings['aweber_status']) and $settings['aweber_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable AWeber Integration', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_aweber_status_container_toggle" class="<?php if((isset($settings['aweber_status']) and !$settings['aweber_status']) or !isset($settings['aweber_status'])) echo 'mec-util-hidden'; ?>">
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_aweber_list_id"><?php _e('List ID', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <input type="text" id="mec_settings_aweber_list_id" name="mec[settings][aweber_list_id]" value="<?php echo ((isset($settings['aweber_list_id']) and trim($settings['aweber_list_id']) != '') ? $settings['aweber_list_id'] : ''); ?>" />
+                                        </div>
+                                    </div>
+                                    <p class="description"><?php echo sprintf(__("%s plugin should be installed and connected to your AWeber account.", 'modern-events-calendar-lite'), '<a href="https://wordpress.org/plugins/aweber-web-form-widget/" target="_blank">AWeber for WordPress</a>'); ?></p>
+                                    <p class="description"><?php echo sprintf(__('More information about the list ID can be found %s.', 'modern-events-calendar-lite'), '<a href="https://help.aweber.com/hc/en-us/articles/204028426" target="_blank">'.__('here', 'modern-events-calendar-lite').'</a>'); ?></p>
                                 </div>
                             </div>
 

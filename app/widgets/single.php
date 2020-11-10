@@ -136,7 +136,7 @@ class MEC_single_widget extends WP_Widget
 			</li>
 			<li>
 				<input class="checkbox" type="checkbox" <?php checked($next_module, 'on'); ?> id="<?php echo $this->get_field_id('next_module'); ?>" name="<?php echo $this->get_field_name('next_module'); ?>" />
-                <label for="<?php echo $this->get_field_id('next_module'); ?>"><?php _e('Next Previous Module', 'modern-events-calendar-lite'); ?></label>
+                <label for="<?php echo $this->get_field_id('next_module'); ?>"><?php _e('Next Event', 'modern-events-calendar-lite'); ?></label>
 			</li>
 			<li>
 				<input class="checkbox" type="checkbox" <?php checked($links_module, 'on'); ?> id="<?php echo $this->get_field_id('links_module'); ?>" name="<?php echo $this->get_field_name('links_module'); ?>" />

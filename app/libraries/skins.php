@@ -639,7 +639,7 @@ class MEC_skins extends MEC_base
         }
 
         // Show only one occurrence of events
-        $first_event = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart` >= {$now} ORDER BY `tstart` ASC");
+        $first_event = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart` >= {$now} AND `tstart` <= {$seconds_end} ORDER BY `tstart` ASC");
 
         $did_one_occurrence = array();
         foreach($dates as $date => $event_ids)

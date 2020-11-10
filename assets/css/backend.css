@@ -1033,6 +1033,7 @@ body.post-type-mec-books th.column-author {
     font: 400 24px/1 dashicons
 }
 
+#mec_settings_fes_thankyou_page_url,
 .mec-form-row .mec-col-4 input[type=text],
 .mec-form-row .mec-col-4 select,
 .mec-form-row .mec-col-4 textarea,
