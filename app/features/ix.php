@@ -394,7 +394,7 @@ class MEC_feature_ix extends MEC_base
                 $u->assign($book_id, $user_id);
 
                 update_post_meta($book_id, 'mec_gateway', 'MEC_gateway');
-                update_post_meta($book_id, 'mec_gateway_label', $gateway->label());
+                update_post_meta($book_id, 'mec_gateway_label', $gateway->title());
                 update_post_meta($book_id, 'mec_confirmed', $transaction['confirmed']);
                 update_post_meta($book_id, 'mec_verified', $transaction['verified']);
             }
@@ -649,6 +649,15 @@ class MEC_feature_ix extends MEC_base
                     }
                 }
 
+                $advanced_days = array();
+                if(isset($meta->mec_advanced_days))
+                {
+                    foreach($meta->mec_advanced_days->children() as $t)
+                    {
+                        $advanced_days[] = (string) $t;
+                    }
+                }
+
                 $args = array
                 (
                     'title'=> (string) $event->title,
@@ -737,6 +746,7 @@ class MEC_feature_ix extends MEC_base
                         'mec_fees'=>$fees,
                         'mec_reg_fields_global_inheritance'=> (int) $meta->mec_reg_fields_global_inheritance,
                         'mec_reg_fields'=>$reg_fields,
+                        'mec_advanced_days'=>$advanced_days,
                     )
                 );
 

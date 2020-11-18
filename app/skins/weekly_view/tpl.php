@@ -30,7 +30,7 @@ foreach($this->weeks as $week_number=>$week)
     {
         $time = strtotime($day);
         $count = isset($this->events[$day]) ? count($this->events[$day]) : 0;
-        $weeks .= '<dt data-events-count="'.$count.'" class="'.((strtotime($day) < $current_month_time or strtotime($day) >= $_1month_after) ? 'mec-weekly-disabled mec-table-nullday' : '').'">'
+        $weeks .= '<dt data-events-count="'.$count.'" class="'.(!$count ? 'mec-weekly-disabled mec-table-nullday' : '').'">'
                 .'<span class="mec-weekly-view-weekday">'.$this->main->date_i18n('D', $time).'</span> '
                 .'<span class="mec-weekly-view-monthday">'.$this->main->date_i18n('j', $time).'</span> '
                 .'</dt>';
@@ -124,10 +124,10 @@ else $this->factory->params('footer', $javascript);
 $styling = $this->main->get_styling();
 
 $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+
+$dark_mode = (isset($styling['dark_mode']) ? $styling['dark_mode'] : '');
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark = '';
 
 do_action('mec_start_skin', $this->id);
 do_action('mec_weekly_skin_head');

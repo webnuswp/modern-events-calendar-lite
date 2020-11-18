@@ -3264,7 +3264,7 @@ class MEC_feature_events extends MEC_base
         $hourly_schedules = array();
         foreach($raw_hourly_schedules as $raw_hourly_schedule)
         {
-            unset($raw_hourly_schedule['schedules'][':i:']);
+            if(isset($raw_hourly_schedule['schedules'][':i:'])) unset($raw_hourly_schedule['schedules'][':i:']);
             $hourly_schedules[] = $raw_hourly_schedule;
         }
 
@@ -3275,7 +3275,7 @@ class MEC_feature_events extends MEC_base
         update_post_meta($post_id, 'mec_booking', $booking);
 
         $tickets = isset($_mec['tickets']) ? $_mec['tickets'] : array();
-        unset($tickets[':i:']);
+        if(isset($tickets[':i:'])) unset($tickets[':i:']);
 
         // Unset Ticket Dats
         if(count($tickets))
@@ -3324,6 +3324,8 @@ class MEC_feature_events extends MEC_base
         update_post_meta($post_id, 'mec_fees_global_inheritance', $fees_global_inheritance);
 
         $fees = isset($_mec['fees']) ? $_mec['fees'] : array();
+        if(isset($fees[':i:'])) unset($fees[':i:']);
+
         update_post_meta($post_id, 'mec_fees', $fees);
 
         // Ticket Variations options
@@ -3331,7 +3333,7 @@ class MEC_feature_events extends MEC_base
         update_post_meta($post_id, 'mec_ticket_variations_global_inheritance', $ticket_variations_global_inheritance);
 
         $ticket_variations = isset($_mec['ticket_variations']) ? $_mec['ticket_variations'] : array();
-        unset($ticket_variations[':i:']);
+        if(isset($ticket_variations[':i:'])) unset($ticket_variations[':i:']);
 
         update_post_meta($post_id, 'mec_ticket_variations', $ticket_variations);
 

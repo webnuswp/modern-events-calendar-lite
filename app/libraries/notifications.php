@@ -757,6 +757,9 @@ class MEC_notifications extends MEC_base
         $attendees = get_post_meta($book_id, 'mec_attendees', true);
         if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) $attendees = array(get_post_meta($book_id, 'mec_attendee', true));
 
+        // Do not send email twice!
+        $done_emails = array();
+
         // Changing some sender email info.
         $this->mec_sender_email_notification_filter();
 
@@ -769,11 +772,12 @@ class MEC_notifications extends MEC_base
             if(isset($attendee[0]['MEC_TYPE_OF_DATA'])) continue;
 
             $to = $attendee['email'];
-            $message = isset($this->notif_settings['booking_reminder']['content']) ? $this->notif_settings['booking_reminder']['content'] : '';
-            $message = $this->content($this->get_content($message, 'booking_reminder', $event_id), $book_id, $attendee);
 
             if(!trim($to)) continue;
+            if(in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
 
+            $message = isset($this->notif_settings['booking_reminder']['content']) ? $this->notif_settings['booking_reminder']['content'] : '';
+            $message = $this->content($this->get_content($message, 'booking_reminder', $event_id), $book_id, $attendee);
             $message = $this->add_template($message);
 
             // Filter the email
@@ -789,6 +793,8 @@ class MEC_notifications extends MEC_base
 
             // Send the mail
             wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
+
+            $done_emails[] = $to;
         }
 
         // Remove the HTML Email filter

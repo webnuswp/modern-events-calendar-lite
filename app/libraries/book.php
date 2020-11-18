@@ -222,6 +222,9 @@ class MEC_book extends MEC_base
         // Update transaction id after insert book for prevent repeat reservation books.
         update_post_meta($book_id, 'mec_transaction_id', $transaction_id);
 
+        $transaction['booking_id'] = $book_id;
+        $this->update_transaction($transaction_id, $transaction);
+
         // Publish it
         wp_publish_post($book_id);
 

@@ -498,6 +498,7 @@ class MEC_render extends MEC_base
         // All Meta Data
         $meta = $this->main->get_post_meta($post_id);
         if(isset($meta['mec_notifications'])) unset($meta['mec_notifications']);
+        if(isset($meta['mec_fees']) and is_array($meta['mec_fees']) and isset($meta['mec_fees'][':i:'])) unset($meta['mec_fees'][':i:']);
 
         $data->meta = $meta;
         
@@ -1423,9 +1424,9 @@ class MEC_render extends MEC_base
         $start['timestamp'] = strtotime($start_time);
         $end['timestamp'] = strtotime($end_time);
 
-        $allday = isset($date['allday']) ? $date['allday'] : 0;
-        $hide_time = isset($date['hide_time']) ? $date['hide_time'] : 0;
-        $past = isset($date['past']) ? $date['past'] : 0;
+        $allday = (isset($date['allday']) ? $date['allday'] : 0);
+        $hide_time = (isset($date['hide_time']) ? $date['hide_time'] : 0);
+        $past = (isset($date['past']) ? $date['past'] : 0);
 
         return array(
             'start' => $start,

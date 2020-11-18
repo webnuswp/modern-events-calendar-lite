@@ -304,11 +304,11 @@ class MEC_feature_fes extends MEC_base
                 if(isset($attendee[0]['MEC_TYPE_OF_DATA'])) continue;
 
                 $ticket_variations_output = '';
-                if(isset($transaction['tickets']) and is_array($transaction['tickets']) and isset($transaction['tickets'][$counter]) and isset($transaction['tickets'][$counter]['variations']))
+                if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
                 {
-                    foreach($transaction['tickets'][$counter]['variations'] as $variation_id => $variation_count)
+                    foreach($attendee['variations'] as $a_variation_id => $a_variation_count)
                     {
-                        if($variation_count > 0) $ticket_variations_output .= $ticket_variations[$variation_id]['title'].": ( ".$variation_count.' )'.", ";
+                        if((int) $a_variation_count > 0) $ticket_variations_output .= $ticket_variations[$a_variation_id]['title'].": (".$a_variation_count.')'.", ";
                     }
                 }
 

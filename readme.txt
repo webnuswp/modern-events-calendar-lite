@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.5.3
-Stable tag: 5.13.5
+Stable tag: 5.13.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -431,6 +431,21 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= v 5.13.6 – 18 November 2020 =
+- Improved: Weekly skin to show events of the previous and next month in the current month (pro)
+- Fixed: Showing long-time span events in shortcakes
+- Fixed: Sending duplicated emails on booking reminder notification (pro)
+- Fixed: Showing dates on the backend booking menu (pro)
+- Fixed: Ticket variations in the booking export feature (pro)
+- Fixed: Event description exported to Google or iCal services
+- Fixed: Manual username and password in the booking form (pro)
+- Fixed: Date format of multiple-day events
+- Fixed: "%%payment_gateway%%" placeholder (pro)
+- Fixed: Showing unlimited for tickets when the total booking is limited (pro)
+- Fixed: The export and import of the advanced events
+- Fixed: Related to Daylight Saving and Timezones
+- Fixed: Some PHP notices
+
 = 5.13.5 – 10 November 2020 =
 - Added: “Event Sold-out” notification (pro)
 - Added: “Booking Rejection” notification (pro)

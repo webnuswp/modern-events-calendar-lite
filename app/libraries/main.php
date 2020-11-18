@@ -549,7 +549,6 @@ class MEC_main extends MEC_base
             __('Constant Contact Integration', 'modern-events-calendar-lite') => 'constantcontact_option',
             __('Active Campaign Integration', 'modern-events-calendar-lite') => 'active_campaign_option',
             __('AWeber Integration', 'modern-events-calendar-lite') => 'aweber_option',
-            __('Upload Field', 'modern-events-calendar-lite') => 'uploadfield_option',
         ), $active_menu);
 
         $single_event = apply_filters('mec-settings-item-single_event', array(
@@ -570,6 +569,7 @@ class MEC_main extends MEC_base
             __('Taxes / Fees', 'modern-events-calendar-lite') => 'taxes_option',
             __('Ticket Variations & Options', 'modern-events-calendar-lite') => 'ticket_variations_option',
             __('Booking Form', 'modern-events-calendar-lite') => 'booking_form_option',
+            __('Upload Field', 'modern-events-calendar-lite') => 'uploadfield_option',
             __('Payment Gateways', 'modern-events-calendar-lite') => 'payment_gateways_option',
         ), $active_menu);
 
@@ -621,7 +621,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'settings' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($settings as $settings_name => $settings_link) : ?>
                 <?php
-                if ( $settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'uploadfield_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
+                if ( $settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
                     if (  $this->getPRO() ) : ?>
                     <li>
                         <a 
@@ -686,7 +686,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'booking' ? 'subsection' : 'mec-settings-submenu'; ?>">
 
                 <?php foreach ($booking as $booking_name => $booking_link) : ?>
-                <?php if ( $booking_link == 'coupon_option' || $booking_link == 'taxes_option' || $booking_link == 'ticket_variations_option' || $booking_link == 'booking_form_option' || $booking_link == 'payment_gateways_option' || $booking_link == 'booking_shortcode' ): ?>
+                <?php if ( $booking_link == 'coupon_option' || $booking_link == 'taxes_option' || $booking_link == 'ticket_variations_option' || $booking_link == 'booking_form_option' || $booking_link == 'uploadfield_option' || $booking_link == 'payment_gateways_option' || $booking_link == 'booking_shortcode' ): ?>
                     <?php if ( isset($options['booking_status']) and $options['booking_status'] ) : ?>
                     <li>
                         <a 
@@ -3030,7 +3030,7 @@ class MEC_main extends MEC_base
         $ical .= "CREATED:".date('Ymd', $stamp).PHP_EOL;
         $ical .= "LAST-MODIFIED:".date('Ymd', $modified).PHP_EOL;
         $ical .= "SUMMARY:".html_entity_decode($event->title, ENT_NOQUOTES, 'UTF-8').PHP_EOL;
-        $ical .= "DESCRIPTION:".html_entity_decode(trim(strip_tags($event->content)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
+        $ical .= "DESCRIPTION:".html_entity_decode(str_replace("\n", "\\n", strip_tags($event->content)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
         $ical .= "URL:".$event->permalink.PHP_EOL;
 
         // Organizer
@@ -3125,7 +3125,7 @@ class MEC_main extends MEC_base
         $ical .= "CREATED:".date('Ymd', $stamp).PHP_EOL;
         $ical .= "LAST-MODIFIED:".date('Ymd', $modified).PHP_EOL;
         $ical .= "SUMMARY:".html_entity_decode($event->title, ENT_NOQUOTES, 'UTF-8').PHP_EOL;
-        $ical .= "DESCRIPTION:".html_entity_decode(trim(strip_tags($event->content)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
+        $ical .= "DESCRIPTION:".html_entity_decode(str_replace("\n", "\\n", strip_tags($event->content)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
         $ical .= "URL:".$event->permalink.PHP_EOL;
         
         // Location
@@ -4213,9 +4213,7 @@ class MEC_main extends MEC_base
     {
         $seconds = $offset*3600;
 
-        $timezone = timezone_name_from_abbr('', $seconds, 1);
-        if($timezone === false) $timezone = timezone_name_from_abbr('', $seconds, 0);
-
+        $timezone = timezone_name_from_abbr('', $seconds, 0);
         if($timezone === false)
         {
             $timezones = array(
@@ -4702,13 +4700,13 @@ class MEC_main extends MEC_base
         $offset_start = $timezone_site->getOffset($dt_start);
         $offset_end = $timezone_site->getOffset($dt_end);
 
-        if($offset_now != $offset_start)
+        if($offset_now != $offset_start and !function_exists('wp_date'))
         {
             $diff = $offset_start - $offset_now;
             if($diff > 0) $start_timestamp += $diff;
         }
 
-        if($offset_now != $offset_end)
+        if($offset_now != $offset_end and !function_exists('wp_date'))
         {
             $diff = $offset_end - $offset_now;
             if($diff > 0) $end_timestamp += $diff;
@@ -4729,11 +4727,6 @@ class MEC_main extends MEC_base
                 // Same Month but Different Days
                 if($minify and $start_m == $end_m and date('d', $start_timestamp) != date('d', $end_timestamp))
                 {
-                    $day_format = 'j';
-                    if(strpos($format, 'l') !== false) $day_format = 'l';
-                    elseif(strpos($format, 'd') !== false) $day_format = 'd';
-                    elseif(strpos($format, 'D') !== false) $day_format = 'D';
-
                     $month_format = 'F';
                     if(strpos($format, 'm') !== false) $month_format = 'm';
                     elseif(strpos($format, 'M') !== false) $month_format = 'M';
@@ -4742,9 +4735,6 @@ class MEC_main extends MEC_base
                     $year_format = '';
                     if(strpos($format, 'Y') !== false) $year_format = 'Y';
                     elseif(strpos($format, 'y') !== false) $year_format = 'y';
-
-                    $start_d = date_i18n($day_format, $start_timestamp);
-                    $end_d = date_i18n($day_format, $end_timestamp);
 
                     $start_m = date_i18n($month_format, $start_timestamp);
                     $start_y = (trim($year_format) ? date_i18n($year_format, $start_timestamp) : '');
@@ -4756,7 +4746,8 @@ class MEC_main extends MEC_base
                     {
                         if(in_array($char, array('d', 'D', 'j', 'l', 'N', 'S', 'w', 'z')))
                         {
-                            $date_label .= $start_d . ' - ' . $end_d;
+                            $dot = (strpos($format, $char.'.') !== false);
+                            $date_label .= date_i18n($char, $start_timestamp).($dot ? '.' : '') . ' - ' . date_i18n($char, $end_timestamp);
                         }
                         elseif(in_array($char, array('F', 'm', 'M', 'n')))
                         {
@@ -4815,7 +4806,7 @@ class MEC_main extends MEC_base
         $offset_now = $timezone_site->getOffset($dt_now);
         $offset_time = $timezone_site->getOffset($dt_time);
 
-        if($offset_now != $offset_time)
+        if($offset_now != $offset_time and !function_exists('wp_date'))
         {
             $diff = $offset_time - $offset_now;
             if($diff > 0) $time += $diff;

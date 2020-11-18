@@ -19,9 +19,13 @@ function mec_dyn_hex2rgb( $cc ) {
 	} else {
 			return false;
 	}
-	$r = hexdec( $r );
-	$g = hexdec( $g );
-	$b = hexdec( $b );
+
+	$r = (ctype_xdigit($r) ? hexdec($r) : NULL);
+	$g = (ctype_xdigit($g) ? hexdec($g) : NULL);
+	$b = (ctype_xdigit($b) ? hexdec($b) : NULL);
+
+	if(is_null($r) or is_null($g) or is_null($b)) return false;
+
 	return array( 'red' => $r, 'green' => $g, 'blue' => $b );
 }
 

@@ -1,4 +1,19 @@
-﻿v 5.13.5 – 10 November 2020
+﻿v 5.13.6 – 18 November 2020
+- Improved: Weekly skin to show events of the previous and next month in the current month (pro)
+- Fixed: Showing long-time span events in shortcakes
+- Fixed: Sending duplicated emails on booking reminder notification (pro)
+- Fixed: Showing dates on the backend booking menu (pro)
+- Fixed: Ticket variations in the booking export feature (pro)
+- Fixed: Event description exported to Google or iCal services
+- Fixed: Manual username and password in the booking form (pro)
+- Fixed: Date format of multiple-day events
+- Fixed: "%%payment_gateway%%" placeholder (pro)
+- Fixed: Showing unlimited for tickets when the total booking is limited (pro)
+- Fixed: The export and import of the advanced events
+- Fixed: Related to Daylight Saving and Timezones
+- Fixed: Some PHP notices
+
+v 5.13.5 – 10 November 2020
 - Added: “Event Sold-out” notification (pro)
 - Added: “Booking Rejection” notification (pro)
 - Added: Ability to translate booking fields in the translated event in multilingual websites (pro)

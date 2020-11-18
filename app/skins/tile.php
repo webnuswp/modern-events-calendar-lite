@@ -183,7 +183,7 @@ class MEC_skin_tile extends MEC_skins
         else
         {
             $start = $this->start_date;
-            $end = ($this->load_method === 'month' ? date('Y-m-t', strtotime($this->start_date)) : date('Y-m-t', strtotime('+10 Year', strtotime($start))));
+            $end = ($this->load_method === 'month' ? date('Y-m-t', strtotime($this->start_date)) : date('Y-m-t', strtotime('+25 Year', strtotime($start))));
         }
 
         // Date Events

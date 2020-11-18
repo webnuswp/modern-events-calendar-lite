@@ -354,7 +354,7 @@ class MEC_wc extends MEC_base
             $u->assign($book_id, $user_id);
 
             update_post_meta($book_id, 'mec_gateway', 'MEC_gateway_woocommerce');
-            update_post_meta($book_id, 'mec_gateway_label', $gateway->label());
+            update_post_meta($book_id, 'mec_gateway_label', $gateway->title());
             update_post_meta($book_id, 'mec_order_id', $order_id);
 
             // Add WC coupon code

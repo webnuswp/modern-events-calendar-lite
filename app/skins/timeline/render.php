@@ -53,7 +53,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                 do_action('mec_schema', $event);
                 ?>
                 <div class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-timeline-event clearfix <?php echo $this->get_event_classes($event); ?>">
-                    <div class="mec-timeline-event-date mec-color<?php echo ($event->date['start']['date'] != $event->date['end']['date']) ? ' mec-timeline-dates' : '' ; ?>"><?php echo ($event->date['start']['date'] == $event->date['end']['date']) ? $this->main->date_i18n(get_option('date_format'), strtotime($event->date['start']['date'])) : $this->main->date_i18n(get_option('date_format'), strtotime($event->date['start']['date'])) . '<br>' . $this->main->date_i18n(get_option('date_format'), strtotime($event->date['end']['date'])); ?> </div>
+                    <div class="mec-timeline-event-date mec-color<?php echo ($event->date['start']['date'] != $event->date['end']['date']) ? ' mec-timeline-dates' : '' ; ?>"><?php echo ($event->date['start']['date'] == $event->date['end']['date']) ? $this->main->date_i18n($this->date_format_classic_1, strtotime($event->date['start']['date'])) : $this->main->date_i18n($this->date_format_classic_1, strtotime($event->date['start']['date'])) . '<br>' . $this->main->date_i18n($this->date_format_classic_1, strtotime($event->date['end']['date'])); ?> </div>
                     <div class="mec-timeline-event-content">
                         <div class="clearfix">
                             <div class="mec-timeline-right-content">

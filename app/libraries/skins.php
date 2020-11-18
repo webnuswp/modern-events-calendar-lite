@@ -678,12 +678,12 @@ class MEC_skins extends MEC_base
             $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
             $start = ((isset($this->sf) || $this->request->getVar('sf', array())) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
 
-            $end = date('Y-m-01', strtotime('-10 Year', strtotime($start)));
+            $end = date('Y-m-01', strtotime('-25 Year', strtotime($start)));
         }
         else
         {
             $start = $this->start_date;
-            $end = date('Y-m-t', strtotime('+10 Year', strtotime($start)));
+            $end = date('Y-m-t', strtotime('+25 Year', strtotime($start)));
         }
 
         // Set a certain maximum date from shortcode page.
@@ -1241,6 +1241,15 @@ class MEC_skins extends MEC_base
 
         $a_timestamp = strtotime($a_start_date.' '.$a->data->time['start_raw']);
         $b_timestamp = strtotime($b_start_date.' '.$b->data->time['start_raw']);
+
+        if($a_timestamp == $b_timestamp) return 0;
+        return ($a_timestamp > $b_timestamp) ? +1 : -1;
+    }
+
+    public function sort_dates($a, $b)
+    {
+        $a_timestamp = strtotime($a);
+        $b_timestamp = strtotime($b);
 
         if($a_timestamp == $b_timestamp) return 0;
         return ($a_timestamp > $b_timestamp) ? +1 : -1;

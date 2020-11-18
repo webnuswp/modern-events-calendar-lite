@@ -5655,12 +5655,11 @@ address.mec-events-address {
 		font-size: 12px;
 	}
 
-    .mec-calendar-side {
+    .mec-event-container-simple .mec-calendar-side {
         min-width: 600px !important;
         overflow-x: scroll;
     }
 }
-
 
 .mec-wrap.colorskin-custom .mec-calendar.mec-event-container-simple .mec-selected-day:hover {
 	background: #f4f4f4
