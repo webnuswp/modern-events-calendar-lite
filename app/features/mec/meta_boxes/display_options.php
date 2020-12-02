@@ -220,6 +220,9 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Categories -->
+                <!-- Start Display Organizer -->
+                <?php echo $this->display_organizer_field('list', (isset($sk_options_list['display_organizer']) ? $sk_options_list['display_organizer'] : 0)); ?>
+                <!-- End Display Organizer -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label for="mec_skin_list_map_on_top"><?php _e('Show Map on top', 'modern-events-calendar-lite'); ?></label>
@@ -487,6 +490,9 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Categories -->
+                <!-- Start Display Organizer -->
+                <?php echo $this->display_organizer_field('grid', (isset($sk_options_grid['display_organizer']) ? $sk_options_grid['display_organizer'] : 0)); ?>
+                <!-- End Display Organizer -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label for="mec_skin_grid_map_on_top"><?php _e('Show Map on top', 'modern-events-calendar-lite'); ?></label>
@@ -1163,6 +1169,9 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Categories -->
+                <!-- Start Display Organizer -->
+                <?php echo $this->display_organizer_field('daily_view', (isset($sk_options_daily_view['display_organizer']) ? $sk_options_daily_view['display_organizer'] : 0)); ?>
+                <!-- End Display Organizer -->
                 <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 <?php echo $this->booking_button_field('daily_view', (isset($sk_options_daily_view['booking_button']) ? $sk_options_daily_view['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('daily_view', (isset($sk_options_daily_view['sed_method']) ? $sk_options_daily_view['sed_method'] : 0), (isset($sk_options_daily_view['image_popup']) ? $sk_options_daily_view['image_popup'] : 0)); ?>
@@ -1240,6 +1249,9 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Categories -->
+                <!-- Start Display Organizer -->
+                <?php echo $this->display_organizer_field('weekly_view', (isset($sk_options_weekly_view['display_organizer']) ? $sk_options_weekly_view['display_organizer'] : 0)); ?>
+                <!-- End Display Organizer -->
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>
@@ -1513,6 +1525,10 @@ $events = $this->main->get_events();
                         <label for="mec_skin_masonry_display_categories"></label>
                     </div>
                 </div>
+                <!-- End Display Categories -->
+                <!-- Start Display Organizer -->
+                <?php echo $this->display_organizer_field('masonry', (isset($sk_options_masonry['display_organizer']) ? $sk_options_masonry['display_organizer'] : 0)); ?>
+                <!-- End Display Organizer -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label><?php _e('Fit to row', 'modern-events-calendar-lite'); ?></label>
@@ -1889,9 +1905,29 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_carousel_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][carousel][limit]" id="mec_skin_carousel_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_carousel['limit'])) echo $sk_options_carousel['limit']; ?>" />
                 </div>
+                <div class="mec-form-row mec-switcher">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_carousel_autoplay_status"><?php _e('Auto Play', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][carousel][autoplay_status]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][carousel][autoplay_status]" id="mec_skin_carousel_autoplay_status" value="1" <?php if(!isset($sk_options_carousel['autoplay_status']) or (isset($sk_options_carousel['autoplay_status']) and trim($sk_options_carousel['autoplay_status']))) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_carousel_autoplay_status"></label>
+                    </div>
+                </div>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_skin_carousel_autoplay"><?php _e('Auto Play Time', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][carousel][autoplay]" id="mec_skin_carousel_autoplay" placeholder="<?php _e('eg. 3000 default is 3 second', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_carousel['autoplay']) && $sk_options_carousel['autoplay'] != '' ) echo $sk_options_carousel['autoplay']; ?>" />
+                </div>
+                <div class="mec-form-row mec-switcher">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_carousel_loop_status"><?php _e('Loop', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][carousel][loop_status]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][carousel][loop_status]" id="mec_skin_carousel_loop_status" value="1" <?php if(!isset($sk_options_carousel['loop_status']) or (isset($sk_options_carousel['loop_status']) and trim($sk_options_carousel['loop_status']))) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_carousel_loop_status"></label>
+                    </div>
                 </div>
                 <?php echo $this->booking_button_field('carousel', (isset($sk_options_carousel['booking_button']) ? $sk_options_carousel['booking_button'] : 0)); ?>
                 <div class="mec-sed-methode-container">
@@ -2192,6 +2228,9 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Categories -->
+                <!-- Start Display Organizer -->
+                <?php echo $this->display_organizer_field('timeline', (isset($sk_options_timeline['display_organizer']) ? $sk_options_timeline['display_organizer'] : 0)); ?>
+                <!-- End Display Organizer -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label for="mec_skin_timeline_load_more_button"><?php _e('Load More Button', 'modern-events-calendar-lite'); ?></label>
@@ -2288,6 +2327,9 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Categories -->
+                <!-- Start Display Organizer -->
+                <?php echo $this->display_organizer_field('tile', (isset($sk_options_tile['display_organizer']) ? $sk_options_tile['display_organizer'] : 0)); ?>
+                <!-- End Display Organizer -->
                 <div class="mec-form-row mec-switcher">
                     <div class="mec-col-4">
                         <label><?php _e('Next/Previous Buttons', 'modern-events-calendar-lite'); ?></label>

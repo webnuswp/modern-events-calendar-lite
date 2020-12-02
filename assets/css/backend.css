@@ -386,6 +386,34 @@
     text-shadow: 0 1px 0 rgba(255,255,255,.5)
 }
 
+@media(min-width: 860px) and (max-width:1280px) {
+    .wns-be-sidebar {
+        width: 210px;
+    }
+
+    .wns-be-sidebar li .subsection a {
+        padding-left: 24px;
+    }
+
+    .wns-be-main {
+        margin-left: 210px;
+    }
+
+    .mec-form-row .mec-col-9 label,
+    .mec-form-row .mec-col-8 label {
+        padding-right: 14px;
+    }
+
+    .wns-be-container #wns-be-content {
+        padding: 5px 10px 0;
+    }
+
+    .mec-container {
+        padding: 8px;
+    }
+}
+
+
 @media(max-width: 480px){
     a.dpr-btn.dpr-save-btn {
         display: block !important;
@@ -1652,6 +1680,12 @@ h5.mec-form-second-title {
     margin: 25px auto 20px
 }
 
+@media(max-width: 1280px) {
+    #webnus-dashboard.about-wrap {
+        max-width: 1024px;
+    }
+}
+
 #webnus-dashboard .change-log {
     word-wrap: break-word
 }
@@ -2217,6 +2251,30 @@ span.mec-archive-skins,span.mec-category-skins {
 
 .mec-shortcode-virtual-badge i {
     padding: 0 5px 0 7px;
+}
+
+/* Virtual Events Back-end Style */
+@media(min-width: 760px) and (max-width:1280px) {
+    .mec-zoom-event-wrap .mec-form-row .mec-col-1,
+    .mec-virtual-event-wrap .mec-form-row .mec-col-1 {
+        width: 12%;
+    }
+    .mec-zoom-event-wrap .mec-form-row .mec-col-6,
+    .mec-zoom-event-wrap .mec-form-row .mec-col-4,
+    .mec-virtual-event-wrap .mec-form-row .mec-col-6,
+    .mec-virtual-event-wrap .mec-form-row .mec-col-4 {
+        width: 40%;
+    }
+    .mec-zoom-event-wrap .mec-form-row .mec-col-3,
+    .mec-zoom-event-wrap .mec-form-row .mec-col-5,
+    .mec-virtual-event-wrap .mec-form-row .mec-col-3,
+    .mec-virtual-event-wrap .mec-form-row .mec-col-5 {
+        width: 45%;
+    }
+    .mec-zoom-event-wrap .mec-form-row .mec-col-2,
+    .mec-virtual-event-wrap .mec-form-row .mec-col-2 {
+        width: 21%;
+    }
 }
 
 /*!
@@ -4093,7 +4151,7 @@ textarea.mec-import-settings-content {
     .wns-be-container #wns-be-content {
         padding:5px 15px 0
     }
-
+    .mec-form-row .mec-col-9 label,
     .mec-form-row .mec-col-8 label {
         font-size: 10px
     }
@@ -5893,10 +5951,15 @@ a.mec-create-shortcode-tabs-link {
 }
 
 /* New Admin CSS */
+.mec-form-row .mec-col-9 label,
 .mec-form-row .mec-col-8 label {
     padding-right: 20px;
 }
-
+@media(min-width: 860px) and (max-width:1280px) {
+    .mec-form-row .mec-col-9 label {
+        padding-right: 12px;
+    }
+}
 #mec-event-data .mec-form-row label {
     margin-right: 14px;
 }

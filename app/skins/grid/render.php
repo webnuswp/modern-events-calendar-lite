@@ -83,6 +83,7 @@ if($this->style == 'colorful')
                 <div class="mec-event-detail">
                     <div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
                     <?php echo $this->display_categories($event); ?>
+                    <?php echo $this->display_organizers($event); ?>
                 </div>
                 <div class="mec-event-day"><?php echo $this->main->date_i18n($this->date_format_modern_3, strtotime($event->date['start']['date'])); ?></div>
             </div>
@@ -140,6 +141,7 @@ if($this->style == 'colorful')
                 <?php if(!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?>
                 <p class="mec-grid-event-location"><?php echo trim((isset($location['name']) ? $location['name'] : '').', '.(isset($location['address']) ? $location['address'] : ''), ', '); ?></p>
                 <?php echo $this->display_categories($event); ?>
+                <?php echo $this->display_organizers($event); ?>
                 <?php do_action('mec_classic_view_action', $event); ?>
             </div>
             <div class="mec-event-footer">
@@ -169,6 +171,7 @@ if($this->style == 'colorful')
                 <div class="mec-event-detail">
                     <div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
                     <?php echo $this->display_categories($event); ?>
+                    <?php echo $this->display_organizers($event); ?>
                     <?php echo $this->booking_button($event); ?>
                 </div>
             </div>
@@ -189,6 +192,7 @@ if($this->style == 'colorful')
                 <div class="mec-event-detail">
                     <div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
                     <?php echo $this->display_categories($event); ?>
+                    <?php echo $this->display_organizers($event); ?>
                 </div>
             </div>
             <div class="mec-event-image"><?php do_action('display_mec_clean_image', $event ); ?><?php echo $this->display_link($event, $event->data->thumbnails['medium'], ''); ?></div>
@@ -235,6 +239,7 @@ if($this->style == 'colorful')
                         if(isset($location['address'])) echo '<div class="mec-event-address">'.$location['address'].'</div>';
                         if($this->localtime) echo $this->main->module('local-time.type1', array('event'=>$event));
                         echo $this->display_categories($event);
+                        echo $this->display_organizers($event);
                     ?>
                     <div class="mec-event-footer mec-color">
                         <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
@@ -265,6 +270,7 @@ if($this->style == 'colorful')
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                 <?php echo $this->display_categories($event); ?>
+                <?php echo $this->display_organizers($event); ?>
             </div>
             <?php echo $this->booking_button($event); ?>
         <?php endif;

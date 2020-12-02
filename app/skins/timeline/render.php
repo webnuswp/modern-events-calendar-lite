@@ -66,6 +66,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                     <?php echo $this->display_categories($event); ?>
+                                    <?php echo $this->display_organizers($event); ?>
                                     <div class="mec-timeline-event-details">
                                         <div class="mec-timeline-event-time mec-color">
                                             <i class="mec-sl-clock"></i><?php echo $this->main->display_time($start_time, $end_time); ?>

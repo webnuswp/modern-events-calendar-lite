@@ -141,9 +141,10 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
-                                    <label class="mec-col-3" for="mec_settings_cancellation_period_time"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-6">
-                                        <input type="number" id="mec_settings_cancellation_period_time" name="mec[settings][cancellation_period_time]" value="<?php echo ((isset($settings['cancellation_period_time']) and trim($settings['cancellation_period_time']) != '') ? $settings['cancellation_period_time'] : ''); ?>" placeholder="<?php esc_attr_e('e.g 5', 'modern-events-calendar-lite'); ?>" />
+                                    <label class="mec-col-3" for="mec_settings_cancellation_period_from"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-8">
+                                        <input type="number" id="mec_settings_cancellation_period_from" name="mec[settings][cancellation_period_from]" value="<?php echo ((isset($settings['cancellation_period_from']) and trim($settings['cancellation_period_from']) != '') ? $settings['cancellation_period_from'] : ''); ?>" placeholder="<?php esc_attr_e('From e.g 48', 'modern-events-calendar-lite'); ?>" />
+                                        <input type="number" id="mec_settings_cancellation_period_time" name="mec[settings][cancellation_period_time]" value="<?php echo ((isset($settings['cancellation_period_time']) and trim($settings['cancellation_period_time']) != '') ? $settings['cancellation_period_time'] : ''); ?>" placeholder="<?php esc_attr_e('To e.g 24', 'modern-events-calendar-lite'); ?>" />
                                         <select name="mec[settings][cancellation_period_p]" title="<?php esc_attr_e('Period', 'modern-events-calendar-lite'); ?>">
                                             <option value="hour" <?php echo (isset($settings['cancellation_period_p']) and $settings['cancellation_period_p'] == 'hour') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Hour(s)', 'modern-events-calendar-lite'); ?></option>
                                             <option value="day" <?php echo (isset($settings['cancellation_period_p']) and $settings['cancellation_period_p'] == 'day') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Day(s)', 'modern-events-calendar-lite'); ?></option>
@@ -156,7 +157,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("You can restrict the ability to cancel bookings. Leave empty for cancellation at any time. For example if you insert 5 hours before event start then bookers are able to cancel their booking before this time and after that they're not able to do that.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("You can restrict the ability to cancel bookings. Leave empty for cancellation at any time. For example if you insert 48 to 24 hours before event start then bookers are able to cancel their booking between this time and before or after that they're not able to do that.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>

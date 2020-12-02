@@ -597,14 +597,14 @@ class MEC_render extends MEC_base
 
         // Featured image URLs
         $dataFeaturedImage = apply_filters('mec-render-data-featured-image', array(
-            'thumbnail'=>esc_url(get_the_post_thumbnail_url($post_id, 'thumbnail')),
-            'thumblist'=>esc_url(get_the_post_thumbnail_url($post_id, 'thumblist' )),
-            'gridsquare'=>esc_url(get_the_post_thumbnail_url($post_id, 'gridsquare' )),
-            'meccarouselthumb'=>esc_url(get_the_post_thumbnail_url($post_id, 'meccarouselthumb')),
-            'medium'=>esc_url(get_the_post_thumbnail_url($post_id, 'medium')),
-            'large'=>esc_url(get_the_post_thumbnail_url($post_id, 'large')),
-            'full'=>esc_url(get_the_post_thumbnail_url($post_id, 'full')),
-            'tileview'=>esc_url(get_the_post_thumbnail_url($post_id, 'tileview'))
+            'thumbnail'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'thumbnail')),
+            'thumblist'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'thumblist' )),
+            'gridsquare'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'gridsquare' )),
+            'meccarouselthumb'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'meccarouselthumb')),
+            'medium'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'medium')),
+            'large'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'large')),
+            'full'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'full')),
+            'tileview'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'tileview'))
         ), $post_id);
         $data->featured_image = $dataFeaturedImage;
 

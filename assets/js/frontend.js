@@ -2947,6 +2947,8 @@ jQuery(document).ready(function($)
             ajax_url: '',
             sf: {},
             items: 3,
+            loop: true,
+            autoplay_status: true,
             autoplay: '',
             style: 'type1',
             start_date: ''
@@ -2974,9 +2976,9 @@ jQuery(document).ready(function($)
                 var owl = $("#mec_skin_" + settings.id + " .mec-event-carousel-type1 .mec-owl-carousel");
 
                 owl.owlCarousel({
-                    autoplay: true,
+                    autoplay: settings.autoplay_status,
                     autoplayTimeout: settings.autoplay, // Set AutoPlay to 3 seconds
-                    loop: true,
+                    loop: settings.loop,
                     items: settings.items,
                     responsiveClass: true,
                     responsive: {
@@ -3003,8 +3005,8 @@ jQuery(document).ready(function($)
                 );
             } else if (settings.style === 'type4') {
                 $("#mec_skin_" + settings.id + " .mec-owl-carousel").owlCarousel({
-                    autoplay: true,
-                    loop: true,
+                    autoplay: settings.autoplay_status,
+                    loop: settings.loop,
                     autoplayTimeout: settings.autoplay,
                     items: settings.items,
                     dots: false,
@@ -3034,8 +3036,8 @@ jQuery(document).ready(function($)
                 );
             } else {
                 $("#mec_skin_" + settings.id + " .mec-owl-carousel").owlCarousel({
-                    autoplay: true,
-                    loop: true,
+                    autoplay: settings.autoplay_status,
+                    loop: settings.loop,
                     autoplayTimeout: settings.autoplay,
                     items: settings.items,
                     dots: typeof settings.dots_navigation != 'undefined' ? settings.dots_navigation : false,
@@ -3911,6 +3913,12 @@ function mec_book_form_back_btn_click(context, unique_id)
                 sitekey: mecdata.recapcha_key
             });
         }
+
+        var event_id = jQuery('input[name="event_id"]').val();
+        var date = jQuery('#mec_book_form_date'+unique_id).val();
+
+        // Update Availability
+        window['mec_get_tickets_availability'+unique_id](event_id, date);
     }
     else if(id == "mec-book-form-back-btn-step-3")
     {

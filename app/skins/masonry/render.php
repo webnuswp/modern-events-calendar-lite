@@ -139,9 +139,10 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             ?>
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event); ?>
-                                <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?></h4>
-                                <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
+                                <h4 class="mec-event-title"><?php echo $this->display_link($event); ?> <?php echo $soldout; ?> <?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?> <?php echo $event_color; ?></h4>
+                                <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?>
                                 <?php echo $this->display_categories($event); ?>
+                                <?php echo $this->display_organizers($event); ?>
                                 <div class="mec-event-description mec-events-content">
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                 </div>

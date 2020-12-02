@@ -45,7 +45,9 @@ class MEC_feed extends MEC_base
      */
     public function attachment($post_id)
     {
-        $featured_link = get_the_post_thumbnail_url($post_id,'full');
+        $main = $this->getMain();
+
+        $featured_link = $main->get_post_thumbnail_url($post_id,'full');
         return esc_url(apply_filters('the_attachment_rss', $featured_link));
     }
     

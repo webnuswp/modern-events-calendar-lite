@@ -496,7 +496,11 @@ class MEC_skins extends MEC_base
         if(!$this->show_only_expired_events and date('H:i:s', strtotime($end)) == '00:00:00') $end .= ' 23:59:59';
 
         // Search From last second of start date
-        if($this->show_only_expired_events and date('Y-m-d', strtotime($start)) !== current_time('Y-m-d') and date('H:i:s', strtotime($start)) == '00:00:00') $start .= ' 23:59:59';
+        if($this->show_only_expired_events)
+        {
+            if(date('Y-m-d', strtotime($start)) !== current_time('Y-m-d') and date('H:i:s', strtotime($start)) == '00:00:00') $start .= ' 23:59:59';
+            elseif(date('Y-m-d', strtotime($start)) === current_time('Y-m-d') and date('H:i:s', strtotime($start)) == '00:00:00') $start .= ' '.current_time('H:i:s');
+        }
 
         $seconds_start = strtotime($start);
         $seconds_end = strtotime($end);
@@ -678,12 +682,12 @@ class MEC_skins extends MEC_base
             $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
             $start = ((isset($this->sf) || $this->request->getVar('sf', array())) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
 
-            $end = date('Y-m-01', strtotime('-25 Year', strtotime($start)));
+            $end = date('Y-m-01', strtotime('-15 Years', strtotime($start)));
         }
         else
         {
             $start = $this->start_date;
-            $end = date('Y-m-t', strtotime('+25 Year', strtotime($start)));
+            $end = date('Y-m-t', strtotime('+15 Years', strtotime($start)));
         }
 
         // Set a certain maximum date from shortcode page.
@@ -1285,6 +1289,23 @@ class MEC_skins extends MEC_base
         }
 
         return $output ? '<ul class="mec-categories">' . $output . '</ul>' : $output;
+    }
+
+    public function display_organizers($event)
+    {
+        $output = '';
+
+        $status = isset($this->skin_options['display_organizer']) ? (boolean) $this->skin_options['display_organizer'] : false;
+        if($status and is_object($event) and isset($event->data->organizers) and count($event->data->organizers))
+        {
+            foreach($event->data->organizers as $organizer)
+            {
+                $organizer_url = !empty($organizer['url']) ? 'href="'. $organizer['url'] .'" target="_blank"' : 'href="#"';
+                if(isset($organizer['name']) and trim($organizer['name'])) $output .= '<li class="mec-organizer-item"><a class="mec-color-hover" '.$organizer_url.'>' . trim($organizer['name']) . '</a></li>';
+            }
+        }
+
+        return $output ? '<div class="mec-shortcode-organizers"><i class="mec-sl-user"></i><ul class="mec-organizers">' . $output . '</ul></div>' : $output;
     }
 
     public function display_link($event, $title = NULL, $class = NULL, $attributes = NULL)

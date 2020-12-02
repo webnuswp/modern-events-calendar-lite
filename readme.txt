@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.5.3
-Stable tag: 5.13.6
+Stable tag: 5.14.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -196,6 +196,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Active Campaign
 - BuddyPress
 - Learn Dash
+- MailPoet
+- Sendfox
 - Google Recaptcha
 - Google Map
 
@@ -230,8 +232,6 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Custom event fields
 - Multiple occurrences in one day
 - Different hours for custom days repeat
-- WordPress dashboard widgets (*pro*)
-- Ticket limit for coupon (*pro*)
 - Show Normal Label
 - Event Management System
 - Event Status for Schema
@@ -355,6 +355,10 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Confirmation email (*pro*)
 - Cancellation email (*pro*)
 - Restrict The Booking Cancellation time (*pro*)
+- Specify period for booking cancellation rules (*pro*)
+- WordPress dashboard widgets (*pro*)
+- Private description for tickets (*pro*)
+- Ticket limit for coupon (*pro*)
 - Bulk Emails to Attendees (*pro*)
 - Minimum Ticket Option (*pro*)
 - Minimum and maximum ticket for coupons (*pro*)
@@ -431,6 +435,27 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= v 5.14.0 – 2 December 2020 =
+- Added: MailPoet integration (pro)
+- Added: Sendfox integration (pro)
+- Added: An option to disable/enable “Full Screen” button of Google Maps (pro)
+- Added: An option to override MEC assets (JS, CSS, etc) in a child theme
+- Added: Two new controls for carousel skin to manage auto play and loop
+- Added: Gateway to the booking export (pro)
+- Added: Private description for tickets to be included in the booking notifications (pro)
+- Added: An option to show organizers' names in the list, grid, tile, masonry, daily, weekly, and timeline skins
+- Added: Some new capabilities for MEC menus so users can create their own role for managing MEC
+- Added: An ability to specify period for booking cancellation rules (pro)
+- Added: An option to set background color for all notifications
+- Fixed: Back button of booking module (pro)
+- Fixed: Showing recently expired events when the shortcode is set to show only expired events
+- Fixed: Outdated WordPress versions
+- Fixed: An issue in finding events
+- Fixed: Date format of timeline skin
+- Fixed: Some issues related to Day Light Saving
+- Fixed: Disabling all Google fonts
+- Fixed: Some date format issues
+
 = v 5.13.6 – 18 November 2020 =
 - Improved: Weekly skin to show events of the previous and next month in the current month (pro)
 - Fixed: Showing long-time span events in shortcakes

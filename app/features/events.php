@@ -1322,8 +1322,7 @@ class MEC_feature_events extends MEC_base
     public function meta_box_hourly_schedule($post)
     {
         $meta_hourly_schedules = get_post_meta($post->ID, 'mec_hourly_schedules', true);
-
-        if (is_array($meta_hourly_schedules) and count($meta_hourly_schedules))
+        if(is_array($meta_hourly_schedules) and count($meta_hourly_schedules))
         {
             $first_key = key($meta_hourly_schedules);
 
@@ -1347,190 +1346,18 @@ class MEC_feature_events extends MEC_base
 
         // Status of Speakers Feature
         $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
-        $speakers = get_terms(
-            'mec_speaker',
-            array(
-                'orderby' => 'name',
-                'order' => 'ASC',
-                'hide_empty' => '0',
-            )
-        );
-        ?>
-        <div class="mec-meta-box-fields mec-event-tab-content" id="mec-hourly-schedule">
-            <h4><?php _e('Hourly Schedule', 'modern-events-calendar-lite'); ?></h4>
-            <div id="mec_meta_box_hourly_schedule_day_form">
-                <div class="mec-form-row">
-                    <button class="button" type="button"
-                            id="mec_add_hourly_schedule_day_button"><?php _e('Add Day', 'modern-events-calendar-lite'); ?></button>
-                    <span class="description"><?php esc_attr_e('Add new days for schedule. For example if your event is multiple days, you can add a different schedule for each day!', 'modern-events-calendar-lite'); ?></span>
-                </div>
-            </div>
-            <div id="mec_meta_box_hourly_schedule_days">
-                <?php $d = 0;
-                foreach ($hourly_schedules as $day) : ?>
-                    <div id="mec_meta_box_hourly_schedule_day_<?php echo $d; ?>">
-                        <h4><?php echo isset($day['title']) ? $day['title'] : sprintf(__('Day %s', 'modern-events-calendar-lite'), $d + 1); ?></h4>
-                        <div id="mec_meta_box_hourly_schedule_form<?php echo $d; ?>">
-                            <div class="mec-form-row">
-                                <div class="mec-col-1"><label
-                                            for="mec_add_hourly_schedule_day<?php echo $d; ?>_title"><?php echo __('Title', 'modern-events-calendar-lite'); ?></label>
-                                </div>
-                                <div class="mec-col-10"><input type="text"
-                                                               id="mec_add_hourly_schedule_day<?php echo $d; ?>_title"
-                                                               name="mec[hourly_schedules][<?php echo $d; ?>][title]"
-                                                               value="<?php echo isset($day['title']) ? $day['title'] : ''; ?>"
-                                                               class="widefat"></div>
-                                <div class="mec-col-1">
-                                    <button class="button" type="button"
-                                            onclick="mec_hourly_schedule_day_remove(<?php echo $d; ?>)"><?php echo __('Remove', 'modern-events-calendar-lite'); ?></button>
-                                </div>
-                            </div>
-                            <div class="mec-form-row">
-                                <button class="button mec-add-hourly-schedule-button" type="button"
-                                        id="mec_add_hourly_schedule_button<?php echo $d; ?>"
-                                        data-day="<?php echo $d; ?>"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
-                                <span class="description"><?php esc_attr_e('Add new hourly schedule row', 'modern-events-calendar-lite'); ?></span>
-                            </div>
-                            <div id="mec_hourly_schedules<?php echo $d; ?>">
-                                <?php
-                                $i = 0;
-                                foreach ($day['schedules'] as $key => $hourly_schedule) :
-                                    if (!is_numeric($key)) {
-                                        continue;
-                                    }
-                                    $i = max($i, $key);
-                                    ?>
-                                    <div class="mec-form-row mec-box"
-                                         id="mec_hourly_schedule_row<?php echo $d; ?>_<?php echo $key; ?>">
-                                        <input class="mec-col-1" type="text"
-                                               name="mec[hourly_schedules][<?php echo $d; ?>][schedules][<?php echo $key; ?>][from]"
-                                               placeholder="<?php esc_attr_e('From e.g. 8:15', 'modern-events-calendar-lite'); ?>"
-                                               value="<?php echo esc_attr($hourly_schedule['from']); ?>"/>
-                                        <input class="mec-col-1" type="text"
-                                               name="mec[hourly_schedules][<?php echo $d; ?>][schedules][<?php echo $key; ?>][to]"
-                                               placeholder="<?php esc_attr_e('To e.g. 8:45', 'modern-events-calendar-lite'); ?>"
-                                               value="<?php echo esc_attr($hourly_schedule['to']); ?>"/>
-                                        <input class="mec-col-3" type="text"
-                                               name="mec[hourly_schedules][<?php echo $d; ?>][schedules][<?php echo $key; ?>][title]"
-                                               placeholder="<?php esc_attr_e('Title', 'modern-events-calendar-lite'); ?>"
-                                               value="<?php echo esc_attr($hourly_schedule['title']); ?>"/>
-                                        <input class="mec-col-6" type="text"
-                                               name="mec[hourly_schedules][<?php echo $d; ?>][schedules][<?php echo $key; ?>][description]"
-                                               placeholder="<?php esc_attr_e('Description', 'modern-events-calendar-lite'); ?>"
-                                               value="<?php echo esc_attr($hourly_schedule['description']); ?>"/>
-                                        <button class="button" type="button"
-                                                onclick="mec_hourly_schedule_remove(<?php echo $d; ?>, <?php echo $key; ?>)"><?php _e('Remove', 'modern-events-calendar-lite'); ?></button>
-                                        <?php if ($speakers_status) : ?>
-                                            <div class="mec-col-12 mec-hourly-schedule-form-speakers">
-                                                <strong><?php echo $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')); ?></strong>
-                                                <?php foreach ($speakers as $speaker) : ?>
-                                                    <label><input type="checkbox"
-                                                                  name="mec[hourly_schedules][<?php echo $d; ?>][schedules][<?php echo $key; ?>][speakers][]"
-                                                                  value="<?php echo $speaker->term_id; ?>" <?php echo (isset($hourly_schedule['speakers']) and in_array($speaker->term_id, $hourly_schedule['speakers'])) ? 'checked="checked"' : ''; ?>><?php echo $speaker->name; ?>
-                                                    </label>
-                                                <?php endforeach; ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                        <input type="hidden" id="mec_new_hourly_schedule_key<?php echo $d; ?>"
-                               value="<?php echo $i + 1; ?>"/>
-                        <div class="mec-util-hidden" id="mec_new_hourly_schedule_raw<?php echo $d; ?>">
-                            <div class="mec-form-row mec-box" id="mec_hourly_schedule_row<?php echo $d; ?>_:i:">
-                                <input class="mec-col-1" type="text"
-                                       name="mec[hourly_schedules][<?php echo $d; ?>][schedules][:i:][from]"
-                                       placeholder="<?php esc_attr_e('From e.g. 8:15', 'modern-events-calendar-lite'); ?>"/>
-                                <input class="mec-col-1" type="text"
-                                       name="mec[hourly_schedules][<?php echo $d; ?>][schedules][:i:][to]"
-                                       placeholder="<?php esc_attr_e('To e.g. 8:45', 'modern-events-calendar-lite'); ?>"/>
-                                <input class="mec-col-3" type="text"
-                                       name="mec[hourly_schedules][<?php echo $d; ?>][schedules][:i:][title]"
-                                       placeholder="<?php esc_attr_e('Title', 'modern-events-calendar-lite'); ?>"/>
-                                <input class="mec-col-6" type="text"
-                                       name="mec[hourly_schedules][<?php echo $d; ?>][schedules][:i:][description]"
-                                       placeholder="<?php esc_attr_e('Description', 'modern-events-calendar-lite'); ?>"/>
-                                <button class="button" type="button"
-                                        onclick="mec_hourly_schedule_remove(<?php echo $d; ?>, :i:)"><?php _e('Remove', 'modern-events-calendar-lite'); ?></button>
-                                <?php if ($speakers_status) : ?>
-                                    <div class="mec-col-12 mec-hourly-schedule-form-speakers">
-                                        <strong><?php echo $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')); ?></strong>
-                                        <?php foreach ($speakers as $speaker) : ?>
-                                            <label><input type="checkbox"
-                                                          name="mec[hourly_schedules][<?php echo $d; ?>][schedules][:i:][speakers][]"
-                                                          value="<?php echo $speaker->term_id; ?>"><?php echo $speaker->name; ?>
-                                            </label>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                    $d++;
-                endforeach;
-                ?>
-            </div>
-            <input type="hidden" id="mec_new_hourly_schedule_day_key" value="<?php echo $d; ?>"/>
-            <div class="mec-util-hidden" id="mec_new_hourly_schedule_day_raw">
-                <div id="mec_meta_box_hourly_schedule_day_:d:">
-                    <h4><?php echo __('New Day', 'modern-events-calendar-lite'); ?></h4>
-                    <div id="mec_meta_box_hourly_schedule_form:d:">
-                        <div class="mec-form-row">
-                            <div class="mec-col-1"><label
-                                        for="mec_add_hourly_schedule_day:d:_title"><?php echo __('Title', 'modern-events-calendar-lite'); ?></label>
-                            </div>
-                            <div class="mec-col-10"><input type="text" id="mec_add_hourly_schedule_day:d:_title"
-                                                           name="mec[hourly_schedules][:d:][title]"
-                                                           value="<?php echo __('New Day', 'modern-events-calendar-lite'); ?>" class="widefat">
-                            </div>
-                            <div class="mec-col-1">
-                                <button class="button" type="button"
-                                        onclick="mec_hourly_schedule_day_remove(:d:)"><?php echo __('Remove', 'modern-events-calendar-lite'); ?></button>
-                            </div>
-                        </div>
-                        <div class="mec-form-row">
-                            <button class="button mec-add-hourly-schedule-button" type="button"
-                                    id="mec_add_hourly_schedule_button:d:"
-                                    data-day=":d:"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
-                            <span class="description"><?php esc_attr_e('Add new hourly schedule row', 'modern-events-calendar-lite'); ?></span>
-                        </div>
-                        <div id="mec_hourly_schedules:d:">
-                        </div>
-                    </div>
-                    <input type="hidden" id="mec_new_hourly_schedule_key:d:" value="1"/>
-                    <div class="mec-util-hidden" id="mec_new_hourly_schedule_raw:d:">
-                        <div class="mec-form-row mec-box" id="mec_hourly_schedule_row:d:_:i:">
-                            <input class="mec-col-1" type="text" name="mec[hourly_schedules][:d:][schedules][:i:][from]"
-                                   placeholder="<?php esc_attr_e('From e.g. 8:15', 'modern-events-calendar-lite'); ?>"/>
-                            <input class="mec-col-1" type="text" name="mec[hourly_schedules][:d:][schedules][:i:][to]"
-                                   placeholder="<?php esc_attr_e('To e.g. 8:45', 'modern-events-calendar-lite'); ?>"/>
-                            <input class="mec-col-3" type="text"
-                                   name="mec[hourly_schedules][:d:][schedules][:i:][title]"
-                                   placeholder="<?php esc_attr_e('Title', 'modern-events-calendar-lite'); ?>"/>
-                            <input class="mec-col-6" type="text"
-                                   name="mec[hourly_schedules][:d:][schedules][:i:][description]"
-                                   placeholder="<?php esc_attr_e('Description', 'modern-events-calendar-lite'); ?>"/>
-                            <button class="button" type="button"
-                                    onclick="mec_hourly_schedule_remove(:d:, :i:)"><?php _e('Remove', 'modern-events-calendar-lite'); ?></button>
-                            <?php if ($speakers_status) : ?>
-                                <div class="mec-col-12 mec-hourly-schedule-form-speakers">
-                                    <strong><?php echo $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')); ?></strong>
-                                    <?php foreach ($speakers as $speaker) : ?>
-                                        <label><input type="checkbox"
-                                                      name="mec[hourly_schedules][:d:][schedules][:i:][speakers][]"
-                                                      value="<?php echo $speaker->term_id; ?>"><?php echo $speaker->name; ?>
-                                        </label>
-                                    <?php endforeach; ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
+        $speakers = get_terms('mec_speaker', array(
+            'orderby' => 'name',
+            'order' => 'ASC',
+            'hide_empty' => '0',
+        ));
+
+        $hourly_schedule = $this->getHourlySchedule();
+        $hourly_schedule->form(array(
+            'hourly_schedules' => $hourly_schedules,
+            'speakers_status' => $speakers_status,
+            'speakers' => $speakers,
+        ));
     }
 
     /**
@@ -1889,7 +1716,19 @@ class MEC_feature_events extends MEC_base
                             <div class="mec-form-row">
                                 <textarea type="text" class="mec-col-12"
                                        name="mec[tickets][<?php echo $key; ?>][description]"
-                                       placeholder="<?php esc_attr_e('Description', 'modern-events-calendar-lite'); ?>"><?php echo(isset($ticket['description']) ? esc_attr($ticket['description']) : ''); ?></textarea>
+                                       placeholder="<?php esc_attr_e('Description', 'modern-events-calendar-lite'); ?>"><?php echo(isset($ticket['description']) ? esc_textarea($ticket['description']) : ''); ?></textarea>
+                            </div>
+                            <div class="mec-form-row">
+                                <textarea type="text" class="mec-col-12"
+                                          name="mec[tickets][<?php echo $key; ?>][private_description]"
+                                          placeholder="<?php esc_attr_e('Private Description', 'modern-events-calendar-lite'); ?>"><?php echo(isset($ticket['private_description']) ? esc_textarea($ticket['private_description']) : ''); ?></textarea>
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Private Description', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e("You can show it on the email notifications by placing %%ticket_private_description%% into the email template.", 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
                             </div>
                             <div class="mec-form-row">
 							<span class="mec-col-4">
@@ -2072,6 +1911,17 @@ class MEC_feature_events extends MEC_base
                     <div class="mec-form-row">
                         <textarea class="mec-col-12" type="text" name="mec[tickets][:i:][description]"
                                placeholder="<?php esc_attr_e('Description', 'modern-events-calendar-lite'); ?>"></textarea>
+                    </div>
+                    <div class="mec-form-row">
+                        <textarea type="text" class="mec-col-12" name="mec[tickets][:i:][private_description]"
+                                  placeholder="<?php esc_attr_e('Private Description', 'modern-events-calendar-lite'); ?>"></textarea>
+                        <span class="mec-tooltip">
+                            <div class="box top">
+                                <h5 class="title"><?php _e('Private Description', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="content"><p><?php esc_attr_e("You can show it on the email notifications by placing %%ticket_private_description%% into the email template.", 'modern-events-calendar-lite'); ?></p></div>
+                            </div>
+                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                        </span>
                     </div>
                     <div class="mec-form-row">
 						<span class="mec-col-4">
@@ -3784,7 +3634,7 @@ class MEC_feature_events extends MEC_base
             case 'ms-excel-export':
 
                 header('Content-Type: text/csv; charset=utf-8');
-                header('Content-Disposition: attachment; filename=bookings-' . md5(time() . mt_rand(100, 999)) . '.csv');
+                header('Content-Disposition: attachment; filename=mec-events-' . md5(time() . mt_rand(100, 999)) . '.csv');
 
                 $post_ids = $_GET['post'];
                 $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Description', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')), __('Featured Image', 'modern-events-calendar-lite'));
@@ -3831,7 +3681,7 @@ class MEC_feature_events extends MEC_base
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
                         (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']),
-                        get_the_post_thumbnail_url($post_id)
+                        $this->main->get_post_thumbnail_url($post_id)
                     );
 
                     if(isset($data->fields) and is_array($data->fields) and count($data->fields))
@@ -4177,7 +4027,7 @@ class MEC_feature_events extends MEC_base
         if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_nonce')) exit();
 
         // Current User is not Permitted
-        if(!current_user_can('publish_posts')) $this->main->response(array('success'=>0, 'code'=>'NO_ACCESS'));
+        if(!current_user_can('mec_report')) $this->main->response(array('success'=>0, 'code'=>'NO_ACCESS'));
 
         $mail_recipients_info = isset($_POST['mail_recipients_info']) ? trim(sanitize_text_field($_POST['mail_recipients_info']), ', ') : '';
         $mail_subject = isset($_POST['mail_subject']) ? sanitize_text_field($_POST['mail_subject']) : '';

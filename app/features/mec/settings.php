@@ -162,7 +162,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                             <div class="mec-form-row">
 
                                 <label class="mec-col-3" for="mec_settings_weekdays"><?php _e('Weekdays', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-8">
+                                <div class="mec-col-9">
                                     <?php $mec_weekdays = $this->main->get_weekdays(); foreach($weekdays as $weekday): ?>
                                     <label for="mec_settings_weekdays_<?php echo $weekday[0]; ?>">
                                         <input type="checkbox" id="mec_settings_weekdays_<?php echo $weekday[0]; ?>" name="mec[settings][weekdays][]" value="<?php echo $weekday[0]; ?>" <?php echo (in_array($weekday[0], $mec_weekdays) ? 'checked="checked"' : ''); ?> />
@@ -183,7 +183,7 @@ $get_n_option = get_option('mec_addons_notification_option');
                             <div class="mec-form-row">
 
                                 <label class="mec-col-3" for="mec_settings_weekends"><?php _e('Weekends', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-8">
+                                <div class="mec-col-9">
                                     <?php $mec_weekends = $this->main->get_weekends(); foreach($weekdays as $weekday): ?>
                                     <label for="mec_settings_weekends_<?php echo $weekday[0]; ?>">
                                         <input type="checkbox" id="mec_settings_weekends_<?php echo $weekday[0]; ?>" name="mec[settings][weekends][]" value="<?php echo $weekday[0]; ?>" <?php echo (in_array($weekday[0], $mec_weekends) ? 'checked="checked"' : ''); ?> />
@@ -1234,6 +1234,58 @@ $get_n_option = get_option('mec_addons_notification_option');
                                     </div>
                                     <p class="description"><?php echo sprintf(__("%s plugin should be installed and connected to your AWeber account.", 'modern-events-calendar-lite'), '<a href="https://wordpress.org/plugins/aweber-web-form-widget/" target="_blank">AWeber for WordPress</a>'); ?></p>
                                     <p class="description"><?php echo sprintf(__('More information about the list ID can be found %s.', 'modern-events-calendar-lite'), '<a href="https://help.aweber.com/hc/en-us/articles/204028426" target="_blank">'.__('here', 'modern-events-calendar-lite').'</a>'); ?></p>
+                                </div>
+                            </div>
+
+                            <div id="mailpoet_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('MailPoet Integration', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][mailpoet_status]" value="0" />
+                                        <input onchange="jQuery('#mec_mailpoet_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][mailpoet_status]" <?php if(isset($settings['mailpoet_status']) and $settings['mailpoet_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable MailPoet Integration', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_mailpoet_status_container_toggle" class="<?php if((isset($settings['mailpoet_status']) and !$settings['mailpoet_status']) or !isset($settings['mailpoet_status'])) echo 'mec-util-hidden'; ?>">
+                                    <?php if(class_exists(\MailPoet\API\API::class)): $mailpoet_api = \MailPoet\API\API::MP('v1'); $mailpoets_lists = $mailpoet_api->getLists(); ?>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_mailpoet_list_id"><?php _e('List', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <select name="mec[settings][mailpoet_list_id]" id="mec_settings_mailpoet_list_id">
+                                                <option value="">-----</option>
+                                                <?php foreach($mailpoets_lists as $mailpoets_list): ?>
+                                                <option value="<?php echo $mailpoets_list['id']; ?>" <?php echo ((isset($settings['mailpoet_list_id']) and trim($settings['mailpoet_list_id']) == $mailpoets_list['id']) ? 'selected="selected"' : ''); ?>><?php echo $mailpoets_list['name']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                    <p class="description"><?php echo sprintf(__("%s plugin should be installed and activated.", 'modern-events-calendar-lite'), '<a href="https://wordpress.org/plugins/mailpoet/" target="_blank">MailPoet</a>'); ?></p>
+                                </div>
+                            </div>
+
+                            <div id="sendfox_option" class="mec-options-fields">
+                                <h4 class="mec-form-subtitle"><?php _e('Sendfox Integration', 'modern-events-calendar-lite'); ?></h4>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][sendfox_status]" value="0" />
+                                        <input onchange="jQuery('#mec_sendfox_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][sendfox_status]" <?php if(isset($settings['sendfox_status']) and $settings['sendfox_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable Sendfox Integration', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_sendfox_status_container_toggle" class="<?php if((isset($settings['sendfox_status']) and !$settings['sendfox_status']) or !isset($settings['sendfox_status'])) echo 'mec-util-hidden'; ?>">
+
+                                    <?php if(function_exists('gb_sf4wp_get_lists')): $sendfox_lists = gb_sf4wp_get_lists(); ?>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_sendfox_list_id"><?php _e('List ID', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <select name="mec[settings][sendfox_list_id]" id="mec_settings_sendfox_list_id">
+                                                <?php foreach($sendfox_lists['result']['data'] as $sendfox_list): ?>
+                                                <option value="<?php echo $sendfox_list['id']; ?>" <?php echo ((isset($settings['sendfox_list_id']) and trim($settings['sendfox_list_id']) == $sendfox_list['id']) ? 'selected="selected"' : ''); ?>><?php echo $sendfox_list['name']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                    <p class="description"><?php echo sprintf(__("%s plugin should be installed and connected to your Sendfox account.", 'modern-events-calendar-lite'), '<a href="https://wordpress.org/plugins/wp-sendfox/" target="_blank">WP Sendfox</a>'); ?></p>
                                 </div>
                             </div>
 

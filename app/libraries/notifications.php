@@ -12,6 +12,7 @@ class MEC_notifications extends MEC_base
     public $PT;
     public $notif_settings;
     public $settings;
+    public $styling;
     public $book;
     public $u;
 
@@ -32,6 +33,9 @@ class MEC_notifications extends MEC_base
 
         // MEC Settings
         $this->settings = $this->main->get_settings();
+
+        // Styling
+        $this->styling = $this->main->get_styling();
 
         // MEC Book
         $this->book = $this->getBook();
@@ -1203,7 +1207,6 @@ class MEC_notifications extends MEC_base
 
         // DB
         $db = $this->getDB();
-
         /**
          * Get the data from Attendee instead of main booker user
          */
@@ -1388,7 +1391,7 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%online_link%%', esc_url($online_link), $message);
 
         $featured_image = '';
-        $thumbnail_url = get_the_post_thumbnail_url($event_id, 'medium');
+        $thumbnail_url = $this->main->get_post_thumbnail_url($event_id, 'medium');
         if(trim($thumbnail_url)) $featured_image = '<img src="'.$thumbnail_url.'">';
 
         $message = str_replace('%%event_featured_image%%', $featured_image, $message);
@@ -1448,6 +1451,7 @@ class MEC_notifications extends MEC_base
         $ticket_start_hour = $ticket_start_minute = $ticket_end_hour = $ticket_end_minute = $ticket_start_ampm = $ticket_end_ampm = '';
         $ticket_names = array();
         $ticket_times = array();
+        $ticket_private_descriptions = array();
 
         $ticket_ids_str = get_post_meta($book_id, 'mec_ticket_id', true);
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
@@ -1465,6 +1469,8 @@ class MEC_notifications extends MEC_base
                 if($ticket != $value) continue;
 
                 $ticket_names[] = $ticket_info['name'];
+                $ticket_private_descriptions[] = $ticket_info['private_description'];
+
                 $ticket_start_hour = $ticket_info['ticket_start_time_hour'];
                 $ticket_start_minute = $ticket_info['ticket_start_time_minute'];
                 $ticket_start_ampm = $ticket_info['ticket_start_time_ampm'];
@@ -1489,6 +1495,7 @@ class MEC_notifications extends MEC_base
 
         $message = str_replace('%%ticket_name%%', implode(',', $ticket_names), $message);
         $message = str_replace('%%ticket_time%%', implode(',', $ticket_times), $message);
+        $message = str_replace('%%ticket_private_description%%', implode(',', $ticket_private_descriptions), $message);
 
         $ticket_name_time = '';
         foreach($ticket_names as $t_i=>$ticket_name)
@@ -1694,7 +1701,10 @@ class MEC_notifications extends MEC_base
      */
     public function add_template($content)
     {
-        return '<table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: #f6f6f6; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+        $style = $this->main->get_styling();
+        $bgnotifications = isset($style['notification_bg']) ? $style['notification_bg'] : '#f6f6f6';
+
+        return '<table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: '.$bgnotifications.'; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
             <tr>
                 <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
                     <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">

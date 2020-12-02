@@ -46,12 +46,12 @@ if($this->style == 'colorful')
                 $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
                 $start = ((isset($this->sf) || $this->request->getVar('sf', array())) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
 
-                $end = date('Y-m-01', strtotime('-10 Year', strtotime($start)));
+                $end = date('Y-m-01', strtotime('-15 Years', strtotime($start)));
             }
             else
             {
                 $start = $this->start_date;
-                $end = date('Y-m-t', strtotime('+10 Year', strtotime($start)));
+                $end = date('Y-m-t', strtotime('+15 Years', strtotime($start)));
             }
 
             // Date Events

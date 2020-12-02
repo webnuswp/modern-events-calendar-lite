@@ -165,8 +165,7 @@ class MEC
         if($override)
         {
             // Search the file in the main theme
-            $wp_theme_path = get_template_directory();
-            $theme_path = $wp_theme_path .DS. 'webnus' .DS. MEC_DIRNAME .DS. $file;
+            $theme_path = get_template_directory() .DS. 'webnus' .DS. MEC_DIRNAME .DS. $file;
             
             /**
              * If overridden file exists on the main theme, then use it instead of normal file

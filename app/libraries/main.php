@@ -147,11 +147,39 @@ class MEC_main extends MEC_base
      * Returns full URL of an asset
      * @author Webnus <info@webnus.biz>
      * @param string $asset
+     * @param boolean $override
      * @return string
      */
-	public function asset($asset)
+	public function asset($asset, $override = true)
 	{
-		return $this->URL('MEC').'assets/'.$asset;
+		$url = $this->URL('MEC').'assets/'.$asset;
+
+		if($override)
+        {
+            // Search the file in the main theme
+            $theme_path = get_template_directory() .DS. 'webnus' .DS. MEC_DIRNAME .DS. 'assets' .DS. $asset;
+
+            /**
+             * If overridden file exists on the main theme, then use it instead of normal file
+             * For example you can override /path/to/plugin/assets/js/frontend.js file in your theme by adding a file into the /path/to/theme/webnus/modern-events-calendar/assets/js/frontend.js
+             */
+            if(file_exists($theme_path)) $url = get_template_directory_uri().'/webnus/'.MEC_DIRNAME.'/assets/'.$asset;
+
+            // If the theme is a child theme then search the file in child theme
+            if(get_template_directory() != get_stylesheet_directory())
+            {
+                // Child theme overriden file
+                $child_theme_path = get_stylesheet_directory() .DS. 'webnus' .DS. MEC_DIRNAME .DS. 'assets' .DS. $asset;
+
+                /**
+                 * If overridden file exists on the child theme, then use it instead of normal or main theme file
+                 * For example you can override /path/to/plugin/assets/js/frontend.js file in your theme by adding a file into the /path/to/child/theme/webnus/modern-events-calendar/assets/js/frontend.js
+                 */
+                if(file_exists($child_theme_path)) $url = get_stylesheet_directory_uri().'/webnus/'.MEC_DIRNAME.'/assets/'.$asset;
+            }
+        }
+
+		return $url;
 	}
     
     /**
@@ -549,6 +577,8 @@ class MEC_main extends MEC_base
             __('Constant Contact Integration', 'modern-events-calendar-lite') => 'constantcontact_option',
             __('Active Campaign Integration', 'modern-events-calendar-lite') => 'active_campaign_option',
             __('AWeber Integration', 'modern-events-calendar-lite') => 'aweber_option',
+            __('MailPoet Integration', 'modern-events-calendar-lite') => 'mailpoet_option',
+            __('Sendfox Integration', 'modern-events-calendar-lite') => 'sendfox_option',
         ), $active_menu);
 
         $single_event = apply_filters('mec-settings-item-single_event', array(
@@ -1378,7 +1408,7 @@ class MEC_main extends MEC_base
         if(!wp_verify_nonce($wpnonce, 'mec_options_form')) $this->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
 
         // Current User is not Permitted
-        if(!current_user_can('manage_options')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
         
         // Get mec options
         $mec = $request->getVar('mec', array());
@@ -1488,7 +1518,7 @@ class MEC_main extends MEC_base
         if(!wp_verify_nonce($wpnonce, 'mec_options_form')) $this->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
 
         // Current User is not Permitted
-        if(!current_user_can('manage_options')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
 
         // MEC Request library
         $request = $this->getRequest();
@@ -1528,7 +1558,7 @@ class MEC_main extends MEC_base
     public function save_ix_options($ix_options = array())
     {
         // Current User is not Permitted
-        if(!current_user_can('manage_options')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_import_export')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
 
         // Get current MEC ix options
         $current = $this->get_ix_options();
@@ -2523,19 +2553,35 @@ class MEC_main extends MEC_base
             // MEC Settings
             $settings = $this->get_settings();
 
-            $cancellation_period_time = isset($settings['cancellation_period_time']) ? $settings['cancellation_period_time'] : 0;
+            $cancellation_period_from = isset($settings['cancellation_period_from']) ? $settings['cancellation_period_from'] : 0;
+            $cancellation_period_to = isset($settings['cancellation_period_time']) ? $settings['cancellation_period_time'] : 0;
             $cancellation_period_p = isset($settings['cancellation_period_p']) ? $settings['cancellation_period_p'] : 'hour';
             $cancellation_period_type = isset($settings['cancellation_period_type']) ? $settings['cancellation_period_type'] : 'before';
 
-            if($cancellation_period_time)
+            if($cancellation_period_from or $cancellation_period_to)
             {
-                if($cancellation_period_type == 'before') $max_time = ($start - ($cancellation_period_time * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
-                else $max_time = ($start + ($cancellation_period_time * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
-
-                if($right_now >= $max_time)
+                if($cancellation_period_from)
                 {
-                    echo '<p class="mec-error">'.__("The cancelation window is passed.", 'modern-events-calendar-lite').'</p>';
-                    return false;
+                    if($cancellation_period_type == 'before') $min_time = ($start - ($cancellation_period_from * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
+                    else $min_time = ($start + ($cancellation_period_from * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
+
+                    if($right_now < $min_time)
+                    {
+                        echo '<p class="mec-error">'.__("The cancelation window is not started yet.", 'modern-events-calendar-lite').'</p>';
+                        return false;
+                    }
+                }
+
+                if($cancellation_period_to)
+                {
+                    if($cancellation_period_type == 'before') $max_time = ($start - ($cancellation_period_to * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
+                    else $max_time = ($start + ($cancellation_period_to * ($cancellation_period_p == 'hour' ? 3600 : 86400)));
+
+                    if($right_now > $max_time)
+                    {
+                        echo '<p class="mec-error">'.__("The cancelation window is passed.", 'modern-events-calendar-lite').'</p>';
+                        return false;
+                    }
                 }
             }
 
@@ -5769,7 +5815,7 @@ class MEC_main extends MEC_base
      */
     public function aweber_add_subscriber($book_id)
     {
-        // Aweber Plugin is not installed or its not activated
+        // Aweber Plugin is not installed or it's not activated
         if(!class_exists('AWeberWebFormPluginNamespace\AWeberWebformPlugin')) return false;
 
         // Get MEC Options
@@ -5804,9 +5850,93 @@ class MEC_main extends MEC_base
     }
 
     /**
+     * Add booker information to Mailpoet list
+     * @param int $book_id
+     * @return boolean
+     */
+    public function mailpoet_add_subscriber($book_id)
+    {
+        // Mailpoet Plugin is not installed or it's not activated
+        if(!class_exists(\MailPoet\API\API::class)) return false;
+
+        // Get MEC Options
+        $settings = $this->get_settings();
+
+        // MailPoet integration is disabled
+        if(!isset($settings['mailpoet_status']) or (isset($settings['mailpoet_status']) and !$settings['mailpoet_status'])) return false;
+
+        // MailPoet API
+        $mailpoet_api = \MailPoet\API\API::MP('v1');
+
+        // List ID
+        $list_ids = ((isset($settings['mailpoet_list_id']) and trim($settings['mailpoet_list_id'])) ? array($settings['mailpoet_list_id']) : NULL);
+
+        // MEC User
+        $u = $this->getUser();
+        $booker = $u->booking($book_id);
+
+        try
+        {
+            return $mailpoet_api->addSubscriber(array(
+                'email' => $booker->user_email,
+                'first_name' => $booker->first_name,
+                'last_name' => $booker->last_name,
+            ), $list_ids);
+        }
+        catch(Exception $e)
+        {
+            if($e->getCode() == 12 and $list_ids)
+            {
+                try
+                {
+                    $subscriber = $mailpoet_api->getSubscriber($booker->user_email);
+                    return $mailpoet_api->subscribeToLists($subscriber['id'], $list_ids);
+                }
+                catch(Exception $e)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    /**
+     * Add booker information to Sendfox list
+     * @param int $book_id
+     * @return boolean|array
+     */
+    public function sendfox_add_subscriber($book_id)
+    {
+        // Sendfox Plugin is not installed or it's not activated
+        if(!function_exists('gb_sf4wp_add_contact')) return false;
+
+        // Get MEC Options
+        $settings = $this->get_settings();
+
+        // Sendfox integration is disabled
+        if(!isset($settings['sendfox_status']) or (isset($settings['sendfox_status']) and !$settings['sendfox_status'])) return false;
+
+        // List ID
+        $list_id = ((isset($settings['sendfox_list_id']) and trim($settings['sendfox_list_id'])) ? (int) $settings['sendfox_list_id'] : NULL);
+
+        // MEC User
+        $u = $this->getUser();
+        $booker = $u->booking($book_id);
+
+        return gb_sf4wp_add_contact(array(
+            'email' => $booker->user_email,
+            'first_name' => $booker->first_name,
+            'last_name' => $booker->last_name,
+            'lists' => array($list_id)
+        ));
+    }
+
+    /**
      * Add booker information to constantcontact list
      * @param int $book_id
-     * @return boolean}int
+     * @return boolean|int
      */
     public function constantcontact_add_subscriber($book_id)
     {
@@ -7661,5 +7791,18 @@ class MEC_main extends MEC_base
 
         $render = $this->getRender();
         return $render->dates($event_id, $event->data, $maximum, (trim($occurrence_time) ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
+    }
+
+    public function get_post_thumbnail_url($post = NULL, $size = 'post-thumbnail')
+    {
+        if(function_exists('get_the_post_thumbnail_url')) return get_the_post_thumbnail_url($post, $size);
+        else
+        {
+            $post_thumbnail_id = get_post_thumbnail_id($post);
+            if(!$post_thumbnail_id) return false;
+
+            $image = wp_get_attachment_image_src($post_thumbnail_id, $size);
+            return isset($image['0']) ? $image['0'] : false;
+        }
     }
 }

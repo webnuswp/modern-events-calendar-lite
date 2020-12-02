@@ -80,7 +80,7 @@ if(!is_array($booking_options)) $booking_options = array();
             
             <div class="mec-event-meta mec-color-before mec-frontbox">
 
-                <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
+                <?php do_action('mec_single_virtual_badge', $event->data ); ?>
                 
                 <?php
                 // Event Location

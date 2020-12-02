@@ -1399,7 +1399,13 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_hourly_schedules_widget($event)
     {
-        if(isset($event->data->hourly_schedules) and is_array($event->data->hourly_schedules) and count($event->data->hourly_schedules)):
+        // Timestamp
+        $timestamp = (isset($event->data->time['start_timestamp']) ? $event->data->time['start_timestamp'] : (isset($event->date['start']['timestamp']) ? $event->date['start']['timestamp'] : strtotime($event->date['start']['date'])));
+
+        // Get Per Occurrence
+        $hourly_schedules = MEC_feature_occurrences::param($event->data->ID, $timestamp, 'hourly_schedules', (isset($event->data->hourly_schedules) ? $event->data->hourly_schedules : array()));
+
+        if(is_array($hourly_schedules) and count($hourly_schedules)):
 
         // Status of Speakers Feature
         $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
@@ -1407,8 +1413,8 @@ class MEC_skin_single extends MEC_skins
         ?>
         <div class="mec-event-schedule mec-frontbox">
             <h3 class="mec-schedule-head mec-frontbox-title"><?php _e('Hourly Schedule','modern-events-calendar-lite'); ?></h3>
-            <?php foreach($event->data->hourly_schedules as $day): ?>
-                <?php if(count($event->data->hourly_schedules) >= 1 and isset($day['title'])): ?>
+            <?php foreach($hourly_schedules as $day): ?>
+                <?php if(count($hourly_schedules) >= 1 and isset($day['title'])): ?>
                     <h4 class="mec-schedule-part"><?php echo $day['title']; ?></h4>
                 <?php endif; ?>
                 <div class="mec-event-schedule-content">

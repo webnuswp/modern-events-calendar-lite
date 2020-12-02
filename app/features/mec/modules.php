@@ -156,6 +156,15 @@ if($this->getPRO())
                                         </span>
                                         </div>
                                     </div>
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3"><?php _e('Fullscreen Button', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-4">
+                                            <label>
+                                                <input type="hidden" name="mec[settings][google_maps_fullscreen_button]" value="0" />
+                                                <input value="1" type="checkbox" name="mec[settings][google_maps_fullscreen_button]" <?php if(isset($settings['google_maps_fullscreen_button']) and $settings['google_maps_fullscreen_button']) echo 'checked="checked"'; ?> /> <?php _e("Enabled", 'modern-events-calendar-lite'); ?>
+                                            </label>
+                                        </div>
+                                    </div>
                                     <?php do_action('mec_map_options_after', $settings); ?>
                                 </div>
                                 <?php endif; ?>

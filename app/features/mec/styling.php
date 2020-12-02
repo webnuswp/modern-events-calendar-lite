@@ -47,7 +47,7 @@ if(is_array($fonts))
 
         <div id="wns-be-content">
             <div class="wns-be-group-tab">
-                <h2><?php _e('Styling Option', 'modern-events-calendar-lite'); ?></h2>
+                <h2><?php _e('Styling Options', 'modern-events-calendar-lite'); ?></h2>
                 <div class="mec-container">
                     <form id="mec_styling_form">
 
@@ -208,14 +208,14 @@ if(is_array($fonts))
                         </div>
                         <div class="mec-form-row">
 
-                            <label class="mec-col-3" for="mec_styling_disable_gfonts"><?php _e('Disable MEC custom font (Montserrat)', 'modern-events-calendar-lite'); ?></label>
+                            <label class="mec-col-3" for="mec_styling_disable_gfonts"><?php _e('Disable Google Fonts', 'modern-events-calendar-lite'); ?></label>
                             <div class="mec-col-8">
                                 <input type="hidden" name="mec[styling][disable_gfonts]" value="0" />
                                 <input value="1" type="checkbox" id="mec_styling_disable_gfonts" name="mec[styling][disable_gfonts]" <?php if(isset($styling['disable_gfonts']) and $styling['disable_gfonts']) echo 'checked="checked"'; ?> />
                                 <span class="mec-tooltip">
                                     <div class="box top">
                                         <h5 class="title"><?php _e('Disable Google Fonts', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e('To be GDPR compliant you may need to disable Google fonts!', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                        <div class="content"><p><?php esc_attr_e('To be GDPR compliant you may need to disable Google fonts! set "Default Font" value for font family and enable this option.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
                                     </div>
                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                                 </span>
@@ -224,7 +224,7 @@ if(is_array($fonts))
                         </div>
 
                         <!-- Container Width -->
-                        <h4 class="mec-form-subtitle"><?php esc_html_e('Container Width', 'modern-events-calendar-lite' ); ?></h4>                    
+                        <h4 class="mec-form-subtitle"><?php esc_html_e('Container Width', 'modern-events-calendar-lite' ); ?></h4>
                         <div class="mec-form-row">
                             <label class="mec-col-3" for="mec_styling_container_normal_width"><?php _e('Desktop Normal Screens', 'modern-events-calendar-lite'); ?></label>
                             <div class="mec-col-4">
@@ -252,6 +252,18 @@ if(is_array($fonts))
                             </div>
                         </div>
                         <?php do_action('mec_end_styling_settings', $styling); ?>
+
+                        <!-- Other Styling Option -->
+                        <h4 class="mec-form-subtitle"><?php esc_html_e('Other Styling Option', 'modern-events-calendar-lite' ); ?></h4>
+                        <div class="mec-form-row">
+                            <div class="mec-col-3">
+                                <span><?php esc_html_e('Notifications Background', 'modern-events-calendar-lite' ); ?></span>
+                            </div>
+                            <div class="mec-col-6">
+                                <input type="text" class="wp-color-picker-field" id="mec_settings_notification_bg" name="mec[styling][notification_bg]" value="<?php echo (isset($styling['notification_bg']) ? $styling['notification_bg'] : ''); ?>" data-default-color="" />
+                            </div>
+                        </div>
+
                         <div class="mec-form-row">
                             <?php wp_nonce_field('mec_options_form'); ?>
                             <button  style="display: none;" id="mec_styling_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Save Changes', 'modern-events-calendar-lite'); ?></button>

@@ -53,7 +53,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
             <?php if($this->main->can_show_countdown_module($event)): ?>
             <div class="mec-events-meta-group mec-events-meta-group-countdown">
                 <?php echo $this->main->module('countdown.details', array('event'=>$this->events)); ?>
-            </div> 
+            </div>
             <?php endif; ?>
 
             <!-- Hourly Schedule -->
@@ -68,10 +68,10 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                 <?php
                 if( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '1' and !is_user_logged_in() ) {
                     echo do_shortcode('[MEC_login]');
-                } elseif ( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '0' and !is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ) {
+                } elseif (!is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ) {
                     echo do_shortcode('[MEC_login]');
                 } else {
-                    echo $this->main->module('booking.default', array('event'=>$this->events)); 
+                    echo $this->main->module('booking.default', array('event'=>$this->events));
                 }
                 ?>
             </div>
@@ -107,7 +107,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                             <?php echo $this->main->holding_status($event); ?>
                         </div>
 
-                        <?php  
+                        <?php
                         if(isset($event->data->meta['mec_hide_time']) and $event->data->meta['mec_hide_time'] == '0')
                         {
                             $time_comment = isset($event->data->meta['mec_comment']) ? $event->data->meta['mec_comment'] : '';
@@ -117,7 +117,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                                 <i class="mec-sl-clock " style=""></i>
                                 <h3 class="mec-time"><?php _e('Time', 'modern-events-calendar-lite'); ?></h3>
                                 <i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
-                                
+
                                 <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                                 <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                                 <?php else: ?>
@@ -146,8 +146,8 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                     }
                 ?>
 
-                <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
-                
+                <?php do_action('mec_single_virtual_badge', $event->data ); ?>
+
                 <?php
                     // More Info
                     if(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://')
@@ -161,7 +161,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                         <?php
                     }
                 ?>
-                
+
                 <?php
                     // Event labels
                     if(isset($event->data->labels) && !empty($event->data->labels))
@@ -288,7 +288,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                 <?php elseif(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://'): ?>
                     <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php endif; ?>
-                
+
             </div>
 
             <!-- Speakers Module -->
@@ -296,16 +296,16 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
             <!-- Attendees List Module -->
             <?php echo $this->main->module('attendees-list.details', array('event'=>$event)); ?>
-            
+
             <!-- Next Previous Module -->
             <?php echo $this->main->module('next-event.details', array('event'=>$event)); ?>
-            
+
             <!-- Links Module -->
             <?php echo $this->main->module('links.details', array('event'=>$event)); ?>
 
             <!-- Weather Module -->
             <?php echo $this->main->module('weather.details', array('event'=>$event)); ?>
-            
+
             <!-- Google Maps Module -->
             <div class="mec-events-meta-group mec-events-meta-group-gmap">
                 <?php echo $this->main->module('googlemap.details', array('event'=>$this->events)); ?>
@@ -341,7 +341,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                         <?php echo $this->main->holding_status($event); ?>
                     </div>
 
-                    <?php  
+                    <?php
                     if(isset($event->data->meta['mec_hide_time']) and $event->data->meta['mec_hide_time'] == '0')
                     {
                         $time_comment = isset($event->data->meta['mec_comment']) ? $event->data->meta['mec_comment'] : '';
@@ -351,7 +351,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                             <i class="mec-sl-clock " style=""></i>
                             <h3 class="mec-time"><?php _e('Time', 'modern-events-calendar-lite'); ?></h3>
                             <i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
-                            
+
                             <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                                 <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                             <?php else: ?>
@@ -403,7 +403,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                     <div class="mec-single-event-label">
                         <i class="mec-fa-bookmark-o"></i>
                         <h3 class="mec-cost"><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h3>
-                        <?php foreach($event->data->labels as $labels=>$label) : 
+                        <?php foreach($event->data->labels as $labels=>$label) :
                         $seperator = (++$mec_i === $mec_items ) ? '' : ',';
                         echo '<dd style="color:' . $label['color'] . '">' . $label["name"] . $seperator . '</dd>';
                         endforeach; ?>
@@ -412,7 +412,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                 }
                 ?>
 
-                <?php do_action('mec_single_virtual_badge', $event->data->ID ); ?>
+                <?php do_action('mec_single_virtual_badge', $event->data ); ?>
 
                 <?php
                 // Event Location
@@ -487,7 +487,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                             <h6><?php _e('Phone', 'modern-events-calendar-lite'); ?></h6>
                             <a href="tel:<?php echo $organizer['tel']; ?>"><?php echo $organizer['tel']; ?></a>
                         </dd>
-                        <?php endif; 
+                        <?php endif;
                         if(isset($organizer['email']) && !empty($organizer['email'])): ?>
                         <dd class="mec-organizer-email">
                             <i class="mec-sl-envelope"></i>
@@ -549,7 +549,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
             <!-- QRCode Module -->
             <?php if($single->found_value('qrcode_module', $settings) == 'on') echo $this->main->module('qrcode.details', array('event'=>$event)); ?>
-            
+
             <!-- Widgets -->
             <?php dynamic_sidebar('mec-single-sidebar'); ?>
 

@@ -230,4 +230,15 @@ abstract class MEC_base extends MEC
     {
         return MEC::getInstance('app.libraries.user');
     }
+
+    /**
+     * Returns Hourly Schedule instance
+     * @final
+     * @author Webnus <info@webnus.biz>
+     * @return MEC_hourlyschedule instance
+     */
+    final public function getHourlySchedule()
+    {
+        return MEC::getInstance('app.libraries.hourlyschedule');
+    }
 }

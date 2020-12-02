@@ -65,6 +65,7 @@ $map_events = array();
                         <div class="mec-event-content">
                             <div class="mec-event-detail">
                                 <?php echo $this->display_categories($event); ?>
+                                <?php echo $this->display_organizers($event); ?>
                                 <?php echo (isset($location['name']) ? '<span class="mec-event-loc-place"><i class="mec-sl-location-pin"></i>' . $location['name'] . '</span>' : ''); ?>
                                 <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
                                     <div class="mec-price-details">

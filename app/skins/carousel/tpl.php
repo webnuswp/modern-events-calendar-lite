@@ -30,6 +30,8 @@ jQuery(document).ready(function()
         id: "'.$this->id.'",
         start_date: "'.$this->start_date.'",
         items: "'.$this->count.'",
+        loop: "'.$this->loop.'",
+        autoplay_status: "'.$this->autoplay_status.'",
         autoplay: "'.$this->autoplay.'",
         style: "'.$this->style.'",
         atts: "'.http_build_query(array('atts'=>$this->atts), '', '&').'",

@@ -83,6 +83,7 @@ jQuery(document).ready(function()
         zoom: '.(isset($settings['google_maps_zoomlevel']) ? $settings['google_maps_zoomlevel'] : 14).',
         icon: "'.apply_filters('mec_marker_icon', $this->asset('img/m-04.png')).'",
         styles: '.((isset($settings['google_maps_style']) and trim($settings['google_maps_style']) != '') ? $this->get_googlemap_style($settings['google_maps_style']) : "''").',
+        fullscreen_button: '.((isset($settings['google_maps_fullscreen_button']) and trim($settings['google_maps_fullscreen_button'])) ? 'true' : 'false').',
         markers: '.json_encode($render->markers($map_data->events)).',
         clustering_images: "'.$this->asset('img/cluster1/m').'",
         getDirection: '.$get_direction.',

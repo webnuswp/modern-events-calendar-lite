@@ -7,6 +7,7 @@
             latitude: 0,
             longitude: 0,
             autoinit: true,
+            fullscreen_button: false,
             zoom: 14,
             icon: '../img/m-01.png',
             markers: {},
@@ -55,7 +56,8 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 center: center,
                 zoom: settings.zoom,
-                styles: settings.styles
+                styles: settings.styles,
+                fullscreenControl: settings.fullscreen_button
             };
 
             // Init map

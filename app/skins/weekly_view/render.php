@@ -49,6 +49,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 <div class="mec-event-detail"><div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div></div>
                 <?php echo $this->display_categories($event); ?>
+                <?php echo $this->display_organizers($event); ?>
                 <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
                     <div class="mec-price-details">
                         <i class="mec-sl-wallet"></i>

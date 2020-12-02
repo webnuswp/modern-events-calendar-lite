@@ -104,7 +104,7 @@ class MEC_feature_ix extends MEC_base
      */
     public function menus()
     {
-        add_submenu_page('mec-intro', __('MEC - Import / Export', 'modern-events-calendar-lite'), __('Import / Export', 'modern-events-calendar-lite'), 'manage_options', 'MEC-ix', array($this, 'ix'));
+        add_submenu_page('mec-intro', __('MEC - Import / Export', 'modern-events-calendar-lite'), __('Import / Export', 'modern-events-calendar-lite'), 'mec_import_export', 'MEC-ix', array($this, 'ix'));
     }
     
     /**
@@ -2925,7 +2925,7 @@ class MEC_feature_ix extends MEC_base
             if(isset($this->ix['import_locations']) and $this->ix['import_locations'] and isset($location->ID))
             {
                 $l_metas = $this->main->get_post_meta($location->ID);
-                $thumbnail = has_post_thumbnail($location->ID) ? get_the_post_thumbnail_url($location->ID, 'full') : '';
+                $thumbnail = has_post_thumbnail($location->ID) ? $this->main->get_post_thumbnail_url($location->ID, 'full') : '';
 
                 $location_id = $this->main->save_location(array
                 (

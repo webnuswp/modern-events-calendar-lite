@@ -12,7 +12,17 @@ class MEC_skin_carousel extends MEC_skins
      * @var string
      */
     public $skin = 'carousel';
-    
+    public $date_format_type1_1;
+    public $date_format_type1_2;
+    public $date_format_type1_3;
+    public $date_format_type2_1;
+    public $date_format_type3_1;
+    public $archive_link;
+    public $head_text;
+    public $autoplay;
+    public $autoplay_status;
+    public $loop;
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -69,8 +79,12 @@ class MEC_skin_carousel extends MEC_skins
         // The Head text
         $this->head_text = isset($this->skin_options['head_text']) ? $this->skin_options['head_text'] : '';
         
-        // The auto play time
+        // Auto Play
+        $this->autoplay_status = (!isset($this->skin_options['autoplay_status']) or (isset($this->skin_options['autoplay_status']) and trim($this->skin_options['autoplay_status']))) ? true : false;
         $this->autoplay = (isset($this->skin_options['autoplay']) and trim($this->skin_options['autoplay'])) ? $this->skin_options['autoplay'] : 3000;
+
+        // Loop
+        $this->loop = (!isset($this->skin_options['loop_status']) or (isset($this->skin_options['loop_status']) and trim($this->skin_options['loop_status']))) ? true : false;
 
         // Override the style if the style forced by us in a widget etc
         if(isset($this->atts['style']) and trim($this->atts['style']) != '') $this->style = $this->atts['style'];
