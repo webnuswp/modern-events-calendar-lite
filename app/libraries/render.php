@@ -436,6 +436,12 @@ class MEC_render extends MEC_base
      */
     public function skin($skin, $atts = array())
     {
+        // Pro is Required for Some Skins
+        if(!$this->main->getPRO() and in_array($skin, array('agenda', 'yearly_view', 'timetable', 'masonry', 'map', 'available_spot')))
+        {
+            return '';
+        }
+
         $path = MEC::import('app.skins.'.$skin, true, true);
         $skin_path = apply_filters('mec_skin_path', $skin);
         
@@ -700,6 +706,7 @@ class MEC_render extends MEC_base
             // Time is already available
             if(isset($event->date['start']['hour']))
             {
+                $hide_time = isset($event->data->meta['mec_hide_time']) ? $event->data->meta['mec_hide_time'] : 0;
                 $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
 
                 $s_hour = $event->date['start']['hour'];
@@ -717,9 +724,16 @@ class MEC_render extends MEC_base
                 $st = $this->main->get_time($start_timestamp);
                 $et = $this->main->get_time($end_timestamp);
 
+                $allday = isset($event->data->meta['mec_allday']) ? $event->data->meta['mec_allday'] : 0;
+                if($allday)
+                {
+                    $st = $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite'));
+                    $et = '';
+                }
+
                 $event->data->time = array(
-                    'start'=>$st,
-                    'end'=>($hide_end_time ? '' : $et),
+                    'start'=>($hide_time ? '' : $st),
+                    'end'=>(($hide_time or $hide_end_time) ? '' : $et),
                     'start_raw'=>$st,
                     'end_raw'=>$et,
                     'start_timestamp'=>$start_timestamp,
@@ -741,6 +755,10 @@ class MEC_render extends MEC_base
 
                     $periods = explode(',', $days_str);
 
+                    $allday = isset($event->data->meta['mec_allday']) ? $event->data->meta['mec_allday'] : 0;
+                    $hide_time = isset($event->data->meta['mec_hide_time']) ? $event->data->meta['mec_hide_time'] : 0;
+                    $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
+
                     $p = 0;
                     foreach($periods as $period)
                     {
@@ -759,17 +777,21 @@ class MEC_render extends MEC_base
                             $start_time = $ex[0].' '.str_replace('-', ' ', $ex[2]);
                             $end_time =  $ex[1].' '.str_replace('-', ' ', $ex[3]);
 
-                            $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
-
                             $start_timestamp = strtotime($start_time);
                             $end_timestamp = strtotime($end_time);
 
                             $st = $this->main->get_time($start_timestamp);
                             $et = $this->main->get_time($end_timestamp);
 
+                            if($allday)
+                            {
+                                $st = $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite'));
+                                $et = '';
+                            }
+
                             $event->data->time = array(
-                                'start'=>$st,
-                                'end'=>($hide_end_time ? '' : $et),
+                                'start'=>($hide_time ? '' : $st),
+                                'end'=>(($hide_time or $hide_end_time) ? '' : $et),
                                 'start_raw'=>$st,
                                 'end_raw'=>$et,
                                 'start_timestamp'=>$start_timestamp,
@@ -787,6 +809,15 @@ class MEC_render extends MEC_base
 
             $start_timestamp = strtotime($start_time);
             $end_timestamp = strtotime($end_time);
+
+            if((!$start_timestamp or !$end_timestamp) and isset($event->data->meta['mec_date']) and isset($event->data->meta['mec_date']['start']) and isset($event->data->meta['mec_date']['start']['hour']) and isset($event->data->meta['mec_date']['end']) and isset($event->data->meta['mec_date']['end']['hour']))
+            {
+                $start_time = $event->date['start']['date'].' '.sprintf("%02d", $event->data->meta['mec_date']['start']['hour']).':'.sprintf("%02d", $event->data->meta['mec_date']['start']['minutes']).' '.$event->data->meta['mec_date']['start']['ampm'];
+                $end_time = $event->date['end']['date'].' '.sprintf("%02d", $event->data->meta['mec_date']['end']['hour']).':'.sprintf("%02d", $event->data->meta['mec_date']['end']['minutes']).' '.$event->data->meta['mec_date']['end']['ampm'];
+
+                $start_timestamp = strtotime($start_time);
+                $end_timestamp = strtotime($end_time);
+            }
 
             if($start_timestamp and $end_timestamp)
             {
@@ -883,7 +914,12 @@ class MEC_render extends MEC_base
         $dates = array();
         
         // Get event data if it is NULL
-        if(is_null($event)) $event = $this->data($event_id);
+        if(is_null($event))
+        {
+            $event = new stdClass();
+            $event->meta = $this->main->get_post_meta($event_id);
+            $event->mec = $this->db->select("SELECT * FROM `#__mec_events` WHERE `post_id`='$event_id'", "loadObject");
+        }
         
         $start_date = isset($event->meta['mec_date']['start']) ? $event->meta['mec_date']['start'] : array();
         $end_date = isset($event->meta['mec_date']['end']) ? $event->meta['mec_date']['end'] : array();

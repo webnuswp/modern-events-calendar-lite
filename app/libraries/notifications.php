@@ -899,7 +899,7 @@ class MEC_notifications extends MEC_base
             if(!is_numeric($f)) continue;
 
             $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
-            if(trim($field_value) === '')
+            if((!is_array($field_value) and trim($field_value) === '') or (is_array($field_value) and !count($field_value)))
             {
                 $message = str_replace('%%event_field_'.$f.'%%', '', $message);
                 $message = str_replace('%%event_field_'.$f.'_with_name%%', '', $message);
@@ -1365,7 +1365,7 @@ class MEC_notifications extends MEC_base
 
             $event_field_name = isset($event_field['label']) ? $event_field['label'] : '';
             $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
-            if(trim($field_value) === '')
+            if((!is_array($field_value) and trim($field_value) === '') or (is_array($field_value) and !count($field_value)))
             {
                 $message = str_replace('%%event_field_'.$f.'%%', '', $message);
                 $message = str_replace('%%event_field_'.$f.'_with_name%%', '', $message);

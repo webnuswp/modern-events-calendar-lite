@@ -88,7 +88,7 @@ var mecSingleEventDisplayer = {
         });
         
         var mec_sf_month_selector = "#mec_sf_month_" + settings.id;
-        var  mec_sf_year_selector = "#mec_sf_year_" + settings.id;
+        var mec_sf_year_selector = "#mec_sf_year_" + settings.id;
         mec_sf_month_selector += (', ' + mec_sf_year_selector);
         
         $(mec_sf_month_selector).on('change', function (e) {
@@ -99,6 +99,11 @@ var mecSingleEventDisplayer = {
 
                 if((mec_month_val != 'none' && mec_year_val != 'none') || ((mec_month_val == 'none' && mec_year_val == 'none'))) search();
             } else search();
+        });
+
+        $('#mec_sf_date_end_'+settings.id).on('change', function()
+        {
+            search();
         });
 
         $("#mec_sf_event_type_" + settings.id).on('change', function (e) {
@@ -135,6 +140,9 @@ var mecSingleEventDisplayer = {
             var event_type_2 = $("#mec_sf_event_type_2_" + settings.id).length ? $("#mec_sf_event_type_2_" + settings.id).val() : '';
             var attribute = $("#mec_sf_attribute_" + settings.id).length ? $("#mec_sf_attribute_" + settings.id).val() : '';
 
+            var start = $("#mec_sf_date_start_" + settings.id).length ? $("#mec_sf_date_start_" + settings.id).val() : '';
+            var end = $("#mec_sf_date_end_" + settings.id).length ? $("#mec_sf_date_end_" + settings.id).val() : '';
+
             if (year === 'none' && month === 'none') {
                 year = '';
                 month = '';
@@ -150,7 +158,7 @@ var mecSingleEventDisplayer = {
                 }
             }
 
-            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
+            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[start]=' + start + '&sf[end]=' + end + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
             settings.callback(atts);
         }
     };

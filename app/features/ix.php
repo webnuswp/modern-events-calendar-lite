@@ -440,6 +440,8 @@ class MEC_feature_ix extends MEC_base
         @ini_set('memory_limit', '1024M');
         @ini_set('max_execution_time', 300);
 
+        do_action('mec_custom_max_execution');
+
         $file = $this->getFile();
         $extension = $file->getExt($feed);
 

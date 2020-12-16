@@ -2277,6 +2277,35 @@ span.mec-archive-skins,span.mec-category-skins {
     }
 }
 
+
+/* Zoom Event Import Select All & Deselect All */
+#mec_zoom_checkall {
+    background: #fff;
+    border: 1px solid #282828;
+    border-radius: 60px;
+    padding: 6px 32px 8px;
+    margin: 30px 0 0;
+    cursor: pointer;
+    display: block;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+#mec_zoom_checkall:focus {
+    box-shadow: inset;
+    outline: none;
+}
+
+#mec_zoom_checkall:hover {
+    background: #282828;
+    color: #fff;
+}
+
+
+
 /*!
 	 * Bootstrap v3.3.7 (http://getbootstrap.com)
 	 * Copyright 2011-2016 Twitter, Inc.
@@ -10741,3 +10770,5 @@ div#mec_cancelled_reason_wrapper label {
     font-weight: 400;
     color: #707070;
 }
+
+

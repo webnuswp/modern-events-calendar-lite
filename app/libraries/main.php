@@ -570,6 +570,7 @@ class MEC_main extends MEC_base
             __('Google Recaptcha Options', 'modern-events-calendar-lite') => 'recaptcha_option',
             __('Frontend Event Submission', 'modern-events-calendar-lite') => 'fes_option',
             __('User Profile', 'modern-events-calendar-lite') => 'user_profile_options',
+            __('User Events', 'modern-events-calendar-lite') => 'user_events_options',
             __('Search Bar', 'modern-events-calendar-lite') => 'search_bar_options',
             __('Mailchimp Integration', 'modern-events-calendar-lite') => 'mailchimp_option',
             __('Campaign Monitor Integration', 'modern-events-calendar-lite') => 'campaign_monitor_option',
@@ -4124,9 +4125,11 @@ class MEC_main extends MEC_base
                 break;
             }
         }
+
+        $wc_status = (isset($settings['wc_status']) ? (boolean) $settings['wc_status'] : false);
         
         // No Payment gateway is enabled
-        if(!$is_gateway_enabled) return false;
+        if(!$is_gateway_enabled and !$wc_status) return false;
         
         return true;
     }
@@ -4448,10 +4451,14 @@ class MEC_main extends MEC_base
     */
     public function add_mce_external_plugins($plugins)
     {
-        if( is_plugin_active('js_composer/js_composer.php')) : $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
-        elseif ( (!isset($this->settings['gutenberg']) or (isset($this->settings['gutenberg']) and $this->settings['gutenberg'])) ) : $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
-        else: $plugins['mec_mce_buttons'] = $this->asset('js/backend.js');
-        endif;
+        if(!function_exists('is_plugin_active')) include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+
+        // MEC Settings
+        $settings = $this->get_settings();
+
+        if(is_plugin_active('js_composer/js_composer.php')) $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
+        elseif((!isset($settings['gutenberg']) or (isset($settings['gutenberg']) and $settings['gutenberg']))) $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
+        else $plugins['mec_mce_buttons'] = $this->asset('js/backend.js');
 
         return $plugins;
     }
@@ -4709,9 +4716,10 @@ class MEC_main extends MEC_base
      * @param string $format
      * @param string $separator
      * @param boolean $minify
+     * @param integer $allday
      * @return string
      */
-    public function date_label($start, $end, $format, $separator = ' - ', $minify = true)
+    public function date_label($start, $end, $format, $separator = ' - ', $minify = true, $allday = 0)
     {
         $start_datetime = $start['date'];
         $end_datetime = $end['date'];
@@ -4756,6 +4764,13 @@ class MEC_main extends MEC_base
         {
             $diff = $offset_end - $offset_now;
             if($diff > 0) $end_timestamp += $diff;
+        }
+
+        // Event is All Day so remove the time formats
+        if($allday)
+        {
+            foreach(array('a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's', 'u', 'v') as $f) $format = str_replace($f, '', $format);
+            $format = trim($format, ': ');
         }
         
         if($start_timestamp >= $end_timestamp) return '<span class="mec-start-date-label" itemprop="startDate">' . date_i18n($format, $start_timestamp) . '</span>';

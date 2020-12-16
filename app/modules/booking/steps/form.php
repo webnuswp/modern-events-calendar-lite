@@ -286,12 +286,7 @@ if(!$mec_email)
                                 </label>
 
                             <?php /** Paragraph **/ elseif ($reg_field['type'] == 'p') : ?>
-                                <?php $firstCharacter = substr(stripslashes($reg_field['content']), 0, 1);
-                                if ($firstCharacter == '[') : ?>
-                                    <?php echo do_shortcode(stripslashes($reg_field['content'])); ?>
-                                <?php else : ?>
-                                    <p><?php _e(stripslashes($reg_field['content']), 'modern-events-calendar-lite'); ?></p>
-                                <?php endif; ?>
+                                <p><?php echo do_shortcode(stripslashes($reg_field['content'])); ?></p>
                             <?php endif; ?>
                         </div>
                     <?php endforeach;

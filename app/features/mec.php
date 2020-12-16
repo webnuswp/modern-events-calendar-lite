@@ -631,6 +631,9 @@ class MEC_feature_mec extends MEC_base
         // Enable "Show Past Events" option since the start date is past
         elseif(in_array($start_date_type, array('yesterday', 'start_last_year', 'start_last_month', 'start_last_week'))) $mec['show_past_events'] = 1;
 
+        // Set date filter type to dropdown because of skin
+        if(!in_array($skin, array('list', 'grid', 'agenda', 'timeline'))) $mec['sf-options'][$skin]['month_filter'] = 'dropdown';
+
         foreach($mec as $key=>$value) update_post_meta($post_id, $key, $value);
     }
 
@@ -1370,28 +1373,24 @@ class MEC_feature_mec extends MEC_base
                                 'start' => date('Y-m-01'),
                                 'end' => date('Y-m-t'),
                                 'type' => 'daily',
-                                'chart' => $chart,
                             )); ?>"><?php _e('This Month', 'modern-events-calendar-lite'); ?></a></li>
                             <li class="mec-chart-last-month"><a href="<?php echo add_query_arg(array(
                                 'sort' => 'last_month',
                                 'start' => date('Y-m-01', strtotime('-1 Month')),
                                 'end' => date('Y-m-t', strtotime('-1 Month')),
                                 'type' => 'daily',
-                                'chart' => $chart,
                             )); ?>"><?php _e('Last Month', 'modern-events-calendar-lite'); ?></a></li>
                             <li class="mec-chart-this-year"><a href="<?php echo add_query_arg(array(
                                 'sort' => 'this_year',
                                 'start' => date('Y-01-01'),
                                 'end' => date('Y-12-31'),
                                 'type' => 'monthly',
-                                'chart' => $chart,
                             )); ?>"><?php _e('This Year', 'modern-events-calendar-lite'); ?></a></li>
                             <li class="mec-chart-last-year"><a href="<?php echo add_query_arg(array(
                                 'sort' => 'last_year',
                                 'start' => date('Y-01-01', strtotime('-1 Year')),
                                 'end' => date('Y-12-31', strtotime('-1 Year')),
                                 'type' => 'monthly',
-                                'chart' => $chart,
                             )); ?>"><?php _e('Last Year', 'modern-events-calendar-lite'); ?></a></li>
                         </ul>
                         <script>                        

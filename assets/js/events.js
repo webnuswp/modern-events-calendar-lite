@@ -218,6 +218,33 @@ jQuery(document).ready(function($)
             gotoCurrent: true,
             yearRange: 'c-3:c+5',
         });
+
+        $('.mec_date_picker_dynamic_format_start').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: datepicker_format,
+            gotoCurrent: true,
+            yearRange: 'c-1:c+5',
+            onSelect: function(date)
+            {
+                var selectedDate = new Date(date);
+                var endDate = new Date(selectedDate.getTime() + 86400000);
+
+                var $end_picker = $(this).next();
+                $end_picker.datepicker("option", "minDate", endDate);
+                $end_picker.datepicker("option", "maxDate", '+5y');
+            }
+        });
+
+        $('.mec_date_picker_dynamic_format_end').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: datepicker_format,
+            gotoCurrent: true,
+            yearRange: 'c-1:c+5',
+        });
     }
     
     $('#mec_location_id').on('change', function()
@@ -259,6 +286,8 @@ jQuery(document).ready(function($)
     
     $('#mec_add_in_days').on('click', function()
     {
+        var allday = $(this).data('allday');
+
         var start = $('#mec_exceptions_in_days_start_date').val();
         if(start === '') return false;
 
@@ -284,7 +313,7 @@ jQuery(document).ready(function($)
         if(typeof end_ampm === 'undefined') end_ampm = '';
 
         var value = start + ':' + end + ':' + start_hour + '-' + start_minutes + '-' + start_ampm + ':' + end_hour + '-' + end_minutes + '-' + end_ampm;
-        var label = start + ' ' + start_hour + ':' + start_minutes + ' ' + start_ampm + ' - ' + end + ' ' + end_hour + ':' + end_minutes + ' ' + end_ampm;
+        var label = start + ' <span class="mec-time-picker-label '+(allday ? 'mec-util-hidden' : '')+'">' + start_hour + ':' + start_minutes + ' ' + start_ampm + '</span> - ' + end + ' <span class="mec-time-picker-label '+(allday ? 'mec-util-hidden' : '')+'">' + end_hour + ':' + end_minutes + ' ' + end_ampm + '</span>';
 
         // Don't add exactly same occurrences
         if($('#mec_in_days input[value="'+value+'"]').length > 0) return false;

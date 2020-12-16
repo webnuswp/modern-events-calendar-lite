@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.5.3
-Stable tag: 5.14.0
+Tested up to: 5.6
+Stable tag: 5.15.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -210,6 +210,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Shortcode to display users events
 - Resend booking verification and confirmation email (*pro*)
 - Countdown method per event
 - Set different timezone per event
@@ -435,6 +436,25 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= v 5.15.0 – 16 December 2020 =
+- Added: A shortcode to display current users' events in a preferred skin e.g. monthly, list, grid, etc.
+- Added: A new shortcode to generate a specific calendar for current user events
+- Added: A date picker type for date field in search widget to provide an ability to select start and end dates on frontend instead of month and year
+- Added: An ability to create all day events in custom repeat
+- Added: An ability to show only one occurrence of custom day events
+- Added: An ability to disable / enable booking sections on “Frontend Event Submission” (pro)
+- Improved: The auto suggest location feature to fetch and save geo point in addition to address (pro)
+- Improved: The Stripe gateway to work with no decimal currencies such as JPY (pro)
+- Improved: The MEC's speed of  in some parts
+- Fixed: Some issues related to WordPress 5.6
+- Fixed: Some issues related to PHP8
+- Fixed: An issue on hiding booking form and registration button when all gateways are disabled but WC system is turned on (pro)
+- Fixed: An issue in rendering timestamps on rare conditions
+- Fixed: An issue on pro shortcodes in MEC lite (lite)
+- Fixed: An issue regarding getting event
+- Fixed: Paragraph field
+- Fixed: Showing time of all day events
+
 = v 5.14.0 – 2 December 2020 =
 - Added: MailPoet integration (pro)
 - Added: Sendfox integration (pro)

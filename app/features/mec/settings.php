@@ -32,6 +32,13 @@ echo $this->main->mec_custom_msg('', '');
 
 // Display Addons Notification
 $get_n_option = get_option('mec_addons_notification_option');
+
+$shortcodes = get_posts(array(
+    'post_type' => 'mec_calendars',
+    'post_status' => 'publish',
+    'posts_per_page' => -1,
+    'order' => 'DESC'
+));
 ?>
 <div class="wns-be-container wns-be-container-sticky">
     <div id="wns-be-infobar">
@@ -822,7 +829,57 @@ $get_n_option = get_option('mec_addons_notification_option');
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_booking]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][fes_section_booking]" <?php if(!isset($settings['fes_section_booking']) or (isset($settings['fes_section_booking']) and $settings['fes_section_booking'])) echo 'checked="checked"'; ?> /> <?php _e('Booking Options', 'modern-events-calendar-lite'); ?>
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_booking]" <?php if(!isset($settings['fes_section_booking']) or (isset($settings['fes_section_booking']) and $settings['fes_section_booking'])) echo 'checked="checked"'; ?> onchange="jQuery('#mec_fes_booking_section_options').toggle();" /> <?php _e('Booking Options', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div id="mec_fes_booking_section_options" style="margin: 20px 0; padding: 20px 20px 4px; border: 1px solid #ddd;" class="<?php echo ((!isset($settings['fes_section_booking']) or (isset($settings['fes_section_booking']) and $settings['fes_section_booking'])) ? '' : 'mec-util-hidden'); ?>">
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_tbl]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_tbl]" <?php if(!isset($settings['fes_section_booking_tbl']) or (isset($settings['fes_section_booking_tbl']) and $settings['fes_section_booking_tbl'])) echo 'checked="checked"'; ?> /> <?php _e('Total Booking Limit', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_dpur]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_dpur]" <?php if(!isset($settings['fes_section_booking_dpur']) or (isset($settings['fes_section_booking_dpur']) and $settings['fes_section_booking_dpur'])) echo 'checked="checked"'; ?> /> <?php _e('Discount Per User Roles', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_bao]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_bao]" <?php if(!isset($settings['fes_section_booking_bao']) or (isset($settings['fes_section_booking_bao']) and $settings['fes_section_booking_bao'])) echo 'checked="checked"'; ?> /> <?php _e('Book All Occurrences', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_io]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_io]" <?php if(!isset($settings['fes_section_booking_io']) or (isset($settings['fes_section_booking_io']) and $settings['fes_section_booking_io'])) echo 'checked="checked"'; ?> /> <?php _e('Interval Options', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_aa]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_aa]" <?php if(!isset($settings['fes_section_booking_aa']) or (isset($settings['fes_section_booking_aa']) and $settings['fes_section_booking_aa'])) echo 'checked="checked"'; ?> /> <?php _e('Automatic Approval', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_tubl]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_tubl]" <?php if(!isset($settings['fes_section_booking_tubl']) or (isset($settings['fes_section_booking_tubl']) and $settings['fes_section_booking_tubl'])) echo 'checked="checked"'; ?> /> <?php _e('Total User Booking Limits', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][fes_section_tickets]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_tickets]" <?php if(!isset($settings['fes_section_tickets']) or (isset($settings['fes_section_tickets']) and $settings['fes_section_tickets'])) echo 'checked="checked"'; ?> /> <?php _e('Ticket Options', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][fes_section_reg_form]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_reg_form]" <?php if(!isset($settings['fes_section_reg_form']) or (isset($settings['fes_section_reg_form']) and $settings['fes_section_reg_form'])) echo 'checked="checked"'; ?> /> <?php _e('Booking Form', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
                             <div class="mec-form-row">
@@ -943,6 +1000,20 @@ $get_n_option = get_option('mec_addons_notification_option');
                             <h4 class="mec-form-subtitle"><?php _e('User Profile', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <p><?php echo sprintf(__('Put %s shortcode into your desired page. Then users are able to see the history of their bookings.', 'modern-events-calendar-lite'), '<code>[MEC_profile]</code>'); ?></p>
+                            </div>
+                        </div>
+
+                        <div id="user_events_options" class="mec-options-fields">
+                            <h4 class="mec-form-subtitle"><?php _e('User Events', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <p><?php echo sprintf(__('Put %s shortcode into your desired page. Then users are able to see the their own events.', 'modern-events-calendar-lite'), '<code>[MEC_userevents]</code>'); ?></p>
+                            </div>
+                            <div class="mec-form-row">
+                                <select name="mec[settings][userevents_shortcode]" id="mec_settings_userevents_shortcode">
+                                    <?php foreach($shortcodes as $shortcode): $skin = get_post_meta($shortcode->ID, 'skin', true); if(!in_array($skin, array('monthly_view', 'daily_view', 'weekly_view', 'list', 'grid', 'agenda'))) continue; ?>
+                                    <option value="<?php echo $shortcode->ID; ?>" <?php echo ((isset($settings['userevents_shortcode']) and $settings['userevents_shortcode'] == $shortcode->ID) ? 'selected="selected"' : ''); ?>><?php echo $shortcode->post_title; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
 

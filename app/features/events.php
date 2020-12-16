@@ -100,12 +100,13 @@ class MEC_feature_events extends MEC_base
             $this->factory->action('mec_metabox_booking', array($this, 'meta_box_regform'), 20);
 
             // Booking Options for FES
-            if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
-            {
-                $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_booking_options'), 35);
-                $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_tickets'), 40);
-                $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_regform'), 45);
-            }
+            if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_booking_options'), 35);
+
+            // Ticket Options for FES
+            if(!isset($this->settings['fes_section_tickets']) or (isset($this->settings['fes_section_tickets']) and $this->settings['fes_section_tickets'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_tickets'), 40);
+
+            // Registration Form for FES
+            if(!isset($this->settings['fes_section_reg_form']) or (isset($this->settings['fes_section_reg_form']) and $this->settings['fes_section_reg_form'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_regform'), 45);
         }
 
         // Show fees meta box only if fees module is enabled
@@ -570,7 +571,7 @@ class MEC_feature_events extends MEC_base
                         }
                         ?>
                             type="checkbox" name="mec[date][allday]" id="mec_allday" value="1"
-                            onchange="jQuery('.mec-time-picker').toggle();"/><label
+                            onchange="jQuery('.mec-time-picker, .mec-time-picker-label').toggle(); jQuery('#mec_add_in_days').data('allday', (jQuery(this).is(':checked') ? 1 : 0));"/><label
                             for="mec_allday"><?php _e('All-day Event', 'modern-events-calendar-lite'); ?></label>
                 </div>
                 <div class="mec-form-row">
@@ -754,7 +755,7 @@ class MEC_feature_events extends MEC_base
                                     <div class="mec-col-4">
                                         <input type="text" id="mec_exceptions_in_days_start_date" value="" placeholder="<?php _e('Start', 'modern-events-calendar-lite'); ?>" title="<?php _e('Start', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format widefat" autocomplete="off"/>
                                     </div>
-                                    <div class="mec-col-3">
+                                    <div class="mec-col-3 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
                                         <?php $this->main->timepicker(array(
                                             'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                             'time_hour' => $start_time_hour,
@@ -765,7 +766,7 @@ class MEC_feature_events extends MEC_base
                                         )); ?>
                                     </div>
                                     <div class="mec-col-5">
-                                        <button class="button" type="button" id="mec_add_in_days"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
+                                        <button class="button" type="button" id="mec_add_in_days" data-allday="<?php echo $allday; ?>"><?php _e('Add', 'modern-events-calendar-lite'); ?></button>
                                         <span class="mec-tooltip">
                                             <div class="box top">
                                                 <h5 class="title"><?php _e('Custom Days Repeating', 'modern-events-calendar-lite'); ?></h5>
@@ -784,7 +785,7 @@ class MEC_feature_events extends MEC_base
                                     <div class="mec-col-4">
                                         <input type="text" id="mec_exceptions_in_days_end_date" value="" placeholder="<?php _e('End', 'modern-events-calendar-lite'); ?>" title="<?php _e('End', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format" autocomplete="off"/>
                                     </div>
-                                    <div class="mec-col-8">
+                                    <div class="mec-col-8 mec-time-picker <?php echo ($allday == 1) ? 'mec-util-hidden' : ''; ?>">
                                         <?php $this->main->timepicker(array(
                                             'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                             'time_hour' => $end_time_hour,
@@ -837,7 +838,7 @@ class MEC_feature_events extends MEC_base
                                     }
 
                                     $in_day = $first_date . ':' . $second_date.(trim($in_day_start_time) ? ':'.$in_day_start_time : '').(trim($in_day_end_time) ? ':'.$in_day_end_time : '');
-                                    $in_day_label = $first_date. (trim($in_day_start_time_label) ? ' '.$in_day_start_time_label : '') . ' - ' . $second_date. (trim($in_day_end_time_label) ? ' '.$in_day_end_time_label : '');
+                                    $in_day_label = $first_date. (trim($in_day_start_time_label) ? ' <span class="mec-time-picker-label '.($allday ? 'mec-util-hidden' : '').'">'.$in_day_start_time_label.'</span>' : '') . ' - ' . $second_date. (trim($in_day_end_time_label) ? ' <span class="mec-time-picker-label '.($allday ? 'mec-util-hidden' : '').'">'.$in_day_end_time_label.'</span>' : '');
                                 ?>
                                 <div class="mec-form-row" id="mec_in_days_row<?php echo $i; ?>">
                                     <input type="hidden" name="mec[in_days][<?php echo $i; ?>]" value="<?php echo $in_day; ?>"/>
@@ -1130,16 +1131,16 @@ class MEC_feature_events extends MEC_base
 								<i title="" class="dashicons-before dashicons-editor-help"></i>
 							</span>
                         </div>
-                        <div class="mec-form-row">
-                            <input
-                                <?php
-                                if ($one_occurrence == '1') {
-                                    echo 'checked="checked"';
-                                }
-                                ?>
-                                    type="checkbox" name="mec[date][one_occurrence]" id="mec-one-occurrence" value="1"/><label
-                                    for="mec-one-occurrence"><?php _e('Show only one occurrence of this event', 'modern-events-calendar-lite'); ?></label>
-                        </div>
+                    </div>
+                    <div class="mec-form-row">
+                        <input
+                            <?php
+                            if ($one_occurrence == '1') {
+                                echo 'checked="checked"';
+                            }
+                            ?>
+                                type="checkbox" name="mec[date][one_occurrence]" id="mec-one-occurrence" value="1"/><label
+                                for="mec-one-occurrence"><?php _e('Show only one occurrence of this event', 'modern-events-calendar-lite'); ?></label>
                     </div>
                 </div>
             </div>
@@ -1478,6 +1479,8 @@ class MEC_feature_events extends MEC_base
      */
     public function meta_box_booking_options($post)
     {
+        $FES = (boolean) !is_admin();
+
         $booking_options = get_post_meta($post->ID, 'mec_booking', true);
         if(!is_array($booking_options)) $booking_options = array();
 
@@ -1504,6 +1507,8 @@ class MEC_feature_events extends MEC_base
         ?>
         <div id="mec-booking">
             <div class="mec-meta-box-fields mec-booking-tab-content mec-tab-active" id="mec_meta_box_booking_options_form_1">
+
+                <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_tbl']) or (isset($this->settings['fes_section_booking_tbl']) and $this->settings['fes_section_booking_tbl'])))): ?>
                 <h4 class="mec-title"><label for="mec_bookings_limit"><?php _e('Total booking limit', 'modern-events-calendar-lite'); ?></label></h4>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_bookings_limit_unlimited" id="mec_bookings_limit_unlimited_label">
@@ -1533,6 +1538,9 @@ class MEC_feature_events extends MEC_base
                     <input class="mec-col-4 <?php echo ($bookings_limit_unlimited == 1) ? 'mec-util-hidden' : ''; ?>" type="text" name="mec[booking][bookings_limit]" id="mec_bookings_limit"
                            value="<?php echo esc_attr($bookings_limit); ?>" placeholder="<?php _e('100', 'modern-events-calendar-lite'); ?>"/>
                 </div>
+                <?php endif; ?>
+
+                <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_dpur']) or (isset($this->settings['fes_section_booking_dpur']) and $this->settings['fes_section_booking_dpur'])))): ?>
                 <h4 class="mec-title"><?php _e('Discount per user roles', 'modern-events-calendar-lite'); ?></h4>
                 <?php foreach($roles as $role_key => $role_name): $role_discount = isset($booking_options['roles_discount_'.$role_key]) ? $booking_options['roles_discount_'.$role_key] : $loggedin_discount; ?>
                 <div class="mec-form-row">
@@ -1542,6 +1550,9 @@ class MEC_feature_events extends MEC_base
                     <input class="mec-col-4" type="text" name="mec[booking][roles_discount_<?php echo $role_key; ?>]" id="mec_bookings_roles_discount_<?php echo $role_key; ?>" value="<?php echo esc_attr($role_discount); ?>" placeholder="<?php _e('5', 'modern-events-calendar-lite'); ?>">
                 </div>
                 <?php endforeach; ?>
+                <?php endif; ?>
+
+                <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_bao']) or (isset($this->settings['fes_section_booking_bao']) and $this->settings['fes_section_booking_bao'])))): ?>
                 <h4 class="mec-title"><?php _e('Book All Occurrences', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_bookings_all_occurrences">
@@ -1567,6 +1578,9 @@ class MEC_feature_events extends MEC_base
                         </span>
                     </label>
                 </div>
+                <?php endif; ?>
+
+                <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_io']) or (isset($this->settings['fes_section_booking_io']) and $this->settings['fes_section_booking_io'])))): ?>
                 <h4 class="mec-title"><?php _e('Interval Options', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_booking_show_booking_form_interval"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></label>
@@ -1581,6 +1595,9 @@ class MEC_feature_events extends MEC_base
                         </span>
                     </div>
                 </div>
+                <?php endif; ?>
+
+                <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_aa']) or (isset($this->settings['fes_section_booking_aa']) and $this->settings['fes_section_booking_aa'])))): ?>
                 <h4><?php _e('Automatic Approval', 'modern-events-calendar-lite'); ?></h4>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_booking_auto_verify"><?php _e('Email Verification', 'modern-events-calendar-lite'); ?></label>
@@ -1602,9 +1619,13 @@ class MEC_feature_events extends MEC_base
                         </select>
                     </div>
                 </div>
+                <?php endif; ?>
+
             </div>
+
+            <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_tubl']) or (isset($this->settings['fes_section_booking_tubl']) and $this->settings['fes_section_booking_tubl'])))): ?>
             <div class="mec-meta-box-fields mec-booking-tab-content" id="mec_meta_box_booking_options_form_2">
-                <h4 class="mec-title"><label for="mec_bookings_user_limit"><?php _e('Total user booking limits', 'modern-events-calendar-lite'); ?></label></h4>
+                <h4 class="mec-title"><label for="mec_bookings_user_limit"><?php _e('Total User Booking Limits', 'modern-events-calendar-lite'); ?></label></h4>
                 <div class="mec-form-row">
                     <label class="mec-col-4" for="mec_bookings_user_limit_unlimited" id="mec_bookings_user_limit_unlimited_label">
                         <input type="hidden" name="mec[booking][bookings_user_limit_unlimited]" value="0"/>
@@ -1621,6 +1642,7 @@ class MEC_feature_events extends MEC_base
                             value="<?php echo esc_attr($bookings_user_limit); ?>" placeholder="<?php _e('12', 'modern-events-calendar-lite'); ?>"/>
                 </div>
             </div>
+            <?php endif; ?>
 
             <?php if(isset($gateway_settings['gateways_per_event']) and $gateway_settings['gateways_per_event']): ?>
             <div class="mec-meta-box-fields mec-booking-tab-content" id="mec_meta_box_booking_options_form_gateways_per_event">
@@ -1822,11 +1844,11 @@ class MEC_feature_events extends MEC_base
                                                 <div class="mec-form-row">
                                                     <input class="mec-col-3 mec_date_picker_dynamic_format" type="text"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][start]"
-                                                           value="<?php echo isset($price_date['start']) ? $this->main->standardize_format( $price_date[ 'start' ], $datepicker_format ) : $this->main->standardize_format( date( 'Y-m-d' ), $datepicker_format ); ?>"
+                                                           value="<?php echo isset($price_date['start']) ? $this->main->standardize_format($price_date['start'], $datepicker_format) : $this->main->standardize_format(date('Y-m-d'), $datepicker_format); ?>"
                                                            placeholder="<?php esc_attr_e('Start', 'modern-events-calendar-lite'); ?>"/>
                                                     <input class="mec-col-3 mec_date_picker_dynamic_format" type="text"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][end]"
-                                                           value="<?php echo isset($price_date['end']) ? $this->main->standardize_format( $price_date['end'], $datepicker_format ) : $this->main->standardize_format( date( 'Y-m-d', strtotime( '+10 days' ) ), $datepicker_format ); ?>"
+                                                           value="<?php echo isset($price_date['end']) ? $this->main->standardize_format($price_date['end'], $datepicker_format) : $this->main->standardize_format(date('Y-m-d', strtotime( '+10 days')), $datepicker_format); ?>"
                                                            placeholder="<?php esc_attr_e('End', 'modern-events-calendar-lite'); ?>"/>
                                                     <input class="mec-col-3" type="number"
                                                            name="mec[tickets][<?php echo $key; ?>][dates][<?php echo $p; ?>][price]"
@@ -2588,8 +2610,8 @@ class MEC_feature_events extends MEC_base
         // Get Modern Events Calendar Data
         $_mec = isset($_POST['mec']) ? $_POST['mec'] : array();
 
-        $start_date = (isset($_mec['date']['start']['date']) and trim($_mec['date']['start']['date'])) ? $this->main->standardize_format( $_mec['date']['start']['date'] ) : date('Y-m-d');
-        $end_date = (isset($_mec['date']['end']['date']) and trim($_mec['date']['end']['date'])) ? $this->main->standardize_format( $_mec['date']['end']['date'] ) : date('Y-m-d');
+        $start_date = (isset($_mec['date']['start']['date']) and trim($_mec['date']['start']['date'])) ? $this->main->standardize_format($_mec['date']['start']['date']) : date('Y-m-d');
+        $end_date = (isset($_mec['date']['end']['date']) and trim($_mec['date']['end']['date'])) ? $this->main->standardize_format($_mec['date']['end']['date']) : date('Y-m-d');
 
         $event = $this->db->select("SELECT * FROM `#__mec_events` WHERE `post_id` = {$post_id}", 'loadAssoc');
         if(!is_array($event)) $event = array();

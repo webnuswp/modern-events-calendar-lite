@@ -107,7 +107,7 @@ if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
         <select class="mec-custom-nice-select" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
             <?php foreach($dates as $date): ?>
             <option value="<?php echo $book->timestamp($date['start'], $date['end']); ?>">
-                <?php echo strip_tags($this->date_label($date['start'], $date['end'], $date_format, ' - ', false)); ?>
+                <?php echo strip_tags($this->date_label($date['start'], $date['end'], $date_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0))); ?>
             </option>
             <?php endforeach; ?>
         </select>

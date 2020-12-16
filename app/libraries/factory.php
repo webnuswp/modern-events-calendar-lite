@@ -557,10 +557,13 @@ class MEC_factory extends MEC_base
      * @param string $string
      * @return boolean
      */
-    public function params($key = 'footer', $string)
+    public function params($key, $string)
 	{
+        $key = (string) $key;
 		$string = (string) $string;
-		if(trim($string) == '') return false;
+
+		// No Key or No String
+		if(trim($string) == '' or trim($key) == '') return false;
 		
         // Register the key for removing PHP notices
         if(!isset(self::$params[$key])) self::$params[$key] = array();
@@ -1152,6 +1155,7 @@ class MEC_factory extends MEC_base
                 'MEC-ix',
                 'MEC-support',
                 'MEC-go-pro',
+                'mec-advanced-report',
             )))) return true;
 
             return apply_filters('mec_include_backend_assets', false);

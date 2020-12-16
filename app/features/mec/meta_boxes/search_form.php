@@ -78,10 +78,11 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_list_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
+                    <label class="mec-col-12" for="mec_sf_list_month_filter"><?php _e('Date Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][list][month_filter][type]" id="mec_sf_list_month_filter">
 						<option value="0" <?php if(isset($sf_options_list['month_filter']) and isset($sf_options_list['month_filter']['type']) and $sf_options_list['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="dropdown" <?php if(isset($sf_options_list['month_filter']) and isset($sf_options_list['month_filter']['type']) and $sf_options_list['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="dropdown" <?php if(isset($sf_options_list['month_filter']) and isset($sf_options_list['month_filter']['type']) and $sf_options_list['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Year & Month Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="date-range-picker" <?php if(isset($sf_options_list['month_filter']) and isset($sf_options_list['month_filter']['type']) and $sf_options_list['month_filter']['type'] == 'date-range-picker') echo 'selected="selected"'; ?>><?php _e('Date Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -148,10 +149,11 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_grid_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
+                    <label class="mec-col-12" for="mec_sf_grid_month_filter"><?php _e('Date Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][grid][month_filter][type]" id="mec_sf_grid_month_filter">
                         <option value="0" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="dropdown" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="dropdown" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Year & Month Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="date-range-picker" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == 'date-range-picker') echo 'selected="selected"'; ?>><?php _e('Date Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -218,10 +220,11 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
-                    <label class="mec-col-12" for="mec_sf_agenda_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
+                    <label class="mec-col-12" for="mec_sf_agenda_month_filter"><?php _e('Date Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][agenda][month_filter][type]" id="mec_sf_agenda_month_filter">
                         <option value="0" <?php if(isset($sf_options_agenda['month_filter']) and isset($sf_options_agenda['month_filter']['type']) and $sf_options_agenda['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
-                        <option value="dropdown" <?php if(isset($sf_options_agenda['month_filter']) and isset($sf_options_agenda['month_filter']['type']) and $sf_options_agenda['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="dropdown" <?php if(isset($sf_options_agenda['month_filter']) and isset($sf_options_agenda['month_filter']['type']) and $sf_options_agenda['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Year & Month Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="date-range-picker" <?php if(isset($sf_options_agenda['month_filter']) and isset($sf_options_agenda['month_filter']['type']) and $sf_options_agenda['month_filter']['type'] == 'date-range-picker') echo 'selected="selected"'; ?>><?php _e('Date Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">

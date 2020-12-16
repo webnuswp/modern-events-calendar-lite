@@ -870,7 +870,7 @@ class MEC_skins extends MEC_base
 
         foreach($this->sf_options as $field=>$options)
         {
-            $display_form[] = $options['type'];
+            $display_form[] = (isset($options['type']) ? $options['type'] : NULL);
             $fields_array = array('category', 'location', 'organizer', 'speaker', 'tag', 'label');
             $fields_array = apply_filters('mec_filter_fields_search_array', $fields_array);
 
@@ -1131,6 +1131,20 @@ class MEC_skins extends MEC_base
 
                 $output .= '</select></div>';
             }
+            elseif($type == 'date-range-picker')
+            {
+                $min_date = (isset($this->start_date) ? $this->start_date : NULL);
+
+                $output .= '<div class="mec-date-search">
+                    <i class="mec-sl-calendar"></i>
+                    <input class="mec-col-3 mec_date_picker_dynamic_format_start" data-min="'.$min_date.'" type="text"
+                           id="mec_sf_date_start_'.$this->id.'"
+                           placeholder="'.esc_attr__('Start', 'modern-events-calendar-lite').'" autocomplete="off">
+                    <input class="mec-col-3 mec_date_picker_dynamic_format_end" type="text"
+                           id="mec_sf_date_end_'.$this->id.'"
+                           placeholder="'.esc_attr__('End', 'modern-events-calendar-lite').'" autocomplete="off">
+                </div>';
+            }
         }
         elseif($field == 'text_search')
         {
@@ -1206,6 +1220,24 @@ class MEC_skins extends MEC_base
                 {
                     $atts['sk-options'][$skin]['start_date_type'] = 'date';
                     $atts['sk-options'][$skin]['start_date'] = $start_date;
+                }
+            }
+
+            // Apply Start and End Dates
+            if(isset($sf['start']) and trim($sf['start']) and isset($sf['end']) and trim($sf['end']))
+            {
+                $start = $this->main->standardize_format($sf['start']);
+                $this->request->setVar('mec_start_date', $start);
+
+                $end = $this->main->standardize_format($sf['end']);
+                $this->request->setVar('mec_maximum_date', $end);
+                $this->maximum_date = $end;
+
+                $skins = $this->main->get_skins();
+                foreach($skins as $skin=>$label)
+                {
+                    $atts['sk-options'][$skin]['start_date_type'] = 'date';
+                    $atts['sk-options'][$skin]['start_date'] = $start;
                 }
             }
         }

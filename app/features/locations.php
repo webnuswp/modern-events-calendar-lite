@@ -304,7 +304,6 @@ class MEC_feature_locations extends MEC_base
      */
     public function meta_box_location($post)
     {
-        $settings = $this->main->get_settings();
         $this->main->load_map_assets();
 
         $locations = get_terms('mec_location', array('orderby'=>'name', 'hide_empty'=>'0'));
@@ -353,7 +352,13 @@ class MEC_feature_locations extends MEC_base
                     {
                         if(typeof google !== 'undefined')
                         {
-                            new google.maps.places.Autocomplete(document.getElementById('mec_location_address'));
+                            var location_autocomplete = new google.maps.places.Autocomplete(document.getElementById('mec_location_address'));
+                            google.maps.event.addListener(location_autocomplete, 'place_changed', function()
+                            {
+                                var place = location_autocomplete.getPlace();
+                                jQuery('#mec_location_latitude').val(place.geometry.location.lat());
+                                jQuery('#mec_location_longitude').val(place.geometry.location.lng());
+                            });
                         }
                     });
                     </script>

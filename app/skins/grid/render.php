@@ -91,7 +91,7 @@ if($this->style == 'colorful')
                 <?php $soldout = $this->main->get_flags($event); ?>
                 <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
+                <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                 <p class="mec-grid-event-location"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></p>
                 <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
                     <div class="mec-price-details">
@@ -126,13 +126,13 @@ if($this->style == 'colorful')
                     <div class="mec-event-date mec-bg-color">
                         <?php echo $this->main->date_i18n($this->date_format_classic_1, strtotime($event->date['start']['date'])); ?>
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
+                        <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                     </div>
                 <?php else: ?>
                     <div class="mec-event-date mec-bg-color">
                         <?php echo $this->main->dateify($event, $this->date_format_classic_1); ?>
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
+                        <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                     </div>
                 <?php endif; ?>
                 <?php do_action('mec_classic_before_title', $event ); ?>
@@ -181,13 +181,13 @@ if($this->style == 'colorful')
                     <div class="mec-event-date"><?php echo $this->main->date_i18n($this->date_format_clean_1, strtotime($event->date['start']['date'])); ?></div>
                     <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_clean_2, strtotime($event->date['start']['date'])); ?></div>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                    <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
+                    <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                     <?php do_action('display_mec_tad', $event); ?>
                 <?php else: ?>
                     <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_clean_1.' '.$this->date_format_clean_2); ?></div>
                     <?php do_action('display_mec_tad', $event); ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                    <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
+                    <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                 <?php endif; ?>
                 <div class="mec-event-detail">
                     <div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></div>
@@ -235,7 +235,7 @@ if($this->style == 'colorful')
                         <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_novel_1); ?></div>
                     <?php endif; ?>
                     <?php
-                        if($this->include_events_times) echo $this->main->display_time($start_time, $end_time, array('class' => 'mec-event-detail'));
+                        if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time, array('class' => 'mec-event-detail'));
                         if(isset($location['address'])) echo '<div class="mec-event-address">'.$location['address'].'</div>';
                         if($this->localtime) echo $this->main->module('local-time.type1', array('event'=>$event));
                         echo $this->display_categories($event);
@@ -268,7 +268,7 @@ if($this->style == 'colorful')
             <div class="mec-event-detail">
                 <span class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></span>
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-                <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
+                <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                 <?php echo $this->display_categories($event); ?>
                 <?php echo $this->display_organizers($event); ?>
             </div>
