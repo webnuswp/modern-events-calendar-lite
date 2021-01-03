@@ -46,8 +46,8 @@ class MEC_feature_events extends MEC_base
     public function init()
     {
         $this->factory->action('init', array($this, 'register_post_type'));
-        $this->factory->action('mec_category_add_form_fields', array($this, 'add_category_custom_icon'), 10, 2);
-        $this->factory->action('mec_category_edit_form_fields', array($this, 'edit_category_custom_icon'), 10, 2);
+        $this->factory->action('mec_category_add_form_fields', array($this, 'add_category_fields'), 10, 2);
+        $this->factory->action('mec_category_edit_form_fields', array($this, 'edit_category_fields'), 10, 2);
         $this->factory->action('edited_mec_category', array($this, 'save_metadata'));
         $this->factory->action('created_mec_category', array($this, 'save_metadata'));
 
@@ -91,45 +91,48 @@ class MEC_feature_events extends MEC_base
             $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_exceptional_days'), 25);
         }
 
-        // Show Booking meta box only if booking module is enabled
-        $booking_status = (isset($this->settings['booking_status']) and $this->settings['booking_status']) ? true : false;
-        if($booking_status)
+        if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
         {
-            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_booking_options'), 5);
-            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_tickets'), 10);
-            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_regform'), 20);
-
-            // Booking Options for FES
-            if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_booking_options'), 35);
-
-            // Ticket Options for FES
-            if(!isset($this->settings['fes_section_tickets']) or (isset($this->settings['fes_section_tickets']) and $this->settings['fes_section_tickets'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_tickets'), 40);
-
-            // Registration Form for FES
-            if(!isset($this->settings['fes_section_reg_form']) or (isset($this->settings['fes_section_reg_form']) and $this->settings['fes_section_reg_form'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_regform'), 45);
-        }
-
-        // Show fees meta box only if fees module is enabled
-        if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
-        {
-            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_fees'), 15);
-
-            // Fees for FES
-            if($booking_status and (!isset($this->settings['fes_section_fees']) or (isset($this->settings['fes_section_fees']) and $this->settings['fes_section_fees'])))
+            // Show Booking meta box only if booking module is enabled
+            $booking_status = (isset($this->settings['booking_status']) and $this->settings['booking_status']) ? true : false;
+            if($booking_status)
             {
-                $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_fees'), 45);
+                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_booking_options'), 5);
+                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_tickets'), 10);
+                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_regform'), 20);
+
+                // Booking Options for FES
+                if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_booking_options'), 35);
+
+                // Ticket Options for FES
+                if(!isset($this->settings['fes_section_tickets']) or (isset($this->settings['fes_section_tickets']) and $this->settings['fes_section_tickets'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_tickets'), 40);
+
+                // Registration Form for FES
+                if(!isset($this->settings['fes_section_reg_form']) or (isset($this->settings['fes_section_reg_form']) and $this->settings['fes_section_reg_form'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_regform'), 45);
             }
-        }
 
-        // Show ticket variations meta box only if the module is enabled
-        if($booking_status and isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'])
-        {
-            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_ticket_variations'), 16);
-
-            // Ticket Variations for FES
-            if($booking_status and (!isset($this->settings['fes_section_ticket_variations']) or (isset($this->settings['fes_section_ticket_variations']) and $this->settings['fes_section_ticket_variations'])))
+            // Show fees meta box only if fees module is enabled
+            if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
             {
-                $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_ticket_variations'), 46);
+                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_fees'), 15);
+
+                // Fees for FES
+                if($booking_status and (!isset($this->settings['fes_section_fees']) or (isset($this->settings['fes_section_fees']) and $this->settings['fes_section_fees'])))
+                {
+                    $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_fees'), 45);
+                }
+            }
+
+            // Show ticket variations meta box only if the module is enabled
+            if($booking_status and isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'])
+            {
+                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_ticket_variations'), 16);
+
+                // Ticket Variations for FES
+                if($booking_status and (!isset($this->settings['fes_section_ticket_variations']) or (isset($this->settings['fes_section_ticket_variations']) and $this->settings['fes_section_ticket_variations'])))
+                {
+                    $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_ticket_variations'), 46);
+                }
             }
         }
 
@@ -149,6 +152,13 @@ class MEC_feature_events extends MEC_base
 
         // WPML Duplicate
         $this->factory->action('icl_make_duplicate', array($this, 'icl_duplicate'), 10, 4);
+
+        // Image Fallback
+        if(isset($this->settings['fallback_featured_image_status']) and $this->settings['fallback_featured_image_status'])
+        {
+            $this->factory->filter('get_post_metadata', array($this, 'set_fallback_image_id'), 10, 4);
+            $this->factory->filter('post_thumbnail_html', array($this, 'show_fallback_image'), 20, 5);
+        }
     }
 
     /**
@@ -228,9 +238,12 @@ class MEC_feature_events extends MEC_base
      *
      * @author Webnus <info@webnus.biz>
      */
-    public function add_category_custom_icon()
+    public function add_category_fields()
     {
         add_thickbox();
+
+        // Fallback Status
+        $fallback = (isset($this->settings['fallback_featured_image_status']) and $this->settings['fallback_featured_image_status']);
         ?>
         <div class="form-field">
             <label for="mec_cat_icon"><?php _e('Category Icon', 'modern-events-calendar-lite'); ?></label>
@@ -238,7 +251,15 @@ class MEC_feature_events extends MEC_base
             <a href="<?php echo $this->main->asset('icon.html'); ?>"
                class="thickbox mec_category_icon button"><?php echo __('Select icon', 'modern-events-calendar-lite'); ?></a>
         </div>
-
+        <?php if($fallback): ?>
+        <div class="form-field">
+            <label for="mec_thumbnail_button"><?php _e('Fallback Image', 'modern-events-calendar-lite'); ?></label>
+            <div id="mec_thumbnail_img"></div>
+            <input type="hidden" name="fallback" id="mec_thumbnail" value="" />
+            <button type="button" class="mec_upload_image_button button" id="mec_thumbnail_button"><?php echo __('Upload/Add image', 'modern-events-calendar-lite'); ?></button>
+            <button type="button" class="mec_remove_image_button button mec-util-hidden"><?php echo __('Remove image', 'modern-events-calendar-lite'); ?></button>
+        </div>
+        <?php endif; ?>
         <?php
     }
 
@@ -247,9 +268,17 @@ class MEC_feature_events extends MEC_base
      *
      * @author Webnus <info@webnus.biz>
      */
-    public function edit_category_custom_icon($term)
+    public function edit_category_fields($term)
     {
         add_thickbox();
+
+        // Fallback Status
+        $fallback = (isset($this->settings['fallback_featured_image_status']) and $this->settings['fallback_featured_image_status']);
+
+        // Fallback Image
+        $fallback_image = get_metadata('term', $term->term_id, 'mec_cat_fallback_image', true);
+
+        // Icon
         $icon = get_metadata('term', $term->term_id, 'mec_cat_icon', true);
         ?>
         <tr class="form-field">
@@ -265,6 +294,19 @@ class MEC_feature_events extends MEC_base
                 <?php endif; ?>
             </td>
         </tr>
+        <?php if($fallback): ?>
+        <tr class="form-field">
+            <th scope="row" >
+                <label for="mec_thumbnail_button"><?php _e('Fallback Image', 'modern-events-calendar-lite'); ?></label>
+            </th>
+            <td>
+                <div id="mec_thumbnail_img"><?php if(trim($fallback_image) != '') echo '<img src="'.$fallback_image.'" />'; ?></div>
+                <input type="hidden" name="fallback" id="mec_thumbnail" value="<?php echo esc_attr($fallback_image); ?>" />
+                <button type="button" class="mec_upload_image_button button" id="mec_thumbnail_button"><?php echo __('Upload/Add image', 'modern-events-calendar-lite'); ?></button>
+                <button type="button" class="mec_remove_image_button button <?php echo (!trim($fallback_image) ? 'mec-util-hidden' : ''); ?>"><?php echo __('Remove image', 'modern-events-calendar-lite'); ?></button>
+            </td>
+        </tr>
+        <?php endif; ?>
         <?php
     }
 
@@ -277,8 +319,10 @@ class MEC_feature_events extends MEC_base
     public function save_metadata($term_id)
     {
         $icon = isset($_POST['mec_cat_icon']) ? sanitize_text_field($_POST['mec_cat_icon']) : '';
-
         update_term_meta($term_id, 'mec_cat_icon', $icon);
+
+        $fallback = isset($_POST['fallback']) ? sanitize_text_field($_POST['fallback']) : '';
+        update_term_meta($term_id, 'mec_cat_fallback_image', $fallback);
     }
 
     public function register_endpoints()
@@ -367,7 +411,7 @@ class MEC_feature_events extends MEC_base
                     }
                     elseif($link_address == 'mec-event-data')
                     {
-                        if(count($event_fields)) echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
+                        if(count($event_fields) and isset($this->settings['display_event_fields_backend']) and $this->settings['display_event_fields_backend'] == 1) echo '<a class="mec-add-event-tabs-link" data-href="'.$link_address.'" href="#">'.$link_name.'</a>';
                     }
                     elseif($link_address == 'mec-notifications')
                     {
@@ -393,7 +437,10 @@ class MEC_feature_events extends MEC_base
                 jQuery(this).addClass("mec-tab-active");
                 jQuery("#" + href ).addClass("mec-tab-active");
             });
+        </script>
 
+    <?php if(isset($this->settings['display_event_fields_backend']) and $this->settings['display_event_fields_backend'] == 1): ?>
+        <script>
             jQuery("#publish").on("click", function()
             {
                 var xdf = jQuery("#mec_metabox_details .mec-add-event-tabs-left .mec-add-event-tabs-link[data-href='mec-event-data']");
@@ -404,6 +451,7 @@ class MEC_feature_events extends MEC_base
             });
         </script>
     <?php
+    endif;
     }
 
     /**
@@ -1172,6 +1220,8 @@ class MEC_feature_events extends MEC_base
 
     public function meta_box_fields($post)
     {
+        if(!isset($this->settings['display_event_fields_backend']) or (isset($this->settings['display_event_fields_backend']) and $this->settings['display_event_fields_backend'] != 1)) return;
+
         $event_fields = $this->main->get_event_fields();
         $data = get_post_meta($post->ID, 'mec_fields', true);
         ?>
@@ -4145,5 +4195,85 @@ class MEC_feature_events extends MEC_base
         // Update Schedule
         $schedule = $this->getSchedule();
         $schedule->reschedule($id);
+    }
+
+    public function set_fallback_image_id($value, $post_id, $meta_key, $single)
+    {
+        // Only on frontend
+        if((is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX))) return $value;
+
+        // Only for empty _thumbnail_id keys
+        if(!empty($meta_key) && '_thumbnail_id' !== $meta_key) return $value;
+
+        // Only For Events
+        if(get_post_type($post_id) != $this->PT) return $value;
+
+        // Get current Cache
+        $meta_cache = wp_cache_get($post_id, 'post_meta');
+        if(!$meta_cache)
+        {
+            $meta_cache = update_meta_cache('post', array($post_id));
+
+            if(isset($meta_cache[$post_id])) $meta_cache = $meta_cache[$post_id];
+            else $meta_cache = array();
+        }
+
+        // Is the _thumbnail_id present in cache?
+        if(!empty($meta_cache['_thumbnail_id'][0])) return $value;
+
+        $fallback_image_id = $this->get_fallback_image_id($post_id);
+        if(!$fallback_image_id) return $value;
+
+        // Set the Fallback Image in cache
+        $meta_cache['_thumbnail_id'][0] = $fallback_image_id;
+        wp_cache_set($post_id, $meta_cache, 'post_meta');
+
+        return $value;
+    }
+
+    public function show_fallback_image($html, $post_id, $post_thumbnail_id, $size, $attr)
+    {
+        // Only on frontend
+        if((is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX))) return $html;
+
+        // Only For Events
+        if(get_post_type($post_id) != $this->PT) return $html;
+
+        $fallback_image_id = $this->get_fallback_image_id($post_id);
+
+        // if an image is set return that image.
+        if((int) $fallback_image_id !== (int) $post_thumbnail_id) return $html;
+
+        if(isset($attr['class'])) $attr['class'] .= ' mec-fallback-img';
+        else
+        {
+            $size_class = $size;
+            if(is_array($size_class)) $size_class = 'size-'.implode('x', $size_class);
+
+            $attr = array('class' => 'attachment-'.$size_class.' default-featured-img');
+        }
+
+        return wp_get_attachment_image($fallback_image_id, $size, false, $attr);
+    }
+
+    public function get_fallback_image_id($event_id)
+    {
+        // Categories
+        $categories = get_the_terms($event_id, 'mec_category');
+        if(!is_array($categories) or (is_array($categories) and !count($categories))) return NULL;
+
+        // Fallback Image ID
+        $fallback_image_id = NULL;
+        foreach($categories as $category)
+        {
+            $fallback_image = get_term_meta($category->term_id, 'mec_cat_fallback_image', true);
+            if(trim($fallback_image))
+            {
+                $fallback_image_id = attachment_url_to_postid($fallback_image);
+                if($fallback_image_id) break;
+            }
+        }
+
+        return $fallback_image_id;
     }
 }

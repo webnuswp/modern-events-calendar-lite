@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.6
-Stable tag: 5.15.0
+Stable tag: 5.15.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -210,6 +210,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Calendar method to show available occurrences to book (*pro*)
 - Shortcode to display users events
 - Resend booking verification and confirmation email (*pro*)
 - Countdown method per event
@@ -436,6 +437,27 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= v 5.15.5 – 30 December 2020 =
+- Added: An advanced calendar method to show available occurrences to book (pro)
+- Added: the feature to create segmetns in MailChimp integration (pro)
+- Added: Ability to edit booking fields in “Booking Edit” page in WordPress backend (pro)
+- Added: “Fallback Image“ feature to set an image for categories and display it as the event featured image if no image was set for the events
+- Added: Link attribute “rel=noopener” for events display method to be able to set them to open in a new window
+- Improved: MailChimp integration by adding some relevant tags to the subscribers (pro)
+- Improved: The booking CSV import (pro)
+- Improved: The booking reminder email (pro)
+- Improved: Backend speed and optimization
+- Improved: MEC capabilities (pro)
+- Fixed: An issue in the “Next/Previous Events” Module
+- Fixed: A date display issue on carousel skins
+- Fixed: Importing modified series of Google events in addition to their main event
+- Fixed: Carousel and slider issue in Divi page builder environment
+- Fixed: MEC Shortcodes assets in Elementor page builder environment
+- Fixed: Some issues on WP Multisite
+- Fixed: Label of booking button (pro)
+- Fixed: Arabic character in the event link
+- Fixed: Some PHP notices
+
 = v 5.15.0 – 16 December 2020 =
 - Added: A shortcode to display current users' events in a preferred skin e.g. monthly, list, grid, etc.
 - Added: A new shortcode to generate a specific calendar for current user events

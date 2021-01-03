@@ -163,10 +163,13 @@ class MEC_feature_mec extends MEC_base
         $this->factory->action('mec_syncScheduler', array($syncSchedule, 'sync'));
 
         // Dashborad Metaboxes
-        add_action('wp_dashboard_setup', array($this, 'dashboard_widgets'));
+        $this->factory->action('wp_dashboard_setup', array($this, 'dashboard_widgets'));
 
         // Dashborad Metabox Total Bookingajax
-        add_action('wp_ajax_total-booking-get-reports',array($this, 'dashboard_widget_total_booking_ajax_handler'));
+        $this->factory->action('wp_ajax_total-booking-get-reports',array($this, 'dashboard_widget_total_booking_ajax_handler'));
+
+        // Custom Capability Map
+        $this->factory->filter('map_meta_cap', array($this, 'map_meta_cap'), 10, 4);
     }
 
     /* Activate License */
@@ -467,7 +470,7 @@ class MEC_feature_mec extends MEC_base
             add_submenu_page('mec-intro', $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')), $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')), 'edit_others_posts', 'edit-tags.php?taxonomy=mec_speaker&post_type='.$this->PT);
         }
 
-        add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), 'mec_shortcodes', 'edit.php?post_type=mec_calendars');
+        add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), 'manage_options', 'edit.php?post_type=mec_calendars');
         add_submenu_page('mec-intro', __('MEC - Settings', 'modern-events-calendar-lite'), __('Settings', 'modern-events-calendar-lite'), 'mec_settings', 'MEC-settings', array($this, 'page'));
         add_submenu_page('mec-intro', __('MEC - Addons', 'modern-events-calendar-lite'), __('Addons', 'modern-events-calendar-lite'), 'manage_options', 'MEC-addons', array($this, 'addons'));
 
@@ -511,23 +514,6 @@ class MEC_feature_mec extends MEC_base
                 'publicly_queryable'=>$elementor,
                 'show_in_menu'=>'mec-intro',
                 'supports'=>array('title'),
-                'capabilities'=>array
-                (
-                    'read_post'=>'mec_shortcodes',
-                    'edit_post'=>'mec_shortcodes',
-                    'delete_post'=>'mec_shortcodes',
-                    'edit_others_posts'=>'mec_shortcodes',
-                    'publish_posts'=>'mec_shortcodes',
-                    'read_private_posts'=>'mec_shortcodes',
-                    'read'=>'mec_shortcodes',
-                    'delete_posts'=>'mec_shortcodes',
-                    'delete_private_posts'=>'mec_shortcodes',
-                    'delete_published_posts'=>'mec_shortcodes',
-                    'delete_others_posts'=>'mec_shortcodes',
-                    'edit_private_posts'=>'mec_shortcodes',
-                    'edit_published_posts'=>'mec_shortcodes',
-                    'create_posts'=>'mec_shortcodes'
-                ),
             )
         );
 
@@ -1460,5 +1446,11 @@ class MEC_feature_mec extends MEC_base
             </div>
         </div>
         <?php
+    }
+
+    public function map_meta_cap($caps, $cap, $user_id, $args)
+    {
+        if('mec_bookings' == $cap) $caps = array('mec_bookings');
+        return $caps;
     }
 }

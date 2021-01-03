@@ -652,7 +652,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'settings' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($settings as $settings_name => $settings_link) : ?>
                 <?php
-                if ( $settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
+                if ( $settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'mailpoet_option' || $settings_link == 'sendfox_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
                     if (  $this->getPRO() ) : ?>
                     <li>
                         <a 
@@ -878,14 +878,19 @@ class MEC_main extends MEC_base
                     jQuery(".mec-options-fields").removeClass('active');
                     jQuery("#"+ContentId+"").show();
                     jQuery("#"+ContentId+"").addClass('active');
-                    jQuery('html, body').animate({
-                        scrollTop: jQuery("#"+ContentId+"").offset().top - 140
-                    }, 300);
+                    if (jQuery("#wns-be-infobar").hasClass("sticky")){
+                        jQuery('html, body').animate({
+                            scrollTop: jQuery("#"+ContentId+"").offset().top - 140
+                        }, 300);
+                    }
                 });
 
                 var hash = window.location.hash.replace('#', '');
                 jQuery('[data-id="'+hash+'"]').trigger('click');        
             });
+
+            
+            
 
             jQuery(".wns-be-sidebar li ul li").on('click', function(event)
             {
@@ -959,7 +964,7 @@ class MEC_main extends MEC_base
         
         if ( !isset($get_mec_saved_message_time) ) :
             $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
-            if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+            if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
                 $ctx = stream_context_create(array('http'=>
                     array(
@@ -992,7 +997,7 @@ class MEC_main extends MEC_base
         else:
             if ( strtotime(date("Y-m-d")) > strtotime($get_mec_saved_message_time) ) {
                 $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
-                if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+                if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
                 {
                     $ctx = stream_context_create(array('http'=>
                         array(
@@ -1072,7 +1077,7 @@ class MEC_main extends MEC_base
         $get_mec_saved_message_time = get_option('mec_saved_message_time');
         if (!isset($get_mec_saved_message_time)) :
             $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
-            if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+            if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
                 $ctx = stream_context_create(array('http'=>
                     array(
@@ -1105,7 +1110,7 @@ class MEC_main extends MEC_base
         else:
             if ( strtotime(date("Y-m-d")) > strtotime($get_mec_saved_message_time) ) {
                 $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
-                if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+                if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
                 {
                     $ctx = stream_context_create(array('http'=>
                         array(
@@ -5629,7 +5634,7 @@ class MEC_main extends MEC_base
     }
     
     /**
-     * Add booker information to mailchim list
+     * Add booker information to mailchimp list
      * @param int $book_id
      * @return boolean
      */
@@ -5647,32 +5652,65 @@ class MEC_main extends MEC_base
         // Mailchim credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
 
+        // Options
+        $date_format = (isset($settings['booking_date_format1']) and trim($settings['booking_date_format1'])) ? $settings['booking_date_format1'] : 'Y-m-d';
+        $segment_status = (isset($settings['mchimp_segment_status']) and $settings['mchimp_segment_status']);
+
+        // Booking Date
+        $mec_date = get_post_meta($book_id, 'mec_date', true);
+        $dates = (trim($mec_date) ? explode(':', $mec_date) : array());
+        $booking_date = date($date_format, $dates[0]);
+
+        // Event Title
+        $event_id = get_post_meta($book_id, 'mec_event_id', true);
+        $event = get_post($event_id);
+
         // MEC User
         $u = $this->getUser();
         $booker = $u->booking($book_id);
-        
-        $data_center = substr($api_key, strpos($api_key, '-') + 1);
-        $url = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/';
-        
-        $subscription_status = isset($settings['mchimp_subscription_status']) ? $settings['mchimp_subscription_status'] : 'subscribed';
-        $json = json_encode(array
-        (
-            'email_address'=>$booker->user_email,
-            'status'=>$subscription_status,
-            'merge_fields'=>array
-            (
-                'FNAME'=>$booker->first_name,
-                'LNAME'=>$booker->last_name
-            )
-        ));
 
-        // Execute the Request and Return the Response Code
-        return wp_remote_retrieve_response_code(wp_remote_post($url, array(
-            'body' => $json,
+        $data_center = substr($api_key, strpos($api_key, '-') + 1);
+        $subscription_status = isset($settings['mchimp_subscription_status']) ? $settings['mchimp_subscription_status'] : 'subscribed';
+
+        $url = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/';
+        $member_response = wp_remote_post($url, array(
+            'body' => json_encode(array
+            (
+                'email_address'=>$booker->user_email,
+                'status'=>$subscription_status,
+                'merge_fields'=>array
+                (
+                    'FNAME'=>$booker->first_name,
+                    'LNAME'=>$booker->last_name
+                ),
+                'tags'=>array($booking_date, $event->post_title)
+            )),
             'timeout' => '10',
             'redirection' => '10',
             'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode('user:' . $api_key)),
-        )));
+        ));
+
+        // Handle Segment
+        if($segment_status)
+        {
+            $url = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/segments/';
+            wp_remote_post($url, array(
+                'body' => json_encode(array
+                (
+                    'name'=>sprintf('%s at %s', $event->post_title, $booking_date),
+                    'options'=>array(
+                        'match'=>'any',
+                        'conditions'=>array(
+                        )
+                    )
+                )),
+                'timeout' => '10',
+                'redirection' => '10',
+                'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode('user:' . $api_key)),
+            ));
+        }
+
+        return wp_remote_retrieve_response_code($member_response);
     }
 
     /**
@@ -5773,14 +5811,16 @@ class MEC_main extends MEC_base
         $booker = $u->booking($book_id);
         
         $url = $api_url.'/api/3/contact/sync';
-        
+
+        $array_parameters = array(
+            'email'=>$booker->user_email,
+            'firstName'=>$booker->first_name,
+            'lastName'=>$booker->last_name,
+        );
+        $array_parameters = apply_filters('mec_active_campaign_parameters', $array_parameters, $booker,$book_id);
         $json = json_encode(array
         (
-            'contact' => array(
-                'email'=>$booker->user_email,
-                'firstName'=>$booker->first_name,
-                'lastName'=>$booker->last_name,
-            ),
+            'contact' => $array_parameters,
         ));
         
         // Execute the Request and Return the Response Code
@@ -6513,7 +6553,7 @@ class MEC_main extends MEC_base
                         'booking_restriction_message1'=>array('label'=>__('Booking Restriction Message 1', 'modern-events-calendar-lite'), 'default'=>__('You selected %s tickets to book but maximum number of tikets per user is %s tickets.', 'modern-events-calendar-lite')),
                         'booking_restriction_message2'=>array('label'=>__('Booking Restriction Message 2', 'modern-events-calendar-lite'), 'default'=>__('You booked %s tickets till now but maximum number of tickets per user is %s tickets.', 'modern-events-calendar-lite')),
                         'booking_restriction_message3'=>array('label'=>__('Booking IP Restriction Message', 'modern-events-calendar-lite'), 'default'=>__('Maximum allowed number of tickets that you can book is %s.', 'modern-events-calendar-lite')),
-                        'booking_button'=>array('label'=>__('Booking Button', 'modern-events-calendar-lite'), 'default'=>__('Book Event', 'modern-events-calendar-lite')),
+                        'booking_button'=>array('label'=>__('Booking Button', 'modern-events-calendar-lite'), 'default'=>__('Book Now', 'modern-events-calendar-lite')),
                         'register_button'=>array('label'=>__('Register Button', 'modern-events-calendar-lite'), 'default'=>__('REGISTER', 'modern-events-calendar-lite')),
                         'view_detail'=>array('label'=>__('View Detail Button', 'modern-events-calendar-lite'), 'default'=>__('View Detail', 'modern-events-calendar-lite')),
                         'event_detail'=>array('label'=>__('Event Detail Button', 'modern-events-calendar-lite'), 'default'=>__('Event Detail', 'modern-events-calendar-lite')),

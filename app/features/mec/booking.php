@@ -126,6 +126,15 @@ $gateways_options = $this->main->get_gateways_options();
                                         <input type="number" id="mec_settings_booking_maximum_dates" name="mec[settings][booking_maximum_dates]" value="<?php echo ((isset($settings['booking_maximum_dates']) and trim($settings['booking_maximum_dates']) != '') ? $settings['booking_maximum_dates'] : '6'); ?>" placeholder="<?php esc_attr_e('Default is 6', 'modern-events-calendar-lite'); ?>" min="1" />
                                     </div>
                                 </div>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_date_selection"><?php _e('Date Selection', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-4">
+                                        <select id="mec_settings_booking_date_selection" name="mec[settings][booking_date_selection]">
+                                            <option value="dropdown" <?php echo ((!isset($settings['booking_date_selection']) or (isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'dropdown')) ? 'selected="selected"' : ''); ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                                            <option value="calendar" <?php echo ((isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'calendar') ? 'selected="selected"' : ''); ?>><?php _e('Calendar', 'modern-events-calendar-lite'); ?></option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <h5 class="title"><?php _e('Interval Options', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_show_booking_form_interval"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></label>

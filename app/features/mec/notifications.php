@@ -1273,34 +1273,6 @@ jQuery("#mec_notifications_form").on('submit', function(event)
 </script>
 
 <script type="text/javascript">
-jQuery(document).ready(function()
-{   
-    jQuery('.WnTabLinks').each(function()
-    {
-        var ContentId = jQuery(this).attr('data-id');
-         jQuery(this).click(function()
-         {
-            jQuery('.pr-be-group-menu-li').removeClass('active');
-            jQuery(this).parent().addClass('active');
-            jQuery(".mec-options-fields").hide();
-            jQuery(".mec-options-fields").removeClass('active');
-            jQuery("#"+ContentId+"").show();
-            jQuery("#"+ContentId+"").addClass('active');
-            jQuery('html, body').animate({
-                scrollTop: jQuery("#"+ContentId+"").offset().top - 140
-            }, 300);
-        });
-        var hash = window.location.hash.replace('#', '');
-        jQuery('[data-id="'+hash+'"]').trigger('click');
-    });
-   
-    jQuery(".wns-be-sidebar .pr-be-group-menu-li").on('click', function(event)
-    {
-        jQuery(".wns-be-sidebar .pr-be-group-menu-li").removeClass('active');
-        jQuery(this).addClass('active');
-    });
-});
-
 jQuery("#mec_notifications_form").on('submit', function(event)
 {
     event.preventDefault();

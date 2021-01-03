@@ -1321,11 +1321,11 @@ class QRinput {
 	
 	public function insertStructuredAppendHeader($size, $index, $parity)
 	{
-		if( $size > MAX_STRUCTURED_SYMBOLS ) {
+		if($size > MAX_STRUCTURED_SYMBOLS ) {
 			throw new Exception('insertStructuredAppendHeader wrong size');
 		}
 		
-		if( $index <= 0 || $index > MAX_STRUCTURED_SYMBOLS ) {
+		if($index <= 0 || $index > MAX_STRUCTURED_SYMBOLS ) {
 			throw new Exception('insertStructuredAppendHeader wrong index');
 		}
 
@@ -1451,7 +1451,7 @@ class QRinput {
 
 		for($i=0; $i<$size; $i+=2) {
 			$val = (ord($data[$i]) << 8) | ord($data[$i+1]);
-			if( $val < 0x8140 
+			if($val < 0x8140
 			|| ($val > 0x9ffc && $val < 0xe040) 
 			|| $val > 0xebbf) {
 				return false;

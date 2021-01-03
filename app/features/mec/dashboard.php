@@ -143,7 +143,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                     </div>
                 </div>
             </div>
-            <?php if( !$this->getPRO() && has_action('addons_activation') ) : ?>
+            <?php if(!$this->getPRO() && has_action('addons_activation') ) : ?>
             <div class="w-col-sm-12">
                 <div class="w-box mec-activation">
                     <div class="w-box-head">

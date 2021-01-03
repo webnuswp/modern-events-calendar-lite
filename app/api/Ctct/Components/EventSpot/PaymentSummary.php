@@ -55,7 +55,7 @@ class PaymentSummary extends Component
 		$payment_summary->payment_status = parent::getValue($props, "payment_status");
 		$payment_summary->payment_type = parent::getValue($props, "payment_type");
 
-		if( isset($props["order"])) {
+		if(isset($props["order"])) {
 			$payment_summary->order = RegistrantOrder::create( parent::getValue( $props, "order" ) );
 		}
 

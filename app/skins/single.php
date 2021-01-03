@@ -238,6 +238,7 @@ class MEC_skin_single extends MEC_skins
             'posts_per_page' => -1,
             'post_status' => 'publish',
             'orderby' => 'ASC',
+            'post__not_in' => array($event_id),
             'tax_query' => array(),
         );
 
@@ -322,19 +323,19 @@ class MEC_skin_single extends MEC_skins
         if(!count($IDs)) return;
 
         $p = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart`<'".$timestamp."' AND `post_id` IN (".implode(',', $IDs).") ORDER BY `tstart` DESC LIMIT 1", 'loadAssoc');
-        $n = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart`>'".$timestamp."' AND `post_id` IN (".implode(',', $IDs).") ORDER BY `tstart` ASC LIMIT 1", 'loadAssoc');
+        $n = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart`>='".$timestamp."' AND `post_id` IN (".implode(',', $IDs).") ORDER BY `tstart` ASC LIMIT 1", 'loadAssoc');
 
         // No Event Found!
         if(!isset($p['post_id']) and !isset($n['post_id'])) return;
 
         echo '<ul class="mec-next-previous-events">';
 
-        if($p['post_id'])
+        if(is_array($p) and isset($p['post_id']))
         {
             echo '<li class="mec-previous-event"><a class="mec-color mec-bg-color-hover mec-border-color" href="'.$this->main->get_event_date_permalink(get_permalink($p['post_id']), date('Y-m-d', $p['tstart'])).'"><i class="mec-fa-long-arrow-left"></i>'. __('PRV Event', 'modern-events-calendar-lite') .'</a></li>';
         }
 
-        if($n['post_id'])
+        if(is_array($n) and isset($n['post_id']))
         {
             echo '<li class="mec-next-event"><a class="mec-color mec-bg-color-hover mec-border-color" href="'.$this->main->get_event_date_permalink(get_permalink($n['post_id']), date('Y-m-d', $n['tstart'])).'">'. __('NXT Event', 'modern-events-calendar-lite') .'<i class="mec-fa-long-arrow-right"></i></a></li>';
         }
@@ -1223,8 +1224,8 @@ class MEC_skin_single extends MEC_skins
 
         if ($this->main->can_show_booking_module($event)) : ?>
             <div class="mec-reg-btn mec-frontbox">
-                <?php $data_lity = $data_lity_class =  ''; if( isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
-                <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if( isset($this->settings['single_booking_style']) and $this->settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
+                <?php $data_lity = $data_lity_class =  ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
+                <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if(isset($this->settings['single_booking_style']) and $this->settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
             <?php elseif (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') : ?>
                 <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if (isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite');
                 else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')));
@@ -1429,7 +1430,7 @@ class MEC_skin_single extends MEC_skins
                             <h6><?php echo $this->main->m('taxonomy_speakers', __('Speakers:', 'modern-events-calendar-lite')); ?></h6>
                             <?php $speaker_count = count($schedule['speakers']);  $i = 0; ?>
                             <?php foreach($schedule['speakers'] as $speaker_id): $speaker = get_term($speaker_id); array_push($speakers, $speaker_id); ?>
-                            <a class="mec-color-hover mec-hourly-schedule-speaker-lightbox" href="#mec_hourly_schedule_speaker_lightbox_<?php echo $speaker->term_id; ?>" data-lity><?php echo $speaker->name; ?></a><?php if( ++$i != $speaker_count ) echo ","; ?>
+                            <a class="mec-color-hover mec-hourly-schedule-speaker-lightbox" href="#mec_hourly_schedule_speaker_lightbox_<?php echo $speaker->term_id; ?>" data-lity><?php echo $speaker->name; ?></a><?php if(++$i != $speaker_count ) echo ","; ?>
                             <?php endforeach; ?>
                         </dt>
                         <?php endif; ?>
@@ -1515,7 +1516,7 @@ class MEC_skin_single extends MEC_skins
             $result = isset($data[$n]) ? $data[$n] : NULL; if((!is_array($result) and trim($result) == '') or (is_array($result) and !count($result))) continue;
             $content = isset($item['type']) ? $item['type'] : 'text';
         endforeach;
-        if ( isset($content) && $content != NULL ) {
+        if ( isset($content) && $content != NULL && (isset($this->settings['display_event_fields_backend']) and $this->settings['display_event_fields_backend'] == 1) or !isset($this->settings['display_event_fields_backend']) ) {
         ?>
         <div class="mec-event-data-fields mec-frontbox">
             <ul class="mec-event-data-field-items">

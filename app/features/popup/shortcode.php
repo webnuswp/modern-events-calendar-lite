@@ -552,7 +552,7 @@ $settings = $this->main->get_settings();
         </div>
     </div>
 </div>
-<?php if( !isset($settings['sh_as_popup']) || (isset($settings['sh_as_popup']) && $settings['sh_as_popup'] == '1') ) : ?>
+<?php if(!isset($settings['sh_as_popup']) || (isset($settings['sh_as_popup']) && $settings['sh_as_popup'] == '1') ) : ?>
 
 <?php if (is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' )) { $fluent = 'fluent-view-activated'; } else { $fluent = 'deactivate'; } ?>
 <script type="text/javascript">

@@ -330,13 +330,13 @@ class EventSpot extends Component
 		$event->location = parent::getValue($props, "location");
 		$event->meta_data_tags = parent::getValue($props, "meta_data_tags");
 		$event->name = parent::getValue($props, "name");
-		if( parent::getValue( $props, "notification_options" ) ) {
+		if(parent::getValue( $props, "notification_options" ) ) {
 			$event->notification_options = NotificationOption::create( parent::getValue( $props, "notification_options" ) );
 		}
 		$event->online_meeting = parent::getValue($props, "online_meeting");
 		$event->payable_to = parent::getValue($props, "payable_to");
 		$event->payable_to = parent::getValue($props, "payable_to");
-		if( parent::getValue( $props, "payment_address" ) ) {
+		if(parent::getValue( $props, "payment_address" ) ) {
 			$event->payment_address = Address::create( parent::getValue( $props, "payment_address" ) );
 		}
 		$event->payment_options = parent::getValue($props, "payment_options");
@@ -349,7 +349,7 @@ class EventSpot extends Component
 		$event->time_zone_id = parent::getValue($props, "time_zone_id");
 		$event->title = parent::getValue($props, "title");
 		$event->total_registered_count = parent::getValue($props, "total_registered_count");
-		if( parent::getValue( $props, "track_information" ) ) {
+		if(parent::getValue( $props, "track_information" ) ) {
 			$event->track_information = TrackInformation::create( parent::getValue( $props, "track_information" ) );
 		}
 		$event->twitter_hash_tag = parent::getValue($props, "twitter_hash_tag");

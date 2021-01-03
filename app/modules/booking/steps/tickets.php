@@ -97,12 +97,33 @@ foreach($availability as $ticket_id=>$count)
 }
 
 if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
+
+// Date Selection Method
+$date_selection = (isset($settings['booking_date_selection']) and trim($settings['booking_date_selection'])) ? $settings['booking_date_selection'] : 'dropdown';
+
+// Modal Booking
+$modal_booking = (isset($_GET['method']) and $_GET['method'] === 'mec-booking-modal');
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);">
     <h4><?php echo ($from_shortcode ? $event->data->post->post_title : __('Book Event', 'modern-events-calendar-lite')); ?></h4>
 
     <?php if(!$book_all_occurrences and count($dates) > 1): ?>
     <div class="mec-book-first">
+        <?php if($date_selection == 'calendar'): ?>
+
+            <?php if(!$modal_booking): ?>
+            <div class="mec-booking-calendar-wrapper" id="mec_booking_calendar_wrapper<?php echo $uniqueid; ?>">
+                <?php echo (new MEC_feature_bookingcalendar())->display_calendar($event, $uniqueid); ?>
+            </div>
+            <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" value="" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
+            <?php else: ?>
+            <div>
+                <h6><?php echo $this->date_label($dates[0]['start'], $dates[0]['end'], $date_format, ' - ', false, (isset($dates[0]['allday']) ? $dates[0]['allday'] : 0)); ?></h6>
+                <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" value="<?php echo $book->timestamp($dates[0]['start'], $dates[0]['end']); ?>" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
+            </div>
+            <?php endif; ?>
+
+        <?php else: ?>
         <label for="mec_book_form_date<?php echo $uniqueid; ?>"><?php _e('Date', 'modern-events-calendar-lite'); ?>: </label>
         <select class="mec-custom-nice-select" name="book[date]" id="mec_book_form_date<?php echo $uniqueid; ?>" onchange="mec_get_tickets_availability<?php echo $uniqueid; ?>(<?php echo $event_id; ?>, this.value);">
             <?php foreach($dates as $date): ?>
@@ -111,6 +132,7 @@ if($total_spots > 0) $available_spots = min($available_spots, $total_spots);
             </option>
             <?php endforeach; ?>
         </select>
+        <?php endif; ?>
     </div>
     <?php elseif($book_all_occurrences): ?>
     <p class="mec-next-occ-booking-p">

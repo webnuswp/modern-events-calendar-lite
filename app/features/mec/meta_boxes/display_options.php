@@ -23,7 +23,7 @@ $events = $this->main->get_events();
     <div class="mec-meta-box-fields" id="mec_meta_box_calendar_skin_options">
         <div class="mec-form-row">
             <label class="mec-col-4" for="mec_skin"><?php _e('Skin', 'modern-events-calendar-lite'); ?></label>
-            <select class="mec-col-4 wn-mec-select mec-custom-nice-select" name="mec[skin]" id="mec_skin" onchange="if( jQuery('#mec_skin').val() != 'carousel' ){ jQuery('.mec-carousel-archive-link').hide();jQuery('.mec-carousel-head-text').hide();}">
+            <select class="mec-col-4 wn-mec-select mec-custom-nice-select" name="mec[skin]" id="mec_skin" onchange="if(jQuery('#mec_skin').val() != 'carousel' ){ jQuery('.mec-carousel-archive-link').hide();jQuery('.mec-carousel-head-text').hide();}">
                 <?php foreach($skins as $skin=>$name): ?>
                 <option value="<?php echo $skin; ?>" <?php if($selected_skin == $skin) echo 'selected="selected"'; ?>>
                     <?php echo $name; ?>

@@ -200,7 +200,7 @@ if(!is_array($booking_options)) $booking_options = array();
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-events-meta-group mec-events-meta-group-booking">
                 <?php
-                if( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '1' and !is_user_logged_in() ) {
+                if(isset($settings['booking_user_login']) and $settings['booking_user_login'] == '1' and !is_user_logged_in() ) {
                     echo do_shortcode('[MEC_login]');
                 } elseif ( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '0' and !is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ) {
                     echo do_shortcode('[MEC_login]');

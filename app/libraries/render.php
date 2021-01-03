@@ -1238,7 +1238,10 @@ class MEC_render extends MEC_base
                 }
             }
             elseif($repeat_type == 'advanced')
-            { 
+            {
+                // Start from Event Start Date
+                if(strtotime($start_date['date']) > strtotime($today)) $today = $start_date['date'];
+
                 // Get user specifed days of month for repeat
                 $advanced_days = get_post_meta($event_id, 'mec_advanced_days', true);
 

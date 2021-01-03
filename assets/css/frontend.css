@@ -3505,6 +3505,16 @@ button#mec-book-form-back-btn-step-3 {
     padding-left: 15px;
 }
 
+/* Sell all occurrences by one booking */
+.mec-events-meta-group-booking .mec-next-occ-booking-p,
+.mec-events-meta-group-booking .mec-next-occ-booking {
+    padding: 0;
+    font-size: 12px;
+    letter-spacing: 0;
+    margin: 3px 0;
+    padding: 5px 1em 3px 0;
+}
+
 /* Registration */
 .mec-book-username-password-wrapper {
     padding: 0 15px;
@@ -4252,6 +4262,7 @@ focus,
 .mec-single-event .mec-event-social ul {
 	list-style: none;
 	margin-left: 0;
+	padding: 0;
 }
 
 .mec-single-event .mec-event-social li.mec-event-social-icon {
@@ -8205,6 +8216,16 @@ li.mec-no-event-found .mec-event-title {
 .mec-event-carousel-type1 .mec-event-carousel-content:hover {
 	box-shadow: 0 0 35px rgba(0, 0, 0, 0.07);
 }
+
+.mec-skin-carousel-container .mec-multiple-event .mec-event-date-carousel {
+    width: 230px;
+}
+
+.mec-skin-carousel-container .mec-multiple-event .event-carousel-type1-head .mec-event-date-info-year,
+.mec-skin-carousel-container .mec-multiple-event .event-carousel-type1-head .mec-event-date-info {
+    left: 159px;
+}
+
 
 @media only screen and (min-width: 768px) and (max-width: 1000px),
 (min-width: 270px) and (max-width: 448px) {
@@ -18310,4 +18331,323 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 .mec-booking-shortcode .mec-book-form-coupon {
     margin-bottom: 35px;
 }
+
+
+/* #Booking  > Date Selection  >  Calendar
+	================================================== */
+/* Date Selection */
+.mec-booking-calendar-month-navigation {
+    position: relative;
+    text-align: center;
+    padding: 1px 0 1px;
+    max-width: 330px;
+}
+
+.mec-booking-calendar.mec-wrap {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.mec-booking-calendar.mec-wrap {
+    max-width: 330px;
+    background: #ffffff;
+    box-shadow: 0 1px 5px 6px rgba(0,0,0,.005) inset;
+    border: 1px solid #efefef;
+}
+
+/* Date Selection > Navigation  */
+.mec-booking-calendar-month-navigation .mec-calendar-header h2 {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.14;
+    margin: 16px auto;
+    color: #333;
+}
+
+.mec-booking-calendar-month-navigation .mec-previous-month,
+.mec-booking-calendar-month-navigation .mec-next-month {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #fff;
+    color: #a9a9a9;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top: none;
+    transition: all .33s ease;
+    border-bottom: 1px solid #efefef;
+    box-shadow: 0 2px 0 0 rgba(0,0,0,.015);
+    transition: all .33s ease;
+}
+
+.mec-booking-calendar-month-navigation .mec-previous-month {
+    left: 0;
+    border-bottom-right-radius: 6px;
+    border-left: none;
+    border-right: 1px solid #efefef;
+}
+
+.mec-booking-calendar-month-navigation .mec-next-month {
+    right: 0;
+    border-bottom-left-radius: 6px;
+    border-right: none;
+    border-left: 1px solid #efefef;
+}
+
+.mec-booking-calendar-month-navigation .mec-previous-month:hover,
+.mec-booking-calendar-month-navigation .mec-next-month:hover {
+    background-color: #f9f9f9;
+    color: #40d9f1;
+}
+
+/* Date Selection > Calendar  */
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar dl dt {
+    text-align: center;
+    padding: 0;
+    height: 47px;
+    line-height: 47px;
+	border: 0;
+	cursor: pointer;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar dl dt:last-child {
+    border: 0;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar .mec-calendar-row dt:hover {
+    background: transparent;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar .mec-calendar-novel-selected-day,
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar .mec-calendar-novel-selected-day span {
+    width: 32px;
+    height: 32px;
+    margin: auto;
+    line-height: 30px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0;
+}
+
+/* Bordered Date */
+.mec-has-event-for-booking {
+    position: relative;
+}
+
+.mec-has-event-for-booking .mec-calendar-novel-selected-day {
+    border: 2px solid #40d9f1;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.mec-has-event-for-booking.mec-active .mec-calendar-novel-selected-day {
+    background-color: #40d9f1;
+}
+
+/* Selected Date */
+.mec-has-event-for-booking .mec-booking-tooltip,
+.mec-multiple-event .mec-has-event-for-booking .mec-booking-tooltip,
+.mec-has-event-for-booking .mec-booking-calendar-date {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.mec-has-event-for-booking .mec-booking-tooltip,
+.mec-multiple-event .mec-has-event-for-booking .mec-booking-tooltip {
+    top: 60px;
+}
+
+.mec-has-event-for-booking .mec-booking-tooltip,
+.mec-multiple-event .mec-has-event-for-booking .mec-booking-tooltip {
+    position: absolute;
+    z-index: 99;
+    width: 140px;
+    font-size: 9px;
+    left: calc(50% - 70px);
+    background: #535a61;
+    line-height: 29px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 5px;
+    box-shadow: 0 4px 15px -2px #444b50a3;
+}
+
+.mec-has-event-for-booking:hover .mec-booking-tooltip.multiple-time .mec-booking-calendar-date,
+.mec-has-event-for-booking:hover .mec-booking-tooltip,
+.mec-has-event-for-booking:hover .mec-booking-calendar-date,
+.mec-multiple-event .mec-has-event-for-booking:hover .mec-booking-tooltip,
+.mec-multiple-event .mec-has-event-for-booking:hover .mec-booking-calendar-date {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mec-has-event-for-booking:hover .mec-booking-tooltip,
+.mec-multiple-event .mec-has-event-for-booking:hover .mec-booking-tooltip {
+    top: 43px;
+}
+
+.mec-has-event-for-booking .mec-booking-calendar-date:before,
+.mec-multiple-event .mec-has-event-for-booking .mec-booking-calendar-date:before {
+    display: block;
+    content: ''!important;
+    position: absolute!important;
+    width: 12px;
+    height: 12px;
+    top: -6px;
+    left: calc(50% - 6px);
+    transform: rotate(-45deg)!important;
+    background-color: #535a61;
+    z-index: 0!important;
+    box-shadow: 0 8px 9px -9px #535a61!important;
+}
+
+.mec-multiple-event .mec-has-event-for-booking .mec-booking-calendar-date-hover {
+    border-bottom: 1px solid #ffffff30;
+}
+
+/* Multiple Day Events */
+
+/* First Day */
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar.mec-multiple-event .first-day {
+    position: relative;
+    padding-left: 7px;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar.mec-multiple-event .first-day .mec-calendar-novel-selected-day {
+    border-radius: 47px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+    width: 100%;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar.mec-multiple-event .first-day .mec-calendar-novel-selected-day span {
+    margin-left: -7px;
+}
+
+/* Last Day */
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar.mec-multiple-event .last-day {
+    position: relative;
+    padding-right: 7px;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar.mec-multiple-event .last-day .mec-calendar-novel-selected-day {
+    border-radius: 47px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    width: 100%;
+}
+
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar.mec-multiple-event .last-day .mec-calendar-novel-selected-day span {
+    margin-right: -7px;
+}
+
+/* Middle Day */
+.mec-events-meta-group-booking .mec-booking-calendar .mec-calendar.mec-multiple-event .middle-day .mec-calendar-novel-selected-day {
+    border-radius: 0;
+    border-right: 0;
+    border-left: 0;
+    width: 100%;
+}
+
+/* Multiple Time in one Daye */
+.mec-booking-tooltip.multiple-time {
+    color: #fff;
+}
+
+.mec-booking-tooltip.multiple-time .mec-booking-calendar-date:before {
+    display: none;
+}
+
+.mec-booking-tooltip.multiple-time .mec-booking-calendar-date:first-child:before {
+    display: block;
+}
+
+.mec-booking-tooltip.multiple-time .mec-booking-calendar-date {
+    border: 1px dashed #68717a;
+    line-height: 25px;
+    margin: 8px 0;
+    border-radius: 20px;
+    transition: all .17s ease;
+    -webkit-transition: all .17s ease;
+    -moz-transition: all .17s ease;
+    -ms-transition: all .17s ease;
+    -o-transition: all .17s ease;
+}
+
+.mec-booking-tooltip.multiple-time .mec-booking-calendar-date.mec-active,
+.mec-booking-tooltip.multiple-time .mec-booking-calendar-date:hover {
+    background: #40d9f1;
+    border-color: #40d9f1;
+}
+
+.mec-choosen-time-message {
+    max-width: 330px;
+    padding: 3px 14px;
+    border-radius: 4px;
+    background: rgb(64 217 241 / 24%);
+    color: #40d9f1;
+    transition: all 0.17s ease;
+    opacity: 1;
+    visibility: visible;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.mec-choosen-time-message .mec-choosen-time {
+	padding-left: 7px;
+}
+
+.mec-choosen-time-message.disable .mec-choosen-time-message,
+.mec-choosen-time-message.disable {
+    opacity: 0;
+	visibility: hidden;
+	padding: 0;
+	font-size: 0;
+	margin: 0;
+}
+
+/* Modal Popup Booking Styles */
+.lity-wrap .mec-booking-calendar.mec-wrap {
+	margin-top: 20;
+}
+
+.lity-wrap .mec-booking-calendar-month-navigation,
+.lity-wrap .mec-booking-calendar.mec-wrap,
+.lity-wrap .mec-choosen-time-message {
+    max-width: 100%;
+}
+
+/* Booking Shortcode */
+.mec-events-meta-group-booking-shortcode .mec-booking-calendar-wrapper .mec-booking-calendar .mec-calendar dl dt{
+    height: 47px !important;
+}
+
+@media (min-width: 961px) {
+    .mec-wrap .mec-events-meta-group-booking .mec-booking-calendar .mec-calendar dl dt {
+        height: 47px;
+    }
+}
+
+
 /* --------------------- */
+

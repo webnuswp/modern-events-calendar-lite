@@ -4832,6 +4832,154 @@ function mecFluentYearlyUI(eventID, yearID) {
     };
 }(jQuery));
 
+// MEC Booking Calendar
+(function ($)
+{
+    $.fn.mecBookingCalendar = function(options)
+    {
+        var active_month;
+        var active_year;
+
+        // Default Options
+        var settings = $.extend({
+            // These are the defaults.
+            active_month: {},
+            next_month: {},
+            ajax_url: '',
+            event_id: '',
+        }, options);
+
+        // Initialize Month Navigator
+        initMonthNavigator();
+
+        active_month = settings.active_month.month;
+        active_year = settings.active_month.year;
+
+        // Set onclick Listeners
+        setListeners();
+
+        function initMonthNavigator()
+        {
+            // Add onclick event
+            $("#mec_booking_calendar_" + settings.id + " .mec-load-month").off('click').on('click', function()
+            {
+                var year = $(this).data('mec-year');
+                var month = $(this).data('mec-month');
+
+                setMonth(year, month);
+            });
+        }
+
+        function setMonth(year, month)
+        {
+            active_month = month;
+            active_year = year;
+
+            var $modal = $('.mec-modal-result');
+
+            // Add Loading Class
+            if($modal.length === 0) $('.mec-wrap').append('<div class="mec-modal-result"></div>');
+            $modal.addClass('mec-month-navigator-loading');
+
+            $.ajax(
+            {
+                url: settings.ajax_url,
+                data: "action=mec_booking_calendar_load_month&event_id=" + settings.event_id + "&uniqueid=" + settings.id + "&year=" + year + "&month=" + month,
+                dataType: "json",
+                type: "post",
+                success: function(response)
+                {
+                    // HTML
+                    $('#mec_booking_calendar_wrapper'+settings.id).html(response.html);
+
+                    // Empty the Date
+                    $('#mec_book_form_date' + settings.id).val('').trigger('change');
+
+                    // Remove loading Class
+                    $modal.removeClass("mec-month-navigator-loading");
+
+                },
+                error: function()
+                {
+                    // Remove loading Class
+                    $modal.removeClass("mec-month-navigator-loading");
+                }
+            });
+        }
+
+        function setListeners()
+        {
+
+            // Add the onclick event
+            $("#mec_booking_calendar_" + settings.id + " .mec-booking-calendar-date").off('click').on('click', function(e)
+            {
+                e.preventDefault();
+
+                // Activate
+                $("#mec_booking_calendar_" + settings.id + " .mec-booking-calendar-date").removeClass('mec-active');
+                $("#mec_booking_calendar_" + settings.id + " .mec-calendar-day").removeClass('mec-wrap-active');
+                $(this).addClass('mec-active');
+                $(this).parents('.mec-calendar-day').addClass('mec-wrap-active');
+
+                // Set Data
+                var timestamp = $(this).data('timestamp');
+                $('#mec_book_form_date' + settings.id).val(timestamp).trigger('change');
+            });
+
+            // Add the onclick event on calendar date
+            $("#mec_booking_calendar_" + settings.id + " .mec-has-one-repeat-in-day").off('click').on('click', function(e)
+            {
+                e.preventDefault();
+
+                var mec_date_value = $(this).attr('data-timestamp');
+                // Activate
+                $("#mec_booking_calendar_" + settings.id + " .mec-has-one-repeat-in-day").removeClass('mec-active');
+                $("#mec_booking_calendar_" + settings.id + " [data-timestamp=\"" + mec_date_value +"\"]").addClass('mec-active');
+
+                // Set Data
+                var timestamp = $(this).data('timestamp');
+                $('#mec_book_form_date' + settings.id).val(timestamp).trigger('change');
+            });
+
+            // If day has some time slot
+            $("#mec_booking_calendar_" + settings.id + " .mec-has-time-repeat .mec-calendar-novel-selected-day").off('click').on('click', function (e)
+            {
+                $("#mec_booking_calendar_" + settings.id + " .mec-has-time-repeat").removeClass('mec-wrap-active');
+                $("#mec_booking_calendar_" + settings.id + " .mec-has-time-repeat").removeClass('mec-active');
+                $(".mec-has-time-repeat").find('.mec-booking-calendar-date').hide();
+                $(this).parents(".mec-has-time-repeat").find('.mec-booking-calendar-date').toggle();
+                $(this).parents(".mec-has-time-repeat").addClass('mec-active');
+            });
+
+            // Find more time in tooltip to set button
+            $("#mec_booking_calendar_" + settings.id + " .mec-has-time-repeat").on('mouseenter', function()
+            {
+                var moreTimeFinder = $(this).find(".mec-booking-calendar-date");
+                if (moreTimeFinder.length >= 1) {
+                    $(this).find(".mec-booking-tooltip").removeClass("multiple-time");
+                    $(this).find(".mec-booking-tooltip").addClass("multiple-time");
+                }
+                $(this).find(".mec-booking-calendar-date").css("display", "block");
+            });
+
+            $("#mec_booking_calendar_" + settings.id + " .mec-has-time-repeat").off('click').on('click', function()
+            {
+                $("#mec_booking_calendar_" + settings.id + " .mec-has-time-repeat").removeClass('mec-wrap-active');
+                $("#mec_booking_calendar_" + settings.id + " .mec-has-time-repeat").removeClass('mec-active');
+                $(this).addClass("mec-active");
+
+                // Send message under the calendar for multiple time in one day
+                var sendTimeToMessage   = $(this).find(".multiple-time .mec-booking-calendar-date.mec-active").text();
+
+                $(this).parents().eq(3).find(".mec-choosen-time-message").removeClass("disable");
+                $(this).parents().eq(3).find(".mec-choosen-time-message .mec-choosen-time").empty();
+                $(this).parents().eq(3).find(".mec-choosen-time-message .mec-choosen-time").append(sendTimeToMessage);
+            });
+
+        }
+    };
+}(jQuery));
+
 // Booking Shortcode Scripts
 jQuery(document).ready(function () {
     if (jQuery('.mec-booking-shortcode').length < 0) {

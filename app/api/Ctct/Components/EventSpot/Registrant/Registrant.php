@@ -172,7 +172,7 @@ class Registrant extends Component
 
 			/** @var RegistrantSectionField $field */
 			foreach ( $section->fields as $field ) {
-				if( $fieldName === $field->name ) {
+				if($fieldName === $field->name ) {
 					return is_null( $field->values ) ? $field->value : $field->values;
 				}
 			}

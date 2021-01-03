@@ -46,7 +46,7 @@ class EventSpotService extends BaseService
 		$body = json_decode($response->getBody(), true);
 
 		$events = array();
-		if( ! empty( $body['results'] ) ) {
+		if(! empty( $body['results'] ) ) {
 			foreach ( $body['results'] as $event ) {
 				$events[] = EventSpot::create( $event );
 			}

@@ -56,7 +56,7 @@ class RegistrantOrder extends Component
 		$registrant_order->currency_type = parent::getValue($props, "currency_type");
 		$registrant_order->total = parent::getValue($props, "total");
 
-		if( isset($props['fees']) ) {
+		if(isset($props['fees']) ) {
 			foreach ( $props['fees'] as $fee ) {
 				$registrant_order->fees[] = RegistrantFee::create($fee);
 			}

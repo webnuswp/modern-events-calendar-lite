@@ -258,20 +258,20 @@ class MEC_feature_ix extends MEC_base
 
                 $start_datetime = $data[2];
                 $end_datetime = $data[3];
-                $name = $data[8];
-                $email = $data[9];
+                $name = $data[9];
+                $email = $data[10];
 
-                $confirmed_label = $data[11];
+                $confirmed_label = $data[12];
                 if($confirmed_label == __('Confirmed', 'modern-events-calendar-lite')) $confirmed = 1;
                 elseif($confirmed_label == __('Rejected', 'modern-events-calendar-lite')) $confirmed = -1;
                 else $confirmed = 0;
 
-                $verified_label = $data[12];
+                $verified_label = $data[13];
                 if($verified_label == __('Verified', 'modern-events-calendar-lite')) $verified = 1;
                 elseif($verified_label == __('Canceled', 'modern-events-calendar-lite')) $verified = -1;
                 else $verified = 0;
 
-                $ticket_variations = explode(',', $data[10]);
+                $ticket_variations = explode(',', $data[11]);
                 $variations = $this->main->ticket_variations($event_id);
 
                 $v = array();
@@ -3209,6 +3209,9 @@ class MEC_feature_ix extends MEC_base
             {
                 $title = $event->getSummary();
                 if(trim($title) == '') continue;
+
+                // Import Only Main Events
+                if($event->getRecurringEventId()) continue;
                 
                 $data['events'][] = array('id'=>$event->id, 'title'=>$title, 'start'=>$event->getStart(), 'end'=>$event->getEnd());
             }

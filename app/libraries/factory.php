@@ -989,7 +989,6 @@ class MEC_factory extends MEC_base
         $role->add_cap('mec_report', true);
         $role->add_cap('mec_import_export', true);
         $role->add_cap('mec_settings', true);
-        $role->add_cap('mec_shortcodes', true);
     }
 
     /**
@@ -1090,7 +1089,7 @@ class MEC_factory extends MEC_base
         $styling = $this->main->get_styling();
 
         $dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
-        if( !empty($dark_mode) and $dark_mode == 1) $dark[] = 'mec-dark-mode';
+        if(!empty($dark_mode) and $dark_mode == 1) $dark[] = 'mec-dark-mode';
 
         return $dark;
     }

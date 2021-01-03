@@ -83,7 +83,7 @@ if(!count($speakers)) return false;
                         <?php endif; ?>
                     </div>
                     <!-- Speaker Description -->
-                    <?php $desc = trim(term_description($speaker['id'])); if( !empty($desc)): ?>
+                    <?php $desc = trim(term_description($speaker['id'])); if(!empty($desc)): ?>
                     <div class="mec-hourly-schedule-speaker-description">
                         <?php echo $desc; ?>
                     </div>

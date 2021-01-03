@@ -34,7 +34,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
         $data_url = 'https://webnus.net/modern-events-calendar/addons-api/addons-api.json';
         
         
-        if( function_exists('file_get_contents') && ini_get('allow_url_fopen') )
+        if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
         {
             $get_data = file_get_contents($data_url);
             if ( $get_data !== false AND !empty($get_data) )

@@ -160,87 +160,100 @@ $event_fields = $this->main->get_event_fields();
 
                         <div id="event_form_option" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Custom Fields', 'modern-events-calendar-lite'); ?></h4>
+
                             <div class="mec-container">
-                                <div class="mec-form-row" id="mec_event_form_container">
-                                    <?php /** Don't remove this hidden field **/ ?>
-                                    <input type="hidden" name="mec[event_fields]" value="" />
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][display_event_fields_backend]" value="0" />
+                                        <input onchange="jQuery('#mec_event_fields_container').toggle();" value="1" type="checkbox" name="mec[settings][display_event_fields_backend]" <?php if(!isset($settings['display_event_fields_backend']) or (isset($settings['display_event_fields_backend']) and $settings['display_event_fields_backend'])) echo 'checked="checked"'; ?> /> <?php _e('Event Data', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="<?php if(isset($settings['display_event_fields_backend']) and !$settings['display_event_fields_backend'] ) echo 'mec-util-hidden'; ?>" id="mec_event_fields_container">
 
-                                    <ul id="mec_event_form_fields">
-                                        <?php
-                                        $i = 0;
-                                        foreach($event_fields as $key => $event_field)
-                                        {
-                                            if(!is_numeric($key)) continue;
-                                            $i = max($i, $key);
+                                <div class="mec-container">
+                                    <div class="mec-form-row" id="mec_event_form_container">
+                                        <?php /** Don't remove this hidden field **/ ?>
+                                        <input type="hidden" name="mec[event_fields]" value="" />
 
-                                            if($event_field['type'] == 'text') echo $this->main->field_text($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'email') echo $this->main->field_email($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'url') echo $this->main->field_url($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'date') echo $this->main->field_date($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'tel') echo $this->main->field_tel($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'textarea') echo $this->main->field_textarea($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'p') echo $this->main->field_p($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'checkbox') echo $this->main->field_checkbox($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'radio') echo $this->main->field_radio($key, $event_field, 'event');
-                                            elseif($event_field['type'] == 'select') echo $this->main->field_select($key, $event_field, 'event');
-                                        }
-                                        ?>
-                                    </ul>
-                                    <div id="mec_event_form_field_types">
-                                        <button type="button" class="button" data-type="text"><?php _e('Text', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="email"><?php _e('Email', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="url"><?php _e('URL', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="date"><?php _e('Date', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="tel"><?php _e('Tel', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="textarea"><?php _e('Textarea', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="p"><?php _e('Paragraph', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="checkbox"><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="radio"><?php _e('Radio Buttons', 'modern-events-calendar-lite'); ?></button>
-                                        <button type="button" class="button" data-type="select"><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></button>
+                                        <ul id="mec_event_form_fields">
+                                            <?php
+                                            $i = 0;
+                                            foreach($event_fields as $key => $event_field)
+                                            {
+                                                if(!is_numeric($key)) continue;
+                                                $i = max($i, $key);
+
+                                                if($event_field['type'] == 'text') echo $this->main->field_text($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'email') echo $this->main->field_email($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'url') echo $this->main->field_url($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'date') echo $this->main->field_date($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'tel') echo $this->main->field_tel($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'textarea') echo $this->main->field_textarea($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'p') echo $this->main->field_p($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'checkbox') echo $this->main->field_checkbox($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'radio') echo $this->main->field_radio($key, $event_field, 'event');
+                                                elseif($event_field['type'] == 'select') echo $this->main->field_select($key, $event_field, 'event');
+                                            }
+                                            ?>
+                                        </ul>
+                                        <div id="mec_event_form_field_types">
+                                            <button type="button" class="button" data-type="text"><?php _e('Text', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="email"><?php _e('Email', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="url"><?php _e('URL', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="date"><?php _e('Date', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="tel"><?php _e('Tel', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="textarea"><?php _e('Textarea', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="p"><?php _e('Paragraph', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="checkbox"><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="radio"><?php _e('Radio Buttons', 'modern-events-calendar-lite'); ?></button>
+                                            <button type="button" class="button" data-type="select"><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <input type="hidden" id="mec_new_event_field_key" value="<?php echo $i + 1; ?>" />
-                            <div class="mec-util-hidden">
-                                <div id="mec_event_field_text">
-                                    <?php echo $this->main->field_text(':i:', array(), 'event'); ?>
+                                <input type="hidden" id="mec_new_event_field_key" value="<?php echo $i + 1; ?>" />
+                                <div class="mec-util-hidden">
+                                    <div id="mec_event_field_text">
+                                        <?php echo $this->main->field_text(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_email">
+                                        <?php echo $this->main->field_email(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_url">
+                                        <?php echo $this->main->field_url(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_tel">
+                                        <?php echo $this->main->field_tel(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_date">
+                                        <?php echo $this->main->field_date(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_textarea">
+                                        <?php echo $this->main->field_textarea(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_checkbox">
+                                        <?php echo $this->main->field_checkbox(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_radio">
+                                        <?php echo $this->main->field_radio(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_select">
+                                        <?php echo $this->main->field_select(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_p">
+                                        <?php echo $this->main->field_p(':i:', array(), 'event'); ?>
+                                    </div>
+                                    <div id="mec_event_field_option">
+                                        <?php echo $this->main->field_option(':fi:', ':i:', array(), 'event'); ?>
+                                    </div>
                                 </div>
-                                <div id="mec_event_field_email">
-                                    <?php echo $this->main->field_email(':i:', array(), 'event'); ?>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][display_event_fields]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][display_event_fields]" <?php if(!isset($settings['display_event_fields']) or (isset($settings['display_event_fields']) and $settings['display_event_fields'])) echo 'checked="checked"'; ?> /> <?php _e('Display Event Fields in Single Event Pages', 'modern-events-calendar-lite'); ?>
+                                    </label>
                                 </div>
-                                <div id="mec_event_field_url">
-                                    <?php echo $this->main->field_url(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_tel">
-                                    <?php echo $this->main->field_tel(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_date">
-                                    <?php echo $this->main->field_date(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_textarea">
-                                    <?php echo $this->main->field_textarea(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_checkbox">
-                                    <?php echo $this->main->field_checkbox(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_radio">
-                                    <?php echo $this->main->field_radio(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_select">
-                                    <?php echo $this->main->field_select(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_p">
-                                    <?php echo $this->main->field_p(':i:', array(), 'event'); ?>
-                                </div>
-                                <div id="mec_event_field_option">
-                                    <?php echo $this->main->field_option(':fi:', ':i:', array(), 'event'); ?>
-                                </div>
-                            </div>
-                            <div class="mec-form-row">
-                                <label>
-                                    <input type="hidden" name="mec[settings][display_event_fields]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][display_event_fields]" <?php if(!isset($settings['display_event_fields']) or (isset($settings['display_event_fields']) and $settings['display_event_fields'])) echo 'checked="checked"'; ?> /> <?php _e('Display Event Fields in Single Event Pages', 'modern-events-calendar-lite'); ?>
-                                </label>
                             </div>
                         </div>
 

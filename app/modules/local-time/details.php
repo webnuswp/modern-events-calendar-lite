@@ -41,7 +41,7 @@ $hide_time = isset($event->data->meta['mec_hide_time']) ? $event->data->meta['me
 $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->meta['mec_hide_end_time'] : 0;
 ?>
 <div class="mec-local-time-details mec-frontbox" id="mec_local_time_details">
-    <i class="mec-sl-speedometer"></i>
+    <i class="mec-sl-clock"></i>
     <h3 class="mec-local-time mec-frontbox-title"><?php _e('Local Time', 'modern-events-calendar-lite'); ?></h3>
     <ul>
         <li><?php echo sprintf(__('Timezone: %s', 'modern-events-calendar-lite'), '<span>'.$timezone.'</span>'); ?></li>

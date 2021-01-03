@@ -504,13 +504,23 @@ class MEC_feature_update extends MEC_base
 
     public function version5140()
     {
+        // List of Capabilities
+        $capabilities = array('mec_bookings', 'mec_add_booking', 'mec_coupons', 'mec_report', 'mec_import_export', 'mec_settings');
+
+        // Site Admin
         $role = get_role('administrator');
-        $role->add_cap('mec_bookings', true);
-        $role->add_cap('mec_add_booking', true);
-        $role->add_cap('mec_coupons', true);
-        $role->add_cap('mec_report', true);
-        $role->add_cap('mec_import_export', true);
-        $role->add_cap('mec_settings', true);
-        $role->add_cap('mec_shortcodes', true);
+        if($role) foreach($capabilities as $capability) $role->add_cap($capability, true);
+
+        // Multisite
+        if(is_multisite())
+        {
+            // All Super Admins
+            $supers = get_super_admins();
+            foreach($supers as $admin)
+            {
+                $user = new WP_User(0, $admin);
+                foreach($capabilities as $capability) $user->add_cap($capability, true);
+            }
+        }
     }
 }

@@ -91,7 +91,11 @@ $map_events = array();
                         <div class="mec-event-date mec-bg-color"><span><?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['start']['date'])); ?></span><?php echo $this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['start']['date'])); ?></div>
                         <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                         <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
-                        <div class="mec-event-detail"><?php echo $this->main->date_i18n($this->date_format_minimal_3, strtotime($event->date['start']['date'])); ?><?php echo (isset($location['name']) ? ', <span class="mec-event-loc-place">' . $location['name'] .'</span>' : ''); ?> <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?> </div>
+                        <div class="mec-event-detail">
+                            <?php echo $this->main->date_i18n($this->date_format_minimal_3, strtotime($event->date['start']['date'])); ?>
+                            <?php echo (isset($location['name']) ? ', <span class="mec-event-loc-place">' . $location['name'] .'</span>' : ''); ?> <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
+                        </div>
+                        <?php do_action('mec_list_minimal_after_details', $event); ?>
                         <?php echo $this->display_categories($event); ?>
                         <?php echo $this->display_organizers($event); ?>
                         <?php echo $this->booking_button($event); ?>

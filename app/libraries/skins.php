@@ -1354,7 +1354,7 @@ class MEC_skins extends MEC_base
         if($method == 'no' and in_array($class, array('mec-booking-button', 'mec-detail-button', 'mec-booking-button mec-bg-color-hover mec-border-color-hover', 'mec-event-link'))) return '';
         elseif($method == 'no') return $title;
 
-        $target = ($method == 'new' ? 'target="_blank"' : '');
+        $target = ($method == 'new' ? 'target="_blank" rel="noopener"' : '');
         $target = apply_filters('mec_event_link_change_target' , $target, $event->data->ID);
         return '<a '.($class ? 'class="'.$class.'"' : '').' '.($attributes ? $attributes : '').' data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target.'>'.$title.'</a>';
     }
