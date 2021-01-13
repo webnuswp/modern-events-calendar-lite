@@ -63,6 +63,13 @@ class MEC_schedule extends MEC_base
         // No new date found!
         if(!is_array($dates) or (is_array($dates) and !count($dates))) return false;
 
+        // All Day Event
+        $allday = get_post_meta($event_id, 'mec_allday', true);
+
+        // Public Event
+        $public = get_post_meta($event_id, 'mec_public', true);
+        if(trim($public) === '') $public = 1;
+
         foreach($dates as $date)
         {
             $sd = $date['start']['date'];
@@ -94,15 +101,22 @@ class MEC_schedule extends MEC_base
 
             $end_time = $end_hour.':'.$end_minute.' '.$end_ampm;
 
+            // All Day Event
+            if($allday)
+            {
+                $start_time = '12:01 AM';
+                $end_time = '11:59 PM';
+            }
+
             $st = strtotime(trim($date['start']['date'].' '.$start_time, ' :'));
             $et = strtotime(trim($date['end']['date'].' '.$end_time, ' :'));
 
             $date_id = $this->db->select("SELECT `id` FROM `#__mec_dates` WHERE `post_id`='$event_id' AND `tstart`='$st' AND `tend`='$et'", 'loadResult');
 
             // Add new Date
-            if(!$date_id) $this->db->q("INSERT INTO `#__mec_dates` (`post_id`,`dstart`,`dend`,`tstart`,`tend`) VALUES ('$event_id','$sd','$ed','$st','$et');");
+            if(!$date_id) $this->db->q("INSERT INTO `#__mec_dates` (`post_id`,`dstart`,`dend`,`tstart`,`tend`,`public`) VALUES ('$event_id','$sd','$ed','$st','$et','$public');");
             // Update Existing Record
-            else $this->db->q("UPDATE `#__mec_dates` SET `tstart`='$st', `tend`='$et' WHERE `id`='$date_id';");
+            else $this->db->q("UPDATE `#__mec_dates` SET `tstart`='$st', `tend`='$et', `public`='$public' WHERE `id`='$date_id';");
         }
 
         return true;

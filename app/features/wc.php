@@ -166,7 +166,7 @@ class MEC_feature_wc extends MEC_base
             $tickets = get_post_meta($event_id, 'mec_tickets', true);
 
             // Ticket is not available
-            if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id])) and $availability[$ticket_id] < $quantity)
+            if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id])) and $availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity)
             {
                 if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
                 else $errors->add('validation', sprintf(__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));

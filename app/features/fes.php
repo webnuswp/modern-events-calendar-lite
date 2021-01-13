@@ -447,10 +447,10 @@ class MEC_feature_fes extends MEC_base
         if(isset($this->settings['fes_required_body']) and $this->settings['fes_required_body'] and !trim($post_content)) $this->main->response(array('success'=>0, 'message'=>__('Please fill event body field!', 'modern-events-calendar-lite'), 'code'=>'BODY_IS_EMPTY'));
 
         // Category is Required
-        if(isset($this->settings['fes_required_category']) and $this->settings['fes_required_category'] and is_array($post_categories) and !count($post_categories)) $this->main->response(array('success'=>0, 'message'=>__('Please select at-least one category!', 'modern-events-calendar-lite'), 'code'=>'CATEGORY_IS_EMPTY'));
+        if(isset($this->settings['fes_section_categories']) and $this->settings['fes_section_categories'] and isset($this->settings['fes_required_category']) and $this->settings['fes_required_category'] and is_array($post_categories) and !count($post_categories)) $this->main->response(array('success'=>0, 'message'=>__('Please select at-least one category!', 'modern-events-calendar-lite'), 'code'=>'CATEGORY_IS_EMPTY'));
 
         // Label is Required
-        if(isset($this->settings['fes_required_label']) and $this->settings['fes_required_label'] and is_array($post_labels) and !count($post_labels)) $this->main->response(array('success'=>0, 'message'=>__('Please select at-least one label!', 'modern-events-calendar-lite'), 'code'=>'LABEL_IS_EMPTY'));
+        if(isset($this->settings['fes_section_labels']) and $this->settings['fes_section_labels'] and isset($this->settings['fes_required_label']) and $this->settings['fes_required_label'] and is_array($post_labels) and !count($post_labels)) $this->main->response(array('success'=>0, 'message'=>__('Please select at-least one label!', 'modern-events-calendar-lite'), 'code'=>'LABEL_IS_EMPTY'));
         
         // Post Status
         $status = 'pending';
@@ -715,7 +715,8 @@ class MEC_feature_fes extends MEC_base
         $comment = isset($date['comment']) ? $date['comment'] : '';
         $timezone = (isset($mec['timezone']) and trim($mec['timezone']) != '') ? sanitize_text_field($mec['timezone']) : 'global';
         $countdown_method = (isset($mec['countdown_method']) and trim($mec['countdown_method']) != '') ? sanitize_text_field($mec['countdown_method']) : 'global';
-        
+        $public = (isset($_mec['public']) and trim($_mec['public']) != '') ? sanitize_text_field($_mec['public']) : 1;
+
         // Set start time and end time if event is all day
         if($allday == 1)
         {
@@ -785,6 +786,7 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_comment', $comment);
         update_post_meta($post_id, 'mec_timezone', $timezone);
         update_post_meta($post_id, 'mec_countdown_method', $countdown_method);
+        update_post_meta($post_id, 'mec_public', $public);
         update_post_meta($post_id, 'mec_repeat_status', $repeat_status);
         update_post_meta($post_id, 'mec_repeat_type', $repeat_type);
         update_post_meta($post_id, 'mec_repeat_interval', $repeat_interval);

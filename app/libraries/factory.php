@@ -533,8 +533,13 @@ class MEC_factory extends MEC_base
 
         // Import MEC LearnDash addon
         $this->import('app.addons.learndash');
-        $MEC_addon_ld = new MEC_addon_learndash();
-        $MEC_addon_ld->init();
+        $MEC_addon_LD = new MEC_addon_learndash();
+        $MEC_addon_LD->init();
+
+        // Import MEC PaidMembership Pro addon
+        $this->import('app.addons.PMP');
+        $MEC_addon_PMP = new MEC_addon_PMP();
+        $MEC_addon_PMP->init();
     }
     
     /**
@@ -1130,7 +1135,7 @@ class MEC_factory extends MEC_base
 
             // It's one of MEC post type pages
             if(trim($post_type) and in_array($post_type, array(
-                'mec-events', 'mec_calendars', 'mec-books'
+                $this->main->get_main_post_type(), 'mec_calendars', 'mec-books'
             ))) return true;
 
             // It's Block Editor

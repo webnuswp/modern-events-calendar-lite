@@ -2503,5 +2503,8 @@ $events = $this->main->get_events();
         jQuery('#mec_available_spot_skin_options_container .mec-form-row .nice-select .list li[data-value="fluent-type2"]').append('<span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../../assets/img/skins/fluent/fluent-available-spot-view-type2.png'; ?>" /></span>');
 
 
+        /** Hide Local time option when list view skin has been set on accorion */
+        // jQuery('#mec_list_skin_options_container .mec-form-row .nice-select .list li[data-value="accordion"]').parents()eq(4).find('#mec_skin_list_localtime').hide();
+
     });
 </script>

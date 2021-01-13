@@ -51,7 +51,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         <div class="mec-event-image">
                         <?php 
                             if($event->data->thumbnails['meccarouselthumb']) echo $event->data->thumbnails['meccarouselthumb'];
-                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
+                            else echo '<img src="'. $this->main->asset('img/no-image.png') .'" />';
                         ?>
                         </div>
                         <div class="mec-event-date-carousel">
@@ -74,7 +74,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                     <div class="mec-event-image">
                         <?php 
                             if($event->data->thumbnails['meccarouselthumb']) echo $event->data->thumbnails['meccarouselthumb'];
-                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
+                            else echo '<img src="'. $this->main->asset('img/no-image.png') .'" />';
                         ?>
                     </div>
                     <div class="mec-event-carousel-content-type2">
@@ -116,7 +116,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                     <div class="mec-event-image">
                         <?php 
                             if($event->data->thumbnails['meccarouselthumb']) echo $event->data->thumbnails['meccarouselthumb'];
-                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
+                            else echo '<img src="'. $this->main->asset('img/no-image.png') .'" />';
                         ?>
                     </div>
                     <div class="mec-event-footer-carousel-type3">
@@ -154,7 +154,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                     <div class="mec-event-image">
                         <?php 
                             if($event->data->thumbnails['full']) echo $event->data->thumbnails['full'];
-                            else echo '<img src="'. plugin_dir_url(__FILE__ ) .'../../../assets/img/no-image.png'.'" />';
+                            else echo '<img src="'. $this->main->asset('img/no-image.png') .'" />';
                         ?>
                     </div>
                     <div class="mec-event-overlay"></div>

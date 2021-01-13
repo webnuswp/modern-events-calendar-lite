@@ -32,6 +32,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][list][category][type]" id="mec_sf_list_category">
 						<option value="0" <?php if(isset($sf_options_list['category']) and isset($sf_options_list['category']['type']) and $sf_options_list['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_list['category']) and isset($sf_options_list['category']['type']) and $sf_options_list['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_list['category']) and isset($sf_options_list['category']['type']) and $sf_options_list['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -78,6 +79,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_list_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][list][event_cost][type]" id="mec_sf_list_event_cost">
+                        <option value="0" <?php if(isset($sf_options_list['event_cost']) and isset($sf_options_list['event_cost']['type']) and $sf_options_list['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_list['event_cost']) and isset($sf_options_list['event_cost']['type']) and $sf_options_list['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_list_month_filter"><?php _e('Date Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][list][month_filter][type]" id="mec_sf_list_month_filter">
 						<option value="0" <?php if(isset($sf_options_list['month_filter']) and isset($sf_options_list['month_filter']['type']) and $sf_options_list['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -103,6 +111,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][grid][category][type]" id="mec_sf_grid_category">
                         <option value="0" <?php if(isset($sf_options_grid['category']) and isset($sf_options_grid['category']['type']) and $sf_options_grid['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_grid['category']) and isset($sf_options_grid['category']['type']) and $sf_options_grid['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_grid['category']) and isset($sf_options_grid['category']['type']) and $sf_options_grid['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -149,6 +158,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_grid_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][grid][event_cost][type]" id="mec_sf_grid_event_cost">
+                        <option value="0" <?php if(isset($sf_options_grid['event_cost']) and isset($sf_options_grid['event_cost']['type']) and $sf_options_grid['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_grid['event_cost']) and isset($sf_options_grid['event_cost']['type']) and $sf_options_grid['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_grid_month_filter"><?php _e('Date Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][grid][month_filter][type]" id="mec_sf_grid_month_filter">
                         <option value="0" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -174,6 +190,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][agenda][category][type]" id="mec_sf_agenda_category">
                         <option value="0" <?php if(isset($sf_options_agenda['category']) and isset($sf_options_agenda['category']['type']) and $sf_options_agenda['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_agenda['category']) and isset($sf_options_agenda['category']['type']) and $sf_options_agenda['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_agenda['category']) and isset($sf_options_agenda['category']['type']) and $sf_options_agenda['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -220,6 +237,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_agenda_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][agenda][event_cost][type]" id="mec_sf_agenda_event_cost">
+                        <option value="0" <?php if(isset($sf_options_agenda['event_cost']) and isset($sf_options_agenda['event_cost']['type']) and $sf_options_agenda['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_agenda['event_cost']) and isset($sf_options_agenda['event_cost']['type']) and $sf_options_agenda['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_agenda_month_filter"><?php _e('Date Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][agenda][month_filter][type]" id="mec_sf_agenda_month_filter">
                         <option value="0" <?php if(isset($sf_options_agenda['month_filter']) and isset($sf_options_agenda['month_filter']['type']) and $sf_options_agenda['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -245,6 +269,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][full_calendar][category][type]" id="mec_sf_full_calendar_category">
                         <option value="0" <?php if(isset($sf_options_full_calendar['category']) and isset($sf_options_full_calendar['category']['type']) and $sf_options_full_calendar['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_full_calendar['category']) and isset($sf_options_full_calendar['category']['type']) and $sf_options_full_calendar['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_full_calendar['category']) and isset($sf_options_full_calendar['category']['type']) and $sf_options_full_calendar['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -291,6 +316,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_full_calendar_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][full_calendar][event_cost][type]" id="mec_sf_full_calendar_event_cost">
+                        <option value="0" <?php if(isset($sf_options_full_calendar['event_cost']) and isset($sf_options_full_calendar['event_cost']['type']) and $sf_options_full_calendar['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_full_calendar['event_cost']) and isset($sf_options_full_calendar['event_cost']['type']) and $sf_options_full_calendar['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_full_calendar_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][full_calendar][month_filter][type]" id="mec_sf_full_calendar_month_filter">
 						<option value="0" <?php if(isset($sf_options_full_calendar['month_filter']) and isset($sf_options_full_calendar['month_filter']['type']) and $sf_options_full_calendar['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -315,6 +347,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][monthly_view][category][type]" id="mec_sf_monthly_view_category">
 						<option value="0" <?php if(isset($sf_options_monthly_view['category']) and isset($sf_options_monthly_view['category']['type']) and $sf_options_monthly_view['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_monthly_view['category']) and isset($sf_options_monthly_view['category']['type']) and $sf_options_monthly_view['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_monthly_view['category']) and isset($sf_options_monthly_view['category']['type']) and $sf_options_monthly_view['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -361,6 +394,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_monthly_view_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][monthly_view][event_cost][type]" id="mec_sf_monthly_view_event_cost">
+                        <option value="0" <?php if(isset($sf_options_monthly_view['event_cost']) and isset($sf_options_monthly_view['event_cost']['type']) and $sf_options_monthly_view['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_monthly_view['event_cost']) and isset($sf_options_monthly_view['event_cost']['type']) and $sf_options_monthly_view['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_monthly_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][monthly_view][month_filter][type]" id="mec_sf_monthly_view_month_filter">
 						<option value="0" <?php if(isset($sf_options_monthly_view['month_filter']) and isset($sf_options_monthly_view['month_filter']['type']) and $sf_options_monthly_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -385,6 +425,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][yearly_view][category][type]" id="mec_sf_yearly_view_category">
                         <option value="0" <?php if(isset($sf_options_yearly_view['category']) and isset($sf_options_yearly_view['category']['type']) and $sf_options_yearly_view['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_yearly_view['category']) and isset($sf_options_yearly_view['category']['type']) and $sf_options_yearly_view['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_yearly_view['category']) and isset($sf_options_yearly_view['category']['type']) and $sf_options_yearly_view['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -431,6 +472,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_yearly_view_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][yearly_view][event_cost][type]" id="mec_sf_yearly_view_event_cost">
+                        <option value="0" <?php if(isset($sf_options_yearly_view['event_cost']) and isset($sf_options_yearly_view['event_cost']['type']) and $sf_options_yearly_view['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_yearly_view['event_cost']) and isset($sf_options_yearly_view['event_cost']['type']) and $sf_options_yearly_view['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_yearly_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][yearly_view][month_filter][type]" id="mec_sf_yearly_view_month_filter">
                         <option value="0" <?php if(isset($sf_options_yearly_view['month_filter']) and isset($sf_options_yearly_view['month_filter']['type']) and $sf_options_yearly_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -455,6 +503,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][map][category][type]" id="mec_sf_map_category">
 						<option value="0" <?php if(isset($sf_options_map['category']) and isset($sf_options_map['category']['type']) and $sf_options_map['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_map['category']) and isset($sf_options_map['category']['type']) and $sf_options_map['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_map['category']) and isset($sf_options_map['category']['type']) and $sf_options_map['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -501,6 +550,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_map_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][map][event_cost][type]" id="mec_sf_map_event_cost">
+                        <option value="0" <?php if(isset($sf_options_map['event_cost']) and isset($sf_options_map['event_cost']['type']) and $sf_options_map['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_map['event_cost']) and isset($sf_options_map['event_cost']['type']) and $sf_options_map['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_map_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][map][text_search][type]" id="mec_sf_map_text_search">
 						<option value="0" <?php if(isset($sf_options_map['text_search']) and isset($sf_options_map['text_search']['type']) and $sf_options_map['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -518,6 +574,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][daily_view][category][type]" id="mec_sf_daily_view_category">
 						<option value="0" <?php if(isset($sf_options_daily_view['category']) and isset($sf_options_daily_view['category']['type']) and $sf_options_daily_view['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_daily_view['category']) and isset($sf_options_daily_view['category']['type']) and $sf_options_daily_view['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_daily_view['category']) and isset($sf_options_daily_view['category']['type']) and $sf_options_daily_view['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -564,6 +621,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_daily_view_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][daily_view][event_cost][type]" id="mec_sf_daily_view_event_cost">
+                        <option value="0" <?php if(isset($sf_options_daily_view['event_cost']) and isset($sf_options_daily_view['event_cost']['type']) and $sf_options_daily_view['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_daily_view['event_cost']) and isset($sf_options_daily_view['event_cost']['type']) and $sf_options_daily_view['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_daily_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][daily_view][month_filter][type]" id="mec_sf_daily_view_month_filter">
 						<option value="0" <?php if(isset($sf_options_daily_view['month_filter']) and isset($sf_options_daily_view['month_filter']['type']) and $sf_options_daily_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -588,6 +652,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][weekly_view][category][type]" id="mec_sf_weekly_view_category">
 						<option value="0" <?php if(isset($sf_options_weekly_view['category']) and isset($sf_options_weekly_view['category']['type']) and $sf_options_weekly_view['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_weekly_view['category']) and isset($sf_options_weekly_view['category']['type']) and $sf_options_weekly_view['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_weekly_view['category']) and isset($sf_options_weekly_view['category']['type']) and $sf_options_weekly_view['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -634,6 +699,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_weekly_view_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][weekly_view][event_cost][type]" id="mec_sf_weekly_view_event_cost">
+                        <option value="0" <?php if(isset($sf_options_weekly_view['event_cost']) and isset($sf_options_weekly_view['event_cost']['type']) and $sf_options_weekly_view['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_weekly_view['event_cost']) and isset($sf_options_weekly_view['event_cost']['type']) and $sf_options_weekly_view['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_weekly_view_month_filter"><?php _e('Month Filter', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][weekly_view][month_filter][type]" id="mec_sf_weekly_view_month_filter">
 						<option value="0" <?php if(isset($sf_options_weekly_view['month_filter']) and isset($sf_options_weekly_view['month_filter']['type']) and $sf_options_weekly_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -658,6 +730,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][timetable][category][type]" id="mec_sf_timetable_category">
                         <option value="0" <?php if(isset($sf_options_timetable['category']) and isset($sf_options_timetable['category']['type']) and $sf_options_timetable['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_timetable['category']) and isset($sf_options_timetable['category']['type']) and $sf_options_timetable['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_timetable['category']) and isset($sf_options_timetable['category']['type']) and $sf_options_timetable['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -701,6 +774,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][timetable][address_search][type]" id="mec_sf_timetable_address_search">
 						<option value="0" <?php if(isset($sf_options_timetable['address_search']) and isset($sf_options_timetable['address_search']['type']) and $sf_options_timetable['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="address_input" <?php if(isset($sf_options_timetable['address_search']) and isset($sf_options_timetable['address_search']['type']) and $sf_options_timetable['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_timetable_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][timetable][event_cost][type]" id="mec_sf_timetable_event_cost">
+                        <option value="0" <?php if(isset($sf_options_timetable['event_cost']) and isset($sf_options_timetable['event_cost']['type']) and $sf_options_timetable['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_timetable['event_cost']) and isset($sf_options_timetable['event_cost']['type']) and $sf_options_timetable['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -764,6 +844,7 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][tile][category][type]" id="mec_sf_tile_category">
                         <option value="0" <?php if(isset($sf_options_tile['category']) and isset($sf_options_tile['category']['type']) and $sf_options_tile['category']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_tile['category']) and isset($sf_options_tile['category']['type']) and $sf_options_tile['category']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                        <option value="checkboxes" <?php if(isset($sf_options_tile['category']) and isset($sf_options_tile['category']['type']) and $sf_options_tile['category']['type'] == 'checkboxes') echo 'selected="selected"'; ?>><?php _e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -807,6 +888,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][tile][address_search][type]" id="mec_sf_tile_address_search">
 						<option value="0" <?php if(isset($sf_options_tile['address_search']) and isset($sf_options_tile['address_search']['type']) and $sf_options_tile['address_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="address_input" <?php if(isset($sf_options_tile['address_search']) and isset($sf_options_tile['address_search']['type']) and $sf_options_tile['address_search']['type'] == 'address_input') echo 'selected="selected"'; ?>><?php _e('Address Input', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_tile_event_cost"><?php _e('Event Cost', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][tile][event_cost][type]" id="mec_sf_tile_event_cost">
+                        <option value="0" <?php if(isset($sf_options_tile['event_cost']) and isset($sf_options_tile['event_cost']['type']) and $sf_options_tile['event_cost']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="minmax" <?php if(isset($sf_options_tile['event_cost']) and isset($sf_options_tile['event_cost']['type']) and $sf_options_tile['event_cost']['type'] == 'minmax') echo 'selected="selected"'; ?>><?php _e('Min / Max Inputs', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">

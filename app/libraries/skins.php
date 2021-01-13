@@ -392,9 +392,29 @@ class MEC_skins extends MEC_base
         $meta_query = array();
         $meta_query['relation'] = 'AND';
 
-        $meta_query = apply_filters('mec_map_meta_query', $meta_query, $this->atts);
+        // Event Min Cost
+        if(isset($this->atts['cost-min']) and trim($this->atts['cost-min']) != '')
+        {
+            $meta_query[] = array(
+                'key'     => 'mec_cost',
+                'value'   => $this->atts['cost-min'],
+                'type'    => 'numeric',
+                'compare' => '>=',
+            );
+        }
 
-        return $meta_query;
+        // Event Max Cost
+        if(isset($this->atts['cost-max']) and trim($this->atts['cost-max']) != '')
+        {
+            $meta_query[] = array(
+                'key'     => 'mec_cost',
+                'value'   => $this->atts['cost-max'],
+                'type'    => 'numeric',
+                'compare' => '<=',
+            );
+        }
+
+        return apply_filters('mec_map_meta_query', $meta_query, $this->atts);
     }
 
     /**
@@ -541,7 +561,7 @@ class MEC_skins extends MEC_base
             }
         }
 
-        $where_AND = '1';
+        $where_AND = '1 AND `public`=1';
 
         // Exclude Events
         if(isset($this->atts['exclude']) and is_array($this->atts['exclude']) and count($this->atts['exclude'])) $where_AND .= " AND `post_id` NOT IN (".implode(',', $this->atts['exclude']).")";
@@ -877,7 +897,7 @@ class MEC_skins extends MEC_base
             if(in_array($field, $fields_array) and $first_row == 'not-started')
             {
                 $first_row = 'started';
-                if($this->sf_options['category']['type'] != 'dropdown' and $this->sf_options['location']['type'] != 'dropdown' and $this->sf_options['organizer']['type'] != 'dropdown' and (isset($this->sf_options['speaker']['type']) && $this->sf_options['speaker']['type'] != 'dropdown') and (isset($this->sf_options['tag']['type']) && $this->sf_options['tag']['type'] != 'dropdown') and  $this->sf_options['label']['type'] != 'dropdown')
+                if($this->sf_options['category']['type'] != 'dropdown' and $this->sf_options['category']['type'] != 'checkboxes' and $this->sf_options['location']['type'] != 'dropdown' and $this->sf_options['organizer']['type'] != 'dropdown' and (isset($this->sf_options['speaker']['type']) && $this->sf_options['speaker']['type'] != 'dropdown') and (isset($this->sf_options['tag']['type']) && $this->sf_options['tag']['type'] != 'dropdown') and  $this->sf_options['label']['type'] != 'dropdown')
                 {
                     $display_style = 'style="display: none;"';
                 }
@@ -897,7 +917,7 @@ class MEC_skins extends MEC_base
         $fields = apply_filters('mec_filter_fields_search_form', $fields, $this);
 
         $form = '';
-        if(trim($fields) && (in_array('dropdown', $display_form) || in_array('text_input', $display_form) || in_array('address_input', $display_form))) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
+        if(trim($fields) && (in_array('dropdown', $display_form) || in_array('text_input', $display_form) || in_array('address_input', $display_form) || in_array('minmax', $display_form))) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
 
         return $form;
     }
@@ -918,6 +938,10 @@ class MEC_skins extends MEC_base
 
         // Status of Speakers Feature
         $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
+
+        // Import
+        self::import('app.libraries.walker');
+        if(!function_exists('wp_terms_checklist')) include ABSPATH.'wp-admin/includes/template.php';
 
         $output = '';
         if($field == 'category')
@@ -943,6 +967,31 @@ class MEC_skins extends MEC_base
                     'show_count'=>0,
                 ));
 
+                $output .= '</div>';
+            }
+            elseif($type == 'checkboxes')
+            {
+                $output .= '<div class="mec-checkboxes-search">
+                    <i class="mec-sl-folder"></i>';
+
+                $selected = ((isset($this->atts['category']) and trim($this->atts['category'])) ? explode(',', trim($this->atts['category'], ', ')) : array());
+
+                $output .= '<div class="mec-searchbar-category-wrap">';
+                $output .= '<div id="mec_sf_category_'.$this->id.'">';
+                $output .= wp_terms_checklist(0, array
+                (
+                    'echo'=>false,
+                    'taxonomy'=>'mec_category',
+                    'selected_cats'=>$selected,
+                    'checked_ontop'=>false,
+                    'walker'=>(new MEC_walker(array(
+                        'include'=>$selected,
+                        'id' => $this->id,
+                    ))),
+                ));
+
+                $output .= '</div>';
+                $output .= '</div>';
                 $output .= '</div>';
             }
         }
@@ -1166,6 +1215,17 @@ class MEC_skins extends MEC_base
                 </div>';
             }
         }
+        elseif($field == 'event_cost')
+        {
+            if($type == 'minmax')
+            {
+                $output .= '<div class="mec-minmax-event-cost">
+                    <i class="mec-sl-credit-card"></i>
+                    <input type="number" min="0" step="0.01" value="'.(isset($this->atts['event-cost-min']) ? $this->atts['event-cost-min'] : '').'" id="mec_sf_event_cost_min_'.$this->id.'" class="mec-minmax-price" placeholder="'.esc_attr__('Min Price', 'modern-events-calendar-lite').'" />
+                    <input type="number" min="0" step="0.01" value="'.(isset($this->atts['event-cost-max']) ? $this->atts['event-cost-max'] : '').'" id="mec_sf_event_cost_max_'.$this->id.'" class="mec-minmax-price" placeholder="'.esc_attr__('Max Price', 'modern-events-calendar-lite').'" />
+                </div>';
+            }
+        }
 
         $output = apply_filters('mec_search_fields_to_box', $output, $field, $type, $this->atts, $this->id);
         return $output;
@@ -1199,6 +1259,10 @@ class MEC_skins extends MEC_base
 
         // Apply Label Query
         if(isset($sf['label']) and trim($sf['label'])) $atts['label'] = $sf['label'];
+
+        // Apply Event Cost Query
+        if(isset($sf['cost-min'])) $atts['cost-min'] = $sf['cost-min'];
+        if(isset($sf['cost-max'])) $atts['cost-max'] = $sf['cost-max'];
 
         // Apply SF Date or Not
         if($apply_sf_date == 1)

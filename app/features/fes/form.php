@@ -249,6 +249,10 @@ $this->factory->params('footer', $javascript);
 
             $countdown_method = get_post_meta($post->ID, 'mec_countdown_method', true);
             if(trim($countdown_method) == '') $countdown_method = 'global';
+
+            // Public Event
+            $public = get_post_meta($post->ID, 'mec_public', true);
+            if(trim($public) === '') $public = 1;
         ?>
 
         <div class="mec-fes-form-cntt">
@@ -359,6 +363,16 @@ $this->factory->params('footer', $javascript);
                         </div>
                     </div>
                     <?php endif; ?>
+
+                    <h4><?php _e('Visibility', 'modern-events-calendar-lite'); ?></h4>
+                    <div class="mec-form-row">
+                        <div class="mec-col-4">
+                            <select name="mec[public]" id="mec_public" title="<?php esc_attr_e('Event Visibility', 'modern-events-calendar-lite'); ?>">
+                                <option value="1" <?php if('1' == $public) echo 'selected="selected"'; ?>><?php _e('Show on Shortcodes', 'modern-events-calendar-lite'); ?></option>
+                                <option value="0" <?php if('0' == $public) echo 'selected="selected"'; ?>><?php _e('Hide on Shortcodes', 'modern-events-calendar-lite'); ?></option>
+                            </select>
+                        </div>
+                    </div>
 
                 </div>
                 <div id="mec_meta_box_repeat_form">
@@ -833,7 +847,7 @@ $this->factory->params('footer', $javascript);
                 <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? '<span class="mec-required">*</span>' : ''); ?></h4>
                 <div id="mec_meta_box_cost_form">
                     <div class="mec-form-row">
-                        <input type="text" class="mec-col-3" name="mec[cost]" id="mec_cost" value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? 'required' : ''); ?> />
+                        <input type="number" class="mec-col-3" name="mec[cost]" id="mec_cost" value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? 'required' : ''); ?> />
                     </div>
                 </div>
             </div>

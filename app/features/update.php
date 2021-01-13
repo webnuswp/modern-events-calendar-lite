@@ -69,7 +69,8 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.12.6', '<')) $this->version5126();
         if(version_compare($version, '5.13.5', '<')) $this->version5135();
         if(version_compare($version, '5.14.0', '<')) $this->version5140();
-        
+        if(version_compare($version, '5.16.0', '<')) $this->version5160();
+
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
     }
@@ -522,5 +523,18 @@ class MEC_feature_update extends MEC_base
                 foreach($capabilities as $capability) $user->add_cap($capability, true);
             }
         }
+    }
+
+    public function version5160()
+    {
+        $mec = $this->db->select("SELECT * FROM `#__mec_users`", 'loadAssocList');
+        if(is_array($mec) and !count($mec))
+        {
+            $this->db->q("DROP TABLE `#__mec_users`");
+            $this->version5110();
+        }
+
+        // Add Public Column
+        // $this->db->q("ALTER TABLE `#__mec_dates` ADD `public` INT(4) UNSIGNED NOT NULL DEFAULT 1 AFTER `tend`;");
     }
 }

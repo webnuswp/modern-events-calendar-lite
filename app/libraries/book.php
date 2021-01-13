@@ -228,6 +228,13 @@ class MEC_book extends MEC_base
         // Publish it
         wp_publish_post($book_id);
 
+        // Assign User
+        if(isset($values['post_author']) and $values['post_author'])
+        {
+            $u = $this->getUser();
+            $u->assign($book_id, $values['post_author']);
+        }
+
         update_post_meta($book_id, 'mec_verified', 0);
         update_post_meta($book_id, 'mec_verification_key', md5(time().mt_rand(10000, 99999)));
         update_post_meta($book_id, 'mec_cancellation_key', md5(time().mt_rand(10000, 99999)));
@@ -1159,5 +1166,34 @@ class MEC_book extends MEC_base
         }
 
         return array($auto_confirm_free, $auto_confirm_paid);
+    }
+
+    public function get_all_sold_tickets($event_id)
+    {
+        $query = new WP_Query(array(
+            'post_type' => $this->PT,
+            'posts_per_page' => -1,
+            'post_status' => array('publish', 'pending', 'draft', 'future', 'private'),
+            'meta_query' => array
+            (
+                array('key'=>'mec_event_id', 'value'=>$event_id, 'compare'=>'='),
+            )
+        ));
+
+        $sold = 0;
+        if($query->have_posts())
+        {
+            // The Loop
+            while($query->have_posts())
+            {
+                $query->the_post();
+                $sold += $this->get_total_attendees(get_the_ID());
+            }
+
+            // Restore original Post Data
+            wp_reset_postdata();
+        }
+
+        return $sold;
     }
 }

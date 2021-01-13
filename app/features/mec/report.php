@@ -3,7 +3,7 @@
 defined('MECEXEC') or die();
 
 $query = new WP_Query(array(
-    'post_type' => 'mec-events',
+    'post_type' => $this->main->get_main_post_type(),
     'posts_per_page' => '-1',
     'post_status' => array('pending', 'draft', 'future', 'publish')
 ));

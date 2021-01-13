@@ -391,6 +391,16 @@ if($this->getPRO())
                             </div>
                             <p class="description"><?php esc_html_e('LearnDash plugin should be installed and activated.'); ?></p>
                         </div>
+                        <div id="pmp_options" class="mec-options-fields">
+                            <h4 class="mec-form-subtitle"><?php _e('PaidMembership Pro Integration', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][pmp_status]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][pmp_status]" <?php if(isset($settings['pmp_status']) and $settings['pmp_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable PaidMembership Pro Integration', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <p class="description"><?php esc_html_e('PaidMembership Pro plugin should be installed and activated.'); ?></p>
+                        </div>
                         <?php endif; ?>
 
                         <div class="mec-options-fields">

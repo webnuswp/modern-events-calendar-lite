@@ -203,7 +203,7 @@ class MEC_feature_search extends MEC_base
         $args = array(
             'tax_query' => $mec_queries,
             's' => esc_attr($_POST['keyword']),
-            'post_type' => 'mec-events',
+            'post_type' => $this->main->get_main_post_type(),
             'post_status' => array('publish'),
         );
 
@@ -245,7 +245,7 @@ class MEC_feature_search extends MEC_base
         if(defined('REST_REQUEST')) return $query;
 
         // Do not change Query if it is not a search related to MEC!
-        if((is_array($query->get('post_type')) and !in_array('mec-events', $query->get('post_type'))) or (!is_array($query->get('post_type')) and $query->get('post_type') != 'mec-events')) return $query;
+        if((is_array($query->get('post_type')) and !in_array($this->main->get_main_post_type(), $query->get('post_type'))) or (!is_array($query->get('post_type')) and $query->get('post_type') != 'mec-events')) return $query;
 
         $mec_tag_query = NULL;
         $mec_queries = array();

@@ -87,7 +87,7 @@ class MEC_skin_single extends MEC_skins
         else return;
 
         $related_args = array(
-            'post_type' => 'mec-events',
+            'post_type' => $this->main->get_main_post_type(),
             'posts_per_page' => 8,
             'post_status' => 'publish',
             'post__not_in' => array($event_id),
@@ -199,7 +199,7 @@ class MEC_skin_single extends MEC_skins
                                 <a href="<?php echo $this->main->get_event_date_permalink(get_the_permalink(), $mec_date); ?>">
                                     <?php
                                         if(get_the_post_thumbnail(get_the_ID(), 'thumblist')) echo get_the_post_thumbnail(get_the_ID(), 'thumblist');
-                                        else echo '<img src="' . plugin_dir_url(__FILE__) . '../../assets/img/no-image.png" />';
+                                        else echo '<img src="' . $this->main->asset('img/no-image.png').'" />';
                                     ?>
                                 </a>
                             </figure>
@@ -234,7 +234,7 @@ class MEC_skin_single extends MEC_skins
         $timestamp = (isset($date['start']) and isset($date['start']['timestamp'])) ? $date['start']['timestamp'] : NULL;
 
         $args = array(
-            'post_type' => 'mec-events',
+            'post_type' => $this->main->get_main_post_type(),
             'posts_per_page' => -1,
             'post_status' => 'publish',
             'orderby' => 'ASC',
@@ -355,7 +355,7 @@ class MEC_skin_single extends MEC_skins
         if(isset($this->settings['related_events']) && $this->settings['related_events'] != '1') return;
 
         $related_args = array(
-            'post_type' => 'mec-events',
+            'post_type' => $this->main->get_main_post_type(),
             'posts_per_page' => 3,
             'post_status' => 'publish',
             'post__not_in' => array($event_id),
@@ -446,7 +446,7 @@ class MEC_skin_single extends MEC_skins
                                             if (get_the_post_thumbnail(get_the_ID(), 'thumblist')){
                                                 echo MEC_Fluent\Core\pluginBase\MecFluent::generateThumbnail(MEC_Fluent\Core\pluginBase\MecFluent::generateThumbnailURL(get_the_ID(), 322, 250, true), 322, 250);
                                             } else {
-                                                echo '<img src="' . plugin_dir_url(__FILE__) . '../../assets/img/no-image.png" />';
+                                                echo '<img src="' . $this->main->asset('img/no-image.png') . '" />';
                                             }
                                         ?>
                                     </a>
@@ -699,9 +699,7 @@ class MEC_skin_single extends MEC_skins
     // Get event
     public function get_event_mec($event_ID)
     {
-        if(get_post_type( $event_ID ) != 'mec-events') {
-            return false;
-        }
+        if(get_post_type($event_ID) != $this->main->get_main_post_type()) return false;
 
         /// Original Event ID for Multilingual Websites
         $original_event_id = $this->main->get_original_event($event_ID);

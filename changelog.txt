@@ -1,4 +1,20 @@
-﻿v 5.15.5 – 30 December 2020
+﻿v 5.16.0 – 13 January 2021
+- Added: PaidMembership Pro integration (pro)
+- Added: Event Cost search option with min and max fields (pro)
+- Added: Multiple Category Search to the filter options
+- Added: An option to change event visibility and hide them in shortcodes
+- Added: Ability to sort bookings by Event ID (pro)
+- Added: Two new “After Add to Cart” methods to provide optional link and message to the booker user (pro)
+- Added: An ongoing label for ongoing events
+- Added: A new column in backend events list to show the count of all sales (pro)
+- Fixed: An issue on required fields of “Frontend Submission”
+- Fixed: An issue on showing all day ongoing events
+- Fixed: An issue on “Total User Booking” field in “Frontend Submission” (pro)
+- Fixed: An issue in month filter
+- Fixed: An issue in carousel skin
+- Fixed: An issue in validation of WC payment (pro)
+
+v 5.15.5 – 30 December 2020
 - Added: An advanced calendar method to show available occurrences to book (pro)
 - Added: the feature to create segmetns in MailChimp integration (pro)
 - Added: Ability to edit booking fields in “Booking Edit” page in WordPress backend (pro)

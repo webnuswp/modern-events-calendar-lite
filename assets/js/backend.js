@@ -652,6 +652,8 @@ function mec_skin_style_changed(skin, style, context) {
     // Show Or Hide Include Events Time Switcher
     if (style == 'classic' || style == 'minimal' || style == 'modern') jQuery(context).parent().parent().find('.mec-include-events-times').show();
     else jQuery(context).parent().parent().find('.mec-include-events-times').hide();
+
+    if (style == 'accordion') jQuery(context).parent().parent().find('#mec_skin_list_localtime').hide();
 }
 
 function mec_skin_map_toggle(context)

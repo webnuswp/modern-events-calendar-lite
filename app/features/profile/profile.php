@@ -197,7 +197,7 @@ $id = 1;
 
                         echo '<div class="mec-booking-attendees-head-content">';
                         echo '<span class="mec-booking-attendee-id">'.$person_id.'</span>';
-                        echo '<span class="mec-booking-attendee-name">'.$attendee['name'].'</span>';
+                        echo '<span class="mec-booking-attendee-name">'. ( isset($attendee['_name']) ? $attendee['_name'] : $attendee['name'] ).'</span>';
                         echo '<span class="mec-booking-attendee-email">'.$attendee['email'].'</span>';
                         echo '<span class="mec-booking-attendee-ticket">'.((isset($event->tickets[$attendee['id']]) ? $event->tickets[$attendee['id']]['name'] : '').' '.(isset($event->tickets[$attendee['id']]) ? $event->tickets[$attendee['id']]['price_label'] : '')).'</span>';
 

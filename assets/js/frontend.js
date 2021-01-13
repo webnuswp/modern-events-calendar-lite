@@ -44,8 +44,10 @@ var mecSingleEventDisplayer = {
 };
 
 // MEC SEARCH FORM PLUGIN
-(function ($) {
-    $.fn.mecSearchForm = function (options) {
+(function ($)
+{
+    $.fn.mecSearchForm = function(options)
+    {
         // Default Options
         var settings = $.extend({
             // These are the defaults.
@@ -55,35 +57,59 @@ var mecSingleEventDisplayer = {
             callback: function () {}
         }, options);
 
-        $("#mec_sf_category_" + settings.id).on('change', function (e) {
+        var $event_cost_min = $("#mec_sf_event_cost_min_" + settings.id);
+        var $event_cost_max = $("#mec_sf_event_cost_max_" + settings.id);
+        var $category = $("#mec_sf_category_" + settings.id);
+
+        $category.on('change', function(e)
+        {
             search();
         });
 
-        $("#mec_sf_location_" + settings.id).on('change', function (e) {
+        $("#mec_sf_location_" + settings.id).on('change', function(e)
+        {
             search();
         });
 
-        $("#mec_sf_organizer_" + settings.id).on('change', function (e) {
+        $("#mec_sf_organizer_" + settings.id).on('change', function(e)
+        {
             search();
         });
 
-        $("#mec_sf_speaker_" + settings.id).on('change', function (e) {
+        $("#mec_sf_speaker_" + settings.id).on('change', function(e)
+        {
             search();
         });
 
-        $("#mec_sf_tag_" + settings.id).on('change', function (e) {
+        $("#mec_sf_tag_" + settings.id).on('change', function(e)
+        {
             search();
         });
 
-        $("#mec_sf_label_" + settings.id).on('change', function (e) {
+        $("#mec_sf_label_" + settings.id).on('change', function(e)
+        {
             search();
         });
 
-        $("#mec_sf_s_" + settings.id).on('change', function (e) {
+        $("#mec_sf_s_" + settings.id).on('change', function(e)
+        {
             search();
         });
        
-        $("#mec_sf_address_s_" + settings.id).on('change', function (e) {
+        $("#mec_sf_address_s_" + settings.id).on('change', function(e)
+        {
+            search();
+        });
+
+        $event_cost_min.on('change', function(e)
+        {
+            $event_cost_max.attr('min', $(this).val());
+            search();
+        });
+
+        $event_cost_max.on('change', function(e)
+        {
+            $event_cost_min.attr('max', $(this).val());
             search();
         });
         
@@ -91,7 +117,8 @@ var mecSingleEventDisplayer = {
         var mec_sf_year_selector = "#mec_sf_year_" + settings.id;
         mec_sf_month_selector += (', ' + mec_sf_year_selector);
         
-        $(mec_sf_month_selector).on('change', function (e) {
+        $(mec_sf_month_selector).on('change', function (e)
+        {
             if($(mec_sf_year_selector).find('option:eq(0)').val() == 'none')
             {
                 var mec_month_val = $(mec_sf_month_selector).val();
@@ -106,29 +133,36 @@ var mecSingleEventDisplayer = {
             search();
         });
 
-        $("#mec_sf_event_type_" + settings.id).on('change', function (e) {
+        $("#mec_sf_event_type_" + settings.id).on('change', function (e)
+        {
             search();
         });
 
-        $("#mec_sf_event_type_2_" + settings.id).on('change', function (e) {
-            search();
-        });
-        $("#mec_sf_attribute_" + settings.id).on('change', function (e) {
+        $("#mec_sf_event_type_2_" + settings.id).on('change', function (e)
+        {
             search();
         });
 
-        if (settings.fields && settings.fields != null && settings.fields.length > 0) {
-            for (var k in settings.fields) {
-                $("#mec_sf_" + settings.fields[k] + '_' + settings.id).on('change', function (e) {
+        $("#mec_sf_attribute_" + settings.id).on('change', function (e)
+        {
+            search();
+        });
+
+        if(settings.fields && settings.fields != null && settings.fields.length > 0)
+        {
+            for(var k in settings.fields)
+            {
+                $("#mec_sf_" + settings.fields[k] + '_' + settings.id).on('change', function (e)
+                {
                     search();
                 });
             }
         }
 
-        function search() {
+        function search()
+        {
             var s = $("#mec_sf_s_" + settings.id).length ? $("#mec_sf_s_" + settings.id).val() : '';
             var address = $("#mec_sf_address_s_" + settings.id).length ? $("#mec_sf_address_s_" + settings.id).val() : '';
-            var category = $("#mec_sf_category_" + settings.id).length ? $("#mec_sf_category_" + settings.id).val() : '';
             var location = $("#mec_sf_location_" + settings.id).length ? $("#mec_sf_location_" + settings.id).val() : '';
             var organizer = $("#mec_sf_organizer_" + settings.id).length ? $("#mec_sf_organizer_" + settings.id).val() : '';
             var speaker = $("#mec_sf_speaker_" + settings.id).length ? $("#mec_sf_speaker_" + settings.id).val() : '';
@@ -143,22 +177,36 @@ var mecSingleEventDisplayer = {
             var start = $("#mec_sf_date_start_" + settings.id).length ? $("#mec_sf_date_start_" + settings.id).val() : '';
             var end = $("#mec_sf_date_end_" + settings.id).length ? $("#mec_sf_date_end_" + settings.id).val() : '';
 
-            if (year === 'none' && month === 'none') {
+            var cost_min = $event_cost_min.length ? $event_cost_min.val() : '';
+            var cost_max = $event_cost_max.length ? $event_cost_max.val() : '';
+
+            var category;
+            if ($category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div') {
+                category = '';
+                $category.find($('select')).each(function () {
+                    category += $(this).val() + ',';
+                });
+            }
+            else category = $("#mec_sf_category_" + settings.id).length ? $("#mec_sf_category_" + settings.id).val() : '';
+
+            if(year === 'none' && month === 'none')
+            {
                 year = '';
                 month = '';
             }
 
             var addation_attr = '';
-
-            if (settings.fields && settings.fields != null && settings.fields.length > 0) {
-                for (var k in settings.fields) {
+            if(settings.fields && settings.fields != null && settings.fields.length > 0)
+            {
+                for(var k in settings.fields)
+                {
                     var field = '#mec_sf_' + settings.fields[k] + '_' + settings.id;
                     var val = $(field).length ? $(field).val() : '';
                     addation_attr += '&sf[' + settings.fields[k] + ']=' + val;
                 }
             }
 
-            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[start]=' + start + '&sf[end]=' + end + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
+            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[cost-min]=' + cost_min + '&sf[cost-max]=' + cost_max + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[start]=' + start + '&sf[end]=' + end + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
             settings.callback(atts);
         }
     };
@@ -173,6 +221,12 @@ jQuery(document).ready(function($)
     jQuery("#mec_location_id").select2();
     // Organizer Select2
     jQuery("#mec_organizer_id").select2();
+    // Categories Search bar
+    jQuery(".mec-searchbar-category-wrap select").select2();
+
+    jQuery(".mec-search-form.mec-totalcal-box").find(".mec-minmax-event-cost").parent().find(".mec-text-address-search").addClass("with-mec-cost");
+    jQuery(".mec-search-form.mec-totalcal-box").find(".mec-text-address-search").parent().find(".mec-minmax-event-cost").addClass("with-mec-address");
+
 });
 
 // MEC FULL CALENDAR PLUGIN

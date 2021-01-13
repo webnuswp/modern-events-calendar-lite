@@ -412,10 +412,18 @@ function mec_book_form_submit'.$uniqueid.'()
             if(data.success)
             {
                 // Redirect to Checkout Page
-                if(typeof data.data.checkout != "undefined" && data.data.checkout != "")
+                if(typeof data.data.next != "undefined" && data.data.next != "")
                 {
-                    window.location.href = data.data.checkout;
-                    return;
+                    if(data.data.next.type === "url")
+                    {
+                        window.location.href = data.data.next.url;
+                        return;
+                    }
+                    else
+                    {
+                        jQuery("#mec_booking'.$uniqueid.'").html(data.data.next.message);
+                        return;
+                    }
                 }
                 
                 jQuery("#mec_booking'.$uniqueid.'").html(data.output);

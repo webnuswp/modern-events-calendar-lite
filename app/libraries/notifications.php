@@ -271,10 +271,10 @@ class MEC_notifications extends MEC_base
         $booker = $this->u->booking($book_id);
         if(!isset($booker->user_email)) return false;
 
-        $send_email_state =  (isset($this->settings['booking_auto_confirm_send_email']) and $this->settings['booking_auto_confirm_send_email'] == '1') ? true : false;
+        $send_in_automode = (isset($this->settings['booking_auto_confirm_send_email']) and $this->settings['booking_auto_confirm_send_email'] == '1') ? true : false;
 
         // Don't send the confirmation email
-        if($mode == 'auto' and !$send_email_state) return false;
+        if($mode == 'auto' and !$send_in_automode) return false;
 
         // Event ID
         $event_id = get_post_meta($book_id, 'mec_event_id', true);

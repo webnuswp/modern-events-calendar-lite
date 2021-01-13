@@ -615,6 +615,7 @@ class MEC_main extends MEC_base
             __('Next Event', 'modern-events-calendar-lite') => 'next_event_option',
             __('BuddyPress Integration', 'modern-events-calendar-lite') => 'buddy_option',
             __('LearnDash Integration', 'modern-events-calendar-lite') => 'learndash_options',
+            __('PaidMembership Pro Integration', 'modern-events-calendar-lite') => 'pmp_options',
         ), $active_menu);
 
         $notifications_items = array(
@@ -759,7 +760,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'modules' ? 'subsection' : 'mec-settings-submenu'; ?>">
 
                 <?php foreach ($modules as $modules_name => $modules_link) : ?>
-                <?php if ( $modules_link == 'googlemap_option' || $modules_link == 'qrcode_module_option' || $modules_link == 'weather_module_option' || $modules_link == 'buddy_option' || $modules_link == 'learndash_options'  ): ?>
+                <?php if ( $modules_link == 'googlemap_option' || $modules_link == 'qrcode_module_option' || $modules_link == 'weather_module_option' || $modules_link == 'buddy_option' || $modules_link == 'learndash_options' || $modules_link == 'pmp_options'  ): ?>
                     <?php if($this->getPRO()): ?>
                     <li>
                         <a 
@@ -7561,6 +7562,9 @@ class MEC_main extends MEC_base
             }
         }
 
+        // Ongoing Event
+        if($display_label and $this->is_ongoing($event)) $output .= '<span data-style="Normal" class="mec-label-normal mec-ongoing-normal-label">' . esc_html__('Ongoing', 'modern-events-calendar-lite') . '</span>';
+
         return $output ? '<span class="mec-labels-normal">' . $output . '</span>' : $output;
     }
 
@@ -7673,21 +7677,33 @@ class MEC_main extends MEC_base
 
         if(!$start_date or !$end_date) return false;
 
-        $s_hour = $date['start']['hour'];
-        if(strtoupper($date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+        $start_time = NULL;
+        if(isset($date['start']['hour']))
+        {
+            $s_hour = $date['start']['hour'];
+            if(strtoupper($date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
 
-        $start_time = sprintf("%02d", $s_hour).':';
-        $start_time .= sprintf("%02d", $date['start']['minutes']);
-        $start_time .= ' '.trim($date['start']['ampm']);
+            $start_time = sprintf("%02d", $s_hour).':';
+            $start_time .= sprintf("%02d", $date['start']['minutes']);
+            $start_time .= ' '.trim($date['start']['ampm']);
+        }
+        elseif(isset($event->data->time) and is_array($event->data->time) and isset($event->data->time['start_timestamp'])) $start_time = date('H:i', $event->data->time['start_timestamp']);
 
-        $e_hour = $date['end']['hour'];
-        if(strtoupper($date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+        $end_time = NULL;
+        if(isset($date['end']['hour']))
+        {
+            $e_hour = $date['end']['hour'];
+            if(strtoupper($date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
 
-        $end_time = sprintf("%02d", $e_hour).':';
-        $end_time .= sprintf("%02d", $date['end']['minutes']);
-        $end_time .= ' '.trim($date['end']['ampm']);
+            $end_time = sprintf("%02d", $e_hour).':';
+            $end_time .= sprintf("%02d", $date['end']['minutes']);
+            $end_time .= ' '.trim($date['end']['ampm']);
+        }
+        elseif(isset($event->data->time) and is_array($event->data->time) and isset($event->data->time['end_timestamp'])) $end_time = date('H:i', $event->data->time['end_timestamp']);
 
-        $allday = isset($date['allday']) ? $date['allday'] : 0;
+        if(!$start_time or !$end_time) return false;
+
+        $allday = get_post_meta($event->ID, 'mec_allday', true);
         if($allday)
         {
             $start_time = '12:01 AM';

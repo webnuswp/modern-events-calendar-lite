@@ -618,7 +618,7 @@ class MEC_feature_mec extends MEC_base
         elseif(in_array($start_date_type, array('yesterday', 'start_last_year', 'start_last_month', 'start_last_week'))) $mec['show_past_events'] = 1;
 
         // Set date filter type to dropdown because of skin
-        if(!in_array($skin, array('list', 'grid', 'agenda', 'timeline'))) $mec['sf-options'][$skin]['month_filter'] = 'dropdown';
+        if(!in_array($skin, array('list', 'grid', 'agenda', 'timeline')) and $mec['sf-options'][$skin]['month_filter']['type'] == 'date-range-picker') $mec['sf-options'][$skin]['month_filter']['type'] = 'dropdown';
 
         foreach($mec as $key=>$value) update_post_meta($post_id, $key, $value);
     }

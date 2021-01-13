@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.6
-Stable tag: 5.15.5
+Stable tag: 5.16.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -117,6 +117,7 @@ We have begun to create practical [add-ons](https://webnus.net/modern-events-cal
 - [Advanced Organizer](https://webnus.net/modern-events-calendar/addons/advanced-organizer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-organizer-addon/)
 - [Advanced Speaker](https://webnus.net/modern-events-calendar/addons/advanced-speaker/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-speaker-addon/)
 - [Advanced Location](https://webnus.net/modern-events-calendar/addons/advanced-location/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-location-addon/)
+- [Advanced Importer](https://webnus.net/modern-events-calendar/addons/advanced-importer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-importer-addon/)
 
 == Helpful Documentation ==
 Best event management plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
@@ -196,6 +197,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Active Campaign
 - BuddyPress
 - Learn Dash
+- PaidMembership Pro
 - MailPoet
 - Sendfox
 - Google Recaptcha
@@ -210,6 +212,10 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- PaidMembership Pro integration (*pro*)
+- Event Cost search option (*pro*)
+- Change event visibility and hide them in shortcodes
+- Multiple Category Search option (*pro*)
 - Calendar method to show available occurrences to book (*pro*)
 - Shortcode to display users events
 - Resend booking verification and confirmation email (*pro*)
@@ -437,6 +443,22 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= v 5.16.0 – 13 January 2021 =
+- Added: PaidMembership Pro integration (pro)
+- Added: Event Cost search option with min and max fields (pro)
+- Added: Multiple Category Search to the filter options
+- Added: An option to change event visibility and hide them in shortcodes
+- Added: Ability to sort bookings by Event ID (pro)
+- Added: Two new “After Add to Cart” methods to provide optional link and message to the booker user (pro)
+- Added: An ongoing label for ongoing events
+- Added: A new column in backend events list to show the count of all sales (pro)
+- Fixed: An issue on required fields of “Frontend Submission”
+- Fixed: An issue on showing all day ongoing events
+- Fixed: An issue on “Total User Booking” field in “Frontend Submission” (pro)
+- Fixed: An issue in month filter
+- Fixed: An issue in carousel skin
+- Fixed: An issue in validation of WC payment (pro)
+
 = v 5.15.5 – 30 December 2020 =
 - Added: An advanced calendar method to show available occurrences to book (pro)
 - Added: the feature to create segmetns in MailChimp integration (pro)

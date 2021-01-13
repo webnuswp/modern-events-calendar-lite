@@ -8,6 +8,8 @@ defined('MECEXEC') or die();
  */
 class MEC_wc extends MEC_base
 {
+    public $ticket_names = array();
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -42,6 +44,9 @@ class MEC_wc extends MEC_base
                     'mec_event_id' => $event_id,
                     'mec_date' => $date,
                 ));
+
+                // Add to Ticket Names
+                $this->ticket_names[] = $this->get_ticket_name($product_id);
             }
         }
         // Added to cart after MEC booking form
@@ -71,13 +76,16 @@ class MEC_wc extends MEC_base
                     'mec_date' => $date,
                     'mec_transaction_id' => $transaction_id,
                 ));
+
+                // Add to Ticket Names
+                $this->ticket_names[] = $this->get_ticket_name($product_id);
             }
         }
 
         return $this;
     }
 
-    public function url()
+    public function next()
     {
         // Main
         $main = $this->getMain();
@@ -86,9 +94,13 @@ class MEC_wc extends MEC_base
         $settings = $main->get_settings();
 
         // Checkout URL
-        if(isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'checkout') return wc_get_checkout_url();
+        if(isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'checkout') return array('type' => 'url', 'url' => wc_get_checkout_url());
+        // Optional Checkout URL
+        if(isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'optional_cart') return array('type' => 'message', 'message' => '<div class="woocommerce-notices-wrapper"><div class="woocommerce-message" role="alert"><a href="'.esc_url(wc_get_cart_url()).'" tabindex="1" class="button wc-forward">'.esc_html__('View cart', 'modern-events-calendar-lite').'</a> '.esc_html(sprintf(_n('“%s” has been added to your cart.', '“%s” have been added to your cart.', count($this->ticket_names), 'modern-events-calendar-lite'), implode(', ', $this->ticket_names))).'</div></div>');
+        // Optional Cart URL
+        if(isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'optional_chckout') return array('type' => 'message', 'message' => '<div class="woocommerce-notices-wrapper"><div class="woocommerce-message" role="alert"><a href="'.esc_url(wc_get_checkout_url()).'" tabindex="1" class="button wc-forward">'.esc_html__('Checkout', 'modern-events-calendar-lite').'</a> '.esc_html(sprintf(_n('“%s” has been added to your cart.', '“%s” have been added to your cart.', count($this->ticket_names), 'modern-events-calendar-lite'), implode(', ', $this->ticket_names))).'</div></div>');
         // Cart URL
-        else return wc_get_cart_url();
+        else return array('type' => 'url', 'url' => wc_get_cart_url());
     }
 
     public function create($event_id, $ticket_id)
@@ -394,5 +406,17 @@ class MEC_wc extends MEC_base
             $book->cancel($booking_id);
             $book->reject($booking_id);
         }
+    }
+
+    public function get_ticket_name($product_id)
+    {
+        $mec_ticket = get_post_meta($product_id, 'mec_ticket', true);
+        list($event_id, $ticket_id) = explode(':', $mec_ticket);
+
+        $tickets = get_post_meta($event_id, 'mec_tickets', true);
+        if(!is_array($tickets)) $tickets = array();
+
+        $ticket = isset($tickets[$ticket_id]) ? $tickets[$ticket_id] : array();
+        return (isset($ticket['name']) ? $ticket['name'] : '');
     }
 }

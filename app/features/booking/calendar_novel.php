@@ -18,6 +18,7 @@ $settings = $this->main->get_settings();
 
 // Options
 $event_color = isset($event->data->meta['mec_color']) ? '#'.$event->data->meta['mec_color'] : '';
+$allday = isset($event->data->meta['mec_allday']) ? $event->data->meta['mec_allday'] : 0;
 $date_format = (isset($settings['booking_date_format1']) and trim($settings['booking_date_format1'])) ? $settings['booking_date_format1'] : 'Y-m-d';
 $date_format = trim(str_replace(['H', 'h', 'i', 's', 'A', 'a', 'G', 'g', 'B', 'u', 'v', ':'], '', $date_format), ': ');
 $time_format = get_option('time_format');
@@ -132,8 +133,7 @@ echo $javascript;
                             $date_timestamp = $this->book->timestamp($date['start'], $date['end']);
                             $start_datetime = $date['start']['date'].' '.sprintf("%02d", $date['start']['hour']).':'.sprintf("%02d", $date['start']['minutes']).' '.$date['start']['ampm'];
 
-                            $render .='<div class="mec-booking-calendar-date '.($this->main->is_soldout($event->ID, $start_datetime) ?'mec-booking-calendar-date-soldout' : '').' " data-timestamp="'.$this->book->timestamp($date['start'], $date['end']).'">' .(($date['start']['date'] !== $date['end']['date']) ? '<div class="mec-booking-calendar-date-hover">'.strip_tags($this->main->date_label($date['start'], $date['end'], $date_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0))).'</div><div class="mec-booking-calendar-time-hover">' : '').strip_tags($this->main->date_label($date['start'], $date['end'], $time_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0))).'</div>';
-
+                            $render .='<div class="mec-booking-calendar-date '.($this->main->is_soldout($event->ID, $start_datetime) ?'mec-booking-calendar-date-soldout' : '').' " data-timestamp="'.$this->book->timestamp($date['start'], $date['end']).'">' .(($date['start']['date'] !== $date['end']['date']) ? '<div class="mec-booking-calendar-date-hover">'.strip_tags($this->main->date_label($date['start'], $date['end'], $date_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0))).'</div><div class="mec-booking-calendar-time-hover">' : ($allday != 0 ? esc_html__('All Day' , 'modern-events-calendar-lite') : '')).strip_tags($this->main->date_label($date['start'], $date['end'], $time_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0))).(($date['start']['date'] !== $date['end']['date']) ?'</div>' : '') .'</div>';
                             $first_day = strtotime($date['start']['date']) == $time ? ' first-day' : null;
                             $middle_day = (strtotime($date['end']['date']) != $time && strtotime($date['start']['date']) != $time) ? ' middle-day' : null;
                             $last_day = strtotime($date['end']['date']) == $time ? ' last-day' : null;

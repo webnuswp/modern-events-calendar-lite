@@ -3320,6 +3320,7 @@ span.mec-event-title-soldout {
 	margin-top: 35px;
 }
 
+.single-mec-events .mec-wrap.mec-no-access-error h1,
 .mec-wrap .mec-single-title {
 	margin-top: 0;
 	margin-bottom: 30px;
@@ -3758,6 +3759,19 @@ button#mec-book-form-back-btn-step-3 {
 .lity .mec-book-ticket-container .mec-red-notification select,
 .lity .mec-book-ticket-container .mec-red-notification textarea {
     border: 1px solid #ff3c3c !important;
+}
+
+.mec-booking .woocommerce-notices-wrapper .woocommerce-message {
+    color: #0dbf52;
+    background-color: #cef7ce;
+    margin: 0;
+    padding-top: 1rem;
+    line-height: 2.9rem;
+    border: 0;
+}
+
+.mec-booking .woocommerce-notices-wrapper .woocommerce-message a {
+    margin: 0;
 }
 
 @media only screen and (max-width: 479px) {
@@ -6760,7 +6774,8 @@ li.mec-no-event-found .mec-event-title {
 	border-color: #40d9f1;
 }
 
-
+.single-mec-events .pmpro_content_message a,
+.single-mec-events .pmpro_content_message a:link,
 .mec-fes-form-top-actions a,
 .mec-fes-list-top-actions a {
 	position: relative;
@@ -6787,6 +6802,8 @@ li.mec-no-event-found .mec-event-title {
 	text-decoration: unset;	
 }
 
+.single-mec-events .pmpro_content_message a:hover,
+.single-mec-events .pmpro_content_message a:hover:link,
 .mec-fes-list-top-actions a:hover,
 .mec-fes-form-top-actions a:hover {
 	background: #222;
@@ -7389,6 +7406,7 @@ li.mec-no-event-found .mec-event-title {
 
 .mec-wrap .mec-totalcal-box input,
 .mec-wrap .mec-totalcal-box select,
+.mec-checkboxes-search .mec-searchbar-category-wrap,
 .mec-wrap .mec-totalcal-box .mec-totalcal-view span {
 	width: auto;
 	min-height: 36px;
@@ -7450,6 +7468,107 @@ li.mec-no-event-found .mec-event-title {
     padding: 0;
 }
 
+.mec-wrap .mec-date-search .mec-col-3,
+.mec-wrap .mec-minmax-event-cost .mec-minmax-price {
+    width: calc(50% - 17px);
+}
+
+.mec-wrap .mec-text-address-search.with-mec-cost {
+    width: calc(100% - 356px);
+}
+
+.mec-wrap .mec-minmax-event-cost {
+	display: block;
+	float: left;
+	width: 50%;
+	margin-left: 10px;
+}
+
+.mec-wrap .mec-minmax-event-cost.with-mec-address {
+    display: block;
+    width: 336px;
+    max-width: 50%;
+	float: right;
+	margin-left: 0;
+    margin-right: 10px;
+}
+
+
+.mec-wrap .mec-checkboxes-search {
+	margin-left: 10px;
+	margin-right: 10px;
+	display: table-caption;
+
+}
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap {
+	width: calc(100% - 36px) !important;
+	max-width: calc(100% - 36px) !important;
+    padding: 0;
+	position: relative;
+	line-height: inherit;
+	height: auto;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap select {
+	line-height: 20px;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container.select2-container--default {
+    width: calc(100% - 36px) !important;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap input[type=search] {
+	width: calc(100% - 36px) !important;
+	min-height: 30px;
+	margin: 0;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container .select2-selection--multiple ul,
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container.select2-container--default {
+	height: auto;
+    overflow: unset;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container .select2-selection--multiple ul {
+	display: block;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container .select2-selection--multiple {
+    border: unset;
+    width: 100%;
+    height: 0px !important;
+	border-radius: 0;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container .select2-selection--multiple ul li {
+    line-height: 12px !important;
+    max-height: 20px !important;
+    width: auto;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container .select2-selection--multiple .select2-selection__choice {
+    letter-spacing: 0;
+    color: #777;
+    text-transform: capitalize;
+    padding: 4px 6px;
+    background-color: #efefef;
+    border-radius: 2px;
+	border: 0;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container .select2-selection--multiple .select2-selection__choice__remove {
+	color: #777;
+}
+
 @media only screen and (min-width: 961px) and (max-width: 1200px) {
 	.mec-wrap .mec-totalcal-box {
 		padding: 37px 5px;
@@ -7492,6 +7611,14 @@ li.mec-no-event-found .mec-event-title {
 		float: none;
 	}
 
+	.mec-wrap .mec-checkboxes-search .mec-searchbar-category-wrap .select2-container .select2-selection--multiple .select2-selection__choice {
+		display: block;
+		max-width: 100%;
+		white-space: break-spaces;
+		max-height: unset !important;
+		height: auto !important;
+	}
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 960px) {
@@ -7512,6 +7639,7 @@ li.mec-no-event-found .mec-event-title {
 	.mec-wrap .mec-totalcal-box {
 		padding: 37px 5px;
 	}
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -7522,6 +7650,22 @@ li.mec-no-event-found .mec-event-title {
 	.mec-wrap .mec-totalcal-box .col-md-4 {
 		padding-bottom: 0
 	}
+
+	.mec-wrap .mec-text-address-search.with-mec-cost,
+	.mec-wrap .mec-minmax-event-cost.with-mec-address {
+		width: 100%;
+		float: left;
+	}
+	
+	.mec-wrap .mec-minmax-event-cost.with-mec-address {
+		max-width: calc(100% - 20px);
+		margin: 0 10px 20px 10px;
+	}
+	
+	.mec-wrap .mec-minmax-event-cost .mec-minmax-price {
+		width: calc(50% - 17px);
+	}
+
 }
 
 @media only screen and (max-width: 479px) {
@@ -7862,6 +8006,7 @@ li.mec-no-event-found .mec-event-title {
 	display: block;
 }
 
+.mec-checkboxes-search .mec-searchbar-category-wrap,
 .mec-wrap .mec-search-form .mec-dropdown-wrap .mec-dropdown-search select {
 	width: calc(100% - 36px);
 	margin-bottom:20px;
@@ -16871,6 +17016,10 @@ a.mec-timeline-readmore i {
 
 
 /* Normal Label - Default Style for All Skins */
+.mec-ongoing-normal-label {
+	background-color: #40d9f1;
+}
+
 .mec-wrap .mec-labels-normal .mec-label-normal,.mec-wrap .mec-cancellation-reason span {
 	position: relative;
     top: -3px;
@@ -18476,9 +18625,9 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 .mec-multiple-event .mec-has-event-for-booking .mec-booking-tooltip {
     position: absolute;
     z-index: 99;
-    width: 140px;
+    width: 150px;
     font-size: 9px;
-    left: calc(50% - 70px);
+    left: calc(50% - 75px);
     background: #535a61;
     line-height: 29px;
     border-radius: 4px;
@@ -18594,7 +18743,7 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
     -o-transition: all .17s ease;
 }
 
-.mec-booking-tooltip.multiple-time .mec-booking-calendar-date.mec-active,
+.mec-calendar-day.mec-active .mec-booking-tooltip.multiple-time .mec-booking-calendar-date.mec-active,
 .mec-booking-tooltip.multiple-time .mec-booking-calendar-date:hover {
     background: #40d9f1;
     border-color: #40d9f1;
@@ -18648,6 +18797,60 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
     }
 }
 
+/* Booking Calendar Dark Mode */
+
+.mec-dark-mode .mec-single-event .mec-events-meta-group-booking .mec-calendar,
+.mec-dark-mode .mec-single-event .mec-events-meta-group-booking .mec-booking-calendar-month-navigation {
+    background: #000;
+    border-color: #222;
+    color: #999;
+}
+
+.mec-dark-mode .mec-booking-calendar-month-navigation .mec-next-month,
+.mec-dark-mode .mec-booking-calendar-month-navigation .mec-previous-month {
+    background: #222;
+    border-color: #000;
+    color: #d2d2d2;
+}
+
+.mec-dark-mode .mec-booking-calendar.mec-wrap {
+    border-color: #111;
+}
+
+.mec-dark-mode .mec-events-meta-group-booking .mec-booking-calendar .mec-calendar .mec-calendar-row dt:hover {
+    background: transparent !important;
+}
+
+.mec-dark-mode .mec-calendar.mec-event-calendar-classic,
+.mec-dark-mode .mec-calendar.mec-event-calendar-classic .mec-calendar-side {
+    height: auto;
+}
+
+
+/* Light Themes */
+.is-light-theme .mec-fes-form textarea {
+    border: 1px solid #cfeff5;
+    box-shadow: 0 2px 5px rgba(207,239,245,.38) inset;
+}
+
+.is-light-theme .mec-fes-form .select2-selection {
+    height: auto;
+}
+
+.is-light-theme .mec-fes-form input[type=checkbox]:after {
+    border: unset !important;
+}
+
+.is-light-theme .mec-fes-form input[type=radio]:after {
+    background: unset !important;
+}
+
+.is-light-theme .mec-fes-form input+label {
+    padding-top: 0px;
+}
+
+.is-light-theme .mec-events-event-image img {
+	height: auto;
+}
 
 /* --------------------- */
-

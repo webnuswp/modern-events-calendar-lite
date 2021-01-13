@@ -45,8 +45,7 @@ do_action('mec_full_skin_head');
 <div id="mec_skin_<?php echo $this->id; ?>" class="mec-wrap <?php echo $event_colorskin . ' ' . $set_dark; ?> mec-full-calendar-wrap">
     
     <div class="mec-search-form mec-totalcal-box">
-        <?php
-        if($this->sf_status): ?>
+        <?php if($this->sf_status): ?>
             <?php
                 $sf_month_filter = (isset($this->sf_options['month_filter']) ? $this->sf_options['month_filter'] : array());
                 $sf_category = (isset($this->sf_options['category']) ? $this->sf_options['category'] : array());
@@ -57,6 +56,7 @@ do_action('mec_full_skin_head');
                 $sf_label = (isset($this->sf_options['label']) ? $this->sf_options['label'] : array());
                 $sf_text_search = (isset($this->sf_options['text_search']) ? $this->sf_options['text_search'] : array());
                 $sf_address_search = (isset($this->sf_options['address_search']) ? $this->sf_options['address_search'] : array());
+                $sf_event_cost = (isset($this->sf_options['event_cost']) ? $this->sf_options['event_cost'] : array());
 
                 $sf_month_filter_status = (isset($sf_month_filter['type']) and trim($sf_month_filter['type'])) ? true : false;
                 $sf_category_status = (isset($sf_category['type']) and trim($sf_category['type'])) ? true : false;
@@ -67,10 +67,11 @@ do_action('mec_full_skin_head');
                 $sf_label_status = (isset($sf_label['type']) and trim($sf_label['type'])) ? true : false;
                 $sf_text_search_status = (isset($sf_text_search['type']) and trim($sf_text_search['type'])) ? true : false;
                 $sf_address_search_status = (isset($sf_address_search['type']) and trim($sf_address_search['type'])) ? true : false;
+                $sf_event_cost_status = (isset($sf_event_cost['type']) and trim($sf_event_cost['type'])) ? true : false;
 
                 // Status of Speakers Feature
                 $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
-                $sf_columns = 7;
+                $sf_columns = 12;
             ?>
         <?php
             if((!empty($sf_category) && $sf_category["type"] == 'dropdown') || (!empty($sf_location) && $sf_location["type"] == 'dropdown') || (!empty($sf_organizer) && $sf_organizer["type"] == 'dropdown') || (!empty($sf_speaker) && $sf_speaker["type"] == 'dropdown') || (!empty($sf_tag) && $sf_tag["type"] == 'dropdown') || (!empty($sf_label) && $sf_label["type"] == 'dropdown')) $wrapper_class = 'class="mec-dropdown-wrap"';
@@ -97,25 +98,31 @@ do_action('mec_full_skin_head');
             <?php endif; ?>
         </div>
         <div id="mec_search_form_<?php echo $this->id; ?>">
-        <?php if($sf_address_search_status): ?>
-        <div class="row">
-            <div class="col-md-12">
-                <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
+            <?php if($sf_address_search_status): ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
+                </div>
             </div>
-        </div>
-        <?php endif; ?>
-        <?php if($sf_month_filter_status): $sf_columns -= 3; ?>
+            <?php endif; ?>
+            <?php if($sf_month_filter_status): $sf_columns -= 3; ?>
             <div class="col-md-3">
                 <?php echo $this->sf_search_field('month_filter', $sf_month_filter); ?>
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
+            <?php if($sf_event_cost_status): $sf_columns -= 3; ?>
+                <div class="col-md-3">
+                    <?php echo $this->sf_search_field('event_cost', $sf_event_cost); ?>
+                </div>
+            <?php endif; ?>
             <div class="col-md-<?php echo $sf_columns; ?>">
                 <?php if($sf_text_search_status): ?>
                     <?php echo $this->sf_search_field('text_search', $sf_text_search); ?>
                 <?php endif; ?>
-            </div>        
-        <?php endif; ?>
+            </div>
         </div>
+        <?php endif; ?>
+
         <div class="col-md-5">
             <div class="mec-totalcal-view">
                 <?php if($this->yearly): ?><span class="mec-totalcal-yearlyview<?php if($this->default_view == 'yearly') echo ' mec-totalcalview-selected'; ?>" data-skin="yearly"><?php _e('Yearly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>

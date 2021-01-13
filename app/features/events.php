@@ -91,16 +91,15 @@ class MEC_feature_events extends MEC_base
             $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_exceptional_days'), 25);
         }
 
-        if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
+        // Show Booking meta box only if booking module is enabled
+        $booking_status = (isset($this->settings['booking_status']) and $this->settings['booking_status']) ? true : false;
+        if($booking_status)
         {
-            // Show Booking meta box only if booking module is enabled
-            $booking_status = (isset($this->settings['booking_status']) and $this->settings['booking_status']) ? true : false;
-            if($booking_status)
+            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_booking_options'), 5);
+            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_tickets'), 10);
+            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_regform'), 20);
+            if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
             {
-                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_booking_options'), 5);
-                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_tickets'), 10);
-                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_regform'), 20);
-
                 // Booking Options for FES
                 if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_booking_options'), 35);
 
@@ -110,25 +109,31 @@ class MEC_feature_events extends MEC_base
                 // Registration Form for FES
                 if(!isset($this->settings['fes_section_reg_form']) or (isset($this->settings['fes_section_reg_form']) and $this->settings['fes_section_reg_form'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_regform'), 45);
             }
+        }
 
-            // Show fees meta box only if fees module is enabled
-            if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
+        // Show fees meta box only if fees module is enabled
+        if(isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
+        {
+            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_fees'), 15);
+
+            // Fees for FES
+            if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
             {
-                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_fees'), 15);
-
-                // Fees for FES
                 if($booking_status and (!isset($this->settings['fes_section_fees']) or (isset($this->settings['fes_section_fees']) and $this->settings['fes_section_fees'])))
                 {
                     $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_fees'), 45);
                 }
             }
+        }
 
-            // Show ticket variations meta box only if the module is enabled
-            if($booking_status and isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'])
+        // Show ticket variations meta box only if the module is enabled
+        if($booking_status and isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'])
+        {
+            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_ticket_variations'), 16);
+
+            // Ticket Variations for FES
+            if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
             {
-                $this->factory->action('mec_metabox_booking', array($this, 'meta_box_ticket_variations'), 16);
-
-                // Ticket Variations for FES
                 if($booking_status and (!isset($this->settings['fes_section_ticket_variations']) or (isset($this->settings['fes_section_ticket_variations']) and $this->settings['fes_section_ticket_variations'])))
                 {
                     $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_ticket_variations'), 46);
@@ -543,6 +548,10 @@ class MEC_feature_events extends MEC_base
 
         $countdown_method = get_post_meta($post->ID, 'mec_countdown_method', true);
         if(trim($countdown_method) == '') $countdown_method = 'global';
+
+        // Public Event
+        $public = get_post_meta($post->ID, 'mec_public', true);
+        if(trim($public) === '') $public = 1;
         ?>
         <div class="mec-meta-box-fields" id="mec-date-time">
             <?php if(($note_visibility and trim($note)) || (trim($fes_guest_email) and trim($fes_guest_name))): ?>
@@ -687,6 +696,16 @@ class MEC_feature_events extends MEC_base
                     </div>
                 </div>
                 <?php endif; ?>
+
+                <h4><?php _e('Visibility', 'modern-events-calendar-lite'); ?></h4>
+                <div class="mec-form-row">
+                    <div class="mec-col-4">
+                        <select name="mec[public]" id="mec_public" title="<?php esc_attr_e('Event Visibility', 'modern-events-calendar-lite'); ?>">
+                            <option value="1" <?php if('1' == $public) echo 'selected="selected"'; ?>><?php _e('Show on Shortcodes', 'modern-events-calendar-lite'); ?></option>
+                            <option value="0" <?php if('0' == $public) echo 'selected="selected"'; ?>><?php _e('Hide on Shortcodes', 'modern-events-calendar-lite'); ?></option>
+                        </select>
+                    </div>
+                </div>
 
             </div>
             <div id="mec_meta_box_repeat_form" class="mec-event-tab-content">
@@ -1210,7 +1229,7 @@ class MEC_feature_events extends MEC_base
             <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?></h4>
             <div id="mec_meta_box_cost_form">
                 <div class="mec-form-row">
-                    <input type="text" class="mec-col-3" name="mec[cost]" id="mec_cost"
+                    <input type="number" class="mec-col-3" name="mec[cost]" id="mec_cost"
                            value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>"/>
                 </div>
             </div>
@@ -1260,7 +1279,7 @@ class MEC_feature_events extends MEC_base
 
                     <?php /** Paragraph **/ elseif($event_field['type'] == 'p'):
                         echo '<p>'.do_shortcode(stripslashes($event_field['content'])).'</p>';
-                        ?>
+                    ?>
 
                     <?php /** Dropdown **/ elseif($event_field['type'] == 'select'): ?>
                         <select id="mec_event_fields_<?php echo $j; ?>" name="mec[fields][<?php echo $j; ?>]" title="<?php esc_attr($event_field_name); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory']) echo 'required'; ?>>
@@ -1688,7 +1707,7 @@ class MEC_feature_events extends MEC_base
                                 type="checkbox" value="1" name="mec[booking][bookings_user_limit_unlimited]" onchange="jQuery(this).parent().parent().find('input[type=text]').toggle().val('');"/>
                         <?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?>
                     </label>
-                    <input class="mec-col-4  <?php echo ($bookings_user_limit_unlimited == 1) ? 'mec-util-hidden' : ''; ?>" type="text" name="mec[booking][bookings_user_limit]" id="mec_bookings_user_limit"
+                    <input class="mec-col-4" <?php echo ($bookings_user_limit_unlimited == 1) ? 'style="display: none;"' : ''; ?> type="text" name="mec[booking][bookings_user_limit]" id="mec_bookings_user_limit"
                             value="<?php echo esc_attr($bookings_user_limit); ?>" placeholder="<?php _e('12', 'modern-events-calendar-lite'); ?>"/>
                 </div>
             </div>
@@ -2776,6 +2795,7 @@ class MEC_feature_events extends MEC_base
         $comment = isset($date['comment']) ? $date['comment'] : '';
         $timezone = (isset($_mec['timezone']) and trim($_mec['timezone']) != '') ? sanitize_text_field($_mec['timezone']) : 'global';
         $countdown_method = (isset($_mec['countdown_method']) and trim($_mec['countdown_method']) != '') ? sanitize_text_field($_mec['countdown_method']) : 'global';
+        $public = (isset($_mec['public']) and trim($_mec['public']) != '') ? sanitize_text_field($_mec['public']) : 1;
 
         // Set start time and end time if event is all day
         if($allday == 1)
@@ -2832,6 +2852,7 @@ class MEC_feature_events extends MEC_base
         update_post_meta($post_id, 'mec_comment', $comment);
         update_post_meta($post_id, 'mec_timezone', $timezone);
         update_post_meta($post_id, 'mec_countdown_method', $countdown_method);
+        update_post_meta($post_id, 'mec_public', $public);
 
         do_action('update_custom_post_meta', $date, $post_id);
 
@@ -3524,6 +3545,9 @@ class MEC_feature_events extends MEC_base
         $columns['start_date'] = __('Start Date', 'modern-events-calendar-lite');
         $columns['end_date'] = __('End Date', 'modern-events-calendar-lite');
 
+        // Sold Tickets
+        if($this->getPRO() and (isset($this->settings['booking_status']) and $this->settings['booking_status'])) $columns['sold_tickets'] = __('Sold Tickets', 'modern-events-calendar-lite');
+
         $columns['repeat'] = __('Repeat', 'modern-events-calendar-lite');
         $columns['author'] = __('Author', 'modern-events-calendar-lite');
 
@@ -3555,23 +3579,38 @@ class MEC_feature_events extends MEC_base
      */
     public function filter_columns_content($column_name, $post_id)
     {
-        if ($column_name == 'location') {
+        if($column_name == 'location')
+        {
             $location = get_term(get_post_meta($post_id, 'mec_location_id', true));
             echo(isset($location->name) ? $location->name : '----');
-        } elseif ($column_name == 'organizer') {
+        }
+        elseif($column_name == 'organizer')
+        {
             $organizer = get_term(get_post_meta($post_id, 'mec_organizer_id', true));
             echo(isset($organizer->name) ? $organizer->name : '----');
-        } elseif ($column_name == 'start_date') {
+        }
+        elseif($column_name == 'start_date')
+        {
             echo date( get_option( 'date_format', 'Y-n-d' ), strtotime( get_post_meta( $post_id, 'mec_start_date', true ) ) );
-        } elseif ($column_name == 'end_date') {
+        }
+        elseif($column_name == 'end_date')
+        {
             echo date( get_option( 'date_format', 'Y-n-d' ), strtotime( get_post_meta( $post_id, 'mec_end_date', true ) ) );
-        } elseif ($column_name == 'repeat') {
+        }
+        elseif($column_name == 'sold_tickets')
+        {
+            echo $this->getBook()->get_all_sold_tickets($post_id);
+        }
+        elseif($column_name == 'repeat')
+        {
             $repeat_type = get_post_meta($post_id, 'mec_repeat_type', true);
             echo ucwords(str_replace('_', ' ', $repeat_type));
-        } elseif ($column_name == 'category') {
+        }
+        elseif($column_name == 'category')
+        {
             $post_categories = get_the_terms($post_id, 'mec_category');
             if($post_categories) foreach($post_categories as $post_category) $categories[] = $post_category->name;
-            if (!empty($categories))
+            if(!empty($categories))
             {
                 $category_name = implode(",", $categories);
                 echo $category_name;

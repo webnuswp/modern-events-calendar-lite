@@ -60,7 +60,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
             <?php $this->display_hourly_schedules_widget($event); ?>
 
             <!-- Booking Module -->
-            <?php if ( !empty($event->date) ): if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
+            <?php if(!empty($event->date)): if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
@@ -101,7 +101,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
                             <?php if($midnight_event): ?>
                             <dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
                             <?php else: ?>
-                            <dd><abbr class="mec-events-abbr"><?php if(!empty($event->date)): echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); endif; ?></abbr></dd>
+                            <dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
                             <?php endif; ?>
 
                             <?php echo $this->main->holding_status($event); ?>
@@ -320,7 +320,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
         </div>
         <?php else: ?>
         <div class="col-md-4">
-            <?php if ( $single->found_value('data_time', $settings) == 'on' || $single->found_value('local_time', $settings) == 'on' || $single->found_value('event_cost', $settings) == 'on' || $single->found_value('more_info', $settings) == 'on' || $single->found_value('event_label', $settings) == 'on' || $single->found_value('event_location', $settings) == 'on' || $single->found_value('event_categories', $settings) == 'on' || $single->found_value('event_orgnizer', $settings) == 'on' || $single->found_value('register_btn', $settings) == 'on'  ) : ?>
+            <?php if($single->found_value('data_time', $settings) == 'on' || $single->found_value('local_time', $settings) == 'on' || $single->found_value('event_cost', $settings) == 'on' || $single->found_value('more_info', $settings) == 'on' || $single->found_value('event_label', $settings) == 'on' || $single->found_value('event_location', $settings) == 'on' || $single->found_value('event_categories', $settings) == 'on' || $single->found_value('event_orgnizer', $settings) == 'on' || $single->found_value('register_btn', $settings) == 'on'  ) : ?>
             <div class="mec-event-info-desktop mec-event-meta mec-color-before mec-frontbox">
                 <?php
                 // Event Date and Time

@@ -867,6 +867,8 @@ $gateways_options = $this->main->get_gateways_options();
                                                     <select id="mec_gateways_wc_after_add" name="mec[settings][wc_after_add]">
                                                         <option value="cart" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'cart') ? 'selected="selected"' : ''); ?>><?php _e('Redirect to Cart', 'modern-events-calendar-lite'); ?></option>
                                                         <option value="checkout" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'checkout') ? 'selected="selected"' : ''); ?>><?php _e('Redirect to Checkout', 'modern-events-calendar-lite'); ?></option>
+                                                        <option value="optional_cart" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'optional_cart') ? 'selected="selected"' : ''); ?>><?php _e('Optional View Cart Button', 'modern-events-calendar-lite'); ?></option>
+                                                        <option value="optional_chckout" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'optional_chckout') ? 'selected="selected"' : ''); ?>><?php _e('Optional Checkout Button', 'modern-events-calendar-lite'); ?></option>
                                                     </select>
                                                 </div>
                                             </div>
