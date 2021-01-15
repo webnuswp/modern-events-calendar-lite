@@ -1,4 +1,10 @@
-﻿v 5.16.0 – 13 January 2021
+﻿v 5.16.2 – 15 January 2021
+- Fixed: No event found issue in special conditions
+
+v 5.16.1 – 13 January 2021
+- Fixed: No event found issue
+
+v 5.16.0 – 13 January 2021
 - Added: PaidMembership Pro integration (pro)
 - Added: Event Cost search option with min and max fields (pro)
 - Added: Multiple Category Search to the filter options

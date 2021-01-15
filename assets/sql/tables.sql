@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `#__mec_dates` (
 
 ALTER TABLE `#__mec_dates` ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `tstart` (`tstart`), ADD KEY `tend` (`tend`);
 ALTER TABLE `#__mec_dates` MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `#__mec_dates` ADD `public` INT(4) UNSIGNED NOT NULL DEFAULT 1 AFTER `tend`;
 
 CREATE TABLE IF NOT EXISTS `#__mec_occurrences` (
   `id` int(10) UNSIGNED NOT NULL,

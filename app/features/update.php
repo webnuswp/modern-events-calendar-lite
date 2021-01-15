@@ -70,6 +70,8 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.13.5', '<')) $this->version5135();
         if(version_compare($version, '5.14.0', '<')) $this->version5140();
         if(version_compare($version, '5.16.0', '<')) $this->version5160();
+        if(version_compare($version, '5.16.1', '<')) $this->version5161();
+        if(version_compare($version, '5.16.2', '<')) $this->version5162();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -535,6 +537,20 @@ class MEC_feature_update extends MEC_base
         }
 
         // Add Public Column
-        // $this->db->q("ALTER TABLE `#__mec_dates` ADD `public` INT(4) UNSIGNED NOT NULL DEFAULT 1 AFTER `tend`;");
+        $this->db->q("ALTER TABLE `#__mec_dates` ADD `public` INT(4) UNSIGNED NOT NULL DEFAULT 1 AFTER `tend`;");
+    }
+
+    public function version5161()
+    {
+        // Add Public Column If Not Exists
+        if(!$this->db->columns('mec_dates', 'public'))
+        {
+            $this->db->q("ALTER TABLE `#__mec_dates` ADD `public` INT(4) UNSIGNED NOT NULL DEFAULT 1 AFTER `tend`;");
+        }
+    }
+
+    public function version5162()
+    {
+        $this->version5161();
     }
 }

@@ -144,6 +144,22 @@ class MEC_db extends MEC_base
 			return $database->get_row($query);
 		}
 	}
+
+    public function columns($table = 'mec_dates', $column = NULL)
+    {
+        if(trim($table) == '') return false;
+
+        $query = "SHOW COLUMNS FROM `#__".$table."`";
+        $results = $this->q($query, "select");
+
+        $columns = array();
+        foreach($results as $key=>$result) $columns[] = $result->Field;
+
+        if(trim($column) and in_array($column, $columns)) return true;
+        elseif(trim($column)) return false;
+
+        return $columns;
+    }
 	
     /**
      * Apply WordPress table prefix on queries
