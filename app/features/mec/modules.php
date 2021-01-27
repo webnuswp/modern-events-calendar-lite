@@ -7,14 +7,6 @@ $socials = $this->main->get_social_networks();
 
 // WordPress Pages
 $pages = get_pages();
-
-// Verify the Purchase Code
-$verify = NULL;
-if($this->getPRO())
-{
-    $envato = $this->getEnvato();
-    $verify = $envato->get_MEC_info('dl');
-}
 ?>
 <div class="wns-be-container wns-be-container-sticky">
     <div id="wns-be-infobar">

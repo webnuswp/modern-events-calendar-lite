@@ -414,6 +414,10 @@
 	text-align: center;
 }
 
+.widget_mec_mec_widget .mec-event-grid-classic .mec-event-date {
+    margin: 0;
+}
+
 .mec-event-grid-classic .mec-event-content p {
 	font-size: 15px;
 	color: #8a8a8a;
@@ -738,7 +742,9 @@
     float: right;
     color: #202020;
     height: 36px;
-    line-height: 16px;
+	line-height: 14px;
+    font-size: 12px;
+    width: auto;
 }
 
 .mec-widget .mec-event-grid-classic.mec-owl-carousel .mec-booking-button:hover {
@@ -7490,7 +7496,7 @@ li.mec-no-event-found .mec-event-title {
     max-width: 50%;
 	float: right;
 	margin-left: 0;
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 
@@ -7958,37 +7964,69 @@ li.mec-no-event-found .mec-event-title {
 	width: 100%;
 }
 
+.mec-search-form .mec-date-input-search,
+.mec-search-form .mec-time-input-search,
 .mec-search-form .mec-dropdown-search,
 .mec-search-form .mec-text-input-search,
 .mec-search-form .mec-date-search {
 	padding: 0 10px;
 	float: left;
-	min-height: 55px;
+	/* min-height: 55px; */
 }
 
-.mec-search-form .mec-text-input-search,
-.mec-search-form .mec-date-search {
-	width: 50%;
-	min-height: 36px;
-	display: block;
+.mec-search-form .mec-date-search,
+.mec-search-form .mec-totalcal-view,
+.mec-search-form .mec-time-picker-search {
+    padding: 0 10px;
 }
 
-.mec-full-calendar-wrap .mec-search-form .mec-date-search,
-.mec-full-calendar-wrap .mec-search-form .mec-text-input-search {
+.mec-search-form .mec-text-input-search {
 	width: 100%;
 }
 
-.mec-full-calendar-wrap .mec-search-form .col-md-8,
-.mec-full-calendar-wrap .mec-search-form .col-md-6,
-.mec-full-calendar-wrap .mec-search-form .col-md-3 {
+.mec-search-form .mec-full-calendar-search-ends .mec-text-input-search {
+	width: 50%;
+}
+
+.mec-search-form .mec-date-search,
+.mec-search-form .mec-time-picker-search {
+	width: 50%;
+	float: left;
+}
+
+.mec-search-form .mec-date-search.with-mec-time-picker,
+.mec-search-form .mec-time-picker-search.with-mec-date-search {
+	width: 25%;
+	float: left;
+}
+
+.mec-search-form .mec-tab-loader.col-md-6 .mec-totalcal-view  {
 	padding: 0;
 }
 
+.mec-wrap .mec-search-form .with-mec-date-search .mec-timepicker-start,
+.mec-wrap .mec-search-form .with-mec-date-search .mec-timepicker-end {
+    width: calc(50% - 17px);
+}
+
+.mec-search-form .mec-text-address-search,
+.mec-search-form .mec-minmax-event-cost,
+.mec-search-form .mec-full-calendar-search-ends .mec-text-input-search.col-md-12 {
+	min-height: 55px;
+}
+
+.mec-search-form .mec-full-calendar-search-ends .mec-text-input-search.col-md-12,
 .mec-widget .mec-search-form .mec-text-input-search,
 .mec-widget .mec-search-form .mec-date-search {
 	width: 100%;
 }
 
+.mec-search-form .mec-full-calendar-search-ends .mec-text-input-search.col-md-12 {
+	padding: 0 10px;
+}
+
+.mec-search-form .mec-text-address-search,
+.mec-search-form .mec-minmax-event-cost,
 .mec-widget .mec-search-form .mec-text-input-search {
 	margin-top: 10px;
 }
@@ -8009,7 +8047,7 @@ li.mec-no-event-found .mec-event-title {
 .mec-checkboxes-search .mec-searchbar-category-wrap,
 .mec-wrap .mec-search-form .mec-dropdown-wrap .mec-dropdown-search select {
 	width: calc(100% - 36px);
-	margin-bottom:20px;
+	margin-bottom:10px;
 }
 
 .mec-wrap .mec-search-form .mec-date-search select {
@@ -8142,7 +8180,80 @@ li.mec-no-event-found .mec-event-title {
     float: left;
     width: 100%;
     padding: 0 10px;
-    margin-bottom: 20px;
+}
+
+@media (max-width: 960px) {
+    .mec-search-form .mec-dropdown-search {
+        margin-bottom: 10px;
+    }
+
+    .mec-wrap .mec-minmax-event-cost.with-mec-address,
+    .mec-wrap .mec-text-address-search.with-mec-cost {
+        margin-top: 0;
+    }
+
+    .mec-search-form .mec-date-search.with-mec-time-picker,
+    .mec-search-form .mec-time-picker-search.with-mec-date-search {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+
+    .mec-full-calendar-wrap .mec-totalcal-box .mec-totalcal-view {
+        margin: 0;
+    }
+
+    .mec-full-calendar-wrap .mec-tab-loader {
+        width: 100%;
+        display: block;
+        float: unset;
+        padding: 0 0 0 10px;
+    }
+}
+
+@media (max-width: 780px) {
+    .mec-full-calendar-wrap .mec-totalcal-box {
+        padding: 10px;
+    }
+
+    .mec-search-form .mec-date-search.with-mec-time-picker,
+    .mec-search-form .mec-time-picker-search.with-mec-date-search {
+        margin: 20px 0;
+        height: auto;
+    }
+
+    .mec-search-form .mec-date-search {
+        min-height: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    .mec-search-form .mec-date-search.with-mec-time-picker,
+    .mec-search-form .mec-time-picker-search.with-mec-date-search {
+        width: 100%;
+    }
+
+    .mec-full-calendar-wrap .mec-totalcal-box .mec-totalcal-view span {
+        min-width: 12%;
+        text-align: center;
+        font-size: 9px;
+	}
+	
+	.mec-search-form .mec-minmax-event-cost,
+	.mec-search-form .mec-text-address-search,
+	.mec-search-form .mec-full-calendar-search-ends .mec-text-input-search,
+	.mec-search-form .mec-date-search.with-mec-time-picker,
+	.mec-search-form .mec-time-picker-search.with-mec-date-search,
+	.mec-wrap .mec-minmax-event-cost.with-mec-address,
+	.mec-full-calendar-wrap .mec-totalcal-box .mec-totalcal-view span {
+		margin-bottom: 0;
+		margin-top: 10px;
+		min-height: auto;
+	}
+	
+	.mec-wrap .mec-minmax-event-cost.with-mec-address {
+		margin-bottom: 10px;
+	}
+
 }
 
 /* MEC Datepicker 
@@ -9398,9 +9509,9 @@ li.mec-no-event-found .mec-event-title {
 	z-index: 2;
 	width: 100%;
 	height: 96px;
-	background: transparent;
 	display: inline-block;
 	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
+	background: transparent;
 }
 
 
@@ -17076,7 +17187,6 @@ a.mec-timeline-readmore i {
     position: relative;
 }
 
-
 /* Cancelled Reason */
 .mec-wrap .mec-cancellation-reason {
     display: inline-block;
@@ -17094,7 +17204,6 @@ a.mec-timeline-readmore i {
 .mec-wrap .mec-event-list-accordion  .mec-cancellation-reason span {
 	top: 7px;
 }
-
 
 .mec-agenda-event-title .mec-cancellation-reason span,
 .mec-timetable-event .mec-cancellation-reason span,
@@ -17151,7 +17260,9 @@ a.mec-timeline-readmore i {
     margin: 0;
     padding: 6px 12px;
     font-size: 14px;
-    font-weight: bold;
+	font-weight: bold;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .featherlight-content .mec-cancellation-reason {
@@ -17937,6 +18048,9 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 	position: relative;
 }
 
+.mec-events-meta-group-booking-shortcode h4 {
+	margin-bottom: 20px;
+}
 
 .mec-booking-shortcode .mec-event-tickets-list.mec-sell-all-occurrences {
 	width: 100%;
@@ -18024,7 +18138,7 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 }
 
 .mec-booking-shortcode .mec-gateway-message.mec-success {
-	margin-bottom: -20px;
+	/* margin-bottom: -20px; */
 	font-size: 14px;
 }
 
@@ -18094,9 +18208,13 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 .mec-events-meta-group-booking-shortcode .mec-error {
 	background-color: #ff017e;
 	color: #fff;
-	margin: 20px 0 0;
+	margin: 24px 0 24px;
 	padding: 10px 15px;
 	border-radius: 3px;
+}
+
+.mec-events-meta-group-booking-shortcode .info-msg {
+	margin: 24px 0 24px;
 }
 
 .mec-booking-shortcode .mec-book-ticket-variation h5 {

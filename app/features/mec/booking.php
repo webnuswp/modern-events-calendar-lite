@@ -15,14 +15,6 @@ $pages = get_pages();
 // User Roles
 $roles = array_reverse(wp_roles()->roles);
 
-// Verify the Purchase Code
-$verify = NULL;
-if($this->getPRO())
-{
-    $envato = $this->getEnvato();
-    $verify = $envato->get_MEC_info('dl');
-}
-
 $bfixed_fields = $this->main->get_bfixed_fields();
 if(!is_array($bfixed_fields)) $bfixed_fields = array();
 

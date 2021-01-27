@@ -775,12 +775,23 @@ class MEC_notifications extends MEC_base
         {
             if(isset($attendee[0]['MEC_TYPE_OF_DATA'])) continue;
 
-            $to = $attendee['email'];
+            $to = (isset($attendee['email']) ? $attendee['email'] : '');
 
             if(!trim($to)) continue;
             if(in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
 
             $message = isset($this->notif_settings['booking_reminder']['content']) ? $this->notif_settings['booking_reminder']['content'] : '';
+
+            // Virtual Event
+            $message = str_replace('%%virtual_link%%', get_post_meta($event_id, 'mec_virtual_link_url', true), $message);
+            $message = str_replace('%%virtual_password%%', get_post_meta($event_id, 'mec_virtual_password', true), $message);
+            $message = str_replace('%%virtual_embed%%', get_post_meta($event_id, 'mec_virtual_embed', true), $message);
+
+            $message = str_replace('%%zoom_join%%', get_post_meta($event_id, 'mec_zoom_join_url', true), $message);
+            $message = str_replace('%%zoom_link%%', get_post_meta($event_id, 'mec_zoom_link_url', true), $message);
+            $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
+            $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
+
             $message = $this->content($this->get_content($message, 'booking_reminder', $event_id), $book_id, $attendee);
             $message = $this->add_template($message);
 
@@ -966,7 +977,7 @@ class MEC_notifications extends MEC_base
             if(!trim($email) or !filter_var($email, FILTER_VALIDATE_EMAIL))
             {
                 $event_owner = get_userdata($post->post_author);
-                $email = $event_owner->user_email;
+                $email = (is_object($event_owner) ? $event_owner->user_email : '');
             }
 
             if(!trim($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
@@ -1399,10 +1410,12 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_organizer_name%%', (isset($organizer->name) ? $organizer->name : ''), $message);
         $message = str_replace('%%event_organizer_tel%%', get_term_meta($organizer_id, 'tel', true), $message);
         $message = str_replace('%%event_organizer_email%%', get_term_meta($organizer_id, 'email', true), $message);
+        $message = str_replace('%%event_organizer_url%%', get_term_meta($organizer_id, 'url', true), $message);
 
         $additional_organizers_name = '';
         $additional_organizers_tel = '';
         $additional_organizers_email = '';
+        $additional_organizers_url = '';
 
         $additional_organizers_ids = get_post_meta($event_id, 'mec_additional_organizer_ids', true);
         if(!is_array($additional_organizers_ids)) $additional_organizers_ids = array();
@@ -1415,12 +1428,14 @@ class MEC_notifications extends MEC_base
                 $additional_organizers_name .= $additional_organizer->name.', ';
                 $additional_organizers_tel .= get_term_meta($additional_organizers_id, 'tel', true).'<br>';
                 $additional_organizers_email .= get_term_meta($additional_organizers_id, 'email', true).'<br>';
+                $additional_organizers_url .= get_term_meta($additional_organizers_id, 'url', true).'<br>';
             }
         }
 
         $message = str_replace('%%event_other_organizers_name%%', trim($additional_organizers_name, ', '), $message);
         $message = str_replace('%%event_other_organizers_tel%%', trim($additional_organizers_tel, ', '), $message);
         $message = str_replace('%%event_other_organizers_email%%', trim($additional_organizers_email, ', '), $message);
+        $message = str_replace('%%event_other_organizers_url%%', trim($additional_organizers_url, ', '), $message);
 
         $speaker_name = array();
         foreach($speaker_id as $speaker) $speaker_name[] = isset($speaker->name) ? $speaker->name : null;

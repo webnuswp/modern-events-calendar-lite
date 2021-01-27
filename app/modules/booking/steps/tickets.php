@@ -167,7 +167,7 @@ $modal_booking = (isset($_GET['method']) and $_GET['method'] === 'mec-booking-mo
             </div>
             <?php
                 $str_replace = isset($ticket['name']) ? '<strong>'.$ticket['name'].'</strong>' : '';
-                $ticket_message_sales =  sprintf(__('The %s ticket sales has stopped!', 'modern-events-calendar-lite'), $str_replace);
+                $ticket_message_sales =  sprintf(__('The %s ticket sales has ended!', 'modern-events-calendar-lite'), $str_replace);
                 $ticket_message_sold_out =  sprintf(__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite'), $str_replace);
             ?>
             <?php if(isset($stop_selling) and $stop_selling): ?>

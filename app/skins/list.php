@@ -405,7 +405,7 @@ class MEC_skin_list extends MEC_skins
             if($found < $this->limit)
             {
                 // Next Offset
-                $this->next_offset = $found;
+                $this->next_offset = $found + ((isset($date) and $this->start_date === $date) ? $this->offset : 0);
             }
 
             // Set found events

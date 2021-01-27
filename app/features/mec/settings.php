@@ -19,14 +19,6 @@ $currencies = $this->main->get_currencies();
 // WordPress Pages
 $pages = get_pages();
 
-// Verify the Purchase Code
-$verify = NULL;
-if($this->getPRO())
-{
-    $envato = $this->getEnvato();
-    $verify = $envato->get_MEC_info('dl');
-}
-
 echo $this->main->mec_custom_msg_2('yes', 'yes');
 echo $this->main->mec_custom_msg('', '');
 
@@ -555,8 +547,10 @@ $shortcodes = get_posts(array(
                                 <label class="mec-col-3" for="mec_settings_currency_sign"><?php _e('Currency Position', 'modern-events-calendar-lite'); ?></label>
                                 <div class="mec-col-4">
                                     <select name="mec[settings][currency_sign]" id="mec_settings_currency_sign">
-                                        <option value="before" <?php echo ((isset($settings['currency_sign']) and $settings['currency_sign'] == 'before') ? 'selected="selected"' : ''); ?>><?php _e('Before $10', 'modern-events-calendar-lite'); ?></option>
-                                        <option value="after" <?php echo ((isset($settings['currency_sign']) and $settings['currency_sign'] == 'after') ? 'selected="selected"' : ''); ?>><?php _e('After 10$', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="before" <?php echo ((isset($settings['currency_sign']) and $settings['currency_sign'] == 'before') ? 'selected="selected"' : ''); ?>><?php _e('$10 (Before)', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="before_space" <?php echo ((isset($settings['currency_sign']) and $settings['currency_sign'] == 'before_space') ? 'selected="selected"' : ''); ?>><?php _e('$ 10 (Before with Space)', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="after" <?php echo ((isset($settings['currency_sign']) and $settings['currency_sign'] == 'after') ? 'selected="selected"' : ''); ?>><?php _e('10$ (After)', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="after_space" <?php echo ((isset($settings['currency_sign']) and $settings['currency_sign'] == 'after_space') ? 'selected="selected"' : ''); ?>><?php _e('10 $ (After with Space)', 'modern-events-calendar-lite'); ?></option>
                                     </select>
                                 </div>
                             </div>

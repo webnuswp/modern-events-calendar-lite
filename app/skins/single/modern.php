@@ -123,7 +123,12 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                                 <h6><?php _e('Website', 'modern-events-calendar-lite'); ?></h6>
                                 <span><a href="<?php echo (strpos($location['url'], 'http') === false ? 'http://'.$location['url'] : $location['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $location['url']; ?></a></span>
                             </dd>
-                            <?php endif; ?>
+                            <?php endif;
+                            $location_description_setting = isset( $settings['location_description'] ) ? $settings['location_description'] : ''; $location_terms = get_the_terms($event->data, 'mec_location');  if($location_description_setting == '1'): foreach($location_terms as $location_term) { if ($location_term->term_id == $location['id'] ) {  if(isset($location_term->description) && !empty($location_term->description)): ?>
+                            <dd class="mec-location-description">
+                                <p><?php echo $location_term->description;?></p>
+                            </dd>
+                            <?php endif; } } endif; ?>
                         </div>
                         <?php
                         $this->show_other_locations($event); // Show Additional Locations

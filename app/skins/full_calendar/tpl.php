@@ -57,6 +57,7 @@ do_action('mec_full_skin_head');
                 $sf_text_search = (isset($this->sf_options['text_search']) ? $this->sf_options['text_search'] : array());
                 $sf_address_search = (isset($this->sf_options['address_search']) ? $this->sf_options['address_search'] : array());
                 $sf_event_cost = (isset($this->sf_options['event_cost']) ? $this->sf_options['event_cost'] : array());
+                $sf_local_time = (isset($this->sf_options['time_filter']) ? $this->sf_options['time_filter'] : array());
 
                 $sf_month_filter_status = (isset($sf_month_filter['type']) and trim($sf_month_filter['type'])) ? true : false;
                 $sf_category_status = (isset($sf_category['type']) and trim($sf_category['type'])) ? true : false;
@@ -68,6 +69,7 @@ do_action('mec_full_skin_head');
                 $sf_text_search_status = (isset($sf_text_search['type']) and trim($sf_text_search['type'])) ? true : false;
                 $sf_address_search_status = (isset($sf_address_search['type']) and trim($sf_address_search['type'])) ? true : false;
                 $sf_event_cost_status = (isset($sf_event_cost['type']) and trim($sf_event_cost['type'])) ? true : false;
+                $sf_local_time_status = (isset($sf_local_time['type']) and trim($sf_local_time['type'])) ? true : false;
 
                 // Status of Speakers Feature
                 $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
@@ -99,41 +101,35 @@ do_action('mec_full_skin_head');
         </div>
         <div id="mec_search_form_<?php echo $this->id; ?>">
             <?php if($sf_address_search_status): ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
-                </div>
-            </div>
-            <?php endif; ?>
-            <?php if($sf_month_filter_status): $sf_columns -= 3; ?>
-            <div class="col-md-3">
-                <?php echo $this->sf_search_field('month_filter', $sf_month_filter); ?>
-            </div>
+                <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
             <?php endif; ?>
             <?php if($sf_event_cost_status): $sf_columns -= 3; ?>
-                <div class="col-md-3">
-                    <?php echo $this->sf_search_field('event_cost', $sf_event_cost); ?>
-                </div>
+                <?php echo $this->sf_search_field('event_cost', $sf_event_cost); ?>
             <?php endif; ?>
-            <div class="col-md-<?php echo $sf_columns; ?>">
-                <?php if($sf_text_search_status): ?>
-                    <?php echo $this->sf_search_field('text_search', $sf_text_search); ?>
-                <?php endif; ?>
+        </div>
+        <div id="mec_search_form_<?php echo $this->id; ?>" class="mec-full-calendar-search-ends">
+            <?php if($sf_text_search_status): ?>
+                <?php echo $this->sf_search_field('text_search', $sf_text_search); ?>
+            <?php endif; ?>
+            <?php if($sf_month_filter_status): $sf_columns -= 3; ?>
+                <?php echo $this->sf_search_field('month_filter', $sf_month_filter); ?>
+            <?php endif; ?>
+            <?php if($sf_local_time_status): $sf_columns -= 3; ?>
+                <?php echo $this->sf_search_field('time_filter', $sf_local_time); ?>
+            <?php endif; ?>
+            <div class="col-md-12 mec-tab-loader">
+                <div class="mec-totalcal-view">
+                    <?php if($this->yearly): ?><span class="mec-totalcal-yearlyview<?php if($this->default_view == 'yearly') echo ' mec-totalcalview-selected'; ?>" data-skin="yearly"><?php _e('Yearly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                    <?php if($this->monthly): ?><span class="mec-totalcal-monthlyview<?php if($this->default_view == 'monthly') echo ' mec-totalcalview-selected'; ?>" data-skin="monthly"><?php _e('Monthly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                    <?php if($this->weekly): ?><span class="mec-totalcal-weeklyview<?php if($this->default_view == 'weekly') echo ' mec-totalcalview-selected'; ?>" data-skin="weekly"><?php _e('Weekly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                    <?php if($this->daily): ?><span class="mec-totalcal-dailyview<?php if($this->default_view == 'daily') echo ' mec-totalcalview-selected'; ?>" data-skin="daily"><?php _e('Daily', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                    <?php if($this->list): ?><span class="mec-totalcal-listview<?php if($this->default_view == 'list') echo ' mec-totalcalview-selected'; ?>" data-skin="list"><?php _e('List', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                    <?php if($this->grid): ?><span class="mec-totalcal-gridview<?php if($this->default_view == 'grid') echo ' mec-totalcalview-selected'; ?>" data-skin="grid"><?php _e('Grid', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                    <?php if($this->tile): ?><span class="mec-totalcal-tileview<?php if($this->default_view == 'tile') echo ' mec-totalcalview-selected'; ?>" data-skin="tile"><?php _e('Tile', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                </div>
             </div>
         </div>
-        <?php endif; ?>
-
-        <div class="col-md-5">
-            <div class="mec-totalcal-view">
-                <?php if($this->yearly): ?><span class="mec-totalcal-yearlyview<?php if($this->default_view == 'yearly') echo ' mec-totalcalview-selected'; ?>" data-skin="yearly"><?php _e('Yearly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
-                <?php if($this->monthly): ?><span class="mec-totalcal-monthlyview<?php if($this->default_view == 'monthly') echo ' mec-totalcalview-selected'; ?>" data-skin="monthly"><?php _e('Monthly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
-                <?php if($this->weekly): ?><span class="mec-totalcal-weeklyview<?php if($this->default_view == 'weekly') echo ' mec-totalcalview-selected'; ?>" data-skin="weekly"><?php _e('Weekly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
-                <?php if($this->daily): ?><span class="mec-totalcal-dailyview<?php if($this->default_view == 'daily') echo ' mec-totalcalview-selected'; ?>" data-skin="daily"><?php _e('Daily', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
-                <?php if($this->list): ?><span class="mec-totalcal-listview<?php if($this->default_view == 'list') echo ' mec-totalcalview-selected'; ?>" data-skin="list"><?php _e('List', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
-                <?php if($this->grid): ?><span class="mec-totalcal-gridview<?php if($this->default_view == 'grid') echo ' mec-totalcalview-selected'; ?>" data-skin="grid"><?php _e('Grid', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
-                <?php if($this->tile): ?><span class="mec-totalcal-tileview<?php if($this->default_view == 'tile') echo ' mec-totalcalview-selected'; ?>" data-skin="tile"><?php _e('Tile', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
-            </div>
-        </div>
+        <?php endif; // this is for if($this->sf_status): ?> 
     </div>
     
     <div id="mec_full_calendar_container_<?php echo $this->id; ?>" class="mec-full-calendar-skin-container">

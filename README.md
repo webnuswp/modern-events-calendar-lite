@@ -5,7 +5,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
 **Tested up to:** 5.6 \
-**Stable tag:** 5.16.2 \
+**Stable tag:** 5.16.5 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -414,6 +414,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [WooCommerce Payment Integreation](https://webnus.net/dox/modern-events-calendar/woocommerce/) (*pro*)
 - [Stripe Payment Integreation](https://webnus.net/modern-events-calendar/) (*pro*)
 - [iDEAL payment for the Stripe gateway](https://webnus.net/modern-events-calendar/) (*pro*)
+- [Express payment for the Stripe gateway](https://webnus.net/modern-events-calendar/) (*pro*)
 - [Auto Update](https://webnus.net/dox/modern-events-calendar/how-to-auto-update-plugin/) (*pro*)
 - [Weather module](https://webnus.net/dox/modern-events-calendar/weather-module/) (*pro*)
 - [PDF invoice](https://webnus.net/modern-events-calendar/) (*pro*)
@@ -436,7 +437,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ### 3. WordPress Event Calendar - Slider view
 
-[missing image]
+![WordPress Event Calendar - Slider view](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-3.png)
 
 ### 4. WordPress Event Calendar - Carousel view
 
@@ -593,9 +594,32 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ## Changelog
 
+### v 5.16.5 – 27 January 2021
+
+- Added: A feature to filter the events by local time
+- Added: Express connection method to Stripe Connect Gateway (pro)
+- Added: Some placeholders to the notification templates
+- Added: Some options to manage grid slider in the widget
+- Added: New positions for currencies
+- Added: Event name to the Stripe payments (pro)
+- Added: A location and other location description options
+- Improved: Backend speed
+- Fixed: Loading new events on load more button
+- Fixed: Importing events with finish dates from Google into MEC
+- Fixed: Importing google events when some of the occurrences are removed
+- Fixed: Loading MEC contents
+- Fixed: Duplicating events
+- Fixed: Providing discount per user role (pro)
+- Fixed: An issue regarding the booking reminder notification (pro)
+- Fixed: Stopped sales tickets (pro)
+- Fixed: Shortcode search-bar styling
+- Fixed: Booking shortcode styling(pro)
+- Fixed: Some issues in date display
+
 ### v 5.16.2 – 15 January 2021
 
 - Fixed: No event found issue in special conditions
+
 ### v 5.16.1 – 13 January 2021
 
 - Fixed: No event found issue

@@ -1002,12 +1002,17 @@ class MEC_book extends MEC_base
         if(!is_array($booking_options)) $booking_options = array();
 
         $user = wp_get_current_user();
-
         $roles = (array) $user->roles;
-        $role = isset($roles[0]) ? $roles[0] : 'subscriber';
 
-        $loggedin_discount = isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : '';
-        $role_discount = isset($booking_options['roles_discount_'.$role]) ? $booking_options['roles_discount_'.$role] : $loggedin_discount;
+        $loggedin_discount = (isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : 0);
+        $role_discount = $loggedin_discount;
+
+        // Step through all roles in Array that comes from WordPress Core
+        foreach($roles as $key => $role)
+        {
+            // If role discount is higher than the preset role OR a previous roles discount, set it to the new higher discount
+            if(isset($booking_options['roles_discount_'.$role]) and is_numeric($booking_options['roles_discount_'.$role]) and $booking_options['roles_discount_'.$role] > $role_discount) $role_discount = $booking_options['roles_discount_'.$role];
+        }
 
         if(trim($role_discount) and is_numeric($role_discount))
         {

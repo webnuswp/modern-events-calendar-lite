@@ -416,7 +416,7 @@ class MEC_feature_fes extends MEC_base
         $start_date = (isset($mec['date']['start']['date']) and trim($mec['date']['start']['date'])) ? $this->main->standardize_format($mec['date']['start']['date']) : date('Y-m-d');
         $end_date = (isset($mec['date']['end']['date']) and trim($mec['date']['end']['date'])) ? $this->main->standardize_format($mec['date']['end']['date']) : date('Y-m-d');
 
-        $event = $this->db->select("SELECT * FROM `#__mec_events` WHERE `post_id` = {$post_id}", 'loadAssoc');
+        $event = $this->db->select("SELECT * FROM `#__mec_events` WHERE `post_id` = ".esc_sql($post_id), 'loadAssoc');
         if(!is_array($event)) $event = array();
 
         $booking_date_update = false;
@@ -712,10 +712,10 @@ class MEC_feature_fes extends MEC_base
         $one_occurrence = isset($date['one_occurrence']) ? 1 : 0;
         $hide_time = isset($date['hide_time']) ? 1 : 0;
         $hide_end_time = isset($date['hide_end_time']) ? 1 : 0;
-        $comment = isset($date['comment']) ? $date['comment'] : '';
+        $comment = isset($date['comment']) ? sanitize_text_field($date['comment']) : '';
         $timezone = (isset($mec['timezone']) and trim($mec['timezone']) != '') ? sanitize_text_field($mec['timezone']) : 'global';
         $countdown_method = (isset($mec['countdown_method']) and trim($mec['countdown_method']) != '') ? sanitize_text_field($mec['countdown_method']) : 'global';
-        $public = (isset($_mec['public']) and trim($_mec['public']) != '') ? sanitize_text_field($_mec['public']) : 1;
+        $public = (isset($mec['public']) and trim($mec['public']) != '') ? sanitize_text_field($mec['public']) : 1;
 
         // Set start time and end time if event is all day
         if($allday == 1)
@@ -1075,7 +1075,7 @@ class MEC_feature_fes extends MEC_base
         $event['not_in_days'] = $not_in_days;
         
         // Update MEC Events Table
-        $mec_event_id = $this->db->select("SELECT `id` FROM `#__mec_events` WHERE `post_id`='$post_id'", 'loadResult');
+        $mec_event_id = $this->db->select("SELECT `id` FROM `#__mec_events` WHERE `post_id`=".esc_sql($post_id), 'loadResult');
         
         if(!$mec_event_id)
         {

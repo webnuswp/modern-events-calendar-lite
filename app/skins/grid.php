@@ -25,6 +25,9 @@ class MEC_skin_grid extends MEC_skins
     public $date_format_novel_1;
     public $date_format_fluent_1;
     public $loadMoreRunning;
+    public $widget_autoplay = true;
+    public $widget_autoplay_time = 3000;
+    public $widget_loop = true;
 
     /**
      * Constructor method
@@ -134,6 +137,9 @@ class MEC_skin_grid extends MEC_skins
         {
 			$this->skin_options['count'] = '1';
 			$this->load_more_button = false;
+			$this->widget_autoplay = (!isset($this->atts['widget_autoplay']) or (isset($this->atts['widget_autoplay']) and $this->atts['widget_autoplay'])) ? true : false;
+			$this->widget_autoplay_time = (isset($this->atts['widget_autoplay_time']) and $this->atts['widget_autoplay_time']) ? $this->atts['widget_autoplay_time'] : 3000;
+			$this->widget_loop = (!isset($this->atts['widget_loop']) or (isset($this->atts['widget_loop']) and $this->atts['widget_loop'])) ? true : false;
 		}
 
         // Display Price
@@ -399,7 +405,7 @@ class MEC_skin_grid extends MEC_skins
             if($found < $this->limit)
             {
                 // Next Offset
-                $this->next_offset = $found;
+                $this->next_offset = $found + ((isset($date) and $this->start_date === $date) ? $this->offset : 0);
             }
 
             // Set found events

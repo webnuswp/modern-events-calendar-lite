@@ -184,9 +184,14 @@ class MEC_feature_ix extends MEC_base
         $this->ix = isset($_POST['ix']) ? $_POST['ix'] : array();
 
         $this->response = array();
-        if($this->action == 'import-start') $this->response = $this->import_start();
-        elseif($this->action == 'import-start-bookings') $this->response = $this->import_start_bookings();
-        elseif(!empty($this->action)) $this->response = apply_filters( 'mec_import_item_action', $this->action ); 
+
+        $nonce = (isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '');
+        if(wp_verify_nonce($nonce, 'mec_import_start_upload'))
+        {
+            if($this->action == 'import-start') $this->response = $this->import_start();
+            elseif($this->action == 'import-start-bookings') $this->response = $this->import_start_bookings();
+            elseif(!empty($this->action)) $this->response = apply_filters('mec_import_item_action', $this->action);
+        }
         
         $path = MEC::import('app.features.ix.import', true, true);
 
@@ -202,8 +207,12 @@ class MEC_feature_ix extends MEC_base
         // File is not uploaded
         if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => __('Please upload a CSV file.', 'modern-events-calendar-lite'));
 
+        // File name validation
+        $name_end = end(explode('.', $feed_file['name']));
+        if($name_end != 'csv') return array('success' => 0, 'message' => __('Please upload a CSV file.', 'modern-events-calendar-lite'));
+
         // File Type is not valid
-        if(!isset($feed_file['type']) or (isset($feed_file['type']) and !in_array(strtolower($feed_file['type']), array('text/csv', 'application/vnd.ms-excel')))) return array('success' => 0, 'message' => __('The file type should be CSV.', 'modern-events-calendar-lite'));
+        if(!isset($feed_file['type']) or (isset($feed_file['type']) and !in_array(strtolower($feed_file['type']), array('text/csv')))) return array('success' => 0, 'message' => __('The file type should be CSV.', 'modern-events-calendar-lite'));
 
         // Upload the File
         $upload_dir = wp_upload_dir();
@@ -213,6 +222,12 @@ class MEC_feature_ix extends MEC_base
 
         // Error on Upload
         if(!$uploaded) return array('success' => 0, 'message' => __("An error occurred during the file upload! Please check permissions!", 'modern-events-calendar-lite'));
+
+        if($type = mime_content_type($target_path) and $type == 'text/x-php')
+        {
+            unlink($target_path);
+            return array('success' => 0, 'message' => __("Please upload a CSV file.", 'modern-events-calendar-lite'));
+        }
 
         if(($h = fopen($target_path, 'r')) !== false)
         {
@@ -413,6 +428,10 @@ class MEC_feature_ix extends MEC_base
         // File is not uploaded
         if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => __('Please upload the feed file.', 'modern-events-calendar-lite'));
 
+        // File name validation
+        $name_end = end(explode('.', $feed_file['name']));
+        if(!in_array($name_end, array('xml', 'ics'))) return array('success' => 0, 'message' => __('Please upload an XML or an ICS file.', 'modern-events-calendar-lite'));
+
         // File Type is not valid
         if(!isset($feed_file['type']) or (isset($feed_file['type']) and !in_array(strtolower($feed_file['type']), array('text/xml', 'text/calendar')))) return array('success' => 0, 'message' => __('The file type should be XML or ICS.', 'modern-events-calendar-lite'));
 
@@ -424,6 +443,12 @@ class MEC_feature_ix extends MEC_base
 
         // Error on Upload
         if(!$uploaded) return array('success' => 0, 'message' => __("An error occurred during the file upload! Please check permissions!", 'modern-events-calendar-lite'));
+
+        if($type = mime_content_type($target_path) and $type == 'text/x-php')
+        {
+            unlink($target_path);
+            return array('success' => 0, 'message' => __("Please upload an XML or an ICS file.", 'modern-events-calendar-lite'));
+        }
 
         // Import
         do_action('mec_import_file', $target_path);
@@ -3365,7 +3390,8 @@ class MEC_feature_ix extends MEC_base
                     $rules = explode(';', $main_rule_ex[1]);
                     
                     $i++;
-                } while($main_rule_ex[0] != 'RRULE' and isset($r_rules[$i]));
+                }
+                while($main_rule_ex[0] != 'RRULE' and isset($r_rules[$i]));
                 
                 $rule = array();
                 foreach($rules as $rule_row)
@@ -3585,6 +3611,44 @@ class MEC_feature_ix extends MEC_base
             
             // Set organizer to the post
             if($organizer_id) wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
+
+            // MEC Dates
+            $dates = $this->db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$post_id."' ORDER BY `tstart` ASC LIMIT 50", 'loadColumn');
+
+            // Event Instances
+            $instances = $service->events->instances($calendar_id, $gcal_id, array('maxResults' => 50));
+
+            $gdates = array();
+            foreach($instances as $instance)
+            {
+                $start = $instance->getStart();
+                $date = $start->getDate();
+
+                $gdates[] = $date;
+            }
+
+            $exdates = array();
+            $previous_not_found = NULL;
+            $next_found = NULL;
+
+            foreach($dates as $date)
+            {
+                if(!in_array($date, $gdates)) $previous_not_found = $date;
+                elseif($previous_not_found)
+                {
+                    $exdates[] = $previous_not_found;
+                    $previous_not_found = NULL;
+                }
+            }
+
+            // Update MEC EXDATES
+            $exdates = array_unique($exdates);
+            if(count($exdates))
+            {
+                $args['not_in_days'] = implode(',', $exdates);
+
+                $this->main->save_event($args, $post_id);
+            }
         }
         
         return array('success'=>1, 'data'=>$post_ids);
@@ -3965,6 +4029,9 @@ class MEC_feature_ix extends MEC_base
     
     public function export_all_events_do()
     {
+        // Current User Doesn't Have Access
+        if(!current_user_can('mec_import_export')) return false;
+
         $format = isset($_GET['format']) ? sanitize_text_field($_GET['format']) : 'csv';
         $events = $this->main->get_events('-1');
         

@@ -331,7 +331,7 @@ class MEC_main extends MEC_base
         $post = get_post($event_id);
         if(!$post) return NULL;
 
-        $content = apply_filters('the_content', $post->post_content);
+        $content = apply_filters('the_content', str_replace('[MEC ', '', $post->post_content));
         return str_replace(']]>', ']]&gt;', do_shortcode($content));
     }
     
@@ -3842,6 +3842,8 @@ class MEC_main extends MEC_base
         $rendered = number_format($price, ($decimal_separator === false ? 0 : 2), ($decimal_separator === false ? '' : $decimal_separator), $thousand_separator);
         
         if($currency_sign_position == 'after') $rendered = $rendered.$currency;
+        elseif($currency_sign_position == 'after_space') $rendered = $rendered.' '.$currency;
+        elseif($currency_sign_position == 'before_space') $rendered = $currency.' '.$rendered;
         else $rendered = $currency.$rendered;
         
         return $rendered;
@@ -4645,7 +4647,7 @@ class MEC_main extends MEC_base
         // Post is not exists
         if(!$post) return false;
         
-        //new post data array
+        // New post data array
         $args = array
         (
             'comment_status'=>$post->comment_status,
@@ -4653,7 +4655,7 @@ class MEC_main extends MEC_base
             'post_author'=>$post->post_author,
             'post_content'=>$post->post_content,
             'post_excerpt'=>$post->post_excerpt,
-            'post_name'=>$post->post_name,
+            'post_name'=>sanitize_title($post->post_name.'-'.mt_rand(100, 999)),
             'post_parent'=>$post->post_parent,
             'post_password'=>$post->post_password,
             'post_status'=>'draft',
@@ -4778,7 +4780,7 @@ class MEC_main extends MEC_base
             foreach(array('a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's', 'u', 'v') as $f) $format = str_replace($f, '', $format);
             $format = trim($format, ': ');
         }
-        
+
         if($start_timestamp >= $end_timestamp) return '<span class="mec-start-date-label" itemprop="startDate">' . date_i18n($format, $start_timestamp) . '</span>';
         elseif($start_timestamp < $end_timestamp)
         {
@@ -4791,7 +4793,7 @@ class MEC_main extends MEC_base
                 $start_m = date('m', $start_timestamp);
                 $end_m = date('m', $end_timestamp);
 
-                // Same Month but Different Days
+                // Same Month but Different Days or Years
                 if($minify and $start_m == $end_m and date('d', $start_timestamp) != date('d', $end_timestamp))
                 {
                     $month_format = 'F';
@@ -4805,6 +4807,7 @@ class MEC_main extends MEC_base
 
                     $start_m = date_i18n($month_format, $start_timestamp);
                     $start_y = (trim($year_format) ? date_i18n($year_format, $start_timestamp) : '');
+                    $end_y = (trim($year_format) ? date_i18n($year_format, $end_timestamp) : '');
 
                     $chars = str_split($format);
 
@@ -4822,7 +4825,7 @@ class MEC_main extends MEC_base
                         }
                         elseif(in_array($char, array('Y', 'y', 'o')))
                         {
-                            $date_label .= $start_y;
+                            $date_label .= ($start_y === $end_y ? $start_y : $start_y.' - '.$end_y);
                         }
                         else $date_label .= $char;
                     }
@@ -5175,11 +5178,23 @@ class MEC_main extends MEC_base
 
         update_post_meta($post_id, 'mec_date', $date);
 
+        // Finish Date
+        $finish_date = (isset($event['finish']) ? $event['finish'] : '');
+        if($finish_date)
+        {
+            update_post_meta($post_id, 'mec_repeat_end_at_date', $finish_date);
+            update_post_meta($post_id, 'mec_repeat_end', 'date');
+        }
+
+        // Not In Days
+        $not_in_days = (isset($event['not_in_days']) ? $event['not_in_days'] : '');
+        if($not_in_days) update_post_meta($post_id, 'mec_not_in_days', $not_in_days);
+
         // Creating $mec array for inserting in mec_events table
         $mec = array('post_id'=>$post_id, 'start'=>$event['start'], 'repeat'=>$event['repeat_status'], 'rinterval'=>$event['interval'], 'time_start'=>$day_start_seconds, 'time_end'=>$day_end_seconds);
 
         // Add parameters to the $mec
-        $mec['end'] = isset($event['finish']) ? $event['finish'] : '0000-00-00';
+        $mec['end'] = (trim($finish_date) ? $finish_date : '0000-00-00');
         $mec['year'] = isset($event['year']) ? $event['year'] : NULL;
         $mec['month'] = isset($event['month']) ? $event['month'] : NULL;
         $mec['day'] = isset($event['day']) ? $event['day'] : NULL;
@@ -5187,7 +5202,7 @@ class MEC_main extends MEC_base
         $mec['weekday'] = isset($event['weekday']) ? $event['weekday'] : NULL;
         $mec['weekdays'] = isset($event['weekdays']) ? $event['weekdays'] : NULL;
         $mec['days'] = isset($event['days']) ? $event['days'] : '';
-        $mec['not_in_days'] = isset($event['not_in_days']) ? $event['not_in_days'] : '';
+        $mec['not_in_days'] = $not_in_days;
 
         // MEC DB Library
         $db = $this->getDB();
@@ -6321,7 +6336,12 @@ class MEC_main extends MEC_base
         $assets = array('js'=>array(), 'css'=>array());
 
         $gm_include = apply_filters('mec_gm_include', true);
-        if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '').'&language='.$this->get_current_language();
+        
+        $local = $this->get_current_language();
+        $ex = explode('_',$local);        
+        $language = $ex[0] ?? 'en';
+        $region = $ex[1] ?? 'US';
+        if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '').'&language='.$language.'&region='.$region;//$this->get_current_language();
 
         $assets['js']['mec-richmarker-script'] = $this->asset('packages/richmarker/richmarker.min.js'); // Google Maps Rich Marker
         $assets['js']['mec-clustering-script'] = $this->asset('packages/clusterer/markerclusterer.min.js'); // Google Maps Clustering
@@ -6351,6 +6371,18 @@ class MEC_main extends MEC_base
     {
         // Isotope JS file
         wp_enqueue_script('mec-isotope-script', $this->asset('js/isotope.pkgd.min.js'), array(), $this->get_version(), true);
+    }
+
+    /**
+     * Load Time Picker assets
+     */
+    public function load_time_picker_assets()
+    {
+        // Include CSS
+        wp_enqueue_style('mec-time-picker', $this->asset('packages/timepicker/jquery.timepicker.min.css'));
+
+        // Include JS
+        wp_enqueue_script('mec-time-picker', $this->asset('packages/timepicker/jquery.timepicker.min.js'));
     }
     
     function get_client_ip()

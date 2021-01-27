@@ -21,7 +21,7 @@ if($this->style == 'colorful')
 }
 ?>
 <div class="mec-wrap <?php echo $event_colorskin . $colorful_class; ?>">
-    <div class="mec-event-grid-<?php echo $this->style; ?>">
+    <div class="mec-event-grid-<?php echo $this->style; ?>" data-widget-autoplay="<?php echo ($this->widget_autoplay ? 1 : 0); ?>" data-widget-loop="<?php echo ($this->widget_loop ? 1 : 0); ?>" data-widget-autoplay-time="<?php echo $this->widget_autoplay_time; ?>">
         <?php
         $count      = $this->count;
         $grid_div   = $this->count;

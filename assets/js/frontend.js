@@ -59,6 +59,8 @@ var mecSingleEventDisplayer = {
 
         var $event_cost_min = $("#mec_sf_event_cost_min_" + settings.id);
         var $event_cost_max = $("#mec_sf_event_cost_max_" + settings.id);
+        var $time_start = $("#mec_sf_timepicker_start_" + settings.id);
+        var $time_end = $("#mec_sf_timepicker_end_" + settings.id);
         var $category = $("#mec_sf_category_" + settings.id);
 
         $category.on('change', function(e)
@@ -112,6 +114,37 @@ var mecSingleEventDisplayer = {
             $event_cost_min.attr('max', $(this).val());
             search();
         });
+
+        // Timepicker
+        if($time_start.length)
+        {
+            var format = (($time_start.data('format') === 12) ? 'hh:mm p' : 'HH:mm');
+            $time_start.timepicker(
+            {
+                timeFormat: format,
+                minTime: new Date(0, 0, 0, 0, 0, 0),
+                maxTime: new Date(0, 0, 0, 23, 55, 0),
+                interval: 5,
+                dropdown: false,
+                change: function()
+                {
+                    search();
+                }
+            });
+
+            $time_end.timepicker(
+            {
+                timeFormat: format,
+                minTime: new Date(0, 0, 0, 0, 0, 0),
+                maxTime: new Date(0, 0, 0, 23, 55, 0),
+                interval: 5,
+                dropdown: false,
+                change: function()
+                {
+                    search();
+                }
+            });
+        }
         
         var mec_sf_month_selector = "#mec_sf_month_" + settings.id;
         var mec_sf_year_selector = "#mec_sf_year_" + settings.id;
@@ -125,7 +158,8 @@ var mecSingleEventDisplayer = {
                 var mec_year_val = $(mec_sf_year_selector).val();
 
                 if((mec_month_val != 'none' && mec_year_val != 'none') || ((mec_month_val == 'none' && mec_year_val == 'none'))) search();
-            } else search();
+            }
+            else search();
         });
 
         $('#mec_sf_date_end_'+settings.id).on('change', function()
@@ -180,8 +214,12 @@ var mecSingleEventDisplayer = {
             var cost_min = $event_cost_min.length ? $event_cost_min.val() : '';
             var cost_max = $event_cost_max.length ? $event_cost_max.val() : '';
 
+            var time_start = $time_start.length ? $time_start.val() : '';
+            var time_end = $time_end.length ? $time_end.val() : '';
+
             var category;
-            if ($category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div') {
+            if($category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div')
+            {
                 category = '';
                 $category.find($('select')).each(function () {
                     category += $(this).val() + ',';
@@ -206,7 +244,7 @@ var mecSingleEventDisplayer = {
                 }
             }
 
-            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[cost-min]=' + cost_min + '&sf[cost-max]=' + cost_max + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[start]=' + start + '&sf[end]=' + end + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
+            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[cost-min]=' + cost_min + '&sf[cost-max]=' + cost_max + '&sf[time-start]=' + time_start + '&sf[time-end]=' + time_end + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[start]=' + start + '&sf[end]=' + end + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
             settings.callback(atts);
         }
     };
@@ -226,6 +264,15 @@ jQuery(document).ready(function($)
 
     jQuery(".mec-search-form.mec-totalcal-box").find(".mec-minmax-event-cost").parent().find(".mec-text-address-search").addClass("with-mec-cost");
     jQuery(".mec-search-form.mec-totalcal-box").find(".mec-text-address-search").parent().find(".mec-minmax-event-cost").addClass("with-mec-address");
+
+    /** New Searchbar JS */
+    jQuery(".mec-full-calendar-search-ends").find(".mec-text-input-search").parent().find(".mec-tab-loader").removeClass("col-md-12").addClass("col-md-6");
+    jQuery(".mec-search-form.mec-totalcal-box").find(".mec-text-input-search").parent().find(".mec-date-search").parent().find(".mec-text-input-search").addClass("col-md-6");
+    jQuery(".mec-search-form.mec-totalcal-box").find(".mec-text-input-search").parent().find(".mec-time-picker-search").parent().find(".mec-text-input-search").addClass("col-md-6");
+    jQuery(".mec-full-calendar-search-ends").find(".mec-text-input-search").addClass("col-md-12").parent().find(".mec-time-picker-search").addClass("col-md-6");
+    jQuery(".mec-search-form.mec-totalcal-box").find(".mec-date-search").parent().find(".mec-time-picker-search").addClass("with-mec-date-search");
+    jQuery(".mec-search-form.mec-totalcal-box").find(".mec-time-picker-search").parent().find(".mec-date-search").addClass("with-mec-time-picker");
+
 
 });
 
@@ -3133,6 +3180,11 @@ jQuery(document).ready(function($)
     function sed(settings) {
         // Single Event Display
         $("#mec_skin_" + settings.id + " .mec-event-carousel-title a, #mec_skin_" + settings.id + " .mec-booking-button, #mec_skin_" + settings.id + " .mec-event-button").off('click').on('click', function (e) {
+            var sed_method = $(this).attr('target');
+            if( '_blank' === sed_method ){
+
+                return;
+            }
             e.preventDefault();
             var href = $(this).attr('href');
 
@@ -3729,19 +3781,32 @@ function mec_focus_week(id, skin) {
         }
 
         // MEC WIDGET CAROUSEL
-        $(".mec-widget .mec-event-grid-classic").addClass('mec-owl-carousel mec-owl-theme');
-        $(".mec-widget .mec-event-grid-classic").owlCarousel({
-            autoplay: true,
-            autoplayTimeout: 3000, // Set AutoPlay to 3 seconds
-            autoplayHoverPause: true,
-            loop: true,
-            dots: false,
-            nav: true,
-            navText: ["<i class='mec-sl-arrow-left'></i>", " <i class='mec-sl-arrow-right'></i>"],
-            items: 1,
-            autoHeight: true,
-            responsiveClass: true,
-            rtl: owl_rtl,
+        $(".mec-widget .mec-event-grid-classic").each(function()
+        {
+            var loop_status = $(this).data('widget-loop');
+            if(typeof loop_status === 'undefined') loop_status = 1;
+
+            var autoplay_status = $(this).data('widget-autoplay');
+            if(typeof autoplay_status === 'undefined') autoplay_status = 1;
+
+            var autoplay_time = $(this).data('widget-autoplay-time');
+            if(typeof autoplay_time === 'undefined') autoplay_time = 3000;
+
+            $(this).addClass('mec-owl-carousel mec-owl-theme');
+            $(this).owlCarousel(
+            {
+                autoplay: (autoplay_status ? true : false),
+                autoplayTimeout: autoplay_time,
+                autoplayHoverPause: true,
+                loop: (loop_status ? true : false),
+                dots: false,
+                nav: true,
+                navText: ["<i class='mec-sl-arrow-left'></i>", " <i class='mec-sl-arrow-right'></i>"],
+                items: 1,
+                autoHeight: true,
+                responsiveClass: true,
+                rtl: owl_rtl,
+            });
         });
 
         // add mec-sm959 class if mec-wrap div size < 959
@@ -4164,7 +4229,7 @@ function mecFluentWrapperFullScreenWidth() {
 }
 
 function mecFluentUI() {
-    if (typeof mecdata.enableSingleFluent != 'undefined' && mecdata.enableSingleFluent) {
+    if (typeof mecdata != 'undefined' && typeof mecdata.enableSingleFluent != 'undefined' && mecdata.enableSingleFluent) {
         jQuery('body').addClass('mec-single-fluent-body');
     }
     // Set filter content position
@@ -4963,7 +5028,6 @@ function mecFluentYearlyUI(eventID, yearID) {
 
         function setListeners()
         {
-
             // Add the onclick event
             $("#mec_booking_calendar_" + settings.id + " .mec-booking-calendar-date").off('click').on('click', function(e)
             {

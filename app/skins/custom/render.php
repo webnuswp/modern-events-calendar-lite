@@ -90,6 +90,68 @@ if($this->style == 'colorful')
                     $this->args['offset'] = 0;
                 }
 
+
+                if (($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel', 'agenda', 'tile')))))
+                {
+                    // Hide Shown Events on AJAX
+                    if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start) and !$this->show_only_expired_events) continue;
+
+                    $d = date('Y-m-d', $s);
+
+                    if(!isset($dates[$d])) $dates[$d] = array();
+                    $dates[$d][] = $date->post_id;
+                }
+                else
+                {
+                    $diff = $this->main->date_diff($date->dstart, $date->dend);
+                    $days_long = (isset($diff->days) and !$diff->invert) ? $diff->days : 0;
+
+                    while($s <= $e)
+                    {
+                        if((!$this->show_only_expired_events and $seconds_start <= $s and $s <= $seconds_end) or ($this->show_only_expired_events and $seconds_start >= $s and $s >= $seconds_end))
+                        {
+                            $d = date('Y-m-d', $s);
+                            if(!isset($dates[$d])) $dates[$d] = array();
+
+                            // Check for exclude events
+                            if($exclude)
+                            {
+                                $current_id = !isset($current_id) ? 0 : $current_id;
+
+                                if(!isset($not_in_day))
+                                {
+                                    $query = "SELECT `post_id`,`not_in_days` FROM `#__mec_events`";
+                                    $not_in_day =  $this->db->select($query);
+                                }
+
+                                if(array_key_exists($date->post_id, $not_in_day) and trim($not_in_day[$date->post_id]->not_in_days))
+                                {
+                                    $days =  $not_in_day[$date->post_id]->not_in_days;
+                                    $current_id = $date->post_id;
+                                }
+                                else $days = '';
+
+                                if(strpos($days, $d) === false)
+                                {
+                                    $midnight = $s+(3600*$midnight_hour);
+                                    if($days_long == '1' and $midnight >= $date->tend) break;
+
+                                    $dates[$d][] = $date->post_id;
+                                }
+                            }
+                            else
+                            {
+                                $midnight = $s+(3600*$midnight_hour);
+                                if($days_long == '1' and $midnight >= $date->tend) break;
+
+                                $dates[$d][] = $date->post_id;
+                            }
+                        }
+
+                        $s += 86400;
+                    }
+                }
+
                 
 
                 // The Query

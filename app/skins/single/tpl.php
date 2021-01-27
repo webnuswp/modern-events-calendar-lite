@@ -17,6 +17,12 @@ if($show_event_details_page !== true)
     return;
 }
 
+if(post_password_required($event->data->post))
+{
+    echo get_the_password_form($event->data->post);
+    return;
+}
+
 if(isset($this->layout) and trim($this->layout)) include MEC::import('app.skins.single.'.$this->layout, true, true);
 elseif(!isset($settings['single_single_style']) or (isset($settings['single_single_style']) and $settings['single_single_style'] == 'default')) include MEC::import('app.skins.single.default', true, true);
 elseif(!isset($settings['single_single_style']) or (isset($settings['single_single_style']) and $settings['single_single_style'] == 'builder')) include MEC::import('app.skins.single.builder', true, true);

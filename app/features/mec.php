@@ -199,10 +199,12 @@ class MEC_feature_mec extends MEC_base
         if(!is_null($verify))
         {
             $LicenseStatus = 'success';
+            update_option( 'mec_license_status', 'active');
         }
         else
         {
             $LicenseStatus = __('Activation failed. Please check your purchase code or license type.<br><b>Note: Your purchase code should match your licesne type.</b>', 'modern-events-calendar-lite') . '<a style="text-decoration: underline; padding-left: 7px;" href="https://webnus.net/dox/modern-events-calendar/auto-update-issue/" target="_blank">'  . __('Troubleshooting', 'modern-events-calendar-lite') . '</a>';
+            update_option( 'mec_license_status', 'faild');
         }
 
         echo $LicenseStatus;

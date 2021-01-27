@@ -579,11 +579,55 @@ class MEC_skins extends MEC_base
         // Midnight Hour
         $midnight_hour = (isset($this->settings['midnight_hour']) and $this->settings['midnight_hour']) ? $this->settings['midnight_hour'] : 0;
 
+        // Local Time Filter
+        $local_time_start = NULL;
+        $local_time_start_datetime = NULL;
+        $local_time_end = NULL;
+        $local_time_end_datetime = NULL;
+
+        // Local Timezone
+        $local_timezone = $this->main->get_timezone_by_ip();
+        if(!trim($local_timezone)) $local_timezone = $this->main->get_timezone();
+
+        if(isset($this->atts['time-start']) and trim($this->atts['time-start'])) $local_time_start = $this->atts['time-start'];
+        if(isset($this->atts['time-end']) and trim($this->atts['time-end'])) $local_time_end = $this->atts['time-end'];
+
         $dates = array();
         foreach($mec_dates as $mec_date)
         {
             $s = strtotime($mec_date->dstart);
             $e = strtotime($mec_date->dend);
+
+            // Skip Events Based on Local Start Time Search
+            if($local_time_start)
+            {
+                $local_time_start_datetime = $mec_date->dstart.' '.$local_time_start;
+
+                // Local Current Time
+                $local = new DateTime($local_time_start_datetime, new DateTimeZone($local_timezone));
+
+                $event_timezone = $this->main->get_timezone($mec_date->post_id);
+                $local_time_in_event_timezone = $local->setTimezone(new DateTimeZone($event_timezone))->format('Y-m-d H:i:s');
+
+                if(strtotime($local_time_in_event_timezone) > $mec_date->tstart) continue;
+            }
+
+            // Skip Events Based on Local End Time Search
+            if($local_time_end)
+            {
+                $local_time_end_datetime = (isset($this->atts['date-range-end']) ? $this->atts['date-range-end'] : $mec_date->dstart).' '.$local_time_end;
+
+                // End Time is Earlier than Start Time so Add 1 Day to the End Date
+                if($local_time_start_datetime and strtotime($local_time_end_datetime) <= strtotime($local_time_start_datetime)) $local_time_end_datetime = date('Y-m-d', strtotime('+1 Day', strtotime($mec_date->dend))).' '.$local_time_end;
+
+                // Local Current Time
+                $local = new DateTime($local_time_end_datetime, new DateTimeZone($local_timezone));
+
+                $event_timezone = $this->main->get_timezone($mec_date->post_id);
+                $local_time_in_event_timezone = $local->setTimezone(new DateTimeZone($event_timezone))->format('Y-m-d H:i:s');
+
+                if(strtotime($local_time_in_event_timezone) < $mec_date->tend) continue;
+            }
 
             // Hide Events Based on Start Time
             if(!$this->show_ongoing_events and !$this->show_only_expired_events and !$this->args['mec-past-events'] and $s <= strtotime($today))
@@ -600,7 +644,7 @@ class MEC_skins extends MEC_base
                 if($this->hide_time_method == 'end' and $now >= $mec_date->tend) continue;
             }
 
-            if (($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel', 'agenda', 'tile')))))
+            if(($this->multiple_days_method == 'first_day' or ($this->multiple_days_method == 'first_day_listgrid' and in_array($this->skin, array('list', 'grid', 'slider', 'carousel', 'agenda', 'tile')))))
             {
                 // Hide Shown Events on AJAX
                 if(defined('DOING_AJAX') and DOING_AJAX and $s != $e and $s < strtotime($start) and !$this->show_only_expired_events) continue;
@@ -813,7 +857,7 @@ class MEC_skins extends MEC_base
         if($found < $this->limit)
         {
             // Next Offset
-            $this->next_offset = $found;
+            $this->next_offset = $found + ((isset($date) and $this->start_date === $date) ? $this->offset : 0);
         }
 
         // Set found events
@@ -917,7 +961,7 @@ class MEC_skins extends MEC_base
         $fields = apply_filters('mec_filter_fields_search_form', $fields, $this);
 
         $form = '';
-        if(trim($fields) && (in_array('dropdown', $display_form) || in_array('text_input', $display_form) || in_array('address_input', $display_form) || in_array('minmax', $display_form))) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
+        if(trim($fields) && (in_array('dropdown', $display_form) || in_array('text_input', $display_form) || in_array('address_input', $display_form) || in_array('minmax', $display_form) || in_array('local-time-picker', $display_form))) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
 
         return $form;
     }
@@ -1195,6 +1239,19 @@ class MEC_skins extends MEC_base
                 </div>';
             }
         }
+        elseif($field == 'time_filter')
+        {
+            if($type == 'local-time-picker')
+            {
+                $this->main->load_time_picker_assets();
+
+                $output .= '<div class="mec-time-picker-search">
+                    <i class="mec-sl-clock"></i>
+                    <input type="text" class="mec-timepicker-start" id="mec_sf_timepicker_start_'.$this->id.'" placeholder="'.__('Start Time', 'modern-events-calendar-lite').'" data-format="'.$this->main->get_hour_format().'" />
+                    <input type="text" class="mec-timepicker-end" id="mec_sf_timepicker_end_'.$this->id.'" placeholder="'.__('End Time', 'modern-events-calendar-lite').'" data-format="'.$this->main->get_hour_format().'" />
+                </div>';
+            }
+        }
         elseif($field == 'text_search')
         {
             if($type == 'text_input')
@@ -1264,6 +1321,10 @@ class MEC_skins extends MEC_base
         if(isset($sf['cost-min'])) $atts['cost-min'] = $sf['cost-min'];
         if(isset($sf['cost-max'])) $atts['cost-max'] = $sf['cost-max'];
 
+        // Apply Local Time Query
+        if(isset($sf['time-start'])) $atts['time-start'] = $sf['time-start'];
+        if(isset($sf['time-end'])) $atts['time-end'] = $sf['time-end'];
+
         // Apply SF Date or Not
         if($apply_sf_date == 1)
         {
@@ -1303,6 +1364,9 @@ class MEC_skins extends MEC_base
                     $atts['sk-options'][$skin]['start_date_type'] = 'date';
                     $atts['sk-options'][$skin]['start_date'] = $start;
                 }
+
+                $atts['date-range-start'] = $start;
+                $atts['date-range-end'] = $end;
             }
         }
 

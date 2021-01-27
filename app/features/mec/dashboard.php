@@ -34,7 +34,9 @@ if($this->getPRO())
 
     $v = $envato->get_MEC_info('version');
     $version = isset($v->version) ? $v->version : NULL;
-    $verify = $envato->get_MEC_info('dl');
+    //$verify = $envato->get_MEC_info('activate');
+
+    $mec_license_status = get_option( 'mec_license_status');
 }
 
 // MEC Database
@@ -224,11 +226,11 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
                                     <input type="submit">
                                     <?php
                                     $license_status = '';
-                                    if(!empty($mec_options['purchase_code']) && !is_null($verify))
+                                    if(!empty($mec_options['purchase_code']) && $mec_license_status == 'active')
                                     {
                                         $license_status = 'PurchaseSuccess';
                                     } 
-                                    elseif(!empty($mec_options['purchase_code']) && is_null($verify))
+                                    elseif(!empty($mec_options['purchase_code']) && $mec_license_status == 'faild')
                                     {
                                         $license_status = 'PurchaseError';
                                     }

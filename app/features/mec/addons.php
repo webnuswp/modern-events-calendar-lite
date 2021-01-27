@@ -1,17 +1,6 @@
 <?php
 /** no direct access **/
 defined('MECEXEC') or die();
-
-$version = NULL;
-if($this->getPRO())
-{
-    // Get MEC New Update
-    $envato = $this->getEnvato();
-
-    $v = $envato->get_MEC_info('version');
-    $version = isset($v->version) ? $v->version : NULL;
-}
-
 wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
 wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
 ?>

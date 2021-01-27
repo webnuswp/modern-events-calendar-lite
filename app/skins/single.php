@@ -188,7 +188,7 @@ class MEC_skin_single extends MEC_skins
 
                             // Don't show Expired Events
                             $timestamp = (isset($d['start']) and isset($d['start']['timestamp'])) ? $d['start']['timestamp'] : 0;
-                            if($timestamp > 0 and $timestamp < $now) continue;
+                            if($timestamp <= 0 and $timestamp >= $now) break;
 
                             $printed += 1;
                             $mec_date = (isset($d['start']) and isset($d['start']['date'])) ? $d['start']['date'] : get_post_meta(get_the_ID(), 'mec_start_date', true);
@@ -1385,6 +1385,13 @@ class MEC_skin_single extends MEC_skins
                     <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?> <?php echo $i; ?></h3>
                     <dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
                     <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
+                    <?php
+                    $location_description_setting = isset( $this->settings['addintional_locations_description'] ) ? $this->settings['addintional_locations_description'] : ''; $location_terms = get_the_terms($event->data, 'mec_location');  if($location_description_setting == '1'):
+                    foreach($location_terms as $location_term) { if ($location_term->term_id == $location['id'] ) {  if(isset($location_term->description) && !empty($location_term->description)): ?>
+                        <dd class="mec-location-description">
+                            <p><?php echo $location_term->description;?></p>
+                        </dd>
+                    <?php endif; } } endif; ?>
                 </div>
                 <?php $i++ ?>
             <?php endforeach; ?>

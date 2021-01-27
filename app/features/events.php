@@ -1224,12 +1224,14 @@ class MEC_feature_events extends MEC_base
     public function meta_box_cost($post)
     {
         $cost = get_post_meta($post->ID, 'mec_cost', true);
+
+        $type = ((isset($this->settings['single_cost_type']) and trim($this->settings['single_cost_type'])) ? $this->settings['single_cost_type'] : 'numeric');
         ?>
         <div class="mec-meta-box-fields mec-event-tab-content" id="mec-cost">
             <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?></h4>
             <div id="mec_meta_box_cost_form">
                 <div class="mec-form-row">
-                    <input type="number" class="mec-col-3" name="mec[cost]" id="mec_cost"
+                    <input type="<?php echo ($type === 'alphabetic' ? 'text' : 'number'); ?>" class="mec-col-3" name="mec[cost]" id="mec_cost"
                            value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>"/>
                 </div>
             </div>
@@ -2792,7 +2794,7 @@ class MEC_feature_events extends MEC_base
         $one_occurrence = isset($date['one_occurrence']) ? 1 : 0;
         $hide_time = isset($date['hide_time']) ? 1 : 0;
         $hide_end_time = isset($date['hide_end_time']) ? 1 : 0;
-        $comment = isset($date['comment']) ? $date['comment'] : '';
+        $comment = isset($date['comment']) ? sanitize_text_field($date['comment']) : '';
         $timezone = (isset($_mec['timezone']) and trim($_mec['timezone']) != '') ? sanitize_text_field($_mec['timezone']) : 'global';
         $countdown_method = (isset($_mec['countdown_method']) and trim($_mec['countdown_method']) != '') ? sanitize_text_field($_mec['countdown_method']) : 'global';
         $public = (isset($_mec['public']) and trim($_mec['public']) != '') ? sanitize_text_field($_mec['public']) : 1;
@@ -3841,7 +3843,7 @@ class MEC_feature_events extends MEC_base
             case 'duplicate':
 
                 $post_ids = $_GET['post'];
-                foreach($post_ids as $post_id) $this->main->duplicate((int)$post_id);
+                foreach($post_ids as $post_id) $this->main->duplicate((int) $post_id);
 
                 break;
 

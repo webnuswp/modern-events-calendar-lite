@@ -94,6 +94,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_list_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][list][time_filter][type]" id="mec_sf_list_time_filter">
+                        <option value="0" <?php if(isset($sf_options_list['time_filter']) and isset($sf_options_list['time_filter']['type']) and $sf_options_list['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_list['time_filter']) and isset($sf_options_list['time_filter']['type']) and $sf_options_list['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_list_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][list][text_search][type]" id="mec_sf_list_text_search">
 						<option value="0" <?php if(isset($sf_options_list['text_search']) and isset($sf_options_list['text_search']['type']) and $sf_options_list['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -170,6 +177,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                         <option value="0" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Year & Month Dropdown', 'modern-events-calendar-lite'); ?></option>
                         <option value="date-range-picker" <?php if(isset($sf_options_grid['month_filter']) and isset($sf_options_grid['month_filter']['type']) and $sf_options_grid['month_filter']['type'] == 'date-range-picker') echo 'selected="selected"'; ?>><?php _e('Date Picker', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_grid_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][grid][time_filter][type]" id="mec_sf_grid_time_filter">
+                        <option value="0" <?php if(isset($sf_options_grid['time_filter']) and isset($sf_options_grid['time_filter']['type']) and $sf_options_grid['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_grid['time_filter']) and isset($sf_options_grid['time_filter']['type']) and $sf_options_grid['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -252,6 +266,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_agenda_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][agenda][time_filter][type]" id="mec_sf_agenda_time_filter">
+                        <option value="0" <?php if(isset($sf_options_agenda['time_filter']) and isset($sf_options_agenda['time_filter']['type']) and $sf_options_agenda['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_agenda['time_filter']) and isset($sf_options_agenda['time_filter']['type']) and $sf_options_agenda['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_agenda_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][agenda][text_search][type]" id="mec_sf_agenda_text_search">
                         <option value="0" <?php if(isset($sf_options_agenda['text_search']) and isset($sf_options_agenda['text_search']['type']) and $sf_options_agenda['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -327,6 +348,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][full_calendar][month_filter][type]" id="mec_sf_full_calendar_month_filter">
 						<option value="0" <?php if(isset($sf_options_full_calendar['month_filter']) and isset($sf_options_full_calendar['month_filter']['type']) and $sf_options_full_calendar['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_full_calendar['month_filter']) and isset($sf_options_full_calendar['month_filter']['type']) and $sf_options_full_calendar['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_full_calendar_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][full_calendar][time_filter][type]" id="mec_sf_full_calendar_time_filter">
+                        <option value="0" <?php if(isset($sf_options_full_calendar['time_filter']) and isset($sf_options_full_calendar['time_filter']['type']) and $sf_options_full_calendar['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_full_calendar['time_filter']) and isset($sf_options_full_calendar['time_filter']['type']) and $sf_options_full_calendar['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -408,6 +436,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_monthly_view_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][monthly_view][time_filter][type]" id="mec_sf_monthly_view_time_filter">
+                        <option value="0" <?php if(isset($sf_options_monthly_view['time_filter']) and isset($sf_options_monthly_view['time_filter']['type']) and $sf_options_monthly_view['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_monthly_view['time_filter']) and isset($sf_options_monthly_view['time_filter']['type']) and $sf_options_monthly_view['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_monthly_view_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][monthly_view][text_search][type]" id="mec_sf_monthly_view_text_search">
 						<option value="0" <?php if(isset($sf_options_monthly_view['text_search']) and isset($sf_options_monthly_view['text_search']['type']) and $sf_options_monthly_view['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -483,6 +518,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][yearly_view][month_filter][type]" id="mec_sf_yearly_view_month_filter">
                         <option value="0" <?php if(isset($sf_options_yearly_view['month_filter']) and isset($sf_options_yearly_view['month_filter']['type']) and $sf_options_yearly_view['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_yearly_view['month_filter']) and isset($sf_options_yearly_view['month_filter']['type']) and $sf_options_yearly_view['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_yearly_view_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][yearly_view][time_filter][type]" id="mec_sf_yearly_view_time_filter">
+                        <option value="0" <?php if(isset($sf_options_yearly_view['time_filter']) and isset($sf_options_yearly_view['time_filter']['type']) and $sf_options_yearly_view['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_yearly_view['time_filter']) and isset($sf_options_yearly_view['time_filter']['type']) and $sf_options_yearly_view['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -635,6 +677,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_daily_view_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][daily_view][time_filter][type]" id="mec_sf_daily_view_time_filter">
+                        <option value="0" <?php if(isset($sf_options_daily_view['time_filter']) and isset($sf_options_daily_view['time_filter']['type']) and $sf_options_daily_view['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_daily_view['time_filter']) and isset($sf_options_daily_view['time_filter']['type']) and $sf_options_daily_view['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_daily_view_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][daily_view][text_search][type]" id="mec_sf_daily_view_text_search">
 						<option value="0" <?php if(isset($sf_options_daily_view['text_search']) and isset($sf_options_daily_view['text_search']['type']) and $sf_options_daily_view['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -713,6 +762,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     </select>
                 </div>
                 <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_weekly_view_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][weekly_view][time_filter][type]" id="mec_sf_weekly_view_time_filter">
+                        <option value="0" <?php if(isset($sf_options_weekly_view['time_filter']) and isset($sf_options_weekly_view['time_filter']['type']) and $sf_options_weekly_view['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_weekly_view['time_filter']) and isset($sf_options_weekly_view['time_filter']['type']) and $sf_options_weekly_view['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
                     <label class="mec-col-12" for="mec_sf_weekly_view_text_search"><?php _e('Text Search', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-12" name="mec[sf-options][weekly_view][text_search][type]" id="mec_sf_weekly_view_text_search">
 						<option value="0" <?php if(isset($sf_options_weekly_view['text_search']) and isset($sf_options_weekly_view['text_search']['type']) and $sf_options_weekly_view['text_search']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
@@ -788,6 +844,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][timetable][month_filter][type]" id="mec_sf_timetable_month_filter">
                         <option value="0" <?php if(isset($sf_options_timetable['month_filter']) and isset($sf_options_timetable['month_filter']['type']) and $sf_options_timetable['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_timetable['month_filter']) and isset($sf_options_timetable['month_filter']['type']) and $sf_options_timetable['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_timetable_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][timetable][time_filter][type]" id="mec_sf_timetable_time_filter">
+                        <option value="0" <?php if(isset($sf_options_timetable['time_filter']) and isset($sf_options_timetable['time_filter']['type']) and $sf_options_timetable['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_timetable['time_filter']) and isset($sf_options_timetable['time_filter']['type']) and $sf_options_timetable['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">
@@ -902,6 +965,13 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
                     <select class="mec-col-12" name="mec[sf-options][tile][month_filter][type]" id="mec_sf_tile_month_filter">
                         <option value="0" <?php if(isset($sf_options_tile['month_filter']) and isset($sf_options_tile['month_filter']['type']) and $sf_options_tile['month_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                         <option value="dropdown" <?php if(isset($sf_options_tile['month_filter']) and isset($sf_options_tile['month_filter']['type']) and $sf_options_tile['month_filter']['type'] == 'dropdown') echo 'selected="selected"'; ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
+                    </select>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-12" for="mec_sf_tile_time_filter"><?php _e('Time Filter', 'modern-events-calendar-lite'); ?></label>
+                    <select class="mec-col-12" name="mec[sf-options][tile][time_filter][type]" id="mec_sf_tile_time_filter">
+                        <option value="0" <?php if(isset($sf_options_tile['time_filter']) and isset($sf_options_tile['time_filter']['type']) and $sf_options_tile['time_filter']['type'] == '0') echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                        <option value="local-time-picker" <?php if(isset($sf_options_tile['time_filter']) and isset($sf_options_tile['time_filter']['type']) and $sf_options_tile['time_filter']['type'] == 'local-time-picker') echo 'selected="selected"'; ?>><?php _e('Local Time Picker', 'modern-events-calendar-lite'); ?></option>
                     </select>
                 </div>
                 <div class="mec-form-row">

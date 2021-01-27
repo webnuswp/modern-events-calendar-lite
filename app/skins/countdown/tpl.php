@@ -109,8 +109,9 @@ do_action('mec_start_skin', $this->id);
 do_action('mec_countdown_skin_head');
 ?>
 <style>
-.mec-wrap .mec-event-countdown-style2, .mec-wrap .mec-event-countdown-style1, .mec-event-countdown-style1 .mec-event-countdown-part3 .mec-event-button {background: <?php echo $this->bg_color; ?> ;}
+.mec-event-countdown-style3 .mec-event-date, .mec-wrap .mec-event-countdown-style2, .mec-wrap .mec-event-countdown-style1, .mec-event-countdown-style1 .mec-event-countdown-part3 .mec-event-button {background: <?php echo $this->bg_color; ?> ;}
 .mec-wrap .mec-event-countdown-style1 .mec-event-countdown-part2:after { border-color: transparent transparent transparent<?php echo $this->bg_color; ?>;}
+.mec-event-countdown-style3 .mec-event-date:after {border-color: transparent transparent <?php echo $this->bg_color; ?> transparent;}
 </style>
 <div class="mec-wrap <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
 <?php

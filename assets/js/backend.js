@@ -666,17 +666,23 @@ function mec_skin_geolocation_toggle(context)
     jQuery(context).parent().parent().parent().parent().find('.mec-set-geolocation-focus').toggle();
 }
 
-function mec_show_widget_check(context)
+function mec_show_widget_options(context)
 {
-    var skin = jQuery(context).find(':selected').data('skin');
-
-    if(skin == 'monthly_view')
+    var skin = jQuery(context).find(jQuery(':selected')).data('skin');
+    if(skin === 'monthly_view')
     {
-        jQuery(context).parent().parent().find('.mec-current-check-wrap').show();
+        jQuery(context).parent().parent().find(jQuery('.mec-current-check-wrap')).show();
+        jQuery(context).parent().parent().find(jQuery('.mec-grid-options-wrap')).hide();
+    }
+    else if(skin === 'grid')
+    {
+        jQuery(context).parent().parent().find(jQuery('.mec-current-check-wrap')).hide();
+        jQuery(context).parent().parent().find(jQuery('.mec-grid-options-wrap')).show();
     }
     else
     {
-        jQuery(context).parent().parent().find('.mec-current-check-wrap').hide();
+        jQuery(context).parent().parent().find(jQuery('.mec-current-check-wrap')).hide();
+        jQuery(context).parent().parent().find(jQuery('.mec-grid-options-wrap')).hide();
     }
 }
 
