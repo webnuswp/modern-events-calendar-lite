@@ -1,4 +1,26 @@
-﻿v 5.16.5 – 27 January 2021
+﻿v 5.17.0 – 11 February 2021
+- Added: New Back-end Interface
+- Added: A field mapping feature to auto-populate profile fields after booking (pro)
+- Added: End date option for applicable skins with “Today”, “Tomorrow” and certain date option
+- Added: Front-end event submission customization color
+- Improved: The “Organizer Payment” system to automatically populate the payment credential fields when adding a new event (pro)
+- Fixed: An issue in the total price of exported bookings (pro)
+- Fixed: Some issues in Rejection Notification (pro)
+- Fixed: An issue regarding the “Booking Reminder” notification on the multisite network (pro)
+- Fixed: An issue on modifying discounted booking (pro)
+- Fixed: Some issues on start and end date of events in notifications (pro)
+- Fixed: A compatibility issue with one of WC plugins (pro)
+- Fixed: An issue on the “Notification Per Event” feature (pro)
+- Fixed: An issue on the active day of monthly skin
+- Fixed: An issue regarding  the Oxygen page builder
+- Fixed: A UTF8 encoding issue
+- Fixed: Some PHP warnings and notices
+- Fixed: Some minor issues
+
+v 5.16.6 – 28 January 2021
+- Fixed: Security issue
+
+v 5.16.5 – 27 January 2021
 - Added: A feature to filter the events by local time
 - Added: Express connection method to Stripe Connect Gateway (pro)
 - Added: Some placeholders to the notification templates
@@ -553,7 +575,7 @@ v 5.3.0 – 21 April 2020
 - Added: An option to display event time in grid skin
 - Added: Grid and tile skins to the full calendar skins
 - Added: Dark mode styles for wizards popup
-- Updated: The whole textual interface of the plugin for English
+- Updated: The whole textual Back-end interface of the plugin for English
 - Fixed: Locked the "Enter Key" on search bar Ajax mode
 - Fixed: Wrong local-time date on shortcodes
 - Fixed: Display image content on modal popup
@@ -1867,7 +1889,7 @@ v 1.3.5 - 11 October 2016
 - Added: Duplicate event feature.
 - Added: A new option for showing only first day of multiple day events on list/grid skins.
 - Updated: "Front-end Event Submission" structure.
-- Updated: Map skin interfaces.
+- Updated: Map skin Back-end interfaces.
 - Fixed: Issue of not showing end date of multiple day events next to start date in single event page and other skins.
 - Fixed: Some issues on notifications.
 - Fixed: Issue of removing featured image.

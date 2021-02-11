@@ -101,10 +101,10 @@ $gateways_options = $this->main->get_gateways_options();
                                 <h5 class="title"><?php _e('Date Options', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_date_format1"><?php _e('Date Format', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <input type="text" id="mec_settings_booking_date_format1" name="mec[settings][booking_date_format1]" value="<?php echo ((isset($settings['booking_date_format1']) and trim($settings['booking_date_format1']) != '') ? $settings['booking_date_format1'] : 'Y-m-d'); ?>" />
                                         <span class="mec-tooltip">
-                                            <div class="box">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Date Format', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("Default is Y-m-d", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
@@ -114,13 +114,13 @@ $gateways_options = $this->main->get_gateways_options();
                                 </div>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_maximum_dates"><?php _e('Maximum Dates', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <input type="number" id="mec_settings_booking_maximum_dates" name="mec[settings][booking_maximum_dates]" value="<?php echo ((isset($settings['booking_maximum_dates']) and trim($settings['booking_maximum_dates']) != '') ? $settings['booking_maximum_dates'] : '6'); ?>" placeholder="<?php esc_attr_e('Default is 6', 'modern-events-calendar-lite'); ?>" min="1" />
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_date_selection"><?php _e('Date Selection', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <select id="mec_settings_booking_date_selection" name="mec[settings][booking_date_selection]">
                                             <option value="dropdown" <?php echo ((!isset($settings['booking_date_selection']) or (isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'dropdown')) ? 'selected="selected"' : ''); ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
                                             <option value="calendar" <?php echo ((isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'calendar') ? 'selected="selected"' : ''); ?>><?php _e('Calendar', 'modern-events-calendar-lite'); ?></option>
@@ -130,10 +130,10 @@ $gateways_options = $this->main->get_gateways_options();
                                 <h5 class="title"><?php _e('Interval Options', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_show_booking_form_interval"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <input type="number" id="mec_settings_show_booking_form_interval" name="mec[settings][show_booking_form_interval]" value="<?php echo ((isset($settings['show_booking_form_interval']) and trim($settings['show_booking_form_interval']) != '0') ? $settings['show_booking_form_interval'] : '0'); ?>" placeholder="<?php esc_attr_e('Minutes (e.g 5)', 'modern-events-calendar-lite'); ?>" />
                                         <span class="mec-tooltip">
-                                            <div class="box">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("You can show booking form only at certain times before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event! One day is 1440 minutes.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
@@ -143,9 +143,11 @@ $gateways_options = $this->main->get_gateways_options();
                                 </div>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_cancellation_period_from"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-8">
-                                        <input type="number" id="mec_settings_cancellation_period_from" name="mec[settings][cancellation_period_from]" value="<?php echo ((isset($settings['cancellation_period_from']) and trim($settings['cancellation_period_from']) != '') ? $settings['cancellation_period_from'] : ''); ?>" placeholder="<?php esc_attr_e('From e.g 48', 'modern-events-calendar-lite'); ?>" />
-                                        <input type="number" id="mec_settings_cancellation_period_time" name="mec[settings][cancellation_period_time]" value="<?php echo ((isset($settings['cancellation_period_time']) and trim($settings['cancellation_period_time']) != '') ? $settings['cancellation_period_time'] : ''); ?>" placeholder="<?php esc_attr_e('To e.g 24', 'modern-events-calendar-lite'); ?>" />
+                                    <div class="mec-col-9">
+                                        <div class="cancellation-period-box">
+                                            <input type="number" id="mec_settings_cancellation_period_from" name="mec[settings][cancellation_period_from]" value="<?php echo ((isset($settings['cancellation_period_from']) and trim($settings['cancellation_period_from']) != '') ? $settings['cancellation_period_from'] : ''); ?>" placeholder="<?php esc_attr_e('From e.g 48', 'modern-events-calendar-lite'); ?>" />
+                                            <input type="number" id="mec_settings_cancellation_period_time" name="mec[settings][cancellation_period_time]" value="<?php echo ((isset($settings['cancellation_period_time']) and trim($settings['cancellation_period_time']) != '') ? $settings['cancellation_period_time'] : ''); ?>" placeholder="<?php esc_attr_e('To e.g 24', 'modern-events-calendar-lite'); ?>" />
+                                        </div>
                                         <select name="mec[settings][cancellation_period_p]" title="<?php esc_attr_e('Period', 'modern-events-calendar-lite'); ?>">
                                             <option value="hour" <?php echo (isset($settings['cancellation_period_p']) and $settings['cancellation_period_p'] == 'hour') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Hour(s)', 'modern-events-calendar-lite'); ?></option>
                                             <option value="day" <?php echo (isset($settings['cancellation_period_p']) and $settings['cancellation_period_p'] == 'day') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Day(s)', 'modern-events-calendar-lite'); ?></option>
@@ -154,26 +156,28 @@ $gateways_options = $this->main->get_gateways_options();
                                             <option value="before" <?php echo (isset($settings['cancellation_period_type']) and $settings['cancellation_period_type'] == 'before') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Before', 'modern-events-calendar-lite'); ?></option>
                                             <option value="after" <?php echo (isset($settings['cancellation_period_type']) and $settings['cancellation_period_type'] == 'after') ? 'selected="selected"' : ''; ?>><?php esc_html_e('After', 'modern-events-calendar-lite'); ?></option>
                                         </select>
-                                        <?php esc_html_e('Event Start', 'modern-events-calendar-lite'); ?>
-                                        <span class="mec-tooltip">
-                                            <div class="box">
-                                                <h5 class="title"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("You can restrict the ability to cancel bookings. Leave empty for cancellation at any time. For example if you insert 48 to 24 hours before event start then bookers are able to cancel their booking between this time and before or after that they're not able to do that.", 'modern-events-calendar-lite'); ?></p></div>
-                                            </div>
-                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                        </span>
+                                        <div>
+                                            <?php esc_html_e('Event Start', 'modern-events-calendar-lite'); ?>
+                                            <span class="mec-tooltip">
+                                                <div class="box left">
+                                                    <h5 class="title"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></h5>
+                                                    <div class="content"><p><?php esc_attr_e("You can restrict the ability to cancel bookings. Leave empty for cancellation at any time. For example if you insert 48 to 24 hours before event start then bookers are able to cancel their booking between this time and before or after that they're not able to do that.", 'modern-events-calendar-lite'); ?></p></div>
+                                                </div>
+                                                <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <h5 class="title"><?php _e('User Registration', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_registration"><?php _e('Registration', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <select id="mec_settings_booking_registration" name="mec[settings][booking_registration]" onchange="jQuery('#mec_settings_booking_registration_wrapper').toggleClass('w-hidden');">
                                             <option <?php echo ((isset($settings['booking_registration']) and $settings['booking_registration'] == '1') ? 'selected="selected"' : ''); ?> value="1"><?php echo esc_html__('Enabled', 'modern-events-calendar-lite'); ?></option>
                                             <option <?php echo ((isset($settings['booking_registration']) and $settings['booking_registration'] == '0') ? 'selected="selected"' : ''); ?> value="0"><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
                                         </select>
                                         <span class="mec-tooltip">
-                                            <div class="box top">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Registration', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("If enabled MEC would create a WordPress User for main attendees. It's recommended to keep it enabled.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
@@ -184,7 +188,7 @@ $gateways_options = $this->main->get_gateways_options();
                                 <div id="mec_settings_booking_registration_wrapper" class="<?php echo (!isset($settings['booking_registration']) or (isset($settings['booking_registration']) and $settings['booking_registration'])) ? "" : "w-hidden"; ?>">
                                     <div class="mec-form-row">
                                         <label class="mec-col-3" for="mec_settings_booking_user_role"><?php _e('User Role', 'modern-events-calendar-lite'); ?></label>
-                                        <div class="mec-col-4">
+                                        <div class="mec-col-9">
                                             <select id="mec_settings_booking_user_role" name="mec[settings][booking_user_role]">
                                                 <option value="">----</option>
                                                 <?php foreach($roles as $role => $r): ?>
@@ -192,7 +196,7 @@ $gateways_options = $this->main->get_gateways_options();
                                                 <?php endforeach; ?>
                                             </select>
                                             <span class="mec-tooltip">
-                                            <div class="box top">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('User Role', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("MEC creates a user for main attendee after each booking. Default role of the user is subscriber but you can change it if needed.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
@@ -202,13 +206,13 @@ $gateways_options = $this->main->get_gateways_options();
                                     </div>
                                     <div class="mec-form-row">
                                         <label class="mec-col-3" for="mec_settings_booking_userpass"><?php _e('Username & Password', 'modern-events-calendar-lite'); ?></label>
-                                        <div class="mec-col-4">
+                                        <div class="mec-col-9">
                                             <select id="mec_settings_booking_userpass" name="mec[settings][booking_userpass]">
                                                 <option value="auto" <?php echo ((isset($settings['booking_userpass']) and trim($settings['booking_userpass']) == 'auto') ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Auto', 'modern-events-calendar-lite'); ?></option>
                                                 <option value="manual" <?php echo ((isset($settings['booking_userpass']) and trim($settings['booking_userpass']) == 'manual') ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Manual', 'modern-events-calendar-lite'); ?></option>
                                             </select>
                                             <span class="mec-tooltip">
-                                            <div class="box">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Username & Password', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("If you set it to manual option then users can insert a username and password during the booking for registration otherwise MEC use their email and an auto generated password.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
@@ -221,10 +225,10 @@ $gateways_options = $this->main->get_gateways_options();
                                 <h5 class="mec-form-subtitle"><?php _e('Limitation', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_limit"><?php _e('Limit', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <input type="number" id="mec_settings_booking_limit" name="mec[settings][booking_limit]" value="<?php echo ((isset($settings['booking_limit']) and trim($settings['booking_limit']) != '') ? $settings['booking_limit'] : ''); ?>" placeholder="<?php esc_attr_e('Default is empty', 'modern-events-calendar-lite'); ?>" />
                                         <span class="mec-tooltip">
-                                            <div class="box">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Booking Limit', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("Total tickets that a user can book. It is useful if you're providing free tickets. Leave it empty for unlimited booking.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
@@ -234,13 +238,13 @@ $gateways_options = $this->main->get_gateways_options();
                                 </div>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_ip_restriction"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <select id="mec_settings_booking_ip_restriction" name="mec[settings][booking_ip_restriction]">
                                             <option value="1" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 1) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Enabled', 'modern-events-calendar-lite'); ?></option>
                                             <option value="0" <?php echo ((isset($settings['booking_ip_restriction']) and trim($settings['booking_ip_restriction']) == 0) ? 'selected="selected"' : ''); ?>><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
                                         </select>
                                         <span class="mec-tooltip">
-                                            <div class="box">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('IP restriction', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("If you set limit for total tickets that users can book, MEC will use IP and email to prevent users to book high tickets. You can disable the IP restriction if you don't need it.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
@@ -250,14 +254,14 @@ $gateways_options = $this->main->get_gateways_options();
                                 </div>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_lock_prefilled"><?php _e('Lock Pre-filled Fields', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <select id="mec_settings_booking_lock_prefilled" name="mec[settings][booking_lock_prefilled]">
                                             <option value="0" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '0') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Disabled', 'modern-events-calendar-lite'); ?></option>
                                             <option value="1" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '1') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled', 'modern-events-calendar-lite'); ?></option>
                                             <option value="2" <?php echo (isset($settings['booking_lock_prefilled']) and $settings['booking_lock_prefilled'] == '2') ? 'selected="selected"' : ''; ?>><?php esc_html_e('Enabled Only for Main Attendee', 'modern-events-calendar-lite'); ?></option>
                                         </select>
                                         <span class="mec-tooltip">
-                                            <div class="box">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Lock Pre-filled Fields', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("When users are logged in, name and email fields will be pre-filled but users can change them. If you enable the lock, then logged in users cannot change the pre-filled fields.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
@@ -268,7 +272,7 @@ $gateways_options = $this->main->get_gateways_options();
                                 <h5 class="mec-form-subtitle"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_thankyou_page"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <select id="mec_settings_booking_thankyou_page" name="mec[settings][booking_thankyou_page]">
                                             <option value="">----</option>
                                             <?php foreach($pages as $page): ?>
@@ -276,7 +280,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <?php endforeach; ?>
                                         </select>
                                         <span class="mec-tooltip">
-                                            <div class="box top">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("User redirects to this page after booking. Leave it empty if you want to disable it.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
@@ -286,10 +290,10 @@ $gateways_options = $this->main->get_gateways_options();
                                 </div>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_thankyou_page_time"><?php _e('Thank You Page Time Interval', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <input type="number" id="mec_settings_booking_thankyou_page_time" name="mec[settings][booking_thankyou_page_time]" value="<?php echo ((isset($settings['booking_thankyou_page_time']) and trim($settings['booking_thankyou_page_time']) != '0') ? $settings['booking_thankyou_page_time'] : '2000'); ?>" placeholder="<?php esc_attr_e('2000 mean 2 seconds', 'modern-events-calendar-lite'); ?>" />
                                         <span class="mec-tooltip">
-                                            <div class="box top">
+                                            <div class="box left">
                                                 <h5 class="title"><?php _e('Thank You Page Time Interval', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("Waiting time before redirecting to thank you page. It's in miliseconds so 2000 means 2 seconds.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
@@ -306,7 +310,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <?php _e('Enable Express Attendees Form', 'modern-events-calendar-lite'); ?>
                                         </label>
                                         <span class="mec-tooltip">
-                                            <div class="box top">
+                                            <div class="box">
                                                 <h5 class="title"><?php _e('Attendees Form', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("Apply the info from the first attendee to all purchased ticket by that user. Uncheck if you want every ticket to have its own attendee’s info.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
@@ -346,7 +350,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <?php _e('Enable Downloadable File', 'modern-events-calendar-lite'); ?>
                                         </label>
                                         <span class="mec-tooltip">
-                                            <div class="box top">
+                                            <div class="box">
                                                 <h5 class="title"><?php _e('Downloadable File', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content"><p><?php esc_attr_e("By enabling this feature, You can upload a file for each event and bookers are able to download it after booking.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
@@ -800,14 +804,14 @@ $gateways_options = $this->main->get_gateways_options();
                             <h4 class="mec-form-subtitle"><?php _e('Upload Field Options', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_booking_form_upload_field_mime_types"><?php _e('Mime types', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
+                                <div class="mec-col-9">
                                     <input type="text" id="mec_booking_form_upload_field_mime_types" name="mec[settings][upload_field_mime_types]" placeholder="jpeg,jpg,png,pdf" value="<?php echo ((isset($settings['upload_field_mime_types']) and trim($settings['upload_field_mime_types']) != '') ? $settings['upload_field_mime_types'] : ''); ?>" />
                                 </div>
                                 <p class="description"><?php echo __('Split mime types with ",".', 'modern-events-calendar-lite'); ?> <br /> <?php esc_attr_e("Default: jpeg,jpg,png,pdf", 'modern-events-calendar-lite'); ?></p>
                             </div>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_booking_form_upload_field_max_upload_size"><?php _e('Maximum file size', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
+                                <div class="mec-col-9">
                                     <input type="number" id="mec_booking_form_upload_field_max_upload_size" name="mec[settings][upload_field_max_upload_size]" value="<?php echo ((isset($settings['upload_field_max_upload_size']) and trim($settings['upload_field_max_upload_size']) != '') ? $settings['upload_field_max_upload_size'] : ''); ?>" />
                                 </div>
                                 <p class="description"><?php echo __('The unit is Megabyte "MB"', 'modern-events-calendar-lite'); ?></p>
@@ -838,13 +842,13 @@ $gateways_options = $this->main->get_gateways_options();
 
                                             <div class="mec-form-row" style="margin-top: 40px;">
                                                 <label class="mec-col-3" for="mec_gateways_wc_autoorder_complete"><?php _e('Automatically complete WooCommerce orders', 'modern-events-calendar-lite'); ?></label>
-                                                <div class="mec-col-4">
+                                                <div class="mec-col-9">
                                                     <select id="mec_gateways_wc_autoorder_complete" name="mec[settings][wc_autoorder_complete]">
                                                         <option value="1" <?php echo((isset($settings['wc_autoorder_complete']) and $settings['wc_autoorder_complete'] == '1') ? 'selected="selected"' : ''); ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
                                                         <option value="0" <?php echo((isset($settings['wc_autoorder_complete']) and $settings['wc_autoorder_complete'] == '0') ? 'selected="selected"' : ''); ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                                                     </select>
                                                     <span class="mec-tooltip">
-                                                        <div class="box top">
+                                                        <div class="box left">
                                                             <h5 class="title"><?php _e('Auto WooCommerce orders', 'modern-events-calendar-lite'); ?></h5>
                                                             <div class="content"><p><?php esc_attr_e('It applies only to the orders that are related to MEC.', 'modern-events-calendar-lite'); ?>
                                                             <a href="https://webnus.net/dox/modern-events-calendar/woocommerce/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
@@ -855,7 +859,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             </div>
                                             <div class="mec-form-row">
                                                 <label class="mec-col-3" for="mec_gateways_wc_after_add"><?php _e('After Add to Cart', 'modern-events-calendar-lite'); ?></label>
-                                                <div class="mec-col-4">
+                                                <div class="mec-col-9">
                                                     <select id="mec_gateways_wc_after_add" name="mec[settings][wc_after_add]">
                                                         <option value="cart" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'cart') ? 'selected="selected"' : ''); ?>><?php _e('Redirect to Cart', 'modern-events-calendar-lite'); ?></option>
                                                         <option value="checkout" <?php echo((isset($settings['wc_after_add']) and $settings['wc_after_add'] == 'checkout') ? 'selected="selected"' : ''); ?>><?php _e('Redirect to Checkout', 'modern-events-calendar-lite'); ?></option>
@@ -866,13 +870,13 @@ $gateways_options = $this->main->get_gateways_options();
                                             </div>
                                             <div class="mec-form-row">
                                                 <label class="mec-col-3" for="mec_gateways_wc_booking_form"><?php _e('MEC Booking Form', 'modern-events-calendar-lite'); ?></label>
-                                                <div class="mec-col-4">
+                                                <div class="mec-col-9">
                                                     <select id="mec_gateways_wc_booking_form" name="mec[settings][wc_booking_form]">
                                                         <option value="0" <?php echo((isset($settings['wc_booking_form']) and $settings['wc_booking_form'] == '0') ? 'selected="selected"' : ''); ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                                                         <option value="1" <?php echo((isset($settings['wc_booking_form']) and $settings['wc_booking_form'] == '1') ? 'selected="selected"' : ''); ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
                                                     </select>
                                                     <span class="mec-tooltip">
-                                                        <div class="box top">
+                                                        <div class="box left">
                                                             <h5 class="title"><?php _e('Booking Form', 'modern-events-calendar-lite'); ?></h5>
                                                             <div class="content"><p><?php esc_attr_e('If enabled then users should fill the booking form in MEC and then they will be redirected to checkout.', 'modern-events-calendar-lite'); ?>
                                                             <a href="https://webnus.net/dox/modern-events-calendar/woocommerce/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
@@ -897,7 +901,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         </ul>
                                     </div>
                                     <div class="mec-form-row" style="margin-top: 30px;">
-                                        <div class="mec-col-4">
+                                        <div class="mec-col-12">
                                             <label>
                                                 <input type="hidden" name="mec[gateways][op_status]" value="0" />
                                                 <input id="mec_gateways_op_status" value="1" type="checkbox" name="mec[gateways][op_status]" <?php if(isset($gateways_options['op_status']) and $gateways_options['op_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable Organizer Payment Module', 'modern-events-calendar-lite'); ?>
@@ -912,7 +916,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         </div>
                                     </div>
                                     <div class="mec-form-row">
-                                        <div class="mec-col-4">
+                                        <div class="mec-col-12">
                                             <label>
                                                 <input type="hidden" name="mec[gateways][gateways_per_event]" value="0" />
                                                 <input id="mec_gateways_op_status" value="1" type="checkbox" name="mec[gateways][gateways_per_event]" <?php if(isset($gateways_options['gateways_per_event']) and $gateways_options['gateways_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Disable / Enable payment gateways per event', 'modern-events-calendar-lite'); ?>

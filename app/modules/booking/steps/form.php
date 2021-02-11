@@ -1,5 +1,4 @@
 <?php
-
 /** no direct access **/
 defined('MECEXEC') or die();
 
@@ -71,6 +70,10 @@ if(!$mec_email)
         'type'      => 'mec_email',
         'label'     => esc_html__('Email', 'modern-events-calendar-lite'),
     );
+}
+
+if(isset($reg_fields['form_style_url'])){
+    wp_enqueue_style('mec-form-style',$reg_fields['form_style_url'],null,'1.0.0');
 }
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);" novalidate="novalidate" enctype="multipart/form-data" method="post">
@@ -217,7 +220,7 @@ if(!$mec_email)
                                 }; ?>" <?php if (isset($reg_field['placeholder']) and $reg_field['placeholder']) echo 'placeholder="' . $reg_field['placeholder'] . '" '; ?> <?php if (isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> />
 
                             <?php /** Date **/ elseif ($reg_field['type'] == 'date') : ?>
-                                <input id="mec_book_reg_field_reg<?php echo $j . '_' . $reg_field_id; ?>" type="date" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if (isset($reg_field['placeholder']) and $reg_field['placeholder']) {
+                                <input class="mec-date-picker" id="mec_book_reg_field_reg<?php echo $j . '_' . $reg_field_id; ?>" type="date" onload="mec_add_datepicker()" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if (isset($reg_field['placeholder']) and $reg_field['placeholder']) {
                                     _e($reg_field['placeholder'], 'modern-events-calendar-lite');
                                 } else {
                                     _e($reg_field['label'], 'modern-events-calendar-lite');
@@ -344,7 +347,7 @@ if(!$mec_email)
     <input type="hidden" name="uniqueid" value="<?php echo $uniqueid; ?>" />
     <input type="hidden" name="step" value="2" />
     <?php wp_nonce_field('mec_book_form_' . $event_id); ?>
-    <div class="mec-book-form-btn-wrap">
+    <div class="mec-book-form-btn-wrap" style="overflow: hidden;">
         <button id="mec-book-form-back-btn-step-2" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php _e('Back', 'modern-events-calendar-lite'); ?></button>
         <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo $uniqueid; ?>);"><?php echo ($WC_status ? __('Add to Cart', 'modern-events-calendar-lite') : ((!$total_ticket_prices and !$has_fees and !$has_variations && $check_free_tickets_booking) ? __('Submit', 'modern-events-calendar-lite') : __('Next', 'modern-events-calendar-lite'))); ?></button>
     </div>

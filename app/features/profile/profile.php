@@ -4,28 +4,6 @@ defined('MECEXEC') or die();
 
 /** @var MEC_feature_profile $this */
 
-// MEC Cancel
-if(isset($_GET['cancel']) and trim($_GET['cancel']))
-{
-    $cancellation_key = trim($_GET['cancel']);
-
-    $db = $this->getDB();
-    $book_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_cancellation_key' AND `meta_value`='$cancellation_key'", 'loadResult');
-
-    if($book_id)
-    {
-        $status = get_post_meta($book_id, 'mec_verified', true);
-        if($status == '-1')
-        {
-            echo '<p class="mec-error">'.__('Your booking already canceled!', 'modern-events-calendar-lite').'</p>';
-        }
-        else
-        {
-            $this->book->cancel($book_id);
-        }
-    }
-}
-
 // Date & Time Format
 $datetime_format = get_option('date_format').' '.get_option('time_format');
 
@@ -151,16 +129,10 @@ $id = 1;
                 </span>
             </td>
             <td>
-                <?php
-                    $mec_verified = get_post_meta($ID, 'mec_verified', true);
-                ?>
+                <?php $mec_verified = get_post_meta($ID, 'mec_verified', true); ?>
                 <span class="mec-profile-bookings-cancelation">
-                    <?php
-                        if(intval($mec_verified) != -1):
-                            $current_url = $this->main->get_full_url();
-                            $cancellation_url = $this->main->add_query_string($current_url, 'cancel', get_post_meta($ID, 'mec_cancellation_key', true));
-                    ?>
-                    <a href="<?php echo $cancellation_url; ?>"><i class="mec-fa-calendar-times-o"></i></a>
+                    <?php if(intval($mec_verified) != -1): ?>
+                    <a href="<?php echo trim(get_permalink($event_id), '/').'/cancel/'.get_post_meta($ID, 'mec_cancellation_key', true).'/'; ?>"><i class="mec-fa-calendar-times-o"></i></a>
                     <?php else: ?>
                     <i class="mec-sl-close mec-profile-cancel-booking"></i>
                     <?php endif; ?>

@@ -1201,4 +1201,46 @@ class MEC_book extends MEC_base
 
         return $sold;
     }
+
+    public function get_ticket_total_price($transaction, $attendee, $booking_id)
+    {
+        $event_id = $transaction['event_id'];
+
+        $all_attendees = get_post_meta($booking_id, 'mec_attendees', true);
+        if(!is_array($all_attendees) or (is_array($all_attendees) and !count($all_attendees))) $all_attendees = array(get_post_meta($booking_id, 'mec_attendee', true));
+
+        $tickets = get_post_meta($event_id, 'mec_tickets', true);
+        $total_price = get_post_meta($booking_id, 'mec_price', true);
+        $ticket_variations = $this->main->ticket_variations($event_id);
+
+        $ticket_id = $attendee['id'];
+        $ticket_price = (isset($tickets[$ticket_id]) ? $tickets[$ticket_id]['price'] : 0);
+
+        $variation_price = 0;
+        if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
+        {
+            foreach($attendee['variations'] as $variation_id => $count)
+            {
+                if(!trim($count)) continue;
+                if(!isset($ticket_variations[$variation_id])) continue;
+
+                $p = $ticket_variations[$variation_id]['price'];
+                $variation_price += ($p * $count);
+            }
+        }
+
+        // Fees
+        $total_fees = 0;
+        if(isset($transaction['price_details']) and isset($transaction['price_details']['details']) and is_array($transaction['price_details']['details']) and count($transaction['price_details']['details']))
+        {
+            foreach($transaction['price_details']['details'] as $detail)
+            {
+                if(!isset($detail['type'])) continue;
+                if($detail['type'] == 'fee') $total_fees += $detail['amount'];
+            }
+        }
+
+        $ticket_total_price = ($ticket_price + $variation_price + ($total_fees / count($all_attendees)));
+        return ($ticket_total_price ? $ticket_total_price : $total_price);
+    }
 }

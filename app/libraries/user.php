@@ -93,6 +93,22 @@ class MEC_user extends MEC_base
             update_user_meta($user_id, 'mec_name', $name);
             update_user_meta($user_id, 'mec_reg', $reg);
 
+            // Map Data
+            $event_id = (isset($args['event_id']) ? $args['event_id'] : 0);
+            if($event_id)
+            {
+                $reg_fields = $this->main->get_reg_fields($event_id);
+
+                foreach($reg as $reg_id => $reg_value)
+                {
+                    $reg_field = (isset($reg_fields[$reg_id]) ? $reg_fields[$reg_id] : array());
+                    if(isset($reg_field['mapping']) and trim($reg_field['mapping']))
+                    {
+                        update_user_meta($user_id, $reg_field['mapping'], (is_array($reg_value) ? implode(',', $reg_value) : $reg_value));
+                    }
+                }
+            }
+
             // Set the User Role
             $role = (isset($this->settings['booking_user_role']) and trim($this->settings['booking_user_role'])) ? $this->settings['booking_user_role'] : 'subscriber';
 

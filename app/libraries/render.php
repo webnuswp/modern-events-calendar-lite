@@ -51,6 +51,8 @@ class MEC_render extends MEC_base
     public function shortcode($atts)
     {
         $calendar_id = isset($atts['id']) ? $atts['id'] : 0;
+        global $MEC_Shortcode_id;
+        $MEC_Shortcode_id = $calendar_id;
         $atts = apply_filters('mec_calendar_atts', $this->parse($calendar_id, $atts));
         
         $skin = isset($atts['skin']) ? $atts['skin'] : $this->get_default_layout();
@@ -273,9 +275,11 @@ class MEC_render extends MEC_base
      * @param array $atts
      * @return string
      */
-    public function vcustom($atts)
+    public function vcustom($atts,$type = 'archive')
     {
-        if(isset($this->settings['custom_archive']) && !empty($this->settings['custom_archive'])) return do_shortcode($this->settings['custom_archive']);
+        $k = 'custom_'.$type;
+        
+        if(isset($this->settings[$k]) && !empty($this->settings[$k])) return do_shortcode(stripslashes($this->settings[$k]));
     }
     
     /**
@@ -381,19 +385,6 @@ class MEC_render extends MEC_base
         $grid_skin = (isset($this->settings['grid_category_skin']) and trim($this->settings['grid_category_skin']) != '') ? $this->settings['grid_category_skin'] : 'classic';
         $timetable_skin = (isset($this->settings['timetable_category_skin']) and trim($this->settings['timetable_category_skin']) != '') ? $this->settings['timetable_category_skin'] : 'modern';
 
-        if($skin == 'custom')
-        {
-            $category_custom_shortcode = (isset($this->settings['custom_archive_category']) and trim($this->settings['custom_archive_category']) != '') ? trim(stripslashes($this->settings['custom_archive_category'])) : '';
-            $category_custom_shortcode = str_replace(']', ' ]', $category_custom_shortcode);
-            $shortcode_params = shortcode_parse_atts($category_custom_shortcode);
-
-            if(is_array($shortcode_params) and isset($shortcode_params['id']))
-            {
-                $atts = $this->parse($shortcode_params['id'], $atts);
-                $skin = isset($atts['skin']) ? $atts['skin'] : '';
-            }
-        }
-
         if($skin == 'full_calendar') $content = $this->vfull($atts);
         elseif($skin == 'yearly_view') $content = $this->vyear($atts);
         elseif($skin == 'masonry') $content = $this->vmasonry($atts);
@@ -405,6 +396,7 @@ class MEC_render extends MEC_base
         elseif($skin == 'grid') $content = $this->vgrid(array_merge($atts, array('sk-options'=>array('grid'=>array('style'=>$grid_skin)))));
         elseif($skin == 'agenda') $content = $this->vagenda($atts);
         elseif($skin == 'map') $content = $this->vmap($atts);
+        elseif($skin == 'custom') $content = $this->vcustom($atts,'archive_category');
         else $content = apply_filters('mec_default_skin_content', '');
         
         return $content;
@@ -980,7 +972,7 @@ class MEC_render extends MEC_base
 
                 // Check if date interval is negative (It means the event didn't start yet)
                 if($date_interval and $date_interval->invert == 1) $remained_days_to_next_repeat = $passed_days;
-                else $remained_days_to_next_repeat = $repeat_interval - ($passed_days%$repeat_interval);
+                else $remained_days_to_next_repeat = $repeat_interval - fmod($passed_days, $repeat_interval);
 
                 $start_date = date('Y-m-d', strtotime('+'.$remained_days_to_next_repeat.' Days', strtotime($today)));
                 if(!$this->main->is_past($finish_date['date'], $start_date) and !in_array($start_date, $exceptional_days)) $dates[] = $this->add_timestamps(array(

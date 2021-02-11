@@ -86,8 +86,15 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
                 <!-- Register Booking Button -->
                 <?php if($this->main->can_show_booking_module($event) and $single->found_value('register_btn', $settings) == 'on'): ?>
-                    <?php $data_lity = $data_lity_class =  ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
-                    <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
+                    <?php 
+                    $data_lity = $data_lity_class =  ''; 
+                    $target_id = 'mec-events-meta-group-booking-'.$this->uniqueid;
+                    if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ 
+                        /* $data_lity = 'onclick="openBookingModal();"'; */
+                        $data_lity_class = 'mec-booking-data-lity';
+                        $target_id = 'mec-events-meta-group-booking-box-'.$this->uniqueid;
+                    }  ?>
+                    <a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#<?php echo $target_id; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php elseif(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://'): ?>
                     <a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
                 <?php endif; ?>
@@ -305,16 +312,18 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
-            <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="<?php echo $data_lity_class; ?>mec-events-meta-group mec-events-meta-group-booking">
-                <?php
-                if(isset($settings['booking_user_login']) and $settings['booking_user_login'] == '1' and !is_user_logged_in() ) {
-                    echo do_shortcode('[MEC_login]');
-                } elseif ( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '0' and !is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ) {
-                    echo do_shortcode('[MEC_login]');
-                } else {
-                    echo $this->main->module('booking.default', array('event'=>$this->events)); 
-                }
-                ?>
+            <div class="mec-single-event <?php echo $data_lity_class; ?>" id="mec-events-meta-group-booking-box-<?php echo $this->uniqueid; ?>">
+                <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-events-meta-group mec-events-meta-group-booking">            
+                    <?php
+                    if(isset($settings['booking_user_login']) and $settings['booking_user_login'] == '1' and !is_user_logged_in() ) {
+                        echo do_shortcode('[MEC_login]');
+                    } elseif ( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '0' and !is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ) {
+                        echo do_shortcode('[MEC_login]');
+                    } else {
+                        echo $this->main->module('booking.default', array('event'=>$this->events)); 
+                    }
+                    ?>
+                </div>
             </div>
             <?php endif ?>
 

@@ -72,6 +72,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.16.0', '<')) $this->version5160();
         if(version_compare($version, '5.16.1', '<')) $this->version5161();
         if(version_compare($version, '5.16.2', '<')) $this->version5162();
+        if(version_compare($version, '5.17.0', '<')) $this->version5170();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -552,5 +553,27 @@ class MEC_feature_update extends MEC_base
     public function version5162()
     {
         $this->version5161();
+    }
+
+    public function version5170()
+    {
+        // List of Capabilities
+        $capabilities = array('mec_shortcodes');
+
+        // Site Admin
+        $role = get_role('administrator');
+        if($role) foreach($capabilities as $capability) $role->add_cap($capability, true);
+
+        // Multisite
+        if(is_multisite())
+        {
+            // All Super Admins
+            $supers = get_super_admins();
+            foreach($supers as $admin)
+            {
+                $user = new WP_User(0, $admin);
+                foreach($capabilities as $capability) $user->add_cap($capability, true);
+            }
+        }
     }
 }

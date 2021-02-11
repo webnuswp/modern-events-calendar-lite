@@ -2625,6 +2625,18 @@ jQuery(document).ready(function($)
                         // Show load more button
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
 
+                        var html = $(response.html);                        
+                        if($('.mec-month-divider',html).length){
+                            var df = $('.mec-month-divider:first',html).data('toggle-divider');
+                            var dl =$("#mec_skin_events_" + settings.id+" .mec-month-divider:last").data('toggle-divider');
+                            
+                            if(df == dl){
+                                $(html).find('.mec-month-divider:first').remove();
+                                response.html = html;
+                            }
+
+                        }
+                        
                         // Append Items
                         $("#mec_skin_events_" + settings.id).append(response.html);
 

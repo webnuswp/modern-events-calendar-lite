@@ -3353,6 +3353,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="text" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
             </div>
         </li>';
     }
@@ -3440,6 +3441,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="email" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
             </div>
         </li>';
     }
@@ -3469,6 +3471,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="url" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
             </div>
         </li>';
     }
@@ -3527,6 +3530,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="date" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
             </div>
         </li>';
     }
@@ -3556,6 +3560,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="tel" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
             </div>
         </li>';
     }
@@ -3585,6 +3590,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="textarea" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
             </div>
         </li>';
     }
@@ -3637,6 +3643,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="checkbox" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
@@ -3683,6 +3690,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="radio" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
@@ -3729,6 +3737,7 @@ class MEC_main extends MEC_base
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="select" />
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
+                '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
         
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
@@ -6947,7 +6956,7 @@ class MEC_main extends MEC_base
         return $merge[$day];
     }
 
-    public function get_ical_rrules($event)
+    public function get_ical_rrules($event, $only_rrule = false)
     {
         $recurrence = array();
         if(isset($event->mec->repeat) and $event->mec->repeat)
@@ -7053,7 +7062,20 @@ class MEC_main extends MEC_base
             }
         }
 
-        return $recurrence;
+        if($only_rrule)
+        {
+            $rrule = '';
+            if(is_array($recurrence) and count($recurrence))
+            {
+                foreach($recurrence as $recur)
+                {
+                    if(strpos($recur, 'RRULE') !== false) $rrule = $recur;
+                }
+            }
+
+            return $rrule;
+        }
+        else return $recurrence;
     }
 
     public static function get_upcoming_events($limit = 12)
@@ -7907,5 +7929,68 @@ class MEC_main extends MEC_base
             $image = wp_get_attachment_image_src($post_thumbnail_id, $size);
             return isset($image['0']) ? $image['0'] : false;
         }
+    }
+
+    public function is_multipleday_occurrence($event)
+    {
+        $start_date = ((isset($event->date) and isset($event->date['start']) and isset($event->date['start']['date'])) ? $event->date['start']['date'] : NULL);
+        $end_date = ((isset($event->date) and isset($event->date['end']) and isset($event->date['end']['date'])) ? $event->date['end']['date'] : NULL);
+
+        return (!is_null($start_date) and $start_date !== $end_date);
+    }
+
+    public function get_wp_user_fields()
+    {
+        $raw_fields = get_user_meta(get_current_user_id());
+
+        $forbidden = array(
+            'nickname',
+            'syntax_highlighting',
+            'comment_shortcuts',
+            'admin_color',
+            'use_ssl',
+            'show_admin_bar_front',
+            'wp_user_level',
+            'user_last_view_date',
+            'user_last_view_date_events',
+            'wc_last_active',
+            'last_update',
+            'last_activity',
+            'locale',
+            'show_welcome_panel',
+            'rich_editing',
+            'nav_menu_recently_edited',
+        );
+
+        $fields = array();
+        foreach($raw_fields as $key => $values)
+        {
+            if(substr($key, 0, 1) === '_') continue;
+            if(substr($key, 0, 4) === 'icl_') continue;
+            if(substr($key, 0, 4) === 'mec_') continue;
+            if(substr($key, 0, 3) === 'wp_') continue;
+            if(substr($key, 0, 10) === 'dismissed_') continue;
+            if(in_array($key, $forbidden)) continue;
+
+            $value = (isset($values[0]) ? $values[0] : NULL);
+            if(is_array($value)) continue;
+            if(is_serialized($value)) continue;
+
+            $fields[$key] = trim(ucwords(str_replace('_', ' ', $key)));
+        }
+        
+        return $fields;
+    }
+
+    public function get_wp_user_fields_dropdown($name, $value)
+    {
+        $fields = $this->get_wp_user_fields();
+
+        $dropdown = '<select name="'.esc_attr($name).'" title="'.esc_html__('Mapping with Profile Fields', 'modern-events-calendar-lite').'">';
+        $dropdown .= '<option value="">-----</option>';
+        foreach($fields as $key => $label) $dropdown .= '<option value="'.esc_attr($key).'" '.($value == $key ? 'selected="selected"' : '').'>'.esc_html($label).'</option>';
+        $dropdown .= '</select>';
+
+        return $dropdown;
     }
 }

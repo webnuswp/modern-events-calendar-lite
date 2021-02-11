@@ -481,7 +481,7 @@ class MEC_feature_occurrences extends MEC_base
             $occurrence['hourly_schedules'] = $hourly_schedules;
 
             // Save Occurrence
-            $this->db->q("UPDATE `#__mec_occurrences` SET `params`='".json_encode($occurrence)."' WHERE `id`='".$this->db->escape($occurrence['id'])."'");
+            $this->db->q("UPDATE `#__mec_occurrences` SET `params`='".json_encode($occurrence, JSON_UNESCAPED_UNICODE)."' WHERE `id`='".$this->db->escape($occurrence['id'])."'");
         }
     }
 

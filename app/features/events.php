@@ -1336,7 +1336,7 @@ class MEC_feature_events extends MEC_base
                         <label for="mec_exceptions_not_in_days_date"><?php _e('Exclude certain days', 'modern-events-calendar-lite'); ?></label>
                     </div>
                     <div class="mec-form-row">
-                        <div class="mec-col-6">
+                        <div class="mec-col-12">
                             <input type="text" id="mec_exceptions_not_in_days_date" value=""
                                    placeholder="<?php _e('Date', 'modern-events-calendar-lite'); ?>" class="mec_date_picker_dynamic_format" autocomplete="off"/>
                             <button class="button" type="button"
@@ -1780,7 +1780,7 @@ class MEC_feature_events extends MEC_base
                             </div>
                             <div class="mec-form-row wn-ticket-time">
                                 <div class="mec-ticket-start-time mec-col-12">
-                                    <span><?php esc_html_e('Start Time', 'modern-events-calendar-lite'); ?></span>
+                                    <span class="mec-ticket-time"><?php esc_html_e('Start Time', 'modern-events-calendar-lite'); ?></span>
                                     <?php $this->main->timepicker(array(
                                         'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                         'time_hour' => (isset($ticket['ticket_start_time_hour']) ? $ticket['ticket_start_time_hour'] : 8),
@@ -1792,8 +1792,8 @@ class MEC_feature_events extends MEC_base
                                         'ampm_key' => 'ticket_start_time_ampm',
                                     )); ?>
                                 </div>
-                                <div class="mec-ticket-end-time mec-col-12">
-                                    <span><?php esc_html_e('End Time', 'modern-events-calendar-lite'); ?></span>
+                                <div class="mec-ticket-end-time mec-ticket-start-time mec-col-12">
+                                    <span class="mec-ticket-time"><?php esc_html_e('End Time', 'modern-events-calendar-lite'); ?></span>
                                     <?php $this->main->timepicker(array(
                                         'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                         'time_hour' => (isset($ticket['ticket_end_time_hour']) ? $ticket['ticket_end_time_hour'] : 6),
@@ -1855,38 +1855,42 @@ class MEC_feature_events extends MEC_base
 							</span>
                             </div>
                             <div class="mec-form-row">
-                                <input class="mec-col-4" type="text" name="mec[tickets][<?php echo $key; ?>][limit]"
-                                       placeholder="<?php esc_attr_e('Available Tickets', 'modern-events-calendar-lite'); ?>"
-                                       value="<?php echo(isset($ticket['limit']) ? esc_attr($ticket['limit']) : '100'); ?>"/>
-                                <label class="mec-col-2" for="mec_tickets_unlimited_<?php echo $key; ?>"
-                                       id="mec_bookings_limit_unlimited_label<?php echo $key; ?>">
-                                    <input type="hidden" name="mec[tickets][<?php echo $key; ?>][unlimited]" value="0"/>
-                                    <input id="mec_tickets_unlimited_<?php echo $key; ?>" type="checkbox" value="1"
-                                           name="mec[tickets][<?php echo $key; ?>][unlimited]"
-                                        <?php
-                                        if (isset($ticket['unlimited']) and $ticket['unlimited']) {
-                                            echo 'checked="checked"';
-                                        }
-                                        ?>
-                                    />
-                                    <?php _e('Unlimited', 'modern-events-calendar-lite'); ?>
-                                </label>
+                                <div class="mec-col-10">
+                                    <input class="mec-col-4 mec-available-tickets" type="text" name="mec[tickets][<?php echo $key; ?>][limit]"
+                                        placeholder="<?php esc_attr_e('Available Tickets', 'modern-events-calendar-lite'); ?>"
+                                        value="<?php echo(isset($ticket['limit']) ? esc_attr($ticket['limit']) : '100'); ?>"/>
+                                    <label class="mec-col-4" for="mec_tickets_unlimited_<?php echo $key; ?>"
+                                        id="mec_bookings_limit_unlimited_label<?php echo $key; ?>">
+                                        <input type="hidden" name="mec[tickets][<?php echo $key; ?>][unlimited]" value="0"/>
+                                        <input id="mec_tickets_unlimited_<?php echo $key; ?>" type="checkbox" value="1"
+                                            name="mec[tickets][<?php echo $key; ?>][unlimited]"
+                                            <?php
+                                            if (isset($ticket['unlimited']) and $ticket['unlimited']) {
+                                                echo 'checked="checked"';
+                                            }
+                                            ?>
+                                        />
+                                        <?php _e('Unlimited', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
                             </div>
                             <div class="mec-form-row">
-                                <input type="text" name="mec[tickets][<?php echo $key; ?>][minimum_ticket]" value="<?php echo(isset($ticket['minimum_ticket']) ? esc_attr($ticket['minimum_ticket']) : '0'); ?>" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
-                                <span class="mec-tooltip">
-									<div class="box top">
-										<h5 class="title"><?php _e('MinimumTicket', 'modern-events-calendar-lite'); ?></h5>
-										<div class="content">
-                                            <p><?php esc_attr_e('Set a number for the minimum ticket reservation possible', 'modern-events-calendar-lite'); ?></p>
+                                <div class="mec-col-4">
+                                    <input type="text" name="mec[tickets][<?php echo $key; ?>][minimum_ticket]" value="<?php echo(isset($ticket['minimum_ticket']) ? esc_attr($ticket['minimum_ticket']) : '0'); ?>" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
+                                    <span class="mec-tooltip">
+                                        <div class="box top">
+                                            <h5 class="title"><?php _e('MinimumTicket', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content">
+                                                <p><?php esc_attr_e('Set a number for the minimum ticket reservation possible', 'modern-events-calendar-lite'); ?></p>
+                                            </div>
                                         </div>
-									</div>
-									<i title="" class="dashicons-before dashicons-editor-help"></i>
-								</span>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="mec-form-row">
                                 <?php ob_start(); ?>
-                                <input type="number" name="mec[tickets][<?php echo $key; ?>][stop_selling_value]" value="<?php echo((isset($ticket['stop_selling_value']) and trim($ticket['stop_selling_value'])) ? esc_attr($ticket['stop_selling_value']) : '0'); ?>" placeholder="<?php _e('e.g. 0', 'modern-events-calendar-lite'); ?>">
+                                <input type="number" class="mec-stop-selling-tickets" name="mec[tickets][<?php echo $key; ?>][stop_selling_value]" value="<?php echo((isset($ticket['stop_selling_value']) and trim($ticket['stop_selling_value'])) ? esc_attr($ticket['stop_selling_value']) : '0'); ?>" placeholder="<?php _e('e.g. 0', 'modern-events-calendar-lite'); ?>">
                                 <select name="mec[tickets][<?php echo $key; ?>][stop_selling_type]">
                                     <option value="day" <?php echo(isset($ticket['stop_selling_type']) and trim($ticket['stop_selling_type']) == 'day') ? 'selected="selected"' : ''; ?>><?php _e("Day", "limitmec"); ?></option>
                                     <option value="hour" <?php echo(isset($ticket['stop_selling_type']) and trim($ticket['stop_selling_type']) == 'hour') ? 'selected="selected"' : ''; ?>><?php _e("Hour", "mec"); ?></option>
@@ -1975,7 +1979,7 @@ class MEC_feature_events extends MEC_base
                     </div>
                     <div class="mec-form-row wn-ticket-time">
                         <div class="mec-ticket-start-time mec-col-12">
-                            <span><?php esc_html_e('Start Time', 'modern-events-calendar-lite'); ?></span>
+                            <span class="mec-ticket-time"><?php esc_html_e('Start Time', 'modern-events-calendar-lite'); ?></span>
                             <?php $this->main->timepicker(array(
                                 'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                 'time_hour' => 8,
@@ -1987,8 +1991,8 @@ class MEC_feature_events extends MEC_base
                                 'ampm_key' => 'ticket_start_time_ampm',
                             )); ?>
                         </div>
-                        <div class="mec-ticket-start-time mec-col-12">
-                            <span><?php esc_html_e('End Time', 'modern-events-calendar-lite'); ?></span>
+                        <div class="mec-ticket-end-time mec-ticket-start-time mec-col-12">
+                            <span class="mec-ticket-time"><?php esc_html_e('End Time', 'modern-events-calendar-lite'); ?></span>
                             <?php $this->main->timepicker(array(
                                 'method' => (isset($this->settings['time_format']) ? $this->settings['time_format'] : 12),
                                 'time_hour' => 6,
@@ -2045,31 +2049,35 @@ class MEC_feature_events extends MEC_base
 						</span>
                     </div>
                     <div class="mec-form-row">
-                        <input class="mec-col-4" type="text" name="mec[tickets][:i:][limit]"
-                               placeholder="<?php esc_attr_e('Available Tickets', 'modern-events-calendar-lite'); ?>"/>
-                        <label class="mec-col-4" for="mec_tickets_unlimited_:i:"
-                               id="mec_bookings_limit_unlimited_label">
-                            <input type="hidden" name="mec[tickets][:i:][unlimited]" value="0"/>
-                            <input id="mec_tickets_unlimited_:i:" type="checkbox" value="1"
-                                   name="mec[tickets][:i:][unlimited]"/>
-                            <?php _e('Unlimited', 'modern-events-calendar-lite'); ?>
-                        </label>
+                        <div class="mec-col-10">
+                            <input class="mec-col-4 mec-available-tickets" type="text" name="mec[tickets][:i:][limit]"
+                                placeholder="<?php esc_attr_e('Available Tickets', 'modern-events-calendar-lite'); ?>"/>
+                            <label class="mec-col-4" for="mec_tickets_unlimited_:i:"
+                                id="mec_bookings_limit_unlimited_label">
+                                <input type="hidden" name="mec[tickets][:i:][unlimited]" value="0"/>
+                                <input id="mec_tickets_unlimited_:i:" type="checkbox" value="1"
+                                    name="mec[tickets][:i:][unlimited]"/>
+                                <?php _e('Unlimited', 'modern-events-calendar-lite'); ?>
+                            </label>
+                        </div>
                     </div>
                     <div class="mec-form-row">
-                        <input type="text" name="mec[tickets][:i:][minimum_ticket]" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
-                        <span class="mec-tooltip">
-                            <div class="box top">
-                                <h5 class="title"><?php _e('MinimumTicket', 'modern-events-calendar-lite'); ?></h5>
-                                <div class="content">
-                                    <p><?php esc_attr_e('Set a number for the minimum ticket reservation possible', 'modern-events-calendar-lite'); ?></p>
+                        <div class="mec-col-4">
+                            <input type="text" name="mec[tickets][:i:][minimum_ticket]" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
+                            <span class="mec-tooltip">
+                                <div class="box top">
+                                    <h5 class="title"><?php _e('MinimumTicket', 'modern-events-calendar-lite'); ?></h5>
+                                    <div class="content">
+                                        <p><?php esc_attr_e('Set a number for the minimum ticket reservation possible', 'modern-events-calendar-lite'); ?></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                        </span>
+                                <i title="" class="dashicons-before dashicons-editor-help"></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="mec-form-row">
                         <?php ob_start(); ?>
-                        <input type="number" name="mec[tickets][:i:][stop_selling_value]" value="0" placeholder="<?php _e('e.g. 0', 'modern-events-calendar-lite'); ?>">
+                        <input type="number" class="mec-stop-selling-tickets" name="mec[tickets][:i:][stop_selling_value]" value="0" placeholder="<?php _e('e.g. 0', 'modern-events-calendar-lite'); ?>">
                         <select name="mec[tickets][:i:][stop_selling_type]">
                             <option value="day"><?php _e("Day", "mec"); ?></option>
                             <option value="hour"><?php _e("Hour", "mec"); ?></option>

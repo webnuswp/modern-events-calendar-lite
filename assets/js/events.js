@@ -173,7 +173,35 @@ jQuery(document).ready(function($)
         }
     }
 
+    $('[id^="mec-book-form-btn-step"]').on('click',function(){
+        setTimeout(function(){
+            if ($.fn.datepicker) {
+                if('date' !== $('.mec-date-picker').prop('type')){
+                    $('.mec-date-picker').datepicker(
+                    {
+                        changeYear: true,
+                        changeMonth: true,
+                        dateFormat: datepicker_format,
+                        gotoCurrent: true,
+                        yearRange: 'c-3:c+5',
+                    });
+                }
+                
+            }
+        }, 1000);
+                   
+    });
+    
     if ($.fn.datepicker) {
+        $('.mec-date-picker').datepicker(
+        {
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: datepicker_format,
+            gotoCurrent: true,
+            yearRange: 'c-3:c+5',
+        });
+
         $('#mec_start_date').datepicker(
         {
             changeYear: true,

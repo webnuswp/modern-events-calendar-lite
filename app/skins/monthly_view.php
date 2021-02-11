@@ -348,13 +348,7 @@ class MEC_skin_monthly_view extends MEC_skins
             $this->fetch();
             
             // Break the loop if not resault
-            if($break)
-            {
-                break;
-            }
-
-            // Set active day to current day if not resault
-            if(count($this->events) and date('m', strtotime(key($this->events))) == $this->month) $this->active_day = key($this->events);
+            if($break) break;
             if($navigator_click) break;
           
             $c++;

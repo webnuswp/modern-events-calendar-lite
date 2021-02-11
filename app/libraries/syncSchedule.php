@@ -40,11 +40,5 @@ class MEC_syncSchedule extends MEC_base
             $sync_meetup_import = MEC_ABSPATH.'app'.DS.'crons'.DS.'meetup-import.php';
             include_once $sync_meetup_import;
         }
-
-        if(isset($notifications['booking_reminder']) and $notifications['booking_reminder']['status'])
-        {
-            $booking_reminder = MEC_ABSPATH.'app'.DS.'crons'.DS.'booking-reminder.php';
-            include_once $booking_reminder;
-        }
     }
 }

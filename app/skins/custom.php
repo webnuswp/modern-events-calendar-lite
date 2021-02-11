@@ -181,6 +181,147 @@ class MEC_skin_custom extends MEC_skins
         // Found Events
         $this->found = 0;
     }
+
+    /**
+     * Perform the search
+     * @author Webnus <info@webnus.biz>
+     * TODO: Refactor
+     * @return array of objects \stdClass
+     */
+    public function search()
+    {
+        global $MEC_Events_dates;
+
+        if($this->show_only_expired_events)
+        {
+            $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
+            $start = ((isset($this->sf) || $this->request->getVar('sf', array())) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
+
+            $end = date('Y-m-01', strtotime('-15 Years', strtotime($start)));
+        }
+        else
+        {
+            $start = $this->start_date;
+            $end = date('Y-m-t', strtotime('+15 Years', strtotime($start)));
+        }
+
+        // Set a certain maximum date from shortcode page.
+        if(trim($this->maximum_date) == '' and (isset($this->maximum_date_range) and trim($this->maximum_date_range))) $this->maximum_date = $this->maximum_date_range;
+
+        // Date Events
+        $dates = $this->period($start, $end, true);
+
+        // Limit
+        $this->args['posts_per_page'] = apply_filters('mec_skins_search_posts_per_page', 100);
+        $dates = apply_filters('mec_event_dates_search', $dates, $start, $end, $this);
+        
+        $i = 0;
+        $found = 0;
+        $events = array();
+        $skipped_for_next_query = (int)$this->offset;
+        $skipped = 0;
+
+        foreach($dates as $date=>$IDs)
+        {
+            // No Event
+            if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) continue;
+
+            // Check Finish Date
+            if(isset($this->maximum_date) and strtotime($date) > strtotime($this->maximum_date)) break;
+
+            // Include Available Events
+            $this->args['post__in'] = $IDs;
+
+            // Count of events per day
+            $IDs_count = array_count_values($IDs);
+
+            // Extending the end date
+            $this->end_date = $date;
+            
+            // The Query
+            $query = new WP_Query($this->args);
+            if($query->have_posts())
+            {
+                if(!isset($events[$date])) $events[$date] = array();
+
+                // Day Events
+                $d = array();
+
+                // The Loop
+                while($query->have_posts())
+                {
+                    $query->the_post();
+                    $ID = get_the_ID();                    
+                    $ID_count = isset($IDs_count[$ID]) ? $IDs_count[$ID] : 1;
+                    for($i = 1; $i <= $ID_count; $i++)
+                    {
+                        if($this->offset > $skipped){                            
+                            $skipped++;
+                            continue;
+                        }
+                        $skipped_for_next_query++;
+                        
+                        $rendered = $this->render->data($ID);
+
+                        $data = new stdClass();
+                        $data->ID = $ID;
+                        $data->data = $rendered;
+
+                        $data->date = array
+                        (
+                            'start'=>array('date'=>$date),
+                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                        );
+
+                        // global variable for use dates
+                        $MEC_Events_dates[$ID][] = $data->date;
+                        $d[] = $this->render->after_render($data, $this, $i);
+                        update_option( 'mec_sd_time_option', $data->date['start']['date'], true);
+                        update_option( 'mec_sdn_time_option', $data->date['end']['date'], true);
+                        update_option( 'mec_st_time_option', $data->data->time['start'], true);
+                        update_option( 'mec_stn_time_option', $data->data->time['end'], true);
+
+                        $found++;
+                    }
+
+                    if($found >= $this->limit)
+                    {
+                        // Next Offset
+                        $this->next_offset = ($query->post_count-($query->current_post+1)) >= 0 ? ($query->current_post+1)+$this->offset : 0;
+
+                        usort($d, array($this, 'sort_day_events'));
+                        $events[$date] = $d;
+
+                        // Restore original Post Data
+                        wp_reset_postdata();
+
+                        break 2;
+                    }
+                }
+
+                usort($d, array($this, 'sort_day_events'));
+                $events[$date] = $d;
+            }
+
+            // Restore original Post Data
+            wp_reset_postdata();
+            
+            $i++;
+        }
+
+        // Set Offset for Last Page
+        if($found < $this->limit)
+        {
+            // Next Offset
+            $this->next_offset = $found + ((isset($date) and $this->start_date === $date) ? $this->offset : 0);
+        }
+
+        $this->next_offset = $skipped_for_next_query;
+        // Set found events
+        $this->found = $found;
+
+        return $events;
+    }
     
     /**
      * Returns start day of skin for filtering events

@@ -38,16 +38,9 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                     $excerpt = implode(' ', $words);
                 }
 
-                $label_style = '';
-                if(!empty($event->data->labels))
-                {
-                    foreach($event->data->labels as $label)
-                    {
-                        if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-                        if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
-                        elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
-                    }
-                }
+                // Label Caption
+                $label_style = $this->get_label_caption($event);
+                $label_color = $this->get_label_caption_color($event);
 
                 // MEC Schema
                 do_action('mec_schema', $event);
@@ -62,7 +55,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                             <div class="mec-timeline-left-content">
                                 <div class="mec-timeline-main-content">
                                     <?php $soldout = $this->main->get_flags($event); ?>
-                                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; if (!empty($label_style)) echo '<span class="mec-fc-style">'.$label_style.'</span>'; ?></h4>
+                                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; if(!empty($label_style)) echo '<span class="mec-fc-style" data-color="'.esc_attr($label_color).'">'.$label_style.'</span>'; ?></h4>
                                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                     <?php echo $this->display_categories($event); ?>

@@ -472,7 +472,7 @@ class MEC_feature_mec extends MEC_base
             add_submenu_page('mec-intro', $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')), $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')), 'edit_others_posts', 'edit-tags.php?taxonomy=mec_speaker&post_type='.$this->PT);
         }
 
-        add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), 'manage_options', 'edit.php?post_type=mec_calendars');
+        add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), 'mec_shortcodes', 'edit.php?post_type=mec_calendars');
         add_submenu_page('mec-intro', __('MEC - Settings', 'modern-events-calendar-lite'), __('Settings', 'modern-events-calendar-lite'), 'mec_settings', 'MEC-settings', array($this, 'page'));
         add_submenu_page('mec-intro', __('MEC - Addons', 'modern-events-calendar-lite'), __('Addons', 'modern-events-calendar-lite'), 'manage_options', 'MEC-addons', array($this, 'addons'));
 

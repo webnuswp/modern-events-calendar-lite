@@ -416,7 +416,7 @@ class MEC_feature_fes extends MEC_base
         $start_date = (isset($mec['date']['start']['date']) and trim($mec['date']['start']['date'])) ? $this->main->standardize_format($mec['date']['start']['date']) : date('Y-m-d');
         $end_date = (isset($mec['date']['end']['date']) and trim($mec['date']['end']['date'])) ? $this->main->standardize_format($mec['date']['end']['date']) : date('Y-m-d');
 
-        $event = $this->db->select("SELECT * FROM `#__mec_events` WHERE `post_id` = ".esc_sql($post_id), 'loadAssoc');
+        $event = $this->db->select($this->db->prepare("SELECT * FROM `#__mec_events` WHERE `post_id` = %d", $post_id), 'loadAssoc');
         if(!is_array($event)) $event = array();
 
         $booking_date_update = false;
@@ -1075,8 +1075,8 @@ class MEC_feature_fes extends MEC_base
         $event['not_in_days'] = $not_in_days;
         
         // Update MEC Events Table
-        $mec_event_id = $this->db->select("SELECT `id` FROM `#__mec_events` WHERE `post_id`=".esc_sql($post_id), 'loadResult');
-        
+        $mec_event_id = $this->db->select($this->db->prepare("SELECT `id` FROM `#__mec_events` WHERE `post_id` = %d", $post_id), 'loadResult');
+
         if(!$mec_event_id)
         {
             $q1 = "";

@@ -70,6 +70,9 @@ class MEC_schedule extends MEC_base
         $public = get_post_meta($event_id, 'mec_public', true);
         if(trim($public) === '') $public = 1;
 
+        // Create Public Column If Not Exists
+        if(!$this->db->columns('mec_dates', 'public')) $this->db->q("ALTER TABLE `#__mec_dates` ADD `public` INT(4) UNSIGNED NOT NULL DEFAULT 1 AFTER `tend`;");
+
         foreach($dates as $date)
         {
             $sd = $date['start']['date'];

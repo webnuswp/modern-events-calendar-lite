@@ -23,8 +23,29 @@ $time_format = get_option('time_format', 'H:i');
 
 $gmt_offset_seconds = $this->get_gmt_offset_seconds($event->date['start']['date'], $event);
 
-$gmt_start_time = strtotime($event->date['start']['date'].' '.$start_time) - $gmt_offset_seconds;
-$gmt_end_time = strtotime($event->date['end']['date'].' '.$end_time) - $gmt_offset_seconds;
+/**
+ * TODO: Convert to class
+ */
+$event_id = $event->ID;
+global $MEC_Events_dates,$MEC_Events_dates_localtime;
+if(empty($MEC_Events_dates_localtime)){
+
+    $MEC_Events_dates_localtime = $MEC_Events_dates;
+}
+
+$dates = array();
+
+if(is_array($MEC_Events_dates_localtime[$event_id])){
+    
+    $k = array_key_first($MEC_Events_dates_localtime[$event_id]);
+    $dates = $MEC_Events_dates_localtime[$event_id][$k] ?? null;
+    unset($MEC_Events_dates_localtime[$event_id][$k]);
+}
+$start_date =  $dates['start']['date'] ?? get_option( 'mec_sd_time_option' );
+$end_date = $dates['start']['date'] ?? get_option( 'mec_esd_time_option' );
+//
+$gmt_start_time = strtotime($start_date.' '.$start_time) - $gmt_offset_seconds;
+$gmt_end_time = strtotime($end_date.' '.$end_time) - $gmt_offset_seconds;
 
 $user_timezone = new DateTimeZone($timezone);
 $gmt_timezone = new DateTimeZone('GMT');

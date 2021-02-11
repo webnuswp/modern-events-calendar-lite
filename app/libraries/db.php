@@ -211,6 +211,14 @@ class MEC_db extends MEC_base
 
         return $return_data;
     }
+
+    public function prepare($query, ...$args)
+    {
+        // Get WordPress DB object
+        $database = $this->get_DBO();
+
+        return $database->prepare($query, $args);
+    }
     
     /**
      * Returns WordPres DB Object

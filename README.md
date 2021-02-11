@@ -5,7 +5,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
 **Tested up to:** 5.6 \
-**Stable tag:** 5.16.5 \
+**Stable tag:** 5.17.0 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +237,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ## Key Features
 
+- Auto-Populate profile fields after booking (*pro*)
 - PaidMembership Pro integration (*pro*)
 - Event Cost search option (*pro*)
 - Change event visibility and hide them in shortcodes
@@ -593,6 +594,30 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### v 5.17.0 – 11 February 2021
+
+- Added: New Back-end Interface
+- Added: A field mapping feature to auto-populate profile fields after booking (pro)
+- Added: End date option for applicable skins with “Today”, “Tomorrow” and certain date option
+- Added: Front-end event submission customization color
+- Improved: The “Organizer Payment” system to automatically populate the payment credential fields when adding a new event (pro)
+- Fixed: An issue in the total price of exported bookings (pro)
+- Fixed: Some issues in Rejection Notification (pro)
+- Fixed: An issue regarding the “Booking Reminder” notification on the multisite network (pro)
+- Fixed: An issue on modifying discounted booking (pro)
+- Fixed: Some issues on start and end date of events in notifications (pro)
+- Fixed: A compatibility issue with one of WC plugins (pro)
+- Fixed: An issue on the “Notification Per Event” feature (pro)
+- Fixed: An issue on the active day of monthly skin
+- Fixed: An issue regarding  the Oxygen page builder
+- Fixed: A UTF8 encoding issue
+- Fixed: Some PHP warnings and notices
+- Fixed: Some minor issues
+
+### v 5.16.6 – 28 January 2021
+
+- Fixed: Security issue
 
 ### v 5.16.5 – 27 January 2021
 

@@ -761,7 +761,7 @@ class MEC_skins extends MEC_base
         $dates = $this->period($start, $end, true);
 
         // Limit
-        $this->args['posts_per_page'] = 1000;
+        $this->args['posts_per_page'] = apply_filters('mec_skins_search_posts_per_page', 100);
         $dates = apply_filters('mec_event_dates_search', $dates, $start, $end, $this);
 
         $i = 0;
@@ -1485,5 +1485,45 @@ class MEC_skins extends MEC_base
         $target = ($method == 'new' ? 'target="_blank" rel="noopener"' : '');
         $target = apply_filters('mec_event_link_change_target' , $target, $event->data->ID);
         return '<a '.($class ? 'class="'.$class.'"' : '').' '.($attributes ? $attributes : '').' data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target.'>'.$title.'</a>';
+    }
+
+    public function get_end_date()
+    {
+        $end_date_type = (isset($this->skin_options['end_date_type']) and trim($this->skin_options['end_date_type'])) ? trim($this->skin_options['end_date_type']) : 'date';
+
+        if($end_date_type === 'today') $maximum_date = current_time('Y-m-d');
+        elseif($end_date_type === 'tomorrow') $maximum_date = date('Y-m-d', strtotime('Tomorrow'));
+        else $maximum_date = (isset($this->skin_options['maximum_date_range']) and trim($this->skin_options['maximum_date_range'])) ? trim($this->skin_options['maximum_date_range']) : NULL;
+
+        return $maximum_date;
+    }
+
+    public function get_label_caption($event)
+    {
+        $label_style = '';
+        if(isset($event->data->labels) and is_array($event->data->labels) and count($event->data->labels))
+        {
+            foreach($event->data->labels as $label)
+            {
+                if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
+
+                if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
+                elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
+                elseif($label['style'] == 'mec-label-custom' and isset($label['name']) and trim($label['name'])) $label_style = esc_html__($label['name'] , 'modern-events-calendar-lite');
+            }
+        }
+
+        return $label_style;
+    }
+
+    public function get_label_caption_color($event)
+    {
+        $color = '';
+        if(isset($event->data->labels) and is_array($event->data->labels) and count($event->data->labels))
+        {
+            foreach($event->data->labels as $label) if(isset($label['color']) and trim($label['color'])) $color = $label['color'];
+        }
+
+        return $color;
     }
 }

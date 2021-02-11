@@ -231,6 +231,101 @@ if (isset($styling['disable_fluent_height_limitation']) && $styling['disable_flu
 
 /**
  * 
+ * Frontend Event Submission Layout Color Styles
+ * 
+ */
+// Main Color
+$fes_main_color = '#40d9f1';
+if (isset($styling['fes_color']) && $styling['fes_color']) {
+	$fes_main_color = $styling['fes_color'];
+	list($fes_main_color_r, $fes_main_color_g, $fes_main_color_b) = sscanf($fes_main_color, "#%02x%02x%02x");
+	?>
+	/* FES Main Color  */
+	.mec-fes-form #mec_bfixed_form_field_types .button:before, .mec-fes-form #mec_reg_form_field_types .button:before, .mec-fes-form #mec_bfixed_form_field_types .button, .mec-fes-form #mec_reg_form_field_types .button, .mec-fes-form #mec_meta_box_tickets_form [id^=mec_ticket_row] .mec_add_price_date_button, .mec-fes-form .mec-meta-box-fields h4, .mec-fes-form .html-active .switch-html, .mec-fes-form .tmce-active .switch-tmce, .mec-fes-form .wp-editor-tabs .wp-switch-editor:active, .mec-fes-form .mec-form-row .button:not(.wp-color-result), .mec-fes-form .mec-title span.mec-dashicons, .mec-fes-form .mec-form-row .quicktags-toolbar input.button.button-small, .mec-fes-list ul li a:hover, .mec-fes-form input[type=file] {
+		color: <?php echo $fes_main_color; ?>;
+	}
+
+	.mec-fes-form #mec_reg_form_field_types .button.red:before, .mec-fes-form #mec_reg_form_field_types .button.red {
+		border-color: #ffd2dd;
+		color: #ea6485;
+	}
+
+	.mec-fes-form #mec_reg_form_field_types .button.red:hover, .mec-fes-form #mec_reg_form_field_types .button.red:before, .mec-fes-form #mec_reg_form_field_types .button:hover, .mec-fes-form #mec_bfixed_form_field_types .button:hover:before, .mec-fes-form #mec_reg_form_field_types .button:hover:before, .mec-fes-form #mec_bfixed_form_field_types .button:hover, .mec-fes-form .mec-form-row .button:not(.wp-color-result):hover {
+		color: #fff;
+	}
+
+	.mec-fes-form #mec_reg_form_field_types .button.red:hover, .mec-fes-form #mec_reg_form_field_types .button:hover, .mec-fes-list ul li .mec-fes-event-export a:hover, .mec-fes-list ul li .mec-fes-event-view a:hover, .mec-fes-form button[type=submit].mec-fes-sub-button, .mec-fes-form .mec-form-row .button:not(.wp-color-result):hover {
+		background: <?php echo $fes_main_color; ?>;
+	}
+
+	.mec-fes-form #mec_reg_form_field_types .button.red:hover, .mec-fes-form #mec_bfixed_form_fields input[type=checkbox]:hover, .mec-fes-form #mec_bfixed_form_fields input[type=radio]:hover, .mec-fes-form #mec_reg_form_fields input[type=checkbox]:hover, .mec-fes-form #mec_reg_form_fields input[type=radio]:hover, .mec-fes-form input[type=checkbox]:hover, .mec-fes-form input[type=radio]:hover, .mec-fes-form #mec_reg_form_field_types .button:hover, .mec-fes-form .mec-form-row .button:not(.wp-color-result):hover, .mec-fes-list ul li .mec-fes-event-export a:hover, .mec-fes-list ul li .mec-fes-event-view a:hover, .mec-fes-form input[type=file] {
+		border-color: <?php echo $fes_main_color; ?>;
+	}
+
+	.mec-fes-form button[type=submit].mec-fes-sub-button {
+		box-shadow: 0 2px 8px -4px <?php echo $fes_main_color; ?>;
+	}
+
+	.mec-fes-form button[type=submit].mec-fes-sub-button:hover {
+		box-shadow: 0 2px 12px -2px <?php echo $fes_main_color; ?>;
+	}
+
+	.mec-fes-form, .mec-fes-list, .mec-fes-form .html-active .switch-html, .mec-fes-form .tmce-active .switch-tmce, .mec-fes-form .wp-editor-tabs .wp-switch-editor:active {
+		background: rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.12)'; ?>;
+	}
+
+	.mec-fes-form .mec-meta-box-fields h4, .mec-fes-form .quicktags-toolbar, .mec-fes-form div.mce-toolbar-grp {
+		background: rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.23)'; ?>;
+	}
+
+	.mec-fes-form ul#mec_bfixed_form_fields li, .mec-fes-form ul#mec_reg_form_fields li, .mec-fes-form ul#mec_bfixed_form_fields li, .mec-fes-form ul#mec_reg_form_fields li {
+		background: rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.03)'; ?>;
+	}
+
+	.mec-fes-form .mce-toolbar .mce-btn-group .mce-btn.mce-listbox, .mec-fes-form ul#mec_bfixed_form_fields li, .mec-fes-form ul#mec_reg_form_fields li, .mec-fes-form ul#mec_bfixed_form_fields li, .mec-fes-form ul#mec_reg_form_fields li, .mec-fes-form #mec_bfixed_form_fields input[type=checkbox], .mec-fes-form #mec_bfixed_form_fields input[type=radio], .mec-fes-form #mec_reg_form_fields input[type=checkbox], .mec-fes-form #mec_reg_form_fields input[type=radio], .mec-fes-form input[type=checkbox], .mec-fes-form input[type=radio], .mec-fes-form #mec-event-data input[type=date], .mec-fes-form input[type=email], .mec-fes-form input[type=number], .mec-fes-form input[type=password], .mec-fes-form input[type=tel], .mec-fes-form input[type=text], .mec-fes-form input[type=url], .mec-fes-form select, .mec-fes-form textarea, .mec-fes-list ul li, .mec-fes-form .quicktags-toolbar, .mec-fes-form div.mce-toolbar-grp, .mec-fes-form .mce-tinymce.mce-container.mce-panel, .mec-fes-form #mec_meta_box_tickets_form [id^=mec_ticket_row] .mec_add_price_date_button, .mec-fes-form #mec_bfixed_form_field_types .button, .mec-fes-form #mec_reg_form_field_types .button, .mec-fes-form .mec-meta-box-fields, .mec-fes-form .wp-editor-tabs .wp-switch-editor, .mec-fes-form .mec-form-row .button:not(.wp-color-result) {
+		border-color: rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.3)'; ?>;
+	}
+
+	.mec-fes-form #mec-event-data input[type=date], .mec-fes-form input[type=email], .mec-fes-form input[type=number], .mec-fes-form input[type=password], .mec-fes-form input[type=tel], .mec-fes-form input[type=text], .mec-fes-form input[type=url], .mec-fes-form select, .mec-fes-form textarea {
+		box-shadow: 0 2px 5px rgb<?php echo '(' . $fes_main_color_r . ' ' . $fes_main_color_g . ' ' . $fes_main_color_b . ' / ' . '7%)'; ?> inset;
+	}
+
+	.mec-fes-list ul li, .mec-fes-form .mec-form-row .button:not(.wp-color-result) {
+		box-shadow: 0 2px 6px -4px rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.2)'; ?>;
+	}
+
+	.mec-fes-form #mec_bfixed_form_field_types .button, .mec-fes-form #mec_reg_form_field_types .button, .mec-fes-form .mec-meta-box-fields {
+		box-shadow: 0 2px 6px -3px rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.2)'; ?>;
+	}
+
+	.mec-fes-form #mec_meta_box_tickets_form [id^=mec_ticket_row] .mec_add_price_date_button, .mec-fes-form .mce-tinymce.mce-container.mce-panel, .mec-fes-form .mec-form-row .button:not(.wp-color-result):hover {
+		box-shadow: 0 2px 6px -3px <?php echo $fes_main_color; ?>;
+	}
+
+	.mec-fes-form .quicktags-toolbar, .mec-fes-form div.mce-toolbar-grp {
+		box-shadow: 0 1px 0 1px rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.2)'; ?>;
+	}
+
+	.mec-fes-form #mec_bfixed_form_fields input[type=checkbox], .mec-fes-form #mec_bfixed_form_fields input[type=radio], .mec-fes-form #mec_reg_form_fields input[type=checkbox], .mec-fes-form #mec_reg_form_fields input[type=radio], .mec-fes-form input[type=checkbox], .mec-fes-form input[type=radio] {
+		box-shadow: 0 1px 3px -1px rgba<?php echo '(' . $fes_main_color_r . ', ' . $fes_main_color_g . ', ' . $fes_main_color_b . ', ' . '0.2)'; ?>;
+	}
+
+	.mec-fes-form #mec_bfixed_form_fields input[type=checkbox]:checked, .mec-fes-form #mec_bfixed_form_fields input[type=radio]:checked, .mec-fes-form #mec_reg_form_fields input[type=checkbox]:checked, .mec-fes-form #mec_reg_form_fields input[type=radio]:checked, .mec-fes-form .mec-form-row input[type=checkbox]:checked, .mec-fes-form .mec-form-row input[type=radio]:checked {
+		box-shadow: 0 1px 6px -2px <?php echo $fes_main_color; ?>;
+    	border-color: <?php echo $fes_main_color; ?>;
+    	background: <?php echo $fes_main_color; ?> !important;
+	}
+
+	.mec-fes-form .mec-available-color-row span.color-selected {
+		box-shadow: 0 0 0 2px <?php echo $fes_main_color; ?>, 0 2px 8px -1px <?php echo $fes_main_color; ?>;
+	}
+
+	<?php
+}
+
+
+/**
+ * 
  * Fluent-view Layout Color Styles
  * 
  */

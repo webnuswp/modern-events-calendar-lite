@@ -38,10 +38,10 @@ $event_fields = $this->main->get_event_fields();
                             <h4 class="mec-form-subtitle"><?php _e('Single Event Page', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_single_event_date_format1"><?php _e('Single Event Date Format', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
+                                <div class="mec-col-9">
                                     <input type="text" id="mec_settings_single_event_date_format1" name="mec[settings][single_date_format1]" value="<?php echo ((isset($settings['single_date_format1']) and trim($settings['single_date_format1']) != '') ? $settings['single_date_format1'] : 'M d Y'); ?>" />
                                     <span class="mec-tooltip">
-                                        <div class="box">
+                                        <div class="box left">
                                             <h5 class="title"><?php _e('Single Event Date Format', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content"><p><?php esc_attr_e("Default is M d Y", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -51,13 +51,13 @@ $event_fields = $this->main->get_event_fields();
                             </div>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_single_event_date_method"><?php _e('Date Method', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
+                                <div class="mec-col-9">
                                     <select id="mec_settings_single_event_date_method" name="mec[settings][single_date_method]">
                                         <option value="next" <?php echo (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next') ? 'selected="selected"' : ''; ?>><?php _e('Next occurrence date', 'modern-events-calendar-lite'); ?></option>
                                         <option value="referred" <?php echo (isset($settings['single_date_method']) and $settings['single_date_method'] == 'referred') ? 'selected="selected"' : ''; ?>><?php _e('Referred date', 'modern-events-calendar-lite'); ?></option>
                                     </select>
                                     <span class="mec-tooltip">
-                                        <div class="box">
+                                        <div class="box left">
                                             <h5 class="title"><?php _e('Date Method', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content"><p><?php esc_attr_e('Referred date" shows the event date based on referred date in event list.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -67,7 +67,7 @@ $event_fields = $this->main->get_event_fields();
                             </div>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_single_event_single_style"><?php _e('Single Event Style', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
+                                <div class="mec-col-9">
                                     <select id="mec_settings_single_event_single_style" name="mec[settings][single_single_style]">
                                         <option value="default" <?php echo (isset($settings['single_single_style']) and $settings['single_single_style'] == 'default') ? 'selected="selected"' : ''; ?>><?php _e('Default Style', 'modern-events-calendar-lite'); ?></option>
                                         <option value="modern" <?php echo (isset($settings['single_single_style']) and $settings['single_single_style'] == 'modern') ? 'selected="selected"' : ''; ?>><?php _e('Modern Style', 'modern-events-calendar-lite'); ?></option>
@@ -77,7 +77,7 @@ $event_fields = $this->main->get_event_fields();
                                         <?php endif; ?>
                                     </select>
                                     <span class="mec-tooltip">
-                                        <div class="box top">
+                                        <div class="box left">
                                             <h5 class="title"><?php _e('Single Event Style', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content"><p><?php esc_attr_e("Choose your single event style.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -89,13 +89,13 @@ $event_fields = $this->main->get_event_fields();
                             <?php if($this->main->getPRO() and isset($this->settings['booking_status']) and $this->settings['booking_status']): ?>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_single_event_booking_style"><?php _e('Booking Style', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
+                                <div class="mec-col-9">
                                     <select id="mec_settings_single_event_booking_style" name="mec[settings][single_booking_style]">
                                         <option value="default" <?php echo (isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'default') ? 'selected="selected"' : ''; ?>><?php _e('Default', 'modern-events-calendar-lite'); ?></option>
                                         <option value="modal" <?php echo (isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal') ? 'selected="selected"' : ''; ?>><?php _e('Modal', 'modern-events-calendar-lite'); ?></option>
                                     </select>
                                     <span class="mec-tooltip">
-                                        <div class="box top">
+                                        <div class="box left">
                                             <h5 class="title"><?php _e('Booking Style', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content"><p><?php esc_attr_e("Choose your Booking style. Note: When you set this feature to Modal, you cannot see the booking box if you set popup module view on shortcodes", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -106,80 +106,88 @@ $event_fields = $this->main->get_event_fields();
                             <?php endif;?>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_tz_per_event"><?php _e('Timezone Per Event', 'modern-events-calendar-lite'); ?></label>
-                                <label id="mec_settings_tz_per_event" >
+                                <label class="mec-col-9" id="mec_settings_tz_per_event" >
                                     <input type="hidden" name="mec[settings][tz_per_event]" value="0" />
                                     <input value="1" type="checkbox" name="mec[settings][tz_per_event]" <?php if(isset($settings['tz_per_event']) and $settings['tz_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Enable', 'modern-events-calendar-lite'); ?>
                                 </label>
                             </div>
                             <div class="mec-form-row">
-                            <label class="mec-col-3" for="mec_settings_gutenberg"><?php _e('Disable Block Editor (Gutenberg)', 'modern-events-calendar-lite'); ?></label>
-                                <label id="mec_settings_gutenberg" >
-                                    <input type="hidden" name="mec[settings][gutenberg]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][gutenberg]" <?php if(!isset($settings['gutenberg']) or (isset($settings['gutenberg']) and $settings['gutenberg'])) echo 'checked="checked"'; ?> /> <?php _e('Disable Block Editor', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <span class="mec-tooltip">
-                                    <div class="box top">
-                                        <h5 class="title"><?php _e('Block Editor', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e("If you want to use the new WordPress block editor you should keep this checkbox unchecked.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                    </div>
-                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                </span>
+                                <label class="mec-col-3" for="mec_settings_gutenberg"><?php _e('Disable Block Editor (Gutenberg)', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <label id="mec_settings_gutenberg" >
+                                        <input type="hidden" name="mec[settings][gutenberg]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][gutenberg]" <?php if(!isset($settings['gutenberg']) or (isset($settings['gutenberg']) and $settings['gutenberg'])) echo 'checked="checked"'; ?> /> <?php _e('Disable Block Editor', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php _e('Block Editor', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("If you want to use the new WordPress block editor you should keep this checkbox unchecked.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="mec-form-row">
-                            <label class="mec-col-3" for="mec_settings_breadcrumbs"><?php _e('Breadcrumbs', 'modern-events-calendar-lite'); ?></label>
-                                <label id="mec_settings_breadcrumbs" >
-                                    <input type="hidden" name="mec[settings][breadcrumbs]" value="0" />
-                                    <input type="checkbox" name="mec[settings][breadcrumbs]" id="mec_settings_breadcrumbs" <?php echo ((isset($settings['breadcrumbs']) and $settings['breadcrumbs']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Breadcrumbs.', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <span class="mec-tooltip">
-                                    <div class="box top">
-                                        <h5 class="title"><?php _e('Breadcrumbs', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e("Check this option, for showing the breadcrumbs on single event page", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                    </div>
-                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                </span>
+                                <label class="mec-col-3" for="mec_settings_breadcrumbs"><?php _e('Breadcrumbs', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <label id="mec_settings_breadcrumbs" >
+                                        <input type="hidden" name="mec[settings][breadcrumbs]" value="0" />
+                                        <input type="checkbox" name="mec[settings][breadcrumbs]" id="mec_settings_breadcrumbs" <?php echo ((isset($settings['breadcrumbs']) and $settings['breadcrumbs']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Breadcrumbs.', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php _e('Breadcrumbs', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("Check this option, for showing the breadcrumbs on single event page", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_organizer_description"><?php _e('Organizer Description', 'modern-events-calendar-lite'); ?></label>
-                                <label id="mec_settings_organizer_description" >
-                                    <input type="hidden" name="mec[settings][organizer_description]" value="0" />
-                                    <input type="checkbox" name="mec[settings][organizer_description]" id="mec_settings_organizer_description" <?php echo ((isset($settings['organizer_description']) and $settings['organizer_description']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Description For Organizer.', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <span class="mec-tooltip">
-                                    <div class="box top">
-                                        <h5 class="title"><?php _e('Organizer Description', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e("If you want to turn on description for other organizer plase go to 'Additional Organizers - After enabling and saving the settings, reloading the settings page.' tab", 'modern-events-calendar-lite'); ?></p></div>
-                                    </div>
-                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                </span>
+                                <div class="mec-col-9">
+                                    <label id="mec_settings_organizer_description" >
+                                        <input type="hidden" name="mec[settings][organizer_description]" value="0" />
+                                        <input type="checkbox" name="mec[settings][organizer_description]" id="mec_settings_organizer_description" <?php echo ((isset($settings['organizer_description']) and $settings['organizer_description']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Description For Organizer.', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php _e('Organizer Description', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("If you want to turn on description for other organizer plase go to 'Additional Organizers - After enabling and saving the settings, reloading the settings page.' tab", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_location_description"><?php _e('Location Description', 'modern-events-calendar-lite'); ?></label>
-                                <label id="mec_settings_location_description" >
-                                    <input type="hidden" name="mec[settings][location_description]" value="0" />
-                                    <input type="checkbox" name="mec[settings][location_description]" id="mec_settings_location_description" <?php echo ((isset($settings['location_description']) and $settings['location_description']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Description For Location.', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <span class="mec-tooltip">
-                                    <div class="box top">
-                                        <h5 class="title"><?php _e('Location Description', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e("If you want to turn on description for other location plase go to 'Additional Locations - After enabling and saving the settings, reloading the settings page.' tab", 'modern-events-calendar-lite'); ?></p></div>
-                                    </div>
-                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                </span>
+                                <div class="mec-col-9">
+                                    <label id="mec_settings_location_description" >
+                                        <input type="hidden" name="mec[settings][location_description]" value="0" />
+                                        <input type="checkbox" name="mec[settings][location_description]" id="mec_settings_location_description" <?php echo ((isset($settings['location_description']) and $settings['location_description']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Description For Location.', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php _e('Location Description', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("If you want to turn on description for other location plase go to 'Additional Locations - After enabling and saving the settings, reloading the settings page.' tab", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_single_cost_type"><?php _e('Event Cost Type', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
+                                <div class="mec-col-9">
                                     <select id="mec_settings_single_cost_type" name="mec[settings][single_cost_type]">
                                         <option value="numeric" <?php echo (isset($settings['single_cost_type']) and $settings['single_cost_type'] == 'numeric') ? 'selected="selected"' : ''; ?>><?php _e('Numeric (Searchable)', 'modern-events-calendar-lite'); ?></option>
                                         <option value="alphabetic" <?php echo (isset($settings['single_cost_type']) and $settings['single_cost_type'] == 'alphabetic') ? 'selected="selected"' : ''; ?>><?php _e('Alphabetic (Not Searchable)', 'modern-events-calendar-lite'); ?></option>
                                     </select>
                                     <span class="mec-tooltip">
-                                        <div class="box top">
+                                        <div class="box left">
                                             <h5 class="title"><?php _e('Event Cost Type', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content"><p><?php esc_attr_e("Choose Numeric type if you want to include the event cost field into the search form. If you do not need the search ability then you can choose Alphabetic type.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -192,7 +200,6 @@ $event_fields = $this->main->get_event_fields();
 
                         <div id="event_form_option" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Custom Fields', 'modern-events-calendar-lite'); ?></h4>
-
                             <div class="mec-container">
                                 <div class="mec-form-row">
                                     <label>
@@ -201,9 +208,7 @@ $event_fields = $this->main->get_event_fields();
                                     </label>
                                 </div>
                             </div>
-                            
                             <div class="<?php if(isset($settings['display_event_fields_backend']) and !$settings['display_event_fields_backend'] ) echo 'mec-util-hidden'; ?>" id="mec_event_fields_container">
-
                                 <div class="mec-container">
                                     <div class="mec-form-row" id="mec_event_form_container">
                                         <?php /** Don't remove this hidden field **/ ?>
@@ -300,7 +305,7 @@ $event_fields = $this->main->get_event_fields();
                             <div id="mec_count_down_container_toggle" class="<?php if((isset($settings['countdown_status']) and !$settings['countdown_status']) or !isset($settings['countdown_status'])) echo 'mec-util-hidden'; ?>">
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_countdown_list"><?php _e('Countdown Style', 'modern-events-calendar-lite'); ?></label>
-                                    <div class="mec-col-4">
+                                    <div class="mec-col-9">
                                         <select id="mec_settings_countdown_list" name="mec[settings][countdown_list]">
                                             <option value="default" <?php echo ((isset($settings['countdown_list']) and $settings['countdown_list'] == "default") ? 'selected="selected"' : ''); ?> ><?php _e('Plain Style', 'modern-events-calendar-lite'); ?></option>
                                             <option value="flip" <?php echo ((isset($settings['countdown_list']) and $settings['countdown_list'] == "flip") ? 'selected="selected"' : ''); ?> ><?php _e('Flip Style', 'modern-events-calendar-lite'); ?></option>
@@ -317,7 +322,7 @@ $event_fields = $this->main->get_event_fields();
                                     <input type="hidden" name="mec[settings][exceptional_days]" value="0" />
                                     <input value="1" type="checkbox" name="mec[settings][exceptional_days]" <?php if(isset($settings['exceptional_days']) and $settings['exceptional_days']) echo 'checked="checked"'; ?> /> <?php _e('Show exceptional days option on Add/Edit events page', 'modern-events-calendar-lite'); ?>
                                     <span class="mec-tooltip">
-                                        <div class="box">
+                                        <div class="box left">
                                             <h5 class="title"><?php _e('Exceptional days (Exclude Dates)', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content"><p><?php esc_attr_e("Using this option you can exclude certain days from event occurrence dates.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/exceptional-days/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -374,30 +379,30 @@ $event_fields = $this->main->get_event_fields();
                             <div id="mec_related_events_container_toggle" class="<?php if((isset($settings['related_events']) and !$settings['related_events']) or !isset($settings['related_events'])) echo 'mec-util-hidden'; ?>">
 
                                 <div class="mec-form-row" style="margin-top:20px;">
-                                    <label style="margin-right:20px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
-                                    <label style="margin-right:20px;margin-bottom: 20px">
+                                    <label style="margin-right:7px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
+                                    <label style="margin-right:7px;margin-bottom: 20px">
                                         <input type="hidden" name="mec[settings][related_events_basedon_category]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_category]" <?php if(isset($settings['related_events_basedon_category']) and $settings['related_events_basedon_category']) echo 'checked="checked"'; ?> /> <?php _e('Category', 'modern-events-calendar-lite'); ?>
                                     </label>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][related_events_basedon_organizer]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_organizer]" <?php if(isset($settings['related_events_basedon_organizer']) and $settings['related_events_basedon_organizer']) echo 'checked="checked"'; ?> /> <?php _e('Organizer', 'modern-events-calendar-lite'); ?>
                                     </label>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][related_events_basedon_location]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_location]" <?php if(isset($settings['related_events_basedon_location']) and $settings['related_events_basedon_location']) echo 'checked="checked"'; ?> /> <?php _e('Location', 'modern-events-calendar-lite'); ?>
                                     </label>
                                     <?php if(isset($settings['speakers_status']) and $settings['speakers_status']) : ?>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][related_events_basedon_speaker]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_speaker]" <?php if(isset($settings['related_events_basedon_speaker']) and $settings['related_events_basedon_speaker']) echo 'checked="checked"'; ?> /> <?php _e('Speaker', 'modern-events-calendar-lite'); ?>
                                     </label>
                                     <?php endif; ?>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][related_events_basedon_label]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_label]" <?php if(isset($settings['related_events_basedon_label']) and $settings['related_events_basedon_label']) echo 'checked="checked"'; ?> /> <?php _e('Label', 'modern-events-calendar-lite'); ?>
                                     </label>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][related_events_basedon_tag]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_tag]" <?php if(isset($settings['related_events_basedon_tag']) and $settings['related_events_basedon_tag']) echo 'checked="checked"'; ?> /> <?php _e('Tag', 'modern-events-calendar-lite'); ?>
                                     </label>
@@ -416,30 +421,30 @@ $event_fields = $this->main->get_event_fields();
                             <div id="mec_next_previous_events_container_toggle" class="<?php if((isset($settings['next_previous_events']) and !$settings['next_previous_events']) or !isset($settings['next_previous_events'])) echo 'mec-util-hidden'; ?>">
 
                                 <div class="mec-form-row" style="margin-top:20px;">
-                                    <label style="margin-right:20px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
-                                    <label style="margin-right:20px; margin-bottom: 20px;">
+                                    <label style="margin-right:7px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
+                                    <label style="margin-right:7px; margin-bottom: 20px;">
                                         <input type="hidden" name="mec[settings][next_previous_events_category]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][next_previous_events_category]" <?php if(isset($settings['next_previous_events_category']) and $settings['next_previous_events_category']) echo 'checked="checked"'; ?> /> <?php _e('Category', 'modern-events-calendar-lite'); ?>
                                     </label>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][next_previous_events_organizer]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][next_previous_events_organizer]" <?php if(isset($settings['next_previous_events_organizer']) and $settings['next_previous_events_organizer']) echo 'checked="checked"'; ?> /> <?php _e('Organizer', 'modern-events-calendar-lite'); ?>
                                     </label>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][next_previous_events_location]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][next_previous_events_location]" <?php if(isset($settings['next_previous_events_location']) and $settings['next_previous_events_location']) echo 'checked="checked"'; ?> /> <?php _e('Location', 'modern-events-calendar-lite'); ?>
                                     </label>
                                     <?php if(isset($settings['speakers_status']) and $settings['speakers_status']) : ?>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][next_previous_events_speaker]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][next_previous_events_speaker]" <?php if(isset($settings['next_previous_events_speaker']) and $settings['next_previous_events_speaker']) echo 'checked="checked"'; ?> /> <?php _e('Speaker', 'modern-events-calendar-lite'); ?>
                                     </label>
                                     <?php endif; ?>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][next_previous_events_label]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][next_previous_events_label]" <?php if(isset($settings['next_previous_events_label']) and $settings['next_previous_events_label']) echo 'checked="checked"'; ?> /> <?php _e('Label', 'modern-events-calendar-lite'); ?>
                                     </label>
-                                    <label style="margin-right:20px;">
+                                    <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][next_previous_events_tag]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][next_previous_events_tag]" <?php if(isset($settings['next_previous_events_tag']) and $settings['next_previous_events_tag']) echo 'checked="checked"'; ?> /> <?php _e('Tag', 'modern-events-calendar-lite'); ?>
                                     </label>

@@ -23,16 +23,9 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
             $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
             $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-            $label_style = '';
-            if(!empty($event->data->labels))
-            {
-                foreach($event->data->labels as $label)
-                {
-                    if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-                    if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured', 'modern-events-calendar-lite');
-                    elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled', 'modern-events-calendar-lite');
-                }
-            }
+            // Label Caption
+            $label_style = $this->get_label_caption($event);
+            $label_color = $this->get_label_caption_color($event);
 
             // MEC Schema
             do_action('mec_schema', $event);
@@ -88,7 +81,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
             <div data-sort-masonry="<?php echo $event->date['start']['date']; ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-masonry-item-wrap <?php echo $this->filter_by_classes($event->data->ID); ?>">
                 <div class="mec-masonry">
 
-                    <article data-style="<?php echo $label_style; ?>" class="mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
+                    <article data-style="<?php echo $label_style; ?>" data-color="<?php echo esc_attr($label_color); ?>" class="mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
                         <?php if(isset($event->data->featured_image) and $this->masonry_like_grid): ?>
                             <div class="mec-masonry-img"><?php echo $this->display_link($event, get_the_post_thumbnail($event->data->ID , 'thumblist'), ''); ?></div>
                         <?php elseif(isset($event->data->featured_image) and isset($event->data->featured_image['full']) and trim($event->data->featured_image['full'])): ?>
@@ -97,14 +90,37 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
 
                         <div class="mec-masonry-content mec-event-grid-modern">
                             <div class="event-grid-modern-head clearfix">
-
                                 <div class="mec-masonry-col<?php echo (isset($location['name']) and trim($location['name'])) ? '6' : '12'; ?>">
-                                    <?php if(isset($settings['multiple_day_show_method']) and ($settings['multiple_day_show_method'] == 'all_days' or $settings['multiple_day_show_method'] == 'first_day_listgrid')): ?>
-                                        <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_1, strtotime($event->date['start']['date'])); ?></div>
-                                        <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_2, strtotime($event->date['start']['date'])); ?></div>
-                                    <?php else: ?>
-                                        <div class="mec-event-date mec-color"><?php echo $this->main->dateify($event, $this->date_format_1); ?></div>
-                                        <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_2); ?></div>
+                                    <?php
+                                    if(isset($settings['multiple_day_show_method']) and ($settings['multiple_day_show_method'] == 'all_days' or $settings['multiple_day_show_method'] == 'first_day_listgrid')){
+                                                                            
+                                        $start_date = $event->date['start']['date'];
+                                        $start_date_time = strtotime($start_date);
+                                        $days_number = $this->main->date_i18n($this->date_format_1, $start_date_time);
+                                        $months_name = $this->main->date_i18n($this->date_format_2, $start_date_time);
+                                    }
+                                    
+                                    if(isset($settings['multiple_day_show_method']) and $settings['multiple_day_show_method'] == 'all_days'){
+
+                                        $end_date = $event->date['end']['date'];
+                                        $end_date_time = strtotime($end_date);
+                                        $day = $this->main->date_i18n($this->date_format_1, $end_date_time);
+                                        $m = $this->main->date_i18n($this->date_format_2, $end_date_time);                                        
+
+                                        if($days_number != $day || $months_name != $m){
+
+                                            $days_number .= '-' . $day;
+                                        }
+
+                                        if($months_name != $m){
+
+                                            $months_name .= '-' . $m;                                        
+                                        }                                        
+                                    }
+                                ?>
+                                    <?php if(!empty($days_number) && !empty($months_name)): ?>
+                                        <div class="mec-event-date mec-color"><?php echo $days_number; ?></div>
+                                        <div class="mec-event-month"><?php echo $months_name; ?></div>                                        
                                     <?php endif; ?>
                                     <div class="mec-event-detail"><?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div>
                                     <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>

@@ -80,9 +80,15 @@ class MEC_feature_notifications extends MEC_base
                             <label for="mec_notifications_<?php echo $key; ?>_content"><?php esc_html_e('Email Content', 'modern-events-calendar-lite'); ?></label>
                         </div>
                         <div class="mec-col-10">
-                            <?php wp_editor(((isset($values[$key]) and isset($values[$key]['content']) and trim($values[$key]['content'])) ? $values[$key]['content'] : ((isset($this->notif_settings[$key]) and isset($this->notif_settings[$key]['content']) and trim($this->notif_settings[$key]['content'])) ? $this->notif_settings[$key]['content'] : '')), 'mec_notifications_'.$key.'_content', array('textarea_name'=>'mec[notifications]['.$key.'][content]')); ?>
+                            <?php wp_editor(((isset($values[$key]) and isset($values[$key]['content']) and trim($values[$key]['content'])) ? stripslashes($values[$key]['content']) : ((isset($this->notif_settings[$key]) and isset($this->notif_settings[$key]['content']) and trim($this->notif_settings[$key]['content'])) ? stripslashes($this->notif_settings[$key]['content']) : '')), 'mec_notifications_'.$key.'_content', array('textarea_name'=>'mec[notifications]['.$key.'][content]')); ?>
                         </div>
                     </div>
+
+                    <?php 
+                        $section = $key;
+                        $options = $values;
+                        do_action('mec_display_notification_settings_for_event',$values,$section) 
+                    ?>
                 </div>
 			</div>
             <?php endforeach; ?>

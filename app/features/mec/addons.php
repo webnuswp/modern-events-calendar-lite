@@ -60,7 +60,10 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                             ?>
                             <div class="mec-addon-box-title"><img src="<?php esc_html_e($value->img); ?>" /><span><?php esc_html_e($value->name); ?></span></div>
                             <?php if ( $value->comingsoon == 'false' ) : ?> 
-                            <div class="mec-addon-box-version"><span><?php esc_html_e('Version', 'modern-events-calendar-lite'); ?> <strong><?php esc_html_e($addons_json['version']); ?></strong></span></div>
+                                <div class="mec-addon-box-version"><span><?php esc_html_e('Version', 'modern-events-calendar-lite'); ?> <strong><?php esc_html_e($addons_json['version']); ?></strong></span></div>
+                                <?php if ( $value->pro == 'true' ) : ?>
+                                    <div class="mec-addon-box-pro">Requires Pro Version</div>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                         <div class="mec-addon-box-body">

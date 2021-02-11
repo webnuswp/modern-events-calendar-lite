@@ -71,21 +71,14 @@ $events_str = '';
                     $endDate = !empty($event->data->meta['mec_date']['end']['date'] ) ? $event->data->meta['mec_date']['end']['date'] : '' ;
                     $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-                    $label_style = '';
-                    if(!empty($event->data->labels))
-                    {
-                        foreach($event->data->labels as $label)
-                        {
-                            if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-                            if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
-                            elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
-                        }
-                    }
+                    // Label Caption
+                    $label_style = $this->get_label_caption($event);
+                    $label_color = $this->get_label_caption_color($event);
 
                     // MEC Schema
                     $events_str .= apply_filters('mec_schema_text', '', $event);
 
-                    $events_str .= '<article data-style="'.$label_style.'" class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
+                    $events_str .= '<article data-style="'.$label_style.'" data-color="'.esc_attr($label_color).'" class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                     if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
                     $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
@@ -136,21 +129,14 @@ $events_str = '';
                     $endDate = !empty($event->data->meta['mec_date']['end']['date'] ) ? $event->data->meta['mec_date']['end']['date'] : '' ;
                     $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-                    $label_style = '';
-                    if(!empty($event->data->labels))
-                    {
-                        foreach($event->data->labels as $label)
-                        {
-                            if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-                            if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
-                            elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
-                        }
-                    }
+                    // Label Caption
+                    $label_style = $this->get_label_caption($event);
+                    $label_color = $this->get_label_caption_color($event);
 
                     // MEC Schema
                     $events_str .= apply_filters('mec_schema_text', '', $event);
 
-                    $events_str .= '<article data-style="'.$label_style.'" class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
+                    $events_str .= '<article data-style="'.$label_style.'" data-color="'.esc_attr($label_color).'" class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                     if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
                     $event_color =  isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
@@ -228,21 +214,14 @@ $events_str = '';
                         $endDate = !empty($event->data->meta['mec_date']['end']['date'] ) ? $event->data->meta['mec_date']['end']['date'] : '' ;
                         $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-                        $label_style = '';
-                        if(!empty($event->data->labels))
-                        {
-                            foreach($event->data->labels as $label)
-                            {
-                                if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-                                if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
-                                elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
-                            }
-                        }
+                        // Label Caption
+                        $label_style = $this->get_label_caption($event);
+                        $label_color = $this->get_label_caption_color($event);
 
                         // MEC Schema
                         $events_str .= apply_filters('mec_schema_text', '', $event);
 
-                        $events_str .= '<article data-style="'.$label_style.'" class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
+                        $events_str .= '<article data-style="'.$label_style.'" data-color="'.esc_attr($label_color).'" class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
                         $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                         if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
                         $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';

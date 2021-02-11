@@ -86,6 +86,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
@@ -188,6 +189,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
@@ -296,6 +298,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
@@ -429,6 +432,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
@@ -560,6 +564,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
@@ -651,6 +656,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         // Don't send the email to admin
@@ -747,6 +753,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
@@ -861,6 +868,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         if(is_null($to) and !count($recipients)) return false;
@@ -883,6 +891,9 @@ class MEC_notifications extends MEC_base
             $headers[] = 'CC: '.$recipient;
         }
 
+        // Date Format
+        $date_format = get_option('date_format');
+
         $message = (isset($this->notif_settings['new_event']['content']) and trim($this->notif_settings['new_event']['content'])) ? $this->notif_settings['new_event']['content'] : '';
         $message = $this->get_content($message, 'new_event', $event_id);
 
@@ -894,8 +905,8 @@ class MEC_notifications extends MEC_base
         // Event Data
         $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
-        $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($event_id, 'mec_start_date', true))), $message);
-        $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($event_id, 'mec_end_date', true))), $message);
+        $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($event_id, 'mec_start_date', true))), $message);
+        $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($event_id, 'mec_end_date', true))), $message);
         $message = str_replace('%%event_timezone%%', $this->main->get_timezone($event_id), $message);
         $message = str_replace('%%event_status%%', $status, $message);
         $message = str_replace('%%event_note%%', get_post_meta($event_id, 'mec_note', true), $message);
@@ -1003,6 +1014,7 @@ class MEC_notifications extends MEC_base
             $recipients = array_merge($user_roles, $recipients);
 
             // Unique Recipients
+            $recipients = array_map('trim', $recipients);
             $recipients = array_unique($recipients);
 
             foreach($recipients as $recipient)
@@ -1024,12 +1036,15 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%blog_url%%', get_bloginfo('url'), $message);
             $message = str_replace('%%blog_description%%', get_bloginfo('description'), $message);
 
+            // Date Format
+            $date_format = get_option('date_format');
+
             // Event Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
             $message = str_replace('%%event_title%%', get_the_title($post->ID), $message);
             $message = str_replace('%%event_link%%', get_post_permalink($post->ID), $message);
-            $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($post->ID, 'mec_start_date', true))), $message);
-            $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), strtotime(get_post_meta($post->ID, 'mec_end_date', true))), $message);
+            $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($post->ID, 'mec_start_date', true))), $message);
+            $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($post->ID, 'mec_end_date', true))), $message);
             $message = str_replace('%%event_timezone%%', $this->main->get_timezone($post->ID), $message);
             $message = str_replace('%%event_status%%', $status, $message);
             $message = str_replace('%%event_note%%', get_post_meta($post->ID, 'mec_note', true), $message);
@@ -1126,6 +1141,7 @@ class MEC_notifications extends MEC_base
         $recipients = array_merge($user_roles, $recipients);
 
         // Unique Recipients
+        $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
         foreach($recipients as $recipient)
@@ -1218,6 +1234,7 @@ class MEC_notifications extends MEC_base
 
         // DB
         $db = $this->getDB();
+
         /**
          * Get the data from Attendee instead of main booker user
          */
@@ -1247,6 +1264,7 @@ class MEC_notifications extends MEC_base
         $transaction_id = get_post_meta($book_id, 'mec_transaction_id', true);
         $transaction = $this->book->get_transaction($transaction_id);
 
+        // Date & Time Format
         $date_format = get_option('date_format');
         $time_format = get_option('time_format');
 
@@ -1394,8 +1412,8 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_link%%', $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp)), $message);
         $message = str_replace('%%event_more_info%%', esc_url(get_post_meta($event_id, 'mec_read_more', true)), $message);
         $message = str_replace('%%event_other_info%%', esc_url(get_post_meta($event_id, 'mec_more_info', true)), $message);
-        $message = str_replace('%%event_start_date%%', $this->main->date_i18n(get_option('date_format'), $start_timestamp), $message);
-        $message = str_replace('%%event_end_date%%', $this->main->date_i18n(get_option('date_format'), $end_timestamp), $message);
+        $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, $start_timestamp), $message);
+        $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, $end_timestamp), $message);
         $message = str_replace('%%event_timezone%%', $this->main->get_timezone($event_id), $message);
 
         $online_link = MEC_feature_occurrences::param($event_id, $start_timestamp, 'moved_online_link', get_post_meta($event_id, 'mec_moved_online_link', true));

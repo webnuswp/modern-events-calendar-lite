@@ -46,16 +46,9 @@ else
 
 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-$label_style = '';
-if(!empty($event->data->labels))
-{
-    foreach($event->data->labels as $label)
-    {
-        if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
-        if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured', 'modern-events-calendar-lite');
-        elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled', 'modern-events-calendar-lite');
-    }
-}
+// Label Caption
+$label_style = $this->get_label_caption($event);
+$label_color = $this->get_label_caption_color($event);
 
 $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.date('H:i:s', strtotime($event_time))));
 $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.date('H:i:s', strtotime($event_etime))));
@@ -129,7 +122,7 @@ do_action('mec_available_spot_skin_head');
             do_action('mec_schema', $event);
         ?>
         <div class="mec-av-spot">
-            <article data-style="<?php echo $label_style; ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
+            <article data-style="<?php echo $label_style; ?>" data-color="<?php echo esc_attr($label_color); ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
 
                 <?php if($event_thumb_url): ?>
                 <div class="mec-av-spot-img" style="background: url('<?php echo $event_thumb_url; ?>');"></div>
