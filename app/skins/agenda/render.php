@@ -32,9 +32,6 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                     $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                     $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-                    // Label Caption
-                    $label_style = $this->get_label_caption($event);
-                    $label_color = $this->get_label_caption_color($event);
 
                     // MEC Schema
                     do_action('mec_schema', $event);
@@ -54,7 +51,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         <span class="mec-agenda-event-title">
                             <?php echo $this->display_link($event); ?>
                             <?php echo $this->main->get_flags($event).$event_color; ?>
-                            <?php if(!empty($label_style)) echo '<span class="mec-fc-style" data-color="'.esc_attr($label_color).'">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?>
+                            <?php echo $this->get_label_captions($event, 'mec-fc-style'); ?>
                             <?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                             <?php echo $this->booking_button($event); ?>
                             <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>

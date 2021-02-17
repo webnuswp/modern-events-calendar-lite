@@ -253,7 +253,7 @@ class MEC_feature_events extends MEC_base
         <div class="form-field">
             <label for="mec_cat_icon"><?php _e('Category Icon', 'modern-events-calendar-lite'); ?></label>
             <input type="hidden" name="mec_cat_icon" id="mec_cat_icon" value=""/>
-            <a href="<?php echo $this->main->asset('icon.html'); ?>"
+            <a href="<?php echo $this->main->asset('icon.html'); ?>?&width=680&height=450&inlineId=my-content-id"
                class="thickbox mec_category_icon button"><?php echo __('Select icon', 'modern-events-calendar-lite'); ?></a>
         </div>
         <?php if($fallback): ?>
@@ -292,7 +292,7 @@ class MEC_feature_events extends MEC_base
             </th>
             <td>
                 <input type="hidden" name="mec_cat_icon" id="mec_cat_icon" value="<?php echo $icon; ?>"/>
-                <a href="<?php echo $this->main->asset('icon.html'); ?>"
+                <a href="<?php echo $this->main->asset('icon.html'); ?>?&width=680&height=450&inlineId=my-content-id"
                    class="thickbox mec_category_icon button"><?php echo __('Select icon', 'modern-events-calendar-lite'); ?></a>
                 <?php if (isset($icon)) : ?>
                     <div class="mec-webnus-icon"><i class="<?php echo $icon; ?> mec-color"></i></div>
@@ -1560,6 +1560,8 @@ class MEC_feature_events extends MEC_base
         $bookings_user_limit = isset($booking_options['bookings_user_limit']) ? $booking_options['bookings_user_limit'] : '';
         $bookings_user_limit_unlimited = isset($booking_options['bookings_user_limit_unlimited']) ? $booking_options['bookings_user_limit_unlimited'] : true;
         $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+        $bookings_last_few_tickets_percentage_inherite = isset($booking_options['last_few_tickets_percentage_inherit']) ? $booking_options['last_few_tickets_percentage_inherit'] : 1;
+        $bookings_last_few_tickets_percentage = ((isset($booking_options['last_few_tickets_percentage']) and trim($booking_options['last_few_tickets_percentage']) != '') ? $booking_options['last_few_tickets_percentage'] : (isset($this->settings['booking_last_few_tickets_percentage']) ? $this->settings['booking_last_few_tickets_percentage'] : 15));
 
         $loggedin_discount = isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : '';
 
@@ -1688,6 +1690,26 @@ class MEC_feature_events extends MEC_base
                             <option value="0" <?php if(isset($booking_options['auto_confirm']) and '0' == $booking_options['auto_confirm']) echo 'selected="selected"'; ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
                             <option value="1" <?php if(isset($booking_options['auto_confirm']) and '1' == $booking_options['auto_confirm']) echo 'selected="selected"'; ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
                         </select>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_lftp']) or (isset($this->settings['fes_section_booking_lftp']) and $this->settings['fes_section_booking_lftp'])))): ?>
+                <div class="mec-form-row">
+                    <h4 class="mec-title"><?php _e('Last Few Tickets Percentage', 'modern-events-calendar-lite'); ?></h4>
+                    <div class="mec-form-row">
+                        <label class="mec-col-4" for="mec_bookings_last_few_tickets_percentage_inherit">
+                            <input type="hidden" name="mec[booking][last_few_tickets_percentage_inherit]" value="0"/>
+                            <input id="mec_bookings_last_few_tickets_percentage_inherit"
+                                <?php
+                                if ($bookings_last_few_tickets_percentage_inherite == 1) {
+                                    echo 'checked="checked"';
+                                }
+                                ?>
+                                   type="checkbox" value="1" name="mec[booking][last_few_tickets_percentage_inherit]" onchange="jQuery(this).parent().parent().find('input[type=number]').toggle();"/>
+                            <?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?>
+                        </label>
+                        <input class="mec-col-4" <?php echo ($bookings_last_few_tickets_percentage_inherite == 1) ? 'style="display: none;"' : ''; ?> type="number" min="1" max="100" step="1" name="mec[booking][last_few_tickets_percentage]" value="<?php echo esc_attr($bookings_last_few_tickets_percentage); ?>" placeholder="<?php _e('15', 'modern-events-calendar-lite'); ?>"/>
                     </div>
                 </div>
                 <?php endif; ?>
@@ -3246,6 +3268,10 @@ class MEC_feature_events extends MEC_base
                 $ticket['ticket_start_time_ampm'] = strtoupper(substr($ticket_render_start_time, 5, 6));
                 $ticket['ticket_end_time_hour'] = substr($ticket_render_end_time, 0, 2);
                 $ticket['ticket_end_time_ampm'] = strtoupper(substr($ticket_render_end_time, 5, 6));
+                $ticket['price'] = trim($ticket['price']);
+                $ticket['limit'] = trim($ticket['limit']);
+                $ticket['minimum_ticket'] = trim($ticket['minimum_ticket']);
+                $ticket['stop_selling_value'] = trim($ticket['stop_selling_value']);
 
                 // Bellow conditional block code is used to change ticket dates format to compatible ticket past dates structure for store in db.
                 if(isset($ticket['dates']))

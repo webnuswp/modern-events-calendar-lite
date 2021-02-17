@@ -988,13 +988,16 @@ class MEC_factory extends MEC_base
 
         // MEC Capabilities
         $role = get_role('administrator');
-        $role->add_cap('mec_bookings', true);
-        $role->add_cap('mec_add_booking', true);
-        $role->add_cap('mec_coupons', true);
-        $role->add_cap('mec_report', true);
-        $role->add_cap('mec_import_export', true);
-        $role->add_cap('mec_settings', true);
-        $role->add_cap('mec_shortcodes', true);
+        if($role)
+        {
+            $role->add_cap('mec_bookings', true);
+            $role->add_cap('mec_add_booking', true);
+            $role->add_cap('mec_coupons', true);
+            $role->add_cap('mec_report', true);
+            $role->add_cap('mec_import_export', true);
+            $role->add_cap('mec_settings', true);
+            $role->add_cap('mec_shortcodes', true);
+        }
     }
 
     /**
@@ -1164,6 +1167,19 @@ class MEC_factory extends MEC_base
             )))) return true;
 
             return apply_filters('mec_include_backend_assets', false);
+        }
+    }
+
+    function mecShowUpgradeNotification($currentPluginMetadata, $newPluginMetadata){
+        // check "upgrade_notice"
+        if (isset($newPluginMetadata->upgrade_notice) && strlen(trim($newPluginMetadata->upgrade_notice)) > 0){
+        ?>
+        
+            <div class="mec-update-warning" style="margin-bottom: 5px; max-width: 1000px;">
+                <strong><?php echo esc_html__( 'Notice:', 'modern-events-calendar-lite' ); ?></strong>
+                <?php echo esc_html__( 'This update includes only bug fixes.', 'modern-events-calendar-lite' ); ?>
+            </div>
+        <?php
         }
     }
 }

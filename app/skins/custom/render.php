@@ -19,23 +19,22 @@ if($this->style == 'colorful')
 	$colorful_class = ' mec-event-custom-colorful';
 }
 ?>
-<div class="mec-wrap <?php echo $event_colorskin . $colorful_class; ?>">
-    <div class="mec-event-custom-<?php echo $this->style; ?>">       
-        
+<div class="mec-wrap <?php echo $event_colorskin.$colorful_class; ?>">
+    <div class="mec-event-custom-<?php echo $this->style; ?>">
         <?php
             $count = $this->count;
 
             if($count == 0 or $count == 5) $col = 4;
             else $col = 12 / $count;
 
-            $rcount = 1 ;
-
+            $rcount = 1;
             if(!empty($this->events))
             {
-                foreach($this->events as $date => $events){
+                foreach($this->events as $date => $events)
+                {
                     $month_id = date('Ym', strtotime($date));
-                    foreach($events as $event){
-
+                    foreach($events as $event)
+                    {
                         global $post;
                         $post = $event->data->post;
                         
@@ -46,8 +45,9 @@ if($this->style == 'colorful')
                         echo ($rcount == 1) ? '<div class="row">' : '';
                         echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
                         echo '<article class="mec-event-article mec-sd-event-article'. get_the_ID().' mec-clear" itemscope>';
-                        echo Plugin::instance()->frontend->get_builder_content_for_display( $this->style, true );
+                        echo Plugin::instance()->frontend->get_builder_content_for_display($this->style, true);
                         echo '</article></div>';
+
                         if($rcount == $count)
                         {
                             echo '</div>';
@@ -56,26 +56,22 @@ if($this->style == 'colorful')
 
                         $rcount++;
                     }
-                }                    
-
+                }
             }
-
-            
         ?>
 	</div>
 </div>
-
 <?php
 $map_eventss = array();
-if ( isset($map_events) && !empty($map_events)) :
-    foreach ($map_events as $key => $value) {
-        foreach ($value as $keyy => $valuee) {
-            $map_eventss[] = $valuee;
-        }
+if(isset($map_events) && !empty($map_events))
+{
+    foreach($map_events as $key => $value)
+    {
+        foreach($value as $keyy => $valuee) $map_eventss[] = $valuee;
     }
-endif;
+}
 
-if ( isset($this->map_on_top) and $this->map_on_top ) :
+if(isset($this->map_on_top) and $this->map_on_top):
 if(isset($map_eventss) and !empty($map_eventss))
 {
     // Include Map Assets such as JS and CSS libraries

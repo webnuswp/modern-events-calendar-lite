@@ -38,10 +38,6 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                     $excerpt = implode(' ', $words);
                 }
 
-                // Label Caption
-                $label_style = $this->get_label_caption($event);
-                $label_color = $this->get_label_caption_color($event);
-
                 // MEC Schema
                 do_action('mec_schema', $event);
                 ?>
@@ -55,7 +51,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                             <div class="mec-timeline-left-content">
                                 <div class="mec-timeline-main-content">
                                     <?php $soldout = $this->main->get_flags($event); ?>
-                                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; if(!empty($label_style)) echo '<span class="mec-fc-style" data-color="'.esc_attr($label_color).'">'.$label_style.'</span>'; ?></h4>
+                                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?><?php echo $this->get_label_captions($event,'mec-fc-style'); ?></h4>
                                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                     <?php echo $this->display_categories($event); ?>

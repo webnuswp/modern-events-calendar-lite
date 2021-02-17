@@ -42,15 +42,11 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
 
-                // Label Caption
-                $label_style = $this->get_label_caption($event);
-                $label_color = $this->get_label_caption_color($event);
-
                 // MEC Schema
                 do_action('mec_schema', $event);
                 ?>
                 <?php if($this->style == 'modern'): ?>
-                    <div data-style="" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-agenda-event <?php echo $this->get_event_classes($event); ?>">
+                    <div class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-agenda-event <?php echo $this->get_event_classes($event); ?>">
                         <i class="mec-sl-clock "></i>
                         <span class="mec-agenda-time">
                             <?php
@@ -64,17 +60,18 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         <span class="mec-agenda-event-title">
                             <?php echo $this->display_link($event); ?>
                             <?php echo $event_color; ?>
-                            <?php if(!empty($label_style)) echo '<span class="mec-fc-style" data-color="'.esc_attr($label_color).'">'.$label_style.'</span>'; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
+                            <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                             <?php echo $this->booking_button($event); ?>
                             <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                         </span>
+                        <?php echo $this->get_label_captions($event,'mec-fc-style'); ?>
                     </div>
                 <?php endif; ?>
             <?php } ?>
         </div>
     </div>
     <?php endforeach; ?>
-    <span class="mec-yearly-max" data-count="<?php echo $count; ?>" ></span>
+    <span class="mec-yearly-max" data-count="<?php echo $count; ?>"></span>
     <?php if($count > 20): ?>
         <div class="mec-load-more-wrap"><div class="mec-load-more-button" onclick=""><?php echo __('Load More', 'modern-events-calendar-lite'); ?></div></div>
     <?php endif; ?>

@@ -742,7 +742,8 @@ $settings = $this->main->get_settings();
                                 </div>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
-                                        <input type="checkbox" name="mec[notifications][cancellation_notification][send_to_admin]" value="1" id="mec_notifications_cancellation_notification_send_to_admin" <?php echo ((!isset($notifications['cancellation_notification']['send_to_admin']) or $notifications['cancellation_notification']['send_to_admin'] == 1) ? 'checked="checked"' : ''); ?> />
+                                        <input type="hidden" name="mec[notifications][cancellation_notification][send_to_admin]" value="0" />
+                                        <input type="checkbox" name="mec[notifications][cancellation_notification][send_to_admin]" value="1" id="mec_notifications_cancellation_notification_send_to_admin" <?php echo ((!isset($notifications['cancellation_notification']['send_to_admin']) or (isset($notifications['cancellation_notification']['send_to_admin']) and $notifications['cancellation_notification']['send_to_admin'] == 1)) ? 'checked="checked"' : ''); ?> />
                                         <label for="mec_notifications_cancellation_notification_send_to_admin"><?php _e('Send the email to admin', 'modern-events-calendar-lite'); ?></label>
                                     </div>
                                 </div>
@@ -1558,33 +1559,27 @@ jQuery(document).ready(function()
 jQuery("#mec_notifications_form").on('submit', function(event)
 {
     event.preventDefault();
+
+    var notifications = [
+        "booking_notification",
+        "email_verification",
+        "booking_confirmation",
+        "booking_rejection",
+        "admin_notification",
+        "booking_reminder",
+        "new_event",
+        "user_event_publishing",
+        "event_soldout",
+    ];
+    <?php $content_type = apply_filters('mec_settings_notifications_js_content_types',array("")); ?>
+    var content_types = <?php echo json_encode($content_type); ?>;
     
-    jQuery("#mec_notifications_booking_notification_content-html").click();
-    jQuery("#mec_notifications_booking_notification_content-tmce").click();
-    
-    jQuery("#mec_notifications_email_verification_content-html").click();
-    jQuery("#mec_notifications_email_verification_content-tmce").click();
-    
-    jQuery("#mec_notifications_booking_confirmation_content-html").click();
-    jQuery("#mec_notifications_booking_confirmation_content-tmce").click();
-
-    jQuery("#mec_notifications_booking_rejection_content-html").click();
-    jQuery("#mec_notifications_booking_rejection_content-tmce").click();
-    
-    jQuery("#mec_notifications_admin_notification_content-html").click();
-    jQuery("#mec_notifications_admin_notification_content-tmce").click();
-
-    jQuery("#mec_notifications_booking_reminder_content-html").click();
-    jQuery("#mec_notifications_booking_reminder_content-tmce").click();
-
-    jQuery("#mec_notifications_new_event_content-html").click();
-    jQuery("#mec_notifications_new_event_content-tmce").click();
-
-    jQuery("#mec_notifications_user_event_publishing_content-html").click();
-    jQuery("#mec_notifications_user_event_publishing_content-tmce").click();
-
-    jQuery("#mec_notifications_event_soldout_content-html").click();
-    jQuery("#mec_notifications_event_soldout_content-tmce").click();
+    jQuery.each(notifications,function(i,notification_type){
+        jQuery.each(content_types,function(j,type){
+            jQuery("#mec_notifications_"+notification_type+type+"_content-html").click();
+            jQuery("#mec_notifications_"+notification_type+type+"_content-tmce").click();
+        });
+    });    
 
     <?php do_action( 'mec_notification_menu_js' ); ?>
 });

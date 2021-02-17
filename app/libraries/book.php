@@ -223,6 +223,7 @@ class MEC_book extends MEC_base
         update_post_meta($book_id, 'mec_transaction_id', $transaction_id);
 
         $transaction['booking_id'] = $book_id;
+        $transaction['invoice_key'] = md5(time().mt_rand(10000, 99999));
         $this->update_transaction($transaction_id, $transaction);
 
         // Publish it
@@ -843,6 +844,11 @@ class MEC_book extends MEC_base
 
         $url = $main->URL('site');
         $url = $main->add_qs_var('method', 'mec-invoice', $url);
+
+        // Invoice Key
+        $transaction = $this->get_transaction($transaction_id);
+        if(isset($transaction['invoice_key'])) $url = $main->add_qs_var('mec-key', $transaction['invoice_key'], $url);
+
         return apply_filters('mec_booking_invoice_url', $main->add_qs_var('id', $transaction_id, $url), $transaction_id);
     }
 

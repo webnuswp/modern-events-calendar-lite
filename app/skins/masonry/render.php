@@ -23,10 +23,6 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
             $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
             $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-            // Label Caption
-            $label_style = $this->get_label_caption($event);
-            $label_color = $this->get_label_caption_color($event);
-
             // MEC Schema
             do_action('mec_schema', $event);
 
@@ -81,12 +77,14 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
             <div data-sort-masonry="<?php echo $event->date['start']['date']; ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-masonry-item-wrap <?php echo $this->filter_by_classes($event->data->ID); ?>">
                 <div class="mec-masonry">
 
-                    <article data-style="<?php echo $label_style; ?>" data-color="<?php echo esc_attr($label_color); ?>" class="mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
+                    <article class="mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
                         <?php if(isset($event->data->featured_image) and $this->masonry_like_grid): ?>
                             <div class="mec-masonry-img"><?php echo $this->display_link($event, get_the_post_thumbnail($event->data->ID , 'thumblist'), ''); ?></div>
                         <?php elseif(isset($event->data->featured_image) and isset($event->data->featured_image['full']) and trim($event->data->featured_image['full'])): ?>
                             <div class="mec-masonry-img"><?php echo $this->display_link($event, get_the_post_thumbnail($event->data->ID , 'full'), ''); ?></div>
                         <?php endif; ?>
+
+                        <?php echo $this->get_label_captions($event); ?>
 
                         <div class="mec-masonry-content mec-event-grid-modern">
                             <div class="event-grid-modern-head clearfix">

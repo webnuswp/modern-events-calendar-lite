@@ -171,7 +171,7 @@ if(!is_array($booking_options)) $booking_options = array();
                         <?php endif; ?>
                         <i class="mec-sl-location-pin"></i>
                         <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
-                        <dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
+                        <dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
                         <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
 
                         <?php if(isset($location['url']) and trim($location['url'])): ?>

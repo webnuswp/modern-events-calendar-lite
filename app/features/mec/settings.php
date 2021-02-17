@@ -112,7 +112,7 @@ $shortcodes = get_posts(array(
                                 <label class="mec-col-3" for="mec_settings_booking_sender_name"><?php _e('Sender Name', 'modern-events-calendar-lite'); ?></label>
                                 <div class="mec-col-9">
                                     <input type="text" id="mec_settings_booking_sender_name" name="mec[settings][booking_sender_name]"
-                                        value="<?php echo (isset($settings['booking_sender_name']) and trim($settings['booking_sender_name'])) ? $settings['booking_sender_name'] : ''; ?>" placeholder="<?php _e('e.g. Webnus', 'modern-events-calendar-lite'); ?>"/>
+                                        value="<?php echo (isset($settings['booking_sender_name']) and trim($settings['booking_sender_name'])) ? stripslashes($settings['booking_sender_name']) : ''; ?>" placeholder="<?php _e('e.g. Webnus', 'modern-events-calendar-lite'); ?>"/>
                                 </div>
                             </div>
                             <!-- End Sender Name -->
@@ -873,6 +873,12 @@ $shortcodes = get_posts(array(
                                     <label>
                                         <input type="hidden" name="mec[settings][fes_section_booking_tubl]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][fes_section_booking_tubl]" <?php if(!isset($settings['fes_section_booking_tubl']) or (isset($settings['fes_section_booking_tubl']) and $settings['fes_section_booking_tubl'])) echo 'checked="checked"'; ?> /> <?php _e('Total User Booking Limits', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_lftp]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_lftp]" <?php if(!isset($settings['fes_section_booking_lftp']) or (isset($settings['fes_section_booking_lftp']) and $settings['fes_section_booking_lftp'])) echo 'checked="checked"'; ?> /> <?php _e('Last Few Tickets Percentage', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
                                 <div class="mec-form-row">

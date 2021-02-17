@@ -1468,6 +1468,9 @@ class MEC_skins extends MEC_base
         return $output ? '<div class="mec-shortcode-organizers"><i class="mec-sl-user"></i><ul class="mec-organizers">' . $output . '</ul></div>' : $output;
     }
 
+    /**
+     * TODO: Refactor
+     */
     public function display_link($event, $title = NULL, $class = NULL, $attributes = NULL)
     {
         // Event Title
@@ -1481,8 +1484,25 @@ class MEC_skins extends MEC_base
         // Link is disabled
         if($method == 'no' and in_array($class, array('mec-booking-button', 'mec-detail-button', 'mec-booking-button mec-bg-color-hover mec-border-color-hover', 'mec-event-link'))) return '';
         elseif($method == 'no') return $title;
+        else
+        {
+            $sed_method = (isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '');
+            switch($sed_method)
+            {
+                case '0':
+    
+                    $sed_method = '_self';
+                    break;
+                case 'new':
+    
+                    $sed_method = '_blank';
+                    break;                
+            }
 
-        $target = ($method == 'new' ? 'target="_blank" rel="noopener"' : '');
+            $sed_method = ($sed_method ? $sed_method : '_blank');
+        }
+
+        $target = (!empty($sed_method) ? 'target="'.$sed_method.'" rel="noopener"' : '');
         $target = apply_filters('mec_event_link_change_target' , $target, $event->data->ID);
         return '<a '.($class ? 'class="'.$class.'"' : '').' '.($attributes ? $attributes : '').' data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'" '.$target.'>'.$title.'</a>';
     }
@@ -1498,32 +1518,25 @@ class MEC_skins extends MEC_base
         return $maximum_date;
     }
 
-    public function get_label_caption($event)
+    public function get_label_captions($event, $extra_class = null)
     {
-        $label_style = '';
+        $captions = '';
         if(isset($event->data->labels) and is_array($event->data->labels) and count($event->data->labels))
         {
             foreach($event->data->labels as $label)
             {
                 if(!isset($label['style']) or (isset($label['style']) and !trim($label['style']))) continue;
 
-                if($label['style'] == 'mec-label-featured') $label_style = esc_html__('Featured' , 'modern-events-calendar-lite');
-                elseif($label['style'] == 'mec-label-canceled') $label_style = esc_html__('Canceled' , 'modern-events-calendar-lite');
-                elseif($label['style'] == 'mec-label-custom' and isset($label['name']) and trim($label['name'])) $label_style = esc_html__($label['name'] , 'modern-events-calendar-lite');
+                $captions .= '<span class="mec-event-label-captions '.$extra_class.'" style="--background-color: '.esc_attr($label['color']).';background-color: '.esc_attr($label['color']).'">';
+                if($label['style'] == 'mec-label-featured') $captions .= esc_html__($label['name'], 'modern-events-calendar-lite');
+                elseif($label['style'] == 'mec-label-canceled') $captions .= esc_html__($label['name'], 'modern-events-calendar-lite');
+                elseif($label['style'] == 'mec-label-custom' and isset($label['name']) and trim($label['name'])) $captions .= esc_html__($label['name'], 'modern-events-calendar-lite');
+                $captions .= '</span>';
+
+                break;
             }
         }
 
-        return $label_style;
-    }
-
-    public function get_label_caption_color($event)
-    {
-        $color = '';
-        if(isset($event->data->labels) and is_array($event->data->labels) and count($event->data->labels))
-        {
-            foreach($event->data->labels as $label) if(isset($label['color']) and trim($label['color'])) $color = $label['color'];
-        }
-
-        return $color;
+        return $captions;
     }
 }

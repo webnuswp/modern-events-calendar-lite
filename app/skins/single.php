@@ -940,7 +940,7 @@ class MEC_skin_single extends MEC_skins
             <?php endif; ?>
             <i class="mec-sl-location-pin"></i>
             <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
-            <dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
+            <dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd><dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
             <dd class="location">
                 <address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address>
             </dd>
@@ -1383,7 +1383,7 @@ class MEC_skin_single extends MEC_skins
                     <?php endif; ?>
                     <i class="mec-sl-location-pin"></i>
                     <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?> <?php echo $i; ?></h3>
-                    <dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
+                    <dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
                     <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
                     <?php
                     $location_description_setting = isset( $this->settings['addintional_locations_description'] ) ? $this->settings['addintional_locations_description'] : ''; $location_terms = get_the_terms($event->data, 'mec_location');  if($location_description_setting == '1'):
@@ -1552,5 +1552,19 @@ class MEC_skin_single extends MEC_skins
         </div>
         <?php
         }
+    }
+
+    public function get_location_html($location){
+        $location_id = $location['id'] ?? '';
+        $location_name = $location['name'] ?? '';
+        $location_link = '';
+        $location_link = apply_filters('mec_location_single_page_link',$location_link,$location_id,$location_name,$location);
+        if(!empty($location_link)){
+            $location_html ='<a href="'.$location_link.'">'.$location_name .'</a>';
+        }else{
+            $location_html = $location_name;
+        }
+
+        return $location_html;
     }
 }

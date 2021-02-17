@@ -36,12 +36,9 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
 
                     $excerpt = implode(' ', $words);
                 }
-
-                // Label Caption
-                $label_style = $this->get_label_caption($event);
-                $label_color = $this->get_label_caption_color($event);
             ?>
-            <article data-style="<?php echo $label_style; ?>" data-color="<?php echo esc_attr($label_color); ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
+            <article class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
+                <?php echo $this->get_label_captions($event); ?>
                 <?php do_action('mec_schema', $event); // MEC Schema ?>
                 <?php if($this->style == 't1'): ?>
                     <div class="mec-slider-t1-img" style="background: url(<?php echo $src; ?>);"></div>

@@ -4,8 +4,8 @@
 **Donate link:** https://webnus.net \
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
-**Tested up to:** 5.6 \
-**Stable tag:** 5.17.0 \
+**Tested up to:** 5.6.1 \
+**Stable tag:** 5.17.1 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -594,6 +594,30 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.17.1 – 17 February 2021
+
+- Added: A new option to manage a percentage of “Last Tickets” globally (pro)
+- Added: An ability to manage a percentage of “Last Tickets” per event (pro)
+- Improved: The accessibility of MEC invoices (pro)
+- Improved: The storage of numeric fields of tickets and fees (pro)
+- Improved: Display of featured canceled and custom labels
+- Improved: Dark mode in backend and frontend
+- Fixed: Settings menu
+- Fixed: Duplicate events
+- Fixed: User booking limit (pro)
+- Fixed: A Fatal error on older versions of PHP
+- Fixed: Showing un-rendered notification placeholders (pro)
+- Fixed: Bulk booking import (pro)
+- Fixed: An issue regarding expired events on full calendar skin
+- Fixed: “Booking Cancellation” notification (pro)
+- Fixed: iCal export regarding custom day events (pro)
+- Fixed: List of the locations and organizers in the wizard popup (add event)
+- Fixed: An issue regarding the location without an address in list view modern style
+- Fixed: Datepicker style
+- Fixed: Category icon setup
+- Fixed: Responsive on mobile in the popup modal for booking (pro)
+- Fixed: Some minor issues
 
 ### v 5.17.0 – 11 February 2021
 

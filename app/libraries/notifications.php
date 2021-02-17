@@ -126,6 +126,9 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%verification_link%%', $link, $message);
             $message = str_replace('%%link%%', $link, $message);
 
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+
             $message = $this->add_template($message);
 
             // Filter the email
@@ -228,7 +231,10 @@ class MEC_notifications extends MEC_base
 
             $message = isset($this->notif_settings['booking_notification']['content']) ? $this->notif_settings['booking_notification']['content'] : '';
             $message = $this->content($this->get_content($message, 'booking_notification', $event_id), $book_id, $attendee);
-            
+
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+
             $message = $this->add_template($message);
 
             // Filter the email
@@ -330,6 +336,9 @@ class MEC_notifications extends MEC_base
 
             $message = isset($this->notif_settings['booking_confirmation']['content']) ? $this->notif_settings['booking_confirmation']['content'] : '';
             $message = $this->content($this->get_content($message, 'booking_confirmation', $event_id), $book_id, $attendee);
+
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
 
             $message = $this->add_template($message);
 
@@ -469,6 +478,10 @@ class MEC_notifications extends MEC_base
 
             // Book Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
+
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+
             $message = $this->add_template($message);
 
             // Filter the email
@@ -601,6 +614,10 @@ class MEC_notifications extends MEC_base
 
             // Book Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
+
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+
             $message = $this->add_template($message);
 
             // Filter the email
@@ -702,6 +719,9 @@ class MEC_notifications extends MEC_base
         // Set Email Type to HTML
         add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
 
+        // Remove remained placeholders
+        $message = preg_replace('/%%.*%%/', '', $message);
+
         $message = $this->add_template($message);
 
         // Filter the email
@@ -800,6 +820,10 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
 
             $message = $this->content($this->get_content($message, 'booking_reminder', $event_id), $book_id, $attendee);
+
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+
             $message = $this->add_template($message);
 
             // Filter the email
@@ -946,6 +970,9 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
         $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
 
+        // Remove remained placeholders
+        $message = preg_replace('/%%.*%%/', '', $message);
+
         // Notification Subject
         $subject = str_replace('%%event_title%%', get_the_title($event_id), $subject);
 
@@ -1084,6 +1111,9 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%zoom_password%%', get_post_meta($post->ID, 'mec_zoom_password', true), $message);
             $message = str_replace('%%zoom_embed%%', get_post_meta($post->ID, 'mec_zoom_embed', true), $message);
 
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+
             // Notification Subject
             $subject = str_replace('%%event_title%%', get_the_title($post->ID), $subject);
 
@@ -1175,6 +1205,10 @@ class MEC_notifications extends MEC_base
 
             // Book Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$this->main->get_book_post_type()), $this->main->URL('admin').'edit.php'), $message);
+
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+
             $message = $this->add_template($message);
 
             // Filter the email
@@ -1757,6 +1791,12 @@ class MEC_notifications extends MEC_base
      */
     public function get_subject($value, $notification_key, $event_id)
     {
+        $custom_subject = apply_filters('mec_notification_get_subject','',$notification_key,$event_id);
+        if(!empty($custom_subject)){
+
+            return $custom_subject;
+        }
+
         $values = get_post_meta($event_id, 'mec_notifications', true);
         if(!is_array($values) or (is_array($values) and !count($values))) return $value;
 
@@ -1777,6 +1817,12 @@ class MEC_notifications extends MEC_base
      */
     public function get_content($value, $notification_key, $event_id)
     {
+        $custom_message = apply_filters('mec_notification_get_content','',$notification_key,$event_id);
+        if(!empty($custom_message)){
+
+            return $custom_message;
+        }
+
         $values = get_post_meta($event_id, 'mec_notifications', true);
         if(!is_array($values) or (is_array($values) and !count($values))) return $value;
 

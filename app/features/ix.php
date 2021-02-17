@@ -229,13 +229,13 @@ class MEC_feature_ix extends MEC_base
             return array('success' => 0, 'message' => __("Please upload a CSV file.", 'modern-events-calendar-lite'));
         }
 
+        $bookings = array();
         if(($h = fopen($target_path, 'r')) !== false)
         {
             // MEC Libraries
             $gateway = new MEC_gateway();
             $book = $this->getBook();
 
-            $bookings = array();
             while(($data = fgetcsv($h, 1000, ",")) !== false)
             {
                 $booking_id = $data[0];
@@ -250,7 +250,7 @@ class MEC_feature_ix extends MEC_base
                 $tickets = get_post_meta($event_id, 'mec_tickets', true);
                 if(!is_array($tickets)) $tickets = array();
 
-                $ticket_id = 0;
+                $ticket_id = NULL;
                 $ticket_name = $data[5];
 
                 foreach($tickets as $tid => $ticket)
@@ -263,7 +263,7 @@ class MEC_feature_ix extends MEC_base
                 }
 
                 // Ticket ID not found!
-                if(!$ticket_id) continue;
+                if(is_null($ticket_id)) continue;
 
                 $transaction_id = $data[6];
 
@@ -418,7 +418,7 @@ class MEC_feature_ix extends MEC_base
         // Delete File
         unlink($target_path);
 
-        return array('success' => 1, 'message' => __('The bookings are imported successfully!', 'modern-events-calendar-lite'));
+        return array('success' => (count($bookings) ? 1 : 0), 'message' => (count($bookings) ? __('The bookings are imported successfully!', 'modern-events-calendar-lite') : __('No bookings found to import!', 'modern-events-calendar-lite')));
     }
 
     public function import_start()

@@ -116,7 +116,7 @@ class MEC_feature_labels extends MEC_base
                     <option value=""><?php _e('Normal', 'modern-events-calendar-lite'); ?></option>
                     <option value="mec-label-featured" <?php echo ($style == 'mec-label-featured' ? 'selected="selected"' : ''); ?>><?php _e('Featured', 'modern-events-calendar-lite'); ?></option>
                     <option value="mec-label-canceled" <?php echo ($style == 'mec-label-canceled' ? 'selected="selected"' : ''); ?>><?php _e('Canceled', 'modern-events-calendar-lite'); ?></option>
-                    <!--<option value="mec-label-custom" <?php echo ($style == 'mec-label-custom' ? 'selected="selected"' : ''); ?>><?php _e('Custom', 'modern-events-calendar-lite'); ?></option>-->
+                    <option value="mec-label-custom" <?php echo ($style == 'mec-label-custom' ? 'selected="selected"' : ''); ?>><?php _e('Custom', 'modern-events-calendar-lite'); ?></option>
                 </select>
                 <p class="description"><?php _e('You can show featured, canceled and custom labels by a different style!', 'modern-events-calendar-lite'); ?></p>
             </td>
@@ -142,7 +142,7 @@ class MEC_feature_labels extends MEC_base
                 <option value=""><?php _e('Normal', 'modern-events-calendar-lite'); ?></option>
                 <option value="mec-label-featured"><?php _e('Featured', 'modern-events-calendar-lite'); ?></option>
                 <option value="mec-label-canceled"><?php _e('Canceled', 'modern-events-calendar-lite'); ?></option>
-                <!--<option value="mec-label-custom"><?php _e('Custom', 'modern-events-calendar-lite'); ?></option>-->
+                <option value="mec-label-custom"><?php _e('Custom', 'modern-events-calendar-lite'); ?></option>
             </select>
             <p class="description"><?php _e('You can show featured, canceled and custom labels by a different style!', 'modern-events-calendar-lite'); ?></p>
         </div>

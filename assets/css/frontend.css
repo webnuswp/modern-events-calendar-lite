@@ -5365,11 +5365,11 @@ address.mec-events-address {
 }
 
 .mec-box-calendar.mec-calendar .mec-calendar-side .mec-previous-month {
-	left: 60px;
+	left: 40px;
 }
 
 .mec-box-calendar.mec-calendar .mec-calendar-side .mec-next-month {
-	right: 60px;
+	right: 40px;
 }
 
 .mec-box-calendar.mec-calendar .mec-calendar-side {
@@ -5542,6 +5542,10 @@ address.mec-events-address {
 	font-weight: 700;
 	background: #fafafa;
 	border-bottom: none;
+}
+
+.mec-wrap .mec-calendar.mec-event-calendar-classic .mec-selected-day:hover {
+	color: #fff !important
 }
 
 .mec-calendar.mec-event-calendar-classic .mec-calendar-events-sec .mec-table-side-title,
@@ -10587,7 +10591,7 @@ li.mec-no-event-found .mec-event-title {
 
 .mec-next-event-details abbr {
 	display: block;
-	padding-left: 12px;
+	padding-left: 0;
 	color: #8d8d8d;
 }
 
@@ -11287,6 +11291,11 @@ body .featherlight .featherlight-close-icon:hover {
 	color: #f9af29;
 }
 
+.mec-yearly-agenda-sec span.mec-event-label-captions.mec-fc-style {
+    right: 0;
+    top: 0;
+}
+
 @media only screen and (max-width: 959px) {
 	.mec-yearly-view-wrap .mec-yearly-calendar-sec {
 		width: 268px;
@@ -11940,6 +11949,7 @@ body .featherlight .featherlight-close-icon:hover {
 	margin: 0 15px 30px;
 	min-height: 10px;
 	position: relative;
+	float: left;
 }
 
 .isotope-item {
@@ -12896,6 +12906,10 @@ body .featherlight .featherlight-close-icon:hover {
 	background-color: #40d9f1;
 }
 
+.mec-box-marker{
+	box-shadow: 5px 0px 0 #40d9f1 inset;
+}
+
 .mec-border-color,
 .mec-border-color-hover:hover,
 .mec-wrap .mec-border-color,
@@ -13018,7 +13032,7 @@ body .featherlight .featherlight-close-icon:hover {
 
 /* # Featured/Canceled Label
 	================================================== */
-.mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-featured:before,
+/* .mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-featured:before,
 .mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-canceled:before {
 	z-index: 1;
 	position: absolute;
@@ -13036,12 +13050,37 @@ body .featherlight .featherlight-close-icon:hover {
 	-webkit-transition: .5s cubic-bezier(.25, .5, .06, .85);
 	transition: .5s cubic-bezier(.25, .5, .06, .85);
 	content: attr(data-style);
-}
+} */
 
 .mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-featured,
-.mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-canceled {
+.mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-canceled,
+.mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-custom {
 	overflow: hidden;
 	position: relative;
+}
+
+.mec-event-label-captions {
+    z-index: 1;
+    position: absolute;
+    top: 20px;
+    right: -37px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #04de78;
+    padding: 2px 40px;
+    color: #fff;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate( 45deg);
+    transform: rotate( 45deg);
+    -webkit-transition: .5s cubic-bezier(.25,.5,.06,.85);
+    transition: .5s cubic-bezier(.25,.5,.06,.85);
+    list-style: none;
+    text-align: center;
+}
+
+.mec-box-calendar.mec-event-calendar-classic.mec-event-container-novel .mec-event-label-captions {
+	display: none;
 }
 
 .mec-wrap article:not([class^="mec-event-countdown"]):not([class^="mec-event-cover-"]).mec-label-canceled:before {
@@ -13100,11 +13139,11 @@ ul.mec-weekly-view-dates-events article:before,
 	border-bottom: 4px solid transparent;
 	margin: 0;
 	top: 50%;
-	left: -4px;
+	left: -5px;
 	transform: translateY(-4.5px);
 	position: absolute;
 	content: '';
-	color: #04de78;
+	color: var(--background-color);
 }
 
 .mec-timeline-event.mec-label-canceled .mec-fc-style:before,
@@ -13133,7 +13172,8 @@ ul.mec-weekly-view-dates-events article:before,
 .mec-wrap article.mec-event-cover-classic .mec-fc-style,
 .mec-wrap article.mec-event-cover-clean .mec-fc-style,
 .mec-wrap article[class^="mec-event-countdown-"] .mec-fc-style {
-	top: -3px;
+	top: -1px;
+	right: -3px;
 	font-size: 11px;
 	white-space: nowrap;
 }
@@ -13178,6 +13218,7 @@ ul.mec-weekly-view-dates-events article:before,
 .mec-timetable-wrap article .mec-fc-style {
 	top: -2px;
 	font-size: 10px;
+	right: 0;
 }
 
 /* Cover View */
@@ -13190,6 +13231,11 @@ ul.mec-weekly-view-dates-events article:before,
 	margin-bottom: 24px;
 	display: inline-block;
 	border-radius: 2px;
+	-ms-transform: rotate(0);
+    -webkit-transform: rotate( 0);
+    transform: rotate( 0 );
+    right: 0;
+    top: 0;
 }
 
 /* Grid View/Clean */
@@ -13210,6 +13256,7 @@ ul.mec-weekly-view-dates-events article:before,
 	top: -4px;
 	font-size: 10px;
 	margin-left: 10px;
+	right: 0;
 }
 
 .mec-event-grid-classic article .mec-fc-style {
@@ -14008,6 +14055,35 @@ ul.mec-categories li.mec-category a {
 		width: 340px;
 		margin: 0 auto;
 	}
+}
+
+@media(max-width: 480px) {
+    .single-mec-events .lity-container {
+        max-width: 440px;
+        width: 440px;
+		margin:0 auto !important
+    }
+}
+
+@media(max-width: 411px) {
+    .single-mec-events .lity-container {
+        max-width: 380px;
+        width: 380px
+    }
+}
+
+@media(max-width: 375px) {
+    .single-mec-events .lity-container {
+        max-width: 350px;
+        width: 350px
+    }
+}
+
+@media(max-width: 320px) {
+    .single-mec-events .lity-container {
+        max-width: 300px;
+        width: 300px
+    }
 }
 
 /* Booking Cover Overley */
@@ -15054,9 +15130,8 @@ article.mec-search-bar-result {
     text-align: left;
 }
 
-.mec-next-event {
-    float: right;
-    text-align: right;
+.mec-next-event ul {
+	padding-left: 0;
 }
 
 .mec-next-previous-events .mec-previous-event i {
@@ -15097,6 +15172,7 @@ article.mec-search-bar-result {
 
 .mec-next-multiple ul .mec-time dd {
 	margin: 0;
+	padding: 0
 }
 
 .mec-next-multiple ul .mec-time .mec-events-abbr,
@@ -18988,7 +19064,7 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 
 /* Modal Popup Booking Styles */
 .lity-wrap .mec-booking-calendar.mec-wrap {
-	margin-top: 20;
+	margin-top: 20px;
 }
 
 .lity-wrap .mec-booking-calendar-month-navigation,

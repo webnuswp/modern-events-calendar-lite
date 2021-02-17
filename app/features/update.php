@@ -73,9 +73,39 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.16.1', '<')) $this->version5161();
         if(version_compare($version, '5.16.2', '<')) $this->version5162();
         if(version_compare($version, '5.17.0', '<')) $this->version5170();
+        if(version_compare($version, '5.17.1', '<')) $this->version5171();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
+    }
+
+    public function update_capabilities($capabilities)
+    {
+        // Site Admin
+        $role = get_role('administrator');
+        if($role) foreach($capabilities as $capability) $role->add_cap($capability, true);
+
+        // Multisite
+        if(is_multisite())
+        {
+            // All Super Admins
+            $supers = get_super_admins();
+            foreach($supers as $admin)
+            {
+                $user = new WP_User(0, $admin);
+                foreach($capabilities as $capability) $user->add_cap($capability, true);
+            }
+        }
+    }
+
+    public function reschedule()
+    {
+        // Scheduler
+        $schedule = $this->getSchedule();
+
+        // Add Schedule for All Events
+        $events = $this->main->get_events();
+        foreach($events as $event) $schedule->reschedule($event->ID, 50);
     }
     
     /**
@@ -234,12 +264,8 @@ class MEC_feature_update extends MEC_base
         // Drop Columns
         $this->db->q("ALTER TABLE `#__mec_dates` DROP COLUMN `type`;");
 
-        // Scheduler
-        $schedule = $this->getSchedule();
-
-        // Add Schedule for All Events
-        $events = $this->main->get_events();
-        foreach($events as $event) $schedule->reschedule($event->ID, 50);
+        // Reschedule
+        $this->reschedule();
 
         // Scheduler Cron job
         if(!wp_next_scheduled('mec_scheduler')) wp_schedule_event(time(), 'hourly', 'mec_scheduler');
@@ -511,21 +537,8 @@ class MEC_feature_update extends MEC_base
         // List of Capabilities
         $capabilities = array('mec_bookings', 'mec_add_booking', 'mec_coupons', 'mec_report', 'mec_import_export', 'mec_settings');
 
-        // Site Admin
-        $role = get_role('administrator');
-        if($role) foreach($capabilities as $capability) $role->add_cap($capability, true);
-
-        // Multisite
-        if(is_multisite())
-        {
-            // All Super Admins
-            $supers = get_super_admins();
-            foreach($supers as $admin)
-            {
-                $user = new WP_User(0, $admin);
-                foreach($capabilities as $capability) $user->add_cap($capability, true);
-            }
-        }
+        // Update Capabilities
+        $this->update_capabilities($capabilities);
     }
 
     public function version5160()
@@ -558,22 +571,15 @@ class MEC_feature_update extends MEC_base
     public function version5170()
     {
         // List of Capabilities
-        $capabilities = array('mec_shortcodes');
+        $capabilities = array('mec_shortcodes', 'mec_settings');
 
-        // Site Admin
-        $role = get_role('administrator');
-        if($role) foreach($capabilities as $capability) $role->add_cap($capability, true);
+        // Update Capabilities
+        $this->update_capabilities($capabilities);
+    }
 
-        // Multisite
-        if(is_multisite())
-        {
-            // All Super Admins
-            $supers = get_super_admins();
-            foreach($supers as $admin)
-            {
-                $user = new WP_User(0, $admin);
-                foreach($capabilities as $capability) $user->add_cap($capability, true);
-            }
-        }
+    public function version5171()
+    {
+        $this->version5170();
+        $this->reschedule();
     }
 }

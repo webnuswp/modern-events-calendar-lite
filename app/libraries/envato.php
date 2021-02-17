@@ -193,6 +193,7 @@ class MEC_envato extends MEC_base
             $obj->new_version = $version;
             $obj->url = $this->itemurl;
             $obj->package = $this->get_update_path();
+            $obj->upgrade_notice = esc_html__('This update includes only bug fixes.', 'modern-events-calendar-lite');
             $obj->sections = array
             (
                 'description' => 'Modern Events Calendar - Responsive Event Scheduler & Booking For WordPress',
@@ -269,7 +270,8 @@ class MEC_envato extends MEC_base
             $information->download_link  = $this->get_update_path();
             $information->banners['low'] = 'https://ps.w.org/modern-events-calendar-lite/assets/banner-772x250.png?rev=1912767';
             $information->tested = '5.2.2';
-            $information->active_installs = '10000';
+            $information->active_installs = '100000';
+            $information->upgrade_notice = esc_html__('This update includes only bug fixes.', 'modern-events-calendar-lite');
             $information->sections = (array) $information->sections;
 
             unset($information->sections['installation']);

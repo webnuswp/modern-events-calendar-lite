@@ -1146,16 +1146,24 @@ class MEC_feature_fes extends MEC_base
                 $ticket['ticket_start_time_ampm'] = strtoupper(substr($ticket_render_start_time, 5, 6));
                 $ticket['ticket_end_time_hour'] = substr($ticket_render_end_time, 0, 2);
                 $ticket['ticket_end_time_ampm'] = strtoupper(substr($ticket_render_end_time, 5, 6));
+                $ticket['price'] = trim($ticket['price']);
+                $ticket['limit'] = trim($ticket['limit']);
+                $ticket['minimum_ticket'] = trim($ticket['minimum_ticket']);
+                $ticket['stop_selling_value'] = trim($ticket['stop_selling_value']);
 
                 // Bellow conditional block code is used to change ticket dates format to compatible ticket past dates structure for store in db.
-                if ( isset( $ticket[ 'dates' ] ) ) {
-                    foreach ( $ticket[ 'dates' ] as $dates_ticket_key => $dates_ticket_values ) {
-                        if ( isset( $dates_ticket_values[ 'start' ] ) and trim( $dates_ticket_values[ 'start' ] ) ) {
-                            $ticket[ 'dates' ][ $dates_ticket_key ][ 'start' ] = $this->main->standardize_format( $dates_ticket_values[ 'start' ] );
+                if(isset($ticket['dates']))
+                {
+                    foreach($ticket['dates'] as $dates_ticket_key => $dates_ticket_values)
+                    {
+                        if(isset($dates_ticket_values['start']) and trim($dates_ticket_values['start']))
+                        {
+                            $ticket['dates'][$dates_ticket_key]['start'] = $this->main->standardize_format($dates_ticket_values['start']);
                         }
 
-                        if ( isset( $dates_ticket_values[ 'end' ] ) and trim( $dates_ticket_values[ 'end' ] ) ) {
-                            $ticket[ 'dates' ][ $dates_ticket_key ][ 'end' ] = $this->main->standardize_format( $dates_ticket_values[ 'end' ] );
+                        if(isset($dates_ticket_values['end']) and trim($dates_ticket_values['end']))
+                        {
+                            $ticket['dates'][$dates_ticket_key]['end'] = $this->main->standardize_format($dates_ticket_values['end']);
                         }
                     }
                 }

@@ -34,10 +34,6 @@ else $set_dark = '';
                 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-                // Label Caption
-                $label_style = $this->get_label_caption($event);
-                $label_color = $this->get_label_caption_color($event);
-
                 // MEC Schema
                 do_action('mec_schema', $event);
             ?>
@@ -50,7 +46,7 @@ else $set_dark = '';
                 </span>
                 <span class="mec-timetable-event-span mec-timetable-event-title">
                     <?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?>
-                    <?php if(!empty($label_style)) echo '<span class="mec-fc-style" data-color="'.esc_attr($label_color).'">'.$label_style.'</span>'; ?>
+                    <?php echo $this->get_label_captions($event,'mec-fc-style'); ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 </span>
                 
@@ -67,7 +63,7 @@ else $set_dark = '';
                     <?php endif; ?>
                 </span>
             </article>
-            <?php do_action('mec_timetable_view_content', $event, $this, $date, $label_style); ?>
+            <?php do_action('mec_timetable_view_content', $event, $this, $date); ?>
         <?php endforeach; ?>
     </div>
     
@@ -92,18 +88,15 @@ else $set_dark = '';
             $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
             $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
             $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
-
-            // Label Caption
-            $label_style = $this->get_label_caption($event);
-            $label_color = $this->get_label_caption_color($event);
         ?>
         <article class="mec-event-article <?php echo $this->get_event_classes($event); ?>">
             <?php echo $event_color; ?>
             <div class="mec-timetable-t2-content">
                 <h4 class="mec-event-title">
                     <?php echo $this->display_link($event); ?>
-                    <?php echo $this->main->get_flags($event); if(!empty($label_style)) echo '<span class="mec-fc-style" data-color="'.esc_attr($label_color).'">'.$label_style.'</span>'; ?>
+                    <?php echo $this->main->get_flags($event); ?>
                 </h4>
+                <?php echo $this->get_label_captions($event,'mec-fc-style'); ?>
                 <div class="mec-event-time">
                     <i class="mec-sl-clock-o"></i>
                     <?php if(trim($start_time)): ?>
@@ -135,7 +128,7 @@ else $set_dark = '';
     <table>
         <thead>
             <tr>
-                <td>Time/Date</td>
+                <td><?php esc_html_e('Time/Date', 'modern-events-calendar-lite'); ?></td>
                 <?php foreach($this->events as $date=>$events): ?>
                 <td><?php echo $this->main->date_i18n('l', strtotime($date)); ?></td>
                 <?php endforeach; ?>

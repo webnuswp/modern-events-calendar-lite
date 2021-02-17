@@ -26,17 +26,14 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
 
-                // Label Caption
-                $label_style = $this->get_label_caption($event);
-                $label_color = $this->get_label_caption_color($event);
-
                 // MEC Schema
                 do_action('mec_schema', $event);
             ?>
             <?php do_action('mec_weekly_view_content', $event); ?>
-            <article data-style="<?php echo $label_style; ?>" data-color="<?php echo esc_attr($label_color); ?>" class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article <?php echo $this->get_event_classes($event); ?>">
+            <article class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article <?php echo $this->get_event_classes($event); ?>">
                 <div class="mec-event-list-weekly-date mec-color"><span class="mec-date-day"><?php echo $this->main->date_i18n('d', strtotime($event->date['start']['date'])); ?></span><?php echo $this->main->date_i18n('F', strtotime($event->date['start']['date'])); ?></div>
                 <div class="mec-event-image"><?php echo $event->data->thumbnails['thumbnail']; ?></div>
+                <?php echo $this->get_label_captions($event); ?>
                 <?php if(trim($start_time)): ?><div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> <?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div><?php endif; ?>
                 <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>

@@ -241,7 +241,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							<?php endif; ?>
 							<i class="mec-sl-location-pin"></i>
 							<h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
-							<dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
+							<dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
 							<dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
 
 							<?php if(isset($location['url']) and trim($location['url'])): ?>
@@ -479,7 +479,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 								<?php endif; ?>
 								<i class="mec-sl-location-pin"></i>
 								<h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
-								<dd class="author fn org"><?php echo (isset($location['name']) ? $location['name'] : ''); ?></dd>
+								<dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
 								<dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
 
 								<?php if(isset($location['url']) and trim($location['url'])): ?>

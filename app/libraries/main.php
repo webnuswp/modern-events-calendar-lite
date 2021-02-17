@@ -2651,6 +2651,14 @@ class MEC_main extends MEC_base
                 exit;
             }
 
+            // Invoice Key
+            $invoice_key = isset($transaction['invoice_key']) ? $transaction['invoice_key'] : NULL;
+            if($invoice_key and (!isset($_GET['mec-key']) or (isset($_GET['mec-key']) and $_GET['mec-key'] != $invoice_key)))
+            {
+                wp_die(__("You don't have access to view this invoice!", 'modern-events-calendar-lite'), __('Key is invalid.', 'modern-events-calendar-lite'));
+                exit;
+            }
+
             $event = $render->data($event_id);
 
             $location_id = isset($event->meta['mec_location_id']) ? $event->meta['mec_location_id'] : 0;
@@ -6343,14 +6351,15 @@ class MEC_main extends MEC_base
         $settings = $this->get_settings();
 
         $assets = array('js'=>array(), 'css'=>array());
-
-        $gm_include = apply_filters('mec_gm_include', true);
         
         $local = $this->get_current_language();
-        $ex = explode('_',$local);        
-        $language = $ex[0] ?? 'en';
-        $region = $ex[1] ?? 'US';
-        if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '').'&language='.$language.'&region='.$region;//$this->get_current_language();
+        $ex = explode('_',$local);
+
+        $language = ((isset($ex[0]) and trim($ex[0])) ? $ex[0] : 'en');
+        $region = ((isset($ex[1]) and trim($ex[1])) ? $ex[1] : 'US');
+
+        $gm_include = apply_filters('mec_gm_include', true);
+        if($gm_include) $assets['js']['googlemap'] = '//maps.googleapis.com/maps/api/js?libraries=places'.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '').'&language='.$language.'&region='.$region;
 
         $assets['js']['mec-richmarker-script'] = $this->asset('packages/richmarker/richmarker.min.js'); // Google Maps Rich Marker
         $assets['js']['mec-clustering-script'] = $this->asset('packages/clusterer/markerclusterer.min.js'); // Google Maps Clustering
@@ -6961,7 +6970,6 @@ class MEC_main extends MEC_base
         $recurrence = array();
         if(isset($event->mec->repeat) and $event->mec->repeat)
         {
-            $gmt_offset = $this->get_gmt_offset($event);
             $finish = ($event->mec->end != '0000-00-00' ? date('Ymd\THis\Z', strtotime($event->mec->end.' '.$event->time['end'])) : '');
             $freq = '';
             $interval = '1';
@@ -7030,7 +7038,18 @@ class MEC_main extends MEC_base
                 foreach($mec_periods as $mec_period)
                 {
                     $mec_days = explode(':', trim($mec_period, ': '));
-                    $days .= date('Ymd\THis', strtotime($mec_days[0].' '.$event->time['start'])).$gmt_offset.'/'.date('Ymd\THis', strtotime($mec_days[1].' '.$event->time['end'])).$gmt_offset.',';
+
+                    $time_start = $event->time['start'];
+                    if(isset($mec_days[2])) $time_start = str_replace('-', ':', str_replace('-AM', ' AM', str_replace('-PM', ' PM', $mec_days[2])));
+
+                    $time_end = $event->time['end'];
+                    if(isset($mec_days[3])) $time_end = str_replace('-', ':', str_replace('-AM', ' AM', str_replace('-PM', ' PM', $mec_days[3])));
+
+                    $start_time = strtotime($mec_days[0].' '.$time_start);
+                    $end_time = strtotime($mec_days[1].' '.$time_end);
+
+                    $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
+                    $days .= gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)).'/'.gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)).',';
                 }
 
                 // Add RDATE
@@ -7339,17 +7358,26 @@ class MEC_main extends MEC_base
             
             // Check For Return SoldOut Label Exist.
             if($remained_tickets === 0) return str_replace('%%title%%', __('Sold Out', 'modern-events-calendar-lite'), $output_tag) . '<input type="hidden" value="%%soldout%%"/>';
-    
+
+            // Booking Options
             $booking_options = get_post_meta($event_id, 'mec_booking', true);
+
+            $bookings_last_few_tickets_percentage_inherite = isset($booking_options['last_few_tickets_percentage_inherit']) ? $booking_options['last_few_tickets_percentage_inherit'] : 1;
+            $bookings_last_few_tickets_percentage = ((isset($booking_options['last_few_tickets_percentage']) and trim($booking_options['last_few_tickets_percentage']) != '') ? $booking_options['last_few_tickets_percentage'] : NULL);
+
             $total_bookings_limit = (isset($booking_options['bookings_limit']) and trim($booking_options['bookings_limit'])) ? $booking_options['bookings_limit'] : 100;
             $bookings_limit_unlimited = isset($booking_options['bookings_limit_unlimited']) ? $booking_options['bookings_limit_unlimited'] : 0;
             if($bookings_limit_unlimited == '1') $total_bookings_limit = -1;
 
             // Get Per Occurrence
             $total_bookings_limit = MEC_feature_occurrences::param($event_id, $timestamp, 'bookings_limit', $total_bookings_limit);
+
+            // Percentage
+            $percentage = ((isset($settings['booking_last_few_tickets_percentage']) and trim($settings['booking_last_few_tickets_percentage']) != '') ? $settings['booking_last_few_tickets_percentage'] : 15);
+            if(!$bookings_last_few_tickets_percentage_inherite and $bookings_last_few_tickets_percentage) $percentage = (int) $bookings_last_few_tickets_percentage;
             
             // Check For Return A Few Label Exist.
-            if(($total_bookings_limit > 0) and ($remained_tickets <= round(((15 * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
+            if(($total_bookings_limit > 0) and ($remained_tickets <= round((($percentage * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
     
             return false;
         }
@@ -7404,6 +7432,8 @@ class MEC_main extends MEC_base
 
     public function get_start_of_multiple_days($event_id, $date)
     {
+        if(trim($date) == '') return NULL;
+
         $db = $this->getDB();
         return $db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`dstart`='".$date."') OR (`dstart`<'".$date."' AND `dend`>='".$date."')) ORDER BY `dstart` DESC LIMIT 1", 'loadResult');
     }

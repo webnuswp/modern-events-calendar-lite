@@ -112,7 +112,12 @@ class MEC
 
         // Register language files for localization
         $factory->action('plugins_loaded', array($factory, 'load_languages'));
+
+        // Plugin Update Notification
+        $factory->action('in_plugin_update_message-' . MEC_BASENAME , array($factory, 'mecShowUpgradeNotification') , 10,2);
     }
+
+
     
     /**
      * Getting a instance of a MEC library

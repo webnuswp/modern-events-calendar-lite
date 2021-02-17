@@ -286,7 +286,7 @@
 .wns-be-sidebar .wns-be-group-menu li .subsection li.active a {
     color: #00b0dd;
     position: relative;
-    z-index: 9999
+    z-index: 99
 }
 
 .wns-be-sidebar .wns-be-group-menu li .subsection li.active a:after,.wns-be-sidebar .wns-be-group-menu li .subsection li.active a:before {
@@ -1255,6 +1255,11 @@ body.post-type-mec-books th.column-author {
     line-height: 1;
     font-weight: 600;
     padding-top: 10px;
+}
+
+.mec-meta-box-labels-container .mec-form-row label {
+    padding-top: 0;
+    line-height: 2.1
 }
 
 #mec_reg_form_fields label,
@@ -3629,7 +3634,7 @@ hr {
     position: fixed;
     top: 32px;
     background: #fff;
-    z-index: 99999;
+    z-index: 999;
     width: 82%;
 }
 
@@ -6533,6 +6538,10 @@ a.mec-add-booking-tabs-link,a.mec-add-event-tabs-link,a.mec-create-shortcode-tab
     left: -4px
 }
 
+#mec-occurrences .mec-occurrences-list {
+    margin-top: 12px
+}
+
 #mec-occurrences .mec-occurrences-list h3 {
     margin-top: 0
 }
@@ -8997,14 +9006,27 @@ div#mec_popup_event_form {
     overflow-y: scroll
 }
 
+.mec-add-event-popup .nice-select.mec_popup_organizer_id .list,
+.mec-add-event-popup .nice-select.mec_popup_location_id .list {
+    max-height: 240px !important;
+    overflow: hidden !important;
+    overflow-y: scroll !important
+}
+
+.mec-add-event-popup .nice-select.mec_popup_organizer_id .list::-webkit-scrollbar,
+.mec-add-event-popup .nice-select.mec_popup_location_id .list::-webkit-scrollbar,
 .mec-add-event-popup .mec-categories-tab-contents::-webkit-scrollbar {
     width: 5px
 }
 
+.mec-add-event-popup .nice-select.mec_popup_organizer_id .list::-webkit-scrollbar-track,
+.mec-add-event-popup .nice-select.mec_popup_location_id .list::-webkit-scrollbar-track,
 .mec-add-event-popup .mec-categories-tab-contents::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0,0,0,.1)
 }
 
+.mec-add-event-popup .nice-select.mec_popup_organizer_id .list::-webkit-scrollbar-thumb,
+.mec-add-event-popup .nice-select.mec_popup_location_id .list::-webkit-scrollbar-thumb,
 .mec-add-event-popup .mec-categories-tab-contents::-webkit-scrollbar-thumb {
     background-color: #008aff;
     outline: 0 solid #fff
@@ -9376,7 +9398,7 @@ div#mec_popup_event_form {
 }
 
 .post-type-mec-events #TB_ajaxContent {
-    width: calc(100% - 40px)!important
+    width: calc(100% - 30px)!important
 }
 
 .m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container .fserv-form-description,.m-e-calendar_page_MEC-support #wpwrap .welcome-content .fserv-container form {
@@ -9399,6 +9421,10 @@ div#mec_popup_event_form {
     position: absolute;
     top: 96px;
     left: 12px
+}
+
+.taxonomy-mec_category #TB_window {
+    overflow: hidden;
 }
 
 @media (max-width: 480px) {
@@ -10391,4 +10417,60 @@ div#mec_cancelled_reason_wrapper label {
     border: 1px dashed #d7d8d9;
     font-family: monospace;
     letter-spacing: 0.4px
+}
+
+
+/* Strong Datepicker For Single Event Page & Shortcode Page */
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-state-default,
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-widget-content .ui-state-default,
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-widget-header .ui-state-default,
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-button,
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-button.ui-state-disabled:hover,
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-button.ui-state-disabled:active,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-state-default,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-widget-content .ui-state-default,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-widget-header .ui-state-default,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-button,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-button.ui-state-disabled:hover,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-button.ui-state-disabled:active {
+    border: 0;
+    background-color: #ffffff;
+    font-weight: normal;
+    color: #212121;
+    text-align: center
+}
+
+.post-type-mec_calendars .ui-datepicker.ui-widget td a.ui-state-active,
+.post-type-mec_calendars .ui-datepicker.ui-widget td a:hover,
+.post-type-mec-events .ui-datepicker.ui-widget td a.ui-state-active,
+.post-type-mec-events .ui-datepicker.ui-widget td a:hover {
+    background: #40d9f1;
+    color: #fff
+} 
+
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-widget-header,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-widget-header {
+    border: 0 ;
+    background: unset;
+    background-color: #ffffff
+}
+
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-icon,
+.post-type-mec_calendars .ui-datepicker.ui-widget .ui-widget-content .ui-icon,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-icon,
+.post-type-mec-events .ui-datepicker.ui-widget .ui-widget-content .ui-icon {
+    background-image: unset
+}
+
+.post-type-mec_calendars .ui-datepicker.ui-widget select,
+.post-type-mec-events .ui-datepicker.ui-widget select {
+    font-weight: 600;
+    font-size: 12px;
+    border-radius: 2px;
+    padding: 2px 10px;
+    margin: 1px 3px 5px
+}
+
+.mec-update-warning+p {
+    display: none;
 }

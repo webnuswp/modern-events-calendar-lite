@@ -186,7 +186,11 @@ class MEC_skin_full_calendar extends MEC_skins
             case 'monthly':
                 
                 $atts = $this->atts;
-                $atts['sk-options']['monthly_view']['start_date_type'] = isset($this->skin_options['start_date_type']) ? $this->skin_options['start_date_type'] : '';
+
+                $start_date_type = isset($this->skin_options['start_date_type']) ? $this->skin_options['start_date_type'] : 'today';
+                if($start_date_type == 'today') $start_date_type = 'start_current_month';
+
+                $atts['sk-options']['monthly_view']['start_date_type'] = $start_date_type;
                 $atts['sk-options']['monthly_view']['start_date'] = isset($this->skin_options['start_date']) ? $this->skin_options['start_date'] : '';
                 $atts['sk-options']['monthly_view']['style'] = $this->monthly_style;
                 $atts['sk-options']['monthly_view']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
@@ -205,7 +209,11 @@ class MEC_skin_full_calendar extends MEC_skins
             case 'weekly':
                 
                 $atts = $this->atts;
-                $atts['sk-options']['weekly_view']['start_date_type'] = isset($this->skin_options['start_date_type']) ? $this->skin_options['start_date_type'] : '';
+
+                $start_date_type = isset($this->skin_options['start_date_type']) ? $this->skin_options['start_date_type'] : 'today';
+                if($start_date_type == 'today') $start_date_type = 'start_current_month';
+
+                $atts['sk-options']['weekly_view']['start_date_type'] = $start_date_type;
                 $atts['sk-options']['weekly_view']['start_date'] = isset($this->skin_options['start_date']) ? $this->skin_options['start_date'] : '';
                 $atts['sk-options']['weekly_view']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
                 $atts['sk-options']['weekly_view']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';

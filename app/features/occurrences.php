@@ -358,6 +358,7 @@ class MEC_feature_occurrences extends MEC_base
     {
         $params = $this->get($occurrence_id);
         $data = $this->get_data($occurrence_id);
+        $event_id = $data['post_id'] ?? 0;
 
         $date_format = get_option('date_format');
         $time_format = get_option('time_format');
@@ -455,6 +456,9 @@ class MEC_feature_occurrences extends MEC_base
                     ?>
                 </div>
             </div>
+
+            <?php do_action( 'mec_occurrences_fields', $occurrence_id, $event_id, $data ); ?>
+
         </li>
         <?php
     }
@@ -464,6 +468,9 @@ class MEC_feature_occurrences extends MEC_base
         if(!isset($data['occurrences']) or (isset($data['occurrences']) and !is_array($data['occurrences']))) return;
 
         $occurrences = $data['occurrences'];
+
+        do_action( 'mec_occurrences_save',$post_id, $occurrences );
+
         foreach($occurrences as $occurrence)
         {
             // Clean Hourly Schedules
