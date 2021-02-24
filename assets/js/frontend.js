@@ -5023,6 +5023,9 @@ function mecFluentYearlyUI(eventID, yearID) {
                     // HTML
                     $('#mec_booking_calendar_wrapper'+settings.id).html(response.html);
 
+                    // Hide Message
+                    $('#mec_book_form' + settings.id + ' .mec-ticket-unavailable-spots').addClass('mec-util-hidden');
+
                     // Empty the Date
                     $('#mec_book_form_date' + settings.id).val('').trigger('change');
 

@@ -35,6 +35,8 @@ $javascript = '<script type="text/javascript">
 var mec_tickets_availability_ajax'.$uniqueid.' = false;
 function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
 {
+    if(!date) return;
+    
     // Add loading Class to the ticket list
     jQuery(".mec-event-tickets-list").addClass("loading");
     jQuery("#mec_booking'.$uniqueid.' .mec-event-tickets-list input").prop("disabled", true);
@@ -62,7 +64,6 @@ function mec_get_tickets_availability'.$uniqueid.'(event_id, date)
             if(typeof data.availability.total != "undefined") jQuery("#mec_booking'.$uniqueid.' #mec_book_form_tickets_container'.$uniqueid.'").data("total-booking-limit", data.availability.total);
 
             var available_spots = 0;
-            //console.log(data.availability);
             
             for(ticket_id in data.availability)
             {

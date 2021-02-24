@@ -151,7 +151,7 @@ class MEC_skin_map extends MEC_skins
         $events = array();
         $sorted = array();
         
-        $this->args['meta_query']['relation'] = $this->args['meta_query']['relation'] ?? 'AND';
+        $this->args['meta_query']['relation'] = (isset($this->args['meta_query']['relation']) ? $this->args['meta_query']['relation'] : 'AND');
         $this->args['meta_query']['mec_start_date'] = array(
             'key' => 'mec_start_date',
             'value' => $this->start_date,

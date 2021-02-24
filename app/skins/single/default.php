@@ -64,8 +64,8 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 			   if ( $this->main->is_sold( $event ) and count( $event->dates ) <= 1 ): ?>
 				  <?php
 				  $event_id        = $event->ID;
-				  $dates = $event->dates ?? array( $event->date );
-				  $occurrence_time = $dates[0]['start']['timestamp'] ?? strtotime( $dates[0]['start']['date'] );
+				  $dates = (isset($event->dates) ? $event->dates : array($event->date));
+				  $occurrence_time = (isset($dates[0]['start']['timestamp']) ? $dates[0]['start']['timestamp'] : strtotime($dates[0]['start']['date']));
 				  $tickets         = get_post_meta( $event_id, 'mec_tickets', true );
 				  $book         = $this->getBook();
 				  $availability = $book->get_tickets_availability( $event_id, $occurrence_time );
@@ -75,7 +75,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 				  $stop_selling                = '';
 				  foreach ( $tickets as $ticket_id => $ticket ) {
 
-					 $ticket_limit = $availability[ $ticket_id ] ?? -1;
+					 $ticket_limit = (isset($availability[$ticket_id]) ? $availability[$ticket_id] : -1);
 					 $ticket_name  = isset( $ticket['name'] ) ? '<strong>' . $ticket['name'] . '</strong>' : '';
 
 					 $key          = 'stop_selling_' . $ticket_id;

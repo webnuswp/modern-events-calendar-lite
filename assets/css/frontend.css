@@ -1157,6 +1157,15 @@ span.mec-event-title-soldout {
 	border-radius: 3px;
 }
 
+.mec-event-list-minimal .mec-event-date {
+    min-width: 52px;
+    width: fit-content;
+}
+
+.mec-event-list-minimal .mec-event-date:nth-child(2) {
+    margin: 0 30px 0 -20px;
+}
+
 .mec-event-list-minimal .mec-event-date span {
 	display: block;
 	font-size: 24px;
@@ -1175,6 +1184,10 @@ span.mec-event-title-soldout {
     height: 34px;
     background: rgba(255,255,255,.1);
     box-shadow: 0 4px 4px rgba(0,0,0,.02);
+}
+
+.mec-event-list-minimal .mec-event-date:after {
+    width: 100%;
 }
 
 .mec-event-list-minimal .mec-event-title {
@@ -1331,6 +1344,41 @@ span.mec-event-title-soldout {
 	padding: 10px 0 0;
 }
 
+.mec-event-list-modern .mec-event-date .event-d.mec-multiple-dates {
+    font-size: 20px;
+    padding: 0;
+}
+
+.mec-event-list-modern .mec-event-date.mec-multiple-date-event:first-child {
+    padding: 10px 0 6px 0;
+    position: relative;
+    width: fit-content;
+}
+
+.mec-event-list-modern .mec-event-date.mec-multiple-date-event:first-child:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: silver;
+}
+
+.mec-event-list-modern .mec-event-date.mec-multiple-date-event:last-child {
+    padding: 5px 0 10px 0;
+}
+
+.mec-event-list-modern .mec-event-date.mec-multiple-date-event .event-d {
+    font-size: 20px;
+    padding: 0;
+}
+
+.mec-event-list-modern .mec-event-date.mec-multiple-date-event .event-da {
+    font-size: 20px;
+    margin: 0;
+}
+
 .mec-event-list-modern .mec-event-date .event-f {
 	font-size: 13px;
 	display: table-cell;
@@ -1403,6 +1451,7 @@ span.mec-event-title-soldout {
 .mec-event-list-modern .mec-event-sharing {
 	position: relative;
 	margin: 10px 0;
+	padding-left: 0
 }
 
 .mec-event-list-modern .mec-event-sharing>li {
@@ -3908,6 +3957,7 @@ focus,
 	font-weight: 700;
 	font-size: 21px;
 	color: #222;
+	display: contents;
 }
 
 .mec-single-event .mec-events-meta-group-booking label.wn-checkbox-label,
@@ -12906,8 +12956,10 @@ body .featherlight .featherlight-close-icon:hover {
 	background-color: #40d9f1;
 }
 
-.mec-box-marker{
+.mec-box-marker,
+.mec-vip-content-notice{
 	box-shadow: 5px 0px 0 #40d9f1 inset;
+	padding: 5px 10px;
 }
 
 .mec-border-color,
@@ -15115,6 +15167,10 @@ article.mec-search-bar-result {
     margin: 40px 0 40px;
 }
 
+.mec-next-previous-events li:last-child {
+    text-align: right;
+}
+
 .mec-next-previous-events li a {
     padding: 9px 14px 9px 14px;
     border: 1px solid #000;
@@ -15156,7 +15212,14 @@ article.mec-search-bar-result {
 .mec-next-multiple ul .mec-time,
 .mec-next-multiple ul .mec-date {
     display: inline-block;
-    width: 50%;
+}
+
+.mec-next-multiple ul .mec-time {
+	width: 40%;
+}
+
+.mec-next-multiple ul .mec-date {
+    width: 60%;
 }
 
 .mec-next-multiple ul .mec-date {
@@ -15175,9 +15238,10 @@ article.mec-search-bar-result {
 	padding: 0
 }
 
+.mec-next-multiple ul .mec-date .mec-end-date-label,
 .mec-next-multiple ul .mec-time .mec-events-abbr,
 .mec-next-multiple ul .mec-date .mec-start-date-label {
-    font-size: 14px;
+    font-size: 11px;
     line-height: 24px;
 }
 

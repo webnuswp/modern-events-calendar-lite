@@ -273,9 +273,10 @@ class MEC_render extends MEC_base
      * Do the custom skin and returns its output
      * @author Webnus <info@webnus.biz>
      * @param array $atts
+     * @param string $type
      * @return string
      */
-    public function vcustom($atts,$type = 'archive')
+    public function vcustom($atts, $type = 'archive')
     {
         $k = 'custom_'.$type;
         

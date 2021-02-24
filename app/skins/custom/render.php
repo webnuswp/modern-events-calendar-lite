@@ -10,6 +10,9 @@ $event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color']
 $settings = $this->main->get_settings();
 $current_month_divider = $this->request->getVar('current_month_divider', 0);
 
+global $MEC_Shortcode_id;
+$MEC_Shortcode_id = !empty($MEC_Shortcode_id) ? $MEC_Shortcode_id : $this->atts['id'];
+
 // colorful
 $colorful_flag = $colorful_class = '';
 if($this->style == 'colorful')

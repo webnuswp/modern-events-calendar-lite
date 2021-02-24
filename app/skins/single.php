@@ -91,9 +91,19 @@ class MEC_skin_single extends MEC_skins
             'posts_per_page' => 8,
             'post_status' => 'publish',
             'post__not_in' => array($event_id),
-            'order' => 'ASC',
-            'orderby' => 'post_date',
             'tax_query' => array(),
+            'meta_query' => array(
+                'mec_start_date' => array(
+                    'key' => 'mec_start_date',
+                ),
+                'mec_start_day_seconds' => array(
+                    'key' => 'mec_start_day_seconds',
+                ),
+            ),
+            'orderby' => array(
+                'mec_start_date' => 'ASC',
+                'mec_start_day_seconds' => 'ASC',
+            ),
         );
 
         if(isset($this->settings['related_events_basedon_category']) && $this->settings['related_events_basedon_category'] == 1)
@@ -184,11 +194,11 @@ class MEC_skin_single extends MEC_skins
                             }
 
                             $dates = $this->render->dates(get_the_ID(), NULL, 1, $occurrence);
-                            $d = isset($dates[0]) ? $dates[0] : array();
+                            $d = (isset($dates[0]) ? $dates[0] : array());
 
                             // Don't show Expired Events
                             $timestamp = (isset($d['start']) and isset($d['start']['timestamp'])) ? $d['start']['timestamp'] : 0;
-                            if($timestamp <= 0 and $timestamp >= $now) break;
+                            if($timestamp <= 0 or $timestamp < $now) continue;
 
                             $printed += 1;
                             $mec_date = (isset($d['start']) and isset($d['start']['date'])) ? $d['start']['date'] : get_post_meta(get_the_ID(), 'mec_start_date', true);
@@ -940,7 +950,7 @@ class MEC_skin_single extends MEC_skins
             <?php endif; ?>
             <i class="mec-sl-location-pin"></i>
             <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
-            <dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd><dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
+            <dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
             <dd class="location">
                 <address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address>
             </dd>
@@ -1554,16 +1564,14 @@ class MEC_skin_single extends MEC_skins
         }
     }
 
-    public function get_location_html($location){
-        $location_id = $location['id'] ?? '';
-        $location_name = $location['name'] ?? '';
-        $location_link = '';
-        $location_link = apply_filters('mec_location_single_page_link',$location_link,$location_id,$location_name,$location);
-        if(!empty($location_link)){
-            $location_html ='<a href="'.$location_link.'">'.$location_name .'</a>';
-        }else{
-            $location_html = $location_name;
-        }
+    public function get_location_html($location)
+    {
+        $location_id = (isset($location['id']) ? $location['id'] : '');
+        $location_name = (isset($location['name']) ? $location['name'] : '');
+
+        $location_link = apply_filters('mec_location_single_page_link', '', $location_id, $location_name, $location);
+        if(!empty($location_link)) $location_html ='<a href="'.$location_link.'">'.$location_name .'</a>';
+        else $location_html = $location_name;
 
         return $location_html;
     }

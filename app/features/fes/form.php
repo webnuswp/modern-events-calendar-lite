@@ -364,6 +364,7 @@ $this->factory->params('footer', $javascript);
                     </div>
                     <?php endif; ?>
 
+                    <?php if(!isset($this->settings['fes_section_shortcode_visibility']) or (isset($this->settings['fes_section_shortcode_visibility']) and $this->settings['fes_section_shortcode_visibility'])): ?>
                     <h4><?php _e('Visibility', 'modern-events-calendar-lite'); ?></h4>
                     <div class="mec-form-row">
                         <div class="mec-col-4">
@@ -373,9 +374,11 @@ $this->factory->params('footer', $javascript);
                             </select>
                         </div>
                     </div>
+                    <?php endif; ?>
 
                 </div>
                 <div id="mec_meta_box_repeat_form">
+                    <h4><?php _e('Repeating', 'modern-events-calendar-lite'); ?></h4>
                     <div class="mec-form-row">
                         <input <?php if($repeat_status == '1') echo 'checked="checked"'; ?> type="checkbox" name="mec[date][repeat][status]" id="mec_repeat" value="1" /><label for="mec_repeat"><?php _e('Event Repeating', 'modern-events-calendar-lite'); ?></label>
                     </div>

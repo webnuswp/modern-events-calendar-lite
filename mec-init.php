@@ -116,8 +116,6 @@ class MEC
         // Plugin Update Notification
         $factory->action('in_plugin_update_message-' . MEC_BASENAME , array($factory, 'mecShowUpgradeNotification') , 10,2);
     }
-
-
     
     /**
      * Getting a instance of a MEC library

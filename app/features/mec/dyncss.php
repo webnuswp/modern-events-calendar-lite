@@ -8,33 +8,27 @@ $styling = $this->main->get_styling();
 // colorskin
 $color = '';
 
-function mec_dyn_hex2rgb( $cc ) {
-	if ( $cc[0] == '#' ) {
-			$cc = substr( $cc, 1 );
-	}
-	if ( strlen( $cc ) == 6 ) {
-			list( $r, $g, $b ) = array( $cc[0] . $cc[1], $cc[2] . $cc[3], $cc[4] . $cc[5] );
-	} elseif ( strlen( $cc ) == 3 ) {
-			list( $r, $g, $b ) = array( $cc[0] . $cc[0], $cc[1] . $cc[1], $cc[2] . $cc[2] );
-	} else {
-			return false;
-	}
+function mec_dyn_hex2rgb($cc)
+{
+	if($cc[0] == '#') $cc = substr($cc, 1);
 
-	$r = (ctype_xdigit($r) ? hexdec($r) : NULL);
-	$g = (ctype_xdigit($g) ? hexdec($g) : NULL);
-	$b = (ctype_xdigit($b) ? hexdec($b) : NULL);
+	if(strlen($cc) == 6) list($r, $g, $b) = array($cc[0] . $cc[1], $cc[2] . $cc[3], $cc[4] . $cc[5]);
+	elseif(strlen($cc) == 3) list($r, $g, $b) = array($cc[0] . $cc[0], $cc[1] . $cc[1], $cc[2] . $cc[2]);
+	else return false;
+
+	$r = ((!function_exists('ctype_xdigit') or (function_exists('ctype_xdigit') and ctype_xdigit($r))) ? hexdec($r) : NULL);
+	$g = ((!function_exists('ctype_xdigit') or (function_exists('ctype_xdigit') and ctype_xdigit($g))) ? hexdec($g) : NULL);
+	$b = ((!function_exists('ctype_xdigit') or (function_exists('ctype_xdigit') and ctype_xdigit($b))) ? hexdec($b) : NULL);
 
 	if(is_null($r) or is_null($g) or is_null($b)) return false;
-
-	return array( 'red' => $r, 'green' => $g, 'blue' => $b );
+	else return array('red' => $r, 'green' => $g, 'blue' => $b);
 }
-
 
 if(isset($styling['color']) && $styling['color']) $color = $styling['color'];
 elseif(isset($styling['mec_colorskin'])) $color = $styling['mec_colorskin'];
 
 $rgb_color = '64,217,241';
-if ( !empty($color)) $rgb_color = mec_dyn_hex2rgb($color);
+if(!empty($color)) $rgb_color = mec_dyn_hex2rgb($color);
 
 // Typography
 $mec_h_fontfamily_arr = $mec_p_fontfamily_arr = $fonts_url = $mec_container_normal_width = $mec_container_large_width = '';

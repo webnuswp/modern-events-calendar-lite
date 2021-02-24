@@ -358,7 +358,7 @@ class MEC_feature_occurrences extends MEC_base
     {
         $params = $this->get($occurrence_id);
         $data = $this->get_data($occurrence_id);
-        $event_id = $data['post_id'] ?? 0;
+        $event_id = (isset($data['post_id']) ? $data['post_id'] : 0);
 
         $date_format = get_option('date_format');
         $time_format = get_option('time_format');

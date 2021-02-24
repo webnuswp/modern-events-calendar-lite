@@ -167,11 +167,11 @@ $modal_booking = (isset($_GET['method']) and $_GET['method'] === 'mec-booking-mo
             </div>
             <?php
                 $str_replace = isset($ticket['name']) ? '<strong>'.$ticket['name'].'</strong>' : '';
-                $ticket_message_sales =  sprintf(__('The %s ticket sales has ended!', 'modern-events-calendar-lite'), $str_replace);
-                $ticket_message_sold_out =  sprintf(__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite'), $str_replace);
+                $ticket_message_sales = sprintf(__('The %s ticket sales has ended!', 'modern-events-calendar-lite'), $str_replace);
+                $ticket_message_sold_out = sprintf(__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite'), $str_replace);
             ?>
             <?php if(isset($stop_selling) and $stop_selling): ?>
-            <div id="mec-ticket-message-<?php echo $ticket_id; ?>" class="mec-ticket-unavailable-spots mec-error <?php echo ($ticket_limit == '0' ? '' : 'mec-util-hidden'); ?>">
+            <div id="mec-ticket-message-<?php echo $ticket_id; ?>" class="mec-ticket-unavailable-spots mec-error <?php echo (($ticket_limit != '0' or ($date_selection == 'calendar' and !$modal_booking)) ? 'mec-util-hidden' : ''); ?>">
                 <div>
                     <?php echo $ticket_message_sales; ?>
                 </div>

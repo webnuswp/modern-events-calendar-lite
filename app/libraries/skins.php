@@ -741,6 +741,7 @@ class MEC_skins extends MEC_base
      */
     public function search()
     {
+        global $MEC_Events_dates;
         if($this->show_only_expired_events)
         {
             $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
@@ -823,7 +824,8 @@ class MEC_skins extends MEC_base
                             'start'=>array('date'=>$date),
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
-
+                        // global variable for use dates
+                        $MEC_Events_dates[$ID][] = $data->date;
                         $d[] = $this->render->after_render($data, $this, $i);
                         $found++;
                     }
@@ -1013,7 +1015,7 @@ class MEC_skins extends MEC_base
 
                 $output .= '</div>';
             }
-            elseif($type == 'checkboxes')
+            elseif($type == 'checkboxes' and wp_count_terms(array('taxonomy' => 'mec_category')))
             {
                 $output .= '<div class="mec-checkboxes-search">
                     <i class="mec-sl-folder"></i>';

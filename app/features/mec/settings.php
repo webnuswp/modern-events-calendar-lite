@@ -4,12 +4,6 @@ defined('MECEXEC') or die();
 
 /** @var MEC_feature_mec $this */
 
-use Ctct\Components\Contacts\Contact;
-use Ctct\ConstantContact;
-use Ctct\Exceptions\CtctException;
-require_once MEC_ABSPATH.'/app/api/Ctct/autoload.php';
-require_once MEC_ABSPATH.'/app/api/Ctct/vendor/autoload.php';
-
 $settings = $this->main->get_settings();
 $archive_skins = $this->main->get_archive_skins();
 $category_skins = $this->main->get_category_skins();
@@ -106,26 +100,6 @@ $shortcodes = get_posts(array(
                                     </select>
                                 </div>
                             </div>
-
-                            <!-- Start Sender Name -->
-                            <div class="mec-form-row">
-                                <label class="mec-col-3" for="mec_settings_booking_sender_name"><?php _e('Sender Name', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-9">
-                                    <input type="text" id="mec_settings_booking_sender_name" name="mec[settings][booking_sender_name]"
-                                        value="<?php echo (isset($settings['booking_sender_name']) and trim($settings['booking_sender_name'])) ? stripslashes($settings['booking_sender_name']) : ''; ?>" placeholder="<?php _e('e.g. Webnus', 'modern-events-calendar-lite'); ?>"/>
-                                </div>
-                            </div>
-                            <!-- End Sender Name -->
-                            
-                            <!-- Start Sender Email -->
-                            <div class="mec-form-row">
-                                <label class="mec-col-3" for="mec_settings_booking_sender_email"><?php _e('Sender Email', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-9">
-                                    <input type="text" id="mec_settings_booking_sender_email" name="mec[settings][booking_sender_email]"
-                                        value="<?php echo (isset($settings['booking_sender_email']) and trim($settings['booking_sender_email'])) ? $settings['booking_sender_email'] : ''; ?>" placeholder="<?php _e('e.g. info@webnus.biz', 'modern-events-calendar-lite'); ?>"/>
-                                </div>
-                            </div>
-                            <!-- End Sender Email -->
 
                             <div class="mec-form-row">
                                 <label class="mec-col-3"><?php _e('Exclude Date Suffix', 'modern-events-calendar-lite'); ?></label>
@@ -278,6 +252,36 @@ $shortcodes = get_posts(array(
                                     <input type="hidden" name="mec[settings][fallback_featured_image_status]" value="0" />
                                     <input value="1" type="checkbox" name="mec[settings][fallback_featured_image_status]" <?php if(isset($settings['fallback_featured_image_status']) and $settings['fallback_featured_image_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable', 'modern-events-calendar-lite'); ?>
                                 </label>
+                            </div>
+
+                        </div>
+
+                        <div id="email_option" class="mec-options-fields">
+
+                            <h4 class="mec-form-subtitle"><?php _e('Email Options', 'modern-events-calendar-lite'); ?></h4>
+
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_booking_sender_name"><?php _e('Sender Name', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <input type="text" id="mec_settings_booking_sender_name" name="mec[settings][booking_sender_name]"
+                                           value="<?php echo (isset($settings['booking_sender_name']) and trim($settings['booking_sender_name'])) ? esc_attr(stripslashes($settings['booking_sender_name'])) : ''; ?>" placeholder="<?php _e('e.g. Webnus', 'modern-events-calendar-lite'); ?>"/>
+                                </div>
+                            </div>
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_booking_sender_email"><?php _e('Sender Email', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <input type="text" id="mec_settings_booking_sender_email" name="mec[settings][booking_sender_email]"
+                                           value="<?php echo (isset($settings['booking_sender_email']) and trim($settings['booking_sender_email'])) ? $settings['booking_sender_email'] : ''; ?>" placeholder="<?php _e('e.g. info@webnus.biz', 'modern-events-calendar-lite'); ?>"/>
+                                </div>
+                            </div>
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_booking_recipients_method"><?php _e('Recipients Method', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <select id="mec_settings_booking_recipients_method" name="mec[settings][booking_recipients_method]">
+                                        <option value="BCC" <?php echo ((isset($settings['booking_recipients_method']) and trim($settings['booking_recipients_method']) == 'BCC') ? 'selected="selected"' : ''); ?>><?php esc_html_e('BCC (Invisible)', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="CC" <?php echo ((isset($settings['booking_recipients_method']) and trim($settings['booking_recipients_method']) == 'CC') ? 'selected="selected"' : ''); ?>><?php esc_html_e('CC (Visible)', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                </div>
                             </div>
 
                         </div>
@@ -796,6 +800,19 @@ $shortcodes = get_posts(array(
                             </div>
                             <div class="mec-form-row">
                                 <label>
+                                    <input type="hidden" name="mec[settings][fes_section_shortcode_visibility]" value="0" />
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_shortcode_visibility]" <?php if(!isset($settings['fes_section_shortcode_visibility']) or (isset($settings['fes_section_shortcode_visibility']) and $settings['fes_section_shortcode_visibility'])) echo 'checked="checked"'; ?> /> <?php _e('Event Visibility', 'modern-events-calendar-lite'); ?>
+                                </label>
+                                <span class="mec-tooltip">
+                                    <div class="box right">
+                                        <h5 class="title"><?php _e('Event Visibility', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e("This feature adds the ability to hide the current event to all MEC Shortcodes.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/add-event/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                            <div class="mec-form-row">
+                                <label>
                                     <input type="hidden" name="mec[settings][fes_section_event_color]" value="0" />
                                     <input value="1" type="checkbox" name="mec[settings][fes_section_event_color]" <?php if(!isset($settings['fes_section_event_color']) or (isset($settings['fes_section_event_color']) and $settings['fes_section_event_color'])) echo 'checked="checked"'; ?> /> <?php _e('Event Color', 'modern-events-calendar-lite'); ?>
                                 </label>
@@ -963,7 +980,7 @@ $shortcodes = get_posts(array(
                                     <input onchange="jQuery('#mec_fes_note_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][fes_note]" <?php if(isset($settings['fes_note']) and $settings['fes_note']) echo 'checked="checked"'; ?> /> <?php _e('Event Note', 'modern-events-calendar-lite'); ?>
                                 </label>
                                 <span class="mec-tooltip">
-                                    <div class="box left">
+                                    <div class="box right">
                                         <h5 class="title"><?php _e('Event Note', 'modern-events-calendar-lite'); ?></h5>
                                         <div class="content"><p><?php esc_attr_e("Users can put a note for editors while they're submitting the event. Also you can put %%event_note%% into the new event notification in order to get users' note in email.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/frontend-event-submission/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                     </div>
@@ -1233,19 +1250,15 @@ $shortcodes = get_posts(array(
                                         </div>
                                     </div>
                                     <?php
-
+                                    $lists = '';
                                     if ( isset($settings['constantcontact_access_token']) and trim($settings['constantcontact_access_token']) != '' and isset($settings['constantcontact_api_key']) and trim($settings['constantcontact_api_key']) != '' ){
-                                        $cc = new ConstantContact($settings['constantcontact_api_key']);
-                                        try {
-                                            $lists = $cc->listService->getLists($settings['constantcontact_access_token']);
-                                        } catch (CtctException $ex) {
-                                            foreach ($ex->getErrors() as $error) {
-                                                print_r($error);
-                                            }
-                                            if (!isset($lists)) {
-                                                $lists = null;
-                                            }
-                                        }
+                                        $api_key = $settings['constantcontact_api_key'];
+                                        $lists  = wp_remote_retrieve_body(wp_remote_get("https://api.constantcontact.com/v2/lists?api_key=".$api_key, array(
+                                            'body' => null,
+                                            'timeout' => '10',
+                                            'redirection' => '10',
+                                            'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $settings['constantcontact_access_token']),
+                                        )));
                                     }
                                     
                                     ?>
@@ -1256,7 +1269,7 @@ $shortcodes = get_posts(array(
                                             <select name="mec[settings][constantcontact_list_id]" id="mec_settings_constantcontact_list_id">
                                                 <?php
                                                 if ( isset($lists) and !empty($lists)) {
-                                                    foreach ($lists as $list) {
+                                                    foreach (json_decode($lists) as $list) {
                                                     ?>
                                                         <option <?php if(isset($settings['constantcontact_list_id']) and $list->id == $settings['constantcontact_list_id']) echo 'selected="selected"'; ?> value="<?php echo $list->id ; ?>"><?php echo $list->name ; ?></option>
                                                     <?php

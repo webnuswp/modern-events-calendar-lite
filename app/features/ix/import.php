@@ -25,11 +25,21 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                 </div>
                 <div class="mec-form-row">
                     <input type="file" name="feed" id="feed" title="<?php esc_attr_e('XML Feed', 'modern-events-calendar-lite'); ?>">
-                    <input type="hidden" name="mec-ix-action" value="import-start">
+                    <input type="hidden" name="mec-ix-action" value="import-start-xml">
                     <?php wp_nonce_field('mec_import_start_upload'); ?>
                     <button class="button button-primary mec-button-primary mec-btn-2"><?php _e('Upload & Import', 'modern-events-calendar-lite'); ?></button>
                 </div>
             </form>
+
+            <?php if($this->action == 'import-start-xml'): ?>
+                <div class="mec-ix-import-started">
+                    <?php if($this->response['success'] == 0): ?>
+                        <div class="mec-error"><?php echo $this->response['message']; ?></div>
+                    <?php else: ?>
+                        <div class="mec-success"><?php echo $this->response['message']; ?></div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
             <br><h3><?php _e('Import .ics File', 'modern-events-calendar-lite'); ?></h3>
             <?php if($this->getPRO()): ?>
@@ -39,13 +49,23 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
                 </div>
                 <div class="mec-form-row">
                     <input type="file" name="feed" id="feed" title="<?php esc_attr_e('ICS Feed', 'modern-events-calendar-lite'); ?>">
-                    <input type="hidden" name="mec-ix-action" value="import-start">
+                    <input type="hidden" name="mec-ix-action" value="import-start-ics">
                     <?php wp_nonce_field('mec_import_start_upload'); ?>
                     <button class="button button-primary mec-button-primary mec-btn-2"><?php _e('Upload & Import', 'modern-events-calendar-lite'); ?></button>
                 </div>
             </form>
             <?php else: ?>
             <div class="info-msg"><?php echo sprintf(__("%s is required to use this feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
+            <?php endif; ?>
+
+            <?php if($this->action == 'import-start-ics'): ?>
+            <div class="mec-ix-import-started">
+                <?php if($this->response['success'] == 0): ?>
+                <div class="mec-error"><?php echo $this->response['message']; ?></div>
+                <?php else: ?>
+                <div class="mec-success"><?php echo $this->response['message']; ?></div>
+                <?php endif; ?>
+            </div>
             <?php endif; ?>
 
             <?php do_action('mec_import_item', $this); ?>
@@ -68,12 +88,12 @@ $third_parties = $this->main->get_integrated_plugins_for_import();
             <div class="info-msg"><?php echo sprintf(__("%s is required to use this feature.", 'modern-events-calendar-lite'), '<a href="'.$this->main->get_pro_link().'" target="_blank">'.__('Pro version of Modern Events Calendar', 'modern-events-calendar-lite').'</a>'); ?></div>
             <?php endif; ?>
 
-            <?php if($this->action == 'import-start' or $this->action == 'import-start-bookings'): ?>
+            <?php if($this->action == 'import-start-bookings'): ?>
             <div class="mec-ix-import-started">
                 <?php if($this->response['success'] == 0): ?>
-                    <div class="mec-error"><?php echo $this->response['message']; ?></div>
+                <div class="mec-error"><?php echo $this->response['message']; ?></div>
                 <?php else: ?>
-                    <div class="mec-success"><?php echo $this->response['message']; ?></div>
+                <div class="mec-success"><?php echo $this->response['message']; ?></div>
                 <?php endif; ?>
             </div>
             <?php endif; ?>

@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.6.1
-Stable tag: 5.17.1
+Tested up to: 5.6.2
+Stable tag: 5.17.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -445,6 +445,31 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.17.2 – 24 February 2021 =
+- Added: An option to use CC instead of BCC for notification recipients
+- Added: “No Event Found” message for archive pages
+- Improved: The custom CSS loading to fix some unwanted issues with cache and minify plugins
+- Improved: The message showing on the import menu
+- Updated: Spanish language (Thanks to Eloy Perez)
+- Fixed: A warning in Countdown, Available Spot and Slider skins (pro)
+- Fixed: An issue in referred date for those events that are linked to external websites
+- Fixed: An issue in default full calendar skin loaded in archive pages
+- Fixed: A PHP fatal error in some hosts
+- Fixed: An issue on ics link of email to show the correct time
+- Fixed: An issue on showing expired events on “Related Events” section
+- Fixed: Some issues on showing dates in minimal and modern styles of list view
+- Fixed: An issue in map module of the single event (pro)
+- Fixed: Some issues on booking module when date picker is set to calendar (pro)
+- Fixed: An issue in storing sender email name
+- Fixed: Some issues on category checkboxes
+- Fixed: An issue in downloading attendees of a specific date
+- Fixed: The datepicker style in the backend
+- Fixed: Duplicated location in the single event page
+- Fixed: Constant Contact integration lists (pro)
+- Fixed: An issue regarding the showing date in the Masonry view (pro)
+- Fixed: Typos in the booking messages (pro)
+- Fixed: Some minor issues
 
 = 5.17.1 – 17 February 2021 =
 - Added: A new option to manage a percentage of “Last Tickets” globally (pro)

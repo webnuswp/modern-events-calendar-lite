@@ -572,6 +572,7 @@ class MEC_main extends MEC_base
             __('User Profile', 'modern-events-calendar-lite') => 'user_profile_options',
             __('User Events', 'modern-events-calendar-lite') => 'user_events_options',
             __('Search Bar', 'modern-events-calendar-lite') => 'search_bar_options',
+            __('Email Options', 'modern-events-calendar-lite') => 'email_option',
             __('Mailchimp Integration', 'modern-events-calendar-lite') => 'mailchimp_option',
             __('Campaign Monitor Integration', 'modern-events-calendar-lite') => 'campaign_monitor_option',
             __('MailerLite Integration', 'modern-events-calendar-lite') => 'mailerlite_option',
@@ -1386,6 +1387,12 @@ class MEC_main extends MEC_base
      */
     public function include_styles()
     {
+        // Include Dynamic CSS
+        if(get_option('mec_dyncss') == true)
+        {
+            echo '<style type="text/css">'.stripslashes(get_option('mec_dyncss')).'</style>';
+        }
+
         $styles = $this->get_styles();
         
         // Print custom styles
@@ -3139,28 +3146,8 @@ class MEC_main extends MEC_base
      */
     public function ical_single_email($event_id, $book_id, $occurrence = '')
     {
-        $ticket_ids_str = get_post_meta($book_id, 'mec_ticket_id', true);
-        $tickets = get_post_meta($event_id, 'mec_tickets', true);
-
-        $ticket_start_hour = $ticket_start_minute = $ticket_end_hour = $ticket_end_minute = $ticket_start_ampm = $ticket_end_ampm = '';
-
-        $ticket_ids = explode(',', $ticket_ids_str);
-        $ticket_ids = array_filter($ticket_ids);
-
-        foreach($ticket_ids as $get_ticket_id=>$value)
-        {
-            foreach($tickets as $ticket=>$ticket_info)
-            {
-                if($ticket != $value) continue;
-
-                $ticket_start_hour = $ticket_info['ticket_start_time_hour'];
-                $ticket_start_minute = $ticket_info['ticket_start_time_minute'];
-                $ticket_start_ampm = $ticket_info['ticket_start_time_ampm'];
-                $ticket_end_hour = $ticket_info['ticket_end_time_hour'];
-                $ticket_end_minute = $ticket_info['ticket_end_time_minute'];
-                $ticket_end_ampm = $ticket_info['ticket_end_time_ampm'];
-            }
-        }
+        $date = get_post_meta($book_id, 'mec_date', true);
+        $timestamps = explode(':', $date);
 
         // MEC Render Library
         $render = $this->getRender();
@@ -3169,8 +3156,8 @@ class MEC_main extends MEC_base
         $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']] : array();
         $address = (isset($location['address']) and trim($location['address'])) ? $location['address'] : $location['name'];
         
-        $start_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_start_hour).':'.sprintf("%02d", $ticket_start_minute).' '.$ticket_start_ampm);
-        $end_time = strtotime(get_the_date('Y-m-d', $book_id).' '.sprintf("%02d", $ticket_end_hour).':'.sprintf("%02d", $ticket_end_minute).' '.$ticket_end_ampm);
+        $start_time = (isset($timestamps[0]) ? $timestamps[0] : strtotime(get_the_date($book_id)));
+        $end_time = (isset($timestamps[1]) ? $timestamps[1] : strtotime(get_the_date($book_id)));
         
         $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
         
@@ -5524,6 +5511,10 @@ class MEC_main extends MEC_base
             // Single Page Date method is set to next date
             if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return apply_filters('mec_event_permalink', $url);
 
+            // Do not add occurrence when custom link is set
+            $read_more = (isset($event->data->meta) and isset($event->data->meta['mec_read_more']) and filter_var($event->data->meta['mec_read_more'], FILTER_VALIDATE_URL));
+            if($read_more) return apply_filters('mec_event_permalink', $url);
+
             // Add Date to the URL
             $url = $this->add_qs_var('occurrence', $date, $url);
 
@@ -6600,7 +6591,7 @@ class MEC_main extends MEC_base
                 'others'=>array(
                     'category'=>array('name'=>__('Others', 'modern-events-calendar-lite')),
                     'messages'=>array(
-                        'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thanks you for booking. Your tickets are booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
+                        'book_success_message'=>array('label'=>__('Booking Success Message', 'modern-events-calendar-lite'), 'default'=>__('Thank you for booking. Your tickets are booked, booking verification might be needed, please check your email.', 'modern-events-calendar-lite')),
                         'booking_restriction_message1'=>array('label'=>__('Booking Restriction Message 1', 'modern-events-calendar-lite'), 'default'=>__('You selected %s tickets to book but maximum number of tikets per user is %s tickets.', 'modern-events-calendar-lite')),
                         'booking_restriction_message2'=>array('label'=>__('Booking Restriction Message 2', 'modern-events-calendar-lite'), 'default'=>__('You booked %s tickets till now but maximum number of tickets per user is %s tickets.', 'modern-events-calendar-lite')),
                         'booking_restriction_message3'=>array('label'=>__('Booking IP Restriction Message', 'modern-events-calendar-lite'), 'default'=>__('Maximum allowed number of tickets that you can book is %s.', 'modern-events-calendar-lite')),
@@ -7961,11 +7952,16 @@ class MEC_main extends MEC_base
         }
     }
 
-    public function is_multipleday_occurrence($event)
+    public function is_multipleday_occurrence($event, $check_same_month = false)
     {
         $start_date = ((isset($event->date) and isset($event->date['start']) and isset($event->date['start']['date'])) ? $event->date['start']['date'] : NULL);
         $end_date = ((isset($event->date) and isset($event->date['end']) and isset($event->date['end']['date'])) ? $event->date['end']['date'] : NULL);
 
+        if($check_same_month)
+        {
+            $multipleday = (!is_null($start_date) and $start_date !== $end_date);
+            return ($multipleday and (date('m', strtotime($start_date)) == date('m', strtotime($end_date))));
+        }
         return (!is_null($start_date) and $start_date !== $end_date);
     }
 

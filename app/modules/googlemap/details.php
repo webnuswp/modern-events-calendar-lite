@@ -19,6 +19,9 @@ $uniqueid = (isset($uniqueid) ? $uniqueid : $event->data->ID);
 // Map is disabled for this event
 if(isset($event->data->meta['mec_dont_show_map']) and $event->data->meta['mec_dont_show_map']) return;
 
+// Event ID
+$event_id = $event->ID;
+
 $location = isset($event->data->meta['mec_location_id']) && isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
 
 // Event location geo point
@@ -50,24 +53,24 @@ if(!$this->is_ajax()) $this->load_map_assets();
 // Get Direction Status
 $get_direction = (isset($settings['google_maps_get_direction_status']) and in_array($settings['google_maps_get_direction_status'], array(0,1,2))) ? $settings['google_maps_get_direction_status'] : 0;
 
-$additional_location_ids = get_post_meta($event->ID, 'mec_additional_location_ids', true);
+$additional_location_ids = get_post_meta($event_id, 'mec_additional_location_ids', true);
 $event_locations = array_keys($event->data->locations);
 
 $map_data = new stdClass;
 $map_data->id = $uniqueid;
 $map_data->atts = array(
-    'location_map_zoom'=>isset($settings['google_maps_zoomlevel']) ? $settings['google_maps_zoomlevel'] : 14,
-    'location_center_lat'=>null,
-    'location_center_long'=>null,
+    'location_map_zoom' => (isset($settings['google_maps_zoomlevel']) ? $settings['google_maps_zoomlevel'] : 14),
+    'location_center_lat' => null,
+    'location_center_long' => null,
     'use_orig_map' => true
 );
 
-$map_data->events =  $this->get_rendered_events(array('post__in'=>array($event->ID)));
+$map_data->events = array($event_id => $event);
 $map_data->render = $render;
 $map_data->geolocation = '0';
 $map_data->sf_status = null;
 
-$current_event = (isset($map_data->events[$event->ID]) ? array($map_data->events[$event->ID]) : array());
+$current_event = (isset($map_data->events[$event_id]) ? array($map_data->events[$event_id]) : array());
 $map_data->events = apply_filters('mec_location_load_additional', $current_event, $additional_location_ids, $event_locations);
 
 // Initialize MEC Google Maps jQuery plugin

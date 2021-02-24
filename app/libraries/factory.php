@@ -312,7 +312,6 @@ class MEC_factory extends MEC_base
 
         // Include MEC backend CSS
         wp_enqueue_style('mec-backend-style', $this->main->asset('css/backend.min.css'), array('wp-color-picker'), $this->main->get_version());
-
     }
 
     /**
@@ -334,7 +333,7 @@ class MEC_factory extends MEC_base
         wp_enqueue_script('jquery');
 
         // Include jQuery date picker
-        if ( !defined("SHOW_CT_BUILDER") ) wp_enqueue_script('jquery-ui-datepicker');
+        if(!defined("SHOW_CT_BUILDER")) wp_enqueue_script('jquery-ui-datepicker');
 
         // Load Isotope
         if(class_exists('ET_Builder_Element')) $this->main->load_isotope_assets();
@@ -409,13 +408,6 @@ class MEC_factory extends MEC_base
 
         // Include Google Fonts
         if($gfonts_status == true and get_option('mec_dyncss') == 0) wp_enqueue_style('mec-google-fonts', '//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:100,300,400,700');
-
-		// Include Dynamic CSS
-        if(get_option('mec_dyncss') == true)
-        {
-        	wp_enqueue_style('mec-dynamic-styles', $this->main->asset('css/dyncss.css'));
-        	wp_add_inline_style('mec-dynamic-styles', get_option('mec_dyncss'));
-        }
 
         // Include Google Font
         if($gfonts_status and get_option('mec_gfont')) wp_enqueue_style('mec-custom-google-font', get_option('mec_gfont'), array(), NULL);

@@ -227,7 +227,7 @@ class MEC_feature_fes extends MEC_base
 
         $post_ids = trim($booking_ids) ? explode(',', trim($booking_ids, ', ')) : array();
         
-        if(!count($post_ids))
+        if(!count($post_ids) and !$timestamp)
         {
             $books = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_event_id' AND `meta_value`={$event_id}", 'loadAssocList');
             foreach($books as $book) if(isset($book['post_id'])) $post_ids[] = $book['post_id'];

@@ -188,7 +188,7 @@ class MEC_feature_ix extends MEC_base
         $nonce = (isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '');
         if(wp_verify_nonce($nonce, 'mec_import_start_upload'))
         {
-            if($this->action == 'import-start') $this->response = $this->import_start();
+            if(in_array($this->action, array('import-start-xml', 'import-start-ics'))) $this->response = $this->import_start();
             elseif($this->action == 'import-start-bookings') $this->response = $this->import_start_bookings();
             elseif(!empty($this->action)) $this->response = apply_filters('mec_import_item_action', $this->action);
         }
@@ -429,7 +429,8 @@ class MEC_feature_ix extends MEC_base
         if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => __('Please upload the feed file.', 'modern-events-calendar-lite'));
 
         // File name validation
-        $name_end = end(explode('.', $feed_file['name']));
+        $ex = explode('.', $feed_file['name']);
+        $name_end = end($ex);
         if(!in_array($name_end, array('xml', 'ics'))) return array('success' => 0, 'message' => __('Please upload an XML or an ICS file.', 'modern-events-calendar-lite'));
 
         // File Type is not valid

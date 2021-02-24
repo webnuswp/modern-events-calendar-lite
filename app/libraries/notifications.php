@@ -89,12 +89,15 @@ class MEC_notifications extends MEC_base
         $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'BCC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Attendees
@@ -195,19 +198,22 @@ class MEC_notifications extends MEC_base
         $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'BCC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Send the notification to event organizer
         if(isset($this->notif_settings['booking_notification']['send_to_organizer']) and $this->notif_settings['booking_notification']['send_to_organizer'] == 1)
         {
             $organizer_email = $this->get_booking_organizer_email($book_id);
-            if($organizer_email !== false) $headers[] = 'BCC: '.trim($organizer_email);
+            if($organizer_email !== false) $headers[] = $CCBCC.': '.trim($organizer_email);
         }
 
         // Attendees
@@ -307,12 +313,15 @@ class MEC_notifications extends MEC_base
         $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'BCC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Attendees
@@ -444,12 +453,15 @@ class MEC_notifications extends MEC_base
         $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'BCC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Event ID
@@ -580,12 +592,15 @@ class MEC_notifications extends MEC_base
         $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'BCC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Event ID
@@ -692,19 +707,22 @@ class MEC_notifications extends MEC_base
             else return;
         }
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'CC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Send the notification to event organizer
         if(isset($this->notif_settings['admin_notification']['send_to_organizer']) and $this->notif_settings['admin_notification']['send_to_organizer'] == 1)
         {
             $organizer_email = $this->get_booking_organizer_email($book_id);
-            if($organizer_email !== false and $organizer_email != $to) $headers[] = 'CC: '.trim($organizer_email);
+            if($organizer_email !== false and $organizer_email != $to) $headers[] = $CCBCC.': '.trim($organizer_email);
         }
 
         $message = isset($this->notif_settings['admin_notification']['content']) ? $this->notif_settings['admin_notification']['content'] : '';
@@ -776,12 +794,15 @@ class MEC_notifications extends MEC_base
         $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'BCC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Attendees
@@ -907,12 +928,15 @@ class MEC_notifications extends MEC_base
 
         $headers = array('Content-Type: text/html; charset=UTF-8');
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'CC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         // Date Format
@@ -1044,12 +1068,15 @@ class MEC_notifications extends MEC_base
             $recipients = array_map('trim', $recipients);
             $recipients = array_unique($recipients);
 
+            // Recipient Type
+            $CCBCC = $this->get_cc_bcc_method();
+
             foreach($recipients as $recipient)
             {
                 // Skip if it's not a valid email
                 if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-                $headers[] = 'CC: '.$recipient;
+                $headers[] = $CCBCC.': '.$recipient;
             }
 
             $message = (isset($this->notif_settings['user_event_publishing']['content']) and trim($this->notif_settings['user_event_publishing']['content'])) ? $this->notif_settings['user_event_publishing']['content'] : '';
@@ -1174,12 +1201,15 @@ class MEC_notifications extends MEC_base
         $recipients = array_map('trim', $recipients);
         $recipients = array_unique($recipients);
 
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
         foreach($recipients as $recipient)
         {
             // Skip if it's not a valid email
             if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
 
-            $headers[] = 'BCC: '.$recipient;
+            $headers[] = $CCBCC.': '.$recipient;
         }
 
         $subject = isset($this->notif_settings['event_soldout']['subject']) ? __($this->notif_settings['event_soldout']['subject'], 'modern-events-calendar-lite') : __('Event is soldout!', 'modern-events-calendar-lite');
@@ -1746,7 +1776,7 @@ class MEC_notifications extends MEC_base
      */
     public function notification_sender_name($sender_name)
     {
-        $sender_name = (isset($this->settings['booking_sender_name']) and trim($this->settings['booking_sender_name'])) ? trim($this->settings['booking_sender_name']) : $sender_name;
+        $sender_name = (isset($this->settings['booking_sender_name']) and trim($this->settings['booking_sender_name'])) ? stripslashes(trim($this->settings['booking_sender_name'])) : $sender_name;
         return $sender_name;
     }
 
@@ -1832,5 +1862,10 @@ class MEC_notifications extends MEC_base
         if(!isset($notification['status']) or (isset($notification['status']) and !$notification['status'])) return $value;
 
         return ((isset($notification['content']) and trim($notification['content'])) ? $notification['content'] : $value);
+    }
+
+    public function get_cc_bcc_method()
+    {
+        return ((isset($this->settings['booking_recipients_method']) and trim($this->settings['booking_recipients_method'])) ? strtoupper($this->settings['booking_recipients_method']) : 'BCC');
     }
 }

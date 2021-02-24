@@ -6,7 +6,7 @@ defined('MECEXEC') or die();
 $this->main->load_owl_assets();
 
 $sed_method = $this->sed_method;
-if ($sed_method == 'new') $sed_method = '0';
+if($sed_method == 'new') $sed_method = '0';
 
 // Generating javascript code tpl
 $javascript = '<script type="text/javascript">

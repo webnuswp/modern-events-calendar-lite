@@ -88,37 +88,14 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
 
                         <div class="mec-masonry-content mec-event-grid-modern">
                             <div class="event-grid-modern-head clearfix">
+
                                 <div class="mec-masonry-col<?php echo (isset($location['name']) and trim($location['name'])) ? '6' : '12'; ?>">
-                                    <?php
-                                    if(isset($settings['multiple_day_show_method']) and ($settings['multiple_day_show_method'] == 'all_days' or $settings['multiple_day_show_method'] == 'first_day_listgrid')){
-                                                                            
-                                        $start_date = $event->date['start']['date'];
-                                        $start_date_time = strtotime($start_date);
-                                        $days_number = $this->main->date_i18n($this->date_format_1, $start_date_time);
-                                        $months_name = $this->main->date_i18n($this->date_format_2, $start_date_time);
-                                    }
-                                    
-                                    if(isset($settings['multiple_day_show_method']) and $settings['multiple_day_show_method'] == 'all_days'){
-
-                                        $end_date = $event->date['end']['date'];
-                                        $end_date_time = strtotime($end_date);
-                                        $day = $this->main->date_i18n($this->date_format_1, $end_date_time);
-                                        $m = $this->main->date_i18n($this->date_format_2, $end_date_time);                                        
-
-                                        if($days_number != $day || $months_name != $m){
-
-                                            $days_number .= '-' . $day;
-                                        }
-
-                                        if($months_name != $m){
-
-                                            $months_name .= '-' . $m;                                        
-                                        }                                        
-                                    }
-                                ?>
-                                    <?php if(!empty($days_number) && !empty($months_name)): ?>
-                                        <div class="mec-event-date mec-color"><?php echo $days_number; ?></div>
-                                        <div class="mec-event-month"><?php echo $months_name; ?></div>                                        
+                                    <?php if(isset($settings['multiple_day_show_method']) and ($settings['multiple_day_show_method'] == 'all_days' or $settings['multiple_day_show_method'] == 'first_day_listgrid')): ?>
+                                        <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format_1, strtotime($event->date['start']['date'])); ?></div>
+                                        <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format_2, strtotime($event->date['start']['date'])); ?></div>
+                                    <?php else: ?>
+                                        <div class="mec-event-date mec-color"><?php echo $this->main->dateify($event, $this->date_format_1); ?></div>
+                                        <div class="mec-event-month"><?php echo $this->main->dateify($event, $this->date_format_2); ?></div>
                                     <?php endif; ?>
                                     <div class="mec-event-detail"><?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div>
                                     <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>

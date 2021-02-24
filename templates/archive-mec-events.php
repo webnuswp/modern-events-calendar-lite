@@ -28,6 +28,10 @@ get_header('mec'); ?>
 
             <?php do_action('mec_after_events_loop'); ?>
 
+        <?php else: ?>
+
+        <p><?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?></p>
+
         <?php endif; ?>
     </section>
 

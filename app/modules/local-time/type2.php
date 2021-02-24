@@ -35,15 +35,17 @@ if(empty($MEC_Events_dates_localtime)){
 
 $dates = array();
 
-if(is_array($MEC_Events_dates_localtime[$event_id])){
-    
+if(is_array($MEC_Events_dates_localtime[$event_id]))
+{
     $k = array_key_first($MEC_Events_dates_localtime[$event_id]);
-    $dates = $MEC_Events_dates_localtime[$event_id][$k] ?? null;
+
+    $dates = (isset($MEC_Events_dates_localtime[$event_id][$k]) ? $MEC_Events_dates_localtime[$event_id][$k] : NULL);
     unset($MEC_Events_dates_localtime[$event_id][$k]);
 }
-$start_date =  $dates['start']['date'] ?? get_option( 'mec_sd_time_option' );
-$end_date = $dates['start']['date'] ?? get_option( 'mec_esd_time_option' );
-//
+
+$start_date = (isset($dates['start']['date']) ? $dates['start']['date'] : get_option('mec_sd_time_option'));
+$end_date = (isset($dates['start']['date']) ? $dates['start']['date'] : get_option('mec_esd_time_option'));
+
 $gmt_start_time = strtotime($start_date.' '.$start_time) - $gmt_offset_seconds;
 $gmt_end_time = strtotime($end_date.' '.$end_time) - $gmt_offset_seconds;
 

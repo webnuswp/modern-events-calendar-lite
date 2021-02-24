@@ -38,16 +38,32 @@ $map_events = array();
             <article class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?> mec-divider-toggle mec-toggle-<?php echo date('Ym', strtotime($date)); ?>-<?php echo $this->id; ?>" itemscope>
                 <?php if($this->style == 'modern'): ?>
                     <div class="col-md-2 col-sm-2">
+
+                        <?php if($this->main->is_multipleday_occurrence($event, true)): ?>
                         <div class="mec-event-date">
+                            <div class="event-d mec-color mec-multiple-dates">
+                                <?php echo $this->main->date_i18n($this->date_format_modern_1, strtotime($event->date['start']['date'])); ?> -
+                                <?php echo $this->main->date_i18n($this->date_format_modern_1, strtotime($event->date['end']['date'])); ?>
+                            </div>
+                            <div class="event-f"><?php echo $this->main->date_i18n($this->date_format_modern_2, strtotime($event->date['start']['date'])); ?></div>
+                            <div class="event-da"><?php echo $this->main->date_i18n($this->date_format_modern_3, strtotime($event->date['start']['date'])); ?></div>
+                        </div>
+                        <?php elseif($this->main->is_multipleday_occurrence($event)): ?>
+                        <div class="mec-event-date mec-multiple-date-event">
                             <div class="event-d mec-color"><?php echo $this->main->date_i18n($this->date_format_modern_1, strtotime($event->date['start']['date'])); ?></div>
                             <div class="event-f"><?php echo $this->main->date_i18n($this->date_format_modern_2, strtotime($event->date['start']['date'])); ?></div>
                             <div class="event-da"><?php echo $this->main->date_i18n($this->date_format_modern_3, strtotime($event->date['start']['date'])); ?></div>
                         </div>
-                        <?php if($this->main->is_multipleday_occurrence($event)): ?>
-                        <div class="mec-event-date">
+                        <div class="mec-event-date mec-multiple-date-event">
                             <div class="event-d mec-color"><?php echo $this->main->date_i18n($this->date_format_modern_1, strtotime($event->date['end']['date'])); ?></div>
                             <div class="event-f"><?php echo $this->main->date_i18n($this->date_format_modern_2, strtotime($event->date['end']['date'])); ?></div>
                             <div class="event-da"><?php echo $this->main->date_i18n($this->date_format_modern_3, strtotime($event->date['end']['date'])); ?></div>
+                        </div>
+                        <?php else: ?>
+                        <div class="mec-event-date">
+                            <div class="event-d mec-color"><?php echo $this->main->date_i18n($this->date_format_modern_1, strtotime($event->date['start']['date'])); ?></div>
+                            <div class="event-f"><?php echo $this->main->date_i18n($this->date_format_modern_2, strtotime($event->date['start']['date'])); ?></div>
+                            <div class="event-da"><?php echo $this->main->date_i18n($this->date_format_modern_3, strtotime($event->date['start']['date'])); ?></div>
                         </div>
                         <?php endif; ?>
                     </div>
@@ -88,16 +104,28 @@ $map_events = array();
                 <?php elseif($this->style == 'minimal'): ?>
                     <?php echo $this->get_label_captions($event); ?>
                     <div class="col-md-9 col-sm-9">
+
+                        <?php if($this->main->is_multipleday_occurrence($event, true)): ?>
+                        <div class="mec-event-date mec-bg-color">
+                            <span class="mec-multiple-dates"><?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['start']['date'])); ?> - <?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['end']['date'])); ?></span>
+                            <?php echo $this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['start']['date'])); ?>
+                        </div>
+                        <?php elseif($this->main->is_multipleday_occurrence($event)): ?>
                         <div class="mec-event-date mec-bg-color">
                             <span><?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['start']['date'])); ?></span>
                             <?php echo $this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['start']['date'])); ?>
                         </div>
-                        <?php if($this->main->is_multipleday_occurrence($event)): ?>
                         <div class="mec-event-date mec-bg-color">
                             <span><?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['end']['date'])); ?></span>
                             <?php echo $this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['end']['date'])); ?>
                         </div>
+                        <?php else: ?>
+                        <div class="mec-event-date mec-bg-color">
+                            <span><?php echo $this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['start']['date'])); ?></span>
+                            <?php echo $this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['start']['date'])); ?>
+                        </div>
                         <?php endif; ?>
+
                         <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                         <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                         <div class="mec-event-detail">
