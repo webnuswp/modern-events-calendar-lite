@@ -43,6 +43,9 @@ class MEC_envato extends MEC_base
      */
     public $plugin_slug = MEC_BASENAME;
 
+    public $options = '';
+    public $license_status = '';
+
     /**
      * Plugin name
      */
@@ -64,11 +67,12 @@ class MEC_envato extends MEC_base
         $this->factory = $this->getFactory();
 
         // MEC Settings
-        $options = get_option('mec_options');
+        $this->options = get_option('mec_options');
+        $this->license_status = get_option( 'mec_license_status');
         
         // Set user purchase code
-        $this->set_purchase_code(isset($options['purchase_code']) ? $options['purchase_code'] : '');
-        $this->set_product_name(isset($options['product_name']) ? $options['product_name'] : '');
+        $this->set_purchase_code(isset($this->options['purchase_code']) ? $this->options['purchase_code'] : '');
+        $this->set_product_name(isset($this->options['product_name']) ? $this->options['product_name'] : '');
 
         // Plugin Slug
         list($slice1, $slice2) = explode('/', $this->plugin_slug);
@@ -179,7 +183,7 @@ class MEC_envato extends MEC_base
         $version = (isset($this->get_MEC_info('version')->version) and !empty($this->get_MEC_info('version')->version)) ? json_decode(json_encode($this->get_MEC_info('version')->version), true) : get_option('mec_save_version_number');
 
         // Set mec update path
-        $dl_link = !is_null($this->get_MEC_info('dl')) ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
+        $dl_link = (!empty($this->options['purchase_code']) && $this->license_status == 'active') ? $this->set_update_path($this->get_MEC_info('dl')) : NULL;
 
         // If a newer version is available, add the update
         if(version_compare($this->current_version, $version, '<'))
@@ -193,7 +197,11 @@ class MEC_envato extends MEC_base
             $obj->new_version = $version;
             $obj->url = $this->itemurl;
             $obj->package = $this->get_update_path();
-            $obj->upgrade_notice = esc_html__('This update includes only bug fixes.', 'modern-events-calendar-lite');
+            $obj->upgrade_notice = '';
+            $obj->icons = array(
+		        '1x' => 'https://ps.w.org/modern-events-calendar-lite/assets/icon-128x128.png',
+		        '2x' => 'https://ps.w.org/modern-events-calendar-lite/assets/icon-128x128.png'
+            );
             $obj->sections = array
             (
                 'description' => 'Modern Events Calendar - Responsive Event Scheduler & Booking For WordPress',
@@ -271,7 +279,7 @@ class MEC_envato extends MEC_base
             $information->banners['low'] = 'https://ps.w.org/modern-events-calendar-lite/assets/banner-772x250.png?rev=1912767';
             $information->tested = '5.2.2';
             $information->active_installs = '100000';
-            $information->upgrade_notice = esc_html__('This update includes only bug fixes.', 'modern-events-calendar-lite');
+            $information->upgrade_notice = '';
             $information->sections = (array) $information->sections;
 
             unset($information->sections['installation']);

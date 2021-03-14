@@ -198,7 +198,7 @@ class MEC_skin_single extends MEC_skins
 
                             // Don't show Expired Events
                             $timestamp = (isset($d['start']) and isset($d['start']['timestamp'])) ? $d['start']['timestamp'] : 0;
-                            if($timestamp <= 0 or $timestamp < $now) continue;
+                            if($timestamp <= 0 or $timestamp < $now) :
 
                             $printed += 1;
                             $mec_date = (isset($d['start']) and isset($d['start']['date'])) ? $d['start']['date'] : get_post_meta(get_the_ID(), 'mec_start_date', true);
@@ -222,6 +222,7 @@ class MEC_skin_single extends MEC_skins
                                 </h5>
                             </div>
                         </article>
+                        <?php endif;?>
                     <?php endwhile; ?>
                 </div>
             </div>
@@ -1248,7 +1249,7 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_other_organizer_widget($event)
     {
-        if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]) )
+        if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]))
         {
             echo '<div class="mec-event-meta">';
             $this->show_other_organizers($event);
@@ -1262,7 +1263,8 @@ class MEC_skin_single extends MEC_skins
      */
     public function display_organizer_widget($event)
     {
-        if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]) ) {
+        if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]))
+        {
         echo '<div class="mec-event-meta">';
         $organizer = $event->data->organizers[$event->data->meta['mec_organizer_id']];
         ?>
@@ -1314,14 +1316,18 @@ class MEC_skin_single extends MEC_skins
         if(!$additional_organizers_status) return;
 
         $organizers = array();
-        if ( isset($event->data->organizers) && !empty($event->data->organizers) ) :
-        foreach($event->data->organizers as $o) if($o['id'] != $event->data->meta['mec_organizer_id']) $organizers[] = $o;
+        if(isset($event->data->organizers) && !empty($event->data->organizers)):
+        foreach($event->data->organizers as $o) if($o['id'] != $event->data->meta['mec_organizer_id']) $organizers[$o['id']] = $o;
 
         if(!count($organizers)) return;
+
+        $organizer_ids = get_post_meta($event->ID, 'mec_additional_organizer_ids', true);
+        if(!is_array($organizer_ids)) $organizer_ids = array();
+        $organizer_ids = array_unique($organizer_ids);
         ?>
         <div class="mec-single-event-additional-organizers">
             <h3 class="mec-events-single-section-title"><?php echo $this->main->m('other_organizers', __('Other Organizers', 'modern-events-calendar-lite')); ?></h3>
-            <?php foreach($organizers as $organizer): if($organizer['id'] == $event->data->meta['mec_organizer_id']) continue; ?>
+            <?php foreach($organizer_ids as $organizer_id): if($organizer_id == $event->data->meta['mec_organizer_id']) continue; $organizer = (isset($organizers[$organizer_id]) ? $organizers[$organizer_id] : NULL); if(!$organizer) continue; ?>
                 <div class="mec-single-event-additional-organizer">
                     <?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
                         <?php if (class_exists('MEC_Fluent\Core\pluginBase\MecFluent') && (isset($this->settings['single_single_style']) and $this->settings['single_single_style'] == 'fluent')) { ?>
@@ -1443,7 +1449,7 @@ class MEC_skin_single extends MEC_skins
                         <?php if($speakers_status and isset($schedule['speakers']) and is_array($schedule['speakers']) and count($schedule['speakers'])): ?>
                         <dt class="mec-schedule-speakers">
                             <h6><?php echo $this->main->m('taxonomy_speakers', __('Speakers:', 'modern-events-calendar-lite')); ?></h6>
-                            <?php $speaker_count = count($schedule['speakers']);  $i = 0; ?>
+                            <?php $speaker_count = count($schedule['speakers']); $i = 0; ?>
                             <?php foreach($schedule['speakers'] as $speaker_id): $speaker = get_term($speaker_id); array_push($speakers, $speaker_id); ?>
                             <a class="mec-color-hover mec-hourly-schedule-speaker-lightbox" href="#mec_hourly_schedule_speaker_lightbox_<?php echo $speaker->term_id; ?>" data-lity><?php echo $speaker->name; ?></a><?php if(++$i != $speaker_count ) echo ","; ?>
                             <?php endforeach; ?>

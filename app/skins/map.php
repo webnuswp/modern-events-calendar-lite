@@ -150,17 +150,12 @@ class MEC_skin_map extends MEC_skins
     {
         $events = array();
         $sorted = array();
-        
-        $this->args['meta_query']['relation'] = (isset($this->args['meta_query']['relation']) ? $this->args['meta_query']['relation'] : 'AND');
-        $this->args['meta_query']['mec_start_date'] = array(
-            'key' => 'mec_start_date',
-            'value' => $this->start_date,
-            'compare' => '>='
-        );
+
+        $yesterday = date('Y-m-d', strtotime('Yesterday', strtotime($this->start_date)));
 
         // The Query
         $query = new WP_Query($this->args);
-        
+
         if($query->have_posts())
         {
             // The Loop
@@ -174,11 +169,16 @@ class MEC_skin_map extends MEC_skins
                 $data = new stdClass();
                 $data->ID = $event_id;
                 $data->data = $rendered;
-                $data->dates = $this->render->dates($event_id, $rendered, 1, date('Y-m-d', strtotime('Yesterday')));
+                $data->dates = $this->render->dates($event_id, $rendered, 1, $yesterday);
                 $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
 
-                // Proceed to next event if it's expired
-                if((isset($this->atts['show_past_events']) and !$this->atts['show_past_events']) and strtotime($data->date['start']['date']) < strtotime($this->start_date)) continue;
+                if(strtotime($data->date['end']['date']) < strtotime($this->start_date)) continue;
+
+                if($this->hide_time_method == 'end' and strtotime($data->date['end']['date']) < strtotime($this->start_date)) continue;
+                elseif($this->hide_time_method != 'end')
+                {
+                    if((isset($this->atts['show_past_events']) and !$this->atts['show_past_events']) and strtotime($data->date['start']['date']) < strtotime($this->start_date)) continue;
+                }
 
                 // Caclculate event start time
                 $event_start_time = (isset($data->date['start']) ? strtotime($data->date['start']['date']) : 0) + $rendered->meta['mec_start_day_seconds'];

@@ -679,6 +679,15 @@ $shortcodes = get_posts(array(
                                     </select>
                                 </div>
                             </div>
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_fes_display_date_in_list"><?php _e('Display Event Date in List', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <select id="mec_settings_fes_display_date_in_list" name="mec[settings][fes_display_date_in_list]">
+                                        <option <?php echo ((isset($settings['fes_display_date_in_list']) and $settings['fes_display_date_in_list'] == '0') ? 'selected="selected"' : ''); ?> value="0"><?php esc_html_e('No', 'modern-events-calendar-lite'); ?></option>
+                                        <option <?php echo ((isset($settings['fes_display_date_in_list']) and $settings['fes_display_date_in_list'] == '1') ? 'selected="selected"' : ''); ?> value="1"><?php esc_html_e('Yes', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                </div>
+                            </div>
                             <!-- Start FES Thank You Page -->
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_fes_thankyou_page"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></label>

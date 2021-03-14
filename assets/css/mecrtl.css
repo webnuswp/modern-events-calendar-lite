@@ -372,3 +372,266 @@
 	.mec-wrap .mec-event-meta.mec-color-before,
 	.mec-wrap .mec-event-meta.mec-color-before span {margin: 0; marign-left: 28px; direction: rtl; text-align: right;}
 	.mec-skin-daily-view-events-container .mec-owl-carousel .owl-wrapper { display: inline-flex !important;width: 100% !important; }
+
+/* --------------------- */
+
+/** 
+ * RTL 
+ * * * * */
+ body.rtl .mec-wrap .col-md-1, body.rtl .mec-wrap .col-md-10, body.rtl .mec-wrap .col-md-11, body.rtl .mec-wrap .col-md-12, body.rtl .mec-wrap .col-md-2, body.rtl .mec-wrap .col-md-3, body.rtl .mec-wrap .col-md-4, body.rtl .mec-wrap .col-md-5, body.rtl .mec-wrap .col-md-6, body.rtl .mec-wrap .col-md-7, body.rtl .mec-wrap .col-md-8, body.rtl .mec-wrap .col-md-9 {
+    float: right !important;
+}
+
+body.rtl .ui-datepicker.ui-widget select {
+    width: 32%;
+}
+
+/** SHORTCODE RTL **/
+body.rtl .mec-wrap .mec-cancellation-reason span, body.rtl .mec-wrap .mec-labels-normal .mec-label-normal {
+    margin-left: 0px;
+    margin-right: 10px;
+}
+
+body.rtl .mec-calendar .mec-calendar-events-side .mec-table-side-title,
+body.rtl .mec-event-footer .mec-booking-button,
+body.rtl .mec-wrap .mec-load-more-button {
+    letter-spacing: 0;
+}
+
+body.rtl .mec-wrap .mec-time-details {
+    direction: ltr;
+}
+
+/* full calendar search box*/
+body.rtl .mec-wrap .mec-search-form.mec-totalcal-box .col-md-6 {
+    float: left !important;
+}
+
+/* list view classic */
+body.rtl .mec-wrap .mec-event-list-classic .mec-event-date, body.rtl .mec-wrap .mec-event-list-classic .mec-event-time {
+    margin-right: 0;
+    margin-left: 5px;
+    padding-right: 20px;
+    position: relative;
+}
+
+body.rtl .mec-wrap .mec-event-list-classic .mec-event-article i {
+    position: absolute;
+    left: auto;
+    right: 0;
+    top: 2px;
+    margin: 0;
+}
+
+/* list view minimal */
+body.rtl .mec-wrap .mec-event-list-minimal .mec-event-article .col-md-9.col-sm-9 {
+    width: 75%;
+}
+
+body.rtl .mec-wrap .mec-event-list-minimal .event-color, body.rtl .mec-wrap .mec-event-list-minimal .mec-event-article i {
+    margin: 0 0 0 10px;
+}
+
+body.rtl .mec-wrap .mec-event-list-minimal .btn-wrapper .mec-detail-button {
+    letter-spacing: 0;
+}
+
+/* list view modern */
+@media only screen and (min-width: 768px) {
+    body.rtl .mec-event-list-modern .col-md-2.col-sm-2 {
+        left: auto;
+        right: 0;
+        top: 20px;
+    }
+
+    .mec-event-list-modern .col-md-6.col-sm-6 {
+        padding-right: 225px;
+        padding-left: 195px;
+    }
+
+    .mec-event-list-modern .col-md-4.col-sm-4.mec-btn-wrapper {
+        right: auto;
+        left: 0;
+        top: 30%;
+    }
+}
+
+body.rtl .mec-event-list-modern .mec-event-detail .mec-time-details, body.rtl .mec-event-list-modern .mec-event-detail {
+    direction: ltr;
+    text-align: right;
+}
+
+body.rtl .mec-event-list-modern .mec-event-article {
+    direction: rtl;
+    text-align: right;
+}
+
+body.rtl .mec-event-list-modern .mec-event-date .event-f, body.rtl .mec-event-list-modern .mec-btn-wrapper .mec-booking-button {
+    letter-spacing: 0;
+}
+
+body.rtl .mec-event-list-modern .mec-event-sharing {
+    padding: 0 0 0 0;
+}
+
+body.rtl .mec-event-list-modern .mec-event-sharing>li {
+    margin: 0 0 0 0;
+}
+
+body.rtl .mec-event-list-modern .mec-event-sharing>li i {
+    margin: 0 0 0 10px;
+}
+
+/* list view standard */
+body.rtl .mec-event-list-standard .mec-event-footer .mec-booking-button {
+    letter-spacing: 0;
+}
+
+body.rtl .mec-event-list-standard .mec-shortcode-organizers {
+    padding: 0 20px 0 0;
+}
+
+body.rtl .mec-event-list-standard .mec-shortcode-organizers .mec-sl-user:before {
+    left: auto;
+    right: 0;
+}
+
+/* list view toggle */
+body.rtl .mec-events-toggle .mec-toggle-item-inner i {
+    right: auto;
+    left: 25px;
+    top: 50%;
+}
+
+body.rtl .mec-events-toggle .mec-toggle-title {
+    text-align: right;
+    padding-left: 0;
+    padding-right: 15px;
+    float: right;
+}
+
+/* grid view minimal */
+body.rtl .mec-event-grid-minimal .mec-event-title {
+    direction: rtl;
+}
+
+body.rtl .mec-event-grid-minimal .mec-event-title a {
+    float: right;
+}
+
+body.rtl .mec-event-grid-modern .mec-event-sharing {
+    right: auto;
+    left: -5px;
+}
+
+/* grid view minimal */
+body.rtl .mec-event-grid-simple .mec-event-article:after {
+    right: auto;
+    left: -1px;
+}
+
+body.rtl .mec-event-grid-simple .event-color {
+    margin: 0 10px;
+}
+
+body.rtl .mec-event-grid-simple .mec-time-details {
+    text-align: center;
+}
+
+/* grid view nover */
+body.rtl .mec-event-grid-novel .mec-event-address::before, body.rtl .mec-event-grid-novel .mec-event-detail::before, body.rtl .mec-event-grid-novel .mec-event-month::before, body.rtl .mec-event-grid-novel .mec-local-time-details:before {
+    left: auto;
+    right: 0;
+}
+
+body.rtl .mec-event-grid-novel .mec-event-address, body.rtl .mec-event-grid-novel .mec-event-detail, body.rtl .mec-event-grid-novel .mec-event-month, body.rtl .mec-event-grid-novel .mec-local-time-details {
+    padding-right: 35px;
+    padding-left: 35px;
+}
+
+body.rtl .mec-event-grid-novel .mec-event-image {
+    float: right;
+}
+
+body.rtl .mec-event-grid-novel .col-md-4.col-sm-4 .mec-event-detail-wrap {
+    margin-left: 0;
+    margin-right: 150px;
+}
+
+body.rtl .mec-event-grid-novel .mec-event-content h4::after, body.rtl .mec-event-grid-novel .mec-event-content h4::before {
+    left: auto;
+    right: -30px;
+}
+
+body.rtl .mec-event-grid-novel .mec-event-content h4::after {
+    right: -26px;
+}
+
+/* daily view */
+body.rtl .mec-wrap .mec-calendar .mec-event-article .mec-event-time i {
+    margin: 0 0 0 7px;
+}
+
+body.rtl .mec-calendar .mec-event-article .mec-event-title a {
+    float: right;
+}
+
+/* agenda view */
+body.rtl .mec-agenda-time {
+    margin: 0 0 0 0;
+    direction: ltr;
+    padding: 0;
+    text-align: right;
+}
+
+body.rtl .mec-agenda-event-title {
+    float: left;
+    width: calc(100% - 170px);
+    padding: 0 20px 0 0;
+}
+
+body.rtl .mec-agenda-event-title span.event-color {
+    left: auto;
+    right: -0;
+    top: 8px;
+}
+
+/* single event */
+body.rtl .mec-hourly-schedule-speaker-thumbnail, body.rtl .mec-single-event .mec-speakers-details ul li .mec-speaker-avatar a img {
+    float: right;
+}
+
+body.rtl .mec-single-event .mec-speakers-details ul li .mec-speaker-name {
+    padding: 0 10px 0 0;
+}
+
+body.rtl .mec-single-event .mec-speakers-details ul li .mec-speaker-job-title {
+    padding: 0 80px 0 0;
+}
+
+body.rtl .mec-hourly-schedule-speaker-details {
+    padding: 0 20px 0 0;
+}
+
+body.rtl .mec-hourly-schedule-speaker-name, body.rtl .mec-hourly-schedule-speaker-job-title, body.rtl .mec-hourly-schedule-speaker-contact-information, body.rtl .mec-hourly-schedule-speaker-description {
+    text-align: right;
+}
+
+body.rtl .mec-box-calendar.mec-calendar.mec-event-calendar-classic .mec-calendar-table-head dt {
+    font-size: 10px !important;
+}
+
+body.rtl .mec-wrap .mec-events-meta-group-booking .mec-booking-calendar .mec-calendar dl dt {
+    text-align: center !important;
+}
+
+body.rtl .mec-wrap .mec-single-event .mec-event-meta .mec-single-event-organizer dd a {
+    direction: ltr;
+}
+
+body.rtl .mec-single-event .mec-event-export-module.mec-frontbox .mec-event-exporting .mec-export-details ul {
+    padding: 0;
+}
+
+
+/* --------------------- */

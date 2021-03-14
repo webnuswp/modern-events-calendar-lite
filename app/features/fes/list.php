@@ -10,6 +10,9 @@ $query = new WP_Query(array('post_type'=>$this->PT, 'author'=>get_current_user_i
 // Date Format
 $date_format = get_option('date_format');
 
+// Display Date
+$display_date = (isset($this->settings['fes_display_date_in_list']) ? (boolean) $this->settings['fes_display_date_in_list'] : false);
+
 // Generating javascript code of countdown module
 $javascript = '<script type="text/javascript">
 jQuery(document).ready(function()
@@ -77,13 +80,23 @@ $this->factory->params('footer', $javascript);
             $status = $this->main->get_event_label_status(trim($post->post_status));
         ?>
         <li id="mec_fes_event_<?php echo get_the_ID(); ?>">
-            <span class="mec-event-title"><a href="<?php echo $this->link_edit_event(get_the_ID()); ?>"><?php the_title(); ?></a></span>
+            <span class="mec-event-title">
+                <a href="<?php echo $this->link_edit_event(get_the_ID()); ?>"><?php the_title(); ?></a>
+                <?php if($display_date): ?>
+                <span>(<?php echo $this->main->date_label(array(
+                    'date' => get_post_meta(get_the_ID(), 'mec_start_date', true)
+                ), array(
+                    'date' => get_post_meta(get_the_ID(), 'mec_end_date', true)
+                ), $date_format); ?>)</span>
+                <?php endif; ?>
+            </span>
             <?php 
-            $event_status = get_post_status(get_the_ID()); 
-            if(isset($event_status) and strtolower($event_status) == 'publish'):
+                $event_status = get_post_status(get_the_ID());
+                if(isset($event_status) and strtolower($event_status) == 'publish'):
             ?>
             <span class="mec-fes-event-export"><a href="#mec-fes-export-wrapper-<?php echo get_the_ID(); ?>" data-lity><div class="wn-p-t-right"><div class="wn-p-t-text-content"><?php echo esc_html__('Download Attendees', 'modern-events-calendar-lite'); ?></div><i></i></div></a></span>
             <?php endif; ?>
+
             <span class="mec-fes-event-view"><a href="<?php the_permalink(); ?>"><div class="wn-p-t-right"><div class="wn-p-t-text-content"><?php echo esc_html__('View Event', 'modern-events-calendar-lite'); ?></div><i></i></div></a></span>
             <?php if(current_user_can('delete_post', get_the_ID())): ?>
             <span class="mec-fes-event-remove" data-confirmed="0" data-id="<?php echo get_the_ID(); ?>"><div class="wn-p-t-right"><div class="wn-p-t-text-content"><?php echo esc_html__('Remove Event', 'modern-events-calendar-lite'); ?></div><i></i></div></span>

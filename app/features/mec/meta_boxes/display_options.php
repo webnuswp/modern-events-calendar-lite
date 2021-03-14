@@ -736,18 +736,60 @@ $events = $this->main->get_events();
                         elseif(isset($sk_options_list['standard_date_format1']) and trim($sk_options_list['standard_date_format1']) != '') $date_format_list = trim($sk_options_list['standard_date_format1']);
                     ?>
                     <div class="mec-form-row mec-date-format <?php echo (!isset($sk_options_full_calendar['list']) or (isset($sk_options_full_calendar['list']) and $sk_options_full_calendar['list'])) ? '' : 'mec-util-hidden'; ?>">
-                        <label class="mec-col-4" for="mec_skin_full_calendar_date_format_list"><?php _e('List View Date Formats', 'modern-events-calendar-lite'); ?></label>
-                        <input type="text" class="mec-col-4" name="mec[sk-options][full_calendar][date_format_list]" id="mec_skin_full_calendar_date_format_list" value="<?php esc_attr_e($date_format_list); ?>"/>
+                        <div class="mec-form-row">
+                            <label class="mec-col-4" for="mec_skin_full_calendar_date_format_list"><?php _e('List View Date Formats', 'modern-events-calendar-lite'); ?></label>
+                            <input type="text" class="mec-col-4" name="mec[sk-options][full_calendar][date_format_list]" id="mec_skin_full_calendar_date_format_list" value="<?php esc_attr_e($date_format_list); ?>"/>
+                        </div>
+                        <div class="mec-form-row">
+                            <label class="mec-col-4" for="mec_skin_full_calendar_end_date_type_list"><?php _e('End Date', 'modern-events-calendar-lite'); ?></label>
+                            <select class="mec-col-4 wn-mec-select" name="mec[sk-options][full_calendar][end_date_type_list]" id="mec_skin_full_calendar_end_date_type_list" onchange="if(this.value === 'date') jQuery('#mec_skin_full_calendar_end_date_list_container').show(); else jQuery('#mec_skin_full_calendar_end_date_list_container').hide();">
+                                <option value="date" <?php if(isset($sk_options_full_calendar['end_date_type_list']) and $sk_options_full_calendar['end_date_type_list'] == 'date') echo 'selected="selected"'; ?>><?php _e('On a certain date', 'modern-events-calendar-lite'); ?></option>
+                                <option value="today" <?php if(isset($sk_options_full_calendar['end_date_type_list']) and $sk_options_full_calendar['end_date_type_list'] == 'today') echo 'selected="selected"'; ?>><?php _e('Today', 'modern-events-calendar-lite'); ?></option>
+                                <option value="tomorrow" <?php if(isset($sk_options_full_calendar['end_date_type_list']) and $sk_options_full_calendar['end_date_type_list'] == 'tomorrow') echo 'selected="selected"'; ?>><?php _e('Tomorrow', 'modern-events-calendar-lite'); ?></option>
+                            </select>
+                            <div class="mec-col-4 <?php echo (!isset($sk_options_full_calendar['end_date_type_list']) or (isset($sk_options_full_calendar['end_date_type_list']) and $sk_options_full_calendar['end_date_type_list'] == 'date')) ? '' : 'mec-util-hidden'; ?>" id="mec_skin_full_calendar_end_date_list_container">
+                                <input type="text" class="mec_date_picker" name="mec[sk-options][full_calendar][maximum_date_range_list]" value="<?php echo isset($sk_options_full_calendar['maximum_date_range_list']) ? esc_attr($sk_options_full_calendar['maximum_date_range_list']) : ''; ?>" placeholder="<?php _e('Maximum Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php _e('Show events before the specified date.', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="mec-form-row mec-switcher">
-                    <div class="mec-col-4">
-                        <label for="mec_skin_full_calendar_grid"><?php _e('Grid View', 'modern-events-calendar-lite'); ?></label>
+                <div class="mec-skin-full-calendar-grid-wrap">
+                    <div class="mec-form-row mec-switcher">
+                        <div class="mec-col-4">
+                            <label for="mec_skin_full_calendar_grid"><?php _e('Grid View', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-col-4">
+                            <input type="hidden" name="mec[sk-options][full_calendar][grid]" value="0" />
+                            <input type="checkbox" name="mec[sk-options][full_calendar][grid]" id="mec_skin_full_calendar_grid" onchange="mec_skin_full_calendar_skin_toggled(this);" value="1" <?php if(isset($sk_options_full_calendar['grid']) and $sk_options_full_calendar['grid']) echo 'checked="checked"'; ?> />
+                            <label for="mec_skin_full_calendar_grid"></label>
+                        </div>
                     </div>
-                    <div class="mec-col-4">
-                        <input type="hidden" name="mec[sk-options][full_calendar][grid]" value="0" />
-                        <input type="checkbox" name="mec[sk-options][full_calendar][grid]" id="mec_skin_full_calendar_grid" onchange="mec_skin_full_calendar_skin_toggled(this);" value="1" <?php if(isset($sk_options_full_calendar['grid']) and $sk_options_full_calendar['grid']) echo 'checked="checked"'; ?> />
-                        <label for="mec_skin_full_calendar_grid"></label>
+                    <div class="mec-form-row mec-date-format <?php echo (!isset($sk_options_full_calendar['grid']) or (isset($sk_options_full_calendar['grid']) and $sk_options_full_calendar['grid'])) ? '' : 'mec-util-hidden'; ?>">
+                        <div class="mec-form-row">
+                            <label class="mec-col-4" for="mec_skin_full_calendar_end_date_type_grid"><?php _e('End Date', 'modern-events-calendar-lite'); ?></label>
+                            <select class="mec-col-4 wn-mec-select" name="mec[sk-options][full_calendar][end_date_type_grid]" id="mec_skin_full_calendar_end_date_type_grid" onchange="if(this.value === 'date') jQuery('#mec_skin_full_calendar_end_date_grid_container').show(); else jQuery('#mec_skin_full_calendar_end_date_grid_container').hide();">
+                                <option value="date" <?php if(isset($sk_options_full_calendar['end_date_type_grid']) and $sk_options_full_calendar['end_date_type_grid'] == 'date') echo 'selected="selected"'; ?>><?php _e('On a certain date', 'modern-events-calendar-lite'); ?></option>
+                                <option value="today" <?php if(isset($sk_options_full_calendar['end_date_type_grid']) and $sk_options_full_calendar['end_date_type_grid'] == 'today') echo 'selected="selected"'; ?>><?php _e('Today', 'modern-events-calendar-lite'); ?></option>
+                                <option value="tomorrow" <?php if(isset($sk_options_full_calendar['end_date_type_grid']) and $sk_options_full_calendar['end_date_type_grid'] == 'tomorrow') echo 'selected="selected"'; ?>><?php _e('Tomorrow', 'modern-events-calendar-lite'); ?></option>
+                            </select>
+                            <div class="mec-col-4 <?php echo (!isset($sk_options_full_calendar['end_date_type_grid']) or (isset($sk_options_full_calendar['end_date_type_grid']) and $sk_options_full_calendar['end_date_type_grid'] == 'date')) ? '' : 'mec-util-hidden'; ?>" id="mec_skin_full_calendar_end_date_grid_container">
+                                <input type="text" class="mec_date_picker" name="mec[sk-options][full_calendar][maximum_date_range_grid]" value="<?php echo isset($sk_options_full_calendar['maximum_date_range_grid']) ? esc_attr($sk_options_full_calendar['maximum_date_range_grid']) : ''; ?>" placeholder="<?php _e('Maximum Date', 'modern-events-calendar-lite'); ?>" autocomplete="off" />
+                                <span class="mec-tooltip">
+                                    <div class="box top">
+                                        <h5 class="title"><?php _e('Maximum Date', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php _e('Show events before the specified date.', 'modern-events-calendar-lite'); ?></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="mec-form-row mec-switcher">
@@ -912,6 +954,18 @@ $events = $this->main->get_events();
                 <div class="mec-form-row mec-not-yearly_view-fluent">
                     <label class="mec-col-4" for="mec_skin_yearly_view_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][yearly_view][limit]" id="mec_skin_yearly_view_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_yearly_view['limit'])) echo $sk_options_yearly_view['limit']; ?>" />
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-4" for="mec_skin_yearly_view_months_1"><?php _e('Months to Display', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-8" id="mec-all-month">
+                        <?php foreach($this->main->get_months_labels() as $n => $month): ?>
+                        <div style="margin-bottom: 5px;">
+                            <input type="hidden" name="mec[sk-options][yearly_view][months][<?php echo $n; ?>]" value="0" />
+                            <input type="checkbox" name="mec[sk-options][yearly_view][months][<?php echo $n; ?>]" id="mec_skin_yearly_view_months_<?php echo $n; ?>" value="1" <?php echo (!isset($sk_options_yearly_view['months']) or (isset($sk_options_yearly_view['months']) and isset($sk_options_yearly_view['months'][$n]) and $sk_options_yearly_view['months'][$n])) ? 'checked="checked"' : ''; ?> />
+                            <label for="mec_skin_yearly_view_months_<?php echo $n; ?>"><?php echo $month; ?></label>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
                 <!-- Start LocalTime -->
                 <div class="mec-form-row mec-switcher mec-include-events-local-times">

@@ -56,7 +56,7 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
 }
 
 $sed_method = $this->sed_method;
-if ($sed_method == 'new') $sed_method = '0';
+if($sed_method == 'new') $sed_method = '0';
 
 // Generating javascript code tpl
 $javascript = '<script type="text/javascript">
@@ -88,12 +88,11 @@ if($this->main->is_ajax()) echo $javascript;
 else $this->factory->params('footer', $javascript);
 
 $styling = $this->main->get_styling();
+$event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
 
-$event_colorskin = (isset($styling['mec_colorskin'] ) || isset($styling['color'])) ? 'colorskin-custom' : '';
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+$dark_mode = (isset($styling['dark_mode'])) ? $styling['dark_mode'] : '';
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark ='';
 
 do_action('mec_start_skin', $this->id);
 do_action('mec_yearly_skin_head');

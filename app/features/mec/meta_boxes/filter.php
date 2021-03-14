@@ -72,6 +72,7 @@ $MEC_tax_walker = new MEC_tax_walker();
                 <a class="mec-create-shortcode-tabs-link" data-href="mec_select_labels" href="#"><?php echo esc_html__('Labels' ,'modern-events-calendar-lite'); ?></a>
                 <a class="mec-create-shortcode-tabs-link" data-href="mec_select_tags" href="#"><?php echo esc_html__('Tags' ,'modern-events-calendar-lite'); ?></a>
                 <a class="mec-create-shortcode-tabs-link" data-href="mec_select_authors" href="#"><?php echo esc_html__('Authors' ,'modern-events-calendar-lite'); ?></a>
+                <a class="mec-create-shortcode-tabs-link" data-href="mec_select_occurrences" href="#"><?php echo esc_html__('Occurrences' ,'modern-events-calendar-lite'); ?></a>
                 <a class="mec-create-shortcode-tabs-link" data-href="mec_select_holding_statuses" href="#"><?php echo esc_html__('Expired / Ongoing' ,'modern-events-calendar-lite'); ?></a>
             </div>
             <div class="mec-add-booking-tabs-right">
@@ -178,6 +179,20 @@ $MEC_tax_walker = new MEC_tax_walker();
                     ?>
                     </select>
                 </div>
+                <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_occurrences">
+                    <h4><?php _e('Occurrences', 'modern-events-calendar-lite'); ?></h4>
+                    <?php $show_only_one_occurrence = get_post_meta($post->ID, 'show_only_one_occurrence', true); ?>
+                    <div class="mec-form-row mec-switcher">
+                        <div class="mec-col-4">
+                            <label for="mec_show_past_events"><?php esc_html_e('Show only one occurrence of events', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-col-4">
+                            <input type="hidden" name="mec[show_only_one_occurrence]" value="0" />
+                            <input type="checkbox" name="mec[show_only_one_occurrence]" class="mec-checkbox-toggle" id="show_only_one_occurrence" value="1" <?php if($show_only_one_occurrence == 1) echo 'checked="checked"'; ?> />
+                            <label for="show_only_one_occurrence"></label>
+                        </div>
+                    </div>
+                </div>
                 <?php do_action('mec_shortcode_filters', $post->ID, $MEC_tax_walker); ?>
                 <div class="mec-form-row mec-create-shortcode-tab-content" id="mec_select_holding_statuses">
                     <h4><?php _e('Expired Events', 'modern-events-calendar-lite'); ?></h4>
@@ -192,7 +207,6 @@ $MEC_tax_walker = new MEC_tax_walker();
                             <label for="mec_show_past_events"></label>
                         </div>
                         <p class="description"><?php _e('You can include past/expired events if you like so it will show upcoming and expired events based on start date that you selected.', 'modern-events-calendar-lite'); ?></p>
-                        <br />
                     </div>
                     <div id="mec_date_only_past_filter">
                         <div class="mec-form-row mec-switcher">
@@ -210,6 +224,18 @@ $MEC_tax_walker = new MEC_tax_walker();
                     </div>
                     <div id="mec_date_ongoing_filter">
                         <h4><?php _e('Ongoing Events', 'modern-events-calendar-lite'); ?></h4>
+                        <div class="mec-form-row mec-switcher">
+                            <?php $show_ongoing_events = get_post_meta($post->ID, 'show_ongoing_events', true); ?>
+                            <div class="mec-col-4">
+                                <label for="mec_show_ongoing_events"><?php _e('Include Ongoing Events', 'modern-events-calendar-lite'); ?></label>
+                            </div>
+                            <div class="mec-col-4">
+                                <input type="hidden" name="mec[show_ongoing_events]" value="0" />
+                                <input type="checkbox" name="mec[show_ongoing_events]" class="mec-checkbox-toggle" id="mec_show_ongoing_events" value="1" <?php if($show_ongoing_events == 1) echo 'checked="checked"'; ?> />
+                                <label for="mec_show_ongoing_events"></label>
+                            </div>
+                            <p class="description"><?php _e('It includes ongoing events on List, Grid, Agenda and Timeline skins.', 'modern-events-calendar-lite'); ?></p>
+                        </div>
                         <div class="mec-form-row mec-switcher">
                             <?php $show_only_ongoing_events = get_post_meta($post->ID, 'show_only_ongoing_events', true); ?>
                             <div class="mec-col-4">

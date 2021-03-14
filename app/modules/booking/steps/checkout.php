@@ -60,7 +60,7 @@ if($mecFluentEnable)
                     <div class="mec-book-available-tickets-details-header">
                         <span><?php esc_html_e('Ticket(s) Name', 'modern-events-calendar-lite'); ?></span>
                         <span><?php esc_html_e('Qty', 'modern-events-calendar-lite'); ?></span>
-                        <span><?php esc_html_e('Amout', 'modern-events-calendar-lite'); ?></span>
+                        <span><?php esc_html_e('Price', 'modern-events-calendar-lite'); ?></span>
                     </div>
                     <div class="mec-book-available-tickets-details-body">
                         <?php foreach ($ticketsDetails as $ticket) { ?>

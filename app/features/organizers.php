@@ -253,6 +253,7 @@ class MEC_feature_organizers extends MEC_base
 
         $organizer_ids = get_post_meta($post->ID, 'mec_additional_organizer_ids', true);
         if(!is_array($organizer_ids)) $organizer_ids = array();
+        $organizer_ids = array_unique($organizer_ids);
 
         $additional_organizers_status = (!isset($this->settings['additional_organizers']) or (isset($this->settings['additional_organizers']) and $this->settings['additional_organizers'])) ? true : false;
     ?>
@@ -313,14 +314,27 @@ class MEC_feature_organizers extends MEC_base
                 <div class="mec-form-row">
                     <p><?php _e('You can select extra organizers in addition to main organizer if you like.', 'modern-events-calendar-lite'); ?></p>
                     <div class="mec-additional-organizers">
-                        <select class="mec-select2-dropdown" name="mec[additional_organizer_ids][]" multiple="multiple">
+                        <select class="mec-select2-dropdown">
                             <?php foreach($organizers as $organizer): ?>
                             <option <?php if(in_array($organizer->term_id, $organizer_ids)) echo 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>">
                                 <?php echo $organizer->name; ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
+                        <button class="button" id="mec_additional_organizers_add" type="button" data-sort-label="<?php esc_attr_e('Sort', 'modern-events-calendar-lite'); ?>" data-remove-label="<?php esc_attr_e('Remove', 'modern-events-calendar-lite'); ?>"><?php esc_html_e('Add', 'modern-events-calendar-lite'); ?></button>
                     </div>
+                </div>
+                <div class="mec-form-row">
+                    <ul id="mec_orgz_form_row" class="mec-additional-organizers-list">
+                        <?php foreach($organizer_ids as $organizer_id): $organizer = get_term($organizer_id); ?>
+                        <li>
+                            <input type="hidden" name="mec[additional_organizer_ids][]" value="<?php echo esc_attr($organizer_id); ?>">
+                            <span class="mec-additional-organizer-sort"><?php echo __('Sort', 'modern-events-calendar-lite'); ?></span>
+                            <span onclick="mec_additional_organizers_remove(this);" class="mec-additional-organizer-remove"><?php echo __('Remove', 'modern-events-calendar-lite'); ?></span>
+                            <span class="mec_orgz_item_name"><?php echo $organizer->name; ?></span> 
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             </div>
             <?php endif; ?>

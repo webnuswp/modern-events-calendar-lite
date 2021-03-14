@@ -4,9 +4,12 @@ defined('MECEXEC') or die();
 
 $months_html = '';
 $calendar_type = 'calendar';
+
 $count = 1;
 for($i = 1; $i <= 12; $i++)
 {
+    if(isset($this->months_to_display[$i]) and !$this->months_to_display[$i]) continue;
+
     $months_html .= $this->draw_monthly_calendar($this->year, $i, $this->events, $calendar_type);
 }
 
@@ -20,11 +23,8 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
 </div>
 <div class="mec-yearly-agenda-sec">
 
-    <?php foreach($this->events as $date=>$events): 
-
-    $limitation_class = ( $count > 20 ) ? 'mec-events-agenda mec-util-hidden' : 'mec-events-agenda' ;
-    ?>
-    <div class="<?php echo $limitation_class; ?>">
+    <?php foreach($this->events as $date=>$events): ?>
+    <div class="<?php echo ($count > 20) ? 'mec-events-agenda mec-util-hidden' : 'mec-events-agenda'; ?>">
 
         <div class="mec-agenda-date-wrap" id="mec_yearly_view<?php echo $this->id; ?>_<?php echo date('Ymd', strtotime($date)); ?>">
             <i class="mec-sl-calendar"></i>

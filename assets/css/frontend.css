@@ -1753,6 +1753,8 @@ span.mec-event-title-soldout {
 	line-height: 21px;
 	font-size: 15px;
 	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
 	text-transform: uppercase;
 	transition: color .37s ease;
 }
@@ -2222,6 +2224,7 @@ span.mec-event-title-soldout {
 	text-transform: uppercase;
 	font-weight: 400;
 	line-height: 1.6;
+	text-align: left;
 }
 
 .mec-event-cover-classic .mec-event-date span {
@@ -7763,6 +7766,7 @@ li.mec-no-event-found .mec-event-title {
 		padding: 0 10px;
 		font-size: 10px;
 	}
+
 }
 
 @media only screen and (min-width: 961px) {
@@ -8333,7 +8337,30 @@ li.mec-no-event-found .mec-event-title {
 		margin-bottom: 10px;
 	}
 
+	.mec-wrap.mec-widget .mec-search-form .mec-time-picker-search.with-mec-date-search,
+	.mec-wrap.mec-widget .mec-minmax-event-cost.with-mec-address,
+	.mec-wrap.mec-widget .mec-text-address-search.with-mec-cost {
+		display: block !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	
+	.mec-wrap.mec-widget .mec-minmax-event-cost.with-mec-address {
+		float: left !important;
+		max-width: calc(100% - 20px) !important;
+		margin: 0 0 0 10px !important;
+	}
+	
+	.mec-wrap.mec-widget .mec-search-form .mec-time-picker-search.with-mec-date-search {
+		margin-top: 20px !important;
+	}
+	
+	.mec-wrap.mec-widget .mec-search-form .mec-text-input-search {
+		padding: 10px !important;
+	}
+
 }
+
 
 /* MEC Datepicker 
 	---------------------*/
@@ -15578,6 +15605,7 @@ article.mec-search-bar-result {
 
 /* front-end submition new edition */
 ul#mec_bfixed_form_fields li .mec_bfixed_field_remove,
+ul#mec_orgz_form_row li .mec-additional-organizer-remove,
 ul#mec_reg_form_fields li .mec_reg_field_remove,
 .mec-booking-tab-content .mec-reg-field-add-option,
 .mec-booking-tab-content .mec-bfixed-field-add-option,
@@ -15600,6 +15628,10 @@ ul#mec_reg_form_fields li .mec_reg_field_remove,
 	margin-right: 8px;
 	border: 2px solid #cfeff5;
 	box-shadow: 0 2px 6px -3px #cfeff5;
+}
+
+.mec-fes-form  .mec-additional-organizers .select2-container {
+	margin-bottom: 0px;
 }
 
 .mec-booking-tab-content .mec-bfixed-field-add-option:hover,
@@ -15655,16 +15687,20 @@ ul#mec_reg_form_fields li .mec_reg_field_remove,
 }
 
 #mec_bfixed_form_fields li,
+#mec_orgz_form_row li,
 #mec_reg_form_fields li {
     list-style: none;
 }
+
 ul#mec_bfixed_form_fields,
+ul#mec_orgz_form_row,
 ul#mec_reg_form_fields {
     padding: 0;
     margin: 0;
 }
 
 ul#mec_bfixed_form_fields li,
+ul#mec_orgz_form_row li,
 ul#mec_reg_form_fields li {
     background: #f8feff;
     margin: 6px -20px;
@@ -15677,6 +15713,7 @@ ul#mec_reg_form_fields li {
 }
 
 ul#mec_bfixed_form_fields li .mec_bfixed_field_remove,
+ul#mec_orgz_form_row li .mec-additional-organizer-remove,
 ul#mec_reg_form_fields li .mec_reg_field_remove {
     position: absolute;
     right: 10px;
@@ -15695,6 +15732,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove {
 }
 
 ul#mec_bfixed_form_fields li .mec_bfixed_field_remove:hover,
+ul#mec_orgz_form_row li .mec-additional-organizer-remove:hover,
 ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 	background: #ea6485;
 	color: #fff;
@@ -15933,6 +15971,7 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 }
 
 .mec-fes-form #mec_reg_form_fields span.mec_reg_field_sort,
+.mec-fes-form #mec_orgz_form_row span.mec-additional-organizer-sort,
 .mec-fes-form #mec_bfixed_form_fields span.mec_bfixed_field_sort {
     font-size: 0;
     color: #fff;
@@ -15941,12 +15980,14 @@ ul#mec_reg_form_fields li .mec_reg_field_remove:hover {
 
 .mec-fes-form #mec_reg_form_fields .mec_reg_field_options,
 .mec-fes-form #mec_bfixed_form_fields .mec_bfixed_field_option_sort,
+.mec-fes-form #mec_orgz_form_row span.mec-additional-organizer-sort,
 .mec-fes-form #mec_reg_form_fields span.mec_reg_field_option_sort {
     font-size: 0;
 }
 
 .mec-fes-form #mec_reg_form_fields span.mec_reg_field_option_sort:before,
 .mec-fes-form #mec_reg_form_fields span.mec_reg_field_options:before,
+.mec-fes-form #mec_orgz_form_row span.mec-additional-organizer-sort:before,
 .mec-fes-form #mec_reg_form_fields span.mec_reg_field_sort:before,
 .mec-fes-form #mec_bfixed_form_fields span.mec_bfixed_field_option_sort:before,
 .mec-fes-form #mec_bfixed_form_fields span.mec_bfixed_field_sort:before {
@@ -18208,6 +18249,7 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 .mec-dark-mode .mec-booking-tab-content .mec-reg-field-add-option,
 .mec-dark-mode .mec-fes-form .mec-form-row .button:not(.wp-color-result),
 .mec-dark-mode .mec-fes-form input[type=file],
+.mec-dark-mode ul#mec_orgz_form_row li .mec-additional-organizer-remove,
 .mec-dark-mode ul#mec_reg_form_fields li .mec_reg_field_remove {
     color: #D2D2D2;
     background: #282828;
@@ -18231,6 +18273,7 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 }
 
 .mec-dark-mode ul#mec_bfixed_form_fields li,
+.mec-dark-mode ul#mec_orgz_form_row li,
 .mec-dark-mode ul#mec_reg_form_fields li {
     background: #000;
     border-color: #000;
@@ -18261,11 +18304,13 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 }
 
 .mec-dark-mode ul#mec_bfixed_form_fields li .mec_bfixed_field_remove,
+.mec-dark-mode ul#mec_orgz_form_row li .mec-additional-organizer-remove,
 .mec-dark-mode ul#mec_reg_form_fields li .mec_reg_field_remove {
     background: #282828;
 }
 
 .mec-dark-mode ul#mec_bfixed_form_fields li .mec_bfixed_field_remove:hover,
+.mec-dark-mode ul#mec_orgz_form_row li .mec-additional-organizer-remove:hover,
 .mec-dark-mode ul#mec_reg_form_fields li .mec_reg_field_remove:hover,
 .mec-dark-mode #mec_taxes_fees_container_toggle [id^=mec_remove_fee_button]:hover,
 .mec-dark-mode #mec_ticket_variations_list [id^=mec_remove_ticket_variation_button]:hover {

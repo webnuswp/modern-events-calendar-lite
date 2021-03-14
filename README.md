@@ -1,11 +1,13 @@
-﻿# Modern Events Calendar Lite
+﻿
+
+# Modern Events Calendar Lite
 
 **Contributors:** webnus \
 **Donate link:** https://webnus.net \
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
-**Tested up to:** 5.6.2 \
-**Stable tag:** 5.17.2 \
+**Tested up to:** 5.7 \
+**Stable tag:** 5.17.5 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +239,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ## Key Features
 
+- Show / Hide Occurrences per shortcode
 - Auto-Populate profile fields after booking (*pro*)
 - PaidMembership Pro integration (*pro*)
 - Event Cost search option (*pro*)
@@ -361,6 +364,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Search Bar Feature
 - Customizable Timetable (*pro*)
 - Additional Organizers
+- Sort Additional Organizers
 - Organizer & Other Organizers Description
 - Multiple Location
 - Choose Weekends
@@ -594,6 +598,30 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.17.5 – 9 March 2021
+
+- Added: An ability to switch “Show / Hide Occurrences” per shortcode
+- Added: An ability to select desired months to be displayed in the yearly view (pro)
+- Added: An ability to include date of the event in “Frontend Submission”
+- Added: An ability to sort additional organizers
+- Added: An ability to restrict coupons per category (pro)
+- Added: A new option to include ongoing events in addition to upcoming events
+- Added: Custom fields to the exports (pro)
+- Improved: Map skin to show ongoing and upcoming events correctly (pro)
+- Improved: The user timezone detection to reduce the number of requests
+- Improved: The event color system to unset the color by default
+- Fixed: Booking Import (pro)
+- Fixed: The backend booking manager regarding ticket variations (pro)
+- Fixed: Calendar method of booking module (pro)
+- Fixed: Register button when event is expired (pro)
+- Fixed: Applying shipping costs to the tickets created in WooCommerce system (pro)
+- Fixed: Wizard popup responsive on mobile and tablet
+- Fixed: Dark mode regarding WordPress notifications alert
+- Fixed: Slider link issue regarding open in a new window
+- Fixed: RTL style
+- Fixed: Some PHP notices and warnings
+- Fixed: Some minor issues
 
 ### 5.17.2 – 24 February 2021
 

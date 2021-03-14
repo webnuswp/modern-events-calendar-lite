@@ -117,6 +117,7 @@ class MEC_wc extends MEC_base
         $product->set_regular_price($ticket['price']);
         $product->set_price($ticket['price']);
         $product->set_catalog_visibility('hidden');
+        $product->set_virtual(true);
 
         $product_id = $product->save();
 
@@ -140,6 +141,7 @@ class MEC_wc extends MEC_base
         $product->set_regular_price($ticket['price']);
         $product->set_price($ticket['price']);
         $product->set_catalog_visibility('hidden');
+        $product->set_virtual(true);
 
         return $product->save();
     }

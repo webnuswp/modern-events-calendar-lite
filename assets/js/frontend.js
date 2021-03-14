@@ -636,6 +636,11 @@ jQuery(document).ready(function($)
         function sed() {
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-agenda-event-title a").off('click').on('click', function (e) {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -910,6 +915,11 @@ jQuery(document).ready(function($)
         function sed() {
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-event-title a,#mec_skin_" + settings.id + " .event-single-link-novel,#mec_skin_" + settings.id + " .mec-monthly-tooltip").off('click').on('click', function (e) {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -1228,6 +1238,11 @@ jQuery(document).ready(function($)
         function sed() {
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-event-title a").off('click').on('click', function (e) {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -1520,6 +1535,11 @@ jQuery(document).ready(function($)
         function sed() {
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-event-title a").off('click').on('click', function (e) {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -1874,6 +1894,11 @@ jQuery(document).ready(function($)
         function sed() {
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-event-title a").off('click').on('click', function (e) {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -2047,6 +2072,11 @@ jQuery(document).ready(function($)
         function sed() {
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-masonry-img a, #mec_skin_" + settings.id + " .mec-event-title a, #mec_skin_" + settings.id + " .mec-booking-button").off('click').on('click', function (e) {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -2947,6 +2977,11 @@ jQuery(document).ready(function($)
         function sed() {
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-agenda-event-title a").off('click').on('click', function (e) {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 
@@ -3592,6 +3627,11 @@ jQuery(document).ready(function($)
             // Single Event Display
             $("#mec_skin_" + settings.id + " .mec-event-title a").off('click').on('click', function(e)
             {
+                var sed_method = $(this).attr('target');
+                if( '_blank' === sed_method ){
+
+                    return;
+                }
                 e.preventDefault();
                 var href = $(this).attr('href');
 

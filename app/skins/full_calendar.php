@@ -22,7 +22,11 @@ class MEC_skin_full_calendar extends MEC_skins
     public $weekly;
     public $daily;
     public $list;
+    public $list_date_end;
+    public $list_maximum_date;
     public $grid;
+    public $grid_date_end;
+    public $grid_maximum_date;
     public $tile;
 
     /**
@@ -248,9 +252,18 @@ class MEC_skin_full_calendar extends MEC_skins
 
             case 'grid':
 
+                // Maximum Date Range.
+                $end_date_type = (isset($this->skin_options['end_date_type_grid']) and trim($this->skin_options['end_date_type_grid'])) ? trim($this->skin_options['end_date_type_grid']) : 'date';
+
+                if($end_date_type === 'today') $maximum_date = current_time('Y-m-d');
+                elseif($end_date_type === 'tomorrow') $maximum_date = date('Y-m-d', strtotime('Tomorrow'));
+                else $maximum_date = (isset($this->skin_options['maximum_date_range_grid']) and trim($this->skin_options['maximum_date_range_grid'])) ? trim($this->skin_options['maximum_date_range_grid']) : NULL;
+
                 $atts = $this->atts;
                 $atts['sk-options']['grid']['start_date_type'] = isset($this->skin_options['start_date_type']) ? $this->skin_options['start_date_type'] : '';
                 $atts['sk-options']['grid']['start_date'] = isset($this->skin_options['start_date']) ? $this->skin_options['start_date'] : '';
+                $atts['sk-options']['grid']['end_date_type'] = $end_date_type;
+                $atts['sk-options']['grid']['maximum_date_range'] = $maximum_date;
                 $atts['sk-options']['grid']['style'] = 'modern';
                 $atts['sk-options']['grid']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
                 $atts['sk-options']['grid']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
@@ -292,10 +305,19 @@ class MEC_skin_full_calendar extends MEC_skins
             
             case 'list':
             default:
-                
+
+                // Maximum Date Range.
+                $end_date_type = (isset($this->skin_options['end_date_type_list']) and trim($this->skin_options['end_date_type_list'])) ? trim($this->skin_options['end_date_type_list']) : 'date';
+
+                if($end_date_type === 'today') $maximum_date = current_time('Y-m-d');
+                elseif($end_date_type === 'tomorrow') $maximum_date = date('Y-m-d', strtotime('Tomorrow'));
+                else $maximum_date = (isset($this->skin_options['maximum_date_range_list']) and trim($this->skin_options['maximum_date_range_list'])) ? trim($this->skin_options['maximum_date_range_list']) : NULL;
+
                 $atts = $this->atts;
                 $atts['sk-options']['list']['start_date_type'] = isset($this->skin_options['start_date_type']) ? $this->skin_options['start_date_type'] : '';
                 $atts['sk-options']['list']['start_date'] = isset($this->skin_options['start_date']) ? $this->skin_options['start_date'] : '';
+                $atts['sk-options']['list']['end_date_type'] = $end_date_type;
+                $atts['sk-options']['list']['maximum_date_range'] = $maximum_date;
                 $atts['sk-options']['list']['style'] = 'standard';
                 $atts['sk-options']['list']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
                 $atts['sk-options']['list']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';

@@ -223,10 +223,13 @@ class MEC_skin_grid extends MEC_skins
         $this->args['mec-past-events'] = isset($this->atts['show_past_events']) ? $this->atts['show_past_events'] : '0';
 
         // Start Date
-        if (strpos($this->style, 'fluent') === false) {
+        if (strpos($this->style, 'fluent') === false)
+        {
             // Start Date
             $this->start_date = $this->get_start_date();
-        } else {
+        }
+        else
+        {
             // Start Date
             list($this->year, $this->month, $this->day) = $this->get_start_date();
             $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-'.$this->day));
@@ -241,10 +244,12 @@ class MEC_skin_grid extends MEC_skins
         if($this->show_ongoing_events)
         {
             $this->args['mec-show-ongoing-events'] = $this->show_ongoing_events;
-            if (strpos($this->style, 'fluent') === false) {
-                $this->maximum_date = $this->start_date;
-            }
+            if(strpos($this->style, 'fluent') === false) $this->maximum_date = $this->start_date;
         }
+
+        // Include Ongoing Events
+        $this->include_ongoing_events = (isset($this->atts['show_ongoing_events']) and trim($this->atts['show_ongoing_events'])) ? '1' : '0';
+        if($this->include_ongoing_events) $this->args['mec-include-ongoing-events'] = $this->include_ongoing_events;
         
         // Set start time
         if(isset($this->atts['seconds']))

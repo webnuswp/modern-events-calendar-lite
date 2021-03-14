@@ -211,9 +211,6 @@ class MEC_feature_ix extends MEC_base
         $name_end = end(explode('.', $feed_file['name']));
         if($name_end != 'csv') return array('success' => 0, 'message' => __('Please upload a CSV file.', 'modern-events-calendar-lite'));
 
-        // File Type is not valid
-        if(!isset($feed_file['type']) or (isset($feed_file['type']) and !in_array(strtolower($feed_file['type']), array('text/csv')))) return array('success' => 0, 'message' => __('The file type should be CSV.', 'modern-events-calendar-lite'));
-
         // Upload the File
         $upload_dir = wp_upload_dir();
 

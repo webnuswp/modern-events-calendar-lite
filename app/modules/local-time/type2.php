@@ -27,14 +27,11 @@ $gmt_offset_seconds = $this->get_gmt_offset_seconds($event->date['start']['date'
  * TODO: Convert to class
  */
 $event_id = $event->ID;
-global $MEC_Events_dates,$MEC_Events_dates_localtime;
-if(empty($MEC_Events_dates_localtime)){
 
-    $MEC_Events_dates_localtime = $MEC_Events_dates;
-}
+global $MEC_Events_dates, $MEC_Events_dates_localtime;
+if(empty($MEC_Events_dates_localtime)) $MEC_Events_dates_localtime = $MEC_Events_dates;
 
 $dates = array();
-
 if(is_array($MEC_Events_dates_localtime[$event_id]))
 {
     $k = array_key_first($MEC_Events_dates_localtime[$event_id]);

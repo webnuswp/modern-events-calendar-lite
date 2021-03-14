@@ -649,6 +649,31 @@ class MEC_book extends MEC_base
             }
         }
 
+        // Category Specification
+        if($status === 1)
+        {
+            $all_target_categories = get_term_meta($coupon_id, 'target_category', true);
+            if(trim($all_target_categories) == '') $all_target_categories = 1;
+
+            $target_categories = get_term_meta($coupon_id, 'target_categories', true);
+            if(!$all_target_categories and is_array($target_categories) and count($target_categories))
+            {
+                $event_categories = wp_get_post_terms($event_id, 'mec_category', array('fields' => 'ids'));
+
+                $found = false;
+                foreach($target_categories as $target_category)
+                {
+                    if(in_array($target_category, $event_categories))
+                    {
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if(!$found) $status = -6;
+            }
+        }
+
         // Minimum Tickets
         if($status === 1)
         {
@@ -1242,7 +1267,7 @@ class MEC_book extends MEC_base
             foreach($transaction['price_details']['details'] as $detail)
             {
                 if(!isset($detail['type'])) continue;
-                if($detail['type'] == 'fee') $total_fees += $detail['amount'];
+                if($detail['type'] == 'fee' and isset($detail['amount']) and is_numeric($detail['amount'])) $total_fees += $detail['amount'];
             }
         }
 

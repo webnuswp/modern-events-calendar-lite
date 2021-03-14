@@ -3,10 +3,6 @@
 defined('MECEXEC') or die();
 
 use ICal\ICal;
-use Ctct\Components\Contacts\Contact;
-use Ctct\ConstantContact;
-use Ctct\Exceptions\CtctException;
-
 /**
  * Webnus MEC main class.
  * @author Webnus <info@webnus.biz>
@@ -383,6 +379,27 @@ class MEC_main extends MEC_base
 
         return apply_filters('mec_calendar_skins', $skins);
     }
+
+    public function get_months_labels()
+    {
+        $labels = array(
+            1 => date_i18n('F', strtotime(date('Y').'-01-01')),
+            2 => date_i18n('F', strtotime(date('Y').'-02-01')),
+            3 => date_i18n('F', strtotime(date('Y').'-03-01')),
+            4 => date_i18n('F', strtotime(date('Y').'-04-01')),
+            5 => date_i18n('F', strtotime(date('Y').'-05-01')),
+            6 => date_i18n('F', strtotime(date('Y').'-06-01')),
+            7 => date_i18n('F', strtotime(date('Y').'-07-01')),
+            8 => date_i18n('F', strtotime(date('Y').'-08-01')),
+            9 => date_i18n('F', strtotime(date('Y').'-09-01')),
+            10 => date_i18n('F', strtotime(date('Y').'-10-01')),
+            11 => date_i18n('F', strtotime(date('Y').'-11-01')),
+            12 => date_i18n('F', strtotime(date('Y').'-12-01')),
+        );
+
+
+        return apply_filters('mec_months_labels', $labels);
+    }
     
     /**
      * Returns weekday labels
@@ -473,8 +490,8 @@ class MEC_main extends MEC_base
     {
         $settings = $this->get_settings();
         $slug = (isset($settings['single_slug']) and trim($settings['single_slug']) != '') ? $settings['single_slug'] : 'event';
-        
-        return $slug;
+
+        return strtolower($slug);
     }
     
     /**
@@ -654,11 +671,11 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'settings' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($settings as $settings_name => $settings_link) : ?>
                 <?php
-                if ( $settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'mailpoet_option' || $settings_link == 'sendfox_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option') : 
-                    if (  $this->getPRO() ) : ?>
+                if($settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'mailpoet_option' || $settings_link == 'sendfox_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option'):
+                    if($this->getPRO()): ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'settings' ) : ?>
+                        <?php if($active_menu == 'settings'): ?>
                         data-id="<?php echo $settings_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->remove_qs_var('tab') . '#' . $settings_link; ?>"
@@ -669,10 +686,10 @@ class MEC_main extends MEC_base
                     </li>
                 <?php
                     endif;
-                else : ?>
+                else: ?>
                 <li>
                     <a 
-                    <?php if ( $active_menu == 'settings' ) : ?>
+                    <?php if($active_menu == 'settings'): ?>
                     data-id="<?php echo $settings_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                     <?php else: ?>
                     href="<?php echo $this->remove_qs_var('tab') . '#' . $settings_link; ?>"
@@ -696,7 +713,7 @@ class MEC_main extends MEC_base
                 <?php foreach ($single_event as $single_event_name => $single_event_link) : ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'single_event' ) : ?>
+                        <?php if($active_menu == 'single_event'): ?>
                         data-id="<?php echo $single_event_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->add_qs_var('tab', 'MEC-single') . '#' . $single_event_link; ?>"
@@ -718,12 +735,12 @@ class MEC_main extends MEC_base
                 </a>
                 <ul class="<?php echo $active_menu == 'booking' ? 'subsection' : 'mec-settings-submenu'; ?>">
 
-                <?php foreach ($booking as $booking_name => $booking_link) : ?>
-                <?php if ( $booking_link == 'coupon_option' || $booking_link == 'taxes_option' || $booking_link == 'ticket_variations_option' || $booking_link == 'booking_form_option' || $booking_link == 'uploadfield_option' || $booking_link == 'payment_gateways_option' || $booking_link == 'booking_shortcode' ): ?>
-                    <?php if ( isset($options['booking_status']) and $options['booking_status'] ) : ?>
+                <?php foreach($booking as $booking_name => $booking_link): ?>
+                <?php if($booking_link == 'coupon_option' || $booking_link == 'taxes_option' || $booking_link == 'ticket_variations_option' || $booking_link == 'booking_form_option' || $booking_link == 'uploadfield_option' || $booking_link == 'payment_gateways_option' || $booking_link == 'booking_shortcode'): ?>
+                    <?php if(isset($options['booking_status']) and $options['booking_status']): ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'booking' ) : ?>
+                        <?php if($active_menu == 'booking'): ?>
                         data-id="<?php echo $booking_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->add_qs_var('tab', 'MEC-booking') . '#' . $booking_link; ?>"
@@ -736,7 +753,7 @@ class MEC_main extends MEC_base
                 <?php else: ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'booking' ) : ?>
+                        <?php if($active_menu == 'booking'): ?>
                         data-id="<?php echo $booking_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->add_qs_var('tab', 'MEC-booking') . '#' . $booking_link; ?>"
@@ -760,12 +777,12 @@ class MEC_main extends MEC_base
                 </a>
                 <ul class="<?php echo $active_menu == 'modules' ? 'subsection' : 'mec-settings-submenu'; ?>">
 
-                <?php foreach ($modules as $modules_name => $modules_link) : ?>
-                <?php if ( $modules_link == 'googlemap_option' || $modules_link == 'qrcode_module_option' || $modules_link == 'weather_module_option' || $modules_link == 'buddy_option' || $modules_link == 'learndash_options' || $modules_link == 'pmp_options'  ): ?>
+                <?php foreach($modules as $modules_name => $modules_link): ?>
+                <?php if($modules_link == 'googlemap_option' || $modules_link == 'qrcode_module_option' || $modules_link == 'weather_module_option' || $modules_link == 'buddy_option' || $modules_link == 'learndash_options' || $modules_link == 'pmp_options'  ): ?>
                     <?php if($this->getPRO()): ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'modules' ) : ?>
+                        <?php if($active_menu == 'modules'): ?>
                         data-id="<?php echo $modules_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->add_qs_var('tab', 'MEC-modules') . '#' . $modules_link; ?>"
@@ -778,7 +795,7 @@ class MEC_main extends MEC_base
                 <?php else: ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'modules' ) : ?>
+                        <?php if($active_menu == 'modules'): ?>
                         data-id="<?php echo $modules_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->add_qs_var('tab', 'MEC-modules') . '#' . $modules_link; ?>"
@@ -801,12 +818,12 @@ class MEC_main extends MEC_base
                 </a>
                 <ul class="<?php echo $active_menu == 'notifications' ? 'subsection' : 'mec-settings-submenu'; ?>">
 
-                <?php foreach ($notifications as $notifications_name => $notifications_link) : ?>
-                <?php if ( $notifications_link != 'new_event' and $notifications_link != 'user_event_publishing' ): ?>
+                <?php foreach($notifications as $notifications_name => $notifications_link): ?>
+                <?php if($notifications_link != 'new_event' and $notifications_link != 'user_event_publishing' ): ?>
                     <?php if(isset($options['booking_status']) and $options['booking_status']): ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'notifications' ) : ?>
+                        <?php if($active_menu == 'notifications'): ?>
                         data-id="<?php echo $notifications_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->add_qs_var('tab', 'MEC-notifications') . '#' . $notifications_link; ?>"
@@ -819,7 +836,7 @@ class MEC_main extends MEC_base
                 <?php else: ?>
                     <li>
                         <a 
-                        <?php if ( $active_menu == 'notifications' ) : ?>
+                        <?php if($active_menu == 'notifications'): ?>
                         data-id="<?php echo $notifications_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
                         href="<?php echo $this->add_qs_var('tab', 'MEC-notifications') . '#' . $notifications_link; ?>"
@@ -880,7 +897,8 @@ class MEC_main extends MEC_base
                     jQuery(".mec-options-fields").removeClass('active');
                     jQuery("#"+ContentId+"").show();
                     jQuery("#"+ContentId+"").addClass('active');
-                    if (jQuery("#wns-be-infobar").hasClass("sticky")){
+                    if(jQuery("#wns-be-infobar").hasClass("sticky"))
+                    {
                         jQuery('html, body').animate({
                             scrollTop: jQuery("#"+ContentId+"").offset().top - 140
                         }, 300);
@@ -890,9 +908,6 @@ class MEC_main extends MEC_base
                 var hash = window.location.hash.replace('#', '');
                 jQuery('[data-id="'+hash+'"]').trigger('click');        
             });
-
-            
-            
 
             jQuery(".wns-be-sidebar li ul li").on('click', function(event)
             {
@@ -963,8 +978,7 @@ class MEC_main extends MEC_base
         $get_cmsg_display_option = get_option('mec_custom_msg_2_display_option');
         $get_mec_saved_message_time = get_option('mec_saved_message_2_time');
 
-        
-        if ( !isset($get_mec_saved_message_time) ) :
+        if(!isset($get_mec_saved_message_time)):
             $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
             if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
@@ -1077,7 +1091,8 @@ class MEC_main extends MEC_base
     {
         $get_cmsg_display_option = get_option('mec_custom_msg_display_option');
         $get_mec_saved_message_time = get_option('mec_saved_message_time');
-        if (!isset($get_mec_saved_message_time)) :
+
+        if(!isset($get_mec_saved_message_time)):
             $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
             if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
@@ -6019,9 +6034,7 @@ class MEC_main extends MEC_base
      */
     public function constantcontact_add_subscriber($book_id)
     {
-        require_once MEC_ABSPATH.'/app/api/Ctct/autoload.php';
-        require_once MEC_ABSPATH.'/app/api/Ctct/vendor/autoload.php';
-
+        
         // Get MEC Options
         $settings = $this->get_settings();
         
@@ -6039,68 +6052,24 @@ class MEC_main extends MEC_base
         $u = $this->getUser();
         $booker = $u->booking($book_id);
 
-        $cc = new ConstantContact($api_key);
+        $url = 'https://api.constantcontact.com/v2/contacts?action_by=ACTION_BY_OWNER&api_key='.$api_key;
+        
+        $json = json_encode(array
+        (
+            'lists'=>array(json_encode(array('list' =>$list_id ))),
+            'email_addresses'=>array(json_encode(array('email_address' =>$booker->user_email ))),
+            'first_name'=>$booker->first_name ,
+            'last_name'=>$booker->last_name,
+        ));
+     
+        // Execute the Request and Return the Response Code
+        return wp_remote_retrieve_response_code(wp_remote_post($url, array(
+            'body' => $json,
+            'timeout' => '10',
+            'redirection' => '10',
+            'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $access_token),
+        )));
 
-        $action = "Getting Contact By Email Address";
-        try {
-            // check to see if a contact with the email address already exists in the account
-            $response = $cc->contactService->getContacts($access_token, array("email" => $booker->user_email));
-
-            // create a new contact if one does not exist
-            if (empty($response->results)) {
-                $action = "Creating Contact";
-
-                $contact = new Contact();
-                $contact->addEmail($booker->user_email);
-                $contact->addList($list_id);
-                $contact->first_name = $booker->first_name;
-                $contact->last_name = $booker->last_name;
-
-                /*
-                * The third parameter of addContact defaults to false, but if this were set to true it would tell Constant
-                * Contact that this action is being performed by the contact themselves, and gives the ability to
-                * opt contacts back in and trigger Welcome/Change-of-interest emails.
-                *
-                * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
-                */
-                $returnContact = $cc->contactService->addContact($access_token, $contact, true);
-               
-
-                // update the existing contact if address already existed
-            } else {
-                $action = "Updating Contact";
-
-                $contact = $response->results[0];
-                if ($contact instanceof Contact) {
-                    $contact->addList($list_id);
-                    $contact->first_name = $booker->first_name;
-                    $contact->last_name = $booker->last_name;
-
-                    /*
-                    * The third parameter of updateContact defaults to false, but if this were set to true it would tell
-                    * Constant Contact that this action is being performed by the contact themselves, and gives the ability to
-                    * opt contacts back in and trigger Welcome/Change-of-interest emails.
-                    *
-                    * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
-                    */
-                    $returnContact = $cc->contactService->updateContact($access_token, $contact, true);
-                   
-                } else {
-                    $e = new CtctException();
-                    $e->setErrors(array("type", "Contact type not returned"));
-                    throw $e;
-                }
-            }
-
-            // catch any exceptions thrown during the process and print the errors to screen
-        } catch (CtctException $ex) {
-            echo '<span class="label label-important">Error ' . $action . '</span>';
-            echo '<div class="container alert-error"><pre class="failure-pre">';
-            print_r($ex->getErrors());
-            echo '</pre></div>';
-          
-            die();
-        }
     }
     
     /**
@@ -7798,12 +7767,12 @@ class MEC_main extends MEC_base
         $end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : NULL;
         if(!$end_date) return false;
 
-        $e_hour = $date['end']['hour'];
-        if(strtoupper($date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
+        $e_hour = (isset($date['end']['hour']) ? $date['end']['hour'] : NULL);
+        if(isset($date['end']['ampm']) and strtoupper($date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
 
         $end_time = sprintf("%02d", $e_hour).':';
-        $end_time .= sprintf("%02d", $date['end']['minutes']);
-        $end_time .= ' '.trim($date['end']['ampm']);
+        $end_time .= sprintf("%02d", (isset($date['end']['minutes']) ? $date['end']['minutes'] : NULL));
+        $end_time .= ' '.(isset($date['end']['ampm']) ? trim($date['end']['ampm']) : '');
 
         $allday = isset($date['allday']) ? $date['allday'] : 0;
         if($allday) $end_time = '11:59 PM';
@@ -7962,13 +7931,13 @@ class MEC_main extends MEC_base
             $multipleday = (!is_null($start_date) and $start_date !== $end_date);
             return ($multipleday and (date('m', strtotime($start_date)) == date('m', strtotime($end_date))));
         }
+
         return (!is_null($start_date) and $start_date !== $end_date);
     }
 
     public function get_wp_user_fields()
     {
         $raw_fields = get_user_meta(get_current_user_id());
-
         $forbidden = array(
             'nickname',
             'syntax_highlighting',

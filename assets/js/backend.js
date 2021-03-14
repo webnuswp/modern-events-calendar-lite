@@ -462,6 +462,7 @@ function mec_skin_full_calendar_skin_toggled(Context)
     }
     else if(id === 'mec_skin_full_calendar_grid')
     {
+        jQuery(Context).parent().parent().parent().find('.mec-date-format').toggle();
         default_view = 'grid';
     }
     else if(id === 'mec_skin_full_calendar_tile')

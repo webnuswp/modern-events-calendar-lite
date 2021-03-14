@@ -173,6 +173,10 @@ class MEC_skin_agenda extends MEC_skins
             $this->args['mec-show-ongoing-events'] = $this->show_ongoing_events;
             $this->maximum_date = $this->start_date;
         }
+
+        // Include Ongoing Events
+        $this->include_ongoing_events = (isset($this->atts['show_ongoing_events']) and trim($this->atts['show_ongoing_events'])) ? '1' : '0';
+        if($this->include_ongoing_events) $this->args['mec-include-ongoing-events'] = $this->include_ongoing_events;
         
         // Set start time
         if(isset($this->atts['seconds']))

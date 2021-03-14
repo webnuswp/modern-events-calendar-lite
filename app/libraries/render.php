@@ -1303,6 +1303,8 @@ class MEC_render extends MEC_base
         
         while($i < $maximum)
         {
+            $start = NULL;
+
             foreach($advanced_days as $day)
             {
                 if($i >= $maximum) break;
@@ -1377,8 +1379,24 @@ class MEC_render extends MEC_base
     
             unset($dates[$pos]);
         }
+
+        // Remove Duplicates
+        $uniques = array();
+        $timestamps = array();
+
+        foreach($dates as $key => $date)
+        {
+            $start_timestamp = $date['start']['timestamp'];
+            $end_timestamp = $date['end']['timestamp'];
+            $timestamp_key = $start_timestamp.'-'.$end_timestamp;
+
+            if(isset($timestamps[$timestamp_key])) continue;
+
+            $timestamps[$timestamp_key] = true;
+            $uniques[] = $date;
+        }
     
-        return $dates;
+        return $uniques;
     }
 
     /**

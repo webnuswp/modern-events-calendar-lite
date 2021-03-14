@@ -71,6 +71,7 @@ class MEC_skins extends MEC_base
     public $start_date;
     public $end_date;
     public $show_ongoing_events;
+    public $include_ongoing_events;
     public $maximum_date;
     public $html_class;
     public $sf;
@@ -585,12 +586,16 @@ class MEC_skins extends MEC_base
         $local_time_end = NULL;
         $local_time_end_datetime = NULL;
 
-        // Local Timezone
-        $local_timezone = $this->main->get_timezone_by_ip();
-        if(!trim($local_timezone)) $local_timezone = $this->main->get_timezone();
-
         if(isset($this->atts['time-start']) and trim($this->atts['time-start'])) $local_time_start = $this->atts['time-start'];
         if(isset($this->atts['time-end']) and trim($this->atts['time-end'])) $local_time_end = $this->atts['time-end'];
+
+        // Local Timezone
+        $local_timezone = NULL;
+        if($local_time_start or $local_time_end)
+        {
+            $local_timezone = $this->main->get_timezone_by_ip();
+            if(!trim($local_timezone)) $local_timezone = $this->main->get_timezone();
+        }
 
         $dates = array();
         foreach($mec_dates as $mec_date)
@@ -630,7 +635,7 @@ class MEC_skins extends MEC_base
             }
 
             // Hide Events Based on Start Time
-            if(!$this->show_ongoing_events and !$this->show_only_expired_events and !$this->args['mec-past-events'] and $s <= strtotime($today))
+            if(!$this->include_ongoing_events and !$this->show_ongoing_events and !$this->show_only_expired_events and !$this->args['mec-past-events'] and $s <= strtotime($today))
             {
                 if($this->hide_time_method == 'start' and $now >= $mec_date->tstart) continue;
                 elseif($this->hide_time_method == 'plus1' and $now >= $mec_date->tstart+3600) continue;
@@ -709,6 +714,9 @@ class MEC_skins extends MEC_base
         // Show only one occurrence of events
         $first_event = $this->db->select("SELECT `post_id`, `tstart` FROM `#__mec_dates` WHERE `tstart` >= {$now} AND `tstart` <= {$seconds_end} ORDER BY `tstart` ASC");
 
+        // Force to Show Only Once Occurrence Based on Shortcode Options
+        $shortcode_one_occurrence = (isset($this->atts['show_only_one_occurrence']) ? $this->atts['show_only_one_occurrence'] : 0);
+
         $did_one_occurrence = array();
         foreach($dates as $date => $event_ids)
         {
@@ -717,7 +725,7 @@ class MEC_skins extends MEC_base
             foreach($event_ids as $index => $event_id)
             {
                 $one_occurrence = get_post_meta($event_id, 'one_occurrence', true);
-                if($one_occurrence != '1') continue;
+                if($one_occurrence != '1' and !$shortcode_one_occurrence) continue;
 
                 if(isset($first_event[$event_id]->tstart) and date('Y-m-d', strtotime($date)) != date('Y-m-d', $first_event[$event_id]->tstart))
                 {
@@ -824,8 +832,21 @@ class MEC_skins extends MEC_base
                             'start'=>array('date'=>$date),
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
+
+                        $date_times = array(
+                            'start'=>array(
+                                'date'=> $data->date['start']['date'],
+                                'time' => $data->data->time['start'],
+                                'timestamp' => $data->data->time['start_timestamp'],
+                            ),
+                            'end'=>array(
+                                'date'=> $data->date['end']['date'],
+                                'time' => $data->data->time['end'],
+                                'timestamp' => $data->data->time['end_timestamp'],
+                            )
+                        );
                         // global variable for use dates
-                        $MEC_Events_dates[$ID][] = $data->date;
+                        $MEC_Events_dates[$ID][] = $date_times;
                         $d[] = $this->render->after_render($data, $this, $i);
                         $found++;
                     }
@@ -1372,9 +1393,7 @@ class MEC_skins extends MEC_base
             }
         }
 
-        $atts = apply_filters('add_to_search_box_query', $atts, $sf );
-
-        return $atts;
+        return apply_filters('add_to_search_box_query', $atts, $sf);
     }
 
     /**
@@ -1393,7 +1412,6 @@ class MEC_skins extends MEC_base
         foreach($locations as $location) if(trim($location)) $query .= " AND `meta_value` LIKE '%" . trim($location) . "%'";
 
         $locations_id = $this->db->select($query, 'loadAssocList');
-
         return array_map(function($value)
         {
             return intval($value['term_id']);
@@ -1471,7 +1489,11 @@ class MEC_skins extends MEC_base
     }
 
     /**
-     * TODO: Refactor
+     * @param $event
+     * @param null $title
+     * @param null $class
+     * @param null $attributes
+     * @return string|null
      */
     public function display_link($event, $title = NULL, $class = NULL, $attributes = NULL)
     {
@@ -1501,7 +1523,7 @@ class MEC_skins extends MEC_base
                     break;                
             }
 
-            $sed_method = ($sed_method ? $sed_method : '_blank');
+            $sed_method = ($sed_method ? $sed_method : '_self');
         }
 
         $target = (!empty($sed_method) ? 'target="'.$sed_method.'" rel="noopener"' : '');

@@ -158,25 +158,27 @@ jQuery(document).ready(function($)
         
         $('#mec_fes_organizer_remove_image_button').addClass('mec-util-hidden');
     });
-    
-    if ( typeof mec_admin_localize !== 'undefined' ) {
-        var date_splite = mec_admin_localize.datepicker_format.split( '&' );
-        
-        if ( date_splite[0] !== undefined && date_splite.length == 2 ) {
-            datepicker_format = date_splite[0];
-        }
-    } else if ( typeof mecdata !== 'undefined' ) {
-        var date_splite = mecdata.datepicker_format.split( '&' );
-        
-        if ( date_splite[0] !== undefined && date_splite.length == 2 ) {
-            datepicker_format = date_splite[0];
-        }
+
+    var date_splite;
+    if(typeof mec_admin_localize !== 'undefined')
+    {
+        date_splite = mec_admin_localize.datepicker_format.split('&');
+        if(date_splite[0] !== undefined && date_splite.length == 2) datepicker_format = date_splite[0];
+    }
+    else if(typeof mecdata !== 'undefined')
+    {
+        date_splite = mecdata.datepicker_format.split( '&' );
+        if(date_splite[0] !== undefined && date_splite.length == 2) datepicker_format = date_splite[0];
     }
 
-    $('[id^="mec-book-form-btn-step"]').on('click',function(){
-        setTimeout(function(){
-            if ($.fn.datepicker) {
-                if('date' !== $('.mec-date-picker').prop('type')){
+    $('[id^="mec-book-form-btn-step"]').on('click',function()
+    {
+        setTimeout(function()
+        {
+            if($.fn.datepicker)
+            {
+                if('date' !== $('.mec-date-picker').prop('type'))
+                {
                     $('.mec-date-picker').datepicker(
                     {
                         changeYear: true,
@@ -189,10 +191,10 @@ jQuery(document).ready(function($)
                 
             }
         }, 1000);
-                   
     });
     
-    if ($.fn.datepicker) {
+    if($.fn.datepicker)
+    {
         $('.mec-date-picker').datepicker(
         {
             changeYear: true,
@@ -446,6 +448,7 @@ jQuery(document).ready(function($)
     {
         if($(this).attr('class') == '') $(this).attr('class', 'mec-active');
         else $(this).attr('class', '');
+
         $('#mec_date_repeat_advanced').val($('#mec-advanced-wraper div:first-child > ul').find('.mec-active').find('span').text().slice(0, -1));
     });
 
@@ -482,6 +485,9 @@ jQuery(document).ready(function($)
 
     // Set onclick listener for add option fields
     mec_bfixed_fields_option_listeners();
+
+    // Additional Organizers
+    mec_additional_organizers_listeners();
 });
 
 function mec_location_toggle()
@@ -768,4 +774,33 @@ function mec_bfixed_fields_option_remove(field_key, key)
 function mec_bfixed_fields_remove(key)
 {
     jQuery("#mec_bfixed_fields_"+key).remove();
+}
+
+function mec_additional_organizers_listeners()
+{
+    jQuery('#mec_additional_organizers_add').off('click').on('click', function()
+    {
+        var value = jQuery('.mec-additional-organizers select').val();
+        var text = jQuery('.mec-additional-organizers select option:selected').text();
+
+        var sortLabel = jQuery(this).data('sort-label');
+        var removeLabel = jQuery(this).data('remove-label');
+
+        jQuery('.mec-additional-organizers-list').append('<li><span class="mec-additional-organizer-sort">'+sortLabel+'</span> <span onclick="mec_additional_organizers_remove(this);" class="mec-additional-organizer-remove">'+removeLabel+'</span><input type="hidden" name="mec[additional_organizer_ids][]" value="'+value+'"><span class="mec_orgz_item_name">'+text+'</span></li>');
+
+        mec_additional_organizers_listeners();
+    });
+
+    if(typeof jQuery.fn.sortable !== 'undefined')
+    {
+        jQuery(".mec-additional-organizers-list").sortable(
+        {
+            handle: '.mec-additional-organizer-sort'
+        });
+    }
+}
+
+function mec_additional_organizers_remove(element)
+{
+    jQuery(element).parent().remove();
 }

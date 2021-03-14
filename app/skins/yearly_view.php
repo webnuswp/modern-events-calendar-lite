@@ -14,7 +14,8 @@ class MEC_skin_yearly_view extends MEC_skins
     public $skin = 'yearly_view';
     public $date_format_modern_1;
     public $date_format_modern_2;
-    
+    public $months_to_display;
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -148,6 +149,9 @@ class MEC_skin_yearly_view extends MEC_skins
         
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
+
+        // Months to Display
+        $this->months_to_display = (isset($this->skin_options['months']) and is_array($this->skin_options['months']) and count($this->skin_options['months'])) ? $this->skin_options['months'] : array();
     }
     
     /**
@@ -179,6 +183,13 @@ class MEC_skin_yearly_view extends MEC_skins
         {
             // No Event
             if(!is_array($IDs) or (is_array($IDs) and !count($IDs))) continue;
+
+            // Included in Selected Months
+            if(isset($this->months_to_display) and is_array($this->months_to_display) and count($this->months_to_display))
+            {
+                $n = date('n', strtotime($date));
+                if(isset($this->months_to_display[$n]) and !$this->months_to_display[$n]) continue;
+            }
 
             // Include Available Events
             $this->args['post__in'] = $IDs;

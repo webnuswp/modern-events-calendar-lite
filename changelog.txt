@@ -1,4 +1,27 @@
-﻿v 5.17.2 – 24 February 2021
+﻿v 5.17.5 – 9 March 2021
+- Added: An ability to switch “Show / Hide Occurrences” per shortcode
+- Added: An ability to select desired months to be displayed in the yearly view (pro)
+- Added: An ability to include date of the event in “Frontend Submission”
+- Added: An ability to sort additional organizers
+- Added: An ability to restrict coupons per category (pro)
+- Added: A new option to include ongoing events in addition to upcoming events
+- Added: Custom fields to the exports (pro)
+- Improved: Map skin to show ongoing and upcoming events correctly (pro)
+- Improved: The user timezone detection to reduce the number of requests
+- Improved: The event color system to unset the color by default
+- Fixed: Booking Import (pro)
+- Fixed: The backend booking manager regarding ticket variations (pro)
+- Fixed: Calendar method of booking module (pro)
+- Fixed: Register button when event is expired (pro)
+- Fixed: Applying shipping costs to the tickets created in WooCommerce system (pro)
+- Fixed: Wizard popup responsive on mobile and tablet
+- Fixed: Dark mode regarding WordPress notifications alert
+- Fixed: Slider link issue regarding open in a new window
+- Fixed: RTL style
+- Fixed: Some PHP notices and warnings
+- Fixed: Some minor issues
+
+v 5.17.2 – 24 February 2021
 - Added: An option to use CC instead of BCC for notification recipients
 - Added: “No Event Found” message for archive pages
 - Improved: The custom CSS loading to fix some unwanted issues with cache and minify plugins
