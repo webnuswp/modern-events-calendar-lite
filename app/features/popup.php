@@ -223,6 +223,7 @@ class MEC_feature_popup extends MEC_base
 
         $sf = array();
         $sf_status = 0;
+        $sf_display_label = '';
 
         if($skin == 'full_calendar')
         {
@@ -244,6 +245,7 @@ class MEC_feature_popup extends MEC_base
             ),
             'sf-options' => array($skin => $sf),
             'sf_status' => $sf_status,
+            'sf_display_label' => $sf_display_label,
             'show_past_events' => $show_past_events,
             'show_only_past_events' => $show_only_past_events,
             'show_only_ongoing_events' => $show_only_ongoing_events,

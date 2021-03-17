@@ -34,32 +34,3 @@ if(jQuery('.mec-fes-form').length < 1)
         });
     }
 }
-
-(function(wp, $)
-{
-    // Block Editor
-    console.log(items);
-    if(items && wp && wp.blocks)
-    {
-        items.shortcodes.forEach(function(e, i)
-        {
-            wp.blocks.registerBlockType(`mec/blockeditor-${i}`, 
-            {
-                title: items.shortcodes[i]['PN'].toLowerCase().replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, function(s)
-                {
-                    return s.toUpperCase().replace(/-/g,' ');
-                }),
-                icon: 'calendar-alt',
-                category: 'mec.block.category',
-                edit: function()
-                {
-                    return `[MEC id="${(items.shortcodes[i]['ID'])}"]`;
-                },
-                save: function()
-                {
-                    return `[MEC id="${(items.shortcodes[i]['ID'])}"]`;
-                }
-            });
-        });
-    }
-})(window.wp, jQuery);

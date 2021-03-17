@@ -262,7 +262,6 @@ class MEC_feature_speakers extends MEC_base
         update_term_meta($term_id, 'linkedin', $linkedin);
         update_term_meta($term_id, 'thumbnail', $thumbnail);
 
-
         do_action('mec_save_speaker_extra_fields', $term_id);
     }
     

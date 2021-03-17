@@ -81,41 +81,41 @@ do_action('mec_full_skin_head');
         ?>
         <div id="mec_search_form_<?php echo $this->id; ?>" <?php echo $wrapper_class; ?>>
             <?php if($sf_category_status): ?>
-                <?php echo $this->sf_search_field('category', $sf_category); ?>
+                <?php echo $this->sf_search_field('category', $sf_category , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_location_status): ?>
-                <?php echo $this->sf_search_field('location', $sf_location); ?>
+                <?php echo $this->sf_search_field('location', $sf_location , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_organizer_status): ?>
-                <?php echo $this->sf_search_field('organizer', $sf_organizer); ?>
+                <?php echo $this->sf_search_field('organizer', $sf_organizer , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_speaker_status and $speakers_status): ?>
-                <?php echo $this->sf_search_field('speaker', $sf_speaker); ?>
+                <?php echo $this->sf_search_field('speaker', $sf_speaker , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_tag_status): ?>
-                <?php echo $this->sf_search_field('tag', $sf_tag); ?>
+                <?php echo $this->sf_search_field('tag', $sf_tag , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_label_status): ?>
-                <?php echo $this->sf_search_field('label', $sf_label); ?>
+                <?php echo $this->sf_search_field('label', $sf_label , $this->sf_display_label); ?>
             <?php endif; ?>
         </div>
         <div id="mec_search_form_<?php echo $this->id; ?>">
             <?php if($sf_address_search_status): ?>
-                <?php echo $this->sf_search_field('address_search', $sf_address_search); ?>
+                <?php echo $this->sf_search_field('address_search', $sf_address_search , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_event_cost_status): $sf_columns -= 3; ?>
-                <?php echo $this->sf_search_field('event_cost', $sf_event_cost); ?>
+                <?php echo $this->sf_search_field('event_cost', $sf_event_cost , $this->sf_display_label); ?>
             <?php endif; ?>
         </div>
         <div id="mec_search_form_<?php echo $this->id; ?>" class="mec-full-calendar-search-ends">
             <?php if($sf_text_search_status): ?>
-                <?php echo $this->sf_search_field('text_search', $sf_text_search); ?>
+                <?php echo $this->sf_search_field('text_search', $sf_text_search , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_month_filter_status): $sf_columns -= 3; ?>
-                <?php echo $this->sf_search_field('month_filter', $sf_month_filter); ?>
+                <?php echo $this->sf_search_field('month_filter', $sf_month_filter , $this->sf_display_label); ?>
             <?php endif; ?>
             <?php if($sf_local_time_status): $sf_columns -= 3; ?>
-                <?php echo $this->sf_search_field('time_filter', $sf_local_time); ?>
+                <?php echo $this->sf_search_field('time_filter', $sf_local_time , $this->sf_display_label); ?>
             <?php endif; ?>
             <div class="col-md-12 mec-tab-loader">
                 <div class="mec-totalcal-view">

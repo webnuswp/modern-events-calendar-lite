@@ -183,12 +183,12 @@ $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['
                                     <p class="description"><?php _e('eg. John Smith', 'modern-events-calendar-lite'); ?></p>
                                 </div>
                                 <div class="mec-col-6">
-                                    <input type="text" name="mec[organizer][tel]" id="mec_organizer_contact" value="" placeholder="<?php esc_attr_e('Phone number.', 'modern-events-calendar-lite'); ?>" />
+                                    <input type="text" name="mec[organizer][tel]" id="mec_organizer_tel" value="" placeholder="<?php esc_attr_e('Phone number.', 'modern-events-calendar-lite'); ?>" />
                                     <p class="description"><?php _e('eg. +1 (234) 5678', 'modern-events-calendar-lite'); ?></p>
                                 </div>
                             </div>
                             <div class="mec-form-row">
-                                <input type="text" name="mec[organizer][email]" id="mec_organizer_contact" value="" placeholder="<?php esc_attr_e('Email address.', 'modern-events-calendar-lite'); ?>" />
+                                <input type="text" name="mec[organizer][email]" id="mec_organizer_email" value="" placeholder="<?php esc_attr_e('Email address.', 'modern-events-calendar-lite'); ?>" />
                                 <p class="description"><?php _e('eg. john@smith.com', 'modern-events-calendar-lite'); ?></p>
                             </div>
                             <div class="mec-form-row">

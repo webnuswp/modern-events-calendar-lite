@@ -24,13 +24,13 @@ do_action('rss_tag_pre', 'rss2');
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bloginfo_rss('url'); ?></link>
 	<description><?php bloginfo_rss("description"); ?></description>
-	<lastBuildDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_lastpostmodified('GMT'), false); ?></lastBuildDate>
+	<lastBuildDate><?php echo wp_date('D, d M Y H:i:s O', strtotime(get_lastpostmodified('GMT'))); ?></lastBuildDate>
 	<language><?php bloginfo_rss('language'); ?></language>
 	<sy:updatePeriod><?php echo apply_filters('rss_update_period', 'hourly'); ?></sy:updatePeriod>
 	<sy:updateFrequency><?php echo apply_filters('rss_update_frequency', 1); ?></sy:updateFrequency>
 	<?php do_action('rss2_head'); ?>
     
-    <?php foreach($this->events as $date=>$events): foreach($events as $event): ?>
+    <?php foreach($this->events as $date=>$events): foreach($events as $event): $timezone = $this->main->get_timezone($event); $tz = ($timezone ? new DateTimeZone($timezone) : NULL); ?>
     <item>
 		<title><?php echo $this->feed->title($event->ID); ?></title>
 		<link><?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?></link>
@@ -39,7 +39,7 @@ do_action('rss_tag_pre', 'rss2');
 		<comments><?php $this->feed->comments_link_feed($event->ID); ?></comments>
         <?php endif; ?>
 
-		<pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', $event->date['start']['date'].' '.$event->data->time['start'], false); ?></pubDate>
+		<pubDate><?php echo wp_date('D, d M Y H:i:s O', strtotime($event->date['start']['date'].' '.$event->data->time['start']), $tz); ?></pubDate>
 		<dc:creator><![CDATA[<?php $this->feed->author($event->data->post->post_author); ?>]]></dc:creator>
 
 		<guid isPermaLink="false"><?php the_guid($event->ID); ?></guid>

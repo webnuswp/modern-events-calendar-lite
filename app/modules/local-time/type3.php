@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_main $this */
+
 // MEC Settings
 $settings = $this->get_settings();
 

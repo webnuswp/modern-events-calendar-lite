@@ -8133,6 +8133,21 @@ li.mec-no-event-found .mec-event-title {
 	margin-bottom:10px;
 }
 
+.mec-wrap .mec-search-form .mec-text-input-search input,
+.mec-wrap .mec-search-form .mec-minmax-price input,
+.mec-wrap .mec-search-form .mec-text-address-search input {
+	margin-bottom:10px;
+}
+
+.mec-wrap .mec-totalcal-box label {
+	display: block;
+    line-height: 1.8;
+    margin-bottom: 4px;
+    font-size: 13px;
+    color: #9a9a9a;
+}
+
+
 .mec-wrap .mec-search-form .mec-date-search select {
 	width: calc(100% - 106px);
 }

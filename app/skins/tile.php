@@ -67,6 +67,7 @@ class MEC_skin_tile extends MEC_skins
         
         // Search Form Status
         $this->sf_status = isset($this->atts['sf_status']) ? $this->atts['sf_status'] : true;
+        $this->sf_display_label = isset($this->atts['sf_display_label']) ? $this->atts['sf_display_label'] : false;
 
         // Generate an ID for the sking
         $this->id = isset($this->atts['id']) ? $this->atts['id'] : mt_rand(100, 999);

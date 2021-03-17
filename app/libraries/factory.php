@@ -279,9 +279,6 @@ class MEC_factory extends MEC_base
             // Include MEC backend script file
             wp_enqueue_script('mec-backend-script', $this->main->asset('js/backend.js'), $dependencies, $this->main->get_version());
 
-            // Block Editor
-            // wp_enqueue_script('mec-external-script', $this->main->asset('js/mec-external.js'), $dependencies, $this->main->get_version());
-
             // Settings
             $settings = $this->main->get_settings();
 

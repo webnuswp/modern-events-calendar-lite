@@ -76,6 +76,7 @@ class MEC_skins extends MEC_base
     public $html_class;
     public $sf;
     public $sf_status;
+    public $sf_display_label;
     public $sf_options;
     public $id;
     public $events;
@@ -540,7 +541,9 @@ class MEC_skins extends MEC_base
             elseif($this->hide_time_method == 'end') $column = 'tend';
 
             $order = "`tstart` DESC";
+
             $where_OR = "`".$column."`<'".$seconds_start."'";
+            if($column != 'tend') $where_OR .= " AND `tend`<'".$seconds_start."'";
         }
         elseif($this->show_ongoing_events)
         {
@@ -978,13 +981,13 @@ class MEC_skins extends MEC_base
                 $fields .= '</div>';
             }
 
-            $fields .= $this->sf_search_field($field, $options);
+            $fields .= $this->sf_search_field($field, $options, $this->sf_display_label);
         }
 
         $fields = apply_filters('mec_filter_fields_search_form', $fields, $this);
 
         $form = '';
-        if(trim($fields) && (in_array('dropdown', $display_form) || in_array('text_input', $display_form) || in_array('address_input', $display_form) || in_array('minmax', $display_form) || in_array('local-time-picker', $display_form))) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
+        if(trim($fields) && (in_array('dropdown', $display_form) || in_array('checkboxes', $display_form) || in_array('text_input', $display_form) || in_array('address_input', $display_form) || in_array('minmax', $display_form) || in_array('local-time-picker', $display_form))) $form .= '<div id="mec_search_form_'.$this->id.'" class="mec-search-form mec-totalcal-box">'.$fields.'</div>';
 
         return $form;
     }
@@ -996,7 +999,7 @@ class MEC_skins extends MEC_base
      * @param array $options
      * @return string
      */
-    public function sf_search_field($field, $options)
+    public function sf_search_field($field, $options , $display_label = null)
     {
         $type = isset($options['type']) ? $options['type'] : '';
 
@@ -1013,10 +1016,14 @@ class MEC_skins extends MEC_base
         $output = '';
         if($field == 'category')
         {
+            $label = $this->main->m('taxonomy_category', __('Category', 'modern-events-calendar-lite'));
+
             if($type == 'dropdown')
             {
-                $output .= '<div class="mec-dropdown-search">
-                    <i class="mec-sl-folder"></i>';
+                $output .='<div class="mec-dropdown-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+
+                $output .='<i class="mec-sl-folder"></i>';
 
                 $output .= wp_dropdown_categories(array
                 (
@@ -1026,7 +1033,7 @@ class MEC_skins extends MEC_base
                     'include'=>((isset($this->atts['category']) and trim($this->atts['category'])) ? $this->atts['category'] : ''),
                     'id'=>'mec_sf_category_'.$this->id,
                     'hierarchical'=>true,
-                    'show_option_none'=>$this->main->m('taxonomy_category', __('Category', 'modern-events-calendar-lite')),
+                    'show_option_none'=>$label,
                     'option_none_value'=>'',
                     'selected'=>(isset($this->atts['category']) ? $this->atts['category'] : ''),
                     'orderby'=>'name',
@@ -1038,8 +1045,9 @@ class MEC_skins extends MEC_base
             }
             elseif($type == 'checkboxes' and wp_count_terms(array('taxonomy' => 'mec_category')))
             {
-                $output .= '<div class="mec-checkboxes-search">
-                    <i class="mec-sl-folder"></i>';
+                $output .= '<div class="mec-checkboxes-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .='<i class="mec-sl-folder"></i>';
 
                 $selected = ((isset($this->atts['category']) and trim($this->atts['category'])) ? explode(',', trim($this->atts['category'], ', ')) : array());
 
@@ -1064,10 +1072,14 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'location')
         {
+            $label = $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'));
+
             if($type == 'dropdown')
             {
-                $output .= '<div class="mec-dropdown-search">
-                    <i class="mec-sl-location-pin"></i>';
+                $output .= '<div class="mec-dropdown-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+
+                $output .= '<i class="mec-sl-location-pin"></i>';
 
                 $output .= wp_dropdown_categories(array
                 (
@@ -1077,7 +1089,7 @@ class MEC_skins extends MEC_base
                     'include'=>((isset($this->atts['location']) and trim($this->atts['location'])) ? $this->atts['location'] : ''),
                     'id'=>'mec_sf_location_'.$this->id,
                     'hierarchical'=>true,
-                    'show_option_none'=>$this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')),
+                    'show_option_none'=>$label,
                     'option_none_value'=>'',
                     'selected'=>(isset($this->atts['location']) ? $this->atts['location'] : ''),
                     'orderby'=>'name',
@@ -1090,10 +1102,13 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'organizer')
         {
+            $label = $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'));
+
             if($type == 'dropdown')
             {
-                $output .= '<div class="mec-dropdown-search">
-                    <i class="mec-sl-user"></i>';
+                $output .= '<div class="mec-dropdown-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-user"></i>';
 
                 $output .= wp_dropdown_categories(array
                 (
@@ -1103,7 +1118,7 @@ class MEC_skins extends MEC_base
                     'include'=>((isset($this->atts['organizer']) and trim($this->atts['organizer'])) ? $this->atts['organizer'] : ''),
                     'id'=>'mec_sf_organizer_'.$this->id,
                     'hierarchical'=>true,
-                    'show_option_none'=>$this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')),
+                    'show_option_none'=>$label,
                     'option_none_value'=>'',
                     'selected'=>(isset($this->atts['organizer']) ? $this->atts['organizer'] : ''),
                     'orderby'=>'name',
@@ -1116,10 +1131,13 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'speaker' and $speakers_status)
         {
+            $label = $this->main->m('taxonomy_speaker', __('Speaker', 'modern-events-calendar-lite'));
+
             if($type == 'dropdown')
             {
-                $output .= '<div class="mec-dropdown-search">
-                    <i class="mec-sl-microphone"></i>';
+                $output .= '<div class="mec-dropdown-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-microphone"></i>';
 
                 $output .= wp_dropdown_categories(array
                 (
@@ -1129,7 +1147,7 @@ class MEC_skins extends MEC_base
                     'include'=>((isset($this->atts['speaker']) and trim($this->atts['speaker'])) ? $this->atts['speaker'] : ''),
                     'id'=>'mec_sf_speaker_'.$this->id,
                     'hierarchical'=>true,
-                    'show_option_none'=>$this->main->m('taxonomy_speaker', __('Speaker', 'modern-events-calendar-lite')),
+                    'show_option_none'=>$label,
                     'option_none_value'=>'',
                     'selected'=>(isset($this->atts['speaker']) ? $this->atts['speaker'] : ''),
                     'orderby'=>'name',
@@ -1142,10 +1160,13 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'tag')
         {
+            $label = $this->main->m('taxonomy_tag', __('Tag', 'modern-events-calendar-lite'));
+
             if($type == 'dropdown')
             {
-                $output .= '<div class="mec-dropdown-search">
-                    <i class="mec-sl-tag"></i>';
+                $output .= '<div class="mec-dropdown-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-tag"></i>';
 
                 $output .= wp_dropdown_categories(array
                 (
@@ -1155,7 +1176,7 @@ class MEC_skins extends MEC_base
                     'include'=>((isset($this->atts['tag']) and trim($this->atts['tag'])) ? $this->atts['tag'] : ''),
                     'id'=>'mec_sf_tag_'.$this->id,
                     'hierarchical'=>true,
-                    'show_option_none'=>$this->main->m('taxonomy_tag', __('Tag', 'modern-events-calendar-lite')),
+                    'show_option_none'=>$label,
                     'option_none_value'=>'',
                     'selected'=>(isset($this->atts['tag']) ? $this->atts['tag'] : ''),
                     'orderby'=>'name',
@@ -1168,10 +1189,13 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'label')
         {
+            $label = $this->main->m('taxonomy_label', __('Label', 'modern-events-calendar-lite'));
+
             if($type == 'dropdown')
             {
-                $output .= '<div class="mec-dropdown-search">
-                    <i class="mec-sl-pin"></i>';
+                $output .= '<div class="mec-dropdown-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-pin"></i>';
 
                 $output .= wp_dropdown_categories(array
                 (
@@ -1181,7 +1205,7 @@ class MEC_skins extends MEC_base
                     'include'=>((isset($this->atts['label']) and trim($this->atts['label'])) ? $this->atts['label'] : ''),
                     'id'=>'mec_sf_label_'.$this->id,
                     'hierarchical'=>true,
-                    'show_option_none'=>$this->main->m('taxonomy_label', __('Label', 'modern-events-calendar-lite')),
+                    'show_option_none'=>$label,
                     'option_none_value'=>'',
                     'selected'=>(isset($this->atts['label']) ? $this->atts['label'] : ''),
                     'orderby'=>'name',
@@ -1194,6 +1218,7 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'month_filter')
         {
+            $label = __('Date', 'modern-events-calendar-lite');
             if($type == 'dropdown')
             {
                 $time = isset($this->start_date) ? strtotime($this->start_date) : '';
@@ -1205,8 +1230,9 @@ class MEC_skins extends MEC_base
                 $item = __('Select', 'modern-events-calendar-lite');
                 $option = in_array($this->skin, $skins) ? '<option class="mec-none-item" value="none" selected="selected">'.$item.'</option>' : '';
 
-                $output .= '<div class="mec-date-search"><input type="hidden" id="mec-filter-none" value="'.$item.'">
-                    <i class="mec-sl-calendar"></i>
+                $output .= '<div class="mec-date-search"><input type="hidden" id="mec-filter-none" value="'.$item.'">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-calendar"></i>
                     <select id="mec_sf_month_'.$this->id.'">';
 
                 $output .= $option;
@@ -1251,8 +1277,9 @@ class MEC_skins extends MEC_base
             {
                 $min_date = (isset($this->start_date) ? $this->start_date : NULL);
 
-                $output .= '<div class="mec-date-search">
-                    <i class="mec-sl-calendar"></i>
+                $output .= '<div class="mec-date-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-calendar"></i>
                     <input class="mec-col-3 mec_date_picker_dynamic_format_start" data-min="'.$min_date.'" type="text"
                            id="mec_sf_date_start_'.$this->id.'"
                            placeholder="'.esc_attr__('Start', 'modern-events-calendar-lite').'" autocomplete="off">
@@ -1264,12 +1291,14 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'time_filter')
         {
+            $label = __('Time', 'modern-events-calendar-lite');
             if($type == 'local-time-picker')
             {
                 $this->main->load_time_picker_assets();
 
-                $output .= '<div class="mec-time-picker-search">
-                    <i class="mec-sl-clock"></i>
+                $output .= '<div class="mec-time-picker-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-clock"></i>
                     <input type="text" class="mec-timepicker-start" id="mec_sf_timepicker_start_'.$this->id.'" placeholder="'.__('Start Time', 'modern-events-calendar-lite').'" data-format="'.$this->main->get_hour_format().'" />
                     <input type="text" class="mec-timepicker-end" id="mec_sf_timepicker_end_'.$this->id.'" placeholder="'.__('End Time', 'modern-events-calendar-lite').'" data-format="'.$this->main->get_hour_format().'" />
                 </div>';
@@ -1277,30 +1306,36 @@ class MEC_skins extends MEC_base
         }
         elseif($field == 'text_search')
         {
+            $label = __('Text', 'modern-events-calendar-lite');
             if($type == 'text_input')
             {
-                $output .= '<div class="mec-text-input-search">
-                    <i class="mec-sl-magnifier"></i>
+                $output .= '<div class="mec-text-input-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-magnifier"></i>
                     <input type="search" value="'.(isset($this->atts['s']) ? $this->atts['s'] : '').'" id="mec_sf_s_'.$this->id.'" />
                 </div>';
             }
         }
         elseif($field == 'address_search')
         {
+            $label = __('Address', 'modern-events-calendar-lite');
             if($type == 'address_input')
             {
-                $output .= '<div class="mec-text-address-search">
-                    <i class="mec-sl-map"></i>
+                $output .= '<div class="mec-text-address-search">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-map"></i>
                     <input type="search" value="'.(isset($this->atts['address']) ? $this->atts['address'] : '').'" id="mec_sf_address_s_'.$this->id.'" />
                 </div>';
             }
         }
         elseif($field == 'event_cost')
         {
+            $label = __('Cost', 'modern-events-calendar-lite');
             if($type == 'minmax')
             {
-                $output .= '<div class="mec-minmax-event-cost">
-                    <i class="mec-sl-credit-card"></i>
+                $output .= '<div class="mec-minmax-event-cost">';
+                $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
+                $output .= '<i class="mec-sl-credit-card"></i>
                     <input type="number" min="0" step="0.01" value="'.(isset($this->atts['event-cost-min']) ? $this->atts['event-cost-min'] : '').'" id="mec_sf_event_cost_min_'.$this->id.'" class="mec-minmax-price" placeholder="'.esc_attr__('Min Price', 'modern-events-calendar-lite').'" />
                     <input type="number" min="0" step="0.01" value="'.(isset($this->atts['event-cost-max']) ? $this->atts['event-cost-max'] : '').'" id="mec_sf_event_cost_max_'.$this->id.'" class="mec-minmax-price" placeholder="'.esc_attr__('Max Price', 'modern-events-calendar-lite').'" />
                 </div>';

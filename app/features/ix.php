@@ -565,6 +565,30 @@ class MEC_feature_ix extends MEC_base
                     }
                 }
 
+                // Event Speakers
+                $speaker_ids = array();
+                if(isset($event->speakers))
+                {
+                    foreach($event->speakers->children() as $speaker)
+                    {
+                        $speaker_id = $main->save_speaker(array
+                        (
+                            'name'=>trim((string) $speaker->name),
+                            'job_title'=>(string) (isset($speaker->job_title) ? $speaker->job_title : ''),
+                            'tel'=>(string) (isset($speaker->tel) ? $speaker->tel : ''),
+                            'email'=>(string) (isset($speaker->email) ? $speaker->email : ''),
+                            'facebook'=>(string) (isset($speaker->facebook) ? $speaker->facebook : ''),
+                            'twitter'=>(string) (isset($speaker->twitter) ? $speaker->twitter : ''),
+                            'instagram'=>(string) (isset($speaker->instagram) ? $speaker->instagram : ''),
+                            'linkedin'=>(string) (isset($speaker->linkedin) ? $speaker->linkedin : ''),
+                            'website'=>(string) (isset($speaker->website) ? $speaker->website : ''),
+                            'thumbnail'=>(string) (isset($speaker->thumbnail) ? $speaker->thumbnail : ''),
+                        ));
+
+                        if($speaker_id) $speaker_ids[] = $speaker_id;
+                    }
+                }
+
                 // Start
                 $start_date = (string) $meta->mec_date->start->date;
                 $start_hour = (int) $meta->mec_date->start->hour;
@@ -797,6 +821,9 @@ class MEC_feature_ix extends MEC_base
 
                 // Set labels to the post
                 if(count($label_ids)) foreach($label_ids as $label_id) wp_set_object_terms($post_id, (int) $label_id, 'mec_label', true);
+
+                // Set speakers to the post
+                if(count($speaker_ids)) foreach($speaker_ids as $speaker_id) wp_set_object_terms($post_id, (int) $speaker_id, 'mec_speaker', true);
 
                 // Featured Image
                 $featured_image = isset($event->featured_image) ? (string) $event->featured_image->full : '';

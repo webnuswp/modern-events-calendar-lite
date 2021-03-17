@@ -1301,7 +1301,7 @@ class MEC_feature_events extends MEC_base
                     <?php /** Checkbox **/ elseif($event_field['type'] == 'checkbox'): ?>
                         <?php if(isset($event_field['options']) and is_array($event_field['options'])): foreach($event_field['options'] as $event_field_option): ?>
                             <label for="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>">
-                                <input type="checkbox" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ((is_array($value) and in_array($event_field_option['label'], $value)) ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>][]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" />
+                                <input type="checkbox" id="mec_event_fields_<?php echo $j.'_'.strtolower(str_replace(' ', '_', $event_field_option['label'])); ?>" <?php echo ((is_array($value) and in_array($event_field_option['label'], $value)) ? 'checked="checked"' : ''); ?> name="mec[fields][<?php echo $j; ?>][]" value="<?php _e($event_field_option['label'], 'modern-events-calendar-lite'); ?>" <?php if(isset($event_field['mandatory']) and $event_field['mandatory'] and count($event_field['options']) == 1) echo 'required'; ?> />
                                 <?php _e(stripslashes($event_field_option['label']), 'modern-events-calendar-lite'); ?>
                             </label>
                         <?php endforeach; endif; ?>
@@ -2847,6 +2847,14 @@ class MEC_feature_events extends MEC_base
 
         $repeat_status = isset($repeat['status']) ? 1 : 0;
         $repeat_type = ($repeat_status and isset($repeat['type'])) ? $repeat['type'] : '';
+
+        // Unset Repeat if no days are selected
+        if($repeat_type == 'certain_weekdays' and (!is_array($certain_weekdays) or (is_array($certain_weekdays) and !count($certain_weekdays))))
+        {
+            $repeat_status = 0;
+            $repeat['status'] = 0;
+            $repeat['type'] = '';
+        }
 
         $repeat_interval = ($repeat_status and isset($repeat['interval']) and trim($repeat['interval'])) ? $repeat['interval'] : 1;
 

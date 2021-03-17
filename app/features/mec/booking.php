@@ -852,6 +852,7 @@ $gateways_options = $this->main->get_gateways_options();
                                                 <li><?php esc_html_e('Coupons', 'modern-events-calendar-lite'); ?></li>
                                                 <li><?php esc_html_e('Ticket variations', 'modern-events-calendar-lite'); ?></li>
                                                 <li><?php esc_html_e('Taxes / Fees', 'modern-events-calendar-lite'); ?></li>
+                                                <li><?php esc_html_e('Discount Per Roles', 'modern-events-calendar-lite'); ?></li>
                                             </ul>
 
                                             <div class="mec-form-row" style="margin-top: 40px;">

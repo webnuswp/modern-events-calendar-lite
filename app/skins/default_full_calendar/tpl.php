@@ -59,12 +59,12 @@ do_action('mec_full_skin_head');
         <div id="mec_search_form_<?php echo $this->id; ?>">
         <?php if($sf_month_filter_status): $sf_columns -= 3; ?>
             <div class="col-md-3">
-                <?php echo $this->sf_search_field('month_filter', $sf_month_filter); ?>
+                <?php echo $this->sf_search_field('month_filter', $sf_month_filter , 0); ?>
             </div>
         <?php endif; ?>
             <div class="col-md-<?php echo $sf_columns; ?>">
                 <?php if($sf_text_search_status): ?>
-                    <?php echo $this->sf_search_field('text_search', $sf_text_search); ?>
+                    <?php echo $this->sf_search_field('text_search', $sf_text_search , 0); ?>
                 <?php endif; ?>
             </div>        
         <?php endif; ?>

@@ -18,6 +18,17 @@ $sf_options = get_post_meta($post->ID, 'sf-options', true);
             <label for="mec_sf_status"></label>
         </div>
     </div>
+    <div class="mec-form-row mec-switcher">
+        <?php $sf_display_label = get_post_meta($post->ID, 'sf_display_label', true); ?>
+        <div class="mec-col-8">
+            <label><?php _e('Show Labels', 'modern-events-calendar-lite'); ?></label>
+        </div>
+        <div class="mec-col-4">
+            <input type="hidden" name="mec[sf_display_label]" value="0" />
+            <input type="checkbox" name="mec[sf_display_label]" id="mec_sf_display_label" value="1" <?php if($sf_display_label == 1) echo 'checked="checked"'; ?> />
+            <label for="mec_sf_display_label"></label>
+        </div>
+    </div>
     
     <!-- Search Form OPTIONS -->
     <div class="mec-meta-box-fields" id="mec_meta_box_calendar_search_form_options">

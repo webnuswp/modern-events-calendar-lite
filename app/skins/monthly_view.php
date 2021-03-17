@@ -12,6 +12,7 @@ class MEC_skin_monthly_view extends MEC_skins
      * @var string
      */
     public $skin = 'monthly_view';
+    public $activate_first_date = false;
     
     /**
      * Constructor method
@@ -49,6 +50,7 @@ class MEC_skin_monthly_view extends MEC_skins
         
         // Search Form Status
         $this->sf_status = isset($this->atts['sf_status']) ? $this->atts['sf_status'] : true;
+        $this->sf_display_label = isset($this->atts['sf_display_label']) ? $this->atts['sf_display_label'] : false;
         
         // The events
         $this->events_str = '';
@@ -148,6 +150,9 @@ class MEC_skin_monthly_view extends MEC_skins
         
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
+
+        // Activate First Date With Event
+        $this->activate_first_date = (isset($this->skin_options['activate_first_date']) and $this->skin_options['activate_first_date']);
     }
     
     /**
@@ -210,6 +215,12 @@ class MEC_skin_monthly_view extends MEC_skins
             if($query->have_posts())
             {
                 if(!isset($events[$date])) $events[$date] = array();
+
+                if($this->activate_first_date and $this->active_day and strtotime($date) >= current_time('timestamp', 0))
+                {
+                    $this->active_day = $date;
+                    $this->activate_first_date = false;
+                }
 
                 // Day Events
                 $d = array();

@@ -195,6 +195,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 					?>
 
 					<?php do_action('mec_single_virtual_badge', $event->data ); ?>
+					<?php do_action('mec_single_zoom_badge', $event->data ); ?>
 
 					<?php
 					// More Info
@@ -466,6 +467,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 						?>
 
 						<?php do_action('mec_single_virtual_badge', $event->data ); ?>
+						<?php do_action('mec_single_zoom_badge', $event->data ); ?>
 
 						<?php
 						// Event Location

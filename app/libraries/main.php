@@ -2915,6 +2915,7 @@ class MEC_main extends MEC_base
             $atts['sk-options']['agenda']['style'] = 'clean';
             $atts['sk-options']['agenda']['limit'] = 1000;
             $atts['sf_status'] = false;
+            $atts['sf_display_label'] = false;
 
             // Create Skin Object Class
             $SKO = new MEC_skin_agenda();
@@ -3353,9 +3354,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Text', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3383,9 +3384,9 @@ class MEC_main extends MEC_base
              <span class="mec_'.$prefix.'_field_type">'.__('MEC Name', 'modern-events-calendar-lite').'</span>
              '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
              <p class="mec_'.$prefix.'_field_options" style="display:none">
-                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                 <label>
                      <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" />
-                     <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" checked="checked" disabled />
+                     <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" checked="checked" disabled />
                      '.__('Required Field', 'modern-events-calendar-lite').'
                  </label>
              </p>
@@ -3412,9 +3413,9 @@ class MEC_main extends MEC_base
              <span class="mec_'.$prefix.'_field_type">'.__('MEC Email', 'modern-events-calendar-lite').'</span>
              '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
              <p class="mec_'.$prefix.'_field_options" style="display:none">
-                 <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                 <label>
                      <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" />
-                     <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" checked="checked" disabled />
+                     <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" checked="checked" disabled />
                      '.__('Required Field', 'modern-events-calendar-lite').'
                  </label>
              </p>
@@ -3441,9 +3442,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Email', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3471,9 +3472,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('URL', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3501,9 +3502,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('File', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3530,9 +3531,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Date', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3560,9 +3561,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Tel', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3590,9 +3591,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Textarea', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3643,9 +3644,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Checkboxes', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3690,9 +3691,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Radio Buttons', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3737,9 +3738,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Dropdown', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((isset($values['mandatory']) and $values['mandatory']) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -3787,9 +3788,9 @@ class MEC_main extends MEC_base
             <span class="mec_'.$prefix.'_field_type">'.__('Agreement', 'modern-events-calendar-lite').'</span>
             '.($prefix == 'event' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%event_field_'.$key.'%%</span>' : ($prefix == 'bfixed' ? '<span class="mec_'.$prefix.'_notification_placeholder">%%booking_field_'.$key.'%%</span>' : '')).'
             <p class="mec_'.$prefix.'_field_options">
-                <label for="mec_'.$prefix.'_fields_'.$key.'_mandatory">
+                <label>
                     <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="0" />
-                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" id="mec_'.$prefix.'_fields_'.$key.'_mandatory" '.((!isset($values['mandatory']) or (isset($values['mandatory']) and $values['mandatory'])) ? 'checked="checked"' : '').' />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][mandatory]" value="1" '.((!isset($values['mandatory']) or (isset($values['mandatory']) and $values['mandatory'])) ? 'checked="checked"' : '').' />
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
@@ -4478,15 +4479,7 @@ class MEC_main extends MEC_base
     */
     public function add_mce_external_plugins($plugins)
     {
-        if(!function_exists('is_plugin_active')) include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-
-        // MEC Settings
-        $settings = $this->get_settings();
-
-        if(is_plugin_active('js_composer/js_composer.php')) $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
-        elseif((!isset($settings['gutenberg']) or (isset($settings['gutenberg']) and $settings['gutenberg']))) $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
-        else $plugins['mec_mce_buttons'] = $this->asset('js/backend.js');
-
+        $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
         return $plugins;
     }
     
@@ -5099,9 +5092,10 @@ class MEC_main extends MEC_base
      * Return a web page
      * @author Webnus <info@webnus.biz>
      * @param string $url
+     * @param int $timeout
      * @return string
      */
-    public function get_web_page($url)
+    public function get_web_page($url, $timeout = 20)
 	{
 		$result = false;
 
@@ -5110,13 +5104,13 @@ class MEC_main extends MEC_base
 		{
             $result = wp_remote_retrieve_body(wp_remote_get($url, array(
                 'body' => null,
-                'timeout' => '120',
-                'redirection' => '10',
+                'timeout' => $timeout,
+                'redirection' => 5,
             )));
 		}
 
 		// Doing FGC
-		if($result == false)
+		if($result === false)
 		{
             $http = array();
 			$result = @file_get_contents($url, false, stream_context_create(array('http'=>$http)));
@@ -5350,12 +5344,14 @@ class MEC_main extends MEC_base
         $organizer_id = $term['term_id'];
         if(!$organizer_id) return false;
         
-        if ( isset($organizer['tel']) && strpos($organizer['tel'], '@') !== false ) 
+        if(isset($organizer['tel']) && strpos($organizer['tel'], '@') !== false)
         {
             // Just for EventON
             $tel = '';
             $email = (isset($organizer['tel']) and trim($organizer['tel'])) ? $organizer['tel'] : '';
-        } else {
+        }
+        else
+        {
             $tel = (isset($organizer['tel']) and trim($organizer['tel'])) ? $organizer['tel'] : '';
             $email = (isset($organizer['email']) and trim($organizer['email'])) ? $organizer['email'] : '';
         }
@@ -5410,6 +5406,47 @@ class MEC_main extends MEC_base
         if(trim($thumbnail)) update_term_meta($location_id, 'thumbnail', $thumbnail);
 
         return $location_id;
+    }
+
+    public function save_speaker($speaker = array())
+    {
+        $name = isset($speaker['name']) ? $speaker['name'] : '';
+        if(!trim($name)) return false;
+
+        $term = get_term_by('name', $name, 'mec_speaker');
+
+        // Term already exists
+        if(is_object($term) and isset($term->term_id)) return $term->term_id;
+
+        $term = wp_insert_term($name, 'mec_speaker');
+
+        // An error ocurred
+        if(is_wp_error($term)) return false;
+
+        $speaker_id = $term['term_id'];
+        if(!$speaker_id) return false;
+
+        $job_title = (isset($speaker['job_title']) and trim($speaker['job_title'])) ? $speaker['job_title'] : '';
+        $tel = (isset($speaker['tel']) and trim($speaker['tel'])) ? $speaker['tel'] : '';
+        $email = (isset($speaker['email']) and trim($speaker['email'])) ? $speaker['email'] : '';
+        $facebook = (isset($speaker['facebook']) and trim($speaker['facebook'])) ? esc_url($speaker['facebook']) : '';
+        $twitter = (isset($speaker['twitter']) and trim($speaker['twitter'])) ? esc_url($speaker['twitter']) : '';
+        $instagram = (isset($speaker['instagram']) and trim($speaker['instagram'])) ? esc_url($speaker['instagram']) : '';
+        $linkedin = (isset($speaker['linkedin']) and trim($speaker['linkedin'])) ? esc_url($speaker['linkedin']) : '';
+        $website = (isset($speaker['website']) and trim($speaker['website'])) ? esc_url($speaker['website']) : '';
+        $thumbnail = isset($speaker['thumbnail']) ? $speaker['thumbnail'] : '';
+
+        update_term_meta($speaker_id, 'job_title', $job_title);
+        update_term_meta($speaker_id, 'tel', $tel);
+        update_term_meta($speaker_id, 'email', $email);
+        update_term_meta($speaker_id, 'facebook', $facebook);
+        update_term_meta($speaker_id, 'twitter', $twitter);
+        update_term_meta($speaker_id, 'instagram', $instagram);
+        update_term_meta($speaker_id, 'linkedin', $linkedin);
+        update_term_meta($speaker_id, 'website', $website);
+        if(trim($thumbnail)) update_term_meta($speaker_id, 'thumbnail', $thumbnail);
+
+        return $speaker_id;
     }
     
     /**
@@ -6391,13 +6428,13 @@ class MEC_main extends MEC_base
         if($cache->has($cache_key)) return $cache->get($cache_key);
         
         // First Provider
-        $JSON = $this->get_web_page('http://ip-api.com/json/'.$ip);
+        $JSON = $this->get_web_page('http://ip-api.com/json/'.$ip, 3);
         $data = json_decode($JSON, true);
         
         // Second Provider
         if(!trim($JSON) or (is_array($data) and !isset($data['timezone'])))
         {
-            $JSON = $this->get_web_page('https://ipapi.co/'.$ip.'/json/');
+            $JSON = $this->get_web_page('https://ipapi.co/'.$ip.'/json/', 3);
             $data = json_decode($JSON, true);
         }
         
@@ -7295,6 +7332,9 @@ class MEC_main extends MEC_base
         // Booking on single page is disabled
         if(!isset($settings['booking_status']) or (isset($settings['booking_status']) and !$settings['booking_status'])) return false;
 
+        // Original Event ID for Multilingual Websites
+        $event_id = $this->get_original_event($event_id);
+
         // No Tickets
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets))) return false;
@@ -7790,14 +7830,14 @@ class MEC_main extends MEC_base
         $start_date = (isset($date['start']) and isset($date['start']['date'])) ? $date['start']['date'] : NULL;
         if(!$start_date) return false;
 
-        $s_hour = $date['start']['hour'];
-        if(strtoupper($date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
+        $s_hour = (isset($date['start']['hour']) ? $date['start']['hour'] : NULL);
+        if(isset($date['start']['ampm']) and strtoupper($date['start']['ampm']) == 'AM' and $s_hour == '0') $s_hour = 12;
 
         $start_time = sprintf("%02d", $s_hour).':';
-        $start_time .= sprintf("%02d", $date['start']['minutes']);
-        $start_time .= ' '.trim($date['start']['ampm']);
+        $start_time .= sprintf("%02d", (isset($date['start']['minutes']) ? $date['start']['minutes'] : NULL));
+        $start_time .= ' '.(isset($date['start']['ampm']) ? trim($date['start']['ampm']) : NULL);
 
-        $allday = isset($date['allday']) ? $date['allday'] : 0;
+        $allday = (isset($date['allday']) ? $date['allday'] : 0);
         if($allday) $start_time = '12:01 AM';
 
         // The event is started

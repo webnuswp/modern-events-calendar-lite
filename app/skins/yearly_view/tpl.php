@@ -22,10 +22,10 @@ $navigator_html = '';
 // Generate Month Navigator
 if($this->next_previous_button)
 {
-    // Show previous month handler if showing past events allowed
+    // Show previous year handler if showing past events allowed
     if(!isset($this->atts['show_past_events']) or 
        (isset($this->atts['show_past_events']) and $this->atts['show_past_events']) or
-       (isset($this->atts['show_past_events']) and !$this->atts['show_past_events'] and strtotime(date('Y-m-t', $_1year_before)) >= time())
+       (isset($this->atts['show_past_events']) and !$this->atts['show_past_events'] and date('Y', $_1year_before) >= current_time('Y'))
     )
     {
         $navigator_html .= '<div class="mec-previous-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_before).'"><i class="mec-sl-angle-left"></i> '.$this->main->date_i18n('Y', $_1year_before).'</div>';

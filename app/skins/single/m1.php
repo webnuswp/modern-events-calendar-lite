@@ -29,7 +29,7 @@ if(!is_array($booking_options)) $booking_options = array();
                     <?php echo $this->main->holding_status($event); ?>
                 </div>
 
-                <?php  
+                <?php
                 if(isset($event->data->meta['mec_hide_time']) and $event->data->meta['mec_hide_time'] == '0')
                 {
                     $time_comment = isset($event->data->meta['mec_comment']) ? $event->data->meta['mec_comment'] : '';
@@ -74,7 +74,7 @@ if(!is_array($booking_options)) $booking_options = array();
                 <div class="mec-single-event-label">
                     <i class="mec-fa-bookmark-o"></i>
                     <h3 class="mec-cost"><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h3>
-                    <?php foreach($event->data->labels as $labels=>$label) : 
+                    <?php foreach($event->data->labels as $labels=>$label) :
                     $seperator = (++$mec_i === $mec_items ) ? '' : ',';
                     echo '<dd style=color:"' . $label['color'] . '">' . $label["name"] . $seperator . '</dd>';
                     endforeach; ?>
@@ -87,7 +87,7 @@ if(!is_array($booking_options)) $booking_options = array();
         <div class="mec-events-event-image"><?php echo $event->data->thumbnails['full']; ?></div>
 
         <div class="col-md-4">
-            
+
             <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and in_array($event->data->meta['mec_organizer_id'], array('0', '1')) and (!trim($event->data->meta['mec_more_info']) or (trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] == 'http://'))) ? 'mec-util-hidden' : ''); ?>">
                 <?php
                 // Event Organizer
@@ -112,7 +112,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             <h6><?php _e('Phone', 'modern-events-calendar-lite'); ?></h6>
                             <a href="tel:<?php echo $organizer['tel']; ?>"><?php echo $organizer['tel']; ?></a>
                         </dd>
-                        <?php endif; 
+                        <?php endif;
                         if(isset($organizer['email']) && !empty($organizer['email'])): ?>
                         <dd class="mec-organizer-email">
                             <i class="mec-sl-envelope"></i>
@@ -148,17 +148,18 @@ if(!is_array($booking_options)) $booking_options = array();
 
             <!-- Weather Module -->
             <?php echo $this->main->module('weather.details', array('event'=>$event)); ?>
-            
+
             <!-- QRCode Module -->
             <?php echo $this->main->module('qrcode.details', array('event'=>$event)); ?>
 
             <!-- Local Time Module -->
             <?php echo $this->main->module('local-time.details', array('event'=>$event)); ?>
-            
+
             <div class="mec-event-meta mec-color-before mec-frontbox">
 
                 <?php do_action('mec_single_virtual_badge', $event->data ); ?>
-                
+                <?php do_action('mec_single_zoom_badge', $event->data ); ?>
+
                 <?php
                 // Event Location
                 if(isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]))
@@ -211,7 +212,7 @@ if(!is_array($booking_options)) $booking_options = array();
                     </div>
                     <?php
                 }
-                ?>  
+                ?>
                 <?php
                     // More Info
                     if(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://')
@@ -225,11 +226,11 @@ if(!is_array($booking_options)) $booking_options = array();
                         <?php
                     }
                 ?>
-                
+
             </div>
 
             <?php
-            
+
             if(!empty($this->main->module('speakers.details', array('event'=>$event)))) {
                 ?>
                 <div class="mec-color-before mec-frontbox">
@@ -241,9 +242,9 @@ if(!is_array($booking_options)) $booking_options = array();
 
             <!-- Attendees List Module -->
             <?php echo $this->main->module('attendees-list.details', array('event'=>$event)); ?>
-            
+
             <!-- Next Previous Module -->
-            <?php echo $this->main->module('next-event.details', array('event'=>$event)); ?>                
+            <?php echo $this->main->module('next-event.details', array('event'=>$event)); ?>
         </div>
 
         <div class="col-md-8">
@@ -264,7 +265,7 @@ if(!is_array($booking_options)) $booking_options = array();
             <div class="mec-events-meta-group mec-events-meta-group-gmap">
                 <?php echo $this->main->module('googlemap.details', array('event'=>$this->events)); ?>
             </div>
-            
+
             <!-- Export Module -->
             <?php echo $this->main->module('export.details', array('event'=>$event)); ?>
 
@@ -272,7 +273,7 @@ if(!is_array($booking_options)) $booking_options = array();
             <?php if($this->main->can_show_countdown_module($event)): ?>
             <div class="mec-events-meta-group mec-events-meta-group-countdown">
                 <?php echo $this->main->module('countdown.details', array('event'=>$this->events)); ?>
-            </div> 
+            </div>
             <?php endif; ?>
 
             <!-- Hourly Schedule -->
@@ -289,7 +290,7 @@ if(!is_array($booking_options)) $booking_options = array();
                 } elseif ( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '0' and !is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ) {
                     echo do_shortcode('[MEC_login]');
                 } else {
-                    echo $this->main->module('booking.default', array('event'=>$this->events)); 
+                    echo $this->main->module('booking.default', array('event'=>$this->events));
                 }
                 ?>
             </div>

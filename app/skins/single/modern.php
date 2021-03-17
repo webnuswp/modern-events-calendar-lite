@@ -34,9 +34,10 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
         <div class="col-md-4<?php if (empty($event->data->thumbnails['full'])) echo ' mec-no-image';?>">
 
             <?php do_action('mec_single_virtual_badge', $event->data); ?>
+            <?php do_action('mec_single_zoom_badge', $event->data); ?>
 
             <?php if($single->found_value('event_orgnizer', $settings) == 'on' || $single->found_value('register_btn', $settings) == 'on'): ?>
-            <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and in_array($event->data->meta['mec_organizer_id'], array('0', '1')) and (!trim($event->data->meta['mec_more_info']) or (trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] == 'http://'))) ? 'mec-util-hidden' : ''); ?>">
+            <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and isset($event->data->meta['mec_organizer_id']) and in_array($event->data->meta['mec_organizer_id'], array('0', '1')) and (isset($event->data->meta['mec_more_info']) and !trim($event->data->meta['mec_more_info']) or (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] == 'http://'))) ? 'mec-util-hidden' : ''); ?>">
                 <?php
                 // Event Organizer
                 if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]) and $single->found_value('event_orgnizer', $settings) == 'on')
@@ -60,7 +61,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                             <h6><?php _e('Phone', 'modern-events-calendar-lite'); ?></h6>
                             <a href="tel:<?php echo $organizer['tel']; ?>"><?php echo $organizer['tel']; ?></a>
                         </dd>
-                        <?php endif; 
+                        <?php endif;
                         if(isset($organizer['email']) && !empty($organizer['email'])): ?>
                         <dd class="mec-organizer-email">
                             <i class="mec-sl-envelope"></i>
@@ -88,10 +89,10 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
                 <!-- Register Booking Button -->
                 <?php if($this->main->can_show_booking_module($event) and $single->found_value('register_btn', $settings) == 'on'): ?>
-                    <?php 
-                    $data_lity = $data_lity_class =  ''; 
+                    <?php
+                    $data_lity = $data_lity_class =  '';
                     $target_id = 'mec-events-meta-group-booking-'.$this->uniqueid;
-                    if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ 
+                    if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){
                         /* $data_lity = 'onclick="openBookingModal();"'; */
                         $data_lity_class = 'mec-booking-data-lity';
                         $target_id = 'mec-events-meta-group-booking-box-'.$this->uniqueid;
@@ -107,10 +108,10 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
             <!-- Local Time Module -->
             <?php  if($single->found_value('local_time', $settings) == 'on') echo $this->main->module('local-time.details', array('event'=>$event)); ?>
-            
+
             <?php if($single->found_value('event_location', $settings) == 'on' || $single->found_value('event_categories', $settings) == 'on' || $single->found_value('more_info', $settings) == 'on'): ?>
             <div class="mec-event-meta mec-color-before mec-frontbox <?php if (empty($event->data->locations[$event->data->meta['mec_location_id']]) || $single->found_value('event_location', $settings) == '') echo 'mec-util-hidden'; ?>">
-                
+
                 <?php
                     // Event Location
                     if(isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]) and $single->found_value('event_location', $settings) == 'on')
@@ -179,15 +180,15 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                         <?php
                     }
                 ?>
-                
+
             </div>
             <?php endif; ?>
             <!-- Attendees List Module -->
             <?php if($single->found_value('attende_module', $settings) == 'on') echo $this->main->module('attendees-list.details', array('event'=>$event)); ?>
-            
+
             <!-- Next Previous Module -->
             <?php if($single->found_value('next_module', $settings) == 'on') echo $this->main->module('next-event.details', array('event'=>$event)); ?>
-            
+
             <!-- Weather Module -->
             <?php if($single->found_value('weather_module', $settings) == 'on') echo $this->main->module('weather.details', array('event'=>$event)); ?>
 
@@ -196,7 +197,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
 
             <!-- Widgets -->
             <?php dynamic_sidebar('mec-single-sidebar'); ?>
-          
+
         </div>
         <div class="col-md-8">
             <div class="mec-single-event-bar">
@@ -219,7 +220,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                             <?php echo $this->main->holding_status($event); ?>
                         </div>
 
-                        <?php  
+                        <?php
                         if(isset($event->data->meta['mec_hide_time']) and $event->data->meta['mec_hide_time'] == '0')
                         {
                             $time_comment = isset($event->data->meta['mec_comment']) ? $event->data->meta['mec_comment'] : '';
@@ -229,7 +230,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
                                 <i class="mec-sl-clock " style=""></i>
                                 <h3 class="mec-time"><?php _e('Time', 'modern-events-calendar-lite'); ?></h3>
                                 <i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
-                                
+
                                 <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                                 <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                                 <?php else: ?>
@@ -295,7 +296,7 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             <div class="mec-events-meta-group mec-events-meta-group-gmap">
                 <?php echo $this->main->module('googlemap.details', array('event'=>$this->events)); ?>
             </div>
-            
+
             <!-- Export Module -->
             <?php echo $this->main->module('export.details', array('event'=>$event)); ?>
 
@@ -303,26 +304,26 @@ if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php
             <?php if($this->main->can_show_countdown_module($event)): ?>
             <div class="mec-events-meta-group mec-events-meta-group-countdown">
                 <?php echo $this->main->module('countdown.details', array('event'=>$this->events)); ?>
-            </div> 
+            </div>
             <?php endif; ?>
 
             <!-- Hourly Schedule -->
             <?php $this->display_hourly_schedules_widget($event); ?>
-            
+
             <!-- Booking Module -->
             <?php if($this->main->is_sold($event) and count($event->dates) <= 1): ?>
             <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-sold-tickets warning-msg"><?php _e('Sold out!', 'modern-events-calendar-lite'); do_action( 'mec_booking_sold_out',$event, null,null,array($event->date) );?> </div>
             <?php elseif($this->main->can_show_booking_module($event)): ?>
             <?php $data_lity_class = ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
             <div class="mec-single-event <?php echo $data_lity_class; ?>" id="mec-events-meta-group-booking-box-<?php echo $this->uniqueid; ?>">
-                <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-events-meta-group mec-events-meta-group-booking">            
+                <div id="mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" class="mec-events-meta-group mec-events-meta-group-booking">
                     <?php
                     if(isset($settings['booking_user_login']) and $settings['booking_user_login'] == '1' and !is_user_logged_in() ) {
                         echo do_shortcode('[MEC_login]');
                     } elseif ( isset($settings['booking_user_login']) and $settings['booking_user_login'] == '0' and !is_user_logged_in() and isset($booking_options['bookings_limit_for_users']) and $booking_options['bookings_limit_for_users'] == '1' ) {
                         echo do_shortcode('[MEC_login]');
                     } else {
-                        echo $this->main->module('booking.default', array('event'=>$this->events)); 
+                        echo $this->main->module('booking.default', array('event'=>$this->events));
                     }
                     ?>
                 </div>
@@ -356,7 +357,7 @@ jQuery( ".mec-speaker-avatar a" ).click(function(e)
 jQuery( ".mec-booking-button.mec-booking-data-lity" ).click(function(e)
 {
     e.preventDefault();
-    var book_id =  jQuery(this).attr('href'); 
+    var book_id =  jQuery(this).attr('href');
     lity(book_id);
 });
 </script>

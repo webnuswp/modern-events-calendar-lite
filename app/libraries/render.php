@@ -1239,7 +1239,7 @@ class MEC_render extends MEC_base
                 $advanced_days = get_post_meta($event_id, 'mec_advanced_days', true);
 
                 // Generate dates for event
-                $event_info = array('start' => $start_date, 'end' => $end_date, 'allday' => $allday, 'hide_time' => $hide_time, 'finish_date' => $finish_date['date'], 'exceptional_days' => $exceptional_days, 'mec_repeat_end' => $event->meta['mec_repeat']['end'], 'occurrences' => $event->meta['mec_repeat']['end_at_occurrences']);
+                $event_info = array('start' => $start_date, 'end' => $end_date, 'allday' => $allday, 'hide_time' => $hide_time, 'finish_date' => $finish_date['date'], 'exceptional_days' => $exceptional_days, 'mec_repeat_end' => ((isset($event->meta['mec_repeat']) and isset($event->meta['mec_repeat']['end'])) ? $event->meta['mec_repeat']['end'] : ''), 'occurrences' => ((isset($event->meta['mec_repeat']) and isset($event->meta['mec_repeat']['end_at_occurrences'])) ? $event->meta['mec_repeat']['end_at_occurrences'] : ''));
 
                 $dates = $this->generate_advanced_days($advanced_days, $event_info, $maximum, $today);
             }
@@ -1422,7 +1422,10 @@ class MEC_render extends MEC_base
             
             // No latitude/Longitude
             if(trim($latitude) == '' or trim($longitude) == '') continue;
-            
+
+            $latitude = floatval($latitude);
+            $longitude = floatval($longitude);
+
             $key = $latitude.','.$longitude;
             if(!isset($markers[$key]))
             {

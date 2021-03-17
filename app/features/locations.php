@@ -223,8 +223,8 @@ class MEC_feature_locations extends MEC_base
     public function save_metadata($term_id)
     {
         $address = isset($_POST['address']) ? sanitize_text_field($_POST['address']) : '';
-        $latitude = isset($_POST['latitude']) ? sanitize_text_field($_POST['latitude']) : '0';
-        $longitude = isset($_POST['longitude']) ? sanitize_text_field($_POST['longitude']) : '0';
+        $latitude = isset($_POST['latitude']) ? floatval(sanitize_text_field($_POST['latitude'])) : '0';
+        $longitude = isset($_POST['longitude']) ? floatval(sanitize_text_field($_POST['longitude'])) : '0';
         $url = (isset($_POST['url']) and trim($_POST['url'])) ? esc_url($_POST['url']) : '';
         $thumbnail = isset($_POST['thumbnail']) ? sanitize_text_field($_POST['thumbnail']) : '';
 

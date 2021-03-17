@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.7
-Stable tag: 5.17.5
+Stable tag: 5.17.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -447,6 +447,25 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.17.6 – 17 March 2021 =
+- Added: Labels for all search fields
+- Added: An option to manage active day of monthly skin
+- Added: Speaker import to the XML import feature
+- Improved: The “Show Only Expired Events” feature to not show ongoing events in some cases
+- Updated: Stripe API to latest version (pro)
+- Fixed: Required checkbox fields in event custom fields
+- Fixed: GEO location of addresses when wrong latitude and longitude are set (pro)
+- Fixed: Event cost field
+- Fixed: Timezone intervals in RSS feed
+- Fixed: Yearly skin in showing navigation to previous year (pro)
+- Fixed: Showing Sold-out and other labels in multilingual websites (pro)
+- Fixed: Some console issues in block editor
+- Fixed: Some duplicate id issues in console
+- Fixed: An issue in “Certain Weekdays” repeat
+- Fixed: An issue in local time module
+- Fixed: An issue in breadcrumb
+- Fixed: Some notices
 
 = 5.17.5 – 9 March 2021 =
 - Added: An ability to switch “Show / Hide Occurrences” per shortcode

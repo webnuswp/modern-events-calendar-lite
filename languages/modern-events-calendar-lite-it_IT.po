@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modern Events Calendar\n"
-"POT-Creation-Date: 2021-03-09 19:59+0330\n"
-"PO-Revision-Date: 2021-03-09 20:00+0330\n"
+"POT-Creation-Date: 2021-03-17 10:40+0330\n"
+"PO-Revision-Date: 2021-03-17 10:42+0330\n"
 "Last-Translator: Howard <howard@realtyna.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -100,16 +100,16 @@ msgid "Select Shortcode"
 msgstr "Aggiungi un nuovo Shortcode"
 
 #: app/features/booking/calendar_novel.php:136
-#: app/features/search_bar/search_result.php:12 app/libraries/main.php:6579
-#: app/libraries/main.php:6626 app/libraries/notifications.php:1358
+#: app/features/search_bar/search_result.php:12 app/libraries/main.php:6616
+#: app/libraries/main.php:6663 app/libraries/notifications.php:1358
 #: app/libraries/render.php:531 app/libraries/render.php:723
 #: app/libraries/render.php:781 app/libraries/render.php:878
-#: app/modules/local-time/details.php:50 app/modules/local-time/type1.php:45
-#: app/modules/local-time/type2.php:67 app/modules/local-time/type3.php:45
+#: app/modules/local-time/details.php:50 app/modules/local-time/type1.php:47
+#: app/modules/local-time/type2.php:69 app/modules/local-time/type3.php:47
 #: app/modules/next-event/details.php:154
-#: app/modules/next-event/multiple.php:64 app/skins/single.php:1216
-#: app/skins/single/default.php:172 app/skins/single/default.php:411
-#: app/skins/single/m1.php:46 app/skins/single/modern.php:236
+#: app/modules/next-event/multiple.php:64 app/skins/single.php:1217
+#: app/skins/single/default.php:172 app/skins/single/default.php:412
+#: app/skins/single/m1.php:46 app/skins/single/modern.php:237
 #, fuzzy
 #| msgid "All Day Event"
 msgid "All Day"
@@ -141,7 +141,7 @@ msgstr "Impostazioni"
 
 #: app/features/contextual.php:62 app/features/events.php:1516
 #: app/features/events.php:2486 app/features/mec/booking.php:626
-#: app/features/mec/booking.php:894 app/features/mec/settings.php:919
+#: app/features/mec/booking.php:895 app/features/mec/settings.php:919
 #: app/features/mec/support.php:29 app/libraries/main.php:620
 msgid "Booking Form"
 msgstr "Form Prenotazione"
@@ -348,17 +348,17 @@ msgid "File uploaded!"
 msgstr ""
 
 #: app/features/events.php:183 app/features/ix/export.php:34
-#: app/features/mec/dashboard.php:267 app/libraries/main.php:5647
-#: app/libraries/main.php:5667 app/skins/daily_view/tpl.php:82
+#: app/features/mec/dashboard.php:267 app/libraries/main.php:5684
+#: app/libraries/main.php:5704 app/skins/daily_view/tpl.php:82
 #: app/skins/monthly_view/tpl.php:73 app/skins/tile/tpl.php:83
 #: app/skins/yearly_view/tpl.php:71
 msgid "Events"
 msgstr "Eventi"
 
 #: app/features/events.php:184 app/features/fes.php:243
-#: app/features/mec/meta_boxes/display_options.php:1700
-#: app/features/mec/meta_boxes/display_options.php:1794
-#: app/features/mec/meta_boxes/display_options.php:1867
+#: app/features/mec/meta_boxes/display_options.php:1710
+#: app/features/mec/meta_boxes/display_options.php:1804
+#: app/features/mec/meta_boxes/display_options.php:1877
 #: app/features/profile/profile.php:33 app/features/wc.php:82
 #: app/skins/daily_view/tpl.php:83 app/skins/monthly_view/tpl.php:74
 #: app/skins/tile/tpl.php:84 app/skins/yearly_view/tpl.php:72
@@ -373,7 +373,7 @@ msgstr "Aggiungi Evento"
 msgid "Add New Event"
 msgstr "Aggiungi nuovo Evento"
 
-#: app/features/events.php:187 app/features/ix.php:4471
+#: app/features/events.php:187 app/features/ix.php:4498
 #: app/features/ix/thirdparty.php:44 app/skins/map/tpl.php:69
 #: app/skins/map/tpl.php:89
 msgid "No events found!"
@@ -396,34 +396,34 @@ msgstr "Visualizza Evento"
 msgid "No events found in Trash!"
 msgstr "Nessun evento trovato nel cestino!"
 
-#: app/features/events.php:208 app/features/events.php:3578
-#: app/features/mec/meta_boxes/display_options.php:1557
-#: app/features/mec/meta_boxes/search_form.php:31
-#: app/features/mec/meta_boxes/search_form.php:117
-#: app/features/mec/meta_boxes/search_form.php:203
-#: app/features/mec/meta_boxes/search_form.php:289
-#: app/features/mec/meta_boxes/search_form.php:374
-#: app/features/mec/meta_boxes/search_form.php:459
-#: app/features/mec/meta_boxes/search_form.php:544
-#: app/features/mec/meta_boxes/search_form.php:615
-#: app/features/mec/meta_boxes/search_form.php:700
-#: app/features/mec/meta_boxes/search_form.php:785
-#: app/features/mec/meta_boxes/search_form.php:906
+#: app/features/events.php:208 app/features/events.php:3586
+#: app/features/mec/meta_boxes/display_options.php:1567
+#: app/features/mec/meta_boxes/search_form.php:42
+#: app/features/mec/meta_boxes/search_form.php:128
+#: app/features/mec/meta_boxes/search_form.php:214
+#: app/features/mec/meta_boxes/search_form.php:300
+#: app/features/mec/meta_boxes/search_form.php:385
+#: app/features/mec/meta_boxes/search_form.php:470
+#: app/features/mec/meta_boxes/search_form.php:555
+#: app/features/mec/meta_boxes/search_form.php:626
+#: app/features/mec/meta_boxes/search_form.php:711
+#: app/features/mec/meta_boxes/search_form.php:796
+#: app/features/mec/meta_boxes/search_form.php:917
 #: app/features/mec/settings.php:1026 app/features/mec/settings.php:1087
 #: app/features/mec/single.php:385 app/features/mec/single.php:427
-#: app/features/search.php:68 app/libraries/main.php:6537
-#: app/libraries/main.php:6591 app/libraries/skins.php:1029
-#: app/skins/single.php:1026 app/skins/single/default.php:272
-#: app/skins/single/default.php:510 app/skins/single/m1.php:201
-#: app/skins/single/m2.php:124 app/skins/single/modern.php:154
+#: app/features/search.php:68 app/libraries/main.php:6574
+#: app/libraries/main.php:6628 app/libraries/skins.php:1019
+#: app/skins/single.php:1027 app/skins/single/default.php:273
+#: app/skins/single/default.php:512 app/skins/single/m1.php:202
+#: app/skins/single/m2.php:125 app/skins/single/modern.php:155
 msgid "Category"
 msgstr "Categoria"
 
-#: app/features/events.php:209 app/features/events.php:3533
+#: app/features/events.php:209 app/features/events.php:3541
 #: app/features/fes/form.php:885 app/features/mec.php:464
 #: app/features/mec/meta_boxes/filter.php:69
-#: app/features/mec/meta_boxes/filter.php:80 app/libraries/main.php:6536
-#: app/libraries/main.php:6590
+#: app/features/mec/meta_boxes/filter.php:80 app/libraries/main.php:6573
+#: app/libraries/main.php:6627
 msgid "Categories"
 msgstr "Categorie"
 
@@ -539,7 +539,7 @@ msgid "Event Data"
 msgstr "Dettaglio evento"
 
 #: app/features/events.php:396 app/features/mec/settings.php:856
-#: app/libraries/hourlyschedule.php:35 app/skins/single.php:1437
+#: app/libraries/hourlyschedule.php:35 app/skins/single.php:1438
 msgid "Hourly Schedule"
 msgstr "Schedula per Ore"
 
@@ -555,40 +555,40 @@ msgstr "Luogo"
 msgid "Links"
 msgstr "Link"
 
-#: app/features/events.php:399 app/features/events.php:3580
-#: app/features/events.php:3787 app/features/ix.php:4060
-#: app/features/ix.php:4102
-#: app/features/mec/meta_boxes/display_options.php:1560
-#: app/features/mec/meta_boxes/search_form.php:47
-#: app/features/mec/meta_boxes/search_form.php:133
-#: app/features/mec/meta_boxes/search_form.php:219
-#: app/features/mec/meta_boxes/search_form.php:305
-#: app/features/mec/meta_boxes/search_form.php:390
-#: app/features/mec/meta_boxes/search_form.php:475
-#: app/features/mec/meta_boxes/search_form.php:560
-#: app/features/mec/meta_boxes/search_form.php:631
-#: app/features/mec/meta_boxes/search_form.php:716
-#: app/features/mec/meta_boxes/search_form.php:801
-#: app/features/mec/meta_boxes/search_form.php:922
+#: app/features/events.php:399 app/features/events.php:3588
+#: app/features/events.php:3795 app/features/ix.php:4087
+#: app/features/ix.php:4129
+#: app/features/mec/meta_boxes/display_options.php:1570
+#: app/features/mec/meta_boxes/search_form.php:58
+#: app/features/mec/meta_boxes/search_form.php:144
+#: app/features/mec/meta_boxes/search_form.php:230
+#: app/features/mec/meta_boxes/search_form.php:316
+#: app/features/mec/meta_boxes/search_form.php:401
+#: app/features/mec/meta_boxes/search_form.php:486
+#: app/features/mec/meta_boxes/search_form.php:571
+#: app/features/mec/meta_boxes/search_form.php:642
+#: app/features/mec/meta_boxes/search_form.php:727
+#: app/features/mec/meta_boxes/search_form.php:812
+#: app/features/mec/meta_boxes/search_form.php:933
 #: app/features/mec/settings.php:1099 app/features/mec/single.php:389
 #: app/features/mec/single.php:431 app/features/organizers.php:58
 #: app/features/organizers.php:204 app/features/organizers.php:261
 #: app/features/organizers.php:263 app/features/organizers.php:272
 #: app/features/popup/event.php:163 app/features/popup/event.php:172
-#: app/features/search.php:80 app/libraries/main.php:6543
-#: app/libraries/main.php:6597 app/libraries/skins.php:1106
-#: app/skins/single.php:1275 app/skins/single/default.php:297
-#: app/skins/single/default.php:535 app/skins/single/m1.php:102
-#: app/skins/single/m2.php:25 app/skins/single/modern.php:50
+#: app/features/search.php:80 app/libraries/main.php:6580
+#: app/libraries/main.php:6634 app/libraries/skins.php:1105
+#: app/skins/single.php:1276 app/skins/single/default.php:298
+#: app/skins/single/default.php:537 app/skins/single/m1.php:102
+#: app/skins/single/m2.php:25 app/skins/single/modern.php:51
 msgid "Organizer"
 msgstr "Organizzatore"
 
 #: app/features/events.php:400 app/features/events.php:1235
 #: app/features/fes/form.php:856 app/features/mec/settings.php:1023
-#: app/libraries/main.php:6574 app/libraries/main.php:6623
-#: app/skins/single.php:1052 app/skins/single/default.php:190
-#: app/skins/single/default.php:429 app/skins/single/m1.php:61
-#: app/skins/single/modern.php:251
+#: app/libraries/main.php:6611 app/libraries/main.php:6660
+#: app/libraries/skins.php:1333 app/skins/single.php:1053
+#: app/skins/single/default.php:190 app/skins/single/default.php:430
+#: app/skins/single/m1.php:61 app/skins/single/modern.php:252
 msgid "Cost"
 msgstr "Costo"
 
@@ -605,7 +605,7 @@ msgid "Guest Data"
 msgstr "Dati dell'ospite"
 
 #: app/features/events.php:569 app/features/events.php:2472
-#: app/features/events.php:4110 app/features/fes.php:243
+#: app/features/events.php:4118 app/features/fes.php:243
 #: app/features/fes/form.php:812 app/features/labels.php:180
 #: app/features/mec/booking.php:45 app/features/organizers.php:280
 #: app/features/popup/event.php:182 app/features/profile/profile.php:149
@@ -615,19 +615,19 @@ msgstr "Nome"
 
 #: app/features/events.php:570 app/features/events.php:2481
 #: app/features/events.php:2548 app/features/events.php:2637
-#: app/features/events.php:4113 app/features/fes.php:243
+#: app/features/events.php:4121 app/features/fes.php:243
 #: app/features/fes/form.php:808 app/features/login/login.php:5
 #: app/features/mec/booking.php:57 app/features/mec/booking.php:664
 #: app/features/mec/booking.php:760 app/features/mec/single.php:240
 #: app/features/organizers.php:111 app/features/organizers.php:152
 #: app/features/profile/profile.php:152 app/features/speakers.php:127
 #: app/features/speakers.php:204 app/libraries/main.php:1931
-#: app/libraries/main.php:2000 app/libraries/main.php:3441
+#: app/libraries/main.php:2000 app/libraries/main.php:3442
 #: app/libraries/notifications.php:1722 app/modules/booking/steps/form.php:71
-#: app/modules/booking/steps/form.php:213 app/skins/single.php:1292
-#: app/skins/single.php:1355 app/skins/single/default.php:314
-#: app/skins/single/default.php:552 app/skins/single/m1.php:119
-#: app/skins/single/m2.php:42 app/skins/single/modern.php:67
+#: app/modules/booking/steps/form.php:213 app/skins/single.php:1293
+#: app/skins/single.php:1356 app/skins/single/default.php:315
+#: app/skins/single/default.php:554 app/skins/single/m1.php:119
+#: app/skins/single/m2.php:42 app/skins/single/modern.php:68
 msgid "Email"
 msgstr "Email"
 
@@ -642,9 +642,9 @@ msgid "Date and Time"
 msgstr "Data e Ora"
 
 #: app/features/events.php:586 app/features/events.php:590
-#: app/features/events.php:3581 app/features/events.php:3787
+#: app/features/events.php:3589 app/features/events.php:3795
 #: app/features/fes/form.php:286 app/features/fes/form.php:290
-#: app/features/ix.php:4060 app/features/ix.php:4102
+#: app/features/ix.php:4087 app/features/ix.php:4129
 #: app/features/ix/import_g_calendar.php:38 app/features/mec.php:1394
 #: app/features/mec/meta_boxes/display_options.php:52
 #: app/features/mec/meta_boxes/display_options.php:305
@@ -652,31 +652,31 @@ msgstr "Data e Ora"
 #: app/features/mec/meta_boxes/display_options.php:685
 #: app/features/mec/meta_boxes/display_options.php:931
 #: app/features/mec/meta_boxes/display_options.php:1037
-#: app/features/mec/meta_boxes/display_options.php:1123
-#: app/features/mec/meta_boxes/display_options.php:1170
-#: app/features/mec/meta_boxes/display_options.php:1261
-#: app/features/mec/meta_boxes/display_options.php:1364
-#: app/features/mec/meta_boxes/display_options.php:1503
-#: app/features/mec/meta_boxes/display_options.php:1928
-#: app/features/mec/meta_boxes/display_options.php:2092
-#: app/features/mec/meta_boxes/display_options.php:2223
-#: app/features/mec/meta_boxes/display_options.php:2352
+#: app/features/mec/meta_boxes/display_options.php:1133
+#: app/features/mec/meta_boxes/display_options.php:1180
+#: app/features/mec/meta_boxes/display_options.php:1271
+#: app/features/mec/meta_boxes/display_options.php:1374
+#: app/features/mec/meta_boxes/display_options.php:1513
+#: app/features/mec/meta_boxes/display_options.php:1938
+#: app/features/mec/meta_boxes/display_options.php:2102
+#: app/features/mec/meta_boxes/display_options.php:2233
+#: app/features/mec/meta_boxes/display_options.php:2362
 #: app/features/popup/event.php:76
 msgid "Start Date"
 msgstr "Data di inizio"
 
 #: app/features/events.php:605 app/features/events.php:609
-#: app/features/events.php:3582 app/features/events.php:3787
+#: app/features/events.php:3590 app/features/events.php:3795
 #: app/features/fes/form.php:305 app/features/fes/form.php:309
-#: app/features/ix.php:4060 app/features/ix.php:4102
+#: app/features/ix.php:4087 app/features/ix.php:4129
 #: app/features/ix/import_g_calendar.php:44 app/features/mec.php:1395
 #: app/features/mec/meta_boxes/display_options.php:68
 #: app/features/mec/meta_boxes/display_options.php:321
 #: app/features/mec/meta_boxes/display_options.php:585
 #: app/features/mec/meta_boxes/display_options.php:744
 #: app/features/mec/meta_boxes/display_options.php:776
-#: app/features/mec/meta_boxes/display_options.php:1519
-#: app/features/mec/meta_boxes/display_options.php:2239
+#: app/features/mec/meta_boxes/display_options.php:1529
+#: app/features/mec/meta_boxes/display_options.php:2249
 #: app/features/popup/event.php:92
 msgid "End Date"
 msgstr "Data di fine"
@@ -731,7 +731,7 @@ msgstr ""
 #: app/features/mec/booking.php:493 app/features/mec/booking.php:522
 #: app/features/mec/booking.php:570 app/features/mec/booking.php:580
 #: app/features/mec/booking.php:602 app/features/mec/booking.php:612
-#: app/features/mec/booking.php:868 app/features/mec/booking.php:896
+#: app/features/mec/booking.php:869 app/features/mec/booking.php:897
 #: app/features/mec/dashboard.php:73
 #: app/features/mec/meta_boxes/display_options.php:92
 #: app/features/mec/meta_boxes/display_options.php:105
@@ -747,24 +747,24 @@ msgstr ""
 #: app/features/mec/meta_boxes/display_options.php:417
 #: app/features/mec/meta_boxes/display_options.php:610
 #: app/features/mec/meta_boxes/display_options.php:949
-#: app/features/mec/meta_boxes/display_options.php:1544
-#: app/features/mec/meta_boxes/display_options.php:1671
-#: app/features/mec/meta_boxes/display_options.php:1683
-#: app/features/mec/meta_boxes/display_options.php:1694
-#: app/features/mec/meta_boxes/display_options.php:1764
-#: app/features/mec/meta_boxes/display_options.php:1775
-#: app/features/mec/meta_boxes/display_options.php:1788
-#: app/features/mec/meta_boxes/display_options.php:1861
-#: app/features/mec/meta_boxes/display_options.php:1950
-#: app/features/mec/meta_boxes/display_options.php:1961
-#: app/features/mec/meta_boxes/display_options.php:1972
-#: app/features/mec/meta_boxes/display_options.php:2114
-#: app/features/mec/meta_boxes/display_options.php:2127
-#: app/features/mec/meta_boxes/display_options.php:2140
-#: app/features/mec/meta_boxes/display_options.php:2153
-#: app/features/mec/meta_boxes/display_options.php:2166
-#: app/features/mec/meta_boxes/display_options.php:2263
-#: app/features/mec/meta_boxes/display_options.php:2370
+#: app/features/mec/meta_boxes/display_options.php:1554
+#: app/features/mec/meta_boxes/display_options.php:1681
+#: app/features/mec/meta_boxes/display_options.php:1693
+#: app/features/mec/meta_boxes/display_options.php:1704
+#: app/features/mec/meta_boxes/display_options.php:1774
+#: app/features/mec/meta_boxes/display_options.php:1785
+#: app/features/mec/meta_boxes/display_options.php:1798
+#: app/features/mec/meta_boxes/display_options.php:1871
+#: app/features/mec/meta_boxes/display_options.php:1960
+#: app/features/mec/meta_boxes/display_options.php:1971
+#: app/features/mec/meta_boxes/display_options.php:1982
+#: app/features/mec/meta_boxes/display_options.php:2124
+#: app/features/mec/meta_boxes/display_options.php:2137
+#: app/features/mec/meta_boxes/display_options.php:2150
+#: app/features/mec/meta_boxes/display_options.php:2163
+#: app/features/mec/meta_boxes/display_options.php:2176
+#: app/features/mec/meta_boxes/display_options.php:2273
+#: app/features/mec/meta_boxes/display_options.php:2380
 #: app/features/mec/modules.php:44 app/features/mec/modules.php:76
 #: app/features/mec/modules.php:93 app/features/mec/modules.php:128
 #: app/features/mec/modules.php:144 app/features/mec/modules.php:330
@@ -796,10 +796,10 @@ msgstr ""
 #: app/features/mec/styling.php:123 app/features/mec/styling.php:223
 #: app/features/mec/styling.php:240 app/features/mec/styling.php:254
 #: app/features/organizers.php:273 app/features/popup/event.php:126
-#: app/features/popup/event.php:173 app/skins/single.php:1137
-#: app/skins/single/default.php:207 app/skins/single/default.php:444
-#: app/skins/single/m1.php:223 app/skins/single/m2.php:147
-#: app/skins/single/modern.php:177
+#: app/features/popup/event.php:173 app/skins/single.php:1138
+#: app/skins/single/default.php:208 app/skins/single/default.php:445
+#: app/skins/single/m1.php:224 app/skins/single/m2.php:148
+#: app/skins/single/modern.php:178
 msgid "Read More"
 msgstr "Continua a leggere"
 
@@ -946,7 +946,7 @@ msgstr ""
 #: app/features/fes/form.php:419 app/features/ix/import_f_calendar.php:42
 #: app/features/ix/import_g_calendar.php:51
 #: app/features/ix/import_meetup.php:40 app/features/ix/thirdparty.php:35
-#: app/libraries/skins.php:1258
+#: app/libraries/skins.php:1285
 msgid "Start"
 msgstr "Partenza"
 
@@ -974,7 +974,7 @@ msgstr ""
 
 #: app/features/events.php:853 app/features/events.php:1949
 #: app/features/events.php:1977 app/features/events.php:2131
-#: app/features/fes/form.php:434 app/libraries/skins.php:1261
+#: app/features/fes/form.php:434 app/libraries/skins.php:1288
 #, fuzzy
 #| msgid "Enabled"
 msgid "End"
@@ -1046,21 +1046,21 @@ msgstr ""
 msgid "Show only one occurrence of this event"
 msgstr "Il prossimo evento degli altri eventi"
 
-#: app/features/events.php:1231 app/features/events.php:3787
-#: app/features/fes/form.php:853 app/features/ix.php:4060
-#: app/features/ix.php:4102 app/features/mec/meta_boxes/search_form.php:82
-#: app/features/mec/meta_boxes/search_form.php:168
-#: app/features/mec/meta_boxes/search_form.php:254
-#: app/features/mec/meta_boxes/search_form.php:340
-#: app/features/mec/meta_boxes/search_form.php:425
-#: app/features/mec/meta_boxes/search_form.php:510
-#: app/features/mec/meta_boxes/search_form.php:595
-#: app/features/mec/meta_boxes/search_form.php:666
-#: app/features/mec/meta_boxes/search_form.php:751
-#: app/features/mec/meta_boxes/search_form.php:836
-#: app/features/mec/meta_boxes/search_form.php:957
-#: app/features/mec/settings.php:789 app/libraries/main.php:6573
-#: app/libraries/main.php:6622 app/widgets/single.php:105
+#: app/features/events.php:1231 app/features/events.php:3795
+#: app/features/fes/form.php:853 app/features/ix.php:4087
+#: app/features/ix.php:4129 app/features/mec/meta_boxes/search_form.php:93
+#: app/features/mec/meta_boxes/search_form.php:179
+#: app/features/mec/meta_boxes/search_form.php:265
+#: app/features/mec/meta_boxes/search_form.php:351
+#: app/features/mec/meta_boxes/search_form.php:436
+#: app/features/mec/meta_boxes/search_form.php:521
+#: app/features/mec/meta_boxes/search_form.php:606
+#: app/features/mec/meta_boxes/search_form.php:677
+#: app/features/mec/meta_boxes/search_form.php:762
+#: app/features/mec/meta_boxes/search_form.php:847
+#: app/features/mec/meta_boxes/search_form.php:968
+#: app/features/mec/settings.php:789 app/libraries/main.php:6610
+#: app/libraries/main.php:6659 app/widgets/single.php:105
 msgid "Event Cost"
 msgstr "Costo Evento"
 
@@ -1078,11 +1078,11 @@ msgstr "Escludi certi giorni"
 #: app/features/events.php:2638 app/features/fes.php:243
 #: app/features/mec/booking.php:665 app/features/mec/booking.php:761
 #: app/features/mec/single.php:242 app/features/profile/profile.php:36
-#: app/features/wc.php:83 app/libraries/main.php:3530
-#: app/modules/booking/steps/tickets.php:127
-#: app/modules/next-event/details.php:143 app/skins/single.php:1110
-#: app/skins/single/default.php:147 app/skins/single/default.php:386
-#: app/skins/single/m1.php:21 app/skins/single/modern.php:211
+#: app/features/wc.php:83 app/libraries/main.php:3531
+#: app/libraries/skins.php:1221 app/modules/booking/steps/tickets.php:127
+#: app/modules/next-event/details.php:143 app/skins/single.php:1111
+#: app/skins/single/default.php:147 app/skins/single/default.php:387
+#: app/skins/single/m1.php:21 app/skins/single/modern.php:212
 msgid "Date"
 msgstr "Data"
 
@@ -1104,7 +1104,7 @@ msgstr "Link dell'evento"
 
 #: app/features/events.php:1452 app/features/events.php:1460
 #: app/features/fes/form.php:829 app/features/mec/settings.php:1024
-#: app/libraries/main.php:6571 app/libraries/main.php:6620
+#: app/libraries/main.php:6608 app/libraries/main.php:6657
 msgid "Event Link"
 msgstr "Link dell'evento"
 
@@ -1131,11 +1131,11 @@ msgid "URL Shortener"
 msgstr ""
 
 #: app/features/events.php:1470 app/features/events.php:1483
-#: app/features/fes/form.php:834 app/libraries/main.php:6572
-#: app/libraries/main.php:6621 app/skins/single.php:1136
-#: app/skins/single/default.php:206 app/skins/single/default.php:443
-#: app/skins/single/m1.php:222 app/skins/single/m2.php:146
-#: app/skins/single/modern.php:176 app/widgets/single.php:109
+#: app/features/fes/form.php:834 app/libraries/main.php:6609
+#: app/libraries/main.php:6658 app/skins/single.php:1137
+#: app/skins/single/default.php:207 app/skins/single/default.php:444
+#: app/skins/single/m1.php:223 app/skins/single/m2.php:147
+#: app/skins/single/modern.php:177 app/widgets/single.php:109
 msgid "More Info"
 msgstr "Maggiori informazioni"
 
@@ -1174,7 +1174,7 @@ msgid "Total User Booking Limits"
 msgstr "Limite totale delle prenotazioni"
 
 #: app/features/events.php:1509 app/features/events.php:1777
-#: app/libraries/book.php:63 app/libraries/main.php:6576
+#: app/libraries/book.php:63 app/libraries/main.php:6613
 #: app/modules/booking/steps/tickets.php:159
 #: app/modules/booking/steps/tickets.php:165
 msgid "Tickets"
@@ -1189,7 +1189,7 @@ msgstr "Tasse"
 msgid "Ticket Variations / Options"
 msgstr ""
 
-#: app/features/events.php:1518 app/features/mec/booking.php:925
+#: app/features/events.php:1518 app/features/mec/booking.php:926
 #: app/features/mec/support-page.php:118
 #, fuzzy
 #| msgid "Organizer Name"
@@ -1291,127 +1291,127 @@ msgstr "Verifica email"
 
 #: app/features/events.php:1680 app/features/events.php:1690
 #: app/features/mec/booking.php:177 app/features/mec/booking.php:244
-#: app/features/mec/booking.php:259 app/features/mec/booking.php:862
-#: app/features/mec/booking.php:889
-#: app/features/mec/meta_boxes/search_form.php:33
-#: app/features/mec/meta_boxes/search_form.php:41
-#: app/features/mec/meta_boxes/search_form.php:49
-#: app/features/mec/meta_boxes/search_form.php:56
-#: app/features/mec/meta_boxes/search_form.php:63
-#: app/features/mec/meta_boxes/search_form.php:70
-#: app/features/mec/meta_boxes/search_form.php:77
-#: app/features/mec/meta_boxes/search_form.php:84
-#: app/features/mec/meta_boxes/search_form.php:91
-#: app/features/mec/meta_boxes/search_form.php:99
-#: app/features/mec/meta_boxes/search_form.php:106
-#: app/features/mec/meta_boxes/search_form.php:119
-#: app/features/mec/meta_boxes/search_form.php:127
-#: app/features/mec/meta_boxes/search_form.php:135
-#: app/features/mec/meta_boxes/search_form.php:142
-#: app/features/mec/meta_boxes/search_form.php:149
-#: app/features/mec/meta_boxes/search_form.php:156
-#: app/features/mec/meta_boxes/search_form.php:163
-#: app/features/mec/meta_boxes/search_form.php:170
-#: app/features/mec/meta_boxes/search_form.php:177
-#: app/features/mec/meta_boxes/search_form.php:185
-#: app/features/mec/meta_boxes/search_form.php:192
-#: app/features/mec/meta_boxes/search_form.php:205
-#: app/features/mec/meta_boxes/search_form.php:213
-#: app/features/mec/meta_boxes/search_form.php:221
-#: app/features/mec/meta_boxes/search_form.php:228
-#: app/features/mec/meta_boxes/search_form.php:235
-#: app/features/mec/meta_boxes/search_form.php:242
-#: app/features/mec/meta_boxes/search_form.php:249
-#: app/features/mec/meta_boxes/search_form.php:256
-#: app/features/mec/meta_boxes/search_form.php:263
-#: app/features/mec/meta_boxes/search_form.php:271
-#: app/features/mec/meta_boxes/search_form.php:278
-#: app/features/mec/meta_boxes/search_form.php:291
-#: app/features/mec/meta_boxes/search_form.php:299
-#: app/features/mec/meta_boxes/search_form.php:307
-#: app/features/mec/meta_boxes/search_form.php:314
-#: app/features/mec/meta_boxes/search_form.php:321
-#: app/features/mec/meta_boxes/search_form.php:328
-#: app/features/mec/meta_boxes/search_form.php:335
-#: app/features/mec/meta_boxes/search_form.php:342
-#: app/features/mec/meta_boxes/search_form.php:349
-#: app/features/mec/meta_boxes/search_form.php:356
-#: app/features/mec/meta_boxes/search_form.php:363
-#: app/features/mec/meta_boxes/search_form.php:376
-#: app/features/mec/meta_boxes/search_form.php:384
-#: app/features/mec/meta_boxes/search_form.php:392
-#: app/features/mec/meta_boxes/search_form.php:399
-#: app/features/mec/meta_boxes/search_form.php:406
-#: app/features/mec/meta_boxes/search_form.php:413
-#: app/features/mec/meta_boxes/search_form.php:420
-#: app/features/mec/meta_boxes/search_form.php:427
-#: app/features/mec/meta_boxes/search_form.php:434
-#: app/features/mec/meta_boxes/search_form.php:441
-#: app/features/mec/meta_boxes/search_form.php:448
-#: app/features/mec/meta_boxes/search_form.php:461
-#: app/features/mec/meta_boxes/search_form.php:469
-#: app/features/mec/meta_boxes/search_form.php:477
-#: app/features/mec/meta_boxes/search_form.php:484
-#: app/features/mec/meta_boxes/search_form.php:491
-#: app/features/mec/meta_boxes/search_form.php:498
-#: app/features/mec/meta_boxes/search_form.php:505
-#: app/features/mec/meta_boxes/search_form.php:512
-#: app/features/mec/meta_boxes/search_form.php:519
-#: app/features/mec/meta_boxes/search_form.php:526
-#: app/features/mec/meta_boxes/search_form.php:533
-#: app/features/mec/meta_boxes/search_form.php:546
-#: app/features/mec/meta_boxes/search_form.php:554
-#: app/features/mec/meta_boxes/search_form.php:562
-#: app/features/mec/meta_boxes/search_form.php:569
-#: app/features/mec/meta_boxes/search_form.php:576
-#: app/features/mec/meta_boxes/search_form.php:583
-#: app/features/mec/meta_boxes/search_form.php:590
-#: app/features/mec/meta_boxes/search_form.php:597
-#: app/features/mec/meta_boxes/search_form.php:604
-#: app/features/mec/meta_boxes/search_form.php:617
-#: app/features/mec/meta_boxes/search_form.php:625
-#: app/features/mec/meta_boxes/search_form.php:633
-#: app/features/mec/meta_boxes/search_form.php:640
-#: app/features/mec/meta_boxes/search_form.php:647
-#: app/features/mec/meta_boxes/search_form.php:654
-#: app/features/mec/meta_boxes/search_form.php:661
-#: app/features/mec/meta_boxes/search_form.php:668
-#: app/features/mec/meta_boxes/search_form.php:675
-#: app/features/mec/meta_boxes/search_form.php:682
-#: app/features/mec/meta_boxes/search_form.php:689
-#: app/features/mec/meta_boxes/search_form.php:702
-#: app/features/mec/meta_boxes/search_form.php:710
-#: app/features/mec/meta_boxes/search_form.php:718
-#: app/features/mec/meta_boxes/search_form.php:725
-#: app/features/mec/meta_boxes/search_form.php:732
-#: app/features/mec/meta_boxes/search_form.php:739
-#: app/features/mec/meta_boxes/search_form.php:746
-#: app/features/mec/meta_boxes/search_form.php:753
-#: app/features/mec/meta_boxes/search_form.php:760
-#: app/features/mec/meta_boxes/search_form.php:767
-#: app/features/mec/meta_boxes/search_form.php:774
-#: app/features/mec/meta_boxes/search_form.php:787
-#: app/features/mec/meta_boxes/search_form.php:795
-#: app/features/mec/meta_boxes/search_form.php:803
-#: app/features/mec/meta_boxes/search_form.php:810
-#: app/features/mec/meta_boxes/search_form.php:817
-#: app/features/mec/meta_boxes/search_form.php:824
-#: app/features/mec/meta_boxes/search_form.php:831
-#: app/features/mec/meta_boxes/search_form.php:838
-#: app/features/mec/meta_boxes/search_form.php:845
-#: app/features/mec/meta_boxes/search_form.php:852
-#: app/features/mec/meta_boxes/search_form.php:859
-#: app/features/mec/meta_boxes/search_form.php:908
-#: app/features/mec/meta_boxes/search_form.php:916
-#: app/features/mec/meta_boxes/search_form.php:924
-#: app/features/mec/meta_boxes/search_form.php:931
-#: app/features/mec/meta_boxes/search_form.php:938
-#: app/features/mec/meta_boxes/search_form.php:945
-#: app/features/mec/meta_boxes/search_form.php:952
-#: app/features/mec/meta_boxes/search_form.php:959
-#: app/features/mec/meta_boxes/search_form.php:966
-#: app/features/mec/meta_boxes/search_form.php:973
-#: app/features/mec/meta_boxes/search_form.php:980
+#: app/features/mec/booking.php:259 app/features/mec/booking.php:863
+#: app/features/mec/booking.php:890
+#: app/features/mec/meta_boxes/search_form.php:44
+#: app/features/mec/meta_boxes/search_form.php:52
+#: app/features/mec/meta_boxes/search_form.php:60
+#: app/features/mec/meta_boxes/search_form.php:67
+#: app/features/mec/meta_boxes/search_form.php:74
+#: app/features/mec/meta_boxes/search_form.php:81
+#: app/features/mec/meta_boxes/search_form.php:88
+#: app/features/mec/meta_boxes/search_form.php:95
+#: app/features/mec/meta_boxes/search_form.php:102
+#: app/features/mec/meta_boxes/search_form.php:110
+#: app/features/mec/meta_boxes/search_form.php:117
+#: app/features/mec/meta_boxes/search_form.php:130
+#: app/features/mec/meta_boxes/search_form.php:138
+#: app/features/mec/meta_boxes/search_form.php:146
+#: app/features/mec/meta_boxes/search_form.php:153
+#: app/features/mec/meta_boxes/search_form.php:160
+#: app/features/mec/meta_boxes/search_form.php:167
+#: app/features/mec/meta_boxes/search_form.php:174
+#: app/features/mec/meta_boxes/search_form.php:181
+#: app/features/mec/meta_boxes/search_form.php:188
+#: app/features/mec/meta_boxes/search_form.php:196
+#: app/features/mec/meta_boxes/search_form.php:203
+#: app/features/mec/meta_boxes/search_form.php:216
+#: app/features/mec/meta_boxes/search_form.php:224
+#: app/features/mec/meta_boxes/search_form.php:232
+#: app/features/mec/meta_boxes/search_form.php:239
+#: app/features/mec/meta_boxes/search_form.php:246
+#: app/features/mec/meta_boxes/search_form.php:253
+#: app/features/mec/meta_boxes/search_form.php:260
+#: app/features/mec/meta_boxes/search_form.php:267
+#: app/features/mec/meta_boxes/search_form.php:274
+#: app/features/mec/meta_boxes/search_form.php:282
+#: app/features/mec/meta_boxes/search_form.php:289
+#: app/features/mec/meta_boxes/search_form.php:302
+#: app/features/mec/meta_boxes/search_form.php:310
+#: app/features/mec/meta_boxes/search_form.php:318
+#: app/features/mec/meta_boxes/search_form.php:325
+#: app/features/mec/meta_boxes/search_form.php:332
+#: app/features/mec/meta_boxes/search_form.php:339
+#: app/features/mec/meta_boxes/search_form.php:346
+#: app/features/mec/meta_boxes/search_form.php:353
+#: app/features/mec/meta_boxes/search_form.php:360
+#: app/features/mec/meta_boxes/search_form.php:367
+#: app/features/mec/meta_boxes/search_form.php:374
+#: app/features/mec/meta_boxes/search_form.php:387
+#: app/features/mec/meta_boxes/search_form.php:395
+#: app/features/mec/meta_boxes/search_form.php:403
+#: app/features/mec/meta_boxes/search_form.php:410
+#: app/features/mec/meta_boxes/search_form.php:417
+#: app/features/mec/meta_boxes/search_form.php:424
+#: app/features/mec/meta_boxes/search_form.php:431
+#: app/features/mec/meta_boxes/search_form.php:438
+#: app/features/mec/meta_boxes/search_form.php:445
+#: app/features/mec/meta_boxes/search_form.php:452
+#: app/features/mec/meta_boxes/search_form.php:459
+#: app/features/mec/meta_boxes/search_form.php:472
+#: app/features/mec/meta_boxes/search_form.php:480
+#: app/features/mec/meta_boxes/search_form.php:488
+#: app/features/mec/meta_boxes/search_form.php:495
+#: app/features/mec/meta_boxes/search_form.php:502
+#: app/features/mec/meta_boxes/search_form.php:509
+#: app/features/mec/meta_boxes/search_form.php:516
+#: app/features/mec/meta_boxes/search_form.php:523
+#: app/features/mec/meta_boxes/search_form.php:530
+#: app/features/mec/meta_boxes/search_form.php:537
+#: app/features/mec/meta_boxes/search_form.php:544
+#: app/features/mec/meta_boxes/search_form.php:557
+#: app/features/mec/meta_boxes/search_form.php:565
+#: app/features/mec/meta_boxes/search_form.php:573
+#: app/features/mec/meta_boxes/search_form.php:580
+#: app/features/mec/meta_boxes/search_form.php:587
+#: app/features/mec/meta_boxes/search_form.php:594
+#: app/features/mec/meta_boxes/search_form.php:601
+#: app/features/mec/meta_boxes/search_form.php:608
+#: app/features/mec/meta_boxes/search_form.php:615
+#: app/features/mec/meta_boxes/search_form.php:628
+#: app/features/mec/meta_boxes/search_form.php:636
+#: app/features/mec/meta_boxes/search_form.php:644
+#: app/features/mec/meta_boxes/search_form.php:651
+#: app/features/mec/meta_boxes/search_form.php:658
+#: app/features/mec/meta_boxes/search_form.php:665
+#: app/features/mec/meta_boxes/search_form.php:672
+#: app/features/mec/meta_boxes/search_form.php:679
+#: app/features/mec/meta_boxes/search_form.php:686
+#: app/features/mec/meta_boxes/search_form.php:693
+#: app/features/mec/meta_boxes/search_form.php:700
+#: app/features/mec/meta_boxes/search_form.php:713
+#: app/features/mec/meta_boxes/search_form.php:721
+#: app/features/mec/meta_boxes/search_form.php:729
+#: app/features/mec/meta_boxes/search_form.php:736
+#: app/features/mec/meta_boxes/search_form.php:743
+#: app/features/mec/meta_boxes/search_form.php:750
+#: app/features/mec/meta_boxes/search_form.php:757
+#: app/features/mec/meta_boxes/search_form.php:764
+#: app/features/mec/meta_boxes/search_form.php:771
+#: app/features/mec/meta_boxes/search_form.php:778
+#: app/features/mec/meta_boxes/search_form.php:785
+#: app/features/mec/meta_boxes/search_form.php:798
+#: app/features/mec/meta_boxes/search_form.php:806
+#: app/features/mec/meta_boxes/search_form.php:814
+#: app/features/mec/meta_boxes/search_form.php:821
+#: app/features/mec/meta_boxes/search_form.php:828
+#: app/features/mec/meta_boxes/search_form.php:835
+#: app/features/mec/meta_boxes/search_form.php:842
+#: app/features/mec/meta_boxes/search_form.php:849
+#: app/features/mec/meta_boxes/search_form.php:856
+#: app/features/mec/meta_boxes/search_form.php:863
+#: app/features/mec/meta_boxes/search_form.php:870
+#: app/features/mec/meta_boxes/search_form.php:919
+#: app/features/mec/meta_boxes/search_form.php:927
+#: app/features/mec/meta_boxes/search_form.php:935
+#: app/features/mec/meta_boxes/search_form.php:942
+#: app/features/mec/meta_boxes/search_form.php:949
+#: app/features/mec/meta_boxes/search_form.php:956
+#: app/features/mec/meta_boxes/search_form.php:963
+#: app/features/mec/meta_boxes/search_form.php:970
+#: app/features/mec/meta_boxes/search_form.php:977
+#: app/features/mec/meta_boxes/search_form.php:984
+#: app/features/mec/meta_boxes/search_form.php:991
 #: app/features/mec/modules.php:115 app/features/mec/settings.php:98
 #: app/features/mec/settings.php:482
 msgid "Disabled"
@@ -1419,8 +1419,8 @@ msgstr "Disattivato"
 
 #: app/features/events.php:1681 app/features/events.php:1691
 #: app/features/mec/booking.php:176 app/features/mec/booking.php:243
-#: app/features/mec/booking.php:260 app/features/mec/booking.php:861
-#: app/features/mec/booking.php:890 app/features/mec/modules.php:155
+#: app/features/mec/booking.php:260 app/features/mec/booking.php:862
+#: app/features/mec/booking.php:891 app/features/mec/modules.php:155
 #: app/features/mec/settings.php:99
 msgid "Enabled"
 msgstr "Abilitato"
@@ -1478,10 +1478,10 @@ msgid "Ticket ID"
 msgstr "Ticket"
 
 #: app/features/events.php:1797 app/features/events.php:1997
-#: app/features/events.php:3787 app/features/fes.php:243
-#: app/features/ix.php:4060 app/features/ix.php:4102
+#: app/features/events.php:3795 app/features/fes.php:243
+#: app/features/ix.php:4087 app/features/ix.php:4129
 #: app/features/labels.php:179 app/features/locations.php:262
-#: app/features/organizers.php:203 app/features/speakers.php:282
+#: app/features/organizers.php:203 app/features/speakers.php:281
 msgid "ID"
 msgstr "ID"
 
@@ -1490,19 +1490,19 @@ msgid "Ticket Name"
 msgstr "Nome biglietto/ticket"
 
 #: app/features/events.php:1805 app/features/events.php:2004
-#: app/features/events.php:3787 app/features/ix.php:4060
-#: app/features/ix.php:4102 app/libraries/skins.php:1273
+#: app/features/events.php:3795 app/features/ix.php:4087
+#: app/features/ix.php:4129 app/libraries/skins.php:1302
 msgid "Start Time"
 msgstr "Ora di inizio"
 
 #: app/features/events.php:1818 app/features/events.php:2017
-#: app/features/events.php:3787 app/features/ix.php:4060
-#: app/features/ix.php:4102 app/libraries/skins.php:1274
+#: app/features/events.php:3795 app/features/ix.php:4087
+#: app/features/ix.php:4129 app/libraries/skins.php:1303
 msgid "End Time"
 msgstr "Ora di fine"
 
 #: app/features/events.php:1834 app/features/events.php:2032
-#: app/features/events.php:3787 app/libraries/hourlyschedule.php:65
+#: app/features/events.php:3795 app/libraries/hourlyschedule.php:65
 #: app/libraries/hourlyschedule.php:86 app/libraries/hourlyschedule.php:131
 msgid "Description"
 msgstr "Descrizione"
@@ -1596,21 +1596,21 @@ msgstr "Etichetta prezzo"
 
 #: app/features/events.php:1957 app/features/events.php:1983
 #: app/features/events.php:2135 app/features/labels.php:60
-#: app/features/mec/meta_boxes/display_options.php:1558
-#: app/features/mec/meta_boxes/search_form.php:68
-#: app/features/mec/meta_boxes/search_form.php:154
-#: app/features/mec/meta_boxes/search_form.php:240
-#: app/features/mec/meta_boxes/search_form.php:326
-#: app/features/mec/meta_boxes/search_form.php:411
-#: app/features/mec/meta_boxes/search_form.php:496
-#: app/features/mec/meta_boxes/search_form.php:581
-#: app/features/mec/meta_boxes/search_form.php:652
-#: app/features/mec/meta_boxes/search_form.php:737
-#: app/features/mec/meta_boxes/search_form.php:822
-#: app/features/mec/meta_boxes/search_form.php:943
+#: app/features/mec/meta_boxes/display_options.php:1568
+#: app/features/mec/meta_boxes/search_form.php:79
+#: app/features/mec/meta_boxes/search_form.php:165
+#: app/features/mec/meta_boxes/search_form.php:251
+#: app/features/mec/meta_boxes/search_form.php:337
+#: app/features/mec/meta_boxes/search_form.php:422
+#: app/features/mec/meta_boxes/search_form.php:507
+#: app/features/mec/meta_boxes/search_form.php:592
+#: app/features/mec/meta_boxes/search_form.php:663
+#: app/features/mec/meta_boxes/search_form.php:748
+#: app/features/mec/meta_boxes/search_form.php:833
+#: app/features/mec/meta_boxes/search_form.php:954
 #: app/features/mec/settings.php:1027 app/features/mec/settings.php:1119
 #: app/features/mec/single.php:403 app/features/mec/single.php:445
-#: app/features/search.php:98 app/libraries/skins.php:1184
+#: app/features/search.php:98 app/libraries/skins.php:1192
 msgid "Label"
 msgstr "Etichetta"
 
@@ -1623,14 +1623,14 @@ msgstr "Etichetta"
 #: app/features/organizers.php:333 app/libraries/hourlyschedule.php:52
 #: app/libraries/hourlyschedule.php:66 app/libraries/hourlyschedule.php:87
 #: app/libraries/hourlyschedule.php:115 app/libraries/hourlyschedule.php:132
-#: app/libraries/main.php:3362 app/libraries/main.php:3392
-#: app/libraries/main.php:3421 app/libraries/main.php:3450
-#: app/libraries/main.php:3480 app/libraries/main.php:3510
-#: app/libraries/main.php:3539 app/libraries/main.php:3569
-#: app/libraries/main.php:3599 app/libraries/main.php:3621
-#: app/libraries/main.php:3652 app/libraries/main.php:3699
-#: app/libraries/main.php:3746 app/libraries/main.php:3796
-#: app/libraries/main.php:3836
+#: app/libraries/main.php:3363 app/libraries/main.php:3393
+#: app/libraries/main.php:3422 app/libraries/main.php:3451
+#: app/libraries/main.php:3481 app/libraries/main.php:3511
+#: app/libraries/main.php:3540 app/libraries/main.php:3570
+#: app/libraries/main.php:3600 app/libraries/main.php:3622
+#: app/libraries/main.php:3653 app/libraries/main.php:3700
+#: app/libraries/main.php:3747 app/libraries/main.php:3797
+#: app/libraries/main.php:3837
 msgid "Remove"
 msgstr "Elimina"
 
@@ -1671,9 +1671,9 @@ msgid "Amount (Per Booking)"
 msgstr ""
 
 #: app/features/events.php:2344 app/features/events.php:2391
-#: app/features/events.php:3577 app/features/events.php:3787
-#: app/features/fes/form.php:260 app/features/ix.php:4060
-#: app/features/ix.php:4102 app/features/mec/booking.php:562
+#: app/features/events.php:3585 app/features/events.php:3795
+#: app/features/fes/form.php:260 app/features/ix.php:4087
+#: app/features/ix.php:4129 app/features/mec/booking.php:562
 #: app/features/mec/booking.php:594 app/features/mec/styling.php:134
 #: app/libraries/hourlyschedule.php:48 app/libraries/hourlyschedule.php:64
 #: app/libraries/hourlyschedule.php:85 app/libraries/hourlyschedule.php:110
@@ -1716,14 +1716,14 @@ msgid "Per Attendee Fields"
 msgstr "Limite partecipanti"
 
 #: app/features/events.php:2545 app/features/mec/booking.php:661
-#: app/libraries/main.php:3383
+#: app/libraries/main.php:3384
 #, fuzzy
 #| msgid "Name"
 msgid "MEC Name"
 msgstr "Nome"
 
 #: app/features/events.php:2546 app/features/mec/booking.php:662
-#: app/libraries/main.php:3412
+#: app/libraries/main.php:3413
 #, fuzzy
 #| msgid "Email"
 msgid "MEC Email"
@@ -1731,7 +1731,8 @@ msgstr "Email"
 
 #: app/features/events.php:2547 app/features/events.php:2636
 #: app/features/mec/booking.php:663 app/features/mec/booking.php:759
-#: app/features/mec/single.php:239 app/libraries/main.php:3353
+#: app/features/mec/single.php:239 app/libraries/main.php:3354
+#: app/libraries/skins.php:1309
 msgid "Text"
 msgstr "Testo"
 
@@ -1739,134 +1740,134 @@ msgstr "Testo"
 #: app/features/mec/booking.php:666 app/features/mec/booking.php:762
 #: app/features/mec/single.php:243 app/features/organizers.php:103
 #: app/features/organizers.php:148 app/features/speakers.php:119
-#: app/features/speakers.php:200 app/features/speakers.php:285
-#: app/libraries/main.php:3560
+#: app/features/speakers.php:200 app/features/speakers.php:284
+#: app/libraries/main.php:3561
 msgid "Tel"
 msgstr "Tel"
 
 #: app/features/events.php:2551 app/features/mec/booking.php:667
-#: app/libraries/main.php:3501
+#: app/libraries/main.php:3502
 msgid "File"
 msgstr ""
 
 #: app/features/events.php:2552 app/features/events.php:2640
 #: app/features/mec/booking.php:668 app/features/mec/booking.php:763
-#: app/features/mec/single.php:244 app/libraries/main.php:3590
+#: app/features/mec/single.php:244 app/libraries/main.php:3591
 msgid "Textarea"
 msgstr "Area di testo"
 
 #: app/features/events.php:2553 app/features/events.php:2641
 #: app/features/mec/booking.php:669 app/features/mec/booking.php:764
-#: app/features/mec/meta_boxes/search_form.php:35
-#: app/features/mec/meta_boxes/search_form.php:121
-#: app/features/mec/meta_boxes/search_form.php:207
-#: app/features/mec/meta_boxes/search_form.php:293
-#: app/features/mec/meta_boxes/search_form.php:378
-#: app/features/mec/meta_boxes/search_form.php:463
-#: app/features/mec/meta_boxes/search_form.php:548
-#: app/features/mec/meta_boxes/search_form.php:619
-#: app/features/mec/meta_boxes/search_form.php:704
-#: app/features/mec/meta_boxes/search_form.php:789
-#: app/features/mec/meta_boxes/search_form.php:910
-#: app/features/mec/single.php:246 app/libraries/main.php:3643
+#: app/features/mec/meta_boxes/search_form.php:46
+#: app/features/mec/meta_boxes/search_form.php:132
+#: app/features/mec/meta_boxes/search_form.php:218
+#: app/features/mec/meta_boxes/search_form.php:304
+#: app/features/mec/meta_boxes/search_form.php:389
+#: app/features/mec/meta_boxes/search_form.php:474
+#: app/features/mec/meta_boxes/search_form.php:559
+#: app/features/mec/meta_boxes/search_form.php:630
+#: app/features/mec/meta_boxes/search_form.php:715
+#: app/features/mec/meta_boxes/search_form.php:800
+#: app/features/mec/meta_boxes/search_form.php:921
+#: app/features/mec/single.php:246 app/libraries/main.php:3644
 msgid "Checkboxes"
 msgstr "Caselle di selezione"
 
 #: app/features/events.php:2554 app/features/events.php:2642
 #: app/features/mec/booking.php:670 app/features/mec/booking.php:765
-#: app/features/mec/single.php:247 app/libraries/main.php:3690
+#: app/features/mec/single.php:247 app/libraries/main.php:3691
 msgid "Radio Buttons"
 msgstr "Opzioni di selezione"
 
 #: app/features/events.php:2555 app/features/events.php:2643
 #: app/features/mec/booking.php:125 app/features/mec/booking.php:671
 #: app/features/mec/booking.php:766
-#: app/features/mec/meta_boxes/search_form.php:34
-#: app/features/mec/meta_boxes/search_form.php:42
-#: app/features/mec/meta_boxes/search_form.php:50
-#: app/features/mec/meta_boxes/search_form.php:57
-#: app/features/mec/meta_boxes/search_form.php:64
-#: app/features/mec/meta_boxes/search_form.php:71
-#: app/features/mec/meta_boxes/search_form.php:120
-#: app/features/mec/meta_boxes/search_form.php:128
-#: app/features/mec/meta_boxes/search_form.php:136
-#: app/features/mec/meta_boxes/search_form.php:143
-#: app/features/mec/meta_boxes/search_form.php:150
-#: app/features/mec/meta_boxes/search_form.php:157
-#: app/features/mec/meta_boxes/search_form.php:206
-#: app/features/mec/meta_boxes/search_form.php:214
-#: app/features/mec/meta_boxes/search_form.php:222
-#: app/features/mec/meta_boxes/search_form.php:229
-#: app/features/mec/meta_boxes/search_form.php:236
-#: app/features/mec/meta_boxes/search_form.php:243
-#: app/features/mec/meta_boxes/search_form.php:292
-#: app/features/mec/meta_boxes/search_form.php:300
-#: app/features/mec/meta_boxes/search_form.php:308
-#: app/features/mec/meta_boxes/search_form.php:315
-#: app/features/mec/meta_boxes/search_form.php:322
-#: app/features/mec/meta_boxes/search_form.php:329
-#: app/features/mec/meta_boxes/search_form.php:350
-#: app/features/mec/meta_boxes/search_form.php:377
-#: app/features/mec/meta_boxes/search_form.php:385
-#: app/features/mec/meta_boxes/search_form.php:393
-#: app/features/mec/meta_boxes/search_form.php:400
-#: app/features/mec/meta_boxes/search_form.php:407
-#: app/features/mec/meta_boxes/search_form.php:414
-#: app/features/mec/meta_boxes/search_form.php:435
-#: app/features/mec/meta_boxes/search_form.php:462
-#: app/features/mec/meta_boxes/search_form.php:470
-#: app/features/mec/meta_boxes/search_form.php:478
-#: app/features/mec/meta_boxes/search_form.php:485
-#: app/features/mec/meta_boxes/search_form.php:492
-#: app/features/mec/meta_boxes/search_form.php:499
-#: app/features/mec/meta_boxes/search_form.php:520
-#: app/features/mec/meta_boxes/search_form.php:547
-#: app/features/mec/meta_boxes/search_form.php:555
-#: app/features/mec/meta_boxes/search_form.php:563
-#: app/features/mec/meta_boxes/search_form.php:570
-#: app/features/mec/meta_boxes/search_form.php:577
-#: app/features/mec/meta_boxes/search_form.php:584
-#: app/features/mec/meta_boxes/search_form.php:618
-#: app/features/mec/meta_boxes/search_form.php:626
-#: app/features/mec/meta_boxes/search_form.php:634
-#: app/features/mec/meta_boxes/search_form.php:641
-#: app/features/mec/meta_boxes/search_form.php:648
-#: app/features/mec/meta_boxes/search_form.php:655
-#: app/features/mec/meta_boxes/search_form.php:676
-#: app/features/mec/meta_boxes/search_form.php:703
-#: app/features/mec/meta_boxes/search_form.php:711
-#: app/features/mec/meta_boxes/search_form.php:719
-#: app/features/mec/meta_boxes/search_form.php:726
-#: app/features/mec/meta_boxes/search_form.php:733
-#: app/features/mec/meta_boxes/search_form.php:740
-#: app/features/mec/meta_boxes/search_form.php:761
-#: app/features/mec/meta_boxes/search_form.php:788
-#: app/features/mec/meta_boxes/search_form.php:796
-#: app/features/mec/meta_boxes/search_form.php:804
-#: app/features/mec/meta_boxes/search_form.php:811
-#: app/features/mec/meta_boxes/search_form.php:818
-#: app/features/mec/meta_boxes/search_form.php:825
-#: app/features/mec/meta_boxes/search_form.php:846
-#: app/features/mec/meta_boxes/search_form.php:909
-#: app/features/mec/meta_boxes/search_form.php:917
-#: app/features/mec/meta_boxes/search_form.php:925
-#: app/features/mec/meta_boxes/search_form.php:932
-#: app/features/mec/meta_boxes/search_form.php:939
-#: app/features/mec/meta_boxes/search_form.php:946
-#: app/features/mec/meta_boxes/search_form.php:967
-#: app/features/mec/single.php:248 app/libraries/main.php:3737
+#: app/features/mec/meta_boxes/search_form.php:45
+#: app/features/mec/meta_boxes/search_form.php:53
+#: app/features/mec/meta_boxes/search_form.php:61
+#: app/features/mec/meta_boxes/search_form.php:68
+#: app/features/mec/meta_boxes/search_form.php:75
+#: app/features/mec/meta_boxes/search_form.php:82
+#: app/features/mec/meta_boxes/search_form.php:131
+#: app/features/mec/meta_boxes/search_form.php:139
+#: app/features/mec/meta_boxes/search_form.php:147
+#: app/features/mec/meta_boxes/search_form.php:154
+#: app/features/mec/meta_boxes/search_form.php:161
+#: app/features/mec/meta_boxes/search_form.php:168
+#: app/features/mec/meta_boxes/search_form.php:217
+#: app/features/mec/meta_boxes/search_form.php:225
+#: app/features/mec/meta_boxes/search_form.php:233
+#: app/features/mec/meta_boxes/search_form.php:240
+#: app/features/mec/meta_boxes/search_form.php:247
+#: app/features/mec/meta_boxes/search_form.php:254
+#: app/features/mec/meta_boxes/search_form.php:303
+#: app/features/mec/meta_boxes/search_form.php:311
+#: app/features/mec/meta_boxes/search_form.php:319
+#: app/features/mec/meta_boxes/search_form.php:326
+#: app/features/mec/meta_boxes/search_form.php:333
+#: app/features/mec/meta_boxes/search_form.php:340
+#: app/features/mec/meta_boxes/search_form.php:361
+#: app/features/mec/meta_boxes/search_form.php:388
+#: app/features/mec/meta_boxes/search_form.php:396
+#: app/features/mec/meta_boxes/search_form.php:404
+#: app/features/mec/meta_boxes/search_form.php:411
+#: app/features/mec/meta_boxes/search_form.php:418
+#: app/features/mec/meta_boxes/search_form.php:425
+#: app/features/mec/meta_boxes/search_form.php:446
+#: app/features/mec/meta_boxes/search_form.php:473
+#: app/features/mec/meta_boxes/search_form.php:481
+#: app/features/mec/meta_boxes/search_form.php:489
+#: app/features/mec/meta_boxes/search_form.php:496
+#: app/features/mec/meta_boxes/search_form.php:503
+#: app/features/mec/meta_boxes/search_form.php:510
+#: app/features/mec/meta_boxes/search_form.php:531
+#: app/features/mec/meta_boxes/search_form.php:558
+#: app/features/mec/meta_boxes/search_form.php:566
+#: app/features/mec/meta_boxes/search_form.php:574
+#: app/features/mec/meta_boxes/search_form.php:581
+#: app/features/mec/meta_boxes/search_form.php:588
+#: app/features/mec/meta_boxes/search_form.php:595
+#: app/features/mec/meta_boxes/search_form.php:629
+#: app/features/mec/meta_boxes/search_form.php:637
+#: app/features/mec/meta_boxes/search_form.php:645
+#: app/features/mec/meta_boxes/search_form.php:652
+#: app/features/mec/meta_boxes/search_form.php:659
+#: app/features/mec/meta_boxes/search_form.php:666
+#: app/features/mec/meta_boxes/search_form.php:687
+#: app/features/mec/meta_boxes/search_form.php:714
+#: app/features/mec/meta_boxes/search_form.php:722
+#: app/features/mec/meta_boxes/search_form.php:730
+#: app/features/mec/meta_boxes/search_form.php:737
+#: app/features/mec/meta_boxes/search_form.php:744
+#: app/features/mec/meta_boxes/search_form.php:751
+#: app/features/mec/meta_boxes/search_form.php:772
+#: app/features/mec/meta_boxes/search_form.php:799
+#: app/features/mec/meta_boxes/search_form.php:807
+#: app/features/mec/meta_boxes/search_form.php:815
+#: app/features/mec/meta_boxes/search_form.php:822
+#: app/features/mec/meta_boxes/search_form.php:829
+#: app/features/mec/meta_boxes/search_form.php:836
+#: app/features/mec/meta_boxes/search_form.php:857
+#: app/features/mec/meta_boxes/search_form.php:920
+#: app/features/mec/meta_boxes/search_form.php:928
+#: app/features/mec/meta_boxes/search_form.php:936
+#: app/features/mec/meta_boxes/search_form.php:943
+#: app/features/mec/meta_boxes/search_form.php:950
+#: app/features/mec/meta_boxes/search_form.php:957
+#: app/features/mec/meta_boxes/search_form.php:978
+#: app/features/mec/single.php:248 app/libraries/main.php:3738
 msgid "Dropdown"
 msgstr "Casella di selezione"
 
 #: app/features/events.php:2556 app/features/events.php:2644
 #: app/features/mec/booking.php:672 app/features/mec/booking.php:767
-#: app/libraries/main.php:3787
+#: app/libraries/main.php:3788
 msgid "Agreement"
 msgstr ""
 
 #: app/features/events.php:2557 app/features/events.php:2645
 #: app/features/mec/booking.php:673 app/features/mec/booking.php:768
-#: app/features/mec/single.php:245 app/libraries/main.php:3620
+#: app/features/mec/single.php:245 app/libraries/main.php:3621
 msgid "Paragraph"
 msgstr "Paragrafo"
 
@@ -1876,166 +1877,166 @@ msgstr "Paragrafo"
 msgid "Fixed Fields"
 msgstr "Campo obbligatorio"
 
-#: app/features/events.php:3479 app/features/events.php:3497
-#: app/features/events.php:3515 app/features/events.php:3533
+#: app/features/events.php:3487 app/features/events.php:3505
+#: app/features/events.php:3523 app/features/events.php:3541
 #, php-format
 msgid "Show all %s"
 msgstr ""
 
-#: app/features/events.php:3479
+#: app/features/events.php:3487
 msgid "labels"
 msgstr "etichette"
 
-#: app/features/events.php:3497
+#: app/features/events.php:3505
 msgid "locations"
 msgstr ""
 
-#: app/features/events.php:3515
+#: app/features/events.php:3523
 msgid "organizers"
 msgstr ""
 
-#: app/features/events.php:3549
+#: app/features/events.php:3557
 #, fuzzy
 #| msgid "Attendees Limit"
 msgid "Attendees List"
 msgstr "Limite partecipanti"
 
-#: app/features/events.php:3579 app/features/events.php:3787
-#: app/features/ix.php:4060 app/features/ix.php:4102
+#: app/features/events.php:3587 app/features/events.php:3795
+#: app/features/ix.php:4087 app/features/ix.php:4129
 #: app/features/locations.php:58 app/features/locations.php:263
 #: app/features/locations.php:323 app/features/locations.php:325
 #: app/features/locations.php:334
-#: app/features/mec/meta_boxes/display_options.php:1559
-#: app/features/mec/meta_boxes/search_form.php:39
-#: app/features/mec/meta_boxes/search_form.php:125
-#: app/features/mec/meta_boxes/search_form.php:211
-#: app/features/mec/meta_boxes/search_form.php:297
-#: app/features/mec/meta_boxes/search_form.php:382
-#: app/features/mec/meta_boxes/search_form.php:467
-#: app/features/mec/meta_boxes/search_form.php:552
-#: app/features/mec/meta_boxes/search_form.php:623
-#: app/features/mec/meta_boxes/search_form.php:708
-#: app/features/mec/meta_boxes/search_form.php:793
-#: app/features/mec/meta_boxes/search_form.php:914
+#: app/features/mec/meta_boxes/display_options.php:1569
+#: app/features/mec/meta_boxes/search_form.php:50
+#: app/features/mec/meta_boxes/search_form.php:136
+#: app/features/mec/meta_boxes/search_form.php:222
+#: app/features/mec/meta_boxes/search_form.php:308
+#: app/features/mec/meta_boxes/search_form.php:393
+#: app/features/mec/meta_boxes/search_form.php:478
+#: app/features/mec/meta_boxes/search_form.php:563
+#: app/features/mec/meta_boxes/search_form.php:634
+#: app/features/mec/meta_boxes/search_form.php:719
+#: app/features/mec/meta_boxes/search_form.php:804
+#: app/features/mec/meta_boxes/search_form.php:925
 #: app/features/mec/settings.php:1093 app/features/mec/single.php:393
 #: app/features/mec/single.php:435 app/features/popup/event.php:116
 #: app/features/popup/event.php:125 app/features/search.php:74
-#: app/libraries/main.php:2724 app/libraries/main.php:6541
-#: app/libraries/main.php:6595 app/libraries/skins.php:1080
-#: app/skins/single.php:953 app/skins/single.php:1401
-#: app/skins/single/default.php:243 app/skins/single/default.php:481
-#: app/skins/single/m1.php:173 app/skins/single/m2.php:96
-#: app/skins/single/modern.php:125
+#: app/libraries/main.php:2724 app/libraries/main.php:6578
+#: app/libraries/main.php:6632 app/libraries/skins.php:1075
+#: app/skins/single.php:954 app/skins/single.php:1402
+#: app/skins/single/default.php:244 app/skins/single/default.php:483
+#: app/skins/single/m1.php:174 app/skins/single/m2.php:97
+#: app/skins/single/modern.php:126
 msgid "Location"
 msgstr "Luogo"
 
-#: app/features/events.php:3585
+#: app/features/events.php:3593
 #, fuzzy
 #| msgid "Tickets"
 msgid "Sold Tickets"
 msgstr "Biglietto/ticket"
 
-#: app/features/events.php:3587
+#: app/features/events.php:3595
 msgid "Repeat"
 msgstr "Ripeti"
 
-#: app/features/events.php:3588
+#: app/features/events.php:3596
 msgid "Author"
 msgstr "Autore"
 
-#: app/features/events.php:3724 app/features/events.php:3725
+#: app/features/events.php:3732 app/features/events.php:3733
 #, fuzzy
 #| msgid "iCal Export"
 msgid "iCal / Outlook Export"
 msgstr "esporta iCal"
 
-#: app/features/events.php:3727 app/features/events.php:3728
+#: app/features/events.php:3735 app/features/events.php:3736
 msgid "CSV Export"
 msgstr "Esporta CSV"
 
-#: app/features/events.php:3730 app/features/events.php:3731
+#: app/features/events.php:3738 app/features/events.php:3739
 msgid "MS Excel Export"
 msgstr "Esporta Excel"
 
-#: app/features/events.php:3733 app/features/events.php:3734
+#: app/features/events.php:3741 app/features/events.php:3742
 msgid "XML Export"
 msgstr "Esporta XML"
 
-#: app/features/events.php:3736 app/features/events.php:3737
+#: app/features/events.php:3744 app/features/events.php:3745
 msgid "JSON Export"
 msgstr "Esporta JSON"
 
-#: app/features/events.php:3739 app/features/events.php:3740
-#: app/features/events.php:3896
+#: app/features/events.php:3747 app/features/events.php:3748
+#: app/features/events.php:3904
 msgid "Duplicate"
 msgstr "Duplica"
 
-#: app/features/events.php:3787 app/features/ix.php:4060
-#: app/features/ix.php:4102
+#: app/features/events.php:3795 app/features/ix.php:4087
+#: app/features/ix.php:4129
 msgid "Link"
 msgstr "Link"
 
-#: app/features/events.php:3787 app/features/ix.php:4060
-#: app/features/ix.php:4102 app/features/locations.php:110
+#: app/features/events.php:3795 app/features/ix.php:4087
+#: app/features/ix.php:4129 app/features/locations.php:110
 #: app/features/locations.php:180 app/features/locations.php:264
-#: app/features/mec/meta_boxes/search_form.php:75
-#: app/features/mec/meta_boxes/search_form.php:161
-#: app/features/mec/meta_boxes/search_form.php:247
-#: app/features/mec/meta_boxes/search_form.php:333
-#: app/features/mec/meta_boxes/search_form.php:418
-#: app/features/mec/meta_boxes/search_form.php:503
-#: app/features/mec/meta_boxes/search_form.php:588
-#: app/features/mec/meta_boxes/search_form.php:659
-#: app/features/mec/meta_boxes/search_form.php:744
-#: app/features/mec/meta_boxes/search_form.php:829
-#: app/features/mec/meta_boxes/search_form.php:950
+#: app/features/mec/meta_boxes/search_form.php:86
+#: app/features/mec/meta_boxes/search_form.php:172
+#: app/features/mec/meta_boxes/search_form.php:258
+#: app/features/mec/meta_boxes/search_form.php:344
+#: app/features/mec/meta_boxes/search_form.php:429
+#: app/features/mec/meta_boxes/search_form.php:514
+#: app/features/mec/meta_boxes/search_form.php:599
+#: app/features/mec/meta_boxes/search_form.php:670
+#: app/features/mec/meta_boxes/search_form.php:755
+#: app/features/mec/meta_boxes/search_form.php:840
+#: app/features/mec/meta_boxes/search_form.php:961 app/libraries/skins.php:1321
 msgid "Address"
 msgstr "Indirizzo"
 
-#: app/features/events.php:3787
+#: app/features/events.php:3795
 #, php-format
 msgid "%s Tel"
 msgstr ""
 
-#: app/features/events.php:3787
+#: app/features/events.php:3795
 #, php-format
 msgid "%s Email"
 msgstr ""
 
-#: app/features/events.php:3787 app/features/fes/form.php:870
+#: app/features/events.php:3795 app/features/fes/form.php:870
 #: app/features/mec/settings.php:795
 msgid "Featured Image"
 msgstr "Immagine in evidenza"
 
-#: app/features/events.php:4116 app/features/fes.php:243
+#: app/features/events.php:4124 app/features/fes.php:243
 #: app/features/profile/profile.php:155 app/libraries/main.php:2808
-#: app/libraries/main.php:6575
+#: app/libraries/main.php:6612
 msgid "Ticket"
 msgstr "Ticket"
 
-#: app/features/events.php:4119 app/features/profile/profile.php:158
+#: app/features/events.php:4127 app/features/profile/profile.php:158
 #, fuzzy
 #| msgid "Verification"
 msgid "Variations"
 msgstr "Verifica"
 
-#: app/features/events.php:4134 app/features/fes.php:317
+#: app/features/events.php:4142 app/features/fes.php:317
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: app/features/events.php:4160
+#: app/features/events.php:4168
 msgid ""
 "If you want to send an email, first select your attendees and then click in "
 "the button below, please."
 msgstr ""
 
-#: app/features/events.php:4160 app/features/mec/report.php:58
+#: app/features/events.php:4168 app/features/mec/report.php:58
 #, fuzzy
 #| msgid "Organizer Email"
 msgid "Send Email"
 msgstr "Email organizzatore"
 
-#: app/features/events.php:4164
+#: app/features/events.php:4172
 #, fuzzy
 #| msgid "Attendees Form"
 msgid "No Attendees Found!"
@@ -2187,43 +2188,43 @@ msgid ""
 msgstr ""
 
 #: app/features/fes/form.php:406
-#: app/features/mec/meta_boxes/display_options.php:1396
+#: app/features/mec/meta_boxes/display_options.php:1406
 #: app/libraries/main.php:461
 msgid "Monday"
 msgstr "Lunedì"
 
 #: app/features/fes/form.php:407
-#: app/features/mec/meta_boxes/display_options.php:1397
+#: app/features/mec/meta_boxes/display_options.php:1407
 #: app/libraries/main.php:461
 msgid "Tuesday"
 msgstr "Martedì"
 
 #: app/features/fes/form.php:408
-#: app/features/mec/meta_boxes/display_options.php:1398
+#: app/features/mec/meta_boxes/display_options.php:1408
 #: app/libraries/main.php:461
 msgid "Wednesday"
 msgstr "Mercoledì"
 
 #: app/features/fes/form.php:409
-#: app/features/mec/meta_boxes/display_options.php:1399
+#: app/features/mec/meta_boxes/display_options.php:1409
 #: app/libraries/main.php:461
 msgid "Thursday"
 msgstr "Giovedì"
 
 #: app/features/fes/form.php:410
-#: app/features/mec/meta_boxes/display_options.php:1400
+#: app/features/mec/meta_boxes/display_options.php:1410
 #: app/libraries/main.php:461
 msgid "Friday"
 msgstr "Venerdì"
 
 #: app/features/fes/form.php:411
-#: app/features/mec/meta_boxes/display_options.php:1401
+#: app/features/mec/meta_boxes/display_options.php:1411
 #: app/libraries/main.php:461
 msgid "Saturday"
 msgstr "Sabato"
 
 #: app/features/fes/form.php:412
-#: app/features/mec/meta_boxes/display_options.php:1395
+#: app/features/mec/meta_boxes/display_options.php:1405
 #: app/libraries/main.php:461
 msgid "Sunday"
 msgstr "Domenica"
@@ -2272,10 +2273,10 @@ msgstr "Rimuovi immagine"
 #: app/features/fes/form.php:911 app/features/labels.php:61
 #: app/features/labels.php:223 app/features/mec.php:465
 #: app/features/mec/meta_boxes/filter.php:72
-#: app/features/mec/meta_boxes/filter.php:134 app/libraries/main.php:6538
-#: app/libraries/main.php:6592 app/skins/single.php:1166
-#: app/skins/single/default.php:221 app/skins/single/default.php:458
-#: app/skins/single/m1.php:76 app/skins/single/modern.php:266
+#: app/features/mec/meta_boxes/filter.php:134 app/libraries/main.php:6575
+#: app/libraries/main.php:6629 app/skins/single.php:1167
+#: app/skins/single/default.php:222 app/skins/single/default.php:459
+#: app/skins/single/m1.php:76 app/skins/single/modern.php:267
 msgid "Labels"
 msgstr "Etichette"
 
@@ -2293,8 +2294,8 @@ msgstr "Inserisci i tag desiderati, separati da virgola."
 #: app/features/mec/modules.php:43 app/features/mec/settings.php:850
 #: app/features/speakers.php:61 app/libraries/hourlyschedule.php:69
 #: app/libraries/hourlyschedule.php:90 app/libraries/hourlyschedule.php:135
-#: app/libraries/main.php:626 app/libraries/main.php:6544
-#: app/libraries/main.php:6598 app/modules/speakers/details.php:18
+#: app/libraries/main.php:626 app/libraries/main.php:6581
+#: app/libraries/main.php:6635 app/modules/speakers/details.php:18
 msgid "Speakers"
 msgstr ""
 
@@ -2362,27 +2363,27 @@ msgstr ""
 msgid "An error occurred during the file upload! Please check permissions!"
 msgstr ""
 
-#: app/features/ix.php:277 app/libraries/main.php:6823
-#: app/libraries/main.php:6843
+#: app/features/ix.php:277 app/libraries/main.php:6860
+#: app/libraries/main.php:6880
 msgid "Confirmed"
 msgstr "Confermato"
 
-#: app/features/ix.php:278 app/libraries/main.php:6824
-#: app/libraries/main.php:6851
+#: app/features/ix.php:278 app/libraries/main.php:6861
+#: app/libraries/main.php:6888
 msgid "Rejected"
 msgstr "Rifiutato"
 
-#: app/features/ix.php:282 app/features/mec/booking.php:1032
-#: app/features/mec/booking.php:1054 app/features/mec/modules.php:441
+#: app/features/ix.php:282 app/features/mec/booking.php:1033
+#: app/features/mec/booking.php:1055 app/features/mec/modules.php:441
 #: app/features/mec/modules.php:463 app/features/mec/notifications.php:1597
 #: app/features/mec/notifications.php:1619 app/features/mec/settings.php:1458
 #: app/features/mec/settings.php:1480 app/features/mec/single.php:500
-#: app/features/mec/single.php:522 app/libraries/main.php:6871
+#: app/features/mec/single.php:522 app/libraries/main.php:6908
 msgid "Verified"
 msgstr "Verificato"
 
 #: app/features/ix.php:283 app/features/labels.php:118
-#: app/features/labels.php:144 app/libraries/main.php:6872
+#: app/features/labels.php:144 app/libraries/main.php:6909
 msgid "Canceled"
 msgstr "Cancellato"
 
@@ -2414,93 +2415,93 @@ msgstr ""
 msgid "The events are imported successfully!"
 msgstr ""
 
-#: app/features/ix.php:1201
+#: app/features/ix.php:1228
 msgid "Third Party plugin is not installed and activated!"
 msgstr ""
 
-#: app/features/ix.php:1225
+#: app/features/ix.php:1252
 msgid "Third Party plugin is invalid!"
 msgstr ""
 
-#: app/features/ix.php:3200 app/features/ix.php:3261
+#: app/features/ix.php:3227 app/features/ix.php:3288
 #, fuzzy
 #| msgid "Both of API key and Calendar ID are required!"
 msgid "API key and Calendar ID are required!"
 msgstr "Entrambe le chiavi API e ID Calendario sono richiesti!"
 
-#: app/features/ix.php:3256 app/features/ix.php:3740 app/features/ix.php:4478
+#: app/features/ix.php:3283 app/features/ix.php:3767 app/features/ix.php:4505
 #, fuzzy
 #| msgid "Please select some events to import!"
 msgid "Please select events to import!"
 msgstr "Si prega di selezionare degli eventi da importare!"
 
-#: app/features/ix.php:3682 app/features/ix.php:3745
+#: app/features/ix.php:3709 app/features/ix.php:3772
 #, fuzzy
 #| msgid "Both of API key and Calendar ID are required!"
 msgid "API key and Group URL are required!"
 msgstr "Entrambe le chiavi API e ID Calendario sono richiesti!"
 
-#: app/features/ix.php:3984
+#: app/features/ix.php:4011
 msgid "Check at Meetup"
 msgstr ""
 
-#: app/features/ix.php:4060 app/features/ix.php:4102
+#: app/features/ix.php:4087 app/features/ix.php:4129
 msgid "Organizer Tel"
 msgstr "Telefono organizzatore"
 
-#: app/features/ix.php:4060 app/features/ix.php:4102
+#: app/features/ix.php:4087 app/features/ix.php:4129
 msgid "Organizer Email"
 msgstr "Email organizzatore"
 
-#: app/features/ix.php:4178
+#: app/features/ix.php:4205
 #, fuzzy
 #| msgid "All of Client ID, Client Secret and Calendar ID are required!"
 msgid "All of Client ID, Client Secret, and Calendar ID are required!"
 msgstr "Tutti gli ID Clienti, Client Secret e ID Calendario sono obbligatori!"
 
-#: app/features/ix.php:4201
+#: app/features/ix.php:4228
 #, fuzzy, php-format
 #| msgid "All seems good! Please click %s for authenticating your app."
 msgid "All seems good! Please click %s to authenticate your app."
 msgstr "Sembra tutto ok! Fai clic su% s per autenticare l'applicazione."
 
-#: app/features/ix.php:4201 app/features/mec/settings.php:1345
+#: app/features/ix.php:4228 app/features/mec/settings.php:1345
 msgid "here"
 msgstr ""
 
-#: app/features/ix.php:4255
+#: app/features/ix.php:4282
 #, fuzzy
 #| msgid "All of Client App, Client Secret and Calendar ID are required!"
 msgid "Client App, Client Secret, and Calendar ID are all required!"
 msgstr ""
 "Tutte le applicazioni Client, Client Secret e ID Calendario sono obbligatori!"
 
-#: app/features/ix.php:4400
+#: app/features/ix.php:4427
 #, fuzzy, php-format
 #| msgid "%s events added to Google Calendar successfully."
 msgid "%s events added to Google Calendar with success."
 msgstr "%s eventi aggiunti con successo dal calendario di Google."
 
-#: app/features/ix.php:4401
+#: app/features/ix.php:4428
 #, fuzzy, php-format
 #| msgid "%s previously added events get updated."
 msgid "%s Updated previously added events."
 msgstr "%s eventi precedentemente aggiunti vengono aggiornati."
 
-#: app/features/ix.php:4402
+#: app/features/ix.php:4429
 #, php-format
 msgid "%s events failed to add for following reasons: %s"
 msgstr ""
 "%s eventi non sono stati aggiornati, è fallita l'importazione per diverse "
 "ragioni: %s"
 
-#: app/features/ix.php:4434
+#: app/features/ix.php:4461
 #, fuzzy
 #| msgid "Please insert your facebook page's link."
 msgid "Please insert your Facebook page's link."
 msgstr "Si prega di inserire il link della vostra pagina Facebook."
 
-#: app/features/ix.php:4445 app/features/ix.php:4487
+#: app/features/ix.php:4472 app/features/ix.php:4514
 #, fuzzy
 #| msgid ""
 #| "We couldn't recognize your Facebook page. Please check it and provide us "
@@ -2512,7 +2513,7 @@ msgstr ""
 "Non riusciamo ad accedere alla vostra pagina Facebook. Si prega di "
 "verificare e inserire una pagina valida."
 
-#: app/features/ix.php:4482
+#: app/features/ix.php:4509
 msgid "Please insert your facebook page's link."
 msgstr "Si prega di inserire il link della vostra pagina Facebook."
 
@@ -2687,7 +2688,7 @@ msgstr "Attiva / Disattiva"
 msgid "Add to Google Calendar"
 msgstr "Aggiungi al calendario Google"
 
-#: app/features/ix/export_g_calendar.php:93 app/features/mec/booking.php:1034
+#: app/features/ix/export_g_calendar.php:93 app/features/mec/booking.php:1035
 #: app/features/mec/modules.php:443 app/features/mec/notifications.php:1599
 #: app/features/mec/settings.php:1460 app/features/mec/single.php:502
 msgid "Checking ..."
@@ -2755,10 +2756,10 @@ msgstr ""
 #: app/features/mec/meta_boxes/display_options.php:557
 #: app/features/mec/meta_boxes/display_options.php:842
 #: app/features/mec/meta_boxes/display_options.php:919
-#: app/features/mec/meta_boxes/display_options.php:1118
-#: app/features/mec/meta_boxes/display_options.php:1350
-#: app/features/mec/meta_boxes/display_options.php:1497
-#: app/features/mec/meta_boxes/display_options.php:1849
+#: app/features/mec/meta_boxes/display_options.php:1128
+#: app/features/mec/meta_boxes/display_options.php:1360
+#: app/features/mec/meta_boxes/display_options.php:1507
+#: app/features/mec/meta_boxes/display_options.php:1859
 #: app/features/mec/modules.php:60 app/features/mec/modules.php:211
 #: app/features/mec/modules.php:228
 msgid "Pro version of Modern Events Calendar"
@@ -3147,11 +3148,11 @@ msgstr "Seleziona il colore dell'etichetta"
 #: app/features/mec/meta_boxes/display_options.php:562
 #: app/features/mec/meta_boxes/display_options.php:924
 #: app/features/mec/meta_boxes/display_options.php:1026
-#: app/features/mec/meta_boxes/display_options.php:1355
-#: app/features/mec/meta_boxes/display_options.php:1655
-#: app/features/mec/meta_boxes/display_options.php:1750
-#: app/features/mec/meta_boxes/display_options.php:1918
-#: app/features/mec/meta_boxes/display_options.php:2081
+#: app/features/mec/meta_boxes/display_options.php:1365
+#: app/features/mec/meta_boxes/display_options.php:1665
+#: app/features/mec/meta_boxes/display_options.php:1760
+#: app/features/mec/meta_boxes/display_options.php:1928
+#: app/features/mec/meta_boxes/display_options.php:2091
 msgid "Style"
 msgstr "Stile"
 
@@ -3176,7 +3177,7 @@ msgid "You can show featured, canceled and custom labels by a different style!"
 msgstr ""
 
 #: app/features/labels.php:182 app/features/locations.php:265
-#: app/features/organizers.php:206 app/features/speakers.php:286
+#: app/features/organizers.php:206 app/features/speakers.php:285
 #: app/modules/booking/steps/tickets.php:163
 msgid "Count"
 msgstr "Numero"
@@ -3193,8 +3194,8 @@ msgstr ""
 
 #: app/features/locations.php:59 app/features/mec.php:466
 #: app/features/mec/dashboard.php:281 app/features/mec/meta_boxes/filter.php:70
-#: app/features/mec/meta_boxes/filter.php:98 app/libraries/main.php:6540
-#: app/libraries/main.php:6594
+#: app/features/mec/meta_boxes/filter.php:98 app/libraries/main.php:6577
+#: app/libraries/main.php:6631
 msgid "Locations"
 msgstr "Luoghi"
 
@@ -3296,8 +3297,8 @@ msgstr "Seleziona immagine"
 msgid "Don't show map in single event page"
 msgstr "Non mostrare la mappa nella pagina dell'evento singolo"
 
-#: app/features/locations.php:403 app/libraries/main.php:6578
-#: app/libraries/main.php:6625
+#: app/features/locations.php:403 app/libraries/main.php:6615
+#: app/libraries/main.php:6662
 #, fuzzy
 #| msgid "Search Locations"
 msgid "Other Locations"
@@ -3348,7 +3349,7 @@ msgstr ""
 msgid "Select Date"
 msgstr "Seleziona tutto"
 
-#: app/features/mec.php:298 app/skins/masonry.php:259
+#: app/features/mec.php:298 app/skins/masonry.php:260
 msgid "All"
 msgstr ""
 
@@ -3384,7 +3385,7 @@ msgstr "Supporto"
 #: app/features/mec.php:467 app/features/mec/dashboard.php:288
 #: app/features/mec/meta_boxes/filter.php:71
 #: app/features/mec/meta_boxes/filter.php:116 app/features/organizers.php:59
-#: app/libraries/main.php:6542 app/libraries/main.php:6596
+#: app/libraries/main.php:6579 app/libraries/main.php:6633
 msgid "Organizers"
 msgstr "Organizzatori"
 
@@ -3597,9 +3598,9 @@ msgid "Search..."
 msgstr "Casella di ricerca"
 
 #: app/features/mec/booking.php:72 app/features/mec/booking.php:774
-#: app/features/mec/booking.php:950 app/features/mec/booking.php:959
-#: app/features/mec/booking.php:969 app/features/mec/booking.php:1051
-#: app/features/mec/booking.php:1065 app/features/mec/messages.php:15
+#: app/features/mec/booking.php:951 app/features/mec/booking.php:960
+#: app/features/mec/booking.php:970 app/features/mec/booking.php:1052
+#: app/features/mec/booking.php:1066 app/features/mec/messages.php:15
 #: app/features/mec/messages.php:51 app/features/mec/messages.php:60
 #: app/features/mec/messages.php:94 app/features/mec/messages.php:103
 #: app/features/mec/modules.php:17 app/features/mec/modules.php:399
@@ -3781,11 +3782,11 @@ msgstr "Luogo"
 #: app/features/mec/meta_boxes/display_options.php:147
 #: app/features/mec/meta_boxes/display_options.php:434
 #: app/features/mec/meta_boxes/display_options.php:616
-#: app/features/mec/meta_boxes/display_options.php:1550
-#: app/features/mec/meta_boxes/display_options.php:1987
-#: app/features/mec/meta_boxes/display_options.php:2172
-#: app/features/mec/meta_boxes/display_options.php:2269
-#: app/features/mec/meta_boxes/display_options.php:2435
+#: app/features/mec/meta_boxes/display_options.php:1560
+#: app/features/mec/meta_boxes/display_options.php:1997
+#: app/features/mec/meta_boxes/display_options.php:2182
+#: app/features/mec/meta_boxes/display_options.php:2279
+#: app/features/mec/meta_boxes/display_options.php:2445
 msgid "Limit"
 msgstr "Limite"
 
@@ -4080,101 +4081,107 @@ msgstr "Etichetta prezzo"
 msgid "Ticket variations"
 msgstr "Verifica"
 
-#: app/features/mec/booking.php:858
+#: app/features/mec/booking.php:855
+#, fuzzy
+#| msgid "Discount Type"
+msgid "Discount Per Roles"
+msgstr "Tipo di sconto"
+
+#: app/features/mec/booking.php:859
 #, fuzzy
 #| msgid "Automatically complete WC orders"
 msgid "Automatically complete WooCommerce orders"
 msgstr "Completa automaticamente gli ordini WooCommerce"
 
-#: app/features/mec/booking.php:866
+#: app/features/mec/booking.php:867
 #, fuzzy
 #| msgid "Automatically complete WC orders"
 msgid "Auto WooCommerce orders"
 msgstr "Completa automaticamente gli ordini WooCommerce"
 
-#: app/features/mec/booking.php:867
+#: app/features/mec/booking.php:868
 msgid "It applies only to the orders that are related to MEC."
 msgstr "È applicato solo agli ordini legati alla MEC."
 
-#: app/features/mec/booking.php:875
+#: app/features/mec/booking.php:876
 msgid "After Add to Cart"
 msgstr ""
 
-#: app/features/mec/booking.php:878
+#: app/features/mec/booking.php:879
 #, fuzzy
 #| msgid "Get Direction"
 msgid "Redirect to Cart"
 msgstr "Prendi la direzione"
 
-#: app/features/mec/booking.php:879
+#: app/features/mec/booking.php:880
 #, fuzzy
 #| msgid "Get Direction"
 msgid "Redirect to Checkout"
 msgstr "Prendi la direzione"
 
-#: app/features/mec/booking.php:880
+#: app/features/mec/booking.php:881
 msgid "Optional View Cart Button"
 msgstr ""
 
-#: app/features/mec/booking.php:881
+#: app/features/mec/booking.php:882
 msgid "Optional Checkout Button"
 msgstr ""
 
-#: app/features/mec/booking.php:886
+#: app/features/mec/booking.php:887
 #, fuzzy
 #| msgid "Booking Form"
 msgid "MEC Booking Form"
 msgstr "Form Prenotazione"
 
-#: app/features/mec/booking.php:895
+#: app/features/mec/booking.php:896
 msgid ""
 "If enabled then users should fill the booking form in MEC and then they will "
 "be redirected to checkout."
 msgstr ""
 
-#: app/features/mec/booking.php:921
+#: app/features/mec/booking.php:922
 #, fuzzy
 #| msgid "New Organizer Name"
 msgid "Enable Organizer Payment Module"
 msgstr "Nuovo nome Organizzatore"
 
-#: app/features/mec/booking.php:926
+#: app/features/mec/booking.php:927
 msgid ""
 "By enabling this module, organizers are able to insert their own payment "
 "credentials for enabled gateways per event and receive the payments directly!"
 msgstr ""
 
-#: app/features/mec/booking.php:936
+#: app/features/mec/booking.php:937
 msgid "Disable / Enable payment gateways per event"
 msgstr ""
 
-#: app/features/mec/booking.php:940
+#: app/features/mec/booking.php:941
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "Payment Gateways Per Event"
 msgstr "Gateway di pagamento"
 
-#: app/features/mec/booking.php:941
+#: app/features/mec/booking.php:942
 msgid ""
 "By enabling this module, users are able to disable / enable payment gateways "
 "per event"
 msgstr ""
 
-#: app/features/mec/booking.php:1029 app/features/mec/messages.php:78
+#: app/features/mec/booking.php:1030 app/features/mec/messages.php:78
 #: app/features/mec/modules.php:438 app/features/mec/notifications.php:1594
 #: app/features/mec/settings.php:1455 app/features/mec/single.php:497
 #: app/features/mec/styles.php:62 app/features/mec/styling.php:340
 msgid "Saved"
 msgstr "Salvato"
 
-#: app/features/mec/booking.php:1030 app/features/mec/messages.php:79
+#: app/features/mec/booking.php:1031 app/features/mec/messages.php:79
 #: app/features/mec/modules.php:439 app/features/mec/notifications.php:1595
 #: app/features/mec/settings.php:1456 app/features/mec/single.php:498
 #: app/features/mec/styles.php:63 app/features/mec/styling.php:341
 msgid "Settings Saved!"
 msgstr ""
 
-#: app/features/mec/booking.php:1056 app/features/mec/modules.php:465
+#: app/features/mec/booking.php:1057 app/features/mec/modules.php:465
 #: app/features/mec/notifications.php:1621 app/features/mec/settings.php:1482
 #: app/features/mec/single.php:524
 msgid "Please Refresh Page"
@@ -4325,8 +4332,8 @@ msgstr "Skin"
 #: app/features/mec/meta_boxes/display_options.php:43
 #: app/features/mec/meta_boxes/display_options.php:294
 #: app/features/mec/meta_boxes/display_options.php:1028
-#: app/features/mec/meta_boxes/display_options.php:1359
-#: app/features/mec/meta_boxes/display_options.php:1657
+#: app/features/mec/meta_boxes/display_options.php:1369
+#: app/features/mec/meta_boxes/display_options.php:1667
 #: app/features/mec/settings.php:325 app/features/mec/settings.php:349
 #: app/features/mec/settings.php:358 app/features/mec/settings.php:402
 #: app/features/mec/settings.php:426 app/features/mec/settings.php:435
@@ -4350,8 +4357,8 @@ msgstr "MInimalista"
 #: app/features/mec/meta_boxes/display_options.php:297
 #: app/features/mec/meta_boxes/display_options.php:926
 #: app/features/mec/meta_boxes/display_options.php:1030
-#: app/features/mec/meta_boxes/display_options.php:1357
-#: app/features/mec/meta_boxes/display_options.php:1659
+#: app/features/mec/meta_boxes/display_options.php:1367
+#: app/features/mec/meta_boxes/display_options.php:1669
 #: app/features/mec/settings.php:327 app/features/mec/settings.php:340
 #: app/features/mec/settings.php:351 app/features/mec/settings.php:361
 #: app/features/mec/settings.php:404 app/features/mec/settings.php:417
@@ -4383,14 +4390,14 @@ msgstr ""
 #: app/features/mec/meta_boxes/display_options.php:687
 #: app/features/mec/meta_boxes/display_options.php:747
 #: app/features/mec/meta_boxes/display_options.php:779
-#: app/features/mec/meta_boxes/display_options.php:1125
-#: app/features/mec/meta_boxes/display_options.php:1172
-#: app/features/mec/meta_boxes/display_options.php:1505
-#: app/features/mec/meta_boxes/display_options.php:1522
-#: app/features/mec/meta_boxes/display_options.php:1930
-#: app/features/mec/meta_boxes/display_options.php:2094
-#: app/features/mec/meta_boxes/display_options.php:2225
-#: app/features/mec/meta_boxes/display_options.php:2242
+#: app/features/mec/meta_boxes/display_options.php:1135
+#: app/features/mec/meta_boxes/display_options.php:1182
+#: app/features/mec/meta_boxes/display_options.php:1515
+#: app/features/mec/meta_boxes/display_options.php:1532
+#: app/features/mec/meta_boxes/display_options.php:1940
+#: app/features/mec/meta_boxes/display_options.php:2104
+#: app/features/mec/meta_boxes/display_options.php:2235
+#: app/features/mec/meta_boxes/display_options.php:2252
 msgid "Today"
 msgstr "Oggi"
 
@@ -4402,26 +4409,26 @@ msgstr "Oggi"
 #: app/features/mec/meta_boxes/display_options.php:589
 #: app/features/mec/meta_boxes/display_options.php:748
 #: app/features/mec/meta_boxes/display_options.php:780
-#: app/features/mec/meta_boxes/display_options.php:1126
-#: app/features/mec/meta_boxes/display_options.php:1173
-#: app/features/mec/meta_boxes/display_options.php:1506
-#: app/features/mec/meta_boxes/display_options.php:1523
-#: app/features/mec/meta_boxes/display_options.php:1931
-#: app/features/mec/meta_boxes/display_options.php:2095
-#: app/features/mec/meta_boxes/display_options.php:2226
-#: app/features/mec/meta_boxes/display_options.php:2243
+#: app/features/mec/meta_boxes/display_options.php:1136
+#: app/features/mec/meta_boxes/display_options.php:1183
+#: app/features/mec/meta_boxes/display_options.php:1516
+#: app/features/mec/meta_boxes/display_options.php:1533
+#: app/features/mec/meta_boxes/display_options.php:1941
+#: app/features/mec/meta_boxes/display_options.php:2105
+#: app/features/mec/meta_boxes/display_options.php:2236
+#: app/features/mec/meta_boxes/display_options.php:2253
 msgid "Tomorrow"
 msgstr "Domani"
 
 #: app/features/mec/meta_boxes/display_options.php:56
 #: app/features/mec/meta_boxes/display_options.php:309
 #: app/features/mec/meta_boxes/display_options.php:573
-#: app/features/mec/meta_boxes/display_options.php:1127
-#: app/features/mec/meta_boxes/display_options.php:1174
-#: app/features/mec/meta_boxes/display_options.php:1507
-#: app/features/mec/meta_boxes/display_options.php:1932
-#: app/features/mec/meta_boxes/display_options.php:2096
-#: app/features/mec/meta_boxes/display_options.php:2227
+#: app/features/mec/meta_boxes/display_options.php:1137
+#: app/features/mec/meta_boxes/display_options.php:1184
+#: app/features/mec/meta_boxes/display_options.php:1517
+#: app/features/mec/meta_boxes/display_options.php:1942
+#: app/features/mec/meta_boxes/display_options.php:2106
+#: app/features/mec/meta_boxes/display_options.php:2237
 msgid "Yesterday"
 msgstr ""
 
@@ -4430,15 +4437,15 @@ msgstr ""
 #: app/features/mec/meta_boxes/display_options.php:574
 #: app/features/mec/meta_boxes/display_options.php:688
 #: app/features/mec/meta_boxes/display_options.php:1041
-#: app/features/mec/meta_boxes/display_options.php:1128
-#: app/features/mec/meta_boxes/display_options.php:1175
-#: app/features/mec/meta_boxes/display_options.php:1266
-#: app/features/mec/meta_boxes/display_options.php:1369
-#: app/features/mec/meta_boxes/display_options.php:1508
-#: app/features/mec/meta_boxes/display_options.php:1933
-#: app/features/mec/meta_boxes/display_options.php:2097
-#: app/features/mec/meta_boxes/display_options.php:2228
-#: app/features/mec/meta_boxes/display_options.php:2356
+#: app/features/mec/meta_boxes/display_options.php:1138
+#: app/features/mec/meta_boxes/display_options.php:1185
+#: app/features/mec/meta_boxes/display_options.php:1276
+#: app/features/mec/meta_boxes/display_options.php:1379
+#: app/features/mec/meta_boxes/display_options.php:1518
+#: app/features/mec/meta_boxes/display_options.php:1943
+#: app/features/mec/meta_boxes/display_options.php:2107
+#: app/features/mec/meta_boxes/display_options.php:2238
+#: app/features/mec/meta_boxes/display_options.php:2366
 #, fuzzy
 #| msgid "Start of Next Month"
 msgid "Start of Last Month"
@@ -4449,15 +4456,15 @@ msgstr "Inizio mese prossimo"
 #: app/features/mec/meta_boxes/display_options.php:575
 #: app/features/mec/meta_boxes/display_options.php:689
 #: app/features/mec/meta_boxes/display_options.php:1039
-#: app/features/mec/meta_boxes/display_options.php:1129
-#: app/features/mec/meta_boxes/display_options.php:1176
-#: app/features/mec/meta_boxes/display_options.php:1267
-#: app/features/mec/meta_boxes/display_options.php:1370
-#: app/features/mec/meta_boxes/display_options.php:1509
-#: app/features/mec/meta_boxes/display_options.php:1934
-#: app/features/mec/meta_boxes/display_options.php:2098
-#: app/features/mec/meta_boxes/display_options.php:2229
-#: app/features/mec/meta_boxes/display_options.php:2354
+#: app/features/mec/meta_boxes/display_options.php:1139
+#: app/features/mec/meta_boxes/display_options.php:1186
+#: app/features/mec/meta_boxes/display_options.php:1277
+#: app/features/mec/meta_boxes/display_options.php:1380
+#: app/features/mec/meta_boxes/display_options.php:1519
+#: app/features/mec/meta_boxes/display_options.php:1944
+#: app/features/mec/meta_boxes/display_options.php:2108
+#: app/features/mec/meta_boxes/display_options.php:2239
+#: app/features/mec/meta_boxes/display_options.php:2364
 msgid "Start of Current Month"
 msgstr "Inizio mese corrente"
 
@@ -4466,15 +4473,15 @@ msgstr "Inizio mese corrente"
 #: app/features/mec/meta_boxes/display_options.php:576
 #: app/features/mec/meta_boxes/display_options.php:690
 #: app/features/mec/meta_boxes/display_options.php:1040
-#: app/features/mec/meta_boxes/display_options.php:1130
-#: app/features/mec/meta_boxes/display_options.php:1177
-#: app/features/mec/meta_boxes/display_options.php:1268
-#: app/features/mec/meta_boxes/display_options.php:1371
-#: app/features/mec/meta_boxes/display_options.php:1510
-#: app/features/mec/meta_boxes/display_options.php:1935
-#: app/features/mec/meta_boxes/display_options.php:2099
-#: app/features/mec/meta_boxes/display_options.php:2230
-#: app/features/mec/meta_boxes/display_options.php:2355
+#: app/features/mec/meta_boxes/display_options.php:1140
+#: app/features/mec/meta_boxes/display_options.php:1187
+#: app/features/mec/meta_boxes/display_options.php:1278
+#: app/features/mec/meta_boxes/display_options.php:1381
+#: app/features/mec/meta_boxes/display_options.php:1520
+#: app/features/mec/meta_boxes/display_options.php:1945
+#: app/features/mec/meta_boxes/display_options.php:2109
+#: app/features/mec/meta_boxes/display_options.php:2240
+#: app/features/mec/meta_boxes/display_options.php:2365
 msgid "Start of Next Month"
 msgstr "Inizio mese prossimo"
 
@@ -4489,17 +4496,17 @@ msgstr "Inizio mese prossimo"
 #: app/features/mec/meta_boxes/display_options.php:778
 #: app/features/mec/meta_boxes/display_options.php:936
 #: app/features/mec/meta_boxes/display_options.php:1042
-#: app/features/mec/meta_boxes/display_options.php:1131
-#: app/features/mec/meta_boxes/display_options.php:1178
-#: app/features/mec/meta_boxes/display_options.php:1269
-#: app/features/mec/meta_boxes/display_options.php:1372
-#: app/features/mec/meta_boxes/display_options.php:1511
+#: app/features/mec/meta_boxes/display_options.php:1141
+#: app/features/mec/meta_boxes/display_options.php:1188
+#: app/features/mec/meta_boxes/display_options.php:1279
+#: app/features/mec/meta_boxes/display_options.php:1382
 #: app/features/mec/meta_boxes/display_options.php:1521
-#: app/features/mec/meta_boxes/display_options.php:1936
-#: app/features/mec/meta_boxes/display_options.php:2100
-#: app/features/mec/meta_boxes/display_options.php:2231
+#: app/features/mec/meta_boxes/display_options.php:1531
+#: app/features/mec/meta_boxes/display_options.php:1946
+#: app/features/mec/meta_boxes/display_options.php:2110
 #: app/features/mec/meta_boxes/display_options.php:2241
-#: app/features/mec/meta_boxes/display_options.php:2357
+#: app/features/mec/meta_boxes/display_options.php:2251
+#: app/features/mec/meta_boxes/display_options.php:2367
 msgid "On a certain date"
 msgstr "Data specifica"
 
@@ -4509,15 +4516,15 @@ msgstr "Data specifica"
 #: app/features/mec/meta_boxes/display_options.php:694
 #: app/features/mec/meta_boxes/display_options.php:939
 #: app/features/mec/meta_boxes/display_options.php:1045
-#: app/features/mec/meta_boxes/display_options.php:1134
-#: app/features/mec/meta_boxes/display_options.php:1182
-#: app/features/mec/meta_boxes/display_options.php:1272
-#: app/features/mec/meta_boxes/display_options.php:1375
-#: app/features/mec/meta_boxes/display_options.php:1514
-#: app/features/mec/meta_boxes/display_options.php:1939
-#: app/features/mec/meta_boxes/display_options.php:2103
-#: app/features/mec/meta_boxes/display_options.php:2234
-#: app/features/mec/meta_boxes/display_options.php:2360
+#: app/features/mec/meta_boxes/display_options.php:1144
+#: app/features/mec/meta_boxes/display_options.php:1192
+#: app/features/mec/meta_boxes/display_options.php:1282
+#: app/features/mec/meta_boxes/display_options.php:1385
+#: app/features/mec/meta_boxes/display_options.php:1524
+#: app/features/mec/meta_boxes/display_options.php:1949
+#: app/features/mec/meta_boxes/display_options.php:2113
+#: app/features/mec/meta_boxes/display_options.php:2244
+#: app/features/mec/meta_boxes/display_options.php:2370
 #, php-format
 msgid "eg. %s"
 msgstr "es. %s"
@@ -4532,10 +4539,10 @@ msgstr "es. %s"
 #: app/features/mec/meta_boxes/display_options.php:754
 #: app/features/mec/meta_boxes/display_options.php:783
 #: app/features/mec/meta_boxes/display_options.php:786
-#: app/features/mec/meta_boxes/display_options.php:1526
-#: app/features/mec/meta_boxes/display_options.php:1529
-#: app/features/mec/meta_boxes/display_options.php:2246
-#: app/features/mec/meta_boxes/display_options.php:2249
+#: app/features/mec/meta_boxes/display_options.php:1536
+#: app/features/mec/meta_boxes/display_options.php:1539
+#: app/features/mec/meta_boxes/display_options.php:2256
+#: app/features/mec/meta_boxes/display_options.php:2259
 #, fuzzy
 #| msgid "Maximum Dates"
 msgid "Maximum Date"
@@ -4546,8 +4553,8 @@ msgstr "Date massime"
 #: app/features/mec/meta_boxes/display_options.php:596
 #: app/features/mec/meta_boxes/display_options.php:755
 #: app/features/mec/meta_boxes/display_options.php:787
-#: app/features/mec/meta_boxes/display_options.php:1530
-#: app/features/mec/meta_boxes/display_options.php:2250
+#: app/features/mec/meta_boxes/display_options.php:1540
+#: app/features/mec/meta_boxes/display_options.php:2260
 #, fuzzy
 #| msgid "Show events based on created shortcodes."
 msgid "Show events before the specified date."
@@ -4581,43 +4588,43 @@ msgstr "Mostra eventi sulla base dei shortcode creati."
 #: app/features/mec/meta_boxes/display_options.php:609
 #: app/features/mec/meta_boxes/display_options.php:943
 #: app/features/mec/meta_boxes/display_options.php:948
-#: app/features/mec/meta_boxes/display_options.php:1407
-#: app/features/mec/meta_boxes/display_options.php:1538
-#: app/features/mec/meta_boxes/display_options.php:1543
-#: app/features/mec/meta_boxes/display_options.php:1664
-#: app/features/mec/meta_boxes/display_options.php:1670
-#: app/features/mec/meta_boxes/display_options.php:1677
-#: app/features/mec/meta_boxes/display_options.php:1682
-#: app/features/mec/meta_boxes/display_options.php:1689
-#: app/features/mec/meta_boxes/display_options.php:1693
-#: app/features/mec/meta_boxes/display_options.php:1759
-#: app/features/mec/meta_boxes/display_options.php:1763
-#: app/features/mec/meta_boxes/display_options.php:1770
-#: app/features/mec/meta_boxes/display_options.php:1774
-#: app/features/mec/meta_boxes/display_options.php:1781
-#: app/features/mec/meta_boxes/display_options.php:1787
-#: app/features/mec/meta_boxes/display_options.php:1855
-#: app/features/mec/meta_boxes/display_options.php:1860
-#: app/features/mec/meta_boxes/display_options.php:1943
-#: app/features/mec/meta_boxes/display_options.php:1949
-#: app/features/mec/meta_boxes/display_options.php:1956
-#: app/features/mec/meta_boxes/display_options.php:1960
-#: app/features/mec/meta_boxes/display_options.php:1967
-#: app/features/mec/meta_boxes/display_options.php:1971
-#: app/features/mec/meta_boxes/display_options.php:2107
-#: app/features/mec/meta_boxes/display_options.php:2113
-#: app/features/mec/meta_boxes/display_options.php:2120
-#: app/features/mec/meta_boxes/display_options.php:2126
-#: app/features/mec/meta_boxes/display_options.php:2133
-#: app/features/mec/meta_boxes/display_options.php:2139
-#: app/features/mec/meta_boxes/display_options.php:2146
-#: app/features/mec/meta_boxes/display_options.php:2152
-#: app/features/mec/meta_boxes/display_options.php:2159
-#: app/features/mec/meta_boxes/display_options.php:2165
-#: app/features/mec/meta_boxes/display_options.php:2258
-#: app/features/mec/meta_boxes/display_options.php:2262
-#: app/features/mec/meta_boxes/display_options.php:2364
-#: app/features/mec/meta_boxes/display_options.php:2369
+#: app/features/mec/meta_boxes/display_options.php:1417
+#: app/features/mec/meta_boxes/display_options.php:1548
+#: app/features/mec/meta_boxes/display_options.php:1553
+#: app/features/mec/meta_boxes/display_options.php:1674
+#: app/features/mec/meta_boxes/display_options.php:1680
+#: app/features/mec/meta_boxes/display_options.php:1687
+#: app/features/mec/meta_boxes/display_options.php:1692
+#: app/features/mec/meta_boxes/display_options.php:1699
+#: app/features/mec/meta_boxes/display_options.php:1703
+#: app/features/mec/meta_boxes/display_options.php:1769
+#: app/features/mec/meta_boxes/display_options.php:1773
+#: app/features/mec/meta_boxes/display_options.php:1780
+#: app/features/mec/meta_boxes/display_options.php:1784
+#: app/features/mec/meta_boxes/display_options.php:1791
+#: app/features/mec/meta_boxes/display_options.php:1797
+#: app/features/mec/meta_boxes/display_options.php:1865
+#: app/features/mec/meta_boxes/display_options.php:1870
+#: app/features/mec/meta_boxes/display_options.php:1953
+#: app/features/mec/meta_boxes/display_options.php:1959
+#: app/features/mec/meta_boxes/display_options.php:1966
+#: app/features/mec/meta_boxes/display_options.php:1970
+#: app/features/mec/meta_boxes/display_options.php:1977
+#: app/features/mec/meta_boxes/display_options.php:1981
+#: app/features/mec/meta_boxes/display_options.php:2117
+#: app/features/mec/meta_boxes/display_options.php:2123
+#: app/features/mec/meta_boxes/display_options.php:2130
+#: app/features/mec/meta_boxes/display_options.php:2136
+#: app/features/mec/meta_boxes/display_options.php:2143
+#: app/features/mec/meta_boxes/display_options.php:2149
+#: app/features/mec/meta_boxes/display_options.php:2156
+#: app/features/mec/meta_boxes/display_options.php:2162
+#: app/features/mec/meta_boxes/display_options.php:2169
+#: app/features/mec/meta_boxes/display_options.php:2175
+#: app/features/mec/meta_boxes/display_options.php:2268
+#: app/features/mec/meta_boxes/display_options.php:2272
+#: app/features/mec/meta_boxes/display_options.php:2374
+#: app/features/mec/meta_boxes/display_options.php:2379
 msgid "Date Formats"
 msgstr "Formato date"
 
@@ -4633,11 +4640,11 @@ msgstr "Valori di default sono d, M e I"
 #: app/features/mec/meta_boxes/display_options.php:118
 #: app/features/mec/meta_boxes/display_options.php:382
 #: app/features/mec/meta_boxes/display_options.php:406
-#: app/features/mec/meta_boxes/display_options.php:2114
-#: app/features/mec/meta_boxes/display_options.php:2127
-#: app/features/mec/meta_boxes/display_options.php:2140
-#: app/features/mec/meta_boxes/display_options.php:2153
-#: app/features/mec/meta_boxes/display_options.php:2166
+#: app/features/mec/meta_boxes/display_options.php:2124
+#: app/features/mec/meta_boxes/display_options.php:2137
+#: app/features/mec/meta_boxes/display_options.php:2150
+#: app/features/mec/meta_boxes/display_options.php:2163
+#: app/features/mec/meta_boxes/display_options.php:2176
 msgid "Default values are d, F and l"
 msgstr "Valori di default sono d, F e I"
 
@@ -4656,12 +4663,12 @@ msgstr "Valori di default sono d e F"
 #: app/features/mec/meta_boxes/display_options.php:617
 #: app/features/mec/meta_boxes/display_options.php:956
 #: app/features/mec/meta_boxes/display_options.php:1050
-#: app/features/mec/meta_boxes/display_options.php:1187
-#: app/features/mec/meta_boxes/display_options.php:1277
-#: app/features/mec/meta_boxes/display_options.php:1380
-#: app/features/mec/meta_boxes/display_options.php:1988
-#: app/features/mec/meta_boxes/display_options.php:2173
-#: app/features/mec/meta_boxes/display_options.php:2270
+#: app/features/mec/meta_boxes/display_options.php:1197
+#: app/features/mec/meta_boxes/display_options.php:1287
+#: app/features/mec/meta_boxes/display_options.php:1390
+#: app/features/mec/meta_boxes/display_options.php:1998
+#: app/features/mec/meta_boxes/display_options.php:2183
+#: app/features/mec/meta_boxes/display_options.php:2280
 msgid "eg. 6"
 msgstr "es. 6"
 
@@ -4670,16 +4677,16 @@ msgstr "es. 6"
 #: app/features/mec/meta_boxes/display_options.php:622
 #: app/features/mec/meta_boxes/display_options.php:973
 #: app/features/mec/meta_boxes/display_options.php:1055
-#: app/features/mec/meta_boxes/display_options.php:1192
-#: app/features/mec/meta_boxes/display_options.php:1282
-#: app/features/mec/meta_boxes/display_options.php:1441
-#: app/features/mec/meta_boxes/display_options.php:1566
-#: app/features/mec/meta_boxes/display_options.php:1710
-#: app/features/mec/meta_boxes/display_options.php:1809
-#: app/features/mec/meta_boxes/display_options.php:1878
-#: app/features/mec/meta_boxes/display_options.php:2029
-#: app/features/mec/meta_boxes/display_options.php:2182
-#: app/features/mec/meta_boxes/display_options.php:2275
+#: app/features/mec/meta_boxes/display_options.php:1202
+#: app/features/mec/meta_boxes/display_options.php:1292
+#: app/features/mec/meta_boxes/display_options.php:1451
+#: app/features/mec/meta_boxes/display_options.php:1576
+#: app/features/mec/meta_boxes/display_options.php:1720
+#: app/features/mec/meta_boxes/display_options.php:1819
+#: app/features/mec/meta_boxes/display_options.php:1888
+#: app/features/mec/meta_boxes/display_options.php:2039
+#: app/features/mec/meta_boxes/display_options.php:2192
+#: app/features/mec/meta_boxes/display_options.php:2285
 #, fuzzy
 #| msgid "Local Time"
 msgid "Include Local Time"
@@ -4687,7 +4694,7 @@ msgstr "Ora locale"
 
 #: app/features/mec/meta_boxes/display_options.php:165
 #: app/features/mec/meta_boxes/display_options.php:452
-#: app/features/mec/meta_boxes/display_options.php:2041
+#: app/features/mec/meta_boxes/display_options.php:2051
 #, fuzzy
 #| msgid "Hide Event Time"
 msgid "Include Events Times"
@@ -4696,15 +4703,15 @@ msgstr "Nascondi ora dell'evento"
 #: app/features/mec/meta_boxes/display_options.php:176
 #: app/features/mec/meta_boxes/display_options.php:463
 #: app/features/mec/meta_boxes/display_options.php:657
-#: app/features/mec/meta_boxes/display_options.php:1638
-#: app/features/mec/meta_boxes/display_options.php:2325
-#: app/features/mec/meta_boxes/display_options.php:2440
+#: app/features/mec/meta_boxes/display_options.php:1648
+#: app/features/mec/meta_boxes/display_options.php:2335
+#: app/features/mec/meta_boxes/display_options.php:2450
 msgid "Load More Button"
 msgstr "Bottone carica altro"
 
 #: app/features/mec/meta_boxes/display_options.php:186
 #: app/features/mec/meta_boxes/display_options.php:667
-#: app/features/mec/meta_boxes/display_options.php:2335
+#: app/features/mec/meta_boxes/display_options.php:2345
 msgid "Show Month Divider"
 msgstr "Mostra il divisore mensile"
 
@@ -4714,17 +4721,17 @@ msgstr "Mostra il divisore mensile"
 #: app/features/mec/meta_boxes/display_options.php:889
 #: app/features/mec/meta_boxes/display_options.php:995
 #: app/features/mec/meta_boxes/display_options.php:1077
-#: app/features/mec/meta_boxes/display_options.php:1214
-#: app/features/mec/meta_boxes/display_options.php:1294
-#: app/features/mec/meta_boxes/display_options.php:1453
-#: app/features/mec/meta_boxes/display_options.php:1578
-#: app/features/mec/meta_boxes/display_options.php:1722
-#: app/features/mec/meta_boxes/display_options.php:1821
-#: app/features/mec/meta_boxes/display_options.php:1890
-#: app/features/mec/meta_boxes/display_options.php:2053
-#: app/features/mec/meta_boxes/display_options.php:2194
-#: app/features/mec/meta_boxes/display_options.php:2287
-#: app/features/mec/meta_boxes/display_options.php:2386
+#: app/features/mec/meta_boxes/display_options.php:1224
+#: app/features/mec/meta_boxes/display_options.php:1304
+#: app/features/mec/meta_boxes/display_options.php:1463
+#: app/features/mec/meta_boxes/display_options.php:1588
+#: app/features/mec/meta_boxes/display_options.php:1732
+#: app/features/mec/meta_boxes/display_options.php:1831
+#: app/features/mec/meta_boxes/display_options.php:1900
+#: app/features/mec/meta_boxes/display_options.php:2063
+#: app/features/mec/meta_boxes/display_options.php:2204
+#: app/features/mec/meta_boxes/display_options.php:2297
+#: app/features/mec/meta_boxes/display_options.php:2396
 msgid "Display Normal Labels"
 msgstr ""
 
@@ -4734,27 +4741,27 @@ msgstr ""
 #: app/features/mec/meta_boxes/display_options.php:901
 #: app/features/mec/meta_boxes/display_options.php:1007
 #: app/features/mec/meta_boxes/display_options.php:1089
-#: app/features/mec/meta_boxes/display_options.php:1226
-#: app/features/mec/meta_boxes/display_options.php:1306
-#: app/features/mec/meta_boxes/display_options.php:1465
-#: app/features/mec/meta_boxes/display_options.php:1590
-#: app/features/mec/meta_boxes/display_options.php:1734
-#: app/features/mec/meta_boxes/display_options.php:1833
-#: app/features/mec/meta_boxes/display_options.php:1902
-#: app/features/mec/meta_boxes/display_options.php:2065
-#: app/features/mec/meta_boxes/display_options.php:2206
-#: app/features/mec/meta_boxes/display_options.php:2299
-#: app/features/mec/meta_boxes/display_options.php:2398
+#: app/features/mec/meta_boxes/display_options.php:1236
+#: app/features/mec/meta_boxes/display_options.php:1316
+#: app/features/mec/meta_boxes/display_options.php:1475
+#: app/features/mec/meta_boxes/display_options.php:1600
+#: app/features/mec/meta_boxes/display_options.php:1744
+#: app/features/mec/meta_boxes/display_options.php:1843
+#: app/features/mec/meta_boxes/display_options.php:1912
+#: app/features/mec/meta_boxes/display_options.php:2075
+#: app/features/mec/meta_boxes/display_options.php:2216
+#: app/features/mec/meta_boxes/display_options.php:2309
+#: app/features/mec/meta_boxes/display_options.php:2408
 msgid "Display Reason for Cancellation"
 msgstr ""
 
 #: app/features/mec/meta_boxes/display_options.php:221
 #: app/features/mec/meta_boxes/display_options.php:498
-#: app/features/mec/meta_boxes/display_options.php:1238
-#: app/features/mec/meta_boxes/display_options.php:1318
-#: app/features/mec/meta_boxes/display_options.php:1602
-#: app/features/mec/meta_boxes/display_options.php:2311
-#: app/features/mec/meta_boxes/display_options.php:2410
+#: app/features/mec/meta_boxes/display_options.php:1248
+#: app/features/mec/meta_boxes/display_options.php:1328
+#: app/features/mec/meta_boxes/display_options.php:1612
+#: app/features/mec/meta_boxes/display_options.php:2321
+#: app/features/mec/meta_boxes/display_options.php:2420
 #, fuzzy
 #| msgid "Categories"
 msgid "Display Categories"
@@ -4769,13 +4776,13 @@ msgstr "Mostra Google Map sulla pagina dell'evento"
 
 #: app/features/mec/meta_boxes/display_options.php:250
 #: app/features/mec/meta_boxes/display_options.php:527
-#: app/features/mec/meta_boxes/display_options.php:1143
+#: app/features/mec/meta_boxes/display_options.php:1153
 msgid "Geolocation"
 msgstr ""
 
 #: app/features/mec/meta_boxes/display_options.php:261
 #: app/features/mec/meta_boxes/display_options.php:538
-#: app/features/mec/meta_boxes/display_options.php:1153
+#: app/features/mec/meta_boxes/display_options.php:1163
 #, fuzzy
 #| msgid "Enable Google Recaptcha"
 msgid "Disable Geolocation Force Focus"
@@ -4791,8 +4798,8 @@ msgstr "Mostra il divisore mensile"
 #: app/features/mec/meta_boxes/display_options.php:564
 #: app/features/mec/meta_boxes/display_options.php:712
 #: app/features/mec/meta_boxes/display_options.php:1029
-#: app/features/mec/meta_boxes/display_options.php:1358
-#: app/features/mec/meta_boxes/display_options.php:1658
+#: app/features/mec/meta_boxes/display_options.php:1368
+#: app/features/mec/meta_boxes/display_options.php:1668
 #: app/features/mec/settings.php:326 app/features/mec/settings.php:341
 #: app/features/mec/settings.php:359 app/features/mec/settings.php:403
 #: app/features/mec/settings.php:418 app/features/mec/settings.php:436
@@ -4828,7 +4835,7 @@ msgid "Novel"
 msgstr ""
 
 #: app/features/mec/meta_boxes/display_options.php:345
-#: app/features/mec/meta_boxes/display_options.php:2263
+#: app/features/mec/meta_boxes/display_options.php:2273
 #, fuzzy
 #| msgid "Default value is \"d F Y\""
 msgid "Default value is \"d F Y"
@@ -4847,17 +4854,17 @@ msgid "Default value is \"d F Y\""
 msgstr "Valore di default è \"d F Y\""
 
 #: app/features/mec/meta_boxes/display_options.php:423
-#: app/features/mec/meta_boxes/display_options.php:1978
-#: app/features/mec/meta_boxes/display_options.php:2376
+#: app/features/mec/meta_boxes/display_options.php:1988
+#: app/features/mec/meta_boxes/display_options.php:2386
 msgid "Count in row"
 msgstr "Conteggio su riga"
 
 #: app/features/mec/meta_boxes/display_options.php:557
 #: app/features/mec/meta_boxes/display_options.php:919
-#: app/features/mec/meta_boxes/display_options.php:1118
-#: app/features/mec/meta_boxes/display_options.php:1350
-#: app/features/mec/meta_boxes/display_options.php:1497
-#: app/features/mec/meta_boxes/display_options.php:1849
+#: app/features/mec/meta_boxes/display_options.php:1128
+#: app/features/mec/meta_boxes/display_options.php:1360
+#: app/features/mec/meta_boxes/display_options.php:1507
+#: app/features/mec/meta_boxes/display_options.php:1859
 #, php-format
 msgid "%s is required to use this skin."
 msgstr ""
@@ -4929,9 +4936,9 @@ msgstr "Stile moderno"
 #: app/features/mec/meta_boxes/display_options.php:718
 #: app/features/mec/meta_boxes/display_options.php:955
 #: app/features/mec/meta_boxes/display_options.php:1049
-#: app/features/mec/meta_boxes/display_options.php:1186
-#: app/features/mec/meta_boxes/display_options.php:1276
-#: app/features/mec/meta_boxes/display_options.php:1379
+#: app/features/mec/meta_boxes/display_options.php:1196
+#: app/features/mec/meta_boxes/display_options.php:1286
+#: app/features/mec/meta_boxes/display_options.php:1389
 msgid "Events per day"
 msgstr "Eventi per giorno"
 
@@ -4980,10 +4987,10 @@ msgstr ""
 
 #: app/features/mec/meta_boxes/display_options.php:984
 #: app/features/mec/meta_boxes/display_options.php:1066
-#: app/features/mec/meta_boxes/display_options.php:1203
-#: app/features/mec/meta_boxes/display_options.php:1332
-#: app/features/mec/meta_boxes/display_options.php:1477
-#: app/features/mec/meta_boxes/display_options.php:2424
+#: app/features/mec/meta_boxes/display_options.php:1213
+#: app/features/mec/meta_boxes/display_options.php:1342
+#: app/features/mec/meta_boxes/display_options.php:1487
+#: app/features/mec/meta_boxes/display_options.php:2434
 msgid "Next/Previous Buttons"
 msgstr "Bottoni Avanti/Indietro"
 
@@ -4992,317 +4999,321 @@ msgid "For showing next/previous year navigation."
 msgstr ""
 
 #: app/features/mec/meta_boxes/display_options.php:1100
+msgid "Activate First upcoming Date with Event"
+msgstr ""
+
+#: app/features/mec/meta_boxes/display_options.php:1110
 #, fuzzy
 #| msgid "Text"
 msgid "Uppercase Text"
 msgstr "Testo"
 
-#: app/features/mec/meta_boxes/display_options.php:1108
-#: app/features/mec/meta_boxes/display_options.php:1250
-#: app/features/mec/meta_boxes/display_options.php:1340
-#: app/features/mec/meta_boxes/display_options.php:1485
-#: app/features/mec/meta_boxes/display_options.php:2432
+#: app/features/mec/meta_boxes/display_options.php:1118
+#: app/features/mec/meta_boxes/display_options.php:1260
+#: app/features/mec/meta_boxes/display_options.php:1350
+#: app/features/mec/meta_boxes/display_options.php:1495
+#: app/features/mec/meta_boxes/display_options.php:2442
 msgid "For showing next/previous month navigation."
 msgstr "Per mostrare la navigazione mese precedente/successivo."
 
-#: app/features/mec/meta_boxes/display_options.php:1138
+#: app/features/mec/meta_boxes/display_options.php:1148
 msgid "Maximum events"
 msgstr "Massimo numero di eventi"
 
-#: app/features/mec/meta_boxes/display_options.php:1139
+#: app/features/mec/meta_boxes/display_options.php:1149
 msgid "eg. 200"
 msgstr "es. 200"
 
-#: app/features/mec/meta_boxes/display_options.php:1161
+#: app/features/mec/meta_boxes/display_options.php:1171
 msgid "The geolocation feature works only in secure (https) websites."
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1263
-#: app/features/mec/meta_boxes/display_options.php:1366
+#: app/features/mec/meta_boxes/display_options.php:1273
+#: app/features/mec/meta_boxes/display_options.php:1376
 msgid "Current Week"
 msgstr "Settimana corrente"
 
-#: app/features/mec/meta_boxes/display_options.php:1264
-#: app/features/mec/meta_boxes/display_options.php:1367
+#: app/features/mec/meta_boxes/display_options.php:1274
+#: app/features/mec/meta_boxes/display_options.php:1377
 msgid "Next Week"
 msgstr "Settimana prossima"
 
-#: app/features/mec/meta_boxes/display_options.php:1265
-#: app/features/mec/meta_boxes/display_options.php:1368
+#: app/features/mec/meta_boxes/display_options.php:1275
+#: app/features/mec/meta_boxes/display_options.php:1378
 #, fuzzy
 #| msgid "Next Week"
 msgid "Last Week"
 msgstr "Settimana prossima"
 
-#: app/features/mec/meta_boxes/display_options.php:1384
+#: app/features/mec/meta_boxes/display_options.php:1394
 msgid "Number of Days"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1392
+#: app/features/mec/meta_boxes/display_options.php:1402
 #, fuzzy
 #| msgid "Start"
 msgid "Week Start"
 msgstr "Partenza"
 
-#: app/features/mec/meta_boxes/display_options.php:1394
+#: app/features/mec/meta_boxes/display_options.php:1404
 #, fuzzy
 #| msgid "Inherit from global options"
 msgid "Inherite from WordPress options"
 msgstr "Eredita da opzioni globali"
 
-#: app/features/mec/meta_boxes/display_options.php:1409
+#: app/features/mec/meta_boxes/display_options.php:1419
 msgid "1:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1410
+#: app/features/mec/meta_boxes/display_options.php:1420
 msgid "2:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1411
+#: app/features/mec/meta_boxes/display_options.php:1421
 msgid "3:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1412
+#: app/features/mec/meta_boxes/display_options.php:1422
 msgid "4:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1413
+#: app/features/mec/meta_boxes/display_options.php:1423
 msgid "5:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1414
+#: app/features/mec/meta_boxes/display_options.php:1424
 msgid "6:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1415
+#: app/features/mec/meta_boxes/display_options.php:1425
 msgid "7:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1416
+#: app/features/mec/meta_boxes/display_options.php:1426
 msgid "8:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1417
+#: app/features/mec/meta_boxes/display_options.php:1427
 msgid "9:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1418
+#: app/features/mec/meta_boxes/display_options.php:1428
 msgid "10:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1419
+#: app/features/mec/meta_boxes/display_options.php:1429
 msgid "11:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1420
+#: app/features/mec/meta_boxes/display_options.php:1430
 msgid "12:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1423
+#: app/features/mec/meta_boxes/display_options.php:1433
 msgid "13:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1424
+#: app/features/mec/meta_boxes/display_options.php:1434
 msgid "14:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1425
+#: app/features/mec/meta_boxes/display_options.php:1435
 msgid "15:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1426
+#: app/features/mec/meta_boxes/display_options.php:1436
 msgid "16:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1427
+#: app/features/mec/meta_boxes/display_options.php:1437
 msgid "17:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1428
+#: app/features/mec/meta_boxes/display_options.php:1438
 msgid "18:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1429
+#: app/features/mec/meta_boxes/display_options.php:1439
 msgid "19:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1430
+#: app/features/mec/meta_boxes/display_options.php:1440
 msgid "20:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1431
+#: app/features/mec/meta_boxes/display_options.php:1441
 msgid "21:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1432
+#: app/features/mec/meta_boxes/display_options.php:1442
 msgid "22:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1433
+#: app/features/mec/meta_boxes/display_options.php:1443
 msgid "23:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1434
+#: app/features/mec/meta_boxes/display_options.php:1444
 msgid "24:00"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1544
-#: app/features/mec/meta_boxes/display_options.php:1861
+#: app/features/mec/meta_boxes/display_options.php:1554
+#: app/features/mec/meta_boxes/display_options.php:1871
 msgid "Default values are j and F"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1551
+#: app/features/mec/meta_boxes/display_options.php:1561
 msgid "eg. 24"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1554
+#: app/features/mec/meta_boxes/display_options.php:1564
 msgid "Filter By"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1556
+#: app/features/mec/meta_boxes/display_options.php:1566
 msgid "None"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1616
+#: app/features/mec/meta_boxes/display_options.php:1626
 msgid "Fit to row"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1617
+#: app/features/mec/meta_boxes/display_options.php:1627
 msgid ""
 "Items are arranged into rows. Rows progress vertically. Similar to what you "
 "would expect from a layout that uses CSS floats."
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1627
+#: app/features/mec/meta_boxes/display_options.php:1637
 msgid "Convert Masonry to Grid"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1628
+#: app/features/mec/meta_boxes/display_options.php:1638
 msgid "For using this option, your events should come with image"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1671
+#: app/features/mec/meta_boxes/display_options.php:1681
 msgid "Default values are d, M and Y"
 msgstr "I valori predefiniti sono d, M e Y"
 
-#: app/features/mec/meta_boxes/display_options.php:1683
+#: app/features/mec/meta_boxes/display_options.php:1693
 msgid "Default values are \"F d\" and l"
 msgstr "I valori predefiniti sono \"F d\" e I"
 
-#: app/features/mec/meta_boxes/display_options.php:1694
+#: app/features/mec/meta_boxes/display_options.php:1704
 msgid "Default value is \"l, F d Y\""
 msgstr "I valori predefiniti sono \"I, F d Y\""
 
-#: app/features/mec/meta_boxes/display_options.php:1752
+#: app/features/mec/meta_boxes/display_options.php:1762
 #: app/features/popup/shortcode.php:335
 msgid "Style 1"
 msgstr "Stile 1"
 
-#: app/features/mec/meta_boxes/display_options.php:1753
+#: app/features/mec/meta_boxes/display_options.php:1763
 #: app/features/popup/shortcode.php:340
 msgid "Style 2"
 msgstr "Stile 2"
 
-#: app/features/mec/meta_boxes/display_options.php:1754
+#: app/features/mec/meta_boxes/display_options.php:1764
 #: app/features/popup/shortcode.php:345
 msgid "Style 3"
 msgstr "Stile 3"
 
-#: app/features/mec/meta_boxes/display_options.php:1764
-#: app/features/mec/meta_boxes/display_options.php:1775
+#: app/features/mec/meta_boxes/display_options.php:1774
+#: app/features/mec/meta_boxes/display_options.php:1785
 msgid "Default value is \"j F Y\""
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:1788
+#: app/features/mec/meta_boxes/display_options.php:1798
 msgid "Default values are j, F and Y"
 msgstr "I valori predefiniti sono j, F e Y"
 
-#: app/features/mec/meta_boxes/display_options.php:1796
-#: app/features/mec/meta_boxes/display_options.php:1869
+#: app/features/mec/meta_boxes/display_options.php:1806
+#: app/features/mec/meta_boxes/display_options.php:1879
 msgid " -- Next Upcoming Event -- "
 msgstr "-- Prossimo evento --"
 
-#: app/features/mec/meta_boxes/display_options.php:1803
+#: app/features/mec/meta_boxes/display_options.php:1813
 msgid "Background Color"
 msgstr "Colore di sfondo"
 
-#: app/features/mec/meta_boxes/display_options.php:1920
-#: app/features/mec/meta_boxes/display_options.php:2083
+#: app/features/mec/meta_boxes/display_options.php:1930
+#: app/features/mec/meta_boxes/display_options.php:2093
 #: app/features/popup/shortcode.php:378 app/features/popup/shortcode.php:407
 msgid "Type 1"
 msgstr "Tipo 1"
 
-#: app/features/mec/meta_boxes/display_options.php:1921
-#: app/features/mec/meta_boxes/display_options.php:2084
+#: app/features/mec/meta_boxes/display_options.php:1931
+#: app/features/mec/meta_boxes/display_options.php:2094
 #: app/features/popup/shortcode.php:383 app/features/popup/shortcode.php:412
 msgid "Type 2"
 msgstr "Tipo 2"
 
-#: app/features/mec/meta_boxes/display_options.php:1922
-#: app/features/mec/meta_boxes/display_options.php:2085
+#: app/features/mec/meta_boxes/display_options.php:1932
+#: app/features/mec/meta_boxes/display_options.php:2095
 #: app/features/popup/shortcode.php:388 app/features/popup/shortcode.php:417
 msgid "Type 3"
 msgstr "Tipo 3"
 
-#: app/features/mec/meta_boxes/display_options.php:1923
-#: app/features/mec/meta_boxes/display_options.php:2086
+#: app/features/mec/meta_boxes/display_options.php:1933
+#: app/features/mec/meta_boxes/display_options.php:2096
 #: app/features/popup/shortcode.php:393 app/features/popup/shortcode.php:422
 msgid "Type 4"
 msgstr "Tipo 4"
 
-#: app/features/mec/meta_boxes/display_options.php:1950
+#: app/features/mec/meta_boxes/display_options.php:1960
 msgid "Default values are d, F and Y"
 msgstr "Valori di default sono d, F e Y"
 
-#: app/features/mec/meta_boxes/display_options.php:1961
-#: app/features/mec/meta_boxes/display_options.php:1972
+#: app/features/mec/meta_boxes/display_options.php:1971
+#: app/features/mec/meta_boxes/display_options.php:1982
 msgid "Default value is \"M d, Y\""
 msgstr "Valore di default è \"M d, Y\""
 
-#: app/features/mec/meta_boxes/display_options.php:1992
+#: app/features/mec/meta_boxes/display_options.php:2002
 #, fuzzy
 #| msgid "Auto Play Time"
 msgid "Auto Play"
 msgstr "Tempo di riproduzione automatica"
 
-#: app/features/mec/meta_boxes/display_options.php:2001
-#: app/features/mec/meta_boxes/display_options.php:2176
+#: app/features/mec/meta_boxes/display_options.php:2011
+#: app/features/mec/meta_boxes/display_options.php:2186
 msgid "Auto Play Time"
 msgstr "Tempo di riproduzione automatica"
 
-#: app/features/mec/meta_boxes/display_options.php:2002
-#: app/features/mec/meta_boxes/display_options.php:2177
+#: app/features/mec/meta_boxes/display_options.php:2012
+#: app/features/mec/meta_boxes/display_options.php:2187
 msgid "eg. 3000 default is 3 second"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:2006
+#: app/features/mec/meta_boxes/display_options.php:2016
 msgid "Loop"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:2019
+#: app/features/mec/meta_boxes/display_options.php:2029
 #, fuzzy
 #| msgid "Archive Page Skin"
 msgid "Archive Link"
 msgstr "Skin pagina di archivio"
 
-#: app/features/mec/meta_boxes/display_options.php:2023
+#: app/features/mec/meta_boxes/display_options.php:2033
 #, fuzzy
 #| msgid "Text"
 msgid "Head Text"
 msgstr "Testo"
 
-#: app/features/mec/meta_boxes/display_options.php:2087
+#: app/features/mec/meta_boxes/display_options.php:2097
 #: app/features/popup/shortcode.php:427
 msgid "Type 5"
 msgstr ""
 
-#: app/features/mec/meta_boxes/display_options.php:2370
+#: app/features/mec/meta_boxes/display_options.php:2380
 #, fuzzy
 #| msgid "Default values are d and M"
 msgid "Default values are j and M"
 msgstr "Valori di default èsono d e M"
 
-#: app/features/mec/meta_boxes/display_options.php:2436
+#: app/features/mec/meta_boxes/display_options.php:2446
 #, fuzzy
 #| msgid "eg. 6"
 msgid "eg. 60"
@@ -5446,170 +5457,176 @@ msgstr ""
 msgid "Show Search Form"
 msgstr "Mostra il modulo di ricerca"
 
-#: app/features/mec/meta_boxes/search_form.php:54
-#: app/features/mec/meta_boxes/search_form.php:140
-#: app/features/mec/meta_boxes/search_form.php:226
-#: app/features/mec/meta_boxes/search_form.php:312
-#: app/features/mec/meta_boxes/search_form.php:397
-#: app/features/mec/meta_boxes/search_form.php:482
-#: app/features/mec/meta_boxes/search_form.php:567
-#: app/features/mec/meta_boxes/search_form.php:638
-#: app/features/mec/meta_boxes/search_form.php:723
-#: app/features/mec/meta_boxes/search_form.php:808
-#: app/features/mec/meta_boxes/search_form.php:929
+#: app/features/mec/meta_boxes/search_form.php:24
+#, fuzzy
+#| msgid "Show all labels"
+msgid "Show Labels"
+msgstr "Mostra tutte le etichette"
+
+#: app/features/mec/meta_boxes/search_form.php:65
+#: app/features/mec/meta_boxes/search_form.php:151
+#: app/features/mec/meta_boxes/search_form.php:237
+#: app/features/mec/meta_boxes/search_form.php:323
+#: app/features/mec/meta_boxes/search_form.php:408
+#: app/features/mec/meta_boxes/search_form.php:493
+#: app/features/mec/meta_boxes/search_form.php:578
+#: app/features/mec/meta_boxes/search_form.php:649
+#: app/features/mec/meta_boxes/search_form.php:734
+#: app/features/mec/meta_boxes/search_form.php:819
+#: app/features/mec/meta_boxes/search_form.php:940
 #: app/features/mec/settings.php:1106 app/features/mec/single.php:398
 #: app/features/mec/single.php:440 app/features/search.php:86
-#: app/features/speakers.php:60 app/features/speakers.php:283
-#: app/libraries/main.php:6545 app/libraries/main.php:6599
-#: app/libraries/skins.php:1132 app/modules/speakers/details.php:18
+#: app/features/speakers.php:60 app/features/speakers.php:282
+#: app/libraries/main.php:6582 app/libraries/main.php:6636
+#: app/libraries/skins.php:1134 app/modules/speakers/details.php:18
 msgid "Speaker"
 msgstr ""
 
-#: app/features/mec/meta_boxes/search_form.php:61
-#: app/features/mec/meta_boxes/search_form.php:147
-#: app/features/mec/meta_boxes/search_form.php:233
-#: app/features/mec/meta_boxes/search_form.php:319
-#: app/features/mec/meta_boxes/search_form.php:404
-#: app/features/mec/meta_boxes/search_form.php:489
-#: app/features/mec/meta_boxes/search_form.php:574
-#: app/features/mec/meta_boxes/search_form.php:645
-#: app/features/mec/meta_boxes/search_form.php:730
-#: app/features/mec/meta_boxes/search_form.php:815
-#: app/features/mec/meta_boxes/search_form.php:936
+#: app/features/mec/meta_boxes/search_form.php:72
+#: app/features/mec/meta_boxes/search_form.php:158
+#: app/features/mec/meta_boxes/search_form.php:244
+#: app/features/mec/meta_boxes/search_form.php:330
+#: app/features/mec/meta_boxes/search_form.php:415
+#: app/features/mec/meta_boxes/search_form.php:500
+#: app/features/mec/meta_boxes/search_form.php:585
+#: app/features/mec/meta_boxes/search_form.php:656
+#: app/features/mec/meta_boxes/search_form.php:741
+#: app/features/mec/meta_boxes/search_form.php:826
+#: app/features/mec/meta_boxes/search_form.php:947
 #: app/features/mec/settings.php:1113 app/features/mec/single.php:407
 #: app/features/mec/single.php:449 app/features/search.php:92
-#: app/libraries/skins.php:1158
+#: app/libraries/skins.php:1163
 #, fuzzy
 #| msgid "Tags"
 msgid "Tag"
 msgstr "Tag"
 
-#: app/features/mec/meta_boxes/search_form.php:78
-#: app/features/mec/meta_boxes/search_form.php:164
-#: app/features/mec/meta_boxes/search_form.php:250
-#: app/features/mec/meta_boxes/search_form.php:336
-#: app/features/mec/meta_boxes/search_form.php:421
-#: app/features/mec/meta_boxes/search_form.php:506
-#: app/features/mec/meta_boxes/search_form.php:591
-#: app/features/mec/meta_boxes/search_form.php:662
-#: app/features/mec/meta_boxes/search_form.php:747
-#: app/features/mec/meta_boxes/search_form.php:832
-#: app/features/mec/meta_boxes/search_form.php:953
+#: app/features/mec/meta_boxes/search_form.php:89
+#: app/features/mec/meta_boxes/search_form.php:175
+#: app/features/mec/meta_boxes/search_form.php:261
+#: app/features/mec/meta_boxes/search_form.php:347
+#: app/features/mec/meta_boxes/search_form.php:432
+#: app/features/mec/meta_boxes/search_form.php:517
+#: app/features/mec/meta_boxes/search_form.php:602
+#: app/features/mec/meta_boxes/search_form.php:673
+#: app/features/mec/meta_boxes/search_form.php:758
+#: app/features/mec/meta_boxes/search_form.php:843
+#: app/features/mec/meta_boxes/search_form.php:964
 #, fuzzy
 #| msgid "Address"
 msgid "Address Input"
 msgstr "Indirizzo"
 
-#: app/features/mec/meta_boxes/search_form.php:85
-#: app/features/mec/meta_boxes/search_form.php:171
-#: app/features/mec/meta_boxes/search_form.php:257
-#: app/features/mec/meta_boxes/search_form.php:343
-#: app/features/mec/meta_boxes/search_form.php:428
-#: app/features/mec/meta_boxes/search_form.php:513
-#: app/features/mec/meta_boxes/search_form.php:598
-#: app/features/mec/meta_boxes/search_form.php:669
-#: app/features/mec/meta_boxes/search_form.php:754
-#: app/features/mec/meta_boxes/search_form.php:839
-#: app/features/mec/meta_boxes/search_form.php:960
+#: app/features/mec/meta_boxes/search_form.php:96
+#: app/features/mec/meta_boxes/search_form.php:182
+#: app/features/mec/meta_boxes/search_form.php:268
+#: app/features/mec/meta_boxes/search_form.php:354
+#: app/features/mec/meta_boxes/search_form.php:439
+#: app/features/mec/meta_boxes/search_form.php:524
+#: app/features/mec/meta_boxes/search_form.php:609
+#: app/features/mec/meta_boxes/search_form.php:680
+#: app/features/mec/meta_boxes/search_form.php:765
+#: app/features/mec/meta_boxes/search_form.php:850
+#: app/features/mec/meta_boxes/search_form.php:971
 msgid "Min / Max Inputs"
 msgstr ""
 
-#: app/features/mec/meta_boxes/search_form.php:89
-#: app/features/mec/meta_boxes/search_form.php:175
-#: app/features/mec/meta_boxes/search_form.php:261
+#: app/features/mec/meta_boxes/search_form.php:100
+#: app/features/mec/meta_boxes/search_form.php:186
+#: app/features/mec/meta_boxes/search_form.php:272
 #, fuzzy
 #| msgid "Month Filter"
 msgid "Date Filter"
 msgstr "Filtra per mese"
 
-#: app/features/mec/meta_boxes/search_form.php:92
-#: app/features/mec/meta_boxes/search_form.php:178
-#: app/features/mec/meta_boxes/search_form.php:264
+#: app/features/mec/meta_boxes/search_form.php:103
+#: app/features/mec/meta_boxes/search_form.php:189
+#: app/features/mec/meta_boxes/search_form.php:275
 msgid "Year & Month Dropdown"
 msgstr ""
 
-#: app/features/mec/meta_boxes/search_form.php:93
-#: app/features/mec/meta_boxes/search_form.php:179
-#: app/features/mec/meta_boxes/search_form.php:265
+#: app/features/mec/meta_boxes/search_form.php:104
+#: app/features/mec/meta_boxes/search_form.php:190
+#: app/features/mec/meta_boxes/search_form.php:276
 #, fuzzy
 #| msgid "Date Format"
 msgid "Date Picker"
 msgstr "Formato data"
 
-#: app/features/mec/meta_boxes/search_form.php:97
-#: app/features/mec/meta_boxes/search_form.php:183
-#: app/features/mec/meta_boxes/search_form.php:269
-#: app/features/mec/meta_boxes/search_form.php:354
-#: app/features/mec/meta_boxes/search_form.php:439
-#: app/features/mec/meta_boxes/search_form.php:524
-#: app/features/mec/meta_boxes/search_form.php:680
-#: app/features/mec/meta_boxes/search_form.php:765
-#: app/features/mec/meta_boxes/search_form.php:850
-#: app/features/mec/meta_boxes/search_form.php:971
+#: app/features/mec/meta_boxes/search_form.php:108
+#: app/features/mec/meta_boxes/search_form.php:194
+#: app/features/mec/meta_boxes/search_form.php:280
+#: app/features/mec/meta_boxes/search_form.php:365
+#: app/features/mec/meta_boxes/search_form.php:450
+#: app/features/mec/meta_boxes/search_form.php:535
+#: app/features/mec/meta_boxes/search_form.php:691
+#: app/features/mec/meta_boxes/search_form.php:776
+#: app/features/mec/meta_boxes/search_form.php:861
+#: app/features/mec/meta_boxes/search_form.php:982
 #, fuzzy
 #| msgid "Month Filter"
 msgid "Time Filter"
 msgstr "Filtra per mese"
 
-#: app/features/mec/meta_boxes/search_form.php:100
-#: app/features/mec/meta_boxes/search_form.php:186
-#: app/features/mec/meta_boxes/search_form.php:272
-#: app/features/mec/meta_boxes/search_form.php:357
-#: app/features/mec/meta_boxes/search_form.php:442
-#: app/features/mec/meta_boxes/search_form.php:527
-#: app/features/mec/meta_boxes/search_form.php:683
-#: app/features/mec/meta_boxes/search_form.php:768
-#: app/features/mec/meta_boxes/search_form.php:853
-#: app/features/mec/meta_boxes/search_form.php:974
+#: app/features/mec/meta_boxes/search_form.php:111
+#: app/features/mec/meta_boxes/search_form.php:197
+#: app/features/mec/meta_boxes/search_form.php:283
+#: app/features/mec/meta_boxes/search_form.php:368
+#: app/features/mec/meta_boxes/search_form.php:453
+#: app/features/mec/meta_boxes/search_form.php:538
+#: app/features/mec/meta_boxes/search_form.php:694
+#: app/features/mec/meta_boxes/search_form.php:779
+#: app/features/mec/meta_boxes/search_form.php:864
+#: app/features/mec/meta_boxes/search_form.php:985
 #, fuzzy
 #| msgid "Local Time"
 msgid "Local Time Picker"
 msgstr "Ora locale"
 
-#: app/features/mec/meta_boxes/search_form.php:104
-#: app/features/mec/meta_boxes/search_form.php:190
-#: app/features/mec/meta_boxes/search_form.php:276
-#: app/features/mec/meta_boxes/search_form.php:361
-#: app/features/mec/meta_boxes/search_form.php:446
-#: app/features/mec/meta_boxes/search_form.php:531
-#: app/features/mec/meta_boxes/search_form.php:602
-#: app/features/mec/meta_boxes/search_form.php:687
-#: app/features/mec/meta_boxes/search_form.php:772
-#: app/features/mec/meta_boxes/search_form.php:857
-#: app/features/mec/meta_boxes/search_form.php:978
+#: app/features/mec/meta_boxes/search_form.php:115
+#: app/features/mec/meta_boxes/search_form.php:201
+#: app/features/mec/meta_boxes/search_form.php:287
+#: app/features/mec/meta_boxes/search_form.php:372
+#: app/features/mec/meta_boxes/search_form.php:457
+#: app/features/mec/meta_boxes/search_form.php:542
+#: app/features/mec/meta_boxes/search_form.php:613
+#: app/features/mec/meta_boxes/search_form.php:698
+#: app/features/mec/meta_boxes/search_form.php:783
+#: app/features/mec/meta_boxes/search_form.php:868
+#: app/features/mec/meta_boxes/search_form.php:989
 msgid "Text Search"
 msgstr "Ricerca il testo"
 
-#: app/features/mec/meta_boxes/search_form.php:107
-#: app/features/mec/meta_boxes/search_form.php:193
-#: app/features/mec/meta_boxes/search_form.php:279
-#: app/features/mec/meta_boxes/search_form.php:364
-#: app/features/mec/meta_boxes/search_form.php:449
-#: app/features/mec/meta_boxes/search_form.php:534
-#: app/features/mec/meta_boxes/search_form.php:605
-#: app/features/mec/meta_boxes/search_form.php:690
-#: app/features/mec/meta_boxes/search_form.php:775
-#: app/features/mec/meta_boxes/search_form.php:860
-#: app/features/mec/meta_boxes/search_form.php:981
+#: app/features/mec/meta_boxes/search_form.php:118
+#: app/features/mec/meta_boxes/search_form.php:204
+#: app/features/mec/meta_boxes/search_form.php:290
+#: app/features/mec/meta_boxes/search_form.php:375
+#: app/features/mec/meta_boxes/search_form.php:460
+#: app/features/mec/meta_boxes/search_form.php:545
+#: app/features/mec/meta_boxes/search_form.php:616
+#: app/features/mec/meta_boxes/search_form.php:701
+#: app/features/mec/meta_boxes/search_form.php:786
+#: app/features/mec/meta_boxes/search_form.php:871
+#: app/features/mec/meta_boxes/search_form.php:992
 msgid "Text Input"
 msgstr "Inserisci testo"
 
-#: app/features/mec/meta_boxes/search_form.php:347
-#: app/features/mec/meta_boxes/search_form.php:432
-#: app/features/mec/meta_boxes/search_form.php:517
-#: app/features/mec/meta_boxes/search_form.php:673
-#: app/features/mec/meta_boxes/search_form.php:758
-#: app/features/mec/meta_boxes/search_form.php:843
-#: app/features/mec/meta_boxes/search_form.php:964
+#: app/features/mec/meta_boxes/search_form.php:358
+#: app/features/mec/meta_boxes/search_form.php:443
+#: app/features/mec/meta_boxes/search_form.php:528
+#: app/features/mec/meta_boxes/search_form.php:684
+#: app/features/mec/meta_boxes/search_form.php:769
+#: app/features/mec/meta_boxes/search_form.php:854
+#: app/features/mec/meta_boxes/search_form.php:975
 msgid "Month Filter"
 msgstr "Filtra per mese"
 
-#: app/features/mec/meta_boxes/search_form.php:869
-#: app/features/mec/meta_boxes/search_form.php:875
-#: app/features/mec/meta_boxes/search_form.php:881
-#: app/features/mec/meta_boxes/search_form.php:887
-#: app/features/mec/meta_boxes/search_form.php:893
-#: app/features/mec/meta_boxes/search_form.php:899
+#: app/features/mec/meta_boxes/search_form.php:880
+#: app/features/mec/meta_boxes/search_form.php:886
+#: app/features/mec/meta_boxes/search_form.php:892
+#: app/features/mec/meta_boxes/search_form.php:898
+#: app/features/mec/meta_boxes/search_form.php:904
+#: app/features/mec/meta_boxes/search_form.php:910
 msgid "No Search Options"
 msgstr "Nessuna opzione di ricerca"
 
@@ -5740,7 +5757,7 @@ msgid "Google Calendar"
 msgstr "Calendario Google"
 
 #: app/features/mec/modules.php:194 app/libraries/main.php:629
-#: app/modules/local-time/details.php:45 app/modules/local-time/type1.php:42
+#: app/modules/local-time/details.php:45 app/modules/local-time/type1.php:44
 #: app/widgets/single.php:101
 msgid "Local Time"
 msgstr "Ora locale"
@@ -6789,8 +6806,8 @@ msgstr ""
 msgid "only once per hour"
 msgstr ""
 
-#: app/features/mec/notifications.php:1203 app/libraries/main.php:7670
-#: app/libraries/main.php:7687
+#: app/features/mec/notifications.php:1203 app/libraries/main.php:7710
+#: app/libraries/main.php:7727
 #, fuzzy
 #| msgid "hours"
 msgid "Hours"
@@ -7066,7 +7083,7 @@ msgid "You can enable/disable Schema scripts"
 msgstr ""
 
 #: app/features/mec/settings.php:137 app/features/mec/settings.php:148
-#: app/libraries/main.php:6549 app/libraries/main.php:6603
+#: app/libraries/main.php:6586 app/libraries/main.php:6640
 msgid "Weekdays"
 msgstr "Settimanali"
 
@@ -7483,8 +7500,8 @@ msgstr "Data di inizio"
 msgid "Let WordPress decide"
 msgstr "Indirizzo"
 
-#: app/features/mec/settings.php:677 app/libraries/main.php:6825
-#: app/libraries/main.php:6847
+#: app/features/mec/settings.php:677 app/libraries/main.php:6862
+#: app/libraries/main.php:6884
 msgid "Pending"
 msgstr "In attesa"
 
@@ -7673,8 +7690,8 @@ msgstr "Campo obbligatorio"
 msgid "Event Description"
 msgstr "Descrizione"
 
-#: app/features/mec/settings.php:1025 app/libraries/main.php:6572
-#: app/libraries/main.php:6621
+#: app/features/mec/settings.php:1025 app/libraries/main.php:6609
+#: app/libraries/main.php:6658
 msgid "More Info Link"
 msgstr ""
 
@@ -8093,7 +8110,7 @@ msgstr ""
 msgid "Custom Fields"
 msgstr "Stili personalizzati"
 
-#: app/features/mec/single.php:241 app/libraries/main.php:3471
+#: app/features/mec/single.php:241 app/libraries/main.php:3472
 msgid "URL"
 msgstr ""
 
@@ -8177,7 +8194,7 @@ msgid "Enable Description For Other Locations."
 msgstr ""
 
 #: app/features/mec/single.php:372 app/libraries/main.php:610
-#: app/skins/single.php:180 app/skins/single.php:447
+#: app/skins/single.php:181 app/skins/single.php:448
 #, fuzzy
 #| msgid "featured event"
 msgid "Related Events"
@@ -9040,8 +9057,8 @@ msgstr "es. mario@rossi.it"
 msgid "eg. https://webnus.net"
 msgstr "http://webnus.biz"
 
-#: app/features/organizers.php:313 app/libraries/main.php:6577
-#: app/libraries/main.php:6624 app/skins/single.php:1329
+#: app/features/organizers.php:313 app/libraries/main.php:6614
+#: app/libraries/main.php:6661 app/skins/single.php:1330
 msgid "Other Organizers"
 msgstr ""
 
@@ -9051,14 +9068,14 @@ msgid ""
 msgstr ""
 
 #: app/features/organizers.php:324 app/features/organizers.php:332
-#: app/libraries/main.php:3352 app/libraries/main.php:3382
-#: app/libraries/main.php:3411 app/libraries/main.php:3440
-#: app/libraries/main.php:3470 app/libraries/main.php:3500
-#: app/libraries/main.php:3529 app/libraries/main.php:3559
-#: app/libraries/main.php:3589 app/libraries/main.php:3619
-#: app/libraries/main.php:3642 app/libraries/main.php:3689
-#: app/libraries/main.php:3736 app/libraries/main.php:3786
-#: app/libraries/main.php:3835
+#: app/libraries/main.php:3353 app/libraries/main.php:3383
+#: app/libraries/main.php:3412 app/libraries/main.php:3441
+#: app/libraries/main.php:3471 app/libraries/main.php:3501
+#: app/libraries/main.php:3530 app/libraries/main.php:3560
+#: app/libraries/main.php:3590 app/libraries/main.php:3620
+#: app/libraries/main.php:3643 app/libraries/main.php:3690
+#: app/libraries/main.php:3737 app/libraries/main.php:3787
+#: app/libraries/main.php:3836
 msgid "Sort"
 msgstr "Ordina"
 
@@ -9242,7 +9259,7 @@ msgstr "Si prega di %s/%s prima di inserire nuovi eventi."
 msgid "#"
 msgstr ""
 
-#: app/features/profile/profile.php:39 app/libraries/main.php:3810
+#: app/features/profile/profile.php:39 app/libraries/main.php:3811
 msgid "Status"
 msgstr ""
 
@@ -9307,7 +9324,7 @@ msgid "No search result."
 msgstr ""
 
 #: app/features/speakers.php:111 app/features/speakers.php:196
-#: app/features/speakers.php:284
+#: app/features/speakers.php:283
 #, fuzzy
 #| msgid "Title"
 msgid "Job Title"
@@ -9330,12 +9347,12 @@ msgid "Insert speaker email address."
 msgstr "Inserisci l'indirizzo email dell'organizzatore."
 
 #: app/features/speakers.php:135 app/features/speakers.php:208
-#: app/skins/single.php:1299 app/skins/single.php:1362
-#: app/skins/single/default.php:250 app/skins/single/default.php:321
-#: app/skins/single/default.php:488 app/skins/single/default.php:559
-#: app/skins/single/m1.php:126 app/skins/single/m1.php:180
-#: app/skins/single/m2.php:49 app/skins/single/m2.php:103
-#: app/skins/single/modern.php:74 app/skins/single/modern.php:132
+#: app/skins/single.php:1300 app/skins/single.php:1363
+#: app/skins/single/default.php:251 app/skins/single/default.php:322
+#: app/skins/single/default.php:490 app/skins/single/default.php:561
+#: app/skins/single/m1.php:126 app/skins/single/m1.php:181
+#: app/skins/single/m2.php:49 app/skins/single/m2.php:104
+#: app/skins/single/modern.php:75 app/skins/single/modern.php:133
 msgid "Website"
 msgstr "Sito web"
 
@@ -9397,11 +9414,11 @@ msgstr "Inserire -1 per utilizzo illimitato"
 msgid "Insert URL of linkedin"
 msgstr "Inserire -1 per utilizzo illimitato"
 
-#: app/features/speakers.php:344
+#: app/features/speakers.php:343
 msgid "Sorry, You must insert speaker name!"
 msgstr ""
 
-#: app/features/speakers.php:393
+#: app/features/speakers.php:392
 msgid ""
 "Note: You can use the speakers in your event edit/add page > hourly schedule "
 "section and speaker widget section!"
@@ -9463,59 +9480,59 @@ msgctxt "plugin link"
 msgid "Upgrade"
 msgstr ""
 
-#: app/libraries/factory.php:375
+#: app/libraries/factory.php:372
 msgid "day"
 msgstr "giorno"
 
-#: app/libraries/factory.php:376 app/modules/countdown/details.php:142
+#: app/libraries/factory.php:373 app/modules/countdown/details.php:142
 #: app/skins/available_spot/tpl.php:138 app/skins/countdown/tpl.php:120
 #: app/skins/countdown/tpl.php:166 app/skins/countdown/tpl.php:217
 msgid "days"
 msgstr "giorni"
 
-#: app/libraries/factory.php:377
+#: app/libraries/factory.php:374
 msgid "hour"
 msgstr "ora"
 
-#: app/libraries/factory.php:378 app/modules/countdown/details.php:149
+#: app/libraries/factory.php:375 app/modules/countdown/details.php:149
 #: app/skins/available_spot/tpl.php:142 app/skins/countdown/tpl.php:126
 #: app/skins/countdown/tpl.php:172 app/skins/countdown/tpl.php:223
 msgid "hours"
 msgstr "ore"
 
-#: app/libraries/factory.php:379
+#: app/libraries/factory.php:376
 msgid "minute"
 msgstr "minuto"
 
-#: app/libraries/factory.php:380 app/modules/countdown/details.php:156
+#: app/libraries/factory.php:377 app/modules/countdown/details.php:156
 #: app/skins/available_spot/tpl.php:146 app/skins/countdown/tpl.php:132
 #: app/skins/countdown/tpl.php:178 app/skins/countdown/tpl.php:229
 msgid "minutes"
 msgstr "minuti"
 
-#: app/libraries/factory.php:381
+#: app/libraries/factory.php:378
 msgid "second"
 msgstr "secondo"
 
-#: app/libraries/factory.php:382 app/modules/countdown/details.php:163
+#: app/libraries/factory.php:379 app/modules/countdown/details.php:163
 #: app/skins/available_spot/tpl.php:150 app/skins/countdown/tpl.php:138
 #: app/skins/countdown/tpl.php:184 app/skins/countdown/tpl.php:235
 msgid "seconds"
 msgstr "secondi"
 
-#: app/libraries/factory.php:428
+#: app/libraries/factory.php:425
 msgid "MEC Single Sidebar"
 msgstr ""
 
-#: app/libraries/factory.php:429
+#: app/libraries/factory.php:426
 msgid "Custom sidebar for single and modal page of MEC."
 msgstr ""
 
-#: app/libraries/factory.php:1171
+#: app/libraries/factory.php:1168
 msgid "Notice:"
 msgstr ""
 
-#: app/libraries/factory.php:1172
+#: app/libraries/factory.php:1169
 msgid "This update includes only bug fixes."
 msgstr ""
 
@@ -9614,38 +9631,38 @@ msgstr "Visualizza slider"
 msgid "Timeline View"
 msgstr "Visualizza slider"
 
-#: app/libraries/main.php:436 app/libraries/main.php:6551
-#: app/libraries/main.php:6605
+#: app/libraries/main.php:436 app/libraries/main.php:6588
+#: app/libraries/main.php:6642
 msgid "SU"
 msgstr "D"
 
-#: app/libraries/main.php:437 app/libraries/main.php:6552
-#: app/libraries/main.php:6606
+#: app/libraries/main.php:437 app/libraries/main.php:6589
+#: app/libraries/main.php:6643
 msgid "MO"
 msgstr "L"
 
-#: app/libraries/main.php:438 app/libraries/main.php:6553
-#: app/libraries/main.php:6607
+#: app/libraries/main.php:438 app/libraries/main.php:6590
+#: app/libraries/main.php:6644
 msgid "TU"
 msgstr "M"
 
-#: app/libraries/main.php:439 app/libraries/main.php:6554
-#: app/libraries/main.php:6608
+#: app/libraries/main.php:439 app/libraries/main.php:6591
+#: app/libraries/main.php:6645
 msgid "WE"
 msgstr "M"
 
-#: app/libraries/main.php:440 app/libraries/main.php:6555
-#: app/libraries/main.php:6609
+#: app/libraries/main.php:440 app/libraries/main.php:6592
+#: app/libraries/main.php:6646
 msgid "TH"
 msgstr "G"
 
-#: app/libraries/main.php:441 app/libraries/main.php:6556
-#: app/libraries/main.php:6610
+#: app/libraries/main.php:441 app/libraries/main.php:6593
+#: app/libraries/main.php:6647
 msgid "FR"
 msgstr "V"
 
-#: app/libraries/main.php:442 app/libraries/main.php:6557
-#: app/libraries/main.php:6611
+#: app/libraries/main.php:442 app/libraries/main.php:6594
+#: app/libraries/main.php:6648
 msgid "SA"
 msgstr "S"
 
@@ -9942,179 +9959,179 @@ msgstr "Pagamento"
 msgid "Payment Time"
 msgstr "Pagamento"
 
-#: app/libraries/main.php:3021
+#: app/libraries/main.php:3022
 #, fuzzy
 #| msgid "Request is invalid!"
 msgid "Request is not valid."
 msgstr "Richiesta non valida!"
 
-#: app/libraries/main.php:3021
+#: app/libraries/main.php:3022
 msgid "iCal export stopped!"
 msgstr "esportazione iCal annullata!"
 
-#: app/libraries/main.php:3359 app/libraries/main.php:3389
-#: app/libraries/main.php:3418 app/libraries/main.php:3447
-#: app/libraries/main.php:3477 app/libraries/main.php:3507
-#: app/libraries/main.php:3536 app/libraries/main.php:3566
-#: app/libraries/main.php:3596 app/libraries/main.php:3649
-#: app/libraries/main.php:3696 app/libraries/main.php:3743
-#: app/libraries/main.php:3793
+#: app/libraries/main.php:3360 app/libraries/main.php:3390
+#: app/libraries/main.php:3419 app/libraries/main.php:3448
+#: app/libraries/main.php:3478 app/libraries/main.php:3508
+#: app/libraries/main.php:3537 app/libraries/main.php:3567
+#: app/libraries/main.php:3597 app/libraries/main.php:3650
+#: app/libraries/main.php:3697 app/libraries/main.php:3744
+#: app/libraries/main.php:3794
 msgid "Required Field"
 msgstr "Campo obbligatorio"
 
-#: app/libraries/main.php:3365 app/libraries/main.php:3395
-#: app/libraries/main.php:3424 app/libraries/main.php:3453
-#: app/libraries/main.php:3483 app/libraries/main.php:3513
-#: app/libraries/main.php:3542 app/libraries/main.php:3572
-#: app/libraries/main.php:3602 app/libraries/main.php:3655
-#: app/libraries/main.php:3702 app/libraries/main.php:3749
-#: app/libraries/main.php:3799
+#: app/libraries/main.php:3366 app/libraries/main.php:3396
+#: app/libraries/main.php:3425 app/libraries/main.php:3454
+#: app/libraries/main.php:3484 app/libraries/main.php:3514
+#: app/libraries/main.php:3543 app/libraries/main.php:3573
+#: app/libraries/main.php:3603 app/libraries/main.php:3656
+#: app/libraries/main.php:3703 app/libraries/main.php:3750
+#: app/libraries/main.php:3800
 msgid "Insert a label for this field"
 msgstr "Inserisci una etichetta per questo campo"
 
-#: app/libraries/main.php:3625
+#: app/libraries/main.php:3626
 msgid "HTML and shortcode are allowed."
 msgstr "HTML e shortcode sono ammessi."
 
-#: app/libraries/main.php:3669 app/libraries/main.php:3716
-#: app/libraries/main.php:3763
+#: app/libraries/main.php:3670 app/libraries/main.php:3717
+#: app/libraries/main.php:3764
 msgid "Option"
 msgstr "Opzione"
 
-#: app/libraries/main.php:3799
+#: app/libraries/main.php:3800
 #, php-format
 msgid "Instead of %s, the page title with a link will be show."
 msgstr ""
 
-#: app/libraries/main.php:3801
+#: app/libraries/main.php:3802
 msgid "Agreement Page"
 msgstr ""
 
-#: app/libraries/main.php:3812
+#: app/libraries/main.php:3813
 msgid "Checked by default"
 msgstr ""
 
-#: app/libraries/main.php:3813
+#: app/libraries/main.php:3814
 msgid "Unchecked by default"
 msgstr ""
 
-#: app/libraries/main.php:3837
+#: app/libraries/main.php:3838
 msgid "Insert a label for this option"
 msgstr "Inserisci una etichetta per questa opzione"
 
-#: app/libraries/main.php:3850
+#: app/libraries/main.php:3851
 msgid "Free"
 msgstr "Gratuito"
 
-#: app/libraries/main.php:4525 app/libraries/main.php:6886
+#: app/libraries/main.php:4518 app/libraries/main.php:6923
 #, fuzzy
 #| msgid "M.E. Calendar"
 msgid "M.E. Calender"
 msgstr "Calendario"
 
-#: app/libraries/main.php:4681
+#: app/libraries/main.php:4674
 #, php-format
 msgid "Copy of %s"
 msgstr "Copia di %s"
 
-#: app/libraries/main.php:5571
+#: app/libraries/main.php:5608
 msgid "Booked an event."
 msgstr "Prenotato un evento."
 
-#: app/libraries/main.php:5612
+#: app/libraries/main.php:5649
 #, php-format
 msgid "%s booked %s event."
 msgstr "%s ha prenotato l'evento %s."
 
-#: app/libraries/main.php:6534 app/libraries/main.php:6588
+#: app/libraries/main.php:6571 app/libraries/main.php:6625
 msgid "Taxonomies"
 msgstr ""
 
-#: app/libraries/main.php:6536 app/libraries/main.php:6590
+#: app/libraries/main.php:6573 app/libraries/main.php:6627
 msgid "Category Plural Label"
 msgstr ""
 
-#: app/libraries/main.php:6537 app/libraries/main.php:6591
+#: app/libraries/main.php:6574 app/libraries/main.php:6628
 msgid "Category Singular Label"
 msgstr ""
 
-#: app/libraries/main.php:6538 app/libraries/main.php:6592
+#: app/libraries/main.php:6575 app/libraries/main.php:6629
 msgid "Label Plural Label"
 msgstr ""
 
-#: app/libraries/main.php:6539 app/libraries/main.php:6593
+#: app/libraries/main.php:6576 app/libraries/main.php:6630
 msgid "Label Singular Label"
 msgstr ""
 
-#: app/libraries/main.php:6539 app/libraries/main.php:6593
+#: app/libraries/main.php:6576 app/libraries/main.php:6630
 msgid "label"
 msgstr ""
 
-#: app/libraries/main.php:6540 app/libraries/main.php:6594
+#: app/libraries/main.php:6577 app/libraries/main.php:6631
 msgid "Location Plural Label"
 msgstr ""
 
-#: app/libraries/main.php:6541 app/libraries/main.php:6595
+#: app/libraries/main.php:6578 app/libraries/main.php:6632
 msgid "Location Singular Label"
 msgstr ""
 
-#: app/libraries/main.php:6542 app/libraries/main.php:6596
+#: app/libraries/main.php:6579 app/libraries/main.php:6633
 msgid "Organizer Plural Label"
 msgstr ""
 
-#: app/libraries/main.php:6543 app/libraries/main.php:6597
+#: app/libraries/main.php:6580 app/libraries/main.php:6634
 msgid "Organizer Singular Label"
 msgstr ""
 
-#: app/libraries/main.php:6544 app/libraries/main.php:6598
+#: app/libraries/main.php:6581 app/libraries/main.php:6635
 #, fuzzy
 #| msgid "Search Labels"
 msgid "Speaker Plural Label"
 msgstr "Cerca etichette"
 
-#: app/libraries/main.php:6545 app/libraries/main.php:6599
+#: app/libraries/main.php:6582 app/libraries/main.php:6636
 #, fuzzy
 #| msgid "Popular Labels"
 msgid "Speaker Singular Label"
 msgstr "Etichette frequenti"
 
-#: app/libraries/main.php:6551 app/libraries/main.php:6605
+#: app/libraries/main.php:6588 app/libraries/main.php:6642
 msgid "Sunday abbreviation"
 msgstr ""
 
-#: app/libraries/main.php:6552 app/libraries/main.php:6606
+#: app/libraries/main.php:6589 app/libraries/main.php:6643
 msgid "Monday abbreviation"
 msgstr ""
 
-#: app/libraries/main.php:6553 app/libraries/main.php:6607
+#: app/libraries/main.php:6590 app/libraries/main.php:6644
 msgid "Tuesday abbreviation"
 msgstr ""
 
-#: app/libraries/main.php:6554 app/libraries/main.php:6608
+#: app/libraries/main.php:6591 app/libraries/main.php:6645
 msgid "Wednesday abbreviation"
 msgstr ""
 
-#: app/libraries/main.php:6555 app/libraries/main.php:6609
+#: app/libraries/main.php:6592 app/libraries/main.php:6646
 msgid "Thursday abbreviation"
 msgstr ""
 
-#: app/libraries/main.php:6556 app/libraries/main.php:6610
+#: app/libraries/main.php:6593 app/libraries/main.php:6647
 msgid "Friday abbreviation"
 msgstr ""
 
-#: app/libraries/main.php:6557 app/libraries/main.php:6611
+#: app/libraries/main.php:6594 app/libraries/main.php:6648
 msgid "Saturday abbreviation"
 msgstr ""
 
-#: app/libraries/main.php:6561 app/libraries/main.php:6615
+#: app/libraries/main.php:6598 app/libraries/main.php:6652
 msgid "Others"
 msgstr ""
 
-#: app/libraries/main.php:6563
+#: app/libraries/main.php:6600
 msgid "Booking Success Message"
 msgstr ""
 
-#: app/libraries/main.php:6563
+#: app/libraries/main.php:6600
 #, fuzzy
 #| msgid ""
 #| "Thanks for your booking. Your tickets booked, booking verification might "
@@ -10127,240 +10144,240 @@ msgstr ""
 "essere necessario la verifica della prenotazione, si prega di controllare la "
 "posta elettronica."
 
-#: app/libraries/main.php:6564
+#: app/libraries/main.php:6601
 #, fuzzy
 #| msgid "Booking Verification"
 msgid "Booking Restriction Message 1"
 msgstr "Verifica prenotazione"
 
-#: app/libraries/main.php:6564
+#: app/libraries/main.php:6601
 #, php-format
 msgid ""
 "You selected %s tickets to book but maximum number of tikets per user is %s "
 "tickets."
 msgstr ""
 
-#: app/libraries/main.php:6565
+#: app/libraries/main.php:6602
 #, fuzzy
 #| msgid "Booking Verification"
 msgid "Booking Restriction Message 2"
 msgstr "Verifica prenotazione"
 
-#: app/libraries/main.php:6565
+#: app/libraries/main.php:6602
 #, php-format
 msgid ""
 "You booked %s tickets till now but maximum number of tickets per user is %s "
 "tickets."
 msgstr ""
 
-#: app/libraries/main.php:6566
+#: app/libraries/main.php:6603
 #, fuzzy
 #| msgid "Booking Verification"
 msgid "Booking IP Restriction Message"
 msgstr "Verifica prenotazione"
 
-#: app/libraries/main.php:6566
+#: app/libraries/main.php:6603
 #, php-format
 msgid "Maximum allowed number of tickets that you can book is %s."
 msgstr ""
 
-#: app/libraries/main.php:6567
+#: app/libraries/main.php:6604
 #, fuzzy
 #| msgid "Booking Options"
 msgid "Booking Button"
 msgstr "Opzioni di prenotazione"
 
-#: app/libraries/main.php:6567
+#: app/libraries/main.php:6604
 #, fuzzy
 #| msgid "Booking Form"
 msgid "Book Now"
 msgstr "Form Prenotazione"
 
-#: app/libraries/main.php:6568 app/libraries/main.php:6617
+#: app/libraries/main.php:6605 app/libraries/main.php:6654
 #: app/widgets/single.php:133
 msgid "Register Button"
 msgstr ""
 
-#: app/libraries/main.php:6568 app/libraries/main.php:6617
+#: app/libraries/main.php:6605 app/libraries/main.php:6654
 #: app/skins/available_spot/tpl.php:199 app/skins/carousel/render.php:101
 #: app/skins/carousel/render.php:140 app/skins/grid/render.php:93
 #: app/skins/grid/render.php:152 app/skins/grid/render.php:213
 #: app/skins/grid/render.php:236 app/skins/list/render.php:85
 #: app/skins/list/render.php:211 app/skins/masonry/render.php:142
-#: app/skins/single.php:507 app/skins/single.php:1237 app/skins/single.php:1240
-#: app/skins/single/default.php:340 app/skins/single/default.php:342
-#: app/skins/single/default.php:578 app/skins/single/default.php:580
+#: app/skins/single.php:508 app/skins/single.php:1238 app/skins/single.php:1241
+#: app/skins/single/default.php:341 app/skins/single/default.php:343
+#: app/skins/single/default.php:580 app/skins/single/default.php:582
 #: app/skins/single/m1.php:143 app/skins/single/m1.php:145
 #: app/skins/single/m2.php:66 app/skins/single/m2.php:68
-#: app/skins/single/modern.php:99 app/skins/single/modern.php:101
+#: app/skins/single/modern.php:100 app/skins/single/modern.php:102
 #: app/skins/slider/render.php:60 app/skins/slider/render.php:83
 #: app/skins/slider/render.php:105 app/skins/slider/render.php:128
 #: app/skins/slider/render.php:162
 msgid "REGISTER"
 msgstr "REGISTRA"
 
-#: app/libraries/main.php:6569 app/libraries/main.php:6618
+#: app/libraries/main.php:6606 app/libraries/main.php:6655
 msgid "View Detail Button"
 msgstr ""
 
-#: app/libraries/main.php:6569 app/libraries/main.php:6618
+#: app/libraries/main.php:6606 app/libraries/main.php:6655
 #: app/skins/carousel/render.php:101 app/skins/carousel/render.php:140
 #: app/skins/grid/render.php:93 app/skins/grid/render.php:152
 #: app/skins/grid/render.php:213 app/skins/grid/render.php:236
 #: app/skins/list/render.php:85 app/skins/list/render.php:211
-#: app/skins/masonry/render.php:142 app/skins/single.php:507
+#: app/skins/masonry/render.php:142 app/skins/single.php:508
 #: app/skins/slider/render.php:60 app/skins/slider/render.php:83
 #: app/skins/slider/render.php:105 app/skins/slider/render.php:128
 #: app/skins/slider/render.php:162
 msgid "View Detail"
 msgstr "Visualizza dettaglio"
 
-#: app/libraries/main.php:6570 app/libraries/main.php:6619
+#: app/libraries/main.php:6607 app/libraries/main.php:6656
 msgid "Event Detail Button"
 msgstr ""
 
-#: app/libraries/main.php:6570 app/libraries/main.php:6619
+#: app/libraries/main.php:6607 app/libraries/main.php:6656
 msgid "Event Detail"
 msgstr "Dettaglio evento"
 
-#: app/libraries/main.php:6575
+#: app/libraries/main.php:6612
 msgid "Ticket (Singular)"
 msgstr ""
 
-#: app/libraries/main.php:6576
+#: app/libraries/main.php:6613
 msgid "Tickets (Plural)"
 msgstr ""
 
-#: app/libraries/main.php:6734
+#: app/libraries/main.php:6771
 msgid "EventON"
 msgstr ""
 
-#: app/libraries/main.php:6735
+#: app/libraries/main.php:6772
 msgid "The Events Calendar"
 msgstr ""
 
-#: app/libraries/main.php:6736
+#: app/libraries/main.php:6773
 msgid "Events Schedule WP Plugin"
 msgstr ""
 
-#: app/libraries/main.php:6737
+#: app/libraries/main.php:6774
 msgid "Calendarize It"
 msgstr ""
 
-#: app/libraries/main.php:6738
+#: app/libraries/main.php:6775
 #, fuzzy
 #| msgid "No Search Options"
 msgid "Event Espresso"
 msgstr "Nessuna opzione di ricerca"
 
-#: app/libraries/main.php:6739
+#: app/libraries/main.php:6776
 #, fuzzy
 #| msgid "Event Repeating"
 msgid "Events Manager (Recurring)"
 msgstr "Ripetizione dell'evento"
 
-#: app/libraries/main.php:6740
+#: app/libraries/main.php:6777
 #, fuzzy
 #| msgid "Modern Events Calendar"
 msgid "Events Manager (Single)"
 msgstr "Calendario moderno degli eventi"
 
-#: app/libraries/main.php:6741
+#: app/libraries/main.php:6778
 #, fuzzy
 #| msgid "Modern Events Calendar"
 msgid "WP Event Manager"
 msgstr "Calendario moderno degli eventi"
 
-#: app/libraries/main.php:6873
+#: app/libraries/main.php:6910
 msgid "Waiting"
 msgstr "In attesa"
 
-#: app/libraries/main.php:6916
+#: app/libraries/main.php:6953
 #, fuzzy
 #| msgid "Sunday"
 msgid "Sun"
 msgstr "Domenica"
 
-#: app/libraries/main.php:6916
+#: app/libraries/main.php:6953
 #, fuzzy
 #| msgid "Month"
 msgid "Mon"
 msgstr "Mese"
 
-#: app/libraries/main.php:6916
+#: app/libraries/main.php:6953
 #, fuzzy
 #| msgid "Tel"
 msgid "Tue"
 msgstr "Tel"
 
-#: app/libraries/main.php:6916
+#: app/libraries/main.php:6953
 msgid "Wed"
 msgstr ""
 
-#: app/libraries/main.php:6916
+#: app/libraries/main.php:6953
 msgid "Thu"
 msgstr ""
 
-#: app/libraries/main.php:6916
+#: app/libraries/main.php:6953
 #, fuzzy
 #| msgid "Friday"
 msgid "Fri"
 msgstr "Venerdì"
 
-#: app/libraries/main.php:6916
+#: app/libraries/main.php:6953
 #, fuzzy
 #| msgid "Start"
 msgid "Sat"
 msgstr "Partenza"
 
-#: app/libraries/main.php:7105 app/libraries/render.php:82
+#: app/libraries/main.php:7142 app/libraries/render.php:82
 #: app/libraries/render.php:444
 msgid "Skin controller does not exist."
 msgstr "Non esiste il controllo dello stile."
 
-#: app/libraries/main.php:7320
+#: app/libraries/main.php:7360
 msgid "Sold Out"
 msgstr ""
 
-#: app/libraries/main.php:7340
+#: app/libraries/main.php:7380
 #, fuzzy
 #| msgid "Ticket"
 msgid "Last Few Tickets"
 msgstr "Ticket"
 
-#: app/libraries/main.php:7610
+#: app/libraries/main.php:7650
 #, fuzzy
 #| msgid "No Events"
 msgid "Ongoing"
 msgstr "Nessun evento"
 
-#: app/libraries/main.php:7676 app/libraries/main.php:7693
+#: app/libraries/main.php:7716 app/libraries/main.php:7733
 #, fuzzy
 #| msgid "minutes"
 msgid "Minutes"
 msgstr "minuti"
 
-#: app/libraries/main.php:7698
+#: app/libraries/main.php:7738
 msgid "AM / PM"
 msgstr ""
 
-#: app/libraries/main.php:7699
+#: app/libraries/main.php:7739
 msgid "AM"
 msgstr "AM"
 
-#: app/libraries/main.php:7700
+#: app/libraries/main.php:7740
 msgid "PM"
 msgstr "PM"
 
-#: app/libraries/main.php:7708
+#: app/libraries/main.php:7748
 msgid "Ongoing..."
 msgstr ""
 
-#: app/libraries/main.php:7709
+#: app/libraries/main.php:7749
 msgid "Expired!"
 msgstr ""
 
-#: app/libraries/main.php:7984
+#: app/libraries/main.php:8024
 msgid "Mapping with Profile Fields"
 msgstr ""
 
@@ -10428,25 +10445,32 @@ msgstr "+ Esporta iCal"
 msgid "+ %s to Google Calendar"
 msgstr "+ Aggiungi a Google Calendar"
 
-#: app/libraries/skins.php:1205
+#: app/libraries/skins.php:1230
 #, fuzzy
 #| msgid "Select All"
 msgid "Select"
 msgstr "Seleziona tutto"
 
-#: app/libraries/skins.php:1304
+#: app/libraries/skins.php:1294 app/modules/next-event/details.php:148
+#: app/skins/single.php:1211 app/skins/single/default.php:166
+#: app/skins/single/default.php:406 app/skins/single/m1.php:40
+#: app/skins/single/modern.php:231
+msgid "Time"
+msgstr "Ora"
+
+#: app/libraries/skins.php:1339
 #, fuzzy
 #| msgid "Option"
 msgid "Min Price"
 msgstr "Opzione"
 
-#: app/libraries/skins.php:1305
+#: app/libraries/skins.php:1340
 #, fuzzy
 #| msgid "Price"
 msgid "Max Price"
 msgstr "Prezzo"
 
-#: app/libraries/skins.php:1452 app/modules/booking/steps/tickets.php:108
+#: app/libraries/skins.php:1487 app/modules/booking/steps/tickets.php:108
 msgid "Book Event"
 msgstr "Evento prenotazione"
 
@@ -10593,7 +10617,7 @@ msgstr "Indirizzo da ..."
 msgid "Get Directions"
 msgstr ""
 
-#: app/modules/links/details.php:17 app/skins/single.php:920
+#: app/modules/links/details.php:17 app/skins/single.php:921
 msgid "Share this event"
 msgstr "Condividi questo evento"
 
@@ -10602,39 +10626,39 @@ msgstr "Condividi questo evento"
 msgid "Timezone: %s"
 msgstr "Fuso orario: %s"
 
-#: app/modules/local-time/details.php:48 app/modules/local-time/type1.php:43
+#: app/modules/local-time/details.php:48 app/modules/local-time/type1.php:45
 #, php-format
 msgid "Date: %s"
 msgstr "Data: %s"
 
-#: app/modules/local-time/details.php:50 app/modules/local-time/type1.php:45
+#: app/modules/local-time/details.php:50 app/modules/local-time/type1.php:47
 #, php-format
 msgid "Time: %s"
 msgstr "Ora: %s"
 
-#: app/modules/local-time/type2.php:64
+#: app/modules/local-time/type2.php:66
 #, fuzzy
 #| msgid "Local Time"
 msgid "Local Time:"
 msgstr "Ora locale"
 
-#: app/modules/local-time/type2.php:65
+#: app/modules/local-time/type2.php:67
 #, php-format
 msgid "%s |"
 msgstr ""
 
-#: app/modules/local-time/type2.php:67
+#: app/modules/local-time/type2.php:69
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: app/modules/local-time/type3.php:43
+#: app/modules/local-time/type3.php:45
 #, fuzzy, php-format
 #| msgid "Date: %s"
 msgid "Local Date: %s |"
 msgstr "Data: %s"
 
-#: app/modules/local-time/type3.php:45
+#: app/modules/local-time/type3.php:47
 #, fuzzy, php-format
 #| msgid "Local Time"
 msgid "Local Time: %s"
@@ -10647,12 +10671,6 @@ msgstr "Prossimo avvenimento"
 #: app/modules/next-event/details.php:139
 msgid "Go to occurrence page"
 msgstr "Vai alla pagina necessaria"
-
-#: app/modules/next-event/details.php:148 app/skins/single.php:1210
-#: app/skins/single/default.php:166 app/skins/single/default.php:405
-#: app/skins/single/m1.php:40 app/skins/single/modern.php:230
-msgid "Time"
-msgstr "Ora"
 
 #: app/modules/weather/darksky.php:31 app/modules/weather/darksky.php:33
 #: app/modules/weather/weatherapi.php:36 app/modules/weather/weatherapi.php:38
@@ -10762,13 +10780,13 @@ msgstr "Visualizzazione Griglia"
 msgid "Tile"
 msgstr "Visualizza slider"
 
-#: app/skins/monthly_view.php:371
+#: app/skins/monthly_view.php:382
 #, fuzzy, php-format
 #| msgid "Events for %s"
 msgid "Events for %s %s"
 msgstr "Eventi di %s"
 
-#: app/skins/monthly_view.php:373
+#: app/skins/monthly_view.php:384
 #, php-format
 msgid "Events for %s"
 msgstr "Eventi di %s"
@@ -10779,43 +10797,43 @@ msgstr "Eventi di %s"
 msgid "No Events"
 msgstr "Nessun evento"
 
-#: app/skins/single.php:346
+#: app/skins/single.php:347
 #, fuzzy
 #| msgid "View Event"
 msgid "PRV Event"
 msgstr "Visualizza Evento"
 
-#: app/skins/single.php:351
+#: app/skins/single.php:352
 #, fuzzy
 #| msgid "New Event"
 msgid "NXT Event"
 msgstr "Nuovo Evento"
 
-#: app/skins/single.php:548
+#: app/skins/single.php:549
 msgid "Home"
 msgstr ""
 
-#: app/skins/single.php:1004 app/skins/single/default.php:111
-#: app/skins/single/m1.php:283 app/skins/single/m2.php:204
-#: app/skins/single/modern.php:314
+#: app/skins/single.php:1005 app/skins/single/default.php:111
+#: app/skins/single/m1.php:284 app/skins/single/m2.php:205
+#: app/skins/single/modern.php:315
 msgid "Sold out!"
 msgstr ""
 
-#: app/skins/single.php:1285 app/skins/single.php:1348
-#: app/skins/single/default.php:307 app/skins/single/default.php:545
+#: app/skins/single.php:1286 app/skins/single.php:1349
+#: app/skins/single/default.php:308 app/skins/single/default.php:547
 #: app/skins/single/m1.php:112 app/skins/single/m2.php:35
-#: app/skins/single/modern.php:60
+#: app/skins/single/modern.php:61
 msgid "Phone"
 msgstr "Telefono"
 
-#: app/skins/single.php:1451
+#: app/skins/single.php:1452
 #, fuzzy
 #| msgid "No Search Options"
 msgid "Speakers:"
 msgstr "Nessuna opzione di ricerca"
 
-#: app/skins/single/default.php:130 app/skins/single/m1.php:300
-#: app/skins/single/m2.php:221 app/skins/single/modern.php:334
+#: app/skins/single/default.php:130 app/skins/single/m1.php:301
+#: app/skins/single/m2.php:222 app/skins/single/modern.php:335
 msgid "Tags: "
 msgstr "Tags: "
 
@@ -11510,9 +11528,6 @@ msgstr ""
 
 #~ msgid "Event Title: %s Event Start Date: %s"
 #~ msgstr "Titolo evento: %s Data di inizio dell'evento: %s"
-
-#~ msgid "Show all labels"
-#~ msgstr "Mostra tutte le etichette"
 
 #~ msgid "Show all organizers"
 #~ msgstr "Mostra tutti gli organizzatori"

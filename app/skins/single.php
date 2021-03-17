@@ -56,6 +56,7 @@ class MEC_skin_single extends MEC_skins
 
         // Search Form Status
         $this->sf_status = false;
+        $this->sf_display_label = false;
 
         // HTML class
         $this->html_class = '';
@@ -554,7 +555,7 @@ class MEC_skin_single extends MEC_skins
         if(trim($referer_url))
         {
             $referer_page_id = url_to_postid($referer_url);
-            if($referer_page_id)
+            if($referer_page_id and strpos(get_post_field('post_content', $referer_page_id), '[MEC') !== false)
             {
                 $archive_link = $referer_url;
                 $archive_title = get_the_title($referer_page_id);
@@ -712,7 +713,7 @@ class MEC_skin_single extends MEC_skins
     {
         if(get_post_type($event_ID) != $this->main->get_main_post_type()) return false;
 
-        /// Original Event ID for Multilingual Websites
+        // Original Event ID for Multilingual Websites
         $original_event_id = $this->main->get_original_event($event_ID);
 
         // MEC Settings

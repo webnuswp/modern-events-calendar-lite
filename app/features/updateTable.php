@@ -76,6 +76,8 @@ class MEC_feature_updateTable extends MEC_base
 
                     foreach($attendeesMeta as $attendeeMetaKey => $attendeeMeta)
                     {
+                        if(!isset($attendeeMeta['id'])) continue;
+
                         $tickets[$attendeeMetaKey]['price'] = isset($eventTickets[$attendeeMeta['id']]['price']) ? (float)$eventTickets[$attendeeMeta['id']]['price'] : 0;
                         if(isset($attendeeMeta['variations']) and is_array($attendeeMeta['variations']) and count($attendeeMeta['variations']))
                         {

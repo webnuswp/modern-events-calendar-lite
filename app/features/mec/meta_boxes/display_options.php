@@ -1095,6 +1095,16 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Reason for Cancellation -->
+                <div class="mec-form-row mec-switcher mec-not-monthly_view-fluent">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_monthly_view_activate_first_date"><?php _e('Activate First upcoming Date with Event', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][monthly_view][activate_first_date]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][monthly_view][activate_first_date]" id="mec_skin_monthly_view_activate_first_date" value="1" <?php if(isset($sk_options_monthly_view['activate_first_date']) and trim($sk_options_monthly_view['activate_first_date'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_monthly_view_activate_first_date"></label>
+                    </div>
+                </div>
                 <!-- <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Uppercase Text', 'modern-events-calendar-lite'); ?></label>

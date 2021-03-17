@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_main $this */
+
 // MEC Settings
 $settings = $this->get_settings();
 
@@ -34,7 +36,7 @@ if(empty($MEC_Events_dates_localtime)) $MEC_Events_dates_localtime = $MEC_Events
 $dates = array();
 if(is_array($MEC_Events_dates_localtime[$event_id]))
 {
-    $k = array_key_first($MEC_Events_dates_localtime[$event_id]);
+    $k = $this->array_key_first($MEC_Events_dates_localtime[$event_id]);
 
     $dates = (isset($MEC_Events_dates_localtime[$event_id][$k]) ? $MEC_Events_dates_localtime[$event_id][$k] : NULL);
     unset($MEC_Events_dates_localtime[$event_id][$k]);
