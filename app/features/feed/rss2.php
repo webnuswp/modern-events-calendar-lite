@@ -60,7 +60,11 @@ do_action('rss_tag_pre', 'rss2');
         <?php endif; ?>
 
         <mec:startDate><?php echo $date; ?></mec:startDate>
+        <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['start'])): ?><mec:startHour><?php echo $event->data->time['start']; ?></mec:startHour><?php endif; ?>
         <mec:endDate><?php echo $this->main->get_end_date_by_occurrence($event->ID, $date); ?></mec:endDate>
+        <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['end'])): ?><mec:endHour><?php echo $event->data->time['end']; ?></mec:endHour><?php endif; ?>
+
+        <?php if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']])): ?><mec:location><?php echo $event->data->locations[$event->data->meta['mec_location_id']]['address']; ?></mec:location><?php endif; ?>
 
         <?php if(isset($event->data->meta) and isset($event->data->meta['mec_cost']) and trim($event->data->meta['mec_cost'])): ?>
         <mec:cost><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']); ?></mec:cost>

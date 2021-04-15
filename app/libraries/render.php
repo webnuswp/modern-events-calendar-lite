@@ -607,7 +607,7 @@ class MEC_render extends MEC_base
         ), $post_id);
         $data->featured_image = $dataFeaturedImage;
 
-        $taxonomies = array('mec_label', 'mec_organizer', 'mec_location', 'mec_category', 'post_tag');
+        $taxonomies = array('mec_label', 'mec_organizer', 'mec_location', 'mec_category', apply_filters('mec_taxonomy_tag', ''));
         if(isset($this->settings['speakers_status']) and $this->settings['speakers_status']) $taxonomies[] = 'mec_speaker';
 
         $terms = wp_get_post_terms($post_id, $taxonomies, array('fields'=>'all'));
@@ -624,7 +624,7 @@ class MEC_render extends MEC_base
                 $data->locations[$term->term_id] = apply_filters('mec_map_load_location_terms', $locations, $term);
             }
             elseif($term->taxonomy == 'mec_category') $data->categories[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name);
-            elseif($term->taxonomy == 'post_tag') $data->tags[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name);
+            elseif($term->taxonomy == apply_filters('mec_taxonomy_tag', '')) $data->tags[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name);
             elseif($term->taxonomy == 'mec_speaker')
             {
                 $data->speakers[$term->term_id] = array(
@@ -962,7 +962,6 @@ class MEC_render extends MEC_base
         elseif(!$past)
         {
             $repeat_type = $event->meta['mec_repeat_type'];
-            $repeat_interval = 1;
 
             if(in_array($repeat_type, array('daily', 'weekly')))
             {
@@ -1045,6 +1044,8 @@ class MEC_render extends MEC_base
             }
             elseif($repeat_type == 'monthly')
             {
+                $repeat_interval = ((isset($event->meta) and isset($event->meta['mec_repeat_interval'])) ? max(1, $event->meta['mec_repeat_interval']) : 1);
+
                 // Start from Event Start Date
                 if(strtotime($start_date['date']) > strtotime($original_start_date)) $original_start_date = $start_date['date'];
 
@@ -1080,7 +1081,7 @@ class MEC_render extends MEC_base
 
                     if(strtotime($start_date.' '.$end_time) < strtotime($original_start_date))
                     {
-                        $i++;
+                        $i += $repeat_interval;
                         continue;
                     }
                     
@@ -1093,7 +1094,7 @@ class MEC_render extends MEC_base
                     ));
                     
                     $found++;
-                    $i++;
+                    $i += $repeat_interval;
                 }
             }
             elseif($repeat_type == 'yearly')

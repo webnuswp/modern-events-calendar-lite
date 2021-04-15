@@ -298,7 +298,7 @@ if(!is_array($booking_options)) $booking_options = array();
 
             <!-- Tags -->
             <div class="mec-events-meta-group mec-events-meta-group-tags">
-                <?php the_tags(__('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
+                <?php echo get_the_term_list($event->ID, apply_filters('mec_taxonomy_tag', ''), __('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
             </div>
 
         </div>

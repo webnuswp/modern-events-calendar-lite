@@ -116,7 +116,7 @@ class MEC_skin_yearly_view extends MEC_skins
         $this->args['meta_query'] = $this->meta_query();
         
         // Tag
-        $this->args['tag'] = $this->tag_query();
+        if(apply_filters('mec_taxonomy_tag', '') === 'post_tag') $this->args['tag'] = $this->tag_query();
         
         // Author
         $this->args['author'] = $this->author_query();

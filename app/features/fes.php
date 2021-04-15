@@ -499,7 +499,7 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_color', $color);
         
         // Tags
-        wp_set_post_tags($post_id, $post_tags);
+        wp_set_post_terms($post_id, $post_tags, apply_filters('mec_taxonomy_tag', ''));
         
         // Featured Image
         if(trim($featured_image)) $this->main->set_featured_image($featured_image, $post_id);
@@ -796,7 +796,7 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_advanced_days', $advanced);
         
         // Creating $event array for inserting in mec_events table
-        $event = array('post_id'=>$post_id, 'start'=>$start_date, 'repeat'=>$repeat_status, 'rinterval'=>(!in_array($repeat_type, array('daily', 'weekly')) ? NULL : $repeat_interval), 'time_start'=>$day_start_seconds, 'time_end'=>$day_end_seconds);
+        $event = array('post_id'=>$post_id, 'start'=>$start_date, 'repeat'=>$repeat_status, 'rinterval'=>(!in_array($repeat_type, array('daily', 'weekly', 'monthly')) ? NULL : $repeat_interval), 'time_start'=>$day_start_seconds, 'time_end'=>$day_end_seconds);
         
         $year = NULL;
         $month = NULL;

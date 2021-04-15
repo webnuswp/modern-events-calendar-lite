@@ -66,7 +66,7 @@ $navigator_html = '';
 // Show previous navigation
 if(strtotime(date('Y-m-t', $_1month_before)) >= time())
 {
-    $navigator_html .= '<div class="mec-previous-month mec-load-month mec-previous-month" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><i class="mec-sl-angle-left"></i> '.$this->main->date_i18n('F', $_1month_before).'</div>';
+    $navigator_html .= '<div class="mec-previous-month mec-load-month mec-previous-month" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><a href="#" class="mec-load-month-link"><i class="mec-sl-angle-left"></i> '.$this->main->date_i18n('F', $_1month_before).'</a></div>';
 }
 
 $navigator_html .= '<div class="mec-calendar-header"><h2>'.$this->main->date_i18n('F Y', $current_month_time).'</h2></div>';
@@ -74,7 +74,7 @@ $navigator_html .= '<div class="mec-calendar-header"><h2>'.$this->main->date_i18
 // Show next navigation
 if(strtotime(date('Y-m-01', $_1month_after)) >= time())
 {
-    $navigator_html .= '<div class="mec-next-month mec-load-month mec-next-month" data-mec-year="'.date('Y', $_1month_after).'" data-mec-month="'.date('m', $_1month_after).'">'.$this->main->date_i18n('F', $_1month_after).' <i class="mec-sl-angle-right"></i></div>';
+    $navigator_html .= '<div class="mec-next-month mec-load-month mec-next-month" data-mec-year="'.date('Y', $_1month_after).'" data-mec-month="'.date('m', $_1month_after).'"><a href="#" class="mec-load-month-link">'.$this->main->date_i18n('F', $_1month_after).' <i class="mec-sl-angle-right"></i></a></div>';
 }
 
 // Generating javascript code tpl

@@ -907,6 +907,18 @@ $events = $this->main->get_events();
                     </div>
                 </div>
                 <!-- End Display Reason for Cancellation -->
+                <!-- Start LocalTime -->
+                <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_full_calendar_localtime">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_full_calendar_include_local_time"><?php _e('Include Local Time', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][full_calendar][include_local_time]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][full_calendar][include_local_time]" id="mec_skin_full_calendar_include_local_time" value="1" <?php if(isset($sk_options_full_calendar['include_local_time']) and trim($sk_options_full_calendar['include_local_time'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_full_calendar_include_local_time"></label>
+                    </div>
+                </div>
+                <!-- End LocalTime -->
                 <?php echo $this->booking_button_field('full_calendar', (isset($sk_options_full_calendar['booking_button']) ? $sk_options_full_calendar['booking_button'] : 0)); ?>
                 <?php echo $this->sed_method_field('full_calendar', (isset($sk_options_full_calendar['sed_method']) ? $sk_options_full_calendar['sed_method'] : 0), (isset($sk_options_full_calendar['image_popup']) ? $sk_options_full_calendar['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_full_calendar_end', $sk_options_full_calendar); ?>
@@ -1389,9 +1401,19 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_timetable_limit"><?php _e('Events per day', 'modern-events-calendar-lite'); ?></label>
                     <input class="mec-col-4" type="number" name="mec[sk-options][timetable][limit]" id="mec_skin_timetable_limit" placeholder="<?php _e('eg. 6', 'modern-events-calendar-lite'); ?>" value="<?php if(isset($sk_options_timetable['limit'])) echo $sk_options_timetable['limit']; ?>" />
                 </div>
+                <div class="mec-timetable-modern-style-depended">
+                    <div class="mec-form-row">
+                        <label class="mec-col-4" for="mec_skin_timetable_number_of_days_modern"><?php _e('Number of Days Per Week', 'modern-events-calendar-lite'); ?></label>
+                        <select class="mec-col-4 wn-mec-select" name="mec[sk-options][timetable][number_of_days_modern]" id="mec_skin_timetable_number_of_days_modern">
+                            <option value="7" <?php if(isset($sk_options_timetable['number_of_days_modern']) and $sk_options_timetable['number_of_days_modern'] == '7') echo 'selected="selected"'; ?>>7</option>
+                            <option value="6" <?php if(isset($sk_options_timetable['number_of_days_modern']) and $sk_options_timetable['number_of_days_modern'] == '6') echo 'selected="selected"'; ?>>6</option>
+                            <option value="5" <?php if(isset($sk_options_timetable['number_of_days_modern']) and $sk_options_timetable['number_of_days_modern'] == '5') echo 'selected="selected"'; ?>>5</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="mec-timetable-clean-style-depended mec-timetable-fluent">
                     <div class="mec-form-row">
-                        <label class="mec-col-4" for="mec_skin_timetable_number_of_days"><?php _e('Number of Days', 'modern-events-calendar-lite'); ?></label>
+                        <label class="mec-col-4" for="mec_skin_timetable_number_of_days"><?php _e('Number of Days Per Week', 'modern-events-calendar-lite'); ?></label>
                         <select class="mec-col-4 wn-mec-select" name="mec[sk-options][timetable][number_of_days]" id="mec_skin_timetable_number_of_days">
                             <option value="5" <?php if(isset($sk_options_timetable['number_of_days']) and $sk_options_timetable['number_of_days'] == '5') echo 'selected="selected"'; ?>>5</option>
                             <option value="6" <?php if(isset($sk_options_timetable['number_of_days']) and $sk_options_timetable['number_of_days'] == '6') echo 'selected="selected"'; ?>>6</option>

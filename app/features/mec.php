@@ -170,6 +170,12 @@ class MEC_feature_mec extends MEC_base
 
         // Custom Capability Map
         $this->factory->filter('map_meta_cap', array($this, 'map_meta_cap'), 10, 4);
+
+        // Protected Content Shortcode
+        if($this->getPRO())
+        {
+            $this->factory->shortcode('mec-only-booked-users', array($this, 'only_booked_users_content'));
+        }
     }
 
     /* Activate License */
@@ -373,10 +379,13 @@ class MEC_feature_mec extends MEC_base
         // Don't do amything if the post type is not our post type
         if($post_type != $this->PT) return $parent_file;
 
+        // Tag Taxonomy
+        $tag_taxonomy = apply_filters('mec_taxonomy_tag', '');
+
         switch($taxonomy)
         {
             case 'mec_category':
-            case 'post_tag':
+            case $tag_taxonomy:
             case 'mec_label':
             case 'mec_location':
             case 'mec_organizer':
@@ -403,15 +412,18 @@ class MEC_feature_mec extends MEC_base
         // Don't do amything if the post type is not our post type
         if($post_type != $this->PT) return $submenu_file;
 
+        // Tag Taxonomy
+        $tag_taxonomy = apply_filters('mec_taxonomy_tag', '');
+
         switch($taxonomy)
         {
             case 'mec_category':
 
                 $submenu_file = 'edit-tags.php?taxonomy=mec_category&post_type='.$this->PT;
                 break;
-            case 'post_tag':
+            case $tag_taxonomy:
 
-                $submenu_file = 'edit-tags.php?taxonomy=post_tag&post_type='.$this->PT;
+                $submenu_file = 'edit-tags.php?taxonomy='.$tag_taxonomy.'&post_type='.$this->PT;
                 break;
             case 'mec_label':
 
@@ -460,7 +472,7 @@ class MEC_feature_mec extends MEC_base
         do_action('before_mec_submenu_action');
 
         add_submenu_page('mec-intro', __('Add Event', 'modern-events-calendar-lite'), __('Add Event', 'modern-events-calendar-lite'), 'edit_posts', 'post-new.php?post_type='.$this->PT);
-        add_submenu_page('mec-intro', __('Tags', 'modern-events-calendar-lite'), __('Tags', 'modern-events-calendar-lite'), 'edit_others_posts', 'edit-tags.php?taxonomy=post_tag&post_type='.$this->PT);
+        add_submenu_page('mec-intro', __('Tags', 'modern-events-calendar-lite'), __('Tags', 'modern-events-calendar-lite'), 'edit_others_posts', 'edit-tags.php?taxonomy='.apply_filters('mec_taxonomy_tag', '').'&post_type='.$this->PT);
         add_submenu_page('mec-intro', $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')), $this->main->m('taxonomy_categories', __('Categories', 'modern-events-calendar-lite')), 'edit_others_posts', 'edit-tags.php?taxonomy=mec_category&post_type='.$this->PT);
         add_submenu_page('mec-intro', $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')), $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')), 'edit_others_posts', 'edit-tags.php?taxonomy=mec_label&post_type='.$this->PT);
         add_submenu_page('mec-intro', $this->main->m('taxonomy_locations', __('Locations', 'modern-events-calendar-lite')), $this->main->m('taxonomy_locations', __('Locations', 'modern-events-calendar-lite')), 'edit_others_posts', 'edit-tags.php?taxonomy=mec_location&post_type='.$this->PT);
@@ -475,6 +487,7 @@ class MEC_feature_mec extends MEC_base
         add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), 'mec_shortcodes', 'edit.php?post_type=mec_calendars');
         add_submenu_page('mec-intro', __('MEC - Settings', 'modern-events-calendar-lite'), __('Settings', 'modern-events-calendar-lite'), 'mec_settings', 'MEC-settings', array($this, 'page'));
         add_submenu_page('mec-intro', __('MEC - Addons', 'modern-events-calendar-lite'), __('Addons', 'modern-events-calendar-lite'), 'manage_options', 'MEC-addons', array($this, 'addons'));
+        //add_submenu_page('mec-intro', __('MEC - Wizard', 'modern-events-calendar-lite'), __('Wizard', 'modern-events-calendar-lite'), 'manage_options', 'MEC-wizard', array($this, 'setup_wizard'));
 
         if(isset($this->settings['booking_status']) and $this->settings['booking_status'])
         {
@@ -483,6 +496,30 @@ class MEC_feature_mec extends MEC_base
 
         if(!$this->getPRO()) add_submenu_page('mec-intro', __('MEC - Go Pro', 'modern-events-calendar-lite'), __('Go Pro', 'modern-events-calendar-lite'), 'manage_options', 'MEC-go-pro', array($this, 'go_pro'));
         do_action('after_mec_submenu_action');
+    }
+
+    
+    /**
+     * Get Wizard page
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function setup_wizard()
+    {
+        $this->display_wizard();
+    }
+
+    /**
+     * Show Wizard page
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function display_wizard()
+    {
+        $path = MEC::import('app.features.mec.wizard', true, true);
+        ob_start();
+        include $path;
+        echo $output = ob_get_clean();
     }
 
     /**
@@ -806,6 +843,9 @@ class MEC_feature_mec extends MEC_base
         elseif($tab == 'MEC-single') $this->single();
         elseif($tab == 'MEC-booking') $this->booking();
         elseif($tab == 'MEC-modules') $this->modules();
+        elseif (apply_filters('mec_is_custom_settings',false,$tab)){
+        	do_action('mec_display_settings_page',$tab);
+		}
         else $this->settings();
     }
 
@@ -1327,7 +1367,7 @@ class MEC_feature_mec extends MEC_base
                         labels: ['.trim($labels, ', ').'],
                         datasets: [
                         {
-                            label: "'.esc_js(sprintf(__('Total Sells (%s)', 'modern-events-calendar-lite'), $currency)).'",
+                            label: "'.esc_js(sprintf(__('Total Sales (%s)', 'modern-events-calendar-lite'), $currency)).'",
                             data: ['.trim($stats, ', ').'],
                             backgroundColor: "rgba(159, 216, 255, 0.3)",
                             borderColor: "#36A2EB",
@@ -1454,5 +1494,34 @@ class MEC_feature_mec extends MEC_base
     {
         if('mec_bookings' == $cap) $caps = array('mec_bookings');
         return $caps;
+    }
+
+    public function only_booked_users_content($atts, $content = '')
+    {
+        // Current User
+        $user_id = get_current_user_id();
+
+        // Guest User
+        if(!$user_id) return '';
+
+        // Event
+        global $mec_current_event;
+
+        // Invalid Event
+        if(!$mec_current_event or ($mec_current_event and !isset($mec_current_event->ID))) return '';
+
+        // Date
+        $date = (isset($mec_current_event->date) ? $mec_current_event->date : array());
+        $start_timestamp = (isset($date['start']) and isset($date['start']['timestamp'])) ? $date['start']['timestamp'] : NULL;
+        $end_timestamp = (isset($date['end']) and isset($date['end']['timestamp'])) ? $date['end']['timestamp'] : NULL;
+
+        // Invalid Date
+        if(!$start_timestamp or !$end_timestamp) return '';
+
+        // Not Booked
+        if(!$this->main->is_user_booked($user_id, $mec_current_event->ID, $start_timestamp)) return '';
+
+        // Booked
+        return $content;
     }
 }

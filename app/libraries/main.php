@@ -656,6 +656,7 @@ class MEC_main extends MEC_base
 
             $notifications_items[__('Notifications Per Event', 'modern-events-calendar-lite')] = 'notifications_per_event';
             $single_event[__('Edit Per Occurrences', 'modern-events-calendar-lite')] = 'per_occurrences';
+            $single_event[__('Only For Bookers', 'modern-events-calendar-lite')] = 'shortcode_only_bookers';
         }
 
         $notifications = apply_filters('mec-settings-item-notifications', $notifications_items, $active_menu);
@@ -768,6 +769,9 @@ class MEC_main extends MEC_base
                 </ul>
             </li>
             <?php endif; ?>
+
+			<!-- Custom Menus -->
+			<?php do_action('mec_settings_sidebar', $active_menu ); ?>
 
             <!-- Modules -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'modules' ? 'active' : ''; ?>">
@@ -1492,6 +1496,13 @@ class MEC_main extends MEC_base
             $current['event_fields'] = array();
             $current['event_fields'] = $filtered['event_fields'];
         }
+
+        // Tag Method Changed
+        $old_tag_method = ((isset($current['settings']) and isset($current['settings']['tag_method'])) ? $current['settings']['tag_method'] : 'post_tag');
+        if(isset($filtered['settings']) and isset($filtered['settings']['tag_method']) and $filtered['settings']['tag_method'] != $old_tag_method)
+        {
+            do_action('mec_tag_method_changed', $filtered['settings']['tag_method'], $old_tag_method);
+        }
         
         // Generate New Options
         $final = $current;
@@ -1514,7 +1525,7 @@ class MEC_main extends MEC_base
             else $final[$key] = $value;
         }
 
-        $final = apply_filters( 'mec_save_options_final',$final );
+        $final = apply_filters('mec_save_options_final', $final);
 
         // MEC Save Options
         do_action('mec_save_options', $final);
@@ -3744,6 +3755,13 @@ class MEC_main extends MEC_base
                     '.__('Required Field', 'modern-events-calendar-lite').'
                 </label>
             </p>
+            <p class="mec_'.$prefix.'_field_options">
+                <label>
+                    <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][ignore]" value="0" />
+                    <input type="checkbox" name="mec['.$prefix.'_fields]['.$key.'][ignore]" value="1" '.((isset($values['ignore']) and $values['ignore']) ? 'checked="checked"' : '').' />
+                    '.__('Consider the first item as a placeholder', 'modern-events-calendar-lite').'
+                </label>
+            </p>
             <span onclick="mec_'.$prefix.'_fields_remove('.$key.');" class="mec_'.$prefix.'_field_remove">'.__('Remove', 'modern-events-calendar-lite').'</span>
             <div>
                 <input type="hidden" name="mec['.$prefix.'_fields]['.$key.'][type]" value="select" />
@@ -5286,12 +5304,12 @@ class MEC_main extends MEC_base
         $name = isset($tag['name']) ? $tag['name'] : '';
         if(!trim($name)) return false;
 
-        $term = get_term_by('name', $name, 'post_tag');
+        $term = get_term_by('name', $name, apply_filters('mec_taxonomy_tag', ''));
 
         // Term already exists
         if(is_object($term) and isset($term->term_id)) return $term->term_id;
 
-        $term = wp_insert_term($name, 'post_tag');
+        $term = wp_insert_term($name, apply_filters('mec_taxonomy_tag', ''));
 
         // An error ocurred
         if(is_wp_error($term)) return false;
@@ -5741,30 +5759,54 @@ class MEC_main extends MEC_base
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
         $event = get_post($event_id);
 
-        // MEC User
-        $u = $this->getUser();
-        $booker = $u->booking($book_id);
+        $book = $this->getBook();
+        $attendees = $book->get_attendees($book_id);
 
         $data_center = substr($api_key, strpos($api_key, '-') + 1);
         $subscription_status = isset($settings['mchimp_subscription_status']) ? $settings['mchimp_subscription_status'] : 'subscribed';
 
         $url = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/';
-        $member_response = wp_remote_post($url, array(
-            'body' => json_encode(array
-            (
-                'email_address'=>$booker->user_email,
-                'status'=>$subscription_status,
-                'merge_fields'=>array
+
+        $member_response = NULL;
+        $did = array();
+
+        foreach($attendees as $attendee)
+        {
+            // Name
+            $name = ((isset($attendee['name']) and trim($attendee['name'])) ? $attendee['name'] : '');
+
+            // Email
+            $email = ((isset($attendee['email']) and trim($attendee['email'])) ? $attendee['email'] : '');
+            if(!is_email($email)) continue;
+
+            // No Duplicate
+            if(in_array($did, $email)) continue;
+            $did[] = $email;
+
+            $names = explode(' ', $name);
+
+            $first_name = $names[0];
+            unset($names[0]);
+
+            $last_name = implode(' ', $names);
+
+            $member_response = wp_remote_post($url, array(
+                'body' => json_encode(array
                 (
-                    'FNAME'=>$booker->first_name,
-                    'LNAME'=>$booker->last_name
-                ),
-                'tags'=>array($booking_date, $event->post_title)
-            )),
-            'timeout' => '10',
-            'redirection' => '10',
-            'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode('user:' . $api_key)),
-        ));
+                    'email_address'=>$email,
+                    'status'=>$subscription_status,
+                    'merge_fields'=>array
+                    (
+                        'FNAME'=>$first_name,
+                        'LNAME'=>$last_name
+                    ),
+                    'tags'=>array($booking_date, $event->post_title)
+                )),
+                'timeout' => '10',
+                'redirection' => '10',
+                'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode('user:' . $api_key)),
+            ));
+        }
 
         // Handle Segment
         if($segment_status)
@@ -5776,8 +5818,7 @@ class MEC_main extends MEC_base
                     'name'=>sprintf('%s at %s', $event->post_title, $booking_date),
                     'options'=>array(
                         'match'=>'any',
-                        'conditions'=>array(
-                        )
+                        'conditions'=>array()
                     )
                 )),
                 'timeout' => '10',
@@ -5786,7 +5827,7 @@ class MEC_main extends MEC_base
             ));
         }
 
-        return wp_remote_retrieve_response_code($member_response);
+        return ($member_response ? wp_remote_retrieve_response_code($member_response) : false);
     }
 
     /**
@@ -6114,9 +6155,10 @@ class MEC_main extends MEC_base
      * @param int $event_id
      * @param integer $timestamp
      * @param integer|string $limit
+     * @param integer $user_id
      * @return array
      */
-    public function get_bookings($event_id, $timestamp, $limit = '-1')
+    public function get_bookings($event_id, $timestamp, $limit = '-1', $user_id = NULL)
     {
         $booking_options = get_post_meta($event_id, 'mec_booking', true);
         if(!is_array($booking_options)) $booking_options = array();
@@ -6155,6 +6197,7 @@ class MEC_main extends MEC_base
             'posts_per_page'=>$limit,
             'post_status'=>array('future', 'publish'),
             'date_query'=>$date_query,
+            'author'=>$user_id,
             'meta_query'=>array
             (
                 array(
@@ -6987,7 +7030,11 @@ class MEC_main extends MEC_base
                 $freq = 'WEEKLY';
                 $interval = ($event->mec->rinterval/7);
             }
-            elseif($repeat_type == 'monthly') $freq = 'MONTHLY';
+            elseif($repeat_type == 'monthly')
+            {
+                $freq = 'MONTHLY';
+                $interval = $event->mec->rinterval;
+            }
             elseif($repeat_type == 'yearly') $freq = 'YEARLY';
             elseif($repeat_type == 'weekday')
             {
@@ -8027,5 +8074,109 @@ class MEC_main extends MEC_base
         $dropdown .= '</select>';
 
         return $dropdown;
+    }
+
+    public function wizard_import_dummy_events() {
+        if(apply_filters('mec_activation_import_events', true))
+        {
+            // Create Default Events
+            $events = array
+            (
+                array('title'=>'One Time Multiple Day Event', 'start'=>date('Y-m-d', strtotime('+5 days')), 'end'=>date('Y-m-d', strtotime('+7 days')), 'finish'=>date('Y-m-d', strtotime('+7 days')), 'repeat_type'=>'', 'repeat_status'=>0, 'interval'=>NULL, 'meta'=>array('mec_color'=>'dd823b')),
+                array('title'=>'Daily each 3 days', 'start'=>date('Y-m-d'), 'end'=>date('Y-m-d'), 'repeat_type'=>'daily', 'repeat_status'=>1, 'interval'=>3, 'meta'=>array('mec_color'=>'a3b745')),
+                array('title'=>'Weekly on Mondays', 'start'=>date('Y-m-d', strtotime('Next Monday')), 'end'=>date('Y-m-d', strtotime('Next Monday')), 'repeat_type'=>'weekly', 'repeat_status'=>1, 'interval'=>7, 'meta'=>array('mec_color'=>'e14d43')),
+                array('title'=>'Monthly on 27th', 'start'=>date('Y-m-27'), 'end'=>date('Y-m-27'), 'repeat_type'=>'monthly', 'repeat_status'=>1, 'interval'=>NULL, 'year'=>'*', 'month'=>'*', 'day'=>',27,', 'week'=>'*', 'weekday'=>'*', 'meta'=>array('mec_color'=>'00a0d2')),
+                array('title'=>'Yearly on August 20th and 21st', 'start'=>date('Y-08-20'), 'end'=>date('Y-08-21'), 'repeat_type'=>'yearly', 'repeat_status'=>1, 'interval'=>NULL, 'year'=>'*', 'month'=>',08,', 'day'=>',20,21,', 'week'=>'*', 'weekday'=>'*', 'meta'=>array('mec_color'=>'fdd700')),
+            );
+
+            // Import Events
+            $this->save_events($events);
+        }
+    }
+
+    public function wizard_import_dummy_shortcodes() {
+        if(apply_filters('mec_activation_import_shortcodes', true))
+        {
+            // Search Form Options
+            $sf_options = array('category'=>array('type'=>'dropdown'), 'text_search'=>array('type'=>'text_input'));
+
+            // Create Default Calendars
+            $calendars = array
+            (
+                array('title'=>'Full Calendar', 'meta'=>array('skin'=>'full_calendar', 'show_past_events'=>1, 'sk-options'=>array('full_calendar'=>array('start_date_type'=>'today', 'default_view'=>'list', 'monthly'=>1, 'weekly'=>1, 'daily'=>1, 'list'=>1)), 'sf-options'=>array('full_calendar'=>array('month_filter'=>array('type'=>'dropdown'), 'text_search'=>array('type'=>'text_input'))), 'sf_status'=>1)),
+                array('title'=>'Monthly View', 'meta'=>array('skin'=>'monthly_view', 'show_past_events'=>1, 'sk-options'=>array('monthly_view'=>array('start_date_type'=>'start_current_month', 'next_previous_button'=>1)), 'sf-options'=>array('monthly_view'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Weekly View', 'meta'=>array('skin'=>'weekly_view', 'show_past_events'=>1, 'sk-options'=>array('weekly_view'=>array('start_date_type'=>'start_current_month', 'next_previous_button'=>1)), 'sf-options'=>array('weekly_view'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Daily View', 'meta'=>array('skin'=>'daily_view', 'show_past_events'=>1, 'sk-options'=>array('daily_view'=>array('start_date_type'=>'start_current_month', 'next_previous_button'=>1)), 'sf-options'=>array('daily_view'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Map View', 'meta'=>array('skin'=>'map', 'show_past_events'=>1, 'sk-options'=>array('map'=>array('limit'=>200)), 'sf-options'=>array('map'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Upcoming events (List)', 'meta'=>array('skin'=>'list', 'show_past_events'=>0, 'sk-options'=>array('list'=>array('load_more_button'=>1)), 'sf-options'=>array('list'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Upcoming events (Grid)', 'meta'=>array('skin'=>'grid', 'show_past_events'=>0, 'sk-options'=>array('grid'=>array('load_more_button'=>1)), 'sf-options'=>array('grid'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Carousel View', 'meta'=>array('skin'=>'carousel', 'show_past_events'=>0, 'sk-options'=>array('carousel'=>array('count'=>3, 'limit'=>12)), 'sf-options'=>array('carousel'=>$sf_options), 'sf_status'=>0)),
+                array('title'=>'Countdown View', 'meta'=>array('skin'=>'countdown', 'show_past_events'=>0, 'sk-options'=>array('countdown'=>array('style'=>'style3', 'event_id'=>'-1')), 'sf-options'=>array('countdown'=>$sf_options), 'sf_status'=>0)),
+                array('title'=>'Slider View', 'meta'=>array('skin'=>'slider', 'show_past_events'=>0, 'sk-options'=>array('slider'=>array('style'=>'t1', 'limit'=>6, 'autoplay'=>3000)), 'sf-options'=>array('slider'=>$sf_options), 'sf_status'=>0)),
+                array('title'=>'Masonry View', 'meta'=>array('skin'=>'masonry', 'show_past_events'=>0, 'sk-options'=>array('masonry'=>array('limit'=>24, 'filter_by'=>'category')), 'sf-options'=>array('masonry'=>$sf_options), 'sf_status'=>0)),
+                array('title'=>'Agenda View', 'meta'=>array('skin'=>'agenda', 'show_past_events'=>0, 'sk-options'=>array('agenda'=>array('load_more_button'=>1)), 'sf-options'=>array('agenda'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Timetable View', 'meta'=>array('skin'=>'timetable', 'show_past_events'=>0, 'sk-options'=>array('timetable'=>array('next_previous_button'=>1)), 'sf-options'=>array('timetable'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Tile View', 'meta'=>array('skin'=>'tile', 'show_past_events'=>0, 'sk-options'=>array('tile'=>array('next_previous_button'=>1)), 'sf-options'=>array('tile'=>$sf_options), 'sf_status'=>1)),
+                array('title'=>'Timeline View', 'meta'=>array('skin'=>'timeline', 'show_past_events'=>0, 'sk-options'=>array('timeline'=>array('load_more_button'=>1)), 'sf-options'=>array('timeline'=>$sf_options), 'sf_status'=>0)),
+            );
+
+            foreach($calendars as $calendar)
+            {
+                // Calendar exists
+                if(post_exists($calendar['title'], 'MEC')) continue;
+
+                $post = array('post_title'=>$calendar['title'], 'post_content'=>'MEC', 'post_type'=>'mec_calendars', 'post_status'=>'publish');
+                $post_id = wp_insert_post($post);
+
+                update_post_meta($post_id, 'label', '');
+                update_post_meta($post_id, 'category', '');
+                update_post_meta($post_id, 'location', '');
+                update_post_meta($post_id, 'organizer', '');
+                update_post_meta($post_id, 'tag', '');
+                update_post_meta($post_id, 'author', '');
+
+                foreach($calendar['meta'] as $key=>$value) update_post_meta($post_id, $key, $value);
+            }
+        }
+    }
+
+    public function save_wizard_options() {
+        $request = $this->getRequest();
+        $mec = $request->getVar('mec', array());
+
+        $filtered = array();
+        foreach($mec as $key=>$value) $filtered[$key] = (is_array($value) ? $value : array());
+
+
+        $current = get_option('mec_options', array());
+        $final = $current;
+
+        // Merge new options with previous options
+        foreach($filtered as $key=>$value)
+        {
+            if(is_array($value))
+            {
+                foreach($value as $k=>$v)
+                {
+                    // Define New Array
+                    if(!isset($final[$key])) $final[$key] = array();
+
+                    // Overwrite Old Value
+                    $final[$key][$k] = $v;
+                }
+            }
+            // Overwrite Old Value
+            else $final[$key] = $value;
+        }
+
+        update_option('mec_options', $final);
+
+        die();
+    }
+
+    public function is_user_booked($user_id, $event_id, $timestamp)
+    {
+        $bookings = $this->get_bookings($event_id, $timestamp, 1, $user_id);
+        return (boolean) count($bookings);
     }
 }

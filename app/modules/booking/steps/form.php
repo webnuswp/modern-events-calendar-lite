@@ -129,8 +129,8 @@ if(isset($reg_fields['form_style_url'])){
                         } else {
                             _e($bfixed_field['label'], 'modern-events-calendar-lite');
                         }; ?>" <?php if (isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?>>
-                            <?php foreach ($bfixed_field['options'] as $bfixed_field_option) : ?>
-                                <option value="<?php esc_attr_e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?>"><?php _e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?></option>
+                            <?php $bfd = 0; foreach ($bfixed_field['options'] as $bfixed_field_option) : $bfd++; ?>
+                                <option value="<?php echo (($bfd == 1 and isset($bfixed_field['ignore']) and $bfixed_field['ignore']) ? '' : esc_attr__($bfixed_field_option['label'], 'modern-events-calendar-lite')); ?>"><?php _e($bfixed_field_option['label'], 'modern-events-calendar-lite'); ?></option>
                             <?php endforeach; ?>
                         </select>
 
@@ -260,8 +260,8 @@ if(isset($reg_fields['form_style_url'])){
                                 } else {
                                     _e($reg_field['label'], 'modern-events-calendar-lite');
                                 }; ?>" <?php if (isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?>>
-                                    <?php foreach ($reg_field['options'] as $reg_field_option) : ?>
-                                        <option value="<?php esc_attr_e($reg_field_option['label'], 'modern-events-calendar-lite'); ?>"><?php _e($reg_field_option['label'], 'modern-events-calendar-lite'); ?></option>
+                                    <?php $rd = 0; foreach ($reg_field['options'] as $reg_field_option) : $rd++; ?>
+                                        <option value="<?php echo (($rd == 1 and isset($reg_field['ignore']) and $reg_field['ignore']) ? '' : esc_attr__($reg_field_option['label'], 'modern-events-calendar-lite')); ?>"><?php _e($reg_field_option['label'], 'modern-events-calendar-lite'); ?></option>
                                     <?php endforeach; ?>
                                 </select>
 

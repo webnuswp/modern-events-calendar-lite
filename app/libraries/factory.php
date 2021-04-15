@@ -101,6 +101,14 @@ class MEC_factory extends MEC_base
         $this->action('wp_ajax_mec_save_styling', array($this->main, 'save_options'));
         $this->action('wp_ajax_mec_save_notifications', array($this->main, 'save_notifications'));
         $this->action('wp_ajax_mec_save_messages', array($this->main, 'save_options'));
+        $this->action('wp_ajax_wizard_import_dummy_events', array($this->main, 'wizard_import_dummy_events'));
+        $this->action('wp_ajax_wizard_import_dummy_shortcodes', array($this->main, 'wizard_import_dummy_shortcodes'));
+        $this->action('wp_ajax_wizard_save_weekdays', array($this->main, 'save_wizard_options'));
+        $this->action('wp_ajax_wizard_save_slug', array($this->main, 'save_wizard_options'));
+        $this->action('wp_ajax_wizard_save_module', array($this->main, 'save_wizard_options'));
+        $this->action('wp_ajax_wizard_save_single', array($this->main, 'save_wizard_options'));
+        $this->action('wp_ajax_wizard_save_booking', array($this->main, 'save_wizard_options'));
+        $this->action('wp_ajax_wizard_save_styling', array($this->main, 'save_wizard_options'));
     }
     
     /**
@@ -1123,7 +1131,7 @@ class MEC_factory extends MEC_base
 
             // It's one of MEC taxonomy pages
             if(trim($taxonomy) and in_array($taxonomy, array(
-                'post_tag', 'mec_category', 'mec_label', 'mec_location', 'mec_organizer', 'mec_speaker', 'mec_coupon'
+                apply_filters('mec_taxonomy_tag', ''), 'mec_category', 'mec_label', 'mec_location', 'mec_organizer', 'mec_speaker', 'mec_coupon'
             ))) return true;
 
             // It's one of MEC post type pages

@@ -379,6 +379,27 @@ class MEC_skins extends MEC_base
             );
         }
 
+        // Add event tags to filter
+        if(apply_filters('mec_taxonomy_tag', '') !== 'post_tag' and isset($this->atts['tag']) and trim($this->atts['tag'], ', ') != '')
+        {
+            if(is_numeric($this->atts['tag']))
+            {
+                $tax_query[] = array(
+                    'taxonomy'=>'mec_tag',
+                    'field'=>'term_id',
+                    'terms'=>explode(',', trim($this->atts['tag'], ', '))
+                );
+            }
+            else
+            {
+                $tax_query[] = array(
+                    'taxonomy'=>'mec_tag',
+                    'field'=>'name',
+                    'terms'=>explode(',', trim($this->atts['tag'], ', '))
+                );
+            }
+        }
+
         $tax_query = apply_filters('mec_map_tax_query', $tax_query, $this->atts);
 
         return $tax_query;
@@ -433,7 +454,7 @@ class MEC_skins extends MEC_base
         {
             if(is_numeric($this->atts['tag']))
             {
-                $term = get_term_by('id', $this->atts['tag'], 'post_tag');
+                $term = get_term_by('id', $this->atts['tag'], apply_filters('mec_taxonomy_tag', ''));
                 if($term) $tag = $term->slug;
             }
             else
@@ -441,7 +462,7 @@ class MEC_skins extends MEC_base
                 $tags = explode(',', $this->atts['tag']);
                 foreach($tags as $t)
                 {
-                    $term = get_term_by('name', $t, 'post_tag');
+                    $term = get_term_by('name', $t, apply_filters('mec_taxonomy_tag', ''));
                     if($term) $tag .= $term->slug.',';
                 }
             }
@@ -997,6 +1018,7 @@ class MEC_skins extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param string $field
      * @param array $options
+     * @param int $display_label
      * @return string
      */
     public function sf_search_field($field, $options , $display_label = null)
@@ -1171,9 +1193,8 @@ class MEC_skins extends MEC_base
                 $output .= wp_dropdown_categories(array
                 (
                     'echo'=>false,
-                    'taxonomy'=>'post_tag',
+                    'taxonomy'=>apply_filters('mec_taxonomy_tag', ''),
                     'name'=>' ',
-                    'include'=>((isset($this->atts['tag']) and trim($this->atts['tag'])) ? $this->atts['tag'] : ''),
                     'id'=>'mec_sf_tag_'.$this->id,
                     'hierarchical'=>true,
                     'show_option_none'=>$label,
@@ -1309,10 +1330,12 @@ class MEC_skins extends MEC_base
             $label = __('Text', 'modern-events-calendar-lite');
             if($type == 'text_input')
             {
+                $placeholder = (isset($options['placeholder']) ? $options['placeholder'] : '');
+
                 $output .= '<div class="mec-text-input-search">';
                 $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
                 $output .= '<i class="mec-sl-magnifier"></i>
-                    <input type="search" value="'.(isset($this->atts['s']) ? $this->atts['s'] : '').'" id="mec_sf_s_'.$this->id.'" />
+                    <input type="search" value="'.(isset($this->atts['s']) ? $this->atts['s'] : '').'" id="mec_sf_s_'.$this->id.'" placeholder="'.esc_attr($placeholder).'" />
                 </div>';
             }
         }
@@ -1321,10 +1344,12 @@ class MEC_skins extends MEC_base
             $label = __('Address', 'modern-events-calendar-lite');
             if($type == 'address_input')
             {
+                $placeholder = (isset($options['placeholder']) ? $options['placeholder'] : '');
+
                 $output .= '<div class="mec-text-address-search">';
                 $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
                 $output .= '<i class="mec-sl-map"></i>
-                    <input type="search" value="'.(isset($this->atts['address']) ? $this->atts['address'] : '').'" id="mec_sf_address_s_'.$this->id.'" />
+                    <input type="search" value="'.(isset($this->atts['address']) ? $this->atts['address'] : '').'" id="mec_sf_address_s_'.$this->id.'" placeholder="'.esc_attr($placeholder).'" />
                 </div>';
             }
         }

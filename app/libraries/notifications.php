@@ -941,6 +941,7 @@ class MEC_notifications extends MEC_base
 
         // Date Format
         $date_format = get_option('date_format');
+        $time_format = get_option('time_format');
 
         $message = (isset($this->notif_settings['new_event']['content']) and trim($this->notif_settings['new_event']['content'])) ? $this->notif_settings['new_event']['content'] : '';
         $message = $this->get_content($message, 'new_event', $event_id);
@@ -1034,17 +1035,19 @@ class MEC_notifications extends MEC_base
         if(($new == 'publish') and ($old != 'publish') and ($post->post_type == $event_PT))
         {
             $email = get_post_meta($post->ID, 'fes_guest_email', true);
+            $owner = get_userdata($post->post_author);
 
             // Not Set Guest User Email
             if(!trim($email) or !filter_var($email, FILTER_VALIDATE_EMAIL))
             {
-                $event_owner = get_userdata($post->post_author);
-                $email = (is_object($event_owner) ? $event_owner->user_email : '');
+                $email = (is_object($owner) ? $owner->user_email : '');
             }
 
             if(!trim($email) or !filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
 
             $guest_name = get_post_meta($post->ID, 'fes_guest_name', true);
+            if(!trim($guest_name)) $guest_name = $owner->first_name.' '.$owner->last_name;
+
             $status = get_post_status($post->ID);
 
             $to = $email;
@@ -1113,7 +1116,7 @@ class MEC_notifications extends MEC_base
                 if(!is_numeric($f)) continue;
 
                 $field_value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
-                if(trim($field_value) === '')
+                if(!is_array($field_value) and trim($field_value) === '')
                 {
                     $message = str_replace('%%event_field_'.$f.'%%', '', $message);
                     $message = str_replace('%%event_field_'.$f.'_with_name%%', '', $message);
@@ -1338,7 +1341,7 @@ class MEC_notifications extends MEC_base
         // Book Date
         if(trim($timestamps) and strpos($timestamps, ':') !== false)
         {
-            if(trim($start_timestamp) != trim($end_timestamp))
+            if(trim($start_timestamp) != trim($end_timestamp) and date('Y-m-d', $start_timestamp) != date('Y-m-d', $end_timestamp))
             {
                 $book_date = sprintf(__('%s to %s', 'modern-events-calendar-lite'), $this->main->date_i18n($date_format, $start_timestamp), $this->main->date_i18n($date_format, $end_timestamp));
             }
@@ -1478,6 +1481,8 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_other_info%%', esc_url(get_post_meta($event_id, 'mec_more_info', true)), $message);
         $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, $start_timestamp), $message);
         $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, $end_timestamp), $message);
+        $message = str_replace('%%event_start_time%%', date_i18n($time_format, $start_timestamp), $message);
+        $message = str_replace('%%event_end_time%%', date_i18n($time_format, $end_timestamp), $message);
         $message = str_replace('%%event_timezone%%', $this->main->get_timezone($event_id), $message);
 
         $online_link = MEC_feature_occurrences::param($event_id, $start_timestamp, 'moved_online_link', get_post_meta($event_id, 'mec_moved_online_link', true));

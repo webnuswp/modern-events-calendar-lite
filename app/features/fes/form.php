@@ -948,7 +948,7 @@ $this->factory->params('footer', $javascript);
             <!-- Event Tags Section -->
             <?php if(!isset($this->settings['fes_section_tags']) or (isset($this->settings['fes_section_tags']) and $this->settings['fes_section_tags'])): ?>
             <?php
-                $post_tags = wp_get_post_tags($post_id);
+                $post_tags = wp_get_post_terms($post_id, apply_filters('mec_taxonomy_tag', ''));
 
                 $tags = '';
                 foreach($post_tags as $post_tag) $tags .= $post_tag->name.',';

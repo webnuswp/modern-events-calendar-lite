@@ -259,7 +259,7 @@ jQuery(document).ready(function($)
             onSelect: function(date)
             {
                 var selectedDate = new Date(date);
-                var endDate = new Date(selectedDate.getTime() + 86400000);
+                var endDate = new Date(selectedDate.getTime());
 
                 var $end_picker = $(this).next();
                 $end_picker.datepicker("option", "minDate", endDate);
@@ -536,7 +536,7 @@ function mec_repeat_type_toggle()
         jQuery('#mec_end_wrapper').show();
         jQuery('#mec-advanced-wraper').show();
     }
-    else if(repeat_type != 'daily' && repeat_type != 'weekly')
+    else if(repeat_type != 'daily' && repeat_type != 'weekly' && repeat_type != 'monthly')
     {
         jQuery('#mec_repeat_interval_container').hide();
         jQuery('#mec_repeat_certain_weekdays_container').hide();

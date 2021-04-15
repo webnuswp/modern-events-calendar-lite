@@ -13,6 +13,7 @@ class MEC_skin_timetable extends MEC_skins
      */
     public $skin = 'timetable';
     public $number_of_days;
+    public $number_of_days_modern;
     public $week_start;
     public $start_time;
     public $end_time;
@@ -91,7 +92,8 @@ class MEC_skin_timetable extends MEC_skins
         $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 
         // Number of Days
-        $this->number_of_days = isset($this->skin_options['number_of_days']) ? $this->skin_options['number_of_days'] : 5;
+        $this->number_of_days = (isset($this->skin_options['number_of_days']) ? $this->skin_options['number_of_days'] : 5);
+        $this->number_of_days_modern = (isset($this->skin_options['number_of_days_modern']) ? $this->skin_options['number_of_days_modern'] : 7);
 
         // First Day of the Week
         $this->week_start = (isset($this->skin_options['week_start']) and trim($this->skin_options['week_start']) != '' and $this->skin_options['week_start'] != '-1') ? $this->skin_options['week_start'] : NULL;
@@ -125,7 +127,7 @@ class MEC_skin_timetable extends MEC_skins
         $this->args['meta_query'] = $this->meta_query();
         
         // Tag
-        $this->args['tag'] = $this->tag_query();
+        if(apply_filters('mec_taxonomy_tag', '') === 'post_tag') $this->args['tag'] = $this->tag_query();
         
         // Author
         $this->args['author'] = $this->author_query();
@@ -169,6 +171,22 @@ class MEC_skin_timetable extends MEC_skins
         
         $this->week_of_days = array();
         foreach($this->weeks as $week_number=>$week) foreach($week as $day) $this->week_of_days[$day] = $week_number;
+
+        // Number of Days
+        if($this->style === 'modern' and $this->number_of_days_modern < 7)
+        {
+            $unset = array();
+            $remove = 7 - $this->number_of_days_modern;
+
+            foreach($this->weeks as $w => $week)
+            {
+                for($i = 1; $i <= $remove; $i++) $unset[] = array_pop($week);
+                $this->weeks[$w] = $week;
+            }
+
+            // New Active Date
+            while(in_array($this->active_date, $unset)) $this->active_date = date('Y-m-d', strtotime('+1 day', strtotime($this->active_date)));
+        }
     }
     
     /**
@@ -373,6 +391,22 @@ class MEC_skin_timetable extends MEC_skins
         // Get week of days
         $this->week_of_days = array();
         foreach($this->weeks as $week_number=>$week) foreach($week as $day) $this->week_of_days[$day] = $week_number;
+
+        // Number of Days
+        if($this->style === 'modern' and $this->number_of_days_modern < 7)
+        {
+            $unset = array();
+            $remove = 7 - $this->number_of_days_modern;
+
+            foreach($this->weeks as $w => $week)
+            {
+                for($i = 1; $i <= $remove; $i++) $unset[] = array_pop($week);
+                $this->weeks[$w] = $week;
+            }
+
+            // New Active Date
+            while(in_array($this->active_date, $unset)) $this->active_date = date('Y-m-d', strtotime('+1 day', strtotime($this->active_date)));
+        }
         
         // Some times some months have 6 weeks but next month has 5 or even 4 weeks
         if(!isset($this->weeks[$this->week])) $this->week = $this->week-1;

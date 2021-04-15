@@ -146,6 +146,8 @@ $settings = $this->main->get_settings();
                                             <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                            <li><span>%%event_start_time%%</span>: <?php _e('Event Start Time', 'modern-events-calendar-lite'); ?></li>
+                                            <li><span>%%event_end_time%%</span>: <?php _e('Event End Time', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -289,6 +291,8 @@ $settings = $this->main->get_settings();
                                         <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                                         <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                         <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                        <li><span>%%event_start_time%%</span>: <?php _e('Event Start Time', 'modern-events-calendar-lite'); ?></li>
+                                        <li><span>%%event_end_time%%</span>: <?php _e('Event End Time', 'modern-events-calendar-lite'); ?></li>
                                         <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                         <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                         <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -447,6 +451,8 @@ $settings = $this->main->get_settings();
                                             <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                            <li><span>%%event_start_time%%</span>: <?php _e('Event Start Time', 'modern-events-calendar-lite'); ?></li>
+                                            <li><span>%%event_end_time%%</span>: <?php _e('Event End Time', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>
@@ -620,6 +626,8 @@ $settings = $this->main->get_settings();
                                             <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                                            <li><span>%%event_start_time%%</span>: <?php _e('Event Start Time', 'modern-events-calendar-lite'); ?></li>
+                                            <li><span>%%event_end_time%%</span>: <?php _e('Event End Time', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>

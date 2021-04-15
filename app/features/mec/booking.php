@@ -426,7 +426,7 @@ $gateways_options = $this->main->get_gateways_options();
 
                         <?php if(isset($this->settings['booking_status']) and $this->settings['booking_status']): ?>
 
-                        <?php do_action( 'mec_reg_menu_start',$this->main, $this->settings ); ?>
+                        <?php do_action('mec_reg_menu_start', $this->main, $this->settings); ?>
 
                         <div id="booking_shortcode" class="mec-options-fields">
                             <h4 class="mec-form-subtitle"><?php _e('Booking Shortcode', 'modern-events-calendar-lite'); ?></h4>

@@ -92,6 +92,7 @@ class MEC_user extends MEC_base
             wp_update_user($user);
             update_user_meta($user_id, 'mec_name', $name);
             update_user_meta($user_id, 'mec_reg', $reg);
+            update_user_meta($user_id, 'nickname', $name);
 
             // Map Data
             $event_id = (isset($args['event_id']) ? $args['event_id'] : 0);

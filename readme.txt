@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.7
-Stable tag: 5.17.6
+Stable tag: 5.18.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -212,6 +212,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Show event content only for those users that booked the event (*pro*)
 - Show / Hide Occurrences per shortcode
 - Auto-Populate profile fields after booking (*pro*)
 - PaidMembership Pro integration (*pro*)
@@ -447,6 +448,37 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.18.0 – 7 April 2021 =
+- Added: A new shortcode for Pro users to display some content only for those users that booked the event (pro)
+- Added: Placeholder feature for text fields in the search form
+- Added: Two new placeholders to email notifications to show the start and end time of events (pro)
+- Added: An ability to change event fields per occurrence
+- Added: A new feature to include the “Local Time” module in full calendar skin
+- Added: some new parameters to the MEC feed of events
+- Added: An ability to set interval for monthly events
+- Added: A new feature to separate event tags and wp tags
+- Added: A new ability to the modern style of timetable skin to change the number of weekdays (pro)
+- Improved: The user registration in the booking system by setting the name as a nickname (pro)
+- Improved: The Google Calendar import to import monthly events with an interval
+- Improved: The Google Calendar export and module to export monthly events with an interval
+- Improved: The dropdown fields to ignore the first option as a valid value (pro)
+- Improved: The date search field to accept the same start and end dates
+- Improved: Accessibility in next/previous month in shortcodes
+- Improved: Dark mode styles (fixed a conflict with classic editor)
+- Fixed: Tile view for showing event image
+- Fixed: Showing the registration/booking button on the customized single event page (pro)
+- Fixed: An issue in WC Payment system when loaded in the modal (pro)
+- Fixed: An issue in %%name%% placeholder of “User Event Publishing” notification
+- Fixed: Showing the author of an event in the backend event manager
+- Fixed: Showing expired events in the “Related Events” module
+- Fixed: Mailchimp integration when multiple attendees available (pro)
+- Fixed: An issue with some characters in export files
+- Fixed: Google Calendar export module
+- Fixed: A display issue in showing start and end dates in notifications when both of them are the same
+- Fixed: Some string translation
+- Fixed: Showing the multi-day in carousel view
+- Fixed: Some minor issues
 
 = 5.17.6 – 17 March 2021 =
 - Added: Labels for all search fields

@@ -59,7 +59,7 @@ class MEC_feature_search extends MEC_base
         $out = '';
         
         if(is_wp_error($terms) || empty($terms)) return false;
-        $taxonomy_name = ($taxonomy == 'post_tag') ? 'tag' : str_replace('mec_', '', $taxonomy);
+        $taxonomy_name = ($taxonomy == apply_filters('mec_taxonomy_tag', '')) ? 'tag' : str_replace('mec_', '', $taxonomy);
 
         switch($taxonomy_name)
         {
@@ -185,7 +185,7 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_POST['tag']))
         {
-            $term = get_term_by('id', sanitize_text_field($_POST['tag']), 'post_tag');
+            $term = get_term_by('id', sanitize_text_field($_POST['tag']), apply_filters('mec_taxonomy_tag', ''));
             if($term) $mec_tag_query = $term->slug;
         }
 
@@ -292,7 +292,7 @@ class MEC_feature_search extends MEC_base
 
         if(!empty($_GET['tag']))
         {
-            $term = get_term_by('id', $_GET['tag'], 'post_tag');
+            $term = get_term_by('id', $_GET['tag'], apply_filters('mec_taxonomy_tag', ''));
             if($term) $mec_tag_query = $term->slug;
         }
 

@@ -3,7 +3,7 @@
 defined('MECEXEC') or die();
 
 /**
- * Webnus MEC Cache class.
+ * Webnus MEC Hourly Schedule class.
  * @author Webnus <info@webnus.biz>
  */
 class MEC_hourlyschedule extends MEC_base
@@ -19,6 +19,7 @@ class MEC_hourlyschedule extends MEC_base
      */
     public function __construct()
     {
+        // Import MEC Main
         $this->main = $this->getMain();
     }
 

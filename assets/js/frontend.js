@@ -272,8 +272,6 @@ jQuery(document).ready(function($)
     jQuery(".mec-full-calendar-search-ends").find(".mec-text-input-search").addClass("col-md-12").parent().find(".mec-time-picker-search").addClass("col-md-6");
     jQuery(".mec-search-form.mec-totalcal-box").find(".mec-date-search").parent().find(".mec-time-picker-search").addClass("with-mec-date-search");
     jQuery(".mec-search-form.mec-totalcal-box").find(".mec-time-picker-search").parent().find(".mec-date-search").addClass("with-mec-time-picker");
-
-
 });
 
 // MEC FULL CALENDAR PLUGIN

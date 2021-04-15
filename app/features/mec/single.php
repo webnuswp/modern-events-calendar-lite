@@ -462,6 +462,15 @@ $event_fields = $this->main->get_event_fields();
                             </div>
                         </div>
 
+                        <div id="shortcode_only_bookers" class="mec-options-fields">
+                            <h4 class="mec-form-subtitle"><?php _e('Content only for bookers', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <div class="mec-col-12">
+                                    <p><?php echo sprintf(__('if you need to show a certain content only for booker users, you can enclose your content using %s shortcode. For example you can use %s code to say "Hi" to bookers.', 'modern-events-calendar-lite'), '<code>[mec-only-booked-users]</code>', '<code>[mec-only-booked-users]Hi[/mec-only-booked-users]</code>'); ?></p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mec-options-fields">
                             <?php wp_nonce_field('mec_options_form'); ?>
                             <button style="display: none;" id="mec_single_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Save Changes', 'modern-events-calendar-lite'); ?></button>

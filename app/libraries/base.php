@@ -241,4 +241,15 @@ abstract class MEC_base extends MEC
     {
         return MEC::getInstance('app.libraries.hourlyschedule');
     }
+
+    /**
+     * Returns Event Fields instance
+     * @final
+     * @author Webnus <info@webnus.biz>
+     * @return MEC_eventFields instance
+     */
+    final public function getEventFields()
+    {
+        return MEC::getInstance('app.libraries.eventFields');
+    }
 }

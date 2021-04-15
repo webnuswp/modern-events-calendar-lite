@@ -142,6 +142,8 @@ class MEC_feature_notifications extends MEC_base
                 <li><span>%%google_calendar_link_next_occurrences%%</span>: <?php _e('Add to Google Calendar Links for next 20 occurrences', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_start_date%%</span>: <?php _e('Event Start Date', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_end_date%%</span>: <?php _e('Event End Date', 'modern-events-calendar-lite'); ?></li>
+                <li><span>%%event_start_time%%</span>: <?php _e('Event Start Time', 'modern-events-calendar-lite'); ?></li>
+                <li><span>%%event_end_time%%</span>: <?php _e('Event End Time', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_timezone%%</span>: <?php _e('Event Timezone', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_status%%</span>: <?php _e('Status of event', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_note%%</span>: <?php _e('Event Note', 'modern-events-calendar-lite'); ?></li>

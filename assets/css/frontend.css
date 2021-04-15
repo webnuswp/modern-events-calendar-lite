@@ -6052,7 +6052,7 @@ address.mec-events-address {
 }
 
 .mec-calendar.mec-calendar-weekly .mec-calendar-d-table dl.mec-weekly-view-week-active {
-	display: block;
+	display: flex;
 }
 
 .mec-calendar.mec-calendar-daily .mec-calendar-d-table dl dt,
@@ -6174,7 +6174,7 @@ address.mec-events-address {
 }
 
 .mec-calendar.mec-calendar-weekly .mec-calendar-d-table dl dt {
-	width: 14.286%;
+	width: 100%;
 	height: 70px;
 	line-height: normal;
 	cursor: default;
@@ -8518,7 +8518,7 @@ li.mec-no-event-found .mec-event-title {
 	color: #fff;
 	font-weight: 500;
 	background-color: #40d9f1;
-	padding-left: 21px;
+	padding-left: 14px;
 	height: 97px;
 	line-height: 2.3;
 	padding-right: 85px;
@@ -8595,12 +8595,12 @@ li.mec-no-event-found .mec-event-title {
 }
 
 .mec-skin-carousel-container .mec-multiple-event .mec-event-date-carousel {
-    width: 230px;
+    width: 255px;
 }
 
 .mec-skin-carousel-container .mec-multiple-event .event-carousel-type1-head .mec-event-date-info-year,
 .mec-skin-carousel-container .mec-multiple-event .event-carousel-type1-head .mec-event-date-info {
-    left: 159px;
+    left: 175px;
 }
 
 
@@ -13363,6 +13363,18 @@ ul.mec-weekly-view-dates-events article:before,
 
 /* # Common Style For All Shortcodes
 	================================================== */
+
+/* Next & Previous Month */
+.mec-load-month-link {
+	color: #a9a9a9;
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-decoration: unset;
+	transition: all .33s ease;
+}
+
 /* Categories*/
 ul.mec-categories {
     padding: 0;

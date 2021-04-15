@@ -417,7 +417,7 @@ function mec_book_form_submit'.$uniqueid.'()
                 {
                     if(data.data.next.type === "url")
                     {
-                        window.location.href = data.data.next.url;
+                        window.parent.location.href = data.data.next.url; 
                         return;
                     }
                     else

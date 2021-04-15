@@ -358,7 +358,9 @@ class MEC_feature_occurrences extends MEC_base
     {
         $params = $this->get($occurrence_id);
         $data = $this->get_data($occurrence_id);
+
         $event_id = (isset($data['post_id']) ? $data['post_id'] : 0);
+        $post = get_post($event_id);
 
         $date_format = get_option('date_format');
         $time_format = get_option('time_format');
@@ -370,6 +372,7 @@ class MEC_feature_occurrences extends MEC_base
         $display_cancellation_reason_in_single_page = (isset($params['display_cancellation_reason_in_single_page']) and trim($params['display_cancellation_reason_in_single_page'])) ? $params['display_cancellation_reason_in_single_page'] : '';
 
         $hourly_schedules = (isset($params['hourly_schedules']) and is_array($params['hourly_schedules'])) ? $params['hourly_schedules'] : array();
+        $fields_data = (isset($params['fields']) and is_array($params['fields'])) ? $params['fields'] : get_post_meta($post->ID, 'mec_fields', true);
 
         // Status of Speakers Feature
         $speakers_status = (!isset($this->settings['speakers_status']) or (isset($this->settings['speakers_status']) and !$this->settings['speakers_status'])) ? false : true;
@@ -456,9 +459,23 @@ class MEC_feature_occurrences extends MEC_base
                     ?>
                 </div>
             </div>
-
-            <?php do_action( 'mec_occurrences_fields', $occurrence_id, $event_id, $data ); ?>
-
+            <div class="mec-form-row">
+                <div class="mec-col-12">
+                    <?php
+                        $fields = $this->getEventFields();
+                        $fields->form(array(
+                            'id' => 'mec_occurrences_event_fields_'.$occurrence_id,
+                            'class' => 'no',
+                            'post' => $post,
+                            'data' => $fields_data,
+                            'id_prefix' => 'mec_occurrences_'.$occurrence_id.'_',
+                            'name_prefix' => 'mec[occurrences]['.$occurrence_id.']',
+                            'mandatory_status' => false,
+                        ));
+                    ?>
+                </div>
+            </div>
+            <?php do_action('mec_occurrences_fields', $occurrence_id, $event_id, $data); ?>
         </li>
         <?php
     }

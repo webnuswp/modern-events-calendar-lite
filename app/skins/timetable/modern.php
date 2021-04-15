@@ -21,11 +21,18 @@ foreach($this->weeks as $week_number=>$week)
     $i = 1;
     while(strtotime($first_week_day) < $current_month_time)
     {
-        $first_week_day = $week[$i];
-        $i++;
+        if($i > 7)
+        {
+            $first_week_day = $this->weeks[$week_number+1][0];
+        }
+        else
+        {
+            $first_week_day = (isset($week[$i]) ? $week[$i] : NULL);
+            $i++;
+        }
     }
     
-    $weeks .= '<dl class="mec-weekly-view-week '.(($week_number == $this->week_of_days[$this->active_date]) ? 'mec-weekly-view-week-active' : '').'" id="mec_weekly_view_week_'.$this->id.'_'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-id="'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-number="' . $week_number . '" data-max-weeks="'.count($this->weeks).'">';
+    $weeks .= '<dl class="mec-weekly-view-week '.((isset($this->week_of_days[$this->active_date]) and $week_number == $this->week_of_days[$this->active_date]) ? 'mec-weekly-view-week-active' : '').'" id="mec_weekly_view_week_'.$this->id.'_'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-id="'.date('Ym', strtotime($first_week_day)).$week_number.'" data-week-number="' . $week_number . '" data-max-weeks="'.count($this->weeks).'">';
     foreach($week as $day)
     {
         $time = strtotime($day);
@@ -55,7 +62,7 @@ if($this->next_previous_button)
        (isset($this->atts['show_past_events']) and !$this->atts['show_past_events'] and strtotime(date('Y-m-t', $_1month_before)) >= time())
     )
     {
-        $navigator_html .= '<div class="mec-previous-month mec-load-month mec-color" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><i class="mec-sl-angle-left"></i></div>';
+        $navigator_html .= '<div class="mec-previous-month mec-load-month mec-color" data-mec-year="'.date('Y', $_1month_before).'" data-mec-month="'.date('m', $_1month_before).'"><a href="#" class="mec-load-month-link"><i class="mec-sl-angle-left"></i></a></div>';
     }
     
     $navigator_html .= '<h4 class="mec-month-label">'.$this->main->date_i18n('Y F', $current_month_time).'</h4>';
@@ -65,7 +72,7 @@ if($this->next_previous_button)
        ($this->show_only_expired_events and strtotime(date('Y-m-01', $_1month_after)) <= time())
     )
     {
-        $navigator_html .= '<div class="mec-next-month mec-load-month mec-color" data-mec-year="'.date('Y', $_1month_after).'" data-mec-month="'.date('m', $_1month_after).'"><i class="mec-sl-angle-right"></i></div>';
+        $navigator_html .= '<div class="mec-next-month mec-load-month mec-color" data-mec-year="'.date('Y', $_1month_after).'" data-mec-month="'.date('m', $_1month_after).'"><a href="#" class="mec-load-month-link"><i class="mec-sl-angle-right"></i></a></div>';
     }
 }
 
@@ -90,7 +97,7 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
 }
 
 $sed_method = $this->sed_method;
-if ($sed_method == 'new') $sed_method = '0';
+if($sed_method == 'new') $sed_method = '0';
 
 // Generating javascript code tpl
 $javascript = '<script type="text/javascript">

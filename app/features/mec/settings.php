@@ -254,6 +254,25 @@ $shortcodes = get_posts(array(
                                 </label>
                             </div>
 
+                            <div class="mec-form-row">
+
+                                <label class="mec-col-3" for="mec_settings_tag_method"><?php _e('Tag Method', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <select id="mec_settings_tag_method" name="mec[settings][tag_method]">
+                                        <option value="post_tag" <?php if(isset($settings['tag_method']) and $settings['tag_method'] == 'post_tag') echo 'selected="selected"'; ?>><?php _e('Post Tags', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="mec_tag" <?php if(isset($settings['tag_method']) and $settings['tag_method'] == 'mec_tag') echo 'selected="selected"'; ?>><?php _e('Independent Tags', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php _e('Tag Method', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("If you select Post Tags then mec would share post tags and event tags but if you select independent tags, mec would use its own tags.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/general-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
+
+                            </div>
+
                         </div>
 
                         <div id="email_option" class="mec-options-fields">

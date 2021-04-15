@@ -817,7 +817,7 @@ class MEC_feature_ix extends MEC_base
                 if(count($category_ids)) foreach($category_ids as $category_id) wp_set_object_terms($post_id, (int) $category_id, 'mec_category', true);
 
                 // Set tags to the post
-                if(count($tag_ids)) foreach($tag_ids as $tag_id) wp_set_object_terms($post_id, (int) $tag_id, 'post_tag', true);
+                if(count($tag_ids)) foreach($tag_ids as $tag_id) wp_set_object_terms($post_id, (int) $tag_id, apply_filters('mec_taxonomy_tag', ''), true);
 
                 // Set labels to the post
                 if(count($label_ids)) foreach($label_ids as $label_id) wp_set_object_terms($post_id, (int) $label_id, 'mec_label', true);
@@ -3470,6 +3470,7 @@ class MEC_feature_ix extends MEC_base
                 elseif($rule['freq'] == 'monthly')
                 {
                     $repeat_type = 'monthly';
+                    $interval = isset($rule['interval']) ? $rule['interval'] : 1;
 
                     $year = '*';
                     $month = '*';
@@ -4101,15 +4102,15 @@ class MEC_feature_ix extends MEC_base
                     
                     $event = array(
                         $event->ID,
-                        $data->title,
+                        html_entity_decode($data->title),
                         $date['start']['date'],
                         $data->time['start'],
                         $date['end']['date'],
                         $data->time['end'],
                         $data->permalink,
-                        (isset($location['name']) ? $location['name'] : ''),
-                        (isset($location['address']) ? $location['address'] : ''),
-                        (isset($organizer['name']) ? $organizer['name'] : ''),
+                        (isset($location['name']) ? html_entity_decode($location['name']) : ''),
+                        (isset($location['address']) ? html_entity_decode($location['address']) : ''),
+                        (isset($organizer['name']) ? html_entity_decode($organizer['name']) : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
                         (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']) : '')
@@ -4144,15 +4145,15 @@ class MEC_feature_ix extends MEC_base
                     
                     $event = array(
                         $event->ID,
-                        $data->title,
+                        html_entity_decode($data->title),
                         $date['start']['date'],
                         $data->time['start'],
                         $date['end']['date'],
                         $data->time['end'],
                         $data->permalink,
-                        (isset($location['name']) ? $location['name'] : ''),
-                        (isset($location['address']) ? $location['address'] : ''),
-                        (isset($organizer['name']) ? $organizer['name'] : ''),
+                        (isset($location['name']) ? html_entity_decode($location['name']) : ''),
+                        (isset($location['address']) ? html_entity_decode($location['address']) : ''),
+                        (isset($organizer['name']) ? html_entity_decode($organizer['name']) : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
                         (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']) : '')

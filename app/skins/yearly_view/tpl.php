@@ -28,7 +28,7 @@ if($this->next_previous_button)
        (isset($this->atts['show_past_events']) and !$this->atts['show_past_events'] and date('Y', $_1year_before) >= current_time('Y'))
     )
     {
-        $navigator_html .= '<div class="mec-previous-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_before).'"><i class="mec-sl-angle-left"></i> '.$this->main->date_i18n('Y', $_1year_before).'</div>';
+        $navigator_html .= '<div class="mec-previous-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_before).'"><a href="#" class="mec-load-month-link"><i class="mec-sl-angle-left"></i> '.$this->main->date_i18n('Y', $_1year_before).'</a></div>';
     }
     
     $navigator_html .= '<h2>'.$this->main->date_i18n('Y', $current_year_time).'</h2>';
@@ -38,7 +38,7 @@ if($this->next_previous_button)
        ($this->show_only_expired_events and strtotime(date('Y-01-01', $_1year_after)) <= time())
     )
     {
-        $navigator_html .= '<div class="mec-next-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_after).'">'.$this->main->date_i18n('Y', $_1year_after).' <i class="mec-sl-angle-right"></i></div>';
+        $navigator_html .= '<div class="mec-next-year mec-load-year mec-color-hover" data-mec-year="'.date('Y', $_1year_after).'"><a href="#" class="mec-load-month-link">'.$this->main->date_i18n('Y', $_1year_after).' <i class="mec-sl-angle-right"></i></a></div>';
     }
 }
 
