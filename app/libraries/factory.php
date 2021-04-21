@@ -67,7 +67,7 @@ class MEC_factory extends MEC_base
         $this->action('parse_query', array($this->parser, 'WPQ_parse'), 99);
         
         // Add custom styles to header
-        $this->action('wp_head', array($this->main, 'include_styles'), 9999);
+        $this->action('wp_head', array($this, 'include_styles'), 9999);
         
         // MEC iCal export
         $this->action('init', array($this->main, 'ical'), 9999);
@@ -325,100 +325,129 @@ class MEC_factory extends MEC_base
      */
     public function load_frontend_assets()
     {
-        // Current locale
-        $locale = $this->main->get_current_language();
+        if($this->should_include_assets('frontend'))
+        {
+            // Current locale
+            $locale = $this->main->get_current_language();
 
-        // Styling
-        $styling = $this->main->get_styling();
+            // Styling
+            $styling = $this->main->get_styling();
 
-        // Google Fonts Status
-        $gfonts_status = (isset($styling['disable_gfonts']) and $styling['disable_gfonts']) ? false : true;
+            // Google Fonts Status
+            $gfonts_status = (isset($styling['disable_gfonts']) and $styling['disable_gfonts']) ? false : true;
 
-        // Include WordPress jQuery
-        wp_enqueue_script('jquery');
+            // Include WordPress jQuery
+            wp_enqueue_script('jquery');
 
-        // Include jQuery date picker
-        if(!defined("SHOW_CT_BUILDER")) wp_enqueue_script('jquery-ui-datepicker');
+            // Include jQuery date picker
+            if(!defined("SHOW_CT_BUILDER")) wp_enqueue_script('jquery-ui-datepicker');
 
-        // Load Isotope
-        if(class_exists('ET_Builder_Element')) $this->main->load_isotope_assets();
+            // Load Isotope
+            if(class_exists('ET_Builder_Element')) $this->main->load_isotope_assets();
 
-        include_once(ABSPATH.'wp-admin/includes/plugin.php');
-        if(is_plugin_active('elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
+            include_once(ABSPATH.'wp-admin/includes/plugin.php');
+            if(is_plugin_active('elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
 
-        wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'), array(), $this->main->get_version(), true);
-        wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'), array(), $this->main->get_version(), true);
+            wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'), array(), $this->main->get_version(), true);
+            wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'), array(), $this->main->get_version(), true);
 
-        // Include Select2
-        wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'), array(), $this->main->get_version(), true);
-        wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'), array(), $this->main->get_version());
+            // Include Select2
+            wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'), array(), $this->main->get_version(), true);
+            wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'), array(), $this->main->get_version());
 
-        // Include MEC frontend script files
-        wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
-        wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'), array(), $this->main->get_version(), true);
+            // Include MEC frontend script files
+            wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
+            wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'), array(), $this->main->get_version(), true);
 
-        wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
+            wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
 
-        // Include Lity Lightbox
-        wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'), array(), $this->main->get_version(), true);
+            // Include Lity Lightbox
+            wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'), array(), $this->main->get_version(), true);
 
-        // Include color brightness
-        wp_enqueue_script('mec-colorbrightness-script', $this->main->asset('packages/colorbrightness/colorbrightness.min.js'), array(), $this->main->get_version(), true);
+            // Include color brightness
+            wp_enqueue_script('mec-colorbrightness-script', $this->main->asset('packages/colorbrightness/colorbrightness.min.js'), array(), $this->main->get_version(), true);
 
-        // Include MEC frontend JS libraries
-        wp_enqueue_script('mec-owl-carousel-script', $this->main->asset('packages/owl-carousel/owl.carousel.min.js'), array(), $this->main->get_version(), true);
+            // Include MEC frontend JS libraries
+            wp_enqueue_script('mec-owl-carousel-script', $this->main->asset('packages/owl-carousel/owl.carousel.min.js'), array(), $this->main->get_version(), true);
 
-        if(did_action('elementor/loaded')) $elementor_edit_mode = (\Elementor\Plugin::$instance->editor->is_edit_mode() == false) ? 'no' : 'yes';
-        else $elementor_edit_mode = 'no';
+            if(did_action('elementor/loaded')) $elementor_edit_mode = (\Elementor\Plugin::$instance->editor->is_edit_mode() == false) ? 'no' : 'yes';
+            else $elementor_edit_mode = 'no';
 
-        // Settings
-        $settings = $this->main->get_settings();
-        $grecaptcha_key = isset($settings['google_recaptcha_sitekey']) ? trim($settings['google_recaptcha_sitekey']) : '';
+            // Settings
+            $settings = $this->main->get_settings();
+            $grecaptcha_key = isset($settings['google_recaptcha_sitekey']) ? trim($settings['google_recaptcha_sitekey']) : '';
 
-        // Localize Some Strings
-        $mecdata = apply_filters('mec_locolize_data', array(
-            'day'=>__('day', 'modern-events-calendar-lite'),
-            'days'=>__('days', 'modern-events-calendar-lite'),
-            'hour'=>__('hour', 'modern-events-calendar-lite'),
-            'hours'=>__('hours', 'modern-events-calendar-lite'),
-            'minute'=>__('minute', 'modern-events-calendar-lite'),
-            'minutes'=>__('minutes', 'modern-events-calendar-lite'),
-            'second'=>__('second', 'modern-events-calendar-lite'),
-            'seconds'=>__('seconds', 'modern-events-calendar-lite'),
-            'elementor_edit_mode'=>$elementor_edit_mode,
-            'recapcha_key'=>$grecaptcha_key,
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'fes_nonce' => wp_create_nonce('mec_fes_nonce'),
-            'current_year' => date('Y', current_time('timestamp', 0)),
-            'current_month' => date('m', current_time('timestamp', 0)),
-            'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
-        ));
+            // Localize Some Strings
+            $mecdata = apply_filters('mec_locolize_data', array(
+                'day'=>__('day', 'modern-events-calendar-lite'),
+                'days'=>__('days', 'modern-events-calendar-lite'),
+                'hour'=>__('hour', 'modern-events-calendar-lite'),
+                'hours'=>__('hours', 'modern-events-calendar-lite'),
+                'minute'=>__('minute', 'modern-events-calendar-lite'),
+                'minutes'=>__('minutes', 'modern-events-calendar-lite'),
+                'second'=>__('second', 'modern-events-calendar-lite'),
+                'seconds'=>__('seconds', 'modern-events-calendar-lite'),
+                'elementor_edit_mode'=>$elementor_edit_mode,
+                'recapcha_key'=>$grecaptcha_key,
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'fes_nonce' => wp_create_nonce('mec_fes_nonce'),
+                'current_year' => date('Y', current_time('timestamp', 0)),
+                'current_month' => date('m', current_time('timestamp', 0)),
+                'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
+            ));
 
-        // Localize Some Strings
-        wp_localize_script('mec-frontend-script', 'mecdata', $mecdata);
+            // Localize Some Strings
+            wp_localize_script('mec-frontend-script', 'mecdata', $mecdata);
 
-        // Include Google Recaptcha Javascript API
-        $grecaptcha_include = apply_filters('mec_grecaptcha_include', true);
-        if($grecaptcha_include) wp_enqueue_script('recaptcha', '//www.google.com/recaptcha/api.js?hl='.str_replace('_', '-', $locale), array(), $this->main->get_version(), true);
+            // Include Google Recaptcha Javascript API
+            $grecaptcha_include = apply_filters('mec_grecaptcha_include', true);
+            if($grecaptcha_include) wp_enqueue_script('recaptcha', '//www.google.com/recaptcha/api.js?hl='.str_replace('_', '-', $locale), array(), $this->main->get_version(), true);
 
-        // Include MEC frontend CSS files
-        wp_enqueue_style('mec-font-icons', $this->main->asset('css/iconfonts.css'));
-        wp_enqueue_style('mec-frontend-style', $this->main->asset('css/frontend.min.css'), array(), $this->main->get_version());
-        wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
-        wp_enqueue_style('mec-tooltip-shadow-style', $this->main->asset('packages/tooltip/tooltipster-sideTip-shadow.min.css'));
-        wp_enqueue_style('mec-featherlight-style', $this->main->asset('packages/featherlight/featherlight.css'));
+            // Include MEC frontend CSS files
+            wp_enqueue_style('mec-font-icons', $this->main->asset('css/iconfonts.css'));
+            wp_enqueue_style('mec-frontend-style', $this->main->asset('css/frontend.min.css'), array(), $this->main->get_version());
+            wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
+            wp_enqueue_style('mec-tooltip-shadow-style', $this->main->asset('packages/tooltip/tooltipster-sideTip-shadow.min.css'));
+            wp_enqueue_style('mec-featherlight-style', $this->main->asset('packages/featherlight/featherlight.css'));
 
-        // Include "Right to Left" CSS file
-        if(is_rtl()) wp_enqueue_style('mec-frontend-rtl-style', $this->main->asset('css/mecrtl.min.css'));
+            // Include "Right to Left" CSS file
+            if(is_rtl()) wp_enqueue_style('mec-frontend-rtl-style', $this->main->asset('css/mecrtl.min.css'));
 
-        // Include Google Fonts
-        if($gfonts_status == true and get_option('mec_dyncss') == 0) wp_enqueue_style('mec-google-fonts', '//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:100,300,400,700');
+            // Include Google Fonts
+            if($gfonts_status == true and get_option('mec_dyncss') == 0) wp_enqueue_style('mec-google-fonts', '//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:100,300,400,700');
 
-        // Include Google Font
-        if($gfonts_status and get_option('mec_gfont')) wp_enqueue_style('mec-custom-google-font', get_option('mec_gfont'), array(), NULL);
+            // Include Google Font
+            if($gfonts_status and get_option('mec_gfont')) wp_enqueue_style('mec-custom-google-font', get_option('mec_gfont'), array(), NULL);
 
-        // Include Lity CSS file
-        wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
+            // Include Lity CSS file
+            wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
+        }
+    }
+
+    /**
+     * Prints custom styles in the page header
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function include_styles()
+    {
+        if($this->should_include_assets('frontend'))
+        {
+            // Include Dynamic CSS
+            if(get_option('mec_dyncss') == true)
+            {
+                echo '<style type="text/css">'.stripslashes(get_option('mec_dyncss')).'</style>';
+            }
+
+            $styles = $this->main->get_styles();
+
+            // Print custom styles
+            if(isset($styles['CSS']) and trim($styles['CSS']) != '')
+            {
+                $CSS = strip_tags($styles['CSS']);
+                echo '<style type="text/css">'.stripslashes($CSS).'</style>';
+            }
+        }
     }
 
     /**
@@ -1118,7 +1147,7 @@ class MEC_factory extends MEC_base
 
     public function should_include_assets($client = 'frontend')
     {
-        if($client == 'frontend') return true;
+        if($client == 'frontend') return apply_filters('mec_include_frontend_assets', true);
         else
         {
             // Current Screen

@@ -1050,7 +1050,7 @@ class MEC_book extends MEC_base
             if($type === 'price_label' and !is_numeric($price))
             {
                 $numeric = preg_replace("/[^0-9.]/", '', $price);
-                if(is_numeric($numeric)) $price = $this->main->render_price(($numeric - (($numeric * $role_discount) / 100)));
+                if(is_numeric($numeric)) $price = $this->main->render_price(($numeric - (($numeric * $role_discount) / 100)), $event_id);
             }
             else
             {
@@ -1246,6 +1246,29 @@ class MEC_book extends MEC_base
 
         $ticket_id = $attendee['id'];
         $ticket_price = (isset($tickets[$ticket_id]) ? $tickets[$ticket_id]['price'] : 0);
+
+        // Price Per Date
+        if(isset($tickets[$ticket_id]['dates']) and is_array($tickets[$ticket_id]['dates']) and count($tickets[$ticket_id]['dates']))
+        {
+            $book_time = strtotime(get_post_meta($booking_id, 'mec_booking_time', true));
+            if($book_time)
+            {
+                $pdates = $tickets[$ticket_id]['dates'];
+                foreach($pdates as $pdate)
+                {
+                    if(!isset($pdate['start']) or !isset($pdate['end'])) continue;
+
+                    $t_start = strtotime($pdate['start']);
+                    $t_end = strtotime($pdate['end']);
+
+                    if($book_time >= $t_start and $book_time <= $t_end and isset($pdate['price']))
+                    {
+                        $ticket_price = $pdate['price'];
+                        break;
+                    }
+                }
+            }
+        }
 
         $variation_price = 0;
         if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))

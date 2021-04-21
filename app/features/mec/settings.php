@@ -550,7 +550,7 @@ $shortcodes = get_posts(array(
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_currency"><?php _e('Currency', 'modern-events-calendar-lite'); ?></label>
                                 <div class="mec-col-9">
-                                    <select name="mec[settings][currency]" id="mec_settings_currency" onchange="jQuery('#mec_settings_currency_symptom_container .mec-settings-currency-symptom-prev').html(this.value);">
+                                    <select name="mec[settings][currency]" id="mec_settings_currency">
                                         <?php foreach($currencies as $currency=>$currency_name): ?>
                                             <option value="<?php echo $currency; ?>" <?php echo ((isset($settings['currency']) and $settings['currency'] == $currency) ? 'selected="selected"' : ''); ?>><?php echo $currency_name; ?></option>
                                         <?php endforeach; ?>
@@ -594,13 +594,26 @@ $shortcodes = get_posts(array(
                                 </div>
                             </div>
                             <div class="mec-form-row">
-                                <div class="mec-col-2">
+                                <div class="mec-col-12">
                                     <label for="mec_settings_decimal_separator_status">
                                         <input type="hidden" name="mec[settings][decimal_separator_status]" value="1" />
                                         <input type="checkbox" name="mec[settings][decimal_separator_status]" id="mec_settings_decimal_separator_status" <?php echo ((isset($settings['decimal_separator_status']) and $settings['decimal_separator_status'] == '0') ? 'checked="checked"' : ''); ?> value="0" />
                                         <?php _e('No decimal', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div id="assets_per_page_option" class="mec-options-fields">
+                            <h4 class="mec-form-subtitle"><?php _e('Assets Per Page', 'modern-events-calendar-lite'); ?></h4>
+                            <div class="mec-form-row">
+                                <label>
+                                    <input type="hidden" name="mec[settings][assets_per_page_status]" value="0" />
+                                    <input onchange="jQuery('#mec_assets_per_page_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][assets_per_page_status]" <?php if(isset($settings['assets_per_page_status']) and $settings['assets_per_page_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable Assets Per Page', 'modern-events-calendar-lite'); ?>
+                                </label>
+                            </div>
+                            <div id="mec_assets_per_page_container_toggle" class="<?php if((isset($settings['assets_per_page_status']) and !$settings['assets_per_page_status']) or !isset($settings['assets_per_page_status'])) echo 'mec-util-hidden'; ?>">
+                                <p class="notice-yellow"><?php echo esc_html__("By enabling this option MEC won't include any JavaScript or CSS files in frontend of your website unless you enable the assets inclusion in page options.", 'modern-events-calendar-lite'); ?></p>
                             </div>
                         </div>
 
@@ -769,6 +782,22 @@ $shortcodes = get_posts(array(
                                 </div>
                             </div>
                             <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_booking_private_description"><?php _e('Private Description', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <select id="mec_settings_booking_private_description" name="mec[settings][booking_private_description]">
+                                        <option value="1" <?php echo ((!isset($settings['booking_private_description']) or (isset($settings['booking_private_description']) and $settings['booking_private_description'] == '1')) ? 'selected="selected"' : ''); ?>><?php _e('Enabled', 'modern-events-calendar-lite'); ?></option>
+                                        <option value="0" <?php echo ((isset($settings['booking_private_description']) and $settings['booking_private_description'] == '0') ? 'selected="selected"' : ''); ?>><?php _e('Disabled', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                    <span class="mec-tooltip">
+                                            <div class="box left">
+                                                <h5 class="title"><?php _e('Private Description of Ticket', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("You can disable the private description if you like.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                </div>
+                            </div>
+                            <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_guest_status]" value="0" />
                                     <input onchange="jQuery('#mec_fes_guest_status_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][fes_guest_status]" <?php if(isset($settings['fes_guest_status']) and $settings['fes_guest_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable event submission by guest (Not logged in) users', 'modern-events-calendar-lite'); ?>
@@ -860,8 +889,24 @@ $shortcodes = get_posts(array(
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][fes_section_organizer]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][fes_section_organizer]" <?php if(!isset($settings['fes_section_organizer']) or (isset($settings['fes_section_organizer']) and $settings['fes_section_organizer'])) echo 'checked="checked"'; ?> /> <?php _e('Event Organizer', 'modern-events-calendar-lite'); ?>
+                                    <input value="1" type="checkbox" name="mec[settings][fes_section_organizer]" <?php if(!isset($settings['fes_section_organizer']) or (isset($settings['fes_section_organizer']) and $settings['fes_section_organizer'])) echo 'checked="checked"'; ?> onchange="jQuery('#mec_settings_fes_use_all_organizers_wrapper').toggle();" /> <?php _e('Event Organizer', 'modern-events-calendar-lite'); ?>
                                 </label>
+                            </div>
+                            <div class="mec-form-row <?php echo ((!isset($settings['fes_section_organizer']) or (isset($settings['fes_section_organizer']) and $settings['fes_section_organizer'])) ? '' : 'mec-util-hidden'); ?>" id="mec_settings_fes_use_all_organizers_wrapper">
+                                <label class="mec-col-3" for="mec_settings_fes_use_all_organizers"><?php _e('Ability to Use All Organizers', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <select id="mec_settings_fes_use_all_organizers" name="mec[settings][fes_use_all_organizers]">
+                                        <option <?php echo ((isset($settings['fes_use_all_organizers']) and $settings['fes_use_all_organizers'] == '1') ? 'selected="selected"' : ''); ?> value="1"><?php esc_html_e('Yes', 'modern-events-calendar-lite'); ?></option>
+                                        <option <?php echo ((isset($settings['fes_use_all_organizers']) and $settings['fes_use_all_organizers'] == '0') ? 'selected="selected"' : ''); ?> value="0"><?php esc_html_e('No', 'modern-events-calendar-lite'); ?></option>
+                                    </select>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php _e('Use All Organizers', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("Users are able to see list of ogranizers and use them for their event. Set it to \"No\" if you want to disable this functionality and \"Other Organizers\" feature.", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="mec-form-row">
                                 <label>

@@ -1245,7 +1245,7 @@ class MEC_skins extends MEC_base
                 $time = isset($this->start_date) ? strtotime($this->start_date) : '';
                 $now = current_time('timestamp', 0);
 
-                $skins = array('list', 'grid', 'agenda');
+                $skins = array('list', 'grid', 'agenda', 'map');
                 if(isset($this->skin_options['default_view']) and $this->skin_options['default_view'] == 'list') array_push($skins, 'full_calendar');
 
                 $item = __('Select', 'modern-events-calendar-lite');

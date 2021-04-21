@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.7
-Stable tag: 5.18.0
+Tested up to: 5.7.1
+Stable tag: 5.18.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -97,27 +97,27 @@ With this addon you can organize virtual events as easily and effectively as pos
 
 == Addons ==
 We have begun to create practical [add-ons](https://webnus.net/modern-events-calendar/addons/). Now, you will have access to a wide range of features using them. Please have a look at these add-ons: (MEC Pro requeired)
-- [Woocommerce Integration](https://webnus.net/modern-events-calendar/addons/woocommerce-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/woocommerce-addon/)
-- [Multisite Event Sync](https://webnus.net/modern-events-calendar/addons/multisite-event-sync/) - [Documentation](https://webnus.net/dox/modern-events-calendar/multisite-event-sync/)
-- [User Dashboard](https://webnus.net/modern-events-calendar/addons/user-dashboard/) - [Documentation](https://webnus.net/dox/modern-events-calendar/user-dashboard/)
-- [Event API](https://webnus.net/modern-events-calendar/addons/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
-- [Elementor Single Builder](https://webnus.net/modern-events-calendar/addons/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
-- [Elementor Shortcode Builder](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/shortcode-builder-addon/) 
-- [Elementor Form Builder](https://webnus.net/modern-events-calendar/addons/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
-- [Elementor Shortcode Designer](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-designer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/mec-shortcode-designer-addon/)
-- [Ticket and Invoice](https://webnus.net/modern-events-calendar/addons/ticket-invoice/) - [Documentation](https://webnus.net/dox/modern-events-calendar/ticket-and-invoice-addon/)
-- [Advanced Map](https://webnus.net/modern-events-calendar/addons/advanced-map/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-advanced-map-add-on/)
-- [Advanced Reports](https://webnus.net/modern-events-calendar/addons/advanced-reports/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-advanced-reports-add-on/)
-- [Fluent-view Layouts](https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-fluent-view-layouts-add-on/)
-- [Zapier Integration](https://webnus.net/modern-events-calendar/addons/zapier-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zapier-integration-addon/)
-- [Virtual Events](https://webnus.net/modern-events-calendar/addons/virtual-events/) - [Documentation](https://webnus.net/dox/modern-events-calendar/virtual-events-addon/)
-- [Waiting List](https://webnus.net/modern-events-calendar/addons/waiting-list/) - [Documentation](https://webnus.net/dox/modern-events-calendar/waiting-list-addon/)
-- [Divi Single Builder](https://webnus.net/modern-events-calendar/addons/divi-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/divi-single-builder-for-mec/)
-- [Zoom Integration](https://webnus.net/modern-events-calendar/addons/zoom-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zoom-integration-addon/)
-- [Advanced Organizer](https://webnus.net/modern-events-calendar/addons/advanced-organizer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-organizer-addon/)
-- [Advanced Speaker](https://webnus.net/modern-events-calendar/addons/advanced-speaker/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-speaker-addon/)
-- [Advanced Location](https://webnus.net/modern-events-calendar/addons/advanced-location/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-location-addon/)
-- [Advanced Importer](https://webnus.net/modern-events-calendar/addons/advanced-importer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-importer-addon/)
+🛒 [Woocommerce Integration](https://webnus.net/modern-events-calendar/addons/woocommerce-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/woocommerce-addon/)
+🌐 [Multisite Event Sync](https://webnus.net/modern-events-calendar/addons/multisite-event-sync/) - [Documentation](https://webnus.net/dox/modern-events-calendar/multisite-event-sync/)
+👥 [User Dashboard](https://webnus.net/modern-events-calendar/addons/user-dashboard/) - [Documentation](https://webnus.net/dox/modern-events-calendar/user-dashboard/)
+🔗 [Event API](https://webnus.net/modern-events-calendar/addons/event-api/) - [Documentation](https://webnus.net/dox/modern-events-calendar/event-api-addon/)
+✏️ [Elementor Single Builder](https://webnus.net/modern-events-calendar/addons/elementor-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/single-builder-addon/)
+📐 [Elementor Shortcode Builder](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/shortcode-builder-addon/) 
+🧾 [Elementor Form Builder](https://webnus.net/modern-events-calendar/addons/elementor-form-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/form-builder-addon/)
+🍥 [Elementor Shortcode Designer](https://webnus.net/modern-events-calendar/addons/elementor-shortcode-designer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/mec-shortcode-designer-addon/)
+🎫 [Ticket and Invoice](https://webnus.net/modern-events-calendar/addons/ticket-invoice/) - [Documentation](https://webnus.net/dox/modern-events-calendar/ticket-and-invoice-addon/)
+🗺️ [Advanced Map](https://webnus.net/modern-events-calendar/addons/advanced-map/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-advanced-map-add-on/)
+⚓ [Advanced Reports](https://webnus.net/modern-events-calendar/addons/advanced-reports/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-advanced-reports-add-on/)
+📆 [Fluent-view Layouts](https://webnus.net/modern-events-calendar/addons/fluent-view-layouts/) - [Documentation](https://webnus.net/dox/modern-events-calendar/modern-events-calendar-fluent-view-layouts-add-on/)
+🔌 [Zapier Integration](https://webnus.net/modern-events-calendar/addons/zapier-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zapier-integration-addon/)
+📡 [Virtual Events](https://webnus.net/modern-events-calendar/addons/virtual-events/) - [Documentation](https://webnus.net/dox/modern-events-calendar/virtual-events-addon/)
+🎟️ [Waiting List](https://webnus.net/modern-events-calendar/addons/waiting-list/) - [Documentation](https://webnus.net/dox/modern-events-calendar/waiting-list-addon/)
+✏️ [Divi Single Builder](https://webnus.net/modern-events-calendar/addons/divi-single-builder/) - [Documentation](https://webnus.net/dox/modern-events-calendar/divi-single-builder-for-mec/)
+📡 [Zoom Integration](https://webnus.net/modern-events-calendar/addons/zoom-integration/) - [Documentation](https://webnus.net/dox/modern-events-calendar/zoom-integration-addon/)
+🏬 [Advanced Organizer](https://webnus.net/modern-events-calendar/addons/advanced-organizer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-organizer-addon/)
+🎤 [Advanced Speaker](https://webnus.net/modern-events-calendar/addons/advanced-speaker/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-speaker-addon/)
+🗾 [Advanced Location](https://webnus.net/modern-events-calendar/addons/advanced-location/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-location-addon/)
+⚡ [Advanced Importer](https://webnus.net/modern-events-calendar/addons/advanced-importer/) - [Documentation](https://webnus.net/dox/modern-events-calendar/advanced-importer-addon/)
 
 == Helpful Documentation ==
 Best event management plugin [documentation](https://webnus.net/dox/modern-events-calendar/) is useful without overstatement for [Modern Event Calendar](https://webnus.net/modern-events-calendar/). It starts with simple steps for easy configuration and covers all essential aspects from beginning to the most advanced parts with step by step configuration of the plugin.
@@ -126,58 +126,58 @@ You can see [plugin demo](https://webnus.net/modern-events-calendar/)
 You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar/)
 
 == Main Features ==
-- Import from "The Event Calendar" Plugin
-- Import from "EventOn" Plugin
-- Import from "Events Schedule WP" Plugin
-- Import from "Calendarize It" Plugin
-- Internal XML import and export
-- Single day events
-- Multiple day events
-- All day events
-- [Full Calendar](https://webnus.net/modern-events-calendar/full-calendar/) view
-- [Monthly calendar](https://webnus.net/modern-events-calendar/calendarmonthly-view-modern-style/) view (3 Skins)
-- [Daily](https://webnus.net/modern-events-calendar/daily-view/) view
-- [Weekly](https://webnus.net/modern-events-calendar/weekly-view/) view 
-- [Countdown](https://webnus.net/modern-events-calendar/countdown-type-2/) view (3 Skins)
-- [Grid & cover](https://webnus.net/modern-events-calendar/grid-view-modern-style/) view (10 Skins)
-- [Slider & carousel](https://webnus.net/modern-events-calendar/slider-view-type-2/) view (8 Skins)
-- [List](https://webnus.net/modern-events-calendar/list-view-standard-style/) View (5 Skins)
-- [Timetable](https://webnus.net/modern-events-calendar/timeline-view/) View (3 Skins)
-- [Tile](https://webnus.net/modern-events-calendar/tile-view/) View 
-- Event locations system
-- Event organizer system
-- Multiple organizers
-- [Front-end Event Submission](https://webnus.net/dox/modern-events-calendar/frontend-event-submission/)
-- Never end events
-- Event widgets & sidebar
-- Custom sidebar
-- [QRcode module](https://webnus.net/dox/modern-events-calendar/qr-code-module/)
-- Recurring/Repeating events
-- Shortcodes generator
-- [Direct/Modal link for single event](https://webnus.net/modern-events-calendar/fullcalendar-view-modal-style/)
-- Show/Hide option for search bar
-- Filtering options
-- Google calendar integration
-- Reporting dashboard
-- Local time
-- Manage Notifictions
-- Reminders notification
-- RSS feed
-- Schedule for single event
-- Download .ics file
-- Social share icons
-- Custom Color
-- Feed support for MEC categories
-- Expired Events filter in shortcodes
-- Duplicate event feature
-- Advanced currency options 
-- Support comment form in single event page
-- Insert images for locations and organizers
-- Event countdown
-- Dynamic event labels
-- Dark Mode
-- Local time for all shortcodes
-- Book event button for all shortcodes
+✔️ Import from "The Event Calendar" Plugin
+✔️ Import from "EventOn" Plugin
+✔️ Import from "Events Schedule WP" Plugin
+✔️ Import from "Calendarize It" Plugin
+✔️ Internal XML import and export
+✔️ Single day events
+✔️ Multiple day events
+✔️ All day events
+✔️ [Full Calendar](https://webnus.net/modern-events-calendar/full-calendar/) view
+✔️ [Monthly calendar](https://webnus.net/modern-events-calendar/calendarmonthly-view-modern-style/) view (3 Skins)
+✔️ [Daily](https://webnus.net/modern-events-calendar/daily-view/) view
+✔️ [Weekly](https://webnus.net/modern-events-calendar/weekly-view/) view 
+✔️ [Countdown](https://webnus.net/modern-events-calendar/countdown-type-2/) view (3 Skins)
+✔️ [Grid & cover](https://webnus.net/modern-events-calendar/grid-view-modern-style/) view (10 Skins)
+✔️ [Slider & carousel](https://webnus.net/modern-events-calendar/slider-view-type-2/) view (8 Skins)
+✔️ [List](https://webnus.net/modern-events-calendar/list-view-standard-style/) View (5 Skins)
+✔️ [Timetable](https://webnus.net/modern-events-calendar/timeline-view/) View (3 Skins)
+✔️ [Tile](https://webnus.net/modern-events-calendar/tile-view/) View 
+✔️ Event locations system
+✔️ Event organizer system
+✔️ Multiple organizers
+✔️ [Front-end Event Submission](https://webnus.net/dox/modern-events-calendar/frontend-event-submission/)
+✔️ Never end events
+✔️ Event widgets & sidebar
+✔️ Custom sidebar
+✔️ [QRcode module](https://webnus.net/dox/modern-events-calendar/qr-code-module/)
+✔️ Recurring/Repeating events
+✔️ Shortcodes generator
+✔️ [Direct/Modal link for single event](https://webnus.net/modern-events-calendar/fullcalendar-view-modal-style/)
+✔️ Show/Hide option for search bar
+✔️ Filtering options
+✔️ Google calendar integration
+✔️ Reporting dashboard
+✔️ Local time
+✔️ Manage Notifictions
+✔️ Reminders notification
+✔️ RSS feed
+✔️ Schedule for single event
+✔️ Download .ics file
+✔️ Social share icons
+✔️ Custom Color
+✔️ Feed support for MEC categories
+✔️ Expired Events filter in shortcodes
+✔️ Duplicate event feature
+✔️ Advanced currency options 
+✔️ Support comment form in single event page
+✔️ Insert images for locations and organizers
+✔️ Event countdown
+✔️ Dynamic event labels
+✔️ Dark Mode
+✔️ Local time for all shortcodes
+✔️ Book event button for all shortcodes
 
 == Integration ==
 - WPML
@@ -212,6 +212,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
+- Assets Manager
+- Change the SEO title of occurrences
 - Show event content only for those users that booked the event (*pro*)
 - Show / Hide Occurrences per shortcode
 - Auto-Populate profile fields after booking (*pro*)
@@ -448,6 +450,26 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.18.5 – 21 April 2021 =
+- Added: A new feature to manage a load of MEC assets on pages
+- Added: Some new placeholders to notifications including categories, tags, cost, and labels (pro)
+- Added: An option to show expired events in event management of backend
+- Added: Date filter option to map skin (pro)
+- Added: An option to change the SEO title of occurrences
+- Added: An option to change currency and currency options per event
+- Added: An option to disable the “Private Description” field in frontend event submission (pro)
+- Added: An option to disable the display of organizers in “Frontend Event Submission”
+- Improved: The MS Excel export on event and bookings (pro)
+- Fixed: Unlimited booking limit (pro)
+- Fixed: Price of booking export
+- Fixed: Simple style of monthly skin when there are multiple repeats from the same event in one day
+- Fixed: Last Few Ticket Percentage (pro)
+- Fixed: Some issues in export module loaded in single event page (pro)
+- Fixed: An issue regarding multiline description for ics export
+- Fixed: Showing the wrong date for events
+- Fixed: Booking reminder notification (pro)
+- Fixed: some issues in PHP 8
 
 = 5.18.0 – 7 April 2021 =
 - Added: A new shortcode for Pro users to display some content only for those users that booked the event (pro)

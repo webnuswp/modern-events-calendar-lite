@@ -112,6 +112,10 @@ class MEC_skin_map extends MEC_skins
 
         // Start Date
         $this->start_date = $this->get_start_date();
+
+        // End Date
+        $this->end_date = ((isset($this->atts['date-range-end']) and trim($this->atts['date-range-end'])) ? $this->atts['date-range-end'] : NULL);
+        if(!$this->end_date and isset($this->sf['month']) and trim($this->sf['month']) and isset($this->sf['year']) and trim($this->sf['year'])) $this->end_date = date('Y-m-t', strtotime($this->sf['year'].'-'.$this->sf['month'].'-01'));
     }
     
     /**
@@ -131,7 +135,7 @@ class MEC_skin_map extends MEC_skins
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'start_current_month') $date = date('Y-m-d', strtotime('first day of this month'));
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'start_next_month') $date = date('Y-m-d', strtotime('first day of next month'));
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'date') $date = date('Y-m-d', strtotime($this->skin_options['start_date']));
-        
+
         // Hide past events
         if(isset($this->atts['show_past_events']) and !trim($this->atts['show_past_events']))
         {
@@ -152,7 +156,7 @@ class MEC_skin_map extends MEC_skins
         $events = array();
         $sorted = array();
 
-        $yesterday = date('Y-m-d', strtotime('Yesterday', strtotime($this->start_date)));
+        $yesterday = ($this->end_date ? $this->start_date : date('Y-m-d', strtotime('Yesterday', strtotime($this->start_date))));
 
         // The Query
         $query = new WP_Query($this->args);
@@ -174,6 +178,7 @@ class MEC_skin_map extends MEC_skins
                 $data->date = isset($data->dates[0]) ? $data->dates[0] : array();
 
                 if(strtotime($data->date['end']['date']) < strtotime($this->start_date)) continue;
+                if($this->end_date and strtotime($data->date['start']['date']) > strtotime($this->end_date)) continue;
 
                 if($this->hide_time_method == 'end' and strtotime($data->date['end']['date']) < strtotime($this->start_date)) continue;
                 elseif($this->hide_time_method != 'end')
@@ -215,7 +220,7 @@ class MEC_skin_map extends MEC_skins
         $this->sf = $this->request->getVar('sf', array());
         $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
         $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
-        
+
         // Initialize the skin
         $this->initialize($atts);
         

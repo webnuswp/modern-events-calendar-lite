@@ -74,6 +74,8 @@ elseif($week_start == 5) // Friday
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
 
+                    $event_unique = (isset($event->data->time) ? $event->data->ID.$event->data->time['start_timestamp'] : $event->data->ID);
+
                     // Event Content
                     if(!$this->cache->has($event->data->ID.'_content'))
                     {
@@ -83,7 +85,7 @@ elseif($week_start == 5) // Friday
                     else $event_content = $this->cache->get($event->data->ID.'_content');
 
                     echo '<div class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative simple-skin-ended">';
-                    echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.$event->data->ID.'-'.$day_id.'" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'"  '.$target_url.'>';
+                    echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.$event_unique.'-'.$day_id.'" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'"  '.$target_url.'>';
                     echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     do_action('mec_shortcode_virtual_badge', $event->data->ID);
                     echo '</a>';
@@ -98,7 +100,7 @@ elseif($week_start == 5) // Friday
                         // Event Content
                         if(!$this->cache->has($event->data->ID.'_cost'))
                         {
-                            $event_cost = (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']);
+                            $event_cost = (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']);
                             $this->cache->set($event->data->ID.'_cost', $event_cost);
                         }
                         else $event_cost = $this->cache->get($event->data->ID.'_cost');
@@ -120,7 +122,7 @@ elseif($week_start == 5) // Friday
                     do_action('mec_schema', $event);
 
                     echo '<div class="tooltip_templates event-single-content-simple">
-                        <div id="mec-tooltip-'.$event->data->ID.'-'.$day_id.'">
+                        <div id="mec-tooltip-'.$event_unique.'-'.$day_id.'">
                             '.$tooltip_content.'
                         </div>
                     </div>';

@@ -1,4 +1,24 @@
-﻿v 5.18.0 – 7 April 2021
+﻿v 5.18.5 – 21 April 2021
+- Added: A new feature to manage a load of MEC assets on pages
+- Added: Some new placeholders to notifications including categories, tags, cost, and labels (pro)
+- Added: An option to show expired events in event management of backend
+- Added: Date filter option to map skin (pro)
+- Added: An option to change the SEO title of occurrences
+- Added: An option to change currency and currency options per event
+- Added: An option to disable the “Private Description” field in frontend event submission (pro)
+- Added: An option to disable the display of organizers in “Frontend Event Submission”
+- Improved: The MS Excel export on event and bookings (pro)
+- Fixed: Unlimited booking limit (pro)
+- Fixed: Price of booking export
+- Fixed: Simple style of monthly skin when there are multiple repeats from the same event in one day
+- Fixed: Last Few Ticket Percentage (pro)
+- Fixed: Some issues in export module loaded in single event page (pro)
+- Fixed: An issue regarding multiline description for ics export
+- Fixed: Showing the wrong date for events
+- Fixed: Booking reminder notification (pro)
+- Fixed: some issues in PHP 8
+
+v 5.18.0 – 7 April 2021
 - Added: A new shortcode for Pro users to display some content only for those users that booked the event (pro)
 - Added: Placeholder feature for text fields in the search form
 - Added: Two new placeholders to email notifications to show the start and end time of events (pro)

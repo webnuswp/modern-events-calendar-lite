@@ -159,6 +159,7 @@ class MEC_feature_ix extends MEC_base
                 'sync_g_import_auto'=>isset($this->ix['sync_g_import_auto']) ? $this->ix['sync_g_import_auto'] : 0,
                 'sync_g_export'=>isset($this->ix['sync_g_export']) ? $this->ix['sync_g_export'] : 0,
                 'sync_g_export_auto'=>isset($this->ix['sync_g_export_auto']) ? $this->ix['sync_g_export_auto'] : 0,
+                'sync_g_export_attendees'=>isset($this->ix['sync_g_export_attendees']) ? $this->ix['sync_g_export_attendees'] : 0,
                 'sync_f_import'=>isset($this->ix['sync_f_import']) ? $this->ix['sync_f_import'] : 0,
                 'sync_meetup_import'=>isset($this->ix['sync_meetup_import']) ? $this->ix['sync_meetup_import'] : 0,
                 'sync_meetup_import_auto'=>isset($this->ix['sync_meetup_import_auto']) ? $this->ix['sync_meetup_import_auto'] : 0,
@@ -3187,7 +3188,7 @@ class MEC_feature_ix extends MEC_base
     {
         // Current Action
         $this->action = isset($_POST['mec-ix-action']) ? sanitize_text_field($_POST['mec-ix-action']) : (isset($_GET['mec-ix-action']) ? sanitize_text_field($_GET['mec-ix-action']) : '');
-        
+
         $path = MEC::import('app.features.ix.export_g_calendar', true, true);
 
         ob_start();
@@ -4092,16 +4093,17 @@ class MEC_feature_ix extends MEC_base
                 
                 foreach($events as $event)
                 {
-                    $data = $render->data($event->ID);
+                    $event_id = $event->ID;
+                    $data = $render->data($event_id);
                     
-                    $dates = $render->dates($event->ID, $data);
+                    $dates = $render->dates($event_id, $data);
                     $date = $dates[0];
                     
                     $location = isset($data->locations[$data->meta['mec_location_id']]) ? $data->locations[$data->meta['mec_location_id']] : array();
                     $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();
                     
                     $event = array(
-                        $event->ID,
+                        $event_id,
                         html_entity_decode($data->title),
                         $date['start']['date'],
                         $data->time['start'],
@@ -4113,7 +4115,7 @@ class MEC_feature_ix extends MEC_base
                         (isset($organizer['name']) ? html_entity_decode($organizer['name']) : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
-                        (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']) : '')
+                        (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost'], $event_id) : $data->meta['mec_cost']) : '')
                     );
                     
                     fputcsv($output, $event);
@@ -4125,7 +4127,7 @@ class MEC_feature_ix extends MEC_base
             case 'ms-excel':
                 
                 header('Content-Type: application/vnd.ms-excel; charset=utf-8');
-                header('Content-Disposition: attachment; filename="mec-events-'.md5(time().mt_rand(100, 999)).'.csv"');
+                header('Content-Disposition: attachment; filename="mec-events-'.md5(time().mt_rand(100, 999)).'.xls"');
                 
                 $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), __('Organizer Tel', 'modern-events-calendar-lite'), __('Organizer Email', 'modern-events-calendar-lite'), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')));
                 
@@ -4135,16 +4137,17 @@ class MEC_feature_ix extends MEC_base
                 
                 foreach($events as $event)
                 {
-                    $data = $render->data($event->ID);
+                    $event_id = $event->ID;
+                    $data = $render->data($event_id);
                     
-                    $dates = $render->dates($event->ID, $data);
+                    $dates = $render->dates($event_id, $data);
                     $date = $dates[0];
                     
                     $location = isset($data->locations[$data->meta['mec_location_id']]) ? $data->locations[$data->meta['mec_location_id']] : array();
                     $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();
                     
                     $event = array(
-                        $event->ID,
+                        $event_id,
                         html_entity_decode($data->title),
                         $date['start']['date'],
                         $data->time['start'],
@@ -4156,7 +4159,7 @@ class MEC_feature_ix extends MEC_base
                         (isset($organizer['name']) ? html_entity_decode($organizer['name']) : ''),
                         (isset($organizer['tel']) ? $organizer['tel'] : ''),
                         (isset($organizer['email']) ? $organizer['email'] : ''),
-                        (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost']) : $data->meta['mec_cost']) : '')
+                        (isset($data->meta['mec_cost']) ? (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost'], $event_id) : $data->meta['mec_cost']) : '')
                     );
                     
                     fputcsv($output, $event, "\t");
@@ -4270,8 +4273,9 @@ class MEC_feature_ix extends MEC_base
     
     public function g_calendar_export_do()
     {
-        $mec_event_ids = isset($_POST['mec-events']) ? $_POST['mec-events'] : array();
-        
+        $mec_event_ids = (isset($_POST['mec-events']) ? $_POST['mec-events'] : array());
+        $export_attendees = (isset($_POST['export_attendees']) ? $_POST['export_attendees'] : 0);
+
         $ix = $this->main->get_ix_options();
         
         $client_id = isset($ix['google_export_client_id']) ? $ix['google_export_client_id'] : NULL;
@@ -4370,6 +4374,23 @@ class MEC_feature_ix extends MEC_base
                 $g_organizer->setEmail($organizer['email']);
 
                 $event->setOrganizer($g_organizer);
+            }
+
+            // Set the attendees
+            if($export_attendees)
+            {
+                $attendees = array();
+                foreach($this->main->get_event_attendees($data->ID) as $att)
+                {
+                    $attendee = new Google_Service_Calendar_EventAttendee();
+                    $attendee->setDisplayName($att['name']);
+                    $attendee->setEmail($att['email']);
+                    $attendee->setResponseStatus('accepted');
+
+                    $attendees[] = $attendee;
+                }
+
+                $event->setAttendees($attendees);
             }
             
             try

@@ -195,6 +195,15 @@ $event_fields = $this->main->get_event_fields();
                                     </span>
                                 </div>
                             </div>
+                            <div class="mec-form-row">
+                                <div class="mec-col-12">
+                                    <label for="mec_settings_currency_per_event">
+                                        <input type="hidden" name="mec[settings][currency_per_event]" value="0" />
+                                        <input type="checkbox" name="mec[settings][currency_per_event]" id="mec_settings_currency_per_event" <?php echo ((isset($settings['currency_per_event']) and $settings['currency_per_event'] == '1') ? 'checked="checked"' : ''); ?> value="1" />
+                                        <?php _e('Change Currency Per Event', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                            </div>
 
                         </div>
 

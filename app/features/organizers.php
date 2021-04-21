@@ -256,6 +256,13 @@ class MEC_feature_organizers extends MEC_base
         $organizer_ids = array_unique($organizer_ids);
 
         $additional_organizers_status = (!isset($this->settings['additional_organizers']) or (isset($this->settings['additional_organizers']) and $this->settings['additional_organizers'])) ? true : false;
+
+        $use_all_organizers = ((!is_admin() and isset($this->settings['fes_use_all_organizers']) and !$this->settings['fes_use_all_organizers']) ? false : true);
+        if(!$use_all_organizers)
+        {
+            $additional_organizers_status = false;
+            $organizers = array();
+        }
     ?>
         <div class="mec-meta-box-fields mec-event-tab-content" id="mec-organizer">
             <h4><?php echo sprintf(__('Event Main %s', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))); ?></h4>

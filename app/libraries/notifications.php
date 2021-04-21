@@ -954,6 +954,14 @@ class MEC_notifications extends MEC_base
         // Event Data
         $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
+        $message = str_replace('%%event_description%%', strip_tags(get_post_field('post_content', $event_id)), $message);
+        $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($event_id, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
+        $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_label'), 'name')), $message);
+        $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_category'), 'name')), $message);
+
+        $mec_cost = get_post_meta($event_id, 'mec_cost', true);
+        $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $event_id) : $mec_cost), $message);
+
         $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($event_id, 'mec_start_date', true))), $message);
         $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($event_id, 'mec_end_date', true))), $message);
         $message = str_replace('%%event_timezone%%', $this->main->get_timezone($event_id), $message);
@@ -1099,6 +1107,14 @@ class MEC_notifications extends MEC_base
             // Event Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
             $message = str_replace('%%event_title%%', get_the_title($post->ID), $message);
+            $message = str_replace('%%event_description%%', strip_tags(get_post_field('post_content', $post->ID)), $message);
+            $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($post->ID, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
+            $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($post->ID, 'mec_label'), 'name')), $message);
+            $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($post->ID, 'mec_category'), 'name')), $message);
+
+            $mec_cost = get_post_meta($post->ID, 'mec_cost', true);
+            $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $post->ID) : $mec_cost), $message);
+
             $message = str_replace('%%event_link%%', get_post_permalink($post->ID), $message);
             $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($post->ID, 'mec_start_date', true))), $message);
             $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($post->ID, 'mec_end_date', true))), $message);
@@ -1390,14 +1406,14 @@ class MEC_notifications extends MEC_base
 
         // Booking Price
         $price = get_post_meta($book_id, 'mec_price', true);
-        $message = str_replace('%%book_price%%', $this->main->render_price(($price ? $price : 0)), $message);
+        $message = str_replace('%%book_price%%', $this->main->render_price(($price ? $price : 0), $event_id), $message);
         $message = str_replace('%%total_attendees%%', $this->book->get_total_attendees($book_id), $message);
 
         // Attendee Price
         if(isset($attendee['email']))
         {
             $attendee_price = $this->book->get_attendee_price($transaction, $attendee['email']);
-            $message = str_replace('%%attendee_price%%', $this->main->render_price(($attendee_price ? $attendee_price : $price)), $message);
+            $message = str_replace('%%attendee_price%%', $this->main->render_price(($attendee_price ? $attendee_price : $price), $event_id), $message);
         }
 
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
@@ -1476,6 +1492,13 @@ class MEC_notifications extends MEC_base
         }
 
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
+        $message = str_replace('%%event_description%%', strip_tags(get_post_field('post_content', $event_id)), $message);
+        $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($event_id, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
+        $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_label'), 'name')), $message);
+        $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_category'), 'name')), $message);
+
+        $mec_cost = get_post_meta($event_id, 'mec_cost', true);
+        $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $event_id) : $mec_cost), $message);
         $message = str_replace('%%event_link%%', $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp)), $message);
         $message = str_replace('%%event_more_info%%', esc_url(get_post_meta($event_id, 'mec_read_more', true)), $message);
         $message = str_replace('%%event_other_info%%', esc_url(get_post_meta($event_id, 'mec_more_info', true)), $message);
@@ -1595,9 +1618,12 @@ class MEC_notifications extends MEC_base
             }
         }
 
+        // Private Description
+        $private_description_status = (!isset($this->settings['booking_private_description']) or (isset($this->settings['booking_private_description']) and $this->settings['booking_private_description'])) ? true : false;
+
         $message = str_replace('%%ticket_name%%', implode(',', $ticket_names), $message);
         $message = str_replace('%%ticket_time%%', implode(',', $ticket_times), $message);
-        $message = str_replace('%%ticket_private_description%%', implode(',', $ticket_private_descriptions), $message);
+        $message = str_replace('%%ticket_private_description%%', ($private_description_status ? implode(',', $ticket_private_descriptions) : ''), $message);
 
         $ticket_name_time = '';
         foreach($ticket_names as $t_i=>$ticket_name)
@@ -1611,6 +1637,7 @@ class MEC_notifications extends MEC_base
         $event_title = get_the_title($event_id);
         $event_info = get_post($event_id);
         $event_content = trim($event_info->post_content) ? strip_shortcodes(strip_tags($event_info->post_content)) : $event_title;
+        $event_content = apply_filters('mec_add_content_to_export_google_calendar_details', $event_content,$event_id );
 
         $google_calendar_location = get_term_meta($location_id, 'address', true);
         $google_calendar_link = '<a href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';

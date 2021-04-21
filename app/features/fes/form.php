@@ -848,6 +848,14 @@ $this->factory->params('footer', $javascript);
             <?php
                 $cost = get_post_meta($post_id, 'mec_cost', true);
                 $cost_type = ((isset($this->settings['single_cost_type']) and trim($this->settings['single_cost_type'])) ? $this->settings['single_cost_type'] : 'numeric');
+
+                $currency = get_post_meta($post_id, 'mec_currency', true);
+                if(!is_array($currency)) $currency = array();
+
+                $currency_per_event = ((isset($this->settings['currency_per_event']) and trim($this->settings['currency_per_event'])) ? $this->settings['currency_per_event'] : 0);
+
+                $currencies = $this->main->get_currencies();
+                $current_currency = (isset($currency['currency']) ? $currency['currency'] : $this->settings['currency']);
             ?>
             <div class="mec-meta-box-fields" id="mec-event-cost">
                 <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? '<span class="mec-required">*</span>' : ''); ?></h4>
@@ -856,6 +864,65 @@ $this->factory->params('footer', $javascript);
                         <input type="<?php echo ($cost_type === 'alphabetic' ? 'text' : 'number'); ?>" class="mec-col-3" name="mec[cost]" id="mec_cost" value="<?php echo esc_attr($cost); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? 'required' : ''); ?> />
                     </div>
                 </div>
+
+                <?php if($currency_per_event): ?>
+                <h4><?php echo __('Currency Options', 'modern-events-calendar-lite'); ?></h4>
+                <div class="mec-form-row">
+                    <label class="mec-col-2" for="mec_currency_currency"><?php _e('Currency', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <select name="mec[currency][currency]" id="mec_currency_currency">
+                            <?php foreach($currencies as $c=>$currency_name): ?>
+                                <option value="<?php echo $c; ?>" <?php echo (($current_currency == $c) ? 'selected="selected"' : ''); ?>><?php echo $currency_name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-2" for="mec_currency_currency_symptom"><?php _e('Currency Sign', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <input type="text" name="mec[currency][currency_symptom]" id="mec_currency_currency_symptom" value="<?php echo (isset($currency['currency_symptom']) ? $currency['currency_symptom'] : ''); ?>" />
+                        <span class="mec-tooltip">
+                            <div class="box left">
+                                <h5 class="title"><?php _e('Currency Sign', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="content"><p><?php esc_attr_e("Default value will be \"currency\" if you leave it empty.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/currency-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                            </div>
+                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-2" for="mec_currency_currency_sign"><?php _e('Currency Position', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <select name="mec[currency][currency_sign]" id="mec_currency_currency_sign">
+                            <option value="before" <?php echo ((isset($currency['currency_sign']) and $currency['currency_sign'] == 'before') ? 'selected="selected"' : ''); ?>><?php _e('$10 (Before)', 'modern-events-calendar-lite'); ?></option>
+                            <option value="before_space" <?php echo ((isset($currency['currency_sign']) and $currency['currency_sign'] == 'before_space') ? 'selected="selected"' : ''); ?>><?php _e('$ 10 (Before with Space)', 'modern-events-calendar-lite'); ?></option>
+                            <option value="after" <?php echo ((isset($currency['currency_sign']) and $currency['currency_sign'] == 'after') ? 'selected="selected"' : ''); ?>><?php _e('10$ (After)', 'modern-events-calendar-lite'); ?></option>
+                            <option value="after_space" <?php echo ((isset($currency['currency_sign']) and $currency['currency_sign'] == 'after_space') ? 'selected="selected"' : ''); ?>><?php _e('10 $ (After with Space)', 'modern-events-calendar-lite'); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-2" for="mec_currency_thousand_separator"><?php _e('Thousand Separator', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <input type="text" name="mec[currency][thousand_separator]" id="mec_currency_thousand_separator" value="<?php echo (isset($currency['thousand_separator']) ? $currency['thousand_separator'] : ','); ?>" />
+                    </div>
+                </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-2" for="mec_currency_decimal_separator"><?php _e('Decimal Separator', 'modern-events-calendar-lite'); ?></label>
+                    <div class="mec-col-4">
+                        <input type="text" name="mec[currency][decimal_separator]" id="mec_currency_decimal_separator" value="<?php echo (isset($currency['decimal_separator']) ? $currency['decimal_separator'] : '.'); ?>" />
+                    </div>
+                </div>
+                <div class="mec-form-row">
+                    <div class="mec-col-12">
+                        <label for="mec_currency_decimal_separator_status">
+                            <input type="hidden" name="mec[currency][decimal_separator_status]" value="1" />
+                            <input type="checkbox" name="mec[currency][decimal_separator_status]" id="mec_currency_decimal_separator_status" <?php echo ((isset($currency['decimal_separator_status']) and $currency['decimal_separator_status'] == '0') ? 'checked="checked"' : ''); ?> value="0" />
+                            <?php _e('No decimal', 'modern-events-calendar-lite'); ?>
+                        </label>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
             <?php endif; ?>
             

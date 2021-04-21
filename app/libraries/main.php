@@ -584,6 +584,7 @@ class MEC_main extends MEC_base
             __('Archive Pages', 'modern-events-calendar-lite') => 'archive_options',
             __('Slugs/Permalinks', 'modern-events-calendar-lite') => 'slug_option',
             __('Currency Options', 'modern-events-calendar-lite') => 'currency_option',
+            __('Assets Per Page', 'modern-events-calendar-lite') => 'assets_per_page_option',
             __('Google Recaptcha Options', 'modern-events-calendar-lite') => 'recaptcha_option',
             __('Frontend Event Submission', 'modern-events-calendar-lite') => 'fes_option',
             __('User Profile', 'modern-events-calendar-lite') => 'user_profile_options',
@@ -1397,29 +1398,6 @@ class MEC_main extends MEC_base
     {
         $options = $this->get_options();
         return (isset($options['styling']) ? $options['styling'] : array());
-    }
-    
-    /**
-     * Prints custom styles in the page header
-     * @author Webnus <info@webnus.biz>
-     * @return void
-     */
-    public function include_styles()
-    {
-        // Include Dynamic CSS
-        if(get_option('mec_dyncss') == true)
-        {
-            echo '<style type="text/css">'.stripslashes(get_option('mec_dyncss')).'</style>';
-        }
-
-        $styles = $this->get_styles();
-        
-        // Print custom styles
-        if(isset($styles['CSS']) and trim($styles['CSS']) != '')
-        {
-            $CSS = strip_tags($styles['CSS']);
-            echo '<style type="text/css">'.stripslashes($CSS).'</style>';
-        }
     }
     
     /**
@@ -2852,7 +2830,7 @@ class MEC_main extends MEC_base
                 $pdf->SetFont('DejaVu', '', 12);
                 foreach($transaction['price_details']['details'] as $price_row)
                 {
-                    $pdf->Write(6, $price_row['description'].": ".$this->render_price($price_row['amount']));
+                    $pdf->Write(6, $price_row['description'].": ".$this->render_price($price_row['amount'], $event_id));
                     $pdf->Ln();
                 }
 
@@ -2864,7 +2842,7 @@ class MEC_main extends MEC_base
 
                 $pdf->SetFont('DejaVuBold', '', 12);
                 $pdf->Write(10, __('Total', 'modern-events-calendar-lite').': ');
-                $pdf->Write(10, $this->render_price($transaction['price']));
+                $pdf->Write(10, $this->render_price($transaction['price'], $event_id));
                 $pdf->Ln();
             }
 
@@ -3122,10 +3100,15 @@ class MEC_main extends MEC_base
             foreach($rrules as $rrule) $ical .= $rrule.PHP_EOL;
         }
 
+        $event_content = strip_tags($event->content);
+        $event_content = str_replace("\r\n", "\\n", $event_content);
+        $event_content = str_replace("\n", "\\n", $event_content);
+        $event_content = preg_replace('/(<script[^>]*>.+?<\/script>|<style[^>]*>.+?<\/style>)/s', '', $event_content);;
+
         $ical .= "CREATED:".date('Ymd', $stamp).PHP_EOL;
         $ical .= "LAST-MODIFIED:".date('Ymd', $modified).PHP_EOL;
         $ical .= "SUMMARY:".html_entity_decode($event->title, ENT_NOQUOTES, 'UTF-8').PHP_EOL;
-        $ical .= "DESCRIPTION:".html_entity_decode(str_replace("\n", "\\n", strip_tags($event->content)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
+        $ical .= "DESCRIPTION:".html_entity_decode($event_content, ENT_NOQUOTES, 'UTF-8').PHP_EOL;
         $ical .= "URL:".$event->permalink.PHP_EOL;
 
         // Organizer
@@ -3859,20 +3842,21 @@ class MEC_main extends MEC_base
     
     /**
      * Render raw price and return its output
+     * @param int|object $event
      * @author Webnus <info@webnus.biz>
      * @param int $price
      * @return string
      */
-    public function render_price($price)
+    public function render_price($price, $event = NULL)
     {
         // return Free if price is 0
         if($price == '0') return __('Free', 'modern-events-calendar-lite');
         
-        $thousand_separator = $this->get_thousand_separator();
-        $decimal_separator = $this->get_decimal_separator();
+        $thousand_separator = $this->get_thousand_separator($event);
+        $decimal_separator = $this->get_decimal_separator($event);
         
-        $currency = $this->get_currency_sign();
-        $currency_sign_position = $this->get_currency_sign_position();
+        $currency = $this->get_currency_sign($event);
+        $currency_sign_position = $this->get_currency_sign_position($event);
         
         // Force to double
         if(is_string($price)) $price = (double) $price;
@@ -3889,61 +3873,122 @@ class MEC_main extends MEC_base
     
     /**
      * Returns thousand separator
+     * @param int|object $event
      * @author Webnus <info@webnus.biz>
      * @return string
      */
-    public function get_thousand_separator()
+    public function get_thousand_separator($event = NULL)
     {
         $settings = $this->get_settings();
-        return apply_filters('mec_thousand_separator', (isset($settings['thousand_separator']) ? $settings['thousand_separator'] : ','));
+
+        // Separator
+        $separator = (isset($settings['thousand_separator']) ? $settings['thousand_separator'] : ',');
+
+        // Currency Per Event
+        if($event and isset($settings['currency_per_event']) and $settings['currency_per_event'])
+        {
+            $options = $this->get_event_currency_options($event);
+            if(isset($options['thousand_separator']) and trim($options['thousand_separator'])) $separator = $options['thousand_separator'];
+        }
+
+        return apply_filters('mec_thousand_separator', $separator);
     }
     
     /**
      * Returns decimal separator
+     * @param int|object $event
      * @author Webnus <info@webnus.biz>
      * @return string
      */
-    public function get_decimal_separator()
+    public function get_decimal_separator($event = NULL)
     {
         $settings = $this->get_settings();
-        return apply_filters('mec_decimal_separator', ((isset($settings['decimal_separator_status']) and $settings['decimal_separator_status'] == 0) ? false : (isset($settings['decimal_separator']) ? $settings['decimal_separator'] : '.')));
+
+        // Separator
+        $separator = (isset($settings['decimal_separator']) ? $settings['decimal_separator'] : '.');
+
+        // Status
+        $disabled = (isset($settings['decimal_separator_status']) and $settings['decimal_separator_status'] == 0);
+
+        // Currency Per Event
+        if($event and isset($settings['currency_per_event']) and $settings['currency_per_event'])
+        {
+            $options = $this->get_event_currency_options($event);
+            if(isset($options['decimal_separator']) and trim($options['decimal_separator'])) $separator = $options['decimal_separator'];
+            if(isset($options['decimal_separator_status']) and $options['decimal_separator_status'] == 0) $disabled = true;
+        }
+
+        return apply_filters('mec_decimal_separator', ($disabled ? false : $separator));
+    }
+
+    /**
+     * @param int|object $event
+     * @return array
+     */
+    public function get_event_currency_options($event)
+    {
+        $event_id = (is_object($event) ? $event->ID : $event);
+
+        $options = get_post_meta($event_id, 'mec_currency', true);
+        if(!is_array($options)) $options = array();
+
+        return $options;
     }
     
     /**
      * Returns currency of MEC
+     * @param int|object $event
      * @author Webnus <info@webnus.biz>
      * @return string
      */
-    public function get_currency()
+    public function get_currency($event = NULL)
     {
         $settings = $this->get_settings();
-        return apply_filters('mec_currency', (isset($settings['currency']) ? $settings['currency'] : ''));
+        $currency = (isset($settings['currency']) ? $settings['currency'] : '');
+
+        // Currency Per Event
+        if($event and isset($settings['currency_per_event']) and $settings['currency_per_event'])
+        {
+            $options = $this->get_event_currency_options($event);
+            if(isset($options['currency']) and trim($options['currency'])) $currency = $options['currency'];
+        }
+
+        return apply_filters('mec_currency', $currency);
     }
     
     /**
      * Returns currency sign of MEC
+     * @param int|object $event
      * @author Webnus <info@webnus.biz>
      * @return string
      */
-    public function get_currency_sign()
+    public function get_currency_sign($event = NULL)
     {
         $settings = $this->get_settings();
         
         // Get Currency Symptom
-        $currency = isset($settings['currency']) ? $settings['currency'] : '';
+        $currency = $this->get_currency($event);
         if(isset($settings['currency_symptom']) and trim($settings['currency_symptom'])) $currency = $settings['currency_symptom'];
+
+        // Currency Per Event
+        if($event and isset($settings['currency_per_event']) and $settings['currency_per_event'])
+        {
+            $options = $this->get_event_currency_options($event);
+            if(isset($options['currency_symptom']) and trim($options['currency_symptom'])) $currency = $options['currency_symptom'];
+        }
         
         return apply_filters('mec_currency_sign', $currency);
     }
     
     /**
      * Returns currency code of MEC
+     * @param int|object $event
      * @author Webnus <info@webnus.biz>
      * @return string
      */
-    public function get_currency_code()
+    public function get_currency_code($event = NULL)
     {
-        $currency = $this->get_currency();
+        $currency = $this->get_currency($event);
         $currencies = $this->get_currencies();
         
         return isset($currencies[$currency]) ? $currencies[$currency] : 'USD';
@@ -3951,13 +3996,25 @@ class MEC_main extends MEC_base
     
     /**
      * Returns currency sign position of MEC
+     * @param int|object $event
      * @author Webnus <info@webnus.biz>
      * @return string
      */
-    public function get_currency_sign_position()
+    public function get_currency_sign_position($event = NULL)
     {
         $settings = $this->get_settings();
-        return apply_filters('mec_currency_sign_position', (isset($settings['currency_sign']) ? $settings['currency_sign'] : ''));
+
+        // Currency Position
+        $position = (isset($settings['currency_sign']) ? $settings['currency_sign'] : '');
+
+        // Currency Per Event
+        if($event and isset($settings['currency_per_event']) and $settings['currency_per_event'])
+        {
+            $options = $this->get_event_currency_options($event);
+            if(isset($options['currency_sign']) and trim($options['currency_sign'])) $position = $options['currency_sign'];
+        }
+
+        return apply_filters('mec_currency_sign_position', $position);
     }
     
     /**
@@ -4172,7 +4229,7 @@ class MEC_main extends MEC_base
             }
         }
 
-        $wc_status = (isset($settings['wc_status']) ? (boolean) $settings['wc_status'] : false);
+        $wc_status = ((isset($settings['wc_status']) and class_exists('WooCommerce')) ? (boolean) $settings['wc_status'] : false);
         
         // No Payment gateway is enabled
         if(!$is_gateway_enabled and !$wc_status) return false;
@@ -6533,7 +6590,12 @@ class MEC_main extends MEC_base
             $remained_tickets = 0;
             foreach($availability as $ticket_id => $remained)
             {
-                if(is_numeric($ticket_id)) $remained_tickets += $remained;
+                if(is_numeric($ticket_id) and $remained >= 0) $remained_tickets += $remained;
+                if(is_numeric($ticket_id) and $remained == -1)
+                {
+                    $remained_tickets = -1;
+                    break;
+                }
             }
 
             // Check For Return SoldOut Label Exist.
@@ -7397,7 +7459,14 @@ class MEC_main extends MEC_base
             $remained_tickets = 0;
             foreach($availability as $ticket_id => $remained)
             {
-                if(is_numeric($ticket_id)) $remained_tickets += $remained;
+                if(is_numeric($ticket_id) and $remained >= 0) $remained_tickets += $remained;
+
+                // Unlimited Tickets
+                if(is_numeric($ticket_id) and $remained == -1)
+                {
+                    $remained_tickets = -1;
+                    break;
+                }
             }
 
             $add_css_class = $remained_tickets ? 'mec-few-tickets' : '';
@@ -7424,7 +7493,7 @@ class MEC_main extends MEC_base
             if(!$bookings_last_few_tickets_percentage_inherite and $bookings_last_few_tickets_percentage) $percentage = (int) $bookings_last_few_tickets_percentage;
             
             // Check For Return A Few Label Exist.
-            if(($total_bookings_limit > 0) and ($remained_tickets <= round((($percentage * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
+            if(($total_bookings_limit > 0) and ($remained_tickets > 0 and $remained_tickets <= round((($percentage * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
     
             return false;
         }
@@ -7992,7 +8061,7 @@ class MEC_main extends MEC_base
         else $occurrence = NULL;
 
         $render = $this->getRender();
-        return $render->dates($event_id, $event->data, $maximum, (trim($occurrence_time) ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
+        return $render->dates($event_id, (isset($event->data) ? $event->data : NULL), $maximum, (trim($occurrence_time) ? date('Y-m-d H:i:s', $occurrence_time) : $occurrence));
     }
 
     public function get_post_thumbnail_url($post = NULL, $size = 'post-thumbnail')
@@ -8178,5 +8247,82 @@ class MEC_main extends MEC_base
     {
         $bookings = $this->get_bookings($event_id, $timestamp, 1, $user_id);
         return (boolean) count($bookings);
+    }
+
+    public function get_event_attendees($id, $occurrence = NULL)
+    {
+        $date_query = array();
+        if($occurrence)
+        {
+            $date_query = array(
+                array(
+                    'year' => date('Y', $occurrence),
+                    'month'=> date('m', $occurrence),
+                    'day' => date('d', $occurrence),
+                    'hour' => date('H', $occurrence),
+                    'minute' => date('i', $occurrence),
+                ),
+            );
+        }
+
+        $booking_options = get_post_meta($id, 'mec_booking', true);
+        $bookings_all_occurrences = (isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0);
+        if($bookings_all_occurrences and $occurrence)
+        {
+            $date_query = array(
+                'before' => date('Y-m-d', $occurrence).' 23:59:59',
+            );
+        }
+
+        // Fetch Bookings
+        $bookings = get_posts(array(
+            'posts_per_page' => -1,
+            'post_type' => $this->get_book_post_type(),
+            'post_status' => 'any',
+            'meta_key' => 'mec_event_id',
+            'meta_value' => $id,
+            'meta_compare' => '=',
+            'meta_query' => array
+            (
+                'relation' => 'AND',
+                array(
+                    'key' => 'mec_verified',
+                    'value' => '1',
+                    'compare' => '=',
+                ),
+                array(
+                    'key' => 'mec_confirmed',
+                    'value' => '1',
+                    'compare' => '=',
+                ),
+            ),
+            'date_query' => $date_query,
+        ));
+
+        // Attendees
+        $attendees = array();
+        foreach($bookings as $booking)
+        {
+            $atts = get_post_meta($booking->ID, 'mec_attendees', true);
+            if(isset($atts['attachments'])) unset($atts['attachments']);
+
+            foreach($atts as $key => $value)
+            {
+                if(!is_numeric($key)) continue;
+
+                $atts[$key]['book_id'] = $booking->ID;
+                $atts[$key]['key'] = ($key + 1);
+            }
+
+            $attendees = array_merge($attendees, $atts);
+        }
+
+        $attendees = apply_filters('mec_attendees_list_data', $attendees, $id, $occurrence);
+        usort($attendees, function($a, $b)
+        {
+            return strcmp($a['name'], $b['name']);
+        });
+
+        return $attendees;
     }
 }

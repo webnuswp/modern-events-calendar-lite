@@ -314,7 +314,7 @@ class MEC_feature_fes extends MEC_base
                 }
 
                 $ticket_id = isset($attendee['id']) ? $attendee['id'] : get_post_meta($post_id, 'mec_ticket_id', true);
-                $booking = array($post_id, get_the_title($event_id), get_the_date('', $post_id), $order_time, (isset($tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : __('Unknown', 'modern-events-calendar-lite')), $transaction_id, $this->main->render_price(($price ? $price : 0)), $gateway_label, (isset($attendee['name']) ? $attendee['name'] : (isset($booker->first_name) ? trim($booker->first_name.' '.$booker->last_name) : '')), (isset($attendee['email']) ? $attendee['email'] : @$booker->user_email), trim($ticket_variations_output, ', '), $confirmed, $verified);
+                $booking = array($post_id, get_the_title($event_id), get_the_date('', $post_id), $order_time, (isset($tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : __('Unknown', 'modern-events-calendar-lite')), $transaction_id, $this->main->render_price(($price ? $price : 0), $post_id), $gateway_label, (isset($attendee['name']) ? $attendee['name'] : (isset($booker->first_name) ? trim($booker->first_name.' '.$booker->last_name) : '')), (isset($attendee['email']) ? $attendee['email'] : @$booker->user_email), trim($ticket_variations_output, ', '), $confirmed, $verified);
                 $booking = apply_filters('mec_csv_export_booking', $booking, $post_id, $event_id);
 
                 $reg_form = isset($attendee['reg']) ? $attendee['reg'] : array();
@@ -510,6 +510,7 @@ class MEC_feature_fes extends MEC_base
         $more_info_title = isset($mec['more_info_title']) ? sanitize_text_field($mec['more_info_title']) : '';
         $more_info_target = isset($mec['more_info_target']) ? sanitize_text_field($mec['more_info_target']) : '';
         $cost = isset($mec['cost']) ? sanitize_text_field($mec['cost']) : '';
+        $currency_options = ((isset($mec['currency']) and is_array($mec['currency'])) ? $mec['currency'] : array());
         $note = isset($mec['note']) ? sanitize_text_field($mec['note']) : '';
         
         update_post_meta($post_id, 'mec_read_more', $read_more);
@@ -517,6 +518,7 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_more_info_title', $more_info_title);
         update_post_meta($post_id, 'mec_more_info_target', $more_info_target);
         update_post_meta($post_id, 'mec_cost', $cost);
+        update_post_meta($post_id, 'mec_currency', $currency_options);
         update_post_meta($post_id, 'mec_note', $note);
         
         // Guest Name and Email

@@ -38,7 +38,18 @@ $ix = $this->main->get_ix_options();
                         <?php _e('Auto Google Export', 'modern-events-calendar-lite'); ?>
                     </label>
                     <?php $cron = MEC_ABSPATH.'app'.DS.'crons'.DS.'g-export.php'; ?>
-                    <p id="mec_sync_g_export_cron" class="mec-col-12 <?php echo (isset($ix['sync_g_export']) and $ix['sync_g_export'] == '1') ? '' : 'mec-util-hidden'; ?>"><strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file atleast once per day otherwise it won't export your website events into Google Calendar.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?></p>
+                    <div id="mec_sync_g_export_cron" class="mec-col-12 <?php echo (isset($ix['sync_g_export']) and $ix['sync_g_export'] == '1') ? '' : 'mec-util-hidden'; ?>" style="margin-top: 20px;">
+                        <div class="mec-col-12">
+                            <label>
+                                <input type="hidden" name="ix[sync_g_export_attendees]" value="0" />
+                                <input type="checkbox" name="ix[sync_g_export_attendees]" value="1" <?php echo (isset($ix['sync_g_export_attendees']) and $ix['sync_g_export_attendees'] == '1') ? 'checked="checked"' : ''; ?> />
+                                <?php _e('Export Attendees', 'modern-events-calendar-lite'); ?>
+                            </label>
+                        </div>
+                        <div class="mec-col-12">
+                            <strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file atleast once per day otherwise it won't export your website events into Google Calendar.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?>
+                        </div>
+                    </div>
                 </div>
 
                 <?php if(false): // Disabled for Now ?>

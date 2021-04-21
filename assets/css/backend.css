@@ -6567,13 +6567,16 @@ a.mec-add-booking-tabs-link,a.mec-add-event-tabs-link,a.mec-create-shortcode-tab
 }
 
 #mec-wrap h2.nav-tab-wrapper {
-    margin-bottom: 40px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 8;
     padding: 0;
+    border-radius: 5px 5px 0 0;
     border: none;
     margin-top: 35px;
     clear: both;
     background: #fff;
-    box-shadow: 0 3px 12px -4px rgba(0,0,0,.13)
+    box-shadow: 0 1px 0 0 #ededed;
 }
 
 #mec-wrap .nav-tab-wrapper .nav-tab {
@@ -6589,7 +6592,7 @@ a.mec-add-booking-tabs-link,a.mec-add-event-tabs-link,a.mec-create-shortcode-tab
 }
 
 #mec-wrap .nav-tab-wrapper .nav-tab:hover {
-    color: #008aff
+    color: #07bbe9;
 }
 
 #mec-wrap .nav-tab-wrapper .nav-tab:after {
@@ -6604,13 +6607,14 @@ a.mec-add-booking-tabs-link,a.mec-add-event-tabs-link,a.mec-create-shortcode-tab
 }
 
 #mec-wrap .nav-tab-wrapper .nav-tab-active,#mec-wrap .nav-tab-wrapper .nav-tab-active:focus,#mec-wrap .nav-tab-wrapper .nav-tab-active:focus:active,#mec-wrap .nav-tab-wrapper .nav-tab-active:hover {
-    background: #008aff;
-    background: linear-gradient(95deg,#36a2ff 0,#008aff 50%,#0072ff 100%);
-    color: #fff;
+    background: #ecf9fd;
     outline: 0;
-    box-shadow: 0 5px 25px -7px #008aff;
     margin-left: -1px;
-    z-index: 2
+    z-index: 2;
+    border: 1px solid #ccecf4;
+    color: #07bbe9;
+    border-radius: 5px;
+    margin-bottom: -1px;
 }
 
 #mec-wrap .nav-tab-wrapper .nav-tab-active:after {
@@ -6626,7 +6630,7 @@ a.mec-add-booking-tabs-link,a.mec-add-event-tabs-link,a.mec-create-shortcode-tab
     width: 0;
     border-width: 10px;
     border-style: solid;
-    border-color: #008aff transparent transparent
+    border-color: #ecf9fd transparent transparent;
 }
 
 #mec-wrap .mec-container {
@@ -6635,22 +6639,42 @@ a.mec-add-booking-tabs-link,a.mec-add-event-tabs-link,a.mec-create-shortcode-tab
 }
 
 #wpwrap .mec-button-primary {
-    color: #fff;
-    font-weight: 500;
-    border-radius: 2px;
-    box-shadow: 0 3px 10px -4px #008aff;
+    box-shadow: 0 0 0 4px #e4ffe6;
     text-shadow: none;
-    background: #008aff;
-    background: linear-gradient(95deg,#36a2ff 0,#008aff 50%,#0072ff 100%);
+    margin-right: 5px;
+    background: #64e385;
+    color: #fff;
     border: none;
-    transition: .24s
+    cursor: pointer;
+    padding: 2px 22px;
+    border-radius: 22px;
+    font-weight: 500;
 }
 
 #wpwrap .mec-button-primary:hover {
-    background: #222;
-    background: linear-gradient(95deg,#555 0,#222 50%,#000 100%);
-    box-shadow: 0 5px 15px -7px rgba(0,0,0,.5);
+    box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
+    background: #4d5051;
+    border-color: #4d5051;
     cursor: pointer
+}
+
+#mec-wrap .nav-tab-wrapper .nav-tab-active:before {
+    content: '';
+    position: absolute;
+    display: block;
+    background: 0 0;
+    top: auto;
+    height: auto;
+    bottom: -24px;
+    left: 50%;
+    margin-left: -12px;
+    width: 0;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #ccecf4 transparent transparent;
+}
+.ui-datepicker.ui-widget select {
+    border-color: #e7e8e9;
 }
 
 .wn-p-t-right {

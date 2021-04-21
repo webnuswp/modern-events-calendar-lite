@@ -79,14 +79,14 @@ if($mecFluentEnable)
                         <div class="mec-book-price-detail mec-book-price-detail-type<?php echo $detail['type']; ?>">
                             <span></span>
                             <span class="mec-book-price-detail-description"><?php echo $detail['description']; ?></span>
-                            <span class="mec-book-price-detail-amount"><?php echo $this->main->render_price($detail['amount']); ?></span>
+                            <span class="mec-book-price-detail-amount"><?php echo $this->main->render_price($detail['amount'], $event_id); ?></span>
                         </div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
             <div class="mec-book-price-total">
                 <span class="mec-book-price-total-description"><?php esc_html_e('Total Due', 'modern-events-calendar-lite'); ?></span>
-                <span class="mec-book-price-total-amount"><?php echo $this->main->render_price($price_details['total']); ?></span>
+                <span class="mec-book-price-total-amount"><?php echo $this->main->render_price($price_details['total'], $event_id); ?></span>
             </div>
             <div style="clear:both"></div>
         <?php } else { ?>
@@ -95,12 +95,12 @@ if($mecFluentEnable)
                 <?php foreach($price_details['details'] as $detail): ?>
                 <li class="mec-book-price-detail mec-book-price-detail-type<?php echo $detail['type']; ?>">
                     <span class="mec-book-price-detail-description"><?php echo $detail['description']; ?></span>
-                    <span class="mec-book-price-detail-amount"><?php echo $this->main->render_price($detail['amount']); ?></span>
+                    <span class="mec-book-price-detail-amount"><?php echo $this->main->render_price($detail['amount'], $event_id); ?></span>
                 </li>
                 <?php endforeach; ?>
             </ul>
             <?php endif; ?>
-            <span class="mec-book-price-total"><?php echo $this->main->render_price($price_details['total']); ?></span>
+            <span class="mec-book-price-total"><?php echo $this->main->render_price($price_details['total'], $event_id); ?></span>
         <?php } ?>
     </div>
     <?php if(isset($this->settings['coupons_status']) and $this->settings['coupons_status']): ?>

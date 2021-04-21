@@ -68,7 +68,14 @@ if(isset($ix_options['google_export_token']) && $ix_options['google_export_token
                         </li>
                         <?php endforeach; ?>
                     </ul>
-                    <div class="mec-options-fields">
+                    <div class="mec-options-fields" style="padding-top: 0;">
+                        <h4><?php _e('Import Options', 'modern-events-calendar-lite'); ?></h4>
+                        <div class="mec-form-row">
+                            <label>
+                                <input type="checkbox" name="export_attendees" value="1" />
+                                <?php _e('Export Attendees', 'modern-events-calendar-lite'); ?>
+                            </label>
+                        </div>
                         <button id="mec_ix_google_export_do_form_button" class="button button-primary mec-button-primary" type="submit"><?php _e('Add to Google Calendar', 'modern-events-calendar-lite'); ?></button>
                     </div>
                     <p id="mec_ix_google_export_do_message" class="mec-col-6 mec-util-hidden"></p>

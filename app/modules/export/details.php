@@ -13,7 +13,7 @@ if(!isset($settings['export_module_status']) or (isset($settings['export_module_
 $title = isset($event->data->title) ? $event->data->title : '';
 $location = (isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']])) ? '&location='.urlencode($event->data->locations[$event->data->meta['mec_location_id']]['address']) : '';
 $content = (isset($event->data->post->post_content) and trim($event->data->post->post_content)) ? strip_shortcodes(strip_tags($event->data->post->post_content)) : $title;
-
+$content = apply_filters('mec_add_content_to_export_google_calendar_details', $content,$event->data->ID );
 $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';
 $occurrence_end_date = trim($occurrence) ? $this->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
 
@@ -64,6 +64,7 @@ $description = "$content";
 ob_start();
 do_action('mec_add_to_calander_event_description', $event);
 $description .= html_entity_decode(ob_get_clean());
+
 ?>
 <div class="mec-event-export-module mec-frontbox">
      <div class="mec-event-exporting">

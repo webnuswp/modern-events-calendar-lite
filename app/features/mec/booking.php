@@ -273,7 +273,7 @@ $gateways_options = $this->main->get_gateways_options();
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_booking_last_few_tickets_percentage"><?php _e('Percentage', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-9">
-                                        <input type="number" id="mec_settings_booking_last_few_tickets_percentage" name="mec[settings][booking_last_few_tickets_percentage]" value="<?php echo ((isset($settings['booking_last_few_tickets_percentage']) and trim($settings['booking_last_few_tickets_percentage']) != '') ? $settings['booking_last_few_tickets_percentage'] : '15'); ?>" placeholder="<?php esc_attr_e('Default is 15', 'modern-events-calendar-lite'); ?>" />
+                                        <input type="number" id="mec_settings_booking_last_few_tickets_percentage" name="mec[settings][booking_last_few_tickets_percentage]" value="<?php echo ((isset($settings['booking_last_few_tickets_percentage']) and trim($settings['booking_last_few_tickets_percentage']) != '') ? max($settings['booking_last_few_tickets_percentage'], 1) : '15'); ?>" placeholder="<?php esc_attr_e('Default is 15', 'modern-events-calendar-lite'); ?>" min="1" max="100" step="1" />
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php _e('Last Few Tickets Percentage', 'modern-events-calendar-lite'); ?></h5>

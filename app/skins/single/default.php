@@ -7,13 +7,12 @@ wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.cs
 wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
 
 $booking_options = get_post_meta(get_the_ID(), 'mec_booking', true);
+if(!is_array($booking_options)) $booking_options = array();
 
 //Compatibility with Rank Math
 $rank_math_options = '';
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')) $rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
-
-if(!is_array($booking_options)) $booking_options = array();
 
 $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) ? $booking_options['bookings_limit_for_users'] : 0;
 ?>
@@ -188,7 +187,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 						<div class="mec-event-cost">
 							<i class="mec-sl-wallet"></i>
 							<h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-							<dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']); ?></dd>
+							<dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd>
 						</div>
 						<?php
 					}
@@ -428,7 +427,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							<div class="mec-event-cost">
 								<i class="mec-sl-wallet"></i>
 								<h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-								<dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost']) : $event->data->meta['mec_cost']); ?></dd>
+								<dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd>
 							</div>
 							<?php
 						}

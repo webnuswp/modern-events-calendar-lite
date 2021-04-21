@@ -172,10 +172,18 @@ class MEC_feature_mec extends MEC_base
         $this->factory->filter('map_meta_cap', array($this, 'map_meta_cap'), 10, 4);
 
         // Protected Content Shortcode
-        if($this->getPRO())
+        if($this->getPRO()) $this->factory->shortcode('mec-only-booked-users', array($this, 'only_booked_users_content'));
+
+        // Assets Per Page
+        $this->factory->filter('mec_include_frontend_assets', array($this, 'assets_per_page'));
+        if(isset($this->settings['assets_per_page_status']) and $this->settings['assets_per_page_status'])
         {
-            $this->factory->shortcode('mec-only-booked-users', array($this, 'only_booked_users_content'));
+            $this->factory->action('add_meta_boxes', array($this, 'register_assets_per_page_meta_boxes'), 1);
+            $this->factory->action('save_post', array($this, 'assets_per_page_save_page'), 10, 2);
         }
+
+        // SEO Title
+        $this->factory->filter('pre_get_document_title', array($this, 'page_title'), 1000);
     }
 
     /* Activate License */
@@ -657,7 +665,7 @@ class MEC_feature_mec extends MEC_base
         elseif(in_array($start_date_type, array('yesterday', 'start_last_year', 'start_last_month', 'start_last_week'))) $mec['show_past_events'] = 1;
 
         // Set date filter type to dropdown because of skin
-        if(!in_array($skin, array('list', 'grid', 'agenda', 'timeline')) and $mec['sf-options'][$skin]['month_filter']['type'] == 'date-range-picker') $mec['sf-options'][$skin]['month_filter']['type'] = 'dropdown';
+        if(!in_array($skin, array('list', 'grid', 'agenda', 'timeline', 'map')) and $mec['sf-options'][$skin]['month_filter']['type'] == 'date-range-picker') $mec['sf-options'][$skin]['month_filter']['type'] = 'dropdown';
 
         foreach($mec as $key=>$value) update_post_meta($post_id, $key, $value);
     }
@@ -1332,10 +1340,10 @@ class MEC_feature_mec extends MEC_base
         wp_send_json($r);
     }
 
-    public function display_total_booking_chart($start,$end,$type = 'daily' ,$chart = 'bar')
+    public function display_total_booking_chart($start, $end, $type = 'daily', $chart = 'bar')
     {
-        $start = !empty($start) ? $start : date('Y-m-d', strtotime('-15 days'));
-        $end = !empty($end) ? $end : date('Y-m-d');
+        $start = (!empty($start) ? $start : date('Y-m-d', strtotime('-15 days')));
+        $end = (!empty($end) ? $end : date('Y-m-d'));
 
         $periods = $this->main->get_date_periods($start, $end, $type);
 
@@ -1354,6 +1362,7 @@ class MEC_feature_mec extends MEC_base
         }
 
         $currency = $this->main->get_currency_sign();
+
         echo '<canvas id="mec_total_bookings_chart" width="600" height="300"></canvas>';
         echo '<script type="text/javascript">
             jQuery(document).ready(function()
@@ -1523,5 +1532,89 @@ class MEC_feature_mec extends MEC_base
 
         // Booked
         return $content;
+    }
+
+    public function register_assets_per_page_meta_boxes()
+    {
+        add_meta_box('mec_metabox_app', __('Include MEC Assets', 'modern-events-calendar-lite'), array($this, 'meta_box_assets_per_page'), 'page', 'side', 'low');
+    }
+
+    public function meta_box_assets_per_page($post)
+    {
+        $mec_include_assets = get_post_meta($post->ID, 'mec_include_assets', true);
+        ?>
+        <div class="mec-assets-per-page-metabox">
+            <label for="mec_include_assets">
+                <input type="hidden" name="mec_include_assets" value="0" />
+                <input type="checkbox" name="mec_include_assets" id="mec_include_assets" <?php echo ($mec_include_assets ? 'checked="checked"' : ''); ?> value="1" />
+                <?php _e('Include Modern Events Calendar Assets (CSS, JavaScript, etc files.)', 'modern-events-calendar-lite'); ?>
+            </label>
+        </div>
+        <?php
+    }
+
+    public function assets_per_page_save_page($post_id, $post)
+    {
+        // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+        if(defined('DOING_AUTOSAVE') and DOING_AUTOSAVE) return;
+
+        // Not a Page
+        if($post->post_type != 'page') return;
+
+        if(isset($_POST['mec_include_assets']))
+        {
+            $mec_include_assets = sanitize_text_field($_POST['mec_include_assets']);
+            update_post_meta($post_id, 'mec_include_assets', $mec_include_assets);
+        }
+    }
+
+    public function assets_per_page($status)
+    {
+        // Turned Off
+        if(!isset($this->settings['assets_per_page_status']) or (isset($this->settings['assets_per_page_status']) and !$this->settings['assets_per_page_status'])) return $status;
+        // Turned On
+        else
+        {
+            global $post;
+
+            $status_per_page = 1;
+            if($post->post_type === 'page')
+            {
+                $status_per_page = get_post_meta($post->ID, 'mec_include_assets', true);
+                if(trim($status_per_page) == '') $status_per_page = 0;
+            }
+
+            $status = (boolean) $status_per_page;
+        }
+
+        return $status;
+    }
+
+    public function page_title($title)
+    {
+        // Occurrences Status
+        $occurrences_status = (isset($this->settings['per_occurrences_status']) and $this->settings['per_occurrences_status'] and $this->getPRO());
+
+        if(is_singular($this->main->get_main_post_type()) and $occurrences_status)
+        {
+            global $post;
+
+            $timestamp = ((isset($_GET['time']) and $_GET['time']) ? $_GET['time'] : NULL);
+
+            $occurrence = (isset($_GET['occurrence']) ? $_GET['occurrence'] : NULL);
+            if(!$timestamp and $occurrence) $timestamp = strtotime($occurrence) + (int) get_post_meta($post->ID, 'mec_start_day_seconds', true);
+
+            if(!$timestamp)
+            {
+                $render = $this->getRender();
+                $dates = $render->dates($post->ID, NULL, 1, date('Y-m-d', strtotime('Yesterday')));
+
+                if(isset($dates[0]) and isset($dates[0]['start']) and isset($dates[0]['start']['timestamp'])) $timestamp = $dates[0]['start']['timestamp'];
+            }
+
+            $title = MEC_feature_occurrences::param($post->ID, $timestamp, 'title', $title);
+        }
+
+        return $title;
     }
 }

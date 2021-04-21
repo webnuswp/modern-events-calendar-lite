@@ -109,6 +109,11 @@ class MEC_feature_notifications extends MEC_base
                 <li><span>%%blog_url%%</span>: <?php _e('Your website URL', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%blog_description%%</span>: <?php _e('Your website description', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_title%%</span>: <?php _e('Event title', 'modern-events-calendar-lite'); ?></li>
+                <li><span>%%event_description%%</span>: <?php _e('Event Description', 'modern-events-calendar-lite'); ?></li>
+                <li><span>%%event_tags%%</span>: <?php _e('Event Tags', 'modern-events-calendar-lite'); ?></li>
+                <li><span>%%event_labels%%</span>: <?php _e('Event Labels', 'modern-events-calendar-lite'); ?></li>
+                <li><span>%%event_categories%%</span>: <?php _e('Event Categories', 'modern-events-calendar-lite'); ?></li>
+                <li><span>%%event_cost%%</span>: <?php _e('Event Cost', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_link%%</span>: <?php _e('Event link', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_speaker_name%%</span>: <?php _e('Speaker name of booked event', 'modern-events-calendar-lite'); ?></li>
                 <li><span>%%event_organizer_name%%</span>: <?php _e('Organizer name of booked event', 'modern-events-calendar-lite'); ?></li>

@@ -390,6 +390,10 @@ class MEC_feature_occurrences extends MEC_base
                 <div class="mec-col-9"><input id="mec_occurrences_<?php echo $occurrence_id; ?>_bookings_limit" name="mec[occurrences][<?php echo $occurrence_id; ?>][bookings_limit]" type="number" value="<?php echo (isset($params['bookings_limit']) ? esc_attr($params['bookings_limit']) : ''); ?>"></div>
             </div>
             <div class="mec-form-row">
+                <div class="mec-col-3"><label for="mec_occurrences_<?php echo $occurrence_id; ?>_title"><?php esc_attr_e('Page Title', 'modern-events-calendar-lite'); ?></label></div>
+                <div class="mec-col-9"><input id="mec_occurrences_<?php echo $occurrence_id; ?>_title" name="mec[occurrences][<?php echo $occurrence_id; ?>][title]" type="text" value="<?php echo (isset($params['title']) ? esc_attr($params['title']) : ''); ?>"></div>
+            </div>
+            <div class="mec-form-row">
                 <div class="mec-col-12">
                     <div class="mec-form-row">
                         <label>
