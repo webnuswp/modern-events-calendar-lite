@@ -95,10 +95,13 @@ class MEC_feature_wc extends MEC_base
             $date_format = (isset($this->settings['booking_date_format1']) and trim($this->settings['booking_date_format1'])) ? $this->settings['booking_date_format1'] : 'Y-m-d';
             $time_format = get_option('time_format');
 
+            if(strpos($date_format, 'h') !== false or strpos($date_format, 'H') !== false or strpos($date_format, 'g') !== false or strpos($date_format, 'G') !== false) $datetime_format = $date_format;
+            else $datetime_format = $date_format.' '.$time_format;
+
             $dates = explode(':', $meta->value);
 
-            $start_datetime = date($date_format.' '.$time_format, $dates[0]);
-            $end_datetime = date($date_format.' '.$time_format, $dates[1]);
+            $start_datetime = date($datetime_format, $dates[0]);
+            $end_datetime = date($datetime_format, $dates[1]);
 
             $display_value = sprintf(__('%s to %s', 'modern-events-calendar-lite'), $start_datetime, $end_datetime);
         }
@@ -142,10 +145,11 @@ class MEC_feature_wc extends MEC_base
         // Book
         $book = $this->getBook();
 
+        $printed = false;
+        $all_items = array();
         foreach($items as $key => $item)
         {
             $event_id = (isset($item['mec_event_id']) ? $item['mec_event_id'] : NULL);
-
             if(!$event_id) continue;
 
             $product_id = (isset($item['product_id']) ? $item['product_id'] : NULL);
@@ -153,23 +157,51 @@ class MEC_feature_wc extends MEC_base
 
             $ex = explode(':', $mec_ticket);
             $ticket_id = (isset($ex[1]) ? $ex[1] : NULL);
-
             if(!$ticket_id) continue;
 
-            $date = (isset($item['mec_date']) ? $item['mec_date'] : NULL);
-            $ex = explode(':', $date);
-            $timestamps = $ex[0];
-
             $quantity = (isset($item['quantity']) ? $item['quantity'] : 1);
-            $availability = $book->get_tickets_availability($event_id, $timestamps);
 
+            $date = (isset($item['mec_date']) ? $item['mec_date'] : NULL);
+            $timestamps = explode(':', $date);
+            $timestamp = $timestamps[0];
+
+            if(!isset($all_items[$event_id])) $all_items[$event_id] = array();
+            if(!isset($all_items[$event_id][$ticket_id])) $all_items[$event_id][$ticket_id] = array();
+
+            if(!isset($all_items[$event_id][$ticket_id][$timestamp])) $all_items[$event_id][$ticket_id][$timestamp] = $quantity;
+            else $all_items[$event_id][$ticket_id][$timestamp] += $quantity;
+
+            $availability = $book->get_tickets_availability($event_id, $timestamp);
             $tickets = get_post_meta($event_id, 'mec_tickets', true);
 
             // Ticket is not available
-            if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id])) and $availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity)
+            if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id]) and $availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity))
             {
+                $printed = true;
                 if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
                 else $errors->add('validation', sprintf(__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
+            }
+        }
+
+        // Error already printed
+        if($printed) return;
+
+        foreach($all_items as $event_id => $tickets)
+        {
+            foreach($tickets as $ticket_id => $timestamps)
+            {
+                foreach($timestamps as $timestamp => $quantity)
+                {
+                    $availability = $book->get_tickets_availability($event_id, $timestamp);
+                    $tickets = get_post_meta($event_id, 'mec_tickets', true);
+
+                    // Ticket is not available
+                    if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id]) and $availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity))
+                    {
+                        if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
+                        else $errors->add('validation', sprintf(__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
+                    }
+                }
             }
         }
     }

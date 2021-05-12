@@ -1285,16 +1285,88 @@ class MEC_book extends MEC_base
 
         // Fees
         $total_fees = 0;
+
+        // Discounts
+        $discounts = 0;
+
         if(isset($transaction['price_details']) and isset($transaction['price_details']['details']) and is_array($transaction['price_details']['details']) and count($transaction['price_details']['details']))
         {
             foreach($transaction['price_details']['details'] as $detail)
             {
                 if(!isset($detail['type'])) continue;
+
                 if($detail['type'] == 'fee' and isset($detail['amount']) and is_numeric($detail['amount'])) $total_fees += $detail['amount'];
+                if($detail['type'] == 'discount' and isset($detail['amount']) and is_numeric($detail['amount'])) $discounts += $detail['amount'];
             }
         }
 
-        $ticket_total_price = ($ticket_price + $variation_price + ($total_fees / count($all_attendees)));
+        $ticket_total_price = ($ticket_price + $variation_price + ($total_fees / count($all_attendees))) - ($discounts / count($all_attendees));
         return ($ticket_total_price ? $ticket_total_price : $total_price);
+    }
+
+    /**
+     * Remove Fees From a Transaction
+     * @author Webnus <info@webnus.biz>
+     * @param int $transaction_id
+     * @return boolean
+     */
+    public function remove_fees($transaction_id)
+    {
+        $transaction = $this->get_transaction($transaction_id);
+        $price_details = $transaction['price_details']['details'];
+
+        $removed_fees = array();
+        foreach($price_details as $i => $price_detail)
+        {
+            if(isset($price_detail['type']) and $price_detail['type'] == 'fee')
+            {
+                $removed_fees[] = $price_detail;
+                unset($price_details[$i]);
+            }
+        }
+
+        $transaction['price_details']['details'] = $price_details;
+        $transaction['removed_fees_status'] = 1;
+        $transaction['removed_fees'] = (count($removed_fees) ? $removed_fees : (isset($transaction['removed_fees']) ? $transaction['removed_fees'] : array()));
+
+        // Re-caclculate
+        $transaction = $this->recalculate($transaction);
+
+        // Update Transaction
+        $this->update_transaction($transaction_id, $transaction);
+
+        return true;
+    }
+
+    /**
+     * Re-Add Fees To a Transaction
+     * @author Webnus <info@webnus.biz>
+     * @param int $transaction_id
+     * @return boolean
+     */
+    public function readd_fees($transaction_id)
+    {
+        $transaction = $this->get_transaction($transaction_id);
+
+        $is_removed = (isset($transaction['removed_fees_status']) ? $transaction['removed_fees_status'] : 0);
+        if(!$is_removed) return false;
+
+        $price_details = $transaction['price_details']['details'];
+
+        $removed_fees = (isset($transaction['removed_fees']) and is_array($transaction['removed_fees'])) ? $transaction['removed_fees'] : array();
+        foreach($removed_fees as $removed_fee) $price_details[] = $removed_fee;
+
+        $transaction['price_details']['details'] = $price_details;
+
+        unset($transaction['removed_fees_status']);
+        unset($transaction['removed_fees']);
+
+        // Re-caclculate
+        $transaction = $this->recalculate($transaction);
+
+        // Update Transaction
+        $this->update_transaction($transaction_id, $transaction);
+
+        return true;
     }
 }

@@ -571,6 +571,39 @@ function mec_check_variation_min_max'.$uniqueid.'(variation)
     if(value < min) jQuery(variation).val(min);
 }
 
+function mec_adjust_booking_fees'.$uniqueid.'(gateway_id, transaction_id)
+{
+    // Add loading class to the wrapper
+    jQuery("#mec_booking'.$uniqueid.' .mec-book-form-price").addClass("loading");
+    
+    jQuery.ajax(
+    {
+        type: "POST",
+        url: "'.admin_url('admin-ajax.php', NULL).'",
+        data: "action=mec_adjust_booking_fees&gateway_id="+gateway_id+"&transaction_id="+transaction_id+"&_wpnonce='.wp_create_nonce('mec_adjust_booking_fees').'",
+        dataType: "JSON",
+        success: function(data)
+        {
+            // Remove the loading Class to the wrapper
+            jQuery("#mec_booking'.$uniqueid.' .mec-book-form-price").removeClass("loading");
+
+            if(data.success)
+            {
+                jQuery("#mec_booking'.$uniqueid.' .mec-book-price-details li").remove();
+                jQuery("#mec_booking'.$uniqueid.' .mec-book-price-details").html(data.data.price_details);
+
+                jQuery("#mec_booking'.$uniqueid.' .mec-book-price-total").html(data.data.price);
+                jQuery("#mec_booking'.$uniqueid.' #mec_do_transaction_paypal_express_form"+data.data.transaction_id+" input[name=amount]").val(data.data.price_raw);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            // Remove the loading Class to the wrapper
+            jQuery("#mec_booking'.$uniqueid.' .mec-book-form-price").removeClass("loading");
+        }
+    });
+}
+
 '.((defined('DOING_AJAX') and DOING_AJAX) ? 'jQuery(document).ready(function()
 {
     mec_get_tickets_availability'.$uniqueid.'('.$event->ID.', jQuery("#mec_book_form_date'.$uniqueid.'").val());

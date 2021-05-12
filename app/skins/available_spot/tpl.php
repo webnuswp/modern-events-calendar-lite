@@ -106,7 +106,7 @@ foreach($availability as $ticket_id=>$count)
     }
 }
 
-if($total_spots > 0) $spots = min($spots, $total_spots);
+if($total_spots > 0 and $total_spots > $spots) $spots = min($spots, $total_spots);
 
 do_action('mec_start_skin', $this->id);
 do_action('mec_available_spot_skin_head');

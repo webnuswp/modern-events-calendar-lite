@@ -9,6 +9,7 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
+$sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
 ?>
 <div class="mec-events-timeline-wrap mec-wrap <?php echo $event_colorskin; ?>">
 <?php foreach($this->events as $date=>$events): ?>
@@ -79,7 +80,7 @@ $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])
                                 </div>
                             </div>
                         </div>
-                        <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Details', 'modern-events-calendar-lite'))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color'); ?>
+                        <?php if ( $sed_method != 'no' ) echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Details', 'modern-events-calendar-lite'))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color'); ?>
                     </div>
                 </div>
                 

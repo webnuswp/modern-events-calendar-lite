@@ -149,7 +149,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
             <div class="w-col-sm-12">
                 <div class="w-box mec-activation">
                     <div class="w-box-head">
-                        <?php _e('MEC Activate', 'modern-events-calendar-lite'); ?>
+                        <?php _e('License Activation', 'modern-events-calendar-lite'); ?>
                     </div>
                     <?php if (current_user_can( 'administrator' )): ?>
                     <div class="w-box-content">
@@ -173,7 +173,7 @@ $box_stats = apply_filters('mec_dashboard_box_stats', true);
             <div class="w-col-sm-12">
                 <div class="w-box mec-activation">
                     <div class="w-box-head">
-                        <?php _e('MEC Activate', 'modern-events-calendar-lite'); ?>
+                        <?php _e('License Activation', 'modern-events-calendar-lite'); ?>
                     </div>
                     <?php 
                         if (current_user_can( 'administrator' )):

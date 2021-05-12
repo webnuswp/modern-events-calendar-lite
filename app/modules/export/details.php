@@ -7,6 +7,9 @@ defined('MECEXEC') or die();
 // MEC Settings
 $settings = $this->get_settings();
 
+// Expired?
+if($this->is_expired($event) and isset($settings['export_module_hide_expired']) and $settings['export_module_hide_expired']) return;
+
 // Export module on single page is disabled
 if(!isset($settings['export_module_status']) or (isset($settings['export_module_status']) and !$settings['export_module_status'])) return;
 
@@ -64,13 +67,12 @@ $description = "$content";
 ob_start();
 do_action('mec_add_to_calander_event_description', $event);
 $description .= html_entity_decode(ob_get_clean());
-
 ?>
 <div class="mec-event-export-module mec-frontbox">
      <div class="mec-event-exporting">
         <div class="mec-export-details">
             <ul>
-                <?php if($settings['sn']['googlecal']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://www.google.com/calendar/event?action=TEMPLATE&text=<?php echo urlencode($title); ?>&dates=<?php echo gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)); ?>/<?php echo gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)); ?>&details=<?php echo urlencode($description); ?><?php echo $location; ?><?php echo (trim($rrule) ? '&recur='.urlencode($rrule) : ''); ?>" target="_blank"><?php echo __('+ Add to Google Calendar', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
+                <?php if($settings['sn']['googlecal']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=<?php echo urlencode($title); ?>&dates=<?php echo gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)); ?>/<?php echo gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)); ?>&details=<?php echo urlencode($description); ?><?php echo $location; ?><?php echo (trim($rrule) ? '&recur='.urlencode($rrule) : ''); ?>" target="_blank"><?php echo __('+ Add to Google Calendar', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
                 <?php if($settings['sn']['ical']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="<?php echo $this->ical_URL($event->data->ID, $occurrence); ?>"><?php echo __('+ iCal / Outlook export', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
             </ul>
         </div>

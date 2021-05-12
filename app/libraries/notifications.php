@@ -341,7 +341,9 @@ class MEC_notifications extends MEC_base
         foreach($attendees as $attendee)
         {
             $to = isset($attendee['email']) ? $attendee['email'] : '';
-            if(!trim($to) or in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
+
+            if(!trim($to)) continue;
+            if(in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
 
             $message = isset($this->notif_settings['booking_confirmation']['content']) ? $this->notif_settings['booking_confirmation']['content'] : '';
             $message = $this->content($this->get_content($message, 'booking_confirmation', $event_id), $book_id, $attendee);
@@ -764,9 +766,10 @@ class MEC_notifications extends MEC_base
      * Send booking reminder notification
      * @author Webnus <info@webnus.biz>
      * @param int $book_id
+     * @param string $timestamps
      * @return boolean
      */
-    public function booking_reminder($book_id)
+    public function booking_reminder($book_id, $timestamps = NULL)
     {
         $booker = $this->u->booking($book_id);
         if(!isset($booker->user_email)) return false;
@@ -840,7 +843,7 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
             $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
 
-            $message = $this->content($this->get_content($message, 'booking_reminder', $event_id), $book_id, $attendee);
+            $message = $this->content($this->get_content($message, 'booking_reminder', $event_id), $book_id, $attendee, $timestamps);
 
             // Remove remained placeholders
             $message = preg_replace('/%%.*%%/', '', $message);
@@ -954,7 +957,7 @@ class MEC_notifications extends MEC_base
         // Event Data
         $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
-        $message = str_replace('%%event_description%%', strip_tags(get_post_field('post_content', $event_id)), $message);
+        $message = str_replace('%%event_description%%', strip_tags(strip_shortcodes(get_post_field('post_content', $event_id))), $message);
         $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($event_id, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
         $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_label'), 'name')), $message);
         $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_category'), 'name')), $message);
@@ -1107,7 +1110,7 @@ class MEC_notifications extends MEC_base
             // Event Data
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
             $message = str_replace('%%event_title%%', get_the_title($post->ID), $message);
-            $message = str_replace('%%event_description%%', strip_tags(get_post_field('post_content', $post->ID)), $message);
+            $message = str_replace('%%event_description%%', strip_tags(strip_shortcodes(get_post_field('post_content', $post->ID))), $message);
             $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($post->ID, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
             $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($post->ID, 'mec_label'), 'name')), $message);
             $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($post->ID, 'mec_category'), 'name')), $message);
@@ -1281,6 +1284,112 @@ class MEC_notifications extends MEC_base
         remove_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
     }
 
+    public function event_finished($event_id, $timestamps)
+    {
+        // Event Finished notification is disabled
+        if(!isset($this->notif_settings['event_finished']['status']) or (isset($this->notif_settings['event_finished']['status']) and !$this->notif_settings['event_finished']['status'])) return false;
+
+        list($start_timestamp, $end_timestamp) = explode(':', $timestamps);
+
+        // Attendees
+        $attendees = $this->main->get_event_attendees($event_id, $start_timestamp);
+
+        // No Attendee
+        if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) return false;
+
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        $recipients_str = isset($this->notif_settings['event_finished']['recipients']) ? $this->notif_settings['event_finished']['recipients'] : '';
+        $recipients = trim($recipients_str) ? explode(',', $recipients_str) : array();
+
+        $users = isset($this->notif_settings['event_finished']['receiver_users']) ? $this->notif_settings['event_finished']['receiver_users'] : array();
+        $users_down = $this->main->get_emails_by_users($users);
+        $recipients = array_merge($users_down, $recipients);
+
+        $roles = isset($this->notif_settings['event_finished']['receiver_roles']) ? $this->notif_settings['event_finished']['receiver_roles'] : array();
+        $user_roles = $this->main->get_emails_by_roles($roles);
+        $recipients = array_merge($user_roles, $recipients);
+
+        // Unique Recipients
+        $recipients = array_map('trim', $recipients);
+        $recipients = array_unique($recipients);
+
+        // Recipient Type
+        $CCBCC = $this->get_cc_bcc_method();
+
+        foreach($recipients as $recipient)
+        {
+            // Skip if it's not a valid email
+            if(trim($recipient) == '' or !filter_var($recipient, FILTER_VALIDATE_EMAIL)) continue;
+
+            $headers[] = $CCBCC.': '.$recipient;
+        }
+
+        // Changing some sender email info.
+        $this->mec_sender_email_notification_filter();
+
+        // Set Email Type to HTML
+        add_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
+
+        // Do not send email twice!
+        $done_emails = array();
+
+        // Send the Emails
+        foreach($attendees as $attendee)
+        {
+            // Book ID
+            $book_id = $attendee['book_id'];
+
+            // To Address
+            $to = (isset($attendee['email']) ? $attendee['email'] : '');
+
+            if(!trim($to)) continue;
+            if(in_array($to, $done_emails) or !filter_var($to, FILTER_VALIDATE_EMAIL)) continue;
+
+            $subject = isset($this->notif_settings['event_finished']['subject']) ? __($this->notif_settings['event_finished']['subject'], 'modern-events-calendar-lite') : __('Thanks for your attention!', 'modern-events-calendar-lite');
+            $subject = $this->content($this->get_subject($subject, 'event_finished', $event_id), $book_id, $attendee, $timestamps);
+
+            $message = isset($this->notif_settings['event_finished']['content']) ? $this->notif_settings['event_finished']['content'] : '';
+
+            // Virtual Event
+            $message = str_replace('%%virtual_link%%', get_post_meta($event_id, 'mec_virtual_link_url', true), $message);
+            $message = str_replace('%%virtual_password%%', get_post_meta($event_id, 'mec_virtual_password', true), $message);
+            $message = str_replace('%%virtual_embed%%', get_post_meta($event_id, 'mec_virtual_embed', true), $message);
+
+            $message = str_replace('%%zoom_join%%', get_post_meta($event_id, 'mec_zoom_join_url', true), $message);
+            $message = str_replace('%%zoom_link%%', get_post_meta($event_id, 'mec_zoom_link_url', true), $message);
+            $message = str_replace('%%zoom_password%%', get_post_meta($event_id, 'mec_zoom_password', true), $message);
+            $message = str_replace('%%zoom_embed%%', get_post_meta($event_id, 'mec_zoom_embed', true), $message);
+
+            $message = $this->content($this->get_content($message, 'event_finished', $event_id), $book_id, $attendee, $timestamps);
+
+            // Remove remained placeholders
+            $message = preg_replace('/%%.*%%/', '', $message);
+            $message = $this->add_template($message);
+
+            // Filter the email
+            $mail_arg = array(
+                'to'            => $to,
+                'subject'       => $subject,
+                'message'       => $message,
+                'headers'       => $headers,
+                'attachments'   => array(),
+            );
+
+            $mail_arg = apply_filters('mec_before_send_booking_reminder', $mail_arg, $book_id, 'booking_reminder');
+
+            // Send the mail
+            wp_mail($mail_arg['to'], html_entity_decode(stripslashes($mail_arg['subject']), ENT_HTML5), wpautop(stripslashes($mail_arg['message'])), $mail_arg['headers'], $mail_arg['attachments']);
+
+            $done_emails[] = $to;
+        }
+
+        // Remove the HTML Email filter
+        remove_filter('wp_mail_content_type', array($this->main, 'html_email_type'));
+
+        return true;
+    }
+
     /**
      * Generate a link based on parameters
      * @author Webnus <info@webnus.biz>
@@ -1302,9 +1411,10 @@ class MEC_notifications extends MEC_base
      * @param string $message
      * @param int $book_id
      * @param array $attendee
+     * @param string $timestamps
      * @return string
      */
-    public function content($message, $book_id, $attendee = array())
+    public function content($message, $book_id, $attendee = array(), $timestamps = NULL)
     {
         $booker = $this->u->booking($book_id);
 
@@ -1351,7 +1461,7 @@ class MEC_notifications extends MEC_base
         $date_format = get_option('date_format');
         $time_format = get_option('time_format');
 
-        $timestamps = get_post_meta($book_id, 'mec_date', true);
+        if(!trim($timestamps)) $timestamps = get_post_meta($book_id, 'mec_date', true);
         list($start_timestamp, $end_timestamp) = explode(':', $timestamps);
 
         // Book Date
@@ -1492,10 +1602,16 @@ class MEC_notifications extends MEC_base
         }
 
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
-        $message = str_replace('%%event_description%%', strip_tags(get_post_field('post_content', $event_id)), $message);
-        $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($event_id, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
-        $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_label'), 'name')), $message);
-        $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_category'), 'name')), $message);
+        $message = str_replace('%%event_description%%', strip_tags(strip_shortcodes(get_post_field('post_content', $event_id))), $message);
+
+        $event_tags = get_the_terms($event_id, apply_filters('mec_taxonomy_tag', ''));
+        $message = str_replace('%%event_tags%%', (is_array($event_tags) ? join(', ', wp_list_pluck($event_tags, 'name')) : ''), $message);
+
+        $event_labels = get_the_terms($event_id, 'mec_label');
+        $message = str_replace('%%event_labels%%', (is_array($event_labels) ? join(', ', wp_list_pluck($event_labels, 'name')) : ''), $message);
+
+        $event_categories = get_the_terms($event_id, 'mec_category');
+        $message = str_replace('%%event_categories%%', (is_array($event_categories) ? join(', ', wp_list_pluck($event_categories, 'name')) : ''), $message);
 
         $mec_cost = get_post_meta($event_id, 'mec_cost', true);
         $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $event_id) : $mec_cost), $message);
@@ -1640,7 +1756,7 @@ class MEC_notifications extends MEC_base
         $event_content = apply_filters('mec_add_content_to_export_google_calendar_details', $event_content,$event_id );
 
         $google_calendar_location = get_term_meta($location_id, 'address', true);
-        $google_calendar_link = '<a href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
+        $google_calendar_link = '<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
         $ical_export_link  = '<a href="' . $this->main->ical_URL_email($event_id, $book_id, get_the_date('Y-m-d', $book_id)) . '">'. __('+ iCal / Outlook export', 'modern-events-calendar-lite') . '</a>';
 
         $message = str_replace('%%google_calendar_link%%', $google_calendar_link, $message);
@@ -1690,7 +1806,7 @@ class MEC_notifications extends MEC_base
                 $book_datetime_next_occurrences .= $this->main->date_i18n($date_format.((!$allday and !$hide_time) ? ' '.$time_format : ''), $next_occurrence['tstart']).'<br>';
             }
 
-            $google_calendar_links .= '<a href="https://www.google.com/calendar/event?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($next_occurrence['tstart'] - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($next_occurrence['tend'] - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . sprintf(__('+ %s to Google Calendar', 'modern-events-calendar-lite'), date($date_format .' '.$time_format, $next_occurrence['tstart'])) . '</a><br>';
+            $google_calendar_links .= '<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($next_occurrence['tstart'] - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($next_occurrence['tend'] - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . sprintf(__('+ %s to Google Calendar', 'modern-events-calendar-lite'), date($date_format .' '.$time_format, $next_occurrence['tstart'])) . '</a><br>';
         }
 
         $message = str_replace('%%google_calendar_link_next_occurrences%%', $google_calendar_links, $message);

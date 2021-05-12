@@ -179,6 +179,9 @@ class MEC_feature_notifications extends MEC_base
             'booking_reminder' => array(
                 'label' => __('Booking Reminder', 'modern-events-calendar-lite')
             ),
+            'event_finished' => array(
+                'label' => __('Event Finished', 'modern-events-calendar-lite')
+            ),
             'event_soldout' => array(
                 'label' => __('Event Soldout', 'modern-events-calendar-lite')
             ),

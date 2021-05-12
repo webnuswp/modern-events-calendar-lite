@@ -851,6 +851,7 @@ class MEC_feature_mec extends MEC_base
         elseif($tab == 'MEC-single') $this->single();
         elseif($tab == 'MEC-booking') $this->booking();
         elseif($tab == 'MEC-modules') $this->modules();
+        elseif($tab == 'MEC-integrations') $this->integrations();
         elseif (apply_filters('mec_is_custom_settings',false,$tab)){
         	do_action('mec_display_settings_page',$tab);
 		}
@@ -977,6 +978,20 @@ class MEC_feature_mec extends MEC_base
     public function messages()
     {
         $path = MEC::import('app.features.mec.messages', true, true);
+
+        ob_start();
+        include $path;
+        echo $output = ob_get_clean();
+    }
+
+    /**
+     * Show content of integrations tab
+     * @author Webnus <info@webnus.biz>
+     * @return void
+     */
+    public function integrations()
+    {
+        $path = MEC::import('app.features.mec.integrations', true, true);
 
         ob_start();
         include $path;
@@ -1326,17 +1341,16 @@ class MEC_feature_mec extends MEC_base
     }       
 
     public function dashboard_widget_total_booking_ajax_handler()
-    {       
-
+    {
         $start = isset($_REQUEST['start']) ? sanitize_text_field($_REQUEST['start']) : date('Y-m-d', strtotime('-15 days'));
         $end = isset($_REQUEST['end']) ? sanitize_text_field($_REQUEST['end']) : date('Y-m-d');
         $type = isset($_REQUEST['type']) ? sanitize_text_field($_REQUEST['type']) : 'daily';
-        $chart = isset($_REQUEST['chart']) ? sanitize_text_field($_REQUEST['chart']) : 'bar';        
-
+        $chart = isset($_REQUEST['chart']) ? sanitize_text_field($_REQUEST['chart']) : 'bar';
         
         ob_start();
-            $this->display_total_booking_chart($start,$end,$type,$chart);
+        $this->display_total_booking_chart($start, $end, $type, $chart);
         $r = ob_get_clean();
+
         wp_send_json($r);
     }
 

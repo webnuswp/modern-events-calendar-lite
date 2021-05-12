@@ -58,8 +58,9 @@ class MEC_feature_ix extends MEC_base
         
         // Export All Events
         if($mec_ix_action == 'export-events') $this->factory->action('init', array($this, 'export_all_events_do'), 9999);
+        elseif($mec_ix_action == 'export-bookings') $this->factory->action('init', array($this, 'export_all_bookings_do'), 9999);
         elseif($mec_ix_action == 'google-calendar-export-get-token') $this->factory->action('init', array($this, 'g_calendar_export_get_token'), 9999);
-        
+
         // AJAX Actions
         $this->factory->action('wp_ajax_mec_ix_add_to_g_calendar', array($this, 'g_calendar_export_do'));
         $this->factory->action('wp_ajax_mec_ix_g_calendar_authenticate', array($this, 'g_calendar_export_authenticate'));
@@ -3532,8 +3533,19 @@ class MEC_feature_ix extends MEC_base
                     
                     $repeat_type = 'certain_weekdays';
                 }
-                
+
                 $finish = isset($rule['until']) ? date('Y-m-d', strtotime($rule['until'])) : NULL;
+
+                // It's all day event so we should reduce one day from the end date! Google provides 2020-12-12 while the event ends at 2020-12-11
+                if($allday)
+                {
+                    $diff = $this->main->date_diff($start_date, $end_date);
+                    if(($diff ? $diff->days : 0) >= 1)
+                    {
+                        $date_end->sub(new DateInterval('P1D'));
+                        $end_date = $date_end->format('Y-m-d');
+                    }
+                }
             }
             // Single Event
             else
@@ -4104,7 +4116,7 @@ class MEC_feature_ix extends MEC_base
                     
                     $event = array(
                         $event_id,
-                        html_entity_decode($data->title),
+                        html_entity_decode($data->title, ENT_QUOTES | ENT_HTML5),
                         $date['start']['date'],
                         $data->time['start'],
                         $date['end']['date'],
@@ -4195,6 +4207,46 @@ class MEC_feature_ix extends MEC_base
 
                 break;
         }
+    }
+
+    public function export_all_bookings_do()
+    {
+        // Current User Doesn't Have Access
+        if(!current_user_can('mec_import_export')) return false;
+
+        $format = isset($_GET['format']) ? sanitize_text_field($_GET['format']) : 'csv';
+        switch($format)
+        {
+            case 'ms-excel':
+
+                header('Content-Type: application/vnd.ms-excel; charset=utf-8');
+                header('Content-Disposition: attachment; filename=bookings-'.md5(time().mt_rand(100, 999)).'.xls');
+
+                $this->bookings_csvexcel();
+
+                exit;
+                break;
+            case 'csv':
+
+                header('Content-Type: text/csv; charset=utf-8');
+                header('Content-Disposition: attachment; filename=bookings-'.md5(time().mt_rand(100, 999)).'.csv');
+
+                $this->bookings_csvexcel();
+
+                exit;
+                break;
+        }
+    }
+
+    public function bookings_csvexcel()
+    {
+        $bookings = get_posts(array('post_type'=>$this->main->get_book_post_type(), 'numberposts'=>-1, 'post_status'=>'publish'));
+
+        $booking_ids = array();
+        foreach($bookings as $booking) $booking_ids[] = $booking->ID;
+
+        $book = new MEC_feature_books();
+        $book->csvexcel($booking_ids);
     }
     
     public function g_calendar_export_authenticate()

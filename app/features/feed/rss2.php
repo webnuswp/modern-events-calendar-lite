@@ -24,7 +24,7 @@ do_action('rss_tag_pre', 'rss2');
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bloginfo_rss('url'); ?></link>
 	<description><?php bloginfo_rss("description"); ?></description>
-	<lastBuildDate><?php echo wp_date('D, d M Y H:i:s O', strtotime(get_lastpostmodified('GMT'))); ?></lastBuildDate>
+	<lastBuildDate><?php echo $this->main->mysql2date('D, d M Y H:i:s O', get_lastpostmodified('GMT'), wp_timezone()); ?></lastBuildDate>
 	<language><?php bloginfo_rss('language'); ?></language>
 	<sy:updatePeriod><?php echo apply_filters('rss_update_period', 'hourly'); ?></sy:updatePeriod>
 	<sy:updateFrequency><?php echo apply_filters('rss_update_frequency', 1); ?></sy:updateFrequency>
@@ -39,7 +39,7 @@ do_action('rss_tag_pre', 'rss2');
 		<comments><?php $this->feed->comments_link_feed($event->ID); ?></comments>
         <?php endif; ?>
 
-		<pubDate><?php echo wp_date('D, d M Y H:i:s O', strtotime($event->date['start']['date'].' '.$event->data->time['start']), $tz); ?></pubDate>
+        <pubDate><?php echo $this->main->mysql2date('D, d M Y H:i:s O', $event->date['start']['date'].' '.$event->data->time['start'], $tz); ?></pubDate>
 		<dc:creator><![CDATA[<?php $this->feed->author($event->data->post->post_author); ?>]]></dc:creator>
 
 		<guid isPermaLink="false"><?php the_guid($event->ID); ?></guid>
@@ -60,11 +60,18 @@ do_action('rss_tag_pre', 'rss2');
         <?php endif; ?>
 
         <mec:startDate><?php echo $date; ?></mec:startDate>
-        <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['start'])): ?><mec:startHour><?php echo $event->data->time['start']; ?></mec:startHour><?php endif; ?>
-        <mec:endDate><?php echo $this->main->get_end_date_by_occurrence($event->ID, $date); ?></mec:endDate>
-        <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['end'])): ?><mec:endHour><?php echo $event->data->time['end']; ?></mec:endHour><?php endif; ?>
+        <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['start'])): ?>
+        <mec:startHour><?php echo $event->data->time['start']; ?></mec:startHour>
+        <?php endif; ?>
 
-        <?php if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']])): ?><mec:location><?php echo $event->data->locations[$event->data->meta['mec_location_id']]['address']; ?></mec:location><?php endif; ?>
+        <mec:endDate><?php echo $this->main->get_end_date_by_occurrence($event->ID, $date); ?></mec:endDate>
+        <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['end'])): ?>
+        <mec:endHour><?php echo $event->data->time['end']; ?></mec:endHour>
+        <?php endif; ?>
+
+        <?php if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']])): ?>
+        <mec:location><?php echo $event->data->locations[$event->data->meta['mec_location_id']]['address']; ?></mec:location>
+        <?php endif; ?>
 
         <?php if(isset($event->data->meta) and isset($event->data->meta['mec_cost']) and trim($event->data->meta['mec_cost'])): ?>
         <mec:cost><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></mec:cost>

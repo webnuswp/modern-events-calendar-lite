@@ -2,6 +2,11 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+$main = MEC::getInstance('app.libraries.main');
+$settings = $main->get_settings();
+
+$title_tag = (isset($settings['archive_title_tag']) and trim($settings['archive_title_tag'])) ? $settings['archive_title_tag'] : 'h1';
+
 /**
  * The Template for displaying events archives
  * 
@@ -20,7 +25,7 @@ get_header('mec'); ?>
 
                 <?php while(have_posts()): the_post(); $title = apply_filters('mec_archive_title', get_the_title()); ?>
 
-                    <?php if(trim($title)): ?><h1><?php echo $title; ?></h1><?php endif; ?>
+                    <?php if(trim($title)): ?><<?php echo $title_tag; ?>><?php echo $title; ?></<?php echo $title_tag; ?>><?php endif; ?>
 
                     <?php the_content(); ?>
 

@@ -174,6 +174,9 @@ class MEC_feature_organizers extends MEC_base
      */
     public function save_metadata($term_id)
     {
+        // Quick Edit
+        if(!isset($_POST['tel'])) return;
+
         $tel = isset($_POST['tel']) ? sanitize_text_field($_POST['tel']) : '';
         $email = isset($_POST['email']) ? sanitize_text_field($_POST['email']) : '';
         $url = (isset($_POST['url']) and trim($_POST['url'])) ? (strpos($_POST['url'], 'http') === false ? 'http://'.sanitize_text_field($_POST['url']) : sanitize_text_field($_POST['url'])) : '';

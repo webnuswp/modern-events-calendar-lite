@@ -505,36 +505,53 @@ $gateways_options = $this->main->get_gateways_options();
                                             <button class="button" type="button" id="mec_remove_fee_button<?php echo $i; ?>" onclick="mec_remove_fee(<?php echo $i; ?>);"><?php _e('Remove', 'modern-events-calendar-lite'); ?></button>
                                         </div>
                                     </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <input type="hidden" id="mec_new_fee_key" value="<?php echo $i+1; ?>" />
-                            <div class="mec-util-hidden" id="mec_new_fee_raw">
-                                <div class="mec-box" id="mec_fee_row:i:">
-                                    <div class="mec-form-row">
-                                        <input class="mec-col-12" type="text" name="mec[settings][fees][:i:][title]" placeholder="<?php esc_attr_e('Fee Title', 'modern-events-calendar-lite'); ?>" />
-                                    </div>
-                                    <div class="mec-form-row">
-                                        <span class="mec-col-4">
-                                            <input type="text" name="mec[settings][fees][:i:][amount]" placeholder="<?php esc_attr_e('Amount', 'modern-events-calendar-lite'); ?>" />
-                                            <span class="mec-tooltip">
+                                    <?php endforeach; ?>
+                                </div>
+                                <input type="hidden" id="mec_new_fee_key" value="<?php echo $i+1; ?>" />
+                                <div class="mec-util-hidden" id="mec_new_fee_raw">
+                                    <div class="mec-box" id="mec_fee_row:i:">
+                                        <div class="mec-form-row">
+                                            <input class="mec-col-12" type="text" name="mec[settings][fees][:i:][title]" placeholder="<?php esc_attr_e('Fee Title', 'modern-events-calendar-lite'); ?>" />
+                                        </div>
+                                        <div class="mec-form-row">
+                                            <span class="mec-col-4">
+                                                <input type="text" name="mec[settings][fees][:i:][amount]" placeholder="<?php esc_attr_e('Amount', 'modern-events-calendar-lite'); ?>" />
+                                                <span class="mec-tooltip">
                                                     <div class="box top">
                                                         <h5 class="title"><?php _e('Amount', 'modern-events-calendar-lite'); ?></h5>
-                                                        <div class="content"><p><?php esc_attr_e("Fee amount, considered as fixed amount if you set the type to amount otherwise considered as percentage", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/taxes-or-fees/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                        <div class="content"><p><?php esc_attr_e("Fee amount, considered as fixed amount if you set the type to amount otherwise considered as percentage", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/taxes-or-fees/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                                     </div>
                                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                                </span>                                              
-                                        </span>
-                                        <span class="mec-col-4">
-                                            <select name="mec[settings][fees][:i:][type]">
-                                                <option value="percent"><?php _e('Percent', 'modern-events-calendar-lite'); ?></option>
-                                                <option value="amount"><?php _e('Amount (Per Ticket)', 'modern-events-calendar-lite'); ?></option>
-                                                <option value="amount_per_booking"><?php _e('Amount (Per Booking)', 'modern-events-calendar-lite'); ?></option>
-                                            </select>
-                                        </span>
+                                                </span>
+                                            </span>
+                                            <span class="mec-col-4">
+                                                <select name="mec[settings][fees][:i:][type]">
+                                                    <option value="percent"><?php _e('Percent', 'modern-events-calendar-lite'); ?></option>
+                                                    <option value="amount"><?php _e('Amount (Per Ticket)', 'modern-events-calendar-lite'); ?></option>
+                                                    <option value="amount_per_booking"><?php _e('Amount (Per Booking)', 'modern-events-calendar-lite'); ?></option>
+                                                </select>
+                                            </span>
                                             <button class="button" type="button" id="mec_remove_fee_button:i:" onclick="mec_remove_fee(:i:);"><?php _e('Remove', 'modern-events-calendar-lite'); ?></button>
                                         </div>
                                     </div>
                                 </div>
+
+                                <?php if(!isset($settings['wc_status']) or (isset($settings['wc_status']) and !$settings['wc_status'])): ?>
+                                <div class="mec-form-row">
+                                    <h4><?php echo __('Disable Fees per Gateways', 'modern-events-calendar-lite'); ?></h4>
+                                        <?php foreach($gateways as $gateway): ?>
+                                        <div class="mec-form-row">
+                                            <span class="mec-col-12">
+                                                <label>
+                                                    <input type="hidden" name="mec[settings][fees_disabled_gateways][<?php echo $gateway->id(); ?>]" value="0">
+                                                    <input type="checkbox" name="mec[settings][fees_disabled_gateways][<?php echo $gateway->id(); ?>]" value="1" <?php echo ((isset($settings['fees_disabled_gateways']) and isset($settings['fees_disabled_gateways'][$gateway->id()]) and $settings['fees_disabled_gateways'][$gateway->id()]) ? 'checked="checked"' : ''); ?>>
+                                                    <?php echo $gateway->title(); ?>
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <?php endforeach; ?>
+                                </div>
+                                <?php endif; ?>
                             </div>
                             <?php endif; ?>
                         </div>
@@ -815,7 +832,7 @@ $gateways_options = $this->main->get_gateways_options();
                         </div>
 
                         <div id="uploadfield_option" class="mec-options-fields">
-                            <h4 class="mec-form-subtitle"><?php _e('Upload Field Options', 'modern-events-calendar-lite'); ?></h4>
+                            <h4 class="mec-form-subtitle"><?php _e('Upload Field', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_booking_form_upload_field_mime_types"><?php _e('Mime types', 'modern-events-calendar-lite'); ?></label>
                                 <div class="mec-col-9">

@@ -33,6 +33,15 @@ $events = $this->main->get_events('-1');
                 <h3><?php _e('Export certain events', 'modern-events-calendar-lite'); ?></h3>
                 <p class="description"><?php echo sprintf(__("For exporting filtered events, you can use bulk actions in %s page.", 'modern-events-calendar-lite'), '<a href="'.$this->main->URL('backend').'edit.php?post_type=mec-events">'.__('Events', 'modern-events-calendar-lite').'</a>'); ?></p>
             </div>
+            <hr>
+            <div class="mec-export-all-bookings">
+                <h3><?php _e('Export all bookings to file', 'modern-events-calendar-lite'); ?></h3>
+                <p class="description"><?php _e("This will export all of your website bookings' data into your desired format.", 'modern-events-calendar-lite'); ?></p>
+                <ul>
+                    <li><a href="<?php echo $this->main->add_qs_vars(array('mec-ix-action'=>'export-bookings', 'format'=>'csv')); ?>"><?php _e('CSV', 'modern-events-calendar-lite'); ?></a></li>
+                    <li><a href="<?php echo $this->main->add_qs_vars(array('mec-ix-action'=>'export-bookings', 'format'=>'ms-excel')); ?>"><?php _e('MS Excel', 'modern-events-calendar-lite'); ?></a></li>
+                </ul>
+            </div>
             <div class="mec-export-certain-bookings">
                 <h3><?php _e('Export certain bookings', 'modern-events-calendar-lite'); ?></h3>
                 <p class="description"><?php echo sprintf(__("For exporting bookings, you can use bulk actions in %s page.", 'modern-events-calendar-lite'), '<a href="'.$this->main->URL('backend').'edit.php?post_type=mec-books">'.__('Bookings', 'modern-events-calendar-lite').'</a>'); ?></p>

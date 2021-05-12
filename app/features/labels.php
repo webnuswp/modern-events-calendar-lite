@@ -156,6 +156,9 @@ class MEC_feature_labels extends MEC_base
      */
     public function save_metadata($term_id)
     {
+        // Quick Edit
+        if(!isset($_POST['color'])) return;
+
         $color = isset($_POST['color']) ? sanitize_text_field($_POST['color']) : $this->main->get_default_label_color();
         update_term_meta($term_id, 'color', $color);
 

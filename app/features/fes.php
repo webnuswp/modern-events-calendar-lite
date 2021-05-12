@@ -294,9 +294,7 @@ class MEC_feature_fes extends MEC_base
                 }
             }
 
-            $book = $this->getBook();
             $ticket_variations = $this->main->ticket_variations($post_id);
-            $transaction = $book->get_transaction($transaction_id);
 
             $counter = 0;
             foreach($attendees as $key => $attendee)
@@ -314,7 +312,22 @@ class MEC_feature_fes extends MEC_base
                 }
 
                 $ticket_id = isset($attendee['id']) ? $attendee['id'] : get_post_meta($post_id, 'mec_ticket_id', true);
-                $booking = array($post_id, get_the_title($event_id), get_the_date('', $post_id), $order_time, (isset($tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : __('Unknown', 'modern-events-calendar-lite')), $transaction_id, $this->main->render_price(($price ? $price : 0), $post_id), $gateway_label, (isset($attendee['name']) ? $attendee['name'] : (isset($booker->first_name) ? trim($booker->first_name.' '.$booker->last_name) : '')), (isset($attendee['email']) ? $attendee['email'] : @$booker->user_email), trim($ticket_variations_output, ', '), $confirmed, $verified);
+                $booking = array(
+                    $post_id,
+                    html_entity_decode(get_the_title($event_id), ENT_QUOTES | ENT_HTML5),
+                    get_the_date('', $post_id),
+                    $order_time,
+                    (isset($tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : __('Unknown', 'modern-events-calendar-lite')),
+                    $transaction_id,
+                    $this->main->render_price(($price ? $price : 0), $post_id),
+                    html_entity_decode($gateway_label, ENT_QUOTES | ENT_HTML5),
+                    (isset($attendee['name']) ? $attendee['name'] : (isset($booker->first_name) ? trim($booker->first_name.' '.$booker->last_name) : '')),
+                    (isset($attendee['email']) ? $attendee['email'] : @$booker->user_email),
+                    html_entity_decode(trim($ticket_variations_output, ', '), ENT_QUOTES | ENT_HTML5),
+                    $confirmed,
+                    $verified
+                );
+
                 $booking = apply_filters('mec_csv_export_booking', $booking, $post_id, $event_id);
 
                 $reg_form = isset($attendee['reg']) ? $attendee['reg'] : array();

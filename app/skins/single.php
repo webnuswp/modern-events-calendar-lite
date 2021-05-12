@@ -89,7 +89,7 @@ class MEC_skin_single extends MEC_skins
 
         $related_args = array(
             'post_type' => $this->main->get_main_post_type(),
-            'posts_per_page' => 8,
+            'posts_per_page' => 50,
             'post_status' => 'publish',
             'post__not_in' => array($event_id),
             'tax_query' => array(),
@@ -566,6 +566,17 @@ class MEC_skin_single extends MEC_skins
          * Archive Page
          */
         echo '<a href="' . $archive_link . '">' . $archive_title . '</a> ' . $breadcrumbs_icon . ' ';
+
+        /**
+         * Category Page
+         */
+        if(isset($this->settings['breadcrumbs_category']) and $this->settings['breadcrumbs_category'])
+        {
+            $categories = wp_get_post_terms($page_id, 'mec_category');
+            if(!is_array($categories)) $categories = array();
+
+            foreach($categories as $category) echo '<a href="' . esc_url(get_term_link($category)) . '">' . $category->name . '</a> ' . $breadcrumbs_icon . ' ';
+        }
 
         /**
          * Current Event

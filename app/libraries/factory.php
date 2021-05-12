@@ -406,7 +406,7 @@ class MEC_factory extends MEC_base
             // Include MEC frontend CSS files
             wp_enqueue_style('mec-font-icons', $this->main->asset('css/iconfonts.css'));
             wp_enqueue_style('mec-frontend-style', $this->main->asset('css/frontend.min.css'), array(), $this->main->get_version());
-            wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
+            if(!is_plugin_active('ultimate-elementor/ultimate-elementor.php')) wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
             wp_enqueue_style('mec-tooltip-shadow-style', $this->main->asset('packages/tooltip/tooltipster-sideTip-shadow.min.css'));
             wp_enqueue_style('mec-featherlight-style', $this->main->asset('packages/featherlight/featherlight.css'));
 

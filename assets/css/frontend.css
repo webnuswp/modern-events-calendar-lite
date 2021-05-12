@@ -2763,7 +2763,7 @@ span.mec-event-title-soldout {
     margin-left: 2px;
 }
 
-.tooltipster-sidetip.tooltipster-shadow .tooltipster-content .mec-price-details i,
+.tooltipster-sidetip.tooltipster-shadow:not(.uael-tooltipster-active) .tooltipster-content .mec-price-details i,
 .mec-event-article .mec-price-details i,
 .mec-month-side .mec-price-details i {
 	padding-top: 4px;
@@ -5790,7 +5790,7 @@ address.mec-events-address {
 	margin-bottom: 2px;
 }
 
-.tooltipster-sidetip.tooltipster-shadow .tooltipster-content .mec-price-details,
+.tooltipster-sidetip.tooltipster-shadow:not(.uael-tooltipster-active) .tooltipster-content .mec-price-details,
 .mec-tooltip-event-time {
 	font-size: 12px;
 	color: #888;
@@ -5798,7 +5798,7 @@ address.mec-events-address {
 	margin-top: 5px;
 }
 
-.tooltipster-sidetip.tooltipster-shadow .tooltipster-content {
+.tooltipster-sidetip.tooltipster-shadow:not(.uael-tooltipster-active) .tooltipster-content {
 	padding: 17px;
 }
 
@@ -5828,7 +5828,7 @@ address.mec-events-address {
 	margin-bottom: 10px;
 }
 
-.tooltipster-sidetip.tooltipster-shadow .tooltipster-box {
+.tooltipster-sidetip.tooltipster-shadow:not(.uael-tooltipster-active) .tooltipster-box {
 	border-radius: 3px !important;
 	border: 1px solid #e2e3e4 !important;
 	background: #fff !important;
@@ -5839,73 +5839,73 @@ address.mec-events-address {
     margin-bottom: 12px;
 }
 
-.tooltipster-sidetip .tooltipster-arrow {
+.tooltipster-sidetip:not(.uael-tooltipster-active) .tooltipster-arrow {
 	overflow: visible !important;
 }
 
-.tooltipster-sidetip.tooltipster-shadow .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-shadow:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	border-width: 12px !important;
 }
 
-.tooltipster-sidetip.tooltipster-shadow.tooltipster-right .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-shadow.tooltipster-right:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	border-right-color: #e2e3e4 !important;
 }
 
-.tooltipster-sidetip .tooltipster-arrow-border {
+.tooltipster-sidetip:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	left: -12px !important;
 	z-index: 9999999999 !important;
 }
 
-.tooltipster-sidetip.tooltipster-shadow .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-shadow:not(.uael-tooltipster-active) .tooltipster-arrow-background {
 	display: block !important;
 }
 
-.tooltipster-sidetip .tooltipster-arrow-background {
+.tooltipster-sidetip:not(.uael-tooltipster-active) .tooltipster-arrow-background {
 	border-width: 11px !important;
 	z-index: 99999999999 !important;
 }
 
-.tooltipster-sidetip.tooltipster-right .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-right:not(.uael-tooltipster-active) .tooltipster-arrow-background {
 	left: -9px !important;
 	top: 1px !important;
 	border-right-color: #ffffff !important;
 }
 
-.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-top:not(.uael-tooltipster-active) .tooltipster-arrow-background {
 	border-top-color: #ffffff !important;
 	left: 0 !important;
 	top: -1px !important;
 }
 
-.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-top:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	left: -1px !important;
 }
 
-.tooltipster-sidetip.tooltipster-shadow.tooltipster-top .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-shadow.tooltipster-top:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	border-top-color: #e2e3e4 !important;
 }
 
-.tooltipster-sidetip.tooltipster-shadow.tooltipster-bottom .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-shadow.tooltipster-bottom:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	left: -1px !important;
 	top: -11px !important;
 }
 
-.tooltipster-sidetip.tooltipster-shadow.tooltipster-bottom .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-shadow.tooltipster-bottom:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	border-bottom-color: #e2e3e4 !important;
 }
 
-.tooltipster-sidetip.tooltipster-bottom .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-bottom:not(.uael-tooltipster-active) .tooltipster-arrow-background {
 	top: -9px !important;
 	border-bottom-color: #ffffff !important;
 }
 
-.tooltipster-sidetip.tooltipster-left .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-left:not(.uael-tooltipster-active) .tooltipster-arrow-background {
 	border-left-color: #ffffff !important;
 	left: -2px !important;
 	top: 0px !important;
 }
 
-.tooltipster-sidetip.tooltipster-shadow.tooltipster-left .tooltipster-arrow-border {
+.tooltipster-sidetip.tooltipster-shadow.tooltipster-left:not(.uael-tooltipster-active) .tooltipster-arrow-border {
 	border-left-color: #e2e3e4 !important;
 	left: -1px !important;
 	top: -1px !important;
@@ -12251,6 +12251,9 @@ body .featherlight .featherlight-close-icon:hover {
 	}
 }
 
+.mec-wrap.mec-skin-masonry-container .mec-load-more-wrap {
+	position: unset;
+}
 
 
 /* MEC Single Page CountDown
@@ -17051,6 +17054,16 @@ a.mec-timeline-readmore i {
 	}
 }
 
+.mec-timeline-event-image img {
+    margin-bottom: -7px;
+    border-radius: 0 10px 10px 0;
+}
+
+.mec-timeline-event-image a img {
+    margin-bottom: 0;
+    border-radius: 0 10px 0 0;
+}
+
 /* Tile View */
 .mec-event-tile-view article.mec-tile-item {
 	height: 400px;
@@ -17367,6 +17380,10 @@ a.mec-timeline-readmore i {
 /* Normal Label - Default Style for All Skins */
 .mec-ongoing-normal-label {
 	background-color: #40d9f1;
+}
+
+.mec-expired-normal-label {
+    background-color: #000;
 }
 
 .mec-wrap .mec-labels-normal .mec-label-normal,.mec-wrap .mec-cancellation-reason span {
@@ -18127,7 +18144,7 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
 .mec-dark-mode .mec-masonry .mec-masonry-content,
 .mec-dark-mode .mec-masonry .mec-masonry-head,
 .mec-dark-mode .mec-timetable-events-list .mec-timetable-event:hover,
-.mec-dark-mode .tooltipster-sidetip .tooltipster-content,
+.mec-dark-mode .tooltipster-sidetip:not(.uael-tooltipster-active) .tooltipster-content,
 .mec-dark-mode .mec-calendar.mec-event-calendar-classic .mec-calendar-events-sec,
 .mec-dark-mode .mec-yearly-view-wrap .mec-yearly-title-sec .mec-next-year,
 .mec-dark-mode .mec-yearly-view-wrap .mec-yearly-title-sec .mec-previous-year,
@@ -18230,7 +18247,7 @@ body.mec-dark-mode .mec-single-modern .mec-single-event-bar {
     box-shadow: 0 1px 5px 6px rgba(255,255,255,.005) inset;
 }
 
-.mec-dark-mode .tooltipster-sidetip.tooltipster-shadow .tooltipster-box {
+.mec-dark-mode .tooltipster-sidetip.tooltipster-shadow:not(.uael-tooltipster-active) .tooltipster-box {
     border: 1px solid #282828 !important;
 }
 

@@ -242,6 +242,9 @@ class MEC_feature_speakers extends MEC_base
      */
     public function save_metadata($term_id)
     {
+        // Quick Edit
+        if(!isset($_POST['job_title'])) return;
+
         $job_title  = isset($_POST['job_title']) ? sanitize_text_field($_POST['job_title']) : '';
         $tel        = isset($_POST['tel']) ? sanitize_text_field($_POST['tel']) : '';
         $email      = isset($_POST['email']) ? sanitize_text_field($_POST['email']) : '';

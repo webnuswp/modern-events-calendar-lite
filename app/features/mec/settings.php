@@ -49,7 +49,7 @@ $shortcodes = get_posts(array(
 
                         <div id="general_option" class="mec-options-fields active">
 
-                            <h4 class="mec-form-subtitle"><?php _e('General Options', 'modern-events-calendar-lite'); ?></h4>
+                            <h4 class="mec-form-subtitle"><?php _e('General', 'modern-events-calendar-lite'); ?></h4>
 
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_hide_time_method"><?php _e('Hide Events', 'modern-events-calendar-lite'); ?></label>
@@ -277,7 +277,7 @@ $shortcodes = get_posts(array(
 
                         <div id="email_option" class="mec-options-fields">
 
-                            <h4 class="mec-form-subtitle"><?php _e('Email Options', 'modern-events-calendar-lite'); ?></h4>
+                            <h4 class="mec-form-subtitle"><?php _e('Email', 'modern-events-calendar-lite'); ?></h4>
 
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_booking_sender_name"><?php _e('Sender Name', 'modern-events-calendar-lite'); ?></label>
@@ -319,6 +319,24 @@ $shortcodes = get_posts(array(
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
+                                </div>
+                            </div>
+
+                            <div class="mec-form-row">
+                                <label class="mec-col-3" for="mec_settings_archive_title_tag"><?php _e('Tag of Archive Page Title', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
+                                    <select id="mec_settings_archive_title_tag" name="mec[settings][archive_title_tag]">
+                                        <option value="h1" <?php if(isset($settings['archive_title_tag']) and 'h1' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Heading 1'); ?></option>
+                                        <option value="h2" <?php if(isset($settings['archive_title_tag']) and 'h2' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Heading 2'); ?></option>
+                                        <option value="h3" <?php if(isset($settings['archive_title_tag']) and 'h3' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Heading 3'); ?></option>
+                                        <option value="h4" <?php if(isset($settings['archive_title_tag']) and 'h4' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Heading 4'); ?></option>
+                                        <option value="h5" <?php if(isset($settings['archive_title_tag']) and 'h5' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Heading 5'); ?></option>
+                                        <option value="h6" <?php if(isset($settings['archive_title_tag']) and 'h6' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Heading 6'); ?></option>
+                                        <option value="div" <?php if(isset($settings['archive_title_tag']) and 'div' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Division'); ?></option>
+                                        <option value="p" <?php if(isset($settings['archive_title_tag']) and 'p' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Paragraph'); ?></option>
+                                        <option value="strong" <?php if(isset($settings['archive_title_tag']) and 'strong' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Inline Bold Text'); ?></option>
+                                        <option value="span" <?php if(isset($settings['archive_title_tag']) and 'span' == $settings['archive_title_tag']) echo 'selected="selected"'; ?>><?php esc_html_e('Inline Text'); ?></option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -546,7 +564,7 @@ $shortcodes = get_posts(array(
                         </div>
 
                         <div id="currency_option" class="mec-options-fields">
-                            <h4 class="mec-form-subtitle"><?php _e('Currency Options', 'modern-events-calendar-lite'); ?></h4>
+                            <h4 class="mec-form-subtitle"><?php _e('Currency', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <label class="mec-col-3" for="mec_settings_currency"><?php _e('Currency', 'modern-events-calendar-lite'); ?></label>
                                 <div class="mec-col-9">
@@ -618,7 +636,7 @@ $shortcodes = get_posts(array(
                         </div>
 
                         <div id="recaptcha_option" class="mec-options-fields">
-                            <h4 class="mec-form-subtitle"><?php _e('Google Recaptcha Options', 'modern-events-calendar-lite'); ?></h4>
+                            <h4 class="mec-form-subtitle"><?php _e('Google Recaptcha', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][google_recaptcha_status]" value="0" />
@@ -1102,6 +1120,8 @@ $shortcodes = get_posts(array(
                             <h4 class="mec-form-subtitle"><?php _e('User Profile', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <p><?php echo sprintf(__('Put %s shortcode into your desired page. Then users are able to see the history of their bookings.', 'modern-events-calendar-lite'), '<code>[MEC_profile]</code>'); ?></p>
+                                <p><?php echo sprintf(__('Use %s attribute to hide canceled bookings. Like %s', 'modern-events-calendar-lite'), '<code>hide-canceleds="1"</code>', '<code>[MEC_profile hide-canceleds="1"]</code>'); ?></p>
+                                <p><?php echo sprintf(__('Use %s attribute to show upcoming bookings. Like %s', 'modern-events-calendar-lite'), '<code>show-upcomings="1"</code>', '<code>[MEC_profile show-upcomings="1"]</code>'); ?></p>
                             </div>
                         </div>
 

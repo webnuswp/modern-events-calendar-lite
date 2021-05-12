@@ -580,31 +580,39 @@ class MEC_main extends MEC_base
     {
         $options = $this->get_settings();
         $settings = apply_filters('mec-settings-items-settings', array(
-            __('General Options', 'modern-events-calendar-lite') => 'general_option',
+            __('General', 'modern-events-calendar-lite') => 'general_option',
             __('Archive Pages', 'modern-events-calendar-lite') => 'archive_options',
             __('Slugs/Permalinks', 'modern-events-calendar-lite') => 'slug_option',
-            __('Currency Options', 'modern-events-calendar-lite') => 'currency_option',
+            __('Currency', 'modern-events-calendar-lite') => 'currency_option',
             __('Assets Per Page', 'modern-events-calendar-lite') => 'assets_per_page_option',
-            __('Google Recaptcha Options', 'modern-events-calendar-lite') => 'recaptcha_option',
+            __('Google Recaptcha', 'modern-events-calendar-lite') => 'recaptcha_option',
             __('Frontend Event Submission', 'modern-events-calendar-lite') => 'fes_option',
             __('User Profile', 'modern-events-calendar-lite') => 'user_profile_options',
             __('User Events', 'modern-events-calendar-lite') => 'user_events_options',
             __('Search Bar', 'modern-events-calendar-lite') => 'search_bar_options',
-            __('Email Options', 'modern-events-calendar-lite') => 'email_option',
-            __('Mailchimp Integration', 'modern-events-calendar-lite') => 'mailchimp_option',
-            __('Campaign Monitor Integration', 'modern-events-calendar-lite') => 'campaign_monitor_option',
-            __('MailerLite Integration', 'modern-events-calendar-lite') => 'mailerlite_option',
-            __('Constant Contact Integration', 'modern-events-calendar-lite') => 'constantcontact_option',
-            __('Active Campaign Integration', 'modern-events-calendar-lite') => 'active_campaign_option',
-            __('AWeber Integration', 'modern-events-calendar-lite') => 'aweber_option',
-            __('MailPoet Integration', 'modern-events-calendar-lite') => 'mailpoet_option',
-            __('Sendfox Integration', 'modern-events-calendar-lite') => 'sendfox_option',
+            __('Email', 'modern-events-calendar-lite') => 'email_option',
         ), $active_menu);
+
+        $integrations = apply_filters('mec-settings-items-integrations', array(
+            __('Mailchimp', 'modern-events-calendar-lite') => 'mailchimp_option',
+            __('Campaign Monitor', 'modern-events-calendar-lite') => 'campaign_monitor_option',
+            __('MailerLite', 'modern-events-calendar-lite') => 'mailerlite_option',
+            __('Constant Contact', 'modern-events-calendar-lite') => 'constantcontact_option',
+            __('Active Campaign', 'modern-events-calendar-lite') => 'active_campaign_option',
+            __('AWeber', 'modern-events-calendar-lite') => 'aweber_option',
+            __('MailPoet', 'modern-events-calendar-lite') => 'mailpoet_option',
+            __('Sendfox', 'modern-events-calendar-lite') => 'sendfox_option',
+            __('BuddyPress', 'modern-events-calendar-lite') => 'buddy_option',
+            __('LearnDash', 'modern-events-calendar-lite') => 'learndash_options',
+            __('PaidMembership Pro', 'modern-events-calendar-lite') => 'pmp_options',
+        ), $active_menu);
+
+
 
         $single_event = apply_filters('mec-settings-item-single_event', array(
             __('Single Event Page', 'modern-events-calendar-lite') => 'event_options',
             __('Custom Fields', 'modern-events-calendar-lite') => 'event_form_option',
-            __('Countdown Options', 'modern-events-calendar-lite') => 'countdown_option',
+            __('Countdown', 'modern-events-calendar-lite') => 'countdown_option',
             __('Exceptional Days', 'modern-events-calendar-lite') => 'exceptional_option',
             __('Additional Organizers', 'modern-events-calendar-lite') => 'additional_organizers',
             __('Additional Locations', 'modern-events-calendar-lite') => 'additional_locations',
@@ -625,16 +633,13 @@ class MEC_main extends MEC_base
 
         $modules = apply_filters('mec-settings-item-modules', array(
             __('Speakers', 'modern-events-calendar-lite') => 'speakers_option',
-            __('Map Options', 'modern-events-calendar-lite') => 'googlemap_option',
-            __('Export Options', 'modern-events-calendar-lite') => 'export_module_option',
+            __('Map', 'modern-events-calendar-lite') => 'googlemap_option',
+            __('Export', 'modern-events-calendar-lite') => 'export_module_option',
             __('Local Time', 'modern-events-calendar-lite') => 'time_module_option',
             __('QR Code', 'modern-events-calendar-lite') => 'qrcode_module_option',
             __('Weather', 'modern-events-calendar-lite') => 'weather_module_option',
             __('Social Networks', 'modern-events-calendar-lite') => 'social_options',
             __('Next Event', 'modern-events-calendar-lite') => 'next_event_option',
-            __('BuddyPress Integration', 'modern-events-calendar-lite') => 'buddy_option',
-            __('LearnDash Integration', 'modern-events-calendar-lite') => 'learndash_options',
-            __('PaidMembership Pro Integration', 'modern-events-calendar-lite') => 'pmp_options',
         ), $active_menu);
 
         $notifications_items = array(
@@ -653,6 +658,7 @@ class MEC_main extends MEC_base
                 __('Booking Reminder', 'modern-events-calendar-lite') => 'booking_reminder',
                 __('Event Soldout', 'modern-events-calendar-lite') => 'event_soldout',
                 __('Admin', 'modern-events-calendar-lite') => 'admin_notification',
+                __('Event Finished', 'modern-events-calendar-lite') => 'event_finished',
             ), $notifications_items);
 
             $notifications_items[__('Notifications Per Event', 'modern-events-calendar-lite')] = 'notifications_per_event';
@@ -673,7 +679,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'settings' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($settings as $settings_name => $settings_link) : ?>
                 <?php
-                if($settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'mailpoet_option' || $settings_link == 'sendfox_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option'):
+                if($settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'mailpoet_option' || $settings_link == 'sendfox_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option' || $settings_link == 'buddy_option' || $settings_link == 'learndash_options' || $settings_link == 'pmp_options' ):
                     if($this->getPRO()): ?>
                     <li>
                         <a 
@@ -705,10 +711,37 @@ class MEC_main extends MEC_base
                 </ul>
             </li>
 
+            <!-- Integrations -->
+            <?php if($this->getPRO()): ?>
+            <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'integrations' ? 'active' : ''; ?>">
+                <a href="<?php echo $this->add_qs_var('tab', 'MEC-integrations'); ?>" id="" class="wns-be-group-tab-link-a">
+                    <i class="mec-sl-wrench"></i> 
+                    <span class="wns-be-group-menu-title"><?php  _e('Integrations', 'modern-events-calendar-lite'); ?></span>
+                </a>
+                <ul class="<?php echo $active_menu == 'integrations' ? 'subsection' : 'mec-settings-submenu'; ?>">
+                <?php foreach ($integrations as $integrations_name => $integrations_link) : ?>
+                
+                    <li>
+                        <a 
+                        <?php if($active_menu == 'integrations'): ?>
+                        data-id="<?php echo $integrations_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
+                        <?php else: ?>
+                        href="<?php echo $this->add_qs_var('tab', 'MEC-integrations') . '#' . $integrations_link; ?>"
+                        <?php endif; ?>
+                        >
+                        <span class="pr-be-group-menu-title"><?php echo $integrations_name; ?></span>
+                        </a>
+                    </li>
+                  
+                <?php endforeach; ?>
+                </ul>
+            </li>
+            <?php endif; ?> 
+            
             <!-- Single Event -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'single_event' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-single'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-note"></i> 
+                    <i class="mec-sl-event"></i> 
                     <span class="wns-be-group-menu-title"><?php  _e('Single Event', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'single_event' ? 'subsection' : 'mec-settings-submenu'; ?>">
@@ -732,7 +765,7 @@ class MEC_main extends MEC_base
             <?php if($this->getPRO()): ?>
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'booking' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-booking'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-credit-card"></i>
+                    <i class="mec-sl-wallet"></i>
                     <span class="wns-be-group-menu-title"><?php  _e('Booking', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'booking' ? 'subsection' : 'mec-settings-submenu'; ?>">
@@ -783,7 +816,7 @@ class MEC_main extends MEC_base
                 <ul class="<?php echo $active_menu == 'modules' ? 'subsection' : 'mec-settings-submenu'; ?>">
 
                 <?php foreach($modules as $modules_name => $modules_link): ?>
-                <?php if($modules_link == 'googlemap_option' || $modules_link == 'qrcode_module_option' || $modules_link == 'weather_module_option' || $modules_link == 'buddy_option' || $modules_link == 'learndash_options' || $modules_link == 'pmp_options'  ): ?>
+                <?php if($modules_link == 'googlemap_option' || $modules_link == 'qrcode_module_option' || $modules_link == 'weather_module_option' ): ?>
                     <?php if($this->getPRO()): ?>
                     <li>
                         <a 
@@ -818,7 +851,7 @@ class MEC_main extends MEC_base
             <!-- Notifications -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'notifications' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-notifications').(!$this->getPRO() ? '#new_event' : ''); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-envelope"></i> 
+                    <i class="mec-sl-envelope-open"></i> 
                     <span class="wns-be-group-menu-title"><?php  _e('Notifications', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'notifications' ? 'subsection' : 'mec-settings-submenu'; ?>">
@@ -864,14 +897,14 @@ class MEC_main extends MEC_base
 
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'customcss' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-customcss'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-wrench"></i> 
+                    <i class="mec-sl-pencil"></i> 
                     <span class="wns-be-group-menu-title"><?php _e('Custom CSS', 'modern-events-calendar-lite'); ?></span>
                 </a>
             </li>
 
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'messages' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-messages'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-bubble"></i> 
+                    <i class="mec-sl-speech"></i> 
                     <span class="wns-be-group-menu-title"><?php _e('Messages', 'modern-events-calendar-lite'); ?></span>
                 </a>
             </li>
@@ -5822,8 +5855,6 @@ class MEC_main extends MEC_base
         $data_center = substr($api_key, strpos($api_key, '-') + 1);
         $subscription_status = isset($settings['mchimp_subscription_status']) ? $settings['mchimp_subscription_status'] : 'subscribed';
 
-        $url = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/';
-
         $member_response = NULL;
         $did = array();
 
@@ -5847,7 +5878,9 @@ class MEC_main extends MEC_base
 
             $last_name = implode(' ', $names);
 
-            $member_response = wp_remote_post($url, array(
+            // UPSERT
+            $member_response = wp_remote_request('https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/'.md5(strtolower($email)), array(
+                'method' => 'PUT',
                 'body' => json_encode(array
                 (
                     'email_address'=>$email,
@@ -5863,13 +5896,26 @@ class MEC_main extends MEC_base
                 'redirection' => '10',
                 'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode('user:' . $api_key)),
             ));
+
+            // TAGS
+            wp_remote_post('https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members/'.md5(strtolower($email)).'/tags', array(
+                'body' => json_encode(array
+                (
+                    'tags'=>array(
+                        array('name' => $booking_date, 'status' => 'active'),
+                        array('name' => $event->post_title, 'status' => 'active')
+                    )
+                )),
+                'timeout' => '10',
+                'redirection' => '10',
+                'headers' => array('Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode('user:' . $api_key)),
+            ));
         }
 
         // Handle Segment
         if($segment_status)
         {
-            $url = 'https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/segments/';
-            wp_remote_post($url, array(
+            wp_remote_post('https://' . $data_center . '.api.mailchimp.com/3.0/lists/' . $list_id . '/segments/', array(
                 'body' => json_encode(array
                 (
                     'name'=>sprintf('%s at %s', $event->post_title, $booking_date),
@@ -6486,6 +6532,7 @@ class MEC_main extends MEC_base
     {
         // Isotope JS file
         wp_enqueue_script('mec-isotope-script', $this->asset('js/isotope.pkgd.min.js'), array(), $this->get_version(), true);
+        wp_enqueue_script('mec-imagesload-script', $this->asset('js/imagesload.js'), array(), $this->get_version(), true);
     }
 
     /**
@@ -7764,6 +7811,8 @@ class MEC_main extends MEC_base
 
         // Ongoing Event
         if($display_label and $this->is_ongoing($event)) $output .= '<span data-style="Normal" class="mec-label-normal mec-ongoing-normal-label">' . esc_html__('Ongoing', 'modern-events-calendar-lite') . '</span>';
+        // Expired Event
+        elseif($display_label and $this->is_expired($event)) $output .= '<span data-style="Normal" class="mec-label-normal mec-expired-normal-label">' . esc_html__('Expired', 'modern-events-calendar-lite') . '</span>';
 
         return $output ? '<span class="mec-labels-normal">' . $output . '</span>' : $output;
     }
@@ -8324,5 +8373,18 @@ class MEC_main extends MEC_base
         });
 
         return $attendees;
+    }
+
+    public function mysql2date($format, $date, $timezone)
+    {
+        if(empty($date)) return false;
+
+        $datetime = date_create($date, $timezone);
+        if(false === $datetime) return false;
+
+        // Returns a sum of timestamp with timezone offset. Ideally should never be used.
+        if('G' === $format || 'U' === $format) return $datetime->getTimestamp() + $datetime->getOffset();
+
+        return $datetime->format($format);
     }
 }

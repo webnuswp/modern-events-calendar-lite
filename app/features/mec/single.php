@@ -133,7 +133,7 @@ $event_fields = $this->main->get_event_fields();
                                 <div class="mec-col-9">
                                     <label id="mec_settings_breadcrumbs" >
                                         <input type="hidden" name="mec[settings][breadcrumbs]" value="0" />
-                                        <input type="checkbox" name="mec[settings][breadcrumbs]" id="mec_settings_breadcrumbs" <?php echo ((isset($settings['breadcrumbs']) and $settings['breadcrumbs']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Breadcrumbs.', 'modern-events-calendar-lite'); ?>
+                                        <input type="checkbox" name="mec[settings][breadcrumbs]" id="mec_settings_breadcrumbs" <?php echo ((isset($settings['breadcrumbs']) and $settings['breadcrumbs']) ? 'checked="checked"' : ''); ?> value="1" onchange="jQuery('#mec_settings_breadcrumb_options').toggle();" /><?php _e('Enable Breadcrumbs.', 'modern-events-calendar-lite'); ?>
                                     </label>
                                     <span class="mec-tooltip">
                                         <div class="box left">
@@ -142,6 +142,18 @@ $event_fields = $this->main->get_event_fields();
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
+                                </div>
+                            </div>
+
+                            <div id="mec_settings_breadcrumb_options" class="<?php echo ((isset($settings['breadcrumbs']) and $settings['breadcrumbs']) ? '' : 'mec-util-hidden'); ?>">
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_breadcrumbs_category"><?php _e('Category in Breadcrumbs', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-9">
+                                        <label>
+                                            <input type="hidden" name="mec[settings][breadcrumbs_category]" value="0" />
+                                            <input type="checkbox" name="mec[settings][breadcrumbs_category]" id="mec_settings_breadcrumbs_category" <?php echo ((isset($settings['breadcrumbs_category']) and $settings['breadcrumbs_category']) ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Include Category in Breadcrumbs.', 'modern-events-calendar-lite'); ?>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -196,11 +208,11 @@ $event_fields = $this->main->get_event_fields();
                                 </div>
                             </div>
                             <div class="mec-form-row">
-                                <div class="mec-col-12">
+                            <label class="mec-col-3" for="mec_settings_location_description"><?php _e('Change Currency Per Event', 'modern-events-calendar-lite'); ?></label>
+                                <div class="mec-col-9">
                                     <label for="mec_settings_currency_per_event">
                                         <input type="hidden" name="mec[settings][currency_per_event]" value="0" />
-                                        <input type="checkbox" name="mec[settings][currency_per_event]" id="mec_settings_currency_per_event" <?php echo ((isset($settings['currency_per_event']) and $settings['currency_per_event'] == '1') ? 'checked="checked"' : ''); ?> value="1" />
-                                        <?php _e('Change Currency Per Event', 'modern-events-calendar-lite'); ?>
+                                        <input type="checkbox" name="mec[settings][currency_per_event]" id="mec_settings_currency_per_event" <?php echo ((isset($settings['currency_per_event']) and $settings['currency_per_event'] == '1') ? 'checked="checked"' : ''); ?> value="1" /><?php _e('Enable Currency Per Event', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -304,7 +316,7 @@ $event_fields = $this->main->get_event_fields();
                         </div>
 
                         <div id="countdown_option" class="mec-options-fields">
-                            <h4 class="mec-form-subtitle"><?php _e('Countdown Options', 'modern-events-calendar-lite'); ?></h4>
+                            <h4 class="mec-form-subtitle"><?php _e('Countdown', 'modern-events-calendar-lite'); ?></h4>
                             <div class="mec-form-row">
                                 <label>
                                     <input type="hidden" name="mec[settings][countdown_status]" value="0" />

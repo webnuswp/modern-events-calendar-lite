@@ -51,7 +51,7 @@ if(is_array($fonts))
                 <div class="mec-container">
                     <form id="mec_styling_form">
                         <div class="mec-options-fields">
-                            <h2><?php _e('Styling Options', 'modern-events-calendar-lite'); ?></h2>
+                            <h2><?php _e('Styling', 'modern-events-calendar-lite'); ?></h2>
                         <!-- Colorskin -->
                             <h5 class="mec-form-subtitle"><?php esc_html_e('Color Skin', 'modern-events-calendar-lite' ); ?></h5>
                             <div class="mec-form-row">

@@ -323,6 +323,9 @@ class MEC_feature_events extends MEC_base
      */
     public function save_metadata($term_id)
     {
+        // Quick Edit
+        if(!isset($_POST['mec_cat_icon'])) return;
+
         $icon = isset($_POST['mec_cat_icon']) ? sanitize_text_field($_POST['mec_cat_icon']) : '';
         update_term_meta($term_id, 'mec_cat_icon', $icon);
 
@@ -2097,7 +2100,7 @@ class MEC_feature_events extends MEC_base
                     </div>
                     <div class="mec-form-row">
                         <div class="mec-col-4">
-                            <input type="text" name="mec[tickets][:i:][minimum_ticket]" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
+                            <input type="text" name="mec[tickets][:i:][minimum_ticket]" value="1" placeholder="<?php _e('Minimum Ticket e.g. 3', 'modern-events-calendar-lite'); ?>">
                             <span class="mec-tooltip">
                                 <div class="box top">
                                     <h5 class="title"><?php _e('MinimumTicket', 'modern-events-calendar-lite'); ?></h5>
@@ -3915,7 +3918,7 @@ class MEC_feature_events extends MEC_base
 
             $event = array(
                 $post_id,
-                $data->title,
+                html_entity_decode($data->title, ENT_QUOTES | ENT_HTML5),
                 html_entity_decode(strip_tags($data->content), ENT_QUOTES | ENT_HTML5),
                 $date['start']['date'],
                 $data->time['start'],

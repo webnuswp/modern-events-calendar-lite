@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.7.1
-Stable tag: 5.18.5
+Stable tag: 5.19.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -365,6 +365,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Edit Booking Options](https://webnus.net/dox/modern-events-calendar/booking/) (*pro*)
 - [Booking reminder notification](https://webnus.net/dox/modern-events-calendar/notifications/) (*pro*)
 - [Attendee list](https://webnus.net/dox/modern-events-calendar/buddypress/) (*pro*)
+- Event Finish
 - Verification email (*pro*)
 - Confirmation email (*pro*)
 - Cancellation email (*pro*)
@@ -450,6 +451,37 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.19.0 – 5 May 2021 =
+- Added: A new notification to send after at the exact time the event finishes (pro)
+- Added: A new option to change the HTML tag of the archive page title
+- Added: A new option to include event categories in the breadcrumbs module
+- Added: A new option to profile shortcode to hide canceled bookings (pro)
+- Added: A new option to profile shortcode to show only upcoming bookings (pro)
+- Added: Update tag for Mailchimp subscribers (pro)
+- Added: A new feature to hide export module in expired events
+- Added: Expired label for expired events
+- Added: An ability to insert coupon codes when adding new bookings from the backend (pro)
+- Added: A new feature to easily export all bookings from the export menu (pro)
+- Added: A new option to disable the fees module in certain payment gateways (pro)
+- Changed: Settings menu
+- Fixed: The event description placeholder when shortcodes are included in the email notification (pro)
+- Fixed: Stripe connect gateway (pro)
+- Fixed: Booking date format in WooCommerce when time format is added to the booking date format field (pro)
+- Fixed: Booking over the ticket availability (pro)
+- Fixed: Available spot skin (pro)
+- Fixed: Importing events from Google calendar
+- Fixed: A 404 error in the export module (pro)
+- Fixed: some issues in the total price field of CSV/Excel import (pro)
+- Fixed: The date of MEC feeds (pro)
+- Fixed: Some issues regarding special characters in events and book exports
+- Fixed: Some issues in quick edit of taxonomies
+- Fixed: Sending some notifications twice in special conditions (pro)
+- Fixed: The ticket creation form (pro)
+- Fixed: The date of booking reminder notification for “Sell all by one booking” events (pro)
+- Fixed: Masonry view issue in Firefox (pro)
+- Fixed: Tooltip conflicts with Ultimate Addons for Elementor
+- Fixed: Timeline view issue when the link is disabled
 
 = 5.18.5 – 21 April 2021 =
 - Added: A new feature to manage a load of MEC assets on pages

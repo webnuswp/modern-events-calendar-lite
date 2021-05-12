@@ -121,7 +121,7 @@ if($mecFluentEnable)
         <div class="mec-book-form-gateway-label">
             <label>
                 <?php if(count($active_gateways) > 1): ?>
-                <input type="radio" name="book[gateway]" onchange="mec_gateway_selected(this.value);" value="<?php echo $gateway->id(); ?>" />
+                <input type="radio" name="book[gateway]" onchange="mec_gateway_selected(this.value); mec_adjust_booking_fees<?php echo $uniqueid; ?>(this.value, '<?php echo $transaction_id; ?>');" value="<?php echo $gateway->id(); ?>" />
                 <?php endif; ?>
                 <?php echo $gateway->title(); ?>
             </label>

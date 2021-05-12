@@ -3,6 +3,10 @@
 defined('MECEXEC') or die();
 
 /** @var MEC_feature_profile $this */
+/** @var array $atts */
+
+$hide_canceleds = (isset($atts['hide-canceleds']) and $atts['hide-canceleds']) ? true : false;
+$upcomings = (isset($atts['show-upcomings']) and $atts['show-upcomings']) ? true : false;
 
 // Date & Time Format
 $datetime_format = get_option('date_format').' '.get_option('time_format');
@@ -10,15 +14,34 @@ $datetime_format = get_option('date_format').' '.get_option('time_format');
 // MEC Render
 $render = $this->getRender();
 
-// The Query
-$query = new WP_Query(array(
+// Query
+$q = array(
     'post_type'=>$this->PT,
     'author'=>get_current_user_id(),
     'posts_per_page'=>'-1',
     'post_status'=>array('pending', 'draft', 'future', 'publish'),
+    'meta_query'=>array(),
+    'date_query'=>array(),
     'orderby'=>'post_date',
     'order'=>'DESC',
-));
+);
+
+// Hide Canceled Bookings
+if($hide_canceleds)
+{
+    $q['meta_query'][] = array('key'=>'mec_verified', 'value'=>'-1', 'compare'=>'!=');
+}
+
+// Show Only Upcoming Bookings
+if($upcomings)
+{
+    $q['date_query'] = array(
+        'after' => current_time('Y-m-d H:i:s'),
+    );
+}
+
+// The Query
+$query = new WP_Query($q);
 
 $id = 1;
 ?>
@@ -65,6 +88,22 @@ $id = 1;
             $transaction = $this->book->get_transaction($transaction_id);
             $timestamps = explode(':', get_post_meta($ID, 'mec_date', true));
 
+            $start_time = $timestamps[0];
+            $end_time = $timestamps[1];
+
+            $booking_options = get_post_meta($event_id, 'mec_booking', true);
+            $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+
+            if($bookings_all_occurrences)
+            {
+                $dates = $render->dates($event_id, NULL, 1, NULL);
+                if(is_array($dates) and count($dates) and isset($dates[0]))
+                {
+                    $start_time = ((isset($dates[0]['start']) and isset($dates[0]['start']['timestamp'])) ? $dates[0]['start']['timestamp'] : 0);
+                    $end_time = ((isset($dates[0]['end']) and isset($dates[0]['end']['timestamp'])) ? $dates[0]['end']['timestamp'] : 0);
+                }
+            }
+
             // Check If Event Exist
             $db = $this->getDB();
             $check_event_exist = $db->select("SELECT `ID` FROM `#__posts` WHERE `ID`={$event_id}", 'loadResult');
@@ -87,7 +126,7 @@ $id = 1;
                  <span class="mec-event-date">
                     <div class="mec-tooltip">
                         <div class="box">
-                            <?php echo trim(date($datetime_format, $timestamps[0]).' - '.date($datetime_format, $timestamps[1]), '- '); ?>
+                            <?php echo trim(date($datetime_format, $start_time).' - '.date($datetime_format, $end_time), '- '); ?>
                         </div>
                         <i class="mec-sl-calendar"></i>
                     </div>
