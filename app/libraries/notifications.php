@@ -957,10 +957,17 @@ class MEC_notifications extends MEC_base
         // Event Data
         $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
         $message = str_replace('%%event_title%%', get_the_title($event_id), $message);
+        $message = str_replace('%%event_link%%', get_post_permalink($event_id), $message);
         $message = str_replace('%%event_description%%', strip_tags(strip_shortcodes(get_post_field('post_content', $event_id))), $message);
-        $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($event_id, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
-        $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_label'), 'name')), $message);
-        $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($event_id, 'mec_category'), 'name')), $message);
+
+        $event_tags = get_the_terms($event_id, apply_filters('mec_taxonomy_tag', ''));
+        $message = str_replace('%%event_tags%%', (is_array($event_tags) ? join(', ', wp_list_pluck($event_tags, 'name')) : ''), $message);
+
+        $event_labels = get_the_terms($event_id, 'mec_label');
+        $message = str_replace('%%event_labels%%', (is_array($event_labels) ? join(', ', wp_list_pluck($event_labels, 'name')) : ''), $message);
+
+        $event_categories = get_the_terms($event_id, 'mec_category');
+        $message = str_replace('%%event_categories%%', (is_array($event_categories) ? join(', ', wp_list_pluck($event_categories, 'name')) : ''), $message);
 
         $mec_cost = get_post_meta($event_id, 'mec_cost', true);
         $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $event_id) : $mec_cost), $message);
@@ -1111,9 +1118,15 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%admin_link%%', $this->link(array('post_type'=>$event_PT), $this->main->URL('admin').'edit.php'), $message);
             $message = str_replace('%%event_title%%', get_the_title($post->ID), $message);
             $message = str_replace('%%event_description%%', strip_tags(strip_shortcodes(get_post_field('post_content', $post->ID))), $message);
-            $message = str_replace('%%event_tags%%', join(', ', wp_list_pluck(get_the_terms($post->ID, apply_filters('mec_taxonomy_tag', '')), 'name')), $message);
-            $message = str_replace('%%event_labels%%', join(', ', wp_list_pluck(get_the_terms($post->ID, 'mec_label'), 'name')), $message);
-            $message = str_replace('%%event_categories%%', join(', ', wp_list_pluck(get_the_terms($post->ID, 'mec_category'), 'name')), $message);
+
+            $event_tags = get_the_terms($post->ID, apply_filters('mec_taxonomy_tag', ''));
+            $message = str_replace('%%event_tags%%', (is_array($event_tags) ? join(', ', wp_list_pluck($event_tags, 'name')) : ''), $message);
+
+            $event_labels = get_the_terms($post->ID, 'mec_label');
+            $message = str_replace('%%event_labels%%', (is_array($event_labels) ? join(', ', wp_list_pluck($event_labels, 'name')) : ''), $message);
+
+            $event_categories = get_the_terms($post->ID, 'mec_category');
+            $message = str_replace('%%event_categories%%', (is_array($event_categories) ? join(', ', wp_list_pluck($event_categories, 'name')) : ''), $message);
 
             $mec_cost = get_post_meta($post->ID, 'mec_cost', true);
             $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $post->ID) : $mec_cost), $message);

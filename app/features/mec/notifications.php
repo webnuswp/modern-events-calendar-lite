@@ -1548,6 +1548,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <div class="mec-col-12">
                                         <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
                                         <ul>
+                                            <li><span>%%name%%</span>: <?php _e('Event sender name', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_title%%</span>: <?php _e('Title of event', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_description%%</span>: <?php _e('Event Description', 'modern-events-calendar-lite'); ?></li>
                                             <li><span>%%event_tags%%</span>: <?php _e('Event Tags', 'modern-events-calendar-lite'); ?></li>

@@ -2715,7 +2715,6 @@ class MEC_main extends MEC_base
 
             $booking_time = isset($booking[0]) ? get_post_meta($booking[0]->ID, 'mec_booking_time', true) : NULL;
             if(!$booking_time and is_numeric($dates[0])) $booking_time = date('Y-m-d', $dates[0]);
-            else $booking_time = $dates[0];
 
             $booking_time = date('Y-m-d', strtotime($booking_time));
 
@@ -4159,7 +4158,7 @@ class MEC_main extends MEC_base
         delete_option('mec_activation_redirect');
             
         // Redirect to MEC Dashboard
-        wp_redirect(admin_url('/admin.php?page=mec-intro'));
+        wp_redirect(admin_url('/admin.php?page=MEC-wizard'));
         exit;
     }
     
@@ -4232,6 +4231,7 @@ class MEC_main extends MEC_base
         if($ongoing_event_book)
         {
             if(!isset($next_date['end']) or (isset($next_date['end']) and $this->is_past($next_date['end']['date'], current_time('Y-m-d')))) return false;
+            if(isset($next_date['end']) and isset($next_date['end']['timestamp']) and $next_date['end']['timestamp'] < current_time('timestamp', 0)) return false;
         }
         else
         {
@@ -4599,6 +4599,10 @@ class MEC_main extends MEC_base
      */
     public function mce_get_shortcode_list($post_type = 'mec_calendars')
     {
+        $shortcodes = array();
+        $shortcodes['mce_title'] =  __('M.E. Calender', 'modern-events-calendar-lite');
+        $shortcodes['shortcodes'] = array();
+
         if(post_type_exists($post_type))
         {
             $shortcodes_list = get_posts(array(
@@ -4610,9 +4614,6 @@ class MEC_main extends MEC_base
 
             if(count($shortcodes_list))
             {
-                $shortcodes = array();
-                $shortcodes['shortcodes'] = array();
-
                 foreach($shortcodes_list as $shortcode)
                 {
                     $shortcode_item = array();
@@ -4622,13 +4623,10 @@ class MEC_main extends MEC_base
                     $shortcode_item['PN'] = $shortcode->post_name;
                     array_push($shortcodes['shortcodes'], $shortcode_item);
                 }
-
-                $shortcodes['mce_title'] =  __('M.E. Calender', 'modern-events-calendar-lite');
-                return json_encode($shortcodes);
             }
         }
 
-        return false;
+        return json_encode($shortcodes);
     }
 
     /**
@@ -6388,7 +6386,7 @@ class MEC_main extends MEC_base
      */
     public function add_events_to_tags_archive($query)
     {
-        if($query->is_tag() and $query->is_main_query())
+        if($query->is_tag() and $query->is_main_query() and !is_admin())
         {
             $pt = $this->get_main_post_type();
             $query->set('post_type', array('post', $pt));
@@ -7119,7 +7117,11 @@ class MEC_main extends MEC_base
         $recurrence = array();
         if(isset($event->mec->repeat) and $event->mec->repeat)
         {
-            $finish = ($event->mec->end != '0000-00-00' ? date('Ymd\THis\Z', strtotime($event->mec->end.' '.$event->time['end'])) : '');
+            $finish_time = $event->time['end'];
+            $finish_time = str_replace(array('h:', 'H:', 'H'), 'h', $finish_time);
+            $finish_time = str_replace(array('h ', 'h'), ':', $finish_time);
+
+            $finish = ($event->mec->end != '0000-00-00' ? date('Ymd\THis\Z', strtotime($event->mec->end.' '.$finish_time)) : '');
             $freq = '';
             $interval = '1';
             $bysetpos = '';
@@ -7191,6 +7193,7 @@ class MEC_main extends MEC_base
                 foreach($mec_periods as $mec_period)
                 {
                     $mec_days = explode(':', trim($mec_period, ': '));
+                    if(!isset($mec_days[1])) continue;
 
                     $time_start = $event->time['start'];
                     if(isset($mec_days[2])) $time_start = str_replace('-', ':', str_replace('-AM', ' AM', str_replace('-PM', ' PM', $mec_days[2])));
@@ -7534,6 +7537,15 @@ class MEC_main extends MEC_base
 
             // Get Per Occurrence
             $total_bookings_limit = MEC_feature_occurrences::param($event_id, $timestamp, 'bookings_limit', $total_bookings_limit);
+            
+            if(count($tickets) === 1)
+            {
+                $ticket = reset($tickets);
+                if(isset($ticket['limit']) and trim($ticket['limit'])) $total_bookings_limit = $ticket['limit'];
+
+                $bookings_limit_unlimited = isset($ticket['unlimited']) ? $ticket['unlimited'] : 0;
+                if($bookings_limit_unlimited == '1') $total_bookings_limit = -1;
+            }
 
             // Percentage
             $percentage = ((isset($settings['booking_last_few_tickets_percentage']) and trim($settings['booking_last_few_tickets_percentage']) != '') ? $settings['booking_last_few_tickets_percentage'] : 15);
@@ -7910,8 +7922,8 @@ class MEC_main extends MEC_base
 
     public function holding_status($event)
     {
-        if($this->is_ongoing($event)) return '<dd><span class="mec-holding-status mec-holding-status-ongoing">'.__('Ongoing...', 'modern-events-calendar-lite').'</span></dd>';
-        elseif($this->is_expired($event)) return '<dd><span class="mec-holding-status mec-holding-status-expired">'.__('Expired!', 'modern-events-calendar-lite').'</span></dd>';
+        if($this->is_ongoing($event)) return '<dl><dd><span class="mec-holding-status mec-holding-status-ongoing">'.__('Ongoing...', 'modern-events-calendar-lite').'</span></dd></dl>';
+        elseif($this->is_expired($event)) return '<dl><dd><span class="mec-holding-status mec-holding-status-expired">'.__('Expired!', 'modern-events-calendar-lite').'</span></dd></dl>';
 
         return '';
     }
@@ -8298,7 +8310,7 @@ class MEC_main extends MEC_base
         return (boolean) count($bookings);
     }
 
-    public function get_event_attendees($id, $occurrence = NULL)
+    public function get_event_attendees($id, $occurrence = NULL, $verified = true)
     {
         $date_query = array();
         if($occurrence)
@@ -8323,15 +8335,10 @@ class MEC_main extends MEC_base
             );
         }
 
-        // Fetch Bookings
-        $bookings = get_posts(array(
-            'posts_per_page' => -1,
-            'post_type' => $this->get_book_post_type(),
-            'post_status' => 'any',
-            'meta_key' => 'mec_event_id',
-            'meta_value' => $id,
-            'meta_compare' => '=',
-            'meta_query' => array
+        $meta_query = array();
+        if($verified)
+        {
+            $meta_query = array
             (
                 'relation' => 'AND',
                 array(
@@ -8344,7 +8351,18 @@ class MEC_main extends MEC_base
                     'value' => '1',
                     'compare' => '=',
                 ),
-            ),
+            );
+        }
+
+        // Fetch Bookings
+        $bookings = get_posts(array(
+            'posts_per_page' => -1,
+            'post_type' => $this->get_book_post_type(),
+            'post_status' => 'any',
+            'meta_key' => 'mec_event_id',
+            'meta_value' => $id,
+            'meta_compare' => '=',
+            'meta_query' => $meta_query,
             'date_query' => $date_query,
         ));
 
@@ -8386,5 +8404,23 @@ class MEC_main extends MEC_base
         if('G' === $format || 'U' === $format) return $datetime->getTimestamp() + $datetime->getOffset();
 
         return $datetime->format($format);
+    }
+
+    public function is_second_booking($event_id, $email)
+    {
+        $attendees = $this->get_event_attendees($event_id, NULL, false);
+        if(!is_array($attendees)) $attendees = array();
+
+        $found = false;
+        foreach($attendees as $attendee)
+        {
+            if($email and isset($attendee['email']) and trim(strtolower($email)) == trim(strtolower($attendee['email'])))
+            {
+                $found = true;
+                break;
+            }
+        }
+
+        return $found;
     }
 }

@@ -153,11 +153,11 @@ $modal_booking = (isset($_GET['method']) and $_GET['method'] === 'mec-booking-mo
                 <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo __($ticket['description'], 'modern-events-calendar-lite'); ?></p><?php endif; ?>
 
                 <?php if(!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1): ?>
-                    <input type="hidden" name="book[tickets][<?php echo $ticket_id; ?>]" value="1" />
-                    <p>
-                        <?php _e('1 Ticket selected.', 'modern-events-calendar-lite'); ?>
-                        <div class="mec-event-ticket-available"><?php echo sprintf(__('Available %s: <span>%s</span>', 'modern-events-calendar-lite'), $this->m('tickets', __('Tickets', 'modern-events-calendar-lite')), (($ticket['unlimited'] and $ticket_limit == '-1') ? __('Unlimited', 'modern-events-calendar-lite') : ($ticket_limit != '-1' ? $ticket_limit : __('Unlimited', 'modern-events-calendar-lite')))); ?></div>
-                    </p>
+                <input type="hidden" name="book[tickets][<?php echo $ticket_id; ?>]" value="1" />
+                <p>
+                    <?php _e('1 Ticket selected.', 'modern-events-calendar-lite'); ?>
+                    <div class="mec-event-ticket-available"><?php echo sprintf(__('Available %s: <span>%s</span>', 'modern-events-calendar-lite'), $this->m('tickets', __('Tickets', 'modern-events-calendar-lite')), (($ticket['unlimited'] and $ticket_limit == '-1') ? __('Unlimited', 'modern-events-calendar-lite') : ($ticket_limit != '-1' ? $ticket_limit : __('Unlimited', 'modern-events-calendar-lite')))); ?></div>
+                </p>
                 <?php else: ?>
                 <div>
                     <input onkeydown="return event.keyCode !== 69" type="number" class="mec-book-ticket-limit" name="book[tickets][<?php echo $ticket_id; ?>]" title="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo $default_ticket_number; ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" onchange="mec_check_tickets_availability<?php echo $uniqueid; ?>(<?php echo $ticket_id; ?>, this.value);" />

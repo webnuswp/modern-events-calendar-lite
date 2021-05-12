@@ -45,22 +45,16 @@ class MEC_single_widget extends WP_Widget
 	public function widget($args, $instance)
 	{
 		$cache = array();
-		if (!$this->is_preview())
-		{
-			$cache = wp_cache_get('MEC_single_widget', 'widget');
-		}
 
-		if (!is_array($cache))
-		{
-			$cache = array();
-		}
+		if(!$this->is_preview()) $cache = wp_cache_get('MEC_single_widget', 'widget');
+		if(!is_array($cache)) $cache = array();
 
-		if (!isset($args['widget_id']))
+		if(!isset($args['widget_id']))
 		{
 			$args['widget_id'] = $this->id;
 		}
 
-		if (isset($cache[$args['widget_id']]))
+		if(isset($cache[$args['widget_id']]))
 		{
 			echo $cache[$args['widget_id']];
 			return;
@@ -89,8 +83,9 @@ class MEC_single_widget extends WP_Widget
 		$weather = isset($instance['weather_module']) ? esc_attr($instance['weather_module']) : '';
 		$google_map = isset($instance['google_map']) ? esc_attr($instance['google_map']) : '';
 		$qrcode = isset($instance['qrcode_module']) ? esc_attr($instance['qrcode_module']) : '';
+		$custom_fields = isset($instance['custom_fields_module']) ? esc_attr($instance['custom_fields_module']) : '';
 		$virtual_events = isset($instance['virtual_events_module']) ? esc_attr($instance['virtual_events_module']) : '';
-?>
+        ?>
 		<ul class="mec-sortable">
 			<li>
 				<input class="checkbox" type="checkbox" <?php checked($data_time, 'on'); ?> id="<?php echo $this->get_field_id('data_time'); ?>" name="<?php echo $this->get_field_name('data_time'); ?>" />
@@ -156,17 +151,18 @@ class MEC_single_widget extends WP_Widget
 				<input class="checkbox" type="checkbox" <?php checked($qrcode, 'on'); ?> id="<?php echo $this->get_field_id('qrcode_module'); ?>" name="<?php echo $this->get_field_name('qrcode_module'); ?>" />
 				<label for="<?php echo $this->get_field_id('qrcode_module'); ?>"><?php _e('QR Code', 'modern-events-calendar-lite'); ?></label>
 			</li>
-
-			<?php
-				if(is_plugin_active('mec-virtual-events/mec-virtual-events.php')):
-			?>
+            <li>
+                <input class="checkbox" type="checkbox" <?php checked($custom_fields, 'on'); ?> id="<?php echo $this->get_field_id('custom_fields_module'); ?>" name="<?php echo $this->get_field_name('custom_fields_module'); ?>" />
+                <label for="<?php echo $this->get_field_id('custom_fields_module'); ?>"><?php _e('Custom Fields Code', 'modern-events-calendar-lite'); ?></label>
+            </li>
+			<?php if(is_plugin_active('mec-virtual-events/mec-virtual-events.php')): ?>
 			<li>
 				<input class="checkbox" type="checkbox" <?php checked($virtual_events, 'on'); ?> id="<?php echo $this->get_field_id('virtual_events_module'); ?>" name="<?php echo $this->get_field_name('virtual_events_module'); ?>" />
 				<label for="<?php echo $this->get_field_id('virtual_events_module'); ?>"><?php _e('Virtual Event', 'modern-events-calendar-lite'); ?></label>
 			</li>
 			<?php endif;  ?>
 		</ul>
-<?php
+        <?php
 	}
 
 	public function flush_widget_cache()
@@ -200,12 +196,13 @@ class MEC_single_widget extends WP_Widget
 		$instance['weather_module'] = isset($new_instance['weather_module']) ? strip_tags($new_instance['weather_module']) : '';
 		$instance['google_map'] = isset($new_instance['google_map']) ? strip_tags($new_instance['google_map']) : '';
 		$instance['qrcode_module'] = isset($new_instance['qrcode_module']) ? strip_tags($new_instance['qrcode_module']) : '';
-		$instance['virtual_events_module'] = isset($new_instance['virtual_events_module']) ? strip_tags($new_instance['virtual_events_module']) : '';		
+		$instance['custom_fields_module'] = isset($new_instance['custom_fields_module']) ? strip_tags($new_instance['custom_fields_module']) : '';
+		$instance['virtual_events_module'] = isset($new_instance['virtual_events_module']) ? strip_tags($new_instance['virtual_events_module']) : '';
 
 		$this->flush_widget_cache();
 
 		$alloptions = wp_cache_get('alloptions', 'options');
-		if (isset($alloptions['MEC_single_widget'])) delete_option('MEC_single_widget');
+		if(isset($alloptions['MEC_single_widget'])) delete_option('MEC_single_widget');
 
 		return $instance;
 	}

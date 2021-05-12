@@ -398,9 +398,8 @@ $event_fields = $this->main->get_event_fields();
                                 </label>
                             </div>
                             <div id="mec_related_events_container_toggle" class="<?php if((isset($settings['related_events']) and !$settings['related_events']) or !isset($settings['related_events'])) echo 'mec-util-hidden'; ?>">
-
                                 <div class="mec-form-row" style="margin-top:20px;">
-                                    <label style="margin-right:7px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
+                                    <label style="margin-right:7px;"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
                                     <label style="margin-right:7px;margin-bottom: 20px">
                                         <input type="hidden" name="mec[settings][related_events_basedon_category]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_category]" <?php if(isset($settings['related_events_basedon_category']) and $settings['related_events_basedon_category']) echo 'checked="checked"'; ?> /> <?php _e('Category', 'modern-events-calendar-lite'); ?>
@@ -413,7 +412,7 @@ $event_fields = $this->main->get_event_fields();
                                         <input type="hidden" name="mec[settings][related_events_basedon_location]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_location]" <?php if(isset($settings['related_events_basedon_location']) and $settings['related_events_basedon_location']) echo 'checked="checked"'; ?> /> <?php _e('Location', 'modern-events-calendar-lite'); ?>
                                     </label>
-                                    <?php if(isset($settings['speakers_status']) and $settings['speakers_status']) : ?>
+                                    <?php if(isset($settings['speakers_status']) and $settings['speakers_status']): ?>
                                     <label style="margin-right:7px;">
                                         <input type="hidden" name="mec[settings][related_events_basedon_speaker]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_speaker]" <?php if(isset($settings['related_events_basedon_speaker']) and $settings['related_events_basedon_speaker']) echo 'checked="checked"'; ?> /> <?php _e('Speaker', 'modern-events-calendar-lite'); ?>
@@ -428,6 +427,12 @@ $event_fields = $this->main->get_event_fields();
                                         <input value="1" type="checkbox" name="mec[settings][related_events_basedon_tag]" <?php if(isset($settings['related_events_basedon_tag']) and $settings['related_events_basedon_tag']) echo 'checked="checked"'; ?> /> <?php _e('Tag', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_related_events_limit"><?php _e('Max Events', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-9">
+                                        <input type="number" min="1" step="1" max="100" id="mec_settings_related_events_limit" name="mec[settings][related_events_limit]" value="<?php echo ((isset($settings['related_events_limit']) and trim($settings['related_events_limit']) != '') ? $settings['related_events_limit'] : '30'); ?>" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -440,7 +445,6 @@ $event_fields = $this->main->get_event_fields();
                                 </label>
                             </div>
                             <div id="mec_next_previous_events_container_toggle" class="<?php if((isset($settings['next_previous_events']) and !$settings['next_previous_events']) or !isset($settings['next_previous_events'])) echo 'mec-util-hidden'; ?>">
-
                                 <div class="mec-form-row" style="margin-top:20px;">
                                     <label style="margin-right:7px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
                                     <label style="margin-right:7px; margin-bottom: 20px;">

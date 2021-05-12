@@ -22,11 +22,10 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 		<!-- start breadcrumbs -->
 		<?php
-		$breadcrumbs_settings = isset($settings['breadcrumbs']) ? $settings['breadcrumbs'] : '';
-		if($breadcrumbs_settings == '1' ): ?>
-			<div class="mec-breadcrumbs">
-				<?php $single->display_breadcrumb_widget( get_the_ID() ); ?>
-			</div>
+		$breadcrumbs_settings = isset($settings['breadcrumbs']) ? $settings['breadcrumbs'] : ''; if($breadcrumbs_settings == '1'): ?>
+        <div class="mec-breadcrumbs">
+            <?php $single->display_breadcrumb_widget(get_the_ID()); ?>
+        </div>
 		<?php endif; ?>
 		<!-- end breadcrumbs -->
 
@@ -38,7 +37,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 				<div class="mec-single-event-description mec-events-content"><?php the_content(); ?></div>
 			</div>
 
-			<?php do_action('mec_single_after_content', $event ); ?>
+			<?php do_action('mec_single_after_content', $event); ?>
 
 			<!-- Custom Data Fields -->
 			<?php $this->display_data_fields($event); ?>
@@ -50,9 +49,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 			<!-- Countdown module -->
 			<?php if($this->main->can_show_countdown_module($event)): ?>
-				<div class="mec-events-meta-group mec-events-meta-group-countdown">
-					<?php echo $this->main->module('countdown.details', array('event'=>$this->events)); ?>
-				</div>
+            <div class="mec-events-meta-group mec-events-meta-group-countdown">
+                <?php echo $this->main->module('countdown.details', array('event'=>$this->events)); ?>
+            </div>
 			<?php endif; ?>
 
 			<!-- Hourly Schedule -->
@@ -144,13 +143,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 						<div class="mec-single-event-date">
 							<i class="mec-sl-calendar"></i>
 							<h3 class="mec-date"><?php _e('Date', 'modern-events-calendar-lite'); ?></h3>
-
-							<?php if($midnight_event): ?>
-								<dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
-							<?php else: ?>
-								<dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
-							<?php endif; ?>
-
+							<dl>
+								<?php if($midnight_event): ?>
+									<dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
+								<?php else: ?>
+									<dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
+								<?php endif; ?>
+							</dl>
 							<?php echo $this->main->holding_status($event); ?>
 						</div>
 
@@ -164,12 +163,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 								<i class="mec-sl-clock " style=""></i>
 								<h3 class="mec-time"><?php _e('Time', 'modern-events-calendar-lite'); ?></h3>
 								<i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
-
-								<?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
-									<dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
-								<?php else: ?>
-									<dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
-								<?php endif; ?>
+								<dl>
+									<?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
+										<dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
+									<?php else: ?>
+										<dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
+									<?php endif; ?>
+								</dl>
 							</div>
 							<?php
 						}
@@ -187,7 +187,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 						<div class="mec-event-cost">
 							<i class="mec-sl-wallet"></i>
 							<h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-							<dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd>
+							<dl><dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd></dl>
 						</div>
 						<?php
 					}
@@ -204,7 +204,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 						<div class="mec-event-more-info">
 							<i class="mec-sl-info"></i>
 							<h3 class="mec-cost"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></h3>
-							<dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd>
+							<dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd></dl>
 						</div>
 						<?php
 					}
@@ -221,7 +221,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							<h3 class="mec-cost"><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h3>
 							<?php foreach($event->data->labels as $labels=>$label) :
 								$seperator = (++$mec_i === $mec_items ) ? '' : ',';
-								echo '<dd style="color:' . $label['color'] . '">' . $label["name"] . $seperator . '</dd>';
+								echo '<dl><dd style="color:' . $label['color'] . '">' . $label["name"] . $seperator . '</dd></dl>';
 							endforeach; ?>
 						</div>
 						<?php
@@ -241,6 +241,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							<?php endif; ?>
 							<i class="mec-sl-location-pin"></i>
 							<h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
+							<dl>
 							<dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
 							<dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
 
@@ -256,6 +257,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 									<p><?php echo $location_term->description;?></p>
 								</dd>
 							<?php endif; } } endif; ?>
+							</dl>
 						</div>
 						<?php
 						$this->show_other_locations($event); // Show Additional Locations
@@ -275,8 +277,8 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							{
 								$icon = get_metadata('term', $category['id'], 'mec_cat_icon', true);
 								$icon = isset($icon) && $icon != '' ? '<i class="'.$icon.' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
-								echo '<dd class="mec-events-event-categories">
-                                <a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd>';
+								echo '<dl><dd class="mec-events-event-categories">
+                                <a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd></dl>';
 							}
 							?>
 						</div>
@@ -295,6 +297,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 								<img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>">
 							<?php endif; ?>
 							<h3 class="mec-events-single-section-title"><?php echo $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')); ?></h3>
+							<dl>
 							<?php if(isset($organizer['thumbnail'])): ?>
 								<dd class="mec-organizer">
 									<i class="mec-sl-home"></i>
@@ -328,6 +331,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 									<p><?php echo $organizer_term->description;?></p>
 								</dd>
 							<?php endif; } } endif; ?>
+							</dl>
 						</div>
 						<?php
 						$this->show_other_organizers($event); // Show Additional Organizers
@@ -384,13 +388,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							<div class="mec-single-event-date">
 								<i class="mec-sl-calendar"></i>
 								<h3 class="mec-date"><?php _e('Date', 'modern-events-calendar-lite'); ?></h3>
-
+								<dl>
 								<?php if($midnight_event): ?>
 									<dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
 								<?php else: ?>
 									<dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
 								<?php endif; ?>
-
+								</dl>
 								<?php echo $this->main->holding_status($event); ?>
 							</div>
 
@@ -404,12 +408,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 									<i class="mec-sl-clock " style=""></i>
 									<h3 class="mec-time"><?php _e('Time', 'modern-events-calendar-lite'); ?></h3>
 									<i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
-
+									<dl>
 									<?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
 										<dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
 									<?php else: ?>
 										<dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
 									<?php endif; ?>
+									</dl>
 								</div>
 								<?php
 							}
@@ -427,7 +432,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							<div class="mec-event-cost">
 								<i class="mec-sl-wallet"></i>
 								<h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-								<dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd>
+								<dl><dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd></dl>
 							</div>
 							<?php
 						}
@@ -441,7 +446,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 							<div class="mec-event-more-info">
 								<i class="mec-sl-info"></i>
 								<h3 class="mec-cost"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></h3>
-								<dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd>
+								<dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd></dl>
 							</div>
 							<?php
 						}
@@ -458,7 +463,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 								<h3 class="mec-cost"><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h3>
 								<?php foreach($event->data->labels as $labels=>$label) :
 									$seperator = (++$mec_i === $mec_items ) ? '' : ',';
-									echo '<dd style="color:' . $label['color'] . '">' . $label["name"] . $seperator . '</dd>';
+									echo '<dl><dd style="color:' . $label['color'] . '">' . $label["name"] . $seperator . '</dd></dl>';
 								endforeach; ?>
 							</div>
 							<?php
@@ -480,9 +485,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 								<?php endif; ?>
 								<i class="mec-sl-location-pin"></i>
 								<h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
+								<dl>
 								<dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
 								<dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
-
 								<?php if(isset($location['url']) and trim($location['url'])): ?>
 									<dd class="mec-location-url">
 										<i class="mec-sl-sitemap"></i>
@@ -495,6 +500,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 										<p><?php echo $location_term->description;?></p>
 									</dd>
 								<?php endif; } } endif; ?>
+								</dl>
 							</div>
 							<?php
 							$this->show_other_locations($event); // Show Additional Locations
@@ -514,8 +520,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 								{
 									$icon = get_metadata('term', $category['id'], 'mec_cat_icon', true);
 									$icon = isset($icon) && $icon != '' ? '<i class="'.$icon.' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
-									echo '<dd class="mec-events-event-categories">
-                            <a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd>';
+									echo '<dl><dd class="mec-events-event-categories"><a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd></dl>';
 								}
 								?>
 							</div>
@@ -534,6 +539,7 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 									<img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>">
 								<?php endif; ?>
 								<h3 class="mec-events-single-section-title"><?php echo $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')); ?></h3>
+								<dl>
 								<?php if(isset($organizer['thumbnail'])): ?>
 									<dd class="mec-organizer">
 										<i class="mec-sl-home"></i>
@@ -563,10 +569,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 									</dd>
 								<?php endif;
 								$organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer');  if($organizer_description_setting == '1'): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>
-									<dd class="mec-organizer-description">
-										<p><?php echo $organizer_term->description;?></p>
-									</dd>
+									<dd class="mec-organizer-description"><p><?php echo $organizer_term->description;?></p></dd>
 								<?php endif; } } endif; ?>
+								</dl>
 							</div>
 							<?php
 							$this->show_other_organizers($event); // Show Additional Organizers
@@ -608,6 +613,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 				<!-- QRCode Module -->
 				<?php if($single->found_value('qrcode_module', $settings) == 'on') echo $this->main->module('qrcode.details', array('event'=>$event)); ?>
+
+                <!-- Custom Fields Module -->
+                <?php if($single->found_value('custom_fields_module', $settings) == 'on') echo $this->display_data_fields($event, true); ?>
 
 				<!-- Widgets -->
 				<?php dynamic_sidebar('mec-single-sidebar'); ?>

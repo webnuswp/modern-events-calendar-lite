@@ -9,8 +9,125 @@ $archive_skins = $this->main->get_archive_skins();
 ?>
 <style>
 .m-e-calendar_page_MEC-wizard {
-    background: #b7e4e3;
+    background: #F5F5F5;
 }
+.mec-wizard-wrap {
+    background: #FFFFFF;
+    padding: 40px 130px;
+    max-width: 520px;
+    margin:100px auto 0;
+    border-radius: 22px;
+    box-shadow: 0 3px 40px rgba(0,0,0,0.1);
+    position: relative;
+}
+.mec-wizard-wrap > h3 {
+    color: #393C40;
+    text-align: center;
+    font-weight: 400;
+    font-size:21px;
+    margin-top: 5px;
+    margin-bottom: 41px;
+}
+.mec-wizard-wrap .mec-wizard-starter-video a {
+    padding: 33px 20px 19px;
+    margin-top:40px;
+    display: block;
+    text-decoration: none;
+}
+
+.mec-wizard-button-style {
+    color: #52595E;
+    text-align: center;
+    font-weight: 400;
+    font-size: 13px;
+    border-radius: 11px;
+    box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+    border: 1px solid #DFE1E5;
+    transition: all 0.2s ease;
+}
+.mec-wizard-import-events {
+    float: left;
+}
+.mec-wizard-import-shortcodes {
+    float: right;
+}
+.mec-wizard-import-box {
+    border: 1px solid #DFE1E5;
+    border-radius: 11px;
+    padding: 22px 18px;
+    width: 245px;
+    font-size: 13px;
+    background: #fff;
+    text-align: left;
+    color: #52595E;
+}
+.mec-wizard-import-dummy {
+    margin-top: 40px;
+}
+.mec-wizard-import-box svg {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.mec-wizard-button-style:hover {
+    border-color: #C3EAF3;
+    color: #00B0DD;
+    box-shadow: 0 2px 0 rgb(0 176 221 / 5%);
+    cursor: pointer;
+}
+.mec-wizard-button-style svg path{
+    transition: all 0.2s ease;
+}
+.mec-wizard-button-style:hover svg path,.mec-wizard-back-button:hover svg path {
+    fill: #00B0DD;
+}
+.mec-wizard-open-popup-box {
+    margin-top: 40px;
+}
+button.mec-wizard-open-popup {
+    background: #fff;
+    border: 1px solid #DFE1E5;
+    border-radius: 11px;
+    padding: 22px 18px;
+    width: 130px;
+    height: 130px;
+    font-size: 13px;
+    text-align: center;
+    color: #52595E;
+    float: left;
+    margin-right: 65px;
+}
+.mec-wizard-open-popup-box button:last-of-type {
+    margin: 0 !important;
+}
+button.mec-wizard-open-popup span {
+    display: block;
+    margin-top: 13px;
+}
+.mec-wizard-back-box {
+    text-align: center;
+}
+.mec-wizard-back-button {
+    margin-top: 55px;
+    text-align: center;
+    color: #959DA4;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding-left: 20px;
+}
+.mec-wizard-back-button span {
+    vertical-align: bottom;
+}
+.mec-wizard-back-button svg {
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+.mec-wizard-back-button:hover {
+    color: #00B0DD;
+}
+/* Settings Wizard */
 .m-e-calendar_page_MEC-wizard .mec-wizard-content {
     box-shadow: 0 3px 20px 0 rgb(91 188 190 / 55%);
     border-radius: 10px;
@@ -22,7 +139,7 @@ $archive_skins = $this->main->get_archive_skins();
     border-radius: 10px;
     max-width: 930px;
     height: 620px;
-    margin: 100px auto;
+    margin: 0 auto;
 }
 .mec-wizard-content {
     background: #fff;
@@ -89,6 +206,14 @@ $archive_skins = $this->main->get_archive_skins();
     top: 16px;
     right: 18px;
 }
+.mec-button-next svg {
+    position: absolute;
+    top: 11px;
+    right: 14px;
+}
+.mec-button-next svg, .mec-button-next svg path {
+    fill: #fff;
+}
 .mec-next-previous-buttons button.mec-button-next {
     width: 88px;
 }
@@ -108,7 +233,6 @@ $archive_skins = $this->main->get_archive_skins();
     display: block;
     margin-top: 10px;
 }
-
 .mec-wizard-inner-button img {
     display: none;
 }
@@ -142,7 +266,6 @@ $archive_skins = $this->main->get_archive_skins();
 .mec-setup-wizard-wrap .mec-step-wizard-content[data-step="7"] {
     background: url(<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/sixth-step.png'; ?>) no-repeat 100% 40%
 }
-
 .mec-box label {
     width: 116px !important;
     display: inline-block;
@@ -171,898 +294,264 @@ ul#mec_export_module_options {
         overflow-y: scroll;
         padding: 20px;
     }
-
     .mec-steps-panel .mec-step-wizard-content.mec-active-step {
         background-image: unset;
     }
-
     .mec-steps-panel .mec-next-previous-buttons button {
         display: block;
         margin: 12px 5px;
         width: calc(50% - 10px);
     }
-
     .mec-steps-panel .mec-next-previous-buttons .mec-button-prev {
         display: block;
         margin: 12px 5px;
         width: calc(100% - 10px);
     }
 }
+.mec-steps-panel .mec-form-row input[type=checkbox], .mec-steps-panel .mec-form-row input[type=radio] {
+    background: #fff;
+}
+.mec-steps-panel .mec-form-row .mec-box input[type=checkbox], .mec-box .mec-steps-panel .mec-form-row input[type=radio] {
+    background: #f7f8f9;
+}
+.mec-steps-panel .mec-form-row .mec-box input[type=checkbox]:checked, .mec-steps-panel .mec-form-row .mec-box input[type=radio]:checked {
+    background: #fff;
+}
+.mec-steps-header {
+    display: flex;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 3px 22px 0 rgb(11 121 125 / 1%);
+    padding: 12px 22px;
+    margin: -15px -15px 65px;
+}
+.mec-add-event-popup button.lity-close:hover, .mec-add-shortcode-popup button.lity-close:hover {
+    background: #ff6262;
+    color: #fff;
+    box-shadow: 0 3px 8px 0 rgb(249 162 162 / 55%);
+}
+.mec-steps-header-userinfo span.mec-steps-header-name {
+    font-size: 14px;
+    color: #778182;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+#mec_popup_event label[for=mec_location_dont_show_map] {
+    font-size: 14px;
+    margin-left: 4px;
+    margin-top: 3px!important;
+    display: inline-block;
+    margin-bottom: 7px;
+}
+.mec-steps-container img {
+    margin-top: 30px;
+}
+.mec-steps-container ul li span {
+    border-radius: 50px;
+    background-color: rgba(26,175,251,.16);
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    padding-top: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1aaffb;
+    box-sizing: border-box;
+}
+.mec-wizard-loading {
+    background: #ffffff54;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0;
+    top: 0;
+    border-radius: 22px;
+    display: none;
+    z-index: 99;
+}
+.mec-loader {
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+}
+.lity.mec-settings {
+    background-color: #b7e4e3;
+}
+.mec-settings button.lity-close {
+    right: 0;
+    top: -52px;
+    border-radius: 50%;
+    width: 37px;
+    height: 37px;
+    background: #fff;
+    color: #a2afbc;
+    text-shadow: none;
+    padding-top: 1px;
+    transition: all .2s ease;
+    position: absolute;
+    box-shadow: 0 3px 8px 0 rgb(91 188 190 / 55%);
+}
+.mec-settings button.lity-close:hover {
+    background: #ff6262;
+    color: #fff;
+    box-shadow: 0 3px 8px 0 rgb(249 162 162 / 55%);
+}
+.m-e-calendar_page_MEC-wizard #adminmenumain, .m-e-calendar_page_MEC-wizard .error, .m-e-calendar_page_MEC-wizard .notice, .m-e-calendar_page_MEC-wizard .update-nag, .m-e-calendar_page_MEC-wizard .updated ,.m-e-calendar_page_MEC-wizard div#wpadminbar,.m-e-calendar_page_MEC-wizard div#wpfooter
+{
+    display: none;
+}
 
+.m-e-calendar_page_MEC-wizard #wpwrap {
+    top: 0;
+}
+
+.m-e-calendar_page_MEC-wizard #wpcontent, .m-e-calendar_page_MEC-wizard #wpbody-content {
+    overflow-x: inherit!important;
+}
+
+.m-e-calendar_page_MEC-wizard #wpcontent {
+    margin-left: 0!important;
+}
+
+.m-e-calendar_page_MEC-wizard #wpcontent, .m-e-calendar_page_MEC-wizard #wpbody-content {
+    padding: 0;
+    overflow-x: hidden!important;
+    min-height: calc(100vh - 32px);
+}
+@media (max-width: 860px) {
+    .mec-wizard-wrap {padding: 30px 80px;}
+}
+@media (max-width: 690px) {
+    .mec-wizard-wrap {padding: 30px 40px; margin-top: 50px;}
+    .mec-wizard-open-popup-box,
+    .mec-wizard-import-dummy {margin-top: 20px;}
+    .mec-wizard-import-dummy .mec-wizard-import-events,
+    .mec-wizard-import-dummy .mec-wizard-import-shortcodes {display: block; width: 100%; margin: 20px 0; float: none;}
+    .mec-wizard-import-box {width: 100%; text-align: center;}
+    .mec-wizard-open-popup-box {display: flex;}
+    button.mec-wizard-open-popup {margin: 0;width: 100%;}
+    button.mec-wizard-open-popup {margin-right: 20px;}
+}
+@media (max-width: 480px) {
+    .mec-wizard-wrap {padding: 30px 40px; margin-top: 50px;}
+    .mec-wizard-open-popup-box {display: block;}
+    button.mec-wizard-open-popup {margin: 0 0 20px 0; padding: 1.161rem 18px; width: 100%; height: auto;}
+    button.mec-wizard-open-popup span,
+    button.mec-wizard-open-popup svg {display: inline-block; margin: 0;}
+    button.mec-wizard-open-popup svg {vertical-align: middle; }
+    button.mec-wizard-open-popup span {padding-left: 10px;}
+}
+@media (max-width: 320px) {
+    .mec-wizard-wrap {padding: 20px 20px;}
+}
+
+.mec-steps-header-dashboard a:hover,.mec-steps-header-settings a:hover{
+    color: #1aaffb;
+}
+button.mec-wizard-open-popup span.wizard-notification-text {
+    margin-top: 3px;
+    font-size: 10px;
+    color: #bfbfbf;
+    letter-spacing: 0.5px;
+}
+
+a.mec-wizard-close-button {
+    position: absolute;
+    top: 18px;
+    right: 23px;
+    box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+    border: 1px solid #DFE1E5;
+    transition: all 0.2s ease;
+    width: 20px;
+    height: 20px;
+    padding: 6px;
+    border-radius: 50px;
+}
+a.mec-wizard-close-button:hover {
+    border-color: #fb1919;
+}
+a.mec-wizard-close-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+a.mec-wizard-close-button svg path {
+    fill: #9e9e9e;
+    transition: all 0.2s ease;
+}
+
+a.mec-wizard-close-button:hover svg path {
+    fill: #fb1919;
+}
 </style>
-
-<div class="mec-setup-wizard-wrap wns-be-group-tab">
-    <div class="mec-wizard-content">
-        <div class="mec-steps-container">
-            <img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/mec-logo.svg'; ?>" />
-            <ul>
-                <li class="mec-step mec-step-1 mec-step-passed"><span>1</span></li>
-                <li class="mec-step mec-step-2"><span>2</span></li>
-                <li class="mec-step mec-step-3"><span>3</span></li>
-                <li class="mec-step mec-step-4"><span>4</span></li>
-                <li class="mec-step mec-step-5"><span>5</span></li>
-                <?php if($this->getPRO()) : ?>
-                <li class="mec-step mec-step-6"><span>6</span></li>
-                <li class="mec-step mec-step-7"><span>7</span></li>
-                <?php else : ?>
-                <li class="mec-step mec-step-6"><span>6</span></li>
-                <?php endif; ?>
-            </ul>
-        </div>
-        <div class="mec-steps-panel">
-            <div class="mec-steps-header">
-                <div class="mec-steps-header-userinfo">
-                    <?php $user = wp_get_current_user(); ?>
-                    <span class="mec-steps-header-img"><img src="<?php echo esc_url(get_avatar_url($user->ID)); ?>" /></span>
-                    <span class="mec-steps-header-name"><?php echo $user->display_name ; ?></span>
-                </div>
-                <div class="mec-steps-header-dashboard">
-                    <a href="<?php echo admin_url('admin.php?page=mec-intro'); ?>"><i class="mec-sl-directions"></i><?php esc_html_e('Dashboard', 'modern-events-calendar-lite'); ?></a>
-                </div>
-                <div class="mec-steps-header-settings">
-                    <a href="<?php echo admin_url('admin.php?page=MEC-settings'); ?>"><i class="mec-sl-settings"></i><?php esc_html_e('Settings', 'modern-events-calendar-lite'); ?></a>
-                </div>
-            </div>
-            <div class="mec-step-wizard-content mec-active-step" data-step="1">
-                <h4><?php _e('Do you want to import dummy events/Shortcodes?', 'modern-events-calendar-lite'); ?></h4>
-                <button class="mec-button-import-events mec-wizard-inner-button"><?php _e('Import All Dummy Events', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-next-icon.svg'; ?>" /></button>
-                <button class="mec-button-import-shortcodes mec-wizard-inner-button"><?php _e('Import All Dummy Shortcodes', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-next-icon.svg'; ?>" /></button>
-            </div>
-            <div class="mec-step-wizard-content" data-step="2">
-                <form id="mec_save_weekdays_form">
-                    <?php $weekdays = $this->main->get_weekday_i18n_labels(); ?>
-                    <div class="mec-form-row">
-
-                        <label class="mec-col-12" for="mec_settings_weekdays"><?php _e('Weekdays', 'modern-events-calendar-lite'); ?></label>
-                        <div class="mec-col-6">
-                            <div class="mec-box">
-                                <?php $mec_weekdays = $this->main->get_weekdays(); foreach($weekdays as $weekday): ?>
-                                <label for="mec_settings_weekdays_<?php echo $weekday[0]; ?>">
-                                    <input type="checkbox" id="mec_settings_weekdays_<?php echo $weekday[0]; ?>" name="mec[settings][weekdays][]" value="<?php echo $weekday[0]; ?>" <?php echo (in_array($weekday[0], $mec_weekdays) ? 'checked="checked"' : ''); ?> />
-                                    <?php echo $weekday[1]; ?>
-                                </label>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="mec-form-row">
-
-                        <label class="mec-col-12" for="mec_settings_weekends"><?php _e('Weekends', 'modern-events-calendar-lite'); ?></label>
-                        <div class="mec-col-6">
-                        <div class="mec-box">
-                            <?php $mec_weekends = $this->main->get_weekends(); foreach($weekdays as $weekday): ?>
-                            <label for="mec_settings_weekends_<?php echo $weekday[0]; ?>">
-                                <input type="checkbox" id="mec_settings_weekends_<?php echo $weekday[0]; ?>" name="mec[settings][weekends][]" value="<?php echo $weekday[0]; ?>" <?php echo (in_array($weekday[0], $mec_weekends) ? 'checked="checked"' : ''); ?> />
-                                <?php echo $weekday[1]; ?>
-                            </label>
-                            <?php endforeach; ?>
-                        </div>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-            <div class="mec-step-wizard-content" data-step="3">
-                <form id="mec_save_slug_form">
-                    <div class="mec-form-row">
-                        <label class="mec-col-2" for="mec_settings_archive_title"><?php _e('Archive Page Title', 'modern-events-calendar-lite'); ?></label>
-                        <div class="mec-col-4">
-                            <input type="text" id="mec_settings_archive_title" name="mec[settings][archive_title]" value="<?php echo ((isset($settings['archive_title']) and trim($settings['archive_title']) != '') ? $settings['archive_title'] : 'Events'); ?>" />
-                            <span class="mec-tooltip">
-                                <div class="box left">
-                                    <h5 class="title"><?php _e('Archive Page Title', 'modern-events-calendar-lite'); ?></h5>
-                                    <div class="content"><p><?php esc_attr_e("Default value is Events - It's title of the page", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/archive-pages/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
-                                </div>
-                                <i title="" class="dashicons-before dashicons-editor-help"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mec-form-row">
-                        <label class="mec-col-2" for="mec_settings_default_skin_archive"><?php _e('Archive Page Skin', 'modern-events-calendar-lite'); ?></label>
-                        <div class="mec-col-4 tooltip-move-up">
-                            <select id="mec_settings_default_skin_archive" name="mec[settings][default_skin_archive]" onchange="mec_archive_skin_style_changed(this.value);" style="margin-bottom: 8px;">
-                                <?php foreach($archive_skins as $archive_skin): ?>
-                                    <option value="<?php echo $archive_skin['skin']; ?>" <?php if(isset($settings['default_skin_archive']) and $archive_skin['skin'] == $settings['default_skin_archive']) echo 'selected="selected"'; ?>><?php echo $archive_skin['name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <span class="mec-archive-skins mec-archive-custom-skins">
-                                <input type="text" placeholder="<?php esc_html_e('Put shortcode...', 'modern-events-calendar-lite'); ?>" id="mec_settings_custom_archive" name="mec[settings][custom_archive]" value='<?php echo ((isset($settings['custom_archive']) and trim($settings['custom_archive']) != '') ? $settings['custom_archive'] : ''); ?>' />
-                            </span>
-                            <span class="mec-archive-skins mec-archive-full_calendar-skins">
-                                <input type="text" placeholder="<?php esc_html_e('There is no skins', 'modern-events-calendar-lite'); ?>" disabled />
-                            </span>
-                            <span class="mec-archive-skins mec-archive-yearly_view-skins">
-                                <input type="text" placeholder="<?php esc_html_e('Modern Style', 'modern-events-calendar-lite'); ?>" disabled />
-                            </span>
-                            <span class="mec-archive-skins mec-archive-monthly_view-skins" style="display: inline-block;">
-                                <select id="mec_settings_monthly_view_skin_archive" name="mec[settings][monthly_view_archive_skin]" style="    min-width: 225px;">
-                                    <option value="classic" <?php if(isset($settings['monthly_view_archive_skin']) &&  $settings['monthly_view_archive_skin'] == 'classic') echo 'selected="selected"'; ?>><?php echo esc_html__('Classic' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="clean" <?php if(isset($settings['monthly_view_archive_skin']) &&  $settings['monthly_view_archive_skin'] == 'clean') echo 'selected="selected"'; ?>><?php echo esc_html__('Clean' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="modern" <?php if(isset($settings['monthly_view_archive_skin']) &&  $settings['monthly_view_archive_skin'] == 'modern') echo 'selected="selected"'; ?>><?php echo esc_html__('Modern' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="novel" <?php if(isset($settings['monthly_view_archive_skin']) &&  $settings['monthly_view_archive_skin'] == 'novel') echo 'selected="selected"'; ?>><?php echo esc_html__('Novel' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="simple" <?php if(isset($settings['monthly_view_archive_skin']) &&  $settings['monthly_view_archive_skin'] == 'simple') echo 'selected="selected"'; ?>><?php echo esc_html__('Simple' , 'modern-events-calendar-lite'); ?></option>
-                                </select>
-                            </span>
-                            <span class="mec-archive-skins mec-archive-weekly_view-skins">
-                                <input type="text" placeholder="<?php esc_html_e('There is no skins', 'modern-events-calendar-lite'); ?>" disabled />
-                            </span>
-                            <span class="mec-archive-skins mec-archive-daily_view-skins">
-                                <input type="text" placeholder="<?php esc_html_e('There is no skins', 'modern-events-calendar-lite'); ?>" disabled />
-                            </span>
-                            <span class="mec-archive-skins mec-archive-timetable-skins">
-                                <select id="mec_settings_timetable_skin_archive" name="mec[settings][timetable_archive_skin]">
-                                    <option value="modern" <?php if(isset($settings['timetable_archive_skin']) &&  $settings['timetable_archive_skin'] == 'modern') echo 'selected="selected"'; ?>><?php echo esc_html__('Modern' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="clean" <?php if(isset($settings['timetable_archive_skin']) &&  $settings['timetable_archive_skin'] == 'clean') echo 'selected="selected"'; ?>><?php echo esc_html__('Clean' , 'modern-events-calendar-lite'); ?></option>
-                                </select>
-                            </span>
-                            <span class="mec-archive-skins mec-archive-masonry-skins">
-                                <input type="text" placeholder="<?php esc_html_e('There is no skins', 'modern-events-calendar-lite'); ?>" disabled />
-                            </span>
-                            <span class="mec-archive-skins mec-archive-list-skins">
-                                <select id="mec_settings_list_skin_archive" name="mec[settings][list_archive_skin]">
-                                    <option value="classic" <?php if(isset($settings['list_archive_skin']) &&  $settings['list_archive_skin'] == 'classic') echo 'selected="selected"'; ?>><?php echo esc_html__('Classic' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="minimal" <?php if(isset($settings['list_archive_skin']) &&  $settings['list_archive_skin'] == 'minimal') echo 'selected="selected"'; ?>><?php echo esc_html__('Minimal' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="modern" <?php if(isset($settings['list_archive_skin']) &&  $settings['list_archive_skin'] == 'modern') echo 'selected="selected"'; ?>><?php echo esc_html__('Modern' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="standard" <?php if(isset($settings['list_archive_skin']) &&  $settings['list_archive_skin'] == 'standard') echo 'selected="selected"'; ?>><?php echo esc_html__('Standard' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="accordion" <?php if(isset($settings['list_archive_skin']) &&  $settings['list_archive_skin'] == 'accordion') echo 'selected="selected"'; ?>><?php echo esc_html__('Accordion' , 'modern-events-calendar-lite'); ?></option>
-                                </select>
-                            </span>
-                            <span class="mec-archive-skins mec-archive-grid-skins">
-                                <select id="mec_settings_grid_skin_archive" name="mec[settings][grid_archive_skin]">
-                                    <option value="classic" <?php if(isset($settings['grid_archive_skin']) &&  $settings['grid_archive_skin'] == 'classic') echo 'selected="selected"'; ?>><?php echo esc_html__('Classic' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="clean" <?php if(isset($settings['grid_archive_skin'])  &&  $settings['grid_archive_skin'] == 'clean') echo 'selected="selected"'; ?>><?php echo esc_html__('Clean' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="minimal" <?php if(isset($settings['grid_archive_skin'])  &&  $settings['grid_archive_skin'] == 'minimal') echo 'selected="selected"'; ?>><?php echo esc_html__('Minimal' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="modern" <?php if(isset($settings['grid_archive_skin'])  &&  $settings['grid_archive_skin'] == 'modern') echo 'selected="selected"'; ?>><?php echo esc_html__('Modern' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="simple" <?php if(isset($settings['grid_archive_skin'])  &&  $settings['grid_archive_skin'] == 'simple') echo 'selected="selected"'; ?>><?php echo esc_html__('Simple' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="colorful" <?php if(isset($settings['grid_archive_skin'])  &&  $settings['grid_archive_skin'] == 'colorful') echo 'selected="selected"'; ?>><?php echo esc_html__('colorful' , 'modern-events-calendar-lite'); ?></option>
-                                    <option value="novel" <?php if(isset($settings['grid_archive_skin'])  &&  $settings['grid_archive_skin'] == 'novel') echo 'selected="selected"'; ?>><?php echo esc_html__('Novel' , 'modern-events-calendar-lite'); ?></option>
-                                </select>
-                            </span>
-                            <span class="mec-archive-skins mec-archive-agenda-skins">
-                                <input type="text" placeholder="<?php esc_html_e('Clean Style', 'modern-events-calendar-lite'); ?>" disabled />
-                            </span>
-                            <span class="mec-archive-skins mec-archive-map-skins">
-                                <input type="text" placeholder="<?php esc_html_e('There is no skins', 'modern-events-calendar-lite'); ?>" disabled />
-                            </span>
-                        </div>
-                    </div>
-                    <div class="mec-form-row">
-                        <label class="mec-col-2" for="mec_settings_slug"><?php _e('Main Slug', 'modern-events-calendar-lite'); ?></label>
-                        <div class="mec-col-4">
-                            <input type="text" id="mec_settings_slug" name="mec[settings][slug]" value="<?php echo ((isset($settings['slug']) and trim($settings['slug']) != '') ? $settings['slug'] : 'events'); ?>" />
-                            <span class="mec-tooltip">
-                                <div class="box left">
-                                    <h5 class="title"><?php _e('Main Slug', 'modern-events-calendar-lite'); ?></h5>
-                                    <div class="content"><p><?php esc_attr_e("Default value is events. You can not have a page with this name. MEC allows you to create custom URLs for the permalinks and archives to enhance the applicability and forward-compatibility of the links.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/slug-options/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                </div>
-                                <i title="" class="dashicons-before dashicons-editor-help"></i>
-                            </span>
-                            <p><?php esc_attr_e("Valid characters are lowercase a-z, - character and numbers.", 'modern-events-calendar-lite'); ?></p>
-                        </div>
-                    </div>
-                    <div class="mec-form-row">
-                        <label class="mec-col-2" for="mec_settings_single_event_single_style"><?php _e('Single Event Style', 'modern-events-calendar-lite'); ?></label>
-                        <div class="mec-col-4">
-                            <select id="mec_settings_single_event_single_style" name="mec[settings][single_single_style]">
-                                <option value="default" <?php echo (isset($settings['single_single_style']) and $settings['single_single_style'] == 'default') ? 'selected="selected"' : ''; ?>><?php _e('Default Style', 'modern-events-calendar-lite'); ?></option>
-                                <option value="modern" <?php echo (isset($settings['single_single_style']) and $settings['single_single_style'] == 'modern') ? 'selected="selected"' : ''; ?>><?php _e('Modern Style', 'modern-events-calendar-lite'); ?></option>
-                                <?php do_action('mec_single_style', $settings); ?>
-                                <?php if ( is_plugin_active( 'mec-single-builder/mec-single-builder.php' ) ) : ?>
-                                <option value="builder" <?php echo (isset($settings['single_single_style']) and $settings['single_single_style'] == 'builder') ? 'selected="selected"' : ''; ?>><?php _e('Elementor Single Builder', 'modern-events-calendar-lite'); ?></option>
-                                <?php endif; ?>
-                            </select>
-                            <span class="mec-tooltip">
-                                <div class="box left">
-                                    <h5 class="title"><?php _e('Single Event Style', 'modern-events-calendar-lite'); ?></h5>
-                                    <div class="content"><p><?php esc_attr_e("Choose your single event style.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                </div>
-                                <i title="" class="dashicons-before dashicons-editor-help"></i>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="mec-step-wizard-content" data-step="4">
-                <form id="mec_save_module_form">
-                    <div class="mec-form-row">
-                        <label style="display: block;">
-                            <input type="hidden" name="mec[settings][countdown_status]" value="0" />
-                            <input onchange="jQuery('#mec_count_down_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][countdown_status]" <?php if(isset($settings['countdown_status']) and $settings['countdown_status']) echo 'checked="checked"'; ?> /> <?php _e('Show countdown module on event page', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <div id="mec_count_down_container_toggle" class="mec-col-6 <?php if((isset($settings['countdown_status']) and !$settings['countdown_status']) or !isset($settings['countdown_status'])) echo 'mec-util-hidden'; ?>">
-                            <div class="mec-form-row">
-                                <label class="mec-col-4" for="mec_settings_countdown_list"><?php _e('Countdown Style', 'modern-events-calendar-lite'); ?></label>
-                                <div class="mec-col-4">
-                                    <select id="mec_settings_countdown_list" name="mec[settings][countdown_list]">
-                                        <option value="default" <?php echo ((isset($settings['countdown_list']) and $settings['countdown_list'] == "default") ? 'selected="selected"' : ''); ?> ><?php _e('Plain Style', 'modern-events-calendar-lite'); ?></option>
-                                        <option value="flip" <?php echo ((isset($settings['countdown_list']) and $settings['countdown_list'] == "flip") ? 'selected="selected"' : ''); ?> ><?php _e('Flip Style', 'modern-events-calendar-lite'); ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mec-form-row">
-                        <label>
-                            <input type="hidden" name="mec[settings][related_events]" value="0" />
-                            <input onchange="jQuery('#mec_related_events_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][related_events]" <?php if(isset($settings['related_events']) and $settings['related_events']) echo 'checked="checked"'; ?> /> <?php _e('Display related events based on taxonomy in single event page.', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <div id="mec_related_events_container_toggle" class="mec-col-8 <?php if((isset($settings['related_events']) and !$settings['related_events']) or !isset($settings['related_events'])) echo 'mec-util-hidden'; ?>">
-                            <div class="mec-form-row" style="margin-top:20px;">
-                                <label style="margin-right:7px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
-                                <label style="margin-right:7px;margin-bottom: 20px">
-                                    <input type="hidden" name="mec[settings][related_events_basedon_category]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][related_events_basedon_category]" <?php if(isset($settings['related_events_basedon_category']) and $settings['related_events_basedon_category']) echo 'checked="checked"'; ?> /> <?php _e('Category', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][related_events_basedon_organizer]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][related_events_basedon_organizer]" <?php if(isset($settings['related_events_basedon_organizer']) and $settings['related_events_basedon_organizer']) echo 'checked="checked"'; ?> /> <?php _e('Organizer', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][related_events_basedon_location]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][related_events_basedon_location]" <?php if(isset($settings['related_events_basedon_location']) and $settings['related_events_basedon_location']) echo 'checked="checked"'; ?> /> <?php _e('Location', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <?php if(isset($settings['speakers_status']) and $settings['speakers_status']) : ?>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][related_events_basedon_speaker]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][related_events_basedon_speaker]" <?php if(isset($settings['related_events_basedon_speaker']) and $settings['related_events_basedon_speaker']) echo 'checked="checked"'; ?> /> <?php _e('Speaker', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <?php endif; ?>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][related_events_basedon_label]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][related_events_basedon_label]" <?php if(isset($settings['related_events_basedon_label']) and $settings['related_events_basedon_label']) echo 'checked="checked"'; ?> /> <?php _e('Label', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][related_events_basedon_tag]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][related_events_basedon_tag]" <?php if(isset($settings['related_events_basedon_tag']) and $settings['related_events_basedon_tag']) echo 'checked="checked"'; ?> /> <?php _e('Tag', 'modern-events-calendar-lite'); ?>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mec-form-row">
-                        <label>
-                            <input type="hidden" name="mec[settings][next_previous_events]" value="0" />
-                            <input onchange="jQuery('#mec_next_previous_events_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][next_previous_events]" <?php if(isset($settings['next_previous_events']) and $settings['next_previous_events']) echo 'checked="checked"'; ?> /> <?php _e('Display next / previous events based on taxonomy in single event page.', 'modern-events-calendar-lite'); ?>
-                        </label>
-                        <div id="mec_next_previous_events_container_toggle" class="mec-col-8 <?php if((isset($settings['next_previous_events']) and !$settings['next_previous_events']) or !isset($settings['next_previous_events'])) echo 'mec-util-hidden'; ?>">
-
-                            <div class="mec-form-row" style="margin-top:20px;">
-                                <label style="margin-right:7px;" for="mec_settings_countdown_list"><?php _e('Select Taxonomies:', 'modern-events-calendar-lite'); ?></label>
-                                <label style="margin-right:7px; margin-bottom: 20px;">
-                                    <input type="hidden" name="mec[settings][next_previous_events_category]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][next_previous_events_category]" <?php if(isset($settings['next_previous_events_category']) and $settings['next_previous_events_category']) echo 'checked="checked"'; ?> /> <?php _e('Category', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][next_previous_events_organizer]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][next_previous_events_organizer]" <?php if(isset($settings['next_previous_events_organizer']) and $settings['next_previous_events_organizer']) echo 'checked="checked"'; ?> /> <?php _e('Organizer', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][next_previous_events_location]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][next_previous_events_location]" <?php if(isset($settings['next_previous_events_location']) and $settings['next_previous_events_location']) echo 'checked="checked"'; ?> /> <?php _e('Location', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <?php if(isset($settings['speakers_status']) and $settings['speakers_status']) : ?>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][next_previous_events_speaker]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][next_previous_events_speaker]" <?php if(isset($settings['next_previous_events_speaker']) and $settings['next_previous_events_speaker']) echo 'checked="checked"'; ?> /> <?php _e('Speaker', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <?php endif; ?>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][next_previous_events_label]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][next_previous_events_label]" <?php if(isset($settings['next_previous_events_label']) and $settings['next_previous_events_label']) echo 'checked="checked"'; ?> /> <?php _e('Label', 'modern-events-calendar-lite'); ?>
-                                </label>
-                                <label style="margin-right:7px;">
-                                    <input type="hidden" name="mec[settings][next_previous_events_tag]" value="0" />
-                                    <input value="1" type="checkbox" name="mec[settings][next_previous_events_tag]" <?php if(isset($settings['next_previous_events_tag']) and $settings['next_previous_events_tag']) echo 'checked="checked"'; ?> /> <?php _e('Tag', 'modern-events-calendar-lite'); ?>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="mec-step-wizard-content" data-step="5">
-                <form id="mec_save_single_form">
-                    <div class="mec-form-row">
-                        <div class="mec-col-12">
-                            <label for="mec_settings_speakers_status">
-                                <input type="hidden" name="mec[settings][speakers_status]" value="0" />
-                                <input type="checkbox" name="mec[settings][speakers_status]" id="mec_settings_speakers_status" <?php echo ((isset($settings['speakers_status']) and $settings['speakers_status']) ? 'checked="checked"' : ''); ?> value="1" />
-                                <?php _e('Enable speakers feature', 'modern-events-calendar-lite'); ?>
-                                <span class="mec-tooltip">
-                                    <div class="box">
-                                        <h5 class="title"><?php _e('Speakers', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e("Enable this option to have speaker in Hourly Schedule in Single. Refresh after enabling it to see the Speakers menu under MEC dashboard.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/speaker/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
-                                    </div>
-                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                </span>                                        
-                            </label>
-                        </div>
-                    </div>
-                    <div class="mec-form-row">
-                        <label class="mec-col-8">
-                            <input type="hidden" name="mec[settings][export_module_status]" value="0" />
-                            <input onchange="jQuery('#mec_export_module_options_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][export_module_status]" <?php if(isset($settings['export_module_status']) and $settings['export_module_status']) echo 'checked="checked"'; ?> /> <?php _e('Show export module (iCal export and add to Google calendars) on event page', 'modern-events-calendar-lite'); ?>
-                        </label>
-                    </div>
-                    <div class="mec-form-row">
-                        <div id="mec_export_module_options_container_toggle" class="<?php if((isset($settings['export_module_status']) and !$settings['export_module_status']) or !isset($settings['export_module_status'])) echo 'mec-util-hidden'; ?>">
-                            <div class="mec-form-row">
-                                <ul id="mec_export_module_options" class="mec-form-row">
-                                    <?php
-                                    $event_options = array('googlecal'=>__('Google Calendar', 'modern-events-calendar-lite'), 'ical'=>__('iCal', 'modern-events-calendar-lite'));
-                                    foreach($event_options as $event_key=>$event_option): ?>
-                                    <li id="mec_sn_<?php echo esc_attr($event_key); ?>" data-id="<?php echo esc_attr($event_key); ?>" class="mec-form-row mec-switcher <?php echo ((isset($settings['sn'][$event_key]) and $settings['sn'][$event_key]) ? 'mec-enabled' : 'mec-disabled'); ?>">
-                                        <label class="mec-col-3"><?php echo esc_html($event_option); ?></label>
-                                        <div class="mec-col-9">
-                                            <input class="mec-status" type="hidden" name="mec[settings][sn][<?php echo esc_attr($event_key); ?>]" value="<?php echo (isset($settings['sn'][$event_key]) ? $settings['sn'][$event_key] : '1'); ?>" />
-                                            <label for="mec[settings][sn][<?php echo esc_attr($event_key); ?>]"></label>
-                                        </div>
-                                    </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        </div> 
-                    </div> 
-                </form>
-            </div>
-            <?php if($this->getPRO()) : ?>
-            <div class="mec-step-wizard-content" data-step="6">
-                <form id="mec_save_booking_form">
-                    <div class="mec-form-row">
-                        <label>
-                            <input type="hidden" name="mec[settings][booking_status]" value="0" />
-                            <input onchange="jQuery('#mec_booking_container_toggle').toggle();" value="1" type="checkbox" name="mec[settings][booking_status]" <?php if(isset($settings['booking_status']) and $settings['booking_status']) echo 'checked="checked"'; ?> /> <?php _e('Enable booking module', 'modern-events-calendar-lite'); ?>
-                        </label>
-                    </div>
-                    <div id="mec_booking_container_toggle" class="<?php if((isset($settings['booking_status']) and !$settings['booking_status']) or !isset($settings['booking_status'])) echo 'mec-util-hidden'; ?>">
-                        <div class="mec-form-row">
-                            <label class="mec-col-2" for="mec_settings_booking_date_selection"><?php _e('Date Selection', 'modern-events-calendar-lite'); ?></label>
-                            <div class="mec-col-4">
-                                <select id="mec_settings_booking_date_selection" name="mec[settings][booking_date_selection]">
-                                    <option value="dropdown" <?php echo ((!isset($settings['booking_date_selection']) or (isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'dropdown')) ? 'selected="selected"' : ''); ?>><?php _e('Dropdown', 'modern-events-calendar-lite'); ?></option>
-                                    <option value="calendar" <?php echo ((isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'calendar') ? 'selected="selected"' : ''); ?>><?php _e('Calendar', 'modern-events-calendar-lite'); ?></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mec-form-row">
-                            <label class="mec-col-2" for="mec_settings_booking_registration"><?php _e('Registration', 'modern-events-calendar-lite'); ?></label>
-                            <div class="mec-col-4">
-                                <select id="mec_settings_booking_registration" name="mec[settings][booking_registration]">
-                                    <option <?php echo ((isset($settings['booking_registration']) and $settings['booking_registration'] == '1') ? 'selected="selected"' : ''); ?> value="1"><?php echo esc_html__('Enabled', 'modern-events-calendar-lite'); ?></option>
-                                    <option <?php echo ((isset($settings['booking_registration']) and $settings['booking_registration'] == '0') ? 'selected="selected"' : ''); ?> value="0"><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
-                                </select>
-                                <span class="mec-tooltip">
-                                    <div class="box left">
-                                        <h5 class="title"><?php _e('Registration', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e("If enabled MEC would create a WordPress User for main attendees. It's recommended to keep it enabled.", 'modern-events-calendar-lite'); ?></p></div>
-                                    </div>
-                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="mec-form-row">
-                            <div class="mec-col-12">
-                                <label for="mec_settings_booking_auto_verify_free">
-                                    <input type="hidden" name="mec[settings][booking_auto_verify_free]" value="0" />
-                                    <input type="checkbox" name="mec[settings][booking_auto_verify_free]" id="mec_settings_booking_auto_verify_free" <?php echo ((isset($settings['booking_auto_verify_free']) and $settings['booking_auto_verify_free'] == '1') ? 'checked="checked"' : ''); ?> value="1" />
-                                    <?php _e('Auto verification for free bookings', 'modern-events-calendar-lite'); ?>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mec-form-row">
-                            <div class="mec-col-12">
-                                <label for="mec_settings_booking_auto_verify_paid">
-                                    <input type="hidden" name="mec[settings][booking_auto_verify_paid]" value="0" />
-                                    <input type="checkbox" name="mec[settings][booking_auto_verify_paid]" id="mec_settings_booking_auto_verify_paid" <?php echo ((isset($settings['booking_auto_verify_paid']) and $settings['booking_auto_verify_paid'] == '1') ? 'checked="checked"' : ''); ?> value="1" />
-                                    <?php _e('Auto verification for paid bookings', 'modern-events-calendar-lite'); ?>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mec-form-row">
-                            <div class="mec-col-12">
-                                <label for="mec_settings_booking_auto_confirm_free">
-                                    <input type="hidden" name="mec[settings][booking_auto_confirm_free]" value="0" />
-                                    <input type="checkbox" name="mec[settings][booking_auto_confirm_free]" id="mec_settings_booking_auto_confirm_free" <?php echo ((isset($settings['booking_auto_confirm_free']) and $settings['booking_auto_confirm_free'] == '1') ? 'checked="checked"' : ''); ?> value="1" />
-                                    <?php _e('Auto confirmation for free bookings', 'modern-events-calendar-lite'); ?>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mec-form-row">
-                            <div class="mec-col-12">
-                                <label for="mec_settings_booking_auto_confirm_paid">
-                                    <input type="hidden" name="mec[settings][booking_auto_confirm_paid]" value="0" />
-                                    <input type="checkbox" name="mec[settings][booking_auto_confirm_paid]" id="mec_settings_booking_auto_confirm_paid" <?php echo ((isset($settings['booking_auto_confirm_paid']) and $settings['booking_auto_confirm_paid'] == '1') ? 'checked="checked"' : ''); ?> value="1" />
-                                    <?php _e('Auto confirmation for paid bookings', 'modern-events-calendar-lite'); ?>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="mec-step-wizard-content" data-step="7">
-                <form id="mec_save_styling_form">
-                    <div class="mec-form-row">
-                        <div class="mec-col-3">
-                            <span><?php esc_html_e('Custom Color Skin', 'modern-events-calendar-lite' ); ?></span>
-                        </div>
-                        <div class="mec-col-6">
-                            <input type="text" class="wp-color-picker-field" id="mec_settings_color" name="mec[styling][color]" value="<?php echo (isset($styling['color']) ? $styling['color'] : ''); ?>" data-default-color="" />
-                        </div>
-                        <div class="mec-col-12">
-                            <p><?php esc_attr_e("If you want to select a predefined color skin, you must clear the color of this item", 'modern-events-calendar-lite'); ?></p>
-                        </div>
-                    </div>
-                    <div class="mec-form-row">
-                        <div class="mec-col-12">
-                            <span><?php esc_html_e('Predefined Color Skin', 'modern-events-calendar-lite' ); ?></span>
-                        </div>
-                        <div class="mec-col-6">
-                            <ul class="mec-image-select-wrap">
-                                <?php
-                                $colorskins = array(
-                                    '#40d9f1'=>'mec-colorskin-1',
-                                    '#0093d0'=>'mec-colorskin-2',
-                                    '#e53f51'=>'mec-colorskin-3',
-                                    '#f1c40f'=>'mec-colorskin-4',
-                                    '#e64883'=>'mec-colorskin-5',
-                                    '#45ab48'=>'mec-colorskin-6',
-                                    '#9661ab'=>'mec-colorskin-7',
-                                    '#0aad80'=>'mec-colorskin-8',
-                                    '#0ab1f0'=>'mec-colorskin-9',
-                                    '#ff5a00'=>'mec-colorskin-10',
-                                    '#c3512f'=>'mec-colorskin-11',
-                                    '#55606e'=>'mec-colorskin-12',
-                                    '#fe8178'=>'mec-colorskin-13',
-                                    '#7c6853'=>'mec-colorskin-14',
-                                    '#bed431'=>'mec-colorskin-15',
-                                    '#2d5c88'=>'mec-colorskin-16',
-                                    '#77da55'=>'mec-colorskin-17',
-                                    '#2997ab'=>'mec-colorskin-18',
-                                    '#734854'=>'mec-colorskin-19',
-                                    '#a81010'=>'mec-colorskin-20',
-                                    '#4ccfad'=>'mec-colorskin-21',
-                                    '#3a609f'=>'mec-colorskin-22',
-                                    '#333333'=>'mec-colorskin-23',
-                                    '#D2D2D2'=>'mec-colorskin-24',
-                                    '#636363'=>'mec-colorskin-25',
-                                    );
-
-                                    foreach($colorskins as $colorskin=>$values): ?>
-                                    <li class="mec-image-select">
-                                        <label for="<?php echo $values; ?>">
-                                            <input type="radio" id="<?php echo $values; ?>" name="mec[styling][mec_colorskin]" value="<?php echo $colorskin; ?>" <?php if(isset($styling['mec_colorskin']) && ($styling['mec_colorskin'] == $colorskin)) echo 'checked="checked"'; ?>>
-                                            <span class="<?php echo $values; ?>"></span>
-                                        </label>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <?php else: ?>
-            <div class="mec-step-wizard-content" data-step="6">
-                <form id="mec_save_styling_form">
-                    <div class="mec-form-row">
-                        <div class="mec-col-3">
-                            <span><?php esc_html_e('Custom Color Skin', 'modern-events-calendar-lite' ); ?></span>
-                        </div>
-                        <div class="mec-col-6">
-                            <input type="text" class="wp-color-picker-field" id="mec_settings_color" name="mec[styling][color]" value="<?php echo (isset($styling['color']) ? $styling['color'] : ''); ?>" data-default-color="" />
-                        </div>
-                        <div class="mec-col-6">
-                            <p><?php esc_attr_e("If you want to select a predefined color skin, you must clear the color of this item", 'modern-events-calendar-lite'); ?></p>
-                        </div>
-                    </div>
-                    <div class="mec-form-row">
-                        <div class="mec-col-3">
-                            <span><?php esc_html_e('Predefined Color Skin', 'modern-events-calendar-lite' ); ?></span>
-                        </div>
-                        <div class="mec-col-6">
-                            <ul class="mec-image-select-wrap">
-                                <?php
-                                $colorskins = array(
-                                    '#40d9f1'=>'mec-colorskin-1',
-                                    '#0093d0'=>'mec-colorskin-2',
-                                    '#e53f51'=>'mec-colorskin-3',
-                                    '#f1c40f'=>'mec-colorskin-4',
-                                    '#e64883'=>'mec-colorskin-5',
-                                    '#45ab48'=>'mec-colorskin-6',
-                                    '#9661ab'=>'mec-colorskin-7',
-                                    '#0aad80'=>'mec-colorskin-8',
-                                    '#0ab1f0'=>'mec-colorskin-9',
-                                    '#ff5a00'=>'mec-colorskin-10',
-                                    '#c3512f'=>'mec-colorskin-11',
-                                    '#55606e'=>'mec-colorskin-12',
-                                    '#fe8178'=>'mec-colorskin-13',
-                                    '#7c6853'=>'mec-colorskin-14',
-                                    '#bed431'=>'mec-colorskin-15',
-                                    '#2d5c88'=>'mec-colorskin-16',
-                                    '#77da55'=>'mec-colorskin-17',
-                                    '#2997ab'=>'mec-colorskin-18',
-                                    '#734854'=>'mec-colorskin-19',
-                                    '#a81010'=>'mec-colorskin-20',
-                                    '#4ccfad'=>'mec-colorskin-21',
-                                    '#3a609f'=>'mec-colorskin-22',
-                                    '#333333'=>'mec-colorskin-23',
-                                    '#D2D2D2'=>'mec-colorskin-24',
-                                    '#636363'=>'mec-colorskin-25',
-                                    );
-
-                                    foreach($colorskins as $colorskin=>$values): ?>
-                                    <li class="mec-image-select">
-                                        <label for="<?php echo $values; ?>">
-                                            <input type="radio" id="<?php echo $values; ?>" name="mec[styling][mec_colorskin]" value="<?php echo $colorskin; ?>" <?php if(isset($styling['mec_colorskin']) && ($styling['mec_colorskin'] == $colorskin)) echo 'checked="checked"'; ?>>
-                                            <span class="<?php echo $values; ?>"></span>
-                                        </label>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <?php endif; ?>
-            <div class="mec-next-previous-buttons">
-                <button class="mec-button-prev  mec-hide-button"><?php _e('Prev', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-prev-icon.svg'; ?>" /></button>
-                <a class="mec-button-dashboard mec-hide-button" href="<?php echo admin_url('/admin.php?page=mec-intro'); ?>"><?php _e('Go to Dashboard', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-next-icon.svg'; ?>" /></a>
-                <button class="mec-button-skip"><?php _e('Skip', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-next-icon.svg'; ?>" /></button>
-                <button class="mec-button-next"><?php _e('Save', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-next-icon.svg'; ?>" /></button>
-            </div>
-        </div>
+<div class="mec-wizard-wrap">
+    <div class="mec-wizard-loading"><div class="mec-loader"></div></div>
+    <h3><?php esc_html_e('Modern Events Calendar' , 'modern-events-calendar-lite'); ?></h3>
+    <div class="mec-wizard-starter-video">
+        <a href="https://www.youtube.com/embed/FV_X341oyiw" class="mec-wizard-button-style"><svg xmlns="http://www.w3.org/2000/svg" width="44.098" height="33" viewBox="0 0 44.098 33"><path d="M24.4,9A90.306,90.306,0,0,0,8.3,10.2a5.55,5.55,0,0,0-4.5,4.3A65.024,65.024,0,0,0,3,25a54.425,54.425,0,0,0,.9,10.5,5.691,5.691,0,0,0,4.5,4.3A92.024,92.024,0,0,0,24.5,41a91.941,91.941,0,0,0,16.1-1.2,5.545,5.545,0,0,0,4.5-4.3,75.529,75.529,0,0,0,1-10.6,54.229,54.229,0,0,0-1-10.6A5.681,5.681,0,0,0,40.6,10,124.79,124.79,0,0,0,24.4,9Zm0,2a99.739,99.739,0,0,1,15.8,1.1,3.669,3.669,0,0,1,2.9,2.7,54.775,54.775,0,0,1,1,10.1,73.687,73.687,0,0,1-1,10.3c-.3,1.9-2.3,2.5-2.9,2.7a91.694,91.694,0,0,1-15.6,1.2c-6,0-12.1-.4-15.6-1.2a3.668,3.668,0,0,1-2.9-2.7A39.331,39.331,0,0,1,5,25a55.674,55.674,0,0,1,.8-10.1c.3-1.9,2.4-2.5,2.9-2.7A87.752,87.752,0,0,1,24.4,11ZM19,17V33l14-8Zm2,3.4L29,25l-8,4.6Z" transform="translate(-2.5 -8.5)" fill="#959da4" stroke="#fff" stroke-width="1"/></svg><p><?php esc_html_e('Getting Started Video' , 'modern-events-calendar-lite'); ?></p></a>
     </div>
+    <div class="mec-wizard-import-dummy">
+        <div class="mec-wizard-import-events">
+            <button class="mec-wizard-import-box mec-button-import-events mec-wizard-button-style">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20.251" viewBox="0 0 24 20.251"><path d="M11.625,10.375v11.11L9.281,19.094l-.562.61,3,3.047h.563l3-3.047-.562-.562-2.344,2.344V10.375ZM9,16H.75V3.25h22.5V16H15v.75h9V2.5H0V16.75H9Z" transform="translate(0 -2.5)" fill="#959da4"/></svg>
+                <span><?php esc_html_e('Import Dummy Events' , 'modern-events-calendar-lite'); ?></span>
+            </button>
+        </div>
+        <div class="mec-wizard-import-shortcodes">
+            <button class="mec-wizard-import-box mec-button-import-shortcodes mec-wizard-button-style">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20.251" viewBox="0 0 24 20.251"><path d="M11.625,10.375v11.11L9.281,19.094l-.562.61,3,3.047h.563l3-3.047-.562-.562-2.344,2.344V10.375ZM9,16H.75V3.25h22.5V16H15v.75h9V2.5H0V16.75H9Z" transform="translate(0 -2.5)" fill="#959da4"/></svg>
+                <span><?php esc_html_e('Import Dummy Shortcodes' , 'modern-events-calendar-lite'); ?></span>
+            </button>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="mec-wizard-open-popup-box">
+        <button class="mec-wizard-open-popup add-event mec-wizard-button-style">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="27" viewBox="0 0 32 27"><path d="M26.5,2.5h-4v2H9.5v-2h-4v2H0v25H32V4.5H26.5Zm-3,1h2v3h-2Zm-17,0h2v3h-2ZM1,28.5V9.5H31v19Zm30-23v3H1v-3H5.5v2h4v-2h13v2h4v-2ZM4.5,17.5h6v-6h-6Zm1-5h4v4h-4Zm-1,14h6v-6h-6Zm1-5h4v4h-4Zm16-4h6v-6h-6Zm1-5h4v4h-4Zm-1,14h6v-6h-6Zm1-5h4v4h-4Zm-9.5-4h6v-6H13Zm1-5h4v4H14Zm-1,14h6v-6H13Zm1-5h4v4H14Z" transform="translate(0 -2.5)" fill="#959da4"/></svg>
+            <span><?php esc_html_e('Add Event' , 'modern-events-calendar-lite'); ?></span>
+            <span class="wizard-notification-text"><?php esc_html_e('Wizard' , 'modern-events-calendar-lite'); ?></span>
+        </button>
+        <button class="mec-wizard-open-popup add-shortcode mec-wizard-button-style">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="26" viewBox="0 0 32 26"><path d="M0,29H32V3H0Zm1-1V8H31V28ZM31,4V7H1V4ZM3,5H5V6H3ZM7,5H9V6H7Zm4,0h2V6H11ZM3,12H16.5v1H3Zm0,4H16.5v1H3Zm0,4H16.5v1H3Zm15.5,1H29V12H18.5Zm1-8H28v7H19.5Z" transform="translate(0 -3)" fill="#959da4"/></svg>
+            <span><?php esc_html_e('Add Shortcode' , 'modern-events-calendar-lite'); ?></span>
+            <span class="wizard-notification-text"><?php esc_html_e('Wizard' , 'modern-events-calendar-lite'); ?></span>
+        </button>
+        <button class="mec-wizard-open-popup mec-settings mec-wizard-button-style">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32.002" height="32.002" viewBox="0 0 32.002 32.002"><path d="M26.563,10.125,29.688,7,25,2.312,21.875,5.437,19.5,4.624V0h-7V4.624l-2.375.813L7,2.312,2.312,7l3.125,3.125L4.624,12.5H0v7H4.624l.813,2.375L2.312,25,7,29.688l3.125-3.125,2.375.813V32h7V27.376l2.375-.813L25,29.688,29.688,25l-3.125-3.125.813-2.375H32v-7H27.376ZM31,18.5H26.625l-1.188,3.625L28.312,25,25,28.313l-2.875-2.875L18.5,26.626V31h-5V26.626L9.874,25.438,7,28.313,3.686,25l2.875-2.875L5.373,18.5H1v-5H5.373L6.561,9.875,3.686,7,7,3.687,9.874,6.562,13.5,5.374V1h5V5.374l3.625,1.188L25,3.687,28.312,7,25.437,9.875,26.625,13.5H31Zm-15-6A3.5,3.5,0,1,0,19.5,16,3.494,3.494,0,0,0,16,12.5Zm0,6A2.5,2.5,0,1,1,18.5,16,2.507,2.507,0,0,1,16,18.5Z" transform="translate(0.001 0.001)" fill="#959da4"/></svg>
+            <span><?php esc_html_e('Settings' , 'modern-events-calendar-lite'); ?></span>
+            <span class="wizard-notification-text"><?php esc_html_e('Wizard' , 'modern-events-calendar-lite'); ?></span>
+        </button>
+        <div style="clear:both"></div>
+    </div>
+    <div class="mec-wizard-back-box">
+        <button class="mec-wizard-back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16.812" height="16.812" viewBox="0 0 16.812 16.812"><path d="M11.739,13.962a.437.437,0,0,1-.624,0L7.377,10.226a.442.442,0,0,1,0-.626l3.559-3.562a.442.442,0,0,1,.626.624L8.314,9.912l3.425,3.426a.442.442,0,0,1,0,.624M18.406,10A8.406,8.406,0,1,1,10,1.594,8.4,8.4,0,0,1,18.406,10m-.885,0A7.521,7.521,0,1,0,10,17.521,7.528,7.528,0,0,0,17.521,10" transform="translate(-1.594 -1.594)" fill="#959da4"/></svg>
+            <span><?php esc_html_e('Back to WordPress Dashboard' , 'modern-events-calendar-lite'); ?></span>
+        </button>
+    </div>
+    <a href="<?php echo admin_url('/admin.php?page=mec-intro'); ?>" class="mec-wizard-close-button">
+        <svg enable-background="new 0 0 256 256" id="Layer_1" version="1.1" viewBox="0 0 256 256" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M137.051,128l75.475-75.475c2.5-2.5,2.5-6.551,0-9.051s-6.551-2.5-9.051,0L128,118.949L52.525,43.475  c-2.5-2.5-6.551-2.5-9.051,0s-2.5,6.551,0,9.051L118.949,128l-75.475,75.475c-2.5,2.5-2.5,6.551,0,9.051  c1.25,1.25,2.888,1.875,4.525,1.875s3.275-0.625,4.525-1.875L128,137.051l75.475,75.475c1.25,1.25,2.888,1.875,4.525,1.875  s3.275-0.625,4.525-1.875c2.5-2.5,2.5-6.551,0-9.051L137.051,128z"/></svg>
+    </a>
 </div>
+
+
+<?php 
+$path_event = MEC::import('app.features.popup.event', true, true);
+include $path_event;
+
+$path_shortcode = MEC::import('app.features.popup.shortcode', true, true);
+include $path_shortcode;
+
+
+$path_settings = MEC::import('app.features.popup.settings', true, true);
+include $path_settings;
+?>
 <script>
-
-    jQuery(".mec-button-next").on("click", function(e){
-        e.preventDefault();
-        var active_step = jQuery(".mec-step-wizard-content.mec-active-step").attr("data-step")
-        var next_step = Number(active_step) + 1;
-
-        
-        
-        <?php if($this->getPRO()) : ?>
-        if ( active_step !== '7' ) {
-            jQuery(".mec-button-prev").removeClass("mec-hide-button");
-            jQuery(".mec-step-wizard-content").removeClass("mec-active-step");
-            jQuery(".mec-step-wizard-content[data-step=" + next_step + "]").addClass("mec-active-step");
-            jQuery(".mec-step-" + next_step ).addClass("mec-step-passed");
-        }
-        if ( next_step == 7 ) {
-            jQuery(".mec-button-skip").addClass("mec-hide-button");
-        }
-        // if ( next_step == 7 ) {
-        //     jQuery(".mec-button-dashboard").removeClass("mec-hide-button");
-        // }
-        <?php else: ?>
-        if ( active_step !== '6' ) {
-            jQuery(".mec-button-prev").removeClass("mec-hide-button");
-            jQuery(".mec-step-wizard-content").removeClass("mec-active-step");
-            jQuery(".mec-step-wizard-content[data-step=" + next_step + "]").addClass("mec-active-step");
-            jQuery(".mec-step-" + next_step ).addClass("mec-step-passed");
-        }
-        if ( next_step == 6 ) {
-            jQuery(".mec-button-skip").addClass("mec-hide-button");
-        }
-        // if ( next_step == 6 ) {
-        //     jQuery(".mec-button-dashboard").removeClass("mec-hide-button");
-        // }
-        <?php endif; ?>
-
-        if ( active_step === '2' ) {
-            save_step_2();
-        }
-        if ( active_step === '3' ) {
-            save_step_3();
-        }
-        if ( active_step === '4' ) {
-            save_step_4();
-        }
-        if ( active_step === '5' ) {
-            save_step_5();
-        }
-        if ( active_step === '6' ) {
-            save_step_6();
-        }
-        if ( active_step === '7' ) {
-            save_step_7();
-        }
-
-
+    jQuery(document).on('lity:close', function(event, instance) {
+        jQuery("body").css("overflow", "auto")
     });
-
-    jQuery(".mec-button-skip").on("click", function(e){
-        e.preventDefault();
-        var active_step = jQuery(".mec-step-wizard-content.mec-active-step").attr("data-step")
-        var next_step = Number(active_step) + 1;
-        jQuery(".mec-button-prev").removeClass("mec-hide-button");
-        jQuery(".mec-step-wizard-content").removeClass("mec-active-step");
-        jQuery(".mec-step-wizard-content[data-step=" + next_step + "]").addClass("mec-active-step");
-        jQuery(".mec-step-" + next_step ).addClass("mec-step-passed");
-
-        <?php if($this->getPRO()) : ?>
-        if ( next_step == 7 ) {
-            jQuery(".mec-button-skip").addClass("mec-hide-button");
-        }
-        // if ( next_step == 7 ) {
-        //     jQuery(".mec-button-dashboard").removeClass("mec-hide-button");
-        // }
-        <?php else: ?>
-        if ( next_step == 6 ) {
-            jQuery(".mec-button-skip").addClass("mec-hide-button");
-        }
-        // if ( next_step == 6 ) {
-        //     jQuery(".mec-button-dashboard").removeClass("mec-hide-button");
-        // }
-        <?php endif; ?>
-    });
-
-    jQuery(".mec-button-prev").on("click", function(e){
-        e.preventDefault();
-        var active_step = jQuery(".mec-step-wizard-content.mec-active-step").attr("data-step")
-        var next_step = Number(active_step) - 1;
-        jQuery(".mec-step-wizard-content").removeClass("mec-active-step");
-        jQuery(".mec-step-wizard-content[data-step=" + next_step + "]").addClass("mec-active-step");
-        jQuery(".mec-step-" + active_step ).removeClass("mec-step-passed");
-            
-        <?php if($this->getPRO()) : ?>
-        if ( next_step != 7 ) {
-            jQuery(".mec-button-next").removeClass("mec-hide-button");
-            jQuery(".mec-button-skip").removeClass("mec-hide-button");
-            //jQuery(".mec-button-dashboard").addClass("mec-hide-button");
-        }
-        <?php else: ?>
-        if ( next_step != 6 ) {
-            jQuery(".mec-button-next").removeClass("mec-hide-button");
-            jQuery(".mec-button-skip").removeClass("mec-hide-button");
-            //jQuery(".mec-button-dashboard").addClass("mec-hide-button");
-        }
-        <?php endif; ?>
-
-        if ( next_step == 1 ) {
-            jQuery(".mec-button-prev").addClass("mec-hide-button");
-        }
-    });
-
-    jQuery(".mec-button-import-events").click(function(){
-        if(confirm("Are you sure you want to import events?")){
-            jQuery.ajax(
-            {
-                type: "POST",
-                url: ajaxurl,
-                data: "action=wizard_import_dummy_events",
-                beforeSend: function () {
-                    
-                },
-                success: function(data)
-                {
-                    console.log(data);
-                },
-                error: function(jqXHR, textStatus, errorThrown)
-                {
-                    console.log('error');
-                }
-            });
-        }
-        else{
-            return false;
-        }
-    });
-
-    jQuery(".mec-button-import-shortcodes").click(function(){
-
-        if(confirm("Are you sure you want to import shortcodes?")){
-            jQuery.ajax(
-            {
-                type: "POST",
-                url: ajaxurl,
-                data: "action=wizard_import_dummy_shortcodes",
-                beforeSend: function () {
-                    
-                },
-                success: function(data)
-                {
-                    console.log(data);
-                },
-                error: function(jqXHR, textStatus, errorThrown)
-                {
-                    console.log('error');
-                }
-            });
-        }
-        else{
-            return false;
-        }
-
-    });
-
-    var archive_value = jQuery('#mec_settings_default_skin_archive').val();
-    function mec_archive_skin_style_changed(archive_value)
+    jQuery('.mec-wizard-back-button').on('click', function(e)
     {
-        jQuery('.mec-archive-skins').hide();
-        jQuery('.mec-archive-skins.mec-archive-'+archive_value+'-skins').show();
-    }
-    mec_archive_skin_style_changed(archive_value);
-
-    jQuery('.mec-switcher').on('click', 'label[for*="mec[settings]"]', function(event)
-    {
-        var id = jQuery(this).closest('.mec-switcher').data('id');
-        var status = jQuery('#mec_sn_'+id+' .mec-status').val();
-
-        if(status === '1')
-        {
-            jQuery('#mec_sn_'+id+' .mec-status').val(0);
-            jQuery('#mec_sn_'+id).removeClass('mec-enabled').addClass('mec-disabled');
-        }
-        else
-        {
-            jQuery('#mec_sn_'+id+' .mec-status').val(1);
-            jQuery('#mec_sn_'+id).removeClass('mec-disabled').addClass('mec-enabled');
-        }
-
+        window.location.replace('<?php echo admin_url('/admin.php?page=mec-intro'); ?>')
     });
-
-    jQuery(document).ready(function()
-    {
-        //Initiate Color Picker
-        jQuery('.wp-color-picker-field').wpColorPicker();
-        
-    });
-
-    function save_step_2() {
-        var settings = jQuery("#mec_save_weekdays_form").serialize();
-        jQuery.ajax(
-        {
-            type: "POST",
-            url: ajaxurl,
-            data: "action=wizard_save_weekdays&"+settings,
-            beforeSend: function () {
-            
-            },
-            success: function(data)
-            {
-                console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-                console.log("error");
-            }
-        });
-    }
-
-    function save_step_3() {
-        var settings = jQuery("#mec_save_slug_form").serialize();
-        jQuery.ajax(
-        {
-            type: "POST",
-            url: ajaxurl,
-            data: "action=wizard_save_slug&"+settings,
-            beforeSend: function () {
-            
-            },
-            success: function(data)
-            {
-                console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-                console.log("error");
-            }
-        });
-    }
-
-    function save_step_4() {
-        var settings = jQuery("#mec_save_module_form").serialize();
-        jQuery.ajax(
-        {
-            type: "POST",
-            url: ajaxurl,
-            data: "action=wizard_save_module&"+settings,
-            beforeSend: function () {
-            
-            },
-            success: function(data)
-            {
-                console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-                console.log("error");
-            }
-        });
-    }
-
-    function save_step_5() {
-        var settings = jQuery("#mec_save_single_form").serialize();
-        jQuery.ajax(
-        {
-            type: "POST",
-            url: ajaxurl,
-            data: "action=wizard_save_single&"+settings,
-            beforeSend: function () {
-            
-            },
-            success: function(data)
-            {
-                console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-                console.log("error");
-            }
-        });
-    }
-
-    
-    function save_step_6() {
-        var settings = jQuery("#mec_save_booking_form").serialize();
-        jQuery.ajax(
-        {
-            type: "POST",
-            url: ajaxurl,
-            data: "action=wizard_save_booking&"+settings,
-            beforeSend: function () {
-            
-            },
-            success: function(data)
-            {
-                console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-                console.log("error");
-            }
-        });
-    }
-    
-    
-    function save_step_7() {
-        var settings = jQuery("#mec_save_styling_form").serialize();
-        jQuery.ajax(
-        {
-            type: "POST",
-            url: ajaxurl,
-            data: "action=wizard_save_styling&"+settings,
-            beforeSend: function () {
-            
-            },
-            success: function(data)
-            {
-                window.location.replace('<?php echo admin_url('/admin.php?page=mec-intro'); ?>')
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-                console.log("error");
-            }
-        });
-    }
-
-    
-    
-
 </script>

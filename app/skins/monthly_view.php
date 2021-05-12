@@ -41,7 +41,7 @@ class MEC_skin_monthly_view extends MEC_skins
     public function initialize($atts)
     {
         $this->atts = $atts;
-        
+
         // Skin Options
         $this->skin_options = (isset($this->atts['sk-options']) and isset($this->atts['sk-options'][$this->skin])) ? $this->atts['sk-options'][$this->skin] : array();
         

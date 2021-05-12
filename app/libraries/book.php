@@ -1029,10 +1029,24 @@ class MEC_book extends MEC_base
     {
         if(!is_user_logged_in()) return $price;
 
+        $user_id = get_current_user_id();
+        return $this->get_price_for_users($event_id, $price, $user_id, $type);
+    }
+
+    public function get_price_for_users($event_id, $price, $user_id, $type = 'price')
+    {
+        // Guest User
+        if(!$user_id) return $price;
+
         $booking_options = get_post_meta($event_id, 'mec_booking', true);
         if(!is_array($booking_options)) $booking_options = array();
 
-        $user = wp_get_current_user();
+        // User
+        $user = get_user_by('id', $user_id);
+
+        // Invalid User ID
+        if(!$user or ($user and !isset($user->roles))) return $price;
+
         $roles = (array) $user->roles;
 
         $loggedin_discount = (isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : 0);
@@ -1247,6 +1261,11 @@ class MEC_book extends MEC_base
         $ticket_id = $attendee['id'];
         $ticket_price = (isset($tickets[$ticket_id]) ? $tickets[$ticket_id]['price'] : 0);
 
+        $user = $this->getUser();
+        $booking_user = $user->booking($booking_id);
+
+        $ticket_price = $this->get_price_for_users($event_id, $ticket_price, $booking_user->ID, 'price');
+
         // Price Per Date
         if(isset($tickets[$ticket_id]['dates']) and is_array($tickets[$ticket_id]['dates']) and count($tickets[$ticket_id]['dates']))
         {
@@ -1279,7 +1298,7 @@ class MEC_book extends MEC_base
                 if(!isset($ticket_variations[$variation_id])) continue;
 
                 $p = $ticket_variations[$variation_id]['price'];
-                $variation_price += ($p * $count);
+                if(is_numeric($p) and is_numeric($count)) $variation_price += ($p * $count);
             }
         }
 
@@ -1300,7 +1319,10 @@ class MEC_book extends MEC_base
             }
         }
 
-        $ticket_total_price = ($ticket_price + $variation_price + ($total_fees / count($all_attendees))) - ($discounts / count($all_attendees));
+        $ticket_total_price = NULL;
+        if(is_numeric($ticket_price) and is_numeric($variation_price) and is_numeric($total_fees) and is_numeric($discounts)) $ticket_total_price = ($ticket_price + $variation_price + ($total_fees / count($all_attendees))) - ($discounts / count($all_attendees));
+
+
         return ($ticket_total_price ? $ticket_total_price : $total_price);
     }
 

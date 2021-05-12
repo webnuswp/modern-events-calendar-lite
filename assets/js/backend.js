@@ -8,7 +8,7 @@ jQuery(document).ready(function($)
         {
             valid = true;
         };
-        
+
         if(valid === false)
         {
             $(this).addClass('bootstrap_unvalid');
@@ -26,7 +26,7 @@ jQuery(document).ready(function($)
     {
         var key = $(this).parent().attr('data-key');
         var status = $(this).parent().attr('data-status');
-        
+
         // Open the accordion
         if(status === 'close')
         {
@@ -47,7 +47,7 @@ jQuery(document).ready(function($)
     {
         var target = $(this).parent().data('for');
         var action = $(this).data('action');
-        
+
         if(action === 'select-all')
         {
             $(target+' input[type=checkbox]').each(function()
@@ -83,16 +83,16 @@ jQuery(document).ready(function($)
             }
         });
     }
-    
+
     // MEC Single Event Display Method Switcher
     $(".mec-sed-methods li").on('click', function()
     {
         var target = $(this).parent().data('for');
         var method = $(this).data('method');
-        
+
         // Set the Method
         $(target).val(method);
-        
+
         // Set the active method
         $(this).parent().find('li').removeClass('active');
         $(this).addClass('active');
@@ -104,18 +104,18 @@ jQuery(document).ready(function($)
             $('.mec-image-popup-wrap').hide();
         }
     });
-    
+
     // Initialize WP Color Picker
     if($.fn.wpColorPicker) jQuery('.mec-color-picker').wpColorPicker();
-    
+
     // Initialize MEC Skin Switcher
     $('#mec_skin').on('change', function()
     {
         mec_skin_toggle();
     });
-    
+
     mec_skin_toggle();
-    
+
     $('.mec-switcher').on('click', 'label[for*="mec[settings]"]', function(event)
     {
         var id = $(this).closest('.mec-switcher').data('id');
@@ -133,7 +133,7 @@ jQuery(document).ready(function($)
         }
 
     });
-    
+
     // MEC Checkbox Toggle (Used in Date Filter Options)
     $('.mec-checkbox-toggle').on('change', function()
     {
@@ -257,7 +257,7 @@ jQuery(document).ready(function($)
     // Location select2
     jQuery(".mec-additional-locations select").select2();
     jQuery("#mec_location_id").select2();
-    
+
     // Organizer Select2
     jQuery(".mec-additional-organizers select").select2();
     jQuery("#mec_organizer_id").select2();
@@ -311,7 +311,7 @@ jQuery(document).ready(function($)
             $(this).addClass('checked');
             LicenseType = $(this).val();
         });
-        
+
         $('#MECActivation input[type=submit]').on('click', function(e){
             e.preventDefault();
             $('.wna-spinner-wrap').remove();
@@ -352,7 +352,7 @@ jQuery(document).ready(function($)
     if ($('.box-addon-activation-toggle-head').length > 0)
     {
         $('.box-addon-activation-toggle-head').on('click', function() {
-            $('.box-addon-activation-toggle-content').slideToggle('slow'); 
+            $('.box-addon-activation-toggle-content').slideToggle('slow');
             if ($(this).find('i').hasClass('mec-sl-plus')){
                 $(this).find('i').removeClass('mec-sl-plus').addClass('mec-sl-minus');
             } else if ($(this).find('i').hasClass('mec-sl-minus') ) {
@@ -527,7 +527,7 @@ function mec_event_attendees(ID, occurrence)
                 jQuery('.mec-report-sendmail-wrap').hide();
                 jQuery('.mec-report-selected-event-attendees-wrap .w-row .w-col-sm-12').html(response.html);
                 jQuery('.mec-report-sendmail-wrap .w-row .w-col-sm-12').html('');
-            } 
+            }
         },
         error: function()
         {
@@ -589,10 +589,10 @@ function initSlider()
 function mec_skin_toggle()
 {
     var skin = jQuery('#mec_skin').val();
-    
+
     jQuery('.mec-skin-options-container').hide();
     jQuery('#mec_'+skin+'_skin_options_container').show();
-    
+
     jQuery('.mec-search-form-options-container').hide();
     jQuery('#mec_'+skin+'_search_form_options_container').show();
 
@@ -617,11 +617,11 @@ function mec_skin_toggle()
     {
         jQuery('#mec_calendar_search_form').show();
     }
-    
+
     // Show/Hide Ongoing Events
-    if(skin === 'list' || skin === 'grid' || skin === 'agenda' || skin === 'timeline') jQuery('#mec_date_ongoing_filter').show();
-    else
-    {
+    if(skin === 'list' || skin === 'grid' || skin === 'agenda' || skin === 'timeline' || skin === 'custom'){
+        jQuery('#mec_date_ongoing_filter').show();
+    }else{
         jQuery("#mec_show_only_ongoing_events").prop('checked', false);
         jQuery('#mec_date_ongoing_filter').hide();
     }
@@ -633,7 +633,7 @@ function mec_skin_toggle()
         jQuery('#mec_date_only_past_filter').hide();
     }
     else jQuery('#mec_date_only_past_filter').show();
-    
+
     // Trigger change event of skin style in order to show/hide related fields
     jQuery('#mec_skin_'+skin+'_style').trigger('change');
 }
@@ -749,7 +749,7 @@ function mec_send_email_check(Context)
     var item_len = all_item.find('input[type="checkbox"]').length;
     var check_len = all_item.find('input[type="checkbox"]:checked').length;
     var all_check = jQuery(Context).parent().parent().parent().find('#mec-send-email-check-all');
-    
+
     jQuery('.mec-send-email-count > span').html(check_len);
     if(item_len === check_len) all_check.prop('checked', true);
     else all_check.prop('checked', false);
@@ -776,7 +776,7 @@ function mec_send_email_check_all(Context)
     {
         items.shortcodes.forEach(function(e, i)
         {
-            wp.blocks.registerBlockType(`mec/blockeditor-${i}`, 
+            wp.blocks.registerBlockType(`mec/blockeditor-${i}`,
             {
                 title: items.shortcodes[i]['PN'].toLowerCase().replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, function(s)
                 {

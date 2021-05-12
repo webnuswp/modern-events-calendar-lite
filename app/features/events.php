@@ -1567,6 +1567,7 @@ class MEC_feature_events extends MEC_base
         $bookings_user_limit = isset($booking_options['bookings_user_limit']) ? $booking_options['bookings_user_limit'] : '';
         $bookings_user_limit_unlimited = isset($booking_options['bookings_user_limit_unlimited']) ? $booking_options['bookings_user_limit_unlimited'] : true;
         $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
+        $bookings_all_occurrences_multiple = isset($booking_options['bookings_all_occurrences_multiple']) ? $booking_options['bookings_all_occurrences_multiple'] : 0;
         $bookings_last_few_tickets_percentage_inherite = isset($booking_options['last_few_tickets_percentage_inherit']) ? $booking_options['last_few_tickets_percentage_inherit'] : 1;
         $bookings_last_few_tickets_percentage = ((isset($booking_options['last_few_tickets_percentage']) and trim($booking_options['last_few_tickets_percentage']) != '') ? max(1, $booking_options['last_few_tickets_percentage']) : (isset($this->settings['booking_last_few_tickets_percentage']) ? max(1, $this->settings['booking_last_few_tickets_percentage']) : 15));
 
@@ -1643,7 +1644,7 @@ class MEC_feature_events extends MEC_base
                                 echo 'checked="checked"';
                             }
                             ?>
-                               type="checkbox" value="1" name="mec[booking][bookings_all_occurrences]"/>
+                               type="checkbox" value="1" name="mec[booking][bookings_all_occurrences]" onchange="jQuery('#mec_bookings_all_occurrences_options').toggle();"/>
                         <?php _e('Sell all occurrences by one booking', 'modern-events-calendar-lite'); ?>
                         <span class="mec-tooltip">
                             <div class="box">
@@ -1656,6 +1657,19 @@ class MEC_feature_events extends MEC_base
                             </div>
                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                         </span>
+                    </label>
+                </div>
+                <div class="mec-form-row <?php echo (!$bookings_all_occurrences ? 'mec-util-hidden' : ''); ?>" id="mec_bookings_all_occurrences_options">
+                    <label class="mec-col-8" for="mec_bookings_all_occurrences_multiple">
+                        <input type="hidden" name="mec[booking][bookings_all_occurrences_multiple]" value="0"/>
+                        <input id="mec_bookings_all_occurrences_multiple"
+                            <?php
+                            if ($bookings_all_occurrences_multiple == 1) {
+                                echo 'checked="checked"';
+                            }
+                            ?>
+                               type="checkbox" value="1" name="mec[booking][bookings_all_occurrences_multiple]"/>
+                        <?php _e('Allow multiple bookings by same email on different dates.', 'modern-events-calendar-lite'); ?>
                     </label>
                 </div>
                 <?php endif; ?>
@@ -3491,6 +3505,7 @@ class MEC_feature_events extends MEC_base
         if($which === 'top' and $screen->post_type === $this->PT)
         {
             echo '<a href="'.admin_url('edit.php?post_type='.$this->PT.'&mec-expired=1').'" class="button">'.esc_html__('Expired Events', 'modern-events-calendar-lite').'</a>';
+            echo '&nbsp;<a href="'.admin_url('edit.php?post_type='.$this->PT.'&mec-upcoming=1').'" class="button">'.esc_html__('Upcoming Events', 'modern-events-calendar-lite').'</a>';
         }
     }
 
@@ -3721,6 +3736,22 @@ class MEC_feature_events extends MEC_base
             if(!trim($order)) $order = 'asc';
         }
 
+        $upcoming = (isset($_REQUEST['mec-upcoming']) ? $_REQUEST['mec-upcoming'] : 0);
+        if($upcoming)
+        {
+            $now = current_time('Y-m-d H:i:s');
+
+            $post_id_rows = $this->db->select("SELECT `post_id` FROM `#__mec_dates` WHERE `tstart` >= '".strtotime($now)."' GROUP BY `post_id`", 'loadObjectList');
+
+            $post_ids = array();
+            foreach($post_id_rows as $post_id_row) $post_ids[] = $post_id_row->post_id;
+
+            $post_ids = array_unique($post_ids);
+            $query->set('post__in', $post_ids);
+
+            if(!trim($orderby)) $orderby = 'start_date';
+        }
+
         if($orderby == 'start_date')
         {
             $meta_query['mec_start_date'] = array(
@@ -3882,12 +3913,19 @@ class MEC_feature_events extends MEC_base
         exit;
     }
 
-    public function csvexcel()
+    public function csvexcel($export_all = false)
     {
         // MEC Render Library
         $render = $this->getRender();
 
-        $post_ids = $_GET['post'];
+        if($export_all){
+
+            $post_ids = get_posts('post_type=mec-events&fields=ids&posts_per_page=-1');
+        }else{
+
+            $post_ids = isset($_GET['post']) ? (array) $_GET['post'] : array();
+        }
+
         $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Description', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')), __('Featured Image', 'modern-events-calendar-lite'));
 
         // Event Fields
@@ -3916,6 +3954,8 @@ class MEC_feature_events extends MEC_base
             $location = isset($data->locations[$data->meta['mec_location_id']]) ? $data->locations[$data->meta['mec_location_id']] : array();
             $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();
 
+            $cost = isset($data->meta['mec_cost']) ? $data->meta['mec_cost'] : null;
+
             $event = array(
                 $post_id,
                 html_entity_decode($data->title, ENT_QUOTES | ENT_HTML5),
@@ -3930,7 +3970,7 @@ class MEC_feature_events extends MEC_base
                 (isset($organizer['name']) ? $organizer['name'] : ''),
                 (isset($organizer['tel']) ? $organizer['tel'] : ''),
                 (isset($organizer['email']) ? $organizer['email'] : ''),
-                (is_numeric($data->meta['mec_cost']) ? $this->main->render_price($data->meta['mec_cost'], $post_id) : $data->meta['mec_cost']),
+                (is_numeric($cost) ? $this->main->render_price($cost, $post_id) : $cost),
                 $this->main->get_post_thumbnail_url($post_id)
             );
 

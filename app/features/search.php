@@ -33,7 +33,7 @@ class MEC_feature_search extends MEC_base
      */
     public function init()
     {
-        // search Shortcode
+        // Search Shortcode
         $this->factory->shortcode('MEC_search_bar', array($this, 'search'));
 
         if(isset($this->settings['search_bar_ajax_mode']) && $this->settings['search_bar_ajax_mode'] == '1')

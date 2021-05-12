@@ -274,13 +274,19 @@ class MEC_render extends MEC_base
      * @author Webnus <info@webnus.biz>
      * @param array $atts
      * @param string $type
+     * @param boolean $category
      * @return string
      */
-    public function vcustom($atts, $type = 'archive')
+    public function vcustom($atts, $type = 'archive', $category = false)
     {
         $k = 'custom_'.$type;
-        
-        if(isset($this->settings[$k]) && !empty($this->settings[$k])) return do_shortcode(stripslashes($this->settings[$k]));
+
+        $shortcode = (isset($this->settings[$k]) && !empty($this->settings[$k])) ? stripslashes($this->settings[$k]) : '';
+
+        // Add Category
+        if($category and is_tax('mec_category') and get_queried_object_id()) $shortcode = str_replace(']', ' category="'.get_queried_object_id().'"]', $shortcode);
+
+        if(trim($shortcode)) return do_shortcode($shortcode);
     }
     
     /**
@@ -397,7 +403,7 @@ class MEC_render extends MEC_base
         elseif($skin == 'grid') $content = $this->vgrid(array_merge($atts, array('sk-options'=>array('grid'=>array('style'=>$grid_skin)))));
         elseif($skin == 'agenda') $content = $this->vagenda($atts);
         elseif($skin == 'map') $content = $this->vmap($atts);
-        elseif($skin == 'custom') $content = $this->vcustom($atts,'archive_category');
+        elseif($skin == 'custom') $content = $this->vcustom($atts,'archive_category', true);
         else $content = apply_filters('mec_default_skin_content', '');
         
         return $content;

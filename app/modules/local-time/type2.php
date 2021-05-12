@@ -39,6 +39,8 @@ if(is_array($MEC_Events_dates_localtime[$event_id]))
     $k = $this->array_key_first($MEC_Events_dates_localtime[$event_id]);
 
     $dates = (isset($MEC_Events_dates_localtime[$event_id][$k]) ? $MEC_Events_dates_localtime[$event_id][$k] : NULL);
+    $start_time = isset($dates['start']['time']) ? $dates['start']['time'] : $start_time;
+    $end_time = isset($dates['end']['time']) ? $dates['end']['time'] : $end_time;
     unset($MEC_Events_dates_localtime[$event_id][$k]);
 }
 

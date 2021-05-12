@@ -58,11 +58,13 @@ $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->
 
                     <?php if(!$hide_time): ?>
                     <span class="mec-time">
+                        <dl>
                         <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                         <dd><abbr class="mec-events-abbr"><?php echo date($time_format, $date['start']['timestamp']); ?> - <?php echo ($hide_end_time ? '' : ' '.date($time_format, $date['end']['timestamp'])); ?></abbr></dd>
                         <?php else: ?>
                         <dd><abbr class="mec-events-abbr"><?php echo $this->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
                         <?php endif; ?>
+                        </dl>
                     </span>
                     <?php endif; ?>
                 </a>

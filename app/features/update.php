@@ -74,6 +74,7 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.16.2', '<')) $this->version5162();
         if(version_compare($version, '5.17.0', '<')) $this->version5170();
         if(version_compare($version, '5.17.1', '<')) $this->version5171();
+        if(version_compare($version, '5.19.1', '<')) $this->version5191();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -581,5 +582,10 @@ class MEC_feature_update extends MEC_base
     {
         $this->version5170();
         $this->reschedule();
+    }
+
+    public function version5191()
+    {
+        $this->version5170();
     }
 }

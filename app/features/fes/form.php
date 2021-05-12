@@ -855,7 +855,7 @@ $this->factory->params('footer', $javascript);
                 $currency_per_event = ((isset($this->settings['currency_per_event']) and trim($this->settings['currency_per_event'])) ? $this->settings['currency_per_event'] : 0);
 
                 $currencies = $this->main->get_currencies();
-                $current_currency = (isset($currency['currency']) ? $currency['currency'] : $this->settings['currency']);
+                $current_currency = (isset($currency['currency']) ? $currency['currency'] : (isset($this->settings['currency']) ? $this->settings['currency'] : NULL));
             ?>
             <div class="mec-meta-box-fields" id="mec-event-cost">
                 <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?> <?php echo ((isset($this->settings['fes_required_cost']) and $this->settings['fes_required_cost']) ? '<span class="mec-required">*</span>' : ''); ?></h4>

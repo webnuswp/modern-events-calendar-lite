@@ -28,7 +28,8 @@ $dont_show_map = 1;
 
 $organizers = get_terms('mec_organizer', array('orderby'=>'name', 'hide_empty'=>'0'));
 $organizer_id = 1;
-
+$wizard_page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+$main_page = isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : '';
 // This date format used for input type of datepicker.
 $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? $settings['datepicker_format'] : 'Y-m-d';
 ?>
@@ -263,7 +264,7 @@ $datepicker_format = (isset($settings['datepicker_format']) and trim($settings['
         </div>
     </div>
 </div>
-<?php if(!isset($settings['event_as_popup']) or (isset($settings['event_as_popup']) && $settings['event_as_popup'] == '1')): ?>
+<?php if(!isset($settings['event_as_popup']) or (isset($settings['event_as_popup']) && $settings['event_as_popup'] == '1') or $wizard_page == "MEC-wizard" ): ?>
 <script>
 jQuery(document).ready(function()
 {
@@ -271,19 +272,20 @@ jQuery(document).ready(function()
     var popup_wpeditor = false;
     var current_step;
 
-    var $prev = jQuery('.mec-button-prev');
-    var $next = jQuery('.mec-button-next');
-    var $new = jQuery('.mec-button-new');
-    var $copy = jQuery('.mec-button-copy');
-    var $steps = jQuery('.mec-step');
-    var $name = jQuery('#mec_event_name');
-    var $start_date = jQuery('#mec_start_date');
-    var $end_date = jQuery('#mec_end_date');
-    var $location_add = jQuery('#mec_popup_add_location');
-    var $location_dropdown = jQuery('#mec_popup_location_id');
-    var $organizer_add = jQuery('#mec_popup_add_organizer');
-    var $organizer_dropdown = jQuery('#mec_popup_organizer_id');
-    var $steps_content = jQuery('.mec-steps-content');
+    var $event_wrap = jQuery("#mec_popup_event");
+    var $e_prev = $event_wrap.find('.mec-button-prev');
+    var $e_next = $event_wrap.find('.mec-button-next');
+    var $e_new = $event_wrap.find('.mec-button-new');
+    var $e_copy = $event_wrap.find('.mec-button-copy');
+    var $e_steps = $event_wrap.find('.mec-step');
+    var $e_name = $event_wrap.find('#mec_event_name');
+    var $start_date = $event_wrap.find('#mec_start_date');
+    var $end_date = $event_wrap.find('#mec_end_date');
+    var $location_add = $event_wrap.find('#mec_popup_add_location');
+    var $location_dropdown = $event_wrap.find('#mec_popup_location_id');
+    var $organizer_add = $event_wrap.find('#mec_popup_add_organizer');
+    var $organizer_dropdown = $event_wrap.find('#mec_popup_organizer_id');
+    var $e_steps_content = $event_wrap.find('.mec-steps-content');
 
     // Appending Div
     jQuery(document).on('lity:open', function(event, instance)
@@ -294,9 +296,17 @@ jQuery(document).ready(function()
     if(jQuery('.mec-steps-content .wn-mec-select-popup').length > 0) jQuery('.mec-steps-content .wn-mec-select-popup').niceSelect();
 
     // Add Event Button
-    jQuery('.wrap .page-title-action').on('click', function(e)
+    jQuery('.mec-wizard-open-popup.add-event,.wrap .page-title-action').on('click', function(e)
     {
         e.preventDefault();
+
+        if(jQuery(".mec-wizard-open-popup.add-event").length > 0 ) 
+        {
+            jQuery(".mec-wizard-open-popup.add-event").addClass("active")
+            jQuery(".mec-wizard-open-popup.add-shortcode").removeClass("active")
+            jQuery(".mec-wizard-open-popup.mec-settings").removeClass("active")
+            jQuery(".mec-wizard-starter-video a").removeClass("active")
+        }
 
         // Open Lightbox
         lity('#mec_popup_event');
@@ -308,19 +318,27 @@ jQuery(document).ready(function()
     // Lightbox Open
     jQuery(document).on('lity:open', function(event, instance)
     {
-        jQuery('.lity').addClass('mec-add-event-popup');
+        <?php if ($main_page == "mec-events") { ?>
+            jQuery('.lity').removeClass('mec-add-shortcode-popup');
+            jQuery('.lity').addClass('mec-add-event-popup');
+        <?php } ?>
+
+        if ( jQuery(".mec-wizard-open-popup.add-event").hasClass("active") ) {
+            jQuery('.lity').addClass('mec-add-event-popup');
+        }
         jQuery('body').css('overflow', 'hidden');
         jQuery('.lity-wrap').removeAttr('data-lity-close');
     });
 
     // Lightbox Close
+    <?php if ( $wizard_page != "MEC-wizard" ) { ?>
     jQuery(document).on('lity:close', function(event, instance)
     {
         if(redirect) window.location.href = "<?php echo admin_url('post-new.php?post_type='.$post_type); ?>";
     });
-
+    <?php } ?>
     // Previous
-    $prev.on('click', function()
+    $e_prev.on('click', function()
     {
         var new_step = parseInt(current_step)-1;
         if(new_step <= 0) new_step = 1;
@@ -329,7 +347,7 @@ jQuery(document).ready(function()
     });
 
     // Next
-    $next.on('click', function()
+    $e_next.on('click', function()
     {
         var new_step = parseInt(current_step)+1;
         if(new_step > 8) new_step = 8;
@@ -338,9 +356,9 @@ jQuery(document).ready(function()
     });
 
     // New
-    $new.on('click', function()
+    $e_new.on('click', function()
     {
-        $name.val('');
+        $e_name.val('');
         $start_date.val('');
         $end_date.val('');
 
@@ -348,7 +366,7 @@ jQuery(document).ready(function()
     });
 
     // Copy
-    $copy.on('click', function()
+    $e_copy.on('click', function()
     {
         var $temp = jQuery("<input>");
         jQuery("body").append($temp);
@@ -360,7 +378,7 @@ jQuery(document).ready(function()
     });
 
     // on Submit of Shortcode Name
-    $name.keyup(function(e)
+    $e_name.keyup(function(e)
     {
         if(e.keyCode === 13)
         {
@@ -482,10 +500,10 @@ jQuery(document).ready(function()
         // Validation
         if(step === 2)
         {
-            var name = $name.val();
+            var name = $e_name.val();
             if(name === '')
             {
-                $name.addClass('mec-required').focus();
+                $e_name.addClass('mec-required').focus();
                 jQuery('.popup-sh-name-required').show();
                 return false;
             }
@@ -532,7 +550,7 @@ jQuery(document).ready(function()
         // Auto Focus
         if(step === 1)
         {
-            $name.focus();
+            $e_name.focus();
         }
         // Init WP Editor
         else if(step === 6 && !popup_wpeditor)
@@ -554,29 +572,29 @@ jQuery(document).ready(function()
         current_step = step;
 
         // Buttons
-        $prev.show();
-        $next.show();
+        $e_prev.show();
+        $e_next.show();
 
         if(step === 1)
         {
-            $prev.hide();
+            $e_prev.hide();
         }
         else if(step === 8)
         {
-            $prev.hide();
-            $next.hide();
+            $e_prev.hide();
+            $e_next.hide();
         }
 
         // Disable Redirection
         redirect = (step !== 8);
 
         // Steps Bar
-        $steps.removeClass('mec-step-passed');
+        $e_steps.removeClass('mec-step-passed');
         for(var i = 1; i <= step; i++) jQuery('.mec-step-'+i).addClass('mec-step-passed');
 
         // Content
-        $steps_content.hide();
-        $steps_content.removeClass('mec-steps-content-active');
+        $e_steps_content.hide();
+        $e_steps_content.removeClass('mec-steps-content-active');
 
         jQuery('.mec-steps-content-'+step).addClass('mec-steps-content-active').show();
         jQuery('.mec-steps-content-container').removeClass('mec-steps-content-1 mec-steps-content-2 mec-steps-content-3 mec-steps-content-4 mec-steps-content-5 mec-steps-content-6 mec-steps-content-7 mec-steps-content-8').addClass('mec-steps-content-'+step);

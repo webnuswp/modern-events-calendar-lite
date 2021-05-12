@@ -23,6 +23,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             <img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>">
                         <?php endif; ?>
                         <h3 class="mec-events-single-section-title"><?php echo $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')); ?></h3>
+                        <dl>
                         <?php if(isset($organizer['thumbnail'])): ?>
                         <dd class="mec-organizer">
                             <i class="mec-sl-home"></i>
@@ -55,6 +56,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             <p><?php echo $organizer_term->description;?></p>
                         </dd>
                         <?php endif; } } endif; ?>
+                        </dl>
                     </div>
                     <?php
                     $this->show_other_organizers($event); // Show Additional Organizers
@@ -95,6 +97,7 @@ if(!is_array($booking_options)) $booking_options = array();
                         <?php endif; ?>
                         <i class="mec-sl-location-pin"></i>
                         <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
+                        <dl>
                         <dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
                         <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
 
@@ -110,6 +113,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             <p><?php echo $location_term->description;?></p>
                         </dd>
                         <?php endif; } } endif; ?>
+                        </dl>
                     </div>
                     <?php
                 }
@@ -128,8 +132,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             {
                                 $icon = get_metadata('term', $category['id'], 'mec_cat_icon', true);
                                 $icon = isset($icon) && $icon != '' ? '<i class="'.$icon.' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
-                                echo '<dd class="mec-events-event-categories">
-                                <a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd>';
+                                echo '<dl><dd class="mec-events-event-categories"><a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd></dl>';
                             }
                         ?>
                     </div>

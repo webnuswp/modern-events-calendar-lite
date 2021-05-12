@@ -1,4 +1,24 @@
-﻿v 5.19.0 – 5 May 2021
+﻿v 5.19.1 – 12 May 2021
+- Added: An option to disable booking multiple seats on “Sell All Occurrences by One Booking” events per email (pro)
+- Added: An option to display custom fields in event sidebar
+- Added: An option to change limit of related events
+- Added: A new button in backend events manager to filter only upcoming events
+- Added: All in one wizards popup
+- Improved: The order time field to follow WP date and time format
+- Improved: The last few tickets label to use ticket limit instead of total limit when only 1 ticket is defined (pro)
+- Fixed: Regarding currency in “Frontend Event Submission”
+- Fixed: Bulk edit of posts in Wp backend when filtered by tag
+- Fixed: A warning in export file (pro)
+- Fixed: Showing booking module when the event is expired and “Booking for ongoing events” option is enabled (pro)
+- Fixed: Filtering of shortcakes for category archive
+- Fixed: Showing next occurrence of custom repeat events
+- Fixed: The event_link placeholder of some notifications
+- Fixed: Showing wrong label in Invoices when used price per date option (pro)
+- Fixed: Export file when “Discount Per Role” option is used (pro)
+- Fixed: An issue regarding the dl in the HTML structure
+- Fixed: Tile view in the modal popup method
+
+v 5.19.0 – 5 May 2021
 - Added: A new notification to send after at the exact time the event finishes (pro)
 - Added: A new option to change the HTML tag of the archive page title
 - Added: A new option to include event categories in the breadcrumbs module

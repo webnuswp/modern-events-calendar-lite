@@ -857,21 +857,23 @@ class MEC_skins extends MEC_base
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
 
+                        $event_data = $this->render->after_render($data, $this, $i);
                         $date_times = array(
                             'start'=>array(
-                                'date'=> $data->date['start']['date'],
-                                'time' => $data->data->time['start'],
-                                'timestamp' => $data->data->time['start_timestamp'],
+                                'date'=> $event_data->date['start']['date'],
+                                'time' => $event_data->data->time['start'],
+                                'timestamp' => $event_data->data->time['start_timestamp'],
                             ),
                             'end'=>array(
-                                'date'=> $data->date['end']['date'],
-                                'time' => $data->data->time['end'],
-                                'timestamp' => $data->data->time['end_timestamp'],
+                                'date'=> $event_data->date['end']['date'],
+                                'time' => $event_data->data->time['end'],
+                                'timestamp' => $event_data->data->time['end_timestamp'],
                             )
                         );
+                        $primary_key = $event_data->data->time['start_timestamp'];
                         // global variable for use dates
-                        $MEC_Events_dates[$ID][] = $date_times;
-                        $d[] = $this->render->after_render($data, $this, $i);
+                        $MEC_Events_dates[$ID][$primary_key] = $date_times;
+                        $d[] = $event_data;
                         $found++;
                     }
 
@@ -909,6 +911,7 @@ class MEC_skins extends MEC_base
 
         // Set found events
         $this->found = $found;
+        // var_dump($found);
 
         return $events;
     }
@@ -1254,15 +1257,17 @@ class MEC_skins extends MEC_base
                 $output .= '<div class="mec-date-search"><input type="hidden" id="mec-filter-none" value="'.$item.'">';
                 $display_label == 1 ? $output .='<label for="mec_sf_category_'.$this->id.'">'.$label.': </label>' : null;
                 $output .= '<i class="mec-sl-calendar"></i>
-                    <select id="mec_sf_month_'.$this->id.'">';
+                    <select id="mec_sf_month_'.$this->id.'">
+                        <option value="">'.__('Select Month','modern-events-calendar-lite').'</option>';
+
+
 
                 $output .= $option;
                 $Y = date('Y', $time);
 
                 for($i = 1; $i <= 12; $i++)
                 {
-                    $selected = (!in_array($this->skin, $skins) and $i == date('n', $now)) ? 'selected="selected"' : '';
-                    $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'" '.$selected.'>'.$this->main->date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
+                    $output .= '<option value="'.($i < 10 ? '0'.$i : $i).'">'.$this->main->date_i18n('F', mktime(0, 0, 0, $i, 10)).'</option>';
                 }
 
                 $output .= '</select>';
@@ -1574,13 +1579,13 @@ class MEC_skins extends MEC_base
             switch($sed_method)
             {
                 case '0':
-    
+
                     $sed_method = '_self';
                     break;
                 case 'new':
-    
+
                     $sed_method = '_blank';
-                    break;                
+                    break;
             }
 
             $sed_method = ($sed_method ? $sed_method : '_self');

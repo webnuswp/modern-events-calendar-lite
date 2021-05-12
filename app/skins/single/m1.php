@@ -19,13 +19,13 @@ if(!is_array($booking_options)) $booking_options = array();
                 <div class="mec-single-event-date">
                     <i class="mec-sl-calendar"></i>
                     <h3 class="mec-date"><?php _e('Date', 'modern-events-calendar-lite'); ?></h3>
-
+                    <dl>
                     <?php if($midnight_event): ?>
                     <dd><abbr class="mec-events-abbr"><?php echo $this->main->dateify($event, $this->date_format1); ?></abbr></dd>
                     <?php else: ?>
                     <dd><abbr class="mec-events-abbr"><?php echo $this->main->date_label((trim($occurrence) ? array('date'=>$occurrence) : $event->date['start']), (trim($occurrence_end_date) ? array('date'=>$occurrence_end_date) : (isset($event->date['end']) ? $event->date['end'] : NULL)), $this->date_format1); ?></abbr></dd>
                     <?php endif; ?>
-
+                    </dl>
                     <?php echo $this->main->holding_status($event); ?>
                 </div>
 
@@ -39,12 +39,13 @@ if(!is_array($booking_options)) $booking_options = array();
                         <i class="mec-sl-clock " style=""></i>
                         <h3 class="mec-time"><?php _e('Time', 'modern-events-calendar-lite'); ?></h3>
                         <i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
-
+                        <dl>
                         <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                             <dd><abbr class="mec-events-abbr"><?php echo $event->data->time['start']; ?><?php echo (trim($event->data->time['end']) ? ' - '.$event->data->time['end'] : ''); ?></abbr></dd>
                         <?php else: ?>
                             <dd><abbr class="mec-events-abbr"><?php echo $this->main->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
                         <?php endif; ?>
+                        </dl>
                     </div>
                     <?php
                 }
@@ -59,7 +60,7 @@ if(!is_array($booking_options)) $booking_options = array();
                 <div class="mec-event-cost">
                     <i class="mec-sl-wallet"></i>
                     <h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-                    <dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd>
+                    <dl><dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd></dl>
                 </div>
                 <?php
             }
@@ -76,7 +77,7 @@ if(!is_array($booking_options)) $booking_options = array();
                     <h3 class="mec-cost"><?php echo $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite')); ?></h3>
                     <?php foreach($event->data->labels as $labels=>$label) :
                     $seperator = (++$mec_i === $mec_items ) ? '' : ',';
-                    echo '<dd style=color:"' . $label['color'] . '">' . $label["name"] . $seperator . '</dd>';
+                    echo '<dl><dd style=color:"' . $label['color'] . '">' . $label["name"] . $seperator . '</dd></dl>';
                     endforeach; ?>
                 </div>
                 <?php
@@ -100,6 +101,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             <img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>">
                         <?php endif; ?>
                         <h3 class="mec-events-single-section-title"><?php echo $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')); ?></h3>
+                        <dl>
                         <?php if(isset($organizer['thumbnail'])): ?>
                         <dd class="mec-organizer">
                             <i class="mec-sl-home"></i>
@@ -132,6 +134,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             <p><?php echo $organizer_term->description;?></p>
                         </dd>
                         <?php endif; } } endif; ?>
+                        </dl>
                     </div>
                     <?php
                     $this->show_other_organizers($event); // Show Additional Organizers
@@ -172,6 +175,7 @@ if(!is_array($booking_options)) $booking_options = array();
                         <?php endif; ?>
                         <i class="mec-sl-location-pin"></i>
                         <h3 class="mec-events-single-section-title mec-location"><?php echo $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')); ?></h3>
+                        <dl>
                         <dd class="author fn org"><?php echo $this->get_location_html($location); ?></dd>
                         <dd class="location"><address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></span></address></dd>
 
@@ -187,6 +191,7 @@ if(!is_array($booking_options)) $booking_options = array();
                             <p><?php echo $location_term->description;?></p>
                         </dd>
                         <?php endif; } } endif; ?>
+                        </dl>
                     </div>
                     <?php
                 }
@@ -205,8 +210,7 @@ if(!is_array($booking_options)) $booking_options = array();
                         {
                             $icon = get_metadata('term', $category['id'], 'mec_cat_icon', true);
                             $icon = isset($icon) && $icon != '' ? '<i class="'.$icon.' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
-                            echo '<dd class="mec-events-event-categories">
-                            <a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd>';
+                            echo '<dl><dd class="mec-events-event-categories"><a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd></dl>';
                         }
                         ?>
                     </div>
@@ -221,7 +225,7 @@ if(!is_array($booking_options)) $booking_options = array();
                         <div class="mec-event-more-info">
                             <i class="mec-sl-info"></i>
                             <h3 class="mec-cost"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></h3>
-                            <dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd>
+                            <dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd></dl>
                         </div>
                         <?php
                     }

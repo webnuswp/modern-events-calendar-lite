@@ -269,8 +269,8 @@ class MEC_factory extends MEC_base
             // Include Nicescroll
             wp_enqueue_script('mec-nice-scroll', $this->main->asset('js/jquery.nicescroll.min.js'));
 
-            wp_enqueue_style('mec-featherlight-style', $this->main->asset('packages/featherlight/featherlight.css'));
-            wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'));
+            wp_enqueue_style('featherlight', $this->main->asset('packages/featherlight/featherlight.css'));
+            wp_enqueue_script('featherlight', $this->main->asset('packages/featherlight/featherlight.js'));
 
             // Include MEC Carousel JS libraries
             wp_enqueue_script('mec-owl-carousel-script', $this->main->asset('packages/owl-carousel/owl.carousel.min.js'));
@@ -349,7 +349,7 @@ class MEC_factory extends MEC_base
             if(is_plugin_active('elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
 
             wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'), array(), $this->main->get_version(), true);
-            wp_enqueue_script('mec-featherlight-script', $this->main->asset('packages/featherlight/featherlight.js'), array(), $this->main->get_version(), true);
+            wp_enqueue_script('featherlight', $this->main->asset('packages/featherlight/featherlight.js'), array(), $this->main->get_version(), true);
 
             // Include Select2
             wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'), array(), $this->main->get_version(), true);
@@ -408,7 +408,7 @@ class MEC_factory extends MEC_base
             wp_enqueue_style('mec-frontend-style', $this->main->asset('css/frontend.min.css'), array(), $this->main->get_version());
             if(!is_plugin_active('ultimate-elementor/ultimate-elementor.php')) wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
             wp_enqueue_style('mec-tooltip-shadow-style', $this->main->asset('packages/tooltip/tooltipster-sideTip-shadow.min.css'));
-            wp_enqueue_style('mec-featherlight-style', $this->main->asset('packages/featherlight/featherlight.css'));
+            wp_enqueue_style('featherlight', $this->main->asset('packages/featherlight/featherlight.css'));
 
             // Include "Right to Left" CSS file
             if(is_rtl()) wp_enqueue_style('mec-frontend-rtl-style', $this->main->asset('css/mecrtl.min.css'));
@@ -944,68 +944,6 @@ class MEC_factory extends MEC_base
         
         add_option('mec_options', $options);
         
-        // Dummy Events or Not
-        if(apply_filters('mec_activation_import_events', true))
-        {
-            // Create Default Events
-            $events = array
-            (
-                array('title'=>'One Time Multiple Day Event', 'start'=>date('Y-m-d', strtotime('+5 days')), 'end'=>date('Y-m-d', strtotime('+7 days')), 'finish'=>date('Y-m-d', strtotime('+7 days')), 'repeat_type'=>'', 'repeat_status'=>0, 'interval'=>NULL, 'meta'=>array('mec_color'=>'dd823b')),
-                array('title'=>'Daily each 3 days', 'start'=>date('Y-m-d'), 'end'=>date('Y-m-d'), 'repeat_type'=>'daily', 'repeat_status'=>1, 'interval'=>3, 'meta'=>array('mec_color'=>'a3b745')),
-                array('title'=>'Weekly on Mondays', 'start'=>date('Y-m-d', strtotime('Next Monday')), 'end'=>date('Y-m-d', strtotime('Next Monday')), 'repeat_type'=>'weekly', 'repeat_status'=>1, 'interval'=>7, 'meta'=>array('mec_color'=>'e14d43')),
-                array('title'=>'Monthly on 27th', 'start'=>date('Y-m-27'), 'end'=>date('Y-m-27'), 'repeat_type'=>'monthly', 'repeat_status'=>1, 'interval'=>NULL, 'year'=>'*', 'month'=>'*', 'day'=>',27,', 'week'=>'*', 'weekday'=>'*', 'meta'=>array('mec_color'=>'00a0d2')),
-                array('title'=>'Yearly on August 20th and 21st', 'start'=>date('Y-08-20'), 'end'=>date('Y-08-21'), 'repeat_type'=>'yearly', 'repeat_status'=>1, 'interval'=>NULL, 'year'=>'*', 'month'=>',08,', 'day'=>',20,21,', 'week'=>'*', 'weekday'=>'*', 'meta'=>array('mec_color'=>'fdd700')),
-            );
-
-            // Import Events
-            $this->main->save_events($events);
-        }
-        
-        // Dummy Shortcodes or Not
-        if(apply_filters('mec_activation_import_shortcodes', true))
-        {
-            // Search Form Options
-            $sf_options = array('category'=>array('type'=>'dropdown'), 'text_search'=>array('type'=>'text_input'));
-
-            // Create Default Calendars
-            $calendars = array
-            (
-                array('title'=>'Full Calendar', 'meta'=>array('skin'=>'full_calendar', 'show_past_events'=>1, 'sk-options'=>array('full_calendar'=>array('start_date_type'=>'today', 'default_view'=>'list', 'monthly'=>1, 'weekly'=>1, 'daily'=>1, 'list'=>1)), 'sf-options'=>array('full_calendar'=>array('month_filter'=>array('type'=>'dropdown'), 'text_search'=>array('type'=>'text_input'))), 'sf_status'=>1)),
-                array('title'=>'Monthly View', 'meta'=>array('skin'=>'monthly_view', 'show_past_events'=>1, 'sk-options'=>array('monthly_view'=>array('start_date_type'=>'start_current_month', 'next_previous_button'=>1)), 'sf-options'=>array('monthly_view'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Weekly View', 'meta'=>array('skin'=>'weekly_view', 'show_past_events'=>1, 'sk-options'=>array('weekly_view'=>array('start_date_type'=>'start_current_month', 'next_previous_button'=>1)), 'sf-options'=>array('weekly_view'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Daily View', 'meta'=>array('skin'=>'daily_view', 'show_past_events'=>1, 'sk-options'=>array('daily_view'=>array('start_date_type'=>'start_current_month', 'next_previous_button'=>1)), 'sf-options'=>array('daily_view'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Map View', 'meta'=>array('skin'=>'map', 'show_past_events'=>1, 'sk-options'=>array('map'=>array('limit'=>200)), 'sf-options'=>array('map'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Upcoming events (List)', 'meta'=>array('skin'=>'list', 'show_past_events'=>0, 'sk-options'=>array('list'=>array('load_more_button'=>1)), 'sf-options'=>array('list'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Upcoming events (Grid)', 'meta'=>array('skin'=>'grid', 'show_past_events'=>0, 'sk-options'=>array('grid'=>array('load_more_button'=>1)), 'sf-options'=>array('grid'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Carousel View', 'meta'=>array('skin'=>'carousel', 'show_past_events'=>0, 'sk-options'=>array('carousel'=>array('count'=>3, 'limit'=>12)), 'sf-options'=>array('carousel'=>$sf_options), 'sf_status'=>0)),
-                array('title'=>'Countdown View', 'meta'=>array('skin'=>'countdown', 'show_past_events'=>0, 'sk-options'=>array('countdown'=>array('style'=>'style3', 'event_id'=>'-1')), 'sf-options'=>array('countdown'=>$sf_options), 'sf_status'=>0)),
-                array('title'=>'Slider View', 'meta'=>array('skin'=>'slider', 'show_past_events'=>0, 'sk-options'=>array('slider'=>array('style'=>'t1', 'limit'=>6, 'autoplay'=>3000)), 'sf-options'=>array('slider'=>$sf_options), 'sf_status'=>0)),
-                array('title'=>'Masonry View', 'meta'=>array('skin'=>'masonry', 'show_past_events'=>0, 'sk-options'=>array('masonry'=>array('limit'=>24, 'filter_by'=>'category')), 'sf-options'=>array('masonry'=>$sf_options), 'sf_status'=>0)),
-                array('title'=>'Agenda View', 'meta'=>array('skin'=>'agenda', 'show_past_events'=>0, 'sk-options'=>array('agenda'=>array('load_more_button'=>1)), 'sf-options'=>array('agenda'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Timetable View', 'meta'=>array('skin'=>'timetable', 'show_past_events'=>0, 'sk-options'=>array('timetable'=>array('next_previous_button'=>1)), 'sf-options'=>array('timetable'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Tile View', 'meta'=>array('skin'=>'tile', 'show_past_events'=>0, 'sk-options'=>array('tile'=>array('next_previous_button'=>1)), 'sf-options'=>array('tile'=>$sf_options), 'sf_status'=>1)),
-                array('title'=>'Timeline View', 'meta'=>array('skin'=>'timeline', 'show_past_events'=>0, 'sk-options'=>array('timeline'=>array('load_more_button'=>1)), 'sf-options'=>array('timeline'=>$sf_options), 'sf_status'=>0)),
-            );
-
-            foreach($calendars as $calendar)
-            {
-                // Calendar exists
-                if(post_exists($calendar['title'], 'MEC')) continue;
-
-                $post = array('post_title'=>$calendar['title'], 'post_content'=>'MEC', 'post_type'=>'mec_calendars', 'post_status'=>'publish');
-                $post_id = wp_insert_post($post);
-
-                update_post_meta($post_id, 'label', '');
-                update_post_meta($post_id, 'category', '');
-                update_post_meta($post_id, 'location', '');
-                update_post_meta($post_id, 'organizer', '');
-                update_post_meta($post_id, 'tag', '');
-                update_post_meta($post_id, 'author', '');
-
-                foreach($calendar['meta'] as $key=>$value) update_post_meta($post_id, $key, $value);
-            }
-        }
-        
         // Mark this blog as installed
         update_option('mec_installed', 1);
         
@@ -1179,6 +1117,7 @@ class MEC_factory extends MEC_base
                 'm-e-calendar_page_MEC-report',
                 'm-e-calendar_page_MEC-ix',
                 'm-e-calendar_page_MEC-support',
+                'm-e-calendar_page_MEC-wizard',
                 'm-e-calendar_page_MEC-go-pro',
                 'widgets',
             ))) or (trim($page) and in_array($page, array(
@@ -1188,6 +1127,7 @@ class MEC_factory extends MEC_base
                 'MEC-report',
                 'MEC-ix',
                 'MEC-support',
+                'MEC-wizard',
                 'MEC-go-pro',
                 'mec-advanced-report',
             )))) return true;

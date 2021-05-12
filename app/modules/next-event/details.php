@@ -141,18 +141,19 @@ if($midnight_event) $next_date['end']['date'] = date('Y-m-d', strtotime('-1 Day'
             <li>
                 <i class="mec-sl-calendar"></i>
                 <h6><?php _e('Date', 'modern-events-calendar-lite'); ?></h6>
-                <dd><abbr class="mec-events-abbr"><?php echo $this->date_label($next_date['start'], (isset($next_date['end']) ? $next_date['end'] : NULL), $date_format1); ?></abbr></dd>
+                <dl><dd><abbr class="mec-events-abbr"><?php echo $this->date_label($next_date['start'], (isset($next_date['end']) ? $next_date['end'] : NULL), $date_format1); ?></abbr></dd></dl>
             </li>
             <li>
                 <i class="mec-sl-clock"></i>
                 <h6><?php _e('Time', 'modern-events-calendar-lite'); ?></h6>
                 <i class="mec-time-comment"><?php echo (isset($time_comment) ? $time_comment : ''); ?></i>
-                
+                <dl>
                 <?php if($allday == '0' and isset($next->data->time) and trim($next->data->time['start'])): ?>
                 <dd><abbr class="mec-events-abbr"><?php echo $next_time['start']; ?><?php echo (trim($next_time['end']) ? ' - '.$next_time['end'] : ''); ?></abbr></dd>
                 <?php else: ?>
                 <dd><abbr class="mec-events-abbr"><?php echo $this->m('all_day', __('All Day' , 'modern-events-calendar-lite')); ?></abbr></dd>
                 <?php endif; ?>
+                </dl>
             </li>
         </ul>
     </div>

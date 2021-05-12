@@ -3516,7 +3516,7 @@ jQuery(document).ready(function ($) {
                 var target = $(this).data('target');
 
                 if (target === 'blank') window.open(href, '_blank');
-                else document.location.href = href;
+                else if (target !== 'm1') document.location.href = href;
             });
 
             // Add the onclick event
@@ -3546,14 +3546,13 @@ jQuery(document).ready(function ($) {
 
         function sed() {
             // Single Event Display
-            $("#mec_skin_" + settings.id + " .mec-event-title a").off('click').on('click', function (e) {
-                var sed_method = $(this).attr('target');
+            $("#mec_skin_" + settings.id + " .mec-event-content").off('click').on('click', function (e) {
+                var sed_method = $(this).parent().data('target');
                 if ('_blank' === sed_method) {
-
                     return;
                 }
                 e.preventDefault();
-                var href = $(this).attr('href');
+                var href = $(this).parent().data('href');
 
                 var id = $(this).data('event-id');
                 var occurrence = get_parameter_by_name('occurrence', href);

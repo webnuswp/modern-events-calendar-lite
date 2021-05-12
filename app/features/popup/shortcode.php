@@ -10,6 +10,8 @@ $events = $this->main->get_events();
 
 // MEC Settings
 $settings = $this->main->get_settings();
+$wizard_page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+$main_page = isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : '';
 ?>
 <div id="mec_popup_shortcode" class="lity-hide">
     <div class="mec-steps-container">
@@ -495,7 +497,7 @@ $settings = $this->main->get_settings();
                         </select>
                     </div>
                 </div>
-                <div class="mec-steps-content mec-steps-content-5">
+                <div class="wns-be-group-tab mec-steps-content mec-steps-content-5">
                     <div class="mec-switcher" id="mec_show_past_events_wrapper">
                         <div>
                             <label for="mec_show_past_events"><?php _e('Include Expired Events', 'modern-events-calendar-lite'); ?></label>
@@ -552,7 +554,7 @@ $settings = $this->main->get_settings();
         </div>
     </div>
 </div>
-<?php if(!isset($settings['sh_as_popup']) || (isset($settings['sh_as_popup']) && $settings['sh_as_popup'] == '1') ) : ?>
+<?php if(!isset($settings['sh_as_popup']) || (isset($settings['sh_as_popup']) && $settings['sh_as_popup'] == '1') or $wizard_page == "MEC-wizard" ) : ?>
 
 <?php if (is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' )) { $fluent = 'fluent-view-activated'; } else { $fluent = 'deactivate'; } ?>
 <script type="text/javascript">
@@ -563,15 +565,16 @@ jQuery(document).ready(function()
     var current_skin;
     var current_style;
 
-    var $prev = jQuery('.mec-button-prev');
-    var $next = jQuery('.mec-button-next');
-    var $new = jQuery('.mec-button-new');
-    var $copy = jQuery('.mec-button-copy');
-    var $steps = jQuery('.mec-step');
-    var $steps_content = jQuery('.mec-steps-content');
-    var $skins = jQuery('.mec-skins');
-    var $name = jQuery('#mec_shortcode_name');
-    var $main_container = jQuery('.mec-steps-panel');
+    var $shortcode_wrap = jQuery("#mec_popup_shortcode");
+    var $sh_prev = $shortcode_wrap.find('.mec-button-prev');
+    var $sh_next = $shortcode_wrap.find('.mec-button-next');
+    var $sh_new = $shortcode_wrap.find('.mec-button-new');
+    var $sh_copy = $shortcode_wrap.find('.mec-button-copy');
+    var $sh_steps = $shortcode_wrap.find('.mec-step');
+    var $sh_steps_content = $shortcode_wrap.find('.mec-steps-content');
+    var $sh_skins = $shortcode_wrap.find('.mec-skins');
+    var $sh_name = $shortcode_wrap.find('#mec_shortcode_name');
+    var $sh_main_container = $shortcode_wrap.find('.mec-steps-panel');
 
     if(jQuery('.mec_shortcode_event_id').length > 0) jQuery('.mec_shortcode_event_id').niceSelect();
     jQuery(".mec-steps-content.mec-steps-content-2 ul").niceScroll({
@@ -592,9 +595,17 @@ jQuery(document).ready(function()
     });
 
     // Add Shortcode Button
-    jQuery('.wrap .page-title-action').on('click', function(e)
+    jQuery('.mec-wizard-open-popup.add-shortcode,.wrap .page-title-action').on('click', function(e)
     {
         e.preventDefault();
+
+        if(jQuery(".mec-wizard-open-popup.add-shortcode").length > 0 ) 
+        {
+            jQuery(".mec-wizard-open-popup.add-shortcode").addClass("active")
+            jQuery(".mec-wizard-open-popup.add-event").removeClass("active")
+            jQuery(".mec-wizard-open-popup.mec-settings").removeClass("active")
+            jQuery(".mec-wizard-starter-video a").removeClass("active")
+        }
 
         // Open Lightbox
         lity('#mec_popup_shortcode');
@@ -606,7 +617,15 @@ jQuery(document).ready(function()
     // Lightbox Open
     jQuery(document).on('lity:open', function(event, instance)
     {
-        jQuery('.lity').addClass('mec-add-shortcode-popup');
+        <?php if ($main_page == "mec_calendars") { ?>
+            jQuery('.lity').removeClass('mec-add-event-popup');
+            jQuery('.lity').addClass('mec-add-shortcode-popup');
+        <?php } ?>
+
+        if ( jQuery(".mec-wizard-open-popup.add-shortcode").hasClass("active") ) {
+            jQuery('.lity').addClass('mec-add-shortcode-popup');
+        }
+
         jQuery('body').css('overflow', 'hidden');
         jQuery('.lity-wrap').removeAttr('data-lity-close');
     });
@@ -614,7 +633,9 @@ jQuery(document).ready(function()
     // Lightbox Close
     jQuery(document).on('lity:close', function(event, instance)
     {
-        if(redirect) window.location.href = "<?php echo admin_url('post-new.php?post_type='.$post_type); ?>";
+        <?php if ( $wizard_page != "MEC-wizard" ) { ?>
+            if(redirect) window.location.href = "<?php echo admin_url('post-new.php?post_type='.$post_type); ?>";
+        <?php } ?>
         jQuery("#mec-select-type-popup-scrollbar .nicescroll-cursors").css('z-index', '-1');
         jQuery(".mec-steps-content.mec-steps-content-3 .mec-skin-styles").getNiceScroll().hide();
         jQuery("#mec-select-skin-popup-scrollbar .nicescroll-cursors").css('z-index', '-1');
@@ -622,7 +643,7 @@ jQuery(document).ready(function()
     });
 
     // Previous
-    $prev.on('click', function()
+    $sh_prev.on('click', function()
     {
         var new_step = parseInt(current_step)-1;
         if(new_step <= 0) new_step = 1;
@@ -631,7 +652,7 @@ jQuery(document).ready(function()
     });
 
     // Next
-    $next.on('click', function()
+    $sh_next.on('click', function()
     {
         var new_step = parseInt(current_step)+1;
         if(new_step > 7) new_step = 7;
@@ -640,14 +661,14 @@ jQuery(document).ready(function()
     });
 
     // New
-    $new.on('click', function()
+    $sh_new.on('click', function()
     {
-        $name.val('');
+        $sh_name.val('');
         mec_shortcode_step(1, 'next');
     });
 
     // Copy
-    $copy.on('click', function()
+    $sh_copy.on('click', function()
     {
         var $temp = jQuery("<input>");
         jQuery("body").append($temp);
@@ -659,7 +680,7 @@ jQuery(document).ready(function()
     });
 
     // Skin Changed
-    $skins.on('change', function(e)
+    $sh_skins.on('change', function(e)
     {
         e.preventDefault();
         var skin = jQuery(this).val();
@@ -676,7 +697,7 @@ jQuery(document).ready(function()
     });
 
     // on Submit of Shortcode Name
-    $name.keyup(function(e)
+    $sh_name.keyup(function(e)
     {
         if(e.keyCode === 13)
         {
@@ -769,10 +790,10 @@ jQuery(document).ready(function()
         // Validation
         if(step === 2)
         {
-            var name = $name.val();
+            var name = $sh_name.val();
             if(name === '')
             {
-                $name.addClass('mec-required').focus();
+                $sh_name.addClass('mec-required').focus();
                 jQuery('.popup-sh-name-required').show();
                 return false;
             }
@@ -788,30 +809,30 @@ jQuery(document).ready(function()
         current_step = step;
 
         // Buttons
-        $prev.show();
-        $next.show();
+        $sh_prev.show();
+        $sh_next.show();
 
         if(step === 1)
         {
-            $prev.hide();
-            $new.hide();
+            $sh_prev.hide();
+            $sh_new.hide();
         }
         else if(step === 6)
         {
-            $prev.hide();
-            $next.hide();
+            $sh_prev.hide();
+            $sh_next.hide();
         }
 
         // Disable Redirection
         redirect = (step !== 6);
 
         // Steps Bar
-        $steps.removeClass('mec-step-passed');
+        $sh_steps.removeClass('mec-step-passed');
         for(var i = 1; i <= step; i++) jQuery('.mec-step-'+i).addClass('mec-step-passed');
 
         // Content
-        $steps_content.hide();
-        $steps_content.removeClass('mec-steps-content-active');
+        $sh_steps_content.hide();
+        $sh_steps_content.removeClass('mec-steps-content-active');
         jQuery('.mec-steps-content-'+step).addClass('mec-steps-content-active').show();
         jQuery('.mec-steps-content-container').removeClass('mec-steps-content-1 mec-steps-content-2 mec-steps-content-3 mec-steps-content-4 mec-steps-content-5 mec-steps-content-6').addClass('mec-steps-content-'+step);
         
@@ -873,7 +894,7 @@ jQuery(document).ready(function()
                     jQuery(".mec-steps-6-loading").hide();
 
                     jQuery(".mec-steps-6-results").show();
-                    $new.show();
+                    $sh_new.show();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown)

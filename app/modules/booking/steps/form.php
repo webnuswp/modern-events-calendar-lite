@@ -72,9 +72,6 @@ if(!$mec_email)
     );
 }
 
-if(isset($reg_fields['form_style_url'])){
-    wp_enqueue_style('mec-form-style',$reg_fields['form_style_url'],null,'1.0.0');
-}
 ?>
 <form id="mec_book_form<?php echo $uniqueid; ?>" class="mec-booking-form-container row" onsubmit="mec_book_form_submit(event, <?php echo $uniqueid; ?>);" novalidate="novalidate" enctype="multipart/form-data" method="post">
     <h4><?php echo apply_filters('mec-booking-attendees-title', __('Attendee\'s Form', 'modern-events-calendar-lite'), $event_id) ?></h4>
@@ -158,7 +155,10 @@ if(isset($reg_fields['form_style_url'])){
                         </label>
 
                     <?php /** Paragraph **/ elseif ($bfixed_field['type'] == 'p') : ?>
-                        <p><?php echo do_shortcode(stripslashes($bfixed_field['content'])); ?></p>
+                        <p><?php
+                            $paragraph = isset($bfixed_field['paragraph']) ? $bfixed_field['paragraph'] : '';
+                            $content = isset($bfixed_field['content']) ? $bfixed_field['content'] : $paragraph;
+                            echo do_shortcode(stripslashes($content)); ?></p>
                     <?php endif; ?>
                 </li>
             <?php endforeach; ?>
@@ -289,7 +289,11 @@ if(isset($reg_fields['form_style_url'])){
                                 </label>
 
                             <?php /** Paragraph **/ elseif ($reg_field['type'] == 'p') : ?>
-                                <p><?php echo do_shortcode(stripslashes($reg_field['content'])); ?></p>
+                                <?php
+                                    $paragraph = isset($reg_field['paragraph']) ? $reg_field['paragraph'] : '';
+                                    $content = isset($reg_field['content']) ? $reg_field['content'] : $paragraph;
+                                    echo do_shortcode(stripslashes($content));
+                                ?></p>
                             <?php endif; ?>
                         </div>
                     <?php endforeach;
