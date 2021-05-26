@@ -37,6 +37,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                     </div>
                 <?php endif; ?>
                 <?php echo $this->booking_button($event); ?>
+                <?php echo $this->display_custom_data($event); ?>
             </article>
         <?php endforeach; ?>
         <?php else: ?>

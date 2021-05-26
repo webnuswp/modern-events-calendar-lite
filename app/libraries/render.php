@@ -801,6 +801,7 @@ class MEC_render extends MEC_base
                 }
             }
         }
+        // If not custom days
         elseif(isset($event->data) and isset($event->data->time) and isset($event->data->time['start_raw']) and isset($event->data->time['end_raw']) and isset($event->date) and isset($event->date['start']) and isset($event->date['end']))
         {
             $start_time = $event->date['start']['date'].' '.$event->data->time['start_raw'];
@@ -822,6 +823,63 @@ class MEC_render extends MEC_base
             {
                 $event->data->time['start_timestamp'] = $start_timestamp;
                 $event->data->time['end_timestamp'] = $end_timestamp;
+            }
+        }
+
+        // Fill Start and End Dates
+        if(!isset($event->date['start']['hour']) or !isset($event->date['end']['hour']))
+        {
+            $s_hour = $s_minutes = $s_ampm = $e_hour = $e_minutes = $e_ampm = NULL;
+
+            if(isset($event->data->meta['mec_date']) and isset($event->data->meta['mec_date']['start']) and is_array($event->data->meta['mec_date']['start']))
+            {
+                $s_hour = sprintf("%02d", $event->data->meta['mec_date']['start']['hour']);
+                $s_minutes = sprintf("%02d", $event->data->meta['mec_date']['start']['minutes']);
+                $s_ampm = strtolower($event->data->meta['mec_date']['start']['ampm']);
+            }
+
+            if(isset($event->data->meta['mec_date']) and isset($event->data->meta['mec_date']['end']) and is_array($event->data->meta['mec_date']['end']))
+            {
+                $e_hour = sprintf("%02d", $event->data->meta['mec_date']['end']['hour']);
+                $e_minutes = sprintf("%02d", $event->data->meta['mec_date']['end']['minutes']);
+                $e_ampm = strtolower($event->data->meta['mec_date']['end']['ampm']);
+            }
+
+            if(isset($event->data->time) and isset($event->data->time['start_timestamp']) and $event->data->time['start_timestamp'])
+            {
+                $s_hour = date('h', $event->data->time['start_timestamp']);
+                $s_minutes = date('i', $event->data->time['start_timestamp']);
+                $s_ampm = date('a', $event->data->time['start_timestamp']);
+            }
+
+            if(isset($event->data->time) and isset($event->data->time['end_timestamp']) and $event->data->time['end_timestamp'])
+            {
+                $e_hour = date('h', $event->data->time['end_timestamp']);
+                $e_minutes = date('i', $event->data->time['end_timestamp']);
+                $e_ampm = date('a', $event->data->time['end_timestamp']);
+            }
+
+            $start_time = $event->date['start']['date'].' '.sprintf("%02d", $s_hour).':'.sprintf("%02d", $s_minutes).' '.$s_ampm;
+            $end_time = $event->date['end']['date'].' '.sprintf("%02d", $e_hour).':'.sprintf("%02d", $e_minutes).' '.$e_ampm;
+
+            if($s_hour and $s_minutes and $s_ampm and strtotime($start_time))
+            {
+                $event->date['start'] = array_merge($event->date['start'], array(
+                    'hour' => sprintf("%02d", $s_hour),
+                    'minutes' => sprintf("%02d", $s_minutes),
+                    'ampm' => $s_ampm,
+                    'timestamp' => strtotime($start_time),
+                ));
+            }
+
+            if($e_hour and $e_minutes and $e_ampm and strtotime($end_time))
+            {
+                $event->date['end'] = array_merge($event->date['end'], array(
+                    'hour' => sprintf("%02d", $e_hour),
+                    'minutes' => sprintf("%02d", $e_minutes),
+                    'ampm' => $e_ampm,
+                    'timestamp' => strtotime($end_time),
+                ));
             }
         }
 
@@ -1414,41 +1472,42 @@ class MEC_render extends MEC_base
      */
     public function markers($events)
     {
-        $markers = array();
-
         $date_format = (isset($this->settings['google_maps_date_format1']) and trim($this->settings['google_maps_date_format1'])) ? $this->settings['google_maps_date_format1'] : 'M d Y';
-        
+
+        $markers = array();
         foreach($events as $event)
         {
             if(!is_object($event)) continue;
+            if(!isset($event->data->locations) or (isset($event->data->locations) and !is_array($event->data->locations))) continue;
 
-            $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-            
-            $latitude = isset($location['latitude']) ? $location['latitude'] : '';
-            $longitude = isset($location['longitude']) ? $location['longitude'] : '';
-            
-            // No latitude/Longitude
-            if(trim($latitude) == '' or trim($longitude) == '') continue;
-
-            $latitude = floatval($latitude);
-            $longitude = floatval($longitude);
-
-            $key = $latitude.','.$longitude;
-            if(!isset($markers[$key]))
+            foreach($event->data->locations as $location)
             {
-                $markers[$key] = array(
-                    'latitude'=>$latitude,
-                    'longitude'=>$longitude,
-                    'name'=>((isset($location['name']) and trim($location['name'])) ? $location['name'] : ''),
-                    'address'=>((isset($location['address']) and trim($location['address'])) ? $location['address'] : ''),
-                    'event_ids'=>array($event->data->ID),
-                    'lightbox'=>$this->main->get_marker_lightbox($event, $date_format),
-                );
-            }
-            else
-            {
-                $markers[$key]['event_ids'][] = $event->data->ID;
-                $markers[$key]['lightbox'] .= $this->main->get_marker_lightbox($event, $date_format);
+                $latitude = isset($location['latitude']) ? $location['latitude'] : '';
+                $longitude = isset($location['longitude']) ? $location['longitude'] : '';
+
+                // No latitude/Longitude
+                if(trim($latitude) == '' or trim($longitude) == '') continue;
+
+                $latitude = floatval($latitude);
+                $longitude = floatval($longitude);
+
+                $key = $latitude.','.$longitude;
+                if(!isset($markers[$key]))
+                {
+                    $markers[$key] = array(
+                        'latitude'=>$latitude,
+                        'longitude'=>$longitude,
+                        'name'=>((isset($location['name']) and trim($location['name'])) ? $location['name'] : ''),
+                        'address'=>((isset($location['address']) and trim($location['address'])) ? $location['address'] : ''),
+                        'event_ids'=>array($event->data->ID),
+                        'lightbox'=>$this->main->get_marker_lightbox($event, $date_format),
+                    );
+                }
+                else
+                {
+                    $markers[$key]['event_ids'][] = $event->data->ID;
+                    $markers[$key]['lightbox'] .= $this->main->get_marker_lightbox($event, $date_format);
+                }
             }
         }
         

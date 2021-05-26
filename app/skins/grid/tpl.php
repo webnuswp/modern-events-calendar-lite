@@ -6,10 +6,9 @@ defined('MECEXEC') or die();
 $render_path = $this->get_render_path();
 $styling = $this->main->get_styling();
 
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+$dark_mode = (isset($styling['dark_mode']) ? $styling['dark_mode'] : '');
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark = '';
 
 ob_start();
 include $render_path;
@@ -22,7 +21,7 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
 }
 
 $sed_method = $this->sed_method;
-if ($sed_method == 'new') $sed_method = '0';
+if($sed_method == 'new') $sed_method = '0';
 
 // Generating javascript code tpl
 $javascript = '<script type="text/javascript">

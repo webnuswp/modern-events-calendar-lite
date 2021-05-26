@@ -553,6 +553,13 @@ class MEC_skin_single extends MEC_skins
         $archive_title = $this->main->get_archive_title();
         $archive_link = get_post_type_archive_link($this->main->get_main_post_type());
 
+        // Archive is disabled
+        if($archive_link === false)
+        {
+            $archive_page = get_page_by_path('events2');
+            if($archive_page) $archive_link = get_permalink($archive_page);
+        }
+
         $referer_url = wp_get_referer();
         if(trim($referer_url))
         {
@@ -567,7 +574,7 @@ class MEC_skin_single extends MEC_skins
         /**
          * Archive Page
          */
-        echo '<a href="' . $archive_link . '">' . $archive_title . '</a> ' . $breadcrumbs_icon . ' ';
+        if($archive_link) echo '<a href="' . $archive_link . '">' . $archive_title . '</a> ' . $breadcrumbs_icon . ' ';
 
         /**
          * Category Page
@@ -1558,10 +1565,10 @@ class MEC_skin_single extends MEC_skins
         <?php endif;
     }
 
-    public function display_data_fields($event, $sidebar = false)
+    public function display_data_fields($event, $sidebar = false, $shortcode = false)
     {
         $display = isset($this->settings['display_event_fields']) ? (boolean) $this->settings['display_event_fields'] : true;
-        if(!$display and !$sidebar) return;
+        if(!$display and !$sidebar and !$shortcode) return;
 
         $fields = $this->main->get_event_fields();
         if(!is_array($fields) or (is_array($fields) and !count($fields))) return;
@@ -1586,43 +1593,47 @@ class MEC_skin_single extends MEC_skins
         if(isset($content) && $content != NULL && (isset($this->settings['display_event_fields_backend']) and $this->settings['display_event_fields_backend'] == 1) or !isset($this->settings['display_event_fields_backend']))
         {
         ?>
-        <div class="mec-event-data-fields mec-frontbox <?php echo ($sidebar ? 'mec-data-fields-sidebar' : ''); ?>">
-            <ul class="mec-event-data-field-items">
-                <?php foreach($fields as $f => $field): if(!is_numeric($f)) continue; ?>
-                <?php
-                    $value = isset($data[$f]) ? $data[$f] : NULL;
-                    if((!is_array($value) and trim($value) == '') or (is_array($value) and !count($value))) continue;
+        <div class="mec-event-data-fields mec-frontbox <?php echo ($sidebar ? 'mec-data-fields-sidebar' : ''); ?> <?php echo ($shortcode ? 'mec-data-fields-shortcode mec-util-hidden' : ''); ?>">
+            <div class="mec-data-fields-tooltip">
+                <div class="mec-data-fields-tooltip-box">
+                    <ul class="mec-event-data-field-items">
+                        <?php foreach($fields as $f => $field): if(!is_numeric($f)) continue; ?>
+                        <?php
+                            $value = isset($data[$f]) ? $data[$f] : NULL;
+                            if((!is_array($value) and trim($value) == '') or (is_array($value) and !count($value))) continue;
 
-                    $type = isset($field['type']) ? $field['type'] : 'text';
-                    if($type === 'checkbox')
-                    {
-                        $cleaned = array();
-                        foreach($value as $k => $v)
-                        {
-                            if(trim($v) !== '') $cleaned[] = $v;
-                        }
+                            $type = isset($field['type']) ? $field['type'] : 'text';
+                            if($type === 'checkbox')
+                            {
+                                $cleaned = array();
+                                foreach($value as $k => $v)
+                                {
+                                    if(trim($v) !== '') $cleaned[] = $v;
+                                }
 
-                        $value = $cleaned;
-                        if(!count($value)) continue;
-                    }
-                ?>
-                <li class="mec-event-data-field-item mec-field-item-<?php echo $type ?>">
-                    <?php if(isset($field['label'])): ?>
-                    <span class="mec-event-data-field-name"><?php esc_html_e(stripslashes($field['label']), 'modern-events-calendar-lite'); ?>: </span>
-                    <?php endif; ?>
+                                $value = $cleaned;
+                                if(!count($value)) continue;
+                            }
+                        ?>
+                        <li class="mec-event-data-field-item mec-field-item-<?php echo $type ?>">
+                            <?php if(isset($field['label'])): ?>
+                            <span class="mec-event-data-field-name"><?php esc_html_e(stripslashes($field['label']), 'modern-events-calendar-lite'); ?>: </span>
+                            <?php endif; ?>
 
-                    <?php if($type === 'email'): ?>
-                        <span class="mec-event-data-field-value"><a href="mailto:<?php echo esc_attr($value); ?>"><?php echo esc_html($value); ?></a></span>
-                    <?php elseif($type === 'tel'): ?>
-                        <span class="mec-event-data-field-value"><a href="tel:<?php echo esc_attr($value); ?>"><?php echo esc_html($value); ?></a></span>
-                    <?php elseif($type === 'url'): ?>
-                        <span class="mec-event-data-field-value"><a href="<?php echo esc_url($value); ?>" target="_blank"><?php echo esc_html($value); ?></a></span>
-                    <?php else: ?>
-                        <span class="mec-event-data-field-value"><?php echo (is_array($value) ? esc_html(stripslashes(implode(', ', $value))) : esc_html(stripslashes($value))) ?></span>
-                    <?php endif; ?>
-                </li>
-                <?php endforeach; ?>
-            </ul>
+                            <?php if($type === 'email'): ?>
+                                <span class="mec-event-data-field-value"><a href="mailto:<?php echo esc_attr($value); ?>"><?php echo esc_html($value); ?></a></span>
+                            <?php elseif($type === 'tel'): ?>
+                                <span class="mec-event-data-field-value"><a href="tel:<?php echo esc_attr($value); ?>"><?php echo esc_html($value); ?></a></span>
+                            <?php elseif($type === 'url'): ?>
+                                <span class="mec-event-data-field-value"><a href="<?php echo esc_url($value); ?>" target="_blank"><?php echo esc_html($value); ?></a></span>
+                            <?php else: ?>
+                                <span class="mec-event-data-field-value"><?php echo (is_array($value) ? esc_html(stripslashes(implode(', ', $value))) : esc_html(stripslashes($value))) ?></span>
+                            <?php endif; ?>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
         </div>
         <?php
         }

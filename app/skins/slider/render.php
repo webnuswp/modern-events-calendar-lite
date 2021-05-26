@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_slider $this */
+
 $styling = $this->main->get_styling();
 $event_colorskin = (isset($styling['mec_colorskin']) or isset($styling['color'])) ? 'colorskin-custom' : '';
 $settings = $this->main->get_settings();
@@ -55,6 +57,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                             <div class="mec-event-detail"><div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></div></div>
                             <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
+                            <?php echo $this->display_custom_data($event); ?>
                         </div>
                         <div class="mec-event-footer">
                             <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
@@ -78,6 +81,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                                 <span class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></span>
                                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                             </div>
+                            <?php echo $this->display_custom_data($event); ?>
                         </div>
                         <div class="mec-event-footer">
                             <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
@@ -100,6 +104,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                                 <span class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) ? ' | '.$location['address'] : ''); ?></span>
                                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                             </div>
+                            <?php echo $this->display_custom_data($event); ?>
                         </div>
                         <div class="mec-slider-t3-footer">
                             <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
@@ -124,6 +129,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                             </div>
                         </div>
+                        <?php echo $this->display_custom_data($event); ?>
                         <div class="mec-slider-t4-footer">
                             <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>
                         </div>
@@ -157,6 +163,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <div class="mec-event-description mec-events-content">
                                 <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                             </div>
+                            <?php echo $this->display_custom_data($event); ?>
                         </div>
                         <div class="mec-event-footer">
                             <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>

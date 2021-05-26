@@ -10,7 +10,7 @@ $this->localtime = isset($this->skin_options['include_local_time']) ? $this->ski
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
 
-$dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
+$dark_mode = (isset($styling['dark_mode']) ? $styling['dark_mode'] : '');
 if($dark_mode == 1) $set_dark = 'mec-dark-mode';
 else $set_dark = '';
 ?>
@@ -94,6 +94,7 @@ else $set_dark = '';
             <div class="mec-timetable-t2-content">
                 <h4 class="mec-event-title">
                     <?php echo $this->display_link($event); ?>
+                    <?php echo $this->display_custom_data($event); ?>
                     <?php echo $this->main->get_flags($event); ?>
                 </h4>
                 <?php echo $this->get_label_captions($event,'mec-fc-style'); ?>

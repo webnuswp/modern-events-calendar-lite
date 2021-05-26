@@ -870,9 +870,12 @@ class MEC_skins extends MEC_base
                                 'timestamp' => $event_data->data->time['end_timestamp'],
                             )
                         );
+
                         $primary_key = $event_data->data->time['start_timestamp'];
+
                         // global variable for use dates
                         $MEC_Events_dates[$ID][$primary_key] = $date_times;
+
                         $d[] = $event_data;
                         $found++;
                     }
@@ -1260,8 +1263,6 @@ class MEC_skins extends MEC_base
                     <select id="mec_sf_month_'.$this->id.'">
                         <option value="">'.__('Select Month','modern-events-calendar-lite').'</option>';
 
-
-
                 $output .= $option;
                 $Y = date('Y', $time);
 
@@ -1518,6 +1519,23 @@ class MEC_skins extends MEC_base
 
         if($type === 'button') return '<a class="mec-modal-booking-button mec-mb-button" href="'.esc_url($link).'" '.$modal.'>'.esc_html($title).'</a>';
         else return '<a class="mec-modal-booking-button mec-mb-icon" title="' . esc_attr($title) . '" href="'.esc_url($link).'" '.$modal.'><i class="mec-sl-note"></i></a>';
+    }
+
+    public function display_custom_data($event)
+    {
+        $output = '';
+
+        $status = isset($this->skin_options['custom_data']) ? (boolean) $this->skin_options['custom_data'] : false;
+        if($status and is_object($event))
+        {
+            $single = new MEC_skin_single();
+
+            ob_start();
+            $single->display_data_fields($event, false, true);
+            $output .= ob_get_clean();
+        }
+
+        return $output;
     }
 
     public function display_categories($event)

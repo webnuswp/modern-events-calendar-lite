@@ -3073,7 +3073,6 @@ jQuery(document).ready(function ($) {
             }
 
             if (settings.style === 'type1') {
-
                 // Start carousel skin
                 var owl = $("#mec_skin_" + settings.id + " .mec-event-carousel-type1 .mec-owl-carousel");
 
@@ -3099,12 +3098,16 @@ jQuery(document).ready(function ($) {
                     autoplayHoverPause: true,
                     rtl: owl_rtl,
                 });
-                owl.bind(
-                    "mouseleave",
-                    function (event) {
-                        $("#mec_skin_" + settings.id + " .mec-owl-carousel").trigger('play.owl.autoplay');
-                    }
-                );
+
+                if(settings.autoplay_status)
+                {
+                    owl.bind(
+                        "mouseleave",
+                        function (event) {
+                            $("#mec_skin_" + settings.id + " .mec-owl-carousel").trigger('play.owl.autoplay');
+                        }
+                    );
+                }
             } else if (settings.style === 'type4') {
                 $("#mec_skin_" + settings.id + " .mec-owl-carousel").owlCarousel({
                     autoplay: settings.autoplay_status,
@@ -3130,12 +3133,16 @@ jQuery(document).ready(function ($) {
                     navText: ["<i class='mec-sl-arrow-left'></i>", " <i class='mec-sl-arrow-right'></i>"],
                     rtl: owl_rtl,
                 });
-                $("#mec_skin_" + settings.id + " .mec-owl-carousel").bind(
-                    "mouseleave",
-                    function (event) {
-                        $("#mec_skin_" + settings.id + " .mec-owl-carousel").trigger('play.owl.autoplay');
-                    }
-                );
+
+                if(settings.autoplay_status)
+                {
+                    $("#mec_skin_" + settings.id + " .mec-owl-carousel").bind(
+                        "mouseleave",
+                        function (event) {
+                            $("#mec_skin_" + settings.id + " .mec-owl-carousel").trigger('play.owl.autoplay');
+                        }
+                    );
+                }
             } else {
                 $("#mec_skin_" + settings.id + " .mec-owl-carousel").owlCarousel({
                     autoplay: settings.autoplay_status,
@@ -3160,12 +3167,16 @@ jQuery(document).ready(function ($) {
                     navText: typeof settings.navText != 'undefined' ? settings.navText : ["<i class='mec-sl-arrow-left'></i>", " <i class='mec-sl-arrow-right'></i>"],
                     rtl: owl_rtl,
                 });
-                $("#mec_skin_" + settings.id + " .mec-owl-carousel").bind(
-                    "mouseleave",
-                    function (event) {
-                        $("#mec_skin_" + settings.id + " .mec-owl-carousel").trigger('play.owl.autoplay');
-                    }
-                );
+
+                if(settings.autoplay_status)
+                {
+                    $("#mec_skin_" + settings.id + " .mec-owl-carousel").bind(
+                        "mouseleave",
+                        function (event) {
+                            $("#mec_skin_" + settings.id + " .mec-owl-carousel").trigger('play.owl.autoplay');
+                        }
+                    );
+                }
             }
         }
     };
@@ -3191,32 +3202,36 @@ jQuery(document).ready(function ($) {
 }(jQuery));
 
 // MEC SLIDER VIEW PLUGIN
-(function ($) {
-    $.fn.mecSliderView = function (options) {
+(function ($)
+{
+    $.fn.mecSliderView = function(options)
+    {
         // Default Options
         var settings = $.extend({
             // These are the defaults.
             id: 0,
             atts: '',
+            transition_time: 250,
             autoplay: false,
             ajax_url: '',
             sf: {},
             start_date: ''
         }, options);
 
+        var rtl = false;
+
         // Init Sliders
         initSlider();
 
-        function initSlider() {
+        function initSlider()
+        {
             // Check RTL website
-            if ($('body').hasClass('rtl')) {
-                var owl_rtl = true;
-            } else {
-                var owl_rtl = false;
-            }
+            if($('body').hasClass('rtl')) rtl = true;
 
-            $("#mec_skin_" + settings.id + " .mec-owl-carousel").owlCarousel({
+            $("#mec_skin_" + settings.id + " .mec-owl-carousel").owlCarousel(
+            {
                 autoplay: true,
+                smartSpeed: settings.transition_time,
                 autoplayTimeout: settings.autoplay,
                 loop: true,
                 items: 1,
@@ -3236,11 +3251,10 @@ jQuery(document).ready(function ($) {
                 nav: true,
                 autoplayHoverPause: true,
                 navText: typeof settings.navText != 'undefined' ? settings.navText : ["<i class='mec-sl-arrow-left'></i>", " <i class='mec-sl-arrow-right'></i>"],
-                rtl: owl_rtl,
+                rtl: rtl,
             });
         }
     };
-
 }(jQuery));
 
 // MEC COUNTDOWN MODULE

@@ -1061,7 +1061,7 @@ class MEC_factory extends MEC_base
     {
         $styling = $this->main->get_styling();
 
-        $dark_mode = isset($styling['dark_mode']) ? $styling['dark_mode'] : '';
+        $dark_mode = (isset($styling['dark_mode']) ? $styling['dark_mode'] : '');
         if(!empty($dark_mode) and $dark_mode == 1) $dark[] = 'mec-dark-mode';
 
         return $dark;

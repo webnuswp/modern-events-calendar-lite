@@ -478,12 +478,12 @@ class MEC_skin_grid extends MEC_skins
         // Override variables
         if(strpos($this->style, 'fluent') === false)
         {
-            $this->start_date = $this->request->getVar('mec_start_date', date('y-m-d'));
+            $this->start_date = sanitize_text_field($this->request->getVar('mec_start_date', date('y-m-d')));
         }
         else
         {
             $this->maximum_date = $this->request->getVar('mec_maximum_date');
-            $mecStartDate = $this->request->getVar('mec_start_date', date('y-m-d'));
+            $mecStartDate = sanitize_text_field($this->request->getVar('mec_start_date', date('y-m-d')));
             $this->start_date = strtotime($mecStartDate) > strtotime($this->maximum_date) ? $this->maximum_date :  $mecStartDate;
             $this->year = $this->request->getVar('mec_year');
             $this->month = $this->request->getVar('mec_month');

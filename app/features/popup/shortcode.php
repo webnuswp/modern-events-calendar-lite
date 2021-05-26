@@ -478,7 +478,7 @@ $main_page = isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : '';
                                 <input type="radio" name="shortcode[sed]" value="0" checked>
                                 <?php _e('Current Window', 'modern-events-calendar-lite'); ?>
                             </label>
-                            <label>
+                            <label class="active">
                                 <input type="radio" name="shortcode[sed]" value="new" checked>
                                 <?php _e('New Window', 'modern-events-calendar-lite'); ?>
                             </label>

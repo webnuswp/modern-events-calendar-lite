@@ -117,6 +117,7 @@ elseif($week_start == 5) // Friday
                     if($this->localtime) $tooltip_content .= $this->main->module('local-time.type2', array('event'=>$event));
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '';
                     $tooltip_content .= $this->booking_button($event);
+                    $tooltip_content .= $this->display_custom_data($event);
 
                     // MEC Schema
                     do_action('mec_schema', $event);

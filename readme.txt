@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.7.1
-Stable tag: 5.19.1
+Tested up to: 5.7.2
+Stable tag: 5.19.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,7 +24,7 @@ WordPress event calendar plugin is the best tool used for managing events websit
 We gathered all features of [event calendar](https://webnus.net/modern-events-calendar/) as you desire with advanced booking system ([Pro Version](https://webnus.net/mec-purchase/?ref=17/)) and many other useful options which are practical in real world!
 Using [Modern Events Calendar Lite](https://webnus.net/modern-events-calendar/), you can create different single or [recurring events](https://webnus.net/modern-events-calendar/) and show them in frontend of your website using many modern skins and styles.
 
-https://www.youtube.com/watch?v=GjRVKIwD5jY
+https://www.youtube.com/watch?v=VIqEXcT56kE
 
 == Best WordPress Event Management Plugin ==
 Fortunately, though WordPress doesn’t enable these functions out of the box, there’s a plugin you can use. Modern Events Calendar is an easy way to manage events of all kinds on your WordPress site. As the name suggests, the core benefit of Modern Events Calendar is that it lets you create an events calendar that looks pretty great out of the box. That latter part is important because some popular event calendar plugins require a lot of custom styling to make them look good, which is tough if you don’t know your way around CSS.
@@ -309,6 +309,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Related Events Module
 - Custom Booking Form for Single Events (*pro*)
 - Payments for Certain Single Events (*pro*)
+- Transaction IDs with using an ordered number
 - Shortcode Creator
 - Add Event in the form of wizard
 - Add shortcode in the form of wizard
@@ -451,6 +452,31 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.19.5 – 26 May 2021 =
+- Added: A new ability to show all locations of an event in the event single map (pro)
+- Added: A new ability to include a pin for all locations of all events in the map modules (pro)
+- Added: Start and End times to the event list in the backend in addition to dates
+- Added: A new feature to change the transition time of slider skin
+- Added: Some options to redirect the user to the cancellation page after the cancellation of a booking
+- Added: A new option to generate transaction IDs using an ordered number with prefix instead of random numbers (pro)
+- Added: A new panel to show bookings of the current event in the edit event menu of the backend (pro)
+- Added: A new option in “Frontend Event Submission” to include the booking panel
+- Added: An option to enable bookings only for certain roles (pro)
+- Added: Displaying of custom fields in the shortcodes with an option to enable or disable
+- Added: Some new filters to modify the content ical file
+- Added: Attendee Counter in the attendee form (pro)
+- Improved: The order of terms in the search module
+- Improved: The “Using WC as payment system” and fixed some issues (pro)
+- Improved: The breadcrumb
+- Improved: The role of controlling for main menus
+- Fixed: Some issues in MEC notifications
+- Fixed: Showing the Expired label when the event is ongoing
+- Fixed: A special date format in the export module
+- Fixed: A potential SQL injection issue
+- Fixed: An autoplay issue in carousel skin
+- Fixed: Google Calendar import/export when another plugin is loading the Google SDK
+- Fixed: Some minor issues
 
 = 5.19.1 – 12 May 2021 =
 - Added: An option to disable booking multiple seats on “Sell All Occurrences by One Booking” events per email (pro)

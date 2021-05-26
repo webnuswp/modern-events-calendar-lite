@@ -70,7 +70,7 @@ $map_events = array();
                     <div class="col-md-6 col-sm-6">
                         <?php do_action('list_std_title_hook', $event); ?>
                         <?php $soldout = $this->main->get_flags($event); ?>
-                        <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?><?php echo $this->get_label_captions($event,'mec-fc-style'); ?></h4>
+                        <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php echo $this->display_custom_data($event); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?><?php echo $this->get_label_captions($event,'mec-fc-style'); ?></h4>
                         <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                         <div class="mec-event-detail">
                             <div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : '') . (isset($location['address']) && !empty($location['address']) ? ' | '.$location['address'] : ''); ?></div>
@@ -95,7 +95,7 @@ $map_events = array();
                     <?php endif; ?>
                     <?php echo $this->get_label_captions($event); ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
-                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
+                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                     <?php if(isset($location['name'])): ?><div class="mec-event-detail"><div class="mec-event-loc-place"><i class="mec-sl-map-marker"></i> <?php echo (isset($location['name']) ? $location['name'] : ''); ?></div></div><?php endif; ?>
                     <?php echo $this->display_categories($event); ?>
                     <?php echo $this->display_organizers($event); ?>
@@ -127,7 +127,7 @@ $map_events = array();
                         <?php endif; ?>
 
                         <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
-                        <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
+                        <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                         <div class="mec-event-detail">
                             <?php echo $this->main->date_i18n($this->date_format_minimal_3, strtotime($event->date['start']['date'])); ?>
                             <?php echo (isset($location['name']) ? ', <span class="mec-event-loc-place">' . $location['name'] .'</span>' : ''); ?> <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
@@ -158,7 +158,7 @@ $map_events = array();
                         <div class="col-md-6 mec-col-table-c mec-event-content-wrap">
                             <div class="mec-event-content">
                                 <?php $soldout = $this->main->get_flags($event); ?>
-                                <h3 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h3>
+                                <h3 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $soldout.$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h3>
                                 <div class="mec-event-description"><?php echo $excerpt.(trim($excerpt) ? ' <span>...</span>' : ''); ?></div>
                             </div>
                         </div>

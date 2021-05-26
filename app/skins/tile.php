@@ -419,7 +419,7 @@ class MEC_skin_tile extends MEC_skins
         $this->initialize($atts);
 
         // Override variables
-        $this->start_date = $this->request->getVar('mec_start_date', date('y-m-d'));
+        $this->start_date = sanitize_text_field($this->request->getVar('mec_start_date', date('y-m-d')));
         $this->end_date = $this->start_date;
         $this->offset = $this->request->getVar('mec_offset', 0);
 

@@ -56,6 +56,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <?php echo $this->booking_button($event); ?>
                             <?php if($this->localtime) echo $this->main->module('local-time.type2', array('event'=>$event)); ?>
                         </span>
+                        <?php echo $this->display_custom_data($event); ?>
                         <?php do_action('mec_agenda_skin_attribute', $organizer, $location); ?>
                     </div>
                 <?php endif; ?>

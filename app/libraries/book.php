@@ -153,8 +153,25 @@ class MEC_book extends MEC_base
      */
     public function get_transaction_id()
     {
+        $method = ((isset($this->settings['booking_tid_gen_method']) and trim($this->settings['booking_tid_gen_method'])) ? $this->settings['booking_tid_gen_method'] : 'random');
+
         $string = str_shuffle('ABCDEFGHJKLMNOPQRSTUVWXYZ');
-        $key = substr($string, 0, 3).mt_rand(10000, 99999);
+        $prefix = substr($string, 0, 3);
+
+        if($method === 'ordered')
+        {
+            $start = ((isset($this->settings['booking_tid_start_from']) and is_numeric($this->settings['booking_tid_start_from']) and $this->settings['booking_tid_start_from'] >= 1) ? $this->settings['booking_tid_start_from'] : 10000);
+            $existing = get_option('mec_tid_current', 1);
+
+            $number = max($start, $existing)+1;
+
+            $key = $prefix.$number;
+            update_option('mec_tid_current', $number);
+        }
+        else
+        {
+            $key = $prefix.mt_rand(10000, 99999);
+        }
 
         // If the key exist then generate another key
         if(get_option($key, false) !== false) $key = $this->get_transaction_id();
@@ -1320,10 +1337,12 @@ class MEC_book extends MEC_base
         }
 
         $ticket_total_price = NULL;
-        if(is_numeric($ticket_price) and is_numeric($variation_price) and is_numeric($total_fees) and is_numeric($discounts)) $ticket_total_price = ($ticket_price + $variation_price + ($total_fees / count($all_attendees))) - ($discounts / count($all_attendees));
+        if(is_numeric($ticket_price) and is_numeric($variation_price) and is_numeric($total_fees) and is_numeric($discounts)){
 
+            $ticket_total_price = ($ticket_price + $variation_price + ($total_fees / count($all_attendees))) - ($discounts / count($all_attendees));
+        }
 
-        return ($ticket_total_price ? $ticket_total_price : $total_price);
+        return (!is_null($ticket_total_price) ? $ticket_total_price : $total_price);
     }
 
     /**

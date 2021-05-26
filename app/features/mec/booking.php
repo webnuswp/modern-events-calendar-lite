@@ -141,6 +141,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         </span>
                                     </div>
                                 </div>
+                                <h5 class="mec-form-subtitle"><?php _e('Booking Cancellation', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <label class="mec-col-3" for="mec_settings_cancellation_period_from"><?php _e('Cancellation Period', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-9">
@@ -166,6 +167,37 @@ $gateways_options = $this->main->get_gateways_options();
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_cancel_page"><?php _e('Cancellation Page', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-9">
+                                        <select id="mec_settings_booking_cancel_page" name="mec[settings][booking_cancel_page]">
+                                            <option value="">----</option>
+                                            <?php foreach($pages as $page): ?>
+                                            <option <?php echo ((isset($settings['booking_cancel_page']) and $settings['booking_cancel_page'] == $page->ID) ? 'selected="selected"' : ''); ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box left">
+                                                <h5 class="title"><?php _e('Cancellation Page', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("User redirects to this page after booking cancellation. Leave it empty if you want to disable it.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_cancel_page_time"><?php _e('Cancellation Page Time Interval', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-9">
+                                        <input type="number" id="mec_settings_booking_cancel_page_time" name="mec[settings][booking_cancel_page_time]" value="<?php echo ((isset($settings['booking_cancel_page_time']) and trim($settings['booking_cancel_page_time']) != '0') ? $settings['booking_cancel_page_time'] : '2000'); ?>" placeholder="<?php esc_attr_e('2000 means 2 seconds', 'modern-events-calendar-lite'); ?>" />
+                                        <span class="mec-tooltip">
+                                            <div class="box left">
+                                                <h5 class="title"><?php _e('Cancellation Page Time Interval', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Waiting time before redirecting to cancellation page. It's in miliseconds so 2000 means 2 seconds.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
                                 </div>
                                 <h5 class="title"><?php _e('User Registration', 'modern-events-calendar-lite'); ?></h5>
@@ -315,6 +347,45 @@ $gateways_options = $this->main->get_gateways_options();
                                         </span>
                                     </div>
                                 </div>
+                                <h5 class="mec-form-subtitle"><?php _e('Transaction ID', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="mec-form-row">
+                                    <label class="mec-col-3" for="mec_settings_booking_tid_generation_method"><?php _e('Generation Method', 'modern-events-calendar-lite'); ?></label>
+                                    <div class="mec-col-9">
+                                        <select id="mec_settings_booking_tid_generation_method" name="mec[settings][booking_tid_gen_method]" onchange="jQuery('#mec_settings_booking_tid_ordered_generation').toggleClass('mec-util-hidden');">
+                                            <option <?php echo ((isset($settings['booking_tid_gen_method']) and $settings['booking_tid_gen_method'] == 'random') ? 'selected="selected"' : ''); ?> value="random"><?php echo esc_html__('Random', 'modern-events-calendar-lite'); ?></option>
+                                            <option <?php echo ((isset($settings['booking_tid_gen_method']) and $settings['booking_tid_gen_method'] == 'ordered') ? 'selected="selected"' : ''); ?> value="ordered"><?php echo esc_html__('Ordered Numbers', 'modern-events-calendar-lite'); ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="mec_settings_booking_tid_ordered_generation" class="<?php echo (!isset($settings['booking_tid_gen_method']) or (isset($settings['booking_tid_gen_method']) and $settings['booking_tid_gen_method'] == 'random')) ? 'mec-util-hidden' : ''; ?>">
+                                    <div class="mec-form-row">
+                                        <label class="mec-col-3" for="mec_settings_booking_tid_start_from"><?php _e('Start From', 'modern-events-calendar-lite'); ?></label>
+                                        <div class="mec-col-9">
+                                            <input type="number" id="mec_settings_booking_tid_start_from" name="mec[settings][booking_tid_start_from]" value="<?php echo (isset($settings['booking_tid_start_from']) ? $settings['booking_tid_start_from'] : 10000); ?>" min="1" step="1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="mec-form-subtitle"><?php _e('Who can book?', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="mec-form-row">
+                                    <label for="mec_settings_booking_wcb_all">
+                                        <input type="hidden" name="mec[settings][booking_wcb_all]" value="0" />
+                                        <input type="checkbox" name="mec[settings][booking_wcb_all]" id="mec_settings_booking_wcb_all" <?php echo ((!isset($settings['booking_wcb_all']) or (isset($settings['booking_wcb_all']) and $settings['booking_wcb_all'] == '1')) ? 'checked="checked"' : ''); ?> value="1" onchange="jQuery('#mec_settings_booking_booking_wcb_options').toggleClass('mec-util-hidden');" />
+                                        <?php _e('All Users', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div id="mec_settings_booking_booking_wcb_options" class="<?php echo (!isset($settings['booking_wcb_all']) or (isset($settings['booking_wcb_all']) and $settings['booking_wcb_all'] == '1')) ? 'mec-util-hidden' : ''; ?>" style="margin: 0 0 40px 0; padding: 20px 20px 4px; border: 1px solid #ddd;">
+                                    <?php foreach($roles as $role_key => $role): $wcb_value = isset($settings['booking_wcb_'.$role_key]) ? $settings['booking_wcb_'.$role_key] : 1; ?>
+                                        <div class="mec-form-row">
+                                            <div class="mec-col-12">
+                                                <label for="mec_settings_booking_wcb_<?php echo $role_key; ?>">
+                                                    <input type="hidden" name="mec[settings][booking_wcb_<?php echo $role_key; ?>]" value="0" />
+                                                    <input type="checkbox" name="mec[settings][booking_wcb_<?php echo $role_key; ?>]" id="mec_settings_booking_wcb_<?php echo $role_key; ?>" <?php echo ((!isset($settings['booking_wcb_'.$role_key]) or (isset($settings['booking_wcb_'.$role_key]) and $settings['booking_wcb_'.$role_key] == '1')) ? 'checked="checked"' : ''); ?> value="1" />
+                                                    <?php echo $role['name']; ?>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
                                 <h5 class="mec-form-subtitle"><?php _e('Booking Elements', 'modern-events-calendar-lite'); ?></h5>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -330,6 +401,17 @@ $gateways_options = $this->main->get_gateways_options();
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
+                                    </div>
+                                </div>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <label for="mec_settings_attendee_counter">
+                                            <input type="hidden" name="mec[settings][attendee_counter]" value="0" />
+                                            <input type="checkbox" name="mec[settings][attendee_counter]" id="mec_settings_attendee_counter"
+                                                <?php echo ((isset($settings['attendee_counter']) and $settings['attendee_counter'] == '1') ? 'checked="checked"' : ''); ?>
+                                                value="1" />
+                                            <?php _e('Attendee Counter', 'modern-events-calendar-lite'); ?>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
@@ -437,7 +519,7 @@ $gateways_options = $this->main->get_gateways_options();
 
                             <div class="mec-form-row">
                                 <div class="mec-col-12">
-                                    <p><?php echo sprintf(__("Booking module is available in the event details page but if you like to embed booking module of certain event into a custom WP page or post or any shortcode compatible widgets, all you need to do is to insert %s shortcode into the page content and place the event id instead of 1.", 'modern-events-calendar-lite'), '<strong>[mec-booking event-id="1"]</strong>'); ?></p>
+                                    <p><?php echo sprintf(__("Booking module is available in the event details page but if you like to embed booking module of certain event into a custom WP page or post or any shortcode compatible widgets, all you need to do is to insert %s shortcode into the page content and place the event id instead of 1.", 'modern-events-calendar-lite'), '<code>[mec-booking event-id="1"]</code>'); ?></p>
                                     <p><?php echo sprintf(__('Also, you can insert %s if you like to show only one of the available tickets in booking module. Instead of 1 you should insert the ticket ID. This parameter is optional.', 'modern-events-calendar-lite'), '<strong>ticket-id="1"</strong>'); ?></p>
                                 </div>
                             </div>

@@ -38,7 +38,7 @@ $map_events = array();
                 // MEC Schema
                 do_action('mec_schema', $event);
                 ?>
-                    <article <?php if($method != 'no'): ?>data-href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" data-target="<?php echo ($method == 'new' ? 'blank' : $method); ?>"<?php endif; ?> <?php echo 'style="background:' . $event_color . $background_image. '"'; ?> class="<?php echo ((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event' : ''); ?> mec-event-article mec-tile-item <?php echo $me_class; ?> mec-clear <?php echo $this->get_event_classes($event); ?>">
+                    <article <?php if($method != 'no'): ?> data-href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" data-target="<?php echo ($method == 'new' ? 'blank' : $method); ?>"<?php endif; ?> <?php echo 'style="background:' . $event_color . $background_image. '"'; ?> class="<?php echo ((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event' : ''); ?> mec-event-article mec-tile-item <?php echo $me_class; ?> mec-clear <?php echo $this->get_event_classes($event); ?>">
                         <?php do_action('mec_skin_tile_view', $event); ?>
                         <?php echo $this->get_label_captions($event); ?>
                         <div class="event-tile-view-head clearfix">
@@ -51,6 +51,7 @@ $map_events = array();
                             <div class="mec-event-time"><i class="mec-sl-clock"></i><?php echo $start_time; ?></div>
                         </div>
                         <div class="mec-event-content" data-target="<?php echo ($method == 'new' ? 'blank' : $method); ?>" data-event-id="<?php echo $event->ID; ?>">
+                        <?php if($method != 'no'): ?><a href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" target="<?php echo ($method == 'new' ? '_blank' : $method); ?>" class="mec-tile-into-content-link"></a><?php endif; ?>
                             <div class="mec-tile-event-content">
                                 <div class="mec-event-detail">
                                     <?php echo $this->display_categories($event); ?>
@@ -64,7 +65,7 @@ $map_events = array();
                                     <?php endif; ?>
                                 </div>
                                 <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
-                                <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event); ?></h4>
+                                <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $this->main->get_flags($event); ?></h4>
                                 <?php echo $this->booking_button($event); ?>
                             </div>
                         </div>

@@ -54,7 +54,6 @@ class MEC_feature_occurrences extends MEC_base
         if(!isset($this->settings['fes_section_occurrences']) or (isset($this->settings['fes_section_occurrences']) and $this->settings['fes_section_occurrences'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_occurrences'), 18);
 
         // AJAX
-        $this->factory->action('wp_ajax_mec_occurrences_dropdown', array($this, 'dropdown'));
         $this->factory->action('wp_ajax_mec_occurrences_add', array($this, 'add'));
         $this->factory->action('wp_ajax_mec_occurrences_delete', array($this, 'delete'));
 
@@ -264,48 +263,6 @@ class MEC_feature_occurrences extends MEC_base
         }
         </script>
         <?php
-    }
-
-    public function dropdown()
-    {
-        // Check if our nonce is set.
-        if(!isset($_POST['_wpnonce'])) $this->main->response(array('success'=>0, 'code'=>'NONCE_MISSING'));
-
-        // Verify that the nonce is valid.
-        if(!wp_verify_nonce(sanitize_text_field($_POST['_wpnonce']), 'mec_occurrences_dropdown')) $this->main->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
-
-        $date = isset($_POST['date']) ? $_POST['date'] : '';
-        $id = isset($_POST['id']) ? $_POST['id'] : '';
-
-        // Date is invalid!
-        if(!trim($date) or !trim($id)) $this->main->response(array('success'=>0, 'code'=>'DATE_OR_ID_IS_INVALID'));
-
-        $dates = explode(':', $date);
-
-        $limit = 100;
-        $now = $dates[0];
-        $_6months_ago = strtotime('-6 Months', $now);
-
-        $occurrences = $this->get_dates($id, $now, $limit);
-
-        $date_format = get_option('date_format');
-        $time_format = get_option('time_format');
-        $datetime_format = $date_format.' '.$time_format;
-
-        $success = 0;
-        $html = '<option class="mec-load-occurrences" value="'.$_6months_ago.':'.$_6months_ago.'">'.__('Previous Occurrences', 'modern-events-calendar-lite').'</option>';
-
-        $i = 1;
-        foreach($occurrences as $occurrence)
-        {
-            $success  = 1;
-            $html .= '<option value="'.$occurrence->tstart.':'.$occurrence->tend.'" '.($i === 1 ? 'selected="selected"' : '').'>'.(date_i18n($datetime_format, $occurrence->tstart)).'</option>';
-            $i++;
-        }
-
-        if(count($occurrences) >= $limit and isset($occurrence)) $html .= '<option class="mec-load-occurrences" value="'.$occurrence->tstart.':'.$occurrence->tend.'">'.__('Next Occurrences', 'modern-events-calendar-lite').'</option>';
-
-        $this->main->response(array('success'=>$success, 'html'=>$html));
     }
 
     public function delete()

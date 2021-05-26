@@ -75,7 +75,7 @@ class MEC_feature_ix extends MEC_base
      */
     public function include_google_api()
     {
-        if(class_exists('Google_Client')) return;
+        if(class_exists('Google_Service_Calendar')) return;
 
         MEC::import('app.api.Google.autoload', false);
     }

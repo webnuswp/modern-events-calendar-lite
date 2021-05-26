@@ -30,22 +30,26 @@ $gmt_offset_seconds = $this->get_gmt_offset_seconds($event->date['start']['date'
  */
 $event_id = $event->ID;
 
-global $MEC_Events_dates, $MEC_Events_dates_localtime;
-if(empty($MEC_Events_dates_localtime)) $MEC_Events_dates_localtime = $MEC_Events_dates;
-
-$dates = array();
-if(is_array($MEC_Events_dates_localtime[$event_id]))
-{
-    $k = $this->array_key_first($MEC_Events_dates_localtime[$event_id]);
-
-    $dates = (isset($MEC_Events_dates_localtime[$event_id][$k]) ? $MEC_Events_dates_localtime[$event_id][$k] : NULL);
-    $start_time = isset($dates['start']['time']) ? $dates['start']['time'] : $start_time;
-    $end_time = isset($dates['end']['time']) ? $dates['end']['time'] : $end_time;
-    unset($MEC_Events_dates_localtime[$event_id][$k]);
+global $MEC_Events_dates, $MEC_Events_dates_localtime,$MEC_Shortcode_id;
+if(!isset($MEC_Events_dates_localtime[$MEC_Shortcode_id]) || empty($MEC_Events_dates_localtime[$MEC_Shortcode_id])){
+    $MEC_Events_dates_localtime[$MEC_Shortcode_id] = $MEC_Events_dates;
 }
 
-$start_date = (isset($dates['start']['date']) ? $dates['start']['date'] : get_option('mec_sd_time_option'));
-$end_date = (isset($dates['start']['date']) ? $dates['start']['date'] : get_option('mec_esd_time_option'));
+$dates = array();
+if(is_array($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id]))
+{
+    $k = $this->array_key_first($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id]);
+    if(isset($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k])){
+
+        $dates = (isset($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k]) ? $MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k] : NULL);
+        $start_time = isset($dates['start']['time']) ? $dates['start']['time'] : $start_time;
+        $end_time = isset($dates['end']['time']) ? $dates['end']['time'] : $end_time;
+        unset($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k]);
+    }
+}
+
+$start_date = (isset($dates['start']['date']) ? $dates['start']['date'] : $event->date['start']['date']);
+$end_date = (isset($dates['end']['date']) ? $dates['end']['date'] : $event->date['end']['date']);
 
 $gmt_start_time = strtotime($start_date.' '.$start_time) - $gmt_offset_seconds;
 $gmt_end_time = strtotime($end_date.' '.$end_time) - $gmt_offset_seconds;

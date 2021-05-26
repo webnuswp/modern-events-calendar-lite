@@ -14,7 +14,24 @@ class MEC_skin_slider extends MEC_skins
     public $skin = 'slider';
     public $display_price;
     public $display_available_tickets;
-    
+    public $autoplay;
+    public $transition_time;
+    public $date_format_type1_1;
+    public $date_format_type1_2;
+    public $date_format_type1_3;
+    public $date_format_type2_1;
+    public $date_format_type2_2;
+    public $date_format_type2_3;
+    public $date_format_type3_1;
+    public $date_format_type3_2;
+    public $date_format_type3_3;
+    public $date_format_type4_1;
+    public $date_format_type4_2;
+    public $date_format_type4_3;
+    public $date_format_type5_1;
+    public $date_format_type5_2;
+    public $date_format_type5_3;
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -78,8 +95,11 @@ class MEC_skin_slider extends MEC_skins
         $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'type1';
         if($this->style == 'fluent' and !is_plugin_active('mec-fluent-layouts/mec-fluent-layouts.php')) $this->style = 'type1';
         
-        // The auto play time
+        // Autoplay Time
         $this->autoplay = (isset($this->skin_options['autoplay']) and trim($this->skin_options['autoplay']) != '') ? $this->skin_options['autoplay'] : 3000;
+
+        // Transition Time
+        $this->transition_time = (isset($this->skin_options['transition_time']) and trim($this->skin_options['transition_time']) != '' and is_numeric($this->skin_options['transition_time'])) ? $this->skin_options['transition_time'] : 250;
 
         // Override the style if the style forced by us in a widget etc
         if(isset($this->atts['style']) and trim($this->atts['style']) != '') $this->style = $this->atts['style'];

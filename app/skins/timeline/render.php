@@ -52,7 +52,7 @@ $sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['se
                             <div class="mec-timeline-left-content">
                                 <div class="mec-timeline-main-content">
                                     <?php $soldout = $this->main->get_flags($event); ?>
-                                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $soldout.$event_color; ?><?php echo $this->get_label_captions($event,'mec-fc-style'); ?></h4>
+                                    <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $soldout.$event_color; ?><?php echo $this->get_label_captions($event,'mec-fc-style'); ?></h4>
                                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                     <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
                                     <?php echo $this->display_categories($event); ?>
@@ -80,7 +80,7 @@ $sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['se
                                 </div>
                             </div>
                         </div>
-                        <?php if ( $sed_method != 'no' ) echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Details', 'modern-events-calendar-lite'))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color'); ?>
+                        <?php if($sed_method != 'no') echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', __('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Details', 'modern-events-calendar-lite'))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color'); ?>
                     </div>
                 </div>
                 

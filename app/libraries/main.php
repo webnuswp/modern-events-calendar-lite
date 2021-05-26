@@ -16,7 +16,7 @@ class MEC_main extends MEC_base
     public function __construct()
     {
     }
-    
+
     /**
      * Returns the archive URL of events for provided skin
      * @author Webnus <info@webnus.biz>
@@ -27,7 +27,7 @@ class MEC_main extends MEC_base
     {
         return $this->URL('site').$this->get_main_slug().'/'.$skin.'/';
     }
-    
+
     /**
      * Returns full current URL of WordPress
      * @author Webnus <info@webnus.biz>
@@ -37,21 +37,21 @@ class MEC_main extends MEC_base
 	{
 		// get $_SERVER
 		$server = $this->getRequest()->get('SERVER');
-		
+
         // Check protocol
 		$page_url = 'http';
 		if(isset($server['HTTPS']) and $server['HTTPS'] == 'on') $page_url .= 's';
-		
+
         // Get domain
         $site_domain = (isset($server['HTTP_HOST']) and trim($server['HTTP_HOST']) != '') ? $server['HTTP_HOST'] : $server['SERVER_NAME'];
-        
+
 		$page_url .= '://';
 		$page_url .= $site_domain.$server['REQUEST_URI'];
-		
+
         // Return full URL
 		return $page_url;
 	}
-    
+
     /**
      * Get domain of a certain URL
      * @author Webnus <info@webnus.biz>
@@ -62,19 +62,19 @@ class MEC_main extends MEC_base
 	{
         // Get current URL
         if(is_null($url)) $url = $this->get_full_url();
-        
+
 		$url = str_replace('http://', '', $url);
 		$url = str_replace('https://', '', $url);
 		$url = str_replace('ftp://', '', $url);
 		$url = str_replace('svn://', '', $url);
         $url = str_replace('www.', '', $url);
-		
+
 		$ex = explode('/', $url);
 		$ex2 = explode('?', $ex[0]);
-		
+
 		return $ex2[0];
 	}
-    
+
     /**
      * Remove query string from the URL
      * @author Webnus <info@webnus.biz>
@@ -85,13 +85,13 @@ class MEC_main extends MEC_base
     public function remove_qs_var($key, $url = '')
 	{
 		if(trim($url) == '') $url = $this->get_full_url();
-		
+
 		$url = preg_replace('/(.*)(\?|&)'.$key.'=[^&]+?(&)(.*)/i', '$1$2$4', $url .'&');
 		$url = substr($url, 0, -1);
-        
+
 		return $url;
 	}
-    
+
     /**
      * Add query string to the URL
      * @author Webnus <info@webnus.biz>
@@ -103,16 +103,16 @@ class MEC_main extends MEC_base
 	public function add_qs_var($key, $value, $url = '')
 	{
 		if(trim($url) == '') $url = $this->get_full_url();
-		
+
 		$url = preg_replace('/(.*)(\?|&)'.$key.'=[^&]+?(&)(.*)/i', '$1$2$4', $url.'&');
 		$url = substr($url, 0, -1);
-		
+
 		if(strpos($url, '?') === false)
 			return $url.'?'.$key.'='.$value;
 		else
 			return $url.'&'.$key.'='.$value;
 	}
-    
+
     /**
      * Add multiple query strings to the URL
      * @author Webnus <info@webnus.biz>
@@ -123,11 +123,11 @@ class MEC_main extends MEC_base
     public function add_qs_vars($vars, $url = '')
 	{
 		if(trim($url) == '') $url = $this->get_full_url();
-		
+
 		foreach($vars as $key=>$value) $url = $this->add_qs_var($key, $value, $url);
         return $url;
 	}
-    
+
     /**
      * Returns WordPress authors
      * @author Webnus <info@webnus.biz>
@@ -138,7 +138,7 @@ class MEC_main extends MEC_base
 	{
 		return get_users($args);
 	}
-    
+
     /**
      * Returns full URL of an asset
      * @author Webnus <info@webnus.biz>
@@ -177,7 +177,7 @@ class MEC_main extends MEC_base
 
 		return $url;
 	}
-    
+
     /**
      * Returns URL of WordPress items such as site, admin, plugins, MEC plugin etc.
      * @author Webnus <info@webnus.biz>
@@ -188,7 +188,7 @@ class MEC_main extends MEC_base
 	{
 		// Make it lowercase
 		$type = strtolower($type);
-		
+
         // Frontend
 		if(in_array($type, array('frontend','site'))) $url = home_url().'/';
         // Backend
@@ -207,10 +207,10 @@ class MEC_main extends MEC_base
             // If plugin embeded into one theme
 			else $url = get_template_directory_uri().'/plugins/'.MEC_DIRNAME.'/';
 		}
-		
+
 		return $url;
 	}
-    
+
     /**
      * Returns plugin absolute path
      * @author Webnus <info@webnus.biz>
@@ -220,7 +220,7 @@ class MEC_main extends MEC_base
     {
         return MEC_ABSPATH;
     }
-    
+
     /**
      * Returns a WordPress option
      * @author Webnus <info@webnus.biz>
@@ -232,7 +232,7 @@ class MEC_main extends MEC_base
     {
         return get_option($option, $default);
     }
-    
+
     /**
      * Returns WordPress categories based on arguments
      * @author Webnus <info@webnus.biz>
@@ -243,7 +243,7 @@ class MEC_main extends MEC_base
     {
         return get_categories($args);
     }
-    
+
     /**
      * Returns WordPress tags based on arguments
      * @author Webnus <info@webnus.biz>
@@ -254,7 +254,7 @@ class MEC_main extends MEC_base
     {
         return get_tags($args);
     }
-    
+
     /**
      * Convert location string to latitude and longitude
      * @author Webnus <info@webnus.biz>
@@ -265,10 +265,10 @@ class MEC_main extends MEC_base
 	{
 		$address = urlencode($address);
 		if(!trim($address)) return array(0, 0);
-        
+
         // MEC Settings
         $settings = $this->get_settings();
-        
+
 		$url1 = "https://maps.googleapis.com/maps/api/geocode/json?address=".$address.((isset($settings['google_maps_api_key']) and trim($settings['google_maps_api_key']) != '') ? '&key='.$settings['google_maps_api_key'] : '');
 		$url2 = 'http://www.datasciencetoolkit.org/maps/api/geocode/json?sensor=false&address='.$address;
 
@@ -280,7 +280,7 @@ class MEC_main extends MEC_base
         )));
 
 		$data = json_decode($JSON, true);
-		
+
 		$location_point = isset($data['results'][0]) ? $data['results'][0]['geometry']['location'] : array();
 		if((isset($location_point['lat']) and $location_point['lat']) and (isset($location_point['lng']) and $location_point['lng']))
 		{
@@ -304,7 +304,7 @@ class MEC_main extends MEC_base
 
 		return array(0, 0);
 	}
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @return string
@@ -313,7 +313,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_default_label_color', '#fefefe');
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @param mixed $event
@@ -330,7 +330,7 @@ class MEC_main extends MEC_base
         $content = apply_filters('the_content', str_replace('[MEC ', '', $post->post_content));
         return str_replace(']]>', ']]&gt;', do_shortcode($content));
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @param int $post_id
@@ -345,10 +345,10 @@ class MEC_main extends MEC_base
         if(!is_array($raw_data)) return $data;
 
         foreach($raw_data as $key=>$val) $data[$key] = isset($val[0]) ? (!is_serialized($val[0]) ? $val[0] : unserialize($val[0])) : NULL;
-        
+
         return $data;
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @return array
@@ -400,7 +400,7 @@ class MEC_main extends MEC_base
 
         return apply_filters('mec_months_labels', $labels);
     }
-    
+
     /**
      * Returns weekday labels
      * @author Webnus <info@webnus.biz>
@@ -410,20 +410,20 @@ class MEC_main extends MEC_base
     public function get_weekday_labels($week_start = NULL)
     {
         if(is_null($week_start)) $week_start = $this->get_first_day_of_week();
-        
+
         /**
          * Please don't change it to translate-able strings
          */
         $raw = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-        
+
         $labels = array_slice($raw, $week_start);
         $rest = array_slice($raw, 0, $week_start);
-        
+
         foreach($rest as $label) array_push($labels, $label);
-        
+
         return apply_filters('mec_weekday_labels', $labels);
     }
-    
+
     /**
      * Returns abbr weekday labels
      * @author Webnus <info@webnus.biz>
@@ -441,15 +441,15 @@ class MEC_main extends MEC_base
             $this->m('weekdays_fr', __('FR', 'modern-events-calendar-lite')),
             $this->m('weekdays_sa', __('SA', 'modern-events-calendar-lite'))
         );
-        
+
         $labels = array_slice($raw, $week_start);
         $rest = array_slice($raw, 0, $week_start);
-        
+
         foreach($rest as $label) array_push($labels, $label);
-        
+
         return apply_filters('mec_weekday_abbr_labels', $labels);
     }
-    
+
     /**
      * Returns translatable weekday labels
      * @author Webnus <info@webnus.biz>
@@ -459,15 +459,15 @@ class MEC_main extends MEC_base
     {
         $week_start = $this->get_first_day_of_week();
         $raw = array(array(7, __('Sunday', 'modern-events-calendar-lite')), array(1, __('Monday', 'modern-events-calendar-lite')), array(2, __('Tuesday', 'modern-events-calendar-lite')), array(3, __('Wednesday', 'modern-events-calendar-lite')), array(4, __('Thursday', 'modern-events-calendar-lite')), array(5, __('Friday', 'modern-events-calendar-lite')), array(6, __('Saturday', 'modern-events-calendar-lite')));
-        
+
         $labels = array_slice($raw, $week_start);
         $rest = array_slice($raw, 0, $week_start);
-        
+
         foreach($rest as $label) array_push($labels, $label);
-        
+
         return apply_filters('mec_weekday_i18n_labels', $labels);
     }
-    
+
     /**
      * Flush WordPress rewrite rules
      * @author Webnus <info@webnus.biz>
@@ -477,10 +477,10 @@ class MEC_main extends MEC_base
         // Register Events Post Type
         $MEC_events = MEC::getInstance('app.features.events', 'MEC_feature_events');
         $MEC_events->register_post_type();
-        
+
         flush_rewrite_rules();
     }
-    
+
     /**
      * Get single slug of MEC
      * @author Webnus <info@webnus.biz>
@@ -493,7 +493,7 @@ class MEC_main extends MEC_base
 
         return strtolower($slug);
     }
-    
+
     /**
      * Returns main slug of MEC
      * @author Webnus <info@webnus.biz>
@@ -503,10 +503,10 @@ class MEC_main extends MEC_base
     {
         $settings = $this->get_settings();
         $slug = (isset($settings['slug']) and trim($settings['slug']) != '') ? $settings['slug'] : 'events';
-        
+
         return strtolower($slug);
     }
-    
+
     /**
      * Returns category slug of MEC
      * @author Webnus <info@webnus.biz>
@@ -516,10 +516,10 @@ class MEC_main extends MEC_base
     {
         $settings = $this->get_settings();
         $slug = (isset($settings['category_slug']) and trim($settings['category_slug']) != '') ? $settings['category_slug'] : 'mec-category';
-        
+
         return strtolower($slug);
     }
-    
+
     /**
      * Get archive page title
      * @author Webnus <info@webnus.biz>
@@ -529,10 +529,10 @@ class MEC_main extends MEC_base
     {
         $settings = $this->get_settings();
         $archive_title = (isset($settings['archive_title']) and trim($settings['archive_title']) != '') ? $settings['archive_title'] : 'Events';
-        
+
         return apply_filters('mec_archive_title', $archive_title);
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @return string
@@ -541,7 +541,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_archive_thumbnail', '');
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @return string
@@ -550,7 +550,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_single_thumbnail', '');
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @return string
@@ -559,7 +559,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_post_type_name', 'mec-events');
     }
-    
+
     /**
      * Returns main options of MEC
      * @author Webnus <info@webnus.biz>
@@ -606,8 +606,6 @@ class MEC_main extends MEC_base
             __('LearnDash', 'modern-events-calendar-lite') => 'learndash_options',
             __('PaidMembership Pro', 'modern-events-calendar-lite') => 'pmp_options',
         ), $active_menu);
-
-
 
         $single_event = apply_filters('mec-settings-item-single_event', array(
             __('Single Event Page', 'modern-events-calendar-lite') => 'event_options',
@@ -673,7 +671,7 @@ class MEC_main extends MEC_base
             <!-- Settings -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'settings' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->remove_qs_var('tab'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-settings"></i> 
+                    <i class="mec-sl-settings"></i>
                     <span class="wns-be-group-menu-title"><?php  _e('Settings', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'settings' ? 'subsection' : 'mec-settings-submenu'; ?>">
@@ -682,7 +680,7 @@ class MEC_main extends MEC_base
                 if($settings_link == 'mailchimp_option' || $settings_link == 'active_campaign_option' || $settings_link == 'mailpoet_option' || $settings_link == 'sendfox_option' || $settings_link == 'aweber_option' || $settings_link == 'campaign_monitor_option' || $settings_link == 'mailerlite_option' || $settings_link == 'constantcontact_option' || $settings_link == 'buddy_option' || $settings_link == 'learndash_options' || $settings_link == 'pmp_options' ):
                     if($this->getPRO()): ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'settings'): ?>
                         data-id="<?php echo $settings_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -696,7 +694,7 @@ class MEC_main extends MEC_base
                     endif;
                 else: ?>
                 <li>
-                    <a 
+                    <a
                     <?php if($active_menu == 'settings'): ?>
                     data-id="<?php echo $settings_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                     <?php else: ?>
@@ -706,7 +704,7 @@ class MEC_main extends MEC_base
                     <span class="pr-be-group-menu-title"><?php echo $settings_name; ?></span>
                     </a>
                 </li>
-                <?php endif; ?>    
+                <?php endif; ?>
                 <?php endforeach; ?>
                 </ul>
             </li>
@@ -715,14 +713,14 @@ class MEC_main extends MEC_base
             <?php if($this->getPRO()): ?>
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'integrations' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-integrations'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-wrench"></i> 
+                    <i class="mec-sl-wrench"></i>
                     <span class="wns-be-group-menu-title"><?php  _e('Integrations', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'integrations' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($integrations as $integrations_name => $integrations_link) : ?>
-                
+
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'integrations'): ?>
                         data-id="<?php echo $integrations_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -732,22 +730,22 @@ class MEC_main extends MEC_base
                         <span class="pr-be-group-menu-title"><?php echo $integrations_name; ?></span>
                         </a>
                     </li>
-                  
+
                 <?php endforeach; ?>
                 </ul>
             </li>
-            <?php endif; ?> 
-            
+            <?php endif; ?>
+
             <!-- Single Event -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'single_event' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-single'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-event"></i> 
+                    <i class="mec-sl-event"></i>
                     <span class="wns-be-group-menu-title"><?php  _e('Single Event', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'single_event' ? 'subsection' : 'mec-settings-submenu'; ?>">
                 <?php foreach ($single_event as $single_event_name => $single_event_link) : ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'single_event'): ?>
                         data-id="<?php echo $single_event_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -774,7 +772,7 @@ class MEC_main extends MEC_base
                 <?php if($booking_link == 'coupon_option' || $booking_link == 'taxes_option' || $booking_link == 'ticket_variations_option' || $booking_link == 'booking_form_option' || $booking_link == 'uploadfield_option' || $booking_link == 'payment_gateways_option' || $booking_link == 'booking_shortcode'): ?>
                     <?php if(isset($options['booking_status']) and $options['booking_status']): ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'booking'): ?>
                         data-id="<?php echo $booking_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -787,7 +785,7 @@ class MEC_main extends MEC_base
                     <?php endif; ?>
                 <?php else: ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'booking'): ?>
                         data-id="<?php echo $booking_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -798,7 +796,7 @@ class MEC_main extends MEC_base
                         </a>
                     </li>
                 <?php endif; ?>
-                    
+
                 <?php endforeach; ?>
                 </ul>
             </li>
@@ -810,7 +808,7 @@ class MEC_main extends MEC_base
             <!-- Modules -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'modules' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-modules'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-grid"></i> 
+                    <i class="mec-sl-grid"></i>
                     <span class="wns-be-group-menu-title"><?php  _e('Modules', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'modules' ? 'subsection' : 'mec-settings-submenu'; ?>">
@@ -819,7 +817,7 @@ class MEC_main extends MEC_base
                 <?php if($modules_link == 'googlemap_option' || $modules_link == 'qrcode_module_option' || $modules_link == 'weather_module_option' ): ?>
                     <?php if($this->getPRO()): ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'modules'): ?>
                         data-id="<?php echo $modules_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -832,7 +830,7 @@ class MEC_main extends MEC_base
                     <?php endif; ?>
                 <?php else: ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'modules'): ?>
                         data-id="<?php echo $modules_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -843,7 +841,7 @@ class MEC_main extends MEC_base
                         </a>
                     </li>
                 <?php endif; ?>
-                    
+
                 <?php endforeach; ?>
                 </ul>
             </li>
@@ -851,7 +849,7 @@ class MEC_main extends MEC_base
             <!-- Notifications -->
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'notifications' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-notifications').(!$this->getPRO() ? '#new_event' : ''); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-envelope-open"></i> 
+                    <i class="mec-sl-envelope-open"></i>
                     <span class="wns-be-group-menu-title"><?php  _e('Notifications', 'modern-events-calendar-lite'); ?></span>
                 </a>
                 <ul class="<?php echo $active_menu == 'notifications' ? 'subsection' : 'mec-settings-submenu'; ?>">
@@ -860,7 +858,7 @@ class MEC_main extends MEC_base
                 <?php if($notifications_link != 'new_event' and $notifications_link != 'user_event_publishing' ): ?>
                     <?php if(isset($options['booking_status']) and $options['booking_status']): ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'notifications'): ?>
                         data-id="<?php echo $notifications_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -873,7 +871,7 @@ class MEC_main extends MEC_base
                     <?php endif; ?>
                 <?php else: ?>
                     <li>
-                        <a 
+                        <a
                         <?php if($active_menu == 'notifications'): ?>
                         data-id="<?php echo $notifications_link; ?>" class="wns-be-group-tab-link-a WnTabLinks"
                         <?php else: ?>
@@ -890,35 +888,35 @@ class MEC_main extends MEC_base
 
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'styling' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-styling'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-equalizer"></i> 
+                    <i class="mec-sl-equalizer"></i>
                     <span class="wns-be-group-menu-title"><?php _e('Styling Options', 'modern-events-calendar-lite'); ?></span>
                 </a>
             </li>
 
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'customcss' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-customcss'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-pencil"></i> 
+                    <i class="mec-sl-pencil"></i>
                     <span class="wns-be-group-menu-title"><?php _e('Custom CSS', 'modern-events-calendar-lite'); ?></span>
                 </a>
             </li>
 
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'messages' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-messages'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-speech"></i> 
+                    <i class="mec-sl-speech"></i>
                     <span class="wns-be-group-menu-title"><?php _e('Messages', 'modern-events-calendar-lite'); ?></span>
                 </a>
             </li>
 
             <li class="wns-be-group-menu-li mec-settings-menu <?php echo $active_menu == 'ie' ? 'active' : ''; ?>">
                 <a href="<?php echo $this->add_qs_var('tab', 'MEC-ie'); ?>" id="" class="wns-be-group-tab-link-a">
-                    <i class="mec-sl-refresh"></i> 
+                    <i class="mec-sl-refresh"></i>
                     <span class="wns-be-group-menu-title"><?php _e('Import / Export', 'modern-events-calendar-lite'); ?></span>
                 </a>
             </li>
         </ul>  <!-- close wns-be-group-menu -->
         <script type="text/javascript">
         jQuery(document).ready(function()
-        {   
+        {
             if(jQuery('.mec-settings-menu').hasClass('active'))
             {
                 jQuery('.mec-settings-menu.active').find('ul li:first-of-type').addClass('active');
@@ -944,7 +942,7 @@ class MEC_main extends MEC_base
                 });
 
                 var hash = window.location.hash.replace('#', '');
-                jQuery('[data-id="'+hash+'"]').trigger('click');        
+                jQuery('[data-id="'+hash+'"]').trigger('click');
             });
 
             jQuery(".wns-be-sidebar li ul li").on('click', function(event)
@@ -1017,7 +1015,7 @@ class MEC_main extends MEC_base
         $get_mec_saved_message_time = get_option('mec_saved_message_2_time');
 
         if(!isset($get_mec_saved_message_time)):
-            $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
+            $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';
             if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
                 $ctx = stream_context_create(array('http'=>
@@ -1037,7 +1035,7 @@ class MEC_main extends MEC_base
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
                 curl_setopt($ch, CURLOPT_URL, $data_url);
                 $result = curl_exec($ch);
@@ -1050,7 +1048,7 @@ class MEC_main extends MEC_base
             update_option('mec_saved_message_2_time', date("Y-m-d"));
         else:
             if ( strtotime(date("Y-m-d")) > strtotime($get_mec_saved_message_time) ) {
-                $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';  
+                $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content-2.json';
                 if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
                 {
                     $ctx = stream_context_create(array('http'=>
@@ -1070,7 +1068,7 @@ class MEC_main extends MEC_base
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
                     curl_setopt($ch, CURLOPT_URL, $data_url);
                     $result = curl_exec($ch);
@@ -1131,7 +1129,7 @@ class MEC_main extends MEC_base
         $get_mec_saved_message_time = get_option('mec_saved_message_time');
 
         if(!isset($get_mec_saved_message_time)):
-            $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
+            $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';
             if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
             {
                 $ctx = stream_context_create(array('http'=>
@@ -1151,7 +1149,7 @@ class MEC_main extends MEC_base
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
                 curl_setopt($ch, CURLOPT_URL, $data_url);
                 $result = curl_exec($ch);
@@ -1164,7 +1162,7 @@ class MEC_main extends MEC_base
             update_option('mec_saved_message_time', date("Y-m-d"));
         else:
             if ( strtotime(date("Y-m-d")) > strtotime($get_mec_saved_message_time) ) {
-                $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';  
+                $data_url = 'https://webnus.net/modern-events-calendar/addons-api/mec-extra-content.json';
                 if(function_exists('file_get_contents') && ini_get('allow_url_fopen') )
                 {
                     $ctx = stream_context_create(array('http'=>
@@ -1184,7 +1182,7 @@ class MEC_main extends MEC_base
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0); 
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 20); //timeout in seconds
                     curl_setopt($ch, CURLOPT_URL, $data_url);
                     $result = curl_exec($ch);
@@ -1232,7 +1230,7 @@ class MEC_main extends MEC_base
         else:
             return '';
         endif;
-    }    
+    }
     /**
      * Returns MEC settings
      * @author Webnus <info@webnus.biz>
@@ -1243,7 +1241,7 @@ class MEC_main extends MEC_base
          $options = $this->get_options();
          return (isset($options['default_form']) ? $options['default_form'] : array());
      }
-    
+
     /**
      * Returns registration form fields
      * @author Webnus <info@webnus.biz>
@@ -1367,7 +1365,7 @@ class MEC_main extends MEC_base
 
         return $ticket_variations;
     }
-    
+
     /**
      * Returns Messages Options
      * @author Webnus <info@webnus.biz>
@@ -1378,7 +1376,7 @@ class MEC_main extends MEC_base
         $options = $this->get_options();
         return (isset($options['messages']) ? $options['messages'] : array());
     }
-    
+
     /**
      * Returns gateways options
      * @author Webnus <info@webnus.biz>
@@ -1399,7 +1397,7 @@ class MEC_main extends MEC_base
         $options = $this->get_options();
         return (isset($options['notifications']) ? $options['notifications'] : array());
     }
-    
+
     /**
      * Returns Import/Export options of MEC
      * @author Webnus <info@webnus.biz>
@@ -1410,7 +1408,7 @@ class MEC_main extends MEC_base
         $options = $this->get_options();
         return (isset($options['ix']) ? $options['ix'] : array());
     }
-    
+
     /**
      * Returns style settings of MEC
      * @author Webnus <info@webnus.biz>
@@ -1421,7 +1419,7 @@ class MEC_main extends MEC_base
         $options = $this->get_options();
         return (isset($options['styles']) ? $options['styles'] : array());
     }
-    
+
     /**
      * Returns styling option of MEC
      * @author Webnus <info@webnus.biz>
@@ -1432,7 +1430,7 @@ class MEC_main extends MEC_base
         $options = $this->get_options();
         return (isset($options['styling']) ? $options['styling'] : array());
     }
-    
+
     /**
      * Saves MEC settings
      * @author Webnus <info@webnus.biz>
@@ -1442,18 +1440,18 @@ class MEC_main extends MEC_base
     {
         // MEC Request library
         $request = $this->getRequest();
-        
+
         $wpnonce = $request->getVar('_wpnonce', NULL);
-        
+
         // Check if our nonce is set.
         if(!trim($wpnonce)) $this->response(array('success'=>0, 'code'=>'NONCE_MISSING'));
-        
+
         // Verify that the nonce is valid.
         if(!wp_verify_nonce($wpnonce, 'mec_options_form')) $this->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
 
         // Current User is not Permitted
-        if(!current_user_can('mec_settings')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
-        
+        if(!current_user_can('mec_settings') and !current_user_can('administrator')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+
         // Get mec options
         $mec = $request->getVar('mec', array());
         if(isset($mec['reg_fields']) and !is_array($mec['reg_fields'])) $mec['reg_fields'] = array();
@@ -1462,11 +1460,11 @@ class MEC_main extends MEC_base
 
         $filtered = array();
         foreach($mec as $key=>$value) $filtered[$key] = (is_array($value) ? $value : array());
-        
+
         // Get current MEC options
         $current = get_option('mec_options', array());
         if(is_string($current) and trim($current) == '') $current = array();
-        
+
         // Validations
         if(isset($filtered['settings']) and isset($filtered['settings']['slug'])) $filtered['settings']['slug'] = strtolower(str_replace(' ', '-', $filtered['settings']['slug']));
         if(isset($filtered['settings']) and isset($filtered['settings']['category_slug'])) $filtered['settings']['category_slug'] = strtolower(str_replace(' ', '-', $filtered['settings']['category_slug']));
@@ -1477,7 +1475,7 @@ class MEC_main extends MEC_base
         {
             if(!is_array($filtered['reg_fields'])) $filtered['reg_fields'] = array();
         }
-        
+
         if(isset($current['reg_fields']) and isset($filtered['reg_fields']))
         {
             $current['reg_fields'] = array();
@@ -1514,7 +1512,7 @@ class MEC_main extends MEC_base
         {
             do_action('mec_tag_method_changed', $filtered['settings']['tag_method'], $old_tag_method);
         }
-        
+
         // Generate New Options
         $final = $current;
 
@@ -1540,17 +1538,17 @@ class MEC_main extends MEC_base
 
         // MEC Save Options
         do_action('mec_save_options', $final);
-        
+
         // Save final options
         update_option('mec_options', $final);
-        
+
         // Refresh WordPress rewrite rules
         $this->flush_rewrite_rules();
 
         // Print the response
         $this->response(array('success'=>1));
     }
-    
+
     /**
      * Saves MEC Notifications
      * @author Webnus <info@webnus.biz>
@@ -1569,7 +1567,7 @@ class MEC_main extends MEC_base
         if(!wp_verify_nonce($wpnonce, 'mec_options_form')) $this->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
 
         // Current User is not Permitted
-        if(!current_user_can('mec_settings')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings') and !current_user_can('administrator')) $this->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
 
         // MEC Request library
         $request = $this->getRequest();
@@ -1599,7 +1597,7 @@ class MEC_main extends MEC_base
         // Print the response
         $this->response(array('success'=>1));
     }
-    
+
     /**
      * Saves MEC Import/Export options
      * @author Webnus <info@webnus.biz>
@@ -1625,13 +1623,13 @@ class MEC_main extends MEC_base
 
         // Merge new options with previous options
         $final = array_merge($options, $final_ix);
-        
+
         // Save final options
         update_option('mec_options', $final);
 
         return true;
     }
-    
+
     /**
      * Get first day of week from WordPress
      * @author Webnus <info@webnus.biz>
@@ -1641,7 +1639,7 @@ class MEC_main extends MEC_base
     {
         return get_option('start_of_week', 1);
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @param array $response
@@ -1652,7 +1650,7 @@ class MEC_main extends MEC_base
         echo json_encode($response);
         exit;
     }
-    
+
     /**
      * Check if a date passed or not
      * @author Webnus <info@webnus.biz>
@@ -1667,10 +1665,10 @@ class MEC_main extends MEC_base
 
         // Never End
         if($end <= 0) return 0;
-        
+
         return (int) ($now > $end);
     }
-    
+
     /**
      * @author Webnus <info@webnus.biz>
      * @param int $id
@@ -1682,7 +1680,7 @@ class MEC_main extends MEC_base
         $days = array(1=>'Monday', 2=>'Tuesday', 3=>'Wednesday', 4=>'Thursday', 5=>'Friday', 6=>'Saturday', 7=>'Sunday');
         return $days[$id];
     }
-    
+
     /**
      * Spilts 2 dates to weeks
      * @author Webnus <info@webnus.biz>
@@ -1694,18 +1692,18 @@ class MEC_main extends MEC_base
     public function split_to_weeks($start, $end, $first_day_of_week = NULL)
     {
         if(is_null($first_day_of_week)) $first_day_of_week = $this->get_first_day_of_week();
-        
+
         $end_day_of_week = ($first_day_of_week-1 >= 0) ? $first_day_of_week-1 : 6;
-        
+
         $start_time = strtotime($start);
         $end_time = strtotime($end);
-        
+
         $start = new DateTime(date('Y-m-d', $start_time));
         $end = new DateTime(date('Y-m-d 23:59', $end_time));
-        
+
         $interval = new DateInterval('P1D');
         $dateRange = new DatePeriod($start, $interval, $end);
-        
+
         $weekday = 0;
         $weekNumber = 1;
         $weeks = array();
@@ -1713,12 +1711,12 @@ class MEC_main extends MEC_base
         {
             // Fix the PHP notice
             if(!isset($weeks[$weekNumber])) $weeks[$weekNumber] = array();
-            
+
             // It's first week and the week is not started from first weekday
             if($weekNumber == 1 and $weekday == 0 and $date->format('w') != $first_day_of_week)
             {
                 $remained_days = $date->format('w');
-                
+
                 if($first_day_of_week == 0) $remained_days = $date->format('w'); // Sunday
                 elseif($first_day_of_week == 1) // Monday
                 {
@@ -1736,28 +1734,28 @@ class MEC_main extends MEC_base
                     elseif($remained_days == 5) $remained_days = 0;
                     elseif($remained_days == 6) $remained_days = 1;
                 }
-                
+
                 $interval = new DateInterval('P'.$remained_days.'D');
                 $interval->invert = 1;
                 $date->add($interval);
-                
+
                 for($i = $remained_days; $i > 0; $i--)
                 {
                     $weeks[$weekNumber][] = $date->format('Y-m-d');
                     $date->add(new DateInterval('P1D'));
                 }
             }
-            
+
             $weeks[$weekNumber][] = $date->format('Y-m-d');
             $weekday++;
-            
+
             if($date->format('w') == $end_day_of_week)
             {
                 $weekNumber++;
                 $weekday = 0;
             }
         }
-        
+
         // Month is finished but week is not finished
         if($weekday > 0 and $weekday < 7)
         {
@@ -1770,7 +1768,7 @@ class MEC_main extends MEC_base
                 if($date->format('w') == $end_day_of_week) $weekNumber++;
             }
         }
-        
+
         return $weeks;
     }
 
@@ -1784,7 +1782,7 @@ class MEC_main extends MEC_base
         $container_width = (isset($settings['container_width']) and trim($settings['container_width']) != '') ? $settings['container_width'] : '';
         update_option('mec_container_width', $container_width);
     }
-    
+
     /**
      * Returns MEC colors
      * @author Webnus <info@webnus.biz>
@@ -1795,7 +1793,7 @@ class MEC_main extends MEC_base
         $colors = get_option('mec_colors', $this->get_default_colors());
         return apply_filters('mec_available_colors', $colors);
     }
-    
+
     /**
      * Returns MEC default colors
      * @author Webnus <info@webnus.biz>
@@ -1805,7 +1803,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_default_colors', array('fdd700','00a0d2','e14d43','dd823b','a3b745'));
     }
-    
+
     /**
      * Add a new color to MEC available colors
      * @author Webnus <info@webnus.biz>
@@ -1815,11 +1813,11 @@ class MEC_main extends MEC_base
     {
         $colors = $this->get_available_colors();
         $colors[] = $color;
-        
+
         $colors = array_unique($colors);
         update_option('mec_colors', $colors);
     }
-    
+
     /**
      * Returns available googlemap styles
      * @author Webnus <info@webnus.biz>
@@ -1841,10 +1839,10 @@ class MEC_main extends MEC_base
             array('key'=>'ultra-light.json', 'name'=>'Ultra Light'),
             array('key'=>'facebook.json', 'name'=>'Facebook'),
         );
-        
+
         return apply_filters('mec_googlemap_styles', $styles);
     }
-    
+
     /**
      * Filters provided google map styles
      * @author Webnus <info@webnus.biz>
@@ -1855,7 +1853,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_get_googlemap_style', $style);
     }
-    
+
     /**
      * Fetchs googlemap styles from file
      * @author Webnus <info@webnus.biz>
@@ -1865,14 +1863,14 @@ class MEC_main extends MEC_base
     public function fetch_googlemap_style($style)
     {
         $path = $this->get_plugin_path().'app'.DS.'modules'.DS.'googlemap'.DS.'styles'.DS.$style;
-        
+
         // MEC file library
         $file = $this->getFile();
-        
+
         if($file->exists($path)) return trim($file->read($path));
         else return '';
     }
-    
+
     /**
      * Get marker infowindow for showing on the map
      * @author Webnus <info@webnus.biz>
@@ -1882,7 +1880,7 @@ class MEC_main extends MEC_base
     public function get_marker_infowindow($marker)
     {
         $count = count($marker['event_ids']);
-        
+
         $content = '
         <div class="mec-marker-infowindow-wp">
             <div class="mec-marker-infowindow-count">'.$count.'</div>
@@ -1891,10 +1889,10 @@ class MEC_main extends MEC_base
                 <span>'.(trim($marker['address']) ? $marker['address'] : $marker['name']).'</span>
             </div>
         </div>';
-        
+
         return apply_filters('mec_get_marker_infowindow', $content);
     }
-    
+
     /**
      * Get marker Lightbox for showing on the map
      * @author Webnus <info@webnus.biz>
@@ -1927,7 +1925,7 @@ class MEC_main extends MEC_base
 				</article>
 			</div>
 		</div>';
-        
+
         return apply_filters('mec_get_marker_lightbox', $content);
     }
 
@@ -1952,10 +1950,10 @@ class MEC_main extends MEC_base
             'telegram'=>array('id'=>'telegram', 'name'=>__('Telegram', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_telegram')),
             'email'=>array('id'=>'email', 'name'=>__('Email', 'modern-events-calendar-lite'), 'function'=>array($this, 'sn_email')),
         );
-        
+
         return apply_filters('mec_social_networks', $social_networks);
     }
-    
+
     /**
      * Do facebook link for social networks
      * @author Webnus <info@webnus.biz>
@@ -1970,7 +1968,7 @@ class MEC_main extends MEC_base
 
         return '<li class="mec-event-social-icon"><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u='.rawurlencode($url).'" onclick="javascript:window.open(this.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600\'); return false;" title="'.__('Share on Facebook', 'modern-events-calendar-lite').'"><i class="mec-fa-facebook"></i></a></li>';
     }
-    
+
     /**
      * Do twitter link for social networks
      * @author Webnus <info@webnus.biz>
@@ -1985,7 +1983,7 @@ class MEC_main extends MEC_base
 
         return '<li class="mec-event-social-icon"><a class="twitter" href="https://twitter.com/share?url='.rawurlencode($url).'" onclick="javascript:window.open(this.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=500\'); return false;" target="_blank" title="'.__('Tweet', 'modern-events-calendar-lite').'"><i class="mec-fa-twitter"></i></a></li>';
     }
-    
+
     /**
      * Do linkedin link for social networks
      * @author Webnus <info@webnus.biz>
@@ -2000,7 +1998,7 @@ class MEC_main extends MEC_base
 
         return '<li class="mec-event-social-icon"><a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url='.rawurlencode($url).'" onclick="javascript:window.open(this.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=500\'); return false;" target="_blank" title="'.__('Linkedin', 'modern-events-calendar-lite').'"><i class="mec-fa-linkedin"></i></a></li>';
     }
-    
+
     /**
      * Do email link for social networks
      * @author Webnus <info@webnus.biz>
@@ -2068,7 +2066,7 @@ class MEC_main extends MEC_base
         return '<li class="mec-event-social-icon"><a class="pinterest" href="http://pinterest.com/pin/create/button/?url='.rawurlencode($url).'" title="'.__('Share on Pinterest', 'modern-events-calendar-lite').'"><i class="mec-fa-pinterest"></i></a></li>';
 
     }
-    
+
     /**
      * Do flipboard link for social networks
      * @author Webnus <info@webnus.biz>
@@ -2174,7 +2172,7 @@ class MEC_main extends MEC_base
             array('skin'=>'map', 'name'=>__('Map View', 'modern-events-calendar-lite')),
             array('skin'=>'custom', 'name'=>__('Custom Shortcode', 'modern-events-calendar-lite')),
         );
-        
+
         return apply_filters('mec_archive_skins', $archive_skins);
     }
 
@@ -2199,10 +2197,10 @@ class MEC_main extends MEC_base
             array('skin'=>'map', 'name'=>__('Map View', 'modern-events-calendar-lite')),
             array('skin'=>'custom', 'name'=>__('Custom Shortcode', 'modern-events-calendar-lite')),
         );
-        
+
         return apply_filters('mec_category_skins', $category_skins);
     }
-    
+
     /**
      * Get events posts
      * @author Webnus <info@webnus.biz>
@@ -2213,7 +2211,7 @@ class MEC_main extends MEC_base
     {
         return get_posts(array('post_type'=>$this->get_main_post_type(), 'numberposts'=>$limit, 'post_status'=>'publish'));
     }
-    
+
     /**
      * Get method of showing for multiple days events
      * @author Webnus <info@webnus.biz>
@@ -2222,11 +2220,11 @@ class MEC_main extends MEC_base
     public function get_multiple_days_method()
     {
         $settings = $this->get_settings();
-        
+
         $method = isset($settings['multiple_day_show_method']) ? $settings['multiple_day_show_method'] : 'first_day_listgrid';
         return apply_filters('mec_multiple_days_method', $method);
     }
-    
+
     /**
      * Get method of showing/hiding events based on event time
      * @author Webnus <info@webnus.biz>
@@ -2235,11 +2233,11 @@ class MEC_main extends MEC_base
     public function get_hide_time_method()
     {
         $settings = $this->get_settings();
-        
+
         $method = isset($settings['hide_time_method']) ? $settings['hide_time_method'] : 'start';
         return apply_filters('mec_hide_time_method', $method);
     }
-    
+
     /**
      * Get hour format of MEC
      * @author Webnus <info@webnus.biz>
@@ -2248,11 +2246,11 @@ class MEC_main extends MEC_base
     public function get_hour_format()
     {
         $settings = $this->get_settings();
-        
+
         $format = isset($settings['time_format']) ? $settings['time_format'] : 12;
         return apply_filters('mec_hour_format', $format);
     }
-    
+
     /**
      * Get formatted hour based on configurations
      * @author Webnus <info@webnus.biz>
@@ -2265,7 +2263,7 @@ class MEC_main extends MEC_base
     {
         // Hour Format of MEC (12/24)
         $hour_format = $this->get_hour_format();
-        
+
         $formatted = '';
         if($hour_format == '12')
         {
@@ -2275,10 +2273,10 @@ class MEC_main extends MEC_base
         {
             if(strtoupper($ampm) == 'PM' and $hour != 12) $hour += 12;
             if(strtoupper($ampm) == 'AM' and $hour == 12) $hour += 12;
-            
+
             $formatted = sprintf("%02d", $hour).':'.sprintf("%02d", $minutes);
         }
-        
+
         return $formatted;
     }
 
@@ -2293,7 +2291,7 @@ class MEC_main extends MEC_base
         $format = get_option('time_format');
         return gmdate($format, $seconds);
     }
-    
+
     /**
      * Renders a module such as links or googlemap
      * @author Webnus <info@webnus.biz>
@@ -2305,19 +2303,19 @@ class MEC_main extends MEC_base
     {
         // Get module path
         $path = MEC::import('app.modules.'.$module, true, true);
-        
+
         // MEC libraries
         $render = $this->getRender();
         $factory = $this->getFactory();
-        
+
         // Extract Module Params
         extract($params);
-        
+
         ob_start();
         include $path;
         return $output = ob_get_clean();
     }
-    
+
     /**
      * Returns MEC currencies
      * @author Webnus <info@webnus.biz>
@@ -2487,10 +2485,10 @@ class MEC_main extends MEC_base
             'ZMK'=>'ZMK',
             'ZWL'=>'ZWL',
         );
-        
+
         return apply_filters('mec_currencies', $currencies);
     }
-    
+
     /**
      * Returns MEC version
      * @author Webnus <info@webnus.biz>
@@ -2503,7 +2501,7 @@ class MEC_main extends MEC_base
         if(defined('WP_DEBUG') and WP_DEBUG) $version .= '.'.time();
         return $version;
     }
-    
+
     /**
      * Set endpoint vars to true
      * @author Webnus <info@webnus.biz>
@@ -2515,10 +2513,10 @@ class MEC_main extends MEC_base
         if(isset($vars['gateway-cancel'])) $vars['gateway-cancel'] = true;
         if(isset($vars['gateway-return'])) $vars['gateway-return'] = true;
         if(isset($vars['gateway-notify'])) $vars['gateway-notify'] = true;
-        
+
         return $vars;
     }
-    
+
     /**
      * Do the jobs after endpoints and show related output
      * @author Webnus <info@webnus.biz>
@@ -2529,10 +2527,10 @@ class MEC_main extends MEC_base
         if(get_query_var('verify'))
         {
             $key = sanitize_text_field(get_query_var('verify'));
-            
+
             $db = $this->getDB();
             $book_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_verification_key' AND `meta_value`='$key'", 'loadResult');
-            
+
             if(!$book_id) return false;
 
             $status = get_post_meta($book_id, 'mec_verified', true);
@@ -2555,7 +2553,7 @@ class MEC_main extends MEC_base
                     return false;
                 }
             }
-            
+
             $book = $this->getBook();
             if($book->verify($book_id)) echo '<p class="mec-success">'.__('Your booking has been verified successfully!', 'modern-events-calendar-lite').'</p>';
             else echo '<p class="mec-error">'.__('Your booking cannot verify!', 'modern-events-calendar-lite').'</p>';
@@ -2563,10 +2561,10 @@ class MEC_main extends MEC_base
         elseif(get_query_var('cancel'))
         {
             $key = sanitize_text_field(get_query_var('cancel'));
-            
+
             $db = $this->getDB();
             $book_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_cancellation_key' AND `meta_value`='$key'", 'loadResult');
-            
+
             if(!$book_id) return false;
 
             $status = get_post_meta($book_id, 'mec_verified', true);
@@ -2637,7 +2635,16 @@ class MEC_main extends MEC_base
             }
 
             $book = $this->getBook();
-            if($book->cancel($book_id)) echo '<p class="mec-success">'.__('Your booking successfully canceled.', 'modern-events-calendar-lite').'</p>';
+            if($book->cancel($book_id))
+            {
+                echo '<p class="mec-success">'.__('Your booking successfully canceled.', 'modern-events-calendar-lite').'</p>';
+
+                $cancel_page = (isset($settings['booking_cancel_page']) and trim($settings['booking_cancel_page'])) ? $settings['booking_cancel_page'] : NULL;
+                $cancel_page_url = get_permalink($cancel_page);
+                $cancel_page_time = (isset($settings['booking_cancel_page_time']) and trim($settings['booking_cancel_page_time']) != '') ? $settings['booking_cancel_page_time'] : 2500;
+
+                if($cancel_page and $cancel_page_url) echo '<script>setTimeout(function(){window.location.replace("'.esc_js($cancel_page_url).'");}, '.$cancel_page_time.');</script>';
+            }
             else echo '<p class="mec-error">'.__('Your booking cannot be canceled.', 'modern-events-calendar-lite').'</p>';
         }
         elseif(get_query_var('gateway-cancel'))
@@ -2675,7 +2682,7 @@ class MEC_main extends MEC_base
             $book = $this->getBook();
             $render = $this->getRender();
             $db = $this->getDB();
-            
+
             $transaction = $book->get_transaction($transaction_id);
             $event_id = isset($transaction['event_id']) ? $transaction['event_id'] : 0;
 
@@ -2900,7 +2907,7 @@ class MEC_main extends MEC_base
             $pdf->Write(6, __('Payment Time', 'modern-events-calendar-lite').': ');
             $pdf->Write(6, date($date_format.' '.$time_format, strtotime(get_post_meta($book_id, 'mec_booking_time', true))));
             $pdf->Ln();
-            
+
             $image = $this->module('qrcode.invoice', array('event'=>$event));
             if(trim($image))
             {
@@ -3069,10 +3076,10 @@ class MEC_main extends MEC_base
         $url = $this->URL('site');
         $url = $this->add_qs_var('method', 'ical', $url);
         $url = $this->add_qs_var('id', $event_id, $url);
-        
+
         // Add Occurrence Date if passed
         if(trim($occurrence)) $url = $this->add_qs_var('occurrence', $occurrence, $url);
-        
+
         return $url;
     }
 
@@ -3083,13 +3090,13 @@ class MEC_main extends MEC_base
         $url = $this->add_qs_var('id', $event_id, $url);
         $url = $this->add_qs_var('book_id', $book_id, $url);
         $url = $this->add_qs_var('key', md5($book_id), $url);
-        
+
         // Add Occurrence Date if passed
         if(trim($occurrence)) $url = $this->add_qs_var('occurrence', $occurrence, $url);
-        
+
         return $url;
     }
-    
+
     /**
      * Returns iCal export for one event
      * @author Webnus <info@webnus.biz>
@@ -3105,7 +3112,7 @@ class MEC_main extends MEC_base
 
         // Event Data
         $event = $render->data($event_id);
-        
+
         $occurrence_end_date = (trim($occurrence) ? $this->get_end_date_by_occurrence($event_id, $occurrence) : '');
 
         // Event Dates
@@ -3113,7 +3120,7 @@ class MEC_main extends MEC_base
 
         $start_time = strtotime(((isset($dates[0]) and trim($dates[0]['start']['date'])) ? $dates[0]['start']['date'] : $occurrence).' '.sprintf("%02d", $dates[0]['start']['hour']).':'.sprintf("%02d", $dates[0]['start']['minutes']).' '.$dates[0]['start']['ampm']);
         $end_time = strtotime((trim($occurrence_end_date) ? $occurrence_end_date : $dates[0]['end']['date']).' '.sprintf("%02d", $dates[0]['end']['hour']).':'.sprintf("%02d", $dates[0]['end']['minutes']).' '.$dates[0]['end']['ampm']);
-        
+
         $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
         $stamp = strtotime($event->post->post_date);
         $modified = strtotime($event->post->post_modified);
@@ -3164,7 +3171,7 @@ class MEC_main extends MEC_base
         $address = ((isset($location['address']) and trim($location['address'])) ? $location['address'] : (isset($location['name']) ? $location['name'] : ''));
 
         if(trim($address) != '') $ical .= "LOCATION:".$address.PHP_EOL;
-        
+
         // Featured Image
         if(trim($event->featured_image['full']) != '')
         {
@@ -3172,9 +3179,9 @@ class MEC_main extends MEC_base
             $filename = end($ex);
             $ical .= "ATTACH;FMTTYPE=".$this->get_mime_content_type($filename).":".$event->featured_image['full'].PHP_EOL;
         }
-        
+
         $ical .= "END:VEVENT".PHP_EOL;
-        
+
         return $ical;
     }
 
@@ -3194,15 +3201,15 @@ class MEC_main extends MEC_base
         // MEC Render Library
         $render = $this->getRender();
         $event = $render->data($event_id);
-        
+
         $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']] : array();
         $address = (isset($location['address']) and trim($location['address'])) ? $location['address'] : $location['name'];
-        
+
         $start_time = (isset($timestamps[0]) ? $timestamps[0] : strtotime(get_the_date($book_id)));
         $end_time = (isset($timestamps[1]) ? $timestamps[1] : strtotime(get_the_date($book_id)));
-        
+
         $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
-        
+
         $stamp = strtotime($event->post->post_date);
         $modified = strtotime($event->post->post_modified);
         $time_format = (isset($event->meta['mec_date']) and isset($event->meta['mec_date']['allday']) and $event->meta['mec_date']['allday']) ? 'Ymd' : 'Ymd\\THi00\\Z';
@@ -3214,13 +3221,13 @@ class MEC_main extends MEC_base
         $ical .= "DTSTAMP:".gmdate($time_format, ($stamp - $gmt_offset_seconds)).PHP_EOL;
         $ical .= "CREATED:".date('Ymd', $stamp).PHP_EOL;
         $ical .= "LAST-MODIFIED:".date('Ymd', $modified).PHP_EOL;
-        $ical .= "SUMMARY:".html_entity_decode($event->title, ENT_NOQUOTES, 'UTF-8').PHP_EOL;
-        $ical .= "DESCRIPTION:".html_entity_decode(str_replace("\n", "\\n", strip_tags($event->content)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
-        $ical .= "URL:".$event->permalink.PHP_EOL;
-        
+        $ical .= "SUMMARY:".html_entity_decode(apply_filters('mec_ical_single_email_summary', $event->title, $event_id), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
+        $ical .= "DESCRIPTION:".html_entity_decode(str_replace("\n", "\\n", apply_filters('mec_ical_single_email_description', strip_tags($event->content), $event_id)), ENT_NOQUOTES, 'UTF-8').PHP_EOL;
+        $ical .= "URL:".apply_filters('mec_ical_single_email_url', $event->permalink, $event_id).PHP_EOL;
+
         // Location
         if(trim($address) != '') $ical .= "LOCATION:".$address.PHP_EOL;
-        
+
         // Featured Image
         if(trim($event->featured_image['full']) != '')
         {
@@ -3228,9 +3235,9 @@ class MEC_main extends MEC_base
             $filename = end($ex);
             $ical .= "ATTACH;FMTTYPE=".$this->get_mime_content_type($filename).":".$event->featured_image['full'].PHP_EOL;
         }
-        
+
         $ical .= "END:VEVENT".PHP_EOL;
-        
+
         return $ical;
     }
 
@@ -3250,10 +3257,10 @@ class MEC_main extends MEC_base
         $ical .= "X-ORIGINAL-URL:".$this->URL('site').PHP_EOL;
         $ical .= $events;
         $ical .= "END:VCALENDAR";
-        
+
         return $ical;
     }
-    
+
     /**
      * Get mime type of a file
      * @author Webnus <info@webnus.biz>
@@ -3324,7 +3331,7 @@ class MEC_main extends MEC_base
             'odt' => 'application/vnd.oasis.opendocument.text',
             'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
         );
-        
+
         $ex = explode('.', $filename);
         $ext = strtolower(array_pop($ex));
         if(array_key_exists($ext, $mime_types))
@@ -3336,7 +3343,7 @@ class MEC_main extends MEC_base
             $finfo = finfo_open(FILEINFO_MIME);
             $mimetype = finfo_file($finfo, $filename);
             finfo_close($finfo);
-            
+
             return $mimetype;
         }
         else
@@ -3344,7 +3351,7 @@ class MEC_main extends MEC_base
             return 'application/octet-stream';
         }
     }
-    
+
     /**
      * Returns book post type slug
      * @author Webnus <info@webnus.biz>
@@ -3364,7 +3371,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_shortcode_post_type_name', 'mec_calendars');
     }
-    
+
     /**
      * Show text field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3452,7 +3459,7 @@ class MEC_main extends MEC_base
              </div>
          </li>';
      }
-    
+
     /**
      * Show email field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3571,7 +3578,7 @@ class MEC_main extends MEC_base
             </div>
         </li>';
     }
-    
+
     /**
      * Show tel field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3601,7 +3608,7 @@ class MEC_main extends MEC_base
             </div>
         </li>';
     }
-    
+
     /**
      * Show textarea field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3631,7 +3638,7 @@ class MEC_main extends MEC_base
             </div>
         </li>';
     }
-    
+
     /**
      * Show paragraph field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3653,7 +3660,7 @@ class MEC_main extends MEC_base
             </div>
         </li>';
     }
-    
+
     /**
      * Show checkbox field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3682,7 +3689,7 @@ class MEC_main extends MEC_base
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
                 '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
-        
+
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
         {
             foreach($values['options'] as $option_key=>$option)
@@ -3691,16 +3698,16 @@ class MEC_main extends MEC_base
                 $field .= $this->field_option($key, $option_key, $values, $prefix);
             }
         }
-        
+
         $field .= '</ul>
                 <button type="button" class="mec-'.$prefix.'-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
                 <input type="hidden" id="mec_new_'.$prefix.'_field_option_key_'.$key.'" value="'.($i+1).'" />
             </div>
         </li>';
-        
+
         return $field;
     }
-    
+
     /**
      * Show radio field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3729,7 +3736,7 @@ class MEC_main extends MEC_base
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
                 '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
-        
+
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
         {
             foreach($values['options'] as $option_key=>$option)
@@ -3738,16 +3745,16 @@ class MEC_main extends MEC_base
                 $field .= $this->field_option($key, $option_key, $values, $prefix);
             }
         }
-        
+
         $field .= '</ul>
                 <button type="button" class="mec-'.$prefix.'-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
                 <input type="hidden" id="mec_new_'.$prefix.'_field_option_key_'.$key.'" value="'.($i+1).'" />
             </div>
         </li>';
-        
+
         return $field;
     }
-    
+
     /**
      * Show select field options in booking form
      * @author Webnus <info@webnus.biz>
@@ -3783,7 +3790,7 @@ class MEC_main extends MEC_base
                 <input type="text" name="mec['.$prefix.'_fields]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this field', 'modern-events-calendar-lite').'" value="'.(isset($values['label']) ? stripslashes($values['label']) : '').'" />
                 '.($prefix == 'reg' ? $this->get_wp_user_fields_dropdown('mec['.$prefix.'_fields]['.$key.'][mapping]', (isset($values['mapping']) ? $values['mapping'] : '')) : '').'
                 <ul id="mec_'.$prefix.'_fields_'.$key.'_options_container" class="mec_'.$prefix.'_fields_options_container">';
-        
+
         if(isset($values['options']) and is_array($values['options']) and count($values['options']))
         {
             foreach($values['options'] as $option_key=>$option)
@@ -3792,13 +3799,13 @@ class MEC_main extends MEC_base
                 $field .= $this->field_option($key, $option_key, $values, $prefix);
             }
         }
-        
+
         $field .= '</ul>
                 <button type="button" class="mec-'.$prefix.'-field-add-option" data-field-id="'.$key.'">'.__('Option', 'modern-events-calendar-lite').'</button>
                 <input type="hidden" id="mec_new_'.$prefix.'_field_option_key_'.$key.'" value="'.($i+1).'" />
             </div>
         </li>';
-        
+
         return $field;
     }
 
@@ -3853,7 +3860,7 @@ class MEC_main extends MEC_base
 
         return $field;
     }
-    
+
     /**
      * Show option tag parameters in booking form for select, checkbox and radio tags
      * @author Webnus <info@webnus.biz>
@@ -3871,7 +3878,7 @@ class MEC_main extends MEC_base
             <input type="text" name="mec['.$prefix.'_fields]['.$field_key.'][options]['.$key.'][label]" placeholder="'.esc_attr__('Insert a label for this option', 'modern-events-calendar-lite').'" value="'.((isset($values['options']) and isset($values['options'][$key])) ? esc_attr(stripslashes($values['options'][$key]['label'])) : '').'" />
         </li>';
     }
-    
+
     /**
      * Render raw price and return its output
      * @param int|object $event
@@ -3883,26 +3890,26 @@ class MEC_main extends MEC_base
     {
         // return Free if price is 0
         if($price == '0') return __('Free', 'modern-events-calendar-lite');
-        
+
         $thousand_separator = $this->get_thousand_separator($event);
         $decimal_separator = $this->get_decimal_separator($event);
-        
+
         $currency = $this->get_currency_sign($event);
         $currency_sign_position = $this->get_currency_sign_position($event);
-        
+
         // Force to double
         if(is_string($price)) $price = (double) $price;
-        
+
         $rendered = number_format($price, ($decimal_separator === false ? 0 : 2), ($decimal_separator === false ? '' : $decimal_separator), $thousand_separator);
-        
+
         if($currency_sign_position == 'after') $rendered = $rendered.$currency;
         elseif($currency_sign_position == 'after_space') $rendered = $rendered.' '.$currency;
         elseif($currency_sign_position == 'before_space') $rendered = $currency.' '.$rendered;
         else $rendered = $currency.$rendered;
-        
+
         return $rendered;
     }
-    
+
     /**
      * Returns thousand separator
      * @param int|object $event
@@ -3925,7 +3932,7 @@ class MEC_main extends MEC_base
 
         return apply_filters('mec_thousand_separator', $separator);
     }
-    
+
     /**
      * Returns decimal separator
      * @param int|object $event
@@ -3966,7 +3973,7 @@ class MEC_main extends MEC_base
 
         return $options;
     }
-    
+
     /**
      * Returns currency of MEC
      * @param int|object $event
@@ -3987,7 +3994,7 @@ class MEC_main extends MEC_base
 
         return apply_filters('mec_currency', $currency);
     }
-    
+
     /**
      * Returns currency sign of MEC
      * @param int|object $event
@@ -3997,7 +4004,7 @@ class MEC_main extends MEC_base
     public function get_currency_sign($event = NULL)
     {
         $settings = $this->get_settings();
-        
+
         // Get Currency Symptom
         $currency = $this->get_currency($event);
         if(isset($settings['currency_symptom']) and trim($settings['currency_symptom'])) $currency = $settings['currency_symptom'];
@@ -4008,10 +4015,10 @@ class MEC_main extends MEC_base
             $options = $this->get_event_currency_options($event);
             if(isset($options['currency_symptom']) and trim($options['currency_symptom'])) $currency = $options['currency_symptom'];
         }
-        
+
         return apply_filters('mec_currency_sign', $currency);
     }
-    
+
     /**
      * Returns currency code of MEC
      * @param int|object $event
@@ -4022,10 +4029,10 @@ class MEC_main extends MEC_base
     {
         $currency = $this->get_currency($event);
         $currencies = $this->get_currencies();
-        
+
         return isset($currencies[$currency]) ? $currencies[$currency] : 'USD';
     }
-    
+
     /**
      * Returns currency sign position of MEC
      * @param int|object $event
@@ -4048,7 +4055,7 @@ class MEC_main extends MEC_base
 
         return apply_filters('mec_currency_sign_position', $position);
     }
-    
+
     /**
      * Returns MEC Payment Gateways
      * @author Webnus <info@webnus.biz>
@@ -4058,7 +4065,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('mec_gateways', array());
     }
-    
+
     /**
      * Check to see if user exists by its username
      * @author Webnus <info@webnus.biz>
@@ -4069,10 +4076,10 @@ class MEC_main extends MEC_base
     {
         /** first validation **/
         if(!trim($username)) return true;
-        
+
         return username_exists($username);
     }
-    
+
     /**
      * Check to see if user exists by its email
      * @author Webnus <info@webnus.biz>
@@ -4083,10 +4090,10 @@ class MEC_main extends MEC_base
     {
         /** first validation **/
         if(!trim($email)) return true;
-        
+
         return email_exists($email);
     }
-    
+
     /**
      * Register a user in WordPress
      * @author Webnus <info@webnus.biz>
@@ -4099,10 +4106,10 @@ class MEC_main extends MEC_base
     {
         /** first validation **/
         if(!trim($username) or !trim($email)) return false;
-        
+
         return wp_create_user($username, $password, $email);
     }
-    
+
     /**
      * Convert a formatted date into standard format
      * @author Webnus <info@webnus.biz>
@@ -4113,7 +4120,7 @@ class MEC_main extends MEC_base
     {
         return date('Y-m-d', strtotime(str_replace('-', '/', $date)));
     }
-    
+
     /**
      * Render the date
      * @author Webnus <info@webnus.biz>
@@ -4133,15 +4140,15 @@ class MEC_main extends MEC_base
     {
         // Import dashboard page of MEC
         $path = $this->import('app.features.mec.dashboard', true, true);
-        
+
         // Create mec_events table if it's removed for any reason
         $this->create_mec_tables();
-            
+
         ob_start();
         include $path;
         echo $output = ob_get_clean();
     }
-    
+
     /**
      * Redirect on plugin activation
      * @author Webnus <info@webnus.biz>
@@ -4153,15 +4160,15 @@ class MEC_main extends MEC_base
 
         // No need to redirect
         if(!get_option('mec_activation_redirect', false)) return true;
-        
+
         // Delete the option to don't do it always
         delete_option('mec_activation_redirect');
-            
+
         // Redirect to MEC Dashboard
         wp_redirect(admin_url('/admin.php?page=MEC-wizard'));
         exit;
     }
-    
+
     /**
      * Check if we can show booking module or not
      * @author Webnus <info@webnus.biz>
@@ -4178,6 +4185,29 @@ class MEC_main extends MEC_base
 
         // Booking on single page is disabled
         if(!isset($settings['booking_status']) or (isset($settings['booking_status']) and !$settings['booking_status'])) return false;
+
+        // Who Can Book
+        $wcb_all = (isset($settings['booking_wcb_all']) and is_numeric($settings['booking_wcb_all'])) ? $settings['booking_wcb_all'] : 1;
+        if(!$wcb_all)
+        {
+            $user_id = get_current_user_id();
+
+            // Guest User is not Permitted
+            if(!$user_id) return false;
+
+            // User
+            $user = get_user_by('id', $user_id);
+
+            // Invalid User ID
+            if(!$user or ($user and !isset($user->roles))) return false;
+
+            $roles = (array) $user->roles;
+
+            $can = false;
+            foreach($roles as $role) if(isset($settings['booking_wcb_'.$role]) and $settings['booking_wcb_'.$role]) $can = true;
+
+            if(!$can) return false;
+        }
 
         $tickets = isset($event->data->tickets) ? $event->data->tickets : array();
         $dates = isset($event->dates) ? $event->dates : (isset($event->date) ? $event->date : array());
@@ -4218,7 +4248,7 @@ class MEC_main extends MEC_base
                     $minute = $date_diff->days * 24 * 60;
                     $minute += $date_diff->h * 60;
                     $minute += $date_diff->i;
-    
+
                     if($minute > $show_booking_form_interval) return false;
                 }
             }
@@ -4248,11 +4278,11 @@ class MEC_main extends MEC_base
 
             if(!$render_date or ($render_date and $this->is_past($render_date, current_time($time_format)))) return false;
         }
-        
+
         // MEC payment gateways
         $gateways = $this->get_gateways();
         $is_gateway_enabled = false;
-        
+
         foreach($gateways as $gateway)
         {
             if($gateway->enabled())
@@ -4263,13 +4293,13 @@ class MEC_main extends MEC_base
         }
 
         $wc_status = ((isset($settings['wc_status']) and class_exists('WooCommerce')) ? (boolean) $settings['wc_status'] : false);
-        
+
         // No Payment gateway is enabled
         if(!$is_gateway_enabled and !$wc_status) return false;
-        
+
         return true;
     }
-    
+
     /**
      * Check if we can show countdown module or not
      * @author Webnus <info@webnus.biz>
@@ -4295,10 +4325,10 @@ class MEC_main extends MEC_base
 
         // The event is Expired/Passed
         if($this->is_past($start_date, date('Y-m-d')) and !$ongoing) return false;
-        
+
         return true;
     }
-    
+
     /**
      * Get default timezone of WordPress
      * @author Webnus <info@webnus.biz>
@@ -4318,16 +4348,16 @@ class MEC_main extends MEC_base
         else $timezone_string = get_option('timezone_string');
 
         $gmt_offset = get_option('gmt_offset');
-        
+
         if(trim($timezone_string) == '' and trim($gmt_offset)) $timezone_string = $this->get_timezone_by_offset($gmt_offset);
         elseif(trim($timezone_string) == '' and trim($gmt_offset) == '0')
         {
             $timezone_string = 'UTC';
         }
-        
+
         return $timezone_string;
     }
-    
+
     /**
      * Get GMT offset based on hours:minutes
      * @author Webnus <info@webnus.biz>
@@ -4365,7 +4395,7 @@ class MEC_main extends MEC_base
 
         return (substr($hours, 0, 1) == '-' ? '' : '+').$hours.':'.(((int) $hour_minutes < 0) ? abs($hour_minutes) : $hour_minutes);
     }
-    
+
     /**
      * Get GMT offset based on seconds
      * @author Webnus <info@webnus.biz>
@@ -4464,7 +4494,7 @@ class MEC_main extends MEC_base
 
         return $timezone;
     }
-    
+
     /**
      * Get status of Google recaptcha
      * @author Webnus <info@webnus.biz>
@@ -4475,22 +4505,22 @@ class MEC_main extends MEC_base
     {
         // MEC Settings
         $settings = $this->get_settings();
-        
+
         $status = false;
-        
+
         // Check if the feature is enabled
         if(isset($settings['google_recaptcha_status']) and $settings['google_recaptcha_status']) $status = true;
-        
+
         // Check if the feature is enabled for certain section
         if($status and trim($section) and (!isset($settings['google_recaptcha_'.$section]) or (isset($settings['google_recaptcha_'.$section]) and !$settings['google_recaptcha_'.$section]))) $status = false;
-        
+
         // Check if site key and secret key is not empty
         if($status and (!isset($settings['google_recaptcha_sitekey']) or (isset($settings['google_recaptcha_sitekey']) and trim($settings['google_recaptcha_sitekey']) == ''))) $status = false;
         if($status and (!isset($settings['google_recaptcha_secretkey']) or (isset($settings['google_recaptcha_secretkey']) and trim($settings['google_recaptcha_secretkey']) == ''))) $status = false;
-        
+
         return $status;
     }
-    
+
     /**
      * Get re-captcha verification from Google servers
      * @author Webnus <info@webnus.biz>
@@ -4502,24 +4532,24 @@ class MEC_main extends MEC_base
     {
         // get the IP
         if(is_null($remote_ip)) $remote_ip = (isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : '');
-        
+
         // MEC Settings
         $settings = $this->get_settings();
-        
+
         $data = array('secret'=>(isset($settings['google_recaptcha_secretkey']) ? $settings['google_recaptcha_secretkey'] : ''), 'remoteip'=>$remote_ip, 'v'=>'php_1.0', 'response'=>$response);
-                
+
         $req = "";
         foreach($data as $key=>$value) $req .= $key.'='.urlencode(stripslashes($value)).'&';
-        
+
         // Validate the re-captcha
         $getResponse = $this->get_web_page("https://www.google.com/recaptcha/api/siteverify?".trim($req, '& '));
-        
+
         $answers = json_decode($getResponse, true);
-        
+
         if(isset($answers['success']) and trim($answers['success'])) return true;
         else return false;
     }
-    
+
     /**
      * Get current language of WordPress
      * @author Webnus <info@webnus.biz>
@@ -4529,7 +4559,7 @@ class MEC_main extends MEC_base
     {
         return apply_filters('plugin_locale', get_locale(), 'modern-events-calendar-lite');
     }
-    
+
     /**
      * Write to a log file
      * @author Webnus <info@webnus.biz>
@@ -4539,11 +4569,11 @@ class MEC_main extends MEC_base
     public function debug_log($log_msg, $path = '')
 	{
 		if(trim($path) == '') $path = MEC_ABSPATH. 'log.txt';
-        
+
 		$fh = fopen($path, 'a');
         fwrite($fh, $log_msg);
 	}
-    
+
     /**
      * Filter Skin parameters to add taxonomy, etc filters that come from WordPress Query
      * This used for taxonomy archive pages etc that are handled by WordPress itself
@@ -4558,15 +4588,15 @@ class MEC_main extends MEC_base
         {
             $query = get_queried_object();
             $term_id = $query->term_id;
-            
+
             if(!isset($atts['category'])) $atts['category'] = '';
-            
+
             $atts['category'] = trim(trim($atts['category'], ', ').','.$term_id, ', ');
         }
-        
+
         return $atts;
     }
-    
+
      /**
      * Filter TinyMce Buttons
      * @author Webnus <info@webnus.biz>
@@ -4590,7 +4620,7 @@ class MEC_main extends MEC_base
         $plugins['mec_mce_buttons'] = $this->asset('js/mec-external.js');
         return $plugins;
     }
-    
+
     /**
      * Return JSON output id and the name of a post type
      * @author Webnus <info@webnus.biz>
@@ -4644,15 +4674,15 @@ class MEC_main extends MEC_base
             $start = new DateTime($start_date);
             $end = new DateTime($end_date);
             $days = round(($end->format('U') - $start->format('U')) / (60*60*24));
-            
+
             $interval = new stdClass();
             $interval->days = abs($days);
             $interval->invert = ($days >= 0 ? 0 : 1);
-            
+
             return $interval;
         }
     }
-    
+
     /**
      * Convert a certain time into seconds (Hours should be in 24 hours format)
      * @author Webnus <info@webnus.biz>
@@ -4665,7 +4695,7 @@ class MEC_main extends MEC_base
     {
         return (($hours * 3600) + ($minutes * 60) + $seconds);
     }
-    
+
     /**
      * Convert a 12 hour format hour to a 24 format hour
      * @author Webnus <info@webnus.biz>
@@ -4676,14 +4706,14 @@ class MEC_main extends MEC_base
     public function to_24hours($hour, $ampm = 'PM')
     {
         $ampm = strtoupper($ampm);
-        
+
         if($ampm == 'AM' and $hour < 12) return $hour;
         elseif($ampm == 'AM' and $hour == 12) return 24;
         elseif($ampm == 'PM' and $hour < 12) return $hour+12;
         elseif($ampm == 'PM' and $hour == 12) return 12;
         elseif($ampm == 'PM' and $hour > 12) return $hour;
     }
-    
+
     /**
      * Get rendered events based on a certain criteria
      * @author Webnus <info@webnus.biz>
@@ -4702,7 +4732,7 @@ class MEC_main extends MEC_base
                 'post_status'=>'publish'
             )
         );
-        
+
         // The Query
         $query = new WP_Query($args);
 
@@ -4710,7 +4740,7 @@ class MEC_main extends MEC_base
         {
             // MEC Render Library
             $render = $this->getRender();
-            
+
             // The Loop
             while($query->have_posts())
             {
@@ -4745,10 +4775,10 @@ class MEC_main extends MEC_base
 
         // Restore original Post Data
         wp_reset_postdata();
-        
+
         return $events;
     }
-    
+
     /**
      * Duplicate an event
      * @author Webnus <info@webnus.biz>
@@ -4759,12 +4789,12 @@ class MEC_main extends MEC_base
     {
         // MEC DB Library
         $db = $this->getDB();
-        
+
         $post = get_post($post_id);
-        
+
         // Post is not exists
         if(!$post) return false;
-        
+
         // New post data array
         $args = array
         (
@@ -4782,10 +4812,10 @@ class MEC_main extends MEC_base
             'to_ping'=>$post->to_ping,
             'menu_order'=>$post->menu_order
         );
-        
+
         // insert the new post
         $new_post_id = wp_insert_post($args);
-        
+
         // get all current post terms ad set them to the new post draft
         $taxonomies = get_object_taxonomies($post->post_type);
         foreach($taxonomies as $taxonomy)
@@ -4793,47 +4823,47 @@ class MEC_main extends MEC_base
             $post_terms = wp_get_object_terms($post_id, $taxonomy, array('fields'=>'slugs'));
             wp_set_object_terms($new_post_id, $post_terms, $taxonomy, false);
         }
-        
+
         // duplicate all post meta
         $post_metas = $db->select("SELECT `meta_key`, `meta_value` FROM `#__postmeta` WHERE `post_id`='$post_id'", 'loadObjectList');
         if(count($post_metas) != 0)
         {
             $sql_query = "INSERT INTO `#__postmeta` (post_id, meta_key, meta_value) ";
-            
+
             foreach($post_metas as $meta_info)
             {
                 $meta_key = $meta_info->meta_key;
                 $meta_value = addslashes($meta_info->meta_value);
-                
+
                 $sql_query_sel[] = "SELECT $new_post_id, '$meta_key', '$meta_value'";
             }
-            
+
             $sql_query .= implode(" UNION ALL ", $sql_query_sel);
             $db->q($sql_query);
         }
-        
+
         // Duplicate MEC record
         $mec_data = $db->select("SELECT * FROM `#__mec_events` WHERE `post_id`='$post_id'", 'loadAssoc');
-        
+
         $q1 = "";
         $q2 = "";
         foreach($mec_data as $key=>$value)
         {
             if(in_array($key, array('id', 'post_id'))) continue;
-            
+
             $q1 .= "`$key`,";
             $q2 .= "'$value',";
         }
-        
+
         $db->q("INSERT INTO `#__mec_events` (`post_id`,".trim($q1, ', ').") VALUES ('$new_post_id',".trim($q2, ', ').")");
 
         // Update Schedule
         $schedule = $this->getSchedule();
         $schedule->reschedule($new_post_id);
-        
+
         return $new_post_id;
     }
-    
+
     /**
      * Returns start/end date label
      * @author Webnus <info@webnus.biz>
@@ -5002,7 +5032,7 @@ class MEC_main extends MEC_base
 
         return date_i18n($format, $time);
     }
-    
+
     /**
      * Returns start/end time labels
      * @author Webnus <info@webnus.biz>
@@ -5036,10 +5066,10 @@ class MEC_main extends MEC_base
     {
         $start_date = isset($event->meta['mec_date']['start']) ? $event->meta['mec_date']['start'] : array();
         $end_date = isset($event->meta['mec_date']['end']) ? $event->meta['mec_date']['end'] : array();
-        
+
         $event_period = $this->date_diff($start_date['date'], $end_date['date']);
         $event_period_days = $event_period ? $event_period->days : 0;
-        
+
         $finish_date = array('date'=>$event->mec->end, 'hour'=>$event->meta['mec_date']['end']['hour'], 'minutes'=>$event->meta['mec_date']['end']['minutes'], 'ampm'=>(isset($event->meta['mec_date']['end']['ampm']) ? $event->meta['mec_date']['end']['ampm'] : ''));
 
         // Custom Dates
@@ -5048,7 +5078,7 @@ class MEC_main extends MEC_base
 
         // Event Passed
         $past = $this->is_past($finish_date['date'], $date);
-        
+
         // Normal event
         if(isset($event->mec->repeat) and $event->mec->repeat == '0')
         {
@@ -5075,18 +5105,18 @@ class MEC_main extends MEC_base
             {
                 $start_day = date('j', strtotime($start_date['date']));
                 $day = date('j', strtotime($date));
-                
+
                 $passed_days = 0;
                 if($day >= $start_day) $passed_days = $day - $start_day;
                 else $passed_days = ($day+date('t', strtotime($start_date['date']))) - $start_day;
-                
+
                 $event_period_days = $event_period_days - $passed_days;
             }
-            
+
             return date('Y-m-d', strtotime('+'.$event_period_days.' Days', strtotime($date)));
         }
     }
-    
+
     /**
      * Get Archive Status of MEC
      * @author Webnus <info@webnus.biz>
@@ -5095,11 +5125,11 @@ class MEC_main extends MEC_base
     public function get_archive_status()
     {
         $settings = $this->get_settings();
-        
+
         $status = isset($settings['archive_status']) ? $settings['archive_status'] : '1';
         return apply_filters('mec_archive_status', $status);
     }
-    
+
     /**
      * Check to see if a table exists or not
      * @author Webnus <info@webnus.biz>
@@ -5110,10 +5140,10 @@ class MEC_main extends MEC_base
     {
         // MEC DB library
         $db = $this->getDB();
-        
+
         return $db->q("SHOW TABLES LIKE '#__$table'");
     }
-    
+
     /**
      * Create MEC Tables
      * @author Webnus <info@webnus.biz>
@@ -5123,27 +5153,27 @@ class MEC_main extends MEC_base
     {
         // MEC Events table already exists
         if($this->table_exists('mec_events') and $this->table_exists('mec_dates') and $this->table_exists('mec_occurrences') and $this->table_exists('mec_users')) return true;
-        
+
         // MEC File library
         $file = $this->getFile();
-        
+
         // MEC DB library
         $db = $this->getDB();
-        
+
         // Run Queries
         $query_file = MEC_ABSPATH. 'assets' .DS. 'sql' .DS. 'tables.sql';
 		if($file->exists($query_file))
 		{
 			$queries = $file->read($query_file);
             $sqls = explode(';', $queries);
-			
+
             foreach($sqls as $sql)
             {
                 $sql = trim($sql, '; ');
                 if(trim($sql) == '') continue;
-                
+
                 $sql .= ';';
-                
+
                 try
                 {
                     $db->q($sql);
@@ -5154,7 +5184,7 @@ class MEC_main extends MEC_base
 
 		return true;
     }
-    
+
     /**
      * Return HTML email type
      * @author Webnus <info@webnus.biz>
@@ -5165,14 +5195,14 @@ class MEC_main extends MEC_base
     {
         return 'text/html';
     }
-    
+
     public function get_next_upcoming_event()
     {
         MEC::import('app.skins.list', true);
-        
+
         // Get list skin
         $list = new MEC_skin_list();
-        
+
         // Attributes
         $atts = array(
             'show_past_events'=>0,
@@ -5181,19 +5211,19 @@ class MEC_main extends MEC_base
                 'list' => array('limit'=>1)
             ),
         );
-        
+
         // Initialize the skin
         $list->initialize($atts);
-        
+
         // Fetch the events
         $list->fetch();
-        
+
         $events = $list->events;
         $key = key($events);
-        
+
         return (isset($events[$key][0]) ? $events[$key][0] : array());
     }
-    
+
     /**
      * Return a web page
      * @author Webnus <info@webnus.biz>
@@ -5224,36 +5254,36 @@ class MEC_main extends MEC_base
 
 		return $result;
 	}
-    
+
     public function save_events($events = array())
     {
         $ids = array();
-        
+
         foreach($events as $event) $ids[] = $this->save_event($event, (isset($event['ID']) ? $event['ID'] : NULL));
         return $ids;
     }
-    
+
     public function save_event($event = array(), $post_id = NULL)
     {
         $post = array('post_title'=>$event['title'], 'post_content'=>(isset($event['content']) ? $event['content'] : ''), 'post_type'=>$this->get_main_post_type(), 'post_status'=>(isset($event['status']) ? $event['status'] : 'publish'));
-        
+
         // Update previously inserted post
         if(!is_null($post_id)) $post['ID'] = $post_id;
-        
+
         $post_id = wp_insert_post($post);
 
         update_post_meta($post_id, 'mec_location_id', (isset($event['location_id']) ? $event['location_id'] : 1));
         update_post_meta($post_id, 'mec_dont_show_map', 0);
         update_post_meta($post_id, 'mec_organizer_id', (isset($event['organizer_id']) ? $event['organizer_id'] : 1));
-        
+
         $start_time_hour = (isset($event['start_time_hour']) ? $event['start_time_hour'] : 8);
         $start_time_minutes = (isset($event['start_time_minutes']) ? $event['start_time_minutes'] : 0);
         $start_time_ampm = (isset($event['start_time_ampm']) ? $event['start_time_ampm'] : 'AM');
-        
+
         $end_time_hour = (isset($event['end_time_hour']) ? $event['end_time_hour'] : 6);
         $end_time_minutes = (isset($event['end_time_minutes']) ? $event['end_time_minutes'] : 0);
         $end_time_ampm = (isset($event['end_time_ampm']) ? $event['end_time_ampm'] : 'PM');
-        
+
         $allday = (isset($event['allday']) ? $event['allday'] : 0);
         $time_comment = (isset($event['time_comment']) ? $event['time_comment'] : '');
         $hide_time = ((isset($event['date']) and isset($event['date']['hide_time'])) ? $event['date']['hide_time'] : 0);
@@ -5283,7 +5313,7 @@ class MEC_main extends MEC_base
         update_post_meta($post_id, 'mec_repeat_interval', $event['interval']);
 
         update_post_meta($post_id, 'mec_certain_weekdays', explode(',', trim((isset($event['weekdays']) ? $event['weekdays'] : ''), ', ')));
-        
+
         $date = array
         (
             'start'=>array('date'=>$event['start'], 'hour'=>$start_time_hour, 'minutes'=>$start_time_minutes, 'ampm'=>$start_time_ampm),
@@ -5325,10 +5355,10 @@ class MEC_main extends MEC_base
 
         // MEC DB Library
         $db = $this->getDB();
-        
+
         // Update MEC Events Table
         $mec_event_id = $db->select("SELECT `id` FROM `#__mec_events` WHERE `post_id`='$post_id'", 'loadResult');
-        
+
         if(!$mec_event_id)
         {
             $q1 = "";
@@ -5347,13 +5377,13 @@ class MEC_main extends MEC_base
         else
         {
             $q = "";
-            
+
             foreach($mec as $key=>$value)
             {
                 if(is_null($value)) $q .= "`$key`=NULL,";
                 else $q .= "`$key`='$value',";
             }
-            
+
             $db->q("UPDATE `#__mec_events` SET ".trim($q, ', ')." WHERE `id`='$mec_event_id'");
         }
 
@@ -5362,28 +5392,28 @@ class MEC_main extends MEC_base
         // Update Schedule
         $schedule = $this->getSchedule();
         $schedule->reschedule($post_id, $schedule->get_reschedule_maximum($event['repeat_type']));
-        
+
         return $post_id;
     }
-    
+
     public function save_category($category = array())
     {
         $name = isset($category['name']) ? $category['name'] : '';
         if(!trim($name)) return false;
-        
+
         $term = get_term_by('name', $name, 'mec_category');
-        
+
         // Term already exists
         if(is_object($term) and isset($term->term_id)) return $term->term_id;
-        
+
         $term = wp_insert_term($name, 'mec_category');
-        
+
         // An error ocurred
         if(is_wp_error($term)) return false;
-        
+
         $category_id = $term['term_id'];
         if(!$category_id) return false;
-        
+
         return $category_id;
     }
 
@@ -5431,25 +5461,25 @@ class MEC_main extends MEC_base
 
         return $label_id;
     }
-    
+
     public function save_organizer($organizer = array())
     {
         $name = isset($organizer['name']) ? $organizer['name'] : '';
         if(!trim($name)) return false;
-        
+
         $term = get_term_by('name', $name, 'mec_organizer');
-        
+
         // Term already exists
         if(is_object($term) and isset($term->term_id)) return $term->term_id;
-        
+
         $term = wp_insert_term($name, 'mec_organizer');
-        
+
         // An error ocurred
         if(is_wp_error($term)) return false;
-        
+
         $organizer_id = $term['term_id'];
         if(!$organizer_id) return false;
-        
+
         if(isset($organizer['tel']) && strpos($organizer['tel'], '@') !== false)
         {
             // Just for EventON
@@ -5461,15 +5491,15 @@ class MEC_main extends MEC_base
             $tel = (isset($organizer['tel']) and trim($organizer['tel'])) ? $organizer['tel'] : '';
             $email = (isset($organizer['email']) and trim($organizer['email'])) ? $organizer['email'] : '';
         }
-        
+
         $url = (isset($organizer['url']) and trim($organizer['url'])) ? $organizer['url'] : '';
         $thumbnail = isset($organizer['thumbnail']) ? $organizer['thumbnail'] : '';
-        
+
         update_term_meta($organizer_id, 'tel', $tel);
         update_term_meta($organizer_id, 'email', $email);
         update_term_meta($organizer_id, 'url', $url);
         if(trim($thumbnail)) update_term_meta($organizer_id, 'thumbnail', $thumbnail);
-        
+
         return $organizer_id;
     }
 
@@ -5554,7 +5584,7 @@ class MEC_main extends MEC_base
 
         return $speaker_id;
     }
-    
+
     /**
      * Returns data export array for one event
      * @author Webnus <info@webnus.biz>
@@ -5565,10 +5595,10 @@ class MEC_main extends MEC_base
     {
         // MEC Render Library
         $render = $this->getRender();
-        
+
         return $render->data($event_id);
     }
-    
+
     /**
      * Converts array to XML string
      * @author Webnus <info@webnus.biz>
@@ -5578,17 +5608,17 @@ class MEC_main extends MEC_base
     public function xml_convert($data)
     {
         $main_node = array_keys($data);
-        
+
         // Creating SimpleXMLElement object
         $xml = new SimpleXMLElement('<?xml version="1.0"?><'.$main_node[0].'></'.$main_node[0].'>');
-        
+
         // Convert array to xml
         $this->array_to_xml($data[$main_node[0]], $xml);
-        
+
         // Return XML String
         return $xml->asXML();
     }
-    
+
     public function array_to_xml($data, &$xml)
     {
         foreach($data as $key=>$value)
@@ -5611,7 +5641,7 @@ class MEC_main extends MEC_base
             }
         }
     }
-    
+
     /**
      * Returns Weekdays Day Numbers
      * @author Webnus <info@webnus.biz>
@@ -5620,14 +5650,14 @@ class MEC_main extends MEC_base
     public function get_weekdays()
     {
         $weekdays = array(1,2,3,4,5);
-        
+
         // Get weekdays from options
         $settings = $this->get_settings();
         if(isset($settings['weekdays']) and is_array($settings['weekdays']) and count($settings['weekdays'])) $weekdays = $settings['weekdays'];
-        
+
         return apply_filters('mec_weekday_numbers', $weekdays);
     }
-    
+
     /**
      * Returns Weekends Day Numbers
      * @author Webnus <info@webnus.biz>
@@ -5636,14 +5666,14 @@ class MEC_main extends MEC_base
     public function get_weekends()
     {
         $weekends = array(6,7);
-        
+
         // Get weekdays from options
         $settings = $this->get_settings();
         if(isset($settings['weekends']) and is_array($settings['weekends']) and count($settings['weekends'])) $weekends = $settings['weekends'];
-        
+
         return apply_filters('mec_weekend_numbers', $weekends);
     }
-    
+
     /**
      * Returns Event link with Occurrence Date
      * @author Webnus <info@webnus.biz>
@@ -5701,7 +5731,7 @@ class MEC_main extends MEC_base
             return apply_filters('mec_event_permalink', $this->add_qs_var('occurrence', $date, $url));
         }
     }
-    
+
     /**
      * Register MEC Activity Action Type in BuddeyPress
      * @return void
@@ -5714,7 +5744,7 @@ class MEC_main extends MEC_base
             __('Booked an event.', 'modern-events-calendar-lite')
         );
     }
-    
+
     /**
      * Add a new activity to BuddyPress when a user book an event
      * @param int $book_id
@@ -5724,31 +5754,31 @@ class MEC_main extends MEC_base
     {
         // Get MEC Options
         $settings = $this->get_settings();
-        
+
         // BuddyPress integration is disabled
         if(!isset($settings['bp_status']) or (isset($settings['bp_status']) and !$settings['bp_status'])) return false;
-        
+
         // BuddyPress add activity is disabled
         if(!isset($settings['bp_add_activity']) or (isset($settings['bp_add_activity']) and !$settings['bp_add_activity'])) return false;
-        
+
         // BuddyPress is not installed or activated
         if(!function_exists('bp_activity_add')) return false;
-        
+
         $verification = get_post_meta($book_id, 'mec_verified', true);
         $confirmation = get_post_meta($book_id, 'mec_confirmed', true);
-        
+
         // Booking is not verified or confirmed
         if($verification != 1 or $confirmation != 1) return false;
-        
+
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
         $booker_id = get_post_field('post_author', $book_id);
-        
+
         $event_title = get_the_title($event_id);
         $event_link = get_the_permalink($event_id);
-        
+
         $profile_link = bp_core_get_userlink($booker_id);
         $bp_activity_id = get_post_meta($book_id, 'mec_bp_activity_id', true);
-        
+
         $activity_id = bp_activity_add(array
         (
             'id'=>$bp_activity_id,
@@ -5760,10 +5790,10 @@ class MEC_main extends MEC_base
             'item_id'=>$book_id,
             'secondary_item_id'=>$event_id,
         ));
-        
+
         // Set Activity ID
         update_post_meta($book_id, 'mec_bp_activity_id', $activity_id);
-        
+
         return $activity_id;
     }
 
@@ -5814,7 +5844,7 @@ class MEC_main extends MEC_base
     {
         echo do_shortcode('[MEC_fes_list relative-link="1"]');
     }
-    
+
     /**
      * Add booker information to mailchimp list
      * @param int $book_id
@@ -5824,13 +5854,13 @@ class MEC_main extends MEC_base
     {
         // Get MEC Options
         $settings = $this->get_settings();
-        
+
         // Mailchim integration is disabled
         if(!isset($settings['mchimp_status']) or (isset($settings['mchimp_status']) and !$settings['mchimp_status'])) return false;
-        
+
         $api_key = isset($settings['mchimp_api_key']) ? $settings['mchimp_api_key'] : '';
         $list_id = isset($settings['mchimp_list_id']) ? $settings['mchimp_list_id'] : '';
-        
+
         // Mailchim credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
 
@@ -5866,7 +5896,7 @@ class MEC_main extends MEC_base
             if(!is_email($email)) continue;
 
             // No Duplicate
-            if(in_array($did, $email)) continue;
+            if(in_array($email, $did)) continue;
             $did[] = $email;
 
             $names = explode(' ', $name);
@@ -5941,13 +5971,13 @@ class MEC_main extends MEC_base
         require_once MEC_ABSPATH.'/app/api/Campaign_Monitor/csrest_subscribers.php';
         // Get MEC Options
         $settings = $this->get_settings();
-        
+
         // Campaign Monitor integration is disabled
         if(!isset($settings['campm_status']) or (isset($settings['campm_status']) and !$settings['campm_status'])) return false;
-        
+
         $api_key = isset($settings['campm_api_key']) ? $settings['campm_api_key'] : '';
         $list_id = isset($settings['campm_list_id']) ? $settings['campm_list_id'] : '';
-        
+
         // Campaign Monitor credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
 
@@ -5973,22 +6003,22 @@ class MEC_main extends MEC_base
     {
         // Get MEC Options
         $settings = $this->get_settings();
-        
+
         // mailerlite integration is disabled
         if(!isset($settings['mailerlite_status']) or (isset($settings['mailerlite_status']) and !$settings['mailerlite_status'])) return false;
-        
+
         $api_key = isset($settings['mailerlite_api_key']) ? $settings['mailerlite_api_key'] : '';
         $list_id = isset($settings['mailerlite_list_id']) ? $settings['mailerlite_list_id'] : '';
-        
+
         // mailerlite credentials are required
         if(!trim($api_key) or !trim($list_id)) return false;
 
         // MEC User
         $u = $this->getUser();
         $booker = $u->booking($book_id);
-        
+
         $url = 'https://api.mailerlite.com/api/v2/groups/'.$list_id.'/subscribers';
-        
+
         $json = json_encode(array
         (
             'email'=>$booker->user_email,
@@ -6013,21 +6043,21 @@ class MEC_main extends MEC_base
     {
         // Get MEC Options
         $settings = $this->get_settings();
-        
+
         // Mailchim integration is disabled
         if(!isset($settings['active_campaign_status']) or (isset($settings['active_campaign_status']) and !$settings['active_campaign_status'])) return false;
-        
+
         $api_url = isset($settings['active_campaign_api_url']) ? $settings['active_campaign_api_url'] : '';
         $api_key = isset($settings['active_campaign_api_key']) ? $settings['active_campaign_api_key'] : '';
         $list_id = isset($settings['active_campaign_list_id']) ? $settings['active_campaign_list_id'] : '';
-        
+
         // Mailchim credentials are required
         if(!trim($api_url) or !trim($api_key)) return false;
 
         // MEC User
         $u = $this->getUser();
         $booker = $u->booking($book_id);
-        
+
         $url = $api_url.'/api/3/contact/sync';
 
         $array_parameters = array(
@@ -6040,7 +6070,7 @@ class MEC_main extends MEC_base
         (
             'contact' => $array_parameters,
         ));
-        
+
         // Execute the Request and Return the Response Code
         $request = wp_remote_post( $url, array(
             'body' => $json,
@@ -6053,7 +6083,7 @@ class MEC_main extends MEC_base
             error_log( print_r( $request, true ) );
         }
         $response = wp_remote_retrieve_body( $request );
-        
+
         // Subscribe to list
         if (trim($list_id)) {
             $person = json_decode($response);
@@ -6213,13 +6243,13 @@ class MEC_main extends MEC_base
      */
     public function constantcontact_add_subscriber($book_id)
     {
-        
+
         // Get MEC Options
         $settings = $this->get_settings();
-        
+
         // constantcontact integration is disabled
         if(!isset($settings['constantcontact_status']) or (isset($settings['constantcontact_status']) and !$settings['constantcontact_status'])) return false;
-        
+
         $api_key = isset($settings['constantcontact_api_key']) ? $settings['constantcontact_api_key'] : '';
         $access_token = isset($settings['constantcontact_access_token']) ? $settings['constantcontact_access_token'] : '';
         $list_id = isset($settings['constantcontact_list_id']) ? $settings['constantcontact_list_id'] : '';
@@ -6232,7 +6262,7 @@ class MEC_main extends MEC_base
         $booker = $u->booking($book_id);
 
         $url = 'https://api.constantcontact.com/v2/contacts?action_by=ACTION_BY_OWNER&api_key='.$api_key;
-        
+
         $json = json_encode(array
         (
             'lists'=>array(json_encode(array('list' =>$list_id ))),
@@ -6240,7 +6270,7 @@ class MEC_main extends MEC_base
             'first_name'=>$booker->first_name ,
             'last_name'=>$booker->last_name,
         ));
-     
+
         // Execute the Request and Return the Response Code
         return wp_remote_retrieve_response_code(wp_remote_post($url, array(
             'body' => $json,
@@ -6250,7 +6280,7 @@ class MEC_main extends MEC_base
         )));
 
     }
-    
+
     /**
      * Returns Booking of a certain event at certain date
      * @param int $event_id
@@ -6290,7 +6320,7 @@ class MEC_main extends MEC_base
                 'before' => date('Y-m-d', $timestamp).' 23:59:59',
             );
         }
-        
+
         $q = new WP_Query();
         return $q->query(array
         (
@@ -6316,7 +6346,7 @@ class MEC_main extends MEC_base
             )
         ));
     }
-    
+
     /**
      * Check whether to show event note or not
      * @param string $status
@@ -6326,14 +6356,14 @@ class MEC_main extends MEC_base
     {
         // MEC Settings
         $settings = $this->get_settings();
-        
+
         // FES Note is not enabled
         if(!isset($settings['fes_note']) or (isset($settings['fes_note']) and !$settings['fes_note'])) return false;
-        
+
         // Return visibility status by post status and visibility method
         return (isset($settings['fes_note_visibility']) ? ($settings['fes_note_visibility'] == 'always' ? true : $status != 'publish') : true);
     }
-    
+
     /**
      * Get Next event based on datetime of current event
      * @param array $atts
@@ -6357,7 +6387,7 @@ class MEC_main extends MEC_base
 
         return (isset($events[$key][0]) ? $events[$key][0] : (new stdClass()));
     }
-    
+
     /**
      * For getting event end date based on occurrence date
      * @param int $event_id
@@ -6367,19 +6397,19 @@ class MEC_main extends MEC_base
     public function get_end_date_by_occurrence($event_id, $occurrence)
     {
         $event_date = get_post_meta($event_id, 'mec_date', true);
-        
+
         $start_date = isset($event_date['start']) ? $event_date['start'] : array();
         $end_date = isset($event_date['end']) ? $event_date['end'] : array();
-        
+
         $event_period = $this->date_diff($start_date['date'], $end_date['date']);
         $event_period_days = $event_period ? $event_period->days : 0;
-        
+
         // Single Day Event
         if(!$event_period_days) return $occurrence;
-        
+
         return date('Y-m-d', strtotime('+'.$event_period_days.' days', strtotime($occurrence)));
     }
-    
+
     /**
      * Add MEC Event CPT to Tags Archive Page
      * @param object $query
@@ -6392,7 +6422,7 @@ class MEC_main extends MEC_base
             $query->set('post_type', array('post', $pt));
         }
     }
-    
+
     /**
      * Get Post ID by meta value and meta key
      * @param string $meta_key
@@ -6404,7 +6434,7 @@ class MEC_main extends MEC_base
         $db = $this->getDB();
         return $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_value`='$meta_value' AND `meta_key`='$meta_key'", 'loadResult');
     }
-    
+
     /**
      * Set Featured Image for a Post
      * @param string $image_url
@@ -6442,10 +6472,10 @@ class MEC_main extends MEC_base
             $attach_data = wp_generate_attachment_metadata($attach_id, $file);
             wp_update_attachment_metadata($attach_id, $attach_data);
         }
-        
+
         return set_post_thumbnail($post_id, $attach_id);
     }
-    
+
     /**
      * Get Attachment ID by Image URL
      * @param string $image_url
@@ -6456,7 +6486,7 @@ class MEC_main extends MEC_base
         $db = $this->getDB();
         return $db->select("SELECT `ID` FROM `#__posts` WHERE `guid`='$image_url'", 'loadResult');
     }
-    
+
     /**
      * Get Image Type by Buffer. Used in Facebook Importer
      * @param string $buffer
@@ -6475,7 +6505,7 @@ class MEC_main extends MEC_base
                 break;
             }
         }
-        
+
         return $found;
     }
 
@@ -6492,7 +6522,7 @@ class MEC_main extends MEC_base
         $settings = $this->get_settings();
 
         $assets = array('js'=>array(), 'css'=>array());
-        
+
         $local = $this->get_current_language();
         $ex = explode('_',$local);
 
@@ -6512,7 +6542,7 @@ class MEC_main extends MEC_base
         if(count($assets['js']) > 0) foreach($assets['js'] as $key => $link) wp_enqueue_script($key, $link, array(), $this->get_version());
         if(count($assets['css']) > 0) foreach($assets['css'] as $key => $link) wp_enqueue_style($key, $link, array(), $this->get_version());
     }
-    
+
     /**
      * Load Owl Carousel assets
      */
@@ -6544,7 +6574,7 @@ class MEC_main extends MEC_base
         // Include JS
         wp_enqueue_script('mec-time-picker', $this->asset('packages/timepicker/jquery.timepicker.min.js'));
     }
-    
+
     function get_client_ip()
     {
         if(isset($_SERVER['HTTP_CLIENT_IP'])) $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
@@ -6571,18 +6601,18 @@ class MEC_main extends MEC_base
 
         // Get From Cache
         if($cache->has($cache_key)) return $cache->get($cache_key);
-        
+
         // First Provider
         $JSON = $this->get_web_page('http://ip-api.com/json/'.$ip, 3);
         $data = json_decode($JSON, true);
-        
+
         // Second Provider
         if(!trim($JSON) or (is_array($data) and !isset($data['timezone'])))
         {
             $JSON = $this->get_web_page('https://ipapi.co/'.$ip.'/json/', 3);
             $data = json_decode($JSON, true);
         }
-        
+
         // Second provider returns X instead of false in case of error!
         $timezone = (isset($data['timezone']) and strtolower($data['timezone']) != 'x') ? $data['timezone'] : false;
 
@@ -6591,21 +6621,21 @@ class MEC_main extends MEC_base
 
         return $timezone;
     }
-    
+
     public function is_ajax()
     {
         return (defined('DOING_AJAX') && DOING_AJAX);
     }
-    
+
     public function load_sed_assets()
     {
         // Load Map assets
         $this->load_map_assets();
-        
+
         // Include FlipCount library
         wp_enqueue_script('mec-flipcount-script', $this->asset('js/flipcount.js'));
     }
-    
+
     public function is_sold($event, $date = NULL)
     {
         if(is_object($event))
@@ -6623,7 +6653,7 @@ class MEC_main extends MEC_base
 
             $timestamp = (is_numeric($date) ? $date : strtotime($date));
         }
-        
+
         // No Tickets
         if(!count($tickets) or !$timestamp) return false;
 
@@ -6646,17 +6676,17 @@ class MEC_main extends MEC_base
             // Check For Return SoldOut Label Exist.
             if($remained_tickets === 0) return true;
         }
-        
+
         return false;
     }
-    
+
     public function get_date_periods($date_start, $date_end, $type = 'daily')
     {
         $periods = array();
-        
+
         $time_start = strtotime($date_start);
         $time_end = strtotime($date_end);
-        
+
         if($type == 'daily')
         {
             while($time_start < $time_end)
@@ -6674,15 +6704,15 @@ class MEC_main extends MEC_base
             $start_year = date('Y', $time_start);
             $start_month = date('m', $time_start);
             $start_id = (int) $start_year.$start_month;
-            
+
             $end_year = date('Y', $time_end);
             $end_month = date('m', $time_end);
             $end_id = (int) $end_year.$end_month;
-            
+
             while($start_id <= $end_id)
             {
                 $periods[] = array('start'=>$start_year."-".$start_month."-01 00:00:00", 'end'=>$start_year."-".$start_month."-".date('t', strtotime($start_year."-".$start_month."-01 00:00:00"))." 23:59:59", 'label'=>date('Y F', strtotime($start_year."-".$start_month."-01 00:00:00")));
-                
+
                 if($start_month == '12')
                 {
                     $start_month = '01';
@@ -6693,7 +6723,7 @@ class MEC_main extends MEC_base
                     $start_month = (int) $start_month+1;
                     if(strlen($start_month) == 1) $start_month = '0'.$start_month;
                 }
-                
+
                 $start_id = (int) $start_year.$start_month;
             }
         }
@@ -6701,7 +6731,7 @@ class MEC_main extends MEC_base
         {
             $start_year = date('Y', $time_start);
             $end_year = date('Y', $time_end);
-            
+
             while($start_year <= $end_year)
             {
                 $periods[] = array('start'=>$start_year."-01-01 00:00:00", 'end'=>$start_year."-12-31 23:59:59", 'label'=>$start_year);
@@ -6711,7 +6741,7 @@ class MEC_main extends MEC_base
 
         return $periods;
     }
-    
+
     public function get_messages()
     {
         if($this->getPRO())
@@ -6818,7 +6848,7 @@ class MEC_main extends MEC_base
 
         return apply_filters('mec_messages', $messages);
     }
-    
+
     /**
      * For showing dynamic messages based on their default value and the inserted value in backend (if any)
      * @param $message_key string
@@ -6828,10 +6858,10 @@ class MEC_main extends MEC_base
     public function m($message_key, $default)
     {
         $message_values = $this->get_messages_options();
-        
+
         // Message is not set from backend
         if(!isset($message_values[$message_key]) or (isset($message_values[$message_key]) and !trim($message_values[$message_key]))) return $default;
-        
+
         // Return the dynamic message inserted in backend
         return $message_values[$message_key];
     }
@@ -6891,7 +6921,7 @@ class MEC_main extends MEC_base
 
         return (isset($data['current']) ? $data['current'] : false);
     }
-    
+
     /**
      * Convert weather unit
      * @author Webnus <info@webnus.biz>
@@ -7075,7 +7105,7 @@ class MEC_main extends MEC_base
     }
 
     /**
-	 * Advanced Repeating MEC Active 
+	 * Advanced Repeating MEC Active
 	 * @author Webnus <info@webnus.biz>
 	 * @param array $days
 	 * @param string $item
@@ -7084,7 +7114,7 @@ class MEC_main extends MEC_base
 	{
 		if(is_array($days) and in_array($item, $days)) echo 'mec-active';
     }
-    
+
     /**
      * Advanced repeat sorting by start of week day number
      * @author Webnus <info@webnus.biz>
@@ -7095,7 +7125,7 @@ class MEC_main extends MEC_base
     public function advanced_repeating_sort_day($start_of_week = 1, $day = 1)
     {
         if(func_num_args() < 2) return false;
-    
+
         $start_of_week = intval($start_of_week);
         $day = intval($day) == 0 ? intval($day) : intval($day) - 1;
 
@@ -7521,7 +7551,7 @@ class MEC_main extends MEC_base
 
             $add_css_class = $remained_tickets ? 'mec-few-tickets' : '';
             $output_tag = ' <span class="mec-event-title-soldout ' . $add_css_class . '"><span class=soldout>%%title%%</span></span> ';
-            
+
             // Check For Return SoldOut Label Exist.
             if($remained_tickets === 0) return str_replace('%%title%%', __('Sold Out', 'modern-events-calendar-lite'), $output_tag) . '<input type="hidden" value="%%soldout%%"/>';
 
@@ -7537,7 +7567,7 @@ class MEC_main extends MEC_base
 
             // Get Per Occurrence
             $total_bookings_limit = MEC_feature_occurrences::param($event_id, $timestamp, 'bookings_limit', $total_bookings_limit);
-            
+
             if(count($tickets) === 1)
             {
                 $ticket = reset($tickets);
@@ -7550,13 +7580,13 @@ class MEC_main extends MEC_base
             // Percentage
             $percentage = ((isset($settings['booking_last_few_tickets_percentage']) and trim($settings['booking_last_few_tickets_percentage']) != '') ? $settings['booking_last_few_tickets_percentage'] : 15);
             if(!$bookings_last_few_tickets_percentage_inherite and $bookings_last_few_tickets_percentage) $percentage = (int) $bookings_last_few_tickets_percentage;
-            
+
             // Check For Return A Few Label Exist.
             if(($total_bookings_limit > 0) and ($remained_tickets > 0 and $remained_tickets <= round((($percentage * $total_bookings_limit) / 100)))) return str_replace('%%title%%', __('Last Few Tickets', 'modern-events-calendar-lite'), $output_tag);
-    
+
             return false;
         }
-    
+
         return false;
     }
 
@@ -7564,7 +7594,7 @@ class MEC_main extends MEC_base
     {
         return $this->get_flags($event, $date);
     }
-    
+
     /**
      * Add Query String To URL
      * @param string $url
@@ -7576,10 +7606,10 @@ class MEC_main extends MEC_base
     public function add_query_string($url, $key, $value)
     {
         $url = preg_replace('/([?&])'. $key .'=.*?(&|$)/i', '$1$2$4', $url);
-        
+
         if(substr($url, strlen($url) - 1) == "?" or substr($url, strlen($url) - 1) == "&")
         $url = substr($url, 0, -1);
-        
+
         if(strpos($url, '?') === false)
         {
             return ($url .'?'. $key .'='. $value);
@@ -7601,7 +7631,7 @@ class MEC_main extends MEC_base
         if(func_num_args() < 2) return false;
 
         $check = DateTime::createFromFormat($format, $date);
-        
+
         return $check && $check->format($format) === $date;
     }
 
@@ -7610,7 +7640,7 @@ class MEC_main extends MEC_base
         if(trim($date) == '') return NULL;
 
         $db = $this->getDB();
-        return $db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`dstart`='".$date."') OR (`dstart`<'".$date."' AND `dend`>='".$date."')) ORDER BY `dstart` DESC LIMIT 1", 'loadResult');
+        return $db->select("SELECT `dstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' AND ((`dstart`='".esc_sql($date)."') OR (`dstart`<'".esc_sql($date)."' AND `dend`>='".esc_sql($date)."')) ORDER BY `dstart` DESC LIMIT 1", 'loadResult');
     }
 
     public function get_start_time_of_multiple_days($event_id, $time)
@@ -7618,7 +7648,7 @@ class MEC_main extends MEC_base
         if(!trim($time)) return NULL;
 
         $db = $this->getDB();
-        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`=".$event_id." AND ((`tstart`=".$time.") OR (`tstart`<".$time." AND `tend`>".$time.")) ORDER BY `tstart` DESC LIMIT 1", 'loadResult');
+        return $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`=".$event_id." AND ((`tstart`=".esc_sql($time).") OR (`tstart`<".esc_sql($time)." AND `tend`>".esc_sql($time).")) ORDER BY `tstart` DESC LIMIT 1", 'loadResult');
     }
 
     public function is_midnight_event($event)
@@ -7796,7 +7826,7 @@ class MEC_main extends MEC_base
             $curren_get_users = get_users(array(
                 'role' => $role,
             ));
-            
+
             if(count($curren_get_users))
             {
                 foreach($curren_get_users as $user)
@@ -7859,7 +7889,7 @@ class MEC_main extends MEC_base
 
         $date = str_replace('.', '-', $date);
         $f = explode('&', trim($format));
-        
+
         if(isset($f[1])) $return = date($f[1], strtotime($date));
         else $return = date($format, strtotime($date));
 
@@ -8190,7 +8220,7 @@ class MEC_main extends MEC_base
 
             $fields[$key] = trim(ucwords(str_replace('_', ' ', $key)));
         }
-        
+
         return $fields;
     }
 
@@ -8253,7 +8283,7 @@ class MEC_main extends MEC_base
             foreach($calendars as $calendar)
             {
                 // Calendar exists
-                if(post_exists($calendar['title'], 'MEC')) continue;
+                if(post_exists($calendar['title'], 'modern-events-calendar-lite')) continue;
 
                 $post = array('post_title'=>$calendar['title'], 'post_content'=>'MEC', 'post_type'=>'mec_calendars', 'post_status'=>'publish');
                 $post_id = wp_insert_post($post);
@@ -8422,5 +8452,17 @@ class MEC_main extends MEC_base
         }
 
         return $found;
+    }
+
+    public function get_from_mapped_field($reg_field, $default_value = NULL)
+    {
+        $current_user_id = get_current_user_id();
+        if(!$current_user_id) return $default_value;
+
+        $mapped_field = (isset($reg_field['mapping']) and trim($reg_field['mapping']) != '') ? $reg_field['mapping'] : NULL;
+        if(!$mapped_field) return $default_value;
+
+        $value = get_user_meta($current_user_id, $mapped_field, true);
+        return ($value ? $value : $default_value);
     }
 }

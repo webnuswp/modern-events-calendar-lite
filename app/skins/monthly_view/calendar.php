@@ -86,6 +86,7 @@ $events_str = '';
                     if($this->localtime) $events_str .= $this->main->module('local-time.type3', array('event'=>$event));
                     $events_str .= '<div class="mec-event-detail"><div class="mec-event-loc-place">'.(isset($location['name']) ? $location['name'] : '').'</div></div>';
                     $events_str .= $this->booking_button($event);
+                    $events_str .= $this->display_custom_data($event);
                     $events_str .= '</article>';
                 }
 
@@ -141,6 +142,7 @@ $events_str = '';
                     if($this->localtime) $events_str .= $this->main->module('local-time.type3', array('event'=>$event));
                     $events_str .= '<div class="mec-event-detail"><div class="mec-event-loc-place">'.(isset($location['name']) ? $location['name'] : '').'</div></div>';
                     $events_str .= $this->booking_button($event);
+                    $events_str .= $this->display_custom_data($event);
                     $events_str .= '</article>';
                 }
 
@@ -223,6 +225,7 @@ $events_str = '';
                         if($this->localtime) $events_str .= $this->main->module('local-time.type3', array('event'=>$event));
                         $events_str .= '<div class="mec-event-detail"><div class="mec-event-loc-place">'.(isset($location['name']) ? $location['name'] : '').'</div></div>';
                         $events_str .= $this->booking_button($event);
+                        $events_str .= $this->display_custom_data($event);
                         $events_str .= '</article>';
                     }
 

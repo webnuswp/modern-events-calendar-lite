@@ -516,7 +516,6 @@ function mec_event_attendees(ID, occurrence)
         },
         success: function(response)
         {
-            console.log(response.email_button);
             if (response.email_button != '') {
                 jQuery('.mec-report-selected-event-attendees-wrap').show();
                 jQuery('.mec-report-selected-event-attendees-wrap .w-row .w-col-sm-12').html(response.html);

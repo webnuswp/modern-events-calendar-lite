@@ -73,8 +73,7 @@ class MEC_request extends MEC_base
 				break;
 		}
 
-		$var = (isset($input[$name]) and !is_null($input[$name])) ? $input[$name] : $default;
-		return $var;
+		return (isset($input[$name]) and !is_null($input[$name])) ? $input[$name] : $default;
 	}
 
     /**

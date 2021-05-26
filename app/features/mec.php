@@ -152,6 +152,9 @@ class MEC_feature_mec extends MEC_base
         $this->factory->action('wp_ajax_close_cmsg_notification', array($this, 'close_cmsg_notification'));
         $this->factory->action('wp_ajax_close_cmsg_2_notification', array($this, 'close_cmsg_2_notification'));
 
+        // Occurences Dropdown
+        $this->factory->action('wp_ajax_mec_occurrences_dropdown', array($this, 'dropdown'));
+
         // Close Custom Text Notification
         $this->factory->action('wp_ajax_report_event_dates', array($this, 'report_event_dates'));
 
@@ -229,7 +232,7 @@ class MEC_feature_mec extends MEC_base
     public function download_settings()
     {
         // Current User is not Permitted
-        if(!current_user_can('mec_settings')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings') and !current_user_can('administrator')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
 
         if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_download'))
         {
@@ -253,7 +256,7 @@ class MEC_feature_mec extends MEC_base
     public function close_notification()
     {
         // Current User is not Permitted
-        if(!current_user_can('mec_settings')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings') and !current_user_can('administrator')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce')) exit();
 
         update_option('mec_addons_notification_option', 'open');
@@ -264,7 +267,7 @@ class MEC_feature_mec extends MEC_base
     public function close_cmsg_2_notification()
     {
         // Current User is not Permitted
-        if(!current_user_can('mec_settings')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings') and !current_user_can('administrator')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce')) exit();
 
         update_option('mec_custom_msg_2_close_option', 'open');
@@ -275,7 +278,7 @@ class MEC_feature_mec extends MEC_base
     public function close_cmsg_notification()
     {
         // Current User is not Permitted
-        if(!current_user_can('mec_settings')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings') and !current_user_can('administrator')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
         if(!wp_verify_nonce( $_REQUEST['nonce'], 'mec_settings_nonce')) exit();
 
         update_option('mec_custom_msg_close_option', 'open');
@@ -345,7 +348,7 @@ class MEC_feature_mec extends MEC_base
     public function import_settings()
     {
         // Current User is not Permitted
-        if(!current_user_can('mec_settings')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
+        if(!current_user_can('mec_settings') and !current_user_can('administrator')) $this->main->response(array('success'=>0, 'code'=>'ADMIN_ONLY'));
         if(!wp_verify_nonce($_REQUEST['nonce'], 'mec_settings_nonce')) exit();
 
         $options = $_REQUEST['content'];
@@ -492,8 +495,12 @@ class MEC_feature_mec extends MEC_base
             add_submenu_page('mec-intro', $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')), $this->main->m('taxonomy_speakers', __('Speakers', 'modern-events-calendar-lite')), 'edit_others_posts', 'edit-tags.php?taxonomy=mec_speaker&post_type='.$this->PT);
         }
 
-        add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), 'mec_shortcodes', 'edit.php?post_type=mec_calendars');
-        add_submenu_page('mec-intro', __('MEC - Settings', 'modern-events-calendar-lite'), __('Settings', 'modern-events-calendar-lite'), 'mec_settings', 'MEC-settings', array($this, 'page'));
+        $capability = (current_user_can('administrator') ? 'manage_options' : 'mec_shortcodes');
+        add_submenu_page('mec-intro', __('Shortcodes', 'modern-events-calendar-lite'), __('Shortcodes', 'modern-events-calendar-lite'), $capability, 'edit.php?post_type=mec_calendars');
+
+        $capability = (current_user_can('administrator') ? 'manage_options' : 'mec_settings');
+        add_submenu_page('mec-intro', __('MEC - Settings', 'modern-events-calendar-lite'), __('Settings', 'modern-events-calendar-lite'), $capability, 'MEC-settings', array($this, 'page'));
+
         add_submenu_page('mec-intro', __('MEC - Addons', 'modern-events-calendar-lite'), __('Addons', 'modern-events-calendar-lite'), 'manage_options', 'MEC-addons', array($this, 'addons'));
         add_submenu_page('mec-intro', __('MEC - Wizard', 'modern-events-calendar-lite'), __('Wizard', 'modern-events-calendar-lite'), 'manage_options', 'MEC-wizard', array($this, 'setup_wizard'));
 
@@ -1094,6 +1101,19 @@ class MEC_feature_mec extends MEC_base
         </div>';
     }
 
+    public function display_custom_data_field($skin, $value = 0)
+    {
+        return '<div class="mec-form-row mec-display-organizer-wrap mec-switcher">
+            <div class="mec-col-4">
+                <label for="mec_skin_'.$skin.'_custom_data">'.__('Display Custom Fields', 'modern-events-calendar-lite').'</label>
+            </div>
+            <div class="mec-col-4">
+                <input type="hidden" name="mec[sk-options]['.$skin.'][custom_data]" value="0" />
+                <input type="checkbox" name="mec[sk-options]['.$skin.'][custom_data]" id="mec_skin_'.$skin.'_custom_data" value="1" '.($value == '1' ? 'checked="checked"' : '').' /><label for="mec_skin_'.$skin.'_custom_data"></label>
+            </div>
+        </div>';
+    }
+
     /**
      * Disable Gutenberg Editor for MEC Post Types
      * @param boolean $status
@@ -1630,5 +1650,48 @@ class MEC_feature_mec extends MEC_base
         }
 
         return $title;
+    }
+
+    public function dropdown()
+    {
+        // Check if our nonce is set.
+        if(!isset($_POST['_wpnonce'])) $this->main->response(array('success'=>0, 'code'=>'NONCE_MISSING'));
+
+        // Verify that the nonce is valid.
+        if(!wp_verify_nonce(sanitize_text_field($_POST['_wpnonce']), 'mec_occurrences_dropdown')) $this->main->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
+
+        $date = isset($_POST['date']) ? $_POST['date'] : '';
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
+
+        // Date is invalid!
+        if(!trim($date) or !trim($id)) $this->main->response(array('success'=>0, 'code'=>'DATE_OR_ID_IS_INVALID'));
+
+        $dates = explode(':', $date);
+
+        $limit = 100;
+        $now = $dates[0];
+        $_6months_ago = strtotime('-6 Months', $now);
+
+        $occ = new MEC_feature_occurrences();
+        $occurrences = $occ->get_dates($id, $now, $limit);
+
+        $date_format = get_option('date_format');
+        $time_format = get_option('time_format');
+        $datetime_format = $date_format.' '.$time_format;
+
+        $success = 0;
+        $html = '<option class="mec-load-occurrences" value="'.$_6months_ago.':'.$_6months_ago.'">'.__('Previous Occurrences', 'modern-events-calendar-lite').'</option>';
+
+        $i = 1;
+        foreach($occurrences as $occurrence)
+        {
+            $success  = 1;
+            $html .= '<option value="'.$occurrence->tstart.':'.$occurrence->tend.'" '.($i === 1 ? 'selected="selected"' : '').'>'.(date_i18n($datetime_format, $occurrence->tstart)).'</option>';
+            $i++;
+        }
+
+        if(count($occurrences) >= $limit and isset($occurrence)) $html .= '<option class="mec-load-occurrences" value="'.$occurrence->tstart.':'.$occurrence->tend.'">'.__('Next Occurrences', 'modern-events-calendar-lite').'</option>';
+
+        $this->main->response(array('success'=>$success, 'html'=>$html));
     }
 }

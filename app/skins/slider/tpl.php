@@ -6,10 +6,9 @@ defined('MECEXEC') or die();
 $render_path = $this->get_render_path();
 $styling = $this->main->get_styling();
 
-$dark_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : '';
-if ( $dark_mode == 1 ): $set_dark = 'mec-dark-mode';
-else: $set_dark ='';
-endif;
+$dark_mode = (isset($styling['dark_mode']) ? $styling['dark_mode'] : '');
+if($dark_mode == 1) $set_dark = 'mec-dark-mode';
+else $set_dark = '';
 
 ob_start();
 include $render_path;
@@ -28,6 +27,7 @@ jQuery(document).ready(function()
         start_date: "'.$this->start_date.'",
         atts: "'.http_build_query(array('atts'=>$this->atts), '', '&').'",
         autoplay: "'.$this->autoplay.'",
+        transition_time: '.$this->transition_time.',
         ajax_url: "'.admin_url('admin-ajax.php', NULL).'",
     });
 });

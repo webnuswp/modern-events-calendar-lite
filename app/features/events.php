@@ -99,6 +99,9 @@ class MEC_feature_events extends MEC_base
             $this->factory->action('mec_metabox_booking', array($this, 'meta_box_booking_options'), 5);
             $this->factory->action('mec_metabox_booking', array($this, 'meta_box_tickets'), 10);
             $this->factory->action('mec_metabox_booking', array($this, 'meta_box_regform'), 20);
+            $this->factory->action('mec_metabox_booking', array($this, 'meta_box_attendees'), 22.5);
+            $this->factory->action('wp_ajax_mec_event_bookings', array($this, 'mec_event_bookings'), 22.5);
+
             if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
             {
                 // Booking Options for FES
@@ -109,6 +112,9 @@ class MEC_feature_events extends MEC_base
 
                 // Registration Form for FES
                 if(!isset($this->settings['fes_section_reg_form']) or (isset($this->settings['fes_section_reg_form']) and $this->settings['fes_section_reg_form'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_regform'), 45);
+
+                // Attendees for FES
+                if(!isset($this->settings['fes_section_booking_att']) or (isset($this->settings['fes_section_booking_att']) and $this->settings['fes_section_booking_att'])) $this->factory->action('mec_fes_metabox_details', array($this, 'meta_box_attendees'), 47.5);
             }
         }
 
@@ -1530,6 +1536,7 @@ class MEC_feature_events extends MEC_base
                 <?php if(isset($gateway_settings['gateways_per_event']) and $gateway_settings['gateways_per_event']): ?>
                 <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_booking_options_form_gateways_per_event" href="#"><?php echo esc_html__('Payment Gateways','modern-events-calendar-lite'); ?></a>
                 <?php endif; ?>
+                <a class="mec-add-booking-tabs-link" data-href="mec_meta_box_booking_options_form_attendees" href="#"><?php echo esc_html__('Bookings','modern-events-calendar-lite'); ?></a>
                 <?php do_action('add_event_booking_sections_left_menu'); ?>
             </div>
             <div class="mec-add-booking-tabs-right">
@@ -2720,6 +2727,123 @@ class MEC_feature_events extends MEC_base
     }
 
     /**
+     * Show attendees of event into the Add/Edit event page
+     *
+     * @author Webnus <info@webnus.biz>
+     * @param object $post
+     */
+    public function meta_box_attendees($post)
+    {
+        $draft = (isset($post->post_status) and $post->post_status != 'auto-draft') ? false : true;
+        if($draft) return;
+
+        $limit = 100;
+        $now = current_time('timestamp', 0);
+        $_6months_ago = strtotime('-6 Months', $now);
+
+        $occ = new MEC_feature_occurrences();
+        $occurrences = $occ->get_dates($post->ID, $now, $limit);
+
+        $date_format = get_option('date_format');
+        $time_format = get_option('time_format');
+        $datetime_format = $date_format.' '.$time_format;
+
+        do_action('mec_events_meta_box_attendees_start', $post);
+        ?>
+        <div class="mec-meta-box-fields mec-booking-tab-content" id="mec_meta_box_booking_options_form_attendees">
+            <h4 class="mec-meta-box-header"><?php _e('Attendees', 'modern-events-calendar-lite'); ?></h4>
+            <div class="mec-attendees-wrapper">
+                <div>
+                    <select id="mec_att_occurrences_dropdown" title="<?php esc_attr_e('Occurrence', 'modern-events-calendar-lite'); ?>">
+                        <option class="mec-load-occurrences" value="<?php echo $_6months_ago.':'.$_6months_ago; ?>"><?php esc_html_e('Previous Occurrences', 'modern-events-calendar-lite'); ?></option>
+                        <?php $i = 1; foreach($occurrences as $occurrence): ?>
+                        <option value="<?php echo $occurrence->tstart.':'.$occurrence->tend; ?>" <?php echo ($i === 1 ? 'selected="selected"' : ''); ?>><?php echo (date_i18n($datetime_format, $occurrence->tstart)); ?></option>
+                        <?php $i++; endforeach; ?>
+                        <?php if(count($occurrences) >= $limit and isset($occurrence)): ?>
+                        <option class="mec-load-occurrences" value="<?php echo $occurrence->tstart.':'.$occurrence->tend; ?>"><?php esc_html_e('Next Occurrences', 'modern-events-calendar-lite'); ?></option>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <div class="mec-attendees-list">
+                </div>
+            </div>
+        </div>
+        <script>
+        jQuery(document).ready(function()
+        {
+            mec_attendees_trigger_load_dates();
+            setTimeout(function()
+            {
+                jQuery('#mec_att_occurrences_dropdown').trigger('change');
+            }, 500);
+        });
+
+        function mec_attendees_trigger_load_dates()
+        {
+            jQuery('#mec_att_occurrences_dropdown').off('change').on('change', function()
+            {
+                var $dropdown = jQuery(this);
+                var value = $dropdown.val();
+                var $attendees = jQuery('.mec-attendees-wrapper .mec-attendees-list');
+
+                // Load Dates
+                if($dropdown.find(jQuery('option[value="'+value+'"]')).hasClass('mec-load-occurrences'))
+                {
+                    // Disable the Form
+                    $dropdown.attr('disabled', 'disabled');
+
+                    jQuery.ajax(
+                    {
+                        url: "<?php echo admin_url('admin-ajax.php', NULL); ?>",
+                        type: "POST",
+                        data: "action=mec_occurrences_dropdown&id=<?php echo $post->ID; ?>&_wpnonce=<?php echo wp_create_nonce('mec_occurrences_dropdown'); ?>&date="+value,
+                        dataType: "json"
+                    })
+                    .done(function(response)
+                    {
+                        if(response.success) $dropdown.html(response.html);
+
+                        // New Trigger
+                        mec_attendees_trigger_load_dates();
+                        
+                        setTimeout(function()
+                        {
+                            jQuery('#mec_att_occurrences_dropdown').trigger('change');
+                        }, 500);
+
+                        // Enable the Form
+                        $dropdown.removeAttr('disabled');
+                    });
+                }
+                // Load Attendees
+                else
+                {
+                    // Disable the Form
+                    $dropdown.attr('disabled', 'disabled');
+
+                    jQuery.ajax(
+                    {
+                        url: "<?php echo admin_url('admin-ajax.php', NULL); ?>",
+                        type: "POST",
+                        data: "action=mec_event_bookings&id=<?php echo $post->ID; ?>&occurrence="+value+"&backend=<?php echo (is_admin() ? 1 : 0); ?>",
+                        dataType: "json"
+                    })
+                    .done(function(response)
+                    {
+                        if(response.html) $attendees.html(response.html);
+
+                        // Enable the Form
+                        $dropdown.removeAttr('disabled');
+                    });
+                }
+            });
+        }
+        </script>
+        <?php
+        do_action('mec_events_meta_box_attendees_end', $post);
+    }
+
+    /**
      * Save event data
      *
      * @author Webnus <info@webnus.biz>
@@ -3673,11 +3797,17 @@ class MEC_feature_events extends MEC_base
         }
         elseif($column_name == 'start_date')
         {
-            echo date( get_option( 'date_format', 'Y-n-d' ), strtotime( get_post_meta( $post_id, 'mec_start_date', true ) ) );
+            $datetime_format = get_option('date_format', 'Y-n-d').' '.get_option('time_format', 'H:i');
+            $date = get_post_meta($post_id, 'mec_start_date', true);
+
+            echo date($datetime_format, (strtotime($date) + ((int) get_post_meta($post_id, 'mec_start_day_seconds', true))));
         }
         elseif($column_name == 'end_date')
         {
-            echo date( get_option( 'date_format', 'Y-n-d' ), strtotime( get_post_meta( $post_id, 'mec_end_date', true ) ) );
+            $datetime_format = get_option('date_format', 'Y-n-d').' '.get_option('time_format', 'H:i');
+            $date = get_post_meta($post_id, 'mec_end_date', true);
+
+            echo date($datetime_format, (strtotime($date) + ((int) get_post_meta($post_id, 'mec_end_day_seconds', true))));
         }
         elseif($column_name == 'sold_tickets')
         {
@@ -3918,13 +4048,8 @@ class MEC_feature_events extends MEC_base
         // MEC Render Library
         $render = $this->getRender();
 
-        if($export_all){
-
-            $post_ids = get_posts('post_type=mec-events&fields=ids&posts_per_page=-1');
-        }else{
-
-            $post_ids = isset($_GET['post']) ? (array) $_GET['post'] : array();
-        }
+        if($export_all) $post_ids = get_posts('post_type=mec-events&fields=ids&posts_per_page=-1');
+        else $post_ids = isset($_GET['post']) ? (array) $_GET['post'] : array();
 
         $columns = array(__('ID', 'modern-events-calendar-lite'), __('Title', 'modern-events-calendar-lite'), __('Description', 'modern-events-calendar-lite'), __('Start Date', 'modern-events-calendar-lite'), __('Start Time', 'modern-events-calendar-lite'), __('End Date', 'modern-events-calendar-lite'), __('End Time', 'modern-events-calendar-lite'), __('Link', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), __('Address', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), sprintf(__('%s Tel', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), sprintf(__('%s Email', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))), $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')), __('Featured Image', 'modern-events-calendar-lite'));
 
@@ -3953,7 +4078,6 @@ class MEC_feature_events extends MEC_base
 
             $location = isset($data->locations[$data->meta['mec_location_id']]) ? $data->locations[$data->meta['mec_location_id']] : array();
             $organizer = isset($data->organizers[$data->meta['mec_organizer_id']]) ? $data->organizers[$data->meta['mec_organizer_id']] : array();
-
             $cost = isset($data->meta['mec_cost']) ? $data->meta['mec_cost'] : null;
 
             $event = array(
@@ -4116,7 +4240,9 @@ class MEC_feature_events extends MEC_base
     public function attendees()
     {
         $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
+
         $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
+        $occurrence = explode(':', $occurrence)[0];
         if($occurrence == 'all') $occurrence = strtotime('+100 years');
 
         $tickets = get_post_meta($id, 'mec_tickets', true);
@@ -4300,7 +4426,7 @@ class MEC_feature_events extends MEC_base
     public function set_fallback_image_id($value, $post_id, $meta_key, $single)
     {
         // Only on frontend
-        if((is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX))) return $value;
+        if(is_admin() and (!defined('DOING_AJAX') or (defined('DOING_AJAX') and !DOING_AJAX))) return $value;
 
         // Only for empty _thumbnail_id keys
         if(!empty($meta_key) && '_thumbnail_id' !== $meta_key) return $value;
@@ -4375,5 +4501,93 @@ class MEC_feature_events extends MEC_base
         }
 
         return $fallback_image_id;
+    }
+    
+    public function mec_event_bookings()
+    {
+        $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;
+        $backend = isset($_POST['backend']) ? sanitize_text_field($_POST['backend']) : 0;
+
+        $occurrence = isset($_POST['occurrence']) ? sanitize_text_field($_POST['occurrence']) : NULL;
+        $occurrence = explode(':', $occurrence)[0];
+        if($occurrence == 'all') $occurrence = strtotime('+100 years');
+
+        $bookings = $this->main->get_bookings($id, $occurrence);
+        $book = $this->getBook();
+
+        $html = '';
+        if(count($bookings))
+        {
+            $html .= '<div class="w-clearfix">
+                <div class="w-col-xs-3 name">
+                    <span>'.__('Title', 'modern-events-calendar-lite').'</span>
+                </div>
+                <div class="w-col-xs-3 email">
+                    <span>'.__('Attendees', 'modern-events-calendar-lite').'</span>
+                </div>
+                <div class="w-col-xs-3 ticket">
+                    <span>'.__('Transaction ID', 'modern-events-calendar-lite').'</span>
+                </div>
+                <div class="w-col-xs-3">
+                    <span>'.__('Price', 'modern-events-calendar-lite').'</span>
+                </div>
+            </div>';
+
+            /** @var WP_Post $booking */
+
+            $index = $key = 0;
+            foreach($bookings as $booking)
+            {
+                $key++;
+
+                $attendees = $book->get_attendees($booking->ID);
+
+                $unique_attendees = array();
+                foreach($attendees as $attendee)
+                {
+                    if(!isset($unique_attendees[$attendee['email']])) $unique_attendees[$attendee['email']] = $attendee;
+                    else $unique_attendees[$attendee['email']]['count'] += 1;
+                }
+
+                $attendees_html = '<strong>'.count($attendees).'</strong>';
+                $attendees_html .= '<div class="mec-booking-attendees-tooltip">';
+                $attendees_html .= '<ul>';
+
+                foreach($unique_attendees as $unique_attendee)
+                {
+                    $attendees_html .= '<li>';
+                    $attendees_html .= '<div class="mec-booking-attendees-tooltip-name">'.$unique_attendee['name'].((isset($unique_attendee['count']) and $unique_attendee['count'] > 1) ? ' ('.$unique_attendee['count'].')' : '').'</div>';
+                    $attendees_html .= '<div class="mec-booking-attendees-tooltip-email"><a href="mailto:'.$unique_attendee['email'].'">'.$unique_attendee['email'].'</a></div>';
+                    $attendees_html .= '</li>';
+                }
+
+                $attendees_html .= '</ul>';
+                $attendees_html .= '</div>';
+
+                $transaction_id = get_post_meta($booking->ID, 'mec_transaction_id', true);
+
+                $price = get_post_meta($booking->ID, 'mec_price', true);
+                $event_id = get_post_meta($booking->ID, 'mec_event_id', true);
+
+                $price_html = $this->main->render_price(($price ? $price : 0), $event_id);
+                $price_html .= ' '.get_post_meta($booking->ID, 'mec_gateway_label', true);
+
+                $html .= '<div class="w-clearfix">';
+                $html .= '<div class="w-col-xs-3">'.($backend ? '<a href="'.get_edit_post_link($booking->ID).'" target="_blank">'.$booking->post_title.'</a>' : $booking->post_title).'</div>';
+                $html .= '<div class="w-col-xs-3">'.$attendees_html.'</div>';
+                $html .= '<div class="w-col-xs-3">'.$transaction_id.'</div>';
+                $html .= '<div class="w-col-xs-3">'.$price_html.'</div>';
+                $html .= '</div>';
+
+                $index++;
+            }
+        }
+        else
+        {
+            $html .= '<p>'.__("No Bookings Found!", 'modern-events-calendar-lite').'</p>';
+        }
+
+        echo json_encode(array('html' => $html));
+        exit;
     }
 }

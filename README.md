@@ -6,8 +6,8 @@
 **Donate link:** https://webnus.net \
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
-**Tested up to:** 5.7.1 \
-**Stable tag:** 5.19.1 \
+**Tested up to:** 5.7.2 \
+**Stable tag:** 5.19.5 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ Using [Modern Events Calendar Lite](https://webnus.net/modern-events-calendar/),
 
 https://www.youtube.com/watch?v
 
-### GjRVKIwD5jY
+### VIqEXcT56kE
 
 ## Best WordPress Event Management Plugin
 
@@ -336,6 +336,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - Related Events Module
 - Custom Booking Form for Single Events (*pro*)
 - Payments for Certain Single Events (*pro*)
+- Transaction IDs with using an ordered number
 - Shortcode Creator
 - Add Event in the form of wizard
 - Add shortcode in the form of wizard
@@ -438,7 +439,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ### 1. WordPress Event Calendar - Full Calendar view
 
-![WordPress Event Calendar - Full Calendar view](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-1.png)
+[missing image]
 
 ### 2. WordPress Event Calendar - Monthly view
 
@@ -602,6 +603,32 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.19.5 – 26 May 2021
+
+- Added: A new ability to show all locations of an event in the event single map (pro)
+- Added: A new ability to include a pin for all locations of all events in the map modules (pro)
+- Added: Start and End times to the event list in the backend in addition to dates
+- Added: A new feature to change the transition time of slider skin
+- Added: Some options to redirect the user to the cancellation page after the cancellation of a booking
+- Added: A new option to generate transaction IDs using an ordered number with prefix instead of random numbers (pro)
+- Added: A new panel to show bookings of the current event in the edit event menu of the backend (pro)
+- Added: A new option in “Frontend Event Submission” to include the booking panel
+- Added: An option to enable bookings only for certain roles (pro)
+- Added: Displaying of custom fields in the shortcodes with an option to enable or disable
+- Added: Some new filters to modify the content ical file
+- Added: Attendee Counter in the attendee form (pro)
+- Improved: The order of terms in the search module
+- Improved: The “Using WC as payment system” and fixed some issues (pro)
+- Improved: The breadcrumb
+- Improved: The role of controlling for main menus
+- Fixed: Some issues in MEC notifications
+- Fixed: Showing the Expired label when the event is ongoing
+- Fixed: A special date format in the export module
+- Fixed: A potential SQL injection issue
+- Fixed: An autoplay issue in carousel skin
+- Fixed: Google Calendar import/export when another plugin is loading the Google SDK
+- Fixed: Some minor issues
 
 ### 5.19.1 – 12 May 2021
 
