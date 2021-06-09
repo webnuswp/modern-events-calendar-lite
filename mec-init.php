@@ -127,9 +127,6 @@ class MEC
      */
     public static function getInstance($file, $class_name = NULL)
     {
-        /** Import the file using import method **/
-        $override = self::import($file);
-        
         /** Generate class name if not provided **/
         if(!trim($class_name))
         {
@@ -137,9 +134,9 @@ class MEC
             $file_name = end($ex);
             $class_name = 'MEC_'.$file_name;
         }
-        
-        // If overrode class exists then return the it instead of original class
-        if($override) $class_name .= '_override';
+
+        /** Import the file using import method **/
+        if(!class_exists($class_name)) self::import($file);
         
         /** Generate the object **/
         if(class_exists($class_name)) return new $class_name();

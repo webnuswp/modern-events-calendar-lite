@@ -106,7 +106,7 @@ if($mecFluentEnable)
     <?php if(isset($this->settings['coupons_status']) and $this->settings['coupons_status']): ?>
     <div class="mec-book-form-coupon">
         <form id="mec_book_form_coupon<?php echo $uniqueid; ?>" onsubmit="mec_book_apply_coupon<?php echo $uniqueid; ?>(); return false;">
-            <input type="text" name="coupon" title="<?php esc_attr_e('Discount Coupon'); ?>" placeholder="<?php esc_attr_e('Discount Coupon', 'modern-events-calendar-lite'); ?>" />
+            <input type="text" name="coupon" title="<?php esc_attr_e('Discount Coupon', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Discount Coupon', 'modern-events-calendar-lite'); ?>" />
             <input type="hidden" name="transaction_id" value="<?php echo $transaction_id; ?>" />
             <input type="hidden" name="action" value="mec_apply_coupon" />
             <?php wp_nonce_field('mec_apply_coupon_'.$transaction_id); ?>
@@ -117,7 +117,7 @@ if($mecFluentEnable)
     <?php endif; ?>
     <?php do_action('mec-booking-after-coupon-form', $transaction_id, $uniqueid); ?>
     <div class="mec-book-form-gateways">
-        <?php foreach($active_gateways as $gateway): ?>
+        <?php $first_gateway_id = NULL; foreach($active_gateways as $gateway): if(is_null($first_gateway_id)) $first_gateway_id = $gateway->id(); ?>
         <div class="mec-book-form-gateway-label">
             <label>
                 <?php if(count($active_gateways) > 1): ?>
@@ -146,4 +146,13 @@ if($mecFluentEnable)
             <button class="mec-book-form-next-button" type="submit"><?php _e('Free Booking', 'modern-events-calendar-lite'); ?></button>
         </div>
     </form>
+
+    <?php if($first_gateway_id): ?>
+    <script>
+    jQuery(document).ready(function()
+    {
+        mec_adjust_booking_fees<?php echo $uniqueid; ?>(<?php echo $first_gateway_id; ?>, '<?php echo $transaction_id; ?>');
+    });
+    </script>
+    <?php endif; ?>
 </div>

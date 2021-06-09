@@ -72,9 +72,6 @@ class MEC_feature_bookingcalendar extends MEC_base
         // Render
         $render = $this->getRender();
 
-        // Settings
-        $settings = $this->main->get_settings();
-
         $event_id = $request->getVar('event_id');
         $uniqueid = $request->getVar('uniqueid');
         $year = $request->getVar('year');

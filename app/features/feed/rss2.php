@@ -30,7 +30,16 @@ do_action('rss_tag_pre', 'rss2');
 	<sy:updateFrequency><?php echo apply_filters('rss_update_frequency', 1); ?></sy:updateFrequency>
 	<?php do_action('rss2_head'); ?>
     
-    <?php foreach($this->events as $date=>$events): foreach($events as $event): $timezone = $this->main->get_timezone($event); $tz = ($timezone ? new DateTimeZone($timezone) : NULL); ?>
+    <?php foreach($this->events as $date=>$events): foreach($events as $event): ?>
+    <?php
+        $timezone = $this->main->get_timezone($event);
+        $tz = ($timezone ? new DateTimeZone($timezone) : NULL);
+
+        $cost = (isset($event->data->meta) and isset($event->data->meta['mec_cost']) and trim($event->data->meta['mec_cost'])) ? $event->data->meta['mec_cost'] : '';
+        if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $cost = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'cost', $cost);
+
+        $location_id = $this->main->get_master_location_id($event);
+    ?>
     <item>
 		<title><?php echo $this->feed->title($event->ID); ?></title>
 		<link><?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?></link>
@@ -69,12 +78,12 @@ do_action('rss_tag_pre', 'rss2');
         <mec:endHour><?php echo $event->data->time['end']; ?></mec:endHour>
         <?php endif; ?>
 
-        <?php if(isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']])): ?>
-        <mec:location><?php echo $event->data->locations[$event->data->meta['mec_location_id']]['address']; ?></mec:location>
+        <?php if($location_id and isset($event->data->locations[$location_id])): ?>
+        <mec:location><?php echo $event->data->locations[$location_id]['address']; ?></mec:location>
         <?php endif; ?>
 
-        <?php if(isset($event->data->meta) and isset($event->data->meta['mec_cost']) and trim($event->data->meta['mec_cost'])): ?>
-        <mec:cost><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></mec:cost>
+        <?php if($cost): ?>
+        <mec:cost><?php echo (is_numeric($cost) ? $this->main->render_price($cost, $event->ID) : $cost); ?></mec:cost>
         <?php endif; ?>
 
         <?php if(isset($event->data->categories) and is_array($event->data->categories) and count($event->data->categories)): ?>

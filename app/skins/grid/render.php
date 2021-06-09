@@ -44,9 +44,13 @@ if($this->style == 'colorful')
         }
 
         echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
-        
-        $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-        $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']])? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
+
+        $location_id = $this->main->get_master_location_id($event);
+        $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
+        $organizer_id = $this->main->get_master_organizer_id($event);
+        $organizer = (($organizer_id and isset($event->data->organizers[$organizer_id])) ? $event->data->organizers[$organizer_id] : array());
+
         $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
         $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
         $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
@@ -82,12 +86,7 @@ if($this->style == 'colorful')
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 <?php if($this->include_events_times and trim($start_time)) echo $this->main->display_time($start_time, $end_time); ?>
                 <p class="mec-grid-event-location"><?php echo (isset($location['address']) ? $location['address'] : ''); ?></p>
-                <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
-                    <div class="mec-price-details">
-                        <i class="mec-sl-wallet"></i>
-                        <span><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></span>
-                    </div>
-                <?php endif; ?>
+                <?php echo $this->display_cost($event); ?>
             </div>
             <div class="mec-event-footer">
                 <?php echo $this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button'); ?>

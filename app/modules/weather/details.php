@@ -17,9 +17,14 @@ $weatherapi = (isset($settings['weather_module_wa_api_key']) and trim($settings[
 // No API key
 if(!trim($darksky) and !trim($weatherapi)) return;
 
+// Location ID
+$location_id = $this->get_master_location_id($event);
+
 // Location is not Set
-if(!isset($event->data->meta['mec_location_id']) or (isset($event->data->meta['mec_location_id']) and !$event->data->meta['mec_location_id'])) return;
-$location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+if(!$location_id) return;
+
+// Location
+$location = isset($event->data->locations[$location_id]) ? $event->data->locations[$location_id] : array();
 
 $lat = isset($location['latitude']) ? $location['latitude'] : 0;
 $lng = isset($location['longitude']) ? $location['longitude'] : 0;

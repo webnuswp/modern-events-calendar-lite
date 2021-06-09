@@ -94,22 +94,7 @@ elseif($week_start == 5) // Friday
                     $tooltip_content = '';
                     $tooltip_content .= !empty( $event->data->title) ? '<div class="mec-tooltip-event-title">'.$event->data->title.'</div>' : '';
                     $tooltip_content .= trim($start_time) ? '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>' : '';
-
-                    if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
-                    {
-                        // Event Content
-                        if(!$this->cache->has($event->data->ID.'_cost'))
-                        {
-                            $event_cost = (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']);
-                            $this->cache->set($event->data->ID.'_cost', $event_cost);
-                        }
-                        else $event_cost = $this->cache->get($event->data->ID.'_cost');
-
-                        $tooltip_content .= '<div class="mec-price-details">
-                            <i class="mec-sl-wallet"></i>
-                            <span>'.$event_cost.'</span>
-                        </div>';
-                    }
+                    $tooltip_content .= $this->display_cost($event);
 
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '';
                     $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.$event->data->thumbnails['thumbnail'].'</div>' : '';

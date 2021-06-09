@@ -338,6 +338,25 @@ class MEC_feature_occurrences extends MEC_base
             'order' => 'ASC',
             'hide_empty' => '0',
         ));
+
+        // Cost
+        $type = ((isset($this->settings['single_cost_type']) and trim($this->settings['single_cost_type'])) ? $this->settings['single_cost_type'] : 'numeric');
+
+        // Links
+        $read_more = (isset($params['read_more']) ? esc_attr($params['read_more']) : '');
+        $more_info = (isset($params['more_info']) ? esc_attr($params['more_info']) : '');
+        $more_info_title = (isset($params['more_info_title']) ? esc_attr($params['more_info_title']) : '');
+        $more_info_target = (isset($params['more_info_target']) ? esc_attr($params['more_info_target']) : '');
+
+        // Locations
+        $locations = get_terms('mec_location', array('orderby'=>'name', 'hide_empty'=>'0'));
+        $location_id = (isset($params['location_id']) ? esc_attr($params['location_id']) : '');
+
+        $dont_show_map = (isset($params['dont_show_map']) ? esc_attr($params['dont_show_map']) : '');
+
+        // Organizers
+        $organizers = get_terms('mec_organizer', array('orderby'=>'name', 'hide_empty'=>'0'));
+        $organizer_id = (isset($params['organizer_id']) ? esc_attr($params['organizer_id']) : '');
         ?>
         <li id="mec_occurrences_<?php echo $occurrence_id; ?>">
             <h3><span class="mec-occurrences-delete-button" data-id="<?php echo $occurrence_id; ?>"><?php esc_html_e('Delete', 'modern-events-calendar-lite'); ?></span><?php echo date_i18n($datetime_format, $data['occurrence']); ?></h3>
@@ -436,6 +455,83 @@ class MEC_feature_occurrences extends MEC_base
                     ?>
                 </div>
             </div>
+            <div class="mec-form-row">
+                <div class="mec-col-12">
+                    <h4><?php echo sprintf(__('Event Main %s', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'))); ?></h4>
+                    <div class="mec-form-row">
+                        <select name="mec[occurrences][<?php echo $occurrence_id; ?>][location_id]" id="mec_occurrences_<?php echo $occurrence_id; ?>_location_id" title="<?php echo esc_attr__($this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), 'modern-events-calendar-lite'); ?>">
+                            <option value="">-----</option>
+                            <option value="1"><?php _e('Hide location', 'modern-events-calendar-lite'); ?></option>
+                            <?php foreach($locations as $location): ?>
+                            <option <?php if($location_id == $location->term_id) echo 'selected="selected"'; ?> value="<?php echo $location->term_id; ?>"><?php echo $location->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <span class="mec-tooltip">
+                            <div class="box top">
+                                <h5 class="title"><?php _e('Location', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="content"><p><?php esc_attr_e('Choose one of saved locations.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/location/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                            </div>
+                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                        </span>
+                    </div>
+                    <div class="mec-form-row">
+                        <div class="mec-col-12">
+                            <input type="hidden" name="mec[occurrences][<?php echo $occurrence_id; ?>][dont_show_map]" value="0" />
+                            <input type="checkbox" id="mec_occurrences_<?php echo $occurrence_id; ?>_location_dont_show_map" name="mec[occurrences][<?php echo $occurrence_id; ?>][dont_show_map]" value="1" <?php echo ($dont_show_map ? 'checked="checked"' : ''); ?> /><label for="mec_occurrences_<?php echo $occurrence_id; ?>_location_dont_show_map"><?php echo __("Don't show map in single event page", 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mec-form-row">
+                <div class="mec-col-12">
+                    <h4><?php echo sprintf(__('Event Main %s', 'modern-events-calendar-lite'), $this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite'))); ?></h4>
+                    <div class="mec-form-row">
+                        <select name="mec[occurrences][<?php echo $occurrence_id; ?>][organizer_id]" id="mec_occurrences_<?php echo $occurrence_id; ?>_organizer_id" title="<?php echo esc_attr__($this->main->m('taxonomy_organizer', __('Organizer', 'modern-events-calendar-lite')), 'modern-events-calendar-lite'); ?>">
+                            <option value="">-----</option>
+                            <option value="1"><?php _e('Hide organizer', 'modern-events-calendar-lite'); ?></option>
+                            <?php foreach($organizers as $organizer): ?>
+                            <option <?php if($organizer_id == $organizer->term_id) echo 'selected="selected"'; ?> value="<?php echo $organizer->term_id; ?>"><?php echo $organizer->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <span class="mec-tooltip">
+                            <div class="box top">
+                                <h5 class="title"><?php _e('Organizer', 'modern-events-calendar-lite'); ?></h5>
+                                <div class="content"><p><?php esc_attr_e('Choose one of saved organizers or insert new one below.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/organizer-and-other-organizer/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                            </div>
+                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="mec-form-row">
+                <div class="mec-col-12">
+                    <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?></h4>
+                    <div id="mec_meta_box_cost_form">
+                        <div class="mec-form-row">
+                            <input type="<?php echo ($type === 'alphabetic' ? 'text' : 'number'); ?>" <?php echo ($type === 'numeric' ? 'min="0" step="any"' : ''); ?> class="mec-col-3" name="mec[occurrences][<?php echo $occurrence_id; ?>][cost]" id="mec_occurrences_<?php echo $occurrence_id; ?>_cost" value="<?php echo (isset($params['cost']) ? esc_attr($params['cost']) : ''); ?>" title="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mec-form-row">
+                <div class="mec-col-12">
+                    <h4><?php _e('Event Links', 'modern-events-calendar-lite'); ?></h4>
+                    <div class="mec-form-row">
+                        <label class="mec-col-2" for="mec_occurrences_<?php echo $occurrence_id; ?>_read_more_link"><?php echo $this->main->m('read_more_link', __('Event Link', 'modern-events-calendar-lite')); ?></label>
+                        <input class="mec-col-7" type="text" name="mec[occurrences][<?php echo $occurrence_id; ?>][read_more]" id="mec_occurrences_<?php echo $occurrence_id; ?>_read_more_link" value="<?php echo esc_attr($read_more); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>"/>
+                        <?php do_action('extra_event_link_occurrence', $post->ID, $occurrence_id); ?>
+                    </div>
+                    <div class="mec-form-row">
+                        <label class="mec-col-2" for="mec_occurrences_<?php echo $occurrence_id; ?>_more_info_link"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></label>
+                        <input class="mec-col-3" type="text" name="mec[occurrences][<?php echo $occurrence_id; ?>][more_info]" id="mec_occurrences_<?php echo $occurrence_id; ?>_more_info_link" value="<?php echo esc_attr($more_info); ?>" placeholder="<?php _e('eg. http://yoursite.com/your-event', 'modern-events-calendar-lite'); ?>"/>
+                        <input class="mec-col-2" type="text" name="mec[occurrences][<?php echo $occurrence_id; ?>][more_info_title]" id="mec_occurrences_<?php echo $occurrence_id; ?>_more_info_title" value="<?php echo esc_attr($more_info_title); ?>" placeholder="<?php _e('More Information', 'modern-events-calendar-lite'); ?>"/>
+                        <select class="mec-col-2" name="mec[occurrences][<?php echo $occurrence_id; ?>][more_info_target]" id="mec_occurrences_<?php echo $occurrence_id; ?>_more_info_target">
+                            <option value="_self" <?php echo($more_info_target == '_self' ? 'selected="selected"' : ''); ?>><?php _e('Current Window', 'modern-events-calendar-lite'); ?></option>
+                            <option value="_blank" <?php echo($more_info_target == '_blank' ? 'selected="selected"' : ''); ?>><?php _e('New Window', 'modern-events-calendar-lite'); ?></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <?php do_action('mec_occurrences_fields', $occurrence_id, $event_id, $data); ?>
         </li>
         <?php
@@ -446,8 +542,10 @@ class MEC_feature_occurrences extends MEC_base
         if(!isset($data['occurrences']) or (isset($data['occurrences']) and !is_array($data['occurrences']))) return;
 
         $occurrences = $data['occurrences'];
+        do_action('mec_occurrences_save', $post_id, $occurrences);
 
-        do_action( 'mec_occurrences_save',$post_id, $occurrences );
+        $organizer_ids = array();
+        $location_ids = array();
 
         foreach($occurrences as $occurrence)
         {
@@ -465,9 +563,21 @@ class MEC_feature_occurrences extends MEC_base
             // Hourly Schedules
             $occurrence['hourly_schedules'] = $hourly_schedules;
 
+            $location_id = (isset($occurrence['location_id']) ? $occurrence['location_id'] : '');
+            if($location_id) $location_ids[] = $location_id;
+
+            $organizer_id = (isset($occurrence['organizer_id']) ? $occurrence['organizer_id'] : '');
+            if($organizer_id) $organizer_ids[] = $organizer_id;
+
             // Save Occurrence
             $this->db->q("UPDATE `#__mec_occurrences` SET `params`='".json_encode($occurrence, JSON_UNESCAPED_UNICODE)."' WHERE `id`='".$this->db->escape($occurrence['id'])."'");
         }
+
+        $organizer_ids = array_unique($organizer_ids);
+        foreach($organizer_ids as $organizer_id) wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer', true);
+
+        $location_ids = array_unique($location_ids);
+        foreach($location_ids as $location_id) wp_set_object_terms($post_id, (int) $location_id, 'mec_location', true);
     }
 
     public function get_dates($post_id, $start, $limit = 100)

@@ -154,7 +154,7 @@ $id = 1;
                 <?php
                 if(isset($event->ID))
                 {
-                    $location_id = get_post_meta($event->ID, 'mec_location_id', true);
+                    $location_id = $this->main->get_master_location_id($event);
                     $location_latitude = isset($event->locations[$location_id]['latitude']) ? $event->locations[$location_id]['latitude'] : NULL;
                     $location_longitude = isset($event->locations[$location_id]['longitude']) ? $event->locations[$location_id]['longitude'] : NULL;
                 }

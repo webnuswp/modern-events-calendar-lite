@@ -21,17 +21,17 @@ class MEC_feature_notifications extends MEC_base
     {
         // Import MEC Factory
         $this->factory = $this->getFactory();
-        
+
         // Import MEC Main
         $this->main = $this->getMain();
-        
+
         // MEC Settings
         $this->settings = $this->main->get_settings();
 
         // MEC Notification Settings
         $this->notif_settings = $this->main->get_notifications();
     }
-    
+
     /**
      * Initialize notifications feature
      * @author Webnus <info@webnus.biz>
@@ -43,7 +43,7 @@ class MEC_feature_notifications extends MEC_base
 
         $this->factory->action('mec_metabox_details', array($this, 'meta_box_notifications'), 30);
     }
-    
+
     /**
      * Show notification meta box
      * @author Webnus <info@webnus.biz>
@@ -84,10 +84,10 @@ class MEC_feature_notifications extends MEC_base
                         </div>
                     </div>
 
-                    <?php 
+                    <?php
                         $section = $key;
                         $options = $values;
-                        do_action('mec_display_notification_settings_for_event',$values,$section) 
+                        do_action('mec_display_notification_settings_for_event',$values,$section)
                     ?>
                 </div>
 			</div>
@@ -160,7 +160,7 @@ class MEC_feature_notifications extends MEC_base
 
     public function get_notifications()
     {
-        return array(
+        $notifications = array(
             'booking_notification' => array(
                 'label' => __('Booking Notification', 'modern-events-calendar-lite')
             ),
@@ -189,5 +189,7 @@ class MEC_feature_notifications extends MEC_base
                 'label' => __('Admin Notification', 'modern-events-calendar-lite')
             ),
         );
+
+        return apply_filters( 'mec_event_notifications', $notifications );
     }
 }

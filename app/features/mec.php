@@ -1290,16 +1290,18 @@ class MEC_feature_mec extends MEC_base
         echo '<div class="mec-metabox-upcoming-wrap"><h3 class="mec-metabox-feed-head">'.esc_html__('Upcoming Events', 'modern-events-calendar-lite').'</h3><ul>';
         foreach($upcoming_events as $date => $content)
         {
-            foreach($content as $array_id => $array_content)
+            foreach($content as $array_id => $event)
             {
-                $location_id = $array_content->data->meta['mec_location_id'];
-                $event_title = $array_content->data->title;
-                $event_link  = $array_content->data->permalink;
-                $event_date  = $this->main->date_i18n(get_option('date_format'), $array_content->date['start']['date']);
+                $location_id = $this->main->get_master_location_id($event);
+
+                $event_title = $event->data->title;
+                $event_link = $event->data->permalink;
+                $event_date = $this->main->date_i18n(get_option('date_format'), $event->date['start']['date']);
                 $location = get_term($location_id, 'mec_location');
 
                 $locationName = '';
                 if(isset($location->name)) $locationName = $location->name;
+
                 echo '<li>
                     <span aria-hidden="true" class="dashicons dashicons-calendar-alt"></span>
                     <div class="mec-metabox-upcoming-event">

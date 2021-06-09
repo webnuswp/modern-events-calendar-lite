@@ -74,7 +74,8 @@ class MEC_feature_locations extends MEC_base
                     'new_item_name'=>sprintf(__('New %s Name', 'modern-events-calendar-lite'), $singular_label),
                     'popular_items'=>sprintf(__('Popular %s', 'modern-events-calendar-lite'), $plural_label),
                     'search_items'=>sprintf(__('Search %s', 'modern-events-calendar-lite'), $plural_label),
-                    'back_to_items'=>sprintf(__('← Back to  %s', 'modern-events-calendar-lite'), $plural_label),                    
+                    'back_to_items'=>sprintf(__('← Back to %s', 'modern-events-calendar-lite'), $plural_label),
+                    'not_found'=>sprintf(__('no %s found.', 'modern-events-calendar-lite'), strtolower($plural_label)),
                 ),
                 'rewrite'=>array('slug'=>'events-location'),
                 'public'=>false,
@@ -323,7 +324,7 @@ class MEC_feature_locations extends MEC_base
         $api_key = isset($this->settings['google_maps_api_key']) ? $this->settings['google_maps_api_key'] : '';
     ?>
         <div class="mec-meta-box-fields mec-event-tab-content" id="mec-location">
-            <h4><?php echo sprintf(__('Event %s', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'))); ?></h4>
+            <h4><?php echo sprintf(__('Event Main %s', 'modern-events-calendar-lite'), $this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite'))); ?></h4>
 			<div class="mec-form-row">
 				<select name="mec[location_id]" id="mec_location_id" title="<?php echo esc_attr__($this->main->m('taxonomy_location', __('Location', 'modern-events-calendar-lite')), 'modern-events-calendar-lite'); ?>">
                     <option value="1"><?php _e('Hide location', 'modern-events-calendar-lite'); ?></option>

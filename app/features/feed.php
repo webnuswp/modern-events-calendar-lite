@@ -77,7 +77,7 @@ class MEC_feature_feed extends MEC_base
         {
             // Fetch Events
             $this->events = $this->fetch();
-            
+
             // Include Feed template
             include_once $rss2;
         }

@@ -2712,7 +2712,7 @@ class MEC_main extends MEC_base
 
             $event = $render->data($event_id);
 
-            $location_id = isset($event->meta['mec_location_id']) ? $event->meta['mec_location_id'] : 0;
+            $location_id = $this->get_master_location_id($event);
             $location = isset($event->locations[$location_id]) ? (trim($event->locations[$location_id]['address']) ? $event->locations[$location_id]['address'] : $event->locations[$location_id]['name']) : '';
 
             $dates = isset($transaction['date']) ? explode(':', $transaction['date']) : array(time(), time());
@@ -3126,7 +3126,14 @@ class MEC_main extends MEC_base
         $modified = strtotime($event->post->post_modified);
 
         $rrules = $this->get_ical_rrules($event);
-        $time_format = (isset($event->meta['mec_date']) and isset($event->meta['mec_date']['allday']) and $event->meta['mec_date']['allday']) ? 'Ymd' : 'Ymd\\THi00\\Z';
+        $time_format = 'Ymd\\THi00\\Z';
+
+        // All Day Event
+        if(isset($event->meta['mec_date']) and isset($event->meta['mec_date']['allday']) and $event->meta['mec_date']['allday'])
+        {
+            $time_format = 'Ymd\\T000000\\Z';
+            $end_time = strtotime('+1 Day', $end_time);
+        }
 
         $ical  = "BEGIN:VEVENT".PHP_EOL;
         $ical .= "UID:MEC-".md5($event_id)."@".$this->get_domain().PHP_EOL;
@@ -3151,7 +3158,8 @@ class MEC_main extends MEC_base
         $ical .= "URL:".$event->permalink.PHP_EOL;
 
         // Organizer
-        $organizer = isset($event->organizers[$event->meta['mec_organizer_id']]) ? $event->organizers[$event->meta['mec_organizer_id']] : array();
+        $organizer_id = $this->get_master_organizer_id($event->ID, $start_time);
+        $organizer = isset($event->organizers[$organizer_id]) ? $event->organizers[$organizer_id] : array();
         $organizer_name = (isset($organizer['name']) and trim($organizer['name'])) ? $organizer['name'] : NULL;
         $organizer_email = (isset($organizer['email']) and trim($organizer['email'])) ? $organizer['email'] : NULL;
 
@@ -3167,7 +3175,8 @@ class MEC_main extends MEC_base
         if(trim($categories) != '') $ical .= "CATEGORIES:".trim($categories, ', ').PHP_EOL;
 
         // Location
-        $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']] : array();
+        $location_id = $this->get_master_location_id($event->ID, $start_time);
+        $location = isset($event->locations[$location_id]) ? $event->locations[$location_id] : array();
         $address = ((isset($location['address']) and trim($location['address'])) ? $location['address'] : (isset($location['name']) ? $location['name'] : ''));
 
         if(trim($address) != '') $ical .= "LOCATION:".$address.PHP_EOL;
@@ -3202,11 +3211,12 @@ class MEC_main extends MEC_base
         $render = $this->getRender();
         $event = $render->data($event_id);
 
-        $location = isset($event->locations[$event->meta['mec_location_id']]) ? $event->locations[$event->meta['mec_location_id']] : array();
-        $address = (isset($location['address']) and trim($location['address'])) ? $location['address'] : $location['name'];
-
         $start_time = (isset($timestamps[0]) ? $timestamps[0] : strtotime(get_the_date($book_id)));
         $end_time = (isset($timestamps[1]) ? $timestamps[1] : strtotime(get_the_date($book_id)));
+
+        $location_id = $this->get_master_location_id($event->ID, $start_time);
+        $location = isset($event->locations[$location_id]) ? $event->locations[$location_id] : array();
+        $address = (isset($location['address']) and trim($location['address'])) ? $location['address'] : $location['name'];
 
         $gmt_offset_seconds = $this->get_gmt_offset_seconds($start_time, $event);
 
@@ -5539,8 +5549,8 @@ class MEC_main extends MEC_base
         update_term_meta($location_id, 'latitude', $latitude);
         update_term_meta($location_id, 'longitude', $longitude);
         update_term_meta($location_id, 'url', $url);
-        if(trim($thumbnail)) update_term_meta($location_id, 'thumbnail', $thumbnail);
 
+        if(trim($thumbnail)) update_term_meta($location_id, 'thumbnail', $thumbnail);
         return $location_id;
     }
 
@@ -5699,8 +5709,17 @@ class MEC_main extends MEC_base
             // Single Page Date method is set to next date
             if(!$force and (!isset($settings['single_date_method']) or (isset($settings['single_date_method']) and $settings['single_date_method'] == 'next'))) return apply_filters('mec_event_permalink', $url);
 
+            // Timestamp
+            $timestamp = strtotime($date.' '.((is_array($time) and isset($time['start_raw'])) ? $time['start_raw'] : $event->data->time['start_raw']));
+
             // Do not add occurrence when custom link is set
             $read_more = (isset($event->data->meta) and isset($event->data->meta['mec_read_more']) and filter_var($event->data->meta['mec_read_more'], FILTER_VALIDATE_URL));
+            if($read_more)
+            {
+                $read_more_occ_url = MEC_feature_occurrences::param($event->ID, $timestamp, 'read_more');
+                if($read_more_occ_url and filter_var($read_more_occ_url, FILTER_VALIDATE_URL)) $url = $read_more_occ_url;
+            }
+
             if($read_more) return apply_filters('mec_event_permalink', $url);
 
             // Add Date to the URL
@@ -5709,8 +5728,6 @@ class MEC_main extends MEC_base
             $repeat_type = (isset($event->data->meta['mec_repeat_type']) ? $event->data->meta['mec_repeat_type'] : '');
             if($repeat_type == 'custom_days' and isset($event->data->time) and isset($event->data->time['start_raw']))
             {
-                $timestamp = strtotime($date.' '.((is_array($time) and isset($time['start_raw'])) ? $time['start_raw'] : $event->data->time['start_raw']));
-
                 // Add Time
                 $url = $this->add_qs_var('time', $timestamp, $url);
             }
@@ -8464,5 +8481,51 @@ class MEC_main extends MEC_base
 
         $value = get_user_meta($current_user_id, $mapped_field, true);
         return ($value ? $value : $default_value);
+    }
+
+    public function get_master_location_id($event, $occurrence = NULL)
+    {
+        // Event ID
+        if(is_numeric($event))
+        {
+            $location_id = get_post_meta($event, 'mec_location_id', true);
+
+            // Get From Occurrence
+            if($occurrence) $location_id = MEC_feature_occurrences::param($event, $occurrence, 'location_id', $location_id);
+        }
+        // Event Object
+        else
+        {
+            $location_id = (isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_location_id'])) ? $event->data->meta['mec_location_id'] : '';
+
+            // Get From Occurrence
+            if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $location_id = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'location_id', $location_id);
+        }
+
+        if(trim($location_id) === '') $location_id = 0;
+        return $location_id;
+    }
+
+    public function get_master_organizer_id($event, $occurrence = NULL)
+    {
+        // Event ID
+        if(is_numeric($event))
+        {
+            $organizer_id = get_post_meta($event, 'mec_organizer_id', true);
+
+            // Get From Occurrence
+            if($occurrence) $organizer_id = MEC_feature_occurrences::param($event, $occurrence, 'organizer_id', $organizer_id);
+        }
+        // Event Object
+        else
+        {
+            $organizer_id = (isset($event->data) and isset($event->data->meta) and isset($event->data->meta['mec_organizer_id'])) ? $event->data->meta['mec_organizer_id'] : '';
+
+            // Get From Occurrence
+            if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $organizer_id = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'organizer_id', $organizer_id);
+        }
+
+        if(trim($organizer_id) === '') $organizer_id = 0;
+        return $organizer_id;
     }
 }

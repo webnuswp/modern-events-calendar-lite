@@ -1571,6 +1571,26 @@ class MEC_skins extends MEC_base
         return $output ? '<div class="mec-shortcode-organizers"><i class="mec-sl-user"></i><ul class="mec-organizers">' . $output . '</ul></div>' : $output;
     }
 
+    public function display_cost($event)
+    {
+        $output = '';
+        if($this->display_price)
+        {
+            $cost = (isset($event->data->meta) and isset($event->data->meta['mec_cost']) and trim($event->data->meta['mec_cost'])) ? $event->data->meta['mec_cost'] : '';
+            if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $cost = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'cost', $cost);
+
+            if($cost)
+            {
+                $output .= '<div class="mec-price-details">
+                    <i class="mec-sl-wallet"></i>
+                    <span>'.(is_numeric($cost) ? $this->main->render_price($cost, $event->ID) : $cost).'</span>
+                </div>';
+            }
+        }
+
+        return $output;
+    }
+
     /**
      * @param $event
      * @param null $title

@@ -7,7 +7,7 @@
 **Tags:** Event, Events, Calendar, Booking, Schedule, Organizer, Venue \
 **Requires at least:** 4.0.0 \
 **Tested up to:** 5.7.2 \
-**Stable tag:** 5.19.5 \
+**Stable tag:** 5.20.0 \
 **Requires PHP:** 5.6 \
 **License:** GPLv2 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -425,6 +425,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Stripe Payment Integreation](https://webnus.net/modern-events-calendar/) (*pro*)
 - [iDEAL payment for the Stripe gateway](https://webnus.net/modern-events-calendar/) (*pro*)
 - [Express payment for the Stripe gateway](https://webnus.net/modern-events-calendar/) (*pro*)
+- [Bank Transfer](https://webnus.net/modern-events-calendar/) (*pro*)
 - [Auto Update](https://webnus.net/dox/modern-events-calendar/how-to-auto-update-plugin/) (*pro*)
 - [Weather module](https://webnus.net/dox/modern-events-calendar/weather-module/) (*pro*)
 - [PDF invoice](https://webnus.net/modern-events-calendar/) (*pro*)
@@ -439,7 +440,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 ### 1. WordPress Event Calendar - Full Calendar view
 
-[missing image]
+![WordPress Event Calendar - Full Calendar view](https://ps.w.org/modern-events-calendar-lite/assets/screenshot-1.png)
 
 ### 2. WordPress Event Calendar - Monthly view
 
@@ -603,6 +604,26 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 
 ## Changelog
+
+### 5.20.0 – 9 June 2021
+
+- Added: The event cost, event link, more info link with title and target, organizer, and location to the occurrences section to provide an ability to change them per occurrence
+- Added: “Activate First Upcoming Date with Event” option in full calendar
+- Added: An ability to display all events in the right panel of monthly skins
+- Added: An option to show activate the first date of the month in monthly skins instead of the current day in next/previous months
+- Added: “Bank Transfer” as a new payment gateway (pro)
+- Improved: The flexibility in events URLs
+- Improved: The functionality of the “Disable fees per payment gateway” feature (pro)
+- Improved: The library inclusion of MEC
+- Removed: “Montserrat” font family
+- Fixed: An issue in calculating the price per attendee in booking export feature (pro)
+- Fixed: Showing ongoing events in calendar method of booking module (pro)
+- Fixed: Sending multiple emails after booking edit (pro)
+- Fixed: Oversell in some conditions (pro)
+- Fixed: Labels issue
+- Fixed: Notifications issue
+- Fixed: Some issues in multilingual feature and translations
+- Fixed: Some PHP notices and warnings
 
 ### 5.19.5 – 26 May 2021
 

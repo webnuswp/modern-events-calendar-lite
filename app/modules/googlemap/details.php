@@ -17,12 +17,16 @@ $event = $event[0];
 $uniqueid = (isset($uniqueid) ? $uniqueid : $event->data->ID);
 
 // Map is disabled for this event
-if(isset($event->data->meta['mec_dont_show_map']) and $event->data->meta['mec_dont_show_map']) return;
+$dont_show_map = ((isset($event->data->meta['mec_dont_show_map']) and is_numeric($event->data->meta['mec_dont_show_map'])) ? $event->data->meta['mec_dont_show_map'] : 0);
+if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $dont_show_map = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'dont_show_map', $dont_show_map);
+
+if($dont_show_map) return;
 
 // Event ID
 $event_id = $event->ID;
 
-$location = isset($event->data->meta['mec_location_id']) && isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+$location_id = $this->get_master_location_id($event);
+$location = (($location_id && isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
 
 // Event location geo point
 $latitude = isset($location['latitude']) ? $location['latitude'] : '';
@@ -37,10 +41,10 @@ if(!trim($latitude) or !trim($longitude))
     $latitude = $geo_point[0];
     $longitude = $geo_point[1];
 
-    if(isset($event->data->meta['mec_location_id']))
+    if($location_id)
     {
-        update_term_meta($event->data->meta['mec_location_id'], 'latitude', $latitude);
-        update_term_meta($event->data->meta['mec_location_id'], 'longitude', $longitude);
+        update_term_meta($location_id, 'latitude', $latitude);
+        update_term_meta($location_id, 'longitude', $longitude);
     }
 }
 

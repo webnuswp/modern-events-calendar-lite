@@ -105,7 +105,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -122,9 +122,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['booking_notification']) ? stripslashes($notifications['booking_notification']['content']) : ''), 'mec_notifications_booking_notification_content', array('textarea_name'=>'mec[notifications][booking_notification][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'booking_notification';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -261,7 +261,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                            <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -272,9 +272,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                 <?php wp_editor((isset($notifications['email_verification']) ? stripslashes($notifications['email_verification']['content']) : ''), 'mec_notifications_email_verification_content', array('textarea_name'=>'mec[notifications][email_verification][content]')); ?>
                             </div>
 
-                            <?php 
+                            <?php
                                 $section = 'email_verification';
-                                do_action('mec_display_notification_settings',$notifications,$section); 
+                                do_action('mec_display_notification_settings',$notifications,$section);
                             ?>
                             <div class="mec-form-row">
                                 <div class="mec-col-12">
@@ -436,9 +436,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['booking_confirmation']) ? stripslashes($notifications['booking_confirmation']['content']) : ''), 'mec_notifications_booking_confirmation_content', array('textarea_name'=>'mec[notifications][booking_confirmation][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'booking_confirmation';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -616,9 +616,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['booking_rejection']) ? stripslashes($notifications['booking_rejection']['content']) : ''), 'mec_notifications_booking_rejection_content', array('textarea_name'=>'mec[notifications][booking_rejection][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'booking_rejection';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -763,7 +763,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -793,9 +793,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['cancellation_notification']) ? stripslashes($notifications['cancellation_notification']['content']) : ''), 'mec_notifications_cancellation_notification_content', array('textarea_name'=>'mec[notifications][cancellation_notification][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'cancellation_notification';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -874,7 +874,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <input type="text" name="mec[notifications][admin_notification][subject]" id="mec_notifications_admin_notification_subject" value="<?php echo (isset($notifications['admin_notification']['subject']) ? stripslashes($notifications['admin_notification']['subject']) : ''); ?>" />
                                     </div>
                                 </div>
-                                
+
                                 <!-- Start Receiver Users -->
                                 <div class="mec-form-row">
                                     <div class="mec-col-3">
@@ -926,7 +926,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>    
+                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -950,9 +950,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['admin_notification']) ? stripslashes($notifications['admin_notification']['content']) : ''), 'mec_notifications_admin_notification_content', array('textarea_name'=>'mec[notifications][admin_notification][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'admin_notification';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -1110,9 +1110,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['event_soldout']) ? stripslashes($notifications['event_soldout']['content']) : ''), 'mec_notifications_event_soldout_content', array('textarea_name'=>'mec[notifications][event_soldout][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'event_soldout';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -1262,9 +1262,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['booking_reminder']) ? stripslashes($notifications['booking_reminder']['content']) : ''), 'mec_notifications_booking_reminder_content', array('textarea_name'=>'mec[notifications][booking_reminder][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'booking_reminder';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
 
                                 <div class="mec-form-row">
@@ -1332,6 +1332,8 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
 
                         <?php endif; ?>
 
+                        <?php do_action('mec_notifications_tabs_content',$notifications); ?>
+
                         <div id="new_event" class="mec-options-fields  <?php if(isset($this->settings['booking_status']) and $this->settings['booking_status'] == 0) echo 'active'; ?>">
 
                             <h4 class="mec-form-subtitle"><?php _e('New Event', 'modern-events-calendar-lite'); ?></h4>
@@ -1361,7 +1363,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <input type="text" name="mec[notifications][new_event][subject]" id="mec_notifications_new_event_subject" value="<?php echo (isset($notifications['new_event']['subject']) ? stripslashes($notifications['new_event']['subject']) : ''); ?>" />
                                     </div>
                                 </div>
-                                
+
                                 <!-- Start Receiver Users -->
                                 <div class="mec-form-row">
                                     <div class="mec-col-3">
@@ -1424,9 +1426,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <?php wp_editor((isset($notifications['new_event']) ? stripslashes($notifications['new_event']['content']) : ''), 'mec_notifications_new_event_content', array('textarea_name'=>'mec[notifications][new_event][content]')); ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                     $section = 'new_event';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -1455,7 +1457,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                             </div>
 
                         </div>
-                        
+
                         <!-- MEC Event Published -->
                         <div id="user_event_publishing" class="mec-options-fields  <?php if(isset($this->settings['booking_status']) and $this->settings['booking_status'] == 0) echo 'active'; ?>">
 
@@ -1540,9 +1542,9 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     <label for="mec_notifications_user_event_publishing_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['user_event_publishing']) ? stripslashes($notifications['user_event_publishing']['content']) : ''), 'mec_notifications_user_event_publishing_content', array('textarea_name'=>'mec[notifications][user_event_publishing][content]')); ?>
                                 </div>
-                                <?php 
+                                <?php
                                     $section = 'user_event_publishing';
-                                    do_action('mec_display_notification_settings',$notifications,$section); 
+                                    do_action('mec_display_notification_settings',$notifications,$section);
                                 ?>
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
@@ -1570,7 +1572,7 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                     </div>
                                 </div>
                             </div>
-                        
+
                         </div>
 
                         <!-- Event Finished -->
@@ -1803,7 +1805,7 @@ jQuery("#mec_notifications_form").on('submit', function(event)
     ];
     <?php $content_type = apply_filters('mec_settings_notifications_js_content_types',array("")); ?>
     var content_types = <?php echo json_encode($content_type); ?>;
-    
+
     jQuery.each(notifications,function(i,notification_type)
     {
         jQuery.each(content_types,function(j,type)
@@ -1811,7 +1813,7 @@ jQuery("#mec_notifications_form").on('submit', function(event)
             jQuery("#mec_notifications_"+notification_type+type+"_content-html").click();
             jQuery("#mec_notifications_"+notification_type+type+"_content-tmce").click();
         });
-    });    
+    });
 
     <?php do_action( 'mec_notification_menu_js' ); ?>
 });
@@ -1821,7 +1823,7 @@ jQuery("#mec_notifications_form").on('submit', function(event)
 jQuery("#mec_notifications_form").on('submit', function(event)
 {
     event.preventDefault();
-    
+
     // Add loading Class to the button
     jQuery(".dpr-save-btn").addClass('loading').text("<?php echo esc_js(esc_attr__('Saved', 'modern-events-calendar-lite')); ?>");
     jQuery('<div class="wns-saved-settings"><?php echo esc_js(esc_attr__('Settings Saved!', 'modern-events-calendar-lite')); ?></div>').insertBefore('#wns-be-content');

@@ -26,7 +26,10 @@ $map_events = array();
                 $map_events[] = $event;
                 echo ($rcount == 1) ? '<div class="row">' : '';
                 echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
-                $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+
+                $location_id = $this->main->get_master_location_id($event);
+                $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
                 $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
                 $event_color = ((isset($event->data->meta['mec_color']) and trim($event->data->meta['mec_color'])) ? '#'.$event->data->meta['mec_color'] : '');
@@ -57,12 +60,7 @@ $map_events = array();
                                     <?php echo $this->display_categories($event); ?>
                                     <?php echo $this->display_organizers($event); ?>
                                     <?php echo (isset($location['name']) ? '<span class="mec-event-loc-place"><i class="mec-sl-location-pin"></i>' . $location['name'] . '</span>' : ''); ?>
-                                    <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
-                                        <div class="mec-price-details">
-                                            <i class="mec-sl-wallet"></i>
-                                            <span><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></span>
-                                        </div>
-                                    <?php endif; ?>
+                                    <?php echo $this->display_cost($event); ?>
                                 </div>
                                 <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                                 <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $this->main->get_flags($event); ?></h4>

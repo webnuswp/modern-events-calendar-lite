@@ -22,8 +22,12 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 foreach($this->events as $date):
                 foreach($date as $event):
 
-                $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-                $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']])? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
+                $location_id = $this->main->get_master_location_id($event);
+                $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
+                $organizer_id = $this->main->get_master_organizer_id($event);
+                $organizer = (($organizer_id and isset($event->data->organizers[$organizer_id])) ? $event->data->organizers[$organizer_id] : array());
+
                 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                 $event_date = (isset($event->date['start']) ? $event->date['start']['date'] : $event->data->meta['mec_start_date']);
                 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';

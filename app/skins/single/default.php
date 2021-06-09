@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_single $this */
+
 $single = new MEC_skin_single();
 wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
 wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'));
@@ -15,6 +17,18 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if(is_plugin_active('schema-markup-rich-snippets/schema-markup-rich-snippets.php')) $rank_math_options = get_post_meta(get_the_ID(), 'rank_math_rich_snippet', true);
 
 $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) ? $booking_options['bookings_limit_for_users'] : 0;
+
+$more_info = (isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://') ? $event->data->meta['mec_more_info'] : '';
+if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $more_info = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info', $more_info);
+
+$more_info_target = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_target', (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'));
+$more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')));
+
+$cost = (isset($event->data->meta) and isset($event->data->meta['mec_cost']) and trim($event->data->meta['mec_cost'])) ? $event->data->meta['mec_cost'] : '';
+if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $cost = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'cost', $cost);
+
+$location_id = $this->main->get_master_location_id($event);
+$organizer_id = $this->main->get_master_organizer_id($event);
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
 	<?php do_action('mec_top_single_event', get_the_ID()); ?>
@@ -181,13 +195,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 					<?php
 					// Event Cost
-					if(isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
+                    if($cost)
 					{
 						?>
 						<div class="mec-event-cost">
 							<i class="mec-sl-wallet"></i>
 							<h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-							<dl><dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd></dl>
+							<dl><dd class="mec-events-event-cost"><?php echo (is_numeric($cost) ? $this->main->render_price($cost, $event->ID) : $cost); ?></dd></dl>
 						</div>
 						<?php
 					}
@@ -198,13 +212,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 					<?php
 					// More Info
-					if(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://')
+					if($more_info)
 					{
 						?>
 						<div class="mec-event-more-info">
 							<i class="mec-sl-info"></i>
 							<h3 class="mec-cost"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></h3>
-							<dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd></dl>
+							<dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo $more_info_target; ?>" href="<?php echo esc_url($more_info); ?>"><?php echo $more_info_title; ?></a></dd></dl>
 						</div>
 						<?php
 					}
@@ -231,9 +245,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 					<?php
 					// Event Location
-					if(isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]))
+					if($location_id and isset($event->data->locations[$location_id]) and !empty($event->data->locations[$location_id]))
 					{
-						$location = $event->data->locations[$event->data->meta['mec_location_id']];
+						$location = $event->data->locations[$location_id];
 						?>
 						<div class="mec-single-event-location">
 							<?php if($location['thumbnail']): ?>
@@ -288,9 +302,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 					<?php do_action('mec_single_event_under_category', $event); ?>
 					<?php
 					// Event Organizer
-					if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]))
+					if($organizer_id and isset($event->data->organizers[$organizer_id]) && !empty($event->data->organizers[$organizer_id]))
 					{
-						$organizer = $event->data->organizers[$event->data->meta['mec_organizer_id']];
+						$organizer = $event->data->organizers[$organizer_id];
 						?>
 						<div class="mec-single-event-organizer">
 							<?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
@@ -342,8 +356,8 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 					<?php if($this->main->can_show_booking_module($event)): ?>
 						<?php $data_lity = $data_lity_class =  ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
 						<a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
-					<?php elseif(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://'): ?>
-						<a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
+					<?php elseif($more_info): ?>
+						<a class="mec-booking-button mec-bg-color" target="<?php echo $more_info_target; ?>" href="<?php echo esc_url($more_info); ?>"><?php if($more_info_title) echo esc_html__($more_info_title, 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
 					<?php endif; ?>
 
 				</div>
@@ -426,13 +440,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 						<?php
 						// Event Cost
-						if(isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '' and $single->found_value('event_cost', $settings) == 'on')
+						if($cost and $single->found_value('event_cost', $settings) == 'on')
 						{
 							?>
 							<div class="mec-event-cost">
 								<i class="mec-sl-wallet"></i>
 								<h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-								<dl><dd class="mec-events-event-cost"><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></dd></dl>
+								<dl><dd class="mec-events-event-cost"><?php echo (is_numeric($cost) ? $this->main->render_price($cost, $event->ID) : $cost); ?></dd></dl>
 							</div>
 							<?php
 						}
@@ -440,13 +454,13 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 						<?php
 						// More Info
-						if(isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://' and $single->found_value('more_info', $settings) == 'on')
+						if($more_info and $single->found_value('more_info', $settings) == 'on')
 						{
 							?>
 							<div class="mec-event-more-info">
 								<i class="mec-sl-info"></i>
 								<h3 class="mec-cost"><?php echo $this->main->m('more_info_link', __('More Info', 'modern-events-calendar-lite')); ?></h3>
-								<dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php echo ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')); ?></a></dd></dl>
+								<dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo $more_info_target; ?>" href="<?php echo esc_url($more_info); ?>"><?php echo $more_info_title; ?></a></dd></dl>
 							</div>
 							<?php
 						}
@@ -475,9 +489,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 
 						<?php
 						// Event Location
-						if(isset($event->data->locations[$event->data->meta['mec_location_id']]) and !empty($event->data->locations[$event->data->meta['mec_location_id']]) and $single->found_value('event_location', $settings) == 'on')
+						if($location_id and isset($event->data->locations[$location_id]) and !empty($event->data->locations[$location_id]) and $single->found_value('event_location', $settings) == 'on')
 						{
-							$location = $event->data->locations[$event->data->meta['mec_location_id']];
+							$location = $event->data->locations[$location_id];
 							?>
 							<div class="mec-single-event-location">
 								<?php if($location['thumbnail']): ?>
@@ -530,9 +544,9 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 						<?php do_action('mec_single_event_under_category', $event); ?>
 						<?php
 						// Event Organizer
-						if(isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) && !empty($event->data->organizers[$event->data->meta['mec_organizer_id']]) and $single->found_value('event_orgnizer', $settings) == 'on')
+						if($organizer_id and isset($event->data->organizers[$organizer_id]) && !empty($event->data->organizers[$organizer_id]) and $single->found_value('event_orgnizer', $settings) == 'on')
 						{
-							$organizer = $event->data->organizers[$event->data->meta['mec_organizer_id']];
+							$organizer = $event->data->organizers[$organizer_id];
 							?>
 							<div class="mec-single-event-organizer">
 								<?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
@@ -582,8 +596,8 @@ $bookings_limit_for_users = isset($booking_options['bookings_limit_for_users']) 
 						<?php if($this->main->can_show_booking_module($event) and $single->found_value('register_btn', $settings) == 'on'): ?>
 							<?php $data_lity = $data_lity_class =  ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ /* $data_lity = 'onclick="openBookingModal();"'; */  $data_lity_class = 'mec-booking-data-lity'; }  ?>
 							<a class="mec-booking-button mec-bg-color <?php echo $data_lity_class; ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo $this->uniqueid; ?>" <?php echo $data_lity; ?>><?php echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite'))); ?></a>
-						<?php elseif($single->found_value('register_btn', $settings) == 'on' and isset($event->data->meta['mec_more_info']) and trim($event->data->meta['mec_more_info']) and $event->data->meta['mec_more_info'] != 'http://'): ?>
-							<a class="mec-booking-button mec-bg-color" target="<?php echo (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'); ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if(isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) echo esc_html__(trim($event->data->meta['mec_more_info_title']), 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')));
+						<?php elseif($single->found_value('register_btn', $settings) == 'on' and $more_info): ?>
+							<a class="mec-booking-button mec-bg-color" target="<?php echo $more_info_target; ?>" href="<?php echo $event->data->meta['mec_more_info']; ?>"><?php if($more_info_title) echo esc_html__($more_info_title, 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')));
 								?></a>
 						<?php endif; ?>
 					</div>

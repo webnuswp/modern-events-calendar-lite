@@ -21,7 +21,9 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 // Featured Image
                 $src = $event->data->featured_image['large'];
 
-                $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+                $location_id = $this->main->get_master_location_id($event);
+                $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
                 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
 
                 $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');

@@ -57,7 +57,7 @@ if(isset($this->atts['return_items']) and $this->atts['return_items'])
 }
 
 $sed_method = $this->sed_method;
-if ($sed_method == 'new') $sed_method = '0';
+if($sed_method == 'new') $sed_method = '0';
 
 // Generating javascript code tpl
 $javascript = '<script type="text/javascript">
@@ -67,6 +67,7 @@ jQuery(document).ready(function()
     {
         id: "'.$this->id.'",
         today: "'.date('Ymd', strtotime($this->active_day)).'",
+        display_all: "'.($this->display_all ? 1 : 0).'",
         month_id: "'.date('Ym', $current_month_time).'",
         active_month: {year: "'.date('Y', strtotime($this->start_date)).'", month: "'.date('m', strtotime($this->start_date)).'"},
         next_month: {year: "'.date('Y', $_1month_after).'", month: "'.date('m', $_1month_after).'"},

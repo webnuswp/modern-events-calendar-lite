@@ -14,7 +14,8 @@ if($this->is_expired($event) and isset($settings['export_module_hide_expired']) 
 if(!isset($settings['export_module_status']) or (isset($settings['export_module_status']) and !$settings['export_module_status'])) return;
 
 $title = isset($event->data->title) ? $event->data->title : '';
-$location = (isset($event->data->meta['mec_location_id']) and isset($event->data->locations[$event->data->meta['mec_location_id']])) ? '&location='.urlencode($event->data->locations[$event->data->meta['mec_location_id']]['address']) : '';
+$location_id = $this->get_master_location_id($event);
+$location = ($location_id and isset($event->data->locations[$location_id])) ? '&location='.urlencode($event->data->locations[$location_id]['address']) : '';
 $content = (isset($event->data->post->post_content) and trim($event->data->post->post_content)) ? strip_shortcodes(strip_tags($event->data->post->post_content)) : $title;
 $content = apply_filters('mec_add_content_to_export_google_calendar_details', $content,$event->data->ID );
 $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';

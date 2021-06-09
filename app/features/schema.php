@@ -214,11 +214,17 @@ class MEC_feature_schema extends MEC_base
 
         if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
 
-        $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-        $event_link = $this->main->get_event_date_permalink($event, $event->date['start']['date']);
+        $cost = isset($event->data->meta['mec_cost']) ? preg_replace("/[^0-9.]/", '', $event->data->meta['mec_cost']) : '';
+        $cost = (isset($params['cost']) and trim($params['cost']) != '') ? preg_replace("/[^0-9.]/", '', $params['cost']) : $cost;
 
+        $location_id = $this->main->get_master_location_id($event);
+        $location = isset($event->data->locations[$location_id]) ? $event->data->locations[$location_id] : array();
+
+        $event_link = $this->main->get_event_date_permalink($event, $event->date['start']['date']);
         $soldout = $this->main->is_soldout($event, $event->date);
-        $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
+
+        $organizer_id = $this->main->get_master_organizer_id($event);
+        $organizer = isset($event->data->organizers[$organizer_id]) ? $event->data->organizers[$organizer_id] : array();
 
         $moved_online_link = (isset($event->data->meta['mec_moved_online_link']) and trim($event->data->meta['mec_moved_online_link'])) ? $event->data->meta['mec_moved_online_link'] : '';
         $moved_online_link = (isset($params['moved_online_link']) and trim($params['moved_online_link']) != '') ? $params['moved_online_link'] : $moved_online_link;
@@ -251,7 +257,7 @@ class MEC_feature_schema extends MEC_base
             "offers":
             {
                 "url": "<?php echo $event->data->permalink; ?>",
-                "price": "<?php echo isset($event->data->meta['mec_cost']) ? preg_replace("/[^0-9.]/", '', $event->data->meta['mec_cost']) : '' ; ?>",
+                "price": "<?php echo $cost ?>",
                 "priceCurrency": "<?php echo isset($this->settings['currency']) ? $this->settings['currency'] : ''; ?>",
                 "availability": "<?php echo ($soldout ? "https://schema.org/SoldOut" : "https://schema.org/InStock"); ?>",
                 "validFrom": "<?php echo date('Y-m-d\TH:i', strtotime($event->date['start']['date'])); ?>"

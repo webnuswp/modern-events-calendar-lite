@@ -271,7 +271,7 @@ class MEC_book extends MEC_base
         // For Badget Bubble Notification Alert Count From It.
         update_post_meta($book_id, 'mec_book_date_submit', date('YmdHis', current_time('timestamp', 0)));
 
-        $location_id = get_post_meta($event_id, 'mec_location_id', true);
+        $location_id = $this->main->get_master_location_id($event_id, $attention_times[0]);
         if(!empty($location_id)) update_post_meta($book_id, 'mec_booking_location', $location_id);
 
         if(isset($values['mec_attendees']))
@@ -329,8 +329,9 @@ class MEC_book extends MEC_base
             // Work or don't work auto confirmation when pay through pay locally payment.
             $gateways_settings = get_option('mec_options', array());
             $pay_locally_gateway = ((isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_pay_locally') and (isset($gateways_settings['gateways'][1]['disable_auto_confirmation']) and trim($gateways_settings['gateways'][1]['disable_auto_confirmation']))) ? true : false;
+            $bank_transfer_gateway = ((isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_bank_transfer') and (isset($gateways_settings['gateways'][8]['disable_auto_confirmation']) and trim($gateways_settings['gateways'][8]['disable_auto_confirmation']))) ? true : false;
 
-            if(!$pay_locally_gateway) $this->confirm($book_id, 'auto');
+            if(!$pay_locally_gateway and !$bank_transfer_gateway) $this->confirm($book_id, 'auto');
         }
 
         return $book_id;
@@ -1271,8 +1272,12 @@ class MEC_book extends MEC_base
         $all_attendees = get_post_meta($booking_id, 'mec_attendees', true);
         if(!is_array($all_attendees) or (is_array($all_attendees) and !count($all_attendees))) $all_attendees = array(get_post_meta($booking_id, 'mec_attendee', true));
 
-        $tickets = get_post_meta($event_id, 'mec_tickets', true);
+        if(isset($all_attendees['attachments'])) unset($all_attendees['attachments']);
+
         $total_price = get_post_meta($booking_id, 'mec_price', true);
+        if(count($all_attendees) == 1) return $total_price;
+
+        $tickets = get_post_meta($event_id, 'mec_tickets', true);
         $ticket_variations = $this->main->ticket_variations($event_id);
 
         $ticket_id = $attendee['id'];

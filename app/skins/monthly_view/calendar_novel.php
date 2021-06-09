@@ -79,15 +79,9 @@ elseif($week_start == 5) // Friday
                     echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     echo $this->get_label_captions($event);
 
-                    do_action('mec_shortcode_virtual_badge', $event->data->ID );
+                    do_action('mec_shortcode_virtual_badge', $event->data->ID);
 
-                    if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
-                    {
-                        echo '<div class="mec-price-details">
-                            <i class="mec-sl-wallet"></i>
-                            <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']).'</span>
-                        </div>';
-                    }
+                    echo $this->display_cost($event);
 
                     echo '</div>';
                     echo '</a>';

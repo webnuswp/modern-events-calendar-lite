@@ -8,12 +8,12 @@
 
 /* #CSS Base & Typography
 	================================================== */
-.mec-wrap,
+/* .mec-wrap,
 .mec-wrap div:not([class^="elementor-"]),
 .lity-container {
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, sans-serif;
-}
+} */
 
 .mec-wrap h1,
 .mec-wrap h2,
@@ -27,8 +27,6 @@
 .entry-content .mec-wrap h4,
 .entry-content .mec-wrap h5,
 .entry-content .mec-wrap h6 {
-    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, sans-serif;
     color: #171c24;
     font-weight: 300;
     font-style: inherit;
@@ -311,8 +309,7 @@
 	/* # Modern Events Calendar (WP Plugin) Styles
 	================================================== */
 .mec-wrap {
-    font: 14px/25px sans-serif;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    font: 14px/25px;
     font-weight: 400;
     color: #626262;
 }
@@ -2385,7 +2382,6 @@ span.mec-event-title-soldout {
     margin-bottom: 20px;
     cursor: pointer;
     line-height: 40px;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
     height: 42px;
     display: inline-block;
 }
@@ -4379,6 +4375,8 @@ focus,
 .mec-single-event .mec-event-meta dd a {
     color: #8d8d8d;
     transition: all 0.2s ease;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .mec-single-event .mec-event-meta dd a i:before {
@@ -5790,6 +5788,12 @@ address.mec-events-address {
     .mec-calendar-side
     .mec-next-month {
     right: 0;
+}
+
+/* Shortcode next previous link disable for accessibility*/
+.mec-next-month a,
+.mec-previous-month a {
+    pointer-events: none;
 }
 
 .mec-calendar.mec-event-calendar-classic .mec-calendar-events-sec {
@@ -7969,7 +7973,6 @@ li.mec-no-event-found .mec-event-title {
     padding: 0 16px;
     text-transform: uppercase;
     font-size: 11px;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
     transition: all 0.21s ease;
 }
 
@@ -7981,7 +7984,6 @@ li.mec-no-event-found .mec-event-title {
 .mec-wrap .mec-totalcal-box .mec-totalcal-view span {
     display: inline-block;
     text-transform: uppercase;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
     font-size: 11px;
     padding: 0 12px;
     cursor: pointer;
@@ -11859,7 +11861,6 @@ body .featherlight .featherlight-close-icon:hover {
 }
 
 .mec-agenda-event-title a {
-    font-family: "Roboto", "Montserrat", Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
     color: #333;
@@ -14906,7 +14907,6 @@ ul.mec-categories li.mec-category a {
     margin-bottom: 20px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.051);
     clear: both;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
 }
 
 .lity-content .mec-events-meta-group-booking input[type="email"] {
@@ -14932,7 +14932,6 @@ ul.mec-categories li.mec-category a {
     padding: 5px 1em 3px 0;
     display: inline-block;
     text-transform: capitalize;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
 }
 
 .lity-content ul.mec-book-tickets-container {
@@ -14943,7 +14942,6 @@ ul.mec-categories li.mec-category a {
 .lity-content .mec-events-meta-group-booking input[type="text"],
 .lity-content .mec-events-meta-group-booking input[type="email"] {
     outline: 0;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
     display: block;
     background: #fcfcfc;
     min-height: 42px;
@@ -18597,7 +18595,6 @@ a.mec-timeline-readmore i {
 
 .mec-organizer-item a {
     font: 14px/25px sans-serif;
-    font-family: Montserrat, Helvetica, Arial, sans-serif;
     font-weight: 400;
     color: #626262;
 }

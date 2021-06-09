@@ -830,22 +830,31 @@ jQuery(document).ready(function ($) {
             $("#mec_skin_" + settings.id + " .mec-has-event").off("click");
 
             // Add the onclick event
-            $("#mec_skin_" + settings.id + " .mec-has-event").on('click', function (e) {
-                e.preventDefault();
-
+            $("#mec_skin_" + settings.id + " .mec-has-event").on('click', function (e)
+            {
                 // define variables
                 var $this = $(this),
                     data_mec_cell = $this.data('mec-cell'),
                     month_id = $this.data('month');
 
-                $("#mec_monthly_view_month_" + settings.id + "_" + month_id + " .mec-calendar-day").removeClass('mec-selected-day');
-                $this.addClass('mec-selected-day');
+                if(settings.display_all == 0)
+                {
+                    e.preventDefault();
 
-                $('#mec_month_side_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec:not([data-mec-cell=' + data_mec_cell + '])').slideUp();
-                $('#mec_month_side_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec[data-mec-cell=' + data_mec_cell + ']').slideDown();
+                    $("#mec_monthly_view_month_" + settings.id + "_" + month_id + " .mec-calendar-day").removeClass('mec-selected-day');
+                    $this.addClass('mec-selected-day');
 
-                $('#mec_monthly_view_month_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec:not([data-mec-cell=' + data_mec_cell + '])').slideUp();
-                $('#mec_monthly_view_month_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec[data-mec-cell=' + data_mec_cell + ']').slideDown();
+                    $('#mec_month_side_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec:not([data-mec-cell=' + data_mec_cell + '])').slideUp();
+                    $('#mec_month_side_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec[data-mec-cell=' + data_mec_cell + ']').slideDown();
+
+                    $('#mec_monthly_view_month_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec:not([data-mec-cell=' + data_mec_cell + '])').slideUp();
+                    $('#mec_monthly_view_month_' + settings.id + '_' + month_id + ' .mec-calendar-events-sec[data-mec-cell=' + data_mec_cell + ']').slideDown();
+                }
+                else
+                {
+                    $("#mec_monthly_view_month_" + settings.id + "_" + month_id + " .mec-calendar-day").removeClass('mec-selected-day');
+                    $this.addClass('mec-selected-day');
+                }
             });
 
             mec_tooltip();

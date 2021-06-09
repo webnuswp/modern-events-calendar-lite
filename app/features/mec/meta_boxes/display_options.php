@@ -813,10 +813,13 @@ $events = $this->main->get_events();
                         <div class="mec-col-4">
                             <input type="hidden" name="mec[sk-options][full_calendar][yearly]" value="0" />
                             <?php
-                                if ($this->main->getPRO()) {
+                                if($this->main->getPRO())
+                                {
                                     echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" onchange="mec_skin_full_calendar_skin_toggled(this);" value="1"';
                                     if(isset($sk_options_full_calendar['yearly']) and $sk_options_full_calendar['yearly']) echo 'checked="checked"';
-                                } else {
+                                }
+                                else
+                                {
                                     echo '<input type="checkbox" name="mec[sk-options][full_calendar][yearly]" id="mec_skin_full_calendar_yearly" value="0"';
                                 }
                             ?> />
@@ -854,6 +857,28 @@ $events = $this->main->get_events();
 						<input type="checkbox" name="mec[sk-options][full_calendar][monthly]" id="mec_skin_full_calendar_monthly" onchange="mec_skin_full_calendar_skin_toggled(this);" value="1" <?php if(!isset($sk_options_full_calendar['monthly']) or (isset($sk_options_full_calendar['monthly']) and $sk_options_full_calendar['monthly'])) echo 'checked="checked"'; ?> />
 						<label for="mec_skin_full_calendar_monthly"></label>
 					</div>
+                </div>
+                <div id="mec_full_calendar_monthly_view_options" <?php echo (isset($sk_options_full_calendar['monthly']) and $sk_options_full_calendar['monthly']) ? '' : 'style="display:none;"'; ?>>
+                    <div class="mec-form-row mec-switcher">
+                        <div class="mec-col-4">
+                            <label for="mec_skin_full_calendar_activate_first_date"><?php _e('Activate First upcoming Date with Event', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-col-4">
+                            <input type="hidden" name="mec[sk-options][full_calendar][activate_first_date]" value="0" />
+                            <input type="checkbox" name="mec[sk-options][full_calendar][activate_first_date]" id="mec_skin_full_calendar_activate_first_date" value="1" <?php if(isset($sk_options_full_calendar['activate_first_date']) and trim($sk_options_full_calendar['activate_first_date'])) echo 'checked="checked"'; ?> />
+                            <label for="mec_skin_full_calendar_activate_first_date"></label>
+                        </div>
+                    </div>
+                    <div class="mec-form-row mec-switcher">
+                        <div class="mec-col-4">
+                            <label for="mec_skin_full_calendar_activate_current_day"><?php _e('Activate Current Day in Next / Previous Months', 'modern-events-calendar-lite'); ?></label>
+                        </div>
+                        <div class="mec-col-4">
+                            <input type="hidden" name="mec[sk-options][full_calendar][activate_current_day]" value="0" />
+                            <input type="checkbox" name="mec[sk-options][full_calendar][activate_current_day]" id="mec_skin_full_calendar_activate_current_day" value="1" <?php if(!isset($sk_options_full_calendar['activate_current_day']) or (isset($sk_options_full_calendar['activate_current_day']) and trim($sk_options_full_calendar['activate_current_day']))) echo 'checked="checked"'; ?> />
+                            <label for="mec_skin_full_calendar_activate_current_day"></label>
+                        </div>
+                    </div>
                 </div>
                 <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
@@ -1088,6 +1113,7 @@ $events = $this->main->get_events();
 						<label for="mec_skin_monthly_view_next_previous_button"></label>
 					</div>
                 </div>
+                <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 <!-- Start Display Label -->
                 <div class="mec-form-row mec-switcher mec-include-events-local-times mec-not-monthly_view-fluent" id="mec_skin_monthly_view_display_normal_label">
 					<div class="mec-col-4">
@@ -1122,6 +1148,26 @@ $events = $this->main->get_events();
                         <label for="mec_skin_monthly_view_activate_first_date"></label>
                     </div>
                 </div>
+                <div class="mec-form-row mec-switcher mec-not-monthly_view-fluent">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_monthly_view_activate_current_day"><?php _e('Activate Current Day in Next / Previous Months', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][monthly_view][activate_current_day]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][monthly_view][activate_current_day]" id="mec_skin_monthly_view_activate_current_day" value="1" <?php if(!isset($sk_options_monthly_view['activate_current_day']) or (isset($sk_options_monthly_view['activate_current_day']) and trim($sk_options_monthly_view['activate_current_day']))) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_monthly_view_activate_current_day"></label>
+                    </div>
+                </div>
+                <div class="mec-form-row mec-switcher mec-not-monthly_view-fluent">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_monthly_view_display_all"><?php _e('Display all events in right section', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
+                        <input type="hidden" name="mec[sk-options][monthly_view][display_all]" value="0" />
+                        <input type="checkbox" name="mec[sk-options][monthly_view][display_all]" id="mec_skin_monthly_view_display_all" value="1" <?php if(isset($sk_options_monthly_view['display_all']) and trim($sk_options_monthly_view['display_all'])) echo 'checked="checked"'; ?> />
+                        <label for="mec_skin_monthly_view_display_all"></label>
+                    </div>
+                </div>
                 <!-- <div class="mec-form-row mec-switcher">
 					<div class="mec-col-4">
 						<label><?php _e('Uppercase Text', 'modern-events-calendar-lite'); ?></label>
@@ -1132,7 +1178,6 @@ $events = $this->main->get_events();
 						<label for="mec_skin_monthly_view_uppercase_text"></label>
 					</div>
 				</div> -->
-                <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 <?php echo $this->booking_button_field('monthly_view', (isset($sk_options_monthly_view['booking_button']) ? $sk_options_monthly_view['booking_button'] : 0)); ?>
                 <?php echo $this->display_custom_data_field('monthly_view', (isset($sk_options_monthly_view['custom_data']) ? $sk_options_monthly_view['custom_data'] : 0)); ?>
                 <?php echo $this->sed_method_field('monthly_view', (isset($sk_options_monthly_view['sed_method']) ? $sk_options_monthly_view['sed_method'] : 0), (isset($sk_options_monthly_view['image_popup']) ? $sk_options_monthly_view['image_popup'] : 0)); ?>

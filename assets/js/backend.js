@@ -477,6 +477,7 @@ function mec_skin_full_calendar_skin_toggled(Context)
     else if(id === 'mec_skin_full_calendar_monthly')
     {
         jQuery('#mec_full_calendar_monthly_style').toggle();
+        jQuery('#mec_full_calendar_monthly_view_options').toggle();
         default_view = 'monthly';
     }
     else if(id === 'mec_skin_full_calendar_weekly')

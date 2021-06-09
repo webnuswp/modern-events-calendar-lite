@@ -205,6 +205,7 @@ class MEC_feature_events extends MEC_base
                 'rewrite' => array(
                     'slug' => $this->main->get_main_slug(),
                     'ep_mask' => EP_MEC_EVENTS,
+                    'with_front' => false,
                 ),
                 'supports' => $supports,
                 'show_in_rest' => true,
@@ -1241,13 +1242,13 @@ class MEC_feature_events extends MEC_base
         $currency_per_event = ((isset($this->settings['currency_per_event']) and trim($this->settings['currency_per_event'])) ? $this->settings['currency_per_event'] : 0);
 
         $currencies = $this->main->get_currencies();
-        $current_currency = (isset($currency['currency']) ? $currency['currency'] : $this->settings['currency']);
+        $current_currency = (isset($currency['currency']) ? $currency['currency'] : (isset($this->settings['currency']) ? $this->settings['currency'] : 'USD'));
         ?>
         <div class="mec-meta-box-fields mec-event-tab-content" id="mec-cost">
             <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?></h4>
             <div id="mec_meta_box_cost_form">
                 <div class="mec-form-row">
-                    <input type="<?php echo ($type === 'alphabetic' ? 'text' : 'number'); ?>" class="mec-col-3" name="mec[cost]" id="mec_cost"
+                    <input type="<?php echo ($type === 'alphabetic' ? 'text' : 'number'); ?>" <?php echo ($type === 'numeric' ? 'min="0" step="any"' : ''); ?> class="mec-col-3" name="mec[cost]" id="mec_cost"
                            value="<?php echo esc_attr($cost); ?>" title="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>"/>
                 </div>
             </div>
@@ -4174,7 +4175,7 @@ class MEC_feature_events extends MEC_base
             if(!term_exists($term_location, 'mec_location')) wp_insert_term($term_location, 'mec_location', array());
 
             $location_id =  get_term_by('name', $term_location, 'mec_location')->term_id;
-            wp_set_object_terms($post_id, (int)$location_id, 'mec_location');
+            wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
             update_post_meta($post_id, 'mec_location_id', $location_id);
 
             if(count($mec_locations) > 1)

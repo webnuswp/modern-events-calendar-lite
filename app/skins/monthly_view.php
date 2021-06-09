@@ -13,7 +13,9 @@ class MEC_skin_monthly_view extends MEC_skins
      */
     public $skin = 'monthly_view';
     public $activate_first_date = false;
-    
+    public $activate_current_day = true;
+    public $display_all = false;
+
     /**
      * Constructor method
      * @author Webnus <info@webnus.biz>
@@ -67,7 +69,10 @@ class MEC_skin_monthly_view extends MEC_skins
         
         // Next/Previous Month
         $this->next_previous_button = isset($this->skin_options['next_previous_button']) ? $this->skin_options['next_previous_button'] : true;
-        
+
+        // Display All Events
+        $this->display_all = ((in_array($this->style, array('clean', 'modern')) and isset($this->skin_options['display_all'])) ? (boolean) $this->skin_options['display_all'] : false);
+
         // Override the style if the style forced by us in a widget etc
         if(isset($this->atts['style']) and trim($this->atts['style']) != '') $this->style = $this->atts['style'];
         
@@ -144,9 +149,14 @@ class MEC_skin_monthly_view extends MEC_skins
         
         // Start Date
         list($this->year, $this->month, $this->day) = $this->get_start_date();
+
+        // Activate Current Day
+        $this->activate_current_day = (!isset($this->skin_options['activate_current_day']) or (isset($this->skin_options['activate_current_day']) and $this->skin_options['activate_current_day']));
         
         $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-'.$this->day));
         $this->active_day = $this->year.'-'.$this->month.'-'.current_time('d');
+
+        if(!$this->activate_current_day and $this->month != current_time('m')) $this->active_day = $this->start_date;
         
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
@@ -216,7 +226,7 @@ class MEC_skin_monthly_view extends MEC_skins
             {
                 if(!isset($events[$date])) $events[$date] = array();
 
-                if($this->activate_first_date and $this->active_day and strtotime($date) >= current_time('timestamp', 0))
+                if($this->activate_first_date and $this->active_day and strtotime($date) >= current_time('timestamp', 0) and date('m', strtotime($date)) == $this->month)
                 {
                     $this->active_day = $date;
                     $this->activate_first_date = false;
@@ -345,6 +355,8 @@ class MEC_skin_monthly_view extends MEC_skins
                 $day = current_time('d');
                 $this->active_day = $this->year.'-'.$this->month.'-'.$day;
 
+                if(!$this->activate_current_day and $this->month != current_time('m')) $this->active_day = $this->start_date;
+
                 // If date is not valid then use the first day of month
                 if(!$this->main->validate_date($this->active_day, 'Y-m-d')) $this->active_day = $this->year.'-'.$this->month.'-01';
             }
@@ -375,6 +387,9 @@ class MEC_skin_monthly_view extends MEC_skins
 
     public function day_label($time)
     {
+        // No Label when all events is set to display
+        if($this->display_all) return '';
+
         $date_suffix = (isset($this->settings['date_suffix']) && $this->settings['date_suffix'] == '0') ? $this->main->date_i18n('jS', $time) : $this->main->date_i18n('j', $time);
 
         if($this->main->is_day_first())

@@ -210,6 +210,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['monthly_view']['display_label'] = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
                 $atts['sk-options']['monthly_view']['reason_for_cancellation'] = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
                 $atts['sk-options']['monthly_view']['include_local_time'] = $this->include_local_time;
+                $atts['sk-options']['monthly_view']['activate_first_date'] = isset($this->skin_options['activate_first_date']) ? $this->skin_options['activate_first_date'] : '0';
+                $atts['sk-options']['monthly_view']['activate_current_day'] = isset($this->skin_options['activate_current_day']) ? $this->skin_options['activate_current_day'] : '1';
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-monthly', $atts, $this, 'monthly_view');

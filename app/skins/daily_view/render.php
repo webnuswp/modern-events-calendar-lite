@@ -12,7 +12,9 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
         <?php if(count($events)): ?>
         <?php foreach($events as $event): ?>
             <?php
-                $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+                $location_id = $this->main->get_master_location_id($event);
+                $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
                 $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                 $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                 $event_color =  isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
@@ -30,12 +32,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 <div class="mec-event-detail"><div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?><div></div>
                 <?php echo $this->display_categories($event); ?>
                 <?php echo $this->display_organizers($event); ?>
-                <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
-                    <div class="mec-price-details">
-                        <i class="mec-sl-wallet"></i>
-                        <span><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></span>
-                    </div>
-                <?php endif; ?>
+                <?php echo $this->display_cost($event); ?>
                 <?php echo $this->booking_button($event); ?>
                 <?php echo $this->display_custom_data($event); ?>
             </article>

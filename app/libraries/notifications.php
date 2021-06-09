@@ -1132,8 +1132,8 @@ class MEC_notifications extends MEC_base
             $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $post->ID) : $mec_cost), $message);
 
             $message = str_replace('%%event_link%%', get_post_permalink($post->ID), $message);
-            $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($post->ID, 'mec_start_date', true))), $message);
-            $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, strtotime(get_post_meta($post->ID, 'mec_end_date', true))), $message);
+            $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, get_post_meta($post->ID, 'mec_start_date', true)), $message);
+            $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, get_post_meta($post->ID, 'mec_end_date', true)), $message);
             $message = str_replace('%%event_timezone%%', $this->main->get_timezone($post->ID), $message);
             $message = str_replace('%%event_status%%', $status, $message);
             $message = str_replace('%%event_note%%', get_post_meta($post->ID, 'mec_note', true), $message);
@@ -1477,6 +1477,9 @@ class MEC_notifications extends MEC_base
         if(!trim($timestamps)) $timestamps = get_post_meta($book_id, 'mec_date', true);
         list($start_timestamp, $end_timestamp) = explode(':', $timestamps);
 
+        // Occurrence Params
+        $params = MEC_feature_occurrences::param($event_id, $start_timestamp, '*');
+
         // Book Date
         if(trim($timestamps) and strpos($timestamps, ':') !== false)
         {
@@ -1582,8 +1585,8 @@ class MEC_notifications extends MEC_base
         }
 
         // Event Data
-        $organizer_id = get_post_meta($event_id, 'mec_organizer_id', true);
-        $location_id = get_post_meta($event_id, 'mec_location_id', true);
+        $organizer_id = $this->main->get_master_organizer_id($event_id, $mec_date[0]);
+        $location_id = $this->main->get_master_location_id($event_id, $mec_date[0]);
         $speaker_id = wp_get_post_terms( $event_id, 'mec_speaker', '');
 
         $organizer = get_term($organizer_id, 'mec_organizer');
@@ -1627,10 +1630,18 @@ class MEC_notifications extends MEC_base
         $message = str_replace('%%event_categories%%', (is_array($event_categories) ? join(', ', wp_list_pluck($event_categories, 'name')) : ''), $message);
 
         $mec_cost = get_post_meta($event_id, 'mec_cost', true);
+        $mec_cost = (isset($params['cost']) and trim($params['cost']) != '') ? preg_replace("/[^0-9.]/", '', $params['cost']) : $mec_cost;
+
+        $read_more = get_post_meta($event_id, 'mec_read_more', true);
+        $read_more = (isset($params['read_more']) and trim($params['read_more']) != '') ? $params['read_more'] : $read_more;
+
+        $more_info = get_post_meta($event_id, 'mec_more_info', true);
+        $more_info = (isset($params['more_info']) and trim($params['more_info']) != '') ? $params['more_info'] : $more_info;
+
         $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $event_id) : $mec_cost), $message);
         $message = str_replace('%%event_link%%', $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp)), $message);
-        $message = str_replace('%%event_more_info%%', esc_url(get_post_meta($event_id, 'mec_read_more', true)), $message);
-        $message = str_replace('%%event_other_info%%', esc_url(get_post_meta($event_id, 'mec_more_info', true)), $message);
+        $message = str_replace('%%event_more_info%%', esc_url($read_more), $message);
+        $message = str_replace('%%event_other_info%%', esc_url($more_info), $message);
         $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, $start_timestamp), $message);
         $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, $end_timestamp), $message);
         $message = str_replace('%%event_start_time%%', date_i18n($time_format, $start_timestamp), $message);
@@ -1838,7 +1849,9 @@ class MEC_notifications extends MEC_base
     public function get_booking_organizer_email($book_id)
     {
         $event_id = get_post_meta($book_id, 'mec_event_id', true);
-        $organizer_id = get_post_meta($event_id, 'mec_organizer_id', true);
+        $mec_date = explode(':', get_post_meta($book_id, 'mec_date', true));
+
+        $organizer_id = $this->main->get_master_organizer_id($event_id, $mec_date[0]);
         $email = get_term_meta($organizer_id, 'email', true);
 
         return trim($email) ? $email : false;

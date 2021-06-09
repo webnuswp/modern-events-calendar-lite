@@ -25,8 +25,13 @@ $map_events = array();
                 foreach($events as $event)
                 {
                     $map_events[] = $event;
-                    $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-                    $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
+
+                    $location_id = $this->main->get_master_location_id($event);
+                    $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
+                    $organizer_id = $this->main->get_master_organizer_id($event);
+                    $organizer = (($organizer_id and isset($event->data->organizers[$organizer_id])) ? $event->data->organizers[$organizer_id] : array());
+
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                     $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
@@ -181,12 +186,7 @@ $map_events = array();
                                 <?php endif; ?>
                                 <?php echo $this->display_categories($event); ?>
                                 <?php echo $this->display_organizers($event); ?>
-                                <?php if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != ''): ?>
-                                <div class="mec-price-details">
-                                    <i class="mec-sl-wallet"></i>
-                                    <span><?php echo (is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']); ?></span>
-                                </div>
-                                <?php endif; ?>
+                                <?php echo $this->display_cost($event); ?>
                                 <?php do_action('mec_list_standard_right_box', $event); ?>
                             </div>
                         </div>

@@ -25,7 +25,20 @@ class MEC_schedule extends MEC_base
         $events = $this->main->get_events();
 
         // Append Schedule for Events
-        foreach($events as $event) $this->append($event->ID, 50);
+        foreach($events as $event)
+        {
+            $maximum = 50;
+            $repeat_type = get_post_meta($event->ID, 'mec_repeat_type', true);
+
+            // Clean Current Schedule for Custom Days Events
+            if($repeat_type === 'custom_days')
+            {
+                $this->clean($event->ID);
+                $maximum = 100;
+            }
+
+            $this->append($event->ID, $maximum);
+        }
     }
 
     public function reschedule($event_id, $maximum = 200)

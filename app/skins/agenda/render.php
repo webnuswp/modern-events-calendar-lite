@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_agenda $this */
+
 $current_month_divider = $this->request->getVar('current_month_divider', 0);
 $settings = $this->main->get_settings();
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
@@ -25,13 +27,16 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
             <?php
                 foreach($events as $event)
                 {
-                    $location = isset($event->data->locations[$event->data->meta['mec_location_id']]) ? $event->data->locations[$event->data->meta['mec_location_id']] : array();
-                    $organizer = isset($event->data->organizers[$event->data->meta['mec_organizer_id']]) ? $event->data->organizers[$event->data->meta['mec_organizer_id']] : array();
+                    $location_id = $this->main->get_master_location_id($event);
+                    $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
+                    $organizer_id = $this->main->get_master_organizer_id($event);
+                    $organizer = (($organizer_id and isset($event->data->organizers[$organizer_id])) ? $event->data->organizers[$organizer_id] : array());
+
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                     $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                     $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
-
 
                     // MEC Schema
                     do_action('mec_schema', $event);

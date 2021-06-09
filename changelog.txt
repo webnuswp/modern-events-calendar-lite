@@ -1,4 +1,23 @@
-﻿v 5.19.5 – 26 May 2021
+﻿v 5.20.0 – 9 June 2021
+- Added: The event cost, event link, more info link with title and target, organizer, and location to the occurrences section to provide an ability to change them per occurrence
+- Added: “Activate First Upcoming Date with Event” option in full calendar
+- Added: An ability to display all events in the right panel of monthly skins
+- Added: An option to show activate the first date of the month in monthly skins instead of the current day in next/previous months
+- Added: “Bank Transfer” as a new payment gateway (pro)
+- Improved: The flexibility in events URLs
+- Improved: The functionality of the “Disable fees per payment gateway” feature (pro)
+- Improved: The library inclusion of MEC
+- Removed: “Montserrat” font family
+- Fixed: An issue in calculating the price per attendee in booking export feature (pro)
+- Fixed: Showing ongoing events in calendar method of booking module (pro)
+- Fixed: Sending multiple emails after booking edit (pro)
+- Fixed: Oversell in some conditions (pro)
+- Fixed: Labels issue
+- Fixed: Notifications issue
+- Fixed: Some issues in multilingual feature and translations
+- Fixed: Some PHP notices and warnings
+
+v 5.19.5 – 26 May 2021
 - Added: A new ability to show all locations of an event in the event single map (pro)
 - Added: A new ability to include a pin for all locations of all events in the map modules (pro)
 - Added: Start and End times to the event list in the backend in addition to dates

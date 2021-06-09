@@ -41,6 +41,7 @@ elseif($week_start == 5) // Friday
 }
 
 $events_str = '';
+if($this->display_all) $events_str .= '<h3 class="mec-table-side-title">'.esc_html__('Events', 'modern-events-calendar-lite').'</h3>';
 ?>
 <dl class="mec-calendar-row">
     <?php
@@ -57,12 +58,14 @@ $events_str = '';
             // Print events
             if(isset($events[$today]) and count($events[$today]))
             {
-                echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', strtotime($year.'-'.$month.'-01')).'"><a href="#" class="mec-has-event-a">'.$list_day.'</a></dt>';
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
+                echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', strtotime($year.'-'.$month.'-01')).'"><a href="'.($this->display_all ? '#mec-calendar-events-sec-'.$this->id.'-'.$day_id : '#').'" class="mec-has-event-a">'.$list_day.'</a></dt>';
+                $events_str .= '<div class="mec-calendar-events-sec" id="mec-calendar-events-sec-'.$this->id.'-'.$day_id.'" data-mec-cell="'.$day_id.'" '.((trim($selected_day) != '' or $this->display_all) ? ' style="display: block;"' : '').'>'.$this->day_label($time);
 
                 foreach($events[$today] as $event)
                 {
-                    $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+                    $location_id = $this->main->get_master_location_id($event);
+                    $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                     $startDate = !empty($event->data->meta['mec_date']['start']['date'] ) ? $event->data->meta['mec_date']['start']['date'] : '';
@@ -90,14 +93,7 @@ $events_str = '';
                     $events_str .= '<div class="mec-event-detail"><div class="mec-event-loc-place">'.(isset($location['name']) ? $location['name'] : '').'</div></div>';
                     $events_str .= $this->booking_button($event);
                     $events_str .= $this->display_custom_data($event);
-
-                    if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
-                    {
-                        $events_str .= '<div class="mec-price-details">
-                            <i class="mec-sl-wallet"></i>
-                            <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']).'</span>
-                        </div>';
-                    }
+                    $events_str .= $this->display_cost($event);
 
                     if(has_filter('monthly_event_right_box')) $events_filter = apply_filters('monthly_event_right_box', $events_str, $event);
 
@@ -127,12 +123,14 @@ $events_str = '';
             // Print events
             if(isset($events[$today]) and count($events[$today]))
             {
-                echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'"><a href="#" class="mec-has-event-a">'.$list_day.'</a></dt>';
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
+                echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'"><a href="'.($this->display_all ? '#mec-calendar-events-sec-'.$this->id.'-'.$day_id : '#').'" class="mec-has-event-a">'.$list_day.'</a></dt>';
+                $events_str .= '<div class="mec-calendar-events-sec" id="mec-calendar-events-sec-'.$this->id.'-'.$day_id.'" data-mec-cell="'.$day_id.'" '.((trim($selected_day) != '' or $this->display_all) ? ' style="display: block;"' : '').'>'.$this->day_label($time);
                 
                 foreach($events[$today] as $event)
                 {
-                    $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+                    $location_id = $this->main->get_master_location_id($event);
+                    $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                     $startDate = !empty($event->data->meta['mec_date']['start']['date'] ) ? $event->data->meta['mec_date']['start']['date'] : '';
@@ -160,14 +158,7 @@ $events_str = '';
                     $events_str .= '<div class="mec-event-detail"><div class="mec-event-loc-place">'.(isset($location['name']) ? $location['name'] : '').'</div></div>';
                     $events_str .= $this->booking_button($event);
                     $events_str .= $this->display_custom_data($event);
-
-                    if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
-                    {
-                        $events_str .= '<div class="mec-price-details">
-                            <i class="mec-sl-wallet"></i>
-                            <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']).'</span>
-                        </div>';
-                    }
+                    $events_str .= $this->display_cost($event);
 
                     if(has_filter('monthly_event_right_box')) $events_filter = apply_filters('monthly_event_right_box', $events_str, $event);
 
@@ -180,12 +171,15 @@ $events_str = '';
             else
             {
                 echo '<dt class="mec-calendar-day'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'">'.$list_day.'</dt>';
-                
-                $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
-                $events_str .= '<article class="mec-event-article">';
-                $events_str .= '<div class="mec-event-detail">'.__('No Events', 'modern-events-calendar-lite').'</div>';
-                $events_str .= '</article>';
-                $events_str .= '</div>';
+
+                if(!$this->display_all)
+                {
+                    $events_str .= '<div class="mec-calendar-events-sec" id="mec-calendar-events-sec-'.$this->id.'-'.$day_id.'" data-mec-cell="'.$day_id.'" '.((trim($selected_day) != '' or $this->display_all) ? ' style="display: block;"' : '').'>'.$this->day_label($time);
+                    $events_str .= '<article class="mec-event-article">';
+                    $events_str .= '<div class="mec-event-detail">'.__('No Events', 'modern-events-calendar-lite').'</div>';
+                    $events_str .= '</article>';
+                    $events_str .= '</div>';
+                }
             }
 
             echo '</dt>';
@@ -221,12 +215,14 @@ $events_str = '';
                 // Print events
                 if(isset($events[$today]) and count($events[$today]))
                 {
-                    echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', strtotime($year.'-'.$month.'-01')).'"><a href="#" class="mec-has-event-a">'.$list_day.'</a></dt>';
-                    $events_str .= '<div class="mec-calendar-events-sec" data-mec-cell="'.$day_id.'" '.(trim($selected_day) != '' ? ' style="display: block;"' : '').'>'.$this->day_label($time);
+                    echo '<dt class="mec-calendar-day mec-has-event'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', strtotime($year.'-'.$month.'-01')).'"><a href="'.($this->display_all ? '#mec-calendar-events-sec-'.$this->id.'-'.$day_id : '#').'" class="mec-has-event-a">'.$list_day.'</a></dt>';
+                    $events_str .= '<div class="mec-calendar-events-sec" id="mec-calendar-events-sec-'.$this->id.'-'.$day_id.'" data-mec-cell="'.$day_id.'" '.((trim($selected_day) != '' or $this->display_all) ? ' style="display: block;"' : '').'>'.$this->day_label($time);
 
                     foreach($events[$today] as $event)
                     {
-                        $location = isset($event->data->locations[$event->data->meta['mec_location_id']])? $event->data->locations[$event->data->meta['mec_location_id']] : array();
+                        $location_id = $this->main->get_master_location_id($event);
+                        $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+
                         $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                         $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
                         $startDate = !empty($event->data->meta['mec_date']['start']['date'] ) ? $event->data->meta['mec_date']['start']['date'] : '';
@@ -256,14 +252,7 @@ $events_str = '';
                         $events_str .= '<div class="mec-event-detail"><div class="mec-event-loc-place">'.(isset($location['name']) ? $location['name'] : '').'</div></div>';
                         $events_str .= $this->booking_button($event);
                         $events_str .= $this->display_custom_data($event);
-
-                        if($this->display_price and isset($event->data->meta['mec_cost']) and $event->data->meta['mec_cost'] != '')
-                        {
-                            $events_str .= '<div class="mec-price-details">
-                                <i class="mec-sl-wallet"></i>
-                                <span>'.(is_numeric($event->data->meta['mec_cost']) ? $this->main->render_price($event->data->meta['mec_cost'], $event->ID) : $event->data->meta['mec_cost']).'</span>
-                            </div>';
-                        }
+                        $events_str .= $this->display_cost($event);
 
                         if(has_filter('monthly_event_right_box')) $events_filter = apply_filters('monthly_event_right_box', $events_str, $event);
 

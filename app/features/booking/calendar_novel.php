@@ -16,6 +16,9 @@ if(!$first_date) return;
 // Settings
 $settings = $this->main->get_settings();
 
+// Is Booking Enabled for Ongoing Events
+$booking_ongoing = (isset($settings['booking_ongoing']) and $settings['booking_ongoing']);
+
 // Options
 $event_color = isset($event->data->meta['mec_color']) ? '#'.$event->data->meta['mec_color'] : '';
 $allday = isset($event->data->meta['mec_allday']) ? $event->data->meta['mec_allday'] : 0;
@@ -127,7 +130,7 @@ echo $javascript;
 
                     foreach($dates as $date)
                     {
-                        if(!isset($date['fake']) and strtotime($date['start']['date']) <= $time and $time <= strtotime($date['end']['date']) and (isset($date['start']['timestamp']) and $date['start']['timestamp'] >= current_time('timestamp', 0)))
+                        if(!isset($date['fake']) and strtotime($date['start']['date']) <= $time and $time <= strtotime($date['end']['date']) and ($booking_ongoing or (isset($date['start']['timestamp']) and $date['start']['timestamp'] >= current_time('timestamp', 0))))
                         {
                             $repeat++;
                             $date_timestamp = $this->book->timestamp($date['start'], $date['end']);
