@@ -277,7 +277,7 @@ jQuery(document).ready(function ($) {
             }
 
             // Add the onclick event
-            $("#mec_skin_" + settings.id + " .mec-totalcal-box .mec-totalcal-view span:not(.mec-fluent-more-views-icon)").on('click', function (e) {
+            $("#mec_skin_" + settings.id + " .mec-totalcal-box .mec-totalcal-view span:not(.mec-fluent-more-views-icon):not(.mec-fluent-more-views-content)").on('click', function (e) {
                 e.preventDefault();
                 var skin = $(this).data('skin');
                 var mec_month_select = $('#mec_sf_month_' + settings.id);
@@ -561,11 +561,14 @@ jQuery(document).ready(function ($) {
                 var des = $(this).attr('href');
                 var visible = $(des).is(':visible');
                 if (!visible) {
-                    var year = $(des).parent().parent().parent().data('year-id');
-                    while (!visible) {
-                        loadMoreButton(year);
+                    var year = $(des).parents('.mec-year-container').data('year-id');
+                    if(year){
 
-                        visible = $(des).is(':visible');
+                        while (!visible) {
+                            loadMoreButton(year);
+
+                            visible = $(des).is(':visible');
+                        }
                     }
                 }
 
@@ -4067,7 +4070,7 @@ function gmapSkin(NewJson) {
                     var new_info_lightbox = '<div><div class="mec-event-detail mec-map-view-event-detail"><i class="mec-sl-map-marker"></i> ' + newJson[key].name + '</div><div>' + render_items + '</div></div>';
                     newJson[key].lightbox = new_info_lightbox;
 
-                    // LightBox info                        
+                    // LightBox info
                     var new_info_window = '<div class="mec-marker-infowindow-wp"><div class="mec-marker-infowindow-count">' + newJson[key].count + '</div><div class="mec-marker-infowindow-content"><span>Event at this location</span><span>' + newJson[key].name + '</span></div></div>';
                     newJson[key].infowindow = new_info_window;
 

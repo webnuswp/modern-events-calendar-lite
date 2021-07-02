@@ -28,8 +28,10 @@ $ix = $this->main->get_ix_options();
                         <input type="checkbox" id="mec_ix_sync_g_import" name="ix[sync_g_import]" value="1" <?php echo (isset($ix['sync_g_import']) and $ix['sync_g_import'] == '1') ? 'checked="checked"' : ''; ?> onchange="jQuery('#mec_sync_g_import_cron').toggleClass('mec-util-hidden');" />
                         <?php _e('Auto Google Import', 'modern-events-calendar-lite'); ?>
                     </label>
+                    <br>
+                    <br>
                     <?php $cron = MEC_ABSPATH.'app'.DS.'crons'.DS.'g-import.php'; ?>
-                    <p id="mec_sync_g_import_cron" class="mec-col-12 <?php echo (isset($ix['sync_g_import']) and $ix['sync_g_import'] == '1') ? '' : 'mec-util-hidden'; ?>"><strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file atleast once per day otherwise it won't import Google Calendar events.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?></p>
+                    <p id="mec_sync_g_import_cron" class="mec-col-12 <?php echo (isset($ix['sync_g_import']) and $ix['sync_g_import'] == '1') ? '' : 'mec-util-hidden'; ?>"><strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file by php atleast once per day otherwise it won't import Google Calendar events.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?></p>
                 </div>
                 <div class="mec-form-row mec-syn-schedule">
                     <input type="hidden" name="ix[sync_g_export]" value="0" />
@@ -37,6 +39,8 @@ $ix = $this->main->get_ix_options();
                         <input type="checkbox" id="mec_ix_sync_g_export" name="ix[sync_g_export]" value="1" <?php echo (isset($ix['sync_g_export']) and $ix['sync_g_export'] == '1') ? 'checked="checked"' : ''; ?> onchange="jQuery('#mec_sync_g_export_cron').toggleClass('mec-util-hidden');" />
                         <?php _e('Auto Google Export', 'modern-events-calendar-lite'); ?>
                     </label>
+                    <br>
+                    <br>
                     <?php $cron = MEC_ABSPATH.'app'.DS.'crons'.DS.'g-export.php'; ?>
                     <div id="mec_sync_g_export_cron" class="mec-col-12 <?php echo (isset($ix['sync_g_export']) and $ix['sync_g_export'] == '1') ? '' : 'mec-util-hidden'; ?>" style="margin-top: 20px;">
                         <div class="mec-col-12">
@@ -45,9 +49,11 @@ $ix = $this->main->get_ix_options();
                                 <input type="checkbox" name="ix[sync_g_export_attendees]" value="1" <?php echo (isset($ix['sync_g_export_attendees']) and $ix['sync_g_export_attendees'] == '1') ? 'checked="checked"' : ''; ?> />
                                 <?php _e('Export Attendees', 'modern-events-calendar-lite'); ?>
                             </label>
+                            <br>
+                            <br>
                         </div>
                         <div class="mec-col-12">
-                            <strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file atleast once per day otherwise it won't export your website events into Google Calendar.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?>
+                            <strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file by php atleast once per day otherwise it won't export your website events into Google Calendar.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?>
                         </div>
                     </div>
                 </div>
@@ -59,8 +65,10 @@ $ix = $this->main->get_ix_options();
                         <input type="checkbox" id="mec_ix_sync_f_import" name="ix[sync_f_import]" value="1" <?php echo (isset($ix['sync_f_import']) and $ix['sync_f_import'] == '1') ? 'checked="checked"' : ''; ?> onchange="jQuery('#mec_sync_f_import_cron').toggleClass('mec-util-hidden');" />
                         <?php _e('Auto Facebook Import', 'modern-events-calendar-lite'); ?>
                     </label>
+                    <br>
+                    <br>
                     <?php $cron = MEC_ABSPATH.'app'.DS.'crons'.DS.'f-import.php'; ?>
-                    <p id="mec_sync_f_import_cron" class="mec-col-12 <?php echo (isset($ix['sync_f_import']) and $ix['sync_f_import'] == '1') ? '' : 'mec-util-hidden'; ?>"><strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file atleast once per day otherwise it won't import any event from Facebook.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?></p>
+                    <p id="mec_sync_f_import_cron" class="mec-col-12 <?php echo (isset($ix['sync_f_import']) and $ix['sync_f_import'] == '1') ? '' : 'mec-util-hidden'; ?>"><strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file by php atleast once per day otherwise it won't import any event from Facebook.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?></p>
                 </div>
                 <?php endif; ?>
 
@@ -70,8 +78,10 @@ $ix = $this->main->get_ix_options();
                         <input type="checkbox" id="mec_ix_sync_meetup_import" name="ix[sync_meetup_import]" value="1" <?php echo (isset($ix['sync_meetup_import']) and $ix['sync_meetup_import'] == '1') ? 'checked="checked"' : ''; ?> onchange="jQuery('#mec_sync_meetup_import_cron').toggleClass('mec-util-hidden');" />
                         <?php _e('Auto Meetup Import', 'modern-events-calendar-lite'); ?>
                     </label>
+                    <br>
+                    <br>
                     <?php $cron = MEC_ABSPATH.'app'.DS.'crons'.DS.'meetup-import.php'; ?>
-                    <p id="mec_sync_meetup_import_cron" class="mec-col-12 <?php echo (isset($ix['sync_meetup_import']) and $ix['sync_meetup_import'] == '1') ? '' : 'mec-util-hidden'; ?>"><strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file atleast once per day otherwise it won't import any event from Meetup.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?></p>
+                    <p id="mec_sync_meetup_import_cron" class="mec-col-12 <?php echo (isset($ix['sync_meetup_import']) and $ix['sync_meetup_import'] == '1') ? '' : 'mec-util-hidden'; ?>"><strong><?php _e('Important Note', 'modern-events-calendar-lite'); ?>: </strong><?php echo sprintf(__("Set a cronjob to call %s file by php atleast once per day otherwise it won't import any event from Meetup.", 'modern-events-calendar-lite'), '<code>'.$cron.'</code>'); ?></p>
                 </div>
 
                 <div class="mec-form-row mec-syn-schedule">

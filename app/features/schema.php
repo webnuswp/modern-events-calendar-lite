@@ -218,13 +218,13 @@ class MEC_feature_schema extends MEC_base
         $cost = (isset($params['cost']) and trim($params['cost']) != '') ? preg_replace("/[^0-9.]/", '', $params['cost']) : $cost;
 
         $location_id = $this->main->get_master_location_id($event);
-        $location = isset($event->data->locations[$location_id]) ? $event->data->locations[$location_id] : array();
+        $location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
         $event_link = $this->main->get_event_date_permalink($event, $event->date['start']['date']);
         $soldout = $this->main->is_soldout($event, $event->date);
 
         $organizer_id = $this->main->get_master_organizer_id($event);
-        $organizer = isset($event->data->organizers[$organizer_id]) ? $event->data->organizers[$organizer_id] : array();
+        $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
 
         $moved_online_link = (isset($event->data->meta['mec_moved_online_link']) and trim($event->data->meta['mec_moved_online_link'])) ? $event->data->meta['mec_moved_online_link'] : '';
         $moved_online_link = (isset($params['moved_online_link']) and trim($params['moved_online_link']) != '') ? $params['moved_online_link'] : $moved_online_link;

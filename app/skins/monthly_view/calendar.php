@@ -65,7 +65,7 @@ $events_str = '';
                 foreach($events[$today] as $event)
                 {
                     $location_id = $this->main->get_master_location_id($event);
-                    $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+                    $location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
@@ -123,7 +123,7 @@ $events_str = '';
                 foreach($events[$today] as $event)
                 {
                     $location_id = $this->main->get_master_location_id($event);
-                    $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+                    $location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
@@ -208,7 +208,7 @@ $events_str = '';
                     foreach($events[$today] as $event)
                     {
                         $location_id = $this->main->get_master_location_id($event);
-                        $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+                        $location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
                         $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                         $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');

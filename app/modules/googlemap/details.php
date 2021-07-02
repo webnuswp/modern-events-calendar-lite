@@ -26,7 +26,7 @@ if($dont_show_map) return;
 $event_id = $event->ID;
 
 $location_id = $this->get_master_location_id($event);
-$location = (($location_id && isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+$location = ($location_id ? $this->get_location_data($location_id) : array());
 
 // Event location geo point
 $latitude = isset($location['latitude']) ? $location['latitude'] : '';

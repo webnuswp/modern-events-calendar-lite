@@ -494,7 +494,7 @@ class MEC_skin_single extends MEC_skins
 
                                         <?php
                                             $location_id = $this->main->get_master_location_id($event);
-                                            $location = (isset($event->data->locations) and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array();
+                                            $location = ($location_id ? $this->main->get_location_data($location_id) : array());
                                         ?>
                                         <?php if(isset($location['address']) and trim($location['address'])): ?>
                                             <div class="mec-event-location">
@@ -507,7 +507,7 @@ class MEC_skin_single extends MEC_skins
                                     </div>
                                     <div class="mec-event-footer">
                                         <?php $soldout = $this->main->get_flags($event); ?>
-                                        <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date'], false, $event->data->time); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'mec-fl')) : $this->main->m('view_detail', __('View Detail', 'mec-fl')) ; ?></a>
+                                        <a class="mec-booking-button" href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date'], false, $event->data->time); ?>"><?php echo (is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', __('View Detail', 'modern-events-calendar-lite')) ; ?></a>
                                         <?php if(isset($this->settings['social_network_status']) and $this->settings['social_network_status'] != '0') : ?>
                                             <ul class="mec-event-sharing-wrap">
                                                 <li class="mec-event-share">
@@ -972,10 +972,11 @@ class MEC_skin_single extends MEC_skins
     public function display_location_widget($event)
     {
         $location_id = $this->main->get_master_location_id($event);
-        if($location_id and isset($event->data->locations[$location_id]) and !empty($event->data->locations[$location_id]))
+        $location = ($location_id ? $this->main->get_location_data($location_id) : array());
+
+        if($location_id and count($location))
         {
             echo '<div class="mec-event-meta">';
-            $location = $event->data->locations[$location_id];
             ?>
             <div class="mec-single-event-location">
                 <?php if($location['thumbnail']): ?>
@@ -1304,7 +1305,9 @@ class MEC_skin_single extends MEC_skins
     public function display_other_organizer_widget($event)
     {
         $organizer_id = $this->main->get_master_organizer_id($event);
-        if($organizer_id and isset($event->data->organizers[$organizer_id]) && !empty($event->data->organizers[$organizer_id]))
+        $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
+
+        if($organizer_id and count($organizer))
         {
             echo '<div class="mec-event-meta">';
             $this->show_other_organizers($event);
@@ -1319,10 +1322,11 @@ class MEC_skin_single extends MEC_skins
     public function display_organizer_widget($event)
     {
         $organizer_id = $this->main->get_master_organizer_id($event);
-        if($organizer_id and isset($event->data->organizers[$organizer_id]) && !empty($event->data->organizers[$organizer_id]))
+        $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
+
+        if($organizer_id and count($organizer))
         {
             echo '<div class="mec-event-meta">';
-            $organizer = $event->data->organizers[$organizer_id];
             ?>
             <div class="mec-single-event-organizer">
                 <?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
@@ -1444,6 +1448,8 @@ class MEC_skin_single extends MEC_skins
      */
     public function show_other_locations($event)
     {
+        if(!isset($event->data->locations)) return;
+
         $additional_locations_status = (!isset($this->settings['additional_locations']) or (isset($this->settings['additional_locations']) and $this->settings['additional_locations'])) ? true : false;
         if(!$additional_locations_status) return;
 

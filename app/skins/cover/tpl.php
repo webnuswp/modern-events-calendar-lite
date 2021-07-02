@@ -19,10 +19,10 @@ if(!isset($event->data)) return;
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
 
 $location_id = $this->main->get_master_location_id($event);
-$event_location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+$event_location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
 $organizer_id = $this->main->get_master_organizer_id($event);
-$event_organizer = (($organizer_id and isset($event->data->organizers[$organizer_id])) ? $event->data->organizers[$organizer_id] : array());
+$event_organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
 
 $event_date = (isset($event->date['start']) ? $event->date['start']['date'] : $event->data->meta['mec_start_date']);
 $event_link = (isset($event->data->permalink) and trim($event->data->permalink)) ? $this->main->get_event_date_permalink($event, $event_date) : get_permalink($event->data->ID);

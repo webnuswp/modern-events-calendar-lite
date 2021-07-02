@@ -7,6 +7,9 @@ $settings = $this->main->get_settings();
 
 // Fix Notices
 if(!isset($notifications['event_finished'])) $notifications['event_finished'] = array();
+
+// Additional Organizers
+$additional_organizers = (isset($settings['additional_organizers']) and $settings['additional_organizers']);
 ?>
 <div class="wns-be-container wns-be-container-sticky">
     <div id="wns-be-infobar">
@@ -117,6 +120,16 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <label for="mec_notifications_booking_notification_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
                                     </div>
                                 </div>
+
+                                <?php if($additional_organizers): ?>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <input type="checkbox" name="mec[notifications][booking_notification][send_to_additional_organizers]" value="1" id="mec_notifications_booking_notification_send_to_additional_organizers" <?php echo ((isset($notifications['booking_notification']['send_to_additional_organizers']) and $notifications['booking_notification']['send_to_additional_organizers'] == 1) ? 'checked="checked"' : ''); ?> />
+                                        <label for="mec_notifications_booking_notification_send_to_additional_organizers"><?php _e('Send the email to additional organizers', 'modern-events-calendar-lite'); ?></label>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_booking_notification_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['booking_notification']) ? stripslashes($notifications['booking_notification']['content']) : ''), 'mec_notifications_booking_notification_content', array('textarea_name'=>'mec[notifications][booking_notification][content]')); ?>
@@ -604,6 +617,16 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <label for="mec_notifications_booking_rejection_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
                                     </div>
                                 </div>
+
+                                <?php if($additional_organizers): ?>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <input type="checkbox" name="mec[notifications][booking_rejection][send_to_additional_organizers]" value="1" id="mec_notifications_booking_rejection_send_to_additional_organizers" <?php echo ((isset($notifications['booking_rejection']['send_to_additional_organizers']) and $notifications['booking_rejection']['send_to_additional_organizers'] == 1) ? 'checked="checked"' : ''); ?> />
+                                        <label for="mec_notifications_booking_rejection_send_to_additional_organizers"><?php _e('Send the email to additional organizers', 'modern-events-calendar-lite'); ?></label>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
                                         <input type="checkbox" name="mec[notifications][booking_rejection][send_to_user]" value="1" id="mec_notifications_booking_rejection_send_to_user" <?php echo ((isset($notifications['booking_rejection']['send_to_user']) and $notifications['booking_rejection']['send_to_user'] == 1) ? 'checked="checked"' : ''); ?> />
@@ -782,6 +805,16 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <label for="mec_notifications_cancellation_notification_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
                                     </div>
                                 </div>
+
+                                <?php if($additional_organizers): ?>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <input type="checkbox" name="mec[notifications][cancellation_notification][send_to_additional_organizers]" value="1" id="mec_notifications_cancellation_notification_send_to_additional_organizers" <?php echo ((isset($notifications['cancellation_notification']['send_to_additional_organizers']) and $notifications['cancellation_notification']['send_to_additional_organizers'] == 1) ? 'checked="checked"' : ''); ?> />
+                                        <label for="mec_notifications_cancellation_notification_send_to_additional_organizers"><?php _e('Send the email to additional organizers', 'modern-events-calendar-lite'); ?></label>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
                                 <div class="mec-form-row">
                                     <div class="mec-col-12">
                                         <input type="checkbox" name="mec[notifications][cancellation_notification][send_to_user]" value="1" id="mec_notifications_cancellation_notification_send_to_user" <?php echo ((isset($notifications['cancellation_notification']['send_to_user']) and $notifications['cancellation_notification']['send_to_user'] == 1) ? 'checked="checked"' : ''); ?> />
@@ -945,6 +978,16 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <label for="mec_notifications_admin_notification_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
                                     </div>
                                 </div>
+
+                                <?php if($additional_organizers): ?>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <input type="checkbox" name="mec[notifications][admin_notification][send_to_additional_organizers]" value="1" id="mec_notifications_admin_notification_send_to_additional_organizers" <?php echo ((isset($notifications['admin_notification']['send_to_additional_organizers']) and $notifications['admin_notification']['send_to_additional_organizers'] == 1) ? 'checked="checked"' : ''); ?> />
+                                        <label for="mec_notifications_admin_notification_send_to_additional_organizers"><?php _e('Send the email to additional organizers', 'modern-events-calendar-lite'); ?></label>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_admin_notification_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['admin_notification']) ? stripslashes($notifications['admin_notification']['content']) : ''), 'mec_notifications_admin_notification_content', array('textarea_name'=>'mec[notifications][admin_notification][content]')); ?>
@@ -1105,6 +1148,16 @@ if(!isset($notifications['event_finished'])) $notifications['event_finished'] = 
                                         <label for="mec_notifications_event_soldout_send_to_organizer"><?php _e('Send the email to event organizer', 'modern-events-calendar-lite'); ?></label>
                                     </div>
                                 </div>
+
+                                <?php if($additional_organizers): ?>
+                                <div class="mec-form-row">
+                                    <div class="mec-col-12">
+                                        <input type="checkbox" name="mec[notifications][event_soldout][send_to_additional_organizers]" value="1" id="mec_notifications_event_soldout_send_to_additional_organizers" <?php echo ((isset($notifications['event_soldout']['send_to_additional_organizers']) and $notifications['event_soldout']['send_to_additional_organizers'] == 1) ? 'checked="checked"' : ''); ?> />
+                                        <label for="mec_notifications_event_soldout_send_to_additional_organizers"><?php _e('Send the email to additional organizers', 'modern-events-calendar-lite'); ?></label>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
                                 <div class="mec-form-row">
                                     <label for="mec_notifications_event_soldout_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
                                     <?php wp_editor((isset($notifications['event_soldout']) ? stripslashes($notifications['event_soldout']['content']) : ''), 'mec_notifications_event_soldout_content', array('textarea_name'=>'mec[notifications][event_soldout][content]')); ?>
@@ -1791,19 +1844,25 @@ jQuery("#mec_notifications_form").on('submit', function(event)
 {
     event.preventDefault();
 
-    var notifications = [
-        "booking_notification",
-        "email_verification",
-        "booking_confirmation",
-        "booking_rejection",
-        "admin_notification",
-        "booking_reminder",
-        "event_finished",
-        "new_event",
-        "user_event_publishing",
-        "event_soldout",
-    ];
-    <?php $content_type = apply_filters('mec_settings_notifications_js_content_types',array("")); ?>
+    <?php
+        $notifications = array(
+            "booking_notification",
+            "email_verification",
+            "booking_confirmation",
+            "booking_rejection",
+            "admin_notification",
+            "booking_reminder",
+            "event_finished",
+            "new_event",
+            "user_event_publishing",
+            "event_soldout",
+        );
+
+        $content_type = apply_filters('mec_settings_notifications_js_content_types',array(""));
+
+        $notifications = apply_filters('mec_settings_notifications_js_notifications',$notifications);
+    ?>
+    var notifications = <?php echo json_encode($notifications); ?>;
     var content_types = <?php echo json_encode($content_type); ?>;
 
     jQuery.each(notifications,function(i,notification_type)

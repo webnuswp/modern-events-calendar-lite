@@ -210,7 +210,8 @@ class MEC_feature_ix extends MEC_base
         if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => __('Please upload a CSV file.', 'modern-events-calendar-lite'));
 
         // File name validation
-        $name_end = end(explode('.', $feed_file['name']));
+        $name_ex = explode('.', $feed_file['name']);
+        $name_end = end($name_ex);
         if($name_end != 'csv') return array('success' => 0, 'message' => __('Please upload a CSV file.', 'modern-events-calendar-lite'));
 
         // Upload the File
@@ -487,6 +488,7 @@ class MEC_feature_ix extends MEC_base
         if(strtolower($extension) == 'xml')
         {
             $xml_string = str_replace(':i:', 'iii', $file->read($feed));
+            $xml_string = str_replace(':fi:', 'fif', $xml_string);
 
             $XML = simplexml_load_string($xml_string);
             if($XML === false) return false;

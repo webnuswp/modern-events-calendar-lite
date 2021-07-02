@@ -311,8 +311,10 @@ class MEC_feature_locations extends MEC_base
         $this->main->load_map_assets();
 
         $locations = get_terms('mec_location', array('orderby'=>'name', 'hide_empty'=>'0'));
-        $location_id = get_post_meta($post->ID, 'mec_location_id', true);
         $dont_show_map = get_post_meta($post->ID, 'mec_dont_show_map', true);
+
+        $location_id = get_post_meta($post->ID, 'mec_location_id', true);
+        $location_id = apply_filters('wpml_object_id', $location_id, 'mec_location', true);
 
         $location_ids = get_post_meta($post->ID, 'mec_additional_location_ids', true);
         if(!is_array($location_ids)) $location_ids = array();

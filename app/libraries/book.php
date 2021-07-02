@@ -274,12 +274,20 @@ class MEC_book extends MEC_base
         $location_id = $this->main->get_master_location_id($event_id, $attention_times[0]);
         if(!empty($location_id)) update_post_meta($book_id, 'mec_booking_location', $location_id);
 
+        // Event Tickets
+        $tickets = get_post_meta($event_id, 'mec_tickets', true);
+
         if(isset($values['mec_attendees']))
         {
             foreach($values['mec_attendees'] as $k => $mec_attendee)
             {
                 if(!is_numeric($k)) continue;
                 $values['mec_attendees'][$k]['buyerip'] = $this->main->get_client_ip();
+
+                $ticket_id = isset($mec_attendee['id']) ? $mec_attendee['id'] : 0;
+                $ticket_price = (isset($tickets[$ticket_id]) ? $tickets[$ticket_id]['price'] : 0);
+
+                update_post_meta($book_id, 'mec_ticket_price_'.$ticket_id, $ticket_price);
             }
 
             update_post_meta($book_id, 'mec_attendees', $values['mec_attendees']);
@@ -425,6 +433,18 @@ class MEC_book extends MEC_base
 
         update_post_meta($book_id, 'mec_verified', -1);
         update_post_meta($book_id, 'mec_cancelled_date', date('Y-m-d H:i:s', current_time('timestamp', 0)));
+
+        $refund = (isset($this->settings['booking_auto_refund']) and $this->settings['booking_auto_refund']);
+        $gateway = get_post_meta($book_id, 'mec_gateway', true);
+
+        if($refund and $gateway == 'MEC_gateway_stripe')
+        {
+            $stripe = new MEC_gateway_stripe();
+            $stripe->refund($book_id);
+
+            // Actions
+            do_action('mec_booking_refunded', $book_id);
+        }
 
         // Fires after canceling a booking to send notifications etc.
         do_action('mec_booking_canceled', $book_id);
@@ -1281,7 +1301,11 @@ class MEC_book extends MEC_base
         $ticket_variations = $this->main->ticket_variations($event_id);
 
         $ticket_id = $attendee['id'];
-        $ticket_price = (isset($tickets[$ticket_id]) ? $tickets[$ticket_id]['price'] : 0);
+
+        $ticket_price_booking_saved = get_post_meta($booking_id, 'mec_ticket_price_'.$ticket_id, true);
+        if(trim($ticket_price_booking_saved) === '') $ticket_price_booking_saved = 0;
+
+        $ticket_price = (isset($tickets[$ticket_id]) ? $tickets[$ticket_id]['price'] : $ticket_price_booking_saved);
 
         $user = $this->getUser();
         $booking_user = $user->booking($booking_id);

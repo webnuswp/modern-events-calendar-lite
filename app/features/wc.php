@@ -188,12 +188,18 @@ class MEC_feature_wc extends MEC_base
 
         foreach($all_items as $event_id => $tickets)
         {
+            // User Booking Limits
+            list($limit, $unlimited) = $book->get_user_booking_limit($event_id);
+
+            $total_quantity = 0;
             foreach($tickets as $ticket_id => $timestamps)
             {
                 foreach($timestamps as $timestamp => $quantity)
                 {
                     $availability = $book->get_tickets_availability($event_id, $timestamp);
                     $tickets = get_post_meta($event_id, 'mec_tickets', true);
+
+                    $total_quantity += $quantity;
 
                     // Ticket is not available
                     if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id]) and $availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity))
@@ -202,6 +208,12 @@ class MEC_feature_wc extends MEC_base
                         else $errors->add('validation', sprintf(__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
                     }
                 }
+            }
+
+            // Take Care of User Limit
+            if(!$unlimited and $total_quantity > $limit)
+            {
+                $errors->add('validation', sprintf($this->main->m('booking_restriction_message3', __("Maximum allowed number of tickets that you can book is %s.", 'modern-events-calendar-lite')), $limit));
             }
         }
     }

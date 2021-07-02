@@ -100,7 +100,7 @@ if(!$mec_email)
                             _e($bfixed_field['placeholder'], 'modern-events-calendar-lite');
                         } else {
                             _e($bfixed_field['label'], 'modern-events-calendar-lite');
-                        }; ?>" <?php if (isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> min="<?php echo esc_attr(date('Y-m-d', strtotime('-100 years'))); ?>" max="<?php echo esc_attr(date('Y-m-d', strtotime('+100 years'))); ?>" />
+                        }; ?>" <?php if (isset($bfixed_field['mandatory']) and $bfixed_field['mandatory']) echo 'required'; ?> min="<?php echo esc_attr(date_i18n('Y-m-d', strtotime('-100 years'))); ?>" max="<?php echo esc_attr(date_i18n('Y-m-d', strtotime('+100 years'))); ?>" />
 
                     <?php /** Email **/ elseif ($bfixed_field['type'] == 'email') : ?>
                         <input id="mec_book_bfixed_field_reg<?php echo $bfixed_field_id; ?>" type="email" name="book[fields][<?php echo $bfixed_field_id; ?>]" value="" placeholder="<?php if (isset($bfixed_field['placeholder']) and $bfixed_field['placeholder']) {
@@ -228,7 +228,7 @@ if(!$mec_email)
                                     _e($reg_field['placeholder'], 'modern-events-calendar-lite');
                                 } else {
                                     _e($reg_field['label'], 'modern-events-calendar-lite');
-                                }; ?>" <?php if (isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> min="<?php echo esc_attr(date('Y-m-d', strtotime('-100 years'))); ?>" max="<?php echo esc_attr(date('Y-m-d', strtotime('+100 years'))); ?>" />
+                                }; ?>" <?php if (isset($reg_field['mandatory']) and $reg_field['mandatory']) echo 'required'; ?> min="<?php echo esc_attr(date_i18n('Y-m-d', strtotime('-100 years'))); ?>" max="<?php echo esc_attr(date_i18n('Y-m-d', strtotime('+100 years'))); ?>" />
 
                             <?php /** File **/ elseif ($reg_field['type'] == 'file') : ?>
                                 <input id="mec_book_reg_field_reg<?php echo $j . '_' . $reg_field_id; ?>" type="file" name="book[tickets][<?php echo $j; ?>][reg][<?php echo $reg_field_id; ?>]" value="" placeholder="<?php if (isset($reg_field['placeholder']) and $reg_field['placeholder']) {

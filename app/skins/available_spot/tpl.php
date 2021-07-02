@@ -21,10 +21,10 @@ if(!isset($event->data)) return;
 $event_colorskin = (isset($styling['mec_colorskin']) || isset($styling['color'])) ? 'colorskin-custom' : '';
 
 $location_id = $this->main->get_master_location_id($event);
-$event_location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+$event_location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
 $organizer_id = $this->main->get_master_organizer_id($event);
-$event_organizer = (($organizer_id and isset($event->data->organizers[$organizer_id])) ? $event->data->organizers[$organizer_id] : array());
+$event_organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
 
 $event_date = (isset($event->date['start']) ? $event->date['start']['date'] : $event->data->meta['mec_start_date']);
 $event_thumb_url = $event->data->featured_image['large'];
@@ -111,7 +111,7 @@ foreach($availability as $ticket_id=>$count)
     }
 }
 
-if($total_spots > 0 and $total_spots > $spots) $spots = min($spots, $total_spots);
+if($total_spots >= 0) $spots = min($spots, $total_spots);
 
 do_action('mec_start_skin', $this->id);
 do_action('mec_available_spot_skin_head');

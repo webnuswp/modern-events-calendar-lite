@@ -216,6 +216,16 @@ class MEC_notifications extends MEC_base
             if($organizer_email !== false) $headers[] = $CCBCC.': '.trim($organizer_email);
         }
 
+        // Send the notification to additional organizers
+        if(isset($this->notif_settings['booking_notification']['send_to_additional_organizers']) and $this->notif_settings['booking_notification']['send_to_additional_organizers'] == 1)
+        {
+            $additional_organizer_emails = $this->get_booking_additional_organizers_emails($book_id);
+            if(is_array($additional_organizer_emails) and count($additional_organizer_emails))
+            {
+                foreach($additional_organizer_emails as $additional_organizer_email) $headers[] = $CCBCC.': '.trim($additional_organizer_email);
+            }
+        }
+
         // Attendees
         $attendees = get_post_meta($book_id, 'mec_attendees', true);
         if(!is_array($attendees) or (is_array($attendees) and !count($attendees))) $attendees = array(get_post_meta($book_id, 'mec_attendee', true));
@@ -411,6 +421,16 @@ class MEC_notifications extends MEC_base
             if($organizer_email !== false) $tos[] = trim($organizer_email);
         }
 
+        // Send the notification to additional organizers
+        if(isset($this->notif_settings['cancellation_notification']['send_to_additional_organizers']) and $this->notif_settings['cancellation_notification']['send_to_additional_organizers'] == 1)
+        {
+            $additional_organizer_emails = $this->get_booking_additional_organizers_emails($book_id);
+            if(is_array($additional_organizer_emails) and count($additional_organizer_emails))
+            {
+                foreach($additional_organizer_emails as $additional_organizer_email) $tos[] = trim($additional_organizer_email);
+            }
+        }
+
         // Send the notification to event user
         if(isset($this->notif_settings['cancellation_notification']['send_to_user']) and $this->notif_settings['cancellation_notification']['send_to_user'] == 1)
         {
@@ -548,6 +568,16 @@ class MEC_notifications extends MEC_base
         {
             $organizer_email = $this->get_booking_organizer_email($book_id);
             if($organizer_email !== false) $tos[] = trim($organizer_email);
+        }
+
+        // Send the notification to additional organizers
+        if(isset($this->notif_settings['booking_rejection']['send_to_additional_organizers']) and $this->notif_settings['booking_rejection']['send_to_additional_organizers'] == 1)
+        {
+            $additional_organizer_emails = $this->get_booking_additional_organizers_emails($book_id);
+            if(is_array($additional_organizer_emails) and count($additional_organizer_emails))
+            {
+                foreach($additional_organizer_emails as $additional_organizer_email) $tos[] = trim($additional_organizer_email);
+            }
         }
 
         // Send the notification to event user
@@ -725,6 +755,19 @@ class MEC_notifications extends MEC_base
         {
             $organizer_email = $this->get_booking_organizer_email($book_id);
             if($organizer_email !== false and $organizer_email != $to) $headers[] = $CCBCC.': '.trim($organizer_email);
+        }
+
+        // Send the notification to additional organizers
+        if(isset($this->notif_settings['admin_notification']['send_to_additional_organizers']) and $this->notif_settings['admin_notification']['send_to_additional_organizers'] == 1)
+        {
+            $additional_organizer_emails = $this->get_booking_additional_organizers_emails($book_id);
+            if(is_array($additional_organizer_emails) and count($additional_organizer_emails))
+            {
+                foreach($additional_organizer_emails as $additional_organizer_email)
+                {
+                    if($additional_organizer_email != $to) $headers[] = $CCBCC.': '.trim($additional_organizer_email);
+                }
+            }
         }
 
         $message = isset($this->notif_settings['admin_notification']['content']) ? $this->notif_settings['admin_notification']['content'] : '';
@@ -1216,6 +1259,16 @@ class MEC_notifications extends MEC_base
             if($organizer_email !== false) $tos[] = trim($organizer_email);
         }
 
+        // Send the notification to additional organizers
+        if(isset($this->notif_settings['event_soldout']['send_to_additional_organizers']) and $this->notif_settings['event_soldout']['send_to_additional_organizers'] == 1)
+        {
+            $additional_organizer_emails = $this->get_booking_additional_organizers_emails($book_id);
+            if(is_array($additional_organizer_emails) and count($additional_organizer_emails))
+            {
+                foreach($additional_organizer_emails as $additional_organizer_email) $tos[] = trim($additional_organizer_email);
+            }
+        }
+
         // No Recipient
         if(!count($tos)) return;
 
@@ -1638,8 +1691,14 @@ class MEC_notifications extends MEC_base
         $more_info = get_post_meta($event_id, 'mec_more_info', true);
         $more_info = (isset($params['more_info']) and trim($params['more_info']) != '') ? $params['more_info'] : $more_info;
 
+        $event_link = $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp));
+
+        // Add Time
+        $repeat_type = get_post_meta($event_id, 'mec_repeat_type', true);
+        if($repeat_type === 'custom_days') $event_link = $this->main->add_qs_var('time', $start_timestamp, $event_link);
+
         $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $event_id) : $mec_cost), $message);
-        $message = str_replace('%%event_link%%', $this->main->get_event_date_permalink(get_permalink($event_id), date('Y-m-d', $start_timestamp)), $message);
+        $message = str_replace('%%event_link%%', $event_link, $message);
         $message = str_replace('%%event_more_info%%', esc_url($read_more), $message);
         $message = str_replace('%%event_other_info%%', esc_url($more_info), $message);
         $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, $start_timestamp), $message);
@@ -1780,7 +1839,11 @@ class MEC_notifications extends MEC_base
         $event_content = apply_filters('mec_add_content_to_export_google_calendar_details', $event_content,$event_id );
 
         $google_calendar_location = get_term_meta($location_id, 'address', true);
-        $google_calendar_link = '<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
+
+        // Recurring Rules
+        $rrule = $this->main->get_ical_rrules($event_id, true);
+
+        $google_calendar_link = '<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=' . $event_title . '&dates='. gmdate('Ymd\\THi00\\Z', ($start_timestamp - $gmt_offset_seconds)) . '/' . gmdate('Ymd\\THi00\\Z', ($end_timestamp - $gmt_offset_seconds)) . '&details=' . urlencode($event_content) . (trim($google_calendar_location) ? '&location=' . urlencode($google_calendar_location) : ''). ((trim($rrule) ? '&recur='.urlencode($rrule) : '')). '" target="_blank">' . __('+ Add to Google Calendar', 'modern-events-calendar-lite') . '</a>';
         $ical_export_link  = '<a href="' . $this->main->ical_URL_email($event_id, $book_id, get_the_date('Y-m-d', $book_id)) . '">'. __('+ iCal / Outlook export', 'modern-events-calendar-lite') . '</a>';
 
         $message = str_replace('%%google_calendar_link%%', $google_calendar_link, $message);
@@ -1855,6 +1918,31 @@ class MEC_notifications extends MEC_base
         $email = get_term_meta($organizer_id, 'email', true);
 
         return trim($email) ? $email : false;
+    }
+
+    /**
+     * Get Emails of Additional Organizers
+     * @author Webnus <info@webnus.biz>
+     * @param int $book_id
+     * @return array
+     */
+    public function get_booking_additional_organizers_emails($book_id)
+    {
+        $event_id = get_post_meta($book_id, 'mec_event_id', true);
+
+        $organizer_ids = get_post_meta($event_id, 'mec_additional_organizer_ids', true);
+        if(!is_array($organizer_ids)) $organizer_ids = array();
+
+        $emails = array();
+
+        $organizer_ids = array_unique($organizer_ids);
+        foreach($organizer_ids as $organizer_id)
+        {
+            $email = get_term_meta($organizer_id, 'email', true);
+            if($email and is_email($email)) $emails[] = $email;
+        }
+
+        return array_unique($emails);
     }
 
     /**

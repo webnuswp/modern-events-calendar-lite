@@ -253,7 +253,9 @@ class MEC_feature_organizers extends MEC_base
     public function meta_box_organizer($post)
     {
         $organizers = get_terms('mec_organizer', array('orderby'=>'name', 'hide_empty'=>'0'));
+
         $organizer_id = get_post_meta($post->ID, 'mec_organizer_id', true);
+        $organizer_id = apply_filters('wpml_object_id', $organizer_id, 'mec_organizer', true);
 
         $organizer_ids = get_post_meta($post->ID, 'mec_additional_organizer_ids', true);
         if(!is_array($organizer_ids)) $organizer_ids = array();

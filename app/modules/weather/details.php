@@ -24,7 +24,7 @@ $location_id = $this->get_master_location_id($event);
 if(!$location_id) return;
 
 // Location
-$location = isset($event->data->locations[$location_id]) ? $event->data->locations[$location_id] : array();
+$location = ($location_id ? $this->get_location_data($location_id) : array());
 
 $lat = isset($location['latitude']) ? $location['latitude'] : 0;
 $lng = isset($location['longitude']) ? $location['longitude'] : 0;

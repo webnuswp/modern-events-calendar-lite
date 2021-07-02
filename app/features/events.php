@@ -1576,8 +1576,11 @@ class MEC_feature_events extends MEC_base
         $bookings_user_limit_unlimited = isset($booking_options['bookings_user_limit_unlimited']) ? $booking_options['bookings_user_limit_unlimited'] : true;
         $bookings_all_occurrences = isset($booking_options['bookings_all_occurrences']) ? $booking_options['bookings_all_occurrences'] : 0;
         $bookings_all_occurrences_multiple = isset($booking_options['bookings_all_occurrences_multiple']) ? $booking_options['bookings_all_occurrences_multiple'] : 0;
+        $bookings_stop_selling_after_first_occurrence = isset($booking_options['stop_selling_after_first_occurrence']) ? $booking_options['stop_selling_after_first_occurrence'] : 0;
         $bookings_last_few_tickets_percentage_inherite = isset($booking_options['last_few_tickets_percentage_inherit']) ? $booking_options['last_few_tickets_percentage_inherit'] : 1;
         $bookings_last_few_tickets_percentage = ((isset($booking_options['last_few_tickets_percentage']) and trim($booking_options['last_few_tickets_percentage']) != '') ? max(1, $booking_options['last_few_tickets_percentage']) : (isset($this->settings['booking_last_few_tickets_percentage']) ? max(1, $this->settings['booking_last_few_tickets_percentage']) : 15));
+
+        $bookings_thankyou_page_inherit = isset($booking_options['thankyou_page_inherit']) ? $booking_options['thankyou_page_inherit'] : 1;
 
         $loggedin_discount = isset($booking_options['loggedin_discount']) ? $booking_options['loggedin_discount'] : '';
 
@@ -1593,6 +1596,9 @@ class MEC_feature_events extends MEC_base
             if(!$gateway->enabled()) continue;
             $enableds_gateways[] = $gateway;
         }
+
+        // WordPress Pages
+        $pages = get_pages();
         ?>
         <div id="mec-booking">
             <div class="mec-meta-box-fields mec-booking-tab-content mec-tab-active" id="mec_meta_box_booking_options_form_1">
@@ -1697,6 +1703,19 @@ class MEC_feature_events extends MEC_base
                         </span>
                     </div>
                 </div>
+                <div class="mec-form-row">
+                    <label class="mec-col-8" for="mec_booking_stop_selling_after_first_occurrence">
+                        <input type="hidden" name="mec[booking][stop_selling_after_first_occurrence]" value="0"/>
+                        <input id="mec_booking_stop_selling_after_first_occurrence"
+                            <?php
+                            if ($bookings_stop_selling_after_first_occurrence == 1) {
+                                echo 'checked="checked"';
+                            }
+                            ?>
+                               type="checkbox" value="1" name="mec[booking][stop_selling_after_first_occurrence]"/>
+                        <?php _e('Stop selling tickets after first occurrence.', 'modern-events-calendar-lite'); ?>
+                    </label>
+                </div>
                 <?php endif; ?>
 
                 <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_aa']) or (isset($this->settings['fes_section_booking_aa']) and $this->settings['fes_section_booking_aa'])))): ?>
@@ -1739,6 +1758,59 @@ class MEC_feature_events extends MEC_base
                             <?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?>
                         </label>
                         <input class="mec-col-4" <?php echo ($bookings_last_few_tickets_percentage_inherite == 1) ? 'style="display: none;"' : ''; ?> type="number" min="1" max="100" step="1" name="mec[booking][last_few_tickets_percentage]" value="<?php echo esc_attr($bookings_last_few_tickets_percentage); ?>" placeholder="<?php _e('15', 'modern-events-calendar-lite'); ?>"/>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_typ']) or (isset($this->settings['fes_section_booking_typ']) and $this->settings['fes_section_booking_typ'])))): ?>
+                <div class="mec-form-row">
+                    <h4 class="mec-title"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h4>
+                    <div class="mec-form-row">
+                        <label class="mec-col-4" for="mec_bookings_thankyou_page_inherit">
+                            <input type="hidden" name="mec[booking][thankyou_page_inherit]" value="0"/>
+                            <input id="mec_bookings_thankyou_page_inherit"
+                                <?php
+                                if ($bookings_thankyou_page_inherit == 1) {
+                                    echo 'checked="checked"';
+                                }
+                                ?>
+                                   type="checkbox" value="1" name="mec[booking][thankyou_page_inherit]" onchange="jQuery('#mec_booking_thankyou_page_options').toggle();"/>
+                            <?php _e('Inherit from global options', 'modern-events-calendar-lite'); ?>
+                        </label>
+                    </div>
+                    <div id="mec_booking_thankyou_page_options" <?php echo ($bookings_thankyou_page_inherit == 1) ? 'style="display: none;"' : ''; ?>>
+                        <br>
+                        <div class="mec-form-row">
+                            <label class="mec-col-3" for="mec_bookings_booking_thankyou_page"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></label>
+                            <div class="mec-col-9">
+                                <select id="mec_bookings_booking_thankyou_page" name="mec[booking][booking_thankyou_page]">
+                                    <option value="">----</option>
+                                    <?php foreach($pages as $page): ?>
+                                        <option <?php echo ((isset($booking_options['booking_thankyou_page']) and $booking_options['booking_thankyou_page'] == $page->ID) ? 'selected="selected"' : ''); ?> value="<?php echo $page->ID; ?>"><?php echo $page->post_title; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="mec-tooltip">
+                                    <div class="box left">
+                                        <h5 class="title"><?php _e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e("User redirects to this page after booking. Leave it empty if you want to disable it.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mec-form-row">
+                            <label class="mec-col-3" for="mec_bookings_booking_thankyou_page_time"><?php _e('Thank You Page Time Interval', 'modern-events-calendar-lite'); ?></label>
+                            <div class="mec-col-9">
+                                <input type="number" id="mec_bookings_booking_thankyou_page_time" name="mec[booking][booking_thankyou_page_time]" value="<?php echo ((isset($booking_options['booking_thankyou_page_time']) and trim($booking_options['booking_thankyou_page_time']) != '0') ? $booking_options['booking_thankyou_page_time'] : '2000'); ?>" placeholder="<?php esc_attr_e('2000 mean 2 seconds', 'modern-events-calendar-lite'); ?>" />
+                                <span class="mec-tooltip">
+                                    <div class="box left">
+                                        <h5 class="title"><?php _e('Thank You Page Time Interval', 'modern-events-calendar-lite'); ?></h5>
+                                        <div class="content"><p><?php esc_attr_e("Waiting time before redirecting to thank you page. It's in miliseconds so 2000 means 2 seconds.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                    </div>
+                                    <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <?php endif; ?>

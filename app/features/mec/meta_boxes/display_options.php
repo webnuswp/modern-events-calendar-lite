@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_mec $this */
+
 // Fix conflict between ACF and niceSelect
 include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
@@ -16,6 +18,9 @@ $sk_options = get_post_meta($post->ID, 'sk-options', true);
 
 // MEC Events
 $events = $this->main->get_events();
+
+// Upcoming Events
+$upcoming_event_ids = $this->main->get_upcoming_event_ids();
 ?>
 <div class="mec-calendar-metabox">
 
@@ -270,18 +275,18 @@ $events = $this->main->get_events();
                 <!-- End Set Map Geolocation -->
                 <?php echo $this->booking_button_field('list', (isset($sk_options_list['booking_button']) ? $sk_options_list['booking_button'] : 0)); ?>
                 <?php echo $this->display_custom_data_field('list', (isset($sk_options_list['custom_data']) ? $sk_options_list['custom_data'] : 0)); ?>
-                <div class="mec-sed-methode-container">
-                    <?php echo $this->sed_method_field('list', (isset($sk_options_list['sed_method']) ? $sk_options_list['sed_method'] : 0), (isset($sk_options_list['image_popup']) ? $sk_options_list['image_popup'] : 0)); ?>
-                </div>
                 <div class="mec-form-row mec-switcher mec-toggle-month-divider mec-not-list-fluent">
                     <div class="mec-col-4">
-						<label for="mec_skin_list_toggle_month_divider"><?php _e('Toggle for Month Divider', 'modern-events-calendar-lite'); ?></label>
-					</div>
-					<div class="mec-col-4">
+                        <label for="mec_skin_list_toggle_month_divider"><?php _e('Toggle for Month Divider', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
                         <input type="hidden" name="mec[sk-options][list][toggle_month_divider]" value="0" />
                         <input type="checkbox" name="mec[sk-options][list][toggle_month_divider]" id="mec_skin_toggle_month_divider" value="1" <?php if(isset($sk_options_list['toggle_month_divider']) and $sk_options_list['toggle_month_divider']) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_toggle_month_divider"></label>
-					</div>
+                    </div>
+                </div>
+                <div class="mec-sed-methode-container">
+                    <?php echo $this->sed_method_field('list', (isset($sk_options_list['sed_method']) ? $sk_options_list['sed_method'] : 0), (isset($sk_options_list['image_popup']) ? $sk_options_list['image_popup'] : 0)); ?>
                 </div>
                 <?php do_action('mec_skin_options_list_end', $sk_options_list); ?>
             </div>
@@ -1839,7 +1844,7 @@ $events = $this->main->get_events();
 						<option value="style1" <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] == 'style1') echo 'selected="selected"'; ?>><?php _e('Style 1', 'modern-events-calendar-lite'); ?></option>
                         <option value="style2" <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] == 'style2') echo 'selected="selected"'; ?>><?php _e('Style 2', 'modern-events-calendar-lite'); ?></option>
                         <option value="style3" <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] == 'style3') echo 'selected="selected"'; ?>><?php _e('Style 3', 'modern-events-calendar-lite'); ?></option>
-                        <?php do_action('mec_countdown_fluent', $sk_options_countdown['style'] ); ?>
+                        <?php do_action('mec_countdown_fluent', $sk_options_countdown['style']); ?>
                     </select>
                 </div>
                 <div class="mec-form-row mec-skin-countdown-date-format-container <?php if(isset($sk_options_countdown['style']) and $sk_options_countdown['style'] != 'clean') echo 'mec-util-hidden'; ?>" id="mec_skin_countdown_date_format_style1_container">
@@ -1881,7 +1886,7 @@ $events = $this->main->get_events();
                     <label class="mec-col-4" for="mec_skin_countdown_event_id"><?php _e('Event', 'modern-events-calendar-lite'); ?></label>
                     <select class="mec-col-4 wn-mec-select" name="mec[sk-options][countdown][event_id]" id="mec_skin_countdown_event_id">
                         <option value="-1" <?php if(isset($sk_options_countdown['event_id']) and $sk_options_countdown['event_id'] == '-1') echo 'selected="selected"'; ?>><?php echo __(' -- Next Upcoming Event -- ', 'modern-events-calendar-lite') ?></option>
-                        <?php foreach($events as $event): ?>
+                        <?php foreach($upcoming_event_ids as $upcoming_event_id): $event = get_post($upcoming_event_id); ?>
                         <option value="<?php echo $event->ID; ?>" <?php if(isset($sk_options_countdown['event_id']) and $sk_options_countdown['event_id'] == $event->ID) echo 'selected="selected"'; ?>><?php echo $event->post_title; ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -2100,9 +2105,6 @@ $events = $this->main->get_events();
                 </div>
                 <?php echo $this->booking_button_field('carousel', (isset($sk_options_carousel['booking_button']) ? $sk_options_carousel['booking_button'] : 0)); ?>
                 <?php echo $this->display_custom_data_field('carousel', (isset($sk_options_carousel['custom_data']) ? $sk_options_carousel['custom_data'] : 0)); ?>
-                <div class="mec-sed-methode-container">
-                    <?php echo $this->sed_method_field('carousel', (isset($sk_options_carousel['sed_method']) ? $sk_options_carousel['sed_method'] : 0), (isset($sk_options_carousel['image_popup']) ? $sk_options_carousel['image_popup'] : 0)); ?>
-                </div>
                 <div class="mec-form-row mec-carousel-archive-link">
                     <label class="mec-col-4" for="mec_skin_carousel_archive_link"><?php _e('Archive Link', 'modern-events-calendar-lite'); ?></label>
                     <input type="text" class="mec-col-4" name="mec[sk-options][carousel][archive_link]" id="mec_skin_carousel_archive_link" value="<?php echo ((isset($sk_options_carousel['archive_link']) and trim($sk_options_carousel['archive_link']) != '') ? $sk_options_carousel['archive_link'] : ''); ?>" />
@@ -2137,10 +2139,10 @@ $events = $this->main->get_events();
                 <!-- End Include Events Times -->
                 <!-- Start Display Label -->
                 <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_carousel_display_normal_label">
-					<div class="mec-col-4">
-						<label for="mec_skin_carousel_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
-					</div>
-					<div class="mec-col-4">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_carousel_display_label"><?php _e('Display Normal Labels', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
                         <input type="hidden" name="mec[sk-options][carousel][display_label]" value="0" />
                         <input type="checkbox" name="mec[sk-options][carousel][display_label]" id="mec_skin_carousel_display_label" value="1" <?php if(isset($sk_options_carousel['display_label']) and trim($sk_options_carousel['display_label'])) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_carousel_display_label"></label>
@@ -2149,14 +2151,17 @@ $events = $this->main->get_events();
                 <!-- End Display Label -->
                 <!-- Start Reason for Cancellation -->
                 <div class="mec-form-row mec-switcher" id="mec_skin_carousel_display_reason_for_cancellation">
-					<div class="mec-col-4">
-						<label for="mec_skin_carousel_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
-					</div>
-					<div class="mec-col-4">
+                    <div class="mec-col-4">
+                        <label for="mec_skin_carousel_reason_for_cancellation"><?php _e('Display Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+                    </div>
+                    <div class="mec-col-4">
                         <input type="hidden" name="mec[sk-options][carousel][reason_for_cancellation]" value="0" />
                         <input type="checkbox" name="mec[sk-options][carousel][reason_for_cancellation]" id="mec_skin_carousel_reason_for_cancellation" value="1" <?php if(isset($sk_options_carousel['reason_for_cancellation']) and trim($sk_options_carousel['reason_for_cancellation'])) echo 'checked="checked"'; ?> />
                         <label for="mec_skin_carousel_reason_for_cancellation"></label>
                     </div>
+                </div>
+                <div class="mec-sed-methode-container">
+                    <?php echo $this->sed_method_field('carousel', (isset($sk_options_carousel['sed_method']) ? $sk_options_carousel['sed_method'] : 0), (isset($sk_options_carousel['image_popup']) ? $sk_options_carousel['image_popup'] : 0)); ?>
                 </div>
                 <!-- End Display Reason for Cancellation -->
                 <?php do_action('mec_skin_options_carousel_end', $sk_options_carousel); ?>

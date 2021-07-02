@@ -391,9 +391,10 @@ class MEC_wc extends MEC_base
         update_post_meta($order_id, 'mec_booking_ids', $book_ids);
 
         // Redirection
-        if(isset($settings['booking_thankyou_page']) and trim($settings['booking_thankyou_page']) and !is_admin())
+        $thankyou_page_id = $main->get_thankyou_page_id($event_id);
+        if($thankyou_page_id and !is_admin())
         {
-            $redirect_to = $book->get_thankyou_page($settings['booking_thankyou_page'], (isset($transaction_id) ? $transaction_id : NULL));
+            $redirect_to = $book->get_thankyou_page($thankyou_page_id, (isset($transaction_id) ? $transaction_id : NULL));
 
             wp_redirect($redirect_to);
             exit;

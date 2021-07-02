@@ -1473,6 +1473,13 @@ span.mec-event-title-soldout {
     border-radius: 60px;
 }
 
+.mec-event-list-modern .mec-event-sharing>li .telegram {
+    padding-top: 8px;
+    padding-bottom: 9px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
 .mec-event-list-modern
     .mec-event-sharing
     .telegram
@@ -9130,6 +9137,28 @@ li.mec-no-event-found .mec-event-title {
     left: 175px;
 }
 
+.mec-skin-carousel-container .mec-time-details span,
+.mec-skin-carousel-container .mec-time-details {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.9;
+    letter-spacing: 0;
+    color: #000;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+.mec-event-carousel-type4 .mec-time-details span,
+.mec-event-carousel-type4 .mec-time-details {
+    color: #fff;
+}
+
+.mec-skin-carousel-container .mec-time-details span {
+    margin: 0;
+    display: inline-block;
+}
+
+
 @media only screen and (min-width: 768px) and (max-width: 1000px),
     (min-width: 270px) and (max-width: 448px) {
     .event-carousel-type1-head .mec-event-date-carousel {
@@ -9500,6 +9529,7 @@ li.mec-no-event-found .mec-event-title {
     text-transform: uppercase;
     font-weight: 400;
     line-height: 1.6;
+    text-align: left;
 }
 
 .mec-event-hover-carousel-type4 .mec-event-date span {
@@ -16098,6 +16128,7 @@ article.mec-search-bar-result {
 /* Next / Previous Events */
 .mec-next-previous-events {
     width: 100%;
+    height: 104px;
     display: block;
     padding: 0;
 }
@@ -16111,6 +16142,7 @@ article.mec-search-bar-result {
 
 .mec-next-previous-events li:last-child {
     text-align: right;
+    float: right;
 }
 
 .mec-next-previous-events li a {

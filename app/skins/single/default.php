@@ -28,7 +28,10 @@ $cost = (isset($event->data->meta) and isset($event->data->meta['mec_cost']) and
 if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $cost = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'cost', $cost);
 
 $location_id = $this->main->get_master_location_id($event);
+$location = ($location_id ? $this->main->get_location_data($location_id) : array());
+
 $organizer_id = $this->main->get_master_organizer_id($event);
+$organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
 	<?php do_action('mec_top_single_event', get_the_ID()); ?>
@@ -245,9 +248,8 @@ $organizer_id = $this->main->get_master_organizer_id($event);
 
 					<?php
 					// Event Location
-					if($location_id and isset($event->data->locations[$location_id]) and !empty($event->data->locations[$location_id]))
+					if($location_id and count($location))
 					{
-						$location = $event->data->locations[$location_id];
 						?>
 						<div class="mec-single-event-location">
 							<?php if($location['thumbnail']): ?>
@@ -302,9 +304,8 @@ $organizer_id = $this->main->get_master_organizer_id($event);
 					<?php do_action('mec_single_event_under_category', $event); ?>
 					<?php
 					// Event Organizer
-					if($organizer_id and isset($event->data->organizers[$organizer_id]) && !empty($event->data->organizers[$organizer_id]))
+					if($organizer_id and count($organizer))
 					{
-						$organizer = $event->data->organizers[$organizer_id];
 						?>
 						<div class="mec-single-event-organizer">
 							<?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
@@ -489,9 +490,8 @@ $organizer_id = $this->main->get_master_organizer_id($event);
 
 						<?php
 						// Event Location
-						if($location_id and isset($event->data->locations[$location_id]) and !empty($event->data->locations[$location_id]) and $single->found_value('event_location', $settings) == 'on')
+						if($location_id and count($location) and $single->found_value('event_location', $settings) == 'on')
 						{
-							$location = $event->data->locations[$location_id];
 							?>
 							<div class="mec-single-event-location">
 								<?php if($location['thumbnail']): ?>
@@ -544,9 +544,8 @@ $organizer_id = $this->main->get_master_organizer_id($event);
 						<?php do_action('mec_single_event_under_category', $event); ?>
 						<?php
 						// Event Organizer
-						if($organizer_id and isset($event->data->organizers[$organizer_id]) && !empty($event->data->organizers[$organizer_id]) and $single->found_value('event_orgnizer', $settings) == 'on')
+						if($organizer_id and count($organizer) and $single->found_value('event_orgnizer', $settings) == 'on')
 						{
-							$organizer = $event->data->organizers[$organizer_id];
 							?>
 							<div class="mec-single-event-organizer">
 								<?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>

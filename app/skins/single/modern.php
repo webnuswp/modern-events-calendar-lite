@@ -26,7 +26,10 @@ $more_info_target = MEC_feature_occurrences::param($event->ID, $event->date['sta
 $more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : __('Read More', 'modern-events-calendar-lite')));
 
 $location_id = $this->main->get_master_location_id($event);
+$location = ($location_id ? $this->main->get_location_data($location_id) : array());
+
 $organizer_id = $this->main->get_master_organizer_id($event);
+$organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
 ?>
 <div class="mec-wrap <?php echo $event_colorskin; ?> clearfix <?php echo $this->html_class; ?>" id="mec_skin_<?php echo $this->uniqueid; ?>">
     <?php do_action('mec_top_single_event', get_the_ID()); ?>
@@ -52,9 +55,8 @@ $organizer_id = $this->main->get_master_organizer_id($event);
             <div class="mec-event-meta mec-color-before mec-frontbox <?php echo ((!$this->main->can_show_booking_module($event) and in_array($organizer_id, array('0', '1')) and !$more_info) ? 'mec-util-hidden' : ''); ?>">
                 <?php
                 // Event Organizer
-                if($organizer_id and isset($event->data->organizers[$organizer_id]) && !empty($event->data->organizers[$organizer_id]) and $single->found_value('event_orgnizer', $settings) == 'on')
+                if($organizer_id and count($organizer) and $single->found_value('event_orgnizer', $settings) == 'on')
                 {
-                    $organizer = $event->data->organizers[$organizer_id];
                     ?>
                     <div class="mec-single-event-organizer">
                         <?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
@@ -125,13 +127,12 @@ $organizer_id = $this->main->get_master_organizer_id($event);
             <?php if($single->found_value('local_time', $settings) == 'on') echo $this->main->module('local-time.details', array('event'=>$event)); ?>
 
             <?php if($single->found_value('event_location', $settings) == 'on' || $single->found_value('event_categories', $settings) == 'on' || $single->found_value('more_info', $settings) == 'on'): ?>
-            <div class="mec-event-meta mec-color-before mec-frontbox <?php if(empty($event->data->locations[$location_id]) || $single->found_value('event_location', $settings) == '') echo 'mec-util-hidden'; ?>">
+            <div class="mec-event-meta mec-color-before mec-frontbox <?php if(!count($location) || $single->found_value('event_location', $settings) == '') echo 'mec-util-hidden'; ?>">
 
                 <?php
                     // Event Location
-                    if($location_id and isset($event->data->locations[$location_id]) and !empty($event->data->locations[$location_id]) and $single->found_value('event_location', $settings) == 'on')
+                    if($location_id and count($location) and $single->found_value('event_location', $settings) == 'on')
                     {
-                        $location = $event->data->locations[$location_id];
                         ?>
                         <div class="mec-single-event-location">
                             <?php if($location['thumbnail']): ?>

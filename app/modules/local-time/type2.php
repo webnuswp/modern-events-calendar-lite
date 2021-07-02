@@ -30,8 +30,9 @@ $gmt_offset_seconds = $this->get_gmt_offset_seconds($event->date['start']['date'
  */
 $event_id = $event->ID;
 
-global $MEC_Events_dates, $MEC_Events_dates_localtime,$MEC_Shortcode_id;
-if(!isset($MEC_Events_dates_localtime[$MEC_Shortcode_id]) || empty($MEC_Events_dates_localtime[$MEC_Shortcode_id])){
+global $MEC_Events_dates, $MEC_Events_dates_localtime, $MEC_Shortcode_id;
+if(!isset($MEC_Events_dates_localtime[$MEC_Shortcode_id]) || empty($MEC_Events_dates_localtime[$MEC_Shortcode_id]))
+{
     $MEC_Events_dates_localtime[$MEC_Shortcode_id] = $MEC_Events_dates;
 }
 
@@ -39,8 +40,8 @@ $dates = array();
 if(is_array($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id]))
 {
     $k = $this->array_key_first($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id]);
-    if(isset($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k])){
-
+    if(isset($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k]))
+    {
         $dates = (isset($MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k]) ? $MEC_Events_dates_localtime[$MEC_Shortcode_id][$event_id][$k] : NULL);
         $start_time = isset($dates['start']['time']) ? $dates['start']['time'] : $start_time;
         $end_time = isset($dates['end']['time']) ? $dates['end']['time'] : $end_time;

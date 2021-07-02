@@ -59,7 +59,7 @@ if(!$mec_email)
 	);
 }
 
-// gateways
+// Payment Gateways
 $gateways = $this->main->get_gateways();
 $gateways_options = $this->main->get_gateways_options();
 ?>
@@ -1033,12 +1033,27 @@ $gateways_options = $this->main->get_gateways_options();
                                         <div class="mec-col-12">
                                             <label>
                                                 <input type="hidden" name="mec[gateways][gateways_per_event]" value="0" />
-                                                <input id="mec_gateways_op_status" value="1" type="checkbox" name="mec[gateways][gateways_per_event]" <?php if(isset($gateways_options['gateways_per_event']) and $gateways_options['gateways_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Disable / Enable payment gateways per event', 'modern-events-calendar-lite'); ?>
+                                                <input id="mec_gateways_gateways_per_event" value="1" type="checkbox" name="mec[gateways][gateways_per_event]" <?php if(isset($gateways_options['gateways_per_event']) and $gateways_options['gateways_per_event']) echo 'checked="checked"'; ?> /> <?php _e('Disable / Enable payment gateways per event', 'modern-events-calendar-lite'); ?>
                                             </label>
                                             <span class="mec-tooltip">
                                                 <div class="box">
                                                     <h5 class="title"><?php _e('Payment Gateways Per Event', 'modern-events-calendar-lite'); ?></h5>
                                                     <div class="content"><p><?php esc_attr_e("By enabling this module, users are able to disable / enable payment gateways per event", 'modern-events-calendar-lite'); ?></p></div>
+                                                </div>
+                                                <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mec-form-row">
+                                        <div class="mec-col-12">
+                                            <label>
+                                                <input type="hidden" name="mec[settings][booking_auto_refund]" value="0" />
+                                                <input id="mec_gateways_auto_refund" value="1" type="checkbox" name="mec[settings][booking_auto_refund]" <?php if(isset($settings['booking_auto_refund']) and $settings['booking_auto_refund']) echo 'checked="checked"'; ?> /> <?php _e('Automatically refund the payment', 'modern-events-calendar-lite'); ?>
+                                            </label>
+                                            <span class="mec-tooltip">
+                                                <div class="box">
+                                                    <h5 class="title"><?php _e('Auto Refund', 'modern-events-calendar-lite'); ?></h5>
+                                                    <div class="content"><p><?php esc_attr_e("Automatically refund the payment when a booking paid by applicable gateways (Stripe) got canceled.", 'modern-events-calendar-lite'); ?></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>

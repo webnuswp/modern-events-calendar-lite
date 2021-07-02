@@ -68,17 +68,22 @@ if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'S
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') == true) $gmt_offset = substr(trim($gmt_offset), 0 , 3);
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true) $gmt_offset = substr(trim($gmt_offset), 2 , 3);
 
+$datetime = $ongoing ? $end_time : $start_time;
 // Generating javascript code of countdown default module
 $defaultjs = '<script type="text/javascript">
-jQuery(document).ready(function()
+
+jQuery(document).ready(function($)
 {
-    jQuery("#mec_countdown_details").mecCountDown(
-    {
-        date: "'.($ongoing ? $end_time : $start_time).$gmt_offset.'",
-        format: "off"
-    },
-    function()
-    {
+    jQuery.each(jQuery(".mec-countdown-details"),function(i,el){
+        var datetime = jQuery(el).data("datetime");
+        var gmt_offset = jQuery(el).data("gmt_offset");
+        jQuery(el).mecCountDown(
+            {
+                date: datetime+""+gmt_offset,
+                format: "off"
+            },
+            function(){}
+        );
     });
 });
 </script>';
@@ -88,7 +93,7 @@ $flipjs = '<script type="text/javascript">
 var clock;
 jQuery(document).ready(function()
 {
-    var futureDate = new Date("'.($ongoing ? $end_time : $start_time).$gmt_offset.'");
+    var futureDate = new Date("'.($datetime).$gmt_offset.'");
     var currentDate = new Date();
     var diff = parseInt((futureDate.getTime() / 1000 - currentDate.getTime() / 1000));
 
@@ -132,7 +137,7 @@ if(!function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/inclu
     elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) echo $defaultjs;
     else $factory->params('footer', $defaultjs);
 ?>
-<div class="mec-countdown-details" id="mec_countdown_details">
+<div class="mec-countdown-details" id="mec_countdown_details" data-datetime="<?php echo $datetime; ?>" data-gmt_offset="<?php echo $gmt_offset ?>">
     <div class="countdown-w ctd-simple">
         <ul class="clockdiv" id="countdown">
             <div class="days-w block-w">

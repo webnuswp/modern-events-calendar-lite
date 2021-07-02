@@ -3,8 +3,8 @@ Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
-Tested up to: 5.7.2
-Stable tag: 5.20.0
+Tested up to: 5.7
+Stable tag: 5.20.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -213,6 +213,7 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 
 == Key Features ==
 - Assets Manager
+- Stop selling tickets when the first occurrence of an event happened (*pro*)
 - Change the SEO title of occurrences
 - Show event content only for those users that booked the event (*pro*)
 - Show / Hide Occurrences per shortcode
@@ -453,6 +454,33 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.20.5 – 23 June 2021 =
+- Added: An option to be able to change thank you page options per event (pro)
+- Added: An option to display event time in carousel skin
+- Added: An option to automatically refund the booking amount when paid by Stripe (pro)
+- Added: An option to stop selling tickets when the first occurrence of an event happened (pro)
+- Added: An option to send notifications to additional organizers in addition to the main organizer
+- Improved: the backend shortcode builder to not show expired events as a selectable option in some skins, including a countdown
+- Improved: the taxonomy system to be more compatible with WPML
+- Updated: Dutch (Netherlands) language (Thanks to Petter Berg)
+- Updated: French language (Thanks to Eric)
+- Fixed: Showing wrong value for available spots in available spots skin (pro)
+- Fixed: Tile skin regarding link target
+- Fixed: The cost field
+- Fixed: Carousel skin regarding displaying labels
+- Fixed: Some issues regarding multilingual and translations
+- Fixed: Displaying translated dates in the booking menu of the backend (pro)
+- Fixed: Google calendar link of notifications
+- Fixed: User booking limit and WC as a payment system (pro)
+- Fixed: The event link placeholder for custom day events
+- Fixed: The list and grid skins
+- Fixed: An issue in import/export (pro)
+- Fixed: Some issues in the name of events
+- Fixed: Some issues pertaining to date fields (pro)
+- Fixed: SVG icon for social share buttons
+- Fixed: Booking price calculation in exported files when an event or ticket is removed (pro)
+- Fixed: some warnings
 
 = 5.20.0 – 9 June 2021 =
 - Added: The event cost, event link, more info link with title and target, organizer, and location to the occurrences section to provide an ability to change them per occurrence

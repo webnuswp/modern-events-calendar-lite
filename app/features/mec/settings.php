@@ -631,7 +631,7 @@ $shortcodes = get_posts(array(
                                 </label>
                             </div>
                             <div id="mec_assets_per_page_container_toggle" class="<?php if((isset($settings['assets_per_page_status']) and !$settings['assets_per_page_status']) or !isset($settings['assets_per_page_status'])) echo 'mec-util-hidden'; ?>">
-                                <p class="notice-yellow"><?php echo esc_html__("By enabling this option MEC won't include any JavaScript or CSS files in frontend of your website unless you enable the assets inclusion in page options.", 'modern-events-calendar-lite'); ?></p>
+                                <p class="notice-red" style="color: #b94a48; text-shadow: unset;"><?php echo esc_html__("By enabling this option MEC won't include any JavaScript or CSS files in frontend of your website unless you enable the assets inclusion in page options.", 'modern-events-calendar-lite'); ?></p>
                             </div>
                         </div>
 
@@ -971,6 +971,12 @@ $shortcodes = get_posts(array(
                                     <label>
                                         <input type="hidden" name="mec[settings][fes_section_booking_lftp]" value="0" />
                                         <input value="1" type="checkbox" name="mec[settings][fes_section_booking_lftp]" <?php if(!isset($settings['fes_section_booking_lftp']) or (isset($settings['fes_section_booking_lftp']) and $settings['fes_section_booking_lftp'])) echo 'checked="checked"'; ?> /> <?php _e('Last Few Tickets Percentage', 'modern-events-calendar-lite'); ?>
+                                    </label>
+                                </div>
+                                <div class="mec-form-row">
+                                    <label>
+                                        <input type="hidden" name="mec[settings][fes_section_booking_typ]" value="0" />
+                                        <input value="1" type="checkbox" name="mec[settings][fes_section_booking_typ]" <?php if(!isset($settings['fes_section_booking_typ']) or (isset($settings['fes_section_booking_typ']) and $settings['fes_section_booking_typ'])) echo 'checked="checked"'; ?> /> <?php _e('Thank You Page', 'modern-events-calendar-lite'); ?>
                                     </label>
                                 </div>
                                 <div class="mec-form-row">

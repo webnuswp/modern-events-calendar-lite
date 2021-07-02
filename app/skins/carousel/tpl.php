@@ -23,6 +23,7 @@ $sed_method = $this->sed_method;
 if($sed_method == 'new') $sed_method = '0';
 
 // Generating javascript code tpl
+$loop = $this->found > 1 ? $this->loop : false;
 $javascript = '<script type="text/javascript">
 jQuery(document).ready(function()
 {
@@ -34,6 +35,7 @@ jQuery(document).ready(function()
         loop: "'.$this->loop.'",
         autoplay_status: "'.$this->autoplay_status.'",
         autoplay: "'.$this->autoplay.'",
+        loop: '. json_encode($loop) .',
         style: "'.$this->style.'",
         atts: "'.http_build_query(array('atts'=>$this->atts), '', '&').'",
         ajax_url: "'.admin_url('admin-ajax.php', NULL).'",

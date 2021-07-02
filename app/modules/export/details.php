@@ -15,7 +15,8 @@ if(!isset($settings['export_module_status']) or (isset($settings['export_module_
 
 $title = isset($event->data->title) ? $event->data->title : '';
 $location_id = $this->get_master_location_id($event);
-$location = ($location_id and isset($event->data->locations[$location_id])) ? '&location='.urlencode($event->data->locations[$location_id]['address']) : '';
+$location_data = ($location_id ? $this->get_location_data($location_id) : array());
+$location = (($location_id and $location_data) ? '&location='.urlencode($location_data['address']) : '');
 $content = (isset($event->data->post->post_content) and trim($event->data->post->post_content)) ? strip_shortcodes(strip_tags($event->data->post->post_content)) : $title;
 $content = apply_filters('mec_add_content_to_export_google_calendar_details', $content,$event->data->ID );
 $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';

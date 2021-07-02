@@ -78,8 +78,8 @@ do_action('rss_tag_pre', 'rss2');
         <mec:endHour><?php echo $event->data->time['end']; ?></mec:endHour>
         <?php endif; ?>
 
-        <?php if($location_id and isset($event->data->locations[$location_id])): ?>
-        <mec:location><?php echo $event->data->locations[$location_id]['address']; ?></mec:location>
+        <?php if($location_id and $location = $this->main->get_location_data($location_id) and count($location)): ?>
+        <mec:location><?php echo $location['address']; ?></mec:location>
         <?php endif; ?>
 
         <?php if($cost): ?>

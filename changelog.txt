@@ -1,4 +1,31 @@
-﻿v 5.20.0 – 9 June 2021
+﻿v 5.20.5 – 23 June 2021
+- Added: An option to be able to change thank you page options per event (pro)
+- Added: An option to display event time in carousel skin
+- Added: An option to automatically refund the booking amount when paid by Stripe (pro)
+- Added: An option to stop selling tickets when the first occurrence of an event happened (pro)
+- Added: An option to send notifications to additional organizers in addition to the main organizer
+- Improved: the backend shortcode builder to not show expired events as a selectable option in some skins, including a countdown
+- Improved: the taxonomy system to be more compatible with WPML
+- Updated: Dutch (Netherlands) language (Thanks to Petter Berg)
+- Updated: French language (Thanks to Eric)
+- Fixed: Showing wrong value for available spots in available spots skin (pro)
+- Fixed: Tile skin regarding link target
+- Fixed: The cost field
+- Fixed: Carousel skin regarding displaying labels
+- Fixed: Some issues regarding multilingual and translations
+- Fixed: Displaying translated dates in the booking menu of the backend (pro)
+- Fixed: Google calendar link of notifications
+- Fixed: User booking limit and WC as a payment system (pro)
+- Fixed: The event link placeholder for custom day events
+- Fixed: The list and grid skins
+- Fixed: An issue in import/export (pro)
+- Fixed: Some issues in the name of events
+- Fixed: Some issues pertaining to date fields (pro)
+- Fixed: SVG icon for social share buttons
+- Fixed: Booking price calculation in exported files when an event or ticket is removed (pro)
+- Fixed: some warnings
+
+v 5.20.0 – 9 June 2021
 - Added: The event cost, event link, more info link with title and target, organizer, and location to the occurrences section to provide an ability to change them per occurrence
 - Added: “Activate First Upcoming Date with Event” option in full calendar
 - Added: An ability to display all events in the right panel of monthly skins
@@ -7,6 +34,7 @@
 - Improved: The flexibility in events URLs
 - Improved: The functionality of the “Disable fees per payment gateway” feature (pro)
 - Improved: The library inclusion of MEC
+- Improved: The ICS export of all day events
 - Removed: “Montserrat” font family
 - Fixed: An issue in calculating the price per attendee in booking export feature (pro)
 - Fixed: Showing ongoing events in calendar method of booking module (pro)

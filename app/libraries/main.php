@@ -2213,6 +2213,24 @@ class MEC_main extends MEC_base
     }
 
     /**
+     * Get id of upcoming events
+     * @author Webnus <info@webnus.biz>
+     * @param int $now
+     * @return array
+     */
+    public function get_upcoming_event_ids($now = NULL)
+    {
+        // Database Object
+        $db = $this->getDB();
+
+        // Current Timestamp
+        $start = (($now and is_numeric($now)) ? $now : current_time('timestamp', 0));
+
+        $ids = $db->select("SELECT `post_id` FROM `#__mec_dates` WHERE `tstart` >= ".$start, 'loadColumn');
+        return array_unique($ids);
+    }
+
+    /**
      * Get method of showing for multiple days events
      * @author Webnus <info@webnus.biz>
      * @return string
@@ -4231,6 +4249,9 @@ class MEC_main extends MEC_base
 
         $book_all_occurrences = 0;
         if(isset($event->data) and isset($event->data->meta) and isset($booking_options['bookings_all_occurrences'])) $book_all_occurrences = (int) $booking_options['bookings_all_occurrences'];
+
+        $bookings_stop_selling_after_first_occurrence = isset($booking_options['stop_selling_after_first_occurrence']) ? $booking_options['stop_selling_after_first_occurrence'] : 0;
+        if($bookings_stop_selling_after_first_occurrence and $this->is_first_occurrence_passed($event)) return false;
 
         $show_booking_form_interval = (isset($settings['show_booking_form_interval'])) ? $settings['show_booking_form_interval'] : 0;
         if(isset($booking_options['show_booking_form_interval']) and trim($booking_options['show_booking_form_interval']) != '') $show_booking_form_interval = $booking_options['show_booking_form_interval'];
@@ -6556,7 +6577,7 @@ class MEC_main extends MEC_base
         // Apply Filters
         $assets = apply_filters('mec_map_assets_include', $assets, $this, $define_settings);
 
-        if(count($assets['js']) > 0) foreach($assets['js'] as $key => $link) wp_enqueue_script($key, $link, array(), $this->get_version());
+        if(count($assets['js']) > 0) foreach($assets['js'] as $key => $link) wp_enqueue_script($key, $link, array('jquery'), $this->get_version());
         if(count($assets['css']) > 0) foreach($assets['css'] as $key => $link) wp_enqueue_style($key, $link, array(), $this->get_version());
     }
 
@@ -7161,6 +7182,12 @@ class MEC_main extends MEC_base
 
     public function get_ical_rrules($event, $only_rrule = false)
     {
+        if(is_numeric($event))
+        {
+            $render = $this->getRender();
+            $event = $render->data($event);
+        }
+
         $recurrence = array();
         if(isset($event->mec->repeat) and $event->mec->repeat)
         {
@@ -8502,7 +8529,9 @@ class MEC_main extends MEC_base
             if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $location_id = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'location_id', $location_id);
         }
 
-        if(trim($location_id) === '') $location_id = 0;
+        $location_id = apply_filters('wpml_object_id', $location_id, 'mec_location', true);
+
+        if(trim($location_id) === '' or $location_id == 1) $location_id = 0;
         return $location_id;
     }
 
@@ -8525,7 +8554,112 @@ class MEC_main extends MEC_base
             if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $organizer_id = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'organizer_id', $organizer_id);
         }
 
-        if(trim($organizer_id) === '') $organizer_id = 0;
+        $organizer_id = apply_filters('wpml_object_id', $organizer_id, 'mec_organizer', true);
+
+        if(trim($organizer_id) === '' or $organizer_id == 1) $organizer_id = 0;
         return $organizer_id;
+    }
+
+    public function get_location_data($location_id)
+    {
+        $term = get_term($location_id);
+        if(!isset($term->term_id) or $location_id == 1) return array();
+
+        return array(
+            'id'=>$term->term_id,
+            'name'=>$term->name,
+            'address'=>get_metadata('term', $term->term_id, 'address', true),
+            'latitude'=>get_metadata('term', $term->term_id, 'latitude', true),
+            'longitude'=>get_metadata('term', $term->term_id, 'longitude', true),
+            'url'=>get_metadata('term', $term->term_id, 'url', true),
+            'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true)
+        );
+    }
+
+    public function get_organizer_data($organizer_id)
+    {
+        $term = get_term($organizer_id);
+        if(!isset($term->term_id) or $organizer_id == 1) return array();
+
+        return array(
+            'id'=>$term->term_id,
+            'name'=>$term->name,
+            'tel'=>get_metadata('term', $term->term_id, 'tel', true),
+            'email'=>get_metadata('term', $term->term_id, 'email', true),
+            'url'=>get_metadata('term', $term->term_id, 'url', true),
+            'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true)
+        );
+    }
+
+    public function get_thankyou_page_id($event_id = NULL)
+    {
+        // Global Settings
+        $settings = $this->get_settings();
+
+        // Global Thank You Page
+        $thankyou_page_id = (isset($settings['booking_thankyou_page']) and is_numeric($settings['booking_thankyou_page']) and trim($settings['booking_thankyou_page'])) ? $settings['booking_thankyou_page'] : 0;
+
+        // Get by Event
+        if($event_id)
+        {
+            $booking_options = get_post_meta($event_id, 'mec_booking', true);
+            if(!is_array($booking_options)) $booking_options = array();
+
+            $bookings_thankyou_page_inherit = isset($booking_options['thankyou_page_inherit']) ? $booking_options['thankyou_page_inherit'] : 1;
+            if(!$bookings_thankyou_page_inherit)
+            {
+                if(isset($booking_options['booking_thankyou_page']) and $booking_options['booking_thankyou_page']) $thankyou_page_id = $booking_options['booking_thankyou_page'];
+                else $thankyou_page_id = 0;
+            }
+        }
+
+        return $thankyou_page_id;
+    }
+
+    public function get_thankyou_page_time($transaction_id = NULL)
+    {
+        // Global Settings
+        $settings = $this->get_settings();
+
+        // Global Time
+        $thankyou_page_time = (isset($settings['booking_thankyou_page_time']) and is_numeric($settings['booking_thankyou_page_time'])) ? (int) $settings['booking_thankyou_page_time'] : 2000;
+
+        // Get by Event
+        if($transaction_id)
+        {
+            // Booking
+            $book = $this->getBook();
+            $transaction = $book->get_transaction($transaction_id);
+
+            $event_id = (isset($transaction['event_id']) ? $transaction['event_id'] : 0);
+            if($event_id)
+            {
+                $booking_options = get_post_meta($event_id, 'mec_booking', true);
+                if(!is_array($booking_options)) $booking_options = array();
+
+                $bookings_thankyou_page_inherit = isset($booking_options['thankyou_page_inherit']) ? $booking_options['thankyou_page_inherit'] : 1;
+                if(!$bookings_thankyou_page_inherit)
+                {
+                    if(isset($booking_options['booking_thankyou_page_time']) and $booking_options['booking_thankyou_page_time']) $thankyou_page_time = (int) $booking_options['booking_thankyou_page_time'];
+                }
+            }
+        }
+
+        return max($thankyou_page_time, 0);
+    }
+
+    public function is_first_occurrence_passed($event)
+    {
+        // Event ID
+        if(is_numeric($event)) $event_id = $event;
+        // Event Object
+        else $event_id = $event->ID;
+
+        $now = current_time('timestamp', 0);
+
+        $db = $this->getDB();
+        $first = $db->select("SELECT `tstart` FROM `#__mec_dates` WHERE `post_id`='".$event_id."' ORDER BY `tstart` ASC LIMIT 1", 'loadResult');
+
+        return ($first and $first < $now);
     }
 }

@@ -780,6 +780,8 @@ class MEC_skins extends MEC_base
             $start = ((isset($this->sf) || $this->request->getVar('sf', array())) and $apply_sf_date) ? date('Y-m-t', strtotime($this->start_date)) : $this->start_date;
 
             $end = date('Y-m-01', strtotime('-15 Years', strtotime($start)));
+
+            if(isset($this->maximum_date_range) and trim($this->maximum_date_range)) $this->maximum_date_range = $start;
         }
         else
         {

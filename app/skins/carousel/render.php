@@ -23,10 +23,10 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                 foreach($date as $event):
 
                 $location_id = $this->main->get_master_location_id($event);
-                $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+                $location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
                 $organizer_id = $this->main->get_master_organizer_id($event);
-                $organizer = (($organizer_id and isset($event->data->organizers[$organizer_id])) ? $event->data->organizers[$organizer_id] : array());
+                $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : array());
 
                 $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                 $event_date = (isset($event->date['start']) ? $event->date['start']['date'] : $event->data->meta['mec_start_date']);
@@ -56,10 +56,10 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                     </div>
                 </div>
                 <div class="mec-event-carousel-content">
+                    <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                     <h4 class="mec-event-carousel-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $this->main->get_flags($event); ?></h4>
                     <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID); ?>
                     <p class="mec-carousel-event-location"><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
-                    <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                     <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                     <?php echo $this->booking_button($event); ?>
                 </div>
@@ -80,11 +80,11 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         <?php endif; ?>
                         <?php do_action('mec_carousel_type2_before_title', $event); ?>
                         <?php $soldout = $this->main->get_flags($event); ?>
+                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                         <h4 class="mec-event-carousel-title"><?php echo $this->display_link($event); ?><?php echo $this->display_custom_data($event); ?><?php echo $soldout; ?></h4>
                         <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID); ?>
                         <?php do_action('mec_carousel_type2_after_title', $event); ?>
                         <p class="mec-carousel-event-location"><?php echo (isset($location['name']) ? $location['name'] : ''); echo (isset($location['address']) ? '<br>'.$location['address'] : ''); ?></p>
-                        <?php if($this->include_events_times) echo $this->main->display_time($start_time, $end_time); ?>
                         <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                     </div>
                     <div class="mec-event-footer-carousel-type2">

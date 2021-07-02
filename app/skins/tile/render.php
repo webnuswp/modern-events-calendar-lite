@@ -28,7 +28,7 @@ $map_events = array();
                 echo '<div class="col-md-'.$col.' col-sm-'.$col.'">';
 
                 $location_id = $this->main->get_master_location_id($event);
-                $location = (($location_id and isset($event->data->locations[$location_id])) ? $event->data->locations[$location_id] : array());
+                $location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
                 $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                 $event_start_date = !empty($event->date['start']['date']) ? $event->date['start']['date'] : '';
@@ -41,7 +41,7 @@ $map_events = array();
                 // MEC Schema
                 do_action('mec_schema', $event);
                 ?>
-                    <article <?php if($method != 'no'): ?> data-href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" data-target="<?php echo ($method == 'new' ? 'blank' : $method); ?>"<?php endif; ?> <?php echo 'style="background:' . $event_color . $background_image. '"'; ?> class="<?php echo ((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event' : ''); ?> mec-event-article mec-tile-item <?php echo $me_class; ?> mec-clear <?php echo $this->get_event_classes($event); ?>">
+                    <article <?php if($method != 'no'): ?> data-href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" data-target="<?php echo ($method == 'new' ? 'blank' : ($method ? $method : '')); ?>"<?php endif; ?> <?php echo 'style="background:' . $event_color . $background_image. '"'; ?> class="<?php echo ((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event' : ''); ?> mec-event-article mec-tile-item <?php echo $me_class; ?> mec-clear <?php echo $this->get_event_classes($event); ?>">
                         <?php do_action('mec_skin_tile_view', $event); ?>
                         <?php echo $this->get_label_captions($event); ?>
                         <div class="event-tile-view-head clearfix">
@@ -53,8 +53,8 @@ $map_events = array();
                             <?php endif; ?>
                             <div class="mec-event-time"><i class="mec-sl-clock"></i><?php echo $start_time; ?></div>
                         </div>
-                        <div class="mec-event-content" data-target="<?php echo ($method == 'new' ? 'blank' : $method); ?>" data-event-id="<?php echo $event->ID; ?>">
-                        <?php if($method != 'no'): ?><a href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" target="<?php echo ($method == 'new' ? '_blank' : $method); ?>" class="mec-tile-into-content-link"></a><?php endif; ?>
+                        <div class="mec-event-content" data-target="<?php echo ($method == 'new' ? 'blank' : ($method ? $method : '')); ?>" data-event-id="<?php echo $event->ID; ?>">
+                        <?php if($method != 'no'): ?><a href="<?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?>" target="<?php echo ($method == 'new' ? 'blank' : ($method ? $method : '')); ?>>" class="mec-tile-into-content-link"></a><?php endif; ?>
                             <div class="mec-tile-event-content">
                                 <div class="mec-event-detail">
                                     <?php echo $this->display_categories($event); ?>

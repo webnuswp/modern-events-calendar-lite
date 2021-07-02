@@ -68,17 +68,17 @@ class MEC_parser extends MEC_base
         $PT = $this->main->get_main_post_type();
 
         return array(
-            '(?:'.$slug.')/(\d{4}-\d{2})/?$'=>'index.php?post_type='.$PT.'&MecDisplay=month&MecDate=$matches[1]',
-            '(?:'.$slug.')/(?:yearly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=year',
-            '(?:'.$slug.')/(?:monthly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=month',
-            '(?:'.$slug.')/(?:weekly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=week',
-            '(?:'.$slug.')/(?:daily)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=day',
-            '(?:'.$slug.')/(?:timetable)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=timetable',
-            '(?:'.$slug.')/(?:map)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=map',
-            '(?:'.$slug.')/(?:list)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=list',
-            '(?:'.$slug.')/(?:grid)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=grid',
-            '(?:'.$slug.')/(?:agenda)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=agenda',
-            '(?:'.$slug.')/(?:masonry)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=masonry',
+            // '(?:'.$slug.')/(\d{4}-\d{2})/?$'=>'index.php?post_type='.$PT.'&MecDisplay=month&MecDate=$matches[1]',
+            // '(?:'.$slug.')/(?:yearly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=year',
+            // '(?:'.$slug.')/(?:monthly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=month',
+            // '(?:'.$slug.')/(?:weekly)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=week',
+            // '(?:'.$slug.')/(?:daily)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=day',
+            // '(?:'.$slug.')/(?:timetable)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=timetable',
+            // '(?:'.$slug.')/(?:map)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=map',
+            // '(?:'.$slug.')/(?:list)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=list',
+            // '(?:'.$slug.')/(?:grid)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=grid',
+            // '(?:'.$slug.')/(?:agenda)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=agenda',
+            // '(?:'.$slug.')/(?:masonry)/?$'=>'index.php?post_type='.$PT.'&MecDisplay=masonry',
             '(?:'.$slug.')/?$'=>'index.php?post_type='.$PT.'&MecDisplay=default',
             '(?:'.$slug.')/(feed|rdf|rss|rss2|atom)/?$'=>'index.php?post_type='.$PT.'&feed=$matches[1]',
         );
