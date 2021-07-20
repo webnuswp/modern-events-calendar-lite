@@ -123,7 +123,7 @@ defined('MECEXEC') or die();
                                         <?php endif; ?>
                                         <div class="w-button">
                                             <?php if(!$this->getPRO()): ?>
-                                                <a href="https://webnus.net/mec-purchase/?ref=17/" target="_blank"><?php echo esc_html__('GO PREMIUM', 'modern-events-calendar-lite'); ?></a>
+                                                <a href="<?php echo $this->main->get_pro_link(); ?>" target="_blank"><?php echo esc_html__('GO PREMIUM', 'modern-events-calendar-lite'); ?></a>
                                             <?php else: ?>
                                                 <a href="https://webnus.net/support/" target="_blank"><?php echo esc_html__('OPEN A TICKET', 'modern-events-calendar-lite'); ?></a>
                                             <?php endif; ?>

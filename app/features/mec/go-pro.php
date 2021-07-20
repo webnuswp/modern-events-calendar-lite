@@ -65,7 +65,7 @@ defined('MECEXEC') or die();
                     <p>
                         <?php echo sprintf(__("You're using %s version of Modern Events Calendar. To use advanced booking system, modern skins like Agenda, Timetable, Masonry, Yearly View, Available Spots, etc you should upgrade to the Pro version.", 'modern-events-calendar-lite'), '<strong>'.__('lite', 'modern-events-calendar-lite').'</strong>'); ?>
                     </p>
-                    <a class="info-msg-link" href="https://webnus.net/mec-purchase/?ref=17/" target="_blank">
+                    <a class="info-msg-link" href="<?php echo $this->main->get_pro_link(); ?>" target="_blank">
                         <?php esc_html_e('GO PREMIUM', 'modern-events-claendar-lite'); ?>
                     </a>
                     <div class="info-msg-coupon">

@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.7
-Stable tag: 5.20.5
+Stable tag: 5.20.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -212,8 +212,8 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 - [Developer documentation](https://webnus.net/dox/modern-events-calendar/category/developer-document/)
 
 == Key Features ==
-- Assets Manager
 - Stop selling tickets when the first occurrence of an event happened (*pro*)
+- Assets Manager
 - Change the SEO title of occurrences
 - Show event content only for those users that booked the event (*pro*)
 - Show / Hide Occurrences per shortcode
@@ -454,6 +454,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.20.6 – 26 June 2021 =
+- Fixed: Some minor issues.
 
 = 5.20.5 – 23 June 2021 =
 - Added: An option to be able to change thank you page options per event (pro)

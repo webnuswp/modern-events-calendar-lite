@@ -7064,7 +7064,8 @@ class MEC_main extends MEC_base
 
     public function get_pro_link()
     {
-        return 'https://webnus.net/mec-purchase/?ref=17/';
+        $link = 'https://webnus.net/mec-purchase/?ref=17/';
+        return apply_filters('MEC_upgrade_link', $link);
     }
 
     /**
