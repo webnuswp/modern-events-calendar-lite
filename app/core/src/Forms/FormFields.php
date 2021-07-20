@@ -29,7 +29,7 @@ class FormFields extends Singleton {
 		}
 
 		$html .= '<div>
-				<input type="text" name="mec[' . $prefix . '_fields][' . $key . '][key]" placeholder="' . esc_attr__( 'Insert a key for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['key'] ) ? stripslashes( $values['key'] ) : '' ) . '" />
+				<input type="text" name="mec[' . $prefix . '_fields][' . $key . '][key]" placeholder="' . esc_attr__( 'Insert a key for this field', 'mec' ) . '" value="' . ( isset( $values['key'] ) ? stripslashes( $values['key'] ) : '' ) . '" />
 			</div>';
 
 
@@ -48,20 +48,20 @@ class FormFields extends Singleton {
 	public function field_text( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '" class="mec_form_field_item">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Text', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Text', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="text" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'text', $values, $prefix ) . '
             </div>
         </li>';
@@ -79,20 +79,20 @@ class FormFields extends Singleton {
 	public function field_name( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-             <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-             <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'MEC Name', 'modern-events-calendar-lite' ) . '</span>
+             <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+             <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'MEC Name', 'mec' ) . '</span>
              ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
              <p class="mec_' . $prefix . '_field_options" style="display:none">
                  <label>
                      <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" />
                      <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" checked="checked" disabled />
-                     ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                     ' . __( 'Required Field', 'mec' ) . '
                  </label>
              </p>
-             <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+             <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
              <div>
                  <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="name" />
-                 <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                 <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
              </div>
          </li>';
 	}
@@ -109,20 +109,20 @@ class FormFields extends Singleton {
 	public function field_mec_email( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-             <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-             <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'MEC Email', 'modern-events-calendar-lite' ) . '</span>
+             <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+             <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'MEC Email', 'mec' ) . '</span>
              ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
              <p class="mec_' . $prefix . '_field_options" style="display:none">
                  <label>
                      <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" />
                      <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" checked="checked" disabled />
-                     ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                     ' . __( 'Required Field', 'mec' ) . '
                  </label>
              </p>
-             <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+             <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
              <div>
                  <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="mec_email" />
-                 <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                 <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
              </div>
          </li>';
 	}
@@ -139,20 +139,20 @@ class FormFields extends Singleton {
 	public function field_email( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Email', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Email', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="email" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'email', $values, $prefix ) . '
             </div>
         </li>';
@@ -170,20 +170,20 @@ class FormFields extends Singleton {
 	public function field_url( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'URL', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'URL', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="url" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'url', $values, $prefix ) . '
             </div>
         </li>';
@@ -201,20 +201,20 @@ class FormFields extends Singleton {
 	public function field_file( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'File', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'File', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="file" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
             </div>
         </li>';
 	}
@@ -231,20 +231,20 @@ class FormFields extends Singleton {
 	public function field_date( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Date', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Date', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="date" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'date', $values, $prefix ) . '
             </div>
         </li>';
@@ -262,20 +262,20 @@ class FormFields extends Singleton {
 	public function field_tel( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Tel', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Tel', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="tel" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'tel', $values, $prefix ) . '
             </div>
         </li>';
@@ -293,20 +293,20 @@ class FormFields extends Singleton {
 	public function field_textarea( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Textarea', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Textarea', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="textarea" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'textarea', $values, $prefix ) . '
             </div>
         </li>';
@@ -324,9 +324,9 @@ class FormFields extends Singleton {
 	public function field_p( $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Paragraph', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Paragraph', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="p" />
                 <textarea name="mec[' . $prefix . '_fields][' . $key . '][content]">' . ( isset( $values['content'] ) ? htmlentities( stripslashes( $values['content'] ) ) : '' ) . '</textarea>
@@ -348,20 +348,20 @@ class FormFields extends Singleton {
 
 		$i     = 0;
 		$field = '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Checkboxes', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Checkboxes', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="checkbox" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'checkbox', $values, $prefix ) . '
                 <ul id="mec_' . $prefix . '_fields_' . $key . '_options_container" class="mec_' . $prefix . '_fields_options_container mec_fields_options_container">';
 
@@ -373,7 +373,7 @@ class FormFields extends Singleton {
 		}
 
 		$field .= '</ul>
-                <button type="button" class="mec-' . $prefix . '-field-add-option mec-field-add-option" data-field-id="' . $key . '">' . __( 'Option', 'modern-events-calendar-lite' ) . '</button>
+                <button type="button" class="mec-' . $prefix . '-field-add-option mec-field-add-option" data-field-id="' . $key . '">' . __( 'Option', 'mec' ) . '</button>
                 <input type="hidden" id="mec_new_' . $prefix . '_field_option_key_' . $key . '" value="' . ( $i + 1 ) . '" />
             </div>
         </li>';
@@ -394,20 +394,20 @@ class FormFields extends Singleton {
 
 		$i     = 0;
 		$field = '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Radio Buttons', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Radio Buttons', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="radio" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
 				' . $this->input_key( $key, 'radio', $values, $prefix ) . '
                 <ul id="mec_' . $prefix . '_fields_' . $key . '_options_container" class="mec_' . $prefix . '_fields_options_container mec_fields_options_container">';
 
@@ -419,7 +419,7 @@ class FormFields extends Singleton {
 		}
 
 		$field .= '</ul>
-                <button type="button" class="mec-' . $prefix . '-field-add-option mec-field-add-option" data-field-id="' . $key . '">' . __( 'Option', 'modern-events-calendar-lite' ) . '</button>
+                <button type="button" class="mec-' . $prefix . '-field-add-option mec-field-add-option" data-field-id="' . $key . '">' . __( 'Option', 'mec' ) . '</button>
                 <input type="hidden" id="mec_new_' . $prefix . '_field_option_key_' . $key . '" value="' . ( $i + 1 ) . '" />
             </div>
         </li>';
@@ -440,27 +440,27 @@ class FormFields extends Singleton {
 
 		$i     = 0;
 		$field = '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Dropdown', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Dropdown', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( isset( $values['mandatory'] ) and $values['mandatory'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][ignore]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][ignore]" value="1" ' . ( ( isset( $values['ignore'] ) and $values['ignore'] ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Consider first item as placeholder', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Consider first item as placeholder', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="select" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : '' ) . '" />
                 ' . $this->input_key( $key, 'select', $values, $prefix ) . '
                 <ul id="mec_' . $prefix . '_fields_' . $key . '_options_container" class="mec_' . $prefix . '_fields_options_container mec_fields_options_container">';
 
@@ -472,7 +472,7 @@ class FormFields extends Singleton {
 		}
 
 		$field .= '</ul>
-                <button type="button" class="mec-' . $prefix . '-field-add-option mec-field-add-option" data-field-id="' . $key . '">' . __( 'Option', 'modern-events-calendar-lite' ) . '</button>
+                <button type="button" class="mec-' . $prefix . '-field-add-option mec-field-add-option" data-field-id="' . $key . '">' . __( 'Option', 'mec' ) . '</button>
                 <input type="hidden" id="mec_new_' . $prefix . '_field_option_key_' . $key . '" value="' . ( $i + 1 ) . '" />
             </div>
         </li>';
@@ -496,22 +496,22 @@ class FormFields extends Singleton {
 
 		$i     = 0;
 		$field = '<li id="mec_' . $prefix . '_fields_' . $key . '">
-            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Agreement', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_sort mec_field_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span class="mec_' . $prefix . '_field_type mec_field_type">' . __( 'Agreement', 'mec' ) . '</span>
             ' . ( $prefix === 'event' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%event_field_' . $key . '%%</span>' : ( $prefix === 'bfixed' ? '<span class="mec_' . $prefix . '_notification_placeholder">%%booking_field_' . $key . '%%</span>' : '' ) ) . '
             <p class="mec_' . $prefix . '_field_options">
                 <label>
                     <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="0" />
                     <input type="checkbox" name="mec[' . $prefix . '_fields][' . $key . '][mandatory]" value="1" ' . ( ( !isset( $values['mandatory'] ) or ( isset( $values['mandatory'] ) and $values['mandatory'] ) ) ? 'checked="checked"' : '' ) . ' />
-                    ' . __( 'Required Field', 'modern-events-calendar-lite' ) . '
+                    ' . __( 'Required Field', 'mec' ) . '
                 </label>
             </p>
-            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
+            <span class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
             <div>
                 <input type="hidden" name="mec[' . $prefix . '_fields][' . $key . '][type]" value="agreement" />
-                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'modern-events-calendar-lite' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : 'I agree with %s' ) . '" /><p class="description">' . __( 'Instead of %s, the page title with a link will be show.', 'modern-events-calendar-lite' ) . '</p>
+                <input type="text" name="mec[' . $prefix . '_fields][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this field', 'mec' ) . '" value="' . ( isset( $values['label'] ) ? stripslashes( $values['label'] ) : 'I agree with %s' ) . '" /><p class="description">' . __( 'Instead of %s, the page title with a link will be show.', 'mec' ) . '</p>
                 <div>
-                    <label for="mec_' . $prefix . '_fields_' . $key . '_page">' . __( 'Agreement Page', 'modern-events-calendar-lite' ) . '</label>
+                    <label for="mec_' . $prefix . '_fields_' . $key . '_page">' . __( 'Agreement Page', 'mec' ) . '</label>
                     <select id="mec_' . $prefix . '_fields_' . $key . '_page" name="mec[' . $prefix . '_fields][' . $key . '][page]">';
 
 		$page_options = '';
@@ -522,10 +522,10 @@ class FormFields extends Singleton {
 		$field .= $page_options . '</select>
                 </div>
                 <div>
-                    <label for="mec_' . $prefix . '_fields_' . $key . '_status">' . __( 'Status', 'modern-events-calendar-lite' ) . '</label>
+                    <label for="mec_' . $prefix . '_fields_' . $key . '_status">' . __( 'Status', 'mec' ) . '</label>
                     <select id="mec_' . $prefix . '_fields_' . $key . '_status" name="mec[' . $prefix . '_fields][' . $key . '][status]">
-                        <option value="checked" ' . ( ( isset( $values['status'] ) and $values['status'] === 'checked' ) ? 'selected="selected"' : '' ) . '>' . __( 'Checked by default', 'modern-events-calendar-lite' ) . '</option>
-                        <option value="unchecked" ' . ( ( isset( $values['status'] ) and $values['status'] === 'unchecked' ) ? 'selected="selected"' : '' ) . '>' . __( 'Unchecked by default', 'modern-events-calendar-lite' ) . '</option>
+                        <option value="checked" ' . ( ( isset( $values['status'] ) and $values['status'] === 'checked' ) ? 'selected="selected"' : '' ) . '>' . __( 'Checked by default', 'mec' ) . '</option>
+                        <option value="unchecked" ' . ( ( isset( $values['status'] ) and $values['status'] === 'unchecked' ) ? 'selected="selected"' : '' ) . '>' . __( 'Unchecked by default', 'mec' ) . '</option>
                     </select>
                 </div>
                 <input type="hidden" id="mec_new_' . $prefix . '_field_option_key_' . $key . '" value="' . ( $i + 1 ) . '" />
@@ -548,9 +548,9 @@ class FormFields extends Singleton {
 	public function field_option( $field_key, $key, $values = array(), $prefix = 'reg' ) {
 
 		return '<li id="mec_' . $prefix . '_fields_option_' . $field_key . '_' . $key . '" class="mec_fields_option">
-            <span class="mec_' . $prefix . '_field_option_sort mec_field_option_sort">' . __( 'Sort', 'modern-events-calendar-lite' ) . '</span>
-            <span  class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'modern-events-calendar-lite' ) . '</span>
-            <input type="text" name="mec[' . $prefix . '_fields][' . $field_key . '][options][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this option', 'modern-events-calendar-lite' ) . '" value="' . ( ( isset( $values['options'] ) and isset( $values['options'][ $key ] ) ) ? esc_attr( stripslashes( $values['options'][ $key ]['label'] ) ) : '' ) . '" />
+            <span class="mec_' . $prefix . '_field_option_sort mec_field_option_sort">' . __( 'Sort', 'mec' ) . '</span>
+            <span  class="mec_' . $prefix . '_field_remove mec_field_remove">' . __( 'Remove', 'mec' ) . '</span>
+            <input type="text" name="mec[' . $prefix . '_fields][' . $field_key . '][options][' . $key . '][label]" placeholder="' . esc_attr__( 'Insert a label for this option', 'mec' ) . '" value="' . ( ( isset( $values['options'] ) and isset( $values['options'][ $key ] ) ) ? esc_attr( stripslashes( $values['options'][ $key ]['label'] ) ) : '' ) . '" />
         </li>';
 	}
 
@@ -558,7 +558,7 @@ class FormFields extends Singleton {
 
 		$fields = $this->get_wp_user_fields();
 
-		$dropdown = '<select name="' . esc_attr( $name ) . '" title="' . esc_html__( 'Mapping with Profile Fields', 'modern-events-calendar-lite' ) . '">';
+		$dropdown = '<select name="' . esc_attr( $name ) . '" title="' . esc_html__( 'Mapping with Profile Fields', 'mec' ) . '">';
 		$dropdown .= '<option value="">-----</option>';
 		foreach ( $fields as $key => $label ) {
 			$dropdown .= '<option value="' . esc_attr( $key ) . '" ' . ( $value == $key ? 'selected="selected"' : '' ) . '>' . esc_html( $label ) . '</option>';

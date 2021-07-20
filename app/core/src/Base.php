@@ -2,6 +2,8 @@
 
 namespace MEC;
 
+use MEC\Attendees\AttendeesTable;
+
 /**
  * Core Class in Plugin
  */
@@ -52,7 +54,7 @@ final class Base {
 	 *
 	 * @return void
 	 */
-	public function define(): void {
+	public function define() {
 
 		define( 'MEC_CORE_PD', plugin_dir_path( MEC_CORE_FILE ) );
 		define( 'MEC_CORE_PDI', plugin_dir_path( MEC_CORE_FILE ) . 'src/' );
@@ -68,7 +70,7 @@ final class Base {
 	 *
 	 * @return void
 	 */
-	public function includes(): void {
+	public function includes() {
 
 	}
 
@@ -78,7 +80,7 @@ final class Base {
 	 *
 	 * @return void
 	 */
-	public function admin(): void {
+	public function admin() {
 
 		if ( !is_admin() ) {
 			return;
@@ -91,7 +93,7 @@ final class Base {
 	 *
 	 * @return void
 	 */
-	public function enqueue_scripts(): void {
+	public function enqueue_scripts() {
 
 
 	}
@@ -101,7 +103,7 @@ final class Base {
 	 *
 	 * @return void
 	 */
-	public function init_hooks(): void {
+	public function init_hooks() {
 
 		add_action( 'init', [ $this, 'init' ] );
 		register_activation_hook( MEC_CORE_FILE, __CLASS__ . '::register_activation' );
@@ -112,8 +114,9 @@ final class Base {
 	 *
 	 * @return void
 	 */
-	public static function register_activation(): void {
+	public static function register_activation() {
 
+		AttendeesTable::create_table();
 	}
 
 
@@ -122,7 +125,7 @@ final class Base {
 	 *
 	 * @return void
 	 */
-	public function init(): void {
+	public function init() {
 
 	}
 

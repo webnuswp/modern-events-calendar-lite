@@ -67,7 +67,7 @@ class SendEmail{
 
         $subject = $this->get_notification_settings( 'subject' );
 
-        return !is_null($subject) ? __($subject,'modern-events-calendar-lite') : $default;
+        return !is_null($subject) ? __($subject,'mec') : $default;
     }
 
     public function get_content( $default = '' ){

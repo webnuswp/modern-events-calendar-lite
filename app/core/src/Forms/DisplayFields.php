@@ -159,7 +159,7 @@ class DisplayFields {
 				if ( isset( $field['label'] ) && !empty( $field['label'] ) ) {
 
 					$label_field = '<label for="' . $html_id . '" style="display:block" class="' . ( $required ? 'required' : '' ) . '">'
-						 . __( $field['label'], 'modern-events-calendar-lite' )
+						 . __( $field['label'], 'mec' )
 						 . ( $required ? '<span class="wbmec-mandatory">*</span>' : '' )
 						 . '</label>';
 
@@ -172,7 +172,7 @@ class DisplayFields {
 					case 'name':
 					case 'mec_email':
 
-						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? __( $field['placeholder'], 'modern-events-calendar-lite' ) : __( $field['label'], 'modern-events-calendar-lite' );
+						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? __( $field['placeholder'], 'mec' ) : __( $field['label'], 'mec' );
 						$input_html = '<input id="' . $html_id . '" class="' . $class . '" type="' . $field_type . '" name="rsvp[attendees][' . $j . '][' . $type . ']" value="' . trim( $value ) . '" placeholder="' . $placeholder . '" ' . $required . '  ' . $lock_field . '  ' . $attributes . '  />';
 
 						break;
@@ -182,13 +182,13 @@ class DisplayFields {
 					case 'email':
 					case 'tel':
 
-						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? __( $field['placeholder'], 'modern-events-calendar-lite' ) : __( $field['label'], 'modern-events-calendar-lite' );
+						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? __( $field['placeholder'], 'mec' ) : __( $field['label'], 'mec' );
 						$input_html = '<input id="' . $html_id . '" class="' . $class . '" type="' . $field_type . '" name="' . $field_name . '" value="' . trim( $value ) . '" placeholder="' . $placeholder . '" ' . $required . '  ' . $lock_field . '  ' . $attributes . '  />';
 
 						break;
 					case 'textarea':
 
-						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? __( $field['placeholder'], 'modern-events-calendar-lite' ) : __( $field['label'], 'modern-events-calendar-lite' );
+						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? __( $field['placeholder'], 'mec' ) : __( $field['label'], 'mec' );
 						$input_html = '<textarea id="' . $html_id . '" class="' . $class . '" name="' . $field_name . '" value="' . trim( $value ) . '" placeholder="' . $placeholder . '" ' . $required . '  ' . $lock_field . '  ' . $attributes . '  ></textarea>';
 
 						break;
@@ -201,8 +201,8 @@ class DisplayFields {
 						$options = isset($field['options']) ? $field['options'] : [];
 						foreach ( $options as $field_option ) {
 							$rd++;
-							$option_text  = isset( $field_option['label'] ) ? __( $field_option['label'], 'modern-events-calendar-lite' ) : '';
-							$option_value = ( $rd === 1 and isset( $field['ignore'] ) and $field['ignore'] ) ? '' : esc_attr__( $field_option['label'], 'modern-events-calendar-lite' );
+							$option_text  = isset( $field_option['label'] ) ? __( $field_option['label'], 'mec' ) : '';
+							$option_value = ( $rd === 1 and isset( $field['ignore'] ) and $field['ignore'] ) ? '' : esc_attr__( $field_option['label'], 'mec' );
 
 							$input_html .= '<option value="' . $option_value . '" ' . selected( $selected, $option_value, false ) . '>' . $option_text . '</option>';
 						}
@@ -213,11 +213,11 @@ class DisplayFields {
 					case 'checkbox':
 						$options = isset($field['options']) ? $field['options'] : [];
 						foreach ( $options as $field_option ) {
-							$current_value = __( $field_option['label'], 'modern-events-calendar-lite' );
+							$current_value = __( $field_option['label'], 'mec' );
 							$checked = in_array($current_value,(array)$value);
 							$input_html .= '<label for="' . $html_id . $j . '_' . strtolower( str_replace( ' ', '_', $field_option['label'] ) ) . '">'
 								 . '<input type="' . $field_type . '" id="mec_' . $form_type . '_field_' . $type . $j . '_' . $field_id . '_' . strtolower( str_replace( ' ', '_', $field_option['label'] ) ) . '" name="' . $field_name . '[]" value="' . $current_value . '" '.checked($checked,true,false).'/>'
-								 . __( $field_option['label'], 'modern-events-calendar-lite' )
+								 . __( $field_option['label'], 'mec' )
 								 . '</label>';
 						}
 
@@ -228,7 +228,7 @@ class DisplayFields {
 						$input_html = '<label for="' . $html_id . $j . '">'
 							 . '<input type="checkbox" id="' . $html_id . $j . '" name="' . $field_name . '" value="1" ' . checked( $checked, 'checked', false ) . ' onchange="mec_agreement_change(this);"/>'
 							 . ( $required ? '<span class="wbmec-mandatory">*</span>' : '' )
-							 . sprintf( __( stripslashes( $field['label'] ), 'modern-events-calendar-lite' ), '<a href="' . get_the_permalink( $field['page'] ) . '" target="_blank">' . get_the_title( $field['page'] ) . '</a>' )
+							 . sprintf( __( stripslashes( $field['label'] ), 'mec' ), '<a href="' . get_the_permalink( $field['page'] ) . '" target="_blank">' . get_the_title( $field['page'] ) . '</a>' )
 							 . '</label>';
 
 						break;

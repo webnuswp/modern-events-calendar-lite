@@ -33,7 +33,7 @@ $options = $atts['options'];
 
         <div class="mec-form-row">
             <div class="mec-col-3">
-                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_subject"><?php _e('Email Subject', 'modern-events-calendar-lite'); ?></label>
+                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_subject"><?php _e('Email Subject', 'mec'); ?></label>
             </div>
             <div class="mec-col-9">
                 <input type="text" name="<?php echo $base_field_name; ?>[<?php echo $group_id; ?>_notification][subject]" id="mec_notifications_<?php echo $group_id;  ?>_notification_subject" value="<?php echo (isset($options['subject']) ? stripslashes($options['subject']) : ''); ?>" />
@@ -43,7 +43,7 @@ $options = $atts['options'];
         <!-- Start Receiver Users -->
         <div class="mec-form-row">
             <div class="mec-col-3">
-                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_receiver_users"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></label>
+                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_receiver_users"><?php _e('Receiver Users', 'mec'); ?></label>
             </div>
             <div class="mec-col-9">
                 <?php
@@ -52,8 +52,8 @@ $options = $atts['options'];
                 ?>
                 <span class="mec-tooltip">
                     <div class="box left">
-                        <h5 class="title"><?php _e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                        <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                        <h5 class="title"><?php _e('Receiver Users', 'mec'); ?></h5>
+                        <div class="content"><p><?php esc_attr_e('Select users to send a copy of email to them!', 'mec'); ?></p></div>
                     </div>
                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                 </span>
@@ -64,7 +64,7 @@ $options = $atts['options'];
         <!-- Start Receiver Roles -->
         <div class="mec-form-row">
             <div class="mec-col-3">
-                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_receiver_roles"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></label>
+                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_receiver_roles"><?php _e('Receiver Roles', 'mec'); ?></label>
             </div>
             <div class="mec-col-9">
                 <?php
@@ -73,8 +73,8 @@ $options = $atts['options'];
                 ?>
                 <span class="mec-tooltip">
                     <div class="box left">
-                        <h5 class="title"><?php _e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                        <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                        <h5 class="title"><?php _e('Receiver Roles', 'mec'); ?></h5>
+                        <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'mec'); ?></p></div>
                     </div>
                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                 </span>
@@ -84,14 +84,14 @@ $options = $atts['options'];
 
         <div class="mec-form-row">
             <div class="mec-col-3">
-                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_recipients"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></label>
+                <label for="mec_notifications_<?php echo $group_id;  ?>_notification_recipients"><?php _e('Custom Recipients', 'mec'); ?></label>
             </div>
             <div class="mec-col-9">
                 <input type="text" name="<?php echo $base_field_name; ?>[<?php echo $group_id; ?>_notification][recipients]" id="mec_notifications_<?php echo $group_id;  ?>_notification_recipients" value="<?php echo (isset($options['recipients']) ? $options['recipients'] : ''); ?>" />
                 <span class="mec-tooltip">
                     <div class="box left">
-                        <h5 class="title"><?php _e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                        <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                        <h5 class="title"><?php _e('Custom Recipients', 'mec'); ?></h5>
+                        <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'mec'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php _e('Read More', 'mec'); ?></a></p></div>
                     </div>
                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                 </span>
@@ -101,7 +101,7 @@ $options = $atts['options'];
         <?php do_action( 'mec_notifications_settings_before_editor', $group_id, $options ); ?>
 
         <div class="mec-form-row">
-            <label for="mec_notifications_<?php echo $group_id;  ?>_notification_content"><?php _e('Email Content', 'modern-events-calendar-lite'); ?></label>
+            <label for="mec_notifications_<?php echo $group_id;  ?>_notification_content"><?php _e('Email Content', 'mec'); ?></label>
             <?php
             $content = isset($options['content']) ? stripslashes($options['content']) : '';
             wp_editor(
@@ -118,7 +118,7 @@ $options = $atts['options'];
 
         <div class="mec-form-row">
             <div class="mec-col-12">
-                <p class="description"><?php _e('You can use the following placeholders', 'modern-events-calendar-lite'); ?></p>
+                <p class="description"><?php _e('You can use the following placeholders', 'mec'); ?></p>
                 <ul>
                     <?php foreach($placeholders as $p_key => $p_text): ?>
                         <li><span><?php echo $p_key ?></span>: <?php echo $p_text; ?></li>

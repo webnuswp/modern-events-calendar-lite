@@ -11,10 +11,10 @@ class Book extends PostBase {
 	 *
 	 * @param int|\WP_Post|array $data
 	 */
-	public function __construct( $data ) {
+	public function __construct( $data, $load_post = true ) {
 
 		$this->type = 'book';
-		parent::__construct( $data );
+		parent::__construct( $data, $load_post );
 	}
 
 	/**
@@ -103,18 +103,18 @@ class Book extends PostBase {
 		switch ( $status ) {
 			case '-1':
 
-				$text = __('Rejected', 'modern-events-calendar-lite');
+				$text = __('Rejected', 'mec');
 
 				break;
 			case '1':
 
-				$text = __('Confirmed', 'modern-events-calendar-lite');
+				$text = __('Confirmed', 'mec');
 
 				break;
 			case '0':
 			default:
 
-				$text = __('Pending', 'modern-events-calendar-lite');
+				$text = __('Pending', 'mec');
 
 				break;
 		}
@@ -183,18 +183,18 @@ class Book extends PostBase {
 		switch ( $status ) {
 			case '-1':
 
-				$text = __('Canceled', 'modern-events-calendar-lite');
+				$text = __('Canceled', 'mec');
 
 				break;
 			case '1':
 
-				$text = __('Verified', 'modern-events-calendar-lite');
+				$text = __('Verified', 'mec');
 
 				break;
 			case '0':
 			default:
 
-				$text = __('Waiting', 'modern-events-calendar-lite');
+				$text = __('Waiting', 'mec');
 
 				break;
 		}

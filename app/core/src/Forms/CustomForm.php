@@ -73,7 +73,7 @@ class CustomForm extends Singleton {
 				array(
 					'mandatory' => '0',
 					'type'      => 'name',
-					'label'     => esc_html__( 'Name', 'modern-events-calendar-lite' ),
+					'label'     => esc_html__( 'Name', 'mec' ),
 				)
 			);
 		}
@@ -84,7 +84,7 @@ class CustomForm extends Singleton {
 				array(
 					'mandatory' => '0',
 					'type'      => 'mec_email',
-					'label'     => esc_html__( 'Email', 'modern-events-calendar-lite' ),
+					'label'     => esc_html__( 'Email', 'mec' ),
 				)
 			);
 		}

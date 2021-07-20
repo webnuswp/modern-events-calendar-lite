@@ -70,67 +70,67 @@ class SettingsForm extends Singleton {
 		$elements = array(
 				'name'      => array(
 						'required' => true,
-						'text'     => __( 'MEC Name', 'modern-events-calendar-lite' ),
+						'text'     => __( 'MEC Name', 'mec' ),
 						'class'    => 'red',
 				),
 				'mec_email' => array(
 						'required' => true,
-						'text'     => __( 'MEC Email', 'modern-events-calendar-lite' ),
+						'text'     => __( 'MEC Email', 'mec' ),
 						'class'    => 'red',
 				),
 				'text'      => array(
 						'required' => false,
-						'text'     => __( 'Text', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Text', 'mec' ),
 						'class'    => '',
 				),
 				'email'     => array(
 						'required' => false,
-						'text'     => __( 'Email', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Email', 'mec' ),
 						'class'    => '',
 				),
 				'date'      => array(
 						'required' => false,
-						'text'     => __( 'Date', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Date', 'mec' ),
 						'class'    => '',
 				),
 				'tel'       => array(
 						'required' => false,
-						'text'     => __( 'Tel', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Tel', 'mec' ),
 						'class'    => '',
 				),
 				'file'      => array(
 						'required' => false,
-						'text'     => __( 'File', 'modern-events-calendar-lite' ),
+						'text'     => __( 'File', 'mec' ),
 						'class'    => '',
 				),
 				'textarea'  => array(
 						'required' => false,
-						'text'     => __( 'Textarea', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Textarea', 'mec' ),
 						'class'    => '',
 				),
 				'checkbox'  => array(
 						'required' => false,
-						'text'     => __( 'Checkboxes', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Checkboxes', 'mec' ),
 						'class'    => '',
 				),
 				'radio'     => array(
 						'required' => false,
-						'text'     => __( 'Radio Buttons', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Radio Buttons', 'mec' ),
 						'class'    => '',
 				),
 				'select'    => array(
 						'required' => false,
-						'text'     => __( 'Dropdown', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Dropdown', 'mec' ),
 						'class'    => '',
 				),
 				'agreement' => array(
 						'required' => false,
-						'text'     => __( 'Agreement', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Agreement', 'mec' ),
 						'class'    => '',
 				),
 				'p'         => array(
 						'required' => false,
-						'text'     => __( 'Paragraph', 'modern-events-calendar-lite' ),
+						'text'     => __( 'Paragraph', 'mec' ),
 						'class'    => '',
 				),
 		);
