@@ -26,12 +26,9 @@ class MEC_factory extends MEC_base
      */
     public function __construct()
     {
-        if($this->getPRO())
-        {
-            // Load Vendors
-            require_once MEC_ABSPATH.'app/vendor/autoload.php';
-        }
-
+        // Load Vendors
+        require_once MEC_ABSPATH.'app/vendor/autoload.php';
+        
         // MEC Main library
         $this->main = $this->getMain();
         
