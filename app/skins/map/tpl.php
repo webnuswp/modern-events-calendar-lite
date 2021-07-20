@@ -40,6 +40,8 @@ if(count($this->events))
             sf:
             {
                 container: "'.($this->sf_status ? '#mec_search_form_'.$this->id : '').'",
+                reset: '.($this->sf_reset_button ? 1 : 0).',
+                refine: '.($this->sf_refine ? 1 : 0).',
             },
         });
     });

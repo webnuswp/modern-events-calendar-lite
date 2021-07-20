@@ -236,10 +236,13 @@ class MEC_feature_ix extends MEC_base
             $gateway = new MEC_gateway();
             $book = $this->getBook();
 
+            $r = 0;
             while(($data = fgetcsv($h, 1000, ",")) !== false)
             {
+                $r++;
+
                 $booking_id = $data[0];
-                if(!is_numeric($booking_id)) continue;
+                if($r === 1 and !is_numeric($booking_id)) continue;
 
                 $event_title = $data[1];
                 $event_id = post_exists($event_title, '', '', $this->main->get_main_post_type());

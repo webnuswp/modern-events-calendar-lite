@@ -53,6 +53,8 @@ class MEC_skin_monthly_view extends MEC_skins
         // Search Form Status
         $this->sf_status = isset($this->atts['sf_status']) ? $this->atts['sf_status'] : true;
         $this->sf_display_label = isset($this->atts['sf_display_label']) ? $this->atts['sf_display_label'] : false;
+        $this->sf_reset_button = isset($this->atts['sf_reset_button']) ? $this->atts['sf_reset_button'] : false;
+        $this->sf_refine = isset($this->atts['sf_refine']) ? $this->atts['sf_refine'] : false;
         
         // The events
         $this->events_str = '';
@@ -100,6 +102,9 @@ class MEC_skin_monthly_view extends MEC_skins
 
         // Display Price
         $this->display_price = (isset($this->skin_options['display_price']) and trim($this->skin_options['display_price'])) ? true : false;
+
+        // Detailed Time
+        $this->display_detailed_time = (isset($this->skin_options['detailed_time']) and trim($this->skin_options['detailed_time'])) ? true : false;
         
         // Init MEC
         $this->args['mec-init'] = true;
@@ -175,7 +180,7 @@ class MEC_skin_monthly_view extends MEC_skins
         if($this->show_only_expired_events)
         {
             $start = date('Y-m-d H:i:s', current_time('timestamp', 0));
-            $end = $this->start_date;
+            $end = date('Y-m-d', strtotime('first day of this month'));
 
             $this->weeks = $this->main->split_to_weeks($end, $start);
 

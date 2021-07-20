@@ -79,7 +79,7 @@ elseif($week_start == 5) // Friday
                     // Event Content
                     if(!$this->cache->has($event->data->ID.'_content'))
                     {
-                        $event_content = ((isset($event->data->content) and trim($event->data->content) != '') ? $this->main->mec_content_html($event->data->content, 320) : '');
+                        $event_content = ((isset($event->data->content) and trim($event->data->content) != '') ? mb_substr(strip_tags($event->data->content), 0, 320) : '');
                         $this->cache->set($event->data->ID.'_content', $event_content);
                     }
                     else $event_content = $this->cache->get($event->data->ID.'_content');
@@ -92,8 +92,11 @@ elseif($week_start == 5) // Friday
                     echo '</div>';
 
                     $tooltip_content = '';
-                    $tooltip_content .= !empty( $event->data->title) ? '<div class="mec-tooltip-event-title">'.$event->data->title.'</div>' : '';
-                    $tooltip_content .= trim($start_time) ? '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>' : '';
+                    $tooltip_content .= !empty($event->data->title) ? '<div class="mec-tooltip-event-title">'.$event->data->title.'</div>' : '';
+
+                    if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $tooltip_content .= '<div class="mec-event-detailed-time mec-tooltip-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
+                    elseif(trim($start_time)) $tooltip_content .= '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
                     $tooltip_content .= $this->display_cost($event);
 
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '';

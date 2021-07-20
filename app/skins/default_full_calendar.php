@@ -58,6 +58,8 @@ class MEC_skin_default_full_calendar extends MEC_skins
         // Search Form Status
         $this->sf_status = isset($this->atts['sf_status']) ? $this->atts['sf_status'] : true;
         $this->sf_display_label = isset($this->atts['sf_display_label']) ? $this->atts['sf_display_label'] : false;
+        $this->sf_reset_button = isset($this->atts['sf_reset_button']) ? $this->atts['sf_reset_button'] : false;
+        $this->sf_refine = isset($this->atts['sf_refine']) ? $this->atts['sf_refine'] : false;
         
         // Show Only Expired Events
         $this->show_only_expired_events = (isset($this->atts['show_only_past_events']) and trim($this->atts['show_only_past_events'])) ? '1' : '0';

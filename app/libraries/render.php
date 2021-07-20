@@ -611,6 +611,7 @@ class MEC_render extends MEC_base
             'full'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'full')),
             'tileview'=>esc_url($this->main->get_post_thumbnail_url($post_id, 'tileview'))
         ), $post_id);
+
         $data->featured_image = $dataFeaturedImage;
 
         $taxonomies = array('mec_label', 'mec_organizer', 'mec_location', 'mec_category', apply_filters('mec_taxonomy_tag', ''));
@@ -629,7 +630,15 @@ class MEC_render extends MEC_base
                 $locations = array('id'=>$term->term_id, 'name'=>$term->name, 'address'=>get_metadata('term', $term->term_id, 'address', true), 'latitude'=>get_metadata('term', $term->term_id, 'latitude', true), 'longitude'=>get_metadata('term', $term->term_id, 'longitude', true), 'url'=>get_metadata('term', $term->term_id, 'url', true), 'thumbnail'=>get_metadata('term', $term->term_id, 'thumbnail', true));
                 $data->locations[$term->term_id] = apply_filters('mec_map_load_location_terms', $locations, $term);
             }
-            elseif($term->taxonomy == 'mec_category') $data->categories[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name);
+            elseif($term->taxonomy == 'mec_category')
+            {
+                $data->categories[$term->term_id] = array(
+                    'id'=>$term->term_id,
+                    'name'=>$term->name,
+                    'icon'=>get_metadata('term', $term->term_id, 'mec_cat_icon', true),
+                    'color'=>get_metadata('term', $term->term_id, 'mec_cat_color', true),
+                );
+            }
             elseif($term->taxonomy == apply_filters('mec_taxonomy_tag', '')) $data->tags[$term->term_id] = array('id'=>$term->term_id, 'name'=>$term->name);
             elseif($term->taxonomy == 'mec_speaker')
             {
@@ -864,7 +873,8 @@ class MEC_render extends MEC_base
 
             if($s_hour and $s_minutes and $s_ampm and strtotime($start_time))
             {
-                $event->date['start'] = array_merge($event->date['start'], array(
+                $d = ((isset($event->date['start']) and is_array($event->date['start'])) ? $event->date['start'] : array());
+                $event->date['start'] = array_merge($d, array(
                     'hour' => sprintf("%02d", $s_hour),
                     'minutes' => sprintf("%02d", $s_minutes),
                     'ampm' => $s_ampm,
@@ -874,7 +884,8 @@ class MEC_render extends MEC_base
 
             if($e_hour and $e_minutes and $e_ampm and strtotime($end_time))
             {
-                $event->date['end'] = array_merge($event->date['end'], array(
+                $d = ((isset($event->date['end']) and is_array($event->date['end'])) ? $event->date['end'] : array());
+                $event->date['end'] = array_merge($d, array(
                     'hour' => sprintf("%02d", $e_hour),
                     'minutes' => sprintf("%02d", $e_minutes),
                     'ampm' => $e_ampm,
@@ -928,6 +939,9 @@ class MEC_render extends MEC_base
                     // Set to Cache
                     $cache->set($key, array($second_start_time, $second_end_time));
                 }
+
+                // Flag to Multiple Day
+                $event->data->multipleday = 1;
 
                 $event->data->time['start_raw'] = $new_start_time;
                 $event->data->time['end_raw'] = $new_end_time;
@@ -1460,8 +1474,20 @@ class MEC_render extends MEC_base
             $timestamps[$timestamp_key] = true;
             $uniques[] = $date;
         }
-    
+
+        // Sort
+        usort($uniques, array($this, 'sort_dates'));
+
         return $uniques;
+    }
+
+    public function sort_dates($a, $b)
+    {
+        $a_timestamp = $a['start']['timestamp'];
+        $b_timestamp = $b['end']['timestamp'];
+
+        if($a_timestamp == $b_timestamp) return 0;
+        return ($a_timestamp > $b_timestamp) ? +1 : -1;
     }
 
     /**

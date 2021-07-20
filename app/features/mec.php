@@ -1114,6 +1114,20 @@ class MEC_feature_mec extends MEC_base
         </div>';
     }
 
+    public function display_detailed_time_field($skin, $value = 0)
+    {
+        return '<div class="mec-form-row mec-switcher">
+            <div class="mec-col-4">
+                <label for="mec_skin_'.$skin.'_detailed_time">'.__('Detailed Time', 'modern-events-calendar-lite').'</label>
+                <span>'.__('For Multiple Day Events', 'modern-events-calendar-lite').'</span>
+            </div>
+            <div class="mec-col-4">
+                <input type="hidden" name="mec[sk-options]['.$skin.'][detailed_time]" value="0" />
+                <input type="checkbox" name="mec[sk-options]['.$skin.'][detailed_time]" id="mec_skin_'.$skin.'_detailed_time" value="1" '.($value == '1' ? 'checked="checked"' : '').' /><label for="mec_skin_'.$skin.'_detailed_time"></label>
+            </div>
+        </div>';
+    }
+
     /**
      * Disable Gutenberg Editor for MEC Post Types
      * @param boolean $status

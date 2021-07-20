@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_daily_view $this */
+
 $this->localtime = isset($this->skin_options['include_local_time']) ? $this->skin_options['include_local_time'] : false;
 $display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
 $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
@@ -26,7 +28,13 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
             <article class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article <?php echo $this->get_event_classes($event); ?>">
                 <div class="mec-event-image"><?php echo $event->data->thumbnails['thumbnail']; ?></div>
                 <?php echo $this->get_label_captions($event); ?>
-                <?php if(trim($start_time)): ?><div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> <?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div><?php endif; ?>
+
+                <?php if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)): ?>
+                <div class="mec-event-detailed-time mec-event-time mec-color"><i class="mec-sl-clock-o"></i> <?php echo $this->display_detailed_time($event); ?></div>
+                <?php elseif(trim($start_time)): ?>
+                <div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> <?php echo $start_time.(trim($end_time) ? ' - '.$end_time : ''); ?></div>
+                <?php endif; ?>
+
                 <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
                 <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
                 <div class="mec-event-detail"><div class="mec-event-loc-place"><?php echo (isset($location['name']) ? $location['name'] : ''); ?><div></div>

@@ -15,6 +15,7 @@ class MEC_feature_events extends MEC_base
     public $PT;
     public $settings;
     public $render;
+
     /**
      * Constructor method
      *
@@ -263,6 +264,11 @@ class MEC_feature_events extends MEC_base
             <a href="<?php echo $this->main->asset('icon.html'); ?>?&width=680&height=450&inlineId=my-content-id"
                class="thickbox mec_category_icon button"><?php echo __('Select icon', 'modern-events-calendar-lite'); ?></a>
         </div>
+        <div class="form-field">
+            <label for="mec_cat_color"><?php _e('Color', 'modern-events-calendar-lite'); ?></label>
+            <input type="text" name="mec_cat_color" id="mec_cat_color" class="mec-color-picker" />
+            <p class="description"><?php _e('Optional category color', 'modern-events-calendar-lite'); ?></p>
+        </div>
         <?php if($fallback): ?>
         <div class="form-field">
             <label for="mec_thumbnail_button"><?php _e('Fallback Image', 'modern-events-calendar-lite'); ?></label>
@@ -292,6 +298,9 @@ class MEC_feature_events extends MEC_base
 
         // Icon
         $icon = get_metadata('term', $term->term_id, 'mec_cat_icon', true);
+
+        // Color
+        $color = get_metadata('term', $term->term_id, 'mec_cat_color', true);
         ?>
         <tr class="form-field">
             <th scope="row" >
@@ -304,6 +313,15 @@ class MEC_feature_events extends MEC_base
                 <?php if (isset($icon)) : ?>
                     <div class="mec-webnus-icon"><i class="<?php echo $icon; ?> mec-color"></i></div>
                 <?php endif; ?>
+            </td>
+        </tr>
+        <tr class="form-field">
+            <th scope="row" >
+                <label for="mec_cat_color"><?php _e('Color', 'modern-events-calendar-lite'); ?></label>
+            </th>
+            <td>
+                <input type="text" name="mec_cat_color" id="mec_cat_color" value="<?php echo $color; ?>" data-default-color="<?php echo $color; ?>" class="mec-color-picker" />
+                <p class="description"><?php _e('Optional category color', 'modern-events-calendar-lite'); ?></p>
             </td>
         </tr>
         <?php if($fallback): ?>
@@ -335,6 +353,9 @@ class MEC_feature_events extends MEC_base
 
         $icon = isset($_POST['mec_cat_icon']) ? sanitize_text_field($_POST['mec_cat_icon']) : '';
         update_term_meta($term_id, 'mec_cat_icon', $icon);
+
+        $color = isset($_POST['mec_cat_color']) ? sanitize_text_field($_POST['mec_cat_color']) : '';
+        update_term_meta($term_id, 'mec_cat_color', $color);
 
         $fallback = isset($_POST['fallback']) ? sanitize_text_field($_POST['fallback']) : '';
         update_term_meta($term_id, 'mec_cat_fallback_image', $fallback);
@@ -1248,8 +1269,12 @@ class MEC_feature_events extends MEC_base
             <h4><?php echo $this->main->m('event_cost', __('Event Cost', 'modern-events-calendar-lite')); ?></h4>
             <div id="mec_meta_box_cost_form">
                 <div class="mec-form-row">
-                    <input type="<?php echo ($type === 'alphabetic' ? 'text' : 'number'); ?>" <?php echo ($type === 'numeric' ? 'min="0" step="any"' : ''); ?> class="mec-col-3" name="mec[cost]" id="mec_cost"
-                           value="<?php echo esc_attr($cost); ?>" title="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>"/>
+                    <?php if( apply_filters( 'mec_event_cost_custom_field_status', false ) ): ?>
+                        <?php do_action( 'mec_event_cost_custom_field', $cost, $type, 'mec[cost]' ); ?>
+                    <?php else: ?>
+                        <input type="<?php echo ($type === 'alphabetic' ? 'text' : 'number'); ?>" <?php echo ($type === 'numeric' ? 'min="0" step="any"' : ''); ?> class="mec-col-3" name="mec[cost]" id="mec_cost"
+                            value="<?php echo esc_attr($cost); ?>" title="<?php _e('Cost', 'modern-events-calendar-lite'); ?>" placeholder="<?php _e('Cost', 'modern-events-calendar-lite'); ?>"/>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -2878,7 +2903,7 @@ class MEC_feature_events extends MEC_base
 
                         // New Trigger
                         mec_attendees_trigger_load_dates();
-                        
+
                         setTimeout(function()
                         {
                             jQuery('#mec_att_occurrences_dropdown').trigger('change');
@@ -2928,6 +2953,9 @@ class MEC_feature_events extends MEC_base
         // Check if our nonce is set.
         if(!isset($_POST['mec_event_nonce'])) return;
 
+        // It's from FES
+        if(isset($_POST['action']) and $_POST['action'] === 'mec_fes_form') return;
+
         // Verify that the nonce is valid.
         if(!wp_verify_nonce($_POST['mec_event_nonce'], 'mec_event_data')) return;
 
@@ -2962,7 +2990,14 @@ class MEC_feature_events extends MEC_base
         $more_info = (isset($_mec['more_info']) and trim($_mec['more_info'])) ? (strpos($_mec['more_info'], 'http') === false ? 'http://' . sanitize_text_field($_mec['more_info']) : sanitize_text_field($_mec['more_info'])) : '';
         $more_info_title = isset($_mec['more_info_title']) ? sanitize_text_field($_mec['more_info_title']) : '';
         $more_info_target = isset($_mec['more_info_target']) ? sanitize_text_field($_mec['more_info_target']) : '';
-        $cost = isset($_mec['cost']) ? sanitize_text_field($_mec['cost']) : '';
+
+        $cost = isset($_mec['cost']) ? $_mec['cost'] : '';
+        $cost = apply_filters(
+            'mec_event_cost_sanitize',
+            sanitize_text_field($cost),
+            $cost
+        );
+
         $currency_options = ((isset($_mec['currency']) and is_array($_mec['currency'])) ? $_mec['currency'] : array());
 
         update_post_meta($post_id, 'mec_location_id', $location_id);
@@ -4575,7 +4610,7 @@ class MEC_feature_events extends MEC_base
 
         return $fallback_image_id;
     }
-    
+
     public function mec_event_bookings()
     {
         $id = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : 0;

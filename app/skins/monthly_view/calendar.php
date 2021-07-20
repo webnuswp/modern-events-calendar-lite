@@ -79,7 +79,10 @@ $events_str = '';
                     $events_str .= '<article class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                     $events_str .= $this->get_label_captions($event);
-                    if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
+                    if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $events_str .= '<div class="mec-event-detailed-time mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
+                    elseif(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
                     $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                     $events_str .= '<h4 class="mec-event-title">'.$this->display_link($event).$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
@@ -137,7 +140,10 @@ $events_str = '';
                     $events_str .= '<article class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                     $events_str .= $this->get_label_captions($event);
-                    if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
+                    if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $events_str .= '<div class="mec-event-detailed-time mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
+                    elseif(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
                     $event_color =  isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                     $events_str .= '<h4 class="mec-event-title">'.$this->display_link($event).$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                     if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);
@@ -222,7 +228,10 @@ $events_str = '';
                         $events_str .= '<article class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative mec-event-article '.$this->get_event_classes($event).'">';
                         $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumbnail'].'</div>';
                         $events_str .= $this->get_label_captions($event);
-                        if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
+                        if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $events_str .= '<div class="mec-event-detailed-time mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
+                        elseif(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
                         $event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
                         $events_str .= '<h4 class="mec-event-title">'.$this->display_link($event).$this->main->get_flags($event).$event_color.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
                         if(has_filter('mec_monthly_virtual_badge')) $events_str .= apply_filters('mec_monthly_virtual_badge', $events_str, $event->data->ID);

@@ -8059,12 +8059,12 @@ class MEC_main extends MEC_base
         $end_date = (isset($date['end']) and isset($date['end']['date'])) ? $date['end']['date'] : NULL;
         if(!$end_date) return false;
 
-        $e_hour = (isset($date['end']['hour']) ? $date['end']['hour'] : NULL);
+        $e_hour = (isset($date['end']['hour']) ? $date['end']['hour'] : 11);
         if(isset($date['end']['ampm']) and strtoupper($date['end']['ampm']) == 'AM' and $e_hour == '0') $e_hour = 12;
 
         $end_time = sprintf("%02d", $e_hour).':';
-        $end_time .= sprintf("%02d", (isset($date['end']['minutes']) ? $date['end']['minutes'] : NULL));
-        $end_time .= ' '.(isset($date['end']['ampm']) ? trim($date['end']['ampm']) : '');
+        $end_time .= sprintf("%02d", (isset($date['end']['minutes']) ? $date['end']['minutes'] : 59));
+        $end_time .= ' '.(isset($date['end']['ampm']) ? trim($date['end']['ampm']) : 'PM');
 
         $allday = isset($date['allday']) ? $date['allday'] : 0;
         if($allday) $end_time = '11:59 PM';
@@ -8215,6 +8215,9 @@ class MEC_main extends MEC_base
 
     public function is_multipleday_occurrence($event, $check_same_month = false)
     {
+        // Multiple Day Flag
+        if(isset($event->data) and isset($event->data->multipleday)) return (boolean) $event->data->multipleday;
+
         $start_date = ((isset($event->date) and isset($event->date['start']) and isset($event->date['start']['date'])) ? $event->date['start']['date'] : NULL);
         $end_date = ((isset($event->date) and isset($event->date['end']) and isset($event->date['end']['date'])) ? $event->date['end']['date'] : NULL);
 
@@ -8281,7 +8284,8 @@ class MEC_main extends MEC_base
         return $dropdown;
     }
 
-    public function wizard_import_dummy_events() {
+    public function wizard_import_dummy_events()
+    {
         if(apply_filters('mec_activation_import_events', true))
         {
             // Create Default Events
@@ -8299,7 +8303,8 @@ class MEC_main extends MEC_base
         }
     }
 
-    public function wizard_import_dummy_shortcodes() {
+    public function wizard_import_dummy_shortcodes()
+    {
         if(apply_filters('mec_activation_import_shortcodes', true))
         {
             // Search Form Options
@@ -8345,13 +8350,13 @@ class MEC_main extends MEC_base
         }
     }
 
-    public function save_wizard_options() {
+    public function save_wizard_options()
+    {
         $request = $this->getRequest();
         $mec = $request->getVar('mec', array());
 
         $filtered = array();
         foreach($mec as $key=>$value) $filtered[$key] = (is_array($value) ? $value : array());
-
 
         $current = get_option('mec_options', array());
         $final = $current;
@@ -8375,7 +8380,6 @@ class MEC_main extends MEC_base
         }
 
         update_option('mec_options', $final);
-
         die();
     }
 
@@ -8387,6 +8391,13 @@ class MEC_main extends MEC_base
 
     public function get_event_attendees($id, $occurrence = NULL, $verified = true)
     {
+        $allday = get_post_meta($id, 'mec_allday', true);
+        if($allday and $occurrence)
+        {
+            $start_seconds = get_post_meta($id, 'mec_start_day_seconds', true);
+            $occurrence = ($occurrence - 60) + $start_seconds;
+        }
+
         $date_query = array();
         if($occurrence)
         {

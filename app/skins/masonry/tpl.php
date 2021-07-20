@@ -11,7 +11,7 @@ $items_html = ob_get_clean();
 
 if(isset($this->atts['return_items']) and $this->atts['return_items'])
 {
-    echo json_encode(array('html'=>$items_html, 'end_date'=>$this->end_date, 'offset'=>($this->next_offset +1), 'count'=>$this->found, 'current_month_divider'=>$current_month_divider));
+    echo json_encode(array('html'=>$items_html, 'end_date'=>$this->end_date, 'offset'=>($this->next_offset +1), 'count'=>$this->found, 'current_month_divider'=>$current_month_divider, 'has_more_event' => (int) $this->has_more_events));
     exit;
 }
 
@@ -39,7 +39,9 @@ jQuery(document).ready(function()
         fit_to_row: "'.$this->fit_to_row.'",
         sf:
         {
-            container: "'.($this->sf_status ? '#mec_search_form_'.$this->id : '').'"
+            container: "'.($this->sf_status ? '#mec_search_form_'.$this->id : '').'",
+            reset: '.($this->sf_reset_button ? 1 : 0).',
+            refine: '.($this->sf_refine ? 1 : 0).',
         }
     });
 });
@@ -76,7 +78,7 @@ do_action('mec_masonry_skin_head');
     <?php endif; ?>
     
     <?php if($this->load_more_button and $this->found >= $this->limit): ?>
-    <div class="mec-load-more-wrap"><div class="mec-load-more-button" onclick=""><?php echo __('Load More', 'modern-events-calendar-lite'); ?></div></div>
+    <div class="mec-load-more-wrap"><div class="mec-load-more-button <?php echo ($this->has_more_events ? '' : 'mec-util-hidden'); ?>"><?php echo __('Load More', 'modern-events-calendar-lite'); ?></div></div>
     <?php endif; ?>
 </div>
 <?php do_action('mec_masonry_customization'); ?>

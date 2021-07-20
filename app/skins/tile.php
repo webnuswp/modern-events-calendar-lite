@@ -68,6 +68,8 @@ class MEC_skin_tile extends MEC_skins
         // Search Form Status
         $this->sf_status = isset($this->atts['sf_status']) ? $this->atts['sf_status'] : true;
         $this->sf_display_label = isset($this->atts['sf_display_label']) ? $this->atts['sf_display_label'] : false;
+        $this->sf_reset_button = isset($this->atts['sf_reset_button']) ? $this->atts['sf_reset_button'] : false;
+        $this->sf_refine = isset($this->atts['sf_refine']) ? $this->atts['sf_refine'] : false;
 
         // Generate an ID for the sking
         $this->id = isset($this->atts['id']) ? $this->atts['id'] : mt_rand(100, 999);
@@ -193,6 +195,9 @@ class MEC_skin_tile extends MEC_skins
         // Limit
         $this->args['posts_per_page'] = $this->limit;
 
+        $last_timestamp = NULL;
+        $last_event_id = NULL;
+
         $i = 0;
         $found = 0;
         $events = array();
@@ -250,7 +255,12 @@ class MEC_skin_tile extends MEC_skins
                             'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
                         );
 
-                        $d[] = $this->render->after_render($data, $this, $i);
+                        $event_data = $this->render->after_render($data, $this, $i);
+
+                        $last_timestamp = $event_data->data->time['start_timestamp'];
+                        $last_event_id = $ID;
+
+                        $d[] = $event_data;
                         $found++;
                     }
 
@@ -281,6 +291,9 @@ class MEC_skin_tile extends MEC_skins
 
         // Set found events
         $this->found = $found;
+
+        // Has More Events
+        if($last_timestamp and $last_event_id) $this->has_more_events = (boolean) $this->db->select("SELECT COUNT(id) FROM `#__mec_dates` WHERE `tstart` >= ".$last_timestamp." AND `post_id`!='".$last_event_id."'", 'loadResult');
 
         return $events;
     }

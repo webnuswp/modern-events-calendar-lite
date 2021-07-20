@@ -1,188 +1,270 @@
 // MEC Single Event Displayer
-var mecSingleEventDisplayer = {
-    getSinglePage: function (id, occurrence, time, ajaxurl, layout, image_popup) {
-        if (jQuery('.mec-modal-result').length === 0) jQuery('.mec-wrap').append('<div class="mec-modal-result"></div>');
+var mecSingleEventDisplayer =
+{
+    getSinglePage: function(id, occurrence, time, ajaxurl, layout, image_popup)
+    {
+        if(jQuery('.mec-modal-result').length === 0) jQuery('.mec-wrap').append('<div class="mec-modal-result"></div>');
         jQuery('.mec-modal-result').addClass('mec-modal-preloader');
 
-        jQuery.ajax({
+        jQuery.ajax(
+        {
             url: ajaxurl,
             data: "action=mec_load_single_page&id=" + id + (occurrence != null ? "&occurrence=" + occurrence : "") + (time != null ? "&time=" + time : "") + "&layout=" + layout,
             type: "get",
-            success: function (response) {
+            success: function(response)
+            {
                 jQuery('.mec-modal-result').removeClass("mec-modal-preloader");
-                //lity(response);
                 jQuery.featherlight(response);
 
-                setTimeout(function () {
-                    if (typeof grecaptcha !== 'undefined' && jQuery('#g-recaptcha').length > 0) {
+                setTimeout(function()
+                {
+                    if(typeof grecaptcha !== 'undefined' && jQuery('#g-recaptcha').length > 0)
+                    {
                         grecaptcha.render("g-recaptcha", {
                             sitekey: mecdata.recapcha_key
                         });
                     }
                 }, 1000);
 
-                if (image_popup != 0) {
-                    if (jQuery('.featherlight-content .mec-events-content a img').length > 0) {
-                        jQuery('.featherlight-content .mec-events-content a img').each(function () {
+                if(image_popup != 0)
+                {
+                    if(jQuery('.featherlight-content .mec-events-content a img').length > 0)
+                    {
+                        jQuery('.featherlight-content .mec-events-content a img').each(function()
+                        {
                             jQuery(this).closest('a').attr('data-featherlight', 'image');
                         });
                     }
-                } else {
+                }
+                else
+                {
                     jQuery('.featherlight-content .mec-events-content a img').remove();
                     jQuery('.featherlight-content .mec-events-content img').remove();
                 }
 
-                if (typeof mecdata.enableSingleFluent != 'undefined' && mecdata.enableSingleFluent) {
+                if(typeof mecdata.enableSingleFluent != 'undefined' && mecdata.enableSingleFluent)
+                {
                     mecFluentSinglePage();
                 }
             },
-            error: function () { }
+            error: function(){}
         });
     }
 };
 
 // MEC SEARCH FORM PLUGIN
-(function ($) {
-    $.fn.mecSearchForm = function (options) {
+(function($)
+{
+    $.fn.mecSearchForm = function(options)
+    {
         // Default Options
         var settings = $.extend({
             // These are the defaults.
             id: 0,
+            refine: 0,
+            ajax_url: '',
             search_form_element: '',
             atts: '',
-            callback: function () { }
+            callback: function(){}
         }, options);
 
         var $event_cost_min = $("#mec_sf_event_cost_min_" + settings.id);
         var $event_cost_max = $("#mec_sf_event_cost_max_" + settings.id);
         var $time_start = $("#mec_sf_timepicker_start_" + settings.id);
         var $time_end = $("#mec_sf_timepicker_end_" + settings.id);
-        var $category = $("#mec_sf_category_" + settings.id);
+        var $s = $("#mec_sf_s_" + settings.id);
+        var $address = $("#mec_sf_address_s_" + settings.id);
+        var $date_start = $('#mec_sf_date_start_' + settings.id);
+        var $date_end = $('#mec_sf_date_end_' + settings.id);
+        var $event_type = $('#mec_sf_event_type_' + settings.id);
+        var $event_type_2 = $('#mec_sf_event_type_2_' + settings.id);
+        var $attribute = $('#mec_sf_attribute_' + settings.id);
+        var $reset = $("#mec_search_form_" + settings.id + '_reset');
+        var last_field;
 
-        $category.on('change', function (e) {
+        // Trigger
+        trigger();
+
+        $s.on('change', function(e)
+        {
+            last_field = 's';
             search();
         });
 
-        $("#mec_sf_location_" + settings.id).on('change', function (e) {
+        $address.on('change', function(e)
+        {
+            last_field = 'address';
             search();
         });
 
-        $("#mec_sf_organizer_" + settings.id).on('change', function (e) {
-            search();
-        });
-
-        $("#mec_sf_speaker_" + settings.id).on('change', function (e) {
-            search();
-        });
-
-        $("#mec_sf_tag_" + settings.id).on('change', function (e) {
-            search();
-        });
-
-        $("#mec_sf_label_" + settings.id).on('change', function (e) {
-            search();
-        });
-
-        $("#mec_sf_s_" + settings.id).on('change', function (e) {
-            search();
-        });
-
-        $("#mec_sf_address_s_" + settings.id).on('change', function (e) {
-            search();
-        });
-
-        $event_cost_min.on('change', function (e) {
+        $event_cost_min.on('change', function(e)
+        {
+            last_field = 'cost-min';
             $event_cost_max.attr('min', $(this).val());
             search();
         });
 
-        $event_cost_max.on('change', function (e) {
+        $event_cost_max.on('change', function(e)
+        {
+            last_field = 'cost-max';
             $event_cost_min.attr('max', $(this).val());
             search();
         });
 
         // Timepicker
-        if ($time_start.length) {
+        if($time_start.length)
+        {
             var format = (($time_start.data('format') === 12) ? 'hh:mm p' : 'HH:mm');
             $time_start.timepicker(
+            {
+                timeFormat: format,
+                minTime: new Date(0, 0, 0, 0, 0, 0),
+                maxTime: new Date(0, 0, 0, 23, 55, 0),
+                interval: 5,
+                dropdown: false,
+                change: function()
                 {
-                    timeFormat: format,
-                    minTime: new Date(0, 0, 0, 0, 0, 0),
-                    maxTime: new Date(0, 0, 0, 23, 55, 0),
-                    interval: 5,
-                    dropdown: false,
-                    change: function () {
-                        search();
-                    }
-                });
+                    last_field = 'time-start';
+                    search();
+                }
+            });
 
             $time_end.timepicker(
+            {
+                timeFormat: format,
+                minTime: new Date(0, 0, 0, 0, 0, 0),
+                maxTime: new Date(0, 0, 0, 23, 55, 0),
+                interval: 5,
+                dropdown: false,
+                change: function()
                 {
-                    timeFormat: format,
-                    minTime: new Date(0, 0, 0, 0, 0, 0),
-                    maxTime: new Date(0, 0, 0, 23, 55, 0),
-                    interval: 5,
-                    dropdown: false,
-                    change: function () {
-                        search();
-                    }
-                });
+                    last_field = 'time-end';
+                    search();
+                }
+            });
         }
 
-        var mec_sf_month_selector = "#mec_sf_month_" + settings.id;
-        var mec_sf_year_selector = "#mec_sf_year_" + settings.id;
-        mec_sf_month_selector += (', ' + mec_sf_year_selector);
+        var $month = $("#mec_sf_month_" + settings.id);
+        var $year = $("#mec_sf_year_" + settings.id);
+        var $month_or_year = $("#mec_sf_month_" + settings.id + ', ' + "#mec_sf_year_" + settings.id);
 
-        $(mec_sf_month_selector).on('change', function (e) {
-            if ($(mec_sf_year_selector).find('option:eq(0)').val() == 'none') {
-                var mec_month_val = $(mec_sf_month_selector).val();
-                var mec_year_val = $(mec_sf_year_selector).val();
+        $month_or_year.on('change', function(e)
+        {
+            last_field = 'date-dropdown';
 
-                if ((mec_month_val != 'none' && mec_year_val != 'none') || ((mec_month_val == 'none' && mec_year_val == 'none'))) search();
-            }
-            else search();
+            var mec_month_val = $month.val();
+            var mec_year_val = $year.val();
+
+            if((mec_month_val !== 'none' && mec_year_val !== 'none') || ((mec_month_val === 'none' && mec_year_val === 'none'))) search();
         });
 
-        $('#mec_sf_date_end_' + settings.id).on('change', function () {
+        $date_end.on('change', function()
+        {
+            last_field = 'date-end';
             search();
         });
 
-        $("#mec_sf_event_type_" + settings.id).on('change', function (e) {
+        $event_type.on('change', function(e)
+        {
+            last_field = 'event-type';
             search();
         });
 
-        $("#mec_sf_event_type_2_" + settings.id).on('change', function (e) {
+        $event_type_2.on('change', function(e)
+        {
+            last_field = 'event-type-2';
             search();
         });
 
-        $("#mec_sf_attribute_" + settings.id).on('change', function (e) {
+        $attribute.on('change', function(e)
+        {
+            last_field = 'attribute';
             search();
         });
 
-        if (settings.fields && settings.fields != null && settings.fields.length > 0) {
-            for (var k in settings.fields) {
-                $("#mec_sf_" + settings.fields[k] + '_' + settings.id).on('change', function (e) {
+        if(settings.fields && settings.fields.length > 0)
+        {
+            for(var k in settings.fields)
+            {
+                $("#mec_sf_" + settings.fields[k] + '_' + settings.id).on('change', function(e)
+                {
                     search();
                 });
             }
         }
 
-        function search() {
-            var s = $("#mec_sf_s_" + settings.id).length ? $("#mec_sf_s_" + settings.id).val() : '';
-            var address = $("#mec_sf_address_s_" + settings.id).length ? $("#mec_sf_address_s_" + settings.id).val() : '';
-            var location = $("#mec_sf_location_" + settings.id).length ? $("#mec_sf_location_" + settings.id).val() : '';
-            var organizer = $("#mec_sf_organizer_" + settings.id).length ? $("#mec_sf_organizer_" + settings.id).val() : '';
-            var speaker = $("#mec_sf_speaker_" + settings.id).length ? $("#mec_sf_speaker_" + settings.id).val() : '';
-            var tag = $("#mec_sf_tag_" + settings.id).length ? $("#mec_sf_tag_" + settings.id).val() : '';
-            var label = $("#mec_sf_label_" + settings.id).length ? $("#mec_sf_label_" + settings.id).val() : '';
-            var month = $("#mec_sf_month_" + settings.id).length ? $("#mec_sf_month_" + settings.id).val() : '';
-            var year = $("#mec_sf_year_" + settings.id).length ? $("#mec_sf_year_" + settings.id).val() : '';
-            var event_type = $("#mec_sf_event_type_" + settings.id).length ? $("#mec_sf_event_type_" + settings.id).val() : '';
-            var event_type_2 = $("#mec_sf_event_type_2_" + settings.id).length ? $("#mec_sf_event_type_2_" + settings.id).val() : '';
-            var attribute = $("#mec_sf_attribute_" + settings.id).length ? $("#mec_sf_attribute_" + settings.id).val() : '';
+        // Reset
+        if($reset.length)
+        {
+            $reset.on('click', function(e)
+            {
+                reset();
+            });
+        }
 
-            var start = $("#mec_sf_date_start_" + settings.id).length ? $("#mec_sf_date_start_" + settings.id).val() : '';
-            var end = $("#mec_sf_date_end_" + settings.id).length ? $("#mec_sf_date_end_" + settings.id).val() : '';
+        function trigger()
+        {
+            $("#mec_sf_category_" + settings.id).off('change').on('change', function(e)
+            {
+                last_field = 'category';
+                search();
+            });
+
+            $("#mec_sf_location_" + settings.id).off('change').on('change', function(e)
+            {
+                last_field = 'location';
+                search();
+            });
+
+            $("#mec_sf_organizer_" + settings.id).off('change').on('change', function(e)
+            {
+                last_field = 'organizer';
+                search();
+            });
+
+            $("#mec_sf_speaker_" + settings.id).off('change').on('change', function(e)
+            {
+                last_field = 'speaker';
+                search();
+            });
+
+            $("#mec_sf_tag_" + settings.id).off('change').on('change', function(e)
+            {
+                last_field = 'tag';
+                search();
+            });
+
+            $("#mec_sf_label_" + settings.id).off('change').on('change', function(e)
+            {
+                last_field = 'label';
+                search();
+            });
+        }
+
+        function search()
+        {
+            var $category = $("#mec_sf_category_" + settings.id);
+            var $location = $("#mec_sf_location_" + settings.id);
+            var $organizer = $("#mec_sf_organizer_" + settings.id);
+            var $speaker = $("#mec_sf_speaker_" + settings.id);
+            var $tag = $("#mec_sf_tag_" + settings.id);
+            var $label = $("#mec_sf_label_" + settings.id);
+
+            var s = $s.length ? $s.val() : '';
+            var address = $address.length ? $address.val() : '';
+            var location = $location.length ? $location.val() : '';
+            var organizer = $organizer.length ? $organizer.val() : '';
+            var speaker = $speaker.length ? $speaker.val() : '';
+            var tag = $tag.length ? $tag.val() : '';
+            var label = $label.length ? $label.val() : '';
+            var month = $month.length ? $month.val() : '';
+            var year = $year.length ? $year.val() : '';
+            var event_type = $event_type.length ? $event_type.val() : '';
+            var event_type_2 = $event_type_2.length ? $event_type_2.val() : '';
+            var attribute = $attribute.length ? $attribute.val() : '';
+
+            var start = $date_start.length ? $date_start.val() : '';
+            var end = $date_end.length ? $date_end.val() : '';
 
             var cost_min = $event_cost_min.length ? $event_cost_min.val() : '';
             var cost_max = $event_cost_max.length ? $event_cost_max.val() : '';
@@ -191,33 +273,164 @@ var mecSingleEventDisplayer = {
             var time_end = $time_end.length ? $time_end.val() : '';
 
             var category;
-            if ($category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div') {
+            if($category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div')
+            {
                 category = '';
-                $category.find($('select')).each(function () {
+                $category.find($('select')).each(function()
+                {
                     category += $(this).val() + ',';
                 });
             }
-            else category = $("#mec_sf_category_" + settings.id).length ? $("#mec_sf_category_" + settings.id).val() : '';
+            else category = $category.length ? $category.val() : '';
 
-            if (year === 'none' && month === 'none') {
+            if(year === 'none' && month === 'none')
+            {
                 year = '';
                 month = '';
             }
 
             var addation_attr = '';
-            if (settings.fields && settings.fields != null && settings.fields.length > 0) {
-                for (var k in settings.fields) {
+            if(settings.fields && settings.fields.length > 0)
+            {
+                for(var k in settings.fields)
+                {
                     var field = '#mec_sf_' + settings.fields[k] + '_' + settings.id;
                     var val = $(field).length ? $(field).val() : '';
+
                     addation_attr += '&sf[' + settings.fields[k] + ']=' + val;
                 }
             }
 
-            var atts = settings.atts + '&sf[s]=' + s + '&sf[address]=' + address + '&sf[cost-min]=' + cost_min + '&sf[cost-max]=' + cost_max + '&sf[time-start]=' + time_start + '&sf[time-end]=' + time_end + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[start]=' + start + '&sf[end]=' + end + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
+            // Search Parameters
+            var sf = 'sf[s]=' + s + '&sf[address]=' + address + '&sf[cost-min]=' + cost_min + '&sf[cost-max]=' + cost_max + '&sf[time-start]=' + time_start + '&sf[time-end]=' + time_end + '&sf[month]=' + month + '&sf[year]=' + year + '&sf[start]=' + start + '&sf[end]=' + end + '&sf[category]=' + category + '&sf[location]=' + location + '&sf[organizer]=' + organizer + '&sf[speaker]=' + speaker + '&sf[tag]=' + tag + '&sf[label]=' + label + '&sf[event_type]=' + event_type + '&sf[event_type_2]=' + event_type_2 + '&sf[attribute]=' + attribute + addation_attr;
+
+            // Refine Parameters
+            if(settings.refine) refine(sf);
+
+            // Attributes
+            var atts = settings.atts + '&' + sf;
+
+            // Search
             settings.callback(atts);
         }
-    };
 
+        function reset()
+        {
+            var $category = $("#mec_sf_category_" + settings.id);
+            var $location = $("#mec_sf_location_" + settings.id);
+            var $organizer = $("#mec_sf_organizer_" + settings.id);
+            var $speaker = $("#mec_sf_speaker_" + settings.id);
+            var $tag = $("#mec_sf_tag_" + settings.id);
+            var $label = $("#mec_sf_label_" + settings.id);
+
+            if($category.length && $category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div')
+            {
+                $category.find($('select')).each(function()
+                {
+                    $(this).val(null).trigger('change');
+                });
+            }
+            else if($category.length) $category.val(null);
+
+            if($location.length) $location.val(null);
+            if($organizer.length) $organizer.val(null);
+            if($speaker.length) $speaker.val(null);
+            if($tag.length) $tag.val(null);
+            if($label.length) $label.val(null);
+            if($s.length) $s.val(null);
+            if($address.length) $address.val(null);
+            if($month.length) $month.val(null);
+            if($year.length) $year.val(null);
+            if($event_cost_min.length) $event_cost_min.val(null);
+            if($event_cost_max.length) $event_cost_max.val(null);
+            if($date_start.length) $date_start.val(null);
+            if($date_end.length) $date_end.val(null);
+            if($time_start.length) $time_start.val(null);
+            if($time_end.length) $time_end.val(null);
+
+            // Search Again
+            setTimeout(function()
+            {
+                search();
+            }, 200);
+        }
+
+        function refine(sf)
+        {
+            var $category = $("#mec_sf_category_" + settings.id);
+            var $location = $("#mec_sf_location_" + settings.id);
+            var $organizer = $("#mec_sf_organizer_" + settings.id);
+            var $speaker = $("#mec_sf_speaker_" + settings.id);
+            var $tag = $("#mec_sf_tag_" + settings.id);
+            var $label = $("#mec_sf_label_" + settings.id);
+
+            var category_type;
+            if($category.length && $category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div') category_type = 'checkboxes';
+            else if($category.length) category_type = 'dropdown';
+
+            $.ajax(
+            {
+                url: settings.ajax_url,
+                data: "action=mec_refine_search_items&"+sf+'&last_field='+last_field+'&category_type='+category_type+'&id='+settings.id,
+                dataType: "json",
+                type: "post",
+                success: function(response)
+                {
+                    // Categories
+                    if(typeof response.categories !== 'undefined' && response.categories !== '')
+                    {
+                        // Checkboxes
+                        if($category.length && $category.prop('tagName') && $category.prop('tagName').toLowerCase() === 'div')
+                        {
+                            $category.html(response.categories);
+                        }
+                        // Dropdown
+                        else if($category.length)
+                        {
+                            $category.replaceWith(response.categories)
+                        }
+
+                        // Categories Search bar
+                        jQuery(".mec-searchbar-category-wrap select").select2();
+                    }
+
+                    // Locations
+                    if(typeof response.locations !== 'undefined' && response.locations !== '')
+                    {
+                        $location.replaceWith(response.locations)
+                    }
+
+                    // Organizers
+                    if(typeof response.organizers !== 'undefined' && response.organizers !== '')
+                    {
+                        $organizer.replaceWith(response.organizers)
+                    }
+
+                    // Speakers
+                    if(typeof response.speakers !== 'undefined' && response.speakers !== '')
+                    {
+                        $speaker.replaceWith(response.speakers)
+                    }
+
+                    // Labels
+                    if(typeof response.labels !== 'undefined' && response.labels !== '')
+                    {
+                        $label.replaceWith(response.labels)
+                    }
+
+                    // Tags
+                    if(typeof response.tags !== 'undefined' && response.tags !== '')
+                    {
+                        $tag.replaceWith(response.tags)
+                    }
+
+                    // Trigger
+                    trigger();
+                },
+                error: function(){}
+            });
+        }
+    };
 }(jQuery));
 
 jQuery(document).ready(function ($) {
@@ -229,6 +442,8 @@ jQuery(document).ready(function ($) {
     jQuery("#mec_organizer_id").select2();
     // Categories Search bar
     jQuery(".mec-searchbar-category-wrap select").select2();
+
+    jQuery(".mec-search-form.mec-totalcal-box").find(".mec-search-reset-button").parents().eq(2).addClass("mec-there-reset-button");
 
     jQuery(".mec-search-form.mec-totalcal-box").find(".mec-minmax-event-cost").parent().find(".mec-text-address-search").addClass("with-mec-cost");
     jQuery(".mec-search-form.mec-totalcal-box").find(".mec-text-address-search").parent().find(".mec-minmax-event-cost").addClass("with-mec-address");
@@ -268,6 +483,8 @@ jQuery(document).ready(function ($) {
             if (settings.sf.container !== '') {
                 sf = $(settings.sf.container).mecSearchForm({
                     id: settings.id,
+                    refine: settings.sf.refine,
+                    ajax_url: settings.ajax_url,
                     atts: settings.atts,
                     callback: function (atts) {
                         settings.atts = atts;
@@ -418,6 +635,8 @@ jQuery(document).ready(function ($) {
         if (settings.sf.container !== '') {
             sf = $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;
@@ -668,6 +887,8 @@ jQuery(document).ready(function ($) {
         if (settings.sf.container !== '') {
             sf = $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;
@@ -981,6 +1202,8 @@ jQuery(document).ready(function ($) {
         if (settings.sf.container !== '') {
             $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;
@@ -1268,6 +1491,8 @@ jQuery(document).ready(function ($) {
         if (settings.sf.container !== '') {
             $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;
@@ -1546,6 +1771,8 @@ jQuery(document).ready(function ($) {
         if (settings.sf.container !== '') {
             $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;
@@ -1812,6 +2039,8 @@ jQuery(document).ready(function ($) {
         if (settings.sf.container !== '') {
             $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;
@@ -2070,7 +2299,8 @@ jQuery(document).ready(function ($) {
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden mec-hidden-" + mec_filter_value);
                     } else {
                         // Show load more button
-                        $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        if(typeof response.has_more_event === 'undefined' || (typeof response.has_more_event !== 'undefined' && response.has_more_event)) $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        else $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
 
                         // Append Items
                         var node = $("#mec_skin_" + settings.id + " .mec-event-masonry");
@@ -2128,6 +2358,8 @@ jQuery(document).ready(function ($) {
             if (settings.sf.container !== '') {
                 sf = $(settings.sf.container).mecSearchForm({
                     id: settings.id,
+                    refine: settings.sf.refine,
+                    ajax_url: settings.ajax_url,
                     atts: settings.atts,
                     callback: function (atts) {
                         settings.atts = atts;
@@ -2258,7 +2490,8 @@ jQuery(document).ready(function ($) {
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
                     } else {
                         // Show load more button
-                        $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        if(typeof response.has_more_event === 'undefined' || (typeof response.has_more_event !== 'undefined' && response.has_more_event)) $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        else $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
 
                         // Append Items
                         $("#mec_skin_events_" + settings.id).append(response.html);
@@ -2383,6 +2616,8 @@ jQuery(document).ready(function ($) {
             if (settings.sf.container !== '') {
                 sf = $(settings.sf.container).mecSearchForm({
                     id: settings.id,
+                    refine: settings.sf.refine,
+                    ajax_url: settings.ajax_url,
                     atts: settings.atts,
                     callback: function (atts) {
                         settings.atts = atts;
@@ -2443,7 +2678,8 @@ jQuery(document).ready(function ($) {
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
                     } else {
                         // Show load more button
-                        $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        if(typeof response.has_more_event === 'undefined' || (typeof response.has_more_event !== 'undefined' && response.has_more_event)) $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        else $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
 
                         // Append Items
                         $("#mec_skin_events_" + settings.id).append(response.html);
@@ -2552,6 +2788,8 @@ jQuery(document).ready(function ($) {
             if (settings.sf.container !== '') {
                 sf = $(settings.sf.container).mecSearchForm({
                     id: settings.id,
+                    refine: settings.sf.refine,
+                    ajax_url: settings.ajax_url,
                     atts: settings.atts,
                     callback: function (atts) {
                         settings.atts = atts;
@@ -2612,7 +2850,8 @@ jQuery(document).ready(function ($) {
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
                     } else {
                         // Show load more button
-                        $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        if(typeof response.has_more_event === 'undefined' || (typeof response.has_more_event !== 'undefined' && response.has_more_event)) $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        else $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
 
                         var html = $(response.html);
                         if ($('.mec-month-divider', html).length) {
@@ -2745,6 +2984,8 @@ jQuery(document).ready(function ($) {
             if (settings.sf.container !== '') {
                 sf = $(settings.sf.container).mecSearchForm({
                     id: settings.id,
+                    refine: settings.sf.refine,
+                    ajax_url: settings.ajax_url,
                     atts: settings.atts,
                     callback: function (atts) {
                         settings.atts = atts;
@@ -2805,7 +3046,8 @@ jQuery(document).ready(function ($) {
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
                     } else {
                         // Show load more button
-                        $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        if(typeof response.has_more_event === 'undefined' || (typeof response.has_more_event !== 'undefined' && response.has_more_event)) $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        else $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
 
                         // Append Items
                         $("#mec_skin_events_" + settings.id).append(response.html);
@@ -2914,6 +3156,8 @@ jQuery(document).ready(function ($) {
             if (settings.sf.container !== '') {
                 sf = $(settings.sf.container).mecSearchForm({
                     id: settings.id,
+                    refine: settings.sf.refine,
+                    ajax_url: settings.ajax_url,
                     atts: settings.atts,
                     callback: function (atts) {
                         settings.atts = atts;
@@ -2969,7 +3213,8 @@ jQuery(document).ready(function ($) {
                         $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
                     } else {
                         // Show load more button
-                        $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        if(typeof response.has_more_event === 'undefined' || (typeof response.has_more_event !== 'undefined' && response.has_more_event)) $("#mec_skin_" + settings.id + " .mec-load-more-button").removeClass("mec-util-hidden");
+                        else $("#mec_skin_" + settings.id + " .mec-load-more-button").addClass("mec-util-hidden");
 
                         // Append Items
                         $("#mec_skin_events_" + settings.id + " .mec-events-agenda-container").append(response.html);
@@ -3373,14 +3618,16 @@ jQuery(document).ready(function ($) {
         // Search Widget
         if (settings.sf.container !== '') {
             sf = $(settings.sf.container).mecSearchForm(
-                {
-                    id: settings.id,
-                    atts: settings.atts,
-                    callback: function (atts) {
-                        settings.atts = atts;
-                        search(active_year, active_month);
-                    }
-                });
+            {
+                id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
+                atts: settings.atts,
+                callback: function (atts) {
+                    settings.atts = atts;
+                    search(active_year, active_month);
+                }
+            });
         }
 
         function initMonthNavigator() {
@@ -3611,7 +3858,8 @@ jQuery(document).ready(function ($) {
                         }
                         else {
                             // Show load more button
-                            $load_more_button.removeClass("mec-util-hidden");
+                            if(typeof response.has_more_event === 'undefined' || (typeof response.has_more_event !== 'undefined' && response.has_more_event)) $load_more_button.removeClass("mec-util-hidden");
+                            else $load_more_button.addClass("mec-util-hidden");
 
                             // Append Items
                             $("#mec_skin_events_" + settings.id).append(response.html);
@@ -4462,6 +4710,8 @@ function mecFluentYearlyUI(eventID, yearID) {
         if (settings.sf.container !== '') {
             sf = $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;
@@ -4727,6 +4977,8 @@ function mecFluentYearlyUI(eventID, yearID) {
         if (settings.sf.container !== '') {
             sf = $(settings.sf.container).mecSearchForm({
                 id: settings.id,
+                refine: settings.sf.refine,
+                ajax_url: settings.ajax_url,
                 atts: settings.atts,
                 callback: function (atts) {
                     settings.atts = atts;

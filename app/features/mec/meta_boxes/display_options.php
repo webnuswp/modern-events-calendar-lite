@@ -1185,6 +1185,7 @@ $upcoming_event_ids = $this->main->get_upcoming_event_ids();
 				</div> -->
                 <?php echo $this->booking_button_field('monthly_view', (isset($sk_options_monthly_view['booking_button']) ? $sk_options_monthly_view['booking_button'] : 0)); ?>
                 <?php echo $this->display_custom_data_field('monthly_view', (isset($sk_options_monthly_view['custom_data']) ? $sk_options_monthly_view['custom_data'] : 0)); ?>
+                <?php echo $this->display_detailed_time_field('monthly_view', (isset($sk_options_monthly_view['detailed_time']) ? $sk_options_monthly_view['detailed_time'] : 0)); ?>
                 <?php echo $this->sed_method_field('monthly_view', (isset($sk_options_monthly_view['sed_method']) ? $sk_options_monthly_view['sed_method'] : 0), (isset($sk_options_monthly_view['image_popup']) ? $sk_options_monthly_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_monthly_view_end', $sk_options_monthly_view); ?>
             </div>
@@ -1286,6 +1287,7 @@ $upcoming_event_ids = $this->main->get_upcoming_event_ids();
 						<label for="mec_skin_daily_view_next_previous_button"></label>
 					</div>
                 </div>
+                <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 <!-- Start Display Label -->
                 <div class="mec-form-row mec-switcher mec-include-events-local-times" id="mec_skin_daily_view_display_normal_label">
 					<div class="mec-col-4">
@@ -1325,9 +1327,9 @@ $upcoming_event_ids = $this->main->get_upcoming_event_ids();
                 <!-- Start Display Organizer -->
                 <?php echo $this->display_organizer_field('daily_view', (isset($sk_options_daily_view['display_organizer']) ? $sk_options_daily_view['display_organizer'] : 0)); ?>
                 <!-- End Display Organizer -->
-                <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 <?php echo $this->booking_button_field('daily_view', (isset($sk_options_daily_view['booking_button']) ? $sk_options_daily_view['booking_button'] : 0)); ?>
                 <?php echo $this->display_custom_data_field('daily_view', (isset($sk_options_daily_view['custom_data']) ? $sk_options_daily_view['custom_data'] : 0)); ?>
+                <?php echo $this->display_detailed_time_field('daily_view', (isset($sk_options_daily_view['detailed_time']) ? $sk_options_daily_view['detailed_time'] : 0)); ?>
                 <?php echo $this->sed_method_field('daily_view', (isset($sk_options_daily_view['sed_method']) ? $sk_options_daily_view['sed_method'] : 0), (isset($sk_options_daily_view['image_popup']) ? $sk_options_daily_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_daily_view_end', $sk_options_daily_view); ?>
             </div>
@@ -1419,6 +1421,7 @@ $upcoming_event_ids = $this->main->get_upcoming_event_ids();
                 <p class="description"><?php _e('For showing next/previous month navigation.', 'modern-events-calendar-lite'); ?></p>
                 <?php echo $this->booking_button_field('weekly_view', (isset($sk_options_weekly_view['booking_button']) ? $sk_options_weekly_view['booking_button'] : 0)); ?>
                 <?php echo $this->display_custom_data_field('weekly_view', (isset($sk_options_weekly_view['custom_data']) ? $sk_options_weekly_view['custom_data'] : 0)); ?>
+                <?php echo $this->display_detailed_time_field('weekly_view', (isset($sk_options_weekly_view['detailed_time']) ? $sk_options_weekly_view['detailed_time'] : 0)); ?>
                 <?php echo $this->sed_method_field('weekly_view', (isset($sk_options_weekly_view['sed_method']) ? $sk_options_weekly_view['sed_method'] : 0), (isset($sk_options_weekly_view['image_popup']) ? $sk_options_weekly_view['image_popup'] : 0)); ?>
                 <?php do_action('mec_skin_options_weekly_view_end', $sk_options_weekly_view); ?>
             </div>

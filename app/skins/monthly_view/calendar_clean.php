@@ -42,6 +42,8 @@ elseif($week_start == 5) // Friday
 
 $events_str = '';
 if($this->display_all) $events_str .= '<h3 class="mec-table-side-title">'.esc_html__('Events', 'modern-events-calendar-lite').'</h3>';
+
+$date_format = get_option('date_format');
 ?>
 <dl class="mec-calendar-row">
     <?php
@@ -81,7 +83,11 @@ if($this->display_all) $events_str .= '<h3 class="mec-table-side-title">'.esc_ht
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumblist'].'</div>';
                     $events_str .= $this->get_label_captions($event);
 
-                    if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+                    if($this->display_all) $events_str .= '<div class="mec-event-date">'.$this->main->date_i18n($date_format, strtotime($event->date['start']['date'])).'</div>';
+
+                    if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $events_str .= '<div class="mec-event-detailed-time mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
+                    elseif(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
                     if(has_filter('monthly_event_after_time')) $after_time_filter = apply_filters('monthly_event_after_time', $events_str, $event);
 
                     $events_str .= $after_time_filter;
@@ -146,7 +152,11 @@ if($this->display_all) $events_str .= '<h3 class="mec-table-side-title">'.esc_ht
                     $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumblist'].'</div>';
                     $events_str .= $this->get_label_captions($event);
 
-                    if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+                    if($this->display_all) $events_str .= '<div class="mec-event-date">'.$this->main->date_i18n($date_format, strtotime($event->date['start']['date'])).'</div>';
+
+                    if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $events_str .= '<div class="mec-event-detailed-time mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
+                    elseif(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
                     if(has_filter('monthly_event_after_time')) $after_time_filter = apply_filters('monthly_event_after_time', $events_str, $event);
 
                     $events_str .= $after_time_filter;
@@ -238,7 +248,11 @@ if($this->display_all) $events_str .= '<h3 class="mec-table-side-title">'.esc_ht
                         $events_str .= '<div class="mec-event-image">'.$event->data->thumbnails['thumblist'].'</div>';
                         $events_str .= $this->get_label_captions($event);
 
-                        if(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+                        if($this->display_all) $events_str .= '<div class="mec-event-date">'.$this->main->date_i18n($date_format, strtotime($event->date['start']['date'])).'</div>';
+
+                        if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $events_str .= '<div class="mec-event-detailed-time mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
+                        elseif(trim($start_time)) $events_str .= '<div class="mec-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+
                         if(has_filter('monthly_event_after_time')) $after_time_filter = apply_filters('monthly_event_after_time', $events_str, $event);
 
                         $events_str .= $after_time_filter;

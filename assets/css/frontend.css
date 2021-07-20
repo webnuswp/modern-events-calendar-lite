@@ -4931,11 +4931,20 @@ address.mec-events-address {
 }
 
 .mec-single-event
-    .mec-single-event-additional-organizers
-    .mec-single-event-additional-organizer:last-child {
+.mec-single-event-additional-organizers
+.mec-single-event-additional-organizer:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
     border: none;
+}
+
+.mec-event-category-color {
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 4px;
+    border-radius: 9px;
 }
 
 /* Hourly Schedule */
@@ -8015,6 +8024,31 @@ li.mec-no-event-found .mec-event-title {
     width: calc(100% - 36px);
 }
 
+.mec-there-reset-button .mec-totalcal-box {
+    padding-bottom: 34px;
+}
+
+.mec-wrap .mec-totalcal-box .mec-search-reset-button .mec-button {
+    position: absolute;
+    margin: 0;
+    bottom: 0;
+    right: 0;
+    padding: 9px 25px;
+    border-radius: 2px 0 0 0;
+    background: #fff;
+    color: #767676;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-color: #e8e8e8;
+    overflow: hidden;
+}
+
+.mec-wrap .mec-totalcal-box .mec-search-reset-button .mec-button:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
 .mec-full-calendar-wrap .mec-search-form .col-md-7 {
     padding: 0;
 }
@@ -9027,6 +9061,7 @@ li.mec-no-event-found .mec-event-title {
 .event-carousel-type1-head .mec-event-image {
     position: relative;
     min-height: 150px;
+    overflow: hidden;
 }
 
 .event-carousel-type1-head .mec-event-image img {
@@ -9283,6 +9318,16 @@ li.mec-no-event-found .mec-event-title {
     border-right: 1px solid #e6e6e6;
 }
 
+.event-carousel-type2-head .mec-event-footer-carousel-type2 .mec-booking-button {
+    line-height: 25px;
+    height: 41px;
+    margin-right: 0;
+}
+
+.event-carousel-type2-head .mec-event-footer-carousel-type2 .mec-modal-booking-button {
+    margin-right: 20px;
+}
+
 .mec-wrap .mec-event-carousel-type2 .owl-prev,
 .mec-wrap .mec-event-carousel-type2 .owl-next,
 .mec-wrap .mec-event-carousel-type3 .owl-prev,
@@ -9432,6 +9477,11 @@ li.mec-no-event-found .mec-event-title {
     font-weight: 300;
     color: #444444 !important;
     margin-bottom: 36px;
+}
+
+.event-carousel-type3-head .mec-event-footer-carousel-type3 .mec-booking-button {
+    line-height: 25px;
+    height: 41px;
 }
 
 .mec-event-carousel-type3 .owl-next {
@@ -18380,6 +18430,22 @@ a.mec-timeline-readmore i {
         left: 80px;
     }
 }
+
+/* Date style for calendar view */
+.mec-calendar .mec-event-article .mec-event-date {
+    font-size: 12px;
+    text-align: left;
+}
+
+.mec-event-detailed-time {
+    display: flex;
+}
+
+.mec-event-detailed-time i {
+    width: 15px;
+    padding-top: 7px;
+}
+
 
 /* Normal Label - Default Style for All Skins */
 .mec-ongoing-normal-label {

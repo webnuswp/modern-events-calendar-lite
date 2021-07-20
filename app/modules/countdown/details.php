@@ -69,9 +69,9 @@ if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'E
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true) $gmt_offset = substr(trim($gmt_offset), 2 , 3);
 
 $datetime = $ongoing ? $end_time : $start_time;
+
 // Generating javascript code of countdown default module
 $defaultjs = '<script type="text/javascript">
-
 jQuery(document).ready(function($)
 {
     jQuery.each(jQuery(".mec-countdown-details"),function(i,el){

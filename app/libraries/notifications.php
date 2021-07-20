@@ -1174,15 +1174,27 @@ class MEC_notifications extends MEC_base
             $mec_cost = get_post_meta($post->ID, 'mec_cost', true);
             $message = str_replace('%%event_cost%%', (is_numeric($mec_cost) ? $this->main->render_price($mec_cost, $post->ID) : $mec_cost), $message);
 
+            $mec_start_date = get_post_meta($post->ID, 'mec_start_date', true);
+            $mec_end_date = get_post_meta($post->ID, 'mec_end_date', true);
+
+            if(!$mec_start_date and !$mec_end_date)
+            {
+                $mec = isset($_POST['mec']) ? $_POST['mec'] : array();
+
+                $mec_start_date = (isset($mec['date']) and isset($mec['date']['start']) and isset($mec['date']['start']['date']) and trim($mec['date']['start']['date'])) ? $this->main->standardize_format($mec['date']['start']['date']) : NULL;
+                $mec_end_date = (isset($mec['date']) and isset($mec['date']['end']) and isset($mec['date']['end']['date']) and trim($mec['date']['end']['date'])) ? $this->main->standardize_format($mec['date']['end']['date']) : NULL;
+            }
+
             $message = str_replace('%%event_link%%', get_post_permalink($post->ID), $message);
-            $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, get_post_meta($post->ID, 'mec_start_date', true)), $message);
-            $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, get_post_meta($post->ID, 'mec_end_date', true)), $message);
+            $message = str_replace('%%event_start_date%%', $this->main->date_i18n($date_format, $mec_start_date), $message);
+            $message = str_replace('%%event_end_date%%', $this->main->date_i18n($date_format, $mec_end_date), $message);
             $message = str_replace('%%event_timezone%%', $this->main->get_timezone($post->ID), $message);
             $message = str_replace('%%event_status%%', $status, $message);
             $message = str_replace('%%event_note%%', get_post_meta($post->ID, 'mec_note', true), $message);
 
             // Data Fields
             $event_fields = $this->main->get_event_fields();
+
             $event_fields_data = get_post_meta($post->ID, 'mec_fields', true);
             if(!is_array($event_fields_data)) $event_fields_data = array();
 
@@ -1503,7 +1515,9 @@ class MEC_notifications extends MEC_base
             $attendee_ex_name = explode(' ', $name);
 
             $first_name = isset($attendee_ex_name[0]) ? $attendee_ex_name[0] : '';
-            $last_name = isset($attendee_ex_name[1]) ? $attendee_ex_name[1] : '';
+            unset($attendee_ex_name[0]);
+
+            $last_name = implode(' ', $attendee_ex_name);
             $email = isset($attendee['email']) ? $attendee['email'] : $email;
         }
 

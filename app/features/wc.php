@@ -100,8 +100,8 @@ class MEC_feature_wc extends MEC_base
 
             $dates = explode(':', $meta->value);
 
-            $start_datetime = date($datetime_format, $dates[0]);
-            $end_datetime = date($datetime_format, $dates[1]);
+            $start_datetime = date_i18n($datetime_format, $dates[0]);
+            $end_datetime = date_i18n($datetime_format, $dates[1]);
 
             $display_value = sprintf(__('%s to %s', 'modern-events-calendar-lite'), $start_datetime, $end_datetime);
         }
@@ -117,7 +117,7 @@ class MEC_feature_wc extends MEC_base
         $timestamps = explode(':', $item['mec_date']);
 
         $date_format = (isset($this->settings['booking_date_format1']) and trim($this->settings['booking_date_format1'])) ? $this->settings['booking_date_format1'] : get_option('date_format');
-        $start_date = date($date_format, $timestamps[0]);
+        $start_date = date_i18n($date_format, $timestamps[0]);
 
         $name .= ' ('.$start_date.')';
         return $name;

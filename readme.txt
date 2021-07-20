@@ -4,7 +4,7 @@ Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 5.7
-Stable tag: 5.20.6
+Stable tag: 5.21.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -454,6 +454,30 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 41. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+
+= 5.21.0 – 14 July 2021 =
+- Added: Search refine option
+- Added: Detailed time option for applicable skins
+- Added: Event dates to the monthly view when the “Display All Events” option is enabled
+- Added: A reset ability that can be added to the search module
+- Added: Custom color option to the categories
+- Improved: Language files
+- Improved: Display of the “Load More” button
+- Fixed: “WC as Payment System” in multilingual websites (pro)
+- Fixed: Booking import (pro)
+- Fixed: First and last name detection
+- Fixed: The event link and more info link in the modal
+- Fixed: Displaying more info section when location is not set
+- Fixed: Date localization in WooCommerce checkout (pro)
+- Fixed: An issue on Frontend Event Submission
+- Fixed: An issue on showing the wrong expired label
+- Fixed: An issue on saving event status data in Frontend Event Submission
+- Fixed: An issue in Mailchimp integration (pro)
+- Fixed: Some issues in the related events module
+- Fixed: Some issues in the search module
+- Fixed: Showing all-day events in the reports menu
+- Fixed: The “User Event Publishing” notification when the event was submitted from the frontend
+- Fixed: Some PHP notices and warnings
 
 = 5.20.6 – 26 June 2021 =
 - Fixed: Some minor issues.

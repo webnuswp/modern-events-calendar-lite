@@ -91,7 +91,7 @@ $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : a
                             <span><a href="<?php echo (strpos($organizer['url'], 'http') === false ? 'http://'.$organizer['url'] : $organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $organizer['url']; ?></a></span>
                         </dd>
                         <?php endif;
-                        $organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer');  if($organizer_description_setting == '1'): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>
+                        $organizer_description_setting = isset( $settings['organizer_description'] ) ? $settings['organizer_description'] : ''; $organizer_terms = get_the_terms($event->data, 'mec_organizer'); if($organizer_description_setting == '1' and is_array($organizer_terms) and count($organizer_terms)): foreach($organizer_terms as $organizer_term) { if ($organizer_term->term_id == $organizer['id'] ) {  if(isset($organizer_term->description) && !empty($organizer_term->description)): ?>
                         <dd class="mec-organizer-description">
                             <p><?php echo $organizer_term->description;?></p>
                         </dd>
@@ -127,7 +127,7 @@ $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : a
             <?php if($single->found_value('local_time', $settings) == 'on') echo $this->main->module('local-time.details', array('event'=>$event)); ?>
 
             <?php if($single->found_value('event_location', $settings) == 'on' || $single->found_value('event_categories', $settings) == 'on' || $single->found_value('more_info', $settings) == 'on'): ?>
-            <div class="mec-event-meta mec-color-before mec-frontbox <?php if(!count($location) || $single->found_value('event_location', $settings) == '') echo 'mec-util-hidden'; ?>">
+            <div class="mec-event-meta mec-color-before mec-frontbox <?php if((!count($location) or $single->found_value('event_location', $settings) == '') and (!count($event->data->categories) or $single->found_value('event_categories', $settings) == '') and (!$more_info or $single->found_value('more_info', $settings) == '')) echo 'mec-util-hidden'; ?>">
 
                 <?php
                     // Event Location
@@ -151,7 +151,7 @@ $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : a
                                 <span><a href="<?php echo (strpos($location['url'], 'http') === false ? 'http://'.$location['url'] : $location['url']); ?>" class="mec-color-hover" target="_blank"><?php echo $location['url']; ?></a></span>
                             </dd>
                             <?php endif;
-                            $location_description_setting = isset( $settings['location_description'] ) ? $settings['location_description'] : ''; $location_terms = get_the_terms($event->data, 'mec_location');  if($location_description_setting == '1'): foreach($location_terms as $location_term) { if ($location_term->term_id == $location['id'] ) {  if(isset($location_term->description) && !empty($location_term->description)): ?>
+                            $location_description_setting = isset( $settings['location_description'] ) ? $settings['location_description'] : ''; $location_terms = get_the_terms($event->data, 'mec_location'); if($location_description_setting == '1' and is_array($location_terms) and count($location_terms)): foreach($location_terms as $location_term) { if ($location_term->term_id == $location['id'] ) {  if(isset($location_term->description) && !empty($location_term->description)): ?>
                             <dd class="mec-location-description">
                                 <p><?php echo $location_term->description;?></p>
                             </dd>
@@ -174,9 +174,15 @@ $organizer = ($organizer_id ? $this->main->get_organizer_data($organizer_id) : a
                             <?php
                             foreach($event->data->categories as $category)
                             {
-                                $icon = get_metadata('term', $category['id'], 'mec_cat_icon', true);
-                                $icon = isset($icon) && $icon != '' ? '<i class="'.$icon.' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
-                                echo '<dl><dd class="mec-events-event-categories"><a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">'.$icon . $category['name'] .'</a></dd></dl>';
+                                $color = ((isset($category['color']) and trim($category['color'])) ? $category['color'] : '');
+
+                                $color_html = '';
+                                if($color) $color_html .= '<span class="mec-event-category-color" style="--background-color: '.esc_attr($color).';background-color: '.esc_attr($color).'">&nbsp;</span>';
+
+                                $icon = (isset($category['icon']) ? $category['icon'] : '');
+                                $icon = isset($icon) && $icon != '' ? '<i class="' . $icon . ' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
+
+                                echo '<dl><dd class="mec-events-event-categories"><a href="'.get_term_link($category['id'], 'mec_category').'" class="mec-color-hover" rel="tag">' . $icon . $category['name'] . $color_html . '</a></dd></dl>';
                             }
                             ?>
                         </div>

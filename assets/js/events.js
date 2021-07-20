@@ -7,7 +7,7 @@ jQuery(document).ready(function($)
     $('.mec_upload_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         var frame;
         if(frame)
         {
@@ -23,31 +23,31 @@ jQuery(document).ready(function($)
 
             $('#mec_thumbnail_img').html('<img src="'+attachment.attributes.url+'" />');
             $('#mec_thumbnail').val(attachment.attributes.url);
-            
+
             $('.mec_remove_image_button').toggleClass('mec-util-hidden');
-            
+
             frame.close();
         });
-        
+
         frame.open();
     });
-    
+
     // Image remover on terms menu
     $('.mec_remove_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         $('#mec_thumbnail_img').html('');
         $('#mec_thumbnail').val('');
-        
+
         $('.mec_remove_image_button').toggleClass('mec-util-hidden');
     });
-    
+
     // Image picker on add event menu for location
     $('.mec_location_upload_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         var frame;
         if(frame)
         {
@@ -63,31 +63,31 @@ jQuery(document).ready(function($)
 
             $('#mec_location_thumbnail_img').html('<img src="'+attachment.attributes.url+'" />');
             $('#mec_location_thumbnail').val(attachment.attributes.url);
-            
+
             $('.mec_location_remove_image_button').toggleClass('mec-util-hidden');
-            
+
             frame.close();
         });
-        
+
         frame.open();
     });
-    
+
     // Image remover on add event menu for location
     $('.mec_location_remove_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         $('#mec_location_thumbnail_img').html('');
         $('#mec_location_thumbnail').val('');
-        
+
         $('.mec_location_remove_image_button').toggleClass('mec-util-hidden');
     });
-    
+
     // Image picker on add event menu for organizer
     $('.mec_organizer_upload_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         var frame;
         if(frame)
         {
@@ -103,59 +103,59 @@ jQuery(document).ready(function($)
 
             $('#mec_organizer_thumbnail_img').html('<img src="'+attachment.attributes.url+'" />');
             $('#mec_organizer_thumbnail').val(attachment.attributes.url);
-            
+
             $('.mec_organizer_remove_image_button').toggleClass('mec-util-hidden');
-            
+
             frame.close();
         });
-        
+
         frame.open();
     });
-    
+
     // Image remover on add event menu for organizer
     $('.mec_organizer_remove_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         $('#mec_organizer_thumbnail_img').html('');
         $('#mec_organizer_thumbnail').val('');
-        
+
         $('.mec_organizer_remove_image_button').toggleClass('mec-util-hidden');
     });
-    
+
     // Image remover on frontend event submission menu
     $('#mec_fes_remove_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         $('#mec_fes_thumbnail_img').html('');
         $('#mec_fes_thumbnail').val('');
         $('#mec_featured_image_file').val('');
-        
+
         $('#mec_fes_remove_image_button').addClass('mec-util-hidden');
     });
-    
+
     // Location Image remover on frontend event submission menu
     $('#mec_fes_location_remove_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         $('#mec_fes_location_thumbnail_img').html('');
         $('#mec_fes_location_thumbnail').val('');
         $('#mec_fes_location_thumbnail_file').val('');
-        
+
         $('#mec_fes_location_remove_image_button').addClass('mec-util-hidden');
     });
-    
+
     // Organizer Image remover on frontend event submission menu
     $('#mec_fes_organizer_remove_image_button').click(function(event)
     {
         event.preventDefault();
-        
+
         $('#mec_fes_organizer_thumbnail_img').html('');
         $('#mec_fes_organizer_thumbnail').val('');
         $('#mec_fes_organizer_thumbnail_file').val('');
-        
+
         $('#mec_fes_organizer_remove_image_button').addClass('mec-util-hidden');
     });
 
@@ -188,11 +188,11 @@ jQuery(document).ready(function($)
                         yearRange: 'c-3:c+5',
                     });
                 }
-                
+
             }
         }, 1000);
     });
-    
+
     if($.fn.datepicker)
     {
         $('.mec-date-picker').datepicker(
@@ -212,7 +212,7 @@ jQuery(document).ready(function($)
             gotoCurrent: true,
             yearRange: 'c-3:c+5',
         });
-        
+
         $('#mec_end_date').datepicker(
         {
             changeYear: true,
@@ -221,7 +221,7 @@ jQuery(document).ready(function($)
             gotoCurrent: true,
             yearRange: 'c-3:c+5',
         });
-        
+
         $('#mec_date_repeat_end_at_date').datepicker(
         {
             changeYear: true,
@@ -230,7 +230,7 @@ jQuery(document).ready(function($)
             gotoCurrent: true,
             yearRange: 'c-3:c+5',
         });
-        
+
         $('.mec_date_picker_dynamic_format').datepicker(
         {
             changeYear: true,
@@ -276,12 +276,12 @@ jQuery(document).ready(function($)
             yearRange: 'c-1:c+5',
         });
     }
-    
+
     $('#mec_location_id').on('change', function()
     {
         mec_location_toggle();
     });
-    
+
     $('#mec_organizer_id').on('change', function()
     {
         mec_organizer_toggle();
@@ -291,29 +291,29 @@ jQuery(document).ready(function($)
         if(mec_organizer_val != 1) mec_additional_organizer.show();
         else mec_additional_organizer.hide();
     });
-    
+
     mec_location_toggle();
     mec_organizer_toggle();
-    
+
     $('#mec_repeat').on('change', function()
     {
         mec_repeat_toggle();
     });
-    
+
     mec_repeat_toggle();
-    
+
     $('#mec_repeat_type').on('change', function()
     {
         mec_repeat_type_toggle();
     });
-    
+
     mec_repeat_type_toggle();
-    
+
     $('#mec_bookings_limit_unlimited').on('change', function()
     {
         mec_bookings_unlimited_toggle();
     });
-    
+
     $('#mec_add_in_days').on('click', function()
     {
         var allday = $(this).data('allday');
@@ -349,31 +349,31 @@ jQuery(document).ready(function($)
         if($('#mec_in_days input[value="'+value+'"]').length > 0) return false;
 
         var $key = $('#mec_new_in_days_key');
-        
+
         var key = $key.val();
         var html = $('#mec_new_in_days_raw').html().replace(/:i:/g, key).replace(/:val:/g, value).replace(/:label:/g, label);
-        
+
         $('#mec_in_days').append(html);
         $key.val(parseInt(key)+1);
     });
-    
+
     $('#mec_add_not_in_days').on('click', function()
     {
         var date = $('#mec_exceptions_not_in_days_date').val();
         if(date === '') return false;
-        
+
         var key = $('#mec_new_not_in_days_key').val();
         var html = $('#mec_new_not_in_days_raw').html().replace(/:i:/g, key).replace(/:val:/g, date);
-        
+
         $('#mec_not_in_days').append(html);
         $('#mec_new_not_in_days_key').val(parseInt(key)+1);
     });
-    
+
     $('#mec_add_ticket_button').on('click', function()
     {
         var key = $('#mec_new_ticket_key').val();
         var html = $('#mec_new_ticket_raw').html().replace(/:i:/g, key);
-        
+
         $('#mec_tickets').append(html);
         $('#mec_new_ticket_key').val(parseInt(key)+1);
 
@@ -389,12 +389,12 @@ jQuery(document).ready(function($)
     });
 
     mec_hourly_schedule_add_day_listener();
-    
+
     $('#mec_add_fee_button').on('click', function()
     {
         var key = $('#mec_new_fee_key').val();
         var html = $('#mec_new_fee_raw').html().replace(/:i:/g, key);
-        
+
         $('#mec_fees_list').append(html);
         $('#mec_new_fee_key').val(parseInt(key)+1);
     });
@@ -407,7 +407,7 @@ jQuery(document).ready(function($)
         $('#mec_ticket_variations_list').append(html);
         $('#mec_new_ticket_variation_key').val(parseInt(key)+1);
     });
-    
+
     $('.mec-form-row.mec-available-color-row span').on('click', function()
     {
         $('.mec-form-row.mec-available-color-row span').removeClass('color-selected');
@@ -429,7 +429,7 @@ jQuery(document).ready(function($)
                 return false;
             }
         }
-        
+
         var key  = $('#mec_new_reg_field_key').val();
         var html = $('#mec_reg_field_'+type).html().replace(/:i:/g, key);
 
@@ -511,7 +511,7 @@ function mec_repeat_toggle()
 function mec_repeat_type_toggle()
 {
     var repeat_type = jQuery('#mec_repeat_type').val();
-    
+
     if(repeat_type == 'certain_weekdays')
     {
         jQuery('#mec_repeat_interval_container').hide();
@@ -601,10 +601,24 @@ function mec_hourly_schedule_listeners()
         var $key = jQuery('#'+prefix+'mec_new_hourly_schedule_key'+day);
 
         var key = $key.val();
-        var html = jQuery('#'+prefix+'mec_new_hourly_schedule_raw'+day).html().replace(/:i:/g, key).replace(/:d:/g, day);
-
+        var html = jQuery('#'+prefix+'mec_new_hourly_schedule_raw'+day).html().replace(/:i:/g, key).replace(/:d:/g, day).replace();
+        var g_field_id = prefix+"-hourly_schedules-"+day+"-schedules-:i:-description";
+        var field_id = prefix+"-hourly_schedules-"+day+"-schedules-"+key+"-description";
+        html = html.replace(g_field_id,field_id);
+        html = html.replace(':k:',key);
         jQuery('#'+prefix+'mec_hourly_schedules'+day).append(html);
         $key.val(parseInt(key)+1);
+
+        wp.editor.initialize("mec"+field_id,{
+            tinymce: {
+                wpautop: true,
+                plugins : 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
+                toolbar1: 'bold italic underline strikethrough | bullist numlist | blockquote hr wp_more | alignleft aligncenter alignright | link unlink | fullscreen | wp_adv',
+                toolbar2: 'formatselect alignjustify forecolor | pastetext removeformat charmap | outdent indent | undo redo | wp_help'
+            },
+            quicktags: true,
+            mediaButtons: false,
+          });
     });
 }
 

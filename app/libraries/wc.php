@@ -20,6 +20,9 @@ class MEC_wc extends MEC_base
 
     public function cart($event_id, $date, $tickets, $transaction_id = NULL)
     {
+        $translated_event_id = (isset($_REQUEST['translated_event_id']) ? sanitize_text_field($_REQUEST['translated_event_id']) : 0);
+        if(!trim($translated_event_id)) $translated_event_id = $event_id;
+
         $db = $this->getDB();
 
         // Added to cart after ticket selection
@@ -29,15 +32,15 @@ class MEC_wc extends MEC_base
             {
                 if(trim($ticket_id) == '') continue;
 
-                $ticket_key = $event_id.':'.$ticket_id;
+                $ticket_key = $translated_event_id.':'.$ticket_id;
 
                 // Get Product ID
                 $product_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_ticket' AND `meta_value`='".$ticket_key."'", 'loadResult');
 
                 // Create Product if Doesn't Exists
-                if(!$product_id) $product_id = $this->create($event_id, $ticket_id);
+                if(!$product_id) $product_id = $this->create($translated_event_id, $ticket_id);
                 // Update Existing Product
-                else $this->update($product_id, $event_id, $ticket_id);
+                else $this->update($product_id, $translated_event_id, $ticket_id);
 
                 // Add to Cart
                 WC()->cart->add_to_cart($product_id, $count, 0, array(), array(
@@ -57,15 +60,15 @@ class MEC_wc extends MEC_base
                 $ticket_id = isset($info['id']) ? $info['id'] : '';
                 if(trim($ticket_id) == '') continue;
 
-                $ticket_key = $event_id.':'.$ticket_id;
+                $ticket_key = $translated_event_id.':'.$ticket_id;
 
                 // Get Product ID
                 $product_id = $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_ticket' AND `meta_value`='".$ticket_key."'", 'loadResult');
 
                 // Create Product if Doesn't Exists
-                if(!$product_id) $product_id = $this->create($event_id, $ticket_id);
+                if(!$product_id) $product_id = $this->create($translated_event_id, $ticket_id);
                 // Update Existing Product
-                else $this->update($product_id, $event_id, $ticket_id);
+                else $this->update($product_id, $translated_event_id, $ticket_id);
 
                 // Ticket Count
                 $count = isset($info['count']) ? $info['count'] : 1;

@@ -50,6 +50,8 @@ class MEC_skin_daily_view extends MEC_skins
         // Search Form Status
         $this->sf_status = isset($this->atts['sf_status']) ? $this->atts['sf_status'] : true;
         $this->sf_display_label = isset($this->atts['sf_display_label']) ? $this->atts['sf_display_label'] : false;
+        $this->sf_reset_button = isset($this->atts['sf_reset_button']) ? $this->atts['sf_reset_button'] : false;
+        $this->sf_refine = isset($this->atts['sf_refine']) ? $this->atts['sf_refine'] : false;
         
         // Generate an ID for the skin
         $this->id = isset($this->atts['id']) ? $this->atts['id'] : mt_rand(100, 999);
@@ -84,7 +86,10 @@ class MEC_skin_daily_view extends MEC_skins
 
         // Display Price
         $this->display_price = (isset($this->skin_options['display_price']) and trim($this->skin_options['display_price'])) ? true : false;
-        
+
+        // Detailed Time
+        $this->display_detailed_time = (isset($this->skin_options['detailed_time']) and trim($this->skin_options['detailed_time'])) ? true : false;
+
         // Init MEC
         $this->args['mec-init'] = true;
         $this->args['mec-skin'] = $this->skin;

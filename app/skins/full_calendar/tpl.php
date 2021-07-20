@@ -22,6 +22,8 @@ jQuery(document).ready(function()
         sf:
         {
             container: "'.($this->sf_status ? '#mec_search_form_'.$this->id : '').'",
+            reset: '.($this->sf_reset_button ? 1 : 0).',
+            refine: '.($this->sf_refine ? 1 : 0).',
         },
         skin: "'.$this->default_view.'",
     });
@@ -116,6 +118,9 @@ do_action('mec_full_skin_head');
             <?php endif; ?>
             <?php if($sf_local_time_status): $sf_columns -= 3; ?>
                 <?php echo $this->sf_search_field('time_filter', $sf_local_time , $this->sf_display_label); ?>
+            <?php endif; ?>
+            <?php if($this->sf_reset_button): ?>
+            <div class="mec-search-reset-button"><button class="button mec-button" id="mec_search_form_<?php echo $this->id; ?>_reset" type="button"><?php echo esc_html__('Reset', 'modern-events-calendar-lite'); ?></button></div>
             <?php endif; ?>
             <div class="col-md-12 mec-tab-loader">
                 <div class="mec-totalcal-view">

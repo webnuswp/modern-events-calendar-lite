@@ -184,8 +184,8 @@ $modal_booking = (isset($_GET['method']) and $_GET['method'] === 'mec-booking-mo
                     <?php echo $ticket_message_sold_out; ?>
                 </div>
                 <?php if($ticket_limit == '0') do_action( 'mec_booking_sold_out',$event, $ticket,$ticket_id,$dates ); ?>
-                <input type="hidden" id="mec-ticket-message-sales-<?php echo $ticket_id; ?>" value="<?php echo $ticket_message_sales; ?>" />
-                <input type="hidden" id="mec-ticket-message-sold-out-<?php echo $ticket_id; ?>" value="<?php echo $ticket_message_sold_out; ?>" />
+                <input type="hidden" id="mec-ticket-message-sales-<?php echo $ticket_id; ?>" value="<?php echo esc_attr($ticket_message_sales); ?>" />
+                <input type="hidden" id="mec-ticket-message-sold-out-<?php echo $ticket_id; ?>" value="<?php echo esc_attr($ticket_message_sold_out); ?>" />
             </div>
             <?php endif; ?>
         </div>

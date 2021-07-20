@@ -7,8 +7,24 @@ defined('MECEXEC') or die();
  */
 class MEC_feature_search extends MEC_base
 {
+    /**
+     * @var MEC_factory
+     */
     public $factory;
+
+    /**
+     * @var MEC_main
+     */
     public $main;
+
+    /**
+     * @var MEC_search
+     */
+    public $search;
+
+    /**
+     * @var array
+     */
     public $settings;
 
     /**
@@ -25,6 +41,9 @@ class MEC_feature_search extends MEC_base
 
         // MEC Settings
         $this->settings = $this->main->get_settings();
+
+        // Search Library
+        $this->search = $this->getSearch();
     }
     
     /**
@@ -45,6 +64,10 @@ class MEC_feature_search extends MEC_base
         {
             $this->factory->filter('pre_get_posts', array($this, 'mec_search_filter'));
         }
+
+        // Search Narrow
+        $this->factory->action('wp_ajax_mec_refine_search_items', array($this->search, 'refine'));
+        $this->factory->action('wp_ajax_nopriv_mec_refine_search_items', array($this->search, 'refine'));
     }
 
     /**

@@ -57,6 +57,8 @@ class MEC_skin_single extends MEC_skins
         // Search Form Status
         $this->sf_status = false;
         $this->sf_display_label = false;
+        $this->sf_reset_button = false;
+        $this->sf_refine = false;
 
         // HTML class
         $this->html_class = '';
@@ -91,7 +93,7 @@ class MEC_skin_single extends MEC_skins
 
         $related_args = array(
             'post_type' => $this->main->get_main_post_type(),
-            'posts_per_page' => $limit,
+            'posts_per_page' => max($limit, 20),
             'post_status' => 'publish',
             'post__not_in' => array($event_id),
             'tax_query' => array(),
@@ -182,7 +184,7 @@ class MEC_skin_single extends MEC_skins
             <div class="row mec-related-events-wrap">
                 <h3 class="mec-rec-events-title"><?php echo __('Related Events', 'modern-events-calendar-lite'); ?></h3>
                 <div class="mec-related-events">
-                    <?php while($query->have_posts()): if($printed >= 4) break; $query->the_post(); ?>
+                    <?php while($query->have_posts()): if($printed >= min($limit, 4)) break; $query->the_post(); ?>
                         <?php
                             // Event Repeat Type
                             $repeat_type = get_post_meta(get_the_ID(), 'mec_repeat_type', true);
@@ -1060,9 +1062,14 @@ class MEC_skin_single extends MEC_skins
             <?php
             foreach($event->data->categories as $category)
             {
-                $icon = get_metadata('term', $category['id'], 'mec_cat_icon', true);
+                $color = ((isset($category['color']) and trim($category['color'])) ? $category['color'] : '');
+
+                $color_html = '';
+                if($color) $color_html .= '<span class="mec-event-category-color" style="--background-color: '.esc_attr($color).';background-color: '.esc_attr($color).'">&nbsp;</span>';
+
+                $icon = (isset($category['icon']) ? $category['icon'] : '');
                 $icon = isset($icon) && $icon != '' ? '<i class="' . $icon . ' mec-color"></i>' : '<i class="mec-fa-angle-right"></i>';
-                echo '<dl><dd class="mec-events-event-categories"><a href="' . get_term_link($category['id'], 'mec_category') . '" class="mec-color-hover" rel="tag">' . $icon . $category['name'] . '</a></dd></dl>';
+                echo '<dl><dd class="mec-events-event-categories"><a href="' . get_term_link($category['id'], 'mec_category') . '" class="mec-color-hover" rel="tag">' . $icon . $category['name'] . $color_html . '</a></dd></dl>';
             }
 
             echo '</div>';
@@ -1085,7 +1092,17 @@ class MEC_skin_single extends MEC_skins
             <div class="mec-event-cost">
                 <i class="mec-sl-wallet"></i>
                 <h3 class="mec-cost"><?php echo $this->main->m('cost', __('Cost', 'modern-events-calendar-lite')); ?></h3>
-                <dl><dd class="mec-events-event-cost"><?php echo (is_numeric($cost) ? $this->main->render_price($cost, $event->ID) : $cost); ?></dd></dl>
+                <dl><dd class="mec-events-event-cost">
+                    <?php
+                    if(is_numeric($cost)){
+                        $rendered_cost = $this->main->render_price($cost, $event->ID);
+                    }else{
+                        $rendered_cost = $cost;
+                    }
+
+                    echo apply_filters( 'mec_display_event_cost', $rendered_cost, $cost );
+                    ?>
+                </dd></dl>
             </div>
             <?php
             echo '</div>';

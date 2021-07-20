@@ -348,7 +348,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                     <div class="w-box-content">
                         <center><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/wn-ms-icon-17-n.svg'; ?>" style="width:100px; margin-top:30px;" /></center>
                         <p style="margin-top:20px;"><?php esc_html_e('You don’t need to register anywhere for support anymore.You can click the following button, and the chat box will open up to ask all your different questions using our various channels.' , 'modern-events-calendar-lite'); ?><?php echo sprintf(__("<br><small style=\"color: #8a8a8a;\">Only enter your email address and the answers will be sent over to your mail box.</small>", 'modern-events-calendar-lite'));?></p>
-                        <a href="#" class="support-button"><?php esc_html_e('Create a support ticket','modern-events-calendar-lite'); ?></a>
+                        <a href="#" class="support-button"><?php esc_html_e('Create a Support Ticket','modern-events-calendar-lite'); ?></a>
                     </div>
                 </div>
             </div>

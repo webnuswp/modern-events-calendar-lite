@@ -30,14 +30,9 @@ class MEC_schedule extends MEC_base
             $maximum = 50;
             $repeat_type = get_post_meta($event->ID, 'mec_repeat_type', true);
 
-            // Clean Current Schedule for Custom Days Events
-            if($repeat_type === 'custom_days')
-            {
-                $this->clean($event->ID);
-                $maximum = 100;
-            }
-
-            $this->append($event->ID, $maximum);
+            // Reschedule Schedule for Custom Days Events
+            if($repeat_type === 'custom_days') $this->reschedule($event->ID, 200);
+            else $this->append($event->ID, $maximum);
         }
     }
 

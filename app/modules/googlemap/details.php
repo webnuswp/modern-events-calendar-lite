@@ -58,7 +58,7 @@ if(!$this->is_ajax()) $this->load_map_assets();
 $get_direction = (isset($settings['google_maps_get_direction_status']) and in_array($settings['google_maps_get_direction_status'], array(0,1,2))) ? $settings['google_maps_get_direction_status'] : 0;
 
 $additional_location_ids = get_post_meta($event_id, 'mec_additional_location_ids', true);
-$event_locations = array_keys($event->data->locations);
+$event_locations = array_keys((array)$event->data->locations);
 
 $map_data = new stdClass;
 $map_data->id = $uniqueid;

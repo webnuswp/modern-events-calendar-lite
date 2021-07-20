@@ -24,20 +24,20 @@ class MEC_feature_fes extends MEC_base
     {
         // Import MEC Factory
         $this->factory = $this->getFactory();
-        
+
         // Import MEC Main
         $this->main = $this->getMain();
-        
+
         // Import MEC DB
         $this->db = $this->getDB();
-        
+
         // MEC Settings
         $this->settings = $this->main->get_settings();
-        
+
         // Event Post Type
         $this->PT = $this->main->get_main_post_type();
     }
-    
+
     /**
      * Initialize colors feature
      * @author Webnus <info@webnus.biz>
@@ -46,18 +46,18 @@ class MEC_feature_fes extends MEC_base
     {
         // Frontend Event Submission Form
         $this->factory->shortcode('MEC_fes_form', array($this, 'vform'));
-        
+
         // Event Single Page
         $this->factory->shortcode('MEC_fes_list', array($this, 'vlist'));
-        
+
         // Process the event form
         $this->factory->action('wp_ajax_mec_fes_form', array($this, 'fes_form'));
         $this->factory->action('wp_ajax_nopriv_mec_fes_form', array($this, 'fes_form'));
-        
+
         // Upload featured image
         $this->factory->action('wp_ajax_mec_fes_upload_featured_image', array($this, 'fes_upload'));
         $this->factory->action('wp_ajax_nopriv_mec_fes_upload_featured_image', array($this, 'fes_upload'));
-        
+
         // Export the event
         $this->factory->action('wp_ajax_mec_fes_csv_export', array($this, 'mec_fes_csv_export'));
 
@@ -67,7 +67,7 @@ class MEC_feature_fes extends MEC_base
         // Event Published
         $this->factory->action('transition_post_status', array($this, 'status_changed'), 10, 3);
     }
-    
+
     /**
      * Generate frontend event submission form view
      * @author Webnus <info@webnus.biz>
@@ -78,7 +78,7 @@ class MEC_feature_fes extends MEC_base
     {
         // Force to array
         if(!is_array($atts)) $atts = array();
-        
+
         if(isset($_GET['vlist']) and $_GET['vlist'] == 1)
         {
             return $this->vlist($atts);
@@ -86,57 +86,57 @@ class MEC_feature_fes extends MEC_base
 
         // Force to Relative Link
         $this->relative_link = (isset($atts['relative-link']) and $atts['relative-link']);
-        
+
         // Show login/register message if user is not logged in and guest submission is not enabled.
         if(!is_user_logged_in() and (!isset($this->settings['fes_guest_status']) or (isset($this->settings['fes_guest_status']) and $this->settings['fes_guest_status'] == '0')))
         {
             // Show message
             $message = sprintf(__('Please %s/%s in order to submit new events.', 'modern-events-calendar-lite'), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.__('Login', 'modern-events-calendar-lite').'</a>', '<a href="'.wp_registration_url().'">'.__('Register', 'modern-events-calendar-lite').'</a>');
-            
+
             ob_start();
             include MEC::import('app.features.fes.message', true, true);
             return $output = ob_get_clean();
         }
-        
+
         $post_id = isset($_GET['post_id']) ? sanitize_text_field($_GET['post_id']) : -1;
-        
+
         // Selected post is not an event
         if($post_id > 0 and get_post_type($post_id) != $this->PT)
         {
             // Show message
             $message = __("Sorry! Selected post is not an event.", 'modern-events-calendar-lite');
-            
+
             ob_start();
             include MEC::import('app.features.fes.message', true, true);
             return $output = ob_get_clean();
         }
-        
+
         // Show a warning to current user if modification of post is not possible for him/her
         if($post_id != -1 and !current_user_can('edit_post', $post_id))
         {
             // Show message
             $message = __("Sorry! You don't have access to modify this event.", 'modern-events-calendar-lite');
-            
+
             ob_start();
             include MEC::import('app.features.fes.message', true, true);
             return $output = ob_get_clean();
         }
-        
+
         $post = get_post($post_id);
-        
+
         if($post_id == -1)
         {
             $post = new stdClass();
             $post->ID = -1;
         }
-        
+
         $path = MEC::import('app.features.fes.form', true, true);
-        
+
         ob_start();
         include $path;
         return $output = ob_get_clean();
     }
-    
+
     /**
      * Generate frontend event submission list view
      * @author Webnus <info@webnus.biz>
@@ -147,18 +147,18 @@ class MEC_feature_fes extends MEC_base
     {
         // Force to array
         if(!is_array($atts)) $atts = array();
-        
+
         $post_id = isset($_GET['post_id']) ? sanitize_text_field($_GET['post_id']) : NULL;
 
         // Force to Relative Link
         $this->relative_link = (isset($atts['relative-link']) and $atts['relative-link']);
-        
+
         // Show a warning to current user if modification of post is not possible for him/her
         if($post_id > 0 and !current_user_can('edit_post', $post_id))
         {
             // Show message
             $message = __("Sorry! You don't have access to modify this event.", 'modern-events-calendar-lite');
-            
+
             ob_start();
             include MEC::import('app.features.fes.message', true, true);
             return $output = ob_get_clean();
@@ -167,25 +167,25 @@ class MEC_feature_fes extends MEC_base
         {
             return $this->vform($atts);
         }
-        
+
         // Show login/register message if user is not logged in
         if(!is_user_logged_in())
         {
             // Show message
             $message = sprintf(__('Please %s/%s in order to manage events.', 'modern-events-calendar-lite'), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.__('Login', 'modern-events-calendar-lite').'</a>', '<a href="'.wp_registration_url().'">'.__('Register', 'modern-events-calendar-lite').'</a>');
-            
+
             ob_start();
             include MEC::import('app.features.fes.message', true, true);
             return $output = ob_get_clean();
         }
-        
+
         $path = MEC::import('app.features.fes.list', true, true);
-        
+
         ob_start();
         include $path;
         return $output = ob_get_clean();
     }
-    
+
     public function fes_remove()
     {
         // Check if our nonce is set.
@@ -193,18 +193,18 @@ class MEC_feature_fes extends MEC_base
 
         // Verify that the nonce is valid.
         if(!wp_verify_nonce(sanitize_text_field($_POST['_wpnonce']), 'mec_fes_remove')) $this->main->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
-        
+
         $post_id = isset($_POST['post_id']) ? sanitize_text_field($_POST['post_id']) : 0;
-        
+
         // Verify current user can remove the event
         if(!current_user_can('delete_post', $post_id)) $this->main->response(array('success'=>0, 'code'=>'USER_CANNOT_REMOVE_EVENT'));
-        
+
         // Trash the event
         wp_delete_post($post_id);
-        
+
         $this->main->response(array('success'=>1, 'message'=>__('Event removed!', 'modern-events-calendar-lite')));
     }
-    
+
     public function mec_fes_csv_export()
     {
         if((!isset($_POST['mec_event_id'])) or (!isset($_POST['fes_nonce'])) or (!wp_verify_nonce($_POST['fes_nonce'], 'mec_fes_nonce'))) die(json_encode(array('ex' => "error")));
@@ -212,7 +212,7 @@ class MEC_feature_fes extends MEC_base
         $event_id = intval($_POST['mec_event_id']);
         $timestamp = isset($_POST['timestamp']) ? sanitize_text_field($_POST['timestamp']) : 0;
         $booking_ids = '';
-        
+
         ob_start();
         header('Content-Type: text/csv; charset=utf-8');
 
@@ -226,7 +226,7 @@ class MEC_feature_fes extends MEC_base
         }
 
         $post_ids = trim($booking_ids) ? explode(',', trim($booking_ids, ', ')) : array();
-        
+
         if(!count($post_ids) and !$timestamp)
         {
             $books = $this->db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_event_id' AND `meta_value`={$event_id}", 'loadAssocList');
@@ -265,7 +265,7 @@ class MEC_feature_fes extends MEC_base
 
         // MEC User
         $u = $this->getUser();
-        
+
         foreach($post_ids as $post_id)
         {
             $post_id = (int) $post_id;
@@ -281,12 +281,12 @@ class MEC_feature_fes extends MEC_base
             $price = get_post_meta($post_id, 'mec_price', true);
             $gateway_label = get_post_meta($post_id, 'mec_gateway_label', true);
             $booker = $u->booking($post_id);
-            
+
             $confirmed = $this->main->get_confirmation_label(get_post_meta($post_id, 'mec_confirmed', true));
             $verified = $this->main->get_verification_label(get_post_meta($post_id, 'mec_verified', true));
 
             $attachments = '';
-            if(isset($attendees['attachments'])) 
+            if(isset($attendees['attachments']))
             {
                 foreach($attendees['attachments'] as $attachment)
                 {
@@ -353,10 +353,10 @@ class MEC_feature_fes extends MEC_base
                 $counter++;
             }
         }
-        
+
         die(json_encode(array('name' => md5(time().mt_rand(100, 999)), 'ex' => "data:text/csv; charset=utf-8;base64,".base64_encode(ob_get_clean()))));
     }
-    
+
     public function fes_upload()
     {
         // Check if our nonce is set.
@@ -364,20 +364,20 @@ class MEC_feature_fes extends MEC_base
 
         // Verify that the nonce is valid.
         if(!wp_verify_nonce(sanitize_text_field($_POST['_wpnonce']), 'mec_fes_upload_featured_image')) $this->main->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
-        
+
         // Include the function
         if(!function_exists('wp_handle_upload')) require_once ABSPATH.'wp-admin/includes/file.php';
 
         $uploaded_file = isset($_FILES['file']) ? $_FILES['file'] : NULL;
-        
+
         // No file
         if(!$uploaded_file) $this->main->response(array('success'=>0, 'code'=>'NO_FILE', 'message'=>esc_html__('Please upload an image.', 'modern-events-calendar-lite')));
-        
+
         $allowed = array('gif', 'jpeg', 'jpg', 'png');
-        
+
         $ex = explode('.', $uploaded_file['name']);
         $extension = end($ex);
-        
+
         // Invalid Extension
         if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION', 'message'=>sprintf(esc_html__('image extension is invalid. You can upload %s images.', 'modern-events-calendar-lite'), implode(', ', $allowed))));
 
@@ -386,27 +386,27 @@ class MEC_feature_fes extends MEC_base
 
         // Invalid Size
         if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG', 'message'=>sprintf(esc_html__('Image is too big. Maximum size is %s KB.', 'modern-events-calendar-lite'), ($max_file_size / 1000))));
-        
+
         $movefile = wp_handle_upload($uploaded_file, array('test_form'=>false));
-        
+
         $success = 0;
         $data = array();
-        
+
         if($movefile and !isset($movefile['error']))
         {
             $success = 1;
             $message = __('Image uploaded!', 'modern-events-calendar-lite');
-            
+
             $data['url'] = $movefile['url'];
         }
         else
         {
             $message = $movefile['error'];
         }
-        
+
         $this->main->response(array('success'=>$success, 'message'=>$message, 'data'=>$data));
     }
-    
+
     public function fes_form()
     {
         // Check if our nonce is set.
@@ -414,9 +414,9 @@ class MEC_feature_fes extends MEC_base
 
         // Verify that the nonce is valid.
         if(!wp_verify_nonce(sanitize_text_field($_POST['_wpnonce']), 'mec_fes_form')) $this->main->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
-        
+
         $mec = isset($_POST['mec']) ? $_POST['mec'] : array();
-        
+
         // Google recaptcha
         if($this->main->get_recaptcha_status('fes'))
         {
@@ -464,13 +464,13 @@ class MEC_feature_fes extends MEC_base
 
         // Label is Required
         if(isset($this->settings['fes_section_labels']) and $this->settings['fes_section_labels'] and isset($this->settings['fes_required_label']) and $this->settings['fes_required_label'] and is_array($post_labels) and !count($post_labels)) $this->main->response(array('success'=>0, 'message'=>__('Please select at-least one label!', 'modern-events-calendar-lite'), 'code'=>'LABEL_IS_EMPTY'));
-        
+
         // Post Status
         $status = 'pending';
         if(current_user_can('publish_posts')) $status = 'publish';
-        
+
         $method = 'updated';
-        
+
         // Create new event
         if($post_id == -1)
         {
@@ -479,197 +479,243 @@ class MEC_feature_fes extends MEC_base
 
             $post = array('post_title'=>$post_title, 'post_content'=>$post_content, 'post_excerpt'=>$post_excerpt, 'post_type'=>$this->PT, 'post_status'=>$status);
             $post_id = wp_insert_post($post);
-            
+
             $method = 'added';
         }
-        
+
         wp_update_post(array('ID'=>$post_id, 'post_title'=>$post_title, 'post_content'=>$post_content, 'post_excerpt'=>$post_excerpt,));
-        
-        // Categories
-        $categories = array();
-        foreach($post_categories as $post_category=>$value) $categories[] = (int) $post_category;
-        
-        wp_set_post_terms($post_id, $categories, 'mec_category');
 
-        // Speakers
-        if(isset($this->settings['speakers_status']) and $this->settings['speakers_status'])
+        // Categories Section
+        if(!isset($this->settings['fes_section_categories']) or (isset($this->settings['fes_section_categories']) and $this->settings['fes_section_categories']))
         {
-            $speakers = array();
-            foreach($post_speakers as $post_speaker=>$value) $speakers[] = (int) $post_speaker;
+            // Categories
+            $categories = array();
+            foreach($post_categories as $post_category=>$value) $categories[] = (int) $post_category;
 
-            wp_set_post_terms($post_id, $speakers, 'mec_speaker');
+            wp_set_post_terms($post_id, $categories, 'mec_category');
         }
-        
-        // Labels
-        $labels = array();
-        foreach($post_labels as $post_label=>$value) $labels[] = (int) $post_label;
-        
-        wp_set_post_terms($post_id, $labels, 'mec_label');
-        do_action('mec_label_change_to_radio', $labels, $post_labels, $post_id);
-        
-        // Color
-        $color = isset($mec['color']) ? sanitize_text_field(trim($mec['color'], '# ')) : '';
-        update_post_meta($post_id, 'mec_color', $color);
-        
-        // Tags
-        wp_set_post_terms($post_id, $post_tags, apply_filters('mec_taxonomy_tag', ''));
-        
-        // Featured Image
-        if(trim($featured_image)) $this->main->set_featured_image($featured_image, $post_id);
-        else delete_post_thumbnail($post_id);
-        
-        $read_more = isset($mec['read_more']) ? sanitize_text_field($mec['read_more']) : '';
-        $more_info = isset($mec['more_info']) ? (strpos($mec['more_info'], 'http') === false ? 'http://'.sanitize_text_field($mec['more_info']) : sanitize_text_field($mec['more_info'])) : '';
-        $more_info_title = isset($mec['more_info_title']) ? sanitize_text_field($mec['more_info_title']) : '';
-        $more_info_target = isset($mec['more_info_target']) ? sanitize_text_field($mec['more_info_target']) : '';
-        $cost = isset($mec['cost']) ? sanitize_text_field($mec['cost']) : '';
-        $currency_options = ((isset($mec['currency']) and is_array($mec['currency'])) ? $mec['currency'] : array());
-        $note = isset($mec['note']) ? sanitize_text_field($mec['note']) : '';
-        
-        update_post_meta($post_id, 'mec_read_more', $read_more);
-        update_post_meta($post_id, 'mec_more_info', $more_info);
-        update_post_meta($post_id, 'mec_more_info_title', $more_info_title);
-        update_post_meta($post_id, 'mec_more_info_target', $more_info_target);
-        update_post_meta($post_id, 'mec_cost', $cost);
-        update_post_meta($post_id, 'mec_currency', $currency_options);
-        update_post_meta($post_id, 'mec_note', $note);
-        
+
+        // Speakers Section
+        if(!isset($this->settings['fes_section_speaker']) or (isset($this->settings['fes_section_speaker']) and $this->settings['fes_section_speaker']))
+        {
+            // Speakers
+            if(isset($this->settings['speakers_status']) and $this->settings['speakers_status'])
+            {
+                $speakers = array();
+                foreach($post_speakers as $post_speaker=>$value) $speakers[] = (int) $post_speaker;
+
+                wp_set_post_terms($post_id, $speakers, 'mec_speaker');
+            }
+        }
+
+        // Labels Section
+        if(!isset($this->settings['fes_section_labels']) or (isset($this->settings['fes_section_labels']) and $this->settings['fes_section_labels']))
+        {
+            // Labels
+            $labels = array();
+            foreach($post_labels as $post_label=>$value) $labels[] = (int) $post_label;
+
+            wp_set_post_terms($post_id, $labels, 'mec_label');
+            do_action('mec_label_change_to_radio', $labels, $post_labels, $post_id);
+        }
+
+        // Color Section
+        if(!isset($this->settings['fes_section_event_color']) or (isset($this->settings['fes_section_event_color']) and $this->settings['fes_section_event_color']))
+        {
+            // Color
+            $color = isset($mec['color']) ? sanitize_text_field(trim($mec['color'], '# ')) : '';
+            update_post_meta($post_id, 'mec_color', $color);
+        }
+
+        // Tags Section
+        if(!isset($this->settings['fes_section_tags']) or (isset($this->settings['fes_section_tags']) and $this->settings['fes_section_tags']))
+        {
+            // Tags
+            wp_set_post_terms($post_id, $post_tags, apply_filters('mec_taxonomy_tag', ''));
+        }
+
+        // Featured Image Section
+        if(!isset($this->settings['fes_section_featured_image']) or (isset($this->settings['fes_section_featured_image']) and $this->settings['fes_section_featured_image']))
+        {
+            // Featured Image
+            if(trim($featured_image)) $this->main->set_featured_image($featured_image, $post_id);
+            else delete_post_thumbnail($post_id);
+        }
+
+        // Links Section
+        if(!isset($this->settings['fes_section_event_links']) or (isset($this->settings['fes_section_event_links']) and $this->settings['fes_section_event_links']))
+        {
+            $read_more = isset($mec['read_more']) ? sanitize_text_field($mec['read_more']) : '';
+            $more_info = isset($mec['more_info']) ? (strpos($mec['more_info'], 'http') === false ? 'http://'.sanitize_text_field($mec['more_info']) : sanitize_text_field($mec['more_info'])) : '';
+            $more_info_title = isset($mec['more_info_title']) ? sanitize_text_field($mec['more_info_title']) : '';
+            $more_info_target = isset($mec['more_info_target']) ? sanitize_text_field($mec['more_info_target']) : '';
+
+            update_post_meta($post_id, 'mec_read_more', $read_more);
+            update_post_meta($post_id, 'mec_more_info', $more_info);
+            update_post_meta($post_id, 'mec_more_info_title', $more_info_title);
+            update_post_meta($post_id, 'mec_more_info_target', $more_info_target);
+        }
+
+        // Cost Section
+        if(!isset($this->settings['fes_section_cost']) or (isset($this->settings['fes_section_cost']) and $this->settings['fes_section_cost']))
+        {
+            $cost = isset($mec['cost']) ? $mec['cost'] : '';
+            $cost = apply_filters(
+                'mec_event_cost_sanitize',
+                sanitize_text_field($cost),
+                $cost
+            );
+
+            $currency_options = ((isset($mec['currency']) and is_array($mec['currency'])) ? $mec['currency'] : array());
+
+            update_post_meta($post_id, 'mec_cost', $cost);
+            update_post_meta($post_id, 'mec_currency', $currency_options);
+        }
+
         // Guest Name and Email
         $fes_guest_email = isset($mec['fes_guest_email']) ? sanitize_email($mec['fes_guest_email']) : '';
         $fes_guest_name = isset($mec['fes_guest_name']) ? sanitize_text_field($mec['fes_guest_name']) : '';
-        
+        $note = isset($mec['note']) ? sanitize_text_field($mec['note']) : '';
+
         update_post_meta($post_id, 'fes_guest_email', $fes_guest_email);
         update_post_meta($post_id, 'fes_guest_name', $fes_guest_name);
-        
-        // Location
-        $location_id = isset($mec['location_id']) ? sanitize_text_field($mec['location_id']) : 1;
-        
-        // Selected a saved location
-        if($location_id)
-        {
-            // Set term to the post
-            wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
-        }
-        else
-        {
-            $address = (isset($mec['location']['address']) and trim($mec['location']['address'])) ? sanitize_text_field($mec['location']['address']) : '';
-            $name = (isset($mec['location']['name']) and trim($mec['location']['name'])) ? sanitize_text_field($mec['location']['name']) : (trim($address) ? $address : 'Location Name');
+        update_post_meta($post_id, 'mec_note', $note);
 
-            $term = get_term_by('name', $name, 'mec_location');
+        // Location Section
+        if(!isset($this->settings['fes_section_location']) or (isset($this->settings['fes_section_location']) and $this->settings['fes_section_location']))
+        {
+            // Location
+            $location_id = isset($mec['location_id']) ? sanitize_text_field($mec['location_id']) : 1;
 
-            // Term already exists
-            if(is_object($term) and isset($term->term_id))
+            // Selected a saved location
+            if($location_id)
             {
                 // Set term to the post
-                wp_set_object_terms($post_id, (int) $term->term_id, 'mec_location');
+                wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
             }
             else
             {
-                $term = wp_insert_term($name, 'mec_location');
+                $address = (isset($mec['location']['address']) and trim($mec['location']['address'])) ? sanitize_text_field($mec['location']['address']) : '';
+                $name = (isset($mec['location']['name']) and trim($mec['location']['name'])) ? sanitize_text_field($mec['location']['name']) : (trim($address) ? $address : 'Location Name');
 
-                $location_id = $term['term_id'];
-                if($location_id)
+                $term = get_term_by('name', $name, 'mec_location');
+
+                // Term already exists
+                if(is_object($term) and isset($term->term_id))
                 {
                     // Set term to the post
-                    wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
+                    wp_set_object_terms($post_id, (int) $term->term_id, 'mec_location');
+                }
+                else
+                {
+                    $term = wp_insert_term($name, 'mec_location');
 
-                    $latitude = (isset($mec['location']['latitude']) and trim($mec['location']['latitude'])) ? sanitize_text_field($mec['location']['latitude']) : 0;
-                    $longitude = (isset($mec['location']['longitude']) and trim($mec['location']['longitude'])) ? sanitize_text_field($mec['location']['longitude']) : 0;
-                    $url = (isset($mec['location']['url']) and trim($mec['location']['url'])) ? esc_url($mec['location']['url']) : '';
-                    $thumbnail = (isset($mec['location']['thumbnail']) and trim($mec['location']['thumbnail'])) ? sanitize_text_field($mec['location']['thumbnail']) : '';
-
-                    if(!trim($latitude) or !trim($longitude))
+                    $location_id = $term['term_id'];
+                    if($location_id)
                     {
-                        $geo_point = $this->main->get_lat_lng($address);
+                        // Set term to the post
+                        wp_set_object_terms($post_id, (int) $location_id, 'mec_location');
 
-                        $latitude = $geo_point[0];
-                        $longitude = $geo_point[1];
+                        $latitude = (isset($mec['location']['latitude']) and trim($mec['location']['latitude'])) ? sanitize_text_field($mec['location']['latitude']) : 0;
+                        $longitude = (isset($mec['location']['longitude']) and trim($mec['location']['longitude'])) ? sanitize_text_field($mec['location']['longitude']) : 0;
+                        $url = (isset($mec['location']['url']) and trim($mec['location']['url'])) ? esc_url($mec['location']['url']) : '';
+                        $thumbnail = (isset($mec['location']['thumbnail']) and trim($mec['location']['thumbnail'])) ? sanitize_text_field($mec['location']['thumbnail']) : '';
+
+                        if(!trim($latitude) or !trim($longitude))
+                        {
+                            $geo_point = $this->main->get_lat_lng($address);
+
+                            $latitude = $geo_point[0];
+                            $longitude = $geo_point[1];
+                        }
+
+                        update_term_meta($location_id, 'address', $address);
+                        update_term_meta($location_id, 'latitude', $latitude);
+                        update_term_meta($location_id, 'longitude', $longitude);
+                        update_term_meta($location_id, 'url', $url);
+                        update_term_meta($location_id, 'thumbnail', $thumbnail);
                     }
-
-                    update_term_meta($location_id, 'address', $address);
-                    update_term_meta($location_id, 'latitude', $latitude);
-                    update_term_meta($location_id, 'longitude', $longitude);
-                    update_term_meta($location_id, 'url', $url);
-                    update_term_meta($location_id, 'thumbnail', $thumbnail);
+                    else $location_id = 1;
                 }
-                else $location_id = 1;
             }
-        }
-        
-        update_post_meta($post_id, 'mec_location_id', $location_id);
-        
-        $dont_show_map = isset($mec['dont_show_map']) ? sanitize_text_field($mec['dont_show_map']) : 0;
-        update_post_meta($post_id, 'mec_dont_show_map', $dont_show_map);
-        
-        // Organizer
-        $organizer_id = isset($mec['organizer_id']) ? sanitize_text_field($mec['organizer_id']) : 1;
-        
-        // Selected a saved organizer
-        if(isset($organizer_id) and $organizer_id)
-        {
-            // Set term to the post
-            wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
-        }
-        else
-        {
-            $name = (isset($mec['organizer']['name']) and trim($mec['organizer']['name'])) ? sanitize_text_field($mec['organizer']['name']) : 'Organizer Name';
 
-            $term = get_term_by('name', $name, 'mec_organizer');
+            update_post_meta($post_id, 'mec_location_id', $location_id);
 
-            // Term already exists
-            if(is_object($term) and isset($term->term_id))
+            $dont_show_map = isset($mec['dont_show_map']) ? sanitize_text_field($mec['dont_show_map']) : 0;
+            update_post_meta($post_id, 'mec_dont_show_map', $dont_show_map);
+        }
+
+        // Organizer Section
+        if(!isset($this->settings['fes_section_organizer']) or (isset($this->settings['fes_section_organizer']) and $this->settings['fes_section_organizer']))
+        {
+            // Organizer
+            $organizer_id = isset($mec['organizer_id']) ? sanitize_text_field($mec['organizer_id']) : 1;
+
+            // Selected a saved organizer
+            if(isset($organizer_id) and $organizer_id)
             {
                 // Set term to the post
-                wp_set_object_terms($post_id, (int) $term->term_id, 'mec_organizer');
+                wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
             }
             else
             {
-                $term = wp_insert_term($name, 'mec_organizer');
+                $name = (isset($mec['organizer']['name']) and trim($mec['organizer']['name'])) ? sanitize_text_field($mec['organizer']['name']) : 'Organizer Name';
 
-                $organizer_id = $term['term_id'];
-                if($organizer_id)
+                $term = get_term_by('name', $name, 'mec_organizer');
+
+                // Term already exists
+                if(is_object($term) and isset($term->term_id))
                 {
                     // Set term to the post
-                    wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
-
-                    $tel = (isset($mec['organizer']['tel']) and trim($mec['organizer']['tel'])) ? sanitize_text_field($mec['organizer']['tel']) : '';
-                    $email = (isset($mec['organizer']['email']) and trim($mec['organizer']['email'])) ? sanitize_text_field($mec['organizer']['email']) : '';
-                    $url = (isset($mec['organizer']['url']) and trim($mec['organizer']['url'])) ? (strpos($mec['organizer']['url'], 'http') === false ? 'http://'.sanitize_text_field($mec['organizer']['url']) : sanitize_text_field($mec['organizer']['url'])) : '';
-                    $thumbnail = (isset($mec['organizer']['thumbnail']) and trim($mec['organizer']['thumbnail'])) ? sanitize_text_field($mec['organizer']['thumbnail']) : '';
-
-                    update_term_meta($organizer_id, 'tel', $tel);
-                    update_term_meta($organizer_id, 'email', $email);
-                    update_term_meta($organizer_id, 'url', $url);
-                    update_term_meta($organizer_id, 'thumbnail', $thumbnail);
+                    wp_set_object_terms($post_id, (int) $term->term_id, 'mec_organizer');
                 }
-                else $organizer_id = 1;
+                else
+                {
+                    $term = wp_insert_term($name, 'mec_organizer');
+
+                    $organizer_id = $term['term_id'];
+                    if($organizer_id)
+                    {
+                        // Set term to the post
+                        wp_set_object_terms($post_id, (int) $organizer_id, 'mec_organizer');
+
+                        $tel = (isset($mec['organizer']['tel']) and trim($mec['organizer']['tel'])) ? sanitize_text_field($mec['organizer']['tel']) : '';
+                        $email = (isset($mec['organizer']['email']) and trim($mec['organizer']['email'])) ? sanitize_text_field($mec['organizer']['email']) : '';
+                        $url = (isset($mec['organizer']['url']) and trim($mec['organizer']['url'])) ? (strpos($mec['organizer']['url'], 'http') === false ? 'http://'.sanitize_text_field($mec['organizer']['url']) : sanitize_text_field($mec['organizer']['url'])) : '';
+                        $thumbnail = (isset($mec['organizer']['thumbnail']) and trim($mec['organizer']['thumbnail'])) ? sanitize_text_field($mec['organizer']['thumbnail']) : '';
+
+                        update_term_meta($organizer_id, 'tel', $tel);
+                        update_term_meta($organizer_id, 'email', $email);
+                        update_term_meta($organizer_id, 'url', $url);
+                        update_term_meta($organizer_id, 'thumbnail', $thumbnail);
+                    }
+                    else $organizer_id = 1;
+                }
             }
+
+            update_post_meta($post_id, 'mec_organizer_id', $organizer_id);
+
+            // Additional Organizers
+            $additional_organizer_ids = isset($mec['additional_organizer_ids']) ? $mec['additional_organizer_ids'] : array();
+
+            foreach($additional_organizer_ids as $additional_organizer_id) wp_set_object_terms($post_id, (int) $additional_organizer_id, 'mec_organizer', true);
+            update_post_meta($post_id, 'mec_additional_organizer_ids', $additional_organizer_ids);
+
+            // Additional locations
+            $additional_location_ids = isset($mec['additional_location_ids']) ? $mec['additional_location_ids'] : array();
+
+            foreach($additional_location_ids as $additional_location_id) wp_set_object_terms($post_id, (int)$additional_location_id, 'mec_location', true);
+            update_post_meta($post_id, 'mec_additional_location_ids', $additional_location_ids);
         }
-        
-        update_post_meta($post_id, 'mec_organizer_id', $organizer_id);
-
-        // Additional Organizers
-        $additional_organizer_ids = isset($mec['additional_organizer_ids']) ? $mec['additional_organizer_ids'] : array();
-
-        foreach($additional_organizer_ids as $additional_organizer_id) wp_set_object_terms($post_id, (int) $additional_organizer_id, 'mec_organizer', true);
-        update_post_meta($post_id, 'mec_additional_organizer_ids', $additional_organizer_ids);
-        
-         // Additional locations
-         $additional_location_ids = isset($mec['additional_location_ids']) ? $mec['additional_location_ids'] : array();
-
-         foreach ($additional_location_ids as $additional_location_id) {
-             wp_set_object_terms($post_id, (int)$additional_location_id, 'mec_location', true);
-         }
-         update_post_meta($post_id, 'mec_additional_location_ids', $additional_location_ids);
 
         // Date Options
         $date = isset($mec['date']) ? $mec['date'] : array();
 
         $start_date = date('Y-m-d', strtotime($start_date));
-        
+
         // Set the start date
         $date['start']['date'] = $start_date;
-        
+
         $start_time_hour = isset($date['start']) ? $date['start']['hour'] : '8';
         $start_time_minutes = isset($date['start']) ? $date['start']['minutes'] : '00';
         $start_time_ampm = (isset($date['start']) and isset($date['start']['ampm'])) ? $date['start']['ampm'] : 'AM';
@@ -678,14 +724,14 @@ class MEC_feature_fes extends MEC_base
 
         // Fix end_date if it's smaller than start_date
         if(strtotime($end_date) < strtotime($start_date)) $end_date = $start_date;
-        
+
         // Set the end date
         $date['end']['date'] = $end_date;
-        
+
         $end_time_hour = isset($date['end']) ? $date['end']['hour'] : '6';
         $end_time_minutes = isset($date['end']) ? $date['end']['minutes'] : '00';
         $end_time_ampm = (isset($date['end']) and isset($date['end']['ampm'])) ? $date['end']['ampm'] : 'PM';
-        
+
         // If 24 hours format is enabled then convert it back to 12 hours
         if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24)
         {
@@ -701,7 +747,7 @@ class MEC_feature_fes extends MEC_base
                 $start_time_hour = 12;
                 $start_time_ampm = 'AM';
             }
-            
+
             if($end_time_hour < 12) $end_time_ampm = 'AM';
             elseif($end_time_hour == 12) $end_time_ampm = 'PM';
             elseif($end_time_hour > 12)
@@ -714,15 +760,15 @@ class MEC_feature_fes extends MEC_base
                 $end_time_hour = 12;
                 $end_time_ampm = 'AM';
             }
-            
+
             // Set converted values to date array
             $date['start']['hour'] = $start_time_hour;
             $date['start']['ampm'] = $start_time_ampm;
-            
+
             $date['end']['hour'] = $end_time_hour;
             $date['end']['ampm'] = $end_time_ampm;
         }
-        
+
         $allday = isset($date['allday']) ? 1 : 0;
         $one_occurrence = isset($date['one_occurrence']) ? 1 : 0;
         $hide_time = isset($date['hide_time']) ? 1 : 0;
@@ -738,12 +784,12 @@ class MEC_feature_fes extends MEC_base
             $start_time_hour = '8';
             $start_time_minutes = '00';
             $start_time_ampm = 'AM';
-            
+
             $end_time_hour = '6';
             $end_time_minutes = '00';
             $end_time_ampm = 'PM';
         }
-        
+
         $day_start_seconds = $this->main->time_to_seconds($this->main->to_24hours($start_time_hour, $start_time_ampm), $start_time_minutes);
         $day_end_seconds = $this->main->time_to_seconds($this->main->to_24hours($end_time_hour, $end_time_ampm), $end_time_minutes);
 
@@ -764,33 +810,33 @@ class MEC_feature_fes extends MEC_base
         // Repeat Options
         $repeat = isset($date['repeat']) ? $date['repeat'] : array();
         $certain_weekdays = isset($repeat['certain_weekdays']) ? $repeat['certain_weekdays'] : array();
-        
+
         $repeat_status = isset($repeat['status']) ? 1 : 0;
         $repeat_type = ($repeat_status and isset($repeat['type'])) ? $repeat['type'] : '';
-        
+
         $repeat_interval = ($repeat_status and isset($repeat['interval']) and trim($repeat['interval'])) ? $repeat['interval'] : 1;
 
         // Advanced Repeat
         $advanced = isset( $repeat['advanced'] ) ? sanitize_text_field($repeat['advanced']) : '';
-        
+
         if(!is_numeric($repeat_interval)) $repeat_interval = NULL;
-        
+
         if($repeat_type == 'weekly') $interval_multiply = 7;
         else $interval_multiply = 1;
-        
+
         // Reset certain weekdays if repeat type is not set to certain weekdays
         if($repeat_type != 'certain_weekdays') $certain_weekdays = array();
-        
+
         if(!is_null($repeat_interval)) $repeat_interval = $repeat_interval*$interval_multiply;
-        
+
         // String To Array
 		if($repeat_type == 'advanced' and trim($advanced)) $advanced = explode('-', $advanced);
         else $advanced = array();
-        
+
         $repeat_end = ($repeat_status and isset($repeat['end'])) ? $repeat['end'] : '';
         $repeat_end_at_occurrences = ($repeat_status and isset($repeat['end_at_occurrences'])) ? ($repeat['end_at_occurrences']-1) : '';
         $repeat_end_at_date = ($repeat_status and isset($repeat['end_at_date'])) ? $this->main->standardize_format( $repeat['end_at_date'] ) : '';
-        
+
         update_post_meta($post_id, 'mec_date', $date);
         update_post_meta($post_id, 'mec_repeat', $repeat);
         update_post_meta($post_id, 'mec_certain_weekdays', $certain_weekdays);
@@ -809,20 +855,20 @@ class MEC_feature_fes extends MEC_base
         update_post_meta($post_id, 'mec_repeat_end_at_occurrences', $repeat_end_at_occurrences);
         update_post_meta($post_id, 'mec_repeat_end_at_date', $repeat_end_at_date);
         update_post_meta($post_id, 'mec_advanced_days', $advanced);
-        
+
         // Creating $event array for inserting in mec_events table
         $event = array('post_id'=>$post_id, 'start'=>$start_date, 'repeat'=>$repeat_status, 'rinterval'=>(!in_array($repeat_type, array('daily', 'weekly', 'monthly')) ? NULL : $repeat_interval), 'time_start'=>$day_start_seconds, 'time_end'=>$day_end_seconds);
-        
+
         $year = NULL;
         $month = NULL;
         $day = NULL;
         $week = NULL;
         $weekday = NULL;
         $weekdays = NULL;
-        
+
         // MEC weekdays
         $mec_weekdays = $this->main->get_weekdays();
-        
+
         // MEC weekends
         $mec_weekends = $this->main->get_weekends();
 
@@ -839,67 +885,67 @@ class MEC_feature_fes extends MEC_base
         {
             $repeat_interval = 1;
             $plus_date = '+'.$repeat_end_at_occurrences*$repeat_interval.' Weekdays';
-            
+
             $weekdays = ','.implode(',', $mec_weekdays).',';
         }
         elseif($repeat_type == 'weekend')
         {
             $repeat_interval = 1;
             $plus_date = '+'.round($repeat_end_at_occurrences/2)*($repeat_interval*7).' Days';
-            
+
             $weekdays = ','.implode(',', $mec_weekends).',';
         }
         elseif($repeat_type == 'certain_weekdays')
         {
             $repeat_interval = 1;
             $plus_date = '+' . ceil(($repeat_end_at_occurrences * $repeat_interval) * (7/count($certain_weekdays))) . ' days';
-            
+
             $weekdays = ','.implode(',', $certain_weekdays).',';
         }
         elseif($repeat_type == 'monthly')
         {
             $plus_date = '+'.$repeat_end_at_occurrences*$repeat_interval.' Months';
-            
+
             $year = '*';
             $month = '*';
-            
+
             $s = $start_date;
             $e = $end_date;
-            
+
             $_days = array();
             while(strtotime($s) <= strtotime($e))
             {
                 $_days[] = date('d', strtotime($s));
                 $s = date('Y-m-d', strtotime('+1 Day', strtotime($s)));
             }
-            
+
             $day = ','.implode(',', array_unique($_days)).',';
-            
+
             $week = '*';
             $weekday = '*';
         }
         elseif($repeat_type == 'yearly')
         {
             $plus_date = '+'.$repeat_end_at_occurrences*$repeat_interval.' Years';
-            
+
             $year = '*';
-            
+
             $s = $start_date;
             $e = $end_date;
-            
+
             $_months = array();
             $_days = array();
             while(strtotime($s) <= strtotime($e))
             {
                 $_months[] = date('m', strtotime($s));
                 $_days[] = date('d', strtotime($s));
-                
+
                 $s = date('Y-m-d', strtotime('+1 Day', strtotime($s)));
             }
-            
+
             $month = ','.implode(',', array_unique($_months)).',';
             $day = ','.implode(',', array_unique($_days)).',';
-            
+
             $week = '*';
             $weekday = '*';
         }
@@ -911,10 +957,10 @@ class MEC_feature_fes extends MEC_base
             // Get finish date
             $event_info = array('start' => $date['start'], 'end' => $date['end']);
             $dates = $this->render->generate_advanced_days($advanced, $event_info, $repeat_end_at_occurrences +1, date( 'Y-m-d', current_time( 'timestamp', 0 )), 'events');
-            
+
             $period_date = $this->main->date_diff($start_date, end($dates)['end']['date']);
 
-            $plus_date = '+' . $period_date->days . ' Days';            
+            $plus_date = '+' . $period_date->days . ' Days';
         }
 
         // "In Days" and "Not In Days"
@@ -1064,7 +1110,7 @@ class MEC_feature_fes extends MEC_base
 
         update_post_meta($post_id, 'mec_in_days', $in_days);
         update_post_meta($post_id, 'mec_not_in_days', $not_in_days);
-        
+
         // Repeat End Date
         if($repeat_end == 'never') $repeat_end_date = '0000-00-00';
         elseif($repeat_end == 'date') $repeat_end_date = $repeat_end_at_date;
@@ -1088,7 +1134,7 @@ class MEC_feature_fes extends MEC_base
         $event['weekdays'] = $weekdays;
         $event['days'] = $in_days;
         $event['not_in_days'] = $not_in_days;
-        
+
         // Update MEC Events Table
         $mec_event_id = $this->db->select($this->db->prepare("SELECT `id` FROM `#__mec_events` WHERE `post_id` = %d", $post_id), 'loadResult');
 
@@ -1096,27 +1142,27 @@ class MEC_feature_fes extends MEC_base
         {
             $q1 = "";
             $q2 = "";
-            
+
             foreach($event as $key=>$value)
             {
                 $q1 .= "`$key`,";
-                
+
                 if(is_null($value)) $q2 .= "NULL,";
                 else $q2 .= "'$value',";
             }
-            
+
             $this->db->q("INSERT INTO `#__mec_events` (".trim($q1, ', ').") VALUES (".trim($q2, ', ').")", 'INSERT');
         }
         else
         {
             $q = "";
-            
+
             foreach($event as $key=>$value)
             {
                 if(is_null($value)) $q .= "`$key`=NULL,";
                 else $q .= "`$key`='$value',";
             }
-            
+
             $this->db->q("UPDATE `#__mec_events` SET ".trim($q, ', ')." WHERE `id`='$mec_event_id'");
         }
 
@@ -1124,116 +1170,129 @@ class MEC_feature_fes extends MEC_base
         $schedule = $this->getSchedule();
         $schedule->reschedule($post_id, $schedule->get_reschedule_maximum($repeat_type));
 
-        // Hourly Schedule Options
-        $raw_hourly_schedules = isset($mec['hourly_schedules']) ? $mec['hourly_schedules'] : array();
-        unset($raw_hourly_schedules[':d:']);
-
-        $hourly_schedules = array();
-        foreach($raw_hourly_schedules as $raw_hourly_schedule)
+        // Hourly Schedule
+        if(!isset($this->settings['fes_section_hourly_schedule']) or (isset($this->settings['fes_section_hourly_schedule']) and $this->settings['fes_section_hourly_schedule']))
         {
-            unset($raw_hourly_schedule['schedules'][':i:']);
-            $hourly_schedules[] = $raw_hourly_schedule;
-        }
+            // Hourly Schedule Options
+            $raw_hourly_schedules = isset($mec['hourly_schedules']) ? $mec['hourly_schedules'] : array();
+            unset($raw_hourly_schedules[':d:']);
 
-        update_post_meta($post_id, 'mec_hourly_schedules', $hourly_schedules);
-        
-        // Booking and Ticket Options
-        $booking = isset($mec['booking']) ? $mec['booking'] : array();
-        update_post_meta($post_id, 'mec_booking', $booking);
-        
-        $tickets = isset($mec['tickets']) ? $mec['tickets'] : array();
-        unset($tickets[':i:']);
-
-        // Unset Ticket Dats
-        if(count($tickets))
-        {
-            $new_tickets = array();
-            foreach($tickets as $key => $ticket)
+            $hourly_schedules = array();
+            foreach($raw_hourly_schedules as $raw_hourly_schedule)
             {
-                unset($ticket['dates'][':j:']);
-
-                $ticket_start_time_ampm = ((intval($ticket['ticket_start_time_hour']) > 0 and intval($ticket['ticket_start_time_hour']) < 13) and isset($ticket['ticket_start_time_ampm'])) ? $ticket['ticket_start_time_ampm'] : '';
-                $ticket_render_start_time = date('h:ia', strtotime(sprintf('%02d', $ticket['ticket_start_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_start_time_minute']) . $ticket_start_time_ampm));
-                $ticket_end_time_ampm = ((intval($ticket['ticket_end_time_hour']) > 0 and intval($ticket['ticket_end_time_hour']) < 13) and isset($ticket['ticket_end_time_ampm'])) ? $ticket['ticket_end_time_ampm'] : '';
-                $ticket_render_end_time = date('h:ia', strtotime(sprintf('%02d', $ticket['ticket_end_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_end_time_minute']) . $ticket_end_time_ampm));
-
-                $ticket['ticket_start_time_hour'] = substr($ticket_render_start_time, 0, 2);
-                $ticket['ticket_start_time_ampm'] = strtoupper(substr($ticket_render_start_time, 5, 6));
-                $ticket['ticket_end_time_hour'] = substr($ticket_render_end_time, 0, 2);
-                $ticket['ticket_end_time_ampm'] = strtoupper(substr($ticket_render_end_time, 5, 6));
-                $ticket['price'] = trim($ticket['price']);
-                $ticket['limit'] = trim($ticket['limit']);
-                $ticket['minimum_ticket'] = trim($ticket['minimum_ticket']);
-                $ticket['stop_selling_value'] = trim($ticket['stop_selling_value']);
-
-                // Bellow conditional block code is used to change ticket dates format to compatible ticket past dates structure for store in db.
-                if(isset($ticket['dates']))
-                {
-                    foreach($ticket['dates'] as $dates_ticket_key => $dates_ticket_values)
-                    {
-                        if(isset($dates_ticket_values['start']) and trim($dates_ticket_values['start']))
-                        {
-                            $ticket['dates'][$dates_ticket_key]['start'] = $this->main->standardize_format($dates_ticket_values['start']);
-                        }
-
-                        if(isset($dates_ticket_values['end']) and trim($dates_ticket_values['end']))
-                        {
-                            $ticket['dates'][$dates_ticket_key]['end'] = $this->main->standardize_format($dates_ticket_values['end']);
-                        }
-                    }
-                }
-
-                $new_tickets[$key] = $ticket;
+                unset($raw_hourly_schedule['schedules'][':i:']);
+                $hourly_schedules[] = $raw_hourly_schedule;
             }
 
-            $tickets = $new_tickets;
+            update_post_meta($post_id, 'mec_hourly_schedules', $hourly_schedules);
         }
-        
-        update_post_meta($post_id, 'mec_tickets', $tickets);
-        
-        // Fee options
-        $fees_global_inheritance = isset($mec['fees_global_inheritance']) ? $mec['fees_global_inheritance'] : 1;
-        update_post_meta($post_id, 'mec_fees_global_inheritance', $fees_global_inheritance);
-        
-        $fees = isset($mec['fees']) ? $mec['fees'] : array();
-        update_post_meta($post_id, 'mec_fees', $fees);
 
-        // Ticket Variation options
-        $ticket_variations_global_inheritance = isset($mec['ticket_variations_global_inheritance']) ? $mec['ticket_variations_global_inheritance'] : 1;
-        update_post_meta($post_id, 'mec_ticket_variations_global_inheritance', $ticket_variations_global_inheritance);
+        // Booking Options
+        if(!isset($this->settings['fes_section_booking']) or (isset($this->settings['fes_section_booking']) and $this->settings['fes_section_booking']))
+        {
+            // Booking and Ticket Options
+            $booking = isset($mec['booking']) ? $mec['booking'] : array();
+            update_post_meta($post_id, 'mec_booking', $booking);
 
-        $ticket_variations = isset($mec['ticket_variations']) ? $mec['ticket_variations'] : array();
-        update_post_meta($post_id, 'mec_ticket_variations', $ticket_variations);
+            // Tickets
+            if(!isset($this->settings['fes_section_tickets']) or (isset($this->settings['fes_section_tickets']) and $this->settings['fes_section_tickets']))
+            {
+                $tickets = isset($mec['tickets']) ? $mec['tickets'] : array();
+                unset($tickets[':i:']);
 
-        // Registration Fields options
-        $reg_fields_global_inheritance = isset($mec['reg_fields_global_inheritance']) ? $mec['reg_fields_global_inheritance'] : 1;
-        update_post_meta($post_id, 'mec_reg_fields_global_inheritance', $reg_fields_global_inheritance);
+                // Unset Ticket Dats
+                if(count($tickets))
+                {
+                    $new_tickets = array();
+                    foreach($tickets as $key => $ticket)
+                    {
+                        unset($ticket['dates'][':j:']);
 
-        $reg_fields = isset($mec['reg_fields']) ? $mec['reg_fields'] : array();
-        if($reg_fields_global_inheritance) $reg_fields = array();
+                        $ticket_start_time_ampm = ((intval($ticket['ticket_start_time_hour']) > 0 and intval($ticket['ticket_start_time_hour']) < 13) and isset($ticket['ticket_start_time_ampm'])) ? $ticket['ticket_start_time_ampm'] : '';
+                        $ticket_render_start_time = date('h:ia', strtotime(sprintf('%02d', $ticket['ticket_start_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_start_time_minute']) . $ticket_start_time_ampm));
+                        $ticket_end_time_ampm = ((intval($ticket['ticket_end_time_hour']) > 0 and intval($ticket['ticket_end_time_hour']) < 13) and isset($ticket['ticket_end_time_ampm'])) ? $ticket['ticket_end_time_ampm'] : '';
+                        $ticket_render_end_time = date('h:ia', strtotime(sprintf('%02d', $ticket['ticket_end_time_hour']) . ':' . sprintf('%02d', $ticket['ticket_end_time_minute']) . $ticket_end_time_ampm));
 
-        update_post_meta($post_id, 'mec_reg_fields', $reg_fields);
+                        $ticket['ticket_start_time_hour'] = substr($ticket_render_start_time, 0, 2);
+                        $ticket['ticket_start_time_ampm'] = strtoupper(substr($ticket_render_start_time, 5, 6));
+                        $ticket['ticket_end_time_hour'] = substr($ticket_render_end_time, 0, 2);
+                        $ticket['ticket_end_time_ampm'] = strtoupper(substr($ticket_render_end_time, 5, 6));
+                        $ticket['price'] = trim($ticket['price']);
+                        $ticket['limit'] = trim($ticket['limit']);
+                        $ticket['minimum_ticket'] = trim($ticket['minimum_ticket']);
+                        $ticket['stop_selling_value'] = trim($ticket['stop_selling_value']);
 
-        $bfixed_fields = isset($mec['bfixed_fields']) ? $mec['bfixed_fields'] : array();
-        if($reg_fields_global_inheritance) $bfixed_fields = array();
+                        // Bellow conditional block code is used to change ticket dates format to compatible ticket past dates structure for store in db.
+                        if(isset($ticket['dates']))
+                        {
+                            foreach($ticket['dates'] as $dates_ticket_key => $dates_ticket_values)
+                            {
+                                if(isset($dates_ticket_values['start']) and trim($dates_ticket_values['start']))
+                                {
+                                    $ticket['dates'][$dates_ticket_key]['start'] = $this->main->standardize_format($dates_ticket_values['start']);
+                                }
 
-        update_post_meta($post_id, 'mec_bfixed_fields', $bfixed_fields);
+                                if(isset($dates_ticket_values['end']) and trim($dates_ticket_values['end']))
+                                {
+                                    $ticket['dates'][$dates_ticket_key]['end'] = $this->main->standardize_format($dates_ticket_values['end']);
+                                }
+                            }
+                        }
+
+                        $new_tickets[$key] = $ticket;
+                    }
+
+                    $tickets = $new_tickets;
+                }
+
+                update_post_meta($post_id, 'mec_tickets', $tickets);
+            }
+
+            // Fees
+            if(!isset($this->settings['fes_section_fees']) or (isset($this->settings['fes_section_fees']) and $this->settings['fes_section_fees']))
+            {
+                // Fee options
+                $fees_global_inheritance = isset($mec['fees_global_inheritance']) ? $mec['fees_global_inheritance'] : 1;
+                update_post_meta($post_id, 'mec_fees_global_inheritance', $fees_global_inheritance);
+
+                $fees = isset($mec['fees']) ? $mec['fees'] : array();
+                update_post_meta($post_id, 'mec_fees', $fees);
+            }
+
+            // Variation
+            if(!isset($this->settings['fes_section_ticket_variations']) or (isset($this->settings['fes_section_ticket_variations']) and $this->settings['fes_section_ticket_variations']))
+            {
+                // Ticket Variation options
+                $ticket_variations_global_inheritance = isset($mec['ticket_variations_global_inheritance']) ? $mec['ticket_variations_global_inheritance'] : 1;
+                update_post_meta($post_id, 'mec_ticket_variations_global_inheritance', $ticket_variations_global_inheritance);
+
+                $ticket_variations = isset($mec['ticket_variations']) ? $mec['ticket_variations'] : array();
+                update_post_meta($post_id, 'mec_ticket_variations', $ticket_variations);
+            }
+
+            // Booking Form
+            if(!isset($this->settings['fes_section_reg_form']) or (isset($this->settings['fes_section_reg_form']) and $this->settings['fes_section_reg_form']))
+            {
+                // Registration Fields options
+                $reg_fields_global_inheritance = isset($mec['reg_fields_global_inheritance']) ? $mec['reg_fields_global_inheritance'] : 1;
+                update_post_meta($post_id, 'mec_reg_fields_global_inheritance', $reg_fields_global_inheritance);
+
+                $reg_fields = isset($mec['reg_fields']) ? $mec['reg_fields'] : array();
+                if($reg_fields_global_inheritance) $reg_fields = array();
+
+                update_post_meta($post_id, 'mec_reg_fields', $reg_fields);
+
+                $bfixed_fields = isset($mec['bfixed_fields']) ? $mec['bfixed_fields'] : array();
+                if($reg_fields_global_inheritance) $bfixed_fields = array();
+
+                update_post_meta($post_id, 'mec_bfixed_fields', $bfixed_fields);
+            }
+        }
 
         // Organizer Payment Options
         $op = isset($mec['op']) ? $mec['op'] : array();
         update_post_meta($post_id, 'mec_op', $op);
         update_user_meta(get_post_field('post_author', $post_id), 'mec_op', $op);
-
-        // SEO Schema
-        $event_status = isset($mec['event_status']) ? sanitize_text_field($mec['event_status']) : 'EventScheduled';
-        if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
-        update_post_meta($post_id, 'mec_event_status', $event_status);
-
-        $moved_online_link = (isset($mec['moved_online_link']) and filter_var($mec['moved_online_link'], FILTER_VALIDATE_URL)) ? esc_url($mec['moved_online_link']) : '';
-        update_post_meta($post_id, 'mec_moved_online_link', $moved_online_link);
-
-        $cancelled_reason = (isset($mec['cancelled_reason']) and filter_var($mec['cancelled_reason'], FILTER_VALIDATE_URL)) ? esc_url($mec['cancelled_reason']) : '';
-        update_post_meta($post_id, 'mec_cancelled_reason', $cancelled_reason);
 
         if($booking_date_update)
         {
@@ -1307,7 +1366,7 @@ class MEC_feature_fes extends MEC_base
         $message = '';
         if($status == 'pending') $message = __('Event submitted. It will publish as soon as possible.', 'modern-events-calendar-lite');
         elseif($status == 'publish') $message = __('The event published.', 'modern-events-calendar-lite');
-        
+
         // Trigger Event
         if($method == 'updated') do_action('mec_fes_updated', $post_id , 'update');
         else do_action('mec_fes_added', $post_id , '');
@@ -1317,7 +1376,7 @@ class MEC_feature_fes extends MEC_base
 
         $redirect_to = ((isset($this->settings['fes_thankyou_page']) and trim($this->settings['fes_thankyou_page'])) ? get_permalink(intval($this->settings['fes_thankyou_page'])) : '');
         if(isset($this->settings['fes_thankyou_page_url']) and trim($this->settings['fes_thankyou_page_url'])) $redirect_to = esc_url($this->settings['fes_thankyou_page_url']);
-        
+
         $this->main->response(array(
             'success' => 1,
             'message' => $message,
@@ -1327,19 +1386,19 @@ class MEC_feature_fes extends MEC_base
             ),
         ));
     }
-    
+
     public function link_add_event()
     {
         if(!$this->relative_link and isset($this->settings['fes_form_page']) and trim($this->settings['fes_form_page'])) return get_permalink($this->settings['fes_form_page']);
         else return $this->main->add_qs_var('post_id', '-1', $this->main->remove_qs_var('vlist'));
     }
-    
+
     public function link_edit_event($post_id)
     {
         if(!$this->relative_link and isset($this->settings['fes_form_page']) and trim($this->settings['fes_form_page'])) return $this->main->add_qs_var('post_id', $post_id, get_permalink($this->settings['fes_form_page']));
         else return $this->main->add_qs_var('post_id', $post_id, $this->main->remove_qs_var('vlist'));
     }
-    
+
     public function link_list_events()
     {
         if(!$this->relative_link and isset($this->settings['fes_list_page']) and trim($this->settings['fes_list_page'])) return get_permalink($this->settings['fes_list_page']);
@@ -1402,7 +1461,7 @@ class MEC_feature_fes extends MEC_base
 }
 
 // FES Categories Custom Walker
-class FES_Custom_Walker extends Walker_Category 
+class FES_Custom_Walker extends Walker_Category
 {
     /**
      * This class is a custom walker for front end event submission hierarchical categories customizing
