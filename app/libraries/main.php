@@ -2147,7 +2147,7 @@ class MEC_main extends MEC_base
         $occurrence = (isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '');
         if(trim($occurrence) != '') $url = $this->add_qs_var('occurrence', $occurrence, $url);
 
-        return '<li class="mec-event-social-icon"><a class="whatsapp" href="whatsapp://send/?text='.rawurlencode($url).'" title="'.__('Share on WhatsApp', 'modern-events-calendar-lite').'"><i class="mec-fa-whatsapp"></i></a></li>';
+        return '<li class="mec-event-social-icon"><a class="whatsapp" href="https://wa.me/?text='.rawurlencode($url).'" title="'.__('Share on WhatsApp', 'modern-events-calendar-lite').'"><i class="mec-fa-whatsapp"></i></a></li>';
 
     }
 
