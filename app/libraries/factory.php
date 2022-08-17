@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC factory class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_factory extends MEC_base
 {
@@ -19,77 +19,84 @@ class MEC_factory extends MEC_base
      * @var array
      */
     public static $params = array();
-    
+
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
         // Load Vendors
         require_once MEC_ABSPATH.'app/vendor/autoload.php';
-        
+
         // MEC Main library
         $this->main = $this->getMain();
-        
+
         // MEC File library
         $this->file = $this->getFile();
-        
+
         // MEC Folder library
         $this->folder = $this->getFolder();
-        
+
         // MEC DB library
         $this->db = $this->getDB();
-        
+
         // MEC Parser library
         $this->parser = $this->getParser();
-        
+
         // Import MEC Controller Class
         $this->import('app.controller');
     }
-    
+
     /**
      * Register Webnus MEC actions
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_actions()
     {
         // Set CronJobs
         $this->action('admin_init', array($this, 'mec_add_cron_jobs'), 9999);
-        
+
         // Register MEC function to be called in WordPress footer hook
         $this->action('wp_footer', array($this, 'load_footer'), 9999);
-        
+        $this->action('admin_footer', array($this, 'load_footer'), 9999);
+
         // Parse WordPress query
         $this->action('parse_query', array($this->parser, 'WPQ_parse'), 99);
-        
+
         // Add custom styles to header
         $this->action('wp_head', array($this, 'include_styles'), 9999);
-        
-        // MEC iCal export
-        $this->action('init', array($this->main, 'ical'), 9999);
 
-        // MEC iCal export in email
-        $this->action('init', array($this->main, 'ical_email'), 999);
+        if(!is_admin())
+        {
+            // MEC iCal export
+            $this->action('init', array($this->main, 'ical'), 9999);
 
-        // MEC Booking Invoice
-        $this->action('init', array($this->main, 'booking_invoice'), 9999);
+            // MEC iCal export in email
+            $this->action('init', array($this->main, 'ical_email'), 999);
 
-        // MEC Print Feature
-        $this->action('init', array($this->main, 'print_calendar'), 9999);
+            // MEC Booking Invoice
+            $this->action('init', array($this->main, 'booking_invoice'), 9999);
 
-        // MEC Print Feature
-        $this->action('wp', array($this->main, 'booking_modal'), 9999);
-        
+            // MEC Cart Invoice
+            $this->action('init', array($this->main, 'cart_invoice'), 9999);
+
+            // MEC Print Feature
+            $this->action('init', array($this->main, 'print_calendar'), 9999);
+
+            // MEC Print Feature
+            $this->action('wp', array($this->main, 'booking_modal'), 9999);
+
+            // Add Events to Tag Archive Page
+            $this->action('pre_get_posts', array($this->main, 'add_events_to_tags_archive'));
+        }
+
         // Redirect to MEC Dashboard
         $this->action('admin_init', array($this->main, 'mec_redirect_after_activate'));
-        
-        // Add Events to Tag Archive Page
-        $this->action('pre_get_posts', array($this->main, 'add_events_to_tags_archive'));
-        
+
         // MEC booking verification and cancellation
         $this->action('mec_before_main_content', array($this->main, 'do_endpoints'), 9999);
-        
+
         // Add AJAX actions
         $this->action('wp_ajax_mec_save_styles', array($this->main, 'save_options'));
         $this->action('wp_ajax_mec_save_settings', array($this->main, 'save_options'));
@@ -97,7 +104,7 @@ class MEC_factory extends MEC_base
         $this->action('wp_ajax_mec_save_gateways', array($this->main, 'save_options'));
         $this->action('wp_ajax_mec_save_styling', array($this->main, 'save_options'));
         $this->action('wp_ajax_mec_save_notifications', array($this->main, 'save_notifications'));
-        $this->action('wp_ajax_mec_save_messages', array($this->main, 'save_options'));
+        $this->action('wp_ajax_mec_save_messages', array($this->main, 'save_messages'));
         $this->action('wp_ajax_wizard_import_dummy_events', array($this->main, 'wizard_import_dummy_events'));
         $this->action('wp_ajax_wizard_import_dummy_shortcodes', array($this->main, 'wizard_import_dummy_shortcodes'));
         $this->action('wp_ajax_wizard_save_weekdays', array($this->main, 'save_wizard_options'));
@@ -107,43 +114,42 @@ class MEC_factory extends MEC_base
         $this->action('wp_ajax_wizard_save_booking', array($this->main, 'save_wizard_options'));
         $this->action('wp_ajax_wizard_save_styling', array($this->main, 'save_wizard_options'));
     }
-    
+
     /**
      * Register Webnus MEC hooks such as activate, deactivate and uninstall hooks
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_hooks()
     {
         register_activation_hook(MEC_ABSPATH.MEC_FILENAME, array($this, 'activate'));
 		register_deactivation_hook(MEC_ABSPATH.MEC_FILENAME, array($this, 'deactivate'));
-		register_uninstall_hook(MEC_ABSPATH.MEC_FILENAME, array('MEC_factory', 'uninstall'));
     }
-    
+
     /**
      * load MEC filters
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_filters()
     {
         // Load MEC Plugin links
         $this->filter('plugin_row_meta', array($this, 'load_plugin_links'), 10, 2);
         $this->filter('plugin_action_links_'.plugin_basename(MEC_DIRNAME.DS.MEC_FILENAME), array($this, 'load_plugin_action_links'), 10, 1);
-        
+
         // Add MEC rewrite rules
         $this->filter('generate_rewrite_rules', array($this->parser, 'load_rewrites'));
         $this->filter('query_vars', array($this->parser, 'add_query_vars'));
-        
+
         // Manage MEC templates
         $this->filter('template_include', array($this->parser, 'template'), 99);
-        
+
         // Fetch Googlemap style JSON
         $this->filter('mec_get_googlemap_style', array($this->main, 'fetch_googlemap_style'));
-        
+
         // Filter Request
         $this->filter('request', array($this->main, 'filter_request'));
 
         // Block Editor Category
-        if(function_exists('register_block_type')) $this->filter('block_categories', array($this->main, 'add_custom_block_cateogry'), 9999);
+        if(function_exists('register_block_type')) $this->filter('block_categories_all', array($this->main, 'add_custom_block_cateogry'), 9999);
 
         // Add Taxonomy etc to filters
         $this->filter('mec_vyear_atts', array($this->main, 'add_search_filters'));
@@ -162,42 +168,42 @@ class MEC_factory extends MEC_base
 
         $this->filter('pre_get_document_title', array($this->parser, 'archive_document_title'));
     }
-    
+
     /**
      * load MEC menus
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_menus()
     {
-        add_menu_page(__('M.E. Calendar', 'modern-events-calendar-lite'), __('M.E. Calendar', 'modern-events-calendar-lite'), 'edit_posts', 'mec-intro', array($this->main, 'dashboard'), plugin_dir_url(__FILE__ ) . '../../assets/img/mec.svg', 26);
+        add_menu_page(__('M.E. Calendar', 'modern-events-calendar-lite'), esc_html__('M.E. Calendar', 'modern-events-calendar-lite'), 'edit_posts', 'mec-intro', array($this->main, 'dashboard'), plugin_dir_url(__FILE__ ) . '../../assets/img/mec.svg', 26);
     }
 
     /**
      * load MEC Features
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_features()
     {
         $path = MEC_ABSPATH.'app'.DS.'features'.DS;
         $files = $this->folder->files($path, '.php$');
-        
+
         foreach($files as $file)
         {
             $name = str_replace('.php', '', $file);
-            
+
             $class = 'MEC_feature_'.$name;
             MEC::getInstance('app.features.'.$name, $class);
-            
+
             if(!class_exists($class)) continue;
-            
+
             $object = new $class();
             $object->init();
         }
     }
-    
+
     /**
      * Inserting MEC plugin links
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $links
      * @param string $file
      * @return array
@@ -208,39 +214,37 @@ class MEC_factory extends MEC_base
         {
             if(!$this->getPRO())
             {
-                $upgrade = '<a href="'.$this->main->get_pro_link().'" target="_blank"><b>'._x('Upgrade to Pro Version', 'plugin link', 'modern-events-calendar-lite').'</b></a>';
-                $rate    =  '<a href="https://wordpress.org/support/plugin/modern-events-calendar-lite/reviews/#new-post" target="_blank">'._x('Rate the plugin ★★★★★', 'plugin rate', 'modern-events-calendar-lite').'</a>';
+                $upgrade = '<a href="'.esc_url($this->main->get_pro_link()).'" target="_blank"><b>'._x('Upgrade to Pro Version', 'plugin link', 'modern-events-calendar-lite').'</b></a>';
                 $links[] = $upgrade;
-                $links[] = $rate;
             }
         }
-        
+
         return $links;
     }
-    
+
     /**
      * Load MEC plugin action links
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $links
      * @return array
      */
     public function load_plugin_action_links($links)
     {
-        $settings = '<a href="'.$this->main->add_qs_vars(array('page'=>'MEC-settings'), $this->main->URL('admin').'admin.php').'">'._x('Settings', 'plugin link', 'modern-events-calendar-lite').'</a>';
+        $settings = '<a href="'.esc_url($this->main->add_qs_vars(array('page'=>'MEC-settings'), $this->main->URL('admin').'admin.php')).'">'._x('Settings', 'plugin link', 'modern-events-calendar-lite').'</a>';
         array_unshift($links, $settings);
 
         if(!$this->getPRO())
         {
-            $upgrade = '<a href="'.$this->main->get_pro_link().'" target="_blank"><b>'._x('Upgrade', 'plugin link', 'modern-events-calendar-lite').'</b></a>';
+            $upgrade = '<a href="'.esc_url($this->main->get_pro_link()).'" target="_blank"><b>'._x('Upgrade', 'plugin link', 'modern-events-calendar-lite').'</b></a>';
             array_unshift($links, $upgrade);
         }
-        
+
         return $links;
     }
-	
+
     /**
      * Load MEC Backend assets such as CSS or JavaScript files
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_backend_assets()
     {
@@ -249,6 +253,9 @@ class MEC_factory extends MEC_base
             // Get Current Screen
             global $current_screen;
             if(!isset($current_screen)) $current_screen = get_current_screen();
+
+            // Styling
+            $styling = $this->main->get_styling();
 
             // Include MEC typekit script file
             wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'));
@@ -314,11 +321,13 @@ class MEC_factory extends MEC_base
 
         // Include MEC backend CSS
         wp_enqueue_style('mec-backend-style', $this->main->asset('css/backend.min.css'), array('wp-color-picker'), $this->main->get_version());
+
+        if(isset($styling) and isset($styling['accessibility']) && $styling['accessibility']) wp_enqueue_style('mec-backend-accessibility', $this->main->asset('css/a11y-backend.min.css'), $this->main->get_version());
     }
 
     /**
      * Load MEC frontend assets such as CSS or JavaScript files
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_frontend_assets()
     {
@@ -343,7 +352,7 @@ class MEC_factory extends MEC_base
             if(class_exists('ET_Builder_Element')) $this->main->load_isotope_assets();
 
             include_once(ABSPATH.'wp-admin/includes/plugin.php');
-            if(is_plugin_active('elementor/elementor.php' ) && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
+            if(is_plugin_active('elementor/elementor.php') && class_exists('\Elementor\Plugin') && \Elementor\Plugin::$instance->preview->is_preview_mode()) $this->main->load_isotope_assets();
 
             wp_enqueue_script('mec-typekit-script', $this->main->asset('js/jquery.typewatch.js'), array(), $this->main->get_version(), true);
             wp_enqueue_script('featherlight', $this->main->asset('packages/featherlight/featherlight.js'), array(), $this->main->get_version(), true);
@@ -352,11 +361,14 @@ class MEC_factory extends MEC_base
             wp_enqueue_script('mec-select2-script', $this->main->asset('packages/select2/select2.full.min.js'), array(), $this->main->get_version(), true);
             wp_enqueue_style('mec-select2-style', $this->main->asset('packages/select2/select2.min.css'), array(), $this->main->get_version());
 
-            // Include MEC frontend script files
-            wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array(), $this->main->get_version());
-            wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'), array(), $this->main->get_version(), true);
+            // General Calendar
+            wp_enqueue_script('mec-general-calendar-script', $this->main->asset('js/mec-general-calendar.js'), array(), $this->main->get_version());
 
-            wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array(), $this->main->get_version());
+            // Include MEC frontend script files
+            wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'), array('jquery'), $this->main->get_version(), true);
+            wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array('jquery','mec-tooltip-script'), $this->main->get_version());
+
+            wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array('mec-frontend-script'), $this->main->get_version());
 
             // Include Lity Lightbox
             wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.js'), array(), $this->main->get_version(), true);
@@ -373,6 +385,7 @@ class MEC_factory extends MEC_base
             // Settings
             $settings = $this->main->get_settings();
             $grecaptcha_key = isset($settings['google_recaptcha_sitekey']) ? trim($settings['google_recaptcha_sitekey']) : '';
+            $fes_thankyou_page_time = (isset($settings['fes_thankyou_page_time']) and trim($settings['fes_thankyou_page_time']) != '') ? (int) $settings['fes_thankyou_page_time'] : 2000;
 
             // Localize Some Strings
             $mecdata = apply_filters('mec_locolize_data', array(
@@ -384,10 +397,14 @@ class MEC_factory extends MEC_base
                 'minutes'=>__('minutes', 'modern-events-calendar-lite'),
                 'second'=>__('second', 'modern-events-calendar-lite'),
                 'seconds'=>__('seconds', 'modern-events-calendar-lite'),
+                'next' => __('Next', 'modern-events-calendar-lite'),
+                'prev' => __('Prev', 'modern-events-calendar-lite'),
                 'elementor_edit_mode'=>$elementor_edit_mode,
                 'recapcha_key'=>$grecaptcha_key,
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'fes_nonce' => wp_create_nonce('mec_fes_nonce'),
+                'fes_thankyou_page_time' => $fes_thankyou_page_time,
+                'fes_upload_nonce' => wp_create_nonce('mec_fes_upload_featured_image'),
                 'current_year' => date('Y', current_time('timestamp', 0)),
                 'current_month' => date('m', current_time('timestamp', 0)),
                 'datepicker_format' => (isset($settings['datepicker_format']) and trim($settings['datepicker_format'])) ? trim($settings['datepicker_format']) : 'yy-mm-dd',
@@ -403,7 +420,8 @@ class MEC_factory extends MEC_base
             // Include MEC frontend CSS files
             wp_enqueue_style('mec-font-icons', $this->main->asset('css/iconfonts.css'));
             wp_enqueue_style('mec-frontend-style', $this->main->asset('css/frontend.min.css'), array(), $this->main->get_version());
-            if(!is_plugin_active('ultimate-elementor/ultimate-elementor.php')) wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
+            if( isset($styling['accessibility']) && $styling['accessibility']) wp_enqueue_style('accessibility', $this->main->asset('css/a11y.min.css'), array(), $this->main->get_version());
+            wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
             wp_enqueue_style('mec-tooltip-shadow-style', $this->main->asset('packages/tooltip/tooltipster-sideTip-shadow.min.css'));
             wp_enqueue_style('featherlight', $this->main->asset('packages/featherlight/featherlight.css'));
 
@@ -418,12 +436,15 @@ class MEC_factory extends MEC_base
 
             // Include Lity CSS file
             wp_enqueue_style('mec-lity-style', $this->main->asset('packages/lity/lity.min.css'));
+
+            // General Calendar
+            wp_enqueue_style('mec-general-calendar-style', $this->main->asset('css/mec-general-calendar.css'));
         }
     }
 
     /**
      * Prints custom styles in the page header
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return void
      */
     public function include_styles()
@@ -449,15 +470,15 @@ class MEC_factory extends MEC_base
 
     /**
      * Load MEC widget
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_widgets()
     {
         // register mec side bar
         register_sidebar(array(
             'id' => 'mec-single-sidebar',
-            'name' => __('MEC Single Sidebar', 'modern-events-calendar-lite'),
-            'description' => __('Custom sidebar for single and modal page of MEC.', 'modern-events-calendar-lite'),
+            'name' => esc_html__('MEC Single Sidebar', 'modern-events-calendar-lite'),
+            'description' => esc_html__('Custom sidebar for single and modal page of MEC.', 'modern-events-calendar-lite'),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
             'after_widget' => '</div>',
             'before_title' => '<h4 class="widget-title">',
@@ -471,19 +492,19 @@ class MEC_factory extends MEC_base
         register_widget('MEC_MEC_widget');
         register_widget('MEC_single_widget');
     }
-    
+
     /**
      * Register MEC shortcode in WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_shortcodes()
     {
         // MEC Render library
         $render = $this->getRender();
-        
+
         // Events Archive Page
         $this->shortcode('MEC', array($render, 'shortcode'));
-        
+
         // Event Single Page
         $this->shortcode('MEC_single', array($render, 'vsingle'));
 
@@ -493,43 +514,43 @@ class MEC_factory extends MEC_base
         // Booking Invoice
         $this->shortcode('MEC_invoice_link', array($book, 'invoice_link_shortcode'));
     }
-    
+
     /**
      * Load dynamic css
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function mec_dyncss()
     {
         // Import Dynamic CSS codes
         $path = $this->import('app.features.mec.dyncss', true, true);
-        
+
         ob_start();
         include $path;
-        echo $output = ob_get_clean();
+        echo ob_get_clean();
     }
-    
+
     /**
      * Load MEC skins in WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_skins()
     {
         // Import MEC skins Class
         $this->import('app.libraries.skins');
-        
+
         $MEC_skins = new MEC_skins();
         $MEC_skins->load();
     }
-    
+
     /**
      * Register MEC addons in WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_addons()
     {
         // Import MEC VC addon
         $this->import('app.addons.VC');
-        
+
         $MEC_addon_VC = new MEC_addon_VC();
         $MEC_addon_VC->init();
 
@@ -563,63 +584,136 @@ class MEC_factory extends MEC_base
         $this->import('app.addons.PMP');
         $MEC_addon_PMP = new MEC_addon_PMP();
         $MEC_addon_PMP->init();
+
+        // Import The Newsletter Plugin addon
+        $this->import('app.addons.TNP');
+        $MEC_addon_TNP = new MEC_addon_TNP();
+        $MEC_addon_TNP->init();
     }
-    
+
     /**
      * Initialize MEC Auto Update Feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_auto_update()
     {
-        // Import MEC Envato Class
-        $envato = MEC::getInstance('app.libraries.envato');
+        $options = get_option('mec_options');
+        $product_name = (isset($options['product_name']) && !empty($options['product_name'])) ? esc_html__($options['product_name']) : '';
+        $product_id = (isset($options['product_id']) && !empty($options['product_id'])) ? esc_html__($options['product_id']) : '';
+        $purchase_code = (isset($options['purchase_code']) && !empty($options['purchase_code'])) ? esc_html__($options['purchase_code']) : '';
+        $url = urlencode(get_home_url());
 
-        // Initialize the service
-        $envato->init();
+        require_once MEC_ABSPATH.'app/core/puc/plugin-update-checker.php';
+        if(!$this->getPRO())
+        {
+            $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+                add_query_arg(array('purchase_code' => '', 'url' => '','id' => '','category' => 'mec'), MEC_API_UPDATE . '/updates/?action=get_metadata&slug=modern-events-calendar-lite'), //Metadata URL.
+                MEC_ABSPATH.'modern-events-calendar-lite.php', //Full path to the main plugin file.
+                'modern-events-calendar-lite' //Plugin slug. Usually it's the same as the name of the directory.
+            );
+        } else {
+            $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+                add_query_arg(array('purchase_code' => $purchase_code, 'url' => $url,'id' => $product_id,'category' => 'mec'), MEC_API_UPDATE . '/updates/?action=get_metadata&slug=modern-events-calendar'), //Metadata URL.
+                MEC_ABSPATH.'mec.php', //Full path to the main plugin file.
+                'mec' //Plugin slug. Usually it's the same as the name of the directory.
+            );
+        }
+
+
+        $name = $this->getPRO() ? 'mec' : 'modern-events-calendar-lite';
+        add_filter('puc_request_info_result-'. $name, function($info)
+        {
+            if(!$info) return;
+
+            unset($info->sections['installation']);
+            unset($info->sections['faq']);
+            unset($info->sections['screenshots']);
+            unset($info->sections['wordpress_event_calendar']);
+            unset($info->sections['best_wordpress_event_management_plugin']);
+            unset($info->sections['new_designed_beautiful_event_view_layouts:']);
+            unset($info->sections['covid-19_(coronavirus)']);
+            unset($info->sections['10_best_event_calendar_plugins_and_themes_for_wordpress_2020']);
+            unset($info->sections['experts_opinions']);
+            unset($info->sections['some_new_features']);
+            unset($info->sections['user_reviews']);
+            unset($info->sections['convert_your_events_in_a_few_seconds']);
+            unset($info->sections['virtual_events_addon']);
+            unset($info->sections['main_features']);
+            unset($info->sections['integration']);
+            unset($info->sections['key_features']);
+            unset($info->sections['addons']);
+            unset($info->sections['screenshots']);
+            unset($info->sections['helpful_documentation']);
+            unset($info->sections['developers']);
+            unset($info->sections['frequently_asked_questions']);
+
+            return $info;
+        });
     }
-    
+
     /**
      * Add strings (CSS, JavaScript, etc.) to website sections such as footer etc.
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $key
-     * @param string $string
+     * @param string|closure $string
      * @return boolean
      */
     public function params($key, $string)
 	{
-        $key = (string) $key;
+	    $key = (string) $key;
+
+        if($string instanceof Closure)
+        {
+            ob_start();
+            call_user_func($string);
+            $string = ob_get_clean();
+        }
+
 		$string = (string) $string;
 
 		// No Key or No String
 		if(trim($string) == '' or trim($key) == '') return false;
-		
+
         // Register the key for removing PHP notices
         if(!isset(self::$params[$key])) self::$params[$key] = array();
-        
+
         // Add it to the MEC params
         array_push(self::$params[$key], $string);
         return true;
 	}
-    
+
+    public function printOnAjaxOrFooter($string)
+    {
+        if($string instanceof Closure)
+        {
+            ob_start();
+            call_user_func($string);
+            $string = ob_get_clean();
+        }
+
+        if(defined('DOING_AJAX') && DOING_AJAX) echo $string;
+        else $this->params('footer', $string);
+	}
+
     /**
      * Insert MEC assets into the website footer
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return void
      */
     public function load_footer()
     {
 		if(!isset(self::$params['footer']) or (isset(self::$params['footer']) and !count(self::$params['footer']))) return;
-        
+
         // Remove duplicate strings
         $strings = array_unique(self::$params['footer']);
-        
+
         // Print the assets in the footer
         foreach($strings as $string) echo PHP_EOL.$string.PHP_EOL;
     }
-    
+
     /**
      * Add MEC actions to WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $hook
      * @param string|array $function
      * @param int $priority
@@ -630,14 +724,14 @@ class MEC_factory extends MEC_base
     {
         // Check Parameters
         if(!trim($hook) or !$function) return false;
-        
+
         // Add it to WordPress actions
         return add_action($hook, $function, $priority, $accepted_args);
     }
-    
+
     /**
      * Add MEC filters to WordPress filters
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $tag
      * @param string|array $function
      * @param int $priority
@@ -648,14 +742,14 @@ class MEC_factory extends MEC_base
     {
         // Check Parameters
         if(!trim($tag) or !$function) return false;
-        
+
         // Add it to WordPress filters
         return add_filter($tag, $function, $priority, $accepted_args);
     }
-    
+
     /**
      * Add MEC shortcodes to WordPress shortcodes
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $shortcode
      * @param string|array $function
      * @return boolean
@@ -664,15 +758,15 @@ class MEC_factory extends MEC_base
     {
         // Check Parameters
         if(!trim($shortcode) or !$function) return false;
-        
+
         // Add it to WordPress shortcodes
         add_shortcode($shortcode, $function);
         return true;
     }
-    
+
     /**
      * Runs on plugin activation
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param boolean $network
      * @return boolean
      */
@@ -680,16 +774,19 @@ class MEC_factory extends MEC_base
 	{
         // Redirect user to MEC Dashboard
         add_option('mec_activation_redirect', true);
-        
+
+        // Uninstall Hook
+        register_uninstall_hook(MEC_ABSPATH.MEC_FILENAME, array('MEC_factory', 'uninstall'));
+
         $current_blog_id = get_current_blog_id();
-        
+
         // Plugin activated only for one blog
         if(!function_exists('is_multisite') or (function_exists('is_multisite') and !is_multisite())) $network = false;
         if(!$network)
         {
             // Refresh WordPress rewrite rules
             $this->main->flush_rewrite_rules();
-            
+
             return $this->install($current_blog_id);
         }
 
@@ -702,15 +799,15 @@ class MEC_factory extends MEC_base
         }
 
         switch_to_blog($current_blog_id);
-        
+
         // Refresh WordPress rewrite rules
         $this->main->flush_rewrite_rules();
         return true;
 	}
-    
+
     /**
      * Runs on plugin deactivation
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param boolean $network
      * @return void
      */
@@ -722,26 +819,26 @@ class MEC_factory extends MEC_base
         wp_clear_scheduled_hook('mec_scheduler');
         wp_clear_scheduled_hook('mec_syncScheduler');
 	}
-    
+
     /**
      * Runs on plugin uninstallation
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return boolean
      */
     public static function uninstall()
 	{
         // Main Object
         $main = MEC::getInstance('app.libraries.main');
-        
+
         // Database Object
         $db = MEC::getInstance('app.libraries.db');
-        
+
         // Refresh WordPress rewrite rules
         $main->flush_rewrite_rules();
-        
+
         // Getting current blog
         $current_blog_id = get_current_blog_id();
-        
+
         if(!function_exists('is_multisite') or (function_exists('is_multisite') and !is_multisite())) return self::purge($current_blog_id);
 
         // Plugin activated for all blogs
@@ -751,15 +848,15 @@ class MEC_factory extends MEC_base
             switch_to_blog($blog_id);
             self::purge($blog_id);
         }
-        
+
         // Switch back to current blog
         switch_to_blog($current_blog_id);
         return true;
 	}
-    
+
     /**
      * Install the plugin on s certain blog
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $blog_id
      */
     public function install($blog_id = 1)
@@ -769,24 +866,24 @@ class MEC_factory extends MEC_base
         {
             // Create mec_events table if it's removed for any reason
             $this->main->create_mec_tables();
-            
+
             return;
         }
-        
+
         // Run Queries
         $query_file = MEC_ABSPATH. 'assets' .DS. 'sql' .DS. 'install.sql';
 		if($this->file->exists($query_file))
 		{
 			$queries = $this->file->read($query_file);
             $sqls = explode(';', $queries);
-			
+
             foreach($sqls as $sql)
             {
                 $sql = trim($sql, '; ');
                 if(trim($sql) == '') continue;
-                
+
                 $sql .= ';';
-                
+
                 try
                 {
                     $this->db->q($sql);
@@ -794,7 +891,7 @@ class MEC_factory extends MEC_base
                 catch (Exception $e){}
             }
 		}
-        
+
         // Default Options
         $options = array
         (
@@ -874,7 +971,7 @@ class MEC_factory extends MEC_base
                     A new booking is received. Please check and confirm it as soon as possible.
 
                     %%admin_link%%
-                    
+
                     %%attendees_full_info%%
 
                     Regards,
@@ -917,7 +1014,7 @@ class MEC_factory extends MEC_base
                     'content'=>"Hi %%name%%,
 
                     For your information, your %%event_title%% event at %%book_date%% is soldout.
-        
+
                     Regards,
                     %%blog_name%%"
                 ),
@@ -932,18 +1029,18 @@ class MEC_factory extends MEC_base
                     'content'=>"Hi %%name%%,
 
                     For your information, your booking for %%event_title%% at %%book_date%% is rejected.
-        
+
                     Regards,
                     %%blog_name%%"
                 )
             ),
         );
-        
+
         add_option('mec_options', $options);
-        
+
         // Mark this blog as installed
         update_option('mec_installed', 1);
-        
+
         // Set the version into the Database
         update_option('mec_version', $this->main->get_version());
 
@@ -963,7 +1060,7 @@ class MEC_factory extends MEC_base
 
     /**
      * Add cron jobs
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function mec_add_cron_jobs()
     {
@@ -971,17 +1068,17 @@ class MEC_factory extends MEC_base
         if(!wp_next_scheduled('mec_scheduler')) wp_schedule_event(time(), 'hourly', 'mec_scheduler');
         if(!wp_next_scheduled('mec_syncScheduler')) wp_schedule_event(time(), 'daily', 'mec_syncScheduler');
     }
-    
+
     /**
      * Remove MEC from a blog
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $blog_id
      */
     public static function purge($blog_id = 1)
     {
         // Database Object
         $main = MEC::getInstance('app.libraries.main');
-        
+
         // Settings
         $settings = $main->get_settings();
 
@@ -1031,7 +1128,7 @@ class MEC_factory extends MEC_base
                     wp_delete_term((int) $term['term_id'], trim($term['taxonomy']));
                 }
             }
-            
+
             // MEC Deleted
             delete_option('mec_installed');
             delete_option('mec_options');
@@ -1052,7 +1149,7 @@ class MEC_factory extends MEC_base
      * Remove MEC from a blog
      * @param $dark
      * @return int $dark
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function mec_body_class($dark)
     {
@@ -1068,7 +1165,7 @@ class MEC_factory extends MEC_base
      * Remove MEC from a blog
      * @param $darkadmin
      * @return int $darkadmin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function mec_admin_body_class($darkadmin)
     {
@@ -1089,7 +1186,7 @@ class MEC_factory extends MEC_base
             $screen = get_current_screen();
 
             $base = $screen->base;
-            $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+            $page = isset($_REQUEST['page']) ? sanitize_text_field($_REQUEST['page']) : '';
             $post_type = $screen->post_type;
             $taxonomy = $screen->taxonomy;
 
@@ -1100,7 +1197,7 @@ class MEC_factory extends MEC_base
 
             // It's one of MEC post type pages
             if(trim($post_type) and in_array($post_type, array(
-                $this->main->get_main_post_type(), 'mec_calendars', 'mec-books'
+                $this->main->get_main_post_type(), 'mec_calendars', $this->main->get_book_post_type()
             ))) return true;
 
             // It's Block Editor
@@ -1137,10 +1234,10 @@ class MEC_factory extends MEC_base
         // check "upgrade_notice"
         if (isset($newPluginMetadata->upgrade_notice) && strlen(trim($newPluginMetadata->upgrade_notice)) > 0){
         ?>
-        
+
             <div class="mec-update-warning" style="margin-bottom: 5px; max-width: 1000px;">
-                <strong><?php echo esc_html__( 'Notice:', 'modern-events-calendar-lite' ); ?></strong>
-                <?php echo esc_html__( 'This update includes only bug fixes.', 'modern-events-calendar-lite' ); ?>
+                <strong><?php echo esc_html__( 'Notice:', 'modern-events-calendar-lite'); ?></strong>
+                <?php echo esc_html__( 'This update includes only bug fixes.', 'modern-events-calendar-lite'); ?>
             </div>
         <?php
         }

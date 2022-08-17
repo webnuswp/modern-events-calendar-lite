@@ -14,7 +14,7 @@ if(trim($url) == '') return;
 $socials = $this->get_social_networks();
 ?>
 <div class="mec-event-social mec-frontbox">
-     <h3 class="mec-social-single mec-frontbox-title"><?php _e('Share this event', 'modern-events-calendar-lite'); ?></h3>
+     <h3 class="mec-social-single mec-frontbox-title"><?php esc_html_e('Share this event', 'modern-events-calendar-lite'); ?></h3>
      <div class="mec-event-sharing">
         <div class="mec-links-details">
             <ul>

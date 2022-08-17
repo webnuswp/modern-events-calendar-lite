@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC book class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_book extends MEC_base
 {
@@ -17,7 +17,7 @@ class MEC_book extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -33,88 +33,157 @@ class MEC_book extends MEC_base
 
     /**
      * Get invoice (Ticket price + Fees) based on tickets
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $tickets
      * @param int $event_id
      * @param array $event_tickets
      * @param array $variations
+     * @param array $timestamps
      * @param boolean $apply_fees
      * @return array
      */
-    public function get_price_details($tickets, $event_id, $event_tickets, $variations = array(), $apply_fees = true)
+    public function get_price_details($tickets, $event_id, $event_tickets, $variations = array(), $timestamps = array(), $apply_fees = true)
     {
-        $total = 0;
-        $details = array();
-
+        $total_tickets_amount = 0;
         $total_tickets_count = 0;
-        foreach($tickets as $ticket_id=>$count)
-        {
-            if(!$count) continue;
-            if(!isset($event_tickets[$ticket_id])) continue;
-
-            $total_tickets_count += $count;
-
-            $t_price = (isset($event_tickets[$ticket_id]) and isset($event_tickets[$ticket_id]['price'])) ? $this->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d'), $event_id) : 0;
-            if(!is_numeric($t_price)) $t_price = 0;
-
-            $total = $total+($t_price*$count);
-        }
-
-        $details[] = array('amount'=>$total, 'description'=>sprintf(__('%s Price', 'modern-events-calendar-lite'), $this->main->m('tickets', __('Tickets', 'modern-events-calendar-lite'))), 'type'=>'tickets');
-
-        // Default variations amount
         $total_variations_amount = 0;
-
-        // Variations module is enabled and some variations bought
-        if(isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'] and is_array($variations) and count($variations))
-        {
-            $ticket_variations = $this->main->ticket_variations($event_id);
-
-            foreach($ticket_variations as $key=>$ticket_variation)
-            {
-                if(!is_numeric($key)) continue;
-                if(!isset($ticket_variation['title']) or (isset($ticket_variation['title']) and !trim($ticket_variation['title']))) continue;
-
-                $variation_count = isset($variations[$key]) ? $variations[$key] : 0;
-                if(!$variation_count or ($variation_count and $variation_count < 0)) continue;
-
-                $variation_amount = $ticket_variation['price']*$variation_count;
-                $variation_title = $ticket_variation['title'].' ('.$variation_count.')';
-                $details[] = array('amount'=>$variation_amount, 'description'=>__($variation_title, 'modern-events-calendar-lite'), 'type'=>'variation');
-
-                $total_variations_amount += $variation_amount;
-            }
-        }
-
-        // Default fee amount
         $total_fee_amount = 0;
+
+        $variation_details = array();
+        $fee_details = array();
+
+        $details = array();
+        foreach($timestamps as $timestamp)
+        {
+            $date_tickets_amount = 0;
+            $date_tickets_count = 0;
+            $date_variations_amount = 0;
+            $date_fee_amount = 0;
+
+            $timestamp_ex = explode(':', $timestamp);
+            $timestamp = $timestamp_ex[0];
+
+            foreach($tickets as $ticket_id=>$count)
+            {
+                if(!$count) continue;
+                if(!isset($event_tickets[$ticket_id])) continue;
+
+                $date_tickets_count += $count;
+
+                $t_price = (isset($event_tickets[$ticket_id]) and isset($event_tickets[$ticket_id]['price'])) ? $this->get_ticket_price($event_tickets[$ticket_id], current_time('Y-m-d'), $event_id, $timestamp) : 0;
+                if(!is_numeric($t_price)) $t_price = 0;
+
+                $date_tickets_amount = $date_tickets_amount+($t_price*$count);
+
+                // Variations module is enabled and some variations bought
+                if(isset($this->settings['ticket_variations_status']) and $this->settings['ticket_variations_status'] and is_array($variations) and count($variations))
+                {
+                    $ticket_variations = $this->main->ticket_variations($event_id, $ticket_id);
+
+                    foreach($ticket_variations as $key=>$ticket_variation)
+                    {
+                        if(!is_numeric($key)) continue;
+                        if(!isset($ticket_variation['title']) or (isset($ticket_variation['title']) and !trim($ticket_variation['title']))) continue;
+
+                        $booked_variations = (isset($variations[$ticket_id]) and is_array($variations[$ticket_id])) ? $variations[$ticket_id] : array();
+
+                        $variation_count = isset($booked_variations[$key]) ? $booked_variations[$key] : 0;
+                        if(!$variation_count or ($variation_count and $variation_count < 0)) continue;
+
+                        $v_price = (isset($ticket_variation['price']) and trim($ticket_variation['price']) != '') ? $ticket_variation['price'] : 0;
+
+                        $variation_amount = $v_price*$variation_count;
+                        $variation_title = $ticket_variation['title'].' ('.esc_html($variation_count).')';
+
+                        // Add To Total
+                        $date_variations_amount += $variation_amount;
+
+                        // Price Details
+                        if(!isset($variation_details[$key])) $variation_details[$key] = array('amount'=>$variation_amount, 'description'=>__($variation_title, 'modern-events-calendar-lite'), 'type'=>'variation', 'count' => $variation_count);
+                        else
+                        {
+                            $variation_details[$key]['amount'] += $variation_amount;
+
+                            $new_count = ((int) $variation_details[$key]['count'] + $variation_count);
+                            $variation_details[$key]['count'] = $new_count;
+                            $variation_details[$key]['description'] = esc_html__($ticket_variation['title'].' ('.$new_count.')', 'modern-events-calendar-lite');
+                        }
+                    }
+                }
+            }
+
+            $total_tickets_amount += $date_tickets_amount;
+            $total_variations_amount += $date_variations_amount;
+            $total_tickets_count += $date_tickets_count;
+
+            // Fees module is enabled
+            if($apply_fees and isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
+            {
+                $fees = $this->get_fees($event_id);
+
+                foreach($fees as $key=>$fee)
+                {
+                    $fee_amount = 0;
+                    if(!is_numeric($key)) continue;
+
+                    if($fee['type'] == 'amount_per_date') $fee_amount += $fee['amount'];
+                    else continue;
+
+                    // Add to Total
+                    $date_fee_amount += $fee_amount;
+
+                    // Price Details
+                    if(!isset($fee_details[$key])) $fee_details[$key] = array('amount'=>$fee_amount, 'description'=>__($fee['title'], 'modern-events-calendar-lite'), 'type'=>'fee', 'fee_type'=>$fee['type'], 'fee_amount'=>$fee['amount']);
+                    else $fee_details[$key]['amount'] += $fee_amount;
+                }
+            }
+
+            $total_fee_amount += $date_fee_amount;
+        }
 
         // Fees module is enabled
         if($apply_fees and isset($this->settings['taxes_fees_status']) and $this->settings['taxes_fees_status'])
         {
             $fees = $this->get_fees($event_id);
+            $rest_fee_amount = 0;
 
+            // Fee Per Booking
             foreach($fees as $key=>$fee)
             {
                 $fee_amount = 0;
                 if(!is_numeric($key)) continue;
 
-                if($fee['type'] == 'percent') $fee_amount += (($total+$total_variations_amount)*$fee['amount'])/100;
-                elseif($fee['type'] == 'amount') $fee_amount += ($total_tickets_count*$fee['amount']);
+                if($fee['type'] == 'percent') $fee_amount += (($total_tickets_amount + $total_variations_amount) * $fee['amount'])/100;
+                elseif($fee['type'] == 'amount') $fee_amount += ($total_tickets_count * $fee['amount']);
                 elseif($fee['type'] == 'amount_per_booking') $fee_amount += $fee['amount'];
+                else continue;
 
-                $details[] = array('amount'=>$fee_amount, 'description'=>__($fee['title'], 'modern-events-calendar-lite'), 'type'=>'fee', 'fee_type'=>$fee['type'], 'fee_amount'=>$fee['amount']);
+                // Add to Total
+                $rest_fee_amount += $fee_amount;
 
-                $total_fee_amount += $fee_amount;
+                // Price Details
+                if(!isset($fee_details[$key])) $fee_details[$key] = array('amount'=>$fee_amount, 'description'=>__($fee['title'], 'modern-events-calendar-lite'), 'type'=>'fee', 'fee_type'=>$fee['type'], 'fee_amount'=>$fee['amount']);
+                else $fee_details[$key]['amount'] += $fee_amount;
             }
+
+            $total_fee_amount += $rest_fee_amount;
         }
 
-        return array('total'=>($total+$total_fee_amount+$total_variations_amount), 'details'=>$details);
+        // Ticket Details
+        $details[] = array('amount'=>$total_tickets_amount, 'description'=>sprintf(esc_html__('%s Price', 'modern-events-calendar-lite'), $this->main->m('tickets', esc_html__('Tickets', 'modern-events-calendar-lite'))), 'type'=>'tickets');
+
+        // Variation Details
+        foreach($variation_details as $variation_detail) $details[] = $variation_detail;
+
+        // Fee Details
+        foreach($fee_details as $fee_detail) $details[] = $fee_detail;
+
+        return array('total'=>($total_tickets_amount+$total_fee_amount+$total_variations_amount), 'details'=>$details);
     }
 
     /**
      * Get fees of a certain event
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $event_id
      * @return array
      */
@@ -129,12 +198,15 @@ class MEC_book extends MEC_base
         // Get fees from global options
         if($fees_global_inheritance) $fees = isset($this->settings['fees']) ? $this->settings['fees'] : array();
 
+        // Clean
+        if(isset($fees[':i:'])) unset($fees[':i:']);
+
         return $fees;
     }
 
     /**
      * Save a temporary booking
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $data
      * @return int
      */
@@ -148,7 +220,7 @@ class MEC_book extends MEC_base
 
     /**
      * Generate a transaction id for bookings
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return string
      */
     public function get_transaction_id()
@@ -181,7 +253,7 @@ class MEC_book extends MEC_base
 
     /**
      * Get transaction data
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $transaction_id
      * @return array
      */
@@ -191,8 +263,18 @@ class MEC_book extends MEC_base
     }
 
     /**
+     * @param $transaction_id
+     * @return MEC_transaction
+     */
+    public function get_TO($transaction_id)
+    {
+        MEC::import('app.libraries.transaction');
+        return (new MEC_transaction($transaction_id));
+    }
+
+    /**
      * Update a transaction
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $transaction_id
      * @param array $data
      */
@@ -203,7 +285,7 @@ class MEC_book extends MEC_base
 
     /**
      * Add a booking
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $values
      * @param string $transaction_id
      * @param int $ticket_ids
@@ -264,6 +346,10 @@ class MEC_book extends MEC_base
         update_post_meta($book_id, 'mec_ticket_id', $ticket_ids);
         update_post_meta($book_id, 'mec_booking_time', current_time('Y-m-d H:i:s'));
 
+        // Multiple Dates
+        if(isset($transaction['all_dates']) and is_array($transaction['all_dates'])) update_post_meta($book_id, 'mec_all_dates', $transaction['all_dates']);
+        if(isset($transaction['other_dates']) and is_array($transaction['other_dates'])) update_post_meta($book_id, 'mec_other_dates', $transaction['other_dates']);
+
         update_post_meta($book_id, 'mec_attention_time', $attention_date);
         update_post_meta($book_id, 'mec_attention_time_start', $attention_times[0]);
         update_post_meta($book_id, 'mec_attention_time_end', $attention_times[1]);
@@ -307,47 +393,87 @@ class MEC_book extends MEC_base
             }
         }
 
+        // Payment Gateway
+        if(isset($values['mec_gateway']) and isset($values['mec_gateway_label']))
+        {
+            update_post_meta($book_id, 'mec_gateway', $values['mec_gateway']);
+            update_post_meta($book_id, 'mec_gateway_label', $values['mec_gateway_label']);
+        }
+
+        // Local Data
+        update_post_meta($book_id, 'mec_local_timezone', $this->main->get_timezone_by_ip());
+
+        // Booking Record
+        $this->getBookingRecord()->insert($book_id);
+
         // Fires after adding a new booking to send notifications etc
         do_action('mec_booking_added', $book_id);
 
         list($auto_verify_free, $auto_verify_paid) = $this->get_auto_verification_status($event_id);
         list($auto_confirm_free, $auto_confirm_paid) = $this->get_auto_confirmation_status($event_id);
 
+        $verified = false;
+
         // Auto verification for free bookings is enabled
         if($price <= 0 and $auto_verify_free)
         {
             $this->verify($book_id);
+            $verified = true;
         }
 
         // Auto verification for paid bookings is enabled
         if($price > 0 and $auto_verify_paid)
         {
             $this->verify($book_id);
+            $verified = true;
         }
 
         // Auto confirmation for free bookings is enabled
-        if($price <= 0 and $auto_confirm_free)
+        if($price <= 0 and $auto_confirm_free and $verified)
         {
             $this->confirm($book_id, 'auto');
         }
 
         // Auto confirmation for paid bookings is enabled
-        if($price > 0 and $auto_confirm_paid)
+        if($price > 0 and $auto_confirm_paid and $verified)
         {
             // Work or don't work auto confirmation when pay through pay locally payment.
             $gateways_settings = get_option('mec_options', array());
-            $pay_locally_gateway = ((isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_pay_locally') and (isset($gateways_settings['gateways'][1]['disable_auto_confirmation']) and trim($gateways_settings['gateways'][1]['disable_auto_confirmation']))) ? true : false;
-            $bank_transfer_gateway = ((isset($_GET['action']) and trim($_GET['action']) == 'mec_do_transaction_bank_transfer') and (isset($gateways_settings['gateways'][8]['disable_auto_confirmation']) and trim($gateways_settings['gateways'][8]['disable_auto_confirmation']))) ? true : false;
+            $gateway_key = null;
+            $can_auto_confirm = true;
+            $action =  isset($_GET['action']) ? sanitize_text_field($_GET['action']) : false;
 
-            if(!$pay_locally_gateway and !$bank_transfer_gateway) $this->confirm($book_id, 'auto');
+            switch($action)
+            {
+                case 'mec_do_transaction_pay_locally':
+                case 'mec_cart_do_transaction_pay_locally':
+
+                    $gateway_key = 1;
+                    break;
+                case 'mec_do_transaction_bank_transfer':
+                case 'mec_cart_do_transaction_bank_transfer':
+
+                    $gateway_key = 8;
+                    break;
+            }
+
+            if(!is_null($gateway_key) && isset($gateways_settings['gateways'][$gateway_key]['disable_auto_confirmation']) && trim($gateways_settings['gateways'][$gateway_key]['disable_auto_confirmation']))
+            {
+                $can_auto_confirm = false;
+            }
+
+            if($can_auto_confirm) $this->confirm($book_id, 'auto');
         }
+
+        // Latest Booking Date & Time
+        update_option('mec_latest_booking_datetime', current_time('YmdHis'), false);
 
         return $book_id;
     }
 
     /**
      * Confirm a booking
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $book_id
      * @param string $mode
      * @return boolean
@@ -363,22 +489,35 @@ class MEC_book extends MEC_base
         $date = get_post_meta($book_id, 'mec_date', true);
         $timestamps = explode(':', $date);
 
-        // Event is soldout so fire the hook
+        // Booking Records
+        $this->getBookingRecord()->confirm($book_id);
+
+        // Disable Cache
+        $cache = $this->getCache();
+        $cache->disable();
+
+        // Event is soldout so fire the event
         $soldout = $this->main->is_sold($event_id, $timestamps[0]);
         if($soldout) do_action('mec_event_soldout', $event_id, $book_id);
+
+        // Enable Cache
+        $cache->enable();
 
         return true;
     }
 
     /**
      * Reject a booking
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $book_id
      * @return boolean
      */
     public function reject($book_id)
     {
         update_post_meta($book_id, 'mec_confirmed', -1);
+
+        // Booking Records
+        $this->getBookingRecord()->reject($book_id);
 
         // Fires after rejecting a booking to send notifications etc.
         do_action('mec_booking_rejected', $book_id);
@@ -388,7 +527,7 @@ class MEC_book extends MEC_base
 
     /**
      * Make a booking pending
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $book_id
      * @return boolean
      */
@@ -396,21 +535,28 @@ class MEC_book extends MEC_base
     {
         update_post_meta($book_id, 'mec_confirmed', 0);
 
+        // Booking Records
+        $this->getBookingRecord()->pending($book_id);
+
         // Fires after pending a booking to send notifications etc.
         do_action('mec_booking_pended', $book_id);
+
 
         return true;
     }
 
     /**
      * Verify a booking
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $book_id
      * @return boolean
      */
     public function verify($book_id)
     {
         update_post_meta($book_id, 'mec_verified', 1);
+
+        // Booking Records
+        $this->getBookingRecord()->verify($book_id);
 
         // Fires after verifying a booking to send notifications etc.
         do_action('mec_booking_verified', $book_id);
@@ -420,7 +566,7 @@ class MEC_book extends MEC_base
 
     /**
      * Cancel a booking
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $book_id
      * @return boolean
      */
@@ -446,15 +592,19 @@ class MEC_book extends MEC_base
             do_action('mec_booking_refunded', $book_id);
         }
 
+        // Booking Records
+        $this->getBookingRecord()->cancel($book_id);
+
         // Fires after canceling a booking to send notifications etc.
         do_action('mec_booking_canceled', $book_id);
+
 
         return true;
     }
 
     /**
      * Waiting a booking
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $book_id
      * @return boolean
      */
@@ -462,15 +612,19 @@ class MEC_book extends MEC_base
     {
         update_post_meta($book_id, 'mec_verified', 0);
 
+        // Booking Records
+        $this->getBookingRecord()->waiting($book_id);
+
         // Fires after waiting a booking to send notifications etc.
         do_action('mec_booking_waiting', $book_id);
+
 
         return true;
     }
 
     /**
      * Returns ticket availabilities of an event for a certain date
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $event_id
      * @param int $timestamp
      * @param string $mode
@@ -508,67 +662,35 @@ class MEC_book extends MEC_base
         // Total Booking Limit
         $total_bookings_limit_original = $total_bookings_limit;
 
-        $year = date('Y', $timestamp);
-        $month = date('m', $timestamp);
-        $day = date('d', $timestamp);
-        $hour = date('H', $timestamp);
-        $minutes = date('i', $timestamp);
-
         // Ticket Selling Stop
         $event_date = date('Y-m-d h:i a', $timestamp);
 
-        if(!$book_all_occurrences)
-        {
-            $date_query = array(
-                array(
-                    'year'=>$year,
-                    'monthnum'=>$month,
-                    'day'=>$day,
-                    'hour'=>$hour,
-                    'minute'=>$minutes,
-                ),
-            );
-        }
-        else
-        {
-            $date_query = array();
-        }
+        if(!$book_all_occurrences) $date_query = " AND `timestamp`=".$timestamp;
+        else $date_query = "";
+
+        // Database
+        $db = $this->getDB();
+
+        // Cache
+        $cache = $this->getCache();
 
         $booked = 0;
         foreach($tickets as $ticket_id=>$ticket)
         {
             $limit = (isset($ticket['limit']) and trim($ticket['limit']) != '') ? $ticket['limit'] : -1;
 
-            $query = new WP_Query(array(
-                'post_type' => $this->PT,
-                'posts_per_page' => -1,
-                'post_status' => array('publish', 'pending', 'draft', 'future', 'private'),
-                'date_query'=> $date_query,
-                'meta_query' => array
-                (
-                    array('key'=>'mec_event_id', 'value'=>$event_id, 'compare'=>'='),
-                    array('key'=>'mec_ticket_id', 'value'=>','.$ticket_id.',', 'compare'=>'LIKE'),
-                    array('key'=>'mec_verified', 'value'=>'-1', 'compare'=>'!='), // Don't include canceled bookings
-                    array('key'=>'mec_confirmed', 'value'=>'-1', 'compare'=>'!='), // Don't include rejected bookings
-                )
-            ));
+            $records = $cache->rememberOnce($event_id.':'.$ticket_id.':'.$timestamp, function() use($db, $event_id, $ticket_id, $date_query)
+            {
+                return $db->select("SELECT `id`,`ticket_ids` FROM `#__mec_bookings` WHERE `event_id`=".$event_id." AND `ticket_ids` LIKE '%,".$ticket_id.",%' AND `status` IN ('publish', 'pending', 'draft', 'future', 'private') AND `confirmed`!='-1' AND `verified`!='-1'".$date_query);
+            });
 
             $bookings = 0;
-            if($query->have_posts())
+            foreach($records as $record)
             {
-                // The Loop
-                while($query->have_posts())
-                {
-                    $query->the_post();
+                $ticket_ids = explode(',', trim($record->ticket_ids, ', '));
+                $ticket_ids_count = array_count_values($ticket_ids);
 
-                    $ticket_ids_string = trim(get_post_meta(get_the_ID(), 'mec_ticket_id', true), ', ');
-                    $ticket_ids_count = array_count_values(explode(',', $ticket_ids_string));
-
-                    $bookings += (isset($ticket_ids_count[$ticket_id]) and is_numeric($ticket_ids_count[$ticket_id])) ? $ticket_ids_count[$ticket_id] : 0;
-                }
-
-                // Restore original Post Data
-                wp_reset_postdata();
+                $bookings += (isset($ticket_ids_count[$ticket_id]) and is_numeric($ticket_ids_count[$ticket_id])) ? $ticket_ids_count[$ticket_id] : 0;
             }
 
             if($total_bookings_limit > 0) $total_bookings_limit = max(($total_bookings_limit - $bookings), 0);
@@ -639,8 +761,39 @@ class MEC_book extends MEC_base
     }
 
     /**
+     * Returns ticket availabilities of an event for a certain date
+     * @author Webnus <info@webnus.net>
+     * @param int $event_id
+     * @param array $dates
+     * @return array
+     */
+    public function get_tickets_availability_multiple($event_id, $dates)
+    {
+        $availability = array();
+        foreach($dates as $date)
+        {
+            $ex = explode(':', sanitize_text_field($date));
+            $date = $ex[0];
+
+            $a = $this->get_tickets_availability($event_id, $date);
+            if(!is_array($a)) continue;
+
+            // Fill Compatibility
+            if(!count($availability)) $availability = $a;
+
+            // Minimum Availability
+            foreach($availability as $k => $v)
+            {
+                if(isset($a[$k])) $availability[$k] = min($a[$k], $v);
+            }
+        }
+
+        return $availability;
+    }
+
+    /**
      * Check validity of a coupon
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $coupon
      * @param int $event_id
      * @param array $transaction
@@ -743,12 +896,39 @@ class MEC_book extends MEC_base
             }
         }
 
+        $all_dates = (isset($transaction['all_dates']) and is_array($transaction['all_dates'])) ? $transaction['all_dates'] : array();
+
+        // Minimum Dates
+        if($status === 1 and count($all_dates) >= 1)
+        {
+            $date_minimum = get_term_meta($coupon_id, 'date_minimum', true);
+            if(!trim($date_minimum)) $date_minimum = 1;
+
+            if(count($all_dates) < $date_minimum)
+            {
+                $status = -7;
+            }
+        }
+
+        // Maximum Dates
+        if($status === 1 and count($all_dates) >= 1)
+        {
+            $date_maximum = get_term_meta($coupon_id, 'date_maximum', true);
+            if(trim($date_maximum))
+            {
+                if(count($all_dates) > $date_maximum)
+                {
+                    $status = -8;
+                }
+            }
+        }
+
         return $status;
     }
 
     /**
      * Apply a coupon to a transaction
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $coupon
      * @param int $transaction_id
      * @return int
@@ -792,7 +972,7 @@ class MEC_book extends MEC_base
 
     /**
      * Get discount of a coupon
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $coupon
      * @param int $total
      * @return int
@@ -822,7 +1002,7 @@ class MEC_book extends MEC_base
 
     /**
      * Get id of a coupon by coupon number
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $coupon
      * @return int
      */
@@ -835,7 +1015,14 @@ class MEC_book extends MEC_base
     public function recalculate($transaction)
     {
         $price_details = $transaction['price_details']['details'];
-        $total_tickets_count = count($transaction['tickets']);
+
+        $other_dates = (isset($transaction['other_dates']) and is_array($transaction['other_dates'])) ? $transaction['other_dates'] : array();
+        $dates_count = count($other_dates) + 1;
+
+        $booked_tickets = $transaction['tickets'];
+        if(isset($booked_tickets['attachments'])) unset($booked_tickets['attachments']);
+
+        $total_tickets_count = (count($booked_tickets) * $dates_count);
 
         $total_fee_amount = 0;
         $taxable = 0;
@@ -873,8 +1060,9 @@ class MEC_book extends MEC_base
         {
             $fee_amount = 0;
 
-            if($fee_item['fee_type'] == 'percent') $fee_amount += ($taxable*$fee_item['fee_amount'])/100;
-            elseif($fee_item['fee_type'] == 'amount') $fee_amount += ($total_tickets_count*$fee_item['fee_amount']);
+            if($fee_item['fee_type'] == 'percent') $fee_amount += ($taxable * $fee_item['fee_amount']) / 100;
+            elseif($fee_item['fee_type'] == 'amount') $fee_amount += ($total_tickets_count * $fee_item['fee_amount']);
+            elseif($fee_item['fee_type'] == 'amount_per_date') $fee_amount += ($dates_count * $fee_item['fee_amount']);
             elseif($fee_item['fee_type'] == 'amount_per_booking') $fee_amount += $fee_item['fee_amount'];
 
             $total_fee_amount += $fee_amount;
@@ -895,7 +1083,7 @@ class MEC_book extends MEC_base
 
     /**
      * Get invoice link for certain transaction
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param $transaction_id
      * @return string
      */
@@ -917,7 +1105,7 @@ class MEC_book extends MEC_base
 
     /**
      * Get Downloadable file link for certain transaction
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param $book_id
      * @return string
      */
@@ -943,12 +1131,15 @@ class MEC_book extends MEC_base
         ));
     }
 
-    public function get_thankyou_page($page_id, $transaction_id)
+    public function get_thankyou_page($page_id, $transaction_id = NULL, $cart_id = NULL)
     {
         $main = $this->getMain();
         $page = get_permalink($page_id);
 
-        return ($transaction_id ? $main->add_qs_var('transaction', $transaction_id, $page) : $page);
+        if($transaction_id) $page = $main->add_qs_var('transaction', $transaction_id, $page);
+        if($cart_id) $page = $main->add_qs_var('cart', $cart_id, $page);
+
+        return $page;
     }
 
     public function invoice_link_shortcode()
@@ -957,7 +1148,7 @@ class MEC_book extends MEC_base
         if(!$transaction) return NULL;
 
         $book = $this->getBook();
-        return '<a href="'.$book->get_invoice_link($transaction).'" target="_blank">'.__('Download Invoice', 'modern-events-calendar-lite').'</a>';
+        return '<a href="'.esc_url($book->get_invoice_link($transaction)).'" target="_blank">'.esc_html__('Download Invoice', 'modern-events-calendar-lite').'</a>';
     }
 
     public function get_total_attendees($book_id)
@@ -1008,35 +1199,46 @@ class MEC_book extends MEC_base
         return $db->select("SELECT `post_id` FROM `#__postmeta` WHERE `meta_key`='mec_transaction_id' AND `meta_value`='".$db->escape($transaction_id)."'", 'loadResult');
     }
 
-    public function get_ticket_price_label($ticket, $date, $event_id)
+    public function get_ticket_price_label($ticket, $current_date, $event_id, $timestamp = NULL)
     {
-        return $this->get_ticket_price_key($ticket, $date, $event_id, 'price_label');
+        return $this->get_ticket_price_key($ticket, $current_date, $event_id, 'price_label', $timestamp);
     }
 
-    public function get_ticket_price($ticket, $date, $event_id)
+    public function get_ticket_price($ticket, $current_date, $event_id, $timestamp = NULL)
     {
-        return $this->get_ticket_price_key($ticket, $date, $event_id, 'price');
+        $price = $this->get_ticket_price_key($ticket, $current_date, $event_id, 'price', $timestamp);
+        return (trim($price) ? $price : 0);
     }
 
-    public function get_ticket_price_key($ticket, $date, $event_id, $key)
+    public function get_ticket_price_key($ticket, $current_date, $event_id, $key, $timestamp = NULL)
     {
         $data = isset($ticket[$key]) ? $ticket[$key] : NULL;
 
-        $price_dates = (isset($ticket['dates']) and is_array($ticket['dates'])) ? $ticket['dates'] : array();
-        if(!count($price_dates)) return $this->get_price_for_loggedin_users($event_id, $data, $key);
-
-        $time = strtotime($date);
-        foreach($price_dates as $k => $price_date)
+        if($timestamp and isset($ticket['id']) and trim($ticket['id']) !== '')
         {
-            if(!is_numeric($k)) continue;
-
-            $start = $price_date['start'];
-            $end = $price_date['end'];
-
-            if($time >= strtotime($start) and $time <= strtotime($end))
+            $occ_tickets = MEC_feature_occurrences::param($event_id, $timestamp, 'tickets', array());
+            if(is_array($occ_tickets) and isset($occ_tickets[$ticket['id']]) and is_array($occ_tickets[$ticket['id']]) and isset($occ_tickets[$ticket['id']][$key]) and trim($occ_tickets[$ticket['id']][$key]) !== '')
             {
-                if($key == 'price_label') $data = $price_date['label'];
-                else $data = $price_date[$key];
+                $data = $occ_tickets[$ticket['id']][$key];
+            }
+        }
+
+        $price_dates = (isset($ticket['dates']) and is_array($ticket['dates'])) ? $ticket['dates'] : array();
+        if(count($price_dates))
+        {
+            $current_time = strtotime($current_date);
+            foreach($price_dates as $k => $price_date)
+            {
+                if(!is_numeric($k)) continue;
+
+                $start = $price_date['start'];
+                $end = $price_date['end'];
+
+                if($current_time >= strtotime($start) and $current_time <= strtotime($end))
+                {
+                    if($key == 'price_label') $data = $price_date['label'];
+                    else $data = $price_date[$key];
+                }
             }
         }
 
@@ -1045,13 +1247,14 @@ class MEC_book extends MEC_base
 
     /**
      * Returns tickets prices of an event for a certain date
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $event_id
      * @param string $date
      * @param string $key
+     * @param int $timestamp
      * @return array
      */
-    public function get_tickets_prices($event_id, $date, $key = 'price')
+    public function get_tickets_prices($event_id, $date, $key = 'price', $timestamp = NULL)
     {
         $prices = array();
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
@@ -1059,7 +1262,12 @@ class MEC_book extends MEC_base
         // No Ticket Found!
         if(!is_array($tickets) or (is_array($tickets) and !count($tickets))) return $prices;
 
-        foreach($tickets as $ticket_id=>$ticket) $prices[$ticket_id] = $this->get_ticket_price_key($ticket, $date, $event_id, $key);
+        foreach($tickets as $ticket_id=>$ticket)
+        {
+            $price = $this->get_ticket_price_key($ticket, $date, $event_id, $key, $timestamp);
+            $prices[$ticket_id] = apply_filters('mec_filter_ticket_price_label', $price, $ticket, $event_id, $this);
+        }
+
         return $prices;
     }
 
@@ -1110,6 +1318,9 @@ class MEC_book extends MEC_base
             }
         }
 
+        // Render Numeric Price
+        if($type === 'price_label' and is_numeric($price)) $price = $this->main->render_price($price, $event_id);
+
         return $price;
     }
 
@@ -1133,6 +1344,14 @@ class MEC_book extends MEC_base
         }
 
         return array($limit, $unlimited);
+    }
+
+    public function get_minimum_tickets_per_booking($event_id)
+    {
+        $booking_options = get_post_meta($event_id, 'mec_booking', true);
+
+        $bookings_minimum_per_booking = (isset($booking_options['bookings_minimum_per_booking']) and trim($booking_options['bookings_minimum_per_booking'])) ? (int) $booking_options['bookings_minimum_per_booking'] : 1;
+        return max($bookings_minimum_per_booking, 1);
     }
 
     public function timestamp($start, $end)
@@ -1190,7 +1409,7 @@ class MEC_book extends MEC_base
 
         $dates = explode(':', $transaction['date']);
 
-        $ticket_price = isset($tickets[$attendee['id']]) ? $this->get_ticket_price($tickets[$attendee['id']], $dates[0], $event_id) : 0;
+        $ticket_price = isset($tickets[$attendee['id']]) ? $this->get_ticket_price($tickets[$attendee['id']], $dates[0], $event_id, $dates[0]) : 0;
         if(!$ticket_price) return false;
 
         $variation_price = 0;
@@ -1198,12 +1417,12 @@ class MEC_book extends MEC_base
         // Ticket Variations
         if(isset($attendee['variations']) and is_array($attendee['variations']) and count($attendee['variations']))
         {
-            $ticket_variations = $this->main->ticket_variations($event_id);
+            $ticket_variations = $this->main->ticket_variations($event_id, $attendee['id']);
             foreach($attendee['variations'] as $variation_id=>$variation_count)
             {
                 if(!$variation_count or ($variation_count and $variation_count < 0)) continue;
 
-                $variation_price += isset($ticket_variations[$variation_id]['price']) ? $ticket_variations[$variation_id]['price'] : 0;
+                $variation_price += ((isset($ticket_variations[$variation_id]['price']) and is_numeric($ticket_variations[$variation_id]['price'])) ? $ticket_variations[$variation_id]['price'] : 0);
             }
         }
 
@@ -1219,7 +1438,7 @@ class MEC_book extends MEC_base
         $event_auto_verify = (isset($BO['auto_verify']) and trim($BO['auto_verify']) != '') ? $BO['auto_verify'] : 'global';
         if(is_numeric($event_auto_verify)) $event_auto_verify = (int) $event_auto_verify;
 
-        if($event_auto_verify == 'global')
+        if($event_auto_verify === 'global')
         {
             $auto_verify_free = (isset($this->settings['booking_auto_verify_free']) ? $this->settings['booking_auto_verify_free'] : 0);
             $auto_verify_paid = (isset($this->settings['booking_auto_verify_paid']) ? $this->settings['booking_auto_verify_paid'] : 0);
@@ -1242,7 +1461,7 @@ class MEC_book extends MEC_base
         $event_auto_confirm = (isset($BO['auto_confirm']) and trim($BO['auto_confirm']) != '') ? $BO['auto_confirm'] : 'global';
         if(is_numeric($event_auto_confirm)) $event_auto_confirm = (int) $event_auto_confirm;
 
-        if($event_auto_confirm == 'global')
+        if($event_auto_confirm === 'global')
         {
             $auto_confirm_free = (isset($this->settings['booking_auto_confirm_free']) ? $this->settings['booking_auto_confirm_free'] : 0);
             $auto_confirm_paid = (isset($this->settings['booking_auto_confirm_paid']) ? $this->settings['booking_auto_confirm_paid'] : 0);
@@ -1298,9 +1517,9 @@ class MEC_book extends MEC_base
         if(count($all_attendees) == 1) return $total_price;
 
         $tickets = get_post_meta($event_id, 'mec_tickets', true);
-        $ticket_variations = $this->main->ticket_variations($event_id);
-
         $ticket_id = $attendee['id'];
+
+        $ticket_variations = $this->main->ticket_variations($event_id, $ticket_id);
 
         $ticket_price_booking_saved = get_post_meta($booking_id, 'mec_ticket_price_'.$ticket_id, true);
         if(trim($ticket_price_booking_saved) === '') $ticket_price_booking_saved = 0;
@@ -1376,7 +1595,7 @@ class MEC_book extends MEC_base
 
     /**
      * Remove Fees From a Transaction
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $transaction_id
      * @return boolean
      */
@@ -1410,7 +1629,7 @@ class MEC_book extends MEC_base
 
     /**
      * Re-Add Fees To a Transaction
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $transaction_id
      * @return boolean
      */

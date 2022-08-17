@@ -79,7 +79,7 @@
 .mec-custom-form-box input[type=submit] {
     position: relative;
     border: none;
-    border-radius: 0;
+    border-radius: 2px;
     color: #fff;
     display: inline-block;
     font-size: 12px;
@@ -105,12 +105,6 @@
 .mec-custom-form-box input[type=radio],
 .mec-custom-form-box .mec-form-row input[type=radio],
 .mec-custom-form-box .mec_rsvp_form .mec-form-row input[type=radio] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     position: relative;
-    width: 25px;
-    height: 25px;
-    border: var(--form--border-width) solid var(--form--border-color) !important;
-    background: var(--global--color-white) !important;
     margin:0 3px;
 }

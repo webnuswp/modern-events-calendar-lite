@@ -68,76 +68,82 @@ class SettingsForm extends Singleton {
 	public function get_element_fields( $type = 'reg' ) {
 
 		$elements = array(
-				'name'      => array(
-						'required' => true,
-						'text'     => __( 'MEC Name', 'mec' ),
-						'class'    => 'red',
+				'first_name'      => array(
+					'required' => true,
+					'text'     => esc_html__( 'MEC First Name', 'modern-events-calendar-lite'),
+					'class'    => 'red',
+				),
+				'last_name'      => array(
+					'required' => true,
+					'text'     => esc_html__( 'MEC Last Name', 'modern-events-calendar-lite'),
+					'class'    => 'red',
 				),
 				'mec_email' => array(
 						'required' => true,
-						'text'     => __( 'MEC Email', 'mec' ),
+						'text'     => esc_html__( 'MEC Email', 'modern-events-calendar-lite'),
 						'class'    => 'red',
 				),
 				'text'      => array(
 						'required' => false,
-						'text'     => __( 'Text', 'mec' ),
+						'text'     => esc_html__( 'Text', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'email'     => array(
 						'required' => false,
-						'text'     => __( 'Email', 'mec' ),
+						'text'     => esc_html__( 'Email', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'date'      => array(
 						'required' => false,
-						'text'     => __( 'Date', 'mec' ),
+						'text'     => esc_html__( 'Date', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'tel'       => array(
 						'required' => false,
-						'text'     => __( 'Tel', 'mec' ),
+						'text'     => esc_html__( 'Tel', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'file'      => array(
 						'required' => false,
-						'text'     => __( 'File', 'mec' ),
+						'text'     => esc_html__( 'File', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'textarea'  => array(
 						'required' => false,
-						'text'     => __( 'Textarea', 'mec' ),
+						'text'     => esc_html__( 'Textarea', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'checkbox'  => array(
 						'required' => false,
-						'text'     => __( 'Checkboxes', 'mec' ),
+						'text'     => esc_html__( 'Checkboxes', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'radio'     => array(
 						'required' => false,
-						'text'     => __( 'Radio Buttons', 'mec' ),
+						'text'     => esc_html__( 'Radio Buttons', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'select'    => array(
 						'required' => false,
-						'text'     => __( 'Dropdown', 'mec' ),
+						'text'     => esc_html__( 'Dropdown', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'agreement' => array(
 						'required' => false,
-						'text'     => __( 'Agreement', 'mec' ),
+						'text'     => esc_html__( 'Agreement', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'p'         => array(
 						'required' => false,
-						'text'     => __( 'Paragraph', 'mec' ),
+						'text'     => esc_html__( 'Paragraph', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 		);
 
 		if ( 'reg' !== $type ) {
 
-			unset( $elements['name'] );
+			unset( $elements['first_name'] );
+			unset( $elements['last_name'] );
 			unset( $elements['mec_email'] );
 		}
 
@@ -157,12 +163,12 @@ class SettingsForm extends Singleton {
 		?>
 		<div class="mec-container">
 			<?php do_action( 'before_mec_' . $type . '_fields_form' ); ?>
-			<div class="mec-form-row" id="mec_<?php echo $type ?>_form_container" data-form-type="<?php echo $type; ?>">
+			<div class="mec-form-row" id="mec_<?php echo esc_attr( $type ) ?>_form_container" data-form-type="<?php echo esc_attr( $type ); ?>">
 				<?php do_action( 'mec_' . $type . '_fields_form_start' ); ?>
 				<?php /** Don't remove this hidden field **/ ?>
-				<input type="hidden" name="mec[<?php echo $type ?>_fields]" value=""/>
+				<input type="hidden" name="mec[<?php echo esc_attr( $type ) ?>_fields]" value=""/>
 
-				<ul id="mec_<?php echo $type ?>_form_fields" class="mec_form_fields">
+				<ul id="mec_<?php echo esc_attr( $type ) ?>_form_fields" class="mec_form_fields">
 					<?php
 
 					$i = 0;
@@ -174,19 +180,19 @@ class SettingsForm extends Singleton {
 						$i = max( $i, (int)$key );
 
 
-						echo $this->display_field( $key, $field_args, $type );
+						echo \MEC_kses::form($this->display_field( $key, $field_args, $type ));
 					}
 
 					?>
 				</ul>
-				<div id="mec_<?php echo $type ?>_form_field_types" class="mec_form_field_types">
+				<div id="mec_<?php echo esc_attr( $type ) ?>_form_field_types" class="mec_form_field_types">
 					<?php
 					$elements = $this->get_element_fields( $type_fields );
 					foreach ( $elements as $element_id => $element ) {
 
 						$text  = isset( $element['text'] ) ? $element['text'] : '';
 						$class = isset( $element['class'] ) ? $element['class'] : '';
-						echo '<button type="button" class="button ' . $class . '" data-type="' . $element_id . '">' . $text . '</button>';
+						echo '<button type="button" class="button ' . esc_attr( $class ) . '" data-type="' . esc_attr( $element_id ) . '">' . esc_html($text) . '</button>';
 					}
 
 					?>
@@ -195,21 +201,21 @@ class SettingsForm extends Singleton {
 			</div>
 			<?php do_action( 'after_mec_' . $type . '_fields_form' ); ?>
 
-			<input type="hidden" id="mec_new_<?php echo $type ?>_field_key" value="<?php echo $i + 1; ?>"/>
+			<input type="hidden" id="mec_new_<?php echo esc_attr( $type ) ?>_field_key" value="<?php echo esc_attr( $i + 1 ); ?>"/>
 			<div class="mec-util-hidden">
 				<?php
 				foreach ( $elements as $element_id => $element ) {
 					$method = 'field_' . $element_id;
-					if ( method_exists( $this->main, $method ) ) {
+					if ( method_exists( FormFields::class, $method ) ) {
 
-						echo '<div id="mec_' . $type . '_field_' . $element_id . '" class="mec_field_' . $element_id . '">' .
+						echo '<div id="mec_' . esc_attr( $type ) . '_field_' . esc_attr( $element_id ) . '" class="mec_field_' . esc_attr( $element_id ) . '">' .
 							 $this->display_field( ':i:', [ 'type' => $element_id ], $type )
 							 . '</div>';
 					}
 				}
 
 				?>
-				<div id="mec_<?php echo $type ?>_option" class="mec_field_option">
+				<div id="mec_<?php echo esc_attr( $type ) ?>_option" class="mec_field_option">
 					<?php echo FormFields::getInstance()->field_option( ':fi:', ':i:', array(), $type ); ?>
 				</div>
 			</div>
@@ -245,7 +251,13 @@ class SettingsForm extends Singleton {
 				$html .= $this->fieldFactory->field_text( $key, $field_args, $prefix );
 				break;
 			case 'name':
-				$html .= $this->fieldFactory->field_name( $key, $field_args, $prefix );
+				$html .= $this->fieldFactory->field_first_name( $key, $field_args, $prefix );
+				break;
+			case 'first_name':
+				$html .= $this->fieldFactory->field_first_name( $key, $field_args, $prefix );
+				break;
+			case 'last_name':
+				$html .= $this->fieldFactory->field_last_name( $key, $field_args, $prefix );
 				break;
 			case 'mec_email':
 				$html .= $this->fieldFactory->field_mec_email( $key, $field_args, $prefix );

@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_feature_feed $this */
+
 header('Content-Type: '.feed_content_type('rss2').'; charset='.get_option('blog_charset'), true);
 $more = 1;
 
@@ -24,7 +26,7 @@ do_action('rss_tag_pre', 'rss2');
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bloginfo_rss('url'); ?></link>
 	<description><?php bloginfo_rss("description"); ?></description>
-	<lastBuildDate><?php echo $this->main->mysql2date('D, d M Y H:i:s O', get_lastpostmodified('GMT'), wp_timezone()); ?></lastBuildDate>
+	<lastBuildDate><?php echo esc_html($this->main->mysql2date('D, d M Y H:i:s O', get_lastpostmodified('GMT'), wp_timezone())); ?></lastBuildDate>
 	<language><?php bloginfo_rss('language'); ?></language>
 	<sy:updatePeriod><?php echo apply_filters('rss_update_period', 'hourly'); ?></sy:updatePeriod>
 	<sy:updateFrequency><?php echo apply_filters('rss_update_frequency', 1); ?></sy:updateFrequency>
@@ -41,22 +43,22 @@ do_action('rss_tag_pre', 'rss2');
         $location_id = $this->main->get_master_location_id($event);
     ?>
     <item>
-		<title><?php echo $this->feed->title($event->ID); ?></title>
-		<link><?php echo $this->main->get_event_date_permalink($event, $event->date['start']['date']); ?></link>
+		<title><?php echo esc_html($this->feed->title($event->ID)); ?></title>
+		<link><?php echo esc_url($this->main->get_event_date_permalink($event, $event->date['start']['date'])); ?></link>
         
         <?php if(get_comments_number($event->ID) or comments_open($event->ID)): ?>
 		<comments><?php $this->feed->comments_link_feed($event->ID); ?></comments>
         <?php endif; ?>
 
-        <pubDate><?php echo $this->main->mysql2date('D, d M Y H:i:s O', $event->date['start']['date'].' '.$event->data->time['start'], $tz); ?></pubDate>
-		<dc:creator><![CDATA[<?php $this->feed->author($event->data->post->post_author); ?>]]></dc:creator>
+        <pubDate><?php echo esc_html($this->main->mysql2date('D, d M Y H:i:s O', $event->date['start']['date'].' '.$event->data->time['start'], $tz)); ?></pubDate>
+		<dc:creator><![CDATA[<?php echo esc_html($this->feed->author($event->data->post->post_author)); ?>]]></dc:creator>
 
 		<guid isPermaLink="false"><?php the_guid($event->ID); ?></guid>
 
-        <description><![CDATA[<?php echo $this->feed->excerpt($event->ID); ?>]]></description>
+        <description><![CDATA[<?php echo MEC_kses::element($this->feed->excerpt($event->ID)); ?>]]></description>
 
         <?php if(!get_option('rss_use_excerpt')): $content = $this->feed->content($event->ID, 'rss2'); ?>
-        <content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
+        <content:encoded><![CDATA[<?php echo MEC_kses::element($content); ?>]]></content:encoded>
         <?php endif; ?>
 
         <?php if(get_comments_number($event->ID) or comments_open($event->ID)): ?>
@@ -64,22 +66,22 @@ do_action('rss_tag_pre', 'rss2');
 		<slash:comments><?php echo get_comments_number($event->ID); ?></slash:comments>
         <?php endif; ?>
 
-        <?php if(has_post_thumbnail($event->ID)): $thumbnail_ID = get_post_thumbnail_id($event->ID); $thumbnail = wp_get_attachment_image_src($thumbnail_ID, 'large'); ?>
-        <media:content medium="image" url="<?php echo $thumbnail[0]; ?>" width="<?php echo $thumbnail[1]; ?>" height="<?php echo $thumbnail[2]; ?>" />
+        <?php if(has_post_thumbnail($event->ID) and (!isset($this->settings['include_image_in_feed']) or (isset($this->settings['include_image_in_feed']) and !$this->settings['include_image_in_feed']))): $thumbnail_ID = get_post_thumbnail_id($event->ID); $thumbnail = wp_get_attachment_image_src($thumbnail_ID, 'large'); ?>
+        <media:content medium="image" url="<?php echo esc_url($thumbnail[0]); ?>" width="<?php echo esc_attr($thumbnail[1]); ?>" height="<?php echo esc_attr($thumbnail[2]); ?>" />
         <?php endif; ?>
 
-        <mec:startDate><?php echo $date; ?></mec:startDate>
+        <mec:startDate><?php echo esc_html($date); ?></mec:startDate>
         <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['start'])): ?>
-        <mec:startHour><?php echo $event->data->time['start']; ?></mec:startHour>
+        <mec:startHour><?php echo esc_html($event->data->time['start']); ?></mec:startHour>
         <?php endif; ?>
 
-        <mec:endDate><?php echo $this->main->get_end_date_by_occurrence($event->ID, $date); ?></mec:endDate>
+        <mec:endDate><?php echo esc_html($this->main->get_end_date_by_occurrence($event->ID, $date)); ?></mec:endDate>
         <?php if(isset($event->data) and isset($event->data->time) and isset($event->data->time['end'])): ?>
-        <mec:endHour><?php echo $event->data->time['end']; ?></mec:endHour>
+        <mec:endHour><?php echo esc_html($event->data->time['end']); ?></mec:endHour>
         <?php endif; ?>
 
         <?php if($location_id and $location = $this->main->get_location_data($location_id) and count($location)): ?>
-        <mec:location><?php echo $location['address']; ?></mec:location>
+        <mec:location><?php echo esc_html($location['address']); ?></mec:location>
         <?php endif; ?>
 
         <?php if($cost): ?>

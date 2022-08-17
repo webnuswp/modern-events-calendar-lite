@@ -109,8 +109,14 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        if (type === 'name') {
-            if ($('.mec_form_fields', form).find('input[value="name"][type="hidden"]').length) {
+        if (type === 'last_name') {
+            if ($('.mec_form_fields', form).find('input[value="last_name"][type="hidden"]').length) {
+                return false;
+            }
+        }
+
+        if (type === 'first_name') {
+            if ($('.mec_form_fields', form).find('input[value="first_name"][type="hidden"]').length) {
                 return false;
             }
         }

@@ -3,5 +3,5 @@
 defined('MECEXEC') or die();
 ?>
 <div class="mec-profile-message">
-    <p><?php echo $message; ?></p>
+    <p><?php echo MEC_kses::element($message); ?></p>
 </div>

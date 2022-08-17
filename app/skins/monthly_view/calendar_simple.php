@@ -67,10 +67,10 @@ elseif($week_start == 5) // Friday
             // Print events
             if(isset($events[$today]) and count($events[$today]))
             {
-                echo '<dt class="mec-calendar-day'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'"><div class="'.$selected_day_date.'">'.$list_day.'</div>';
+                echo '<dt class="mec-calendar-day '.esc_attr($selected_day).'" data-mec-cell="'.esc_attr($day_id).'" data-day="'.esc_attr($list_day).'" data-month="'.date('Ym', $time).'"><div class="'.esc_attr($selected_day_date).'">'.apply_filters('mec_filter_list_day_value', $list_day, $today, $this).'</div>';
                 foreach($events[$today] as $event)
                 {
-                    $event_color = isset($event->data->meta['mec_color']) ? '#'.$event->data->meta['mec_color'] : '';
+                    $event_color = isset($event->data->meta['mec_color']) && !empty($event->data->meta['mec_color']) ? '#'.$event->data->meta['mec_color'] : '';
                     $start_time = (isset($event->data->time) ? $event->data->time['start'] : '');
                     $end_time = (isset($event->data->time) ? $event->data->time['end'] : '');
 
@@ -79,40 +79,40 @@ elseif($week_start == 5) // Friday
                     // Event Content
                     if(!$this->cache->has($event->data->ID.'_content'))
                     {
-                        $event_content = ((isset($event->data->content) and trim($event->data->content) != '') ? mb_substr(strip_tags($event->data->content), 0, 320) : '');
+                        $event_content = ((isset($event->data->content) and trim($event->data->content) != '') ? mb_substr(strip_tags($event->data->content, '<style>'), 0, 320) : '');
                         $this->cache->set($event->data->ID.'_content', $event_content);
                     }
                     else $event_content = $this->cache->get($event->data->ID.'_content');
 
                     echo '<div class="'.((isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : '').'ended-relative simple-skin-ended">';
-                    echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.$event_unique.'-'.$day_id.'" data-event-id="'.$event->data->ID.'" href="'.$this->main->get_event_date_permalink($event, $event->date['start']['date']).'"  '.$target_url.'>';
-                    echo '<h4 class="mec-event-title">'.$event->data->title.'</h4>'.$this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);
+                    echo '<a class="mec-monthly-tooltip event-single-link-simple" data-tooltip-content="#mec-tooltip-'.esc_attr($event_unique.'-'.$day_id).'" data-event-id="'.esc_attr($event->data->ID).'" href="'.esc_url($this->main->get_event_date_permalink($event, $event->date['start']['date'])).'" '.$target_url.'>';
+                    echo '<h4 class="mec-event-title">'.esc_html($event->data->title).'</h4>'.MEC_kses::element($this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation));
                     do_action('mec_shortcode_virtual_badge', $event->data->ID);
                     echo '</a>';
                     echo '</div>';
 
                     $tooltip_content = '';
-                    $tooltip_content .= !empty($event->data->title) ? '<div class="mec-tooltip-event-title">'.$event->data->title.'</div>' : '';
+                    $tooltip_content .= !empty($event->data->title) ? '<div class="mec-tooltip-event-title">'.esc_html($event->data->title).'</div>' : '';
 
-                    if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $tooltip_content .= '<div class="mec-event-detailed-time mec-tooltip-event-time mec-color"><i class="mec-sl-clock-o"></i> '.$this->display_detailed_time($event).'</div>';
-                    elseif(trim($start_time)) $tooltip_content .= '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.$start_time.(trim($end_time) ? ' - '.$end_time : '').'</div>';
+                    if($this->display_detailed_time and $this->main->is_multipleday_occurrence($event)) $tooltip_content .= '<div class="mec-event-detailed-time mec-tooltip-event-time mec-color"><i class="mec-sl-clock-o"></i> '.MEC_kses::element($this->display_detailed_time($event)).'</div>';
+                    elseif(trim($start_time)) $tooltip_content .= '<div class="mec-tooltip-event-time"><i class="mec-sl-clock-o"></i> '.esc_html($start_time.(trim($end_time) ? ' - '.$end_time : '')).'</div>';
 
                     $tooltip_content .= $this->display_cost($event);
 
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '<div class="mec-tooltip-event-content">' : '';
-                    $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.$event->data->thumbnails['thumbnail'].'</div>' : '';
-                    $tooltip_content .= !empty($event->data->content) ? '<div class="mec-tooltip-event-desc">'.$event_content.' , ...</div>' : '';
-                    if($this->localtime) $tooltip_content .= $this->main->module('local-time.type2', array('event'=>$event));
+                    $tooltip_content .= !empty($event->data->thumbnails['thumbnail']) ? '<div class="mec-tooltip-event-featured">'.MEC_kses::element($event->data->thumbnails['thumbnail']).'</div>' : '';
+                    $tooltip_content .= !empty($event->data->content) ? '<div class="mec-tooltip-event-desc">'.MEC_kses::full($event_content).' , ...</div>' : '';
+                    if($this->localtime) $tooltip_content .= $this->main->module('local-time.type2', array('event' => $event));
                     $tooltip_content .= (!empty($event->data->thumbnails['thumbnail']) || !empty($event->data->content)) ? '</div>' : '';
                     $tooltip_content .= $this->booking_button($event);
-                    $tooltip_content .= $this->display_custom_data($event);
+                    $tooltip_content .= '<span class="mec-wrap"><span id="mec_skin_events_'.esc_attr($this->id).'_monthly_simple_'.$event->data->ID.'">'.$this->display_custom_data($event).'</span></span>';
 
                     // MEC Schema
                     do_action('mec_schema', $event);
 
                     echo '<div class="tooltip_templates event-single-content-simple">
-                        <div id="mec-tooltip-'.$event_unique.'-'.$day_id.'">
-                            '.$tooltip_content.'
+                        <div id="mec-tooltip-'.esc_attr($event_unique.'-'.$day_id).'">
+                            '.MEC_kses::full($tooltip_content).'
                         </div>
                     </div>';
                 }
@@ -121,14 +121,14 @@ elseif($week_start == 5) // Friday
             }
             else
             {
-                echo '<dt class="mec-calendar-day'.$selected_day.'" data-mec-cell="'.$day_id.'" data-day="'.$list_day.'" data-month="'.date('Ym', $time).'">'.$list_day.'</dt>';
+                echo '<dt class="mec-calendar-day '.esc_attr($selected_day).'" data-mec-cell="'.esc_attr($day_id).'" data-day="'.esc_attr($list_day).'" data-month="'.date('Ym', $time).'">'.apply_filters('mec_filter_list_day_value', $list_day, $today, $this).'</dt>';
                 echo '</dt>';
             }
 
             if($running_day == 6)
             {
                 echo '</dl>';
-                
+
                 if((($day_counter+1) != $days_in_month) or (($day_counter+1) == $days_in_month and $days_in_this_week == 7))
                 {
                     echo '<dl class="mec-calendar-row">';
@@ -146,7 +146,7 @@ elseif($week_start == 5) // Friday
         {
             for($x = 1; $x <= (8 - $days_in_this_week); $x++)
             {
-                echo '<dt class="mec-table-nullday">'.$x.'</dt>';
+                echo '<dt class="mec-table-nullday">'.esc_html($x).'</dt>';
             }
         }
     ?>

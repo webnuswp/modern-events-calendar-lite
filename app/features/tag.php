@@ -3,7 +3,7 @@
 defined('MECEXEC') or die();
 
 /**
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_tag extends MEC_base
 {
@@ -15,7 +15,7 @@ class MEC_feature_tag extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ class MEC_feature_tag extends MEC_base
     
     /**
      * Initialize search feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -55,8 +55,8 @@ class MEC_feature_tag extends MEC_base
         if($taxonomy === 'post_tag') register_taxonomy_for_object_type('post_tag', $this->PT);
         else
         {
-            $singular_label = $this->main->m('taxonomy_tag', __('Tag', 'modern-events-calendar-lite'));
-            $plural_label = $this->main->m('taxonomy_tags', __('Tags', 'modern-events-calendar-lite'));
+            $singular_label = $this->main->m('taxonomy_tag', esc_html__('Tag', 'modern-events-calendar-lite'));
+            $plural_label = $this->main->m('taxonomy_tags', esc_html__('Tags', 'modern-events-calendar-lite'));
 
             register_taxonomy(
                 'mec_tag',
@@ -66,20 +66,21 @@ class MEC_feature_tag extends MEC_base
                     'labels'=>array(
                         'name'=>$plural_label,
                         'singular_name'=>$singular_label,
-                        'all_items'=>sprintf(__('All %s', 'modern-events-calendar-lite'), $plural_label),
-                        'edit_item'=>sprintf(__('Edit %s', 'modern-events-calendar-lite'), $singular_label),
-                        'view_item'=>sprintf(__('View %s', 'modern-events-calendar-lite'), $singular_label),
-                        'update_item'=>sprintf(__('Update %s', 'modern-events-calendar-lite'), $singular_label),
-                        'add_new_item'=>sprintf(__('Add New %s', 'modern-events-calendar-lite'), $singular_label),
-                        'new_item_name'=>sprintf(__('New %s Name', 'modern-events-calendar-lite'), $singular_label),
-                        'popular_items'=>sprintf(__('Popular %s', 'modern-events-calendar-lite'), $plural_label),
-                        'search_items'=>sprintf(__('Search %s', 'modern-events-calendar-lite'), $plural_label),
-                        'back_to_items'=>sprintf(__('← Back to %s', 'modern-events-calendar-lite'), $plural_label),
-                        'not_found'=>sprintf(__('no %s found.', 'modern-events-calendar-lite'), strtolower($plural_label)),
+                        'all_items'=>sprintf(esc_html__('All %s', 'modern-events-calendar-lite'), $plural_label),
+                        'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite'), $singular_label),
+                        'view_item'=>sprintf(esc_html__('View %s', 'modern-events-calendar-lite'), $singular_label),
+                        'update_item'=>sprintf(esc_html__('Update %s', 'modern-events-calendar-lite'), $singular_label),
+                        'add_new_item'=>sprintf(esc_html__('Add New %s', 'modern-events-calendar-lite'), $singular_label),
+                        'new_item_name'=>sprintf(esc_html__('New %s Name', 'modern-events-calendar-lite'), $singular_label),
+                        'popular_items'=>sprintf(esc_html__('Popular %s', 'modern-events-calendar-lite'), $plural_label),
+                        'search_items'=>sprintf(esc_html__('Search %s', 'modern-events-calendar-lite'), $plural_label),
+                        'back_to_items'=>sprintf(esc_html__('← Back to %s', 'modern-events-calendar-lite'), $plural_label),
+                        'not_found'=>sprintf(esc_html__('no %s found.', 'modern-events-calendar-lite'), strtolower($plural_label)),
                     ),
                     'rewrite'=>array('slug'=>'events-tag'),
-                    'public'=>false,
+                    'public'=>true,
                     'show_ui'=>true,
+                    'show_in_rest'=>true,
                     'hierarchical'=>false,
                 )
             );

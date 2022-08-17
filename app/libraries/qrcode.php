@@ -247,36 +247,6 @@ class QRtools {
 		$GLOBALS['qr_time_bench'][$markerId] = $time;
 	}
 	
-	//----------------------------------------------------------------------
-	public function timeBenchmark()
-	{
-		self::markTime('finish');
-	
-		$lastTime = 0;
-		$startTime = 0;
-		$p = 0;
-
-		echo '<table cellpadding="3" cellspacing="1">
-				<thead><tr style="border-bottom:1px solid silver"><td colspan="2" style="text-align:center">BENCHMARK</td></tr></thead>
-				<tbody>';
-
-		foreach($GLOBALS['qr_time_bench'] as $markerId=>$thisTime) {
-			if ($p > 0) {
-				echo '<tr><th style="text-align:right">till '.$markerId.': </th><td>'.number_format($thisTime-$lastTime, 6).'s</td></tr>';
-			} else {
-				$startTime = $thisTime;
-			}
-			
-			$p++;
-			$lastTime = $thisTime;
-		}
-		
-		echo '</tbody><tfoot>
-			<tr style="border-top:2px solid black"><th style="text-align:right">TOTAL: </th><td>'.number_format($lastTime-$startTime, 6).'s</td></tr>
-		</tfoot>
-		</table>';
-	}
-	
 }
 
 //##########################################################################
@@ -3000,7 +2970,7 @@ class QRcode {
 		return $this->encodeInput($input);
 	}
 	
-	//-------------------------------------- Created by howard@realtyna.com -------------------------------//
+	//-------------------------------------- Created by hoseinrafiei@gmail.com -------------------------------//
 	public function getImgResult($text, $outfile = false, $level = QR_ECLEVEL_L, $size = 3, $margin = 4, $saveandprint=false) 
 	{
 		$enc = QRencode::factory($level, $size, $margin);

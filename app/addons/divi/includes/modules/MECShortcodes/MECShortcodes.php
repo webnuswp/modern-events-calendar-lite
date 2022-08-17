@@ -29,7 +29,7 @@ class MECDIVI_MECShortcodes extends ET_Builder_Module {
 			),
 		);
 	}
-	public function render(  $attrs, $content = null, $render_slug ) {
+	public function render(  $attrs, $content = NULL, $render_slug = NULL ) {
 		return do_shortcode('[MEC id="'.$this->props['shortcode_id'].'"]');
 	}
 }

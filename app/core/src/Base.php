@@ -3,6 +3,7 @@
 namespace MEC;
 
 use MEC\Attendees\AttendeesTable;
+use MEC\Libraries\FlushNotices;
 
 /**
  * Core Class in Plugin
@@ -85,6 +86,8 @@ final class Base {
 		if ( !is_admin() ) {
 			return;
 		}
+
+		FlushNotices::getInstance()->init();
 	}
 
 
@@ -106,7 +109,13 @@ final class Base {
 	public function init_hooks() {
 
 		add_action( 'init', [ $this, 'init' ] );
+
 		register_activation_hook( MEC_CORE_FILE, __CLASS__ . '::register_activation' );
+		$db_version = get_option('mec_core_db','1.0.0');
+		if(version_compare($db_version, MEC_VERSION, '<')){
+
+			static::register_activation();
+		}
 	}
 
 	/**
@@ -117,6 +126,8 @@ final class Base {
 	public static function register_activation() {
 
 		AttendeesTable::create_table();
+
+		update_option('mec_core_db',MEC_VERSION);
 	}
 
 

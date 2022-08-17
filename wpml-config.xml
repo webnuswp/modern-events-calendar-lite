@@ -68,6 +68,7 @@
         <custom-field action="copy">show_only_past_events</custom-field>
         <custom-field action="copy">show_only_ongoing_events</custom-field>
         <custom-field action="translate">mec_tickets</custom-field>
+        <custom-field action="translate">mec_reg_fields</custom-field>
     </custom-fields>
     <custom-fields-texts>
         <key name="mec_tickets">
@@ -136,6 +137,14 @@
             </key>
             <key name="reg_fields">
                 <key name="*" />
+            </key>
+            <key name="event_fields">
+                <key name="*">
+                    <key name="label" />
+                    <key name="options">
+                        <key name="label" />
+                    </key>
+                </key>
             </key>
             <key name="gateways">
                 <key name="*">

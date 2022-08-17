@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC yearly view class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_yearly_view extends MEC_skins
 {
@@ -18,32 +18,32 @@ class MEC_skin_yearly_view extends MEC_skins
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
         parent::__construct();
     }
-    
+
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
         $this->factory->action('wp_ajax_mec_yearly_view_load_year', array($this, 'load_year'));
         $this->factory->action('wp_ajax_nopriv_mec_yearly_view_load_year', array($this, 'load_year'));
     }
-    
+
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
     {
         $this->atts = $atts;
-        
+
         // Skin Options
         $this->skin_options = (isset($this->atts['sk-options']) and isset($this->atts['sk-options'][$this->skin])) ? $this->atts['sk-options'][$this->skin] : array();
 
@@ -53,7 +53,7 @@ class MEC_skin_yearly_view extends MEC_skins
 
         // Search Form Options
         $this->sf_options = (isset($this->atts['sf-options']) and isset($this->atts['sf-options'][$this->skin])) ? $this->atts['sf-options'][$this->skin] : array();
-        
+
         // Search Form Status
         $this->sf_status = isset($this->atts['sf_status']) ? $this->atts['sf_status'] : true;
         $this->sf_display_label = isset($this->atts['sf_display_label']) ? $this->atts['sf_display_label'] : false;
@@ -62,10 +62,10 @@ class MEC_skin_yearly_view extends MEC_skins
 
         // Generate an ID for the sking
         $this->id = isset($this->atts['id']) ? $this->atts['id'] : mt_rand(100, 999);
-        
+
         // Set the ID
         if(!isset($this->atts['id'])) $this->atts['id'] = $this->id;
-        
+
         // The style
         $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'modern';
         if($this->style == 'fluent' and !is_plugin_active('mec-fluent-layouts/mec-fluent-layouts.php')) $this->style = 'modern';
@@ -75,61 +75,64 @@ class MEC_skin_yearly_view extends MEC_skins
 
         // display_label
         $this->display_label = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
-        
+
         // Next/Previous Month
         $this->next_previous_button = isset($this->skin_options['next_previous_button']) ? $this->skin_options['next_previous_button'] : true;
-        
+
         // Override the style if the style forced by us in a widget etc
         if(isset($this->atts['style']) and trim($this->atts['style']) != '') $this->style = $this->atts['style'];
-        
+
         // HTML class
         $this->html_class = '';
         if(isset($this->atts['html-class']) and trim($this->atts['html-class']) != '') $this->html_class = $this->atts['html-class'];
 
         // Booking Button
         $this->booking_button = isset($this->skin_options['booking_button']) ? (int) $this->skin_options['booking_button'] : 0;
-        
+
         // SED Method
         $this->sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
 
         // Image popup
         $this->image_popup = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
-        
+
         // From Widget
         $this->widget = (isset($this->atts['widget']) and trim($this->atts['widget'])) ? true : false;
-        
+
+        // From Full Calendar
+        $this->from_full_calendar = (isset($this->skin_options['from_fc']) and trim($this->skin_options['from_fc'])) ? true : false;
+
         // Init MEC
         $this->args['mec-init'] = true;
         $this->args['mec-skin'] = $this->skin;
-        
+
         // Post Type
         $this->args['post_type'] = $this->main->get_main_post_type();
 
         // Post Status
         $this->args['post_status'] = 'publish';
-        
+
         // Keyword Query
         $this->args['s'] = $this->keyword_query();
-        
+
         // Taxonomy
         $this->args['tax_query'] = $this->tax_query();
-        
+
         // Meta
         $this->args['meta_query'] = $this->meta_query();
-        
+
         // Tag
         if(apply_filters('mec_taxonomy_tag', '') === 'post_tag') $this->args['tag'] = $this->tag_query();
-        
+
         // Author
         $this->args['author'] = $this->author_query();
-        
+
         // Pagination Options
         $this->paged = get_query_var('paged', 1);
         $this->limit = (isset($this->skin_options['limit']) and trim($this->skin_options['limit'])) ? $this->skin_options['limit'] : 12;
-        
+
         $this->args['posts_per_page'] = $this->limit;
         $this->args['paged'] = $this->paged;
-        
+
         // Sort Options
         $this->args['orderby'] = 'meta_value_num';
         $this->args['order'] = 'ASC';
@@ -143,23 +146,23 @@ class MEC_skin_yearly_view extends MEC_skins
 
         // Show Past Events
         $this->args['mec-past-events'] = isset($this->atts['show_past_events']) ? $this->atts['show_past_events'] : '0';
-        
+
         // Start Date
         list($this->year, $this->month, $this->day) = $this->get_start_date();
 
         $this->start_date = date('Y-m-d', strtotime($this->year.'-'.$this->month.'-'.$this->day));
         $this->active_day = $this->year.'-'.$this->month.'-'.date('d');
-        
+
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
 
         // Months to Display
         $this->months_to_display = (isset($this->skin_options['months']) and is_array($this->skin_options['months']) and count($this->skin_options['months'])) ? $this->skin_options['months'] : array();
     }
-    
+
     /**
      * Search and returns the filtered events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return array of objects
      */
     public function search()
@@ -182,6 +185,8 @@ class MEC_skin_yearly_view extends MEC_skins
         $this->args['posts_per_page'] = $this->limit;
 
         $events = array();
+        $qs = array();
+
         foreach($dates as $date=>$IDs)
         {
             // No Event
@@ -195,13 +200,26 @@ class MEC_skin_yearly_view extends MEC_skins
             }
 
             // Include Available Events
-            $this->args['post__in'] = $IDs;
+            $this->args['post__in'] = array_unique($IDs);
 
             // Count of events per day
             $IDs_count = array_count_values($IDs);
 
             // The Query
-            $query = new WP_Query($this->args);
+            $this->args = apply_filters('mec_skin_query_args', $this->args, $this);
+
+            // Query Key
+            $q_key = base64_encode(json_encode($this->args));
+
+            // Get From Cache
+            if(isset($qs[$q_key])) $query = $qs[$q_key];
+            // Search & Cache
+            else
+            {
+                $query = new WP_Query($this->args);
+                $qs[$q_key] = $query;
+            }
+
             if($query->have_posts())
             {
                 if(!isset($events[$date])) $events[$date] = array();
@@ -226,8 +244,8 @@ class MEC_skin_yearly_view extends MEC_skins
 
                         $data->date = array
                         (
-                            'start'=>array('date'=>$date),
-                            'end'=>array('date'=>$this->main->get_end_date($date, $rendered))
+                            'start' => array('date' => $date),
+                            'end' => array('date' => $this->main->get_end_date($date, $rendered))
                         );
 
                         $d[] = $this->render->after_render($data, $this, $i);
@@ -242,12 +260,15 @@ class MEC_skin_yearly_view extends MEC_skins
             wp_reset_postdata();
         }
 
+        // Initialize Occurrences' Data
+        MEC_feature_occurrences::fetch($events);
+
         return $events;
     }
-    
+
     /**
      * Returns start day of skin for filtering events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return array
      */
     public function get_start_date()
@@ -259,42 +280,42 @@ class MEC_skin_yearly_view extends MEC_skins
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'start_next_year') $date = date('Y-m-d', strtotime('first day of January '.(current_time('Y')+1)));
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'start_last_year') $date = date('Y-m-d', strtotime('first day of January '.(current_time('Y')-1)));
         elseif(isset($this->skin_options['start_date_type']) and $this->skin_options['start_date_type'] == 'date') $date = date('Y-m-d', strtotime($this->skin_options['start_date']));
-        
+
         // Hide past events
         if(isset($this->atts['show_past_events']) and !trim($this->atts['show_past_events']))
         {
             $today = current_time('Y-m-d');
             if(strtotime($date) < strtotime($today)) $date = $today;
         }
-        
+
         // Show only expired events
         if(isset($this->show_only_expired_events) and $this->show_only_expired_events)
         {
             $yesterday = date('Y-m-d', strtotime('Yesterday'));
             if(strtotime($date) > strtotime($yesterday)) $date = $yesterday;
         }
-        
+
         $time = strtotime($date);
         return array(date('Y', $time), date('m', $time), date('d', $time));
     }
-    
+
     /**
      * Load year for AJAX requert
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return void
      */
     public function load_year()
     {
-        $this->sf = $this->request->getVar('sf', array());
-        $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
-        $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
-        
+        $this->sf = (isset($_REQUEST['sf']) and is_array($_REQUEST['sf'])) ? $this->main->sanitize_deep_array($_REQUEST['sf']) : array();
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 1;
+        $atts = $this->sf_apply(((isset($_REQUEST['atts']) and is_array($_REQUEST['atts'])) ? $this->main->sanitize_deep_array($_REQUEST['atts']) : array()), $this->sf, $apply_sf_date);
+
         // Initialize the skin
         $this->initialize($atts);
-        
+
         // Start Date
-        $this->year = $this->request->getVar('mec_year', date('Y'));
-        
+        $this->year = isset($_REQUEST['mec_year']) ? sanitize_text_field($_REQUEST['mec_year']) : current_time('Y');
+
         if($this->show_only_expired_events)
         {
             $this->start_date = date('Y-m-01', strtotime($this->year.'-01-01'));
@@ -305,19 +326,19 @@ class MEC_skin_yearly_view extends MEC_skins
             $this->start_date = date('Y-m-d', strtotime($this->year.'-01-01'));
             $this->active_day = $this->year.'-01-01';
         }
-        
+
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
-        
+
         // Return the events
         $this->atts['return_items'] = true;
-        
+
         // Fetch the events
         $this->fetch();
-        
+
         // Return the output
         $output = $this->output();
-        
+
         echo json_encode($output);
         exit;
     }

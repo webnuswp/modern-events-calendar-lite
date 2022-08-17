@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC Walker class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_walker extends Walker
 {
@@ -20,7 +20,7 @@ class MEC_walker extends Walker
     /**
      * Constructor method
      * @param array $params
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct($params = array())
     {
@@ -84,16 +84,17 @@ class MEC_walker extends Walker
         else $taxonomy = $args['taxonomy'];
 
         if('category' === $taxonomy) $name = 'post_category';
-        else $name = 'tax_input[' . $taxonomy . ']';
+        else $name = 'tax_input[' . esc_attr($taxonomy) . ']';
 
         $args['popular_cats'] = !empty($args['popular_cats']) ? array_map('intval', $args['popular_cats']) : array();
         $class = in_array($category->term_id, $args['popular_cats'], true) ? ' class="popular-category"' : '';
         $args['selected_cats'] = !empty($args['selected_cats']) ? array_map('intval', $args['selected_cats']) : array();
 
         $is_selected = in_array($category->term_id, $args['selected_cats'], true);
+        $selected = selected( $is_selected, true, false );
         $is_disabled = !empty($args['disabled']);
 
-        $output .= "\n<option value='{$category->term_id}' id='{$taxonomy}-{$this->mec_id}-{$category->term_id}'$class>" .
+        $output .= "\n<option value='{$category->term_id}' id='{$taxonomy}-{$this->mec_id}-{$category->term_id}'$class $selected >" .
             esc_html__(apply_filters('the_category', $category->name, '', '')) . '</option>';
     }
 
@@ -118,20 +119,20 @@ class MEC_walker extends Walker
         if ( ! $element ) {
             return;
         }
- 
+
         $id_field = $this->db_fields['id'];
         $id       = $element->$id_field;
- 
+
         // Display this element.
         $this->has_children = ! empty( $children_elements[ $id ] );
         if ( isset( $args[0] ) && is_array( $args[0] ) ) {
             $args[0]['has_children'] = $this->has_children; // Back-compat.
         }
- 
-        
- 
+
+
+
         $this->start_el( $output, $element, $depth, ...array_values( $args ) );
-        
+
         // End this element.
         $this->end_el( $output, $element, $depth, ...array_values( $args ) );
     }
@@ -142,14 +143,14 @@ class MEC_walker extends Walker
         if ( $max_depth < -1 || empty( $elements ) ) {
             return $output;
         }
-        
+
         $parent_field = $this->db_fields['parent'];
-        
+
         foreach ( $elements as $e ) {
             $this->display_element( $e, $empty_array, 1, 0, $args, $output );
         }
         $output .= '</select>';
-        
+
         return $output;
 
     }

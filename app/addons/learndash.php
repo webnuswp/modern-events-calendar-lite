@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC LearnDash addon class
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_addon_learndash extends MEC_base
 {
@@ -21,7 +21,7 @@ class MEC_addon_learndash extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ class MEC_addon_learndash extends MEC_base
     
     /**
      * Initialize the LD addon
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return boolean
      */
     public function init()
@@ -49,8 +49,18 @@ class MEC_addon_learndash extends MEC_base
         add_action('custom_field_ticket', array($this, 'add_courses_dropdown_to_tickets'), 10, 2);
         add_action('custom_field_dynamic_ticket', array($this, 'add_courses_dropdown_to_raw_tickets'));
 
-        // Add to Course
-        add_action('mec_booking_completed', array($this, 'assign'), 10, 1);
+        // Enrollment Method
+        $enroll_method = (isset($this->settings['ld_enrollment_method']) and trim($this->settings['ld_enrollment_method'])) ? $this->settings['ld_enrollment_method'] : 'booking';
+
+        // Enroll
+        if($enroll_method === 'booking') add_action('mec_booking_completed', array($this, 'assign'), 10, 1);
+        elseif($enroll_method === 'confirm') add_action('mec_booking_confirmed', array($this, 'assign'), 10, 1);
+        elseif($enroll_method === 'verification') add_action('mec_booking_verified', array($this, 'assign'), 10, 1);
+        elseif($enroll_method === 'confirm_verification')
+        {
+            add_action('mec_booking_confirmed', array($this, 'pre_enroll'), 10, 1);
+            add_action('mec_booking_verified', array($this, 'pre_enroll'), 10, 1);
+        }
 
         return true;
     }
@@ -64,8 +74,8 @@ class MEC_addon_learndash extends MEC_base
         if(!count($courses)) return;
         ?>
         <div class="mec-form-row">
-            <label for="mec_tickets_<?php echo $key; ?>_ld_course"><?php _e('LearnDash Course', 'modern-events-calendar-lite'); ?></label>
-            <select name="mec[tickets][<?php echo $key; ?>][ld_course]" id="mec_tickets_<?php echo $key; ?>_ld_course">
+            <label for="mec_tickets_<?php echo esc_attr($key); ?>_ld_course"><?php esc_html_e('LearnDash Course', 'modern-events-calendar-lite'); ?></label>
+            <select name="mec[tickets][<?php echo esc_attr($key); ?>][ld_course]" id="mec_tickets_<?php echo esc_attr($key); ?>_ld_course">
                 <option>-----</option>
                 <?php foreach($courses as $course_id => $course_name): ?>
                 <option value="<?php echo esc_attr($course_id); ?>"<?php echo ((isset($ticket['ld_course']) and $course_id == $ticket['ld_course']) ? 'selected="selected"' : ''); ?>><?php echo esc_html($course_name); ?></option>
@@ -119,5 +129,13 @@ class MEC_addon_learndash extends MEC_base
         {
             ld_update_course_access($user->ID, $course_id, false);
         }
+    }
+
+    public function pre_enroll($booking_id)
+    {
+        $confirmed = get_post_meta($booking_id, 'mec_confirmed', true);
+        $verified = get_post_meta($booking_id, 'mec_verified', true);
+
+        if($confirmed == 1 and $verified == 1) $this->assign($booking_id);
     }
 }

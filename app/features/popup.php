@@ -3,7 +3,7 @@
 defined('MECEXEC') or die();
 
 /**
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_popup extends MEC_base
 {
@@ -13,7 +13,7 @@ class MEC_feature_popup extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -29,7 +29,7 @@ class MEC_feature_popup extends MEC_base
     
     /**
      * Initialize popup feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -63,7 +63,7 @@ class MEC_feature_popup extends MEC_base
     public function shortcode_save()
     {
         // Security Nonce
-        $wpnonce = isset($_POST['_mecnonce']) ? $_POST['_mecnonce'] : NULL;
+        $wpnonce = isset($_POST['_mecnonce']) ? sanitize_text_field($_POST['_mecnonce']) : NULL;
 
         // Check if our nonce is set.
         if(!trim($wpnonce)) $this->main->response(array('success'=>0, 'code'=>'NONCE_MISSING'));
@@ -71,19 +71,19 @@ class MEC_feature_popup extends MEC_base
         // Verify that the nonce is valid.
         if(!wp_verify_nonce($wpnonce, 'mec_shortcode_popup')) $this->main->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
 
-        $params = (isset($_POST['shortcode']) and is_array($_POST['shortcode'])) ? $_POST['shortcode'] : array();
+        $params = (isset($_POST['shortcode']) and is_array($_POST['shortcode'])) ? $this->main->sanitize_deep_array($_POST['shortcode']) : array();
 
-        $skin = isset($params['skin']) ? $params['skin'] : 'list';
-        $title = isset($params['name']) ? $params['name'] : ucwords(str_replace('_', ' ', $skin));
+        $skin = isset($params['skin']) ? sanitize_text_field($params['skin']) : 'list';
+        $title = isset($params['name']) ? sanitize_text_field($params['name']) : ucwords(str_replace('_', ' ', $skin));
 
-        $show_past_events = isset($params['show_past_events']) ? $params['show_past_events'] : 1;
-        $show_only_past_events = isset($params['show_only_past_events']) ? $params['show_only_past_events'] : 0;
-        $show_only_ongoing_events = isset($params['show_only_ongoing_events']) ? $params['show_only_ongoing_events'] : 0;
+        $show_past_events = isset($params['show_past_events']) ? sanitize_text_field($params['show_past_events']) : 1;
+        $show_only_past_events = isset($params['show_only_past_events']) ? sanitize_text_field($params['show_only_past_events']) : 0;
+        $show_only_ongoing_events = isset($params['show_only_ongoing_events']) ? sanitize_text_field($params['show_only_ongoing_events']) : 0;
 
-        $sed = isset($params['sed']) ? $params['sed'] : 0;
-        $style = isset($params['style']) ? $params['style'] : 'clean';
-        $event = isset($params['event']) ? $params['event'] : 0;
-        $custom_style = isset($params['custom_style']) ? $params['custom_style'] : '';
+        $sed = isset($params['sed']) ? sanitize_text_field($params['sed']) : 0;
+        $style = isset($params['style']) ? sanitize_text_field($params['style']) : 'clean';
+        $event = isset($params['event']) ? sanitize_text_field($params['event']) : 0;
+        $custom_style = isset($params['custom_style']) ? sanitize_text_field($params['custom_style']) : '';
 
         $skin_options = array(
             'list' => array(
@@ -262,7 +262,7 @@ class MEC_feature_popup extends MEC_base
     public function event_save()
     {
         // Security Nonce
-        $wpnonce = isset($_POST['_mecnonce']) ? $_POST['_mecnonce'] : NULL;
+        $wpnonce = isset($_POST['_mecnonce']) ? sanitize_text_field($_POST['_mecnonce']) : NULL;
 
         // Check if our nonce is set.
         if(!trim($wpnonce)) $this->main->response(array('success'=>0, 'code'=>'NONCE_MISSING'));
@@ -270,10 +270,10 @@ class MEC_feature_popup extends MEC_base
         // Verify that the nonce is valid.
         if(!wp_verify_nonce($wpnonce, 'mec_event_popup')) $this->main->response(array('success'=>0, 'code'=>'NONCE_IS_INVALID'));
 
-        $mec = (isset($_POST['mec']) and is_array($_POST['mec'])) ? $_POST['mec'] : array();
+        $mec = (isset($_POST['mec']) and is_array($_POST['mec'])) ? $this->main->sanitize_deep_array($_POST['mec'], 'text', array('content', 'excerpt')) : array();
 
         $post_title = isset($mec['title']) ? sanitize_text_field($mec['title']) : '';
-        $post_content = isset($mec['content']) ? $mec['content'] : '';
+        $post_content = isset($mec['content']) ? MEC_kses::page($mec['content']) : '';
         $featured_image = isset($mec['featured_image']) ? sanitize_text_field($mec['featured_image']) : '';
 
         // Post Status
@@ -284,7 +284,7 @@ class MEC_feature_popup extends MEC_base
         $post_id = wp_insert_post($post);
 
         // Categories
-        $categories = (isset($_POST['tax_input']) and isset($_POST['tax_input']['mec_category']) and is_array($_POST['tax_input']['mec_category'])) ? $_POST['tax_input']['mec_category'] : array();
+        $categories = (isset($_POST['tax_input']) and isset($_POST['tax_input']['mec_category']) and is_array($_POST['tax_input']['mec_category'])) ? $this->main->sanitize_deep_array($_POST['tax_input']['mec_category']) : array();
         wp_set_post_terms($post_id, $categories, 'mec_category');
 
         // Color
@@ -306,7 +306,7 @@ class MEC_feature_popup extends MEC_base
         else
         {
             $address = (isset($mec['location']['address']) and trim($mec['location']['address'])) ? sanitize_text_field($mec['location']['address']) : '';
-            $name = (isset($mec['location']['name']) and trim($mec['location']['name'])) ? sanitize_text_field($mec['location']['name']) : (trim($address) ? $address : 'Location Name');
+            $name = (isset($mec['location']['name']) and trim($mec['location']['name'])) ? sanitize_text_field($mec['location']['name']) : (trim($address) ? $address : esc_html__('Location Name', 'modern-events-calendar-lite'));
 
             $term = get_term_by('name', $name, 'mec_location');
 
@@ -365,7 +365,7 @@ class MEC_feature_popup extends MEC_base
         }
         else
         {
-            $name = (isset($mec['organizer']['name']) and trim($mec['organizer']['name'])) ? sanitize_text_field($mec['organizer']['name']) : 'Organizer Name';
+            $name = (isset($mec['organizer']['name']) and trim($mec['organizer']['name'])) ? sanitize_text_field($mec['organizer']['name']) : esc_html__('Organizer Name', 'modern-events-calendar-lite');
 
             $term = get_term_by('name', $name, 'mec_organizer');
 
@@ -388,7 +388,7 @@ class MEC_feature_popup extends MEC_base
 
                     $tel = (isset($mec['organizer']['tel']) and trim($mec['organizer']['tel'])) ? sanitize_text_field($mec['organizer']['tel']) : '';
                     $email = (isset($mec['organizer']['email']) and trim($mec['organizer']['email'])) ? sanitize_text_field($mec['organizer']['email']) : '';
-                    $url = (isset($mec['organizer']['url']) and trim($mec['organizer']['url'])) ? (strpos($mec['organizer']['url'], 'http') === false ? 'http://'.sanitize_text_field($mec['organizer']['url']) : sanitize_text_field($mec['organizer']['url'])) : '';
+                    $url = (isset($mec['organizer']['url']) and trim($mec['organizer']['url'])) ? sanitize_url($mec['organizer']['url']) : '';
                     $thumbnail = (isset($mec['organizer']['thumbnail']) and trim($mec['organizer']['thumbnail'])) ? sanitize_text_field($mec['organizer']['thumbnail']) : '';
 
                     update_term_meta($organizer_id, 'tel', $tel);
@@ -405,15 +405,15 @@ class MEC_feature_popup extends MEC_base
         // Date Options
         $date = isset($mec['date']) ? $mec['date'] : array();
 
-        $start_date = (isset($date['start']['date']) and trim($date['start']['date'])) ? $this->main->standardize_format($date['start']['date']) : date('Y-m-d');
-        $end_date = (isset($date['end']['date']) and trim($date['end']['date'])) ? $this->main->standardize_format($date['end']['date']) : date('Y-m-d');
+        $start_date = (isset($date['start']['date']) and trim($date['start']['date'])) ? $this->main->standardize_format(sanitize_text_field($date['start']['date'])) : date('Y-m-d');
+        $end_date = (isset($date['end']['date']) and trim($date['end']['date'])) ? $this->main->standardize_format(sanitize_text_field($date['end']['date'])) : date('Y-m-d');
 
         // Set the start date
         $date['start']['date'] = $start_date;
 
-        $start_time_hour = isset($date['start']) ? $date['start']['hour'] : '8';
-        $start_time_minutes = isset($date['start']) ? $date['start']['minutes'] : '00';
-        $start_time_ampm = (isset($date['start']) and isset($date['start']['ampm'])) ? $date['start']['ampm'] : 'AM';
+        $start_time_hour = isset($date['start']) ? sanitize_text_field($date['start']['hour']) : '8';
+        $start_time_minutes = isset($date['start']) ? sanitize_text_field($date['start']['minutes']) : '00';
+        $start_time_ampm = (isset($date['start']) and isset($date['start']['ampm'])) ? sanitize_text_field($date['start']['ampm']) : 'AM';
 
         // Fix end_date if it's smaller than start_date
         if(strtotime($end_date) < strtotime($start_date)) $end_date = $start_date;
@@ -421,9 +421,33 @@ class MEC_feature_popup extends MEC_base
         // Set the end date
         $date['end']['date'] = $end_date;
 
-        $end_time_hour = isset($date['end']) ? $date['end']['hour'] : '6';
-        $end_time_minutes = isset($date['end']) ? $date['end']['minutes'] : '00';
-        $end_time_ampm = (isset($date['end']) and isset($date['end']['ampm'])) ? $date['end']['ampm'] : 'PM';
+        $end_time_hour = isset($date['end']) ? sanitize_text_field($date['end']['hour']) : '6';
+        $end_time_minutes = isset($date['end']) ? sanitize_text_field($date['end']['minutes']) : '00';
+        $end_time_ampm = (isset($date['end']) and isset($date['end']['ampm'])) ? sanitize_text_field($date['end']['ampm']) : 'PM';
+
+        if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24)
+        {
+            $day_start_seconds = $this->main->time_to_seconds($this->main->to_24hours($start_time_hour, NULL, 'start'), $start_time_minutes);
+            $day_end_seconds = $this->main->time_to_seconds($this->main->to_24hours($end_time_hour, NULL, 'end'), $end_time_minutes);
+        }
+        else
+        {
+            $day_start_seconds = $this->main->time_to_seconds($this->main->to_24hours($start_time_hour, $start_time_ampm, 'start'), $start_time_minutes);
+            $day_end_seconds = $this->main->time_to_seconds($this->main->to_24hours($end_time_hour, $end_time_ampm, 'end'), $end_time_minutes);
+        }
+
+        if($end_date === $start_date and $day_end_seconds < $day_start_seconds)
+        {
+            $day_end_seconds = $day_start_seconds;
+
+            $end_time_hour = $start_time_hour;
+            $end_time_minutes = $start_time_minutes;
+            $end_time_ampm = $start_time_ampm;
+
+            $date['end']['hour'] = $start_time_hour;
+            $date['end']['minutes'] = $start_time_minutes;
+            $date['end']['ampm'] = $start_time_ampm;
+        }
 
         // If 24 hours format is enabled then convert it back to 12 hours
         if(isset($this->settings['time_format']) and $this->settings['time_format'] == 24)
@@ -476,20 +500,22 @@ class MEC_feature_popup extends MEC_base
             $end_time_ampm = 'PM';
         }
 
-        $day_start_seconds = $this->main->time_to_seconds($this->main->to_24hours($start_time_hour, $start_time_ampm), $start_time_minutes);
-        $day_end_seconds = $this->main->time_to_seconds($this->main->to_24hours($end_time_hour, $end_time_ampm), $end_time_minutes);
+        $start_datetime = $start_date.' '.sprintf('%02d', $start_time_hour).':'.sprintf('%02d', $start_time_minutes).' '.$start_time_ampm;
+        $end_datetime = $end_date.' '.sprintf('%02d', $end_time_hour).':'.sprintf('%02d', $end_time_minutes).' '.$end_time_ampm;
 
         update_post_meta($post_id, 'mec_start_date', $start_date);
         update_post_meta($post_id, 'mec_start_time_hour', $start_time_hour);
         update_post_meta($post_id, 'mec_start_time_minutes', $start_time_minutes);
         update_post_meta($post_id, 'mec_start_time_ampm', $start_time_ampm);
         update_post_meta($post_id, 'mec_start_day_seconds', $day_start_seconds);
+        update_post_meta($post_id, 'mec_start_datetime', $start_datetime);
 
         update_post_meta($post_id, 'mec_end_date', $end_date);
         update_post_meta($post_id, 'mec_end_time_hour', $end_time_hour);
         update_post_meta($post_id, 'mec_end_time_minutes', $end_time_minutes);
         update_post_meta($post_id, 'mec_end_time_ampm', $end_time_ampm);
         update_post_meta($post_id, 'mec_end_day_seconds', $day_end_seconds);
+        update_post_meta($post_id, 'mec_end_datetime', $end_datetime);
 
         // Repeat Options
         $repeat = array();
@@ -549,7 +575,7 @@ class MEC_feature_popup extends MEC_base
         $db = $this->getDB();
 
         // Update MEC Events Table
-        $mec_event_id = $db->select("SELECT `id` FROM `#__mec_events` WHERE `post_id`='$post_id'", 'loadResult');
+        $mec_event_id = $db->select("SELECT `id` FROM `#__mec_events` WHERE `post_id`='".$db->escape($post_id)."'", 'loadResult');
 
         if(!$mec_event_id)
         {
@@ -625,6 +651,9 @@ class MEC_feature_popup extends MEC_base
 
         do_action('mec_after_publish_admin_event', $post_id, false);
 
+        // Save Event Data
+        do_action('mec_save_event_data', $post_id, $mec);
+
         $this->main->response(array(
             'success' => 1,
             'id' => $post_id,
@@ -634,7 +663,7 @@ class MEC_feature_popup extends MEC_base
 
     public function save_category()
     {
-        $category = isset($_POST['category']) ? $_POST['category'] : '';
+        $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
 
         $term = term_exists($category, 'mec_category');
         if(!$term)
@@ -644,6 +673,6 @@ class MEC_feature_popup extends MEC_base
         }
         else $category_id = $term['term_id'];
 
-        $this->main->response(array('success'=>1, 'id'=>$category_id, 'name'=>$category));
+        $this->main->response(array('success' => 1, 'id' => $category_id, 'name' => $category));
     }
 }

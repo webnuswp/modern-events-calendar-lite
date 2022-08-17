@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC feed class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_feed extends MEC_base
 {
@@ -28,7 +28,7 @@ class MEC_feature_feed extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -50,7 +50,7 @@ class MEC_feature_feed extends MEC_base
     
     /**
      * Initialize feed feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -62,11 +62,13 @@ class MEC_feature_feed extends MEC_base
         {
             add_filter('get_the_excerpt', array($this, 'include_featured_image'), 10, 2);
         }
+
+        if(!is_admin()) $this->factory->action('init', array($this, 'ical'));
     }
     
     /**
      * Do the feed
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $for_comments
      */
     public function rss2($for_comments)
@@ -97,7 +99,7 @@ class MEC_feature_feed extends MEC_base
     
     /**
      * Returns the events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param $category
      * @return array
      */
@@ -140,5 +142,30 @@ class MEC_feature_feed extends MEC_base
         if(trim($image)) $excerpt = $image.' '.$excerpt;
 
         return $excerpt;
+    }
+
+    public function ical()
+    {
+        $ical_feed = (isset($_GET['mec-ical-feed']) and sanitize_text_field($_GET['mec-ical-feed']));
+        if(!$ical_feed) return false;
+
+        // Feed is not enabled
+        if(!isset($this->settings['ical_feed']) or (isset($this->settings['ical_feed']) and !$this->settings['ical_feed'])) return false;
+
+        $events = $this->main->get_events('-1');
+
+        $output = '';
+        foreach($events as $event) $output .= $this->main->ical_single($event->ID);
+
+        // Include in iCal
+        $ical_calendar = $this->main->ical_calendar($output);
+
+        // Content Type
+        header('Content-Type: text/calendar; charset=utf-8');
+        header('Content-Disposition: inline; filename="mec-events-'.date('YmdTHi').'.ics"');
+
+        // Print the Calendar
+        echo MEC_kses::full($ical_calendar);
+        exit;
     }
 }

@@ -82,6 +82,11 @@ class Event extends PostBase {
 		return $this->get_meta('mec_repeat_status');
 	}
 
+	public function get_repeating_type(){
+
+		return $this->get_meta('mec_repeat_type');
+	}
+
 	public function get_occurrences_times( $start, $limit = 100 ) {
 
 		$k           = 'mec-occurrences-'.$this->ID.'-' . $start . $limit;
@@ -131,7 +136,9 @@ class Event extends PostBase {
 		return $event_end_datetime;
 	}
 
-	public function get_detail(){
+	public function get_detail( $skin_type = 'single', $start_timestamp = '' ){
+
+		$start_timestamp = !empty( $start_timestamp ) ? $start_timestamp : strtotime('Yesterday');
 
 		$event_id = $this->ID;
 		$main = new \MEC_Main();
@@ -139,11 +146,7 @@ class Event extends PostBase {
 
 		$rendered = $render->data($event_id);
 
-		$dates = $render->dates($event_id, NULL, 1, date('Y-m-d', strtotime('Yesterday')));
-
-		if(empty($dates)){
-
-		}
+		$dates = $render->dates($event_id, NULL, 6, date('Y-m-d H:i', $start_timestamp));
 
 		$data = new \stdClass();
 		$data->ID = $event_id;
@@ -152,7 +155,7 @@ class Event extends PostBase {
 		$data->date = isset($dates[0]) ? $dates[0] : $this->get_datetime($event_id);
 
 		$skin = new \stdClass();
-		$skin->skin = 'single_divi';
+		$skin->skin = $skin_type;
 		$skin->multiple_days_method = Settings::getInstance()->get_settings('multiple_day_show_method');
 
 		return $render->after_render( $data, $skin );
@@ -169,5 +172,124 @@ class Event extends PostBase {
 
 		return $notifications;
 
+	}
+
+	/**
+	 * Return event link
+	 *
+	 * @param int $start_timestamp
+	 * @param bool $replace_read_more_link
+	 *
+	 * @return string
+	 */
+	public function get_permalink( $start_timestamp = '', $replace_read_more_link = true, $single_date_method = '' ){
+
+		if( $replace_read_more_link ){
+
+			$custom_link = $this->get_meta('mec_read_more');
+			if( !empty( $custom_link ) ){
+
+				return $custom_link;
+			}
+		}
+
+		if( is_null( $single_date_method ) ){
+
+			$single_date_method = \MEC\Settings\Settings::getInstance()->get_settings( 'single_date_method' );
+		}
+
+		$url = isset( $this->data['data']->permalink ) ? $this->data['data']->permalink : get_the_permalink( $this->get_id() );
+
+		if( !( empty( $single_date_method ) || 'next' === $single_date_method ) ) {
+
+			if( empty( $start_timestamp ) ){
+
+				$start_timestamp = current_time('timestamp', 0);
+				$occurrence = $this->get_occurrence_time( $start_timestamp );
+				$start_timestamp = $occurrence->tstart;
+				$start_datetime = date( 'Y-m-d H:i', $start_timestamp );
+			}
+
+			$start_date = date( 'Y-m-d', $start_timestamp );
+			$start_time = date( 'H:i', $start_timestamp );
+
+			$url =  \MEC\Base::get_main()->add_qs_var('occurrence', $start_date, $url);
+
+			$repeat_type = $this->get_meta( 'mec_repeat_type' );
+			if( 'custom_days' === $repeat_type ){
+
+				$url = \MEC\Base::get_main()->add_qs_var('time', $start_timestamp, $url);
+			}
+	   	}
+
+		return apply_filters( 'mec_get_event_permalink', $url, $this );
+	}
+
+	/**
+	 * Return terms
+	 *
+	 * @param string $taxonomy
+	 *
+	 * @return array
+	 */
+	public function get_terms( $taxonomy ){
+
+		return wp_get_post_terms( $this->get_id(), $taxonomy );
+	}
+
+	/**
+	 * Return terms ids
+	 *
+	 * @param string $taxonomy
+	 *
+	 * @return array
+	 */
+	public function get_terms_ids( $taxonomy ){
+
+		$terms = $this->get_terms( $taxonomy );
+
+		$ids = array();
+		foreach( $terms as $term ){
+
+			$ids[ $term->term_id ] = $term->term_id;
+		}
+
+		return $ids;
+	}
+
+	/**
+	 * Return event custom data
+	 *
+	 * @return array
+	 */
+	public function get_custom_data(){
+
+		$data = array();
+		$event_fields_data = $this->get_meta( 'mec_fields' );
+        if(!is_array($event_fields_data)) $event_fields_data = array();
+
+		$event_fields = \MEC\Base::get_main()->get_event_fields();
+        foreach($event_fields as $f => $event_field){
+
+            if(!is_numeric($f)) {
+
+                continue;
+            }
+
+            $label = isset($event_field['label']) ? $event_field['label'] : '';
+            $value = isset($event_fields_data[$f]) ? $event_fields_data[$f] : NULL;
+
+			if(is_array($value)) {
+
+				$value = implode(', ', $value);
+			}
+
+			$data[ $f ] = array(
+				'label' => $label,
+				'value' => $value,
+			);
+        }
+
+		return $data;
 	}
 }

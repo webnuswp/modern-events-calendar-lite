@@ -1,0 +1,1 @@
+<p><?php esc_html_e('Please select an event.', 'modern-events-calendar-lite'); ?></p>
