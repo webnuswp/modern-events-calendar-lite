@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC Full Calendar class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_default_full_calendar extends MEC_skins
 {
@@ -23,7 +23,7 @@ class MEC_skin_default_full_calendar extends MEC_skins
     
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -32,7 +32,7 @@ class MEC_skin_default_full_calendar extends MEC_skins
     
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
@@ -42,7 +42,7 @@ class MEC_skin_default_full_calendar extends MEC_skins
     
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
@@ -231,20 +231,20 @@ class MEC_skin_default_full_calendar extends MEC_skins
     
     /**
      * Load skin for AJAX requert
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return void
      */
     public function switch_skin()
     {
-        $this->sf = $this->request->getVar('sf', array());
-        $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
-        $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
+        $this->sf = (isset($_REQUEST['sf']) and is_array($_REQUEST['sf'])) ? $this->main->sanitize_deep_array($_REQUEST['sf']) : array();
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 1;
+        $atts = $this->sf_apply(((isset($_REQUEST['atts']) and is_array($_REQUEST['atts'])) ? $this->main->sanitize_deep_array($_REQUEST['atts']) : array()), $this->sf, $apply_sf_date);
         
-        $skin = $this->request->getVar('skin', 'list');
+        $skin = isset($_REQUEST['skin']) ? sanitize_text_field($_REQUEST['skin']) : 'list';
         
         // Single Event Display
-        $atts['sed_method'] = $this->request->getVar('sed', 0);
-        $atts['image_popup'] = $this->request->getVar('image', 0);
+        $atts['sed_method'] = isset($_REQUEST['sed']) ? sanitize_text_field($_REQUEST['sed']) : 0;
+        $atts['image_popup'] = isset($_REQUEST['image']) ? sanitize_text_field($_REQUEST['image']) : 0;
         
         // Initialize the skin
         $this->initialize($atts);

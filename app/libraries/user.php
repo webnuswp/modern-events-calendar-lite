@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC User class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_user extends MEC_base
 {
@@ -22,7 +22,7 @@ class MEC_user extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -53,9 +53,18 @@ class MEC_user extends MEC_base
         if($existed_user_id !== false) return $existed_user_id;
 
         // Update WordPress user first name and last name
-        $ex = explode(' ', $name);
-        $first_name = isset($ex[0]) ? $ex[0] : '';
-        $last_name = '';
+        if(strpos($name, ',') !== false)
+        {
+            $ex = explode(',', $name);
+            $first_name = isset($ex[0]) ? $ex[0] : '';
+            $last_name = '';
+        }
+        else
+        {
+            $ex = explode(' ', $name);
+            $first_name = isset($ex[0]) ? $ex[0] : '';
+            $last_name = '';
+        }
 
         if(isset($ex[1]))
         {

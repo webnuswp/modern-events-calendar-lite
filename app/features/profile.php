@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC profile class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_profile extends MEC_base
 {
@@ -30,13 +30,13 @@ class MEC_feature_profile extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
         // Import MEC Factory
         $this->factory = $this->getFactory();
-        
+
         // Import MEC Main
         $this->main = $this->getMain();
 
@@ -46,10 +46,10 @@ class MEC_feature_profile extends MEC_base
         // Booking Post Type
         $this->PT = $this->main->get_book_post_type();
     }
-    
+
     /**
      * Initialize profile feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -71,12 +71,24 @@ class MEC_feature_profile extends MEC_base
         if(!is_user_logged_in())
         {
             // Show message
-            $message = sprintf(__('Please %s/%s in order to see your bookings / profile.', 'modern-events-calendar-lite'), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.__('Login', 'modern-events-calendar-lite').'</a>', '<a href="'.wp_registration_url().'">'.__('Register', 'modern-events-calendar-lite').'</a>');
+            $message = sprintf(esc_html__('Please %s/%s in order to see your bookings / profile.', 'modern-events-calendar-lite'), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.esc_html__('Login', 'modern-events-calendar-lite').'</a>', '<a href="'.wp_registration_url().'">'.esc_html__('Register', 'modern-events-calendar-lite').'</a>');
 
             ob_start();
             include MEC::import('app.features.profile.message', true, true);
             return ob_get_clean();
         }
+
+        // Needs Pro
+        if(!$this->getPRO())
+        {
+            // Show message
+            $message = sprintf(esc_html__('To use this feature you should upgrade to %s first.', 'modern-events-calendar-lite'), '<a href="'.esc_url($this->main->get_pro_link()).'" target="_blank">'.esc_html__('MEC Pro', 'modern-events-calendar-lite').'</a>');
+
+            ob_start();
+            include MEC::import('app.features.profile.message', true, true);
+            return ob_get_clean();
+        }
+
 
         $path = MEC::import('app.features.profile.profile', true, true);
 

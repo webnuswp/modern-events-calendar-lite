@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC Full Calendar class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_full_calendar extends MEC_skins
 {
@@ -32,7 +32,7 @@ class MEC_skin_full_calendar extends MEC_skins
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -41,7 +41,7 @@ class MEC_skin_full_calendar extends MEC_skins
     
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
@@ -51,7 +51,7 @@ class MEC_skin_full_calendar extends MEC_skins
     
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
@@ -188,6 +188,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['yearly_view']['display_label'] = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
                 $atts['sk-options']['yearly_view']['reason_for_cancellation'] = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
                 $atts['sk-options']['yearly_view']['include_local_time'] = $this->include_local_time;
+                $atts['sk-options']['yearly_view']['booking_button'] = isset($this->skin_options['booking_button']) ? $this->skin_options['booking_button'] : 0;
+                $atts['sk-options']['yearly_view']['from_fc'] = 1;
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-yearly', $atts, $this, 'yearly_view');
@@ -214,6 +216,9 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['monthly_view']['include_local_time'] = $this->include_local_time;
                 $atts['sk-options']['monthly_view']['activate_first_date'] = isset($this->skin_options['activate_first_date']) ? $this->skin_options['activate_first_date'] : '0';
                 $atts['sk-options']['monthly_view']['activate_current_day'] = isset($this->skin_options['activate_current_day']) ? $this->skin_options['activate_current_day'] : '1';
+                $atts['sk-options']['monthly_view']['display_all'] = isset($this->skin_options['display_all']) ? $this->skin_options['display_all'] : 0;
+                $atts['sk-options']['monthly_view']['booking_button'] = isset($this->skin_options['booking_button']) ? $this->skin_options['booking_button'] : 0;
+                $atts['sk-options']['monthly_view']['from_fc'] = 1;
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-monthly', $atts, $this, 'monthly_view');
@@ -237,6 +242,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['weekly_view']['display_label'] = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
                 $atts['sk-options']['weekly_view']['reason_for_cancellation'] = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
                 $atts['sk-options']['weekly_view']['include_local_time'] = $this->include_local_time;
+                $atts['sk-options']['weekly_view']['booking_button'] = isset($this->skin_options['booking_button']) ? $this->skin_options['booking_button'] : 0;
+                $atts['sk-options']['weekly_view']['from_fc'] = 1;
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-weekly', $atts, $this, 'weekly_view');
@@ -256,6 +263,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['daily_view']['display_label'] = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
                 $atts['sk-options']['daily_view']['reason_for_cancellation'] = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
                 $atts['sk-options']['daily_view']['include_local_time'] = $this->include_local_time;
+                $atts['sk-options']['daily_view']['booking_button'] = isset($this->skin_options['booking_button']) ? $this->skin_options['booking_button'] : 0;
+                $atts['sk-options']['daily_view']['from_fc'] = 1;
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-daily', $atts, $this, 'daily_view');
@@ -277,6 +286,7 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['grid']['start_date'] = isset($this->skin_options['start_date']) ? $this->skin_options['start_date'] : '';
                 $atts['sk-options']['grid']['end_date_type'] = $end_date_type;
                 $atts['sk-options']['grid']['maximum_date_range'] = $maximum_date;
+                $atts['sk-options']['grid']['order_method'] = ((isset($this->skin_options['order_method_grid']) and trim($this->skin_options['order_method_grid'])) ? $this->skin_options['order_method_grid'] : 'ASC');
                 $atts['sk-options']['grid']['style'] = 'modern';
                 $atts['sk-options']['grid']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
                 $atts['sk-options']['grid']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
@@ -289,6 +299,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['grid']['display_label'] = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
                 $atts['sk-options']['grid']['reason_for_cancellation'] = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
                 $atts['sk-options']['grid']['include_local_time'] = $this->include_local_time;
+                $atts['sk-options']['grid']['booking_button'] = isset($this->skin_options['booking_button']) ? $this->skin_options['booking_button'] : 0;
+                $atts['sk-options']['grid']['from_fc'] = 1;
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-grid', $atts, $this, 'grid');
@@ -311,6 +323,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['tile']['display_label'] = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
                 $atts['sk-options']['tile']['reason_for_cancellation'] = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
                 $atts['sk-options']['tile']['include_local_time'] = $this->include_local_time;
+                $atts['sk-options']['tile']['booking_button'] = isset($this->skin_options['booking_button']) ? $this->skin_options['booking_button'] : 0;
+                $atts['sk-options']['tile']['from_fc'] = 1;
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-tile', $atts, $this, 'tile');
@@ -333,6 +347,7 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['list']['start_date'] = isset($this->skin_options['start_date']) ? $this->skin_options['start_date'] : '';
                 $atts['sk-options']['list']['end_date_type'] = $end_date_type;
                 $atts['sk-options']['list']['maximum_date_range'] = $maximum_date;
+                $atts['sk-options']['list']['order_method'] = ((isset($this->skin_options['order_method_list']) and trim($this->skin_options['order_method_list'])) ? $this->skin_options['order_method_list'] : 'ASC');
                 $atts['sk-options']['list']['style'] = 'standard';
                 $atts['sk-options']['list']['sed_method'] = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
                 $atts['sk-options']['list']['image_popup'] = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
@@ -342,6 +357,8 @@ class MEC_skin_full_calendar extends MEC_skins
                 $atts['sk-options']['list']['display_label'] = isset($this->skin_options['display_label']) ? $this->skin_options['display_label'] : false;
                 $atts['sk-options']['list']['reason_for_cancellation'] = isset($this->skin_options['reason_for_cancellation']) ? $this->skin_options['reason_for_cancellation'] : false;
                 $atts['sk-options']['list']['include_local_time'] = $this->include_local_time;
+                $atts['sk-options']['list']['booking_button'] = isset($this->skin_options['booking_button']) ? $this->skin_options['booking_button'] : 0;
+                $atts['sk-options']['list']['from_fc'] = 1;
                 $atts['sf_status'] = false;
 
                 $atts = apply_filters('mec-full-calendar-load-skin-list', $atts, $this, 'list');
@@ -355,20 +372,20 @@ class MEC_skin_full_calendar extends MEC_skins
     
     /**
      * Load skin for AJAX requert
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return void
      */
     public function switch_skin()
     {
-        $this->sf = $this->request->getVar('sf', array());
-        $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
-        $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
-        
-        $skin = $this->request->getVar('skin', 'list');
-        
+        $this->sf = (isset($_REQUEST['sf']) and is_array($_REQUEST['sf'])) ? $this->main->sanitize_deep_array($_REQUEST['sf']) : array();
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 1;
+        $atts = $this->sf_apply(((isset($_REQUEST['atts']) and is_array($_REQUEST['atts'])) ? $this->main->sanitize_deep_array($_REQUEST['atts']) : array()), $this->sf, $apply_sf_date);
+
+        $skin = isset($_REQUEST['skin']) ? sanitize_text_field($_REQUEST['skin']) : 'list';
+
         // Single Event Display
-        $atts['sed_method'] = $this->request->getVar('sed', 0);
-        $atts['image_popup'] = $this->request->getVar('image', 0);
+        $atts['sed_method'] = isset($_REQUEST['sed']) ? sanitize_text_field($_REQUEST['sed']) : 0;
+        $atts['image_popup'] = isset($_REQUEST['image']) ? sanitize_text_field($_REQUEST['image']) : 0;
         
         // Initialize the skin
         $this->initialize($atts);
@@ -376,7 +393,7 @@ class MEC_skin_full_calendar extends MEC_skins
         // Return the output
         $output = $this->load_skin($skin);
         
-        echo json_encode($output);
+        echo $output;
         exit;
     }
 }

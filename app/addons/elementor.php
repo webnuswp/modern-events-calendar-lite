@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC elementor addon class
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_addon_elementor extends MEC_base
 {
@@ -20,7 +20,7 @@ class MEC_addon_elementor extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MEC_addon_elementor extends MEC_base
     
     /**
      * Initialize the Elementor addon
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -57,7 +57,7 @@ class MEC_addon_elementor extends MEC_base
 
     /**
      * Register MEC Elementor Shortcode
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function register_shortcode()
     {
@@ -67,7 +67,7 @@ class MEC_addon_elementor extends MEC_base
     
     /**
      * Register the addon in Elementor
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function map()
     {

@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_timetable $this */
+
 do_action('mec_start_skin', $this->id);
 do_action('mec_timetable_skin_head');
 

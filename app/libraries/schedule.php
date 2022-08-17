@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC schedule class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_schedule extends MEC_base
 {
@@ -30,8 +30,8 @@ class MEC_schedule extends MEC_base
             $maximum = 50;
             $repeat_type = get_post_meta($event->ID, 'mec_repeat_type', true);
 
-            // Reschedule Schedule for Custom Days Events
-            if($repeat_type === 'custom_days') $this->reschedule($event->ID, 200);
+            // Reschedule Schedule for Normal and Custom Days Events
+            if($repeat_type === '' or $repeat_type === 'custom_days') $this->reschedule($event->ID, 200);
             else $this->append($event->ID, $maximum);
         }
     }

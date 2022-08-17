@@ -265,6 +265,10 @@ jQuery(document).ready(function($)
     // Add shortcode select2
     jQuery(".mec-create-shortcode-tab-content select").select2();
 
+    // General Calendar
+    jQuery("#mec_skin_general_calendar_skins").select2();
+
+
     // Add Notification DropDown Select2
     jQuery(".mec-notification-dropdown-select2").select2(
     {
@@ -305,43 +309,64 @@ jQuery(document).ready(function($)
     /* MEC activation */
     if($('#MECActivation').length > 0)
     {
-        var LicenseType = $('#MECActivation input.checked[type=radio][name=MECLicense]').val();
-        $('#MECActivation input[type=radio][name=MECLicense]').change(function () {
-            $('#MECActivation').find('input').removeClass('checked');
-            $(this).addClass('checked');
-            LicenseType = $(this).val();
-        });
-
         $('#MECActivation input[type=submit]').on('click', function(e){
             e.preventDefault();
-            $('.wna-spinner-wrap').remove();
-            $('#MECActivation').find('.MECLicenseMessage').text(' ');
-            $('#MECActivation').find('.MECPurchaseStatus').removeClass('PurchaseError');
-            $('#MECActivation').find('.MECPurchaseStatus').removeClass('PurchaseSuccess');
+
+            // Define DOM
+            var Spinner = $('.wna-spinner-wrap');
+            var LicenseField = $('#MECActivation .LicenseField');
+            var PurchaseStatus = $('#MECActivation').find('.MECPurchaseStatus');
+            var LicenseMessage = $('#MECActivation').find('.MECLicenseMessage');
+
+            // Global Actions
+            Spinner.remove();
+            LicenseMessage.addClass('mec-message-hidden');
+            PurchaseStatus.removeClass('PurchaseError');
+            PurchaseStatus.removeClass('PurchaseSuccess');
+
+            // Basic Information
             var PurchaseCode = $('#MECActivation input[type=password][name=MECPurchaseCode]').val();
-            var information = { LicenseTypeJson: LicenseType, PurchaseCodeJson: PurchaseCode };
+            var information = { LicenseTypeJson: '', PurchaseCodeJson: PurchaseCode };
+            var ajaxAction = 'activate_license';
+            
+            if ($(this).hasClass('mec_revoke')) {
+                ajaxAction = 'revoke_license';
+                information = '';
+            }            
+            
             $.ajax({
                 url: mec_admin_localize.ajax_url,
                 type: 'POST',
                 data: {
-                    action: 'activate_license',
+                    action: ajaxAction,
                     nonce: mec_admin_localize.ajax_nonce,
                     content: information,
                 },
                 beforeSend: function () {
-                    $('#MECActivation .LicenseField').append('<div class="wna-spinner-wrap"><div class="wna-spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>');
+                    LicenseField.append('<div class="wna-spinner-wrap"><div class="wna-spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>');
                 },
                 success: function (response) {
-                    if (response == 'success')
+                    const res = JSON.parse(response);
+                    $('.wna-spinner-wrap').remove();
+
+                    if (res.status === true)
                     {
-                        $('.wna-spinner-wrap').remove();
-                        $('#MECActivation').find('.MECPurchaseStatus').addClass('PurchaseSuccess');
+                        if(res.message == 'success') {
+                            PurchaseStatus.addClass('PurchaseSuccess');
+                            $('#MECActivation input[type=submit]').removeClass('mec_activate').addClass('mec_revoke').val(res.button_text)
+                        }
+
+                        if ( res.message == 'revoked') {
+                            PurchaseStatus.removeClass('PurchaseError').removeClass('PurchaseSuccess');
+                            $('#MECActivation input[type=submit]').removeClass('mec_revoke').addClass('mec_activate').val(res.button_text)
+                            $('#MECActivation input[type=password][name=MECPurchaseCode]').val('')
+                        }
                     }
                     else
                     {
-                        $('.wna-spinner-wrap').remove();
-                        $('#MECActivation').find('.MECPurchaseStatus').addClass('PurchaseError');
-                        $('#MECActivation').find('.MECLicenseMessage').append(response);
+                        $('#MECActivation input[type=submit]').text(res.button_text)
+                        PurchaseStatus.removeClass('PurchaseSuccess').addClass('PurchaseError');
+                        LicenseMessage.removeClass('mec-message-hidden');
                     }
                 },
             });
@@ -436,6 +461,8 @@ jQuery(document).ready(function($)
                     $('.mec-report-select-event-wrap .w-row .w-col-sm-12').append(response);
                     $('.mec-report-sendmail-wrap').hide();
                     $('.mec-report-backtoselect-wrap').hide();
+
+                    $(window).trigger( 'mec_booking_report_change_event', response );
                 },
             });
         });
@@ -448,6 +475,15 @@ jQuery(document).ready(function($)
         $('.mec-report-selected-event-attendees-wrap').show();
         $('.mec-report-sendmail-form-wrap').hide();
     })
+
+    // MEC fast copy by one click
+    $('#MECCopyCode').on('click', function() {
+        $(this).parent().find('.mec-copied').addClass('mec-copied-done');
+        $(this).on('mouseleave', function() {
+            $(this).parent().find('.mec-copied').removeClass('mec-copied-done');
+        })
+    });
+
 });
 
 function mec_skin_full_calendar_skin_toggled(Context)
@@ -528,6 +564,8 @@ function mec_event_attendees(ID, occurrence)
                 jQuery('.mec-report-selected-event-attendees-wrap .w-row .w-col-sm-12').html(response.html);
                 jQuery('.mec-report-sendmail-wrap .w-row .w-col-sm-12').html('');
             }
+
+            jQuery(window).trigger( 'mec_booking_report_change_occurrence' );
         },
         error: function()
         {
@@ -741,6 +779,17 @@ jQuery(document).ready(function()
         jQuery(this).parent().parent().parent().parent().parent().find('.mec-send-email-count > span').html(0);
     });
 });
+
+
+// MEC fast copy by one click
+function mec_copy_code() {
+    var range = document.createRange();
+    range.selectNode(document.getElementById("MECCopyCode"));
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+};
 
 // Check All Send Custom Email To Attendees
 function mec_send_email_check(Context)

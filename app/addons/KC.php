@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC King Composer addon class
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_addon_KC extends MEC_base
 {
@@ -20,7 +20,7 @@ class MEC_addon_KC extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MEC_addon_KC extends MEC_base
     
     /**
      * Initialize the KC addon
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return boolean
      */
     public function init()
@@ -47,7 +47,7 @@ class MEC_addon_KC extends MEC_base
     
     /**
      * Register the addon in KC
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function map()
     {

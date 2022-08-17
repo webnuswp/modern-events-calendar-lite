@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC WooCommerce class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_wc extends MEC_base
 {
@@ -24,8 +24,13 @@ class MEC_feature_wc extends MEC_base
     public $settings;
 
     /**
+     * @var array
+     */
+    public $ml_settings;
+
+    /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -37,11 +42,14 @@ class MEC_feature_wc extends MEC_base
 
         // General Options
         $this->settings = $this->main->get_settings();
+
+        // MEC Multilingual Settings
+        $this->ml_settings = $this->main->get_ml_settings();
     }
     
     /**
      * Initialize
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -49,16 +57,13 @@ class MEC_feature_wc extends MEC_base
         if(!$this->getPRO()) return false;
 
         // WC Hooks
-        $this->factory->action('init', array($this, 'hooks'));
+        if(isset($this->settings['wc_status']) and $this->settings['wc_status']) $this->factory->action('init', array($this, 'hooks'));
     }
 
     public function hooks()
     {
-        // WC System
-        $WC_status = (isset($this->settings['wc_status']) and $this->settings['wc_status'] and class_exists('WooCommerce')) ? true : false;
-
-        // WC system is disabled
-        if(!$WC_status) return false;
+        // WooCommerce is not installed
+        if(!class_exists('WooCommerce')) return false;
 
         // WC library
         $wc = $this->getWC();
@@ -75,13 +80,15 @@ class MEC_feature_wc extends MEC_base
         $this->factory->filter('woocommerce_order_item_display_meta_value', array($this, 'display_value'), 10, 2);
         $this->factory->filter('woocommerce_cart_item_name', array($this, 'display_name'), 10, 2);
         $this->factory->filter('woocommerce_cart_item_thumbnail', array($this, 'display_thumbnail'), 10, 2);
+        $this->factory->filter('woocommerce_quantity_input_args', array($this, 'adjust_quantity'), 10, 2);
     }
 
     public function display_key($display_key, $meta)
     {
-        if($meta->key == 'mec_event_id') $display_key = __('Event', 'modern-events-calendar-lite');
-        elseif($meta->key == 'mec_date') $display_key = __('Date', 'modern-events-calendar-lite');
-        elseif($meta->key == 'mec_transaction_id') $display_key = __('Transaction ID', 'modern-events-calendar-lite');
+        if($meta->key == 'mec_event_id') $display_key = esc_html__('Event', 'modern-events-calendar-lite');
+        elseif($meta->key == 'mec_date') $display_key = esc_html__('Date', 'modern-events-calendar-lite');
+        elseif($meta->key == 'mec_other_dates') $display_key = esc_html__('Other Dates', 'modern-events-calendar-lite');
+        elseif($meta->key == 'mec_transaction_id') $display_key = esc_html__('Transaction ID', 'modern-events-calendar-lite');
 
         return $display_key;
     }
@@ -92,7 +99,7 @@ class MEC_feature_wc extends MEC_base
         elseif($meta->key == 'mec_transaction_id') $display_value = $meta->value;
         elseif($meta->key == 'mec_date')
         {
-            $date_format = (isset($this->settings['booking_date_format1']) and trim($this->settings['booking_date_format1'])) ? $this->settings['booking_date_format1'] : 'Y-m-d';
+            $date_format = (isset($this->ml_settings['booking_date_format1']) and trim($this->ml_settings['booking_date_format1'])) ? $this->ml_settings['booking_date_format1'] : 'Y-m-d';
             $time_format = get_option('time_format');
 
             if(strpos($date_format, 'h') !== false or strpos($date_format, 'H') !== false or strpos($date_format, 'g') !== false or strpos($date_format, 'G') !== false) $datetime_format = $date_format;
@@ -103,7 +110,33 @@ class MEC_feature_wc extends MEC_base
             $start_datetime = date_i18n($datetime_format, $dates[0]);
             $end_datetime = date_i18n($datetime_format, $dates[1]);
 
-            $display_value = sprintf(__('%s to %s', 'modern-events-calendar-lite'), $start_datetime, $end_datetime);
+            $display_value = sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite'), $start_datetime, $end_datetime);
+        }
+        elseif($meta->key == 'mec_other_dates')
+        {
+            $date_format = (isset($this->ml_settings['booking_date_format1']) and trim($this->ml_settings['booking_date_format1'])) ? $this->ml_settings['booking_date_format1'] : 'Y-m-d';
+            $time_format = get_option('time_format');
+
+            if(strpos($date_format, 'h') !== false or strpos($date_format, 'H') !== false or strpos($date_format, 'g') !== false or strpos($date_format, 'G') !== false) $datetime_format = $date_format;
+            else $datetime_format = $date_format.' '.$time_format;
+
+            $dates = (is_array($meta->value) ? $meta->value : explode(',', $meta->value));
+
+            $date_values = array();
+            foreach($dates as $date)
+            {
+                if(!trim($date)) continue;
+
+                $timestamps = explode(':', $date);
+                if(!isset($timestamps[0]) or !isset($timestamps[1])) continue;
+
+                $start_datetime = date_i18n($datetime_format, $timestamps[0]);
+                $end_datetime = date_i18n($datetime_format, $timestamps[1]);
+
+                $date_values[] = sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite'), $start_datetime, $end_datetime);
+            }
+
+            $display_value = implode('<br>', $date_values);
         }
 
         return $display_value;
@@ -114,12 +147,19 @@ class MEC_feature_wc extends MEC_base
         if(!isset($item['mec_event_id']) or (isset($item['mec_event_id']) and !trim($item['mec_event_id']))) return $name;
         if(!isset($item['mec_date']) or (isset($item['mec_date']) and !trim($item['mec_date']))) return $name;
 
-        $timestamps = explode(':', $item['mec_date']);
+        $date_format = (isset($this->ml_settings['booking_date_format1']) and trim($this->ml_settings['booking_date_format1'])) ? $this->ml_settings['booking_date_format1'] : get_option('date_format');
+        $other_dates = (isset($item['mec_other_dates']) and is_array($item['mec_other_dates'])) ? $item['mec_other_dates'] : array();
 
-        $date_format = (isset($this->settings['booking_date_format1']) and trim($this->settings['booking_date_format1'])) ? $this->settings['booking_date_format1'] : get_option('date_format');
-        $start_date = date_i18n($date_format, $timestamps[0]);
+        $dates = array_merge(array($item['mec_date']), $other_dates);
 
-        $name .= ' ('.$start_date.')';
+        $formatted_dates = array();
+        foreach($dates as $d)
+        {
+            $timestamps = explode(':', $d);
+            $formatted_dates[] = date_i18n($date_format, $timestamps[0]);
+        }
+
+        $name .= ' ('.implode(', ', $formatted_dates).')';
         return $name;
     }
 
@@ -178,8 +218,8 @@ class MEC_feature_wc extends MEC_base
             if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id]) and $availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity))
             {
                 $printed = true;
-                if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
-                else $errors->add('validation', sprintf(__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
+                if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(esc_html__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
+                else $errors->add('validation', sprintf(esc_html__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
             }
         }
 
@@ -204,8 +244,8 @@ class MEC_feature_wc extends MEC_base
                     // Ticket is not available
                     if(!isset($availability[$ticket_id]) or (isset($availability[$ticket_id]) and $availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity))
                     {
-                        if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
-                        else $errors->add('validation', sprintf(__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
+                        if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(esc_html__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
+                        else $errors->add('validation', sprintf(esc_html__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
                     }
                 }
             }
@@ -213,8 +253,27 @@ class MEC_feature_wc extends MEC_base
             // Take Care of User Limit
             if(!$unlimited and $total_quantity > $limit)
             {
-                $errors->add('validation', sprintf($this->main->m('booking_restriction_message3', __("Maximum allowed number of tickets that you can book is %s.", 'modern-events-calendar-lite')), $limit));
+                $errors->add('validation', sprintf($this->main->m('booking_restriction_message3', esc_html__("Maximum allowed number of tickets that you can book is %s.", 'modern-events-calendar-lite')), $limit));
             }
         }
+    }
+
+    /**
+     * @param $args
+     * @param WC_Product $product
+     * @return mixed
+     */
+    public function adjust_quantity($args, $product)
+    {
+        $mec_product = get_post_meta($product->get_id(), 'mec_ticket', true);
+
+        // MEC Product
+        if($mec_product and isset($args['input_value']) and is_numeric($args['input_value']) and isset($this->settings['booking_date_selection']) and $this->settings['booking_date_selection'] === 'checkboxes')
+        {
+            $args['min_value'] = $args['input_value'];
+            $args['max_value'] = $args['input_value'];
+        }
+
+        return $args;
     }
 }

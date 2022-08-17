@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC main class
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC
 {
@@ -16,7 +16,7 @@ class MEC
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     protected function __construct()
     {
@@ -37,7 +37,7 @@ class MEC
 
     /**
      * Getting instance. This Class is a singleton class
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return \static
      */
     public static function instance()
@@ -51,7 +51,7 @@ class MEC
     
     /**
      * This method initialize the MEC, This add WordPress Actions, Filters and Widgets
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -66,7 +66,7 @@ class MEC
         }
 
         // Initialize Auto Update Feaature
-        if($factory->getPRO()) $factory->load_auto_update();
+        $factory->load_auto_update();
 
         // Registering MEC actions
         $factory->load_actions();
@@ -105,7 +105,10 @@ class MEC
         $factory->action('admin_enqueue_scripts', array($factory, 'load_backend_assets'), 0);
 
         // Include needed assets (CSS, JavaScript etc) in the website frontend
-		$factory->action('wp_enqueue_scripts', array($factory, 'load_frontend_assets'), 0);
+        $main = MEC::getInstance('app.libraries.main');
+
+        if($main and is_object($main) and method_exists($main, 'get_settings') and $settings = $main->get_settings() and isset($settings['assets_in_footer_status']) and $settings['assets_in_footer_status'] == '1') $factory->action('wp_footer', array($factory, 'load_frontend_assets'), 0);
+        else $factory->action('wp_enqueue_scripts', array($factory, 'load_frontend_assets'), 0);
 
         // Register the shortcodes
         $factory->action('init', array($factory, 'load_shortcodes'));
@@ -119,13 +122,13 @@ class MEC
     
     /**
      * Getting a instance of a MEC library
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @static
      * @param string $file
      * @param string $class_name
      * @return mixed
      */
-    public static function getInstance($file, $class_name = NULL)
+    public static function getInstance($file, $class_name = '')
     {
         /** Generate class name if not provided **/
         if(!trim($class_name))
@@ -145,7 +148,7 @@ class MEC
     
     /**
      * Imports the MEC file
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @static
      * @param string $file Use 'app.libraries.base' for including /path/to/plugin/app/libraries/base.php file
      * @param boolean $override include overridden file or not (if exists)
@@ -205,7 +208,7 @@ class MEC
     
     /**
      * Load MEC language file from plugin language directory or WordPress language directory
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function load_languages()
     {
@@ -253,7 +256,7 @@ class MEC
     
     /**
      * Load Single event full content
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function single()
     {
@@ -264,7 +267,7 @@ class MEC
     
     /**
      * Load category archive page
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function category()
     {

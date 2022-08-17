@@ -2,6 +2,8 @@
 /** no direct access **/
 defined('MECEXEC') or die();
 
+/** @var MEC_skin_yearly_view $this */
+
 // table headings
 $headings = $this->main->get_weekday_abbr_labels();
 
@@ -42,7 +44,7 @@ $rows = 1;
 <div class="mec-calendar mec-yearly-calendar">
 
     <div class="mec-calendar-table-title">
-        <?php echo $this->main->date_i18n('F', strtotime($this->year.'-'.$month.'-01')); ?>
+        <?php echo esc_html($this->main->date_i18n('F', strtotime($this->year.'-'.$month.'-01'))); ?>
     </div>
     <div class="mec-calendar-table">
         <?php echo '<div class="mec-calendar-table-head"><dl><dt>'.implode('</dt><dt>', $headings).'</dt></dl></div>'; ?>
@@ -66,11 +68,11 @@ $rows = 1;
                     // Print events
                     if(isset($events[$today]) and count($events[$today]))
                     {
-                        echo '<dt class="mec-has-event"><a href="#mec_yearly_view'.$this->id.'_'.date('Ymd', $time).'" class="mec-has-event-a">'.$list_day.'</a></dt>';
+                        echo '<dt class="mec-has-event"><a href="#mec_yearly_view'.esc_js($this->id).'_'.date('Ymd', $time).'" class="mec-has-event-a">'.esc_html($list_day).'</a></dt>';
                     }
                     else
                     {
-                        echo '<dt>'.$list_day.'</dt>';
+                        echo '<dt>'.esc_html($list_day).'</dt>';
                     }
 
                     if($running_day == 6)
@@ -95,7 +97,7 @@ $rows = 1;
                 {
                     for($x = 1; $x <= (8 - $days_in_this_week); $x++)
                     {
-                        echo '<dt class="mec-table-nullday">'.$x.'</dt>';
+                        echo '<dt class="mec-table-nullday">'.esc_html($x).'</dt>';
                     }
                 }
 
@@ -104,7 +106,7 @@ $rows = 1;
                     echo '</dl><dl>';
                     for($j = 0; $j <= 6; $j++)
                     {
-                        echo '<dt class="mec-table-nullday">'.($x+$j).'</dt>';
+                        echo '<dt class="mec-table-nullday">'.esc_html(($x+$j)).'</dt>';
                     }
                 }
                 ?>

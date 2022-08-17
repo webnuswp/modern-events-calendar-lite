@@ -30,7 +30,12 @@ class SendEmail{
 
         $options = Settings::getInstance()->get_options('notifications');
 
-        return isset($options[$this->group_id]) && is_array($options[$this->group_id]) ? $options[$this->group_id] : [];
+        return isset($options[$this->group_id]) && is_array($options[$this->group_id]) ? $options[$this->group_id] : $this->get_default_notification_settings();
+    }
+
+    public function get_default_notification_settings(){
+
+        return [];
     }
 
     public function get_notification_settings( $key = null ){
@@ -67,7 +72,7 @@ class SendEmail{
 
         $subject = $this->get_notification_settings( 'subject' );
 
-        return !is_null($subject) ? __($subject,'mec') : $default;
+        return !is_null($subject) ? esc_html__($subject, 'modern-events-calendar-lite') : $default;
     }
 
     public function get_content( $default = '' ){
@@ -341,7 +346,7 @@ class SendEmail{
 
         $featured_image = '';
         $thumbnail_url = \MEC\Base::get_main()->get_post_thumbnail_url($this->event_id, 'medium');
-        if(trim($thumbnail_url)) $featured_image = '<img src="'.$thumbnail_url.'">';
+        if(trim($thumbnail_url)) $featured_image = '<img src="'. esc_attr( $thumbnail_url ) .'">';
 
         $content = str_replace('%%event_featured_image%%', $featured_image, $content);
 
@@ -424,11 +429,11 @@ class SendEmail{
         $style = \MEC\Base::get_main()->get_styling();
         $bgnotifications = isset($style['notification_bg']) ? $style['notification_bg'] : '#f6f6f6';
 
-        return '<table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: '.$bgnotifications.'; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+        return '<table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: '.esc_attr($bgnotifications).'; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
             <tr>
                 <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
                     <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
-                        '.$content.'
+                        '.\MEC_kses::page($content).'
                     </div>
                 </td>
             </tr>

@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC carousel class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_carousel extends MEC_skins
 {
@@ -22,10 +22,12 @@ class MEC_skin_carousel extends MEC_skins
     public $autoplay;
     public $autoplay_status;
     public $loop;
+    public $count_tablet;
+    public $count_mobile;
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -34,7 +36,7 @@ class MEC_skin_carousel extends MEC_skins
     
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
@@ -42,7 +44,7 @@ class MEC_skin_carousel extends MEC_skins
     
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
@@ -118,10 +120,12 @@ class MEC_skin_carousel extends MEC_skins
         {
 			$this->skin_options['count'] = '1';
 		}
-        
+
         // The count in row
         $this->count = isset($this->skin_options['count']) ? $this->skin_options['count'] : '3';
-        
+        $this->count_tablet = isset($this->skin_options['count_tablet']) ? $this->skin_options['count_tablet'] : '2';
+        $this->count_mobile = isset($this->skin_options['count_mobile']) ? $this->skin_options['count_mobile'] : '1';
+
         // Init MEC
         $this->args['mec-init'] = true;
         $this->args['mec-skin'] = $this->skin;
@@ -179,7 +183,8 @@ class MEC_skin_carousel extends MEC_skins
         $this->end_date = $this->start_date;
         
         // Apply Maximum Date
-        if($this->request->getVar('apply_sf_date', 0) == 1) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 0;
+        if($apply_sf_date == 1) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
         
         // Found Events
         $this->found = 0;
@@ -189,7 +194,7 @@ class MEC_skin_carousel extends MEC_skins
     
     /**
      * Returns start day of skin for filtering events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return string
      */
     public function get_start_date()

@@ -381,6 +381,19 @@ jQuery(document).ready(function($)
         {
             mec_handle_add_price_date_button(this);
         });
+
+        $.each($(".mec-select2"), function(i,v){
+
+            if( $(v).attr('name').search(":i:") > 0 ){
+
+                return;
+            }
+
+            if( typeof $(v).data('select2-id') == 'undefined' ){
+
+                $(v).select2();
+            }
+        });
     });
 
     $('.mec_add_price_date_button').off('click').on('click', function()
@@ -654,9 +667,20 @@ function mec_remove_fee(key)
     jQuery("#mec_fee_row"+key).remove();
 }
 
-function mec_remove_ticket_variation(key)
+function mec_remove_ticket_variation(key, id_prefix)
 {
-    jQuery("#mec_ticket_variation_row"+key).remove();
+    jQuery("#mec_"+id_prefix+"_row"+key).remove();
+}
+
+function add_variation_per_ticket(ticket_id)
+{
+    var $input = jQuery('#mec_new_variation_per_ticket_key');
+
+    var key = $input.val();
+    var html = jQuery('#mec_new_variation_per_ticket_raw'+ticket_id).html().replace(/:v:/g, key);
+
+    jQuery('#mec_ticket_variations_list'+ticket_id).append(html);
+    $input.val(parseInt(key)+1);
 }
 
 function mec_reg_fields_option_listeners()

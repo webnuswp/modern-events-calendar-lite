@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC slider class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_slider extends MEC_skins
 {
@@ -34,7 +34,7 @@ class MEC_skin_slider extends MEC_skins
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -43,7 +43,7 @@ class MEC_skin_slider extends MEC_skins
     
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
@@ -51,7 +51,7 @@ class MEC_skin_slider extends MEC_skins
     
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
@@ -187,7 +187,8 @@ class MEC_skin_slider extends MEC_skins
         $this->end_date = $this->start_date;
         
         // Apply Maximum Date
-        if($this->request->getVar('apply_sf_date', 0) == 1) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 0;
+        if($apply_sf_date == 1) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
         
         // Found Events
         $this->found = 0;
@@ -197,7 +198,7 @@ class MEC_skin_slider extends MEC_skins
     
     /**
      * Returns start day of skin for filtering events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return string
      */
     public function get_start_date()

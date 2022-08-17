@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC Agenda class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_agenda extends MEC_skins
 {
@@ -18,7 +18,7 @@ class MEC_skin_agenda extends MEC_skins
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class MEC_skin_agenda extends MEC_skins
     
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
@@ -40,7 +40,7 @@ class MEC_skin_agenda extends MEC_skins
     
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
@@ -98,6 +98,9 @@ class MEC_skin_agenda extends MEC_skins
         // SED Method
         $this->sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
 
+        // Order Method
+        $this->order_method = (isset($this->skin_options['order_method']) and trim($this->skin_options['order_method'])) ? $this->skin_options['order_method'] : 'ASC';
+
         // Image popup
         $this->image_popup = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
         
@@ -138,7 +141,7 @@ class MEC_skin_agenda extends MEC_skins
         
         // Sort Options
         $this->args['orderby'] = 'meta_value_num';
-        $this->args['order'] = 'ASC';
+        $this->args['order'] = (in_array($this->order_method, array('ASC', 'DESC')) ? $this->order_method : 'ASC');
         $this->args['meta_key'] = 'mec_start_day_seconds';
         
         // Exclude Posts
@@ -189,7 +192,8 @@ class MEC_skin_agenda extends MEC_skins
         }
         
         // Apply Maximum Date
-        if($this->request->getVar('apply_sf_date', 0) == 1 and isset($this->sf) and isset($this->sf['month']) and trim($this->sf['month'])) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 0;
+        if($apply_sf_date == 1 and isset($this->sf) and isset($this->sf['month']) and trim($this->sf['month'])) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
         
         // Found Events
         $this->found = 0;
@@ -197,7 +201,7 @@ class MEC_skin_agenda extends MEC_skins
     
     /**
      * Returns start day of skin for filtering events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return string
      */
     public function get_start_date()
@@ -232,22 +236,22 @@ class MEC_skin_agenda extends MEC_skins
     
     /**
      * Load more events for AJAX requert
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return void
      */
     public function load_more()
     {
-        $this->sf = $this->request->getVar('sf', array());
-        $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
-        $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
+        $this->sf = (isset($_REQUEST['sf']) and is_array($_REQUEST['sf'])) ? $this->main->sanitize_deep_array($_REQUEST['sf']) : array();
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 1;
+        $atts = $this->sf_apply(((isset($_REQUEST['atts']) and is_array($_REQUEST['atts'])) ? $this->main->sanitize_deep_array($_REQUEST['atts']) : array()), $this->sf, $apply_sf_date);
         
         // Initialize the skin
         $this->initialize($atts);
         
         // Override variables
-        $this->start_date = sanitize_text_field($this->request->getVar('mec_start_date', date('y-m-d')));
+        $this->start_date = isset($_REQUEST['mec_start_date']) ? sanitize_text_field($_REQUEST['mec_start_date']) : date('y-m-d');
         $this->end_date = $this->start_date;
-        $this->offset = $this->request->getVar('mec_offset', 0);
+        $this->offset = isset($_REQUEST['mec_offset']) ? sanitize_text_field($_REQUEST['mec_offset']) : 0;
 		
         // Apply Maximum Date
         if($apply_sf_date == 1 and isset($this->sf) and isset($this->sf['month']) and trim($this->sf['month'])) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));

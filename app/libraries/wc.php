@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC WC class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_wc extends MEC_base
 {
@@ -12,16 +12,19 @@ class MEC_wc extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
     }
 
-    public function cart($event_id, $date, $tickets, $transaction_id = NULL)
+    public function cart($event_id, $date, $other_dates, $tickets, $transaction_id = NULL)
     {
         $translated_event_id = (isset($_REQUEST['translated_event_id']) ? sanitize_text_field($_REQUEST['translated_event_id']) : 0);
         if(!trim($translated_event_id)) $translated_event_id = $event_id;
+
+        $dates = array($date);
+        if(is_array($other_dates) and count($other_dates)) $dates = array_merge($dates, $other_dates);
 
         $db = $this->getDB();
 
@@ -43,9 +46,10 @@ class MEC_wc extends MEC_base
                 else $this->update($product_id, $translated_event_id, $ticket_id);
 
                 // Add to Cart
-                WC()->cart->add_to_cart($product_id, $count, 0, array(), array(
+                WC()->cart->add_to_cart($product_id, ($count * max(1, count($dates))), 0, array(), array(
                     'mec_event_id' => $event_id,
                     'mec_date' => $date,
+                    'mec_other_dates' => $other_dates,
                 ));
 
                 // Add to Ticket Names
@@ -74,9 +78,10 @@ class MEC_wc extends MEC_base
                 $count = isset($info['count']) ? $info['count'] : 1;
 
                 // Add to Cart
-                WC()->cart->add_to_cart($product_id, $count, 0, array(), array(
+                WC()->cart->add_to_cart($product_id, ($count * max(1, count($dates))), 0, array(), array(
                     'mec_event_id' => $event_id,
                     'mec_date' => $date,
+                    'mec_other_dates' => $other_dates,
                     'mec_transaction_id' => $transaction_id,
                 ));
 
@@ -155,6 +160,7 @@ class MEC_wc extends MEC_base
         {
             if(isset($item->legacy_values['mec_event_id'])) wc_add_order_item_meta($item_id, 'mec_event_id', $item->legacy_values['mec_event_id']);
             if(isset($item->legacy_values['mec_date'])) wc_add_order_item_meta($item_id, 'mec_date', $item->legacy_values['mec_date']);
+            if(isset($item->legacy_values['mec_other_dates'])) wc_add_order_item_meta($item_id, 'mec_other_dates', implode(',', $item->legacy_values['mec_other_dates']));
             if(isset($item->legacy_values['mec_transaction_id'])) wc_add_order_item_meta($item_id, 'mec_transaction_id', $item->legacy_values['mec_transaction_id']);
         }
     }
@@ -226,7 +232,11 @@ class MEC_wc extends MEC_base
         {
             $event_id = wc_get_order_item_meta($item_id, 'mec_event_id', true);
             $date = wc_get_order_item_meta($item_id, 'mec_date', true);
+            $other_dates = wc_get_order_item_meta($item_id, 'mec_other_dates', true);
             $transaction_id = wc_get_order_item_meta($item_id, 'mec_transaction_id', true);
+
+            $dates = array($date);
+            if(is_array($other_dates)) $dates = array_merge($dates, $other_dates);
 
             if(!trim($event_id) or !trim($date)) continue;
             if(!isset($mec[$event_id])) $mec[$event_id] = array();
@@ -234,10 +244,11 @@ class MEC_wc extends MEC_base
             $product_id = $item->get_product_id();
 
             $product_ids = array();
-            for($i = 1; $i <= $item->get_quantity(); $i++) $product_ids[] = $product_id;
+            for($i = 1; $i <= ($item->get_quantity() / count($dates)); $i++) $product_ids[] = $product_id;
 
             $mec[$event_id][] = array(
                 'date' => $date,
+                'other_dates' => $other_dates,
                 'transaction_id' => $transaction_id,
                 'product_ids' => $product_ids,
             );
@@ -249,9 +260,6 @@ class MEC_wc extends MEC_base
         $main = $this->getMain();
         $book = $this->getBook();
         $gateway = new MEC_gateway_woocommerce();
-
-        // MEC Settings
-        $settings = $main->get_settings();
 
         // MEC User
         $u = $this->getUser();
@@ -270,6 +278,12 @@ class MEC_wc extends MEC_base
                     $date = $b['date'];
                     $product_ids = $b['product_ids'];
 
+                    $other_dates = (isset($b['other_dates']) and is_array($b['other_dates'])) ? $b['other_dates'] : array();
+
+                    $all_dates = array();
+                    if(count($other_dates)) $all_dates = array_merge(array($date), $other_dates);
+
+                    $timestamps = count($all_dates) ? $all_dates : array($date);
                     $event_tickets = get_post_meta($event_id, 'mec_tickets', true);
 
                     $raw_tickets = array();
@@ -295,12 +309,15 @@ class MEC_wc extends MEC_base
                     }
 
                     // Calculate price of bookings
-                    $price_details = $book->get_price_details($raw_tickets, $event_id, $event_tickets, array(), false);
+                    $price_details = $book->get_price_details($raw_tickets, $event_id, $event_tickets, array(), $timestamps, false);
 
                     $booking = array();
                     $booking['tickets'] = $tickets;
                     $booking['first_for_all'] = 1;
                     $booking['date'] = $date;
+                    $booking['all_dates'] = $all_dates;
+                    $booking['other_dates'] = $other_dates;
+                    $booking['timestamps'] = $timestamps;
                     $booking['event_id'] = $event_id;
                     $booking['price_details'] = $price_details;
                     $booking['total'] = $price_details['total'];
@@ -320,16 +337,20 @@ class MEC_wc extends MEC_base
                 if(count($coupons))
                 {
                     $wc_discount = $order->get_total_discount();
+                    $wc_before_discount = $order->get_subtotal();
+
+                    $mec_before_discount = $transaction['total'];
+                    $mec_discount = round((($mec_before_discount * $wc_discount) / $wc_before_discount), 2);
 
                     $transaction['price_details']['details'][] = array(
-                        'amount' => $wc_discount,
-                        'description' => __('Discount by WC Coupon', 'modern-events-calendar-lite'),
+                        'amount' => $mec_discount,
+                        'description' => esc_html__('Discount by WC Coupon', 'modern-events-calendar-lite'),
                         'type' => 'discount',
                         'coupon' => implode(', ', $coupons)
                     );
 
-                    $transaction['discount'] = $wc_discount;
-                    $transaction['price'] = $order->get_total();
+                    $transaction['discount'] = $mec_discount;
+                    $transaction['price'] = $mec_before_discount - $mec_discount;
                     $transaction['coupon'] = implode(', ', $coupons);
 
                     $book->update_transaction($transaction_id, $transaction);
@@ -360,7 +381,7 @@ class MEC_wc extends MEC_base
                 $ticket_ids = ',' . trim($ticket_ids, ', ') . ',';
                 $user_id = $gateway->register_user($main_attendee, $transaction);
 
-                $book_subject = $name.' - '.$u->get($user_id)->user_email;
+                $book_subject = $name.' - '.(isset($main_attendee['email']) ? $main_attendee['email'] : $u->get($user_id)->user_email);
                 $book_id = $book->add(
                     array(
                         'post_author' => $user_id,
@@ -368,7 +389,9 @@ class MEC_wc extends MEC_base
                         'post_title' => $book_subject,
                         'post_date' => $date,
                         'attendees_info' => $attendees_info,
-                        'mec_attendees' => $attendees
+                        'mec_attendees' => $attendees,
+                        'mec_gateway' => 'MEC_gateway_woocommerce',
+                        'mec_gateway_label' => $gateway->title()
                     ),
                     $transaction_id,
                     $ticket_ids
@@ -377,8 +400,6 @@ class MEC_wc extends MEC_base
                 // Assign User
                 $u->assign($book_id, $user_id);
 
-                update_post_meta($book_id, 'mec_gateway', 'MEC_gateway_woocommerce');
-                update_post_meta($book_id, 'mec_gateway_label', $gateway->title());
                 update_post_meta($book_id, 'mec_order_id', $order_id);
 
                 // Add WC coupon code

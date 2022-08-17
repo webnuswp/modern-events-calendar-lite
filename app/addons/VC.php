@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC VC addon class
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_addon_VC extends MEC_base
 {
@@ -20,7 +20,7 @@ class MEC_addon_VC extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MEC_addon_VC extends MEC_base
     
     /**
      * Initialize the VC addon
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -46,7 +46,7 @@ class MEC_addon_VC extends MEC_base
     
     /**
      * Register the addon in VC
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function map()
     {

@@ -17,10 +17,13 @@ $title = isset($event->data->title) ? $event->data->title : '';
 $location_id = $this->get_master_location_id($event);
 $location_data = ($location_id ? $this->get_location_data($location_id) : array());
 $location = (($location_id and $location_data) ? '&location='.urlencode($location_data['address']) : '');
-$content = (isset($event->data->post->post_content) and trim($event->data->post->post_content)) ? strip_shortcodes(strip_tags($event->data->post->post_content)) : $title;
-$content = apply_filters('mec_add_content_to_export_google_calendar_details', $content,$event->data->ID );
 $occurrence = isset($_GET['occurrence']) ? sanitize_text_field($_GET['occurrence']) : '';
 $occurrence_end_date = trim($occurrence) ? $this->get_end_date_by_occurrence($event->data->ID, (isset($event->date['start']['date']) ? $event->date['start']['date'] : $occurrence)) : '';
+
+$content = (isset($event->data->post->post_content) and trim($event->data->post->post_content)) ? $event->data->post->post_content : $title;
+$content = preg_replace('#<a[^>]*href="((?!/)[^"]+)">[^<]+</a>#', '$0 ( $1 )', $content);
+$content = strip_shortcodes(strip_tags($content));
+$content = apply_filters('mec_add_content_to_export_google_calendar_details', $content, $event->data->ID);
 
 $start_date_temp = $start_hour_temp = '';
 if(!empty($event->date))
@@ -74,8 +77,8 @@ $description .= html_entity_decode(ob_get_clean());
      <div class="mec-event-exporting">
         <div class="mec-export-details">
             <ul>
-                <?php if($settings['sn']['googlecal']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=<?php echo urlencode($title); ?>&dates=<?php echo gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)); ?>/<?php echo gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)); ?>&details=<?php echo urlencode($description); ?><?php echo $location; ?><?php echo (trim($rrule) ? '&recur='.urlencode($rrule) : ''); ?>" target="_blank"><?php echo __('+ Add to Google Calendar', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
-                <?php if($settings['sn']['ical']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="<?php echo $this->ical_URL($event->data->ID, $occurrence); ?>"><?php echo __('+ iCal / Outlook export', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
+                <?php if($settings['sn']['googlecal']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=<?php echo urlencode($title); ?>&dates=<?php echo gmdate('Ymd\\THi00\\Z', ($start_time - $gmt_offset_seconds)); ?>/<?php echo gmdate('Ymd\\THi00\\Z', ($end_time - $gmt_offset_seconds)); ?>&details=<?php echo urlencode($description); ?><?php echo esc_attr($location); ?><?php echo (trim($rrule) ? '&recur='.urlencode($rrule) : ''); ?>" target="_blank"><?php echo esc_html__('+ Add to Google Calendar', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
+                <?php if($settings['sn']['ical']): ?><li><a class="mec-events-gcal mec-events-button mec-color mec-bg-color-hover mec-border-color" href="<?php echo esc_url($this->ical_URL($event->data->ID, $occurrence)); ?>"><?php echo esc_html__('+ iCal / Outlook export', 'modern-events-calendar-lite'); ?></a></li><?php endif; ?>
             </ul>
         </div>
     </div>
