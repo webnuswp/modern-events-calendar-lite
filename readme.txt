@@ -1,10 +1,10 @@
-﻿=== Modern Events Calendar Lite ===
+=== Modern Events Calendar Lite ===
 Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 6.0
-Stable tag: 6.6.5
+Stable tag: 6.6.5.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -472,6 +472,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 43. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 6.6.5.1 – 17 August 2022 =
+= fixes to countdown - airdrummer@cardinalglen.org
+
 = 6.6.5 – 17 August 2022 =
 Added: Ability to change ticket prices per occurrence. 
 Added: New CSV export option compatible with Google Calendar. 
