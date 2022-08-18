@@ -1,4 +1,6 @@
-﻿v 6.6.5 – 17 August 2022
+v 6.6.5.1 – 17 August 2022
+- countdown fixes
+v 6.6.5 – 17 August 2022
 - Added: Ability to change ticket prices per occurrence. 
 - Added: New CSV export option compatible with Google Calendar. 
 - Added: Ability to assign custom layouts to the events created by Frontend Event Submission. 
