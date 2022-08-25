@@ -75,7 +75,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -96,7 +96,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -113,7 +113,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -246,7 +246,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -267,7 +267,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -284,7 +284,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -408,7 +408,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -429,7 +429,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -446,7 +446,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -580,7 +580,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -601,7 +601,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box top">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -618,7 +618,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -773,7 +773,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -794,7 +794,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -811,7 +811,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -948,7 +948,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -969,7 +969,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -986,7 +986,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1120,7 +1120,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1141,7 +1141,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1158,7 +1158,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1281,7 +1281,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1302,7 +1302,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1319,7 +1319,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1334,7 +1334,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Reminder hours', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Please, insert comma to separate reminder hours.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated hours number to trigger the cron job', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1470,7 +1470,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1491,7 +1491,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1508,7 +1508,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1587,7 +1587,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1608,7 +1608,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1625,7 +1625,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1709,7 +1709,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Users', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users (or insert user IDs comma separated) to send a copy of email to them!', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select users to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1730,7 +1730,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Receiver Roles', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Select users a specific role.', 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Select a user role to send a copy of this email to them.', 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1747,7 +1747,7 @@ $additional_organizers = (isset($settings['additional_organizers']) and $setting
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Custom Recipients', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e('Insert comma separated emails for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e('Insert the comma separated email addresses for multiple recipients.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/notifications/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>

@@ -120,7 +120,7 @@ if(is_array($fonts))
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php esc_html_e('Dark Mode', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Enable it to turn on dark mode', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Enable this option to turn on the dark mode', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -220,7 +220,7 @@ if(is_array($fonts))
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php esc_html_e('Disable Google Fonts', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('To be GDPR compliant you may need to disable Google fonts! set "Default Font" value for font family and enable this option.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e('To be GDPR compliant you may need to disable Google fonts. Set "Default Font" value for font family and enable this option.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -237,7 +237,7 @@ if(is_array($fonts))
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php esc_html_e('Accessibility', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Enable A11Y or accessibility in MEC...', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/improving-accessibility-on-mec/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e('Enable A11Y or accessibility in MEC.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/improving-accessibility-on-mec/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -254,7 +254,7 @@ if(is_array($fonts))
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Desktop Normal Screens', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('You can enter your theme container size in this field', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e('You can enter your theme container size in this field to override it for normal screens.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -268,7 +268,7 @@ if(is_array($fonts))
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Desktop Large Screens', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('You can enter your theme container size in this field', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e('You can enter your theme container size in this field to override it for large screens.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/style-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>

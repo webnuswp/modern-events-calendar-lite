@@ -352,7 +352,7 @@ class MEC_feature_speakers extends MEC_base
 
         if(!trim($content))
         {
-            echo '<p class="mec-error" id="mec-speaker-error-' . esc_attr($key) . '">' . esc_html__('Sorry, You must insert speaker name!', 'modern-events-calendar-lite') . '</p>';
+            echo '<p class="mec-error" id="mec-speaker-error-' . esc_attr($key) . '">' . sprintf(esc_html__('Sorry, You must insert %s name!', 'modern-events-calendar-lite'), strtolower(\MEC\Base::get_main()->m('taxonomy_speaker', esc_html__('speaker', 'modern-events-calendar-lite')))) . '</p>';
             exit;
         }
 

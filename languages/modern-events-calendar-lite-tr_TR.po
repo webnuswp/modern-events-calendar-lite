@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modern Events Calendar\n"
-"POT-Creation-Date: 2022-08-17 15:07+0430\n"
-"PO-Revision-Date: 2022-08-17 15:11+0430\n"
+"POT-Creation-Date: 2022-08-24 15:37+0430\n"
+"PO-Revision-Date: 2022-08-24 15:40+0430\n"
 "Last-Translator: Howard <howard@realtyna.com>\n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -186,39 +186,39 @@ msgid "There is no changelog available."
 msgstr ""
 
 #: app/core/src/Books/Book.php:106 app/features/ix.php:279
-#: app/libraries/main.php:8084 app/libraries/main.php:8111
+#: app/libraries/main.php:8109 app/libraries/main.php:8136
 msgid "Rejected"
 msgstr "Reddedildi"
 
 #: app/core/src/Books/Book.php:111 app/features/ix.php:278
-#: app/libraries/main.php:3272 app/libraries/main.php:8083
-#: app/libraries/main.php:8103
+#: app/libraries/main.php:3272 app/libraries/main.php:8108
+#: app/libraries/main.php:8128
 msgid "Confirmed"
 msgstr "Onaylandı"
 
-#: app/core/src/Books/Book.php:117 app/features/mec/settings.php:787
-#: app/libraries/main.php:8085 app/libraries/main.php:8107
+#: app/core/src/Books/Book.php:117 app/features/mec/settings.php:819
+#: app/libraries/main.php:8110 app/libraries/main.php:8132
 msgid "Pending"
 msgstr "Beklemede"
 
 #: app/core/src/Books/Book.php:186 app/features/ix.php:284
 #: app/features/labels.php:119 app/features/labels.php:145
-#: app/libraries/main.php:8132
+#: app/libraries/main.php:8157
 msgid "Canceled"
 msgstr "İptal Edildi"
 
 #: app/core/src/Books/Book.php:191 app/features/ix.php:283
-#: app/features/mec/booking.php:1307 app/features/mec/booking.php:1329
-#: app/features/mec/integrations.php:467 app/features/mec/integrations.php:489
-#: app/features/mec/modules.php:435 app/features/mec/modules.php:457
+#: app/features/mec/booking.php:1328 app/features/mec/booking.php:1350
+#: app/features/mec/integrations.php:453 app/features/mec/integrations.php:475
+#: app/features/mec/modules.php:436 app/features/mec/modules.php:458
 #: app/features/mec/notifications.php:1950
-#: app/features/mec/notifications.php:1973 app/features/mec/settings.php:1720
-#: app/features/mec/settings.php:1742 app/features/mec/single.php:610
-#: app/features/mec/single.php:632 app/libraries/main.php:8131
+#: app/features/mec/notifications.php:1973 app/features/mec/settings.php:1766
+#: app/features/mec/settings.php:1788 app/features/mec/single.php:624
+#: app/features/mec/single.php:646 app/libraries/main.php:8156
 msgid "Verified"
 msgstr "Doğrulanmış"
 
-#: app/core/src/Books/Book.php:197 app/libraries/main.php:8133
+#: app/core/src/Books/Book.php:197 app/libraries/main.php:8158
 msgid "Waiting"
 msgstr "Bekliyor"
 
@@ -243,17 +243,17 @@ msgid "How to set booking module"
 msgstr "Rezervasyon modülünü etkinleştir"
 
 #: app/core/src/FES/FormBuilder.php:54 app/core/src/FES/FormBuilder.php:3534
-#: app/features/events.php:2615 app/features/events.php:2968
-#: app/features/events.php:3614 app/features/mec/booking.php:736
-#: app/features/mec/booking.php:768 app/features/mec/styling.php:134
+#: app/features/events.php:2626 app/features/events.php:2979
+#: app/features/events.php:3625 app/features/mec/booking.php:757
+#: app/features/mec/booking.php:789 app/features/mec/styling.php:134
 #: app/libraries/hourlyschedule.php:49 app/libraries/hourlyschedule.php:65
 #: app/libraries/hourlyschedule.php:93 app/libraries/hourlyschedule.php:125
 #: app/libraries/hourlyschedule.php:145 app/libraries/ticketVariations.php:39
 msgid "Title"
 msgstr "Başlık"
 
-#: app/core/src/FES/FormBuilder.php:100 app/features/mec/settings.php:1168
-#: app/features/mec/settings.php:1281
+#: app/core/src/FES/FormBuilder.php:100 app/features/mec/settings.php:1207
+#: app/features/mec/settings.php:1320
 msgid "Excerpt"
 msgstr ""
 
@@ -268,8 +268,8 @@ msgstr "Tarih ve Saat"
 
 #: app/core/src/FES/FormBuilder.php:188 app/core/src/FES/FormBuilder.php:192
 #: app/features/events.php:625 app/features/events.php:629
-#: app/features/events.php:2511 app/features/events.php:2619
-#: app/features/events.php:2970 app/features/ix/import_g_calendar.php:38
+#: app/features/events.php:2522 app/features/events.php:2630
+#: app/features/events.php:2981 app/features/ix/import_g_calendar.php:38
 #: app/features/mec.php:1606 app/features/mec/meta_boxes/display_options.php:57
 #: app/features/mec/meta_boxes/display_options.php:312
 #: app/features/mec/meta_boxes/display_options.php:578
@@ -292,7 +292,7 @@ msgstr "Başlangıç Tarihi"
 
 #: app/core/src/FES/FormBuilder.php:208 app/core/src/FES/FormBuilder.php:212
 #: app/features/events.php:645 app/features/events.php:649
-#: app/features/events.php:2620 app/features/events.php:2972
+#: app/features/events.php:2631 app/features/events.php:2983
 #: app/features/ix/import_g_calendar.php:44 app/features/mec.php:1607
 #: app/features/mec/meta_boxes/display_options.php:73
 #: app/features/mec/meta_boxes/display_options.php:328
@@ -331,8 +331,8 @@ msgstr ""
 #| "It shows next to event time on calendar. You can insert Timezone etc. in "
 #| "this field."
 msgid ""
-"It shows next to event time on the Single Event Page. You can enter notes "
-"such as timezone in this field."
+"It appears next to the event time on the Single Event Page. You can enter "
+"notes such as the timezone name in this field."
 msgstr ""
 "Takvimde etkinlik saatinin yanında gösterir. Bu alana Saat Dilimi vb. "
 "Ekleyebilirsiniz."
@@ -488,11 +488,11 @@ msgstr "Ekle"
 msgid "Custom Days Repeating"
 msgstr "Özel Stiller"
 
-#: app/core/src/FES/FormBuilder.php:317 app/features/events.php:883
+#: app/core/src/FES/FormBuilder.php:317
 msgid ""
-"Add certain days to event occurrence dates. If you have a single day event, "
-"start and end dates should be the same, If you have a multiple day event, "
-"the start and end dates must be commensurate with the initial date."
+"Add certain days to event occurrences. If you have a single day event, start "
+"and end dates should be the same, If you have a multiple day event, the "
+"start and end dates must match the initial date."
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:318 app/core/src/FES/FormBuilder.php:626
@@ -508,17 +508,17 @@ msgstr ""
 #: app/features/events.php:884 app/features/events.php:1237
 #: app/features/events.php:1319 app/features/events.php:1404
 #: app/features/events.php:1505 app/features/mec/booking.php:113
-#: app/features/mec/booking.php:199 app/features/mec/booking.php:212
-#: app/features/mec/booking.php:248 app/features/mec/booking.php:313
-#: app/features/mec/booking.php:346 app/features/mec/booking.php:359
-#: app/features/mec/booking.php:425 app/features/mec/booking.php:454
-#: app/features/mec/booking.php:472 app/features/mec/booking.php:512
-#: app/features/mec/booking.php:648 app/features/mec/booking.php:678
-#: app/features/mec/booking.php:744 app/features/mec/booking.php:754
-#: app/features/mec/booking.php:776 app/features/mec/booking.php:786
-#: app/features/mec/booking.php:1056 app/features/mec/booking.php:1084
-#: app/features/mec/integrations.php:57 app/features/mec/integrations.php:70
-#: app/features/mec/integrations.php:86
+#: app/features/mec/booking.php:126 app/features/mec/booking.php:143
+#: app/features/mec/booking.php:213 app/features/mec/booking.php:226
+#: app/features/mec/booking.php:262 app/features/mec/booking.php:327
+#: app/features/mec/booking.php:360 app/features/mec/booking.php:373
+#: app/features/mec/booking.php:408 app/features/mec/booking.php:446
+#: app/features/mec/booking.php:475 app/features/mec/booking.php:493
+#: app/features/mec/booking.php:533 app/features/mec/booking.php:669
+#: app/features/mec/booking.php:699 app/features/mec/booking.php:765
+#: app/features/mec/booking.php:775 app/features/mec/booking.php:797
+#: app/features/mec/booking.php:807 app/features/mec/booking.php:1077
+#: app/features/mec/booking.php:1105 app/features/mec/integrations.php:72
 #: app/features/mec/meta_boxes/display_options.php:98
 #: app/features/mec/meta_boxes/display_options.php:111
 #: app/features/mec/meta_boxes/display_options.php:124
@@ -553,7 +553,7 @@ msgstr ""
 #: app/features/mec/meta_boxes/display_options.php:2495
 #: app/features/mec/modules.php:44 app/features/mec/modules.php:101
 #: app/features/mec/modules.php:118 app/features/mec/modules.php:153
-#: app/features/mec/modules.php:169 app/features/mec/modules.php:361
+#: app/features/mec/modules.php:169 app/features/mec/modules.php:362
 #: app/features/mec/notifications.php:116
 #: app/features/mec/notifications.php:287
 #: app/features/mec/notifications.php:449
@@ -568,20 +568,23 @@ msgstr ""
 #: app/features/mec/notifications.php:1750
 #: app/features/mec/notifications.php:1765 app/features/mec/settings.php:72
 #: app/features/mec/settings.php:91 app/features/mec/settings.php:118
-#: app/features/mec/settings.php:154 app/features/mec/settings.php:177
-#: app/features/mec/settings.php:223 app/features/mec/settings.php:273
-#: app/features/mec/settings.php:353 app/features/mec/settings.php:448
-#: app/features/mec/settings.php:525 app/features/mec/settings.php:542
-#: app/features/mec/settings.php:559 app/features/mec/settings.php:578
-#: app/features/mec/settings.php:592 app/features/mec/settings.php:620
-#: app/features/mec/settings.php:751 app/features/mec/settings.php:988
-#: app/features/mec/settings.php:1225 app/features/mec/settings.php:1241
-#: app/features/mec/settings.php:1410 app/features/mec/settings.php:1423
-#: app/features/mec/settings.php:1439 app/features/mec/single.php:50
+#: app/features/mec/settings.php:133 app/features/mec/settings.php:154
+#: app/features/mec/settings.php:177 app/features/mec/settings.php:209
+#: app/features/mec/settings.php:230 app/features/mec/settings.php:280
+#: app/features/mec/settings.php:371 app/features/mec/settings.php:466
+#: app/features/mec/settings.php:543 app/features/mec/settings.php:560
+#: app/features/mec/settings.php:577 app/features/mec/settings.php:596
+#: app/features/mec/settings.php:610 app/features/mec/settings.php:638
+#: app/features/mec/settings.php:695 app/features/mec/settings.php:710
+#: app/features/mec/settings.php:783 app/features/mec/settings.php:825
+#: app/features/mec/settings.php:1027 app/features/mec/settings.php:1264
+#: app/features/mec/settings.php:1280 app/features/mec/settings.php:1359
+#: app/features/mec/settings.php:1456 app/features/mec/settings.php:1469
+#: app/features/mec/settings.php:1485 app/features/mec/single.php:50
 #: app/features/mec/single.php:66 app/features/mec/single.php:86
-#: app/features/mec/single.php:104 app/features/mec/single.php:128
-#: app/features/mec/single.php:145 app/features/mec/single.php:208
-#: app/features/mec/single.php:409 app/features/mec/styling.php:123
+#: app/features/mec/single.php:104 app/features/mec/single.php:135
+#: app/features/mec/single.php:152 app/features/mec/single.php:215
+#: app/features/mec/single.php:423 app/features/mec/styling.php:123
 #: app/features/mec/styling.php:223 app/features/mec/styling.php:240
 #: app/features/mec/styling.php:257 app/features/mec/styling.php:271
 #: app/features/occurrences.php:299 app/features/occurrences.php:329
@@ -634,7 +637,7 @@ msgid "On"
 msgstr "Açık"
 
 #: app/core/src/FES/FormBuilder.php:620 app/features/emails/details.php:37
-#: app/features/events.php:1226 app/features/mec/booking.php:173
+#: app/features/events.php:1226 app/features/mec/booking.php:187
 msgid "After"
 msgstr "Sonra"
 
@@ -657,7 +660,7 @@ msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:669 app/core/src/FES/FormBuilder.php:672
 #: app/features/events.php:728 app/features/events.php:731
-#: app/features/mec/settings.php:947
+#: app/features/mec/settings.php:986
 #, fuzzy
 msgid "Countdown Method"
 msgstr "Geri Sayım Seçenekleri"
@@ -668,7 +671,7 @@ msgstr "Geri Sayım Seçenekleri"
 #: app/core/src/FES/FormBuilder.php:2194 app/core/src/FES/FormBuilder.php:2327
 #: app/core/src/FES/FormBuilder.php:2507 app/core/src/FES/FormBuilder.php:2734
 #: app/features/events.php:719 app/features/events.php:732
-#: app/features/mec/settings.php:879
+#: app/features/mec/settings.php:918
 msgid "Inherit from global options"
 msgstr "Genel Seçeneklerden Yararlanın."
 
@@ -685,12 +688,12 @@ msgid "Count to Event End"
 msgstr "Etkinlik bulunamadı!"
 
 #: app/core/src/FES/FormBuilder.php:703 app/features/events.php:740
-#: app/modules/weather/darksky.php:59
+#: app/modules/weather/darksky.php:59 app/modules/weather/visualcrossing.php:59
 msgid "Visibility"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:706 app/features/events.php:743
-#: app/features/mec/settings.php:983 app/features/mec/settings.php:987
+#: app/features/mec/settings.php:1022 app/features/mec/settings.php:1026
 #, fuzzy
 #| msgid "Event Cost"
 msgid "Event Visibility"
@@ -741,10 +744,10 @@ msgstr ""
 #: app/core/src/Forms/FormFields.php:188 app/core/src/Forms/SettingsForm.php:93
 #: app/core/src/SingleBuilder/Widgets/EventOrganizers/EventOrganizers.php:70
 #: app/features/autoemails.php:60 app/features/events.php:609
-#: app/features/events.php:3325 app/features/fes.php:297
+#: app/features/events.php:3336 app/features/fes.php:297
 #: app/features/login/login.php:5 app/features/mec/booking.php:61
-#: app/features/mec/booking.php:844 app/features/mec/booking.php:942
-#: app/features/mec/settings.php:315 app/features/mec/single.php:307
+#: app/features/mec/booking.php:865 app/features/mec/booking.php:963
+#: app/features/mec/settings.php:333 app/features/mec/single.php:321
 #: app/features/organizers.php:116 app/features/organizers.php:165
 #: app/features/profile/profile.php:206 app/features/speakers.php:137
 #: app/features/speakers.php:214 app/libraries/main.php:650
@@ -764,7 +767,7 @@ msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:822 app/core/src/FES/FormBuilder.php:1624
 #: app/core/src/FES/FormBuilder.php:2476 app/features/events.php:608
-#: app/features/events.php:3322 app/features/fes.php:297
+#: app/features/events.php:3333 app/features/fes.php:297
 #: app/features/labels.php:184 app/features/mec/booking.php:49
 #: app/features/popup/event.php:190 app/features/profile/profile.php:203
 #: app/libraries/notifications.php:2176 app/modules/booking/steps/form.php:62
@@ -777,12 +780,12 @@ msgid "eg. John Smith"
 msgstr "Örneğin. Burhan Açıkgöz"
 
 #: app/core/src/FES/FormBuilder.php:851 app/features/events.php:1468
-#: app/features/mec/settings.php:953 app/features/occurrences.php:376
+#: app/features/mec/settings.php:992 app/features/occurrences.php:376
 msgid "Event Links"
 msgstr "Etkinlik Bağlantıları"
 
 #: app/core/src/FES/FormBuilder.php:853 app/features/events.php:1471
-#: app/features/events.php:1479 app/features/mec/settings.php:1283
+#: app/features/events.php:1479 app/features/mec/settings.php:1322
 #: app/features/occurrences.php:378 app/libraries/main.php:7776
 #: app/libraries/main.php:7823
 msgid "Event Link"
@@ -833,13 +836,17 @@ msgid "New Window"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:865 app/features/events.php:1503
+#, fuzzy
+#| msgid ""
+#| "If you fill it, it will be replaced instead of default event page link. "
+#| "Insert full link including http(s)://"
 msgid ""
-"If you fill it, it will be shown in event details page as an optional link. "
-"Insert full link including http(s)://"
-msgstr "Doldurursanız, Http (s) dahil olmak üzere tam bağlantıyı ekleyin: //"
+"This link will appear on the single event page. Insert full link including "
+"http(s)://"
+msgstr "Doldurursanız, Http (s)// dahil olmak üzere tam bağlantıyı ekleyin:"
 
 #: app/core/src/FES/FormBuilder.php:903 app/features/events.php:1280
-#: app/features/events.php:2980 app/features/mec/meta_boxes/search_form.php:118
+#: app/features/events.php:2991 app/features/mec/meta_boxes/search_form.php:118
 #: app/features/mec/meta_boxes/search_form.php:207
 #: app/features/mec/meta_boxes/search_form.php:296
 #: app/features/mec/meta_boxes/search_form.php:385
@@ -861,7 +868,7 @@ msgstr "Doldurursanız, Http (s) dahil olmak üzere tam bağlantıyı ekleyin: /
 #: app/features/mec/notifications.php:1376
 #: app/features/mec/notifications.php:1535
 #: app/features/mec/notifications.php:1652
-#: app/features/mec/notifications.php:1802 app/features/mec/settings.php:959
+#: app/features/mec/notifications.php:1802 app/features/mec/settings.php:998
 #: app/features/notifications.php:160 app/features/occurrences.php:338
 #: app/libraries/main.php:7778 app/libraries/main.php:7825
 #: app/widgets/single.php:129
@@ -871,7 +878,7 @@ msgstr "Etkinlik Maliyeti"
 #: app/core/src/FES/FormBuilder.php:906
 #: app/core/src/SingleBuilder/Widgets/EventCost/EventCost.php:49
 #: app/features/events.php:435 app/features/events.php:1286
-#: app/features/mec/settings.php:1282 app/features/occurrences.php:341
+#: app/features/mec/settings.php:1321 app/features/occurrences.php:341
 #: app/libraries/main.php:7779 app/libraries/main.php:7826
 #: app/libraries/skins.php:1469 app/skins/single.php:1150
 #: app/skins/single/default.php:215 app/skins/single/m1.php:81
@@ -889,68 +896,67 @@ msgid "Currency Options"
 msgstr "Para Birimi Seçenekleri"
 
 #: app/core/src/FES/FormBuilder.php:923 app/features/events.php:1303
-#: app/features/mec/settings.php:602 app/features/mec/settings.php:604
+#: app/features/mec/settings.php:620 app/features/mec/settings.php:622
 #: app/libraries/main.php:643
 msgid "Currency"
 msgstr "Para Birimi"
 
 #: app/core/src/FES/FormBuilder.php:933 app/core/src/FES/FormBuilder.php:938
 #: app/features/events.php:1313 app/features/events.php:1318
-#: app/features/mec/settings.php:614 app/features/mec/settings.php:619
+#: app/features/mec/settings.php:632 app/features/mec/settings.php:637
 msgid "Currency Sign"
 msgstr "Para Birimi İmzası"
 
 #: app/core/src/FES/FormBuilder.php:939 app/features/events.php:1319
-#: app/features/mec/settings.php:620
 msgid "Default value will be \"currency\" if you leave it empty."
 msgstr "Boş bırakırsanız varsayılan değer \"para birimi\" olacaktır."
 
 #: app/core/src/FES/FormBuilder.php:946 app/features/events.php:1326
-#: app/features/mec/settings.php:627
+#: app/features/mec/settings.php:645
 msgid "Currency Position"
 msgstr "Para Birimi Pozisyonu"
 
 #: app/core/src/FES/FormBuilder.php:949 app/features/events.php:1329
-#: app/features/mec/settings.php:630
+#: app/features/mec/settings.php:648
 #, fuzzy
 #| msgid "Before $10"
 msgid "$10 (Before)"
 msgstr "Önce $10"
 
 #: app/core/src/FES/FormBuilder.php:950 app/features/events.php:1330
-#: app/features/mec/settings.php:631
+#: app/features/mec/settings.php:649
 msgid "$ 10 (Before with Space)"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:951 app/features/events.php:1331
-#: app/features/mec/settings.php:632
+#: app/features/mec/settings.php:650
 #, fuzzy
 #| msgid "After"
 msgid "10$ (After)"
 msgstr "Sonra"
 
 #: app/core/src/FES/FormBuilder.php:952 app/features/events.php:1332
-#: app/features/mec/settings.php:633
+#: app/features/mec/settings.php:651
 msgid "10 $ (After with Space)"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:957 app/features/events.php:1337
-#: app/features/mec/settings.php:638
+#: app/features/mec/settings.php:656
 msgid "Thousand Separator"
 msgstr "Bin Ayırıcı"
 
 #: app/core/src/FES/FormBuilder.php:963 app/features/events.php:1343
-#: app/features/mec/settings.php:644
+#: app/features/mec/settings.php:662
 msgid "Decimal Separator"
 msgstr "Ondalık Ayırıcı"
 
 #: app/core/src/FES/FormBuilder.php:973 app/features/events.php:1359
-#: app/features/mec/settings.php:660
+#: app/features/mec/settings.php:678
 msgid "No decimal"
 msgstr "Ondalık Yok"
 
-#: app/core/src/FES/FormBuilder.php:1007 app/features/events.php:2981
-#: app/features/mec/settings.php:965 app/features/mec/settings.php:1286
+#: app/core/src/FES/FormBuilder.php:1007 app/features/events.php:2992
+#: app/features/mec/settings.php:1004 app/features/mec/settings.php:1325
 msgid "Featured Image"
 msgstr "Resim Seç"
 
@@ -959,7 +965,7 @@ msgid "Remove Image"
 msgstr "Resmi Kaldır"
 
 #: app/core/src/FES/FormBuilder.php:1043 app/features/events.php:222
-#: app/features/events.php:2572 app/features/events.php:2983
+#: app/features/events.php:2583 app/features/events.php:2994
 #: app/features/mec.php:560 app/features/mec/meta_boxes/filter.php:65
 #: app/features/mec/meta_boxes/filter.php:77 app/libraries/main.php:7730
 #: app/libraries/main.php:7793
@@ -980,7 +986,7 @@ msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:1105
 #: app/core/src/SingleBuilder/Widgets/EventLabels/EventLabels.php:48
-#: app/features/events.php:2982 app/features/labels.php:61
+#: app/features/events.php:2993 app/features/labels.php:61
 #: app/features/labels.php:227 app/features/mec.php:561
 #: app/features/mec/meta_boxes/filter.php:68
 #: app/features/mec/meta_boxes/filter.php:131 app/libraries/main.php:7732
@@ -991,11 +997,11 @@ msgid "Labels"
 msgstr "Etiketler"
 
 #: app/core/src/FES/FormBuilder.php:1145 app/features/colors.php:50
-#: app/features/mec/settings.php:996
+#: app/features/mec/settings.php:1035
 msgid "Event Color"
 msgstr "Etkinlik Rengi"
 
-#: app/core/src/FES/FormBuilder.php:1182 app/features/events.php:2984
+#: app/core/src/FES/FormBuilder.php:1182 app/features/events.php:2995
 #: app/features/mec.php:559 app/features/mec/meta_boxes/filter.php:69
 #: app/features/mec/meta_boxes/filter.php:149 app/features/tag.php:59
 msgid "Tags"
@@ -1017,9 +1023,9 @@ msgstr ""
 msgid "How to set speaker"
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:1237 app/features/events.php:2988
+#: app/core/src/FES/FormBuilder.php:1237 app/features/events.php:2999
 #: app/features/mec.php:568 app/features/mec/modules.php:34
-#: app/features/mec/modules.php:43 app/features/mec/settings.php:1036
+#: app/features/mec/modules.php:43 app/features/mec/settings.php:1075
 #: app/features/popup/settings.php:302 app/features/speakers.php:69
 #: app/libraries/hourlyschedule.php:77 app/libraries/hourlyschedule.php:105
 #: app/libraries/hourlyschedule.php:157 app/libraries/main.php:691
@@ -1029,18 +1035,48 @@ msgid "Speakers"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:1239
-#, fuzzy
-#| msgid "No Search Options"
-msgid "Speaker Name"
-msgstr "Arama Seçenekleri Yok"
+#, fuzzy, php-format
+#| msgid "Last name"
+msgid "%s Name"
+msgstr "Soyadı"
+
+#: app/core/src/FES/FormBuilder.php:1239
+#: app/features/mec/meta_boxes/search_form.php:89
+#: app/features/mec/meta_boxes/search_form.php:178
+#: app/features/mec/meta_boxes/search_form.php:267
+#: app/features/mec/meta_boxes/search_form.php:356
+#: app/features/mec/meta_boxes/search_form.php:444
+#: app/features/mec/meta_boxes/search_form.php:532
+#: app/features/mec/meta_boxes/search_form.php:620
+#: app/features/mec/meta_boxes/search_form.php:702
+#: app/features/mec/meta_boxes/search_form.php:790
+#: app/features/mec/meta_boxes/search_form.php:878
+#: app/features/mec/meta_boxes/search_form.php:1002
+#: app/features/mec/meta_boxes/search_form.php:1090
+#: app/features/mec/settings.php:1414 app/features/mec/single.php:499
+#: app/features/mec/single.php:552 app/features/popup/settings.php:236
+#: app/features/popup/settings.php:275 app/features/search.php:109
+#: app/features/speakers.php:68 app/features/speakers.php:295
+#: app/libraries/main.php:7739 app/libraries/main.php:7802
+#: app/libraries/search.php:334 app/libraries/skins.php:1267
+#: app/modules/speakers/details.php:18
+msgid "Speaker"
+msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:1240
-msgid "Insert name of one speaker: Chris Taylor"
+#, php-format
+msgid "Insert name of one %s: Chris Taylor"
 msgstr ""
+
+#: app/core/src/FES/FormBuilder.php:1240 app/features/speakers.php:355
+#, fuzzy
+#| msgid "No Search Options"
+msgid "speaker"
+msgstr "Arama Seçenekleri Yok"
 
 #: app/core/src/FES/FormBuilder.php:1308 app/features/mec.php:574
 #: app/features/mec/modules.php:58 app/features/mec/modules.php:67
-#: app/features/mec/settings.php:1042 app/features/sponsors.php:59
+#: app/features/mec/settings.php:1081 app/features/sponsors.php:59
 #: app/libraries/main.php:725 app/libraries/main.php:7740
 #: app/modules/sponsors/details.php:21
 msgid "Sponsors"
@@ -1075,7 +1111,7 @@ msgstr ""
 #: app/core/src/FES/FormBuilder.php:1465 app/core/src/FES/FormBuilder.php:1467
 #: app/core/src/FES/FormBuilder.php:1476
 #: app/core/src/SingleBuilder/Widgets/EventLocations/EventLocations.php:54
-#: app/features/events.php:2617 app/features/events.php:2975
+#: app/features/events.php:2628 app/features/events.php:2986
 #: app/features/locations.php:61 app/features/locations.php:270
 #: app/features/mec/meta_boxes/display_options.php:1658
 #: app/features/mec/meta_boxes/search_form.php:74
@@ -1090,8 +1126,8 @@ msgstr ""
 #: app/features/mec/meta_boxes/search_form.php:863
 #: app/features/mec/meta_boxes/search_form.php:987
 #: app/features/mec/meta_boxes/search_form.php:1075
-#: app/features/mec/settings.php:1355 app/features/mec/single.php:480
-#: app/features/mec/single.php:533 app/features/occurrences.php:287
+#: app/features/mec/settings.php:1401 app/features/mec/single.php:494
+#: app/features/mec/single.php:547 app/features/occurrences.php:287
 #: app/features/occurrences.php:289 app/features/occurrences.php:298
 #: app/features/popup/event.php:123 app/features/popup/event.php:131
 #: app/features/popup/settings.php:231 app/features/popup/settings.php:270
@@ -1115,7 +1151,9 @@ msgid "Insert a new location"
 msgstr "Yeni bir konum ekle"
 
 #: app/core/src/FES/FormBuilder.php:1477
-msgid "Choose one of saved locations or insert new one below."
+#, fuzzy
+#| msgid "Choose one of saved locations or insert new one below."
+msgid "Choose one of saved locations or insert a new one."
 msgstr ""
 "Kaydedilen konumlardan birini seçin veya aşağıya yeni bir konum ekleyin."
 
@@ -1129,7 +1167,7 @@ msgstr "Konum İsmi"
 msgid "eg. City Hall"
 msgstr "Örneğin. Visera binası"
 
-#: app/core/src/FES/FormBuilder.php:1488 app/features/mec/settings.php:1008
+#: app/core/src/FES/FormBuilder.php:1488 app/features/mec/settings.php:1047
 #: app/features/popup/event.php:152 app/widgets/single.php:141
 msgid "Event Location"
 msgstr "Etkinlik Konumu"
@@ -1154,13 +1192,11 @@ msgstr "Boylam"
 msgid "Latitude/Longitude"
 msgstr "Boylam"
 
-#: app/core/src/FES/FormBuilder.php:1515 app/features/popup/event.php:161
+#: app/core/src/FES/FormBuilder.php:1515
 msgid ""
-"If you leave the latitude and longitude empty, Modern Events Calendar tries "
-"to convert the location address to geopoint, Latitude and Longitude are the "
-"units that represent the coordinates at geographic coordinate system. To "
-"make a search, use the name of a place, city, state, or address, or click "
-"the location on the map to find lat long coordinates."
+"Latitude and Longitude are  parameters that represent the coordinates in the "
+"geographic coordinate system. You can find your venue's Latitude and "
+"Longitude measurments via the link below. "
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:1515 app/features/popup/event.php:161
@@ -1209,9 +1245,9 @@ msgstr ""
 #: app/core/src/FES/FormBuilder.php:1605 app/core/src/FES/FormBuilder.php:1607
 #: app/core/src/FES/FormBuilder.php:1616
 #: app/core/src/SingleBuilder/Widgets/EventOrganizers/EventOrganizers.php:53
-#: app/features/events.php:434 app/features/events.php:2618
-#: app/features/events.php:2977 app/features/events.php:2978
-#: app/features/events.php:2979
+#: app/features/events.php:434 app/features/events.php:2629
+#: app/features/events.php:2988 app/features/events.php:2989
+#: app/features/events.php:2990
 #: app/features/mec/meta_boxes/display_options.php:1659
 #: app/features/mec/meta_boxes/search_form.php:82
 #: app/features/mec/meta_boxes/search_form.php:171
@@ -1225,8 +1261,8 @@ msgstr ""
 #: app/features/mec/meta_boxes/search_form.php:871
 #: app/features/mec/meta_boxes/search_form.php:995
 #: app/features/mec/meta_boxes/search_form.php:1083
-#: app/features/mec/settings.php:1361 app/features/mec/single.php:476
-#: app/features/mec/single.php:529 app/features/occurrences.php:317
+#: app/features/mec/settings.php:1407 app/features/mec/single.php:490
+#: app/features/mec/single.php:543 app/features/occurrences.php:317
 #: app/features/occurrences.php:319 app/features/occurrences.php:328
 #: app/features/organizers.php:61 app/features/organizers.php:226
 #: app/features/popup/event.php:172 app/features/popup/event.php:180
@@ -1249,9 +1285,10 @@ msgstr "Organizatörü gizle"
 msgid "Insert a new organizer"
 msgstr "Yeni organizatör ekle"
 
-#: app/core/src/FES/FormBuilder.php:1617 app/features/occurrences.php:329
-#: app/features/popup/event.php:181
-msgid "Choose one of saved organizers or insert new one below."
+#: app/core/src/FES/FormBuilder.php:1617
+#, fuzzy
+#| msgid "Choose one of saved organizers or insert new one below."
+msgid "Choose one of the saved organizers or insert a new one."
 msgstr ""
 "Kayıtlı organizatörlerden birini seçin veya aşağıdaki kutudan yenisini "
 "ekleyin."
@@ -1334,8 +1371,8 @@ msgstr "Sırala"
 #: app/core/src/Forms/FormFields.php:374 app/core/src/Forms/FormFields.php:406
 #: app/core/src/Forms/FormFields.php:452 app/core/src/Forms/FormFields.php:505
 #: app/core/src/Forms/FormFields.php:554 app/core/src/Forms/FormFields.php:597
-#: app/features/mec/booking.php:661 app/features/mec/booking.php:691
-#: app/features/mec/booking.php:759 app/features/mec/booking.php:791
+#: app/features/mec/booking.php:682 app/features/mec/booking.php:712
+#: app/features/mec/booking.php:780 app/features/mec/booking.php:812
 #: app/libraries/hourlyschedule.php:53 app/libraries/hourlyschedule.php:74
 #: app/libraries/hourlyschedule.php:102 app/libraries/hourlyschedule.php:130
 #: app/libraries/hourlyschedule.php:154 app/libraries/main.php:4102
@@ -1367,8 +1404,8 @@ msgstr "Sınırsız"
 
 #: app/core/src/FES/FormBuilder.php:1747
 msgid ""
-"If you want to set a limit to all tickets, uncheck this checkbox and put a "
-"limitation number."
+"If you want to set a limit to all the tickets, uncheck this checkbox and put "
+"a limitation number for it."
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:1749
@@ -1402,7 +1439,7 @@ msgid "e.g 5"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:1861 app/core/src/FES/FormBuilder.php:1875
-#: app/features/mec/settings.php:1081
+#: app/features/mec/settings.php:1120
 msgid "Book All Occurrences"
 msgstr ""
 
@@ -1421,36 +1458,36 @@ msgstr ""
 msgid "Allow multiple bookings by same email on different dates."
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:1925 app/features/mec/booking.php:145
-#: app/features/mec/settings.php:1087
+#: app/core/src/FES/FormBuilder.php:1925 app/features/mec/booking.php:159
+#: app/features/mec/settings.php:1126
 #, fuzzy
 #| msgid "General Options"
 msgid "Interval Options"
 msgstr "Genel Seçenekler"
 
 #: app/core/src/FES/FormBuilder.php:1927 app/core/src/FES/FormBuilder.php:1932
-#: app/features/mec/booking.php:147 app/features/mec/booking.php:152
+#: app/features/mec/booking.php:161 app/features/mec/booking.php:166
 #, fuzzy
 #| msgid "Booking Form"
 msgid "Show Booking Form Interval"
 msgstr "Rezervasyon Formu"
 
-#: app/core/src/FES/FormBuilder.php:1929 app/features/mec/booking.php:149
+#: app/core/src/FES/FormBuilder.php:1929 app/features/mec/booking.php:163
 msgid "Minutes (e.g 5)"
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:1933 app/features/mec/booking.php:153
+#: app/core/src/FES/FormBuilder.php:1933 app/features/mec/booking.php:167
 msgid ""
-"You can show booking form only at certain times before event start. If you "
-"set this option to 30 then booking form will open only 30 minutes before "
-"starting the event! One day is 1440 minutes."
+"You can show the booking form only at certain times before the event starts. "
+"If you set this option to 30 then the booking form will open only 30 minutes "
+"before starting the event! One day is 1440 minutes."
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:1949
 msgid "Stop selling tickets after first occurrence."
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:1977 app/features/mec/settings.php:1093
+#: app/core/src/FES/FormBuilder.php:1977 app/features/mec/settings.php:1132
 msgid "Automatic Approval"
 msgstr ""
 
@@ -1461,10 +1498,10 @@ msgid "Email Verification"
 msgstr "Eposta Doğrulama"
 
 #: app/core/src/FES/FormBuilder.php:1983 app/core/src/FES/FormBuilder.php:1993
-#: app/features/mec.php:1879 app/features/mec/booking.php:224
-#: app/features/mec/booking.php:291 app/features/mec/booking.php:306
-#: app/features/mec/booking.php:388 app/features/mec/booking.php:1050
-#: app/features/mec/booking.php:1077
+#: app/features/mec.php:1879 app/features/mec/booking.php:238
+#: app/features/mec/booking.php:305 app/features/mec/booking.php:320
+#: app/features/mec/booking.php:402 app/features/mec/booking.php:1071
+#: app/features/mec/booking.php:1098
 #: app/features/mec/meta_boxes/search_form.php:68
 #: app/features/mec/meta_boxes/search_form.php:76
 #: app/features/mec/meta_boxes/search_form.php:84
@@ -1596,26 +1633,26 @@ msgstr "Eposta Doğrulama"
 #: app/features/mec/meta_boxes/search_form.php:1128
 #: app/features/mec/meta_boxes/search_form.php:1135
 #: app/features/mec/modules.php:140 app/features/mec/settings.php:103
-#: app/features/mec/settings.php:554 app/features/popup/settings.php:362
+#: app/features/mec/settings.php:572 app/features/popup/settings.php:362
 msgid "Disabled"
 msgstr "Devre Dışı Bırak"
 
 #: app/core/src/FES/FormBuilder.php:1984 app/core/src/FES/FormBuilder.php:1994
-#: app/features/mec/booking.php:223 app/features/mec/booking.php:290
-#: app/features/mec/booking.php:307 app/features/mec/booking.php:1049
-#: app/features/mec/booking.php:1078 app/features/mec/modules.php:180
+#: app/features/mec/booking.php:237 app/features/mec/booking.php:304
+#: app/features/mec/booking.php:321 app/features/mec/booking.php:1070
+#: app/features/mec/booking.php:1099 app/features/mec/modules.php:180
 #: app/features/mec/settings.php:104 app/features/popup/settings.php:361
 msgid "Enabled"
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:1989 app/features/mec/booking.php:549
+#: app/core/src/FES/FormBuilder.php:1989 app/features/mec/booking.php:570
 #: app/features/mec/notifications.php:377 app/features/notifications.php:108
 #: app/libraries/main.php:710
 msgid "Booking Confirmation"
 msgstr "Rezervasyon Onayı"
 
-#: app/core/src/FES/FormBuilder.php:2029 app/features/mec/booking.php:326
-#: app/features/mec/settings.php:1105
+#: app/core/src/FES/FormBuilder.php:2029 app/features/mec/booking.php:340
+#: app/features/mec/settings.php:1144
 #, fuzzy
 #| msgid "Ticket"
 msgid "Last Few Tickets Percentage"
@@ -1626,38 +1663,37 @@ msgid "15"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2074 app/core/src/FES/FormBuilder.php:2091
-#: app/core/src/FES/FormBuilder.php:2101 app/features/mec/booking.php:333
-#: app/features/mec/booking.php:335 app/features/mec/booking.php:345
-#: app/features/mec/settings.php:803 app/features/mec/settings.php:813
-#: app/features/mec/settings.php:1111
+#: app/core/src/FES/FormBuilder.php:2101 app/features/mec/booking.php:347
+#: app/features/mec/booking.php:349 app/features/mec/booking.php:359
+#: app/features/mec/settings.php:842 app/features/mec/settings.php:852
+#: app/features/mec/settings.php:1150
 msgid "Thank You Page"
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:2102 app/features/mec/booking.php:346
+#: app/core/src/FES/FormBuilder.php:2102
 msgid ""
 "User redirects to this page after booking. Leave it empty if you want to "
 "disable it."
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2109 app/core/src/FES/FormBuilder.php:2114
-#: app/features/mec/booking.php:353 app/features/mec/booking.php:358
-#: app/features/mec/settings.php:836 app/features/mec/settings.php:841
+#: app/features/mec/booking.php:367 app/features/mec/booking.php:372
+#: app/features/mec/settings.php:875 app/features/mec/settings.php:880
 msgid "Thank You Page Time Interval"
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:2111 app/features/mec/booking.php:355
-#: app/features/mec/settings.php:838
+#: app/core/src/FES/FormBuilder.php:2111 app/features/mec/booking.php:369
+#: app/features/mec/settings.php:877
 msgid "2000 mean 2 seconds"
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:2115 app/features/mec/booking.php:359
-#: app/features/mec/settings.php:842
+#: app/core/src/FES/FormBuilder.php:2115
 msgid ""
 "Waiting time before redirecting to thank you page. It's in miliseconds so "
 "2000 means 2 seconds."
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:2150 app/features/mec/settings.php:1117
+#: app/core/src/FES/FormBuilder.php:2150 app/features/mec/settings.php:1156
 #, fuzzy
 msgid "Booking Button Label"
 msgstr "Şekillendirme Seçenekleri"
@@ -1669,7 +1705,7 @@ msgid "Book Now"
 msgstr "Rezervasyon Formu"
 
 #: app/core/src/FES/FormBuilder.php:2183 app/features/events.php:1527
-#: app/features/mec/settings.php:1099
+#: app/features/mec/settings.php:1138
 #, fuzzy
 #| msgid "Total booking limits"
 msgid "Total User Booking Limits"
@@ -1706,19 +1742,19 @@ msgid "Fees"
 msgstr "Ücretler"
 
 #: app/core/src/FES/FormBuilder.php:2352 app/core/src/FES/FormBuilder.php:2391
-#: app/features/mec/booking.php:640 app/features/mec/booking.php:670
+#: app/features/mec/booking.php:661 app/features/mec/booking.php:691
 msgid "Fee Title"
 msgstr "Ücret Başlığı"
 
 #: app/core/src/FES/FormBuilder.php:2358 app/core/src/FES/FormBuilder.php:2362
 #: app/core/src/FES/FormBuilder.php:2396 app/core/src/FES/FormBuilder.php:2399
-#: app/features/mec/booking.php:644 app/features/mec/booking.php:647
-#: app/features/mec/booking.php:674 app/features/mec/booking.php:677
+#: app/features/mec/booking.php:665 app/features/mec/booking.php:668
+#: app/features/mec/booking.php:695 app/features/mec/booking.php:698
 msgid "Amount"
 msgstr "Tutar"
 
 #: app/core/src/FES/FormBuilder.php:2363 app/core/src/FES/FormBuilder.php:2400
-#: app/features/mec/booking.php:648 app/features/mec/booking.php:678
+#: app/features/mec/booking.php:669 app/features/mec/booking.php:699
 msgid ""
 "Fee amount, considered as fixed amount if you set the type to amount "
 "otherwise considered as percentage"
@@ -1727,28 +1763,28 @@ msgstr ""
 "tutar olarak kabul edilir."
 
 #: app/core/src/FES/FormBuilder.php:2372 app/core/src/FES/FormBuilder.php:2409
-#: app/features/mec/booking.php:655 app/features/mec/booking.php:685
+#: app/features/mec/booking.php:676 app/features/mec/booking.php:706
 msgid "Percent"
 msgstr "Yüzde"
 
 #: app/core/src/FES/FormBuilder.php:2373 app/core/src/FES/FormBuilder.php:2410
-#: app/features/mec/booking.php:656 app/features/mec/booking.php:686
+#: app/features/mec/booking.php:677 app/features/mec/booking.php:707
 msgid "Amount (Per Ticket)"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2374 app/core/src/FES/FormBuilder.php:2411
-#: app/features/mec/booking.php:657 app/features/mec/booking.php:687
+#: app/features/mec/booking.php:678 app/features/mec/booking.php:708
 msgid "Amount (Per Date)"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2375 app/core/src/FES/FormBuilder.php:2412
-#: app/features/mec/booking.php:658 app/features/mec/booking.php:688
+#: app/features/mec/booking.php:679 app/features/mec/booking.php:709
 msgid "Amount (Per Booking)"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2490 app/features/contextual.php:62
-#: app/features/events.php:1535 app/features/mec/booking.php:806
-#: app/features/mec/booking.php:1082 app/features/mec/settings.php:1135
+#: app/features/events.php:1535 app/features/mec/booking.php:827
+#: app/features/mec/booking.php:1103 app/features/mec/settings.php:1174
 #: app/features/mec/support.php:29
 msgid "Booking Form"
 msgstr "Rezervasyon Formu"
@@ -1760,21 +1796,21 @@ msgid ""
 "fields that you defined in the original event here."
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:2519 app/features/mec/booking.php:808
+#: app/core/src/FES/FormBuilder.php:2519 app/features/mec/booking.php:829
 #, fuzzy
 #| msgid "Attendee"
 msgid "Per Attendee Fields"
 msgstr "Katılımcı"
 
 #: app/core/src/FES/FormBuilder.php:2549 app/core/src/Forms/FormFields.php:93
-#: app/features/mec/booking.php:841 app/libraries/main.php:4123
+#: app/features/mec/booking.php:862 app/libraries/main.php:4123
 #, fuzzy
 #| msgid "Name"
 msgid "MEC Name"
 msgstr "İsim"
 
 #: app/core/src/FES/FormBuilder.php:2550 app/core/src/Forms/FormFields.php:158
-#: app/core/src/Forms/SettingsForm.php:83 app/features/mec/booking.php:842
+#: app/core/src/Forms/SettingsForm.php:83 app/features/mec/booking.php:863
 #: app/libraries/main.php:4152
 #, fuzzy
 #| msgid "Email"
@@ -1783,8 +1819,8 @@ msgstr "E-Posta"
 
 #: app/core/src/FES/FormBuilder.php:2551 app/core/src/FES/FormBuilder.php:2640
 #: app/core/src/Forms/FormFields.php:52 app/core/src/Forms/SettingsForm.php:88
-#: app/features/mec/booking.php:843 app/features/mec/booking.php:941
-#: app/features/mec/single.php:306 app/libraries/main.php:4092
+#: app/features/mec/booking.php:864 app/features/mec/booking.php:962
+#: app/features/mec/single.php:320 app/libraries/main.php:4092
 #: app/libraries/skins.php:1441
 msgid "Text"
 msgstr "Metin"
@@ -1793,8 +1829,8 @@ msgstr "Metin"
 #: app/core/src/Forms/FormFields.php:280 app/core/src/Forms/SettingsForm.php:98
 #: app/core/src/SingleBuilder/Widgets/EventDate/EventDate.php:47
 #: app/features/events.php:1396 app/features/fes.php:297
-#: app/features/mec/booking.php:845 app/features/mec/booking.php:943
-#: app/features/mec/single.php:309 app/features/profile/profile.php:59
+#: app/features/mec/booking.php:866 app/features/mec/booking.php:964
+#: app/features/mec/single.php:323 app/features/profile/profile.php:59
 #: app/features/wc.php:89 app/libraries/main.php:4273
 #: app/libraries/skins.php:1353 app/modules/booking/steps/tickets.php:154
 #: app/modules/next-event/details.php:145 app/skins/single.php:1215
@@ -1805,8 +1841,8 @@ msgstr "Tarih"
 
 #: app/core/src/FES/FormBuilder.php:2554 app/core/src/FES/FormBuilder.php:2643
 #: app/core/src/Forms/FormFields.php:311
-#: app/core/src/Forms/SettingsForm.php:103 app/features/mec/booking.php:846
-#: app/features/mec/booking.php:944 app/features/mec/single.php:310
+#: app/core/src/Forms/SettingsForm.php:103 app/features/mec/booking.php:867
+#: app/features/mec/booking.php:965 app/features/mec/single.php:324
 #: app/features/organizers.php:108 app/features/organizers.php:161
 #: app/features/speakers.php:129 app/features/speakers.php:210
 #: app/features/speakers.php:297 app/libraries/main.php:4304
@@ -1814,31 +1850,31 @@ msgid "Tel"
 msgstr "Tel"
 
 #: app/core/src/FES/FormBuilder.php:2555 app/core/src/Forms/FormFields.php:250
-#: app/core/src/Forms/SettingsForm.php:108 app/features/mec/booking.php:847
+#: app/core/src/Forms/SettingsForm.php:108 app/features/mec/booking.php:868
 #: app/libraries/main.php:4243
 msgid "File"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2556 app/core/src/FES/FormBuilder.php:2644
 #: app/core/src/Forms/FormFields.php:342
-#: app/core/src/Forms/SettingsForm.php:113 app/features/mec/booking.php:848
-#: app/features/mec/booking.php:945 app/features/mec/single.php:311
+#: app/core/src/Forms/SettingsForm.php:113 app/features/mec/booking.php:869
+#: app/features/mec/booking.php:966 app/features/mec/single.php:325
 #: app/libraries/main.php:4335
 msgid "Textarea"
 msgstr "Metin Alanı"
 
 #: app/core/src/FES/FormBuilder.php:2557 app/core/src/FES/FormBuilder.php:2645
 #: app/core/src/Forms/FormFields.php:397
-#: app/core/src/Forms/SettingsForm.php:118 app/features/mec/booking.php:131
-#: app/features/mec/booking.php:849 app/features/mec/booking.php:946
-#: app/features/mec/single.php:313 app/libraries/main.php:4397
+#: app/core/src/Forms/SettingsForm.php:118 app/features/mec/booking.php:138
+#: app/features/mec/booking.php:870 app/features/mec/booking.php:967
+#: app/features/mec/single.php:327 app/libraries/main.php:4397
 msgid "Checkboxes"
 msgstr "Onay kutuları"
 
 #: app/core/src/FES/FormBuilder.php:2558 app/core/src/FES/FormBuilder.php:2646
 #: app/core/src/Forms/FormFields.php:443
-#: app/core/src/Forms/SettingsForm.php:123 app/features/mec/booking.php:850
-#: app/features/mec/booking.php:947 app/features/mec/single.php:314
+#: app/core/src/Forms/SettingsForm.php:123 app/features/mec/booking.php:871
+#: app/features/mec/booking.php:968 app/features/mec/single.php:328
 #: app/libraries/main.php:4445
 msgid "Radio Buttons"
 msgstr "Radyo Düğmeleri"
@@ -1846,8 +1882,8 @@ msgstr "Radyo Düğmeleri"
 #: app/core/src/FES/FormBuilder.php:2559 app/core/src/FES/FormBuilder.php:2647
 #: app/core/src/Forms/FormFields.php:489
 #: app/core/src/Forms/SettingsForm.php:128 app/features/mec.php:1885
-#: app/features/mec/booking.php:129 app/features/mec/booking.php:851
-#: app/features/mec/booking.php:948
+#: app/features/mec/booking.php:136 app/features/mec/booking.php:872
+#: app/features/mec/booking.php:969
 #: app/features/mec/meta_boxes/search_form.php:69
 #: app/features/mec/meta_boxes/search_form.php:77
 #: app/features/mec/meta_boxes/search_form.php:85
@@ -1928,39 +1964,39 @@ msgstr "Radyo Düğmeleri"
 #: app/features/mec/meta_boxes/search_form.php:1100
 #: app/features/mec/meta_boxes/search_form.php:1107
 #: app/features/mec/meta_boxes/search_form.php:1129
-#: app/features/mec/single.php:315 app/features/popup/settings.php:352
+#: app/features/mec/single.php:329 app/features/popup/settings.php:352
 #: app/libraries/main.php:4493
 msgid "Dropdown"
 msgstr "Açılır"
 
 #: app/core/src/FES/FormBuilder.php:2560 app/core/src/FES/FormBuilder.php:2648
 #: app/core/src/Forms/FormFields.php:545
-#: app/core/src/Forms/SettingsForm.php:133 app/features/mec/booking.php:852
-#: app/features/mec/booking.php:949 app/libraries/main.php:4551
+#: app/core/src/Forms/SettingsForm.php:133 app/features/mec/booking.php:873
+#: app/features/mec/booking.php:970 app/libraries/main.php:4551
 msgid "Agreement"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2561 app/core/src/FES/FormBuilder.php:2649
 #: app/core/src/Forms/FormFields.php:373
-#: app/core/src/Forms/SettingsForm.php:138 app/features/mec/booking.php:853
-#: app/features/mec/booking.php:950 app/features/mec/settings.php:371
-#: app/features/mec/single.php:312 app/libraries/main.php:4373
+#: app/core/src/Forms/SettingsForm.php:138 app/features/mec/booking.php:874
+#: app/features/mec/booking.php:971 app/features/mec/settings.php:389
+#: app/features/mec/single.php:326 app/libraries/main.php:4373
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: app/core/src/FES/FormBuilder.php:2610 app/features/mec/booking.php:906
+#: app/core/src/FES/FormBuilder.php:2610 app/features/mec/booking.php:927
 #, fuzzy
 #| msgid "Required Field"
 msgid "Fixed Fields"
 msgstr "Gerekli Alan"
 
 #: app/core/src/FES/FormBuilder.php:2729 app/features/events.php:1533
-#: app/features/mec/settings.php:1147
+#: app/features/mec/settings.php:1186
 msgid "Ticket Variations / Options"
 msgstr ""
 
-#: app/core/src/FES/FormBuilder.php:2805 app/features/events.php:3617
-#: app/features/mec/settings.php:1153 app/features/profile/profile.php:65
+#: app/core/src/FES/FormBuilder.php:2805 app/features/events.php:3628
+#: app/features/mec/settings.php:1192 app/features/profile/profile.php:65
 #: app/libraries/main.php:3057 app/libraries/main.php:3366
 msgid "Attendees"
 msgstr ""
@@ -2014,7 +2050,7 @@ msgid "Ticket ID"
 msgstr "Bilet"
 
 #: app/core/src/FES/FormBuilder.php:2955 app/core/src/FES/FormBuilder.php:3241
-#: app/features/events.php:2967 app/features/fes.php:297
+#: app/features/events.php:2978 app/features/fes.php:297
 #: app/features/labels.php:183 app/features/locations.php:269
 #: app/features/organizers.php:225 app/features/speakers.php:294
 msgid "ID"
@@ -2025,17 +2061,17 @@ msgid "Ticket Name"
 msgstr "Bilet Adı"
 
 #: app/core/src/FES/FormBuilder.php:2967 app/core/src/FES/FormBuilder.php:3250
-#: app/features/events.php:2971 app/libraries/skins.php:1434
+#: app/features/events.php:2982 app/libraries/skins.php:1434
 msgid "Start Time"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2981 app/core/src/FES/FormBuilder.php:3264
-#: app/features/events.php:2973 app/libraries/skins.php:1435
+#: app/features/events.php:2984 app/libraries/skins.php:1435
 msgid "End Time"
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:2999 app/core/src/FES/FormBuilder.php:3280
-#: app/core/src/FES/FormBuilder.php:3538 app/features/events.php:2969
+#: app/core/src/FES/FormBuilder.php:3538 app/features/events.php:2980
 #: app/libraries/hourlyschedule.php:72 app/libraries/hourlyschedule.php:100
 #: app/libraries/hourlyschedule.php:152
 msgid "Description"
@@ -2043,7 +2079,7 @@ msgstr "Açıklama"
 
 #: app/core/src/FES/FormBuilder.php:3005 app/core/src/FES/FormBuilder.php:3008
 #: app/core/src/FES/FormBuilder.php:3285 app/core/src/FES/FormBuilder.php:3288
-#: app/features/mec/settings.php:1129
+#: app/features/mec/settings.php:1168
 #, fuzzy
 #| msgid "Description"
 msgid "Private Description"
@@ -2052,16 +2088,16 @@ msgstr "Açıklama"
 #: app/core/src/FES/FormBuilder.php:3009 app/core/src/FES/FormBuilder.php:3289
 #, php-format
 msgid ""
-"You can show it on the email notifications by placing "
-"%%ticket_private_description%% into the email template."
+"The value can be displayed on the email notifications by placing the "
+"%%ticket_private_description%% placeholder into the email content."
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:3018 app/core/src/FES/FormBuilder.php:3022
 #: app/core/src/FES/FormBuilder.php:3139 app/core/src/FES/FormBuilder.php:3166
 #: app/core/src/FES/FormBuilder.php:3297 app/core/src/FES/FormBuilder.php:3300
-#: app/core/src/FES/FormBuilder.php:3400 app/features/events.php:3623
-#: app/features/mec/booking.php:740 app/features/mec/booking.php:743
-#: app/features/mec/booking.php:772 app/features/mec/booking.php:775
+#: app/core/src/FES/FormBuilder.php:3400 app/features/events.php:3634
+#: app/features/mec/booking.php:761 app/features/mec/booking.php:764
+#: app/features/mec/booking.php:793 app/features/mec/booking.php:796
 #: app/features/occurrences.php:359 app/libraries/ticketVariations.php:43
 #: app/libraries/ticketVariations.php:46
 #: app/modules/booking/steps/checkout.php:76
@@ -2072,8 +2108,8 @@ msgstr "Fiyat"
 #, fuzzy
 #| msgid "Insert 0 for free ticket. Only numbers please."
 msgid ""
-"Insert 0 for free ticket. Only numbers please — Enter only the price without "
-"any symbols or characters."
+"Only numbers are allowed; Enter only the price without any symbols or "
+"characters. Enter 0 for free tickets."
 msgstr "Ücretsiz bilet için 0 girin. Sadece sayı lütfen."
 
 #: app/core/src/FES/FormBuilder.php:3032 app/core/src/FES/FormBuilder.php:3037
@@ -2083,8 +2119,10 @@ msgid "Price Label"
 msgstr "Fiyat Etiketi"
 
 #: app/core/src/FES/FormBuilder.php:3038 app/core/src/FES/FormBuilder.php:3313
-msgid "For showing on website. e.g. $15"
-msgstr "Web sitesinde göster. Örneğin. 15$"
+msgid ""
+"How shoould the price  be displayed in the booking module? Here you can "
+"insert the price with a currency symbol. e.g. $16"
+msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:3049 app/core/src/FES/FormBuilder.php:3324
 msgid "Available Tickets"
@@ -2103,7 +2141,7 @@ msgid "Minimum Ticket"
 msgstr "Maksimum etkinlikler"
 
 #: app/core/src/FES/FormBuilder.php:3073 app/core/src/FES/FormBuilder.php:3341
-msgid "Set a number for the minimum tickets that a user can book"
+msgid "The minimum number of tickets  a user needs to book."
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:3080 app/core/src/FES/FormBuilder.php:3348
@@ -2119,7 +2157,7 @@ msgid "Maximum Ticket"
 msgstr "Maksimum etkinlikler"
 
 #: app/core/src/FES/FormBuilder.php:3085 app/core/src/FES/FormBuilder.php:3353
-msgid "Set a number for the maximum tickets that a user can book"
+msgid "The maximum number of tickets a user can book."
 msgstr ""
 
 #: app/core/src/FES/FormBuilder.php:3094 app/core/src/FES/FormBuilder.php:3362
@@ -2163,8 +2201,8 @@ msgstr "Fiyat Etiketi"
 #: app/features/mec/meta_boxes/search_form.php:892
 #: app/features/mec/meta_boxes/search_form.php:1016
 #: app/features/mec/meta_boxes/search_form.php:1104
-#: app/features/mec/settings.php:1287 app/features/mec/settings.php:1381
-#: app/features/mec/single.php:490 app/features/mec/single.php:543
+#: app/features/mec/settings.php:1326 app/features/mec/settings.php:1427
+#: app/features/mec/single.php:504 app/features/mec/single.php:557
 #: app/features/popup/settings.php:241 app/features/popup/settings.php:280
 #: app/features/search.php:121 app/libraries/search.php:374
 #: app/libraries/skins.php:1324
@@ -2198,7 +2236,7 @@ msgid "Remove File"
 msgstr "Resmi Kaldır"
 
 #: app/core/src/FES/FormBuilder.php:3614 app/features/events.php:1540
-#: app/features/mec/booking.php:511 app/features/mec/settings.php:1176
+#: app/features/mec/booking.php:532 app/features/mec/settings.php:1215
 #, fuzzy
 #| msgid "Settings"
 msgid "Downloadable File"
@@ -2207,7 +2245,7 @@ msgstr "Ayarlar"
 #: app/core/src/FES/FormBuilder.php:3659
 #: app/features/mec/meta_boxes/filter.php:71
 #: app/features/mec/meta_boxes/filter.php:178
-#: app/features/mec/settings.php:1194 app/features/occurrences.php:74
+#: app/features/mec/settings.php:1233 app/features/occurrences.php:74
 #, fuzzy
 #| msgid "Occurrences times"
 msgid "Occurrences"
@@ -2299,7 +2337,7 @@ msgstr "İsim"
 msgid "MEC Last Name"
 msgstr "İsim"
 
-#: app/core/src/Forms/FormFields.php:219 app/features/mec/single.php:308
+#: app/core/src/Forms/FormFields.php:219 app/features/mec/single.php:322
 #: app/libraries/main.php:4212
 msgid "URL"
 msgstr ""
@@ -2328,7 +2366,7 @@ msgstr ""
 msgid "Instead of %s, the page title with a link will be show."
 msgstr ""
 
-#: app/core/src/Forms/FormFields.php:559 app/features/mec/settings.php:1262
+#: app/core/src/Forms/FormFields.php:559 app/features/mec/settings.php:1301
 #: app/libraries/main.php:4566
 msgid "Agreement Page"
 msgstr ""
@@ -2350,7 +2388,7 @@ msgstr ""
 msgid "Insert a label for this option"
 msgstr "Bu seçenek için bir etiket ekleyin"
 
-#: app/core/src/Forms/FormFields.php:606 app/libraries/main.php:9406
+#: app/core/src/Forms/FormFields.php:606 app/libraries/main.php:9431
 msgid "Mapping with Profile Fields"
 msgstr ""
 
@@ -2406,9 +2444,7 @@ msgstr ""
 #: app/features/mec/notifications.php:1473
 #: app/features/mec/notifications.php:1590
 #: app/features/mec/notifications.php:1712
-msgid ""
-"Select users (or insert user IDs comma separated) to send a copy of email to "
-"them!"
+msgid "Select users to send a copy of this email to them."
 msgstr ""
 
 #: app/core/src/Notifications/template-notification-settings.php:67
@@ -2448,7 +2484,7 @@ msgstr ""
 #: app/features/mec/notifications.php:1494
 #: app/features/mec/notifications.php:1611
 #: app/features/mec/notifications.php:1733
-msgid "Select users a specific role."
+msgid "Select a user role to send a copy of this email to them."
 msgstr ""
 
 #: app/core/src/Notifications/template-notification-settings.php:87
@@ -2490,7 +2526,9 @@ msgstr "Özel Alıcılar"
 #: app/features/mec/notifications.php:1511
 #: app/features/mec/notifications.php:1628
 #: app/features/mec/notifications.php:1750
-msgid "Insert comma separated emails for multiple recipients."
+#, fuzzy
+#| msgid "Insert comma separated emails for multiple recipients."
+msgid "Insert the comma separated email addresses for multiple recipients."
 msgstr "Birden fazla alıcıya virgülle ayrılmış e-postalar ekleyin."
 
 #: app/core/src/Notifications/template-notification-settings.php:104
@@ -2607,7 +2645,7 @@ msgid "How to set category"
 msgstr ""
 
 #: app/core/src/SingleBuilder/Widgets/EventCategories/EventCategories.php:47
-#: app/features/events.php:221 app/features/events.php:2616
+#: app/features/events.php:221 app/features/events.php:2627
 #: app/features/mec/meta_boxes/display_options.php:1656
 #: app/features/mec/meta_boxes/search_form.php:66
 #: app/features/mec/meta_boxes/search_form.php:155
@@ -2621,8 +2659,8 @@ msgstr ""
 #: app/features/mec/meta_boxes/search_form.php:855
 #: app/features/mec/meta_boxes/search_form.php:979
 #: app/features/mec/meta_boxes/search_form.php:1067
-#: app/features/mec/settings.php:1285 app/features/mec/settings.php:1349
-#: app/features/mec/single.php:472 app/features/mec/single.php:525
+#: app/features/mec/settings.php:1324 app/features/mec/settings.php:1395
+#: app/features/mec/single.php:486 app/features/mec/single.php:539
 #: app/features/popup/settings.php:223 app/features/popup/settings.php:262
 #: app/features/search.php:91 app/libraries/main.php:7731
 #: app/libraries/main.php:7794 app/libraries/search.php:256
@@ -3051,8 +3089,8 @@ msgstr "Varsayılan Görünüm"
 msgid "Go to events page"
 msgstr "Etkinlik sayfasında Google Maps'i gösterin."
 
-#: app/features/cart/cart.php:43 app/features/events.php:3620
-#: app/features/fes.php:297 app/features/mec/booking.php:365
+#: app/features/cart/cart.php:43 app/features/events.php:3631
+#: app/features/fes.php:297 app/features/mec/booking.php:379
 #: app/features/wc.php:91 app/libraries/main.php:3023
 #: app/libraries/main.php:3160 app/libraries/main.php:3270
 #: app/libraries/main.php:3471
@@ -3101,7 +3139,7 @@ msgstr "Ücretsiz"
 
 #: app/features/cart/checkout.php:131 app/features/contextual.php:296
 #: app/features/events.php:400 app/features/mec/booking.php:92
-#: app/features/mec/integrations.php:363 app/features/mec/notifications.php:45
+#: app/features/mec/integrations.php:349 app/features/mec/notifications.php:45
 #: app/features/mec/support-page.php:147 app/features/mec/support-page.php:151
 #: app/libraries/main.php:679 app/libraries/main.php:680
 #: app/libraries/main.php:684 app/libraries/main.php:709
@@ -3141,7 +3179,7 @@ msgid ""
 msgstr ""
 
 #: app/features/contextual.php:70 app/features/events.php:1543
-#: app/features/mec/booking.php:1018 app/features/mec/support-page.php:152
+#: app/features/mec/booking.php:1039 app/features/mec/support-page.php:152
 #: app/features/mec/support.php:36 app/libraries/main.php:687
 msgid "Payment Gateways"
 msgstr "Ödeme Ağ Geçitleri"
@@ -3222,7 +3260,7 @@ msgstr ""
 msgid "General Options"
 msgstr "Genel Seçenekler"
 
-#: app/features/contextual.php:139 app/features/mec/settings.php:570
+#: app/features/contextual.php:139 app/features/mec/settings.php:588
 #: app/libraries/main.php:642
 msgid "Slugs/Permalinks"
 msgstr "Slugs/Permalinks"
@@ -3243,7 +3281,7 @@ msgstr "Google Recaptcha Seçenekleri"
 msgid "Countdown Options"
 msgstr "Geri Sayım Seçenekleri"
 
-#: app/features/contextual.php:256 app/features/mec/modules.php:300
+#: app/features/contextual.php:256 app/features/mec/modules.php:301
 #: app/libraries/main.php:697
 msgid "Social Networks"
 msgstr "Sosyal Ağlar"
@@ -3252,7 +3290,7 @@ msgstr "Sosyal Ağlar"
 msgid "Next Event Module"
 msgstr ""
 
-#: app/features/contextual.php:274 app/features/mec/settings.php:737
+#: app/features/contextual.php:274 app/features/mec/settings.php:769
 #: app/features/mec/support-page.php:135 app/libraries/main.php:646
 msgid "Frontend Event Submission"
 msgstr "Geliştiriciye Etkinlik Gönder"
@@ -3263,8 +3301,8 @@ msgstr "Geliştiriciye Etkinlik Gönder"
 msgid "Exceptional Days"
 msgstr "Son Kullanma Tarihi"
 
-#: app/features/contextual.php:306 app/features/mec/booking.php:603
-#: app/features/mec/booking.php:1039 app/libraries/main.php:681
+#: app/features/contextual.php:306 app/features/mec/booking.php:624
+#: app/features/mec/booking.php:1060 app/libraries/main.php:681
 msgid "Coupons"
 msgstr "Kuponlar"
 
@@ -3272,7 +3310,7 @@ msgstr "Kuponlar"
 msgid "BuddyPress Integration"
 msgstr ""
 
-#: app/features/contextual.php:322 app/features/mec/settings.php:1395
+#: app/features/contextual.php:322 app/features/mec/settings.php:1441
 msgid "Mailchimp Integration"
 msgstr ""
 
@@ -3310,11 +3348,11 @@ msgstr "E-Posta"
 msgid "Time Type"
 msgstr "Ücret Başlığı"
 
-#: app/features/emails/details.php:31 app/features/mec/booking.php:169
+#: app/features/emails/details.php:31 app/features/mec/booking.php:183
 msgid "Day(s)"
 msgstr ""
 
-#: app/features/emails/details.php:32 app/features/mec/booking.php:168
+#: app/features/emails/details.php:32 app/features/mec/booking.php:182
 #, fuzzy
 #| msgid "hours"
 msgid "Hour(s)"
@@ -3332,7 +3370,7 @@ msgstr "dakikalar"
 msgid "After / Before"
 msgstr "Önce $10"
 
-#: app/features/emails/details.php:36 app/features/mec/booking.php:172
+#: app/features/emails/details.php:36 app/features/mec/booking.php:186
 #, fuzzy
 #| msgid "Before $10"
 msgid "Before"
@@ -3491,13 +3529,13 @@ msgstr "Etkinlik Detayları"
 msgid "Date And Time"
 msgstr "Tarih ve Saat"
 
-#: app/features/events.php:429 app/features/mec/single.php:274
+#: app/features/events.php:429 app/features/mec/single.php:288
 #: app/libraries/eventFields.php:45
 #, fuzzy
 msgid "Event Data"
 msgstr "Etkinlik Detayları"
 
-#: app/features/events.php:431 app/features/mec/settings.php:1048
+#: app/features/events.php:431 app/features/mec/settings.php:1087
 #: app/libraries/hourlyschedule.php:36 app/skins/single.php:1589
 msgid "Hourly Schedule"
 msgstr "Saatlik Program"
@@ -3548,19 +3586,26 @@ msgid ""
 "Calendar."
 msgstr ""
 
+#: app/features/events.php:883
+msgid ""
+"Add certain days to event occurrences. If you have a single day event, start "
+"and end dates should be the same, If you have a multi-day event, the "
+"interval between the start and end dates must match the initial date."
+msgstr ""
+
 #: app/features/events.php:1235
 #, fuzzy
 #| msgid ""
 #| "The event will finish after certain repeats. For example if you set it to "
 #| "10, the event will finish after 10 repeats."
 msgid ""
-"The event will finish after certain repeats. For example if you set it to "
-"10, the event will finish after 10 occurrences."
+"The event repeats will stop after certain number of occurences. For example "
+"if you set this option 10, the event will have 10 occurrences."
 msgstr ""
 "Etkinlik, belirli tekrarlardan sonra sona erecek. Örneğin, 10 olarak "
 "ayarlarsanız, etkinlik 10 tekrarlamanın ardından biter."
 
-#: app/features/events.php:1349 app/features/mec/settings.php:650
+#: app/features/events.php:1349 app/features/mec/settings.php:668
 #, fuzzy
 #| msgid "No decimal"
 msgid "Decimals"
@@ -3589,115 +3634,115 @@ msgstr ""
 #| "If you fill it, it will be replaced instead of default event page link. "
 #| "Insert full link including http(s)://"
 msgid ""
-"If you fill it, it will replace the default event page link. Insert full "
-"link including http(s):// - Also, if you use advertising URL, can use URL "
-"Shortener"
+"The value of this option will be replaced by the single event page link on "
+"shortcodes. Insert full link including http(s):// - Also, if you use an "
+"advertising URL, you can use the URL Shortener."
 msgstr "Doldurursanız, Http (s)// dahil olmak üzere tam bağlantıyı ekleyin:"
 
 #: app/features/events.php:1482
 msgid "URL Shortener"
 msgstr ""
 
-#: app/features/events.php:1526 app/features/mec/settings.php:1056
+#: app/features/events.php:1526 app/features/mec/settings.php:1095
 #, fuzzy
 msgid "Booking Options"
 msgstr "Şekillendirme Seçenekleri"
 
-#: app/features/events.php:1537 app/features/mec/booking.php:1113
+#: app/features/events.php:1537 app/features/mec/booking.php:1134
 #: app/features/mec/support-page.php:155
 #, fuzzy
 #| msgid "Organizer Name"
 msgid "Organizer Payment"
 msgstr "Organizatörler İsmi"
 
-#: app/features/events.php:1545 app/features/events.php:3165
+#: app/features/events.php:1545 app/features/events.php:3176
 #: app/features/ix/export.php:59 app/libraries/main.php:7760
 msgid "Bookings"
 msgstr "Rezervasyonlar"
 
-#: app/features/events.php:2493 app/features/mec/meta_boxes/filter.php:193
-#: app/features/mec/settings.php:537
+#: app/features/events.php:2504 app/features/mec/meta_boxes/filter.php:193
+#: app/features/mec/settings.php:555
 msgid "Expired Events"
 msgstr ""
 
-#: app/features/events.php:2494 app/features/mec.php:1416
-#: app/features/mec/dashboard.php:289 app/features/mec/settings.php:536
+#: app/features/events.php:2505 app/features/mec.php:1416
+#: app/features/mec/dashboard.php:289 app/features/mec/settings.php:554
 msgid "Upcoming Events"
 msgstr ""
 
-#: app/features/events.php:2518 app/features/events.php:2536
-#: app/features/events.php:2554 app/features/events.php:2572
+#: app/features/events.php:2529 app/features/events.php:2547
+#: app/features/events.php:2565 app/features/events.php:2583
 #, php-format
 msgid "Show all %s"
 msgstr ""
 
-#: app/features/events.php:2518
+#: app/features/events.php:2529
 msgid "labels"
 msgstr "etiketler"
 
-#: app/features/events.php:2536
+#: app/features/events.php:2547
 msgid "locations"
 msgstr ""
 
-#: app/features/events.php:2554
+#: app/features/events.php:2565
 msgid "organizers"
 msgstr ""
 
-#: app/features/events.php:2588
+#: app/features/events.php:2599
 #, fuzzy
 #| msgid "Attendee"
 msgid "Attendees List"
 msgstr "Katılımcı"
 
-#: app/features/events.php:2623
+#: app/features/events.php:2634
 #, fuzzy
 #| msgid "Tickets"
 msgid "Sold Tickets"
 msgstr "Biletler"
 
-#: app/features/events.php:2625
+#: app/features/events.php:2636
 msgid "Repeat"
 msgstr "Tekrar Et"
 
-#: app/features/events.php:2825 app/features/events.php:2826
+#: app/features/events.php:2836 app/features/events.php:2837
 #, fuzzy
 #| msgid "iCal Export"
 msgid "iCal / Outlook Export"
 msgstr "iCal Çıktısı"
 
-#: app/features/events.php:2828 app/features/events.php:2829
+#: app/features/events.php:2839 app/features/events.php:2840
 msgid "CSV Export"
 msgstr "CSV Çıktısı"
 
-#: app/features/events.php:2831 app/features/events.php:2832
+#: app/features/events.php:2842 app/features/events.php:2843
 #, fuzzy
 #| msgid "Google Maps API"
 msgid "Google Cal. CSV Export"
 msgstr "Google Maps API'sı"
 
-#: app/features/events.php:2834 app/features/events.php:2835
+#: app/features/events.php:2845 app/features/events.php:2846
 msgid "MS Excel Export"
 msgstr "MS Excel Çıktısı"
 
-#: app/features/events.php:2837 app/features/events.php:2838
+#: app/features/events.php:2848 app/features/events.php:2849
 msgid "XML Export"
 msgstr ""
 
-#: app/features/events.php:2840 app/features/events.php:2841
+#: app/features/events.php:2851 app/features/events.php:2852
 msgid "JSON Export"
 msgstr ""
 
-#: app/features/events.php:2843 app/features/events.php:2844
-#: app/features/events.php:3161
+#: app/features/events.php:2854 app/features/events.php:2855
+#: app/features/events.php:3172
 msgid "Duplicate"
 msgstr "İkili"
 
-#: app/features/events.php:2974 app/features/sponsors.php:104
+#: app/features/events.php:2985 app/features/sponsors.php:104
 #: app/features/sponsors.php:133
 msgid "Link"
 msgstr ""
 
-#: app/features/events.php:2976 app/features/locations.php:114
+#: app/features/events.php:2987 app/features/locations.php:114
 #: app/features/locations.php:184 app/features/locations.php:271
 #: app/features/mec/meta_boxes/search_form.php:110
 #: app/features/mec/meta_boxes/search_form.php:199
@@ -3715,58 +3760,58 @@ msgstr ""
 msgid "Address"
 msgstr "Adres"
 
-#: app/features/events.php:2978
+#: app/features/events.php:2989
 #, php-format
 msgid "%s Tel"
 msgstr ""
 
-#: app/features/events.php:2979
+#: app/features/events.php:2990
 #, php-format
 msgid "%s Email"
 msgstr ""
 
-#: app/features/events.php:3328 app/features/fes.php:297
+#: app/features/events.php:3339 app/features/fes.php:297
 #: app/features/profile/profile.php:209 app/libraries/cart.php:64
 #: app/libraries/main.php:3073 app/libraries/main.php:3383
 #: app/libraries/main.php:7766
 msgid "Ticket"
 msgstr "Bilet"
 
-#: app/features/events.php:3331 app/features/profile/profile.php:212
+#: app/features/events.php:3342 app/features/profile/profile.php:212
 #, fuzzy
 #| msgid "Verification"
 msgid "Variations"
 msgstr "Doğrulama"
 
-#: app/features/events.php:3346 app/features/fes.php:373
+#: app/features/events.php:3357 app/features/fes.php:373
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: app/features/events.php:3374
+#: app/features/events.php:3385
 msgid ""
 "If you want to send an email, first select your attendees and then click in "
 "the button below, please."
 msgstr ""
 
-#: app/features/events.php:3374 app/features/mec/report.php:57
+#: app/features/events.php:3385 app/features/mec/report.php:57
 #, fuzzy
 #| msgid "Email"
 msgid "Send Email"
 msgstr "E-Posta"
 
-#: app/features/events.php:3378
+#: app/features/events.php:3389
 #, fuzzy
 #| msgid "Attendees Form"
 msgid "No Attendees Found!"
 msgstr "Katılma Formu"
 
-#: app/features/events.php:3670
+#: app/features/events.php:3681
 #, fuzzy, php-format
 #| msgid "Checkout"
 msgid "for %s dates"
 msgstr "Çıkış Yap"
 
-#: app/features/events.php:3684
+#: app/features/events.php:3695
 #, fuzzy
 #| msgid "No bookings found!"
 msgid "No Bookings Found!"
@@ -4055,8 +4100,8 @@ msgstr ""
 msgid "All seems good! Please click %s to authenticate your app."
 msgstr ""
 
-#: app/features/ix.php:4389 app/features/mec/integrations.php:258
-#: app/features/mec/settings.php:1607
+#: app/features/ix.php:4389 app/features/mec/integrations.php:244
+#: app/features/mec/settings.php:1653
 msgid "here"
 msgstr ""
 
@@ -4188,7 +4233,7 @@ msgstr ""
 msgid "For exporting filtered events, you can use bulk actions in %s page."
 msgstr ""
 
-#: app/features/ix/export.php:43 app/features/mec/settings.php:282
+#: app/features/ix/export.php:43 app/features/mec/settings.php:289
 #, fuzzy
 #| msgid "iCal"
 msgid "iCal Feed"
@@ -4299,10 +4344,10 @@ msgstr "Dışarı Aktar Modülü Seçenekleri"
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: app/features/ix/export_g_calendar.php:106 app/features/mec/booking.php:1309
-#: app/features/mec/integrations.php:469 app/features/mec/modules.php:437
-#: app/features/mec/notifications.php:1952 app/features/mec/settings.php:1722
-#: app/features/mec/single.php:612
+#: app/features/ix/export_g_calendar.php:106 app/features/mec/booking.php:1330
+#: app/features/mec/integrations.php:455 app/features/mec/modules.php:438
+#: app/features/mec/notifications.php:1952 app/features/mec/settings.php:1768
+#: app/features/mec/single.php:626
 msgid "Checking ..."
 msgstr ""
 
@@ -4346,9 +4391,9 @@ msgid "ICS Feed"
 msgstr ""
 
 #: app/features/ix/import.php:58 app/features/ix/import.php:88
-#: app/features/mec/booking.php:95 app/features/mec/booking.php:590
-#: app/features/mec/booking.php:606 app/features/mec/booking.php:624
-#: app/features/mec/booking.php:720
+#: app/features/mec/booking.php:95 app/features/mec/booking.php:611
+#: app/features/mec/booking.php:627 app/features/mec/booking.php:645
+#: app/features/mec/booking.php:741
 #: app/features/mec/meta_boxes/display_options.php:245
 #: app/features/mec/meta_boxes/display_options.php:524
 #: app/features/mec/modules.php:85 app/features/mec/modules.php:242
@@ -4359,8 +4404,8 @@ msgstr ""
 
 #: app/features/ix/import.php:58 app/features/ix/import.php:88
 #: app/features/ix/sync.php:22 app/features/mec/booking.php:95
-#: app/features/mec/booking.php:590 app/features/mec/booking.php:606
-#: app/features/mec/booking.php:624 app/features/mec/booking.php:720
+#: app/features/mec/booking.php:611 app/features/mec/booking.php:627
+#: app/features/mec/booking.php:645 app/features/mec/booking.php:741
 #: app/features/mec/meta_boxes/display_options.php:245
 #: app/features/mec/meta_boxes/display_options.php:524
 #: app/features/mec/meta_boxes/display_options.php:566
@@ -4568,7 +4613,7 @@ msgstr ""
 
 #: app/features/ix/sync.php:34 app/features/ix/sync.php:56
 #: app/features/ix/sync.php:71 app/features/ix/sync.php:84
-#: app/features/mec/modules.php:382 app/features/mec/notifications.php:1260
+#: app/features/mec/modules.php:383 app/features/mec/notifications.php:1260
 #: app/features/mec/notifications.php:1688
 msgid "Important Note"
 msgstr ""
@@ -5200,27 +5245,27 @@ msgstr ""
 msgid "Search..."
 msgstr "Arama Formu"
 
-#: app/features/mec/booking.php:76 app/features/mec/booking.php:956
-#: app/features/mec/booking.php:1153 app/features/mec/booking.php:1234
-#: app/features/mec/booking.php:1244 app/features/mec/booking.php:1326
-#: app/features/mec/booking.php:1340 app/features/mec/integrations.php:24
-#: app/features/mec/integrations.php:415 app/features/mec/integrations.php:425
-#: app/features/mec/integrations.php:486 app/features/mec/integrations.php:500
+#: app/features/mec/booking.php:76 app/features/mec/booking.php:977
+#: app/features/mec/booking.php:1174 app/features/mec/booking.php:1255
+#: app/features/mec/booking.php:1265 app/features/mec/booking.php:1347
+#: app/features/mec/booking.php:1361 app/features/mec/integrations.php:24
+#: app/features/mec/integrations.php:401 app/features/mec/integrations.php:411
+#: app/features/mec/integrations.php:472 app/features/mec/integrations.php:486
 #: app/features/mec/messages.php:20 app/features/mec/messages.php:60
 #: app/features/mec/messages.php:70 app/features/mec/messages.php:112
 #: app/features/mec/messages.php:122 app/features/mec/modules.php:17
-#: app/features/mec/modules.php:389 app/features/mec/modules.php:399
-#: app/features/mec/modules.php:454 app/features/mec/modules.php:468
+#: app/features/mec/modules.php:390 app/features/mec/modules.php:400
+#: app/features/mec/modules.php:455 app/features/mec/modules.php:469
 #: app/features/mec/notifications.php:25
 #: app/features/mec/notifications.php:1874
 #: app/features/mec/notifications.php:1884
 #: app/features/mec/notifications.php:1970
 #: app/features/mec/notifications.php:1984 app/features/mec/settings.php:40
-#: app/features/mec/settings.php:1671 app/features/mec/settings.php:1681
-#: app/features/mec/settings.php:1739 app/features/mec/settings.php:1753
-#: app/features/mec/single.php:25 app/features/mec/single.php:577
-#: app/features/mec/single.php:587 app/features/mec/single.php:629
-#: app/features/mec/single.php:643 app/features/mec/styles.php:11
+#: app/features/mec/settings.php:1717 app/features/mec/settings.php:1727
+#: app/features/mec/settings.php:1785 app/features/mec/settings.php:1799
+#: app/features/mec/single.php:25 app/features/mec/single.php:591
+#: app/features/mec/single.php:601 app/features/mec/single.php:643
+#: app/features/mec/single.php:657 app/features/mec/styles.php:11
 #: app/features/mec/styles.php:32 app/features/mec/styles.php:42
 #: app/features/mec/styles.php:83 app/features/mec/styles.php:92
 #: app/features/mec/styling.php:37 app/features/mec/styling.php:302
@@ -5246,17 +5291,16 @@ msgid "Date Options"
 msgstr "Google Maps Ayarları"
 
 #: app/features/mec/booking.php:107 app/features/mec/booking.php:112
-#: app/features/mec/modules.php:355 app/features/mec/modules.php:360
+#: app/features/mec/modules.php:356 app/features/mec/modules.php:361
 #, fuzzy
 msgid "Date Format"
 msgstr "Zaman Formatı"
 
 #: app/features/mec/booking.php:113
-#, fuzzy
-msgid "Default is Y-m-d"
-msgstr "Varsayılan Görünüm"
+msgid "Specify the date format of the event's date on the booking module."
+msgstr ""
 
-#: app/features/mec/booking.php:120
+#: app/features/mec/booking.php:120 app/features/mec/booking.php:125
 #, fuzzy
 msgid "Maximum Dates"
 msgstr "Maksimum etkinlikler"
@@ -5266,121 +5310,132 @@ msgstr "Maksimum etkinlikler"
 msgid "Default is 6"
 msgstr "Varsayılan Görünüm"
 
-#: app/features/mec/booking.php:126 app/features/popup/settings.php:349
+#: app/features/mec/booking.php:126
+msgid ""
+"Specify the number of dates available in the date selection dropdown menu "
+"for recurring events."
+msgstr ""
+
+#: app/features/mec/booking.php:133 app/features/mec/booking.php:142
+#: app/features/popup/settings.php:349
 #, fuzzy
 #| msgid "Google Maps Options"
 msgid "Date Selection"
 msgstr "Google Maps Ayarları"
 
-#: app/features/mec/booking.php:130 app/features/popup/settings.php:353
+#: app/features/mec/booking.php:137 app/features/popup/settings.php:353
 #, fuzzy
 #| msgid "M.E. Calendar"
 msgid "Calendar"
 msgstr "M.E. Takvim"
 
-#: app/features/mec/booking.php:135 app/features/mec/settings.php:1123
+#: app/features/mec/booking.php:143
+msgid "Specify the type of date selection field in the booking module."
+msgstr ""
+
+#: app/features/mec/booking.php:149 app/features/mec/settings.php:1162
 #, fuzzy
 #| msgid "Verification"
 msgid "Ticket Options"
 msgstr "Doğrulama"
 
-#: app/features/mec/booking.php:137
+#: app/features/mec/booking.php:151
 #, fuzzy
 #| msgid "Ticket Name"
 msgid "Ticket Style"
 msgstr "Bilet Adı"
 
-#: app/features/mec/booking.php:140 app/features/mec/modules.php:129
+#: app/features/mec/booking.php:154 app/features/mec/modules.php:129
 #: app/features/mec/single.php:98
 msgid "Default"
 msgstr "Varsayılan"
 
-#: app/features/mec/booking.php:141
+#: app/features/mec/booking.php:155
 msgid "Row"
 msgstr ""
 
-#: app/features/mec/booking.php:159 app/features/mec/notifications.php:743
+#: app/features/mec/booking.php:173 app/features/mec/notifications.php:743
 #: app/features/notifications.php:117 app/libraries/main.php:713
 #, fuzzy
 #| msgid "Booking cancellation link."
 msgid "Booking Cancellation"
 msgstr "Rezervasyon iptali bağlantısı."
 
-#: app/features/mec/booking.php:161 app/features/mec/booking.php:179
+#: app/features/mec/booking.php:175 app/features/mec/booking.php:193
 #, fuzzy
 #| msgid "Booking cancellation link."
 msgid "Cancellation Period"
 msgstr "Rezervasyon iptali bağlantısı."
 
-#: app/features/mec/booking.php:164
+#: app/features/mec/booking.php:178
 #, fuzzy
 #| msgid "From e.g. 8:15"
 msgid "From e.g 48"
 msgstr "Ör. 8:15"
 
-#: app/features/mec/booking.php:165
+#: app/features/mec/booking.php:179
 #, fuzzy
 #| msgid "To e.g. 8:45"
 msgid "To e.g 24"
 msgstr "Ör. 8:45"
 
-#: app/features/mec/booking.php:167
+#: app/features/mec/booking.php:181
 msgid "Period"
 msgstr ""
 
-#: app/features/mec/booking.php:171
+#: app/features/mec/booking.php:185
 #, fuzzy
 #| msgid "Fee Title"
 msgid "Type"
 msgstr "Ücret Başlığı"
 
-#: app/features/mec/booking.php:176
+#: app/features/mec/booking.php:190
 #, fuzzy
 #| msgid "Start Date"
 msgid "Event Start"
 msgstr "Başlangıç Tarihi"
 
-#: app/features/mec/booking.php:180
+#: app/features/mec/booking.php:194
 msgid ""
-"You can restrict the ability to cancel bookings. Leave empty for "
-"cancellation at any time. For example if you insert 48 to 24 hours before "
-"event start then bookers are able to cancel their booking between this time "
-"and before or after that they're not able to do that."
+"You can restrict the option to cancel bookings. Leave empty for cancellation "
+"at any time. For example if you insert 48 to 24 hours before the event "
+"starts then bookers are able to cancel their booking only on this time "
+"period."
 msgstr ""
 
-#: app/features/mec/booking.php:188 app/features/mec/booking.php:198
+#: app/features/mec/booking.php:202 app/features/mec/booking.php:212
 #, fuzzy
 #| msgid "Booking cancellation link."
 msgid "Cancellation Page"
 msgstr "Rezervasyon iptali bağlantısı."
 
-#: app/features/mec/booking.php:199
+#: app/features/mec/booking.php:213
 msgid ""
-"User redirects to this page after booking cancellation. Leave it empty if "
-"you want to disable it."
+"Users will be redirected to this page after the booking cancellation. Leave "
+"it empty if you are not intrested."
 msgstr ""
 
-#: app/features/mec/booking.php:206 app/features/mec/booking.php:211
+#: app/features/mec/booking.php:220 app/features/mec/booking.php:225
 #, fuzzy
 #| msgid "Booking cancellation link."
 msgid "Cancellation Page Time Interval"
 msgstr "Rezervasyon iptali bağlantısı."
 
-#: app/features/mec/booking.php:208
+#: app/features/mec/booking.php:222
 msgid "2000 means 2 seconds"
 msgstr ""
 
-#: app/features/mec/booking.php:212
+#: app/features/mec/booking.php:226
 msgid ""
-"Waiting time before redirecting to cancellation page. It's in miliseconds so "
-"2000 means 2 seconds."
+"Specify the amount of delay before being redirected to the cancellation "
+"page. (in milliseconds)"
 msgstr ""
 
-#: app/features/mec/booking.php:218
+#: app/features/mec/booking.php:232
 msgid "User Registration"
 msgstr ""
 
-#: app/features/mec/booking.php:220 app/features/mec/booking.php:228
+#: app/features/mec/booking.php:234 app/features/mec/booking.php:242
 #: app/features/popup/settings.php:358 app/features/popup/settings.php:366
 #: app/modules/booking/steps/form.php:369
 #, fuzzy
@@ -5388,48 +5443,48 @@ msgstr ""
 msgid "Registration"
 msgstr "Kayıt Ol"
 
-#: app/features/mec/booking.php:229 app/features/popup/settings.php:367
+#: app/features/mec/booking.php:243
 msgid ""
-"If enabled MEC would create a WordPress User for main attendees. It's "
-"recommended to keep it enabled."
+"By enabaling this option MEC will create a WordPress User for the main "
+"attendee. It's recommended to keep it enabled."
 msgstr ""
 
-#: app/features/mec/booking.php:237 app/features/mec/booking.php:247
+#: app/features/mec/booking.php:251 app/features/mec/booking.php:261
 msgid "User Role"
 msgstr ""
 
-#: app/features/mec/booking.php:248
+#: app/features/mec/booking.php:262
 msgid ""
-"MEC creates a user for main attendee after each booking. Default role of the "
-"user is subscriber but you can change it if needed."
+"MEC creates a user for the main attendee after each booking. The default "
+"role of the user is subscriber but you can change it if needed."
 msgstr ""
 
-#: app/features/mec/booking.php:255 app/features/mec/booking.php:263
+#: app/features/mec/booking.php:269 app/features/mec/booking.php:277
 msgid "Username & Password"
 msgstr ""
 
-#: app/features/mec/booking.php:258
+#: app/features/mec/booking.php:272
 msgid "Auto"
 msgstr ""
 
-#: app/features/mec/booking.php:259
+#: app/features/mec/booking.php:273
 msgid "Manual"
 msgstr ""
 
-#: app/features/mec/booking.php:264
+#: app/features/mec/booking.php:278
 msgid ""
-"If you set it to manual option then users can insert a username and password "
-"during the booking for registration otherwise MEC use their email and an "
-"auto generated password."
+"If you set it to the manual option, users can insert a username and password "
+"during the booking for registration; otherwise, MEC will use their email and "
+"an auto-generated password."
 msgstr ""
 
-#: app/features/mec/booking.php:272
+#: app/features/mec/booking.php:286
 #, fuzzy
 #| msgid "Location"
 msgid "Limitation"
 msgstr "Yer"
 
-#: app/features/mec/booking.php:274
+#: app/features/mec/booking.php:288
 #: app/features/mec/meta_boxes/display_options.php:153
 #: app/features/mec/meta_boxes/display_options.php:442
 #: app/features/mec/meta_boxes/display_options.php:626
@@ -5441,226 +5496,243 @@ msgstr "Yer"
 msgid "Limit"
 msgstr "Sınır"
 
-#: app/features/mec/booking.php:276
+#: app/features/mec/booking.php:290
 #, fuzzy
 msgid "Default is empty"
 msgstr "Varsayılan Görünüm"
 
-#: app/features/mec/booking.php:279
+#: app/features/mec/booking.php:293
 #, fuzzy
 #| msgid "Booking Form"
 msgid "Booking Limit"
 msgstr "Rezervasyon Formu"
 
-#: app/features/mec/booking.php:280
+#: app/features/mec/booking.php:294
 msgid ""
-"Total tickets that a user can book. It is useful if you're providing free "
-"tickets. Leave it empty for unlimited booking."
+"The total number of tickets that a user can book. It is useful if you're "
+"providing free tickets. Leave it empty for an unlimited booking."
 msgstr ""
 
-#: app/features/mec/booking.php:287 app/features/mec/booking.php:295
+#: app/features/mec/booking.php:301 app/features/mec/booking.php:309
 #, fuzzy
 #| msgid "Description"
 msgid "IP restriction"
 msgstr "Açıklama"
 
-#: app/features/mec/booking.php:296
+#: app/features/mec/booking.php:310
 msgid ""
-"If you set limit for total tickets that users can book, MEC will use IP and "
-"email to prevent users to book high tickets. You can disable the IP "
-"restriction if you don't need it."
+"If you set a limit for the total tickets that users can book, MEC will use "
+"the IP and email to prevent users to book high tickets. You can disable the "
+"IP restriction if you don't need it."
 msgstr ""
 
-#: app/features/mec/booking.php:303 app/features/mec/booking.php:312
+#: app/features/mec/booking.php:317 app/features/mec/booking.php:326
 msgid "Lock Pre-filled Fields"
 msgstr ""
 
-#: app/features/mec/booking.php:308
+#: app/features/mec/booking.php:322
 msgid "Enabled Only for Main Attendee"
 msgstr ""
 
-#: app/features/mec/booking.php:313
+#: app/features/mec/booking.php:327
 msgid ""
-"When users are logged in, name and email fields will be pre-filled but users "
-"can change them. If you enable the lock, then logged in users cannot change "
+"When users are logged in, the name and email fields will be pre-filled but "
+"users can change them. If you enable the lock, logged-in users cannot change "
 "the pre-filled fields."
 msgstr ""
 
-#: app/features/mec/booking.php:319
+#: app/features/mec/booking.php:333
 #, fuzzy
 #| msgid "Ticket"
 msgid "Last Few Tickets Flag"
 msgstr "Bilet"
 
-#: app/features/mec/booking.php:321
+#: app/features/mec/booking.php:335
 #, fuzzy
 #| msgid "Percent"
 msgid "Percentage"
 msgstr "Yüzde"
 
-#: app/features/mec/booking.php:323
+#: app/features/mec/booking.php:337
 #, fuzzy
 msgid "Default is 15"
 msgstr "Varsayılan Görünüm"
 
-#: app/features/mec/booking.php:327
+#: app/features/mec/booking.php:341
 msgid ""
-"We will show a \"Last Few Tickets\" flag on events when remained tickets are "
-"less than this percentage."
+"MEC will show the \"Last Few Ticket\" flags on events when the remaning "
+"tickets are less than this percentage."
 msgstr ""
 
-#: app/features/mec/booking.php:367
+#: app/features/mec/booking.php:360
+msgid ""
+"The user will be redirected to this page after a successfull booking. Leave "
+"it empty if you are not intrested."
+msgstr ""
+
+#: app/features/mec/booking.php:373 app/features/mec/settings.php:881
+msgid ""
+"Specify the amount of delay before being redirected to the thank you page. "
+"(in milliseconds)"
+msgstr ""
+
+#: app/features/mec/booking.php:381
 #, fuzzy
 msgid "Generation Method"
 msgstr "Geri Sayım Seçenekleri"
 
-#: app/features/mec/booking.php:370
+#: app/features/mec/booking.php:384
 msgid "Random"
 msgstr ""
 
-#: app/features/mec/booking.php:371
+#: app/features/mec/booking.php:385
 msgid "Ordered Numbers"
 msgstr ""
 
-#: app/features/mec/booking.php:377
+#: app/features/mec/booking.php:391
 #, fuzzy
 #| msgid "Support Forum"
 msgid "Start From"
 msgstr "Destek Forumu"
 
-#: app/features/mec/booking.php:383
+#: app/features/mec/booking.php:397
 #, fuzzy
 #| msgid "Booking Form"
 msgid "Simplify Booking Form"
 msgstr "Rezervasyon Formu"
 
-#: app/features/mec/booking.php:385
+#: app/features/mec/booking.php:399 app/features/mec/booking.php:407
 msgid "Skip Step 1"
 msgstr ""
 
-#: app/features/mec/booking.php:389
+#: app/features/mec/booking.php:403
 msgid "If Possible"
 msgstr ""
 
-#: app/features/mec/booking.php:393
+#: app/features/mec/booking.php:408
+msgid ""
+"If there is no choice for users in the first step of the booking module, "
+"this step will be skipped. In other words, if the event has only one date "
+"and the total user booking limit option is set to one, this step will be "
+"skipped."
+msgstr ""
+
+#: app/features/mec/booking.php:414
 msgid "Who can book?"
 msgstr ""
 
-#: app/features/mec/booking.php:398
+#: app/features/mec/booking.php:419
 #, fuzzy
 #| msgid "All Events"
 msgid "All Users"
 msgstr "Tüm Etkinlikler"
 
-#: app/features/mec/booking.php:414
+#: app/features/mec/booking.php:435
 #, fuzzy
 #| msgid "Book Event"
 msgid "Booking Elements"
 msgstr "Etkinlik Listesi"
 
-#: app/features/mec/booking.php:420
+#: app/features/mec/booking.php:441 app/features/mec/booking.php:445
 msgid "Enable Express Attendees Form"
 msgstr ""
 
-#: app/features/mec/booking.php:424
-msgid "Attendees Form"
-msgstr "Katılma Formu"
-
-#: app/features/mec/booking.php:425
+#: app/features/mec/booking.php:446
 msgid ""
-"Apply the info from the first attendee to all purchased ticket by that user. "
-"Uncheck if you want every ticket to have its own attendee’s info."
+"Apply the info from the first attendee to all the purchased tickets by that "
+"user. Uncheck if you want every ticket to have its own attendee’s info."
 msgstr ""
 
-#: app/features/mec/booking.php:438
+#: app/features/mec/booking.php:459
 #, fuzzy
 #| msgid "Attendees Form"
 msgid "Attendee Counter"
 msgstr "Katılma Formu"
 
-#: app/features/mec/booking.php:449 app/features/mec/booking.php:453
+#: app/features/mec/booking.php:470 app/features/mec/booking.php:474
 #, fuzzy
 #| msgid "Available Tickets"
 msgid "Display Total Tickets"
 msgstr "Mevcut Biletler"
 
-#: app/features/mec/booking.php:454
+#: app/features/mec/booking.php:475
 msgid ""
-"If enabled, total of selected tickets will be displayed next to the booking "
-"button in first step of booking."
+"If enabled, the total number of selected tickets will be displayed next to "
+"the booking button in the  first step of the booking."
 msgstr ""
 
-#: app/features/mec/booking.php:467 app/features/mec/booking.php:471
+#: app/features/mec/booking.php:488 app/features/mec/booking.php:492
 #, fuzzy
 #| msgid "Popular Organizers"
 msgid "Display Progress Bar"
 msgstr "Popüler Organizatörler"
 
-#: app/features/mec/booking.php:472
+#: app/features/mec/booking.php:493
 msgid ""
 "If enabled, a progress bar will be added to the booking module indicating "
-"the current step and next steps. It won't display if there was only 1 step."
+"the current step and the next steps. It won't get displayed if there is only "
+"1 step."
 msgstr ""
 
-#: app/features/mec/booking.php:485
+#: app/features/mec/booking.php:506
 #, fuzzy
 #| msgid "Enable booking module"
 msgid "Enable Invoice"
 msgstr "Rezervasyon modülünü etkinleştir"
 
-#: app/features/mec/booking.php:496
+#: app/features/mec/booking.php:517
 #, fuzzy
 #| msgid "Enable on booking form"
 msgid "Enable Booking for Ongoing Events"
 msgstr "Rezervasyon formunda etkinleştir"
 
-#: app/features/mec/booking.php:507
+#: app/features/mec/booking.php:528
 msgid "Enable Downloadable File"
 msgstr ""
 
-#: app/features/mec/booking.php:512
+#: app/features/mec/booking.php:533
 msgid ""
-"By enabling this feature, You can upload a file for each event and bookers "
-"are able to download it after booking."
+"By enabling this feature, You can upload a file for each event and the "
+"attendees will be able to download it after booking."
 msgstr ""
 
-#: app/features/mec/booking.php:525
+#: app/features/mec/booking.php:546
 #, fuzzy
 #| msgid "Available Tickets"
 msgid "Disable Ticket Times"
 msgstr "Mevcut Biletler"
 
-#: app/features/mec/booking.php:530
+#: app/features/mec/booking.php:551
 msgid "Email verification"
 msgstr "Eposta Doğrulama"
 
-#: app/features/mec/booking.php:536 app/features/popup/settings.php:379
+#: app/features/mec/booking.php:557 app/features/popup/settings.php:379
 msgid "Auto verification for free bookings"
 msgstr "Ücretsiz rezervasyonlar için otomatik doğrulama"
 
-#: app/features/mec/booking.php:545 app/features/popup/settings.php:388
+#: app/features/mec/booking.php:566 app/features/popup/settings.php:388
 msgid "Auto verification for paid bookings"
 msgstr "Ücretli rezervasyonlar için otomatik doğrulama"
 
-#: app/features/mec/booking.php:555 app/features/popup/settings.php:397
+#: app/features/mec/booking.php:576 app/features/popup/settings.php:397
 msgid "Auto confirmation for free bookings"
 msgstr "Ücretsiz rezervasyonlar için otomatik onay"
 
-#: app/features/mec/booking.php:564 app/features/popup/settings.php:406
+#: app/features/mec/booking.php:585 app/features/popup/settings.php:406
 msgid "Auto confirmation for paid bookings"
 msgstr "Ücretli rezervasyonlar için otomatik onay"
 
-#: app/features/mec/booking.php:573
+#: app/features/mec/booking.php:594
 msgid "Send confirmation email in auto confirmation mode"
 msgstr ""
 
-#: app/features/mec/booking.php:587
+#: app/features/mec/booking.php:608
 #, fuzzy
 #| msgid "Booking"
 msgid "Booking Shortcode"
 msgstr "Rezervasyon"
 
-#: app/features/mec/booking.php:595
+#: app/features/mec/booking.php:616
 #, php-format
 msgid ""
 "Booking module is available in the event details page but if you like to "
@@ -5669,7 +5741,7 @@ msgid ""
 "into the page content and place the event id instead of 1."
 msgstr ""
 
-#: app/features/mec/booking.php:596
+#: app/features/mec/booking.php:617
 #, php-format
 msgid ""
 "Also, you can insert %s if you like to show only one of the available "
@@ -5677,108 +5749,108 @@ msgid ""
 "This parameter is optional."
 msgstr ""
 
-#: app/features/mec/booking.php:611
+#: app/features/mec/booking.php:632
 msgid "Enable coupons module"
 msgstr "Kupon modülünü etkinleştir"
 
-#: app/features/mec/booking.php:613
+#: app/features/mec/booking.php:634
 msgid ""
 "After enabling and saving the settings, you should reload the page to see a "
 "new menu on the Dashboard > Booking"
 msgstr ""
 
-#: app/features/mec/booking.php:621 app/features/mec/booking.php:1041
+#: app/features/mec/booking.php:642 app/features/mec/booking.php:1062
 #: app/libraries/main.php:682
 msgid "Taxes / Fees"
 msgstr "Vergiler / Ücretler"
 
-#: app/features/mec/booking.php:629
+#: app/features/mec/booking.php:650
 msgid "Enable taxes / fees module"
 msgstr "Vergiler / Ücretler modülünü etkinleştir"
 
-#: app/features/mec/booking.php:634
+#: app/features/mec/booking.php:655
 msgid "Add Fee"
 msgstr "Ücret Ekle"
 
-#: app/features/mec/booking.php:698
+#: app/features/mec/booking.php:719
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "Disable Fees per Gateways"
 msgstr "Ödeme Ağ Geçitleri"
 
-#: app/features/mec/booking.php:717 app/libraries/main.php:683
+#: app/features/mec/booking.php:738 app/libraries/main.php:683
 msgid "Ticket Variations & Options"
 msgstr ""
 
-#: app/features/mec/booking.php:725
+#: app/features/mec/booking.php:746
 #, fuzzy
 #| msgid "Enable coupons module"
 msgid "Enable ticket variations module"
 msgstr "Kupon modülünü etkinleştir"
 
-#: app/features/mec/booking.php:730
+#: app/features/mec/booking.php:751
 msgid "Add Variation / Option"
 msgstr ""
 
-#: app/features/mec/booking.php:744 app/features/mec/booking.php:776
+#: app/features/mec/booking.php:765 app/features/mec/booking.php:797
 #: app/libraries/ticketVariations.php:49
 #, fuzzy
 #| msgid "Option"
 msgid "Option Price"
 msgstr "Seçenek"
 
-#: app/features/mec/booking.php:750 app/features/mec/booking.php:753
-#: app/features/mec/booking.php:782 app/features/mec/booking.php:785
+#: app/features/mec/booking.php:771 app/features/mec/booking.php:774
+#: app/features/mec/booking.php:803 app/features/mec/booking.php:806
 #: app/libraries/ticketVariations.php:58 app/libraries/ticketVariations.php:61
 #, fuzzy
 #| msgid "Maximum events"
 msgid "Maximum Per Ticket"
 msgstr "Maksimum etkinlikler"
 
-#: app/features/mec/booking.php:754 app/features/mec/booking.php:786
+#: app/features/mec/booking.php:775 app/features/mec/booking.php:807
 #: app/libraries/ticketVariations.php:64
 msgid "Maximum Per Ticket. Leave blank for unlimited."
 msgstr ""
 
-#: app/features/mec/booking.php:799
+#: app/features/mec/booking.php:820
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable variations per ticket"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/booking.php:1000 app/libraries/main.php:685
+#: app/features/mec/booking.php:1021 app/libraries/main.php:685
 #, fuzzy
 #| msgid "Upload/Add image"
 msgid "Upload Field"
 msgstr "Resim Yükle/Ekle"
 
-#: app/features/mec/booking.php:1002
+#: app/features/mec/booking.php:1023
 msgid "Mime types"
 msgstr ""
 
-#: app/features/mec/booking.php:1006
+#: app/features/mec/booking.php:1027
 msgid "Split mime types with \",\"."
 msgstr ""
 
-#: app/features/mec/booking.php:1006
+#: app/features/mec/booking.php:1027
 msgid "Default: jpeg,jpg,png,pdf"
 msgstr ""
 
-#: app/features/mec/booking.php:1009
+#: app/features/mec/booking.php:1030
 #, fuzzy
 #| msgid "Maximum events"
 msgid "Maximum file size"
 msgstr "Maksimum etkinlikler"
 
-#: app/features/mec/booking.php:1013
+#: app/features/mec/booking.php:1034
 msgid "The unit is Megabyte \"MB\""
 msgstr ""
 
-#: app/features/mec/booking.php:1026
+#: app/features/mec/booking.php:1047
 msgid "Use WooCommerce as Payment System"
 msgstr ""
 
-#: app/features/mec/booking.php:1028
+#: app/features/mec/booking.php:1049
 msgid ""
 "By enabling this feature, tickets will be added to WooCommerce cart and all "
 "payment process would be done by WooCommerce so all of MEC payment related "
@@ -5786,239 +5858,240 @@ msgid ""
 "fields etc, you need to configure WooCommerce on your website."
 msgstr ""
 
-#: app/features/mec/booking.php:1032
+#: app/features/mec/booking.php:1053
 msgid ""
 "Please disable MEC Cart first otherwise you're not able to use WooCommerce "
 "feature."
 msgstr ""
 
-#: app/features/mec/booking.php:1035
+#: app/features/mec/booking.php:1056
 msgid ""
 "You cannot use following MEC features so you should use WooCommerc and its "
 "addons if you need them."
 msgstr ""
 
-#: app/features/mec/booking.php:1037
+#: app/features/mec/booking.php:1058
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "Payment gateways"
 msgstr "Ödeme Ağ Geçitleri"
 
-#: app/features/mec/booking.php:1038
+#: app/features/mec/booking.php:1059
 #, fuzzy
 #| msgid "Price Label"
 msgid "Price per dates of tickets"
 msgstr "Fiyat Etiketi"
 
-#: app/features/mec/booking.php:1040
+#: app/features/mec/booking.php:1061
 #, fuzzy
 #| msgid "Verification"
 msgid "Ticket variations"
 msgstr "Doğrulama"
 
-#: app/features/mec/booking.php:1042
+#: app/features/mec/booking.php:1063
 #, fuzzy
 #| msgid "Discount Type"
 msgid "Discount Per Roles"
 msgstr "İndirim Türü"
 
-#: app/features/mec/booking.php:1046
+#: app/features/mec/booking.php:1067
 msgid "Automatically complete WooCommerce orders"
 msgstr ""
 
-#: app/features/mec/booking.php:1054
+#: app/features/mec/booking.php:1075
 msgid "Auto WooCommerce orders"
 msgstr ""
 
-#: app/features/mec/booking.php:1055
+#: app/features/mec/booking.php:1076
 msgid "It applies only to the orders that are related to MEC."
 msgstr ""
 
-#: app/features/mec/booking.php:1063 app/features/mec/booking.php:1204
+#: app/features/mec/booking.php:1084 app/features/mec/booking.php:1225
 #, fuzzy
 #| msgid "Add New Location"
 msgid "After Add to Cart"
 msgstr "Yeni Konum Ekle"
 
-#: app/features/mec/booking.php:1066 app/features/mec/booking.php:1207
+#: app/features/mec/booking.php:1087 app/features/mec/booking.php:1228
 #, fuzzy
 #| msgid "Get Direction"
 msgid "Redirect to Cart"
 msgstr "Konuma Git"
 
-#: app/features/mec/booking.php:1067 app/features/mec/booking.php:1208
+#: app/features/mec/booking.php:1088 app/features/mec/booking.php:1229
 #, fuzzy
 #| msgid "Get Direction"
 msgid "Redirect to Checkout"
 msgstr "Konuma Git"
 
-#: app/features/mec/booking.php:1068 app/features/mec/booking.php:1209
+#: app/features/mec/booking.php:1089 app/features/mec/booking.php:1230
 msgid "Optional View Cart Button"
 msgstr ""
 
-#: app/features/mec/booking.php:1069 app/features/mec/booking.php:1210
+#: app/features/mec/booking.php:1090 app/features/mec/booking.php:1231
 msgid "Optional Checkout Button"
 msgstr ""
 
-#: app/features/mec/booking.php:1074
+#: app/features/mec/booking.php:1095
 #, fuzzy
 #| msgid "Booking Form"
 msgid "MEC Booking Form"
 msgstr "Rezervasyon Formu"
 
-#: app/features/mec/booking.php:1083
+#: app/features/mec/booking.php:1104
 msgid ""
 "If enabled then users should fill the booking form in MEC and then they will "
 "be redirected to checkout."
 msgstr ""
 
-#: app/features/mec/booking.php:1109
+#: app/features/mec/booking.php:1130
 #, fuzzy
 #| msgid "New Organizer Name"
 msgid "Enable Organizer Payment Module"
 msgstr "Yeni Organizatör Adı"
 
-#: app/features/mec/booking.php:1114
+#: app/features/mec/booking.php:1135
 msgid ""
-"By enabling this module, organizers are able to insert their own payment "
-"credentials for enabled gateways per event and receive the payments directly!"
+"By enabling this module, organizers can insert their payment credentials to "
+"receive the payments directly. This feature needs the Stripe connect payment "
+"gateway to work."
 msgstr ""
 
-#: app/features/mec/booking.php:1124
+#: app/features/mec/booking.php:1145
 msgid "Disable / Enable payment gateways per event"
 msgstr ""
 
-#: app/features/mec/booking.php:1128
+#: app/features/mec/booking.php:1149
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "Payment Gateways Per Event"
 msgstr "Ödeme Ağ Geçitleri"
 
-#: app/features/mec/booking.php:1129
+#: app/features/mec/booking.php:1150
 msgid ""
-"By enabling this module, users are able to disable / enable payment gateways "
-"per event"
+"By enabling this module, event submitters will be able to disable/enable "
+"payment gateways per event on the FES Form and on the event add/edit page."
 msgstr ""
 
-#: app/features/mec/booking.php:1139
+#: app/features/mec/booking.php:1160
 msgid "Automatically refund the payment"
 msgstr ""
 
-#: app/features/mec/booking.php:1143
+#: app/features/mec/booking.php:1164
 msgid "Auto Refund"
 msgstr ""
 
-#: app/features/mec/booking.php:1144
+#: app/features/mec/booking.php:1165
 msgid ""
-"Automatically refund the payment when a booking paid by applicable gateways "
-"(Stripe) got canceled."
+"Automatically refund the payment when a booking paid by gateways  like "
+"Stripe gets canceled."
 msgstr ""
 
-#: app/features/mec/booking.php:1159 app/libraries/main.php:686
+#: app/features/mec/booking.php:1180 app/libraries/main.php:686
 #, fuzzy
 #| msgid "Support"
 msgid "MEC Cart"
 msgstr "Destek"
 
-#: app/features/mec/booking.php:1164
+#: app/features/mec/booking.php:1185
 msgid "Use MEC Cart System"
 msgstr ""
 
-#: app/features/mec/booking.php:1166
+#: app/features/mec/booking.php:1187
 msgid ""
 "If you don't want to use WooCommerce for any reason you can use MEC Cart for "
 "adding a simple cart and checkout system to your website."
 msgstr ""
 
-#: app/features/mec/booking.php:1168
+#: app/features/mec/booking.php:1189
 msgid "You cannot use following MEC features while using MEC Cart."
 msgstr ""
 
-#: app/features/mec/booking.php:1170
+#: app/features/mec/booking.php:1191
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "WooCommerce as Payment Gateway"
 msgstr "Ödeme Ağ Geçitleri"
 
-#: app/features/mec/booking.php:1171
+#: app/features/mec/booking.php:1192
 #, fuzzy
 #| msgid "Notifications"
 msgid "Currency Per Event"
 msgstr "Bildirimler"
 
-#: app/features/mec/booking.php:1172
+#: app/features/mec/booking.php:1193
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "Disable Gateways Per Event"
 msgstr "Ödeme Ağ Geçitleri"
 
-#: app/features/mec/booking.php:1173
+#: app/features/mec/booking.php:1194
 #, fuzzy
 #| msgid "Notifications"
 msgid "Thank You Page Per Event"
 msgstr "Bildirimler"
 
-#: app/features/mec/booking.php:1174
+#: app/features/mec/booking.php:1195
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "Stripe Connect Gateway"
 msgstr "Ödeme Ağ Geçitleri"
 
-#: app/features/mec/booking.php:1175
+#: app/features/mec/booking.php:1196
 #, fuzzy
 #| msgid "Payment Gateways"
 msgid "Pay By WooCommerce Gateway"
 msgstr "Ödeme Ağ Geçitleri"
 
-#: app/features/mec/booking.php:1176
+#: app/features/mec/booking.php:1197
 #, fuzzy
 #| msgid "New Organizer Name"
 msgid "Organizer Payment Module"
 msgstr "Yeni Organizatör Adı"
 
-#: app/features/mec/booking.php:1180
+#: app/features/mec/booking.php:1201
 #, fuzzy
 #| msgid "Start Date"
 msgid "Cart Page"
 msgstr "Başlangıç Tarihi"
 
-#: app/features/mec/booking.php:1188 app/features/mec/booking.php:1200
-#: app/features/mec/settings.php:767 app/features/mec/settings.php:779
+#: app/features/mec/booking.php:1209 app/features/mec/booking.php:1221
+#: app/features/mec/settings.php:799 app/features/mec/settings.php:811
 #, php-format
 msgid "Put %s shortcode into the page."
 msgstr "Sayfaya %s kısa kod koyun."
 
-#: app/features/mec/booking.php:1192
+#: app/features/mec/booking.php:1213
 #, fuzzy
 #| msgid "Checkout"
 msgid "Checkout Page"
 msgstr "Çıkış Yap"
 
-#: app/features/mec/booking.php:1218
+#: app/features/mec/booking.php:1239
 #, fuzzy
 #| msgid "Enable booking module"
 msgid "Enable Cart Invoice"
 msgstr "Rezervasyon modülünü etkinleştir"
 
-#: app/features/mec/booking.php:1304 app/features/mec/integrations.php:464
-#: app/features/mec/messages.php:94 app/features/mec/modules.php:432
-#: app/features/mec/notifications.php:1947 app/features/mec/settings.php:1717
-#: app/features/mec/single.php:607 app/features/mec/styles.php:66
+#: app/features/mec/booking.php:1325 app/features/mec/integrations.php:450
+#: app/features/mec/messages.php:94 app/features/mec/modules.php:433
+#: app/features/mec/notifications.php:1947 app/features/mec/settings.php:1763
+#: app/features/mec/single.php:621 app/features/mec/styles.php:66
 #: app/features/mec/styling.php:361
 msgid "Saved"
 msgstr "Kaydedildi"
 
-#: app/features/mec/booking.php:1305 app/features/mec/integrations.php:465
-#: app/features/mec/messages.php:95 app/features/mec/modules.php:433
-#: app/features/mec/notifications.php:1948 app/features/mec/settings.php:1718
-#: app/features/mec/single.php:608 app/features/mec/styles.php:67
+#: app/features/mec/booking.php:1326 app/features/mec/integrations.php:451
+#: app/features/mec/messages.php:95 app/features/mec/modules.php:434
+#: app/features/mec/notifications.php:1948 app/features/mec/settings.php:1764
+#: app/features/mec/single.php:622 app/features/mec/styles.php:67
 #: app/features/mec/styling.php:362
 msgid "Settings Saved!"
 msgstr ""
 
-#: app/features/mec/booking.php:1331 app/features/mec/integrations.php:491
-#: app/features/mec/modules.php:459 app/features/mec/notifications.php:1975
-#: app/features/mec/settings.php:1744 app/features/mec/single.php:634
+#: app/features/mec/booking.php:1352 app/features/mec/integrations.php:477
+#: app/features/mec/modules.php:460 app/features/mec/notifications.php:1975
+#: app/features/mec/settings.php:1790 app/features/mec/single.php:648
 msgid "Please Refresh Page"
 msgstr ""
 
@@ -6133,272 +6206,266 @@ msgstr "Ayarlar"
 msgid "Mailchimp"
 msgstr ""
 
-#: app/features/mec/integrations.php:46 app/features/mec/settings.php:1399
+#: app/features/mec/integrations.php:46 app/features/mec/settings.php:1445
 msgid "Enable Mailchimp Integration"
 msgstr ""
 
-#: app/features/mec/integrations.php:51 app/features/mec/integrations.php:56
-#: app/features/mec/integrations.php:111 app/features/mec/integrations.php:135
-#: app/features/mec/integrations.php:159 app/features/mec/integrations.php:228
-#: app/features/mec/settings.php:1404 app/features/mec/settings.php:1409
-#: app/features/mec/settings.php:1464 app/features/mec/settings.php:1488
-#: app/features/mec/settings.php:1512 app/features/mec/settings.php:1579
+#: app/features/mec/integrations.php:51 app/features/mec/integrations.php:97
+#: app/features/mec/integrations.php:121 app/features/mec/integrations.php:145
+#: app/features/mec/integrations.php:214 app/features/mec/settings.php:1450
+#: app/features/mec/settings.php:1455 app/features/mec/settings.php:1510
+#: app/features/mec/settings.php:1534 app/features/mec/settings.php:1558
+#: app/features/mec/settings.php:1625
 msgid "API Key"
 msgstr "API Anahtarı"
 
-#: app/features/mec/integrations.php:57 app/features/mec/integrations.php:70
-#: app/features/mec/modules.php:101 app/features/mec/settings.php:1410
-#: app/features/mec/settings.php:1423
-msgid "Required!"
-msgstr "Gereklidir!"
-
-#: app/features/mec/integrations.php:64 app/features/mec/integrations.php:69
-#: app/features/mec/integrations.php:117 app/features/mec/integrations.php:234
-#: app/features/mec/integrations.php:252 app/features/mec/integrations.php:300
-#: app/features/mec/settings.php:1417 app/features/mec/settings.php:1422
-#: app/features/mec/settings.php:1470 app/features/mec/settings.php:1585
-#: app/features/mec/settings.php:1603 app/features/mec/settings.php:1651
+#: app/features/mec/integrations.php:57 app/features/mec/integrations.php:103
+#: app/features/mec/integrations.php:220 app/features/mec/integrations.php:238
+#: app/features/mec/integrations.php:286 app/features/mec/settings.php:1463
+#: app/features/mec/settings.php:1468 app/features/mec/settings.php:1516
+#: app/features/mec/settings.php:1631 app/features/mec/settings.php:1649
+#: app/features/mec/settings.php:1697
 msgid "List ID"
 msgstr ""
 
-#: app/features/mec/integrations.php:77 app/features/mec/integrations.php:85
-#: app/features/mec/settings.php:1430 app/features/mec/settings.php:1438
+#: app/features/mec/integrations.php:63 app/features/mec/integrations.php:71
+#: app/features/mec/settings.php:1476 app/features/mec/settings.php:1484
 msgid "Subscription Status"
 msgstr ""
 
-#: app/features/mec/integrations.php:80 app/features/mec/settings.php:1433
+#: app/features/mec/integrations.php:66 app/features/mec/settings.php:1479
 msgid "Subscribe automatically"
 msgstr ""
 
-#: app/features/mec/integrations.php:81 app/features/mec/settings.php:1434
+#: app/features/mec/integrations.php:67 app/features/mec/settings.php:1480
 msgid "Subscribe by verification"
 msgstr ""
 
-#: app/features/mec/integrations.php:86 app/features/mec/settings.php:1439
+#: app/features/mec/integrations.php:72
 msgid ""
-"If you choose \"Subscribe by verification\" then an email will be send to "
-"the user by mailchimp for subscription verification."
+"Choose \"Subscribe by verification,\" to send an email to the user by "
+"Mailchimp for subscription verification."
 msgstr ""
 
-#: app/features/mec/integrations.php:95 app/features/mec/settings.php:1448
+#: app/features/mec/integrations.php:81 app/features/mec/settings.php:1494
 msgid "Enable Segment Creation by Event Title and Booking Date"
 msgstr ""
 
-#: app/features/mec/integrations.php:102 app/libraries/main.php:655
+#: app/features/mec/integrations.php:88 app/libraries/main.php:655
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Campaign Monitor"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:106 app/features/mec/settings.php:1459
+#: app/features/mec/integrations.php:92 app/features/mec/settings.php:1505
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable Campaign Monitor Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:126 app/libraries/main.php:656
+#: app/features/mec/integrations.php:112 app/libraries/main.php:656
 #, fuzzy
 #| msgid "More Information"
 msgid "MailerLite"
 msgstr "Daha Fazla Bilgi"
 
-#: app/features/mec/integrations.php:130 app/features/mec/settings.php:1483
+#: app/features/mec/integrations.php:116 app/features/mec/settings.php:1529
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable MailerLite Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:141 app/features/mec/settings.php:1494
+#: app/features/mec/integrations.php:127 app/features/mec/settings.php:1540
 msgid "Group ID"
 msgstr ""
 
-#: app/features/mec/integrations.php:150 app/libraries/main.php:657
+#: app/features/mec/integrations.php:136 app/libraries/main.php:657
 #, fuzzy
 #| msgid "More Information"
 msgid "Constant Contact"
 msgstr "Daha Fazla Bilgi"
 
-#: app/features/mec/integrations.php:154 app/features/mec/settings.php:1507
+#: app/features/mec/integrations.php:140 app/features/mec/settings.php:1553
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable constantcontact Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:165 app/features/mec/settings.php:1518
+#: app/features/mec/integrations.php:151 app/features/mec/settings.php:1564
 #, fuzzy
 #| msgid "Facebook"
 msgid "Access Token"
 msgstr "Facebook"
 
-#: app/features/mec/integrations.php:185 app/features/mec/integrations.php:202
-#: app/features/mec/settings.php:1538 app/features/mec/settings.php:1553
+#: app/features/mec/integrations.php:171 app/features/mec/integrations.php:188
+#: app/features/mec/settings.php:1584 app/features/mec/settings.php:1599
 #, fuzzy
 #| msgid "View Event"
 msgid "Select List"
 msgstr "Etkinlikleri Görüntüle"
 
-#: app/features/mec/integrations.php:203 app/features/mec/settings.php:1554
+#: app/features/mec/integrations.php:189
 msgid ""
-"Please fill in the API key and Access Token field and save settings. after "
-"that, please refresh the page and select a list."
+"First, you need to enter the API Key and the Access Token so that your "
+"Constant Contact lists appear under this option."
 msgstr ""
 
-#: app/features/mec/integrations.php:213 app/libraries/main.php:658
+#: app/features/mec/integrations.php:199 app/libraries/main.php:658
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Active Campaign"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:217 app/features/mec/settings.php:1568
+#: app/features/mec/integrations.php:203 app/features/mec/settings.php:1614
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable Active Campaign Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:222 app/features/mec/settings.php:1573
+#: app/features/mec/integrations.php:208 app/features/mec/settings.php:1619
 msgid "API URL"
 msgstr ""
 
-#: app/features/mec/integrations.php:243 app/libraries/main.php:659
+#: app/features/mec/integrations.php:229 app/libraries/main.php:659
 msgid "AWeber"
 msgstr ""
 
-#: app/features/mec/integrations.php:247 app/features/mec/settings.php:1598
+#: app/features/mec/integrations.php:233 app/features/mec/settings.php:1644
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable AWeber Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:257 app/features/mec/settings.php:1606
+#: app/features/mec/integrations.php:243 app/features/mec/settings.php:1652
 #, php-format
 msgid "%s plugin should be installed and connected to your AWeber account."
 msgstr ""
 
-#: app/features/mec/integrations.php:258 app/features/mec/settings.php:1607
+#: app/features/mec/integrations.php:244 app/features/mec/settings.php:1653
 #, php-format
 msgid "More information about the list ID can be found %s."
 msgstr ""
 
-#: app/features/mec/integrations.php:263 app/libraries/main.php:660
+#: app/features/mec/integrations.php:249 app/libraries/main.php:660
 msgid "MailPoet"
 msgstr ""
 
-#: app/features/mec/integrations.php:267 app/features/mec/settings.php:1618
+#: app/features/mec/integrations.php:253 app/features/mec/settings.php:1664
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable MailPoet Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:273 app/features/mec/settings.php:1624
+#: app/features/mec/integrations.php:259 app/features/mec/settings.php:1670
 #: app/skins/default_full_calendar/tpl.php:80
 #: app/skins/full_calendar/tpl.php:153 app/skins/full_calendar/tpl.php:166
 msgid "List"
 msgstr "Liste"
 
-#: app/features/mec/integrations.php:284 app/features/mec/settings.php:1635
+#: app/features/mec/integrations.php:270 app/features/mec/settings.php:1681
 #, php-format
 msgid "%s plugin should be installed and activated."
 msgstr ""
 
-#: app/features/mec/integrations.php:289 app/libraries/main.php:661
+#: app/features/mec/integrations.php:275 app/libraries/main.php:661
 msgid "Sendfox"
 msgstr ""
 
-#: app/features/mec/integrations.php:293 app/features/mec/settings.php:1644
+#: app/features/mec/integrations.php:279 app/features/mec/settings.php:1690
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable Sendfox Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:310 app/features/mec/settings.php:1661
+#: app/features/mec/integrations.php:296 app/features/mec/settings.php:1707
 #, php-format
 msgid "%s plugin should be installed and connected to your Sendfox account."
 msgstr ""
 
-#: app/features/mec/integrations.php:315 app/libraries/main.php:662
+#: app/features/mec/integrations.php:301 app/libraries/main.php:662
 #, fuzzy
 #| msgid "Address"
 msgid "BuddyPress"
 msgstr "Adres"
 
-#: app/features/mec/integrations.php:319
+#: app/features/mec/integrations.php:305
 msgid "Enable BuddyPress Integration"
 msgstr ""
 
-#: app/features/mec/integrations.php:326
+#: app/features/mec/integrations.php:312
 msgid "Show \"Attendees Module\" in event details page"
 msgstr ""
 
-#: app/features/mec/integrations.php:330
+#: app/features/mec/integrations.php:316
 #, fuzzy
 #| msgid "Attendee"
 msgid "Attendee Limit"
 msgstr "Katılımcı"
 
-#: app/features/mec/integrations.php:338
+#: app/features/mec/integrations.php:324
 msgid "Add booking activity to user profile"
 msgstr ""
 
-#: app/features/mec/integrations.php:344
+#: app/features/mec/integrations.php:330
 msgid "Add events menu to user profile"
 msgstr ""
 
-#: app/features/mec/integrations.php:350 app/libraries/main.php:663
+#: app/features/mec/integrations.php:336 app/libraries/main.php:663
 #, fuzzy
 #| msgid "Search Coupons"
 msgid "LearnDash"
 msgstr "Kupon Ara"
 
-#: app/features/mec/integrations.php:354
+#: app/features/mec/integrations.php:340
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable LearnDash Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:357
+#: app/features/mec/integrations.php:343
 msgid "LearnDash plugin should be installed and activated."
 msgstr ""
 
-#: app/features/mec/integrations.php:360
+#: app/features/mec/integrations.php:346
 msgid "Enroll After"
 msgstr ""
 
-#: app/features/mec/integrations.php:364
+#: app/features/mec/integrations.php:350
 #, fuzzy
 #| msgid "Booking Confirmation"
 msgid "Booking Confirm"
 msgstr "Rezervasyon Onayı"
 
-#: app/features/mec/integrations.php:365 app/features/mec/notifications.php:222
+#: app/features/mec/integrations.php:351 app/features/mec/notifications.php:222
 #: app/libraries/main.php:712
 msgid "Booking Verification"
 msgstr "Rezervasyon Doğrulaması"
 
-#: app/features/mec/integrations.php:366
+#: app/features/mec/integrations.php:352
 #, fuzzy
 #| msgid "Booking Verification"
 msgid "Booking Confirm & Verification"
 msgstr "Rezervasyon Doğrulaması"
 
-#: app/features/mec/integrations.php:373 app/libraries/main.php:664
+#: app/features/mec/integrations.php:359 app/libraries/main.php:664
 #, fuzzy
 #| msgid "More Information"
 msgid "PaidMembership Pro"
 msgstr "Daha Fazla Bilgi"
 
-#: app/features/mec/integrations.php:377
+#: app/features/mec/integrations.php:363
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable Event Restriction"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/integrations.php:383
+#: app/features/mec/integrations.php:369
 #, fuzzy
 #| msgid "Booking Confirmation"
 msgid "Enable Booking Restriction"
 msgstr "Rezervasyon Onayı"
 
-#: app/features/mec/integrations.php:406
+#: app/features/mec/integrations.php:392
 msgid "PaidMembership Pro plugin should be installed and activated."
 msgstr ""
 
@@ -6423,9 +6490,9 @@ msgstr "Tema"
 #: app/features/mec/meta_boxes/display_options.php:301
 #: app/features/mec/meta_boxes/display_options.php:1090
 #: app/features/mec/meta_boxes/display_options.php:1757
-#: app/features/mec/settings.php:397 app/features/mec/settings.php:421
-#: app/features/mec/settings.php:430 app/features/mec/settings.php:474
-#: app/features/mec/settings.php:498 app/features/mec/settings.php:507
+#: app/features/mec/settings.php:415 app/features/mec/settings.php:439
+#: app/features/mec/settings.php:448 app/features/mec/settings.php:492
+#: app/features/mec/settings.php:516 app/features/mec/settings.php:525
 #: app/features/popup/settings.php:106 app/features/popup/settings.php:130
 #: app/features/popup/settings.php:139 app/features/popup/shortcode.php:72
 #: app/features/popup/shortcode.php:106 app/features/popup/shortcode.php:203
@@ -6437,8 +6504,8 @@ msgstr "Classic"
 
 #: app/features/mec/meta_boxes/display_options.php:49
 #: app/features/mec/meta_boxes/display_options.php:303
-#: app/features/mec/settings.php:422 app/features/mec/settings.php:432
-#: app/features/mec/settings.php:499 app/features/mec/settings.php:509
+#: app/features/mec/settings.php:440 app/features/mec/settings.php:450
+#: app/features/mec/settings.php:517 app/features/mec/settings.php:527
 #: app/features/popup/settings.php:131 app/features/popup/settings.php:141
 #: app/features/popup/shortcode.php:77 app/features/popup/shortcode.php:116
 msgid "Minimal"
@@ -6450,10 +6517,10 @@ msgstr "Minimal"
 #: app/features/mec/meta_boxes/display_options.php:1092
 #: app/features/mec/meta_boxes/display_options.php:1445
 #: app/features/mec/meta_boxes/display_options.php:1759
-#: app/features/mec/settings.php:399 app/features/mec/settings.php:412
-#: app/features/mec/settings.php:423 app/features/mec/settings.php:433
-#: app/features/mec/settings.php:476 app/features/mec/settings.php:489
-#: app/features/mec/settings.php:500 app/features/mec/settings.php:510
+#: app/features/mec/settings.php:417 app/features/mec/settings.php:430
+#: app/features/mec/settings.php:441 app/features/mec/settings.php:451
+#: app/features/mec/settings.php:494 app/features/mec/settings.php:507
+#: app/features/mec/settings.php:518 app/features/mec/settings.php:528
 #: app/features/popup/settings.php:108 app/features/popup/settings.php:121
 #: app/features/popup/settings.php:132 app/features/popup/settings.php:142
 #: app/features/popup/shortcode.php:82 app/features/popup/shortcode.php:121
@@ -6463,13 +6530,13 @@ msgid "Modern"
 msgstr "Modern"
 
 #: app/features/mec/meta_boxes/display_options.php:51
-#: app/features/mec/settings.php:424 app/features/mec/settings.php:501
+#: app/features/mec/settings.php:442 app/features/mec/settings.php:519
 #: app/features/popup/settings.php:133 app/features/popup/shortcode.php:87
 msgid "Standard"
 msgstr "Standard"
 
 #: app/features/mec/meta_boxes/display_options.php:52
-#: app/features/mec/settings.php:425 app/features/mec/settings.php:502
+#: app/features/mec/settings.php:443 app/features/mec/settings.php:520
 #: app/features/popup/settings.php:134 app/features/popup/shortcode.php:92
 msgid "Accordion"
 msgstr ""
@@ -6906,9 +6973,9 @@ msgstr "Ay Bölücüsünü Göster"
 #: app/features/mec/meta_boxes/display_options.php:1091
 #: app/features/mec/meta_boxes/display_options.php:1446
 #: app/features/mec/meta_boxes/display_options.php:1758
-#: app/features/mec/settings.php:398 app/features/mec/settings.php:413
-#: app/features/mec/settings.php:431 app/features/mec/settings.php:475
-#: app/features/mec/settings.php:490 app/features/mec/settings.php:508
+#: app/features/mec/settings.php:416 app/features/mec/settings.php:431
+#: app/features/mec/settings.php:449 app/features/mec/settings.php:493
+#: app/features/mec/settings.php:508 app/features/mec/settings.php:526
 #: app/features/popup/settings.php:107 app/features/popup/settings.php:122
 #: app/features/popup/settings.php:140 app/features/popup/shortcode.php:111
 #: app/features/popup/shortcode.php:150 app/features/popup/shortcode.php:165
@@ -6920,8 +6987,8 @@ msgstr "Temizle"
 #: app/features/mec/meta_boxes/display_options.php:305
 #: app/features/mec/meta_boxes/display_options.php:725
 #: app/features/mec/meta_boxes/display_options.php:1094
-#: app/features/mec/settings.php:401 app/features/mec/settings.php:434
-#: app/features/mec/settings.php:478 app/features/mec/settings.php:511
+#: app/features/mec/settings.php:419 app/features/mec/settings.php:452
+#: app/features/mec/settings.php:496 app/features/mec/settings.php:529
 #: app/features/popup/settings.php:110 app/features/popup/settings.php:143
 #: app/features/popup/shortcode.php:126 app/features/popup/shortcode.php:175
 #: app/features/popup/shortcode.php:223
@@ -6936,8 +7003,8 @@ msgstr "Renkli"
 #: app/features/mec/meta_boxes/display_options.php:307
 #: app/features/mec/meta_boxes/display_options.php:724
 #: app/features/mec/meta_boxes/display_options.php:1093
-#: app/features/mec/settings.php:400 app/features/mec/settings.php:436
-#: app/features/mec/settings.php:477 app/features/mec/settings.php:513
+#: app/features/mec/settings.php:418 app/features/mec/settings.php:454
+#: app/features/mec/settings.php:495 app/features/mec/settings.php:531
 #: app/features/popup/settings.php:109 app/features/popup/settings.php:145
 #: app/features/popup/shortcode.php:136 app/features/popup/shortcode.php:170
 #: app/features/popup/shortcode.php:218
@@ -7633,28 +7700,6 @@ msgstr ""
 msgid "Multiselect"
 msgstr ""
 
-#: app/features/mec/meta_boxes/search_form.php:89
-#: app/features/mec/meta_boxes/search_form.php:178
-#: app/features/mec/meta_boxes/search_form.php:267
-#: app/features/mec/meta_boxes/search_form.php:356
-#: app/features/mec/meta_boxes/search_form.php:444
-#: app/features/mec/meta_boxes/search_form.php:532
-#: app/features/mec/meta_boxes/search_form.php:620
-#: app/features/mec/meta_boxes/search_form.php:702
-#: app/features/mec/meta_boxes/search_form.php:790
-#: app/features/mec/meta_boxes/search_form.php:878
-#: app/features/mec/meta_boxes/search_form.php:1002
-#: app/features/mec/meta_boxes/search_form.php:1090
-#: app/features/mec/settings.php:1368 app/features/mec/single.php:485
-#: app/features/mec/single.php:538 app/features/popup/settings.php:236
-#: app/features/popup/settings.php:275 app/features/search.php:109
-#: app/features/speakers.php:68 app/features/speakers.php:295
-#: app/libraries/main.php:7739 app/libraries/main.php:7802
-#: app/libraries/search.php:334 app/libraries/skins.php:1267
-#: app/modules/speakers/details.php:18
-msgid "Speaker"
-msgstr ""
-
 #: app/features/mec/meta_boxes/search_form.php:96
 #: app/features/mec/meta_boxes/search_form.php:185
 #: app/features/mec/meta_boxes/search_form.php:274
@@ -7667,8 +7712,8 @@ msgstr ""
 #: app/features/mec/meta_boxes/search_form.php:885
 #: app/features/mec/meta_boxes/search_form.php:1009
 #: app/features/mec/meta_boxes/search_form.php:1097
-#: app/features/mec/settings.php:1375 app/features/mec/single.php:494
-#: app/features/mec/single.php:547 app/features/popup/settings.php:245
+#: app/features/mec/settings.php:1421 app/features/mec/single.php:508
+#: app/features/mec/single.php:561 app/features/popup/settings.php:245
 #: app/features/popup/settings.php:284 app/features/search.php:115
 #: app/features/tag.php:58 app/libraries/search.php:354
 #: app/libraries/skins.php:1296
@@ -7836,14 +7881,14 @@ msgstr "Kısa kodları düzenle"
 msgid "Enable speakers feature"
 msgstr "Vergiler / Ücretler modülünü etkinleştir"
 
-#: app/features/mec/modules.php:44 app/features/popup/settings.php:303
+#: app/features/mec/modules.php:44
 msgid ""
-"Enable this option to have speaker in Hourly Schedule in Single. Refresh "
-"after enabling it to see the Speakers menu under MEC dashboard."
+"Enable this option if your events have speakers. Refresh after enabling it "
+"to see the Speakers menu under the MEC dashboard."
 msgstr ""
 
 #: app/features/mec/modules.php:49 app/features/mec/modules.php:73
-#: app/features/mec/modules.php:378
+#: app/features/mec/modules.php:379
 msgid ""
 "After enabling and saving the settings, you should reload the page to see a "
 "new menu on the Dashboard > MEC"
@@ -7856,7 +7901,7 @@ msgid "Enable sponsors feature"
 msgstr "Vergiler / Ücretler modülünü etkinleştir"
 
 #: app/features/mec/modules.php:68
-msgid "Enable this option to ability to define sponsors for your events."
+msgid "Enable this option in order to add sponsors for your events."
 msgstr ""
 
 #: app/features/mec/modules.php:83 app/features/profile/profile.php:71
@@ -7882,14 +7927,19 @@ msgstr "Google Maps API'sı"
 msgid "Google Map Options"
 msgstr "Google Maps Ayarları"
 
+#: app/features/mec/modules.php:101
+msgid "It is necessary to enter the Google Maps API to use it in MEC."
+msgstr ""
+
 #: app/features/mec/modules.php:108 app/features/mec/modules.php:117
 msgid "Zoom level"
 msgstr "Yakınlaştırma seviyesi"
 
 #: app/features/mec/modules.php:118
 msgid ""
-"For Google Maps module in single event page. In Google Maps skin, it will "
-"calculate the zoom level automatically based on event boundaries."
+"This option will work on the Google Maps module on the single event page. "
+"Map view shortcode will automatically calculate the zoom level based on the "
+"event boundaries."
 msgstr ""
 
 #: app/features/mec/modules.php:125
@@ -7913,9 +7963,8 @@ msgid "Lightbox Date Format"
 msgstr ""
 
 #: app/features/mec/modules.php:153
-#, fuzzy
-msgid "Default value is M d Y"
-msgstr "Varsayılan Değer Etkinliklerdir."
+msgid "Select the event's date format on the map module lightbox."
+msgstr ""
 
 #: app/features/mec/modules.php:160 app/features/mec/modules.php:168
 msgid "Google Maps API"
@@ -7928,7 +7977,9 @@ msgstr "Google Haritalar API kitaplığını yüklemeyin"
 #: app/features/mec/modules.php:169
 #, fuzzy
 #| msgid "Check it only if another plugin/theme is loading the Google Maps API"
-msgid "Check only if another plugin/theme is loading the Google Maps API"
+msgid ""
+"Enable this option only if another plugin or your site's current theme is "
+"also loading the Google Maps API to avoid conflicts."
 msgstr ""
 "Yalnızca başka bir eklenti / tema Google Maps API'yı yüklüyorsa kontrol edin"
 
@@ -7971,7 +8022,8 @@ msgid "Show QR code of event in details page and booking invoice"
 msgstr ""
 
 #: app/features/mec/modules.php:257 app/libraries/main.php:696
-#: app/modules/weather/darksky.php:17 app/modules/weather/weatherapi.php:16
+#: app/modules/weather/darksky.php:17 app/modules/weather/visualcrossing.php:17
+#: app/modules/weather/weatherapi.php:16
 msgid "Weather"
 msgstr ""
 
@@ -7991,72 +8043,74 @@ msgid "You can get a free one at %s"
 msgstr ""
 
 #: app/features/mec/modules.php:276
-#, fuzzy
-#| msgid "API Key"
-msgid "darksky.net API Key"
-msgstr "API Anahtarı"
+msgid "Visual Crossing API Key"
+msgstr ""
 
-#: app/features/mec/modules.php:284
+#: app/features/mec/modules.php:279
+#, php-format
+msgid "You can get an API key at %s"
+msgstr ""
+
+#: app/features/mec/modules.php:285
 msgid "Show weather imperial units"
 msgstr ""
 
-#: app/features/mec/modules.php:290
+#: app/features/mec/modules.php:291
 msgid "Show weather change units button"
 msgstr ""
 
-#: app/features/mec/modules.php:304
+#: app/features/mec/modules.php:305
 msgid "Show social network module"
 msgstr "Sosyal ağ modülünü göster"
 
-#: app/features/mec/modules.php:330 app/libraries/main.php:698
+#: app/features/mec/modules.php:331 app/libraries/main.php:698
 #: app/modules/next-event/details.php:138 app/widgets/single.php:171
 msgid "Next Event"
 msgstr ""
 
-#: app/features/mec/modules.php:334
+#: app/features/mec/modules.php:335
 msgid "Show next event module on event page"
 msgstr ""
 
-#: app/features/mec/modules.php:339
+#: app/features/mec/modules.php:340
 msgid "Method"
 msgstr ""
 
-#: app/features/mec/modules.php:342
+#: app/features/mec/modules.php:343
 msgid "Next Occurrence of Current Event"
 msgstr ""
 
-#: app/features/mec/modules.php:343
+#: app/features/mec/modules.php:344
 msgid "Multiple Occurrences of Current Event"
 msgstr ""
 
-#: app/features/mec/modules.php:344
+#: app/features/mec/modules.php:345
 msgid "Next Occurrence of Other Events"
 msgstr ""
 
-#: app/features/mec/modules.php:349
+#: app/features/mec/modules.php:350
 #, fuzzy
 #| msgid "No event found!"
 msgid "Count of Events"
 msgstr "Etkinlik bulunamadı!"
 
-#: app/features/mec/modules.php:361 app/features/mec/single.php:50
-#, fuzzy
-msgid "Default is M d Y"
-msgstr "Varsayılan Görünüm"
+#: app/features/mec/modules.php:362
+msgid "Specify the event's date format on the next event module."
+msgstr ""
 
-#: app/features/mec/modules.php:372 app/libraries/main.php:724
+#: app/features/mec/modules.php:373 app/libraries/main.php:724
 #, fuzzy
 #| msgid "Email"
 msgid "Auto Emails"
 msgstr "E-Posta"
 
-#: app/features/mec/modules.php:376
+#: app/features/mec/modules.php:377
 #, fuzzy
 #| msgid "Enable coupons module"
 msgid "Enable Auto Emails"
 msgstr "Kupon modülünü etkinleştir"
 
-#: app/features/mec/modules.php:382
+#: app/features/mec/modules.php:383
 #, php-format
 msgid ""
 "Set a cronjob to call %s file by php once per minute otherwise it won't send "
@@ -8290,7 +8344,7 @@ msgstr "Etkinlik başlığı"
 #: app/features/mec/notifications.php:1372
 #: app/features/mec/notifications.php:1531
 #: app/features/mec/notifications.php:1648
-#: app/features/mec/notifications.php:1798 app/features/mec/settings.php:1280
+#: app/features/mec/notifications.php:1798 app/features/mec/settings.php:1319
 #: app/features/notifications.php:156
 #, fuzzy
 #| msgid "Description"
@@ -8307,7 +8361,7 @@ msgstr "Açıklama"
 #: app/features/mec/notifications.php:1373
 #: app/features/mec/notifications.php:1532
 #: app/features/mec/notifications.php:1649
-#: app/features/mec/notifications.php:1799 app/features/mec/settings.php:1002
+#: app/features/mec/notifications.php:1799 app/features/mec/settings.php:1041
 #: app/features/notifications.php:157
 #, fuzzy
 msgid "Event Tags"
@@ -8323,7 +8377,7 @@ msgstr "Etkinlikler"
 #: app/features/mec/notifications.php:1374
 #: app/features/mec/notifications.php:1533
 #: app/features/mec/notifications.php:1650
-#: app/features/mec/notifications.php:1800 app/features/mec/settings.php:977
+#: app/features/mec/notifications.php:1800 app/features/mec/settings.php:1016
 #: app/features/notifications.php:158
 msgid "Event Labels"
 msgstr "Etkinlik Etiketleri"
@@ -8338,7 +8392,7 @@ msgstr "Etkinlik Etiketleri"
 #: app/features/mec/notifications.php:1375
 #: app/features/mec/notifications.php:1534
 #: app/features/mec/notifications.php:1651
-#: app/features/mec/notifications.php:1801 app/features/mec/settings.php:971
+#: app/features/mec/notifications.php:1801 app/features/mec/settings.php:1010
 #: app/features/notifications.php:159 app/widgets/single.php:145
 #, fuzzy
 msgid "Event Categories"
@@ -8980,8 +9034,8 @@ msgstr ""
 msgid "only once per hour"
 msgstr ""
 
-#: app/features/mec/notifications.php:1330 app/libraries/main.php:9068
-#: app/libraries/main.php:9088
+#: app/features/mec/notifications.php:1330 app/libraries/main.php:9093
+#: app/libraries/main.php:9113
 #, fuzzy
 #| msgid "hours"
 msgid "Hours"
@@ -8992,7 +9046,7 @@ msgid "Reminder hours"
 msgstr ""
 
 #: app/features/mec/notifications.php:1337
-msgid "Please, insert comma to separate reminder hours."
+msgid "Insert the comma separated hours number to trigger the cron job"
 msgstr ""
 
 #: app/features/mec/notifications.php:1424 app/features/popup/event.php:267
@@ -9040,8 +9094,8 @@ msgid "Status of event"
 msgstr "Etkinlik durumu"
 
 #: app/features/mec/notifications.php:1541
-#: app/features/mec/notifications.php:1658 app/features/mec/settings.php:1220
-#: app/features/mec/settings.php:1224 app/features/notifications.php:202
+#: app/features/mec/notifications.php:1658 app/features/mec/settings.php:1259
+#: app/features/mec/settings.php:1263 app/features/notifications.php:202
 msgid "Event Note"
 msgstr ""
 
@@ -9238,11 +9292,10 @@ msgid "On Event End"
 msgstr ""
 
 #: app/features/mec/settings.php:72
-msgid ""
-"This option is for showing start/end time of events on frontend of website."
-msgstr ""
-"Bu seçenek, web sitesinin önündeki etkinliklerin başlangıç bitiş saatini "
-"göstermek içindir."
+#, fuzzy
+#| msgid "Show events based on created shortcodes."
+msgid "When should events be hidden from the Archive page and shortcodes?"
+msgstr "Oluşturulan kısa kodlara dayalı etkinlikleri gösterin."
 
 #: app/features/mec/settings.php:81
 #, fuzzy
@@ -9273,16 +9326,10 @@ msgid "Multiple Day Events"
 msgstr "Birden Çok Günü Olan Etkinlikler"
 
 #: app/features/mec/settings.php:91
-#, fuzzy
-#| msgid ""
-#| "For showing all days of multiple day events on frontend or only show the "
-#| "first day."
 msgid ""
-"For showing all days of multiple day events on frontend or only show the "
-"first day. This option doesn't work on the \"General Calendar\" view."
+"How should multi-day events be displayed in different skins? This option "
+"does not affect the General view."
 msgstr ""
-"Birden çok günlük etkinliğin tüm günlerini ön uçta gösterilmesi veya "
-"yalnızca ilk günün gösterilmesi için."
 
 #: app/features/mec/settings.php:100
 msgid "Remove MEC Data on Plugin Uninstall"
@@ -9302,8 +9349,8 @@ msgstr ""
 
 #: app/features/mec/settings.php:118
 msgid ""
-"Checked this checkbox to remove 'Th' on calendar ( ex: '12Th' remove Th, "
-"showing just '12' )"
+"Enabling this option will remove the 'th' from the monthly view skin dates. "
+"Ex: 12th will become 12."
 msgstr ""
 
 #: app/features/mec/settings.php:125 app/features/mec/settings.php:132
@@ -9317,7 +9364,7 @@ msgid "Enable Schema Code"
 msgstr "Kupon modülünü etkinleştir"
 
 #: app/features/mec/settings.php:133
-msgid "You can enable/disable Schema scripts"
+msgid "This option will enable Event Schema Markup on your site."
 msgstr ""
 
 #: app/features/mec/settings.php:142 app/features/mec/settings.php:153
@@ -9328,9 +9375,8 @@ msgstr ""
 
 #: app/features/mec/settings.php:154
 msgid ""
-"Proceed with caution. Default is set to Monday, Tuesday, Wednesday, Thursday "
-"and Friday ( you can change 'Week Starts' on WordPress Dashboard > Settings "
-"> General - bottom of the page )."
+"You can set the weekdays depending on your region from WordPress Dashboard > "
+"Settings > General > Week Starts On."
 msgstr ""
 
 #: app/features/mec/settings.php:165 app/features/mec/settings.php:176
@@ -9339,13 +9385,10 @@ msgid "Weekends"
 msgstr ""
 
 #: app/features/mec/settings.php:177
-msgid ""
-"Proceed with caution. Default is set to Saturday and Sunday (you can change "
-"'Week Starts' on WordPress Dashboard > Settings > General - bottom of the "
-"page)."
+msgid "You can set the weekend days depending on your region."
 msgstr ""
 
-#: app/features/mec/settings.php:187
+#: app/features/mec/settings.php:187 app/features/mec/settings.php:208
 #, fuzzy
 msgid "Datepicker Format"
 msgstr "Zaman Formatı"
@@ -9374,221 +9417,232 @@ msgstr ""
 msgid "(d.m.Y)"
 msgstr ""
 
-#: app/features/mec/settings.php:210 app/features/mec/settings.php:222
+#: app/features/mec/settings.php:209
+msgid ""
+"Set the date format of the datepicker module that appears on the event add/"
+"edit page and the FES form."
+msgstr ""
+
+#: app/features/mec/settings.php:217 app/features/mec/settings.php:229
 msgid "Midnight Hour"
 msgstr ""
 
-#: app/features/mec/settings.php:213
+#: app/features/mec/settings.php:220
 msgid "12 AM"
 msgstr ""
 
-#: app/features/mec/settings.php:214
+#: app/features/mec/settings.php:221
 msgid "1 AM"
 msgstr ""
 
-#: app/features/mec/settings.php:215
+#: app/features/mec/settings.php:222
 msgid "2 AM"
 msgstr ""
 
-#: app/features/mec/settings.php:216
+#: app/features/mec/settings.php:223
 msgid "3 AM"
 msgstr ""
 
-#: app/features/mec/settings.php:217
+#: app/features/mec/settings.php:224
 msgid "4 AM"
 msgstr ""
 
-#: app/features/mec/settings.php:218
+#: app/features/mec/settings.php:225
 msgid "5 AM"
 msgstr ""
 
-#: app/features/mec/settings.php:223
+#: app/features/mec/settings.php:230
 msgid ""
 "12 AM is midnight by default but you can change it if your event ends after "
-"12 AM and you don't want those events considered as multiple days events! "
-"This option doesn't work on the \"General Calendar\" view."
+"12 AM and you don't want those events to be considered as multi-day events! "
+"This option does not affect the General view."
 msgstr ""
 
-#: app/features/mec/settings.php:231
+#: app/features/mec/settings.php:238
 #, fuzzy
 #| msgid "Add Shortcode"
 msgid "Open \"Add Event\" as Popup"
 msgstr "Kısa Kod Ekle"
 
-#: app/features/mec/settings.php:234 app/features/mec/settings.php:242
-#: app/features/mec/settings.php:250 app/features/mec/settings.php:258
-#: app/features/mec/settings.php:286 app/features/mec/single.php:115
-#: app/features/mec/single.php:228 app/features/mec/single.php:237
+#: app/features/mec/settings.php:241 app/features/mec/settings.php:249
+#: app/features/mec/settings.php:257 app/features/mec/settings.php:265
+#: app/features/mec/settings.php:293 app/features/mec/settings.php:308
+#: app/features/mec/single.php:115 app/features/mec/single.php:242
+#: app/features/mec/single.php:251
 #, fuzzy
 #| msgid "Enable booking module"
 msgid "Enable"
 msgstr "Rezervasyon modülünü etkinleştir"
 
-#: app/features/mec/settings.php:239
+#: app/features/mec/settings.php:246
 #, fuzzy
 #| msgid "Add Shortcode"
 msgid "Open \"Add Shortcode\" as Popup"
 msgstr "Kısa Kod Ekle"
 
-#: app/features/mec/settings.php:247
+#: app/features/mec/settings.php:254
 #, fuzzy
 #| msgid "Featured Image"
 msgid "Include Event Featured Image in Feed"
 msgstr "Resim Seç"
 
-#: app/features/mec/settings.php:255
+#: app/features/mec/settings.php:262
 #, fuzzy
 #| msgid "Featured Image"
 msgid "Fallback Featured Image"
 msgstr "Resim Seç"
 
-#: app/features/mec/settings.php:264 app/features/mec/settings.php:272
+#: app/features/mec/settings.php:271 app/features/mec/settings.php:279
 #, fuzzy
 #| msgid "Payment"
 msgid "Tag Method"
 msgstr "Ödeme"
 
-#: app/features/mec/settings.php:267
+#: app/features/mec/settings.php:274
 #, fuzzy
 msgid "Post Tags"
 msgstr "Etkinlikler"
 
-#: app/features/mec/settings.php:268
+#: app/features/mec/settings.php:275
 #, fuzzy
 msgid "Independent Tags"
 msgstr "Etkinlikler"
 
-#: app/features/mec/settings.php:273
-msgid ""
-"If you select Post Tags then mec would share post tags and event tags but if "
-"you select independent tags, mec would use its own tags."
+#: app/features/mec/settings.php:280
+msgid "To share WP Post tags with MEC events, set this option on Post Tags."
 msgstr ""
 
-#: app/features/mec/settings.php:292
+#: app/features/mec/settings.php:300
 #, php-format
-msgid "If enabled, users are able to use %s URL to subscribe to your events."
+msgid "Users are able to use %s URL to subscribe to your events."
 msgstr ""
 
-#: app/features/mec/settings.php:318
+#: app/features/mec/settings.php:304
+#, fuzzy
+#| msgid "No Events"
+msgid "Include Only Upcoming Events"
+msgstr "Etkinlik Yok"
+
+#: app/features/mec/settings.php:336
 #, fuzzy
 #| msgid "No Search Options"
 msgid "Sender Name"
 msgstr "Arama Seçenekleri Yok"
 
-#: app/features/mec/settings.php:321
+#: app/features/mec/settings.php:339
 msgid "e.g. Webnus"
 msgstr ""
 
-#: app/features/mec/settings.php:325
+#: app/features/mec/settings.php:343
 msgid "Sender Email"
 msgstr ""
 
-#: app/features/mec/settings.php:328
+#: app/features/mec/settings.php:346
 msgid "e.g. info@webnus.net"
 msgstr ""
 
-#: app/features/mec/settings.php:332
+#: app/features/mec/settings.php:350
 #, fuzzy
 #| msgid "Simple Method"
 msgid "Recipients Method"
 msgstr "Basit Yöntem"
 
-#: app/features/mec/settings.php:335
+#: app/features/mec/settings.php:353
 msgid "BCC (Invisible)"
 msgstr ""
 
-#: app/features/mec/settings.php:336
+#: app/features/mec/settings.php:354
 msgid "CC (Visible)"
 msgstr ""
 
-#: app/features/mec/settings.php:344 app/libraries/main.php:641
+#: app/features/mec/settings.php:362 app/libraries/main.php:641
 msgid "Archive Pages"
 msgstr ""
 
-#: app/features/mec/settings.php:347 app/features/mec/settings.php:352
+#: app/features/mec/settings.php:365 app/features/mec/settings.php:370
 #: app/features/popup/settings.php:74 app/features/popup/settings.php:79
 msgid "Archive Page Title"
 msgstr "Arşiv Sayfası Başlığı"
 
-#: app/features/mec/settings.php:353 app/features/popup/settings.php:80
-#, fuzzy
-#| msgid "Default value is Events"
-msgid "Default value is Events - It's title of the page"
-msgstr "Varsayılan Değer Etkinliklerdir."
+#: app/features/mec/settings.php:371
+msgid ""
+"What should be the events archive page SEO title? This will appeard on the "
+"browser tab too."
+msgstr ""
 
-#: app/features/mec/settings.php:361
+#: app/features/mec/settings.php:379
 #, fuzzy
 #| msgid "Archive Page Title"
 msgid "Tag of Archive Page Title"
 msgstr "Arşiv Sayfası Başlığı"
 
-#: app/features/mec/settings.php:364
+#: app/features/mec/settings.php:382
 #, fuzzy
 #| msgid "Pending"
 msgid "Heading 1"
 msgstr "Beklemede"
 
-#: app/features/mec/settings.php:365
+#: app/features/mec/settings.php:383
 #, fuzzy
 #| msgid "Pending"
 msgid "Heading 2"
 msgstr "Beklemede"
 
-#: app/features/mec/settings.php:366
+#: app/features/mec/settings.php:384
 #, fuzzy
 #| msgid "Pending"
 msgid "Heading 3"
 msgstr "Beklemede"
 
-#: app/features/mec/settings.php:367
+#: app/features/mec/settings.php:385
 #, fuzzy
 #| msgid "Pending"
 msgid "Heading 4"
 msgstr "Beklemede"
 
-#: app/features/mec/settings.php:368
+#: app/features/mec/settings.php:386
 #, fuzzy
 #| msgid "Pending"
 msgid "Heading 5"
 msgstr "Beklemede"
 
-#: app/features/mec/settings.php:369
+#: app/features/mec/settings.php:387
 #, fuzzy
 #| msgid "Pending"
 msgid "Heading 6"
 msgstr "Beklemede"
 
-#: app/features/mec/settings.php:370
+#: app/features/mec/settings.php:388
 msgid "Division"
 msgstr ""
 
-#: app/features/mec/settings.php:372
+#: app/features/mec/settings.php:390
 msgid "Inline Bold Text"
 msgstr ""
 
-#: app/features/mec/settings.php:373
+#: app/features/mec/settings.php:391
 #, fuzzy
 #| msgid "Text"
 msgid "Inline Text"
 msgstr "Metin"
 
-#: app/features/mec/settings.php:379 app/features/mec/settings.php:447
+#: app/features/mec/settings.php:397 app/features/mec/settings.php:465
 #: app/features/popup/settings.php:88
 msgid "Archive Page Skin"
 msgstr "Arşiv Sayfası Teması"
 
-#: app/features/mec/settings.php:387 app/features/mec/settings.php:464
+#: app/features/mec/settings.php:405 app/features/mec/settings.php:482
 #: app/features/popup/settings.php:96
 #, fuzzy
 #| msgid "Edit shortcodes"
 msgid "Put shortcode..."
 msgstr "Kısa kodları düzenle"
 
-#: app/features/mec/settings.php:390 app/features/mec/settings.php:405
-#: app/features/mec/settings.php:408 app/features/mec/settings.php:417
-#: app/features/mec/settings.php:443 app/features/mec/settings.php:467
-#: app/features/mec/settings.php:482 app/features/mec/settings.php:485
-#: app/features/mec/settings.php:494 app/features/mec/settings.php:520
+#: app/features/mec/settings.php:408 app/features/mec/settings.php:423
+#: app/features/mec/settings.php:426 app/features/mec/settings.php:435
+#: app/features/mec/settings.php:461 app/features/mec/settings.php:485
+#: app/features/mec/settings.php:500 app/features/mec/settings.php:503
+#: app/features/mec/settings.php:512 app/features/mec/settings.php:538
 #: app/features/popup/settings.php:99 app/features/popup/settings.php:114
 #: app/features/popup/settings.php:117 app/features/popup/settings.php:126
 #: app/features/popup/settings.php:152
@@ -9597,317 +9651,334 @@ msgstr "Kısa kodları düzenle"
 msgid "There is no skins"
 msgstr "Rezervasyon için katılan yok!"
 
-#: app/features/mec/settings.php:393 app/features/mec/settings.php:470
-#: app/features/mec/settings.php:881 app/features/mec/single.php:77
+#: app/features/mec/settings.php:411 app/features/mec/settings.php:488
+#: app/features/mec/settings.php:920 app/features/mec/single.php:77
 #: app/features/popup/settings.php:102 app/features/popup/settings.php:175
 msgid "Modern Style"
 msgstr ""
 
-#: app/features/mec/settings.php:435 app/features/mec/settings.php:512
+#: app/features/mec/settings.php:453 app/features/mec/settings.php:530
 #: app/features/popup/settings.php:144
 #, fuzzy
 #| msgid "Colorful"
 msgid "colorful"
 msgstr "Renkli"
 
-#: app/features/mec/settings.php:440 app/features/mec/settings.php:517
+#: app/features/mec/settings.php:458 app/features/mec/settings.php:535
 #: app/features/popup/settings.php:149
 #, fuzzy
 #| msgid "Google Maps Style"
 msgid "Clean Style"
 msgstr "Google Haritalar Stili"
 
-#: app/features/mec/settings.php:448
-#, fuzzy
-#| msgid "Default value is Calendar/Monthly View"
-msgid "Default value is Calendar/Monthly View, But you can change it "
-msgstr "Varsayılan değer Takvim / Aylık Görünüm'dür."
+#: app/features/mec/settings.php:466
+msgid "The event archive page skin can be modified here. "
+msgstr ""
 
-#: app/features/mec/settings.php:448 app/features/mec/settings.php:525
+#: app/features/mec/settings.php:466 app/features/mec/settings.php:543
 msgid "See Demo"
 msgstr ""
 
-#: app/features/mec/settings.php:456 app/features/mec/settings.php:524
+#: app/features/mec/settings.php:474 app/features/mec/settings.php:542
 msgid "Category Page Skin"
 msgstr "Kategori Sayfasının Teması"
 
-#: app/features/mec/settings.php:525
-#, fuzzy
-#| msgid "Default value is Calendar/Monthly View"
-msgid ""
-"Default value is List View - But you can change it to set a skin for all "
-"categories."
-msgstr "Varsayılan değer Takvim / Aylık Görünüm'dür."
+#: app/features/mec/settings.php:543
+msgid "The event category page skin can be modified here."
+msgstr ""
 
-#: app/features/mec/settings.php:533 app/features/mec/settings.php:541
+#: app/features/mec/settings.php:551 app/features/mec/settings.php:559
 msgid "Category Events Method"
 msgstr ""
 
-#: app/features/mec/settings.php:542
-msgid "Default value is Upcoming Events"
+#: app/features/mec/settings.php:560
+msgid "Which events should appear on the category page?"
 msgstr ""
 
-#: app/features/mec/settings.php:550 app/features/mec/settings.php:558
+#: app/features/mec/settings.php:568 app/features/mec/settings.php:576
 msgid "Events Archive Status"
 msgstr "Etkinliklerin Arşiv Durumu"
 
-#: app/features/mec/settings.php:553
+#: app/features/mec/settings.php:571
 msgid "Enabled (Recommended)"
 msgstr "Etkinleştir (Önerilir)"
 
-#: app/features/mec/settings.php:559
-#, fuzzy
-#| msgid ""
-#| "If you disable it, then you should create a page as archive page of MEC. "
-#| "Page's slug must equals to \"Main Slug\" of MEC. Also it will disable all "
-#| "of MEC rewrite rules."
+#: app/features/mec/settings.php:577
 msgid ""
-"If you disable it, then you should create a page as archive page of MEC. "
-"Page's slug must equals to \"Main Slug\" of MEC."
+"You can disable the MEC default archive page and create a dedicated archive "
+"page if you disable this option. Obviously, the page you create must have a "
+"slug equal to what defined in Slugs/Permalinks > Main Slug."
 msgstr ""
-"Bunu devre dışı bırakırsanız, MEC'in arşiv sayfası olarak bir sayfa "
-"oluşturmanız gerekir. Page's slug, MEC'in \"Main Slug\" e eşit olmalıdır. "
-"Ayrıca tüm MEC yeniden yazma kurallarını devre dışı bırakır."
 
-#: app/features/mec/settings.php:572 app/features/mec/settings.php:577
+#: app/features/mec/settings.php:590 app/features/mec/settings.php:595
 #: app/features/popup/settings.php:157 app/features/popup/settings.php:162
 msgid "Main Slug"
 msgstr "Main Slug"
 
-#: app/features/mec/settings.php:578 app/features/popup/settings.php:163
+#: app/features/mec/settings.php:596
 msgid ""
-"Default value is events. You can not have a page with this name. MEC allows "
-"you to create custom URLs for the permalinks and archives to enhance the "
-"applicability and forward-compatibility of the links."
+"You can change the base event post type slug from this field to customize "
+"the events and archive page URLs. Please note that you should not have a "
+"page with this slug on your website. The default value is 'events'."
 msgstr ""
 
-#: app/features/mec/settings.php:582 app/features/mec/settings.php:596
+#: app/features/mec/settings.php:600 app/features/mec/settings.php:614
 #: app/features/popup/settings.php:167
 msgid "Valid characters are lowercase a-z, - character and numbers."
 msgstr ""
 
-#: app/features/mec/settings.php:586 app/features/mec/settings.php:591
+#: app/features/mec/settings.php:604 app/features/mec/settings.php:609
 msgid "Category Slug"
 msgstr "Kategori Slug"
 
-#: app/features/mec/settings.php:592
-#, fuzzy
-#| msgid ""
-#| "It's slug of MEC categories, you can change it to events-cat or something "
-#| "else. Default value is mec-category."
+#: app/features/mec/settings.php:610
 msgid ""
-"It's slug of MEC categories, you can change it to events-cat or something "
-"else. Default value is mec-category. You can not have a page with this name."
+"You can change the event category page slug from this field. Please note "
+"that you should not have a page with this slug on your website. The default "
+"value is 'mec-category'."
 msgstr ""
-"MEC kategorilerinin slugu, olayları kedi ya da başka bir şeyle "
-"değiştirebilirsiniz. Varsayılan değer mec kategorisidir."
 
-#: app/features/mec/settings.php:667
+#: app/features/mec/settings.php:638
+msgid ""
+"If you cannot find the currency label in the above drop-down menu, you can "
+"manually add it here. Leave it empty to inherit from the option above."
+msgstr ""
+
+#: app/features/mec/settings.php:685
 msgid "Assets (CSS and JavaScript files)"
 msgstr ""
 
-#: app/features/mec/settings.php:672
+#: app/features/mec/settings.php:690 app/features/mec/settings.php:694
 msgid "Disable Load Stripe JS"
 msgstr ""
 
-#: app/features/mec/settings.php:676
+#: app/features/mec/settings.php:695
+msgid "You can prevent the loading of the JS file related to Stripe."
+msgstr ""
+
+#: app/features/mec/settings.php:701
 #, fuzzy
 #| msgid "Start Date"
 msgid "Per Page"
 msgstr "Başlangıç Tarihi"
 
-#: app/features/mec/settings.php:680
+#: app/features/mec/settings.php:705
 #, fuzzy
 #| msgid "Enable taxes / fees module"
 msgid "Enable Assets Per Page"
 msgstr "Vergiler / Ücretler modülünü etkinleştir"
 
-#: app/features/mec/settings.php:684
+#: app/features/mec/settings.php:709
+#, fuzzy
+#| msgid "Enable taxes / fees module"
+msgid "Assets Per Page"
+msgstr "Vergiler / Ücretler modülünü etkinleştir"
+
+#: app/features/mec/settings.php:710
+msgid ""
+"By activating this option, you can prevent MEC assets from being loaded on "
+"all pages of your site. Instead, an option on each page will allow you to "
+"MEV assets on that specific page."
+msgstr ""
+
+#: app/features/mec/settings.php:716
 msgid ""
 "By enabling this option MEC won't include any JavaScript or CSS files in "
 "frontend of your website unless you enable the assets inclusion in page "
 "options."
 msgstr ""
 
-#: app/features/mec/settings.php:687
+#: app/features/mec/settings.php:719
 #, fuzzy
 #| msgid "Load More"
 msgid "Load in Footer"
 msgstr "Daha Fazla Yükle"
 
-#: app/features/mec/settings.php:691
+#: app/features/mec/settings.php:723
 msgid "Load Assets in Footer"
 msgstr ""
 
-#: app/features/mec/settings.php:697 app/libraries/main.php:645
+#: app/features/mec/settings.php:729 app/libraries/main.php:645
 #, fuzzy
 #| msgid "Enable Google Recaptcha"
 msgid "Google Recaptcha"
 msgstr "Google Recaptcha'yı etkinleştir"
 
-#: app/features/mec/settings.php:701
+#: app/features/mec/settings.php:733
 msgid "Enable Google Recaptcha"
 msgstr "Google Recaptcha'yı etkinleştir"
 
-#: app/features/mec/settings.php:710
+#: app/features/mec/settings.php:742
 msgid "Enable on booking form"
 msgstr "Rezervasyon formunda etkinleştir"
 
-#: app/features/mec/settings.php:718
+#: app/features/mec/settings.php:750
 #, fuzzy
 #| msgid "Enable on \"Frontend Event Submittion\" form"
 msgid "Enable on \"Frontend Event Submission\" form"
 msgstr "\"Ön Uç Etkinliği Gönderme\" formunda etkinleştir"
 
-#: app/features/mec/settings.php:722
+#: app/features/mec/settings.php:754
 msgid "Site Key"
 msgstr "Site Anahtarı"
 
-#: app/features/mec/settings.php:728
+#: app/features/mec/settings.php:760
 msgid "Secret Key"
 msgstr "Gizli anahtar"
 
-#: app/features/mec/settings.php:742 app/features/mec/settings.php:750
+#: app/features/mec/settings.php:774 app/features/mec/settings.php:782
 msgid "Time Format"
 msgstr "Zaman Formatı"
 
-#: app/features/mec/settings.php:745
+#: app/features/mec/settings.php:777
 msgid "12 hours format with AM/PM"
 msgstr "AM / PM ile 12 saat formatı"
 
-#: app/features/mec/settings.php:746
+#: app/features/mec/settings.php:778
 msgid "24 hours format"
 msgstr "24 saat biçimi"
 
-#: app/features/mec/settings.php:751
-msgid "This option, affects the selection of Start/End time."
+#: app/features/mec/settings.php:783
+msgid ""
+"This option affects the selection of the Start/End time in the FES Form and "
+"also on the event add/edit page on the backend."
 msgstr ""
 
-#: app/features/mec/settings.php:759
+#: app/features/mec/settings.php:791
 msgid "Events List Page"
 msgstr "Etkinlikler Listesi Sayfası"
 
-#: app/features/mec/settings.php:771
+#: app/features/mec/settings.php:803
 msgid "Add/Edit Events Page"
 msgstr "Etkinlik Sayfası Ekle/Düzenle"
 
-#: app/features/mec/settings.php:783
+#: app/features/mec/settings.php:815 app/features/mec/settings.php:824
 #, fuzzy
 #| msgid "Start Date"
 msgid "New Events Status"
 msgstr "Başlangıç Tarihi"
 
-#: app/features/mec/settings.php:786
+#: app/features/mec/settings.php:818
 #, fuzzy
 #| msgid "Address"
 msgid "Let WordPress decide"
 msgstr "Adres"
 
-#: app/features/mec/settings.php:788
+#: app/features/mec/settings.php:820
 msgid "Publish"
 msgstr ""
 
-#: app/features/mec/settings.php:793
+#: app/features/mec/settings.php:825
+msgid "What should be the default status of events registered by users?"
+msgstr ""
+
+#: app/features/mec/settings.php:832
 #, fuzzy
 #| msgid "Multiple Day Events"
 msgid "Display Event Date in List"
 msgstr "Birden Çok Günü Olan Etkinlikler"
 
-#: app/features/mec/settings.php:796 app/features/mec/settings.php:1022
+#: app/features/mec/settings.php:835 app/features/mec/settings.php:1061
 #: app/libraries/main.php:3089 app/libraries/main.php:3350
 #: app/libraries/main.php:3399 app/libraries/notifications.php:2196
 msgid "No"
 msgstr ""
 
-#: app/features/mec/settings.php:797 app/features/mec/settings.php:1021
+#: app/features/mec/settings.php:836 app/features/mec/settings.php:1060
 #: app/libraries/main.php:3089 app/libraries/main.php:3350
 #: app/libraries/main.php:3399 app/libraries/notifications.php:2196
 msgid "Yes"
 msgstr ""
 
-#: app/features/mec/settings.php:814
+#: app/features/mec/settings.php:853
 msgid ""
-"User is redirected to this page after a new event submission. Leave it empty "
-"if you want it disabled."
+"Users will be redirect to this page after a successful event submission. "
+"Leave it empty if you want it to be disabled."
 msgstr ""
 
-#: app/features/mec/settings.php:821 app/features/mec/settings.php:826
+#: app/features/mec/settings.php:860 app/features/mec/settings.php:865
 msgid "Thank You Page URL"
 msgstr ""
 
-#: app/features/mec/settings.php:827
-msgid "If filled it will use instead of thank you page set above."
+#: app/features/mec/settings.php:866
+msgid ""
+"It is possible to be redirected to a specific URL after a successful event "
+"submission. Filling this option will disable the 'Thank You Page' option "
+"above."
 msgstr ""
 
-#: app/features/mec/settings.php:850 app/features/mec/settings.php:855
+#: app/features/mec/settings.php:889 app/features/mec/settings.php:894
 #, fuzzy
 #| msgid "Maximum events"
 msgid "Maximum File Size"
 msgstr "Maksimum etkinlikler"
 
-#: app/features/mec/settings.php:852
+#: app/features/mec/settings.php:891
 msgid "in KB"
 msgstr ""
 
-#: app/features/mec/settings.php:856
-msgid "In Kilo Bytes so 5000 means 5MB (Approximately)"
+#: app/features/mec/settings.php:895
+msgid "Maximum acceptable size for files uploaded by users. (in KiloBytes)"
 msgstr ""
 
-#: app/features/mec/settings.php:863
+#: app/features/mec/settings.php:902
 msgid "Disclaimer Message"
 msgstr ""
 
-#: app/features/mec/settings.php:865
+#: app/features/mec/settings.php:904
 msgid "Leave empty to disable"
 msgstr ""
 
-#: app/features/mec/settings.php:868
+#: app/features/mec/settings.php:907
 #, fuzzy
 #| msgid "Discover"
 msgid "Disclaimer"
 msgstr "Discover"
 
-#: app/features/mec/settings.php:869
+#: app/features/mec/settings.php:908
 msgid ""
-"If filled, this message would display in event details page as a disclaimer "
-"message."
+"This message would display as a disclaimer message on the event details "
+"page. Leave it empty if you are not interested."
 msgstr ""
 
-#: app/features/mec/settings.php:876 app/features/mec/settings.php:889
+#: app/features/mec/settings.php:915 app/features/mec/settings.php:928
 #: app/features/mec/single.php:73 app/features/mec/single.php:85
 #: app/features/popup/settings.php:171 app/features/popup/settings.php:183
 msgid "Single Event Style"
 msgstr ""
 
-#: app/features/mec/settings.php:880 app/features/mec/single.php:76
+#: app/features/mec/settings.php:919 app/features/mec/single.php:76
 #: app/features/popup/settings.php:174
 msgid "Default Style"
 msgstr ""
 
-#: app/features/mec/settings.php:884 app/features/mec/single.php:80
+#: app/features/mec/settings.php:923 app/features/mec/single.php:80
 #: app/features/popup/settings.php:178
 msgid "Elementor Single Builder"
 msgstr ""
 
-#: app/features/mec/settings.php:890
+#: app/features/mec/settings.php:929
+#, fuzzy
+#| msgid "Enable on \"Frontend Event Submittion\" form"
 msgid ""
-"You can choose a different style for events submitted by Frontend Event "
-"Submission form."
-msgstr ""
+"Choose the default style for events submitted by Frontend Event Submission "
+"form."
+msgstr "\"Ön Uç Etkinliği Gönderme\" formunda etkinleştir"
 
-#: app/features/mec/settings.php:897 app/features/mec/settings.php:909
+#: app/features/mec/settings.php:936 app/features/mec/settings.php:948
 #, fuzzy
 #| msgid "Category"
 msgid "Default Category"
 msgstr "Kategori"
 
-#: app/features/mec/settings.php:910
+#: app/features/mec/settings.php:949
 msgid ""
-"It will be added to the event created by Frontend Event Submission when no "
-"category specified by the event creator."
+"If the author has not selected a specific category for the recorded event "
+"using frontend event submission form, MEC will assigne this category to it "
+"by default."
 msgstr ""
 
-#: app/features/mec/settings.php:919
+#: app/features/mec/settings.php:958
 #, fuzzy
 #| msgid "Enable event submission by guest (Not logged-in) users"
 msgid "Enable event submission by guest (Not logged in) users"
@@ -9915,257 +9986,283 @@ msgstr ""
 "Etkinlik gönderimini misafir tarafından etkinleştir (oturum açmamış) "
 "kullanıcılar"
 
-#: app/features/mec/settings.php:926
+#: app/features/mec/settings.php:965
 msgid "Enable mandatory email and name for guest user"
 msgstr ""
 
-#: app/features/mec/settings.php:932
+#: app/features/mec/settings.php:971
 msgid ""
 "Automatically create users after event publish and assign event to the "
 "created user"
 msgstr ""
 
-#: app/features/mec/settings.php:937
+#: app/features/mec/settings.php:976
 #, fuzzy
 msgid "Frontend Event Submission Sections"
 msgstr "Geliştiriciye Etkinlik Gönder"
 
-#: app/features/mec/settings.php:941
+#: app/features/mec/settings.php:980
 #, fuzzy
 #| msgid "Event Details"
 msgid "Event Data Fields"
 msgstr "Etkinlik Detayları"
 
-#: app/features/mec/settings.php:988
+#: app/features/mec/settings.php:1027
 msgid ""
-"This feature adds the ability to hide the current event to all MEC "
-"Shortcodes."
+"This option allows you to hide/show the event from/in MEC shortcodes to the "
+"FES Form."
 msgstr ""
 
-#: app/features/mec/settings.php:1014 app/widgets/single.php:149
+#: app/features/mec/settings.php:1053 app/widgets/single.php:149
 msgid "Event Organizer"
 msgstr "Etkinlik Organizatörü"
 
-#: app/features/mec/settings.php:1018
+#: app/features/mec/settings.php:1057
 #, fuzzy
 msgid "Ability to Use All Organizers"
 msgstr "Tüm Organizatörler"
 
-#: app/features/mec/settings.php:1026
+#: app/features/mec/settings.php:1065
 #, fuzzy
 #| msgid "Popular Organizers"
 msgid "Use All Organizers"
 msgstr "Popüler Organizatörler"
 
-#: app/features/mec/settings.php:1027
+#: app/features/mec/settings.php:1066
 msgid ""
-"Users are able to see list of ogranizers and use them for their event. Set "
-"it to \"No\" if you want to disable this functionality and \"Other Organizers"
-"\" feature."
+"Users are able to see the list of ogranizers and use them for their event. "
+"Set it to \"No\" if you want to disable this functionality and the \"Other "
+"Organizers\" feature."
 msgstr ""
 
-#: app/features/mec/settings.php:1063 app/features/occurrences.php:192
+#: app/features/mec/settings.php:1102 app/features/occurrences.php:192
 #, fuzzy
 #| msgid "Total booking limits"
 msgid "Total Booking Limit"
 msgstr "Toplam Rezervasyon Limitleri"
 
-#: app/features/mec/settings.php:1069
+#: app/features/mec/settings.php:1108
 #, fuzzy
 #| msgid "Maximum events"
 msgid "Minimum Tickets Per Booking"
 msgstr "Maksimum etkinlikler"
 
-#: app/features/mec/settings.php:1075
+#: app/features/mec/settings.php:1114
 #, fuzzy
 #| msgid "Discount Type"
 msgid "Discount Per User Roles"
 msgstr "İndirim Türü"
 
-#: app/features/mec/settings.php:1141
+#: app/features/mec/settings.php:1180
 #, fuzzy
 msgid "Fees / Taxes Options"
 msgstr "Genel Seçenekler"
 
-#: app/features/mec/settings.php:1162 app/features/schema.php:67
+#: app/features/mec/settings.php:1201 app/features/schema.php:67
 msgid "SEO Schema"
 msgstr ""
 
-#: app/features/mec/settings.php:1185 app/features/mec/single.php:233
-#: app/features/mec/single.php:241
+#: app/features/mec/settings.php:1224 app/features/mec/single.php:247
+#: app/features/mec/single.php:255
 #, fuzzy
 #| msgid "Settings"
 msgid "Public Download Module"
 msgstr "Ayarlar"
 
-#: app/features/mec/settings.php:1203 app/widgets/single.php:202
+#: app/features/mec/settings.php:1242 app/widgets/single.php:202
 #, fuzzy
 #| msgid "View Event"
 msgid "Virtual Event"
 msgstr "Etkinlikleri Görüntüle"
 
-#: app/features/mec/settings.php:1212
+#: app/features/mec/settings.php:1251
 #, fuzzy
 #| msgid "Book Event"
 msgid "Zoom Event"
 msgstr "Etkinlik Listesi"
 
-#: app/features/mec/settings.php:1225
+#: app/features/mec/settings.php:1264
 #, php-format
 msgid ""
 "Users can put a note for editors while they're submitting the event. Also "
 "you can put %%event_note%% into the new event notification in order to get "
-"users' note in email."
+"users' notes in email."
 msgstr ""
 
-#: app/features/mec/settings.php:1232 app/features/mec/settings.php:1240
+#: app/features/mec/settings.php:1271 app/features/mec/settings.php:1279
 msgid "Note visibility"
 msgstr ""
 
-#: app/features/mec/settings.php:1235
+#: app/features/mec/settings.php:1274
 msgid "Always"
 msgstr ""
 
-#: app/features/mec/settings.php:1236
+#: app/features/mec/settings.php:1275
 msgid "While event is not published"
 msgstr ""
 
-#: app/features/mec/settings.php:1241
-msgid "Event Note shows on Frontend Submission Form and Edit Event in backend."
+#: app/features/mec/settings.php:1280
+msgid "When should event note be displayed in FES Form and Backend?"
 msgstr ""
 
-#: app/features/mec/settings.php:1251
+#: app/features/mec/settings.php:1290
 msgid "Agreement Checkbox (GDPR Compatibility)"
 msgstr ""
 
-#: app/features/mec/settings.php:1258
+#: app/features/mec/settings.php:1297
 msgid "Checked by Default"
 msgstr ""
 
-#: app/features/mec/settings.php:1277
+#: app/features/mec/settings.php:1316
 #, fuzzy
 #| msgid "Required Field"
 msgid "Required Fields"
 msgstr "Gerekli Alan"
 
-#: app/features/mec/settings.php:1284 app/libraries/main.php:7777
+#: app/features/mec/settings.php:1323 app/libraries/main.php:7777
 #: app/libraries/main.php:7824
 msgid "More Info Link"
 msgstr ""
 
-#: app/features/mec/settings.php:1298 app/libraries/main.php:647
+#: app/features/mec/settings.php:1337 app/libraries/main.php:647
 msgid "User Profile"
 msgstr ""
 
-#: app/features/mec/settings.php:1300
+#: app/features/mec/settings.php:1339
 #, php-format
 msgid ""
 "Put %s shortcode into your desired page. Then users are able to see the "
 "history of their bookings."
 msgstr ""
 
-#: app/features/mec/settings.php:1301
+#: app/features/mec/settings.php:1340
 #, php-format
 msgid "Use %s attribute to hide canceled bookings. Like %s"
 msgstr ""
 
-#: app/features/mec/settings.php:1302
+#: app/features/mec/settings.php:1341
 #, php-format
 msgid "Use %s attribute to show upcoming bookings. Like %s"
 msgstr ""
 
-#: app/features/mec/settings.php:1307 app/libraries/main.php:648
+#: app/features/mec/settings.php:1346 app/libraries/main.php:648
 #, fuzzy
 #| msgid "Events"
 msgid "User Events"
 msgstr "Etkinlikler"
 
-#: app/features/mec/settings.php:1309
+#: app/features/mec/settings.php:1348
 #, php-format
 msgid ""
 "Put %s shortcode into your desired page. Then users are able to see the "
 "their own events."
 msgstr ""
 
-#: app/features/mec/settings.php:1321 app/libraries/main.php:649
+#: app/features/mec/settings.php:1358
+#, fuzzy
+#| msgid "Events"
+msgid "User Events Skin"
+msgstr "Etkinlikler"
+
+#: app/features/mec/settings.php:1359
+msgid "In which skin should user events be displayed?"
+msgstr ""
+
+#: app/features/mec/settings.php:1367 app/libraries/main.php:649
 #, fuzzy
 #| msgid "Search Form"
 msgid "Search Bar"
 msgstr "Arama Formu"
 
-#: app/features/mec/settings.php:1323
+#: app/features/mec/settings.php:1369
 #, php-format
 msgid ""
 "Put %s shortcode into your desired page. Then users are able to search events"
 msgstr ""
 
-#: app/features/mec/settings.php:1328
+#: app/features/mec/settings.php:1374
 msgid "Ajax Live mode"
 msgstr ""
 
-#: app/features/mec/settings.php:1332
+#: app/features/mec/settings.php:1378
 msgid "Ajax mode"
 msgstr ""
 
-#: app/features/mec/settings.php:1333
+#: app/features/mec/settings.php:1379
 msgid ""
-"if you enable this option, the search button will disappear. To use this "
-"feature, text input field must be enabled."
+"By enableing this option, the search button will disappear and the search "
+"bar will function live. To use this feature, the text input field must be on."
 msgstr ""
 
-#: app/features/mec/settings.php:1341
+#: app/features/mec/settings.php:1387
 #, fuzzy
 #| msgid "Modern"
 msgid "Modern Type"
 msgstr "Modern"
 
-#: app/features/mec/settings.php:1345
+#: app/features/mec/settings.php:1391
 #, fuzzy
 #| msgid "Search Form"
 msgid "Search bar fields"
 msgstr "Arama Formu"
 
-#: app/features/mec/settings.php:1387
+#: app/features/mec/settings.php:1433
 #, fuzzy
 #| msgid "Text Input"
 msgid "Text input"
 msgstr "Metin Girişi"
 
-#: app/features/mec/settings.php:1455
+#: app/features/mec/settings.php:1456 app/features/mec/settings.php:1469
+msgid "Required!"
+msgstr "Gereklidir!"
+
+#: app/features/mec/settings.php:1485
+msgid ""
+"If you choose \"Subscribe by verification\" then an email will be send to "
+"the user by mailchimp for subscription verification."
+msgstr ""
+
+#: app/features/mec/settings.php:1501
 msgid "Campaign Monitor Integration"
 msgstr ""
 
-#: app/features/mec/settings.php:1479
+#: app/features/mec/settings.php:1525
 #, fuzzy
 #| msgid "More Information"
 msgid "MailerLite Integration"
 msgstr "Daha Fazla Bilgi"
 
-#: app/features/mec/settings.php:1503
+#: app/features/mec/settings.php:1549
 #, fuzzy
 #| msgid "More Information"
 msgid "Constant Contact Integration"
 msgstr "Daha Fazla Bilgi"
 
-#: app/features/mec/settings.php:1564
+#: app/features/mec/settings.php:1600
+msgid ""
+"Please fill in the API key and Access Token field and save settings. after "
+"that, please refresh the page and select a list."
+msgstr ""
+
+#: app/features/mec/settings.php:1610
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Active Campaign Integration"
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/settings.php:1594
+#: app/features/mec/settings.php:1640
 #, fuzzy
 #| msgid "More Information"
 msgid "AWeber Integration"
 msgstr "Daha Fazla Bilgi"
 
-#: app/features/mec/settings.php:1614
+#: app/features/mec/settings.php:1660
 #, fuzzy
 #| msgid "More Information"
 msgid "MailPoet Integration"
 msgstr "Daha Fazla Bilgi"
 
-#: app/features/mec/settings.php:1640
+#: app/features/mec/settings.php:1686
 #, fuzzy
 #| msgid "More Information"
 msgid "Sendfox Integration"
@@ -10179,6 +10276,12 @@ msgstr "Etkinlik Sayfası Ekle/Düzenle"
 
 #: app/features/mec/single.php:44 app/features/mec/single.php:49
 msgid "Single Event Date Format"
+msgstr ""
+
+#: app/features/mec/single.php:50
+msgid ""
+"Specify the date format of the event date on the single event page date and "
+"time module."
 msgstr ""
 
 #: app/features/mec/single.php:57 app/features/mec/single.php:65
@@ -10195,12 +10298,15 @@ msgstr ""
 
 #: app/features/mec/single.php:66
 msgid ""
-"Referred date\" shows the event date based on referred date in event list."
+"When you click on a recurring event from the archive page and shortcodes, "
+"which date should be opened?"
 msgstr ""
 
-#: app/features/mec/single.php:86 app/features/popup/settings.php:184
-msgid "Choose your single event style."
-msgstr ""
+#: app/features/mec/single.php:86
+#, fuzzy
+#| msgid "Don't show map in single event page"
+msgid "Choose the single event page style."
+msgstr "Haritayı tek bir etkinlik sayfasında gösterme"
 
 #: app/features/mec/single.php:95 app/features/mec/single.php:103
 #, fuzzy
@@ -10214,295 +10320,307 @@ msgstr ""
 
 #: app/features/mec/single.php:104
 msgid ""
-"Choose your Booking style. Note: When you set this feature to Modal, you "
-"cannot see the booking box if you set popup module view on shortcodes"
+"You can specify whether the booking widget should be shown as a pop-up "
+"(Modal) or as default. Note: The modal booking module will not appear if you "
+"set single event view on popup mode in the shortcodes settigns."
 msgstr ""
 
-#: app/features/mec/single.php:112
+#: app/features/mec/single.php:112 app/features/mec/single.php:118
 #, fuzzy
 #| msgid "Notifications"
 msgid "Timezone Per Event"
 msgstr "Bildirimler"
 
 #: app/features/mec/single.php:119
+msgid ""
+"By activating this option, it will be possible to choose the timezone "
+"settings for each event separately. The appropriate option will be added to "
+"the add/edit event page."
+msgstr ""
+
+#: app/features/mec/single.php:126
 msgid "Disable Block Editor (Gutenberg)"
 msgstr ""
 
-#: app/features/mec/single.php:123
+#: app/features/mec/single.php:130
 msgid "Disable Block Editor"
 msgstr ""
 
-#: app/features/mec/single.php:127
+#: app/features/mec/single.php:134
 msgid "Block Editor"
 msgstr ""
 
-#: app/features/mec/single.php:128
-msgid ""
-"If you want to use the new WordPress block editor you should keep this "
-"checkbox unchecked."
+#: app/features/mec/single.php:135
+msgid "Keep this checkbox unchecked to use the new WordPress block editor."
 msgstr ""
 
-#: app/features/mec/single.php:136 app/features/mec/single.php:144
+#: app/features/mec/single.php:143 app/features/mec/single.php:151
 msgid "Breadcrumbs"
 msgstr ""
 
-#: app/features/mec/single.php:140
+#: app/features/mec/single.php:147
 msgid "Enable Breadcrumbs."
 msgstr ""
 
-#: app/features/mec/single.php:145
-msgid "Check this option, for showing the breadcrumbs on single event page"
+#: app/features/mec/single.php:152
+msgid ""
+"Enabaling this option will display the breadcrumbs on the single event page"
 msgstr ""
 
-#: app/features/mec/single.php:154
+#: app/features/mec/single.php:161
 #, fuzzy
 #| msgid "Categories"
 msgid "Category in Breadcrumbs"
 msgstr "Kategoriler"
 
-#: app/features/mec/single.php:158
+#: app/features/mec/single.php:165
 msgid "Include Category in Breadcrumbs."
 msgstr ""
 
-#: app/features/mec/single.php:165 app/features/mec/single.php:173
+#: app/features/mec/single.php:172 app/features/mec/single.php:180
 #, fuzzy
 #| msgid "Description"
 msgid "Organizer Description"
 msgstr "Açıklama"
 
-#: app/features/mec/single.php:169
+#: app/features/mec/single.php:176
 msgid "Enable Description For Organizer."
 msgstr ""
 
-#: app/features/mec/single.php:174
+#: app/features/mec/single.php:181
 msgid ""
-"If you want to turn on description for other organizer plase go to "
-"'Additional Organizers - After enabling and saving the settings, reloading "
-"the settings page.' tab"
+"Enabaling this option will add the organizer description textbox to the "
+"organizers edit page."
 msgstr ""
 
-#: app/features/mec/single.php:182 app/features/mec/single.php:190
+#: app/features/mec/single.php:189 app/features/mec/single.php:197
 #, fuzzy
 #| msgid "Description"
 msgid "Location Description"
 msgstr "Açıklama"
 
-#: app/features/mec/single.php:186
+#: app/features/mec/single.php:193
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Enable Description For Location."
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/single.php:191
+#: app/features/mec/single.php:198
 msgid ""
-"If you want to turn on description for other location plase go to "
-"'Additional Locations - After enabling and saving the settings, reloading "
-"the settings page.' tab"
+"Enabaling this option will add the location description textbox to the "
+"locations edit page."
 msgstr ""
 
-#: app/features/mec/single.php:199 app/features/mec/single.php:207
+#: app/features/mec/single.php:206 app/features/mec/single.php:214
 #, fuzzy
 #| msgid "Event Cost"
 msgid "Event Cost Type"
 msgstr "Etkinlik Maliyeti"
 
-#: app/features/mec/single.php:202
+#: app/features/mec/single.php:209
 msgid "Numeric (Searchable)"
 msgstr ""
 
-#: app/features/mec/single.php:203
+#: app/features/mec/single.php:210
 msgid "Alphabetic (Not Searchable)"
 msgstr ""
 
-#: app/features/mec/single.php:208
+#: app/features/mec/single.php:215
 msgid ""
-"Choose Numeric type if you want to include the event cost field into the "
-"search form. If you do not need the search ability then you can choose "
+"Choose the Numeric type if you want to include the event cost field into the "
+"search form. If you do not need the search option you can choose the "
 "Alphabetic type."
 msgstr ""
 
-#: app/features/mec/single.php:215
+#: app/features/mec/single.php:222 app/features/mec/single.php:230
 msgid "Change Currency Per Event"
 msgstr ""
 
-#: app/features/mec/single.php:219
+#: app/features/mec/single.php:226
 msgid "Enable Currency Per Event"
 msgstr ""
 
-#: app/features/mec/single.php:224
+#: app/features/mec/single.php:231
+msgid ""
+"By activating this option, it will be possible to choose the Currency "
+"settings for each event separately. The appropriate option will be added to "
+"the add/edit event page."
+msgstr ""
+
+#: app/features/mec/single.php:238
 #, fuzzy
 #| msgid "Featured Image"
 msgid "Featured Image Caption"
 msgstr "Resim Seç"
 
-#: app/features/mec/single.php:242
+#: app/features/mec/single.php:256
 msgid ""
-"If enabled, an upload field will appear in add / edit event page and if "
+"If enabled, an upload field will appear in the add/edit event page and if "
 "filled, it will appear in the event details page to download."
 msgstr ""
 
-#: app/features/mec/single.php:250 app/features/mec/single.php:258
+#: app/features/mec/single.php:264 app/features/mec/single.php:272
 msgid "Sticky Sidebar"
 msgstr ""
 
-#: app/features/mec/single.php:254
+#: app/features/mec/single.php:268
 #, fuzzy
 #| msgid "Add/Edit Events Page"
 msgid "Enable Sticky Sidebar"
 msgstr "Etkinlik Sayfası Ekle/Düzenle"
 
-#: app/features/mec/single.php:259
+#: app/features/mec/single.php:273
 msgid ""
-"If the  content you wish to display on the page is too long, then enable "
-"this option to make the sidebar sticky and view the content via scrolling "
-"down. If you're sidebar has a lot of data and is a long sidebar, we don't "
-"recommend enabling this option."
+"If the content you wish to display on the single event page is too long, "
+"enable this option to make the sidebar sticky. We don't recommend enabling "
+"this option if your sidebar has a lot of data and is a long sidebar."
 msgstr ""
 
-#: app/features/mec/single.php:269 app/libraries/main.php:669
+#: app/features/mec/single.php:283 app/libraries/main.php:669
 #: app/widgets/single.php:195
 #, fuzzy
 #| msgid "Custom Styles"
 msgid "Custom Fields"
 msgstr "Özel Stiller"
 
-#: app/features/mec/single.php:358
+#: app/features/mec/single.php:372
 #, fuzzy
 #| msgid "Don't show map in single event page"
 msgid "Display Event Fields in Single Event Pages"
 msgstr "Haritayı tek bir etkinlik sayfasında gösterme"
 
-#: app/features/mec/single.php:373 app/libraries/main.php:670
+#: app/features/mec/single.php:387 app/libraries/main.php:670
 #, fuzzy
 msgid "Countdown"
 msgstr "Geri Sayım Seçenekleri"
 
-#: app/features/mec/single.php:377 app/features/popup/settings.php:198
+#: app/features/mec/single.php:391 app/features/popup/settings.php:198
 msgid "Show countdown module on event page"
 msgstr "Etkinlik sayfasında geri sayım modülünü göster"
 
-#: app/features/mec/single.php:382 app/features/popup/settings.php:202
+#: app/features/mec/single.php:396 app/features/popup/settings.php:202
 msgid "Countdown Style"
 msgstr ""
 
-#: app/features/mec/single.php:385 app/features/popup/settings.php:205
+#: app/features/mec/single.php:399 app/features/popup/settings.php:205
 msgid "Plain Style"
 msgstr ""
 
-#: app/features/mec/single.php:386 app/features/popup/settings.php:206
+#: app/features/mec/single.php:400 app/features/popup/settings.php:206
 msgid "Flip Style"
 msgstr ""
 
-#: app/features/mec/single.php:394
+#: app/features/mec/single.php:408
 #, fuzzy
 #| msgid "Enable on booking form"
 msgid "Disable for ongoing events"
 msgstr "Rezervasyon formunda etkinleştir"
 
-#: app/features/mec/single.php:401 app/features/mec/single.php:408
+#: app/features/mec/single.php:415 app/features/mec/single.php:422
 #, fuzzy
 msgid "Exceptional days (Exclude Dates)"
 msgstr "Son Kullanma Tarihi"
 
-#: app/features/mec/single.php:405
+#: app/features/mec/single.php:419
 msgid "Show exceptional days option on Add/Edit events page"
 msgstr ""
 
-#: app/features/mec/single.php:409
+#: app/features/mec/single.php:423
 msgid ""
-"Using this option you can exclude certain days from event occurrence dates."
+"By using this option you can exclude certain days from multi-occurence event "
+"dates."
 msgstr ""
 
-#: app/features/mec/single.php:418 app/libraries/main.php:672
+#: app/features/mec/single.php:432 app/libraries/main.php:672
 #, fuzzy
 msgid "Additional Organizers"
 msgstr "Tüm Organizatörler"
 
-#: app/features/mec/single.php:422
+#: app/features/mec/single.php:436
 msgid ""
 "Show additional organizers option on Add/Edit events page and single event "
 "page."
 msgstr ""
 
-#: app/features/mec/single.php:429
+#: app/features/mec/single.php:443
 msgid "Enable Description For Other Organizers."
 msgstr ""
 
-#: app/features/mec/single.php:436 app/libraries/main.php:673
+#: app/features/mec/single.php:450 app/libraries/main.php:673
 #, fuzzy
 #| msgid "All Locations"
 msgid "Additional Locations"
 msgstr "Tüm Konumlar"
 
-#: app/features/mec/single.php:440
+#: app/features/mec/single.php:454
 msgid ""
 "Show additional locations option on Add/Edit events page and single event "
 "page."
 msgstr ""
 
-#: app/features/mec/single.php:447
+#: app/features/mec/single.php:461
 msgid "Enable Description For Other Locations."
 msgstr ""
 
-#: app/features/mec/single.php:453
+#: app/features/mec/single.php:467
 #, fuzzy
 #| msgid "Enable new event notification"
 msgid "Disable Title For Other Locations."
 msgstr "Yeni etkinlik bildirimini etkinleştir"
 
-#: app/features/mec/single.php:460 app/libraries/main.php:674
+#: app/features/mec/single.php:474 app/libraries/main.php:674
 #: app/skins/single.php:189 app/skins/single.php:507
 #, fuzzy
 #| msgid "featured event"
 msgid "Related Events"
 msgstr "Öne Çıkan Etkinlik"
 
-#: app/features/mec/single.php:464 app/features/popup/settings.php:216
+#: app/features/mec/single.php:478 app/features/popup/settings.php:216
 msgid "Display related events based on taxonomy in single event page."
 msgstr ""
 
-#: app/features/mec/single.php:469 app/features/mec/single.php:522
+#: app/features/mec/single.php:483 app/features/mec/single.php:536
 #: app/features/popup/settings.php:220 app/features/popup/settings.php:259
 msgid "Select Taxonomies:"
 msgstr ""
 
-#: app/features/mec/single.php:498
+#: app/features/mec/single.php:512
 #, fuzzy
 #| msgid "Events"
 msgid "Max Events"
 msgstr "Etkinlikler"
 
-#: app/features/mec/single.php:506
+#: app/features/mec/single.php:520
 #, fuzzy
 #| msgid "Multiple Day Events"
 msgid "Display Expired Events"
 msgstr "Birden Çok Günü Olan Etkinlikler"
 
-#: app/features/mec/single.php:513 app/libraries/main.php:675
+#: app/features/mec/single.php:527 app/libraries/main.php:675
 #, fuzzy
 #| msgid "Next/Previous Buttons"
 msgid "Next / Previous Events"
 msgstr "Önceki/Sonraki Butonları"
 
-#: app/features/mec/single.php:517 app/features/popup/settings.php:254
+#: app/features/mec/single.php:531 app/features/popup/settings.php:254
 msgid "Display next / previous events based on taxonomy in single event page."
 msgstr ""
 
-#: app/features/mec/single.php:554 app/libraries/main.php:722
+#: app/features/mec/single.php:568 app/libraries/main.php:722
 #, fuzzy
 #| msgid "Occurrences times"
 msgid "Edit Per Occurrences"
 msgstr "Etkinlik Saatleri"
 
-#: app/features/mec/single.php:558
+#: app/features/mec/single.php:572
 msgid "Ability to edit some event information per occurrence"
 msgstr ""
 
-#: app/features/mec/single.php:564
+#: app/features/mec/single.php:578
 msgid "Content only for bookers"
 msgstr ""
 
-#: app/features/mec/single.php:567
+#: app/features/mec/single.php:581
 #, php-format
 msgid ""
 "if you need to show a certain content only for booker users, you can enclose "
@@ -10572,7 +10690,7 @@ msgstr "Mod"
 #: app/features/mec/styling.php:123
 #, fuzzy
 #| msgid "Enable coupons module"
-msgid "Enable it to turn on dark mode"
+msgid "Enable this option to turn on the dark mode"
 msgstr "Kupon modülünü etkinleştir"
 
 #: app/features/mec/styling.php:131
@@ -10605,7 +10723,7 @@ msgstr "Google Recaptcha'yı etkinleştir"
 
 #: app/features/mec/styling.php:223
 msgid ""
-"To be GDPR compliant you may need to disable Google fonts! set \"Default Font"
+"To be GDPR compliant you may need to disable Google fonts. Set \"Default Font"
 "\" value for font family and enable this option."
 msgstr ""
 
@@ -10617,7 +10735,7 @@ msgid "Accessibility"
 msgstr "Etkinlik Maliyeti"
 
 #: app/features/mec/styling.php:240
-msgid "Enable A11Y or accessibility in MEC..."
+msgid "Enable A11Y or accessibility in MEC."
 msgstr ""
 
 #: app/features/mec/styling.php:249
@@ -10628,12 +10746,20 @@ msgstr ""
 msgid "Desktop Normal Screens"
 msgstr ""
 
-#: app/features/mec/styling.php:257 app/features/mec/styling.php:271
-msgid "You can enter your theme container size in this field"
+#: app/features/mec/styling.php:257
+msgid ""
+"You can enter your theme container size in this field to override it for "
+"normal screens."
 msgstr ""
 
 #: app/features/mec/styling.php:265 app/features/mec/styling.php:270
 msgid "Desktop Large Screens"
+msgstr ""
+
+#: app/features/mec/styling.php:271
+msgid ""
+"You can enter your theme container size in this field to override it for "
+"large screens."
 msgstr ""
 
 #: app/features/mec/styling.php:280
@@ -11297,6 +11423,12 @@ msgid "Choose one of saved locations."
 msgstr ""
 "Kaydedilen konumlardan birini seçin veya aşağıya yeni bir konum ekleyin."
 
+#: app/features/occurrences.php:329 app/features/popup/event.php:181
+msgid "Choose one of saved organizers or insert new one below."
+msgstr ""
+"Kayıtlı organizatörlerden birini seçin veya aşağıdaki kutudan yenisini "
+"ekleyin."
+
 #: app/features/occurrences.php:355
 #, fuzzy
 #| msgid "Name"
@@ -11356,6 +11488,15 @@ msgstr ""
 msgid "Add Location"
 msgstr "Yeni Konum Ekle"
 
+#: app/features/popup/event.php:161
+msgid ""
+"If you leave the latitude and longitude empty, Modern Events Calendar tries "
+"to convert the location address to geopoint, Latitude and Longitude are the "
+"units that represent the coordinates at geographic coordinate system. To "
+"make a search, use the name of a place, city, state, or address, or click "
+"the location on the map to find lat long coordinates."
+msgstr ""
+
 #: app/features/popup/event.php:185
 #, fuzzy
 #| msgid "Add New Organizer"
@@ -11407,6 +11548,35 @@ msgstr "Sonraki"
 
 #: app/features/popup/settings.php:30
 msgid "Dashboard"
+msgstr ""
+
+#: app/features/popup/settings.php:80
+#, fuzzy
+#| msgid "Default value is Events"
+msgid "Default value is Events - It's title of the page"
+msgstr "Varsayılan Değer Etkinliklerdir."
+
+#: app/features/popup/settings.php:163
+msgid ""
+"Default value is events. You can not have a page with this name. MEC allows "
+"you to create custom URLs for the permalinks and archives to enhance the "
+"applicability and forward-compatibility of the links."
+msgstr ""
+
+#: app/features/popup/settings.php:184
+msgid "Choose your single event style."
+msgstr ""
+
+#: app/features/popup/settings.php:303
+msgid ""
+"Enable this option to have speaker in Hourly Schedule in Single. Refresh "
+"after enabling it to see the Speakers menu under MEC dashboard."
+msgstr ""
+
+#: app/features/popup/settings.php:367
+msgid ""
+"If enabled MEC would create a WordPress User for main attendees. It's "
+"recommended to keep it enabled."
 msgstr ""
 
 #: app/features/popup/settings.php:541
@@ -11660,7 +11830,8 @@ msgid "Insert URL of linkedin"
 msgstr "Sınırsız kullanım için -1 ekleyin"
 
 #: app/features/speakers.php:355
-msgid "Sorry, You must insert speaker name!"
+#, php-format
+msgid "Sorry, You must insert %s name!"
 msgstr ""
 
 #: app/features/speakers.php:399
@@ -12334,7 +12505,7 @@ msgstr ""
 msgid "Free"
 msgstr "Ücretsiz"
 
-#: app/libraries/main.php:5401 app/libraries/main.php:8146
+#: app/libraries/main.php:5401 app/libraries/main.php:8171
 #, fuzzy
 #| msgid "M.E. Calendar"
 msgid "M.E. Calender"
@@ -12553,138 +12724,138 @@ msgstr ""
 msgid "Event Detail"
 msgstr "Etkinlik Detayları"
 
-#: app/libraries/main.php:7937
+#: app/libraries/main.php:7962
 msgid "EventON"
 msgstr ""
 
-#: app/libraries/main.php:7938
+#: app/libraries/main.php:7963
 msgid "The Events Calendar"
 msgstr ""
 
-#: app/libraries/main.php:7939
+#: app/libraries/main.php:7964
 msgid "Events Schedule WP Plugin"
 msgstr ""
 
-#: app/libraries/main.php:7940
+#: app/libraries/main.php:7965
 msgid "Calendarize It"
 msgstr ""
 
-#: app/libraries/main.php:7941
+#: app/libraries/main.php:7966
 #, fuzzy
 #| msgid "No Search Options"
 msgid "Event Espresso"
 msgstr "Arama Seçenekleri Yok"
 
-#: app/libraries/main.php:7942
+#: app/libraries/main.php:7967
 #, fuzzy
 #| msgid "Event Repeating"
 msgid "Events Manager (Recurring)"
 msgstr "Etkinlik Tekrarı"
 
-#: app/libraries/main.php:7943
+#: app/libraries/main.php:7968
 #, fuzzy
 #| msgid "Modern Events Calendar"
 msgid "Events Manager (Single)"
 msgstr "Modern Etkinlik Takvimi"
 
-#: app/libraries/main.php:7944
+#: app/libraries/main.php:7969
 #, fuzzy
 #| msgid "Modern Events Calendar"
 msgid "WP Event Manager"
 msgstr "Modern Etkinlik Takvimi"
 
-#: app/libraries/main.php:8176
+#: app/libraries/main.php:8201
 #, fuzzy
 #| msgid "Sunday"
 msgid "Sun"
 msgstr "Pazar"
 
-#: app/libraries/main.php:8176
+#: app/libraries/main.php:8201
 #, fuzzy
 #| msgid "Monday"
 msgid "Mon"
 msgstr "Pazartesi"
 
-#: app/libraries/main.php:8176
+#: app/libraries/main.php:8201
 #, fuzzy
 #| msgid "Tel"
 msgid "Tue"
 msgstr "Tel"
 
-#: app/libraries/main.php:8176
+#: app/libraries/main.php:8201
 msgid "Wed"
 msgstr ""
 
-#: app/libraries/main.php:8176
+#: app/libraries/main.php:8201
 msgid "Thu"
 msgstr ""
 
-#: app/libraries/main.php:8176
+#: app/libraries/main.php:8201
 #, fuzzy
 #| msgid "Friday"
 msgid "Fri"
 msgstr "Cuma"
 
-#: app/libraries/main.php:8176
+#: app/libraries/main.php:8201
 msgid "Sat"
 msgstr ""
 
-#: app/libraries/main.php:8413 app/libraries/render.php:84
+#: app/libraries/main.php:8438 app/libraries/render.php:84
 #: app/libraries/render.php:469
 msgid "Skin controller does not exist."
 msgstr "Tema kontrolü mevcut değil."
 
-#: app/libraries/main.php:8664
+#: app/libraries/main.php:8689
 msgid "Sale has ended"
 msgstr ""
 
-#: app/libraries/main.php:8672
+#: app/libraries/main.php:8697
 msgid "Sold Out"
 msgstr ""
 
-#: app/libraries/main.php:8709
+#: app/libraries/main.php:8734
 #, fuzzy
 #| msgid "Ticket"
 msgid "Last Few Tickets"
 msgstr "Bilet"
 
-#: app/libraries/main.php:9003
+#: app/libraries/main.php:9028
 #, fuzzy
 #| msgid "No Events"
 msgid "Ongoing"
 msgstr "Etkinlik Yok"
 
-#: app/libraries/main.php:9005
+#: app/libraries/main.php:9030
 msgid "Expired"
 msgstr ""
 
-#: app/libraries/main.php:9074 app/libraries/main.php:9094
+#: app/libraries/main.php:9099 app/libraries/main.php:9119
 #, fuzzy
 #| msgid "minutes"
 msgid "Minutes"
 msgstr "dakikalar"
 
-#: app/libraries/main.php:9099
+#: app/libraries/main.php:9124
 msgid "AM / PM"
 msgstr ""
 
-#: app/libraries/main.php:9100
+#: app/libraries/main.php:9125
 msgid "AM"
 msgstr "Öğleden Önce"
 
-#: app/libraries/main.php:9101
+#: app/libraries/main.php:9126
 msgid "PM"
 msgstr "Öğleden Sonra"
 
-#: app/libraries/main.php:9109
+#: app/libraries/main.php:9134
 msgid "Ongoing..."
 msgstr ""
 
-#: app/libraries/main.php:9110 app/skins/single.php:244
+#: app/libraries/main.php:9135 app/skins/single.php:244
 msgid "Expired!"
 msgstr ""
 
-#: app/libraries/main.php:9695
+#: app/libraries/main.php:9720
 #, fuzzy
 #| msgid "Categories"
 msgid "Uncategorized"
@@ -13038,50 +13209,61 @@ msgid "Go to occurrence page"
 msgstr ""
 
 #: app/modules/weather/darksky.php:33 app/modules/weather/darksky.php:35
+#: app/modules/weather/visualcrossing.php:33
+#: app/modules/weather/visualcrossing.php:35
 #: app/modules/weather/weatherapi.php:36 app/modules/weather/weatherapi.php:38
 #: app/modules/weather/weatherapi.php:62
 msgid " °C"
 msgstr ""
 
 #: app/modules/weather/darksky.php:33 app/modules/weather/darksky.php:37
+#: app/modules/weather/visualcrossing.php:33
+#: app/modules/weather/visualcrossing.php:37
 #: app/modules/weather/weatherapi.php:36 app/modules/weather/weatherapi.php:40
 #: app/modules/weather/weatherapi.php:62
 msgid " °F"
 msgstr ""
 
-#: app/modules/weather/darksky.php:45 app/modules/weather/weatherapi.php:48
+#: app/modules/weather/darksky.php:45 app/modules/weather/visualcrossing.php:45
+#: app/modules/weather/weatherapi.php:48
 msgid "°Imperial"
 msgstr ""
 
-#: app/modules/weather/darksky.php:45 app/modules/weather/weatherapi.php:48
+#: app/modules/weather/darksky.php:45 app/modules/weather/visualcrossing.php:45
+#: app/modules/weather/weatherapi.php:48
 msgid "°Metric"
 msgstr ""
 
-#: app/modules/weather/darksky.php:51 app/modules/weather/weatherapi.php:54
+#: app/modules/weather/darksky.php:51 app/modules/weather/visualcrossing.php:51
+#: app/modules/weather/weatherapi.php:54
 msgid " KPH"
 msgstr ""
 
-#: app/modules/weather/darksky.php:51 app/modules/weather/weatherapi.php:54
+#: app/modules/weather/darksky.php:51 app/modules/weather/visualcrossing.php:51
+#: app/modules/weather/weatherapi.php:54
 msgid " MPH"
 msgstr ""
 
-#: app/modules/weather/darksky.php:51 app/modules/weather/weatherapi.php:54
+#: app/modules/weather/darksky.php:51 app/modules/weather/visualcrossing.php:51
+#: app/modules/weather/weatherapi.php:54
 msgid "Wind"
 msgstr ""
 
-#: app/modules/weather/darksky.php:55 app/modules/weather/weatherapi.php:58
+#: app/modules/weather/darksky.php:55 app/modules/weather/visualcrossing.php:55
+#: app/modules/weather/weatherapi.php:58
 msgid "Humidity"
 msgstr ""
 
-#: app/modules/weather/darksky.php:55 app/modules/weather/weatherapi.php:58
+#: app/modules/weather/darksky.php:55 app/modules/weather/visualcrossing.php:55
+#: app/modules/weather/weatherapi.php:58
 msgid " %"
 msgstr ""
 
-#: app/modules/weather/darksky.php:59
+#: app/modules/weather/darksky.php:59 app/modules/weather/visualcrossing.php:59
 msgid " KM"
 msgstr ""
 
-#: app/modules/weather/darksky.php:59
+#: app/modules/weather/darksky.php:59 app/modules/weather/visualcrossing.php:59
 msgid " Miles"
 msgstr ""
 
@@ -13644,9 +13826,6 @@ msgstr ""
 #~ msgid "Stripe Gateway Description"
 #~ msgstr "Açıklama"
 
-#~ msgid "HTML allowed."
-#~ msgstr "HTML'e  izin ver."
-
 #, fuzzy
 #~| msgid "Payment"
 #~ msgid "Payment Method"
@@ -13724,9 +13903,6 @@ msgstr ""
 
 #~ msgid "Business Account"
 #~ msgstr "İş Hesabı"
-
-#~ msgid "Normally PayPal Email."
-#~ msgstr "PayPal E-posta Adresiniz"
 
 #, fuzzy
 #~| msgid "PayPal Express"
@@ -13833,6 +14009,105 @@ msgstr ""
 #~| msgid "Organizer name of booked event"
 #~ msgid "Organizer Payment Credentials"
 #~ msgstr "Etkinliği düzenleyen organizatörün adı."
+
+#~ msgid ""
+#~ "If you fill it, it will be shown in event details page as an optional "
+#~ "link. Insert full link including http(s)://"
+#~ msgstr ""
+#~ "Doldurursanız, Http (s) dahil olmak üzere tam bağlantıyı ekleyin: //"
+
+#, fuzzy
+#~| msgid "No Search Options"
+#~ msgid "Speaker Name"
+#~ msgstr "Arama Seçenekleri Yok"
+
+#~ msgid "Choose one of saved locations or insert new one below."
+#~ msgstr ""
+#~ "Kaydedilen konumlardan birini seçin veya aşağıya yeni bir konum ekleyin."
+
+#~ msgid "For showing on website. e.g. $15"
+#~ msgstr "Web sitesinde göster. Örneğin. 15$"
+
+#~ msgid "HTML allowed."
+#~ msgstr "HTML'e  izin ver."
+
+#~ msgid "Normally PayPal Email."
+#~ msgstr "PayPal E-posta Adresiniz"
+
+#, fuzzy
+#~ msgid "Default is Y-m-d"
+#~ msgstr "Varsayılan Görünüm"
+
+#~ msgid "Attendees Form"
+#~ msgstr "Katılma Formu"
+
+#, fuzzy
+#~ msgid "Default value is M d Y"
+#~ msgstr "Varsayılan Değer Etkinliklerdir."
+
+#, fuzzy
+#~| msgid "API Key"
+#~ msgid "darksky.net API Key"
+#~ msgstr "API Anahtarı"
+
+#, fuzzy
+#~ msgid "Default is M d Y"
+#~ msgstr "Varsayılan Görünüm"
+
+#~ msgid ""
+#~ "This option is for showing start/end time of events on frontend of "
+#~ "website."
+#~ msgstr ""
+#~ "Bu seçenek, web sitesinin önündeki etkinliklerin başlangıç bitiş saatini "
+#~ "göstermek içindir."
+
+#, fuzzy
+#~| msgid ""
+#~| "For showing all days of multiple day events on frontend or only show the "
+#~| "first day."
+#~ msgid ""
+#~ "For showing all days of multiple day events on frontend or only show the "
+#~ "first day. This option doesn't work on the \"General Calendar\" view."
+#~ msgstr ""
+#~ "Birden çok günlük etkinliğin tüm günlerini ön uçta gösterilmesi veya "
+#~ "yalnızca ilk günün gösterilmesi için."
+
+#, fuzzy
+#~| msgid "Default value is Calendar/Monthly View"
+#~ msgid "Default value is Calendar/Monthly View, But you can change it "
+#~ msgstr "Varsayılan değer Takvim / Aylık Görünüm'dür."
+
+#, fuzzy
+#~| msgid "Default value is Calendar/Monthly View"
+#~ msgid ""
+#~ "Default value is List View - But you can change it to set a skin for all "
+#~ "categories."
+#~ msgstr "Varsayılan değer Takvim / Aylık Görünüm'dür."
+
+#, fuzzy
+#~| msgid ""
+#~| "If you disable it, then you should create a page as archive page of MEC. "
+#~| "Page's slug must equals to \"Main Slug\" of MEC. Also it will disable "
+#~| "all of MEC rewrite rules."
+#~ msgid ""
+#~ "If you disable it, then you should create a page as archive page of MEC. "
+#~ "Page's slug must equals to \"Main Slug\" of MEC."
+#~ msgstr ""
+#~ "Bunu devre dışı bırakırsanız, MEC'in arşiv sayfası olarak bir sayfa "
+#~ "oluşturmanız gerekir. Page's slug, MEC'in \"Main Slug\" e eşit olmalıdır. "
+#~ "Ayrıca tüm MEC yeniden yazma kurallarını devre dışı bırakır."
+
+#, fuzzy
+#~| msgid ""
+#~| "It's slug of MEC categories, you can change it to events-cat or "
+#~| "something else. Default value is mec-category."
+#~ msgid ""
+#~ "It's slug of MEC categories, you can change it to events-cat or something "
+#~ "else. Default value is mec-category. You can not have a page with this "
+#~ "name."
+#~ msgstr ""
+#~ "MEC kategorilerinin slugu, olayları kedi ya da başka bir şeyle "
+#~ "değiştirebilirsiniz. Varsayılan değer mec kategorisidir."
 
 #, fuzzy
 #~| msgid "Maximum events"

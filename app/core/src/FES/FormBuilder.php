@@ -234,7 +234,7 @@ class FormBuilder extends Singleton {
                     <div class="mec-form-row">
                         <div class="mec-col-4">
                             <input type="text" class="" name="mec[date][comment]" id="mec_comment" placeholder="<?php esc_html_e('Notes on the time', 'modern-events-calendar-lite'); ?>" value="<?php echo esc_attr($comment); ?>" />
-                            <p class="description"><?php esc_html_e('It shows next to event time on the Single Event Page. You can enter notes such as timezone in this field.', 'modern-events-calendar-lite'); ?></p>
+                            <p class="description"><?php esc_html_e('It appears next to the event time on the Single Event Page. You can enter notes such as the timezone name in this field.', 'modern-events-calendar-lite'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -314,7 +314,7 @@ class FormBuilder extends Singleton {
                                                     <h5 class="title"><?php esc_html_e('Custom Days Repeating', 'modern-events-calendar-lite'); ?></h5>
                                                     <div class="content">
                                                         <p>
-                                                            <?php esc_attr_e('Add certain days to event occurrence dates. If you have a single day event, start and end dates should be the same, If you have a multiple day event, the start and end dates must be commensurate with the initial date.', 'modern-events-calendar-lite'); ?>
+                                                            <?php esc_attr_e('Add certain days to event occurrences. If you have a single day event, start and end dates should be the same, If you have a multiple day event, the start and end dates must match the initial date.', 'modern-events-calendar-lite'); ?>
                                                             <a href="https://webnus.net/dox/modern-events-calendar/date-and-time/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a>
                                                         </p>
                                                     </div>
@@ -862,7 +862,7 @@ class FormBuilder extends Singleton {
                     <option value="_self" <?php echo ($more_info_target == '_self' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Current Window', 'modern-events-calendar-lite'); ?></option>
                     <option value="_blank" <?php echo ($more_info_target == '_blank' ? 'selected="selected"' : ''); ?>><?php esc_html_e('New Window', 'modern-events-calendar-lite'); ?></option>
                 </select>
-                <p class="description"><?php esc_html_e('If you fill it, it will be shown in event details page as an optional link. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?></p>
+                <p class="description"><?php esc_html_e('This link will appear on the single event page. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?></p>
             </div>
         </div>
 
@@ -1236,8 +1236,8 @@ class FormBuilder extends Singleton {
         <div class="mec-meta-box-fields mec-fes-speakers" id="mec-speakers">
             <h4><?php echo esc_html(\MEC\Base::get_main()->m('taxonomy_speakers', esc_html__('Speakers', 'modern-events-calendar-lite'))); ?></h4>
             <div class="mec-form-row">
-                <input type="text" name="mec[speakers][datas][names]" id="mec_speaker_input_names" placeholder="<?php esc_html_e('Speaker Name', 'modern-events-calendar-lite'); ?>" class="" />
-                <p><?php esc_html_e('Insert name of one speaker: Chris Taylor', 'modern-events-calendar-lite'); ?></p>
+                <input type="text" name="mec[speakers][datas][names]" id="mec_speaker_input_names" placeholder="<?php echo sprintf(esc_html__('%s Name', 'modern-events-calendar-lite'), \MEC\Base::get_main()->m('taxonomy_speaker', esc_html__('Speaker', 'modern-events-calendar-lite'))); ?>" class="" />
+                <p><?php echo sprintf(esc_html__('Insert name of one %s: Chris Taylor', 'modern-events-calendar-lite'), strtolower(\MEC\Base::get_main()->m('taxonomy_speaker', esc_html__('speaker', 'modern-events-calendar-lite')))); ?></p>
                 <button class="button" type="button" id="mec_add_speaker_button"><?php esc_html_e('Add', 'modern-events-calendar-lite'); ?></button>
             </div>
             <div class="mec-form-row" id="mec-fes-speakers-list">
@@ -1474,7 +1474,7 @@ class FormBuilder extends Singleton {
                 <span class="mec-tooltip">
                     <div class="box top">
                         <h5 class="title"><?php esc_html_e('Location', 'modern-events-calendar-lite'); ?></h5>
-                        <div class="content"><p><?php esc_attr_e('Choose one of saved locations or insert new one below.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/location/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                        <div class="content"><p><?php esc_attr_e('Choose one of saved locations or insert a new one.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/location/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                     </div>
                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                 </span>
@@ -1512,7 +1512,7 @@ class FormBuilder extends Singleton {
                     <span class="mec-tooltip">
                         <div class="box top">
                             <h5 class="title"><?php esc_html_e('Latitude/Longitude', 'modern-events-calendar-lite'); ?></h5>
-                            <div class="content"><p><?php esc_attr_e('If you leave the latitude and longitude empty, Modern Events Calendar tries to convert the location address to geopoint, Latitude and Longitude are the units that represent the coordinates at geographic coordinate system. To make a search, use the name of a place, city, state, or address, or click the location on the map to find lat long coordinates.', 'modern-events-calendar-lite'); ?><a href="https://latlong.net" target="_blank"><?php esc_html_e('Get Latitude and Longitude', 'modern-events-calendar-lite'); ?></a></p></div>
+                            <div class="content"><p><?php esc_attr_e('Latitude and Longitude are  parameters that represent the coordinates in the geographic coordinate system. You can find your venue\'s Latitude and Longitude measurments via the link below. ', 'modern-events-calendar-lite'); ?><a href="https://latlong.net" target="_blank"><?php esc_html_e('Get Latitude and Longitude', 'modern-events-calendar-lite'); ?></a></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                     </span>
@@ -1614,7 +1614,7 @@ class FormBuilder extends Singleton {
                 <span class="mec-tooltip">
                     <div class="box top">
                         <h5 class="title"><?php esc_html_e('Organizer', 'modern-events-calendar-lite'); ?></h5>
-                        <div class="content"><p><?php esc_attr_e('Choose one of saved organizers or insert new one below.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/organizer-and-other-organizer/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                        <div class="content"><p><?php esc_attr_e('Choose one of the saved organizers or insert a new one.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/organizer-and-other-organizer/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                     </div>
                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                 </span>
@@ -1744,7 +1744,7 @@ class FormBuilder extends Singleton {
                             <h5 class="title"><?php esc_html_e('Total booking limit', 'modern-events-calendar-lite'); ?></h5>
                             <div class="content">
                                 <p>
-                                    <?php esc_attr_e('If you want to set a limit to all tickets, uncheck this checkbox and put a limitation number.', 'modern-events-calendar-lite'); ?>
+                                    <?php esc_attr_e('If you want to set a limit to all the tickets, uncheck this checkbox and put a limitation number for it.', 'modern-events-calendar-lite'); ?>
                                     <a href="https://webnus.net/dox/modern-events-calendar/total-booking-limits/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a>
                                     <a href="https://webnus.net/dox/modern-events-calendar/add-a-booking-system/" target="_blank"><?php esc_html_e('Read About A Booking System', 'modern-events-calendar-lite'); ?></a>
                                 </p>
@@ -1930,7 +1930,7 @@ class FormBuilder extends Singleton {
                     <span class="mec-tooltip">
                         <div class="box">
                             <h5 class="title"><?php esc_html_e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></h5>
-                            <div class="content"><p><?php esc_attr_e("You can show booking form only at certain times before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event! One day is 1440 minutes.", 'modern-events-calendar-lite'); ?></p></div>
+                            <div class="content"><p><?php esc_attr_e("You can show the booking form only at certain times before the event starts. If you set this option to 30 then the booking form will open only 30 minutes before starting the event! One day is 1440 minutes.", 'modern-events-calendar-lite'); ?></p></div>
                         </div>
                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                     </span>
@@ -3006,7 +3006,7 @@ class FormBuilder extends Singleton {
                                 <span class="mec-tooltip">
                                     <div class="box top">
                                         <h5 class="title"><?php esc_html_e('Private Description', 'modern-events-calendar-lite'); ?></h5>
-                                        <div class="content"><p><?php esc_attr_e("You can show it on the email notifications by placing %%ticket_private_description%% into the email template.", 'modern-events-calendar-lite'); ?></p></div>
+                                        <div class="content"><p><?php esc_attr_e("The value can be displayed on the email notifications by placing the %%ticket_private_description%% placeholder into the email content.", 'modern-events-calendar-lite'); ?></p></div>
                                     </div>
                                     <i title="" class="dashicons-before dashicons-editor-help"></i>
                                 </span>
@@ -3020,7 +3020,7 @@ class FormBuilder extends Singleton {
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php esc_html_e('Price', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Insert 0 for free ticket. Only numbers please — Enter only the price without any symbols or characters.', 'modern-events-calendar-lite'); ?>
+                                            <div class="content"><p><?php esc_attr_e('Only numbers are allowed; Enter only the price without any symbols or characters. Enter 0 for free tickets.', 'modern-events-calendar-lite'); ?>
                                                     <a href="https://webnus.net/dox/modern-events-calendar/add-a-booking-system/"
                                                        target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -3035,7 +3035,7 @@ class FormBuilder extends Singleton {
                                     <span class="mec-tooltip">
                                         <div class="box top">
                                             <h5 class="title"><?php esc_html_e('Price Label', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('For showing on website. e.g. $15', 'modern-events-calendar-lite'); ?>
+                                            <div class="content"><p><?php esc_attr_e('How shoould the price  be displayed in the booking module? Here you can insert the price with a currency symbol. e.g. $16', 'modern-events-calendar-lite'); ?>
                                                     <a href="https://webnus.net/dox/modern-events-calendar/add-a-booking-system/"
                                                        target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
@@ -3070,7 +3070,7 @@ class FormBuilder extends Singleton {
                                         <div class="box top">
                                             <h5 class="title"><?php esc_html_e('Minimum Ticket', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content">
-                                                <p><?php esc_attr_e('Set a number for the minimum tickets that a user can book', 'modern-events-calendar-lite'); ?></p>
+                                                <p><?php esc_attr_e('The minimum number of tickets  a user needs to book.', 'modern-events-calendar-lite'); ?></p>
                                             </div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
@@ -3082,7 +3082,7 @@ class FormBuilder extends Singleton {
                                         <div class="box top">
                                             <h5 class="title"><?php esc_html_e('Maximum Ticket', 'modern-events-calendar-lite'); ?></h5>
                                             <div class="content">
-                                                <p><?php esc_attr_e('Set a number for the maximum tickets that a user can book', 'modern-events-calendar-lite'); ?></p>
+                                                <p><?php esc_attr_e('The maximum number of tickets a user can book.', 'modern-events-calendar-lite'); ?></p>
                                             </div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
@@ -3286,7 +3286,7 @@ class FormBuilder extends Singleton {
                         <span class="mec-tooltip">
                             <div class="box top">
                                 <h5 class="title"><?php esc_html_e('Private Description', 'modern-events-calendar-lite'); ?></h5>
-                                <div class="content"><p><?php esc_attr_e("You can show it on the email notifications by placing %%ticket_private_description%% into the email template.", 'modern-events-calendar-lite'); ?></p></div>
+                                <div class="content"><p><?php esc_attr_e("The value can be displayed on the email notifications by placing the %%ticket_private_description%% placeholder into the email content.", 'modern-events-calendar-lite'); ?></p></div>
                             </div>
                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                         </span>
@@ -3298,7 +3298,7 @@ class FormBuilder extends Singleton {
 							<span class="mec-tooltip">
 								<div class="box top">
 									<h5 class="title"><?php esc_html_e('Price', 'modern-events-calendar-lite'); ?></h5>
-									<div class="content"><p><?php esc_attr_e('Insert 0 for free ticket. Only numbers please — Enter only the price without any symbols or characters.', 'modern-events-calendar-lite'); ?>
+									<div class="content"><p><?php esc_attr_e('Only numbers are allowed; Enter only the price without any symbols or characters. Enter 0 for free tickets.', 'modern-events-calendar-lite'); ?>
                                             <a href="https://webnus.net/dox/modern-events-calendar/add-a-booking-system/"
                                                target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
 								</div>
@@ -3310,7 +3310,7 @@ class FormBuilder extends Singleton {
 							<span class="mec-tooltip">
 								<div class="box top">
 									<h5 class="title"><?php esc_html_e('Price Label', 'modern-events-calendar-lite'); ?></h5>
-									<div class="content"><p><?php esc_attr_e('For showing on website. e.g. $15', 'modern-events-calendar-lite'); ?>
+									<div class="content"><p><?php esc_attr_e('How shoould the price  be displayed in the booking module? Here you can insert the price with a currency symbol. e.g. $16', 'modern-events-calendar-lite'); ?>
                                             <a href="https://webnus.net/dox/modern-events-calendar/add-a-booking-system/"
                                                target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
 								</div>
@@ -3338,7 +3338,7 @@ class FormBuilder extends Singleton {
                                 <div class="box top">
                                     <h5 class="title"><?php esc_html_e('Minimum Ticket', 'modern-events-calendar-lite'); ?></h5>
                                     <div class="content">
-                                        <p><?php esc_attr_e('Set a number for the minimum tickets that a user can book', 'modern-events-calendar-lite'); ?></p>
+                                        <p><?php esc_attr_e('The minimum number of tickets  a user needs to book.', 'modern-events-calendar-lite'); ?></p>
                                     </div>
                                 </div>
                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
@@ -3350,7 +3350,7 @@ class FormBuilder extends Singleton {
                                 <div class="box top">
                                     <h5 class="title"><?php esc_html_e('Maximum Ticket', 'modern-events-calendar-lite'); ?></h5>
                                     <div class="content">
-                                        <p><?php esc_attr_e('Set a number for the maximum tickets that a user can book', 'modern-events-calendar-lite'); ?></p>
+                                        <p><?php esc_attr_e('The maximum number of tickets a user can book.', 'modern-events-calendar-lite'); ?></p>
                                     </div>
                                 </div>
                                 <i title="" class="dashicons-before dashicons-editor-help"></i>

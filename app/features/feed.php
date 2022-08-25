@@ -152,10 +152,22 @@ class MEC_feature_feed extends MEC_base
         // Feed is not enabled
         if(!isset($this->settings['ical_feed']) or (isset($this->settings['ical_feed']) and !$this->settings['ical_feed'])) return false;
 
-        $events = $this->main->get_events('-1');
+        $only_upcoming_events = (isset($this->settings['ical_feed_upcoming']) and $this->settings['ical_feed_upcoming']);
+
+        if($only_upcoming_events)
+        {
+            $event_ids = $this->main->get_upcoming_event_ids(current_time('timestamp', 0), 'publish');
+        }
+        else
+        {
+            $events = $this->main->get_events('-1');
+
+            $event_ids = array();
+            foreach($events as $event) $event_ids[] = $event->ID;
+        }
 
         $output = '';
-        foreach($events as $event) $output .= $this->main->ical_single($event->ID);
+        foreach($event_ids as $event_id) $output .= $this->main->ical_single($event_id);
 
         // Include in iCal
         $ical_calendar = $this->main->ical_calendar($output);

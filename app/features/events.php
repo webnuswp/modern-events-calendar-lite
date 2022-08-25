@@ -699,7 +699,7 @@ class MEC_feature_events extends MEC_base
                         <span class="mec-tooltip">
 							<div class="box top">
 								<h5 class="title"><?php esc_html_e('Notes on the time', 'modern-events-calendar-lite'); ?></h5>
-								<div class="content"><p><?php esc_attr_e('It shows next to event time on the Single Event Page. You can enter notes such as timezone in this field.', 'modern-events-calendar-lite'); ?>
+								<div class="content"><p><?php esc_attr_e('It appears next to the event time on the Single Event Page. You can enter notes such as the timezone name in this field.', 'modern-events-calendar-lite'); ?>
                                         <a href="https://webnus.net/dox/modern-events-calendar/add-event/"
                                            target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
 							</div>
@@ -880,7 +880,7 @@ class MEC_feature_events extends MEC_base
                                                 <h5 class="title"><?php esc_html_e('Custom Days Repeating', 'modern-events-calendar-lite'); ?></h5>
                                                 <div class="content">
                                                     <p>
-                                                        <?php esc_attr_e('Add certain days to event occurrence dates. If you have a single day event, start and end dates should be the same, If you have a multiple day event, the start and end dates must be commensurate with the initial date.', 'modern-events-calendar-lite'); ?>
+                                                        <?php esc_attr_e('Add certain days to event occurrences. If you have a single day event, start and end dates should be the same, If you have a multi-day event, the interval between the start and end dates must match the initial date.', 'modern-events-calendar-lite'); ?>
                                                         <a href="https://webnus.net/dox/modern-events-calendar/date-and-time/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a>
                                                     </p>
                                                 </div>
@@ -1232,7 +1232,7 @@ class MEC_feature_events extends MEC_base
                             <span class="mec-tooltip">
 								<div class="box top">
 									<h5 class="title"><?php esc_html_e('Occurrences times', 'modern-events-calendar-lite'); ?></h5>
-									<div class="content"><p><?php esc_attr_e('The event will finish after certain repeats. For example if you set it to 10, the event will finish after 10 occurrences.', 'modern-events-calendar-lite'); ?>
+									<div class="content"><p><?php esc_attr_e('The event repeats will stop after certain number of occurences. For example if you set this option 10, the event will have 10 occurrences.', 'modern-events-calendar-lite'); ?>
                                             <a href="https://webnus.net/dox/modern-events-calendar/date-and-time/"
                                                target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
 								</div>
@@ -1477,7 +1477,7 @@ class MEC_feature_events extends MEC_base
                 <span class="mec-tooltip">
 					<div class="box top">
 						<h5 class="title"><?php esc_html_e('Event Link', 'modern-events-calendar-lite'); ?></h5>
-						<div class="content"><p><?php esc_attr_e('If you fill it, it will replace the default event page link. Insert full link including http(s):// - Also, if you use advertising URL, can use URL Shortener', 'modern-events-calendar-lite'); ?>
+						<div class="content"><p><?php esc_attr_e('The value of this option will be replaced by the single event page link on shortcodes. Insert full link including http(s):// - Also, if you use an advertising URL, you can use the URL Shortener.', 'modern-events-calendar-lite'); ?>
                                 <a href="https://bit.ly/"
                                    target="_blank"><?php esc_html_e('URL Shortener', 'modern-events-calendar-lite'); ?></a></p></div>
 					</div>
@@ -1500,7 +1500,7 @@ class MEC_feature_events extends MEC_base
                 <span class="mec-tooltip">
 					<div class="box top">
 						<h5 class="title"><?php esc_html_e('More Info', 'modern-events-calendar-lite'); ?></h5>
-						<div class="content"><p><?php esc_attr_e('If you fill it, it will be shown in event details page as an optional link. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?>
+						<div class="content"><p><?php esc_attr_e('This link will appear on the single event page. Insert full link including http(s)://', 'modern-events-calendar-lite'); ?>
                                 <a href="https://webnus.net/dox/modern-events-calendar/add-event/"
                                    target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
 					</div>
@@ -1575,62 +1575,73 @@ class MEC_feature_events extends MEC_base
         $booking_options = get_post_meta($post->ID, 'mec_booking', true);
         if(!is_array($booking_options)) $booking_options = array();
 
+        $fes_booking_tbl = (!isset($this->settings['fes_section_booking_tbl']) or (isset($this->settings['fes_section_booking_tbl']) and $this->settings['fes_section_booking_tbl']));
+        $fes_booking_mtpb = (!isset($this->settings['fes_section_booking_mtpb']) or (isset($this->settings['fes_section_booking_mtpb']) and $this->settings['fes_section_booking_mtpb']));
+        $fes_booking_dpur = (!isset($this->settings['fes_section_booking_dpur']) or (isset($this->settings['fes_section_booking_dpur']) and $this->settings['fes_section_booking_dpur']));
+        $fes_booking_bao = (!isset($this->settings['fes_section_booking_bao']) or (isset($this->settings['fes_section_booking_bao']) and $this->settings['fes_section_booking_bao']));
+        $fes_booking_io = (!isset($this->settings['fes_section_booking_io']) or (isset($this->settings['fes_section_booking_io']) and $this->settings['fes_section_booking_io']));
+        $fes_booking_aa = (!isset($this->settings['fes_section_booking_aa']) or (isset($this->settings['fes_section_booking_aa']) and $this->settings['fes_section_booking_aa']));
+        $fes_booking_lftp = (!isset($this->settings['fes_section_booking_lftp']) or (isset($this->settings['fes_section_booking_lftp']) and $this->settings['fes_section_booking_lftp']));
+        $fes_booking_typ = (!isset($this->settings['fes_section_booking_typ']) or (isset($this->settings['fes_section_booking_typ']) and $this->settings['fes_section_booking_typ']));
+        $fes_booking_bbl = (!isset($this->settings['fes_section_booking_bbl']) or (isset($this->settings['fes_section_booking_bbl']) and $this->settings['fes_section_booking_bbl']));
+        $fes_booking_tubl = (!isset($this->settings['fes_section_booking_tubl']) or (isset($this->settings['fes_section_booking_tubl']) and $this->settings['fes_section_booking_tubl']));
         ?>
         <div id="mec-booking">
+            <?php if(!$FES or ($FES and ($fes_booking_tbl or $fes_booking_mtpb or $fes_booking_dpur or $fes_booking_bao or $fes_booking_io or $fes_booking_aa or $fes_booking_lftp or $fes_booking_typ or $fes_booking_bbl))): ?>
             <div class="mec-booking-tab-content mec-tab-active mec-fes-booking-options" id="mec_meta_box_booking_options_form_1">
 
                 <?php
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_tbl']) or (isset($this->settings['fes_section_booking_tbl']) and $this->settings['fes_section_booking_tbl'])))){
+                if(!$FES or ($FES and $fes_booking_tbl)){
 
                     FormBuilder::total_booking_limit( $post );
                 }
 
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_mtpb']) or (isset($this->settings['fes_section_booking_mtpb']) and $this->settings['fes_section_booking_mtpb'])))){
+                if(!$FES or ($FES and $fes_booking_mtpb)){
 
                     FormBuilder::minimum_ticket_per_booking( $post );
                 }
 
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_dpur']) or (isset($this->settings['fes_section_booking_dpur']) and $this->settings['fes_section_booking_dpur'])))){
+                if(!$FES or ($FES and $fes_booking_dpur)){
 
                     FormBuilder::discount_per_user_roles( $post );
                 }
 
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_bao']) or (isset($this->settings['fes_section_booking_bao']) and $this->settings['fes_section_booking_bao'])))){
+                if(!$FES or ($FES and $fes_booking_bao)){
 
                     FormBuilder::book_all_occurrences( $post );
                 }
 
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_io']) or (isset($this->settings['fes_section_booking_io']) and $this->settings['fes_section_booking_io'])))){
+                if(!$FES or ($FES and $fes_booking_io)){
 
                     FormBuilder::interval_options( $post );
                 }
 
-
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_aa']) or (isset($this->settings['fes_section_booking_aa']) and $this->settings['fes_section_booking_aa'])))){
+                if(!$FES or ($FES and $fes_booking_aa)){
 
                     FormBuilder::automatic_approval( $post );
                 }
 
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_lftp']) or (isset($this->settings['fes_section_booking_lftp']) and $this->settings['fes_section_booking_lftp'])))){
+                if(!$FES or ($FES and $fes_booking_lftp)){
 
                     FormBuilder::last_few_tickets_percentage( $post );
                 }
 
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_typ']) or (isset($this->settings['fes_section_booking_typ']) and $this->settings['fes_section_booking_typ'])))){
+                if(!$FES or ($FES and $fes_booking_typ)){
 
                     FormBuilder::thankyou_page( $post );
                 }
 
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_bbl']) or (isset($this->settings['fes_section_booking_bbl']) and $this->settings['fes_section_booking_bbl'])))){
+                if(!$FES or ($FES and $fes_booking_bbl)){
 
                     FormBuilder::booking_button_label( $post );
                 }
 
                 ?>
             </div>
+            <?php endif; ?>
 
             <?php
-                if(!$FES or ($FES and (!isset($this->settings['fes_section_booking_tubl']) or (isset($this->settings['fes_section_booking_tubl']) and $this->settings['fes_section_booking_tubl'])))){
+                if(!$FES or ($FES and $fes_booking_tubl)){
 
                     FormBuilder::total_user_booking_limits( $post );
                 }

@@ -7888,6 +7888,31 @@ class MEC_main extends MEC_base
      * @param $datetime
      * @return bool|array
      */
+    public function get_weather_visualcrossing($apikey, $lat, $lng, $datetime)
+    {
+        $locale = substr(get_locale(), 0, 2);
+
+        // Set the language to English if it's not included in available languages
+        if(!in_array($locale, array
+        (
+            'de', 'en', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'pt', 'ru', 'zn'
+        ))) $locale = 'en';
+
+        // Visual Crossing Provider
+        $JSON = $this->get_web_page('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'.$lat.','.$lng.'/'.date('Y-m-d\TH:i:s', strtotime($datetime)).'?key='.$apikey.'&include=current&unitGroup=metric&lang='.$locale);
+        $data = json_decode($JSON, true);
+
+        return (isset($data['currentConditions']) ? $data['currentConditions'] : false);
+    }
+
+    /**
+     * Get Weather from the data provider
+     * @param $apikey
+     * @param $lat
+     * @param $lng
+     * @param $datetime
+     * @return bool|array
+     */
     public function get_weather_wa($apikey, $lat, $lng, $datetime)
     {
         $locale = substr(get_locale(), 0, 2);
@@ -9460,7 +9485,7 @@ class MEC_main extends MEC_base
             foreach($calendars as $calendar)
             {
                 // Calendar exists
-                if(post_exists($calendar['title'], 'modern-events-calendar-lite')) continue;
+                if(post_exists($calendar['title'], 'MEC')) continue;
 
                 $post = array('post_title'=>$calendar['title'], 'post_content'=>'MEC', 'post_type'=>'mec_calendars', 'post_status'=>'publish');
                 $post_id = wp_insert_post($post);

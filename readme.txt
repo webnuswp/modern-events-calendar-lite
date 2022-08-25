@@ -472,6 +472,15 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 43. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 6.6.6 – 24 August 2022 =
+- Added: Visual Crossing provider to the weather module.
+- Added: Option to the iCal feed to display only upcoming events.
+- Improved: The default configuration of search bar.
+- Removed: Dark Sky provider from the weather module.
+- Fixed: Issue in coupons menu.
+- Fixed: Issue regarding speaker name in Frontend Event Submission.
+- Fixed: Some issues in Frontend Event Submission.
+
 = 6.6.5 – 17 August 2022 =
 Added: Ability to change ticket prices per occurrence. 
 Added: New CSV export option compatible with Google Calendar. 

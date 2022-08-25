@@ -47,7 +47,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Single Event Date Format', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Default is M d Y", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e("Specify the date format of the event date on the single event page date and time module.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -63,7 +63,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Date Method', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e('Referred date" shows the event date based on referred date in event list.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e('When you click on a recurring event from the archive page and shortcodes, which date should be opened?', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -83,7 +83,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Single Event Style', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Choose your single event style.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e("Choose the single event page style.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -101,7 +101,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Booking Style', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Choose your Booking style. Note: When you set this feature to Modal, you cannot see the booking box if you set popup module view on shortcodes", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e("You can specify whether the booking widget should be shown as a pop-up (Modal) or as default. Note: The modal booking module will not appear if you set single event view on popup mode in the shortcodes settigns.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -113,6 +113,13 @@ $event_fields = $this->main->get_event_fields();
                                 <label class="mec-col-9" id="mec_settings_tz_per_event" >
                                     <input type="hidden" name="mec[settings][tz_per_event]" value="0" />
                                     <input value="1" type="checkbox" name="mec[settings][tz_per_event]" <?php if(isset($settings['tz_per_event']) and $settings['tz_per_event']) echo 'checked="checked"'; ?> /> <?php esc_html_e('Enable', 'modern-events-calendar-lite'); ?>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php esc_html_e('Timezone Per Event', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("By activating this option, it will be possible to choose the timezone settings for each event separately. The appropriate option will be added to the add/edit event page.", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
                                 </label>
                             </div>
                             <div class="mec-form-row">
@@ -125,7 +132,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Block Editor', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("If you want to use the new WordPress block editor you should keep this checkbox unchecked.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e("Keep this checkbox unchecked to use the new WordPress block editor.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -142,7 +149,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Breadcrumbs', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Check this option, for showing the breadcrumbs on single event page", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e("Enabaling this option will display the breadcrumbs on the single event page", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -171,7 +178,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Organizer Description', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("If you want to turn on description for other organizer plase go to 'Additional Organizers - After enabling and saving the settings, reloading the settings page.' tab", 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e("Enabaling this option will add the organizer description textbox to the organizers edit page.", 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -188,7 +195,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Location Description', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("If you want to turn on description for other location plase go to 'Additional Locations - After enabling and saving the settings, reloading the settings page.' tab", 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e("Enabaling this option will add the location description textbox to the locations edit page.", 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -205,7 +212,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Event Cost Type', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Choose Numeric type if you want to include the event cost field into the search form. If you do not need the search ability then you can choose Alphabetic type.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e("Choose the Numeric type if you want to include the event cost field into the search form. If you do not need the search option you can choose the Alphabetic type.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -218,6 +225,13 @@ $event_fields = $this->main->get_event_fields();
                                         <input type="hidden" name="mec[settings][currency_per_event]" value="0" />
                                         <input type="checkbox" name="mec[settings][currency_per_event]" id="mec_settings_currency_per_event" <?php echo ((isset($settings['currency_per_event']) and $settings['currency_per_event'] == '1') ? 'checked="checked"' : ''); ?> value="1" /><?php esc_html_e('Enable Currency Per Event', 'modern-events-calendar-lite'); ?>
                                     </label>
+                                    <span class="mec-tooltip">
+                                        <div class="box left">
+                                            <h5 class="title"><?php esc_html_e('Change Currency Per Event', 'modern-events-calendar-lite'); ?></h5>
+                                            <div class="content"><p><?php esc_attr_e("By activating this option, it will be possible to choose the Currency settings for each event separately. The appropriate option will be added to the add/edit event page.", 'modern-events-calendar-lite'); ?></p></div>
+                                        </div>
+                                        <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                    </span>
                                 </div>
                             </div>
                             <div class="mec-form-row">
@@ -239,7 +253,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Public Download Module', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("If enabled, an upload field will appear in add / edit event page and if filled, it will appear in the event details page to download.", 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e("If enabled, an upload field will appear in the add/edit event page and if filled, it will appear in the event details page to download.", 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -256,7 +270,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Sticky Sidebar', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("If the  content you wish to display on the page is too long, then enable this option to make the sidebar sticky and view the content via scrolling down. If you're sidebar has a lot of data and is a long sidebar, we don't recommend enabling this option.", 'modern-events-calendar-lite'); ?></p></div>
+                                            <div class="content"><p><?php esc_attr_e("If the content you wish to display on the single event page is too long, enable this option to make the sidebar sticky. We don't recommend enabling this option if your sidebar has a lot of data and is a long sidebar.", 'modern-events-calendar-lite'); ?></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>
@@ -406,7 +420,7 @@ $event_fields = $this->main->get_event_fields();
                                     <span class="mec-tooltip">
                                         <div class="box left">
                                             <h5 class="title"><?php esc_html_e('Exceptional days (Exclude Dates)', 'modern-events-calendar-lite'); ?></h5>
-                                            <div class="content"><p><?php esc_attr_e("Using this option you can exclude certain days from event occurrence dates.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/exceptional-days/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            <div class="content"><p><?php esc_attr_e("By using this option you can exclude certain days from multi-occurence event dates.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/exceptional-days/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                         </div>
                                         <i title="" class="dashicons-before dashicons-editor-help"></i>
                                     </span>

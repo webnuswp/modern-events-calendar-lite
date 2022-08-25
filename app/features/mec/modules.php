@@ -41,7 +41,7 @@ $pages = get_pages();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php esc_html_e('Speakers', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Enable this option to have speaker in Hourly Schedule in Single. Refresh after enabling it to see the Speakers menu under MEC dashboard.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/speaker/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Enable this option if your events have speakers. Refresh after enabling it to see the Speakers menu under the MEC dashboard.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/speaker/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -65,7 +65,7 @@ $pages = get_pages();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php esc_html_e('Sponsors', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Enable this option to ability to define sponsors for your events.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Enable this option in order to add sponsors for your events.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -98,7 +98,7 @@ $pages = get_pages();
                                             <span class="mec-tooltip">
                                                 <div class="box left">
                                                     <h5 class="title"><?php esc_html_e('Google Map Options', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("Required!", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                    <div class="content"><p><?php esc_attr_e("It is necessary to enter the Google Maps API to use it in MEC.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
@@ -115,7 +115,7 @@ $pages = get_pages();
                                             <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Zoom level', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("For Google Maps module in single event page. In Google Maps skin, it will calculate the zoom level automatically based on event boundaries.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("This option will work on the Google Maps module on the single event page. Map view shortcode will automatically calculate the zoom level based on the event boundaries.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -150,7 +150,7 @@ $pages = get_pages();
                                             <span class="mec-tooltip">
                                                 <div class="box left">
                                                     <h5 class="title"><?php esc_html_e('Lightbox Date Format', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("Default value is M d Y", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                    <div class="content"><p><?php esc_attr_e("Select the event's date format on the map module lightbox.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
@@ -166,7 +166,7 @@ $pages = get_pages();
                                             <span class="mec-tooltip">
                                             <div class="box top left">
                                                 <h5 class="title"><?php esc_html_e('Google Maps API', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Check only if another plugin/theme is loading the Google Maps API", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Enable this option only if another plugin or your site's current theme is also loading the Google Maps API to avoid conflicts.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -273,9 +273,10 @@ $pages = get_pages();
                                         </div>
                                     </div>
                                     <div class="mec-form-row">
-                                        <label class="mec-col-3" for="mec_settings_weather_module_api_key"><?php esc_html_e('darksky.net API Key', 'modern-events-calendar-lite'); ?></label>
+                                        <label class="mec-col-3" for="mec_settings_weather_module_vs_api_key"><?php esc_html_e('Visual Crossing API Key', 'modern-events-calendar-lite'); ?></label>
                                         <div class="mec-col-9">
-                                            <input type="text" name="mec[settings][weather_module_api_key]" id="mec_settings_weather_module_api_key" value="<?php echo ((isset($settings['weather_module_api_key']) and trim($settings['weather_module_api_key']) != '') ? $settings['weather_module_api_key'] : ''); ?>">
+                                            <input type="text" name="mec[settings][weather_module_vs_api_key]" id="mec_settings_weather_module_vs_api_key" value="<?php echo ((isset($settings['weather_module_vs_api_key']) and trim($settings['weather_module_vs_api_key']) != '') ? $settings['weather_module_vs_api_key'] : ''); ?>">
+                                            <p><?php echo sprintf(esc_html__('You can get an API key at %s', 'modern-events-calendar-lite'), '<a href="https://www.visualcrossing.com" target="_blank">visualcrossing.com</a>'); ?></p>
                                         </div>
                                     </div>
                                     <div class="mec-form-row">
@@ -358,7 +359,7 @@ $pages = get_pages();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Date Format', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Default is M d Y", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/next-event-module/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Specify the event's date format on the next event module.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/next-event-module/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>

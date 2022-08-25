@@ -51,26 +51,12 @@ if(!is_array($categories)) $categories = array();
                                         <label class="mec-col-3" for="mec_settings_mchimp_api_key"><?php esc_html_e('API Key', 'modern-events-calendar-lite'); ?></label>
                                         <div class="mec-col-9">
                                             <input type="text" id="mec_settings_mchimp_api_key" name="mec[settings][mchimp_api_key]" value="<?php echo ((isset($settings['mchimp_api_key']) and trim($settings['mchimp_api_key']) != '') ? $settings['mchimp_api_key'] : ''); ?>" />
-                                            <span class="mec-tooltip">
-                                                <div class="box left">
-                                                    <h5 class="title"><?php esc_html_e('API Key', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("Required!", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/mailchimp-integration/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                                </div>
-                                                <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                            </span>
                                         </div>
                                     </div>
                                     <div class="mec-form-row">
                                         <label class="mec-col-3" for="mec_settings_mchimp_list_id"><?php esc_html_e('List ID', 'modern-events-calendar-lite'); ?></label>
                                         <div class="mec-col-9">
                                             <input type="text" id="mec_settings_mchimp_list_id" name="mec[settings][mchimp_list_id]" value="<?php echo ((isset($settings['mchimp_list_id']) and trim($settings['mchimp_list_id']) != '') ? $settings['mchimp_list_id'] : ''); ?>" />
-                                            <span class="mec-tooltip">
-                                                <div class="box left">
-                                                    <h5 class="title"><?php esc_html_e('List ID', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("Required!", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/mailchimp-integration/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                                </div>
-                                                <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                            </span>
                                         </div>
                                     </div>
                                     <div class="mec-form-row">
@@ -83,7 +69,7 @@ if(!is_array($categories)) $categories = array();
                                             <span class="mec-tooltip">
                                                 <div class="box left">
                                                     <h5 class="title"><?php esc_html_e('Subscription Status', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e('If you choose "Subscribe by verification" then an email will be send to the user by mailchimp for subscription verification.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/mailchimp-integration/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                    <div class="content"><p><?php esc_attr_e('Choose "Subscribe by verification," to send an email to the user by Mailchimp for subscription verification.', 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/mailchimp-integration/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
@@ -200,7 +186,7 @@ if(!is_array($categories)) $categories = array();
                                             <span class="mec-tooltip">
                                                 <div class="box left">
                                                     <h5 class="title"><?php esc_html_e('Select List', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("Please fill in the API key and Access Token field and save settings. after that, please refresh the page and select a list.", 'modern-events-calendar-lite'); ?></p></div>
+                                                    <div class="content"><p><?php esc_attr_e("First, you need to enter the API Key and the Access Token so that your Constant Contact lists appear under this option.", 'modern-events-calendar-lite'); ?></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>

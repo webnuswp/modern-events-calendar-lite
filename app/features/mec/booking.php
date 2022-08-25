@@ -110,7 +110,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Date Format', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Default is Y-m-d", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Specify the date format of the event's date on the booking module.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -120,6 +120,13 @@ $gateways_options = $this->main->get_gateways_options();
                                     <label class="mec-col-3" for="mec_settings_booking_maximum_dates"><?php esc_html_e('Maximum Dates', 'modern-events-calendar-lite'); ?></label>
                                     <div class="mec-col-9">
                                         <input type="number" id="mec_settings_booking_maximum_dates" name="mec[settings][booking_maximum_dates]" value="<?php echo ((isset($settings['booking_maximum_dates']) and trim($settings['booking_maximum_dates']) != '') ? $settings['booking_maximum_dates'] : '6'); ?>" placeholder="<?php esc_attr_e('Default is 6', 'modern-events-calendar-lite'); ?>" min="1" />
+                                        <span class="mec-tooltip">
+                                            <div class="box left">
+                                                <h5 class="title"><?php esc_html_e('Maximum Dates', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Specify the number of dates available in the date selection dropdown menu for recurring events.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="mec-form-row">
@@ -130,6 +137,13 @@ $gateways_options = $this->main->get_gateways_options();
                                             <option value="calendar" <?php echo ((isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'calendar') ? 'selected="selected"' : ''); ?>><?php esc_html_e('Calendar', 'modern-events-calendar-lite'); ?></option>
                                             <option value="checkboxes" <?php echo ((isset($settings['booking_date_selection']) and $settings['booking_date_selection'] == 'checkboxes') ? 'selected="selected"' : ''); ?>><?php esc_html_e('Checkboxes', 'modern-events-calendar-lite'); ?></option>
                                         </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box left">
+                                                <h5 class="title"><?php esc_html_e('Date Selection', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Specify the type of date selection field in the booking module.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
                                 </div>
                                 <h5 class="title"><?php esc_html_e('Ticket Options', 'modern-events-calendar-lite'); ?></h5>
@@ -150,7 +164,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Show Booking Form Interval', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("You can show booking form only at certain times before event start. If you set this option to 30 then booking form will open only 30 minutes before starting the event! One day is 1440 minutes.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("You can show the booking form only at certain times before the event starts. If you set this option to 30 then the booking form will open only 30 minutes before starting the event! One day is 1440 minutes.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -177,7 +191,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <span class="mec-tooltip">
                                                 <div class="box left">
                                                     <h5 class="title"><?php esc_html_e('Cancellation Period', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("You can restrict the ability to cancel bookings. Leave empty for cancellation at any time. For example if you insert 48 to 24 hours before event start then bookers are able to cancel their booking between this time and before or after that they're not able to do that.", 'modern-events-calendar-lite'); ?></p></div>
+                                                    <div class="content"><p><?php esc_attr_e("You can restrict the option to cancel bookings. Leave empty for cancellation at any time. For example if you insert 48 to 24 hours before the event starts then bookers are able to cancel their booking only on this time period.", 'modern-events-calendar-lite'); ?></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
@@ -196,7 +210,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Cancellation Page', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("User redirects to this page after booking cancellation. Leave it empty if you want to disable it.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Users will be redirected to this page after the booking cancellation. Leave it empty if you are not intrested.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -209,7 +223,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Cancellation Page Time Interval', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Waiting time before redirecting to cancellation page. It's in miliseconds so 2000 means 2 seconds.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Specify the amount of delay before being redirected to the cancellation page. (in milliseconds)", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -226,7 +240,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Registration', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("If enabled MEC would create a WordPress User for main attendees. It's recommended to keep it enabled.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("By enabaling this option MEC will create a WordPress User for the main attendee. It's recommended to keep it enabled.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -243,12 +257,12 @@ $gateways_options = $this->main->get_gateways_options();
                                                 <?php endforeach; ?>
                                             </select>
                                             <span class="mec-tooltip">
-                                            <div class="box left">
-                                                <h5 class="title"><?php esc_html_e('User Role', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("MEC creates a user for main attendee after each booking. Default role of the user is subscriber but you can change it if needed.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
-                                            </div>
-                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
-                                        </span>
+                                                <div class="box left">
+                                                    <h5 class="title"><?php esc_html_e('User Role', 'modern-events-calendar-lite'); ?></h5>
+                                                    <div class="content"><p><?php esc_attr_e("MEC creates a user for the main attendee after each booking. The default role of the user is subscriber but you can change it if needed.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                </div>
+                                                <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="mec-form-row">
@@ -261,7 +275,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Username & Password', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("If you set it to manual option then users can insert a username and password during the booking for registration otherwise MEC use their email and an auto generated password.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("If you set it to the manual option, users can insert a username and password during the booking for registration; otherwise, MEC will use their email and an auto-generated password.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -277,7 +291,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Booking Limit', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Total tickets that a user can book. It is useful if you're providing free tickets. Leave it empty for unlimited booking.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("The total number of tickets that a user can book. It is useful if you're providing free tickets. Leave it empty for an unlimited booking.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -293,7 +307,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('IP restriction', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("If you set limit for total tickets that users can book, MEC will use IP and email to prevent users to book high tickets. You can disable the IP restriction if you don't need it.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("If you set a limit for the total tickets that users can book, MEC will use the IP and email to prevent users to book high tickets. You can disable the IP restriction if you don't need it.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -310,7 +324,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Lock Pre-filled Fields', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("When users are logged in, name and email fields will be pre-filled but users can change them. If you enable the lock, then logged in users cannot change the pre-filled fields.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("When users are logged in, the name and email fields will be pre-filled but users can change them. If you enable the lock, logged-in users cannot change the pre-filled fields.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -324,7 +338,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Last Few Tickets Percentage', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("We will show a \"Last Few Tickets\" flag on events when remained tickets are less than this percentage.", 'modern-events-calendar-lite'); ?></p></div>
+                                                <div class="content"><p><?php esc_attr_e("MEC will show the \"Last Few Ticket\" flags on events when the remaning tickets are less than this percentage.", 'modern-events-calendar-lite'); ?></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -343,7 +357,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Thank You Page', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("User redirects to this page after booking. Leave it empty if you want to disable it.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("The user will be redirected to this page after a successfull booking. Leave it empty if you are not intrested.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -356,7 +370,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box left">
                                                 <h5 class="title"><?php esc_html_e('Thank You Page Time Interval', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Waiting time before redirecting to thank you page. It's in miliseconds so 2000 means 2 seconds.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("Specify the amount of delay before being redirected to the thank you page. (in milliseconds)", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -388,6 +402,13 @@ $gateways_options = $this->main->get_gateways_options();
                                             <option <?php echo ((isset($settings['booking_skip_step1']) and $settings['booking_skip_step1'] == '0') ? 'selected="selected"' : ''); ?> value="0"><?php echo esc_html__('Disabled', 'modern-events-calendar-lite'); ?></option>
                                             <option <?php echo ((isset($settings['booking_skip_step1']) and $settings['booking_skip_step1'] == '1') ? 'selected="selected"' : ''); ?> value="1"><?php echo esc_html__('If Possible', 'modern-events-calendar-lite'); ?></option>
                                         </select>
+                                        <span class="mec-tooltip">
+                                            <div class="box left">
+                                                <h5 class="title"><?php esc_html_e('Skip Step 1', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("If there is no choice for users in the first step of the booking module, this step will be skipped. In other words, if the event has only one date and the total user booking limit option is set to one, this step will be skipped.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                            </div>
+                                            <i title="" class="dashicons-before dashicons-editor-help"></i>
+                                        </span>
                                     </div>
                                 </div>
                                 <h5 class="mec-form-subtitle"><?php esc_html_e('Who can book?', 'modern-events-calendar-lite'); ?></h5>
@@ -421,8 +442,8 @@ $gateways_options = $this->main->get_gateways_options();
                                         </label>
                                         <span class="mec-tooltip">
                                             <div class="box">
-                                                <h5 class="title"><?php esc_html_e('Attendees Form', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("Apply the info from the first attendee to all purchased ticket by that user. Uncheck if you want every ticket to have its own attendee’s info.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <h5 class="title"><?php esc_html_e('Enable Express Attendees Form', 'modern-events-calendar-lite'); ?></h5>
+                                                <div class="content"><p><?php esc_attr_e("Apply the info from the first attendee to all the purchased tickets by that user. Uncheck if you want every ticket to have its own attendee’s info.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -451,7 +472,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php esc_html_e('Display Total Tickets', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("If enabled, total of selected tickets will be displayed next to the booking button in first step of booking.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("If enabled, the total number of selected tickets will be displayed next to the booking button in the  first step of the booking.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -469,7 +490,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php esc_html_e('Display Progress Bar', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("If enabled, a progress bar will be added to the booking module indicating the current step and next steps. It won't display if there was only 1 step.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("If enabled, a progress bar will be added to the booking module indicating the current step and the next steps. It won't get displayed if there is only 1 step.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -509,7 +530,7 @@ $gateways_options = $this->main->get_gateways_options();
                                         <span class="mec-tooltip">
                                             <div class="box">
                                                 <h5 class="title"><?php esc_html_e('Downloadable File', 'modern-events-calendar-lite'); ?></h5>
-                                                <div class="content"><p><?php esc_attr_e("By enabling this feature, You can upload a file for each event and bookers are able to download it after booking.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
+                                                <div class="content"><p><?php esc_attr_e("By enabling this feature, You can upload a file for each event and the attendees will be able to download it after booking.", 'modern-events-calendar-lite'); ?><a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank"><?php esc_html_e('Read More', 'modern-events-calendar-lite'); ?></a></p></div>
                                             </div>
                                             <i title="" class="dashicons-before dashicons-editor-help"></i>
                                         </span>
@@ -1111,7 +1132,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <span class="mec-tooltip">
                                                 <div class="box">
                                                     <h5 class="title"><?php esc_html_e('Organizer Payment', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("By enabling this module, organizers are able to insert their own payment credentials for enabled gateways per event and receive the payments directly!", 'modern-events-calendar-lite'); ?></p></div>
+                                                    <div class="content"><p><?php esc_attr_e("By enabling this module, organizers can insert their payment credentials to receive the payments directly. This feature needs the Stripe connect payment gateway to work.", 'modern-events-calendar-lite'); ?></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
@@ -1126,7 +1147,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <span class="mec-tooltip">
                                                 <div class="box">
                                                     <h5 class="title"><?php esc_html_e('Payment Gateways Per Event', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("By enabling this module, users are able to disable / enable payment gateways per event", 'modern-events-calendar-lite'); ?></p></div>
+                                                    <div class="content"><p><?php esc_attr_e("By enabling this module, event submitters will be able to disable/enable payment gateways per event on the FES Form and on the event add/edit page.", 'modern-events-calendar-lite'); ?></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
@@ -1141,7 +1162,7 @@ $gateways_options = $this->main->get_gateways_options();
                                             <span class="mec-tooltip">
                                                 <div class="box">
                                                     <h5 class="title"><?php esc_html_e('Auto Refund', 'modern-events-calendar-lite'); ?></h5>
-                                                    <div class="content"><p><?php esc_attr_e("Automatically refund the payment when a booking paid by applicable gateways (Stripe) got canceled.", 'modern-events-calendar-lite'); ?></p></div>
+                                                    <div class="content"><p><?php esc_attr_e("Automatically refund the payment when a booking paid by gateways  like Stripe gets canceled.", 'modern-events-calendar-lite'); ?></p></div>
                                                 </div>
                                                 <i title="" class="dashicons-before dashicons-editor-help"></i>
                                             </span>
