@@ -1,4 +1,7 @@
-﻿v 6.10.0 – 22 May 2023
+v 6.10.1 – 30 May 2023
+- added countdown_interval, ongoing/passed airdrummer@cardinalglen.org
+
+v 6.10.0 – 22 May 2023
 - Added: Remaining time label.
 - Added: Event Trailer URL.
 - Added: Option to change booking date selection method per event.
