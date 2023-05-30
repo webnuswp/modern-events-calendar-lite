@@ -32,17 +32,29 @@ class Attendees extends Singleton{
                 case 'event_id':
                 case 'occurrence':
                 case 'email':
-                case 'name':
+                case 'first_name':
+                case 'last_name':
                 case 'count':
+                case 'verification':
+                case 'confirmation':
                     if($v){
 
-                        if( is_array( $v ) ){
+                        if( is_array( $v ) && !isset( $v['compare'] ) ){
 
-                            $where .= $wpdb->prepare(
-                                " AND `{$k}` IN %s",
-                                "('".implode("','".$v)."')"
-                            );
-                        }else{
+                            $v = is_array($v) ? "'" . implode("','",$v) . "'" : $v;
+                            $where .= " AND `{$k}` IN (".$v.")";
+                        }elseif( is_array( $v ) && isset( $v['compare'] ) ){
+
+                            $compare = isset( $v['compare'] ) ? $v['compare'] : 'IN';
+                            $v = isset( $v['value'] ) ? $v['value'] : false;
+                            if( !$v ){
+
+                                break;
+                            }
+
+                            $v = is_array($v) ? "'" . implode("','",$v) . "'" : $v;
+                            $where .= " AND `{$k}` {$compare} (".$v.")";
+                        } else {
 
                             $where .= $wpdb->prepare(
                                 " AND `{$k}` = '%s'",
@@ -84,9 +96,13 @@ class Attendees extends Singleton{
 
                 $attendee = [
                     'attendee_id' => $attendee_id,
-                    'name' => $row['name'],
+                    'first_name' => $row['first_name'],
+                    'last_name' => $row['last_name'],
+                    'name' => $row['first_name'] .' '.$row['last_name'],
                     'email' => $row['email'],
                     'count' => $row['count'],
+                    'verification' => $row['verification'],
+                    'confirmation' => $row['confirmation'],
                     'reg' => is_array($data) ? $data : [],
                 ];
 
@@ -112,12 +128,15 @@ class Attendees extends Singleton{
             'event_id' => (int)$attendee_data['event_id'],
             'occurrence' => (int)$attendee_data['occurrence'],
             'email' => $attendee_data['email'],
-            'name' => $attendee_data['name'],
+            'first_name' => $attendee_data['first_name'],
+            'last_name' => $attendee_data['last_name'],
             'data' => $attendee_data['data'],
             'count' => isset($attendee_data['count']) && $attendee_data['count'] > 0 ? (int)$attendee_data['count'] : 1,
+            'verification' => isset($attendee_data['verification']) ? $attendee_data['verification'] : 0,
+            'confirmation' => isset($attendee_data['confirmation']) ? $attendee_data['confirmation'] : 0,
         ];
 
-        $v_type = ['%d','%d','%d','%s','%s','%s','%d'];
+        $v_type = ['%d','%d','%d','%s','%s','%s','%s','%d','%d','%d'];
 
         return $wpdb->insert($this->tbl, $attendee, $v_type );
     }
@@ -136,12 +155,16 @@ class Attendees extends Singleton{
             'event_id' => '',
             'occurrence' => '',
             'email' => '',
-            'name' => '',
+            'first_name' => '',
+            'last_name' => '',
             'data' => '',
             'count' => '',
+            'verification' => '',
+            'confirmation' => '',
+
         ];
 
-        $v_type = ['%d','%d','%d','%s','%s','%s','%d'];
+        $v_type = ['%d','%d','%d','%s','%s','%s','%s','%d','%d','%d'];
 
         foreach($attendee as $k => $v){
 
@@ -151,8 +174,11 @@ class Attendees extends Singleton{
                 case 'event_id':
                 case 'occurrence':
                 case 'email':
-                case 'name':
+                case 'first_name':
+                case 'last_name':
                 case 'count':
+                case 'verification':
+                case 'confirmation':
                 case 'data':
                     if(isset($attendee_data[$k])){
 
@@ -181,6 +207,8 @@ class Attendees extends Singleton{
         $occurrence = isset($attendee['occurrence']) ? (int)$attendee['occurrence'] : 0;
         $attendee['email'] =  isset($attendee['email']) ? sanitize_email($attendee['email']) : 0;
         $email = $attendee['email'];
+        $first_name = isset($attendee['first_name']) ? sanitize_text_field( $attendee['first_name']) : '';
+        $last_name = isset($attendee['last_name']) ? sanitize_text_field( $attendee['last_name']) : '';
 
         if( !$post_id || !$event_id || !$occurrence || !$email ){
 
@@ -188,7 +216,7 @@ class Attendees extends Singleton{
         }
 
         $attendee['data'] = isset($attendee['data']) ? serialize($attendee['data']) : '';
-        $existed = $this->is_existed( $post_id, $event_id, $occurrence, $email );
+        $existed = $this->is_existed( $post_id, $event_id, $occurrence, $email, $first_name, $last_name );
 
         if( !$existed ){
 
@@ -222,13 +250,15 @@ class Attendees extends Singleton{
         return $attendees;
     }
 
-    public function is_existed( $post_id, $event_id, $occurrence, $email ){
+    public function is_existed( $post_id, $event_id, $occurrence, $email, $first_name, $last_name ){
 
         $conditions = [
             'post_id' => $post_id,
             'event_id' => $event_id,
             'occurrence' => $occurrence,
             'email' => $email,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
         ];
 
         $r = $this->_get_attendees($conditions);
@@ -249,9 +279,12 @@ class Attendees extends Singleton{
             return false;
         }
 
+        $new_attendees = [];
         foreach( $attendees as $attendee ){
 
             $email = isset($attendee['email']) ? sanitize_email($attendee['email']) : 0;
+            $first_name = isset($attendee['first_name']) ? sanitize_text_field( $attendee['first_name'] ) : '';
+            $last_name = isset($attendee['last_name']) ? sanitize_text_field( $attendee['last_name'] ) : '';
             if(!$email){
 
                 continue;
@@ -265,6 +298,21 @@ class Attendees extends Singleton{
             $attendee['event_id'] = $event_id;
             $attendee['occurrence'] = $occurrence;
             $attendee['data'] = $data;
+            $attendee['count'] = 1;
+
+
+            $na_key = "{$email}-{$first_name}-{$last_name}";
+            if(isset($new_attendees[ $na_key ])){
+
+                $new_attendees[ $na_key ]['count']++;
+
+                continue;
+            }
+
+            $new_attendees[ $na_key ] = $attendee;
+        }
+
+        foreach( $new_attendees as $attendee ){
 
             $s = $this->_add_or_update( $attendee );
             $success = !is_null($success) ? $success : true;
@@ -284,13 +332,35 @@ class Attendees extends Singleton{
         }
 
         $saved_attendees = $this->get_attendees( $post_id, $event_id, $occurrence, false );
+        $saved_attendees_keys = array();
+        foreach( $saved_attendees as $saved_attendee ) {
 
-        $saved_emails = array_column($saved_attendees,'email','attendee_id');
-        $emails = array_column($attendees,'email');
+            $email = isset($saved_attendee['email']) ? sanitize_email($saved_attendee['email']) : 0;
+            $first_name = isset($saved_attendee['first_name']) ? sanitize_text_field( $saved_attendee['first_name'] ) : '';
+            $last_name = isset($saved_attendee['last_name']) ? sanitize_text_field( $saved_attendee['last_name'] ) : '';
+            $attendee_id = $saved_attendee['attendee_id'] ?? 0;
 
-        foreach( $saved_emails as $attendee_id => $saved_email ){
+            $sa_key = "{$email}-{$first_name}-{$last_name}";
 
-            if( false === array_search( $saved_email, $emails ) ){
+            $saved_attendees_keys[ $attendee_id ] = $sa_key;
+        }
+
+
+        foreach( $attendees as $_a_key => $attendee ) {
+
+            $email = isset($attendee['email']) ? sanitize_email($attendee['email']) : 0;
+            $first_name = isset($attendee['first_name']) ? sanitize_text_field( $attendee['first_name'] ) : '';
+            $last_name = isset($attendee['last_name']) ? sanitize_text_field( $attendee['last_name'] ) : '';
+
+            $a_key = "{$email}-{$first_name}-{$last_name}";
+
+            $attendees_keys[ $_a_key ] = $a_key;
+        }
+
+        foreach( $saved_attendees_keys as $attendee_id => $attendee_key ){
+
+            $saved_attendee_id = array_search( $attendee_key, $attendees_keys );
+            if( false === $saved_attendee_id ){
 
                 $conditions = [
                     'attendee_id' => $attendee_id,
@@ -302,7 +372,80 @@ class Attendees extends Singleton{
         return $this->add_or_update( $post_id, $event_id, $occurrence , $attendees );
     }
 
-    public function get_attendees_emails( $post_id = null, $event_id = null, $occurrence = null ){
+    public function update_attendee_status( $status_key, $status, $post_id, $email = null, $event_id = null, $occurrence = null ){
+
+        if( !in_array( $status_key, [ 'confirmation', 'verification' ] ) ){
+
+            return;
+        }
+
+        $conditions = [
+            'post_id' => $post_id,
+            'event_id' => $event_id,
+            'occurrence' => $occurrence,
+            'email' => $email,
+        ];
+
+        $attendees = $this->_get_attendees( $conditions, true );
+
+        foreach( $attendees as $k => $attendee ){
+
+            $attendee_id = $attendee['attendee_id'];
+
+            if(!$attendee_id){
+
+                continue;
+            }
+
+            $saved_status = $attendee[$status_key];
+            if( $status === $saved_status ){
+
+                unset($attendees[$k]);
+                continue;
+            }
+
+            $attendee[$status_key] = (int)$status;
+            $where = array(
+                'attendee_id' => $attendee_id
+            );
+
+            $this->_update( $attendee , $where );
+        }
+    }
+
+    public function update_confirmation_status( $status, $post_id, $email = null, $event_id = null, $occurrence = null ){
+
+        return $this->update_attendee_status( 'confirmation', $status, $post_id, $email, $event_id, $occurrence );
+    }
+
+    public function update_verification_status( $status, $post_id, $email = null, $event_id = null, $occurrence = null ){
+
+        return $this->update_attendee_status( 'verification', $status, $post_id, $email, $event_id, $occurrence );
+    }
+
+    public function delete( $post_id, $email = null, $event_id = null, $occurrence = null ){
+
+        $conditions['post_id'] = $post_id;
+
+        if( !is_null($email) ){
+
+            $conditions['email'] = $email;
+        }
+
+        if( !is_null($event_id) ){
+
+            $conditions['event_id'] = $event_id;
+        }
+
+        if( !is_null($occurrence) ){
+
+            $conditions['occurrence'] = $occurrence;
+        }
+
+        $this->_delete( $conditions );
+    }
+
+    public function get_attendees_emails( $post_id = null, $event_id = null, $occurrence = null, $confirmation = null, $verification = null ){
 
         $conditions = [];
 
@@ -321,12 +464,95 @@ class Attendees extends Singleton{
             $conditions['occurrence'] = $occurrence;
         }
 
+        if( !is_null($confirmation) ){
+
+            $conditions['confirmation'] = $confirmation;
+        }
+
+        if( !is_null($verification) ){
+
+            $conditions['verification'] = $verification;
+        }
+
         $emails = $this->get_rows($conditions,'email');
         $emails = array_column( $emails, 'email' );
 
         $emails = array_unique($emails);
 
         return $emails;
+    }
+
+    /**
+     * @param string $email
+     * @param int $post_id
+     * @param int $event_id
+     * @param int $occurrence
+     * @return array|int
+     */
+    public function get_total_attendees_group_by_email( $email = null, $post_id = null, $event_id = null, $occurrence = null, $exclude_post_ids = [], $confirmation = 1, $verification = 1 ){
+
+        $conditions = [];
+
+        if( !is_null($email) ){
+
+            $conditions['email'] = $email;
+        }
+
+        if( !is_null($post_id) ){
+
+            $conditions['post_id'] = $post_id;
+        }
+
+        if( !is_null($event_id) ){
+
+            $conditions['event_id'] = $event_id;
+        }
+
+        if( !is_null($occurrence) ){
+
+            $conditions['occurrence'] = $occurrence;
+        }
+
+        if($exclude_post_ids){
+
+            $exclude_post_ids = is_array($exclude_post_ids) ? $exclude_post_ids : explode(',',$exclude_post_ids);
+            $conditions['post_id'] = [
+                'compare' => 'NOT IN',
+                'value' => $exclude_post_ids,
+            ];
+        }
+
+        if( !is_null($confirmation) ){
+
+            $conditions['confirmation'] = $confirmation;
+        }
+
+        if( !is_null($verification) ){
+
+            $conditions['verification'] = $verification;
+        }
+
+        $total_used_emails = [];
+        $rows = $this->get_rows($conditions,'`email`,`count`');
+
+        foreach($rows as $row){
+
+            $r_email = $row['email'];
+            $r_count = $row['count'];
+
+            if( !isset( $total_used_emails[ $r_email ] ) ){
+                $total_used_emails[ $r_email ] = 0;
+            }
+
+            $total_used_emails[ $r_email ] += $r_count;
+        }
+
+        if(empty($email)){
+
+            return $total_used_emails;
+        }
+
+        return isset($total_used_emails[$email]) ? (int)$total_used_emails[$email] : 0;
     }
 
     public function get_cache( $post_id, $event_id, $occurrence ){
