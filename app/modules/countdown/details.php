@@ -205,7 +205,7 @@ if(!function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/inclu
 			data-gmt_offset="<?php echo esc_attr($gmt_offset); ?>" 
 			data-countdown_interval ="<?php echo $countdown_interval; ?>" >
 	<?php  echo $cd2; ?>
->
+
     <div class="countdown-w ctd-simple">
         <ul class="clockdiv" id="countdown">
             <li class="days-w block-w">
