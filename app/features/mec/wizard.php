@@ -1,9 +1,11 @@
 <?php
 /** no direct access **/
+defined('MECEXEC') or die();
 
 wp_enqueue_style('mec-font-icon', $this->main->asset('css/iconfonts.css'));
 wp_enqueue_style( 'wp-color-picker');
 wp_enqueue_script( 'wp-color-picker');
+
 $settings = $this->main->get_settings();
 $archive_skins = $this->main->get_archive_skins();
 ?>
@@ -215,7 +217,7 @@ button.mec-wizard-open-popup span {
     fill: #fff;
 }
 .mec-next-previous-buttons button.mec-button-next {
-    width: 88px;
+    width: auto;
 }
 .mec-wizard-inner-button {
     background: #008aff;
@@ -242,7 +244,7 @@ button.mec-wizard-open-popup span {
 }
 .mec-next-previous-buttons button.mec-button-next{
     background: #2dcb73;
-    padding: 9px 18px 9px;
+    padding: 9px 38px 9px 18px;
     box-shadow: 0 5px 10px 0 rgb(48 171 46 / 30%);
 }
 .mec-setup-wizard-wrap .mec-step-wizard-content[data-step="1"] {
@@ -470,6 +472,19 @@ a.mec-wizard-close-button {
 a.mec-wizard-close-button:hover {
     border-color: #fb1919;
 }
+a.mec-wizard-close-button[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    text-align: center;
+    font-weight: 400;
+    background: #000;
+    padding: 2px 7px 3px;
+    border-radius: 2px;
+}
 a.mec-wizard-close-button svg {
     width: 20px;
     height: 20px;
@@ -529,29 +544,24 @@ a.mec-wizard-close-button:hover svg path {
             <span><?php esc_html_e('Back to WordPress Dashboard' , 'modern-events-calendar-lite'); ?></span>
         </button>
     </div>
-    <a href="<?php echo admin_url('/admin.php?page=mec-intro'); ?>" class="mec-wizard-close-button">
+    <a href="<?php echo admin_url('/admin.php?page=mec-intro'); ?>" title="<?php esc_html_e('close', 'modern-events-calendar-lite'); ?>" class="mec-wizard-close-button">
         <svg enable-background="new 0 0 256 256" id="Layer_1" version="1.1" viewBox="0 0 256 256" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M137.051,128l75.475-75.475c2.5-2.5,2.5-6.551,0-9.051s-6.551-2.5-9.051,0L128,118.949L52.525,43.475  c-2.5-2.5-6.551-2.5-9.051,0s-2.5,6.551,0,9.051L118.949,128l-75.475,75.475c-2.5,2.5-2.5,6.551,0,9.051  c1.25,1.25,2.888,1.875,4.525,1.875s3.275-0.625,4.525-1.875L128,137.051l75.475,75.475c1.25,1.25,2.888,1.875,4.525,1.875  s3.275-0.625,4.525-1.875c2.5-2.5,2.5-6.551,0-9.051L137.051,128z"/></svg>
     </a>
 </div>
 
-
-<?php 
-$path_event = MEC::import('app.features.popup.event', true, true);
-include $path_event;
-
-$path_shortcode = MEC::import('app.features.popup.shortcode', true, true);
-include $path_shortcode;
-
-
-$path_settings = MEC::import('app.features.popup.settings', true, true);
-include $path_settings;
+<?php
+include MEC::import('app.features.popup.event', true, true);
+include MEC::import('app.features.popup.shortcode', true, true);
+include MEC::import('app.features.popup.settings', true, true);
 ?>
 <script>
-    jQuery(document).on('lity:close', function(event, instance) {
-        jQuery("body").css("overflow", "auto")
-    });
-    jQuery('.mec-wizard-back-button').on('click', function(e)
-    {
-        window.location.replace('<?php echo admin_url('/admin.php?page=mec-intro'); ?>')
-    });
+jQuery(document).on('lity:close', function(event, instance)
+{
+    jQuery("body").css("overflow", "auto")
+});
+
+jQuery('.mec-wizard-back-button').on('click', function(e)
+{
+    window.location.replace('<?php echo admin_url('/admin.php?page=mec-intro'); ?>')
+});
 </script>

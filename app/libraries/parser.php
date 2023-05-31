@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC parser class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_parser extends MEC_base
 {
@@ -14,7 +14,7 @@ class MEC_parser extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class MEC_parser extends MEC_base
     
     /**
      * A wrapper function for getting WP_Query object
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @global object $wp_query
      * @return object
      */
@@ -42,7 +42,7 @@ class MEC_parser extends MEC_base
     
     /**
      * load MEC Rewrite Rules
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param WP_Rewrite $wp_rewrite
      */
     public function load_rewrites(WP_Rewrite $wp_rewrite)
@@ -86,7 +86,7 @@ class MEC_parser extends MEC_base
     
     /**
      * Adds MEC query vars to the WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $qvars
      * @return array
      */
@@ -100,7 +100,7 @@ class MEC_parser extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param object $query
      */
     public function WPQ_parse($query)
@@ -116,7 +116,7 @@ class MEC_parser extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $template
      * @return string
      */
@@ -124,41 +124,25 @@ class MEC_parser extends MEC_base
     {
         // We're in an embed post
         if(is_embed()) return $template;
-        
+
         $PT = $this->main->get_main_post_type();
-        $file = $this->getFile();
-        
         if(is_single() and get_post_type() == $PT)
         {
-            $template = locate_template('single-'.$PT.'.php');
-            if($template == '')
+            // Block Themes
+            if(function_exists('wp_is_block_theme') and wp_is_block_theme())
             {
-                $wp_template = get_template();
-                $wp_stylesheet = get_stylesheet();
-                
-                $wp_template_file = MEC_ABSPATH.'templates'.DS.'themes'.DS.$wp_template.DS.'single-mec-events.php';
-                $wp_stylesheet_file = MEC_ABSPATH.'templates'.DS.'themes'.DS.$wp_template.DS.'childs'.DS.$wp_stylesheet.DS.'single-mec-events.php';
-                
-                if($file->exists($wp_stylesheet_file)) $template = $wp_stylesheet_file;
-                elseif($file->exists($wp_template_file)) $template = $wp_template_file;
-                else $template = MEC_ABSPATH.'templates'.DS.'single-mec-events.php';
+                add_filter('the_content', array($this, 'block_theme_single_content'));
+
+                return $template;
             }
+
+            $template = locate_template('single-'.$PT.'.php');
+            if($template == '') $template = MEC_ABSPATH.'templates'.DS.'single-mec-events.php';
         }
         elseif(is_post_type_archive($PT) && !is_search())
         {
             $template = locate_template('archive-'.$PT.'.php');
-            if($template == '')
-            {
-                $wp_template = get_template();
-                $wp_stylesheet = get_stylesheet();
-                
-                $wp_template_file = MEC_ABSPATH.'templates'.DS.'themes'.DS.$wp_template.DS.'archive-mec-events.php';
-                $wp_stylesheet_file = MEC_ABSPATH.'templates'.DS.'themes'.DS.$wp_template.DS.'childs'.DS.$wp_stylesheet.DS.'archive-mec-events.php';
-                
-                if($file->exists($wp_stylesheet_file)) $template = $wp_stylesheet_file;
-                elseif($file->exists($wp_template_file)) $template = $wp_template_file;
-                else $template = MEC_ABSPATH.'templates'.DS.'archive-mec-events.php';
-            }
+            if($template == '') $template = MEC_ABSPATH.'templates'.DS.'archive-mec-events.php';
 
             add_action('mec_before_main_content', function()
             {
@@ -173,25 +157,14 @@ class MEC_parser extends MEC_base
         elseif(is_tax('mec_category'))
         {
             $template = locate_template('taxonomy-mec-category.php');
-            if($template == '')
-            {
-                $wp_template = get_template();
-                $wp_stylesheet = get_stylesheet();
-                
-                $wp_template_file = MEC_ABSPATH.'templates'.DS.'themes'.DS.$wp_template.DS.'taxonomy-mec-category.php';
-                $wp_stylesheet_file = MEC_ABSPATH.'templates'.DS.'themes'.DS.$wp_template.DS.'childs'.DS.$wp_stylesheet.DS.'taxonomy-mec-category.php';
-                
-                if($file->exists($wp_stylesheet_file)) $template = $wp_stylesheet_file;
-                elseif($file->exists($wp_template_file)) $template = $wp_template_file;
-                else $template = MEC_ABSPATH.'templates'.DS.'taxonomy-mec-category.php';
-            }
+            if($template == '') $template = MEC_ABSPATH.'templates'.DS.'taxonomy-mec-category.php';
         }
         
         return $template;
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $content
      * @return string|boolean
      */
@@ -219,7 +192,7 @@ class MEC_parser extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $title
      * @return string
      */
@@ -228,11 +201,11 @@ class MEC_parser extends MEC_base
         // only run it once
         remove_filter('mec_archive_title', array($this, 'archive_title'));
 
-        return $this->main->get_archive_title();
+        return $this->main->get_archive_title(false);
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $html
      * @return string
      */
@@ -245,7 +218,7 @@ class MEC_parser extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $content
      * @return string
      */
@@ -266,5 +239,11 @@ class MEC_parser extends MEC_base
         }
 
         return $title;
+    }
+
+    public function block_theme_single_content($content)
+    {
+        remove_filter('the_content', array($this, 'block_theme_single_content'));
+        return $this->single_content($content);
     }
 }

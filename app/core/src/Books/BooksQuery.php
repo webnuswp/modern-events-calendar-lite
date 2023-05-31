@@ -2,19 +2,19 @@
 
 namespace MEC\Books;
 
-use MEC_Core\Singleton;
+use MEC\Singleton;
 
 /**
  * Version 1.0.0
  */
-class BooksQuery extends Singleton{    
+class BooksQuery extends Singleton{
 
     public function get_books($q_args){
 
         $default = array(
             'post_type' => 'mec-books',
             'fields' => '',
-            'limit' => -1,
+            'posts_per_page' => -1,
             'post_status' => array('publish','pending','draft','future','private'),
             'meta_query' => array(
                 'relation' => 'AND',
@@ -22,7 +22,7 @@ class BooksQuery extends Singleton{
         );
 
         $q_args = wp_parse_args($q_args,$default);
-        
+
         //event_ids start
         if(array_key_exists('event_id',$q_args) && !empty($q_args['event_id'])){
 
@@ -61,7 +61,7 @@ class BooksQuery extends Singleton{
                 'compare' => 'LIKE',
             );
         }
-        
+
         if(array_key_exists('confirmed',$q_args) && !empty($q_args['confirmed'])){
 
             $q_args['meta_query']['confirmed'] = array(
@@ -87,12 +87,12 @@ class BooksQuery extends Singleton{
     public function get_books_ids($q_args){
 
         $default = array(
-            'limit' => -1,
+            'posts_per_page' => -1,
             'fields' => 'ids',
         );
 
         $q_args = wp_parse_args($q_args,$default);
 
         return $this->get_books($q_args);
-    }    
+    }
 }

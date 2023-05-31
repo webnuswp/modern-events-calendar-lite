@@ -15,12 +15,9 @@ CREATE TABLE IF NOT EXISTS `#__mec_events` (
 
 ALTER TABLE `#__mec_events` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `ID` (`id`), ADD UNIQUE KEY `post_id` (`post_id`);
 ALTER TABLE `#__mec_events` MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
-
 ALTER TABLE `#__mec_events` ADD `days` TEXT NULL DEFAULT NULL, ADD `time_start` INT(10) NOT NULL DEFAULT '0', ADD `time_end` INT(10) NOT NULL DEFAULT '0';
-
 ALTER TABLE `#__mec_events` ADD `not_in_days` TEXT NOT NULL DEFAULT '' AFTER `days`;
 ALTER TABLE `#__mec_events` CHANGE `days` `days` TEXT NOT NULL DEFAULT '';
-
 ALTER TABLE `#__mec_events` ADD INDEX (`start`, `end`, `repeat`, `rinterval`, `year`, `month`, `day`, `week`, `weekday`, `weekdays`, `time_start`, `time_end`);
 
 CREATE TABLE IF NOT EXISTS `#__mec_dates` (
@@ -35,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `#__mec_dates` (
 ALTER TABLE `#__mec_dates` ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`post_id`), ADD KEY `tstart` (`tstart`), ADD KEY `tend` (`tend`);
 ALTER TABLE `#__mec_dates` MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 ALTER TABLE `#__mec_dates` ADD `public` INT(4) UNSIGNED NOT NULL DEFAULT 1 AFTER `tend`;
+ALTER TABLE `#__mec_dates` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'publish' AFTER `tend`;
 
 CREATE TABLE IF NOT EXISTS `#__mec_occurrences` (
   `id` int(10) UNSIGNED NOT NULL,
@@ -60,3 +58,27 @@ ALTER TABLE `#__mec_users` ADD PRIMARY KEY (`id`);
 ALTER TABLE `#__mec_users` MODIFY `id` int NOT NULL AUTO_INCREMENT;
 ALTER TABLE `#__mec_users` AUTO_INCREMENT=1000000;
 ALTER TABLE `#__mec_users` ADD UNIQUE KEY `email` (`email`);
+
+CREATE TABLE IF NOT EXISTS `#__mec_bookings` (
+  `id` int UNSIGNED NOT NULL,
+  `booking_id` int UNSIGNED NOT NULL,
+  `event_id` int UNSIGNED NOT NULL,
+  `ticket_ids` varchar(255) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `confirmed` tinyint NOT NULL DEFAULT '0',
+  `verified` tinyint NOT NULL DEFAULT '0',
+  `all_occurrences` tinyint NOT NULL DEFAULT '0',
+  `date` datetime NOT NULL,
+  `timestamp` int UNSIGNED NOT NULL
+) DEFAULT CHARSET=[:CHARSET:] COLLATE=[:COLLATE:];
+
+ALTER TABLE `#__mec_bookings` ADD PRIMARY KEY (`id`);
+ALTER TABLE `#__mec_bookings` MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `#__mec_bookings` ADD KEY `event_id` (`event_id`,`ticket_ids`,`status`,`confirmed`,`verified`,`date`);
+ALTER TABLE `#__mec_bookings` ADD KEY `booking_id` (`booking_id`);
+ALTER TABLE `#__mec_bookings` ADD KEY `timestamp` (`timestamp`);
+ALTER TABLE `#__mec_bookings` ADD `transaction_id` VARCHAR(20) NULL AFTER `booking_id`;
+ALTER TABLE `#__mec_bookings` ADD `user_id` INT(10) UNSIGNED NULL DEFAULT NULL AFTER `booking_id`;
+ALTER TABLE `#__mec_bookings` ADD INDEX (`user_id`);
+ALTER TABLE `#__mec_bookings` CHANGE `ticket_ids` `ticket_ids` VARCHAR(655) NOT NULL;
+ALTER TABLE `#__mec_bookings` ADD `seats` INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `ticket_ids`;

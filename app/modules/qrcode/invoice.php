@@ -30,4 +30,4 @@ if(!$file->exists($file_path))
     $QRcode->png($url, $file_path, 'L', 4, 2);
 }
 
-echo $file_path;
+echo esc_html($file_path);

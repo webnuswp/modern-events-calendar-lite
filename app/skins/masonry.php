@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC masonry class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_masonry extends MEC_skins
 {
@@ -20,7 +20,7 @@ class MEC_skin_masonry extends MEC_skins
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -29,7 +29,7 @@ class MEC_skin_masonry extends MEC_skins
     
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
@@ -39,7 +39,7 @@ class MEC_skin_masonry extends MEC_skins
     
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
@@ -74,6 +74,9 @@ class MEC_skin_masonry extends MEC_skins
         // Show "Load More" button or not
         $this->load_more_button = isset($this->skin_options['load_more_button']) ? $this->skin_options['load_more_button'] : true;
 
+        // Pagination
+        $this->pagination = isset($this->skin_options['pagination']) ? $this->skin_options['pagination'] : (!$this->load_more_button ? '0' : 'loadmore');
+
         // Show Masonry like grid
         $this->masonry_like_grid = isset($this->skin_options['masonry_like_grid']) ? $this->skin_options['masonry_like_grid'] : true;
 
@@ -89,6 +92,9 @@ class MEC_skin_masonry extends MEC_skins
 
         // SED Method
         $this->sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['sed_method'] : '0';
+
+        // Order Method
+        $this->order_method = (isset($this->skin_options['order_method']) and trim($this->skin_options['order_method'])) ? $this->skin_options['order_method'] : 'ASC';
 
         // Image popup
         $this->image_popup = isset($this->skin_options['image_popup']) ? $this->skin_options['image_popup'] : '0';
@@ -135,8 +141,8 @@ class MEC_skin_masonry extends MEC_skins
         $this->args['paged'] = $this->paged;
         
         // Sort Options
-        $this->args['orderby'] = 'meta_value_num';
-        $this->args['order'] = 'ASC';
+        $this->args['orderby'] = 'mec_start_day_seconds ID';
+        $this->args['order'] = (in_array($this->order_method, array('ASC', 'DESC')) ? $this->order_method : 'ASC');
         $this->args['meta_key'] = 'mec_start_day_seconds';
         
         // Exclude Posts
@@ -165,6 +171,21 @@ class MEC_skin_masonry extends MEC_skins
         
         // We will extend the end date in the loop
         $this->end_date = $this->start_date;
+
+        // Show Ongoing Events
+        $this->show_ongoing_events = (isset($this->atts['show_only_ongoing_events']) and trim($this->atts['show_only_ongoing_events'])) ? '1' : '0';
+        if($this->show_ongoing_events)
+        {
+            $this->args['mec-show-ongoing-events'] = $this->show_ongoing_events;
+            if((strpos($this->style, 'fluent') === false && strpos($this->style, 'liquid') === false))
+            {
+                $this->maximum_date = $this->start_date;
+            }
+        }
+
+        // Include Ongoing Events
+        $this->include_ongoing_events = (isset($this->atts['show_ongoing_events']) and trim($this->atts['show_ongoing_events'])) ? '1' : '0';
+        if($this->include_ongoing_events) $this->args['mec-include-ongoing-events'] = $this->include_ongoing_events;
         
         // Set start time
         if(isset($this->atts['seconds']))
@@ -174,7 +195,9 @@ class MEC_skin_masonry extends MEC_skins
         }
         
         // Apply Maximum Date
-        if($this->request->getVar('apply_sf_date', 0) == 1 and isset($this->sf) and isset($this->sf['month']) and trim($this->sf['month'])) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 0;
+        $month = (isset($this->sf) && isset($this->sf['month']) && trim($this->sf['month'])) ? $this->sf['month'] : (isset($_REQUEST['mec_month']) ? $_REQUEST['mec_month'] : '');
+        if($apply_sf_date == 1 and trim($month)) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
         
         // Found Events
         $this->found = 0;
@@ -184,7 +207,7 @@ class MEC_skin_masonry extends MEC_skins
     
     /**
      * Returns start day of skin for filtering events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return string
      */
     public function get_start_date()
@@ -210,8 +233,17 @@ class MEC_skin_masonry extends MEC_skins
         // Show only expired events
         if(isset($this->show_only_expired_events) and $this->show_only_expired_events)
         {
-            $now = date('Y-m-d H:i:s', current_time('timestamp', 0));
+            $now = date('Y-m-d H:i:s', current_time('timestamp'));
             if(strtotime($date) > strtotime($now)) $date = $now;
+        }
+
+        // MEC Next Page
+        if(isset($_REQUEST['mec_next_page']) and trim($_REQUEST['mec_next_page']))
+        {
+            $ex = explode(':', $_REQUEST['mec_next_page']);
+
+            if(strtotime($ex[0])) $date = $ex[0];
+            if(isset($ex[1])) $this->offset = $ex[1];
         }
         
         return $date;
@@ -219,30 +251,31 @@ class MEC_skin_masonry extends MEC_skins
 
     /**
      * Load more events for AJAX requert
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return void
      */
     public function load_more()
     {
-        $this->sf = $this->request->getVar('sf', array());
+        $this->sf = (isset($_REQUEST['sf']) and is_array($_REQUEST['sf'])) ? $this->main->sanitize_deep_array($_REQUEST['sf']) : array();
 
-        $mec_filter_by = $this->request->getVar('mec_filter_by', '');
-        $mec_filter_value = $this->request->getVar('mec_filter_value', '');
+        $mec_filter_by = isset($_REQUEST['mec_filter_by']) ? sanitize_text_field($_REQUEST['mec_filter_by']) : '';
+        $mec_filter_value = isset($_REQUEST['mec_filter_value']) ? sanitize_text_field($_REQUEST['mec_filter_value']) : '';
         if($mec_filter_by and ($mec_filter_value and $mec_filter_value != '*')) $this->sf[$mec_filter_by] = $mec_filter_value;
 
-        $apply_sf_date = $this->request->getVar('apply_sf_date', 1);
-        $atts = $this->sf_apply($this->request->getVar('atts', array()), $this->sf, $apply_sf_date);
+        $apply_sf_date = isset($_REQUEST['apply_sf_date']) ? sanitize_text_field($_REQUEST['apply_sf_date']) : 1;
+        $atts = $this->sf_apply(((isset($_REQUEST['atts']) and is_array($_REQUEST['atts'])) ? $this->main->sanitize_deep_array($_REQUEST['atts']) : array()), $this->sf, $apply_sf_date);
         
         // Initialize the skin
         $this->initialize($atts);
         
         // Override variables
-        $this->start_date = sanitize_text_field($this->request->getVar('mec_start_date', date('y-m-d')));
+        $this->start_date = isset($_REQUEST['mec_start_date']) ? sanitize_text_field($_REQUEST['mec_start_date']) : date('y-m-d');
         $this->end_date = $this->start_date;
-        $this->offset = $this->request->getVar('mec_offset', 0);
+        $this->offset = isset($_REQUEST['mec_offset']) ? sanitize_text_field($_REQUEST['mec_offset']) : 0;
 		
         // Apply Maximum Date
-        if($apply_sf_date == 1 and isset($this->sf) and isset($this->sf['month']) and trim($this->sf['month'])) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
+        $month = (isset($this->sf) && isset($this->sf['month']) && trim($this->sf['month'])) ? $this->sf['month'] : (isset($_REQUEST['mec_month']) ? $_REQUEST['mec_month'] : '');
+        if($apply_sf_date == 1 and trim($month)) $this->maximum_date = date('Y-m-t', strtotime($this->start_date));
         
         // Return the events
         $this->atts['return_items'] = true;
@@ -259,7 +292,7 @@ class MEC_skin_masonry extends MEC_skins
 
     public function filter_by()
     {
-        $output = '<div class="mec-events-masonry-cats"><a href="#" class="mec-masonry-cat-selected" data-filter="*">'.__('All', 'modern-events-calendar-lite').'</a>';
+        $output = '<div class="mec-events-masonry-cats"><a href="#" class="mec-masonry-cat-selected" data-filter="*">'.esc_html__('All', 'modern-events-calendar-lite').'</a>';
 
         $taxonomy = $this->filter_by_get_taxonomy();
         $terms = get_terms($taxonomy, array
@@ -268,7 +301,7 @@ class MEC_skin_masonry extends MEC_skins
             'include' => ((isset($this->atts[$this->filter_by]) and trim($this->atts[$this->filter_by])) ? $this->atts[$this->filter_by] : ''),
         ));
 
-        foreach($terms as $term) $output .= '<a href="#" data-filter=".mec-t'.$term->term_id.'">'.$term->name.'</a>';
+        foreach($terms as $term) $output .= '<a href="#" data-filter=".mec-t'.esc_attr($term->term_id).'">'.esc_html($term->name).'</a>';
 
         $output .= '</div>';
         return $output;

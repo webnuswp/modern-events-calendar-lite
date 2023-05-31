@@ -6,6 +6,9 @@ class Singleton {
 
 	private static $instance;
 
+    /**
+     * @return $this
+     */
 	public static function getInstance() {
 
 		$class_name = get_called_class();

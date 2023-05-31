@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC Available Spot class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_skin_available_spot extends MEC_skins
 {
@@ -20,7 +20,7 @@ class MEC_skin_available_spot extends MEC_skins
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -29,7 +29,7 @@ class MEC_skin_available_spot extends MEC_skins
 
     /**
      * Registers skin actions into WordPress
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function actions()
     {
@@ -37,13 +37,15 @@ class MEC_skin_available_spot extends MEC_skins
 
     /**
      * Initialize the skin
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $atts
      */
     public function initialize($atts)
     {
         $this->atts = $atts;
         $this->skin_options = (isset($this->atts['sk-options']) and isset($this->atts['sk-options'][$this->skin])) ? $this->atts['sk-options'][$this->skin] : array();
+
+        $this->style = isset($this->skin_options['style']) ? $this->skin_options['style'] : 'classic';
 
         // Date Formats
         $this->date_format1 = (isset($this->skin_options['date_format1']) and trim($this->skin_options['date_format1'])) ? $this->skin_options['date_format1'] : 'j';
@@ -85,7 +87,7 @@ class MEC_skin_available_spot extends MEC_skins
 
     /**
      * Search and returns the filtered events
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return array of objects
      */
     public function search()

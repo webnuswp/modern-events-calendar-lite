@@ -53,9 +53,12 @@ else
 $start_time = date('D M j Y G:i:s', strtotime($start_date.' '.date('H:i:s', strtotime($event_time))));
 $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.date('H:i:s', strtotime($event_etime))));
 
-$d1 = new DateTime($start_time);
-$d2 = new DateTime(current_time("D M j Y G:i:s"));
-$d3 = new DateTime($end_time);
+// Timezone
+$TZO = $this->main->get_TZO($event);
+
+$d1 = new DateTime($start_time, $TZO);
+$d2 = new DateTime(current_time("D M j Y G:i:s"), $TZO);
+$d3 = new DateTime($end_time, $TZO);
 
 $countdown_method = get_post_meta($event->ID, 'mec_countdown_method', true);
 if(trim($countdown_method) == '') $countdown_method = 'global';
@@ -68,18 +71,18 @@ if($ongoing and $d3 < $d2) $ongoing = false;
 // Skip if event is ongoing
 if($d1 < $d2 and !$ongoing) return;
 
-$gmt_offset = $this->main->get_gmt_offset($event);
+$gmt_offset = $this->main->get_gmt_offset($event, strtotime($start_date));
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') === false) $gmt_offset = ' : '.$gmt_offset;
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') == true) $gmt_offset = substr(trim($gmt_offset), 0 , 3);
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true) $gmt_offset = substr(trim($gmt_offset), 2 , 3);
 
 // Generating javascript code of countdown module
-$javascript = '<script type="text/javascript">
+$javascript = '<script>
 jQuery(document).ready(function()
 {
-    jQuery("#mec_skin_countdown'.$this->id.'").mecCountDown(
+    jQuery("#mec_skin_countdown'.esc_js($this->id).'").mecCountDown(
     {
-        date: "'.($ongoing ? $end_time : $start_time).$gmt_offset.'",
+        date: "'.esc_js(($ongoing ? $end_time : $start_time).$gmt_offset).'",
         format: "off"
     },
     function()
@@ -89,155 +92,147 @@ jQuery(document).ready(function()
 </script>';
 
 // Include javascript code into the page
-if($this->main->is_ajax()) echo $javascript;
+if($this->main->is_ajax() or $this->main->preview()) echo MEC_kses::full($javascript);
 else $this->factory->params('footer', $javascript);
 
 do_action('mec_start_skin', $this->id);
 do_action('mec_countdown_skin_head');
 ?>
 <style>
-.mec-event-countdown-style3 .mec-event-date, .mec-wrap .mec-event-countdown-style2, .mec-wrap .mec-event-countdown-style1, .mec-event-countdown-style1 .mec-event-countdown-part3 .mec-event-button {background: <?php echo $this->bg_color; ?> ;}
-.mec-wrap .mec-event-countdown-style1 .mec-event-countdown-part2:after { border-color: transparent transparent transparent<?php echo $this->bg_color; ?>;}
-.mec-event-countdown-style3 .mec-event-date:after {border-color: transparent transparent <?php echo $this->bg_color; ?> transparent;}
+.mec-event-countdown-style3 .mec-event-date, .mec-wrap .mec-event-countdown-style2, .mec-wrap .mec-event-countdown-style1, .mec-event-countdown-style1 .mec-event-countdown-part3 .mec-event-button {background: <?php echo esc_html($this->bg_color); ?> !important;}
+.mec-wrap .mec-event-countdown-style1 .mec-event-countdown-part2:after { border-color: transparent transparent transparent <?php echo esc_html($this->bg_color); ?>;}
+.mec-event-countdown-style3 .mec-event-date:after {border-color: transparent transparent <?php echo esc_html($this->bg_color); ?> transparent;}
 </style>
-<div class="mec-wrap <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
+<div class="mec-wrap <?php echo esc_attr($this->html_class . ' ' . $set_dark); ?>" id="mec_skin_<?php echo esc_attr($this->id); ?>">
 <?php
     // MEC Schema
     do_action('mec_schema', $event);
 
     if($this->style == 'style1'): ?>
-    <article class="mec-event-countdown-style1 col-md-12 <?php echo $this->get_event_classes($event); ?>">
+    <article class="mec-event-countdown-style1 col-md-12 <?php echo esc_attr($this->get_event_classes($event)); ?>">
         <div class="mec-event-countdown-part1 col-md-4">
-            <div class="mec-event-upcoming"><?php echo sprintf(__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
-            <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?> <?php echo $this->get_label_captions($event ,'mec-fc-style'); ?></h4>
-            <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
+            <div class="mec-event-upcoming"><?php echo sprintf(esc_html__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.esc_html__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
+            <h4 class="mec-event-title"><?php echo MEC_kses::element($event_title.$this->main->get_flags($event)); ?> <?php echo MEC_kses::element($this->get_label_captions($event ,'mec-fc-style')); ?></h4>
+            <?php echo MEC_kses::element($this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation)); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
         </div>
         <div class="mec-event-countdown-part2 col-md-5">
             <div class="mec-event-date-place">
-                <div class="mec-event-date"><?php echo $this->main->date_i18n($this->date_format_style11, strtotime($event_date)); ?></div>
-                <div class="mec-event-place"><?php echo (isset($event_location['name']) ? ' - '.$event_location['name'] : ''); ?></div>
+                <div class="mec-event-date"><?php echo esc_html($this->main->date_i18n($this->date_format_style11, strtotime($event_date))); ?></div>
+                <div class="mec-event-place"><?php echo (isset($event_location['name']) ? ' - '.esc_html($event_location['name']) : ''); ?></div>
             </div>
-            <div class="mec-event-countdown" id="mec_skin_countdown<?php echo $this->id; ?>">
+            <div class="mec-event-countdown" id="mec_skin_countdown<?php echo esc_attr($this->id); ?>">
+                <ul class="clockdiv" id="countdown">
+                    <li class="days-w block-w">
+                        <span class="mec-days">00</span>
+                        <p class="mec-timeRefDays label-w"><?php esc_html_e('days', 'modern-events-calendar-lite'); ?></p>
+                    </li>
+                    <li class="hours-w block-w">
+                        <span class="mec-hours">00</span>
+                        <p class="mec-timeRefHours label-w"><?php esc_html_e('hours', 'modern-events-calendar-lite'); ?></p>
+                    </li>
+                    <li class="minutes-w block-w">
+                        <span class="mec-minutes">00</span>
+                        <p class="mec-timeRefMinutes label-w"><?php esc_html_e('minutes', 'modern-events-calendar-lite'); ?></p>
+                    </li>
+                    <li class="seconds-w block-w">
+                        <span class="mec-seconds">00</span>
+                        <p class="mec-timeRefSeconds label-w"><?php esc_html_e('seconds', 'modern-events-calendar-lite'); ?></p>
+                    </li>
+                </ul>
+            </div>
+            <?php if($this->localtime) echo MEC_kses::full($this->main->module('local-time.type3', array('event' => $event))); ?>
+        </div>
+        <div class="mec-event-countdown-part3 col-md-3">
+            <?php echo MEC_kses::element($this->display_link($event, $this->main->m('event_detail', esc_html__('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button')); ?>
+        </div>
+    </article>
+    <?php elseif($this->style == 'style2'): ?>
+    <article class="mec-event-countdown-style2 <?php echo esc_attr($this->get_event_classes($event)); ?>">
+        <div class="mec-event-countdown-part1 col-md-4">
+            <div class="mec-event-upcoming"><?php echo sprintf(esc_html__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.esc_html__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
+            <h4 class="mec-event-title"><?php echo MEC_kses::element($event_title.$this->main->get_flags($event)); ?> <?php echo MEC_kses::element($this->get_label_captions($event,'mec-fc-style')); ?></h4>
+            <?php echo MEC_kses::element($this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation)); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
+        </div>
+        <div class="mec-event-countdown-part2 col-md-5">
+            <div class="mec-event-date-place">
+                <div class="mec-event-date"><?php echo esc_html($this->main->date_i18n($this->date_format_style21, strtotime($event_date))); ?></div>
+                <div class="mec-event-place"><?php echo (isset($event_location['name']) ? ' - '.esc_html($event_location['name']) : ''); ?></div>
+            </div>
+            <div class="mec-event-countdown" id="mec_skin_countdown<?php echo esc_attr($this->id); ?>">
                 <ul class="clockdiv" id="countdown">
                     <div class="days-w block-w">
                         <li>
                             <span class="mec-days">00</span>
-                            <p class="mec-timeRefDays label-w"><?php _e('days', 'modern-events-calendar-lite'); ?></p>
+                            <p class="mec-timeRefDays label-w"><?php esc_html_e('days', 'modern-events-calendar-lite'); ?></p>
                         </li>
                     </div>
                     <div class="hours-w block-w">
                         <li>
                             <span class="mec-hours">00</span>
-                            <p class="mec-timeRefHours label-w"><?php _e('hours', 'modern-events-calendar-lite'); ?></p>
+                            <p class="mec-timeRefHours label-w"><?php esc_html_e('hours', 'modern-events-calendar-lite'); ?></p>
                         </li>
-                    </div>  
+                    </div>
                     <div class="minutes-w block-w">
                         <li>
                             <span class="mec-minutes">00</span>
-                            <p class="mec-timeRefMinutes label-w"><?php _e('minutes', 'modern-events-calendar-lite'); ?></p>
+                            <p class="mec-timeRefMinutes label-w"><?php esc_html_e('minutes', 'modern-events-calendar-lite'); ?></p>
                         </li>
                     </div>
                     <div class="seconds-w block-w">
                         <li>
                             <span class="mec-seconds">00</span>
-                            <p class="mec-timeRefSeconds label-w"><?php _e('seconds', 'modern-events-calendar-lite'); ?></p>
+                            <p class="mec-timeRefSeconds label-w"><?php esc_html_e('seconds', 'modern-events-calendar-lite'); ?></p>
                         </li>
                     </div>
                 </ul>
             </div>
-            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
+            <?php if($this->localtime) echo MEC_kses::full($this->main->module('local-time.type3', array('event' => $event))); ?>
         </div>
         <div class="mec-event-countdown-part3 col-md-3">
-            <?php echo $this->display_link($event, $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button'); ?>
-        </div>
-    </article>
-    <?php elseif($this->style == 'style2'): ?>
-    <article class="mec-event-countdown-style2 <?php echo $this->get_event_classes($event); ?>">
-        <div class="mec-event-countdown-part1 col-md-4">
-            <div class="mec-event-upcoming"><?php echo sprintf(__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
-            <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?> <?php echo $this->get_label_captions($event,'mec-fc-style'); ?></h4>
-            <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
-        </div>
-        <div class="mec-event-countdown-part2 col-md-5">
-            <div class="mec-event-date-place">
-                <div class="mec-event-date"><?php echo $this->main->date_i18n($this->date_format_style21, strtotime($event_date)); ?></div>
-                <div class="mec-event-place"><?php echo (isset($event_location['name']) ? ' - '.$event_location['name'] : ''); ?></div>
-            </div>
-            <div class="mec-event-countdown" id="mec_skin_countdown<?php echo $this->id; ?>">
-                <ul class="clockdiv" id="countdown">
-                    <div class="days-w block-w">
-                        <li>
-                            <span class="mec-days">00</span>
-                            <p class="mec-timeRefDays label-w"><?php _e('days', 'modern-events-calendar-lite'); ?></p>
-                        </li>
-                    </div>
-                    <div class="hours-w block-w">    
-                        <li>
-                            <span class="mec-hours">00</span>
-                            <p class="mec-timeRefHours label-w"><?php _e('hours', 'modern-events-calendar-lite'); ?></p>
-                        </li>
-                    </div>  
-                    <div class="minutes-w block-w">
-                        <li>
-                            <span class="mec-minutes">00</span>
-                            <p class="mec-timeRefMinutes label-w"><?php _e('minutes', 'modern-events-calendar-lite'); ?></p>
-                        </li>
-                    </div>
-                    <div class="seconds-w block-w">
-                        <li>
-                            <span class="mec-seconds">00</span>
-                            <p class="mec-timeRefSeconds label-w"><?php _e('seconds', 'modern-events-calendar-lite'); ?></p>
-                        </li>
-                    </div>
-                </ul>
-            </div>
-            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
-        </div>
-        <div class="mec-event-countdown-part3 col-md-3">
-            <?php echo $this->display_link($event, $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button'); ?>
+            <?php echo MEC_kses::element($this->display_link($event, $this->main->m('event_detail', esc_html__('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button')); ?>
         </div>
     </article>
     <?php elseif($this->style == 'style3'): ?>
-    <article class="mec-event-countdown-style3 <?php echo $this->get_event_classes($event); ?>">
+    <article class="mec-event-countdown-style3 <?php echo esc_attr($this->get_event_classes($event)); ?>">
         <div class="mec-event-countdown-part1">
             <div class="mec-event-countdown-part-title">
-                <div class="mec-event-upcoming"><?php echo sprintf(__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
+                <div class="mec-event-upcoming"><?php echo sprintf(esc_html__('%s Upcoming Event', 'modern-events-calendar-lite'), '<span>'.esc_html__('Next', 'modern-events-calendar-lite').'</span>'); ?></div>
             </div>
-            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
+            <?php if($this->localtime) echo MEC_kses::full($this->main->module('local-time.type3', array('event' => $event))); ?>
             <div class="mec-event-countdown-part-details">
                 <div class="mec-event-date">
-                    <span class="mec-date1"><?php echo $this->main->date_i18n($this->date_format_style31, strtotime($event_date)); ?></span>
-                    <span class="mec-date2"><?php echo $this->main->date_i18n($this->date_format_style32, strtotime($event_date)); ?></span>
-                    <span class="mec-date3"><?php echo $this->main->date_i18n($this->date_format_style33, strtotime($event_date)); ?></span>
+                    <span class="mec-date1"><?php echo esc_html($this->main->date_i18n($this->date_format_style31, strtotime($event_date))); ?></span>
+                    <span class="mec-date2"><?php echo esc_html($this->main->date_i18n($this->date_format_style32, strtotime($event_date))); ?></span>
+                    <span class="mec-date3"><?php echo esc_html($this->main->date_i18n($this->date_format_style33, strtotime($event_date))); ?></span>
                 </div>
                 <div class="mec-event-title-link">
-                    <h4 class="mec-event-title"><?php echo $event_title.$this->main->get_flags($event); ?><?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation); ?><?php echo $this->get_label_captions($event,'mec-fc-style'); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
-                    <?php echo $this->display_link($event, $this->main->m('event_detail', __('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-link'); ?>
+                    <h4 class="mec-event-title"><?php echo MEC_kses::element($event_title.$this->main->get_flags($event)); ?><?php echo MEC_kses::element($this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation)); ?><?php echo MEC_kses::element($this->get_label_captions($event,'mec-fc-style')); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?></h4>
+                    <?php echo MEC_kses::element($this->display_link($event, $this->main->m('event_detail', esc_html__('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-link')); ?>
                 </div>
-                <div class="mec-event-countdown" id="mec_skin_countdown<?php echo $this->id; ?>">
+                <div class="mec-event-countdown" id="mec_skin_countdown<?php echo esc_attr($this->id); ?>">
                     <ul class="clockdiv" id="countdown">
                         <div class="days-w block-w">
                             <li>
                                 <span class="mec-days">00</span>
-                                <p class="mec-timeRefDays label-w"><?php _e('days', 'modern-events-calendar-lite'); ?></p>
+                                <p class="mec-timeRefDays label-w"><?php esc_html_e('days', 'modern-events-calendar-lite'); ?></p>
                             </li>
                         </div>
-                        <div class="hours-w block-w">    
+                        <div class="hours-w block-w">
                             <li>
                                 <span class="mec-hours">00</span>
-                                <p class="mec-timeRefHours label-w"><?php _e('hours', 'modern-events-calendar-lite'); ?></p>
+                                <p class="mec-timeRefHours label-w"><?php esc_html_e('hours', 'modern-events-calendar-lite'); ?></p>
                             </li>
-                        </div>  
+                        </div>
                         <div class="minutes-w block-w">
                             <li>
                                 <span class="mec-minutes">00</span>
-                                <p class="mec-timeRefMinutes label-w"><?php _e('minutes', 'modern-events-calendar-lite'); ?></p>
+                                <p class="mec-timeRefMinutes label-w"><?php esc_html_e('minutes', 'modern-events-calendar-lite'); ?></p>
                             </li>
                         </div>
                         <div class="seconds-w block-w">
                             <li>
                                 <span class="mec-seconds">00</span>
-                                <p class="mec-timeRefSeconds label-w"><?php _e('seconds', 'modern-events-calendar-lite'); ?></p>
+                                <p class="mec-timeRefSeconds label-w"><?php esc_html_e('seconds', 'modern-events-calendar-lite'); ?></p>
                             </li>
                         </div>
                     </ul>
@@ -246,9 +241,10 @@ do_action('mec_countdown_skin_head');
         </div>
         <div class="mec-event-countdown-part2">
             <div class="mec-event-image">
-                <?php echo $this->display_link($event, $event->data->thumbnails['meccarouselthumb'], ''); ?>
+                <?php echo MEC_kses::element($this->display_link($event, $event->data->thumbnails['meccarouselthumb'], '')); ?>
             </div>
         </div>
     </article>
     <?php endif; ?>
+    <?php echo $this->display_credit_url(); ?>
 </div>
