@@ -49,35 +49,29 @@ $starttime = new DateTime($start_time, $TZO);
 $nowtime   = new DateTime('now', $TZO);
 $endtime   = new DateTime($end_time, $TZO);
 
-$countdown_method = get_post_meta($event->ID, 'mec_countdown_method', true);
-if(trim($countdown_method) == '') 
-	$countdown_method = 'global';
-
-if($countdown_method == 'global') 
-	$ongoing = (isset($settings['hide_time_method'])
-				and trim($settings['hide_time_method'])
-				 == 'end');
-else 
-	$ongoing = ($countdown_method == 'end');
-
-$disable_for_ongoing = (isset($settings['countdown_disable_for_ongoing_events']) and $settings['countdown_disable_for_ongoing_events']);
-
-if (!$ongoing or $disable_for_ongoing)
-	$cd2 = "starts in";
-else
-    $cd2 = "ends in";
-
 if($endtime < $nowtime)
 {
     echo '<div class="mec-end-counts"><h3>'.esc_html__('This event has passed', 'modern-events-calendar-lite').'</h3></div>';
     return;
 }
-elseif($starttime < $nowtime)
+
+$countdown_method = get_post_meta($event->ID, 'mec_countdown_method', true);
+if(trim($countdown_method) == '') 
+	$countdown_method = 'global';
+	
+$ongoing = ($starttime < $nowtime);
+$disable_for_ongoing = (isset($settings['countdown_disable_for_ongoing_events']) and $settings['countdown_disable_for_ongoing_events']);
+
+if ( ! $ongoing )
+	$cd2 = "starts in";
+else
 {
-    if (!$ongoing or $disable_for_ongoing)
+    if ($disable_for_ongoing or ($countdown_method == 'start'))
     {
-        echo '<div class="mec-end-counts"><h3>'.esc_html__('going on NOW!', 'modern-events-calendar-lite').'</h3></div>';
-    	return;
+        echo '<div class="mec-end-counts"><h3>'
+            . esc_html__('going on NOW!', 'modern-events-calendar-lite')
+            . '</h3></div>';
+        return;
     }
     $cd2 = "ends in";
 }
