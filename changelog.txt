@@ -1,4 +1,7 @@
-﻿v 6.10.1 – 1 June 2023
+v 6.10.1.1 – 1 June 2023 =
+-	countdown fixes	air_drummer@verizon.net
+
+v 6.10.1 – 1 June 2023
 - Added: Ability to download the debug log file.
 - Improved: The iCal feed.
 - Improved: PayPal standard by adding invoice description.
