@@ -654,6 +654,9 @@
 .mec-fa-snapchat:before { content:"\f2ab";}
 .mec-fa-snapchat-ghost:before { content:"\f2ac";}
 .mec-fa-snapchat-square:before { content:"\f2ad";}
+.mec-fa-long-arrow-alt-left:before{ content:"\f060";}
+.mec-fa-window-minimize:before{ content:"\f068";}
+.mec-fa-long-arrow-alt-right:before{ content:"\f061";}
 
 
 /* Simple Line Icons */

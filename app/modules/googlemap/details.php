@@ -77,42 +77,45 @@ $map_data->sf_status = null;
 $current_event = (isset($map_data->events[$event_id]) ? array($map_data->events[$event_id]) : array());
 $map_data->events = apply_filters('mec_location_load_additional', $current_event, $additional_location_ids, $event_locations);
 
+$scrollwheel = apply_filters( 'mec_google_map_scroll_wheel', false );
+
 // Initialize MEC Google Maps jQuery plugin
-$javascript = '<script type="text/javascript">
-var p'.$uniqueid.';
+$javascript = '<script>
+var p'.esc_js($uniqueid).';
 jQuery(document).ready(function()
 {
-    p'.$uniqueid.' = jQuery("#mec_map_canvas'.$uniqueid.'").mecGoogleMaps(
+    p'.esc_js($uniqueid).' = jQuery("#mec_map_canvas'.esc_js($uniqueid).'").mecGoogleMaps(
     {
-        latitude: "'.$latitude.'",
-        longitude: "'.$longitude.'",
+        scrollwheel: '. json_encode( $scrollwheel ? true : false ) .',
+        latitude: "'.esc_js($latitude).'",
+        longitude: "'.esc_js($longitude).'",
         autoinit: '.((!isset($auto_init) or (isset($auto_init) and $auto_init)) ? 'true' : 'false').',
-        zoom: '.(isset($settings['google_maps_zoomlevel']) ? $settings['google_maps_zoomlevel'] : 14).',
-        icon: "'.apply_filters('mec_marker_icon', $this->asset('img/m-04.png')).'",
+        zoom: '.(isset($settings['google_maps_zoomlevel']) ? esc_js($settings['google_maps_zoomlevel']) : 14).',
+        icon: "'.esc_js(apply_filters('mec_marker_icon', $this->asset('img/m-04.png'))).'",
         styles: '.((isset($settings['google_maps_style']) and trim($settings['google_maps_style']) != '') ? $this->get_googlemap_style($settings['google_maps_style']) : "''").',
         fullscreen_button: '.((isset($settings['google_maps_fullscreen_button']) and trim($settings['google_maps_fullscreen_button'])) ? 'true' : 'false').',
         markers: '.json_encode($render->markers($map_data->events)).',
-        clustering_images: "'.$this->asset('img/cluster1/m').'",
-        getDirection: '.$get_direction.',
+        clustering_images: "'.esc_js($this->asset('img/cluster1/m')).'",
+        getDirection: '.esc_js($get_direction).',
         directionOptions:
         {
-            form: "#mec_get_direction_form'.$uniqueid.'",
-            reset: "#mec_map_get_direction_reset'.$uniqueid.'",
-            addr: "#mec_get_direction_addr'.$uniqueid.'",
+            form: "#mec_get_direction_form'.esc_js($uniqueid).'",
+            reset: "#mec_map_get_direction_reset'.esc_js($uniqueid).'",
+            addr: "#mec_get_direction_addr'.esc_js($uniqueid).'",
             destination:
             {
-                latitude: "'.$latitude.'",
-                longitude: "'.$longitude.'",
+                latitude: "'.esc_js($latitude).'",
+                longitude: "'.esc_js($longitude).'",
             },
-            startMarker: "'.apply_filters('mec_start_marker_icon', $this->asset('img/m-03.png')).'",
-            endMarker: "'.apply_filters('mec_end_marker_icon', $this->asset('img/m-04.png')).'"
+            startMarker: "'.esc_js(apply_filters('mec_start_marker_icon', $this->asset('img/m-03.png'))).'",
+            endMarker: "'.esc_js(apply_filters('mec_end_marker_icon', $this->asset('img/m-04.png'))).'"
         }
     });
 });
 
-function mec_init_gmap'.$uniqueid.'()
+function mec_init_gmap'.esc_js($uniqueid).'()
 {
-    p'.$uniqueid.'.init();
+    p'.esc_js($uniqueid).'.init();
 }
 </script>';
 $javascript = apply_filters('mec_map_load_script', $javascript, $map_data, $settings);
@@ -120,23 +123,28 @@ $javascript = apply_filters('mec_map_load_script', $javascript, $map_data, $sett
 if(!function_exists('is_plugin_active')) include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 // Include javascript code into the footer
-if($this->is_ajax()) echo $javascript;
-elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) echo $javascript;
+if($this->is_ajax()) echo MEC_kses::full($javascript);
+elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) echo MEC_kses::full($javascript);
 else $factory->params('footer', $javascript);
 ?>
-<div class="mec-googlemap-details" id="mec_map_canvas<?php echo $uniqueid; ?>" style="height: 500px;">
-    <?php do_action('mec_map_inner_element_tools', $settings); ?>
+
+<div class="mec-googlemap-details" id="mec_map_canvas<?php echo esc_attr($uniqueid); ?>" style="height: 500px;">
+    <?php if (is_plugin_active( 'divi-single-builder/divi-single-builder.php')) : ?>
+         <img src="<?php echo plugin_dir_url(__FILE__ ); ?>../../../assets/img/map.jpg" />
+    <?php else : ?>
+        <?php do_action('mec_map_inner_element_tools', $settings); ?>
+    <?php endif; ?>
 </div>
 <?php do_action('mec_map_before_direction'); ?>
 <?php if($get_direction): ?>
 <div class="mec-get-direction">
-    <form method="post" action="#" id="mec_get_direction_form<?php echo $uniqueid; ?>" class="clearfix">
+    <form method="post" action="#" id="mec_get_direction_form<?php echo esc_attr($uniqueid); ?>" class="clearfix">
         <div class="mec-map-get-direction-address-cnt">
-            <input class="mec-map-get-direction-address" type="text" placeholder="<?php esc_attr_e('Address from ...', 'modern-events-calendar-lite') ?>" id="mec_get_direction_addr<?php echo $uniqueid; ?>" />
-            <span class="mec-map-get-direction-reset mec-util-hidden" id="mec_map_get_direction_reset<?php echo $uniqueid; ?>">X</span>
+            <input class="mec-map-get-direction-address" type="text" placeholder="<?php esc_attr_e('Address from ...', 'modern-events-calendar-lite' ) ?>" id="mec_get_direction_addr<?php echo esc_attr($uniqueid); ?>" />
+            <span class="mec-map-get-direction-reset mec-util-hidden" id="mec_map_get_direction_reset<?php echo esc_attr($uniqueid); ?>">X</span>
         </div>
         <div class="mec-map-get-direction-btn-cnt btn btn-primary">
-            <input type="submit" value="<?php _e('Get Directions', 'modern-events-calendar-lite'); ?>" />
+            <input type="submit" value="<?php esc_html_e('Get Directions', 'modern-events-calendar-lite' ); ?>" />
         </div>
     </form>
 </div>

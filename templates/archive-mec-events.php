@@ -10,7 +10,7 @@ $title_tag = (isset($settings['archive_title_tag']) and trim($settings['archive_
 /**
  * The Template for displaying events archives
  * 
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  * @package MEC/Templates
  * @version 1.0.0
  */
@@ -25,7 +25,7 @@ get_header('mec'); ?>
 
                 <?php while(have_posts()): the_post(); $title = apply_filters('mec_archive_title', get_the_title()); ?>
 
-                    <?php if(trim($title)): ?><<?php echo $title_tag; ?>><?php echo $title; ?></<?php echo $title_tag; ?>><?php endif; ?>
+                    <?php if(trim($title)): ?><<?php echo esc_html($title_tag); ?>><?php echo MEC_kses::element($title); ?></<?php echo esc_html($title_tag); ?>><?php endif; ?>
 
                     <?php the_content(); ?>
 
@@ -35,7 +35,7 @@ get_header('mec'); ?>
 
         <?php else: ?>
 
-        <p><?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?></p>
+        <p><?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?></p>
 
         <?php endif; ?>
     </section>
