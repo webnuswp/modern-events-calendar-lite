@@ -474,6 +474,9 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 == Changelog ==
 = 6.10.1.1 – 1 June 2023 =
 -	countdown fixes	air_drummer@verizon.net
+  fixed: default countdown to start prior to event, to end during event, while allowing override
+  improved: added interval param to countdown.js to reduce annoying page updates
+  improved: countdown displays "starts in" prior to event, "ends in" during event
 
 = 6.10.1 – 1 June 2023 =
 - Added: Ability to download the debug log file.
