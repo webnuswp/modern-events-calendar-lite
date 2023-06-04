@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC labels class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_labels extends MEC_base
 {
@@ -20,7 +20,7 @@ class MEC_feature_labels extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MEC_feature_labels extends MEC_base
     
     /**
      * Initialize label feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -53,12 +53,12 @@ class MEC_feature_labels extends MEC_base
     
     /**
      * Register label taxonomy
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function register_taxonomy()
     {
-        $singular_label = $this->main->m('taxonomy_label', __('Label', 'modern-events-calendar-lite'));
-        $plural_label = $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite'));
+        $singular_label = $this->main->m('taxonomy_label', esc_html__('Label', 'modern-events-calendar-lite' ));
+        $plural_label = $this->main->m('taxonomy_labels', esc_html__('Labels', 'modern-events-calendar-lite' ));
 
         register_taxonomy(
             'mec_label',
@@ -68,16 +68,16 @@ class MEC_feature_labels extends MEC_base
                 'labels'=>array(
                     'name'=>$plural_label,
                     'singular_name'=>$singular_label,
-                    'all_items'=>sprintf(__('All %s', 'modern-events-calendar-lite'), $plural_label),
-                    'edit_item'=>sprintf(__('Edit %s', 'modern-events-calendar-lite'), $singular_label),
-                    'view_item'=>sprintf(__('View %s', 'modern-events-calendar-lite'), $singular_label),
-                    'update_item'=>sprintf(__('Update %s', 'modern-events-calendar-lite'), $singular_label),
-                    'add_new_item'=>sprintf(__('Add New %s', 'modern-events-calendar-lite'), $singular_label),
-                    'new_item_name'=>sprintf(__('New %s Name', 'modern-events-calendar-lite'), $singular_label),
-                    'popular_items'=>sprintf(__('Popular %s', 'modern-events-calendar-lite'), $plural_label),
-                    'search_items'=>sprintf(__('Search %s', 'modern-events-calendar-lite'), $plural_label),
-                    'back_to_items'=>sprintf(__('← Back to %s', 'modern-events-calendar-lite'), $plural_label),
-                    'not_found'=>sprintf(__('no %s found.', 'modern-events-calendar-lite'), strtolower($plural_label)),
+                    'all_items'=>sprintf(esc_html__('All %s', 'modern-events-calendar-lite' ), $plural_label),
+                    'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite' ), $singular_label),
+                    'view_item'=>sprintf(esc_html__('View %s', 'modern-events-calendar-lite' ), $singular_label),
+                    'update_item'=>sprintf(esc_html__('Update %s', 'modern-events-calendar-lite' ), $singular_label),
+                    'add_new_item'=>sprintf(esc_html__('Add New %s', 'modern-events-calendar-lite' ), $singular_label),
+                    'new_item_name'=>sprintf(esc_html__('New %s Name', 'modern-events-calendar-lite' ), $singular_label),
+                    'popular_items'=>sprintf(esc_html__('Popular %s', 'modern-events-calendar-lite' ), $plural_label),
+                    'search_items'=>sprintf(esc_html__('Search %s', 'modern-events-calendar-lite' ), $plural_label),
+                    'back_to_items'=>sprintf(esc_html__('← Back to %s', 'modern-events-calendar-lite' ), $plural_label),
+                    'not_found'=>sprintf(esc_html__('no %s found.', 'modern-events-calendar-lite' ), strtolower($plural_label)),
                 ),
                 'rewrite'=>array('slug'=>'events-label'),
                 'public'=>false,
@@ -91,7 +91,7 @@ class MEC_feature_labels extends MEC_base
     
     /**
      * Show edit form of labels
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param object $term
      */
     public function edit_form($term)
@@ -101,25 +101,25 @@ class MEC_feature_labels extends MEC_base
     ?>
         <tr class="form-field">
             <th scope="row" >
-                <label for="mec_color"><?php _e('Color', 'modern-events-calendar-lite'); ?></label>
+                <label for="mec_color"><?php esc_html_e('Color', 'modern-events-calendar-lite' ); ?></label>
             </th>
             <td>
-                <input type="text" name="color" id="mec_color" value="<?php echo $color; ?>" data-default-color="<?php echo $color; ?>" class="mec-color-picker" />
-                <p class="description"><?php _e('Select label color', 'modern-events-calendar-lite'); ?></p>
+                <input type="text" name="color" id="mec_color" value="<?php echo esc_attr($color); ?>" data-default-color="<?php echo esc_attr($color); ?>" class="mec-color-picker" />
+                <p class="description"><?php esc_html_e('Select label color', 'modern-events-calendar-lite' ); ?></p>
             </td>
         </tr>
         <tr class="form-field">
             <th scope="row" >
-                <label for="mec_style"><?php _e('Style', 'modern-events-calendar-lite'); ?></label>
+                <label for="mec_style"><?php esc_html_e('Style', 'modern-events-calendar-lite' ); ?></label>
             </th>
             <td>
                 <select name="style" id="mec_style">
-                    <option value=""><?php _e('Normal', 'modern-events-calendar-lite'); ?></option>
-                    <option value="mec-label-featured" <?php echo ($style == 'mec-label-featured' ? 'selected="selected"' : ''); ?>><?php _e('Featured', 'modern-events-calendar-lite'); ?></option>
-                    <option value="mec-label-canceled" <?php echo ($style == 'mec-label-canceled' ? 'selected="selected"' : ''); ?>><?php _e('Canceled', 'modern-events-calendar-lite'); ?></option>
-                    <option value="mec-label-custom" <?php echo ($style == 'mec-label-custom' ? 'selected="selected"' : ''); ?>><?php _e('Custom', 'modern-events-calendar-lite'); ?></option>
+                    <option value=""><?php esc_html_e('Normal', 'modern-events-calendar-lite' ); ?></option>
+                    <option value="mec-label-featured" <?php echo ($style == 'mec-label-featured' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Featured', 'modern-events-calendar-lite' ); ?></option>
+                    <option value="mec-label-canceled" <?php echo ($style == 'mec-label-canceled' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Canceled', 'modern-events-calendar-lite' ); ?></option>
+                    <option value="mec-label-custom" <?php echo ($style == 'mec-label-custom' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Custom', 'modern-events-calendar-lite' ); ?></option>
                 </select>
-                <p class="description"><?php _e('You can show featured, canceled and custom labels by a different style!', 'modern-events-calendar-lite'); ?></p>
+                <p class="description"><?php esc_html_e('You can show featured, canceled and custom labels by a different style!', 'modern-events-calendar-lite' ); ?></p>
             </td>
         </tr>
     <?php
@@ -127,32 +127,32 @@ class MEC_feature_labels extends MEC_base
     
     /**
      * Show add form of labels
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function add_form()
     {
     ?>
         <div class="form-field">
-            <label for="mec_color"><?php _e('Color', 'modern-events-calendar-lite'); ?></label>
-            <input type="text" name="color" id="mec_color" value="" data-default-color="<?php echo $this->main->get_default_label_color(); ?>" class="mec-color-picker" />
-            <p class="description"><?php _e('Select label color', 'modern-events-calendar-lite'); ?></p>
+            <label for="mec_color"><?php esc_html_e('Color', 'modern-events-calendar-lite' ); ?></label>
+            <input type="text" name="color" id="mec_color" value="" data-default-color="<?php echo esc_attr($this->main->get_default_label_color()); ?>" class="mec-color-picker" />
+            <p class="description"><?php esc_html_e('Select label color', 'modern-events-calendar-lite' ); ?></p>
         </div>
         <div class="form-field">
-            <label for="mec_style"><?php _e('Style', 'modern-events-calendar-lite'); ?></label>
+            <label for="mec_style"><?php esc_html_e('Style', 'modern-events-calendar-lite' ); ?></label>
             <select name="style" id="mec_style">
-                <option value=""><?php _e('Normal', 'modern-events-calendar-lite'); ?></option>
-                <option value="mec-label-featured"><?php _e('Featured', 'modern-events-calendar-lite'); ?></option>
-                <option value="mec-label-canceled"><?php _e('Canceled', 'modern-events-calendar-lite'); ?></option>
-                <option value="mec-label-custom"><?php _e('Custom', 'modern-events-calendar-lite'); ?></option>
+                <option value=""><?php esc_html_e('Normal', 'modern-events-calendar-lite' ); ?></option>
+                <option value="mec-label-featured"><?php esc_html_e('Featured', 'modern-events-calendar-lite' ); ?></option>
+                <option value="mec-label-canceled"><?php esc_html_e('Canceled', 'modern-events-calendar-lite' ); ?></option>
+                <option value="mec-label-custom"><?php esc_html_e('Custom', 'modern-events-calendar-lite' ); ?></option>
             </select>
-            <p class="description"><?php _e('You can show featured, canceled and custom labels by a different style!', 'modern-events-calendar-lite'); ?></p>
+            <p class="description"><?php esc_html_e('You can show featured, canceled and custom labels by a different style!', 'modern-events-calendar-lite' ); ?></p>
         </div>
     <?php
     }
     
     /**
      * Save label meta data
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $term_id
      */
     public function save_metadata($term_id)
@@ -169,7 +169,7 @@ class MEC_feature_labels extends MEC_base
     
     /**
      * Filter label taxonomy columns
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $columns
      * @return array
      */
@@ -180,18 +180,18 @@ class MEC_feature_labels extends MEC_base
         unset($columns['description']);
         unset($columns['posts']);
         
-        $columns['id'] = __('ID', 'modern-events-calendar-lite');
-        $columns['name'] = __('Name', 'modern-events-calendar-lite');
-        $columns['color'] = __('Color', 'modern-events-calendar-lite');
-        $columns['posts'] = __('Count', 'modern-events-calendar-lite');
-        $columns['slug'] = __('Slug', 'modern-events-calendar-lite');
+        $columns['id'] = esc_html__('ID', 'modern-events-calendar-lite' );
+        $columns['name'] = esc_html__('Name', 'modern-events-calendar-lite' );
+        $columns['color'] = esc_html__('Color', 'modern-events-calendar-lite' );
+        $columns['posts'] = esc_html__('Count', 'modern-events-calendar-lite' );
+        $columns['slug'] = esc_html__('Slug', 'modern-events-calendar-lite' );
 
         return $columns;
     }
     
     /**
      * Filter content of label taxonomy
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $content
      * @param string $column_name
      * @param int $term_id
@@ -220,16 +220,16 @@ class MEC_feature_labels extends MEC_base
     
     /**
      * Register meta box of labels
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function register_meta_boxes()
     {
-        add_meta_box('mec_metabox_label', sprintf(__('Event %s', 'modern-events-calendar-lite'), $this->main->m('taxonomy_labels', __('Labels', 'modern-events-calendar-lite'))), array($this, 'meta_box_labels'), $this->main->get_main_post_type(), 'side');
+        add_meta_box('mec_metabox_label', sprintf(esc_html__('Event %s', 'modern-events-calendar-lite' ), $this->main->m('taxonomy_labels', esc_html__('Labels', 'modern-events-calendar-lite' ))), array($this, 'meta_box_labels'), $this->main->get_main_post_type(), 'side');
     }
     
     /**
      * Show meta box of labels
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param object $post
      */
     public function meta_box_labels($post)
@@ -241,9 +241,9 @@ class MEC_feature_labels extends MEC_base
             <div class="mec-form-row">
                 <?php foreach($labels as $label): ?>
                 <div class="mec-label-row">
-                    <input <?php if(in_array($label->term_id, $terms)) echo 'checked="checked"'; ?> name="mec[labels][]" type="checkbox" value="<?php echo $label->term_id; ?>" id="mec_label<?php echo $label->term_id; ?>" />
-                    <?php do_action('mec_label_to_checkbox_backend', $label, $terms ); ?>
-                    <label for="mec_label<?php echo $label->term_id; ?>"><?php echo $label->name; ?></label>
+                    <input <?php if(in_array($label->term_id, $terms)) echo 'checked="checked"'; ?> name="mec[labels][]" type="checkbox" value="<?php echo esc_attr($label->term_id); ?>" id="mec_label<?php echo esc_attr($label->term_id); ?>" />
+                    <?php do_action('mec_label_to_checkbox_backend', $label, $terms); ?>
+                    <label for="mec_label<?php echo esc_attr($label->term_id); ?>"><?php echo esc_html($label->name); ?></label>
                     <span class="mec-color" style="background-color: <?php echo get_term_meta($label->term_id, 'color', true); ?>"></span>
                 </div>
                 <?php endforeach; ?>
@@ -254,7 +254,7 @@ class MEC_feature_labels extends MEC_base
     
     /**
      * Save label of event
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return void
      */
@@ -270,10 +270,11 @@ class MEC_feature_labels extends MEC_base
         if(defined('DOING_AUTOSAVE') and DOING_AUTOSAVE) return;
 
         // Get Modern Events Calendar Data
-        $_mec = isset($_POST['mec']) ? $_POST['mec'] : array();
+        $_mec = isset($_POST['mec']) ? $this->main->sanitize_deep_array($_POST['mec']) : array();
         
         $_labels = isset($_mec['labels']) ? (array) $_mec['labels'] : array();
         
+        $_labels = array_map('sanitize_text_field', $_labels);
         $_labels = array_map('intval', $_labels);
         $_labels = array_unique($_labels);
         

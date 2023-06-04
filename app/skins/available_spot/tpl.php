@@ -64,15 +64,15 @@ $ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_m
 if($ongoing) if($d3 < $d2) $ongoing = false;
 if($d1 < $d2 and !$ongoing) return;
 
-$gmt_offset = $this->main->get_gmt_offset($event);
+$gmt_offset = $this->main->get_gmt_offset($event, strtotime($start_date));
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') === false) $gmt_offset = ' : '.$gmt_offset;
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Edge') == true) $gmt_offset = '';
 
 // Generating javascript code of countdown module
-$javascript = '<script type="text/javascript">
+$javascript = '<script>
 jQuery(document).ready(function()
 {
-    jQuery("#mec_skin_available_spot'.$this->id.'").mecCountDown(
+    jQuery("#mec_skin_available_spot'.esc_js($this->id).'").mecCountDown(
     {
         date: "'.($ongoing ? $end_time : $start_time).$gmt_offset.'",
         format: "off"
@@ -84,14 +84,14 @@ jQuery(document).ready(function()
 </script>';
 
 // Include javascript code into the page
-if($this->main->is_ajax()) echo $javascript;
+if($this->main->is_ajax() or $this->main->preview()) echo MEC_kses::full($javascript);
 else $this->factory->params('footer', $javascript);
 
 $occurrence_time = isset($event->date['start']['timestamp']) ? $event->date['start']['timestamp'] : strtotime($event->date['start']['date']);
 
 $book = $this->getBook();
 $availability = $book->get_tickets_availability($event->data->ID, $occurrence_time);
-$event_color = isset($event->data->meta['mec_color']) ? '<span class="event-color" style="background: #'.$event->data->meta['mec_color'].'"></span>' : '';
+$event_color = $this->get_event_color_dot($event);
 
 $spots = 0;
 $total_spots = -1;
@@ -116,43 +116,43 @@ if($total_spots >= 0) $spots = min($spots, $total_spots);
 do_action('mec_start_skin', $this->id);
 do_action('mec_available_spot_skin_head');
 ?>
-<div class="mec-wrap <?php echo $event_colorskin; ?> <?php echo $this->html_class . ' ' . $set_dark; ?>" id="mec_skin_<?php echo $this->id; ?>">
+<div class="mec-wrap <?php echo esc_attr($event_colorskin); ?> <?php echo esc_attr($this->html_class . ' ' . $set_dark); ?>" id="mec_skin_<?php echo esc_attr($this->id); ?>">
     <div class="mec-av-spot-wrap">
         <?php
             // MEC Schema
             do_action('mec_schema', $event);
         ?>
         <div class="mec-av-spot">
-            <article class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo $this->get_event_classes($event); ?>">
+            <article class="<?php echo (isset($event->data->meta['event_past']) and trim($event->data->meta['event_past'])) ? 'mec-past-event ' : ''; ?>mec-event-article mec-clear <?php echo esc_attr($this->get_event_classes($event)); ?>">
 
                 <?php if($event_thumb_url): ?>
-                <div class="mec-av-spot-img" style="background: url('<?php echo $event_thumb_url; ?>');"></div>
+                <div class="mec-av-spot-img" style="background: url('<?php echo esc_url($event_thumb_url); ?>');"></div>
                 <?php endif; ?>
 
-                <?php echo $this->get_label_captions($event); ?>
+                <?php echo MEC_kses::element($this->get_label_captions($event)); ?>
 
                 <div class="mec-av-spot-head clearfix">
                     <div class="mec-av-spot-col6">
-                        <div class="mec-av-spot-box"><?php _e('Available Spot(s):', 'modern-events-calendar-lite'); ?> <span class="mec-av-spot-count mec-color"><?php echo ($spots != '-1' ? $spots : __('Unlimited', 'modern-events-calendar-lite')); ?></span></div>
+                        <div class="mec-av-spot-box"><?php esc_html_e('Available Spot(s):', 'modern-events-calendar-lite' ); ?> <span class="mec-av-spot-count mec-color"><?php echo ($spots != '-1' ? $spots : esc_html__('Unlimited', 'modern-events-calendar-lite' )); ?></span></div>
                     </div>
                     <div class="mec-av-spot-col6">
-                        <div class="mec-event-countdown" id="mec_skin_available_spot<?php echo $this->id; ?>">
+                        <div class="mec-event-countdown" id="mec_skin_available_spot<?php echo esc_attr($this->id); ?>">
                             <ul class="clockdiv" id="countdown">
                                 <li class="days-w block-w">
                                     <span class="mec-days">00</span>
-                                    <p class="mec-timeRefDays label-w"><?php _e('days', 'modern-events-calendar-lite'); ?></p>
+                                    <p class="mec-timeRefDays label-w"><?php esc_html_e('days', 'modern-events-calendar-lite' ); ?></p>
                                 </li>
                                 <li class="hours-w block-w">
                                     <span class="mec-hours">00</span>
-                                    <p class="mec-timeRefHours label-w"><?php _e('hours', 'modern-events-calendar-lite'); ?></p>
+                                    <p class="mec-timeRefHours label-w"><?php esc_html_e('hours', 'modern-events-calendar-lite' ); ?></p>
                                 </li>
                                 <li class="minutes-w block-w">
                                     <span class="mec-minutes">00</span>
-                                    <p class="mec-timeRefMinutes label-w"><?php _e('minutes', 'modern-events-calendar-lite'); ?></p>
+                                    <p class="mec-timeRefMinutes label-w"><?php esc_html_e('minutes', 'modern-events-calendar-lite' ); ?></p>
                                 </li>
                                 <li class="seconds-w block-w">
                                     <span class="mec-seconds">00</span>
-                                    <p class="mec-timeRefSeconds label-w"><?php _e('seconds', 'modern-events-calendar-lite'); ?></p>
+                                    <p class="mec-timeRefSeconds label-w"><?php esc_html_e('seconds', 'modern-events-calendar-lite' ); ?></p>
                                 </li>
                             </ul>
                         </div>
@@ -163,26 +163,26 @@ do_action('mec_available_spot_skin_head');
 
                     <div class="event-grid-modern-head clearfix">
                         <div class="mec-av-spot-col6">
-                            <div class="mec-event-date mec-color"><?php echo $this->main->date_i18n($this->date_format1, strtotime($event_date)); ?></div>
-                            <div class="mec-event-month"><?php echo $this->main->date_i18n($this->date_format2, strtotime($event_date)); ?></div>
-                            <div class="mec-event-detail"><?php echo (isset($event->data->time) and isset($event->data->time['start'])) ? $event->data->time['start'] : ''; ?><?php echo (isset($event->data->time) and isset($event->data->time['end']) and trim($event->data->time['end'])) ? ' - '.$event->data->time['end'] : ''; ?></div>
-                            <?php if($this->localtime) echo $this->main->module('local-time.type3', array('event'=>$event)); ?>
+                            <div class="mec-event-date mec-color"><?php echo esc_html($this->main->date_i18n($this->date_format1, strtotime($event_date))); ?></div>
+                            <div class="mec-event-month"><?php echo esc_html($this->main->date_i18n($this->date_format2, strtotime($event_date))); ?></div>
+                            <div class="mec-event-detail"><?php echo (isset($event->data->time) and isset($event->data->time['start'])) ? esc_html($event->data->time['start']) : ''; ?><?php echo (isset($event->data->time) and isset($event->data->time['end']) and trim($event->data->time['end'])) ? esc_html(' - '.$event->data->time['end']) : ''; ?></div>
+                            <?php if($this->localtime) echo MEC_kses::full($this->main->module('local-time.type3', array('event' => $event))); ?>
                         </div>
                         <div class="mec-av-spot-col6">
                             <?php if(isset($event_location['name'])): ?>
                             <div class="mec-event-location">
                                 <i class="mec-sl-location-pin mec-color"></i>
                                 <div class="mec-event-location-det">
-                                    <h6 class="mec-location"><?php echo $event_location['name']; ?></h6>
-                                    <?php if(isset($event_location['address']) and trim($event_location['address'])): ?><address class="mec-events-address"><span class="mec-address"><?php echo $event_location['address']; ?></span></address><?php endif; ?>
+                                    <h6 class="mec-location"><?php echo esc_html($event_location['name']); ?></h6>
+                                    <?php if(isset($event_location['address']) and trim($event_location['address'])): ?><address class="mec-events-address"><span class="mec-address"><?php echo esc_html($event_location['address']); ?></span></address><?php endif; ?>
                                 </div>
                             </div>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="mec-event-content">
-                        <h4 class="mec-event-title"><?php echo $this->display_link($event); ?><?php echo $this->main->get_flags($event).$event_color; ?></h4>
-                        <?php echo $this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation);?>
+                        <h4 class="mec-event-title"><?php echo MEC_kses::element($this->display_link($event)); ?><?php echo MEC_kses::element($this->main->get_flags($event).$event_color); ?></h4>
+                        <?php echo MEC_kses::element($this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation)); ?>
                         <?php do_action('mec_shortcode_virtual_badge', $event->data->ID ); ?>
                         <?php
                             $excerpt = trim($event->data->post->post_excerpt) ? $event->data->post->post_excerpt : '';
@@ -197,15 +197,16 @@ do_action('mec_available_spot_skin_head');
                             }
                         ?>
                         <div class="mec-event-description mec-events-content">
-                            <p><?php echo $excerpt.(trim($excerpt) ? ' ...' : ''); ?></p>
+                            <p><?php echo MEC_kses::element($excerpt.(trim($excerpt) ? ' ...' : '')); ?></p>
                         </div>
                     </div>
                     <div class="mec-event-footer">
-                        <?php echo $this->display_link($event, $this->main->m('register_button', __('REGISTER', 'modern-events-calendar-lite')), 'mec-booking-button'); ?>
+                        <?php echo MEC_kses::element($this->display_link($event, $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )), 'mec-booking-button')); ?>
                     </div>
                 </div>
             </article>
         </div>
 
     </div>
+    <?php echo $this->display_credit_url(); ?>
 </div>

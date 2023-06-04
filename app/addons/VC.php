@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC VC addon class
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_addon_VC extends MEC_base
 {
@@ -20,7 +20,7 @@ class MEC_addon_VC extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MEC_addon_VC extends MEC_base
     
     /**
      * Initialize the VC addon
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -46,7 +46,7 @@ class MEC_addon_VC extends MEC_base
     
     /**
      * Register the addon in VC
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function map()
     {
@@ -56,21 +56,21 @@ class MEC_addon_VC extends MEC_base
         foreach($calendar_posts as $calendar_post) $calendars[$calendar_post->post_title] = $calendar_post->ID;
         
         vc_map(array(
-            'name'=>esc_html__('Modern Events Calendar', 'modern-events-calendar-lite'),
+            'name'=>esc_html__('Modern Events Calendar', 'modern-events-calendar-lite' ),
             'base'=>'MEC',
             'class'=>'',
             'controls'=>'full',
             'icon'=>$this->main->asset('img/ico-mec-vc.png'),
-            'category'=>esc_html__('Content', 'modern-events-calendar-lite'),
+            'category'=>esc_html__('Content', 'modern-events-calendar-lite' ),
             'params'=>array(
                array(
                   'type'=>'dropdown',
                   'holder'=>'div',
                   'class'=>'',
-                  'heading'=>esc_html__('Shortcode', 'modern-events-calendar-lite'),
+                  'heading'=>esc_html__('Shortcode', 'modern-events-calendar-lite' ),
                   'param_name'=>'id',
                   'value'=>$calendars,
-                  'description'=>esc_html__('Select from predefined shortcodes', 'modern-events-calendar-lite')
+                  'description'=>esc_html__('Select from predefined shortcodes', 'modern-events-calendar-lite' )
                )
             )
         ));

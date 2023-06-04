@@ -4,20 +4,20 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC feed class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feed extends MEC_base
 {
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return string
      */
@@ -28,7 +28,7 @@ class MEC_feed extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return string
      */
@@ -39,7 +39,7 @@ class MEC_feed extends MEC_base
     }
 
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return string
      */
@@ -52,7 +52,7 @@ class MEC_feed extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return string
      */
@@ -62,7 +62,7 @@ class MEC_feed extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $user_id
      * @return string
      */
@@ -73,7 +73,7 @@ class MEC_feed extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return string
      */
@@ -82,13 +82,13 @@ class MEC_feed extends MEC_base
         $post = get_post($post_id);
 
         if(empty($post)) return '';
-        if(post_password_required($post)) return __('There is no excerpt because this is a protected post.');
+        if(post_password_required($post)) return esc_html__('There is no excerpt because this is a protected post.');
 
         return apply_filters('get_the_excerpt', $post->post_excerpt, $post);
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @param string $feed_type
      * @return string
@@ -104,7 +104,7 @@ class MEC_feed extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return string
      */
@@ -124,7 +124,7 @@ class MEC_feed extends MEC_base
                 $t = preg_split('/[ \t]/', trim($enc[2]));
                 $type = $t[0];
 
-                $enclosure .= apply_filters('rss_enclosure', '<enclosure url="'.trim(htmlspecialchars($enc[0])).'" length="'.trim($enc[1]).'" type="'.$type.'" />'."\n");
+                $enclosure .= apply_filters('rss_enclosure', '<enclosure url="'.trim(htmlspecialchars($enc[0])).'" length="'.esc_attr(trim($enc[1])).'" type="'.esc_attr($type).'" />'."\n");
             }
         }
         
@@ -132,7 +132,7 @@ class MEC_feed extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return string
      */

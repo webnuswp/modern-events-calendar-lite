@@ -17,5 +17,5 @@ $socials = $this->get_social_networks();
 foreach($socials as $social)
 {
     if(!isset($settings['sn'][$social['id']]) or (isset($settings['sn'][$social['id']]) and !$settings['sn'][$social['id']])) continue;
-    if(is_callable($social['function'])) echo call_user_func($social['function'], $url, $event);
+    if(is_callable($social['function'])) echo call_user_func($social['function'], $url, $event, $social);
 }
