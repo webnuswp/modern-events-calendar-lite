@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC User Events class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_userevents extends MEC_base
 {
@@ -20,7 +20,7 @@ class MEC_feature_userevents extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class MEC_feature_userevents extends MEC_base
 
     /**
      * Initialize User Events Feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -55,10 +55,10 @@ class MEC_feature_userevents extends MEC_base
         if(!is_user_logged_in())
         {
             // Show message
-            $message = sprintf(__('Please %s/%s in order to see your own events.', 'modern-events-calendar-lite'), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.__('Login', 'modern-events-calendar-lite').'</a>', '<a href="'.wp_registration_url().'">'.__('Register', 'modern-events-calendar-lite').'</a>');
+            $message = sprintf(esc_html__('Please %s/%s in order to see your own events.', 'modern-events-calendar-lite' ), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.esc_html__('Login', 'modern-events-calendar-lite' ).'</a>', '<a href="'.wp_registration_url().'">'.esc_html__('Register', 'modern-events-calendar-lite' ).'</a>');
 
             return '<div class="mec-userevents-message">
-                <p>'.$message.'</p>
+                <p>'.MEC_kses::element($message).'</p>
             </div>';
         }
 

@@ -30,7 +30,12 @@ class SendEmail{
 
         $options = Settings::getInstance()->get_options('notifications');
 
-        return isset($options[$this->group_id]) && is_array($options[$this->group_id]) ? $options[$this->group_id] : [];
+        return isset($options[$this->group_id]) && is_array($options[$this->group_id]) ? $options[$this->group_id] : $this->get_default_notification_settings();
+    }
+
+    public function get_default_notification_settings(){
+
+        return [];
     }
 
     public function get_notification_settings( $key = null ){
@@ -67,7 +72,7 @@ class SendEmail{
 
         $subject = $this->get_notification_settings( 'subject' );
 
-        return !is_null($subject) ? __($subject,'mec') : $default;
+        return !is_null($subject) ? esc_html__($subject, 'modern-events-calendar-lite' ) : $default;
     }
 
     public function get_content( $default = '' ){
@@ -94,6 +99,13 @@ class SendEmail{
     public function get_send_to_organizer_status(){
 
         $status = $this->get_notification_settings( 'send_to_organizer' );
+
+        return (bool)$status ;
+    }
+
+    public function get_send_to_event_author_status(){
+
+        $status = $this->get_notification_settings( 'send_to_author' );
 
         return (bool)$status ;
     }
@@ -145,6 +157,20 @@ class SendEmail{
 
         $organizer_id = get_post_meta($this->event_id, 'mec_organizer_id', true);
         $email = get_term_meta($organizer_id, 'email', true);
+
+        return trim($email) ? $email : false;
+    }
+
+    public function get_event_author_email(){
+
+        $email = '';
+        $event = get_post( $this->event_id );
+        $author_id = isset( $event->post_author ) ? $event->post_author : 0;
+        $user = $author_id ? get_user_by( 'id', $author_id ) : false;
+        if( is_a( $user, '\WP_User' ) ) {
+
+            $email = isset( $user->user_email ) ? $user->user_email : '';
+        }
 
         return trim($email) ? $email : false;
     }
@@ -208,6 +234,15 @@ class SendEmail{
             if(!empty($organizer_email)){
 
                 $users_or_emails[] = $organizer_email;
+            }
+        }
+
+        if($this->get_send_to_event_author_status()){
+
+            $author_email = $this->get_event_author_email();
+            if(!empty($author_email)){
+
+                $users_or_emails[] = $author_email;
             }
         }
 
@@ -341,7 +376,7 @@ class SendEmail{
 
         $featured_image = '';
         $thumbnail_url = \MEC\Base::get_main()->get_post_thumbnail_url($this->event_id, 'medium');
-        if(trim($thumbnail_url)) $featured_image = '<img src="'.$thumbnail_url.'">';
+        if(trim($thumbnail_url)) $featured_image = '<img src="'. esc_attr( $thumbnail_url ) .'">';
 
         $content = str_replace('%%event_featured_image%%', $featured_image, $content);
 
@@ -379,7 +414,7 @@ class SendEmail{
         foreach($speaker_id as $speaker) $speaker_name[] = isset($speaker->name) ? $speaker->name : null;
 
         $content = str_replace('%%event_speaker_name%%', (isset($speaker_name) ? implode(', ', $speaker_name): ''), $content);
-        $content = str_replace('%%event_location_name%%', (isset($location->name) ? $location->name : ''), $content);
+        $content = str_replace('%%event_location_name%%', (isset($location->name) ? $location->name : get_term_meta($location_id, 'address', true)), $content);
         $content = str_replace('%%event_location_address%%', get_term_meta($location_id, 'address', true), $content);
 
         $additional_locations_name = '';
@@ -424,11 +459,11 @@ class SendEmail{
         $style = \MEC\Base::get_main()->get_styling();
         $bgnotifications = isset($style['notification_bg']) ? $style['notification_bg'] : '#f6f6f6';
 
-        return '<table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: '.$bgnotifications.'; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+        return '<table border="0" cellpadding="0" cellspacing="0" class="wn-body" style="background-color: '.esc_attr($bgnotifications).'; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Oxygen,Open Sans, sans-serif;border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
             <tr>
                 <td class="wn-container" style="display: block; margin: 0 auto !important; max-width: 680px; padding: 10px;font-family: sans-serif; font-size: 14px; vertical-align: top;">
                     <div class="wn-wrapper" style="box-sizing: border-box; padding: 38px 9% 50px; width: 100%; height: auto; background: #fff; background-size: contain; margin-bottom: 25px; margin-top: 30px; border-radius: 4px; box-shadow: 0 3px 55px -18px rgba(0,0,0,0.1);">
-                        '.$content.'
+                        '.\MEC_kses::page($content).'
                     </div>
                 </td>
             </tr>

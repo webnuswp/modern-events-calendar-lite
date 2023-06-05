@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2158" data-name="Rectangle 2158" width="48" height="48" transform="translate(216 406)" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_2137" data-name="Rectangle 2137" width="28.179" height="19.162" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="mec-subtotal-icon" transform="translate(-216 -406)" clip-path="url(#clip-path)">
+    <g id="Group_65670" data-name="Group 65670" transform="translate(-2.465 -0.755)">
+      <path id="Path_13347" data-name="Path 13347" d="M109.155,44.047a.5.5,0,0,0,.5-.5,10.158,10.158,0,1,1,20.316,0,.5.5,0,1,0,1,0,11.157,11.157,0,1,0-22.314,0,.5.5,0,0,0,.5.5ZM102.05,74.158A3.056,3.056,0,0,1,99,71.1V49.792a3.057,3.057,0,0,1,3.053-3.053h35.525a3.056,3.056,0,0,1,3.053,3.053v2.795c.341.138.675.293,1,.461V49.792a4.057,4.057,0,0,0-4.052-4.053H102.05A4.057,4.057,0,0,0,98,49.792V71.105a4.057,4.057,0,0,0,4.053,4.053H113.9q-.26-.487-.477-1Z" transform="translate(121.469 376.365)" fill="#7b7e84" stroke="#7b7e84" stroke-width="0.7"/>
+      <g id="ticket-icon" transform="translate(65.959 132.401)">
+        <path id="Path_13334" data-name="Path 13334" d="M0,0H24.234V3.382a1.127,1.127,0,0,1-1.127,1.127L0,5.868Z" transform="translate(173.132 315.471)" fill="#e6e7e8"/>
+        <g id="ticket-icon-2" data-name="ticket-icon" transform="matrix(0.985, -0.174, 0.174, 0.985, 169.428, 302.893)" clip-path="url(#clip-path-2)">
+          <g id="icon_8" transform="translate(0.715 0.94)">
+            <path id="Path_17" data-name="Path 17" d="M26.8,12.233a3.5,3.5,0,0,1,0-6.991V0H0V5.243a3.5,3.5,0,0,1,3.5,3.5,3.5,3.5,0,0,1-3.5,3.5v5.243H26.8Z" transform="translate(0 0)" fill="#fff" stroke="#7b7e84" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3"/>
+            <g id="Group_13" data-name="Group 13" transform="translate(20.389 1.748)">
+              <path id="Path_18" data-name="Path 18" d="M1.165,0H0V1.165H1.165V0Z" transform="translate(0 0)" fill="none"/>
+            </g>
+            <g id="Group_14" data-name="Group 14" transform="translate(20.389 4.078)">
+              <path id="Path_19" data-name="Path 19" d="M1.165,0H0V1.165H1.165V0Z" transform="translate(0 0)" fill="none"/>
+            </g>
+            <line id="Line_20" data-name="Line 20" y2="17.329" transform="translate(20.812 0.089)" fill="none" stroke="#7b7e84" stroke-width="0.7" stroke-dasharray="1.6 1"/>
+            <g id="Group_65624" data-name="Group 65624" transform="translate(5.985 6.633)">
+              <line id="Line_18" data-name="Line 18" y1="0.066" x2="12.148" transform="translate(0 0)" fill="none" stroke="#38d5ed" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+              <line id="Line_21" data-name="Line 21" y1="0.066" x2="12.148" transform="translate(0 4.144)" fill="none" stroke="#38d5ed" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="Ellipse_9852" data-name="Ellipse 9852" transform="translate(228 425)" fill="#fff" stroke="#7b7e84" stroke-width="1.2">
+        <circle cx="2.5" cy="2.5" r="2.5" stroke="none"/>
+        <circle cx="2.5" cy="2.5" r="1.9" fill="none"/>
+      </g>
+      <g id="Ellipse_9853" data-name="Ellipse 9853" transform="translate(249 425)" fill="#fff" stroke="#7b7e84" stroke-width="1.2">
+        <circle cx="2.5" cy="2.5" r="2.5" stroke="none"/>
+        <circle cx="2.5" cy="2.5" r="1.9" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>
