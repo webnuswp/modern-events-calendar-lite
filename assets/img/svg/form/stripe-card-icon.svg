@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 20">
+  <g id="stripe-card-icon" transform="translate(-46 -10)">
+    <rect id="Rectangle_2146" data-name="Rectangle 2146" width="32" height="20" rx="3" transform="translate(46 10)" fill="#dcdfe6"/>
+    <line id="Line_43" data-name="Line 43" x2="22" transform="translate(51 24.5)" fill="none" stroke="#bec3cf" stroke-width="2" stroke-dasharray="5 1"/>
+    <rect id="Rectangle_2147" data-name="Rectangle 2147" width="7" height="4" transform="translate(51 16)" fill="#fff"/>
+  </g>
+</svg>

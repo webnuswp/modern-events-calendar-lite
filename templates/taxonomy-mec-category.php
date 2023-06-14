@@ -5,7 +5,7 @@ defined('MECEXEC') or die();
 /**
  * The Template for displaying mec-category taxonomy events
  * 
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  * @package MEC/Templates
  * @version 1.0.0
  */
@@ -17,7 +17,7 @@ get_header('mec'); ?>
         <?php do_action('mec_before_events_loop'); ?>
 
             <h1><?php echo single_term_title(''); ?></h1>
-            <?php $MEC = MEC::instance(); echo $MEC->category(); ?>
+            <?php $MEC = MEC::instance(); echo MEC_kses::full($MEC->category()); ?>
 
         <?php do_action('mec_after_events_loop'); ?>
 

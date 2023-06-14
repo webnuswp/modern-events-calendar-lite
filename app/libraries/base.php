@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC Base class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  * @abstract
  */
 abstract class MEC_base extends MEC
@@ -12,7 +12,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_db instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_db instance
      */
 	final public function getDB()
@@ -21,20 +21,9 @@ abstract class MEC_base extends MEC
     }
     
     /**
-     * Returns MEC_request instance
-     * @final
-     * @author Webnus <info@webnus.biz>
-     * @return MEC_request instance
-     */
-    final public function getRequest()
-    {
-        return MEC::getInstance('app.libraries.request');
-    }
-    
-    /**
      * Returns MEC_file instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_file instance
      */
     final public function getFile()
@@ -45,7 +34,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_folder instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_folder instance
      */
     final public function getFolder()
@@ -56,7 +45,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_path instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_path instance
      */
     final public function getPath()
@@ -67,7 +56,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_main instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_main instance
      */
     final public function getMain()
@@ -78,7 +67,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_factory instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_factory instance
      */
     final public function getFactory()
@@ -89,7 +78,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_render instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_render instance
      */
     final public function getRender()
@@ -100,7 +89,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_parser instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_parser instance
      */
     final public function getParser()
@@ -111,7 +100,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_feed instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_feed instance
      */
     final public function getFeed()
@@ -122,7 +111,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_book instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_book instance
      */
     final public function getBook()
@@ -133,7 +122,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_notifications instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_notifications instance
      */
     final public function getNotifications()
@@ -144,7 +133,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns MEC_envato instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_envato instance
      */
     final public function getEnvato()
@@ -155,7 +144,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns QRCode instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return QRcode instance
      */
     final public function getQRcode()
@@ -167,18 +156,18 @@ abstract class MEC_base extends MEC
     /**
      * Returns PRO instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_pro instance
      */
     final public function getPRO()
     {
-        return MEC::getInstance(base64_decode('YXBwLmxpYnJhcmllcy5wcm8='));
+        return MEC::getInstance('app.libraries.pro');
     }
 
     /**
      * Returns PRO instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_schedule instance
      */
     final public function getSchedule()
@@ -189,7 +178,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns PRO instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_syncSchedule instance
      */
     final public function getSyncSchedule()
@@ -200,7 +189,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns Cache instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_cache instance
      */
     final public function getCache()
@@ -212,7 +201,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns WC instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_wc instance
      */
     final public function getWC()
@@ -223,7 +212,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns User instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_user instance
      */
     final public function getUser()
@@ -234,7 +223,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns Hourly Schedule instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_hourlyschedule instance
      */
     final public function getHourlySchedule()
@@ -245,7 +234,7 @@ abstract class MEC_base extends MEC
     /**
      * Returns Event Fields instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_eventFields instance
      */
     final public function getEventFields()
@@ -256,11 +245,66 @@ abstract class MEC_base extends MEC
     /**
      * Returns Search instance
      * @final
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @return MEC_search instance
      */
     final public function getSearch()
     {
         return MEC::getInstance('app.libraries.search');
+    }
+
+    /**
+     * Returns Ticket Variations instance
+     * @final
+     * @author Webnus <info@webnus.net>
+     * @return MEC_ticketVariations instance
+     */
+    final public function getTicketVariations()
+    {
+        return MEC::getInstance('app.libraries.ticketVariations');
+    }
+
+    /**
+     * Returns Booking Record instance
+     * @final
+     * @author Webnus <info@webnus.net>
+     * @return MEC_bookingRecord instance
+     */
+    final public function getBookingRecord()
+    {
+        return MEC::getInstance('app.libraries.bookingRecord');
+    }
+
+    /**
+     * Returns MEC Cart instance
+     * @final
+     * @author Webnus <info@webnus.net>
+     * @return MEC_cart instance
+     */
+    final public function getCart()
+    {
+        return MEC::getInstance('app.libraries.cart');
+    }
+
+    /**
+     * Returns Partial Payment instance
+     * @final
+     * @author Webnus <info@webnus.net>
+     * @return MEC_partial instance
+     */
+    final public function getPartialPayment()
+    {
+        return MEC::getInstance('app.libraries.partial');
+    }
+
+    /**
+     * Returns Captcha instance
+     * @final
+     * @author Webnus <info@webnus.net>
+     * @return MEC_captcha instance
+     */
+    final public function getCaptcha()
+    {
+        return MEC::getInstance('app.libraries.captcha');
     }
 }

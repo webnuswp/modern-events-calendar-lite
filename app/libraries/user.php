@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC User class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_user extends MEC_base
 {
@@ -22,7 +22,7 @@ class MEC_user extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -53,9 +53,18 @@ class MEC_user extends MEC_base
         if($existed_user_id !== false) return $existed_user_id;
 
         // Update WordPress user first name and last name
-        $ex = explode(' ', $name);
-        $first_name = isset($ex[0]) ? $ex[0] : '';
-        $last_name = '';
+        if(strpos($name, ',') !== false)
+        {
+            $ex = explode(',', $name);
+            $first_name = isset($ex[0]) ? $ex[0] : '';
+            $last_name = '';
+        }
+        else
+        {
+            $ex = explode(' ', $name);
+            $first_name = isset($ex[0]) ? $ex[0] : '';
+            $last_name = '';
+        }
 
         if(isset($ex[1]))
         {
@@ -72,7 +81,17 @@ class MEC_user extends MEC_base
             if($existed_user_id) return $existed_user_id;
 
             $now = date('Y-m-d H:i:s');
-            $user_id = $this->db->q("INSERT INTO `#__mec_users` (`first_name`,`last_name`,`email`,`reg`,`created_at`,`updated_at`) VALUES ('".$this->db->escape($first_name)."','".$this->db->escape($last_name)."','".$this->db->escape($email)."','".$this->db->escape(json_encode($reg))."','".$now."','".$now."')", "INSERT");
+            $user_id = (int) $this->db->q("INSERT INTO `#__mec_users` (`first_name`,`last_name`,`email`,`reg`,`created_at`,`updated_at`) VALUES ('".$this->db->escape($first_name)."','".$this->db->escape($last_name)."','".$this->db->escape($email)."','".$this->db->escape(json_encode($reg))."','".$now."','".$now."')", "INSERT");
+
+            // Make sure we won't create MEC users with id lower than 1 million
+            // To avoid conflicts with wp users of course
+            if($user_id < 1000000)
+            {
+                $new_id = $user_id + 1000000;
+                $this->db->q("UPDATE `#__mec_users` SET `id`='".esc_sql($new_id)."' WHERE `id`='".esc_sql($user_id)."'");
+
+                $user_id = $new_id;
+            }
         }
         else
         {
@@ -105,7 +124,10 @@ class MEC_user extends MEC_base
                     $reg_field = (isset($reg_fields[$reg_id]) ? $reg_fields[$reg_id] : array());
                     if(isset($reg_field['mapping']) and trim($reg_field['mapping']))
                     {
-                        update_user_meta($user_id, $reg_field['mapping'], (is_array($reg_value) ? implode(',', $reg_value) : $reg_value));
+                        $reg_value = maybe_unserialize($reg_value);
+                        $meta_value = is_array($reg_value) ? implode(',', $reg_value) : $reg_value;
+
+                        update_user_meta($user_id, $reg_field['mapping'], $meta_value);
                     }
                 }
             }

@@ -7,7 +7,7 @@ $settings = $this->main->get_settings();
 $modern_type = '';
 if(isset($settings['search_bar_modern_type']) && $settings['search_bar_modern_type'] == '1') $modern_type = 'mec-modern-search-bar ';
 
-$output = '<div class="'.$modern_type.'mec-wrap mec-search-bar-wrap"><form class="mec-search-form mec-totalcal-box" role="search" method="get" id="searchform" action="'.get_bloginfo('url').'">';
+$output = '<div class="'.esc_attr($modern_type).' mec-wrap mec-search-bar-wrap"><form class="mec-search-form mec-totalcal-box" role="search" method="get" id="searchform" action="'.get_bloginfo('url').'">';
 if((isset($settings['search_bar_category']) && $settings['search_bar_category'] == '1') || (isset($settings['search_bar_location']) && $settings['search_bar_location'] == '1') || (isset($settings['search_bar_organizer']) && $settings['search_bar_organizer'] == '1') || (isset($settings['search_bar_speaker']) && $settings['search_bar_speaker'] == '1') || (isset($settings['search_bar_tag']) && $settings['search_bar_tag'] == '1') || (isset($settings['search_bar_label']) && $settings['search_bar_label'] == '1'))
 {
     $output .= '<div class="mec-dropdown-wrap">';
@@ -26,9 +26,9 @@ if(isset($settings['search_bar_ajax_mode']) && $settings['search_bar_ajax_mode']
     <div class="mec-ajax-search-result">
         <div class="mec-text-input-search">
             <i class="mec-sl-magnifier"></i>
-            <input type="text" placeholder="'.__('Please enter at least 3 characters' , 'modern-events-calendar-lite').'" value="" id="keyword" name="keyword" />
+            <input type="text" placeholder="'.esc_html__('Please enter at least 3 characters' , 'modern-events-calendar-lite').'" value="" id="keyword" name="keyword" />
         </div>
-        <div id="mec-ajax-search-result-wrap"><div class="mec-ajax-search-result-events">'.__('Search results will show here' ,'modern-events-calendar-lite').'</div></div>
+        <div id="mec-ajax-search-result-wrap"><div class="mec-ajax-search-result-events">'.esc_html__('Search results will show here' , 'modern-events-calendar-lite').'</div></div>
     </div>';
 }
 else
@@ -52,9 +52,9 @@ else
 }
 
 $output .= '</form></div>';
-echo $output;
+echo MEC_kses::form($output);
 ?>
-<script type="text/javascript">
+<script>
 jQuery(document).ready(function($) {
     jQuery("#keyword").typeWatch(
     {

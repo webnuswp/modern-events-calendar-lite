@@ -12,7 +12,7 @@ $settings = $this->get_settings();
 if(isset($settings['qrcode_module_status']) and !$settings['qrcode_module_status']) return;
 
 $url = get_post_permalink($event->ID);
-if(isset($_REQUEST['occurrence'])) $url = $this->add_qs_var('occurrence', $_REQUEST['occurrence'], $url);
+if(isset($_REQUEST['occurrence'])) $url = $this->add_qs_var('occurrence', sanitize_text_field($_REQUEST['occurrence']), $url);
 
 $file_name = 'qr_'.md5($url).'.png';
 
@@ -35,5 +35,5 @@ if(!$file->exists($file_path))
 $image_url = $upload_dir['baseurl'].'/mec/'.$file_name;
 ?>
 <div class="mec-qrcode-details mec-frontbox">
-    <img src="<?php echo $image_url; ?>" width="120" height="120" alt="<?php echo __('QR Code', 'modern-events-calendar-lite'); ?>" />
+    <img src="<?php echo esc_url($image_url); ?>" width="120" height="120" alt="<?php echo esc_html__('QR Code', 'modern-events-calendar-lite'); ?>" />
 </div>
