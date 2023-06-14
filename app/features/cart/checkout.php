@@ -60,7 +60,7 @@ $this->factory->params('footer', $javascript);
         <?php endif; ?>
 
         <?php if($empty): ?>
-        <p><?php esc_html_e('Cart is empty!', 'modern-events-calendar-lite' ); ?></p>
+        <p><?php esc_html_e('Cart is empty!', 'modern-events-calendar-lite'); ?></p>
         <?php else: ?>
             <?php foreach($active_gateways as $gateway):
                 $total_fees_prices_for_disabled_gateways[ $gateway->id ] = 0;
@@ -144,7 +144,7 @@ $this->factory->params('footer', $javascript);
                             <input type="hidden" name="cart_id" value="<?php echo esc_attr($cart_id); ?>" />
                             <input type="hidden" name="gateway_id" value="4" />
                             <?php wp_nonce_field('mec_cart_form_'.$cart_id); ?>
-                            <button class="mec-book-form-next-button" type="submit"><?php echo sprintf(esc_html__('Free %s', 'modern-events-calendar-lite' ), $this->main->m('booking', esc_html__('Booking', 'modern-events-calendar-lite' ))); ?></button>
+                            <button class="mec-book-form-next-button" type="submit"><?php echo sprintf(esc_html__('Free %s', 'modern-events-calendar-lite'), $this->main->m('booking', esc_html__('Booking', 'modern-events-calendar-lite'))); ?></button>
                         </div>
                     </form>
                 </div>
@@ -153,7 +153,7 @@ $this->factory->params('footer', $javascript);
             <div class="mec-checkout-actions">
                 <?php if(isset($this->settings['cart_page']) and $this->settings['cart_page']): ?>
                 <div class="mec-checkout-cart-button">
-                    <a class="mec-checkout-cart-link button" href="<?php echo esc_url(get_permalink($this->settings['cart_page'])); ?>"><?php esc_html_e('Back to Cart', 'modern-events-calendar-lite' ); ?></a>
+                    <a class="mec-checkout-cart-link button" href="<?php echo esc_url(get_permalink($this->settings['cart_page'])); ?>"><?php esc_html_e('Back to Cart', 'modern-events-calendar-lite'); ?></a>
                 </div>
                 <?php endif; ?>
             </div>

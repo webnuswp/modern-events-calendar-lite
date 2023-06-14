@@ -65,7 +65,7 @@ do_action('mec_cover_skin_head');
             </div>
             <?php if($this->localtime) echo MEC_kses::full($this->main->module('local-time.type2', array('event' => $event))); ?>
             <h4 class="mec-event-title"><?php echo MEC_kses::element($event->data->title.$this->main->get_flags($event).$event_color); ?><?php echo MEC_kses::element($this->main->get_normal_labels($event, $display_label).$this->main->display_cancellation_reason($event, $reason_for_cancellation)); ?><?php do_action('mec_shortcode_virtual_badge', $event->data->ID); ?><?php echo MEC_kses::element($this->get_label_captions($event,'mec-fc-style')); ?></h4>
-            <div class="mec-btn-wrapper"><?php echo MEC_kses::element($this->display_link($event, $this->main->m('event_detail', esc_html__('EVENT DETAIL', 'modern-events-calendar-lite' )), 'mec-event-button')); ?></div>
+            <div class="mec-btn-wrapper"><?php echo MEC_kses::element($this->display_link($event, $this->main->m('event_detail', esc_html__('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-event-button')); ?></div>
         </div>
         <?php elseif($this->style == 'clean'): ?>
         <div class="mec-event-content">

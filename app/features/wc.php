@@ -86,10 +86,10 @@ class MEC_feature_wc extends MEC_base
 
     public function display_key($display_key, $meta)
     {
-        if($meta->key == 'mec_event_id') $display_key = esc_html__('Event', 'modern-events-calendar-lite' );
-        elseif($meta->key == 'mec_date') $display_key = esc_html__('Date', 'modern-events-calendar-lite' );
-        elseif($meta->key == 'mec_other_dates') $display_key = esc_html__('Other Dates', 'modern-events-calendar-lite' );
-        elseif($meta->key == 'mec_transaction_id') $display_key = esc_html__('Transaction ID', 'modern-events-calendar-lite' );
+        if($meta->key == 'mec_event_id') $display_key = esc_html__('Event', 'modern-events-calendar-lite');
+        elseif($meta->key == 'mec_date') $display_key = esc_html__('Date', 'modern-events-calendar-lite');
+        elseif($meta->key == 'mec_other_dates') $display_key = esc_html__('Other Dates', 'modern-events-calendar-lite');
+        elseif($meta->key == 'mec_transaction_id') $display_key = esc_html__('Transaction ID', 'modern-events-calendar-lite');
 
         return $display_key;
     }
@@ -111,7 +111,7 @@ class MEC_feature_wc extends MEC_base
             $start_datetime = date_i18n($datetime_format, $dates[0]);
             $end_datetime = date_i18n($datetime_format, $dates[1]);
 
-            $display_value = sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite' ), $start_datetime, $end_datetime);
+            $display_value = sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite'), $start_datetime, $end_datetime);
         }
         elseif($meta->key == 'mec_other_dates')
         {
@@ -134,7 +134,7 @@ class MEC_feature_wc extends MEC_base
                 $start_datetime = date_i18n($datetime_format, $timestamps[0]);
                 $end_datetime = date_i18n($datetime_format, $timestamps[1]);
 
-                $date_values[] = sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite' ), $start_datetime, $end_datetime);
+                $date_values[] = sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite'), $start_datetime, $end_datetime);
             }
 
             $display_value = implode('<br>', $date_values);
@@ -219,8 +219,8 @@ class MEC_feature_wc extends MEC_base
             if(!isset($availability[$ticket_id]) or ($availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity))
             {
                 $printed = true;
-                if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(esc_html__('%s ticket is sold out!', 'modern-events-calendar-lite' ), $tickets[$ticket_id]['name']));
-                else $errors->add('validation', sprintf(esc_html__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite' ), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
+                if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(esc_html__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
+                else $errors->add('validation', sprintf(esc_html__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
             }
         }
 
@@ -245,8 +245,8 @@ class MEC_feature_wc extends MEC_base
                     // Ticket is not available
                     if(!isset($availability[$ticket_id]) or ($availability[$ticket_id] != -1 and $availability[$ticket_id] < $quantity))
                     {
-                        if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(esc_html__('%s ticket is sold out!', 'modern-events-calendar-lite' ), $tickets[$ticket_id]['name']));
-                        else $errors->add('validation', sprintf(esc_html__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite' ), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
+                        if($availability[$ticket_id] == '0') $errors->add('validation', sprintf(esc_html__('%s ticket is sold out!', 'modern-events-calendar-lite'), $tickets[$ticket_id]['name']));
+                        else $errors->add('validation', sprintf(esc_html__('Only %s slots remained for %s ticket so you cannot book %s ones.', 'modern-events-calendar-lite'), $availability[$ticket_id], $tickets[$ticket_id]['name'], $quantity));
                     }
                 }
             }
@@ -254,7 +254,7 @@ class MEC_feature_wc extends MEC_base
             // Take Care of User Limit
             if(!$unlimited and $total_quantity > $limit)
             {
-                $errors->add('validation', sprintf($this->main->m('booking_restriction_message3', esc_html__("Maximum allowed number of tickets that you can book is %s.", 'modern-events-calendar-lite' )), $limit));
+                $errors->add('validation', sprintf($this->main->m('booking_restriction_message3', esc_html__("Maximum allowed number of tickets that you can book is %s.", 'modern-events-calendar-lite')), $limit));
             }
         }
     }

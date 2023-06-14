@@ -70,13 +70,13 @@ $paid_booking = !$free_booking;
 
     <?php if($display_progress_bar): ?>
         <ul class="mec-booking-progress-bar">
-            <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite' ); ?></li>
-            <li class="mec-booking-progress-bar-attendee-info mec-active"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite' ); ?></li>
-            <li class="mec-booking-progress-bar-payment mec-active"><?php esc_html_e('Payment', 'modern-events-calendar-lite' ); ?></li>
-            <li class="mec-booking-progress-bar-complete"><?php esc_html_e('Complete', 'modern-events-calendar-lite' ); ?></li>
+            <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite'); ?></li>
+            <li class="mec-booking-progress-bar-attendee-info mec-active"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite'); ?></li>
+            <li class="mec-booking-progress-bar-payment mec-active"><?php esc_html_e('Payment', 'modern-events-calendar-lite'); ?></li>
+            <li class="mec-booking-progress-bar-complete"><?php esc_html_e('Complete', 'modern-events-calendar-lite'); ?></li>
         </ul>
     <?php else: ?>
-        <h4><?php esc_html_e('Checkout', 'modern-events-calendar-lite' ); ?></h4>
+        <h4><?php esc_html_e('Checkout', 'modern-events-calendar-lite'); ?></h4>
     <?php endif; ?>
 
     <div class="mec-book-form-price">
@@ -84,9 +84,9 @@ $paid_booking = !$free_booking;
         <?php if($ticketsDetails): ?>
             <div class="mec-book-available-tickets-details">
                 <div class="mec-book-available-tickets-details-header">
-                    <span><?php esc_html_e('Ticket(s) Name', 'modern-events-calendar-lite' ); ?></span>
-                    <span><?php esc_html_e('Qty', 'modern-events-calendar-lite' ); ?></span>
-                    <span><?php esc_html_e('Price', 'modern-events-calendar-lite' ); ?></span>
+                    <span><?php esc_html_e('Ticket(s) Name', 'modern-events-calendar-lite'); ?></span>
+                    <span><?php esc_html_e('Qty', 'modern-events-calendar-lite'); ?></span>
+                    <span><?php esc_html_e('Price', 'modern-events-calendar-lite'); ?></span>
                 </div>
                 <div class="mec-book-available-tickets-details-body">
                     <?php foreach($ticketsDetails as $ticket): ?>
@@ -113,7 +113,7 @@ $paid_booking = !$free_booking;
             </div>
         <?php endif; ?>
         <div class="mec-book-price-total">
-            <span class="mec-book-price-total-description"><?php esc_html_e('Total Due', 'modern-events-calendar-lite' ); ?></span>
+            <span class="mec-book-price-total-description"><?php esc_html_e('Total Due', 'modern-events-calendar-lite'); ?></span>
             <span class="mec-book-price-total-amount"><?php echo MEC_kses::element($this->main->render_price($price_details['total'], $requested_event_id)); ?></span>
         </div>
         <div style="clear:both"></div>
@@ -142,12 +142,12 @@ $paid_booking = !$free_booking;
                 <form id="mec_book_form_coupon<?php echo esc_attr($uniqueid); ?>" onsubmit="mec_book_apply_coupon<?php echo esc_attr($uniqueid); ?>(); return false;">
                     <span class="mec-booking-coupon-field-wrapper">
                         <span class="mec-booking-coupon-field-icon"><?php echo $this->main->svg('form/discount-icon'); ?></span>
-                        <input type="text" name="coupon" title="<?php esc_attr_e('Discount Code', 'modern-events-calendar-lite' ); ?>" placeholder="<?php esc_attr_e('Discount Coupon', 'modern-events-calendar-lite' ); ?>" />
+                        <input type="text" name="coupon" title="<?php esc_attr_e('Discount Code', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Discount Coupon', 'modern-events-calendar-lite'); ?>" />
                     </span>
                     <input type="hidden" name="transaction_id" value="<?php echo esc_attr($transaction_id); ?>" />
                     <input type="hidden" name="action" value="mec_apply_coupon" />
                     <?php wp_nonce_field('mec_apply_coupon_'.$transaction_id); ?>
-                    <button type="submit"><?php esc_html_e('Apply', 'modern-events-calendar-lite' ); ?></button>
+                    <button type="submit"><?php esc_html_e('Apply', 'modern-events-calendar-lite'); ?></button>
                 </form>
                 <div class="mec-coupon-message mec-util-hidden"></div>
             </div>
@@ -157,17 +157,17 @@ $paid_booking = !$free_booking;
             <ul>
                 <?php if(isset($this->settings['coupons_status']) and $this->settings['coupons_status']): ?>
                 <li>
-                    <span class="mec-book-price-label"><?php esc_html_e('Discount', 'modern-events-calendar-lite' ); ?></span>
+                    <span class="mec-book-price-label"><?php esc_html_e('Discount', 'modern-events-calendar-lite'); ?></span>
                     <span class="mec-book-price-discount"><?php echo MEC_kses::element($this->main->render_price(($price_details['discount'] ?? 0), $requested_event_id, false)); ?></span>
                 </li>
                 <?php endif; ?>
                 <li>
-                    <span class="mec-book-price-label"><?php esc_html_e('Total Price', 'modern-events-calendar-lite' ); ?></span>
+                    <span class="mec-book-price-label"><?php esc_html_e('Total Price', 'modern-events-calendar-lite'); ?></span>
                     <span class="mec-book-price-total"><?php echo MEC_kses::element($this->main->render_price($price_details['total'], $requested_event_id)); ?></span>
                 </li>
                 <?php if($this->getPartialPayment()->is_enabled()): ?>
                 <li>
-                    <span class="mec-book-price-label"><?php esc_html_e('Payable', 'modern-events-calendar-lite' ); ?></span>
+                    <span class="mec-book-price-label"><?php esc_html_e('Payable', 'modern-events-calendar-lite'); ?></span>
                     <span class="mec-book-price-payable"><?php echo MEC_kses::element($this->main->render_price($price_details['payable'], $requested_event_id)); ?></span>
                 </li>
                 <?php endif; ?>
@@ -177,7 +177,7 @@ $paid_booking = !$free_booking;
 
     <?php do_action('mec-booking-after-coupon-form', $transaction_id, $uniqueid); ?>
     <div class="mec-book-form-gateways">
-        <h3 class="mec-book-form-gateways-title"><?php esc_html_e('Select Payment Method', 'modern-events-calendar-lite' );?></h3>
+        <h3 class="mec-book-form-gateways-title"><?php esc_html_e('Select Payment Method', 'modern-events-calendar-lite');?></h3>
         <div class="mec-book-form-gateways-radio-buttons">
             <?php foreach($active_gateways as $gateway): if(is_null($first_gateway_id)) $first_gateway_id = $gateway->id(); ?>
             <label class="mec-book-form-gateway-option">
@@ -203,7 +203,7 @@ $paid_booking = !$free_booking;
 
     <?php if(is_ssl()): ?>
     <p class="mec-ssl-protection-message">
-        <?php echo $this->main->svg('form/lock-icon').' '.esc_html__('Your transaction is secured with SSL encryption.', 'modern-events-calendar-lite' ); ?>
+        <?php echo $this->main->svg('form/lock-icon').' '.esc_html__('Your transaction is secured with SSL encryption.', 'modern-events-calendar-lite'); ?>
     </p>
     <?php endif; ?>
 
@@ -216,13 +216,13 @@ $paid_booking = !$free_booking;
             <?php wp_nonce_field('mec_transaction_form_'.$transaction_id); ?>
 
             <div class="mec-click-pay">
-                <button class="mec-book-form-next-button mec-book-form-pay-button" type="submit"><?php echo sprintf(esc_html__('Free %s', 'modern-events-calendar-lite' ), $this->main->m('booking', esc_html__('Booking', 'modern-events-calendar-lite' ))); ?></button>
+                <button class="mec-book-form-next-button mec-book-form-pay-button" type="submit"><?php echo sprintf(esc_html__('Free %s', 'modern-events-calendar-lite'), $this->main->m('booking', esc_html__('Booking', 'modern-events-calendar-lite'))); ?></button>
             </div>
         </div>
     </form>
 
     <div class="mec-book-form-btn-wrap">
-        <button id="mec-book-form-back-btn-step-3" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php echo $this->main->svg('form/back-icon').' '.esc_html__('Back', 'modern-events-calendar-lite' ); ?></button>
+        <button id="mec-book-form-back-btn-step-3" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php echo $this->main->svg('form/back-icon').' '.esc_html__('Back', 'modern-events-calendar-lite'); ?></button>
     </div>
 
     <?php if($first_gateway_id): ?>

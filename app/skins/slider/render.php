@@ -61,7 +61,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <?php echo MEC_kses::embed($this->display_custom_data($event)); ?>
                         </div>
                         <div class="mec-event-footer">
-                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't2'): ?>
@@ -85,7 +85,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <?php echo MEC_kses::embed($this->display_custom_data($event)); ?>
                         </div>
                         <div class="mec-event-footer">
-                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't3'): ?>
@@ -108,7 +108,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <?php echo MEC_kses::embed($this->display_custom_data($event)); ?>
                         </div>
                         <div class="mec-slider-t3-footer">
-                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't4'): ?>
@@ -132,7 +132,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                         </div>
                         <?php echo MEC_kses::embed($this->display_custom_data($event)); ?>
                         <div class="mec-slider-t4-footer">
-                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                         </div>
                     </div>
                 <?php elseif($this->style == 't5'): ?>
@@ -167,7 +167,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                             <?php echo MEC_kses::embed($this->display_custom_data($event)); ?>
                         </div>
                         <div class="mec-event-footer">
-                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                            <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%')) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                         </div>
                     </div>
                 <?php endif; ?>

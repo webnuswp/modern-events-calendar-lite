@@ -172,7 +172,7 @@ $events_str = '';
 
                 $events_str .= '<div '.(trim($selected_day) != '' ? 'id="mec-active-current"' : '').' class="mec-calendar-events-sec" data-mec-cell="'.esc_attr($day_id).'">'.MEC_kses::element($this->day_label($time));
                 $events_str .= '<article class="mec-event-article">';
-                $events_str .= '<div class="mec-event-detail">'.esc_html__('No Events', 'modern-events-calendar-lite' ).'</div>';
+                $events_str .= '<div class="mec-event-detail">'.esc_html__('No Events', 'modern-events-calendar-lite').'</div>';
                 $events_str .= '</article>';
                 $events_str .= '</div>';
             }

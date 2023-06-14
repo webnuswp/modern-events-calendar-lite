@@ -175,7 +175,7 @@ class MEC_factory extends MEC_base
      */
     public function load_menus()
     {
-        add_menu_page(__('M.E. Calendar', 'modern-events-calendar-lite' ), esc_html__('M.E. Calendar', 'modern-events-calendar-lite' ), 'edit_posts', 'mec-intro', array($this->main, 'dashboard'), plugin_dir_url(__FILE__ ) . '../../assets/img/mec.svg', 26);
+        add_menu_page(__('M.E. Calendar', 'modern-events-calendar-lite'), esc_html__('M.E. Calendar', 'modern-events-calendar-lite'), 'edit_posts', 'mec-intro', array($this->main, 'dashboard'), plugin_dir_url(__FILE__ ) . '../../assets/img/mec.svg', 26);
     }
 
     /**
@@ -214,7 +214,7 @@ class MEC_factory extends MEC_base
         {
             if(!$this->getPRO())
             {
-                $upgrade = '<a href="'.esc_url($this->main->get_pro_link()).'" target="_blank"><b>'._x('Upgrade to Pro Version', 'plugin link', 'modern-events-calendar-lite' ).'</b></a>';
+                $upgrade = '<a href="'.esc_url($this->main->get_pro_link()).'" target="_blank"><b>'._x('Upgrade to Pro Version', 'plugin link', 'modern-events-calendar-lite').'</b></a>';
                 $links[] = $upgrade;
             }
         }
@@ -230,12 +230,12 @@ class MEC_factory extends MEC_base
      */
     public function load_plugin_action_links($links)
     {
-        $settings = '<a href="'.esc_url($this->main->add_qs_vars(array('page'=>'MEC-settings'), $this->main->URL('admin').'admin.php')).'">'._x('Settings', 'plugin link', 'modern-events-calendar-lite' ).'</a>';
+        $settings = '<a href="'.esc_url($this->main->add_qs_vars(array('page'=>'MEC-settings'), $this->main->URL('admin').'admin.php')).'">'._x('Settings', 'plugin link', 'modern-events-calendar-lite').'</a>';
         array_unshift($links, $settings);
 
         if(!$this->getPRO())
         {
-            $upgrade = '<a href="'.esc_url($this->main->get_pro_link()).'" target="_blank"><b>'._x('Upgrade', 'plugin link', 'modern-events-calendar-lite' ).'</b></a>';
+            $upgrade = '<a href="'.esc_url($this->main->get_pro_link()).'" target="_blank"><b>'._x('Upgrade', 'plugin link', 'modern-events-calendar-lite').'</b></a>';
             array_unshift($links, $upgrade);
         }
 
@@ -363,7 +363,7 @@ class MEC_factory extends MEC_base
 
             // Include MEC frontend script files
             wp_enqueue_script('mec-tooltip-script', $this->main->asset('packages/tooltip/tooltip.js'), array('jquery'), $this->main->get_version(), true);
-            wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array('jquery','mec-tooltip-script'), $this->main->get_version());
+            wp_enqueue_script('mec-frontend-script', $this->main->asset('js/frontend.js'), array('jquery', 'mec-tooltip-script'), $this->main->get_version());
 
             wp_enqueue_script('mec-events-script', $this->main->asset('js/events.js'), array('mec-frontend-script'), $this->main->get_version());
 
@@ -386,18 +386,18 @@ class MEC_factory extends MEC_base
 
             // Localize Some Strings
             $mecdata = apply_filters('mec_locolize_data', array(
-                'day'=>__('day', 'modern-events-calendar-lite' ),
-                'days'=>__('days', 'modern-events-calendar-lite' ),
-                'hour'=>__('hour', 'modern-events-calendar-lite' ),
-                'hours'=>__('hours', 'modern-events-calendar-lite' ),
-                'minute'=>__('minute', 'modern-events-calendar-lite' ),
-                'minutes'=>__('minutes', 'modern-events-calendar-lite' ),
-                'second'=>__('second', 'modern-events-calendar-lite' ),
-                'seconds'=>__('seconds', 'modern-events-calendar-lite' ),
-                'next' => __('Next', 'modern-events-calendar-lite' ),
-                'prev' => __('Prev', 'modern-events-calendar-lite' ),
-                'elementor_edit_mode'=>$elementor_edit_mode,
-                'recapcha_key'=>$grecaptcha_key,
+                'day' => __('day', 'modern-events-calendar-lite'),
+                'days' => __('days', 'modern-events-calendar-lite'),
+                'hour' => __('hour', 'modern-events-calendar-lite'),
+                'hours' => __('hours', 'modern-events-calendar-lite'),
+                'minute' => __('minute', 'modern-events-calendar-lite'),
+                'minutes' => __('minutes', 'modern-events-calendar-lite'),
+                'second' => __('second', 'modern-events-calendar-lite'),
+                'seconds' => __('seconds', 'modern-events-calendar-lite'),
+                'next' => __('Next', 'modern-events-calendar-lite'),
+                'prev' => __('Prev', 'modern-events-calendar-lite'),
+                'elementor_edit_mode' => $elementor_edit_mode,
+                'recapcha_key' => $grecaptcha_key,
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'fes_nonce' => wp_create_nonce('mec_fes_nonce'),
                 'fes_thankyou_page_time' => $fes_thankyou_page_time,
@@ -416,7 +416,8 @@ class MEC_factory extends MEC_base
             // Include MEC frontend CSS files
             wp_enqueue_style('mec-font-icons', $this->main->asset('css/iconfonts.css'));
             wp_enqueue_style('mec-frontend-style', $this->main->asset('css/frontend.min.css'), array(), $this->main->get_version());
-            if( isset($styling['accessibility']) && $styling['accessibility']) wp_enqueue_style('accessibility', $this->main->asset('css/a11y.min.css'), array(), $this->main->get_version());
+            if(isset($styling['accessibility']) && $styling['accessibility']) wp_enqueue_style('accessibility', $this->main->asset('css/a11y.min.css'), array(), $this->main->get_version());
+
             wp_enqueue_style('mec-tooltip-style', $this->main->asset('packages/tooltip/tooltip.css'));
             wp_enqueue_style('mec-tooltip-shadow-style', $this->main->asset('packages/tooltip/tooltipster-sideTip-shadow.min.css'));
             wp_enqueue_style('featherlight', $this->main->asset('packages/featherlight/featherlight.css'));
@@ -473,8 +474,8 @@ class MEC_factory extends MEC_base
         // register mec side bar
         register_sidebar(array(
             'id' => 'mec-single-sidebar',
-            'name' => esc_html__('MEC Single Sidebar', 'modern-events-calendar-lite' ),
-            'description' => esc_html__('Custom sidebar for single and modal page of MEC.', 'modern-events-calendar-lite' ),
+            'name' => esc_html__('MEC Single Sidebar', 'modern-events-calendar-lite'),
+            'description' => esc_html__('Custom sidebar for single and modal page of MEC.', 'modern-events-calendar-lite'),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
             'after_widget' => '</div>',
             'before_title' => '<h4 class="widget-title">',
@@ -1261,8 +1262,8 @@ class MEC_factory extends MEC_base
         ?>
 
             <div class="mec-update-warning" style="margin-bottom: 5px; max-width: 1000px;">
-                <strong><?php echo esc_html__( 'Notice:', 'modern-events-calendar-lite' ); ?></strong>
-                <?php echo esc_html__( 'This update includes only bug fixes.', 'modern-events-calendar-lite' ); ?>
+                <strong><?php echo esc_html__( 'Notice:', 'modern-events-calendar-lite'); ?></strong>
+                <?php echo esc_html__( 'This update includes only bug fixes.', 'modern-events-calendar-lite'); ?>
             </div>
         <?php
         }

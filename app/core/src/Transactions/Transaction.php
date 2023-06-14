@@ -360,48 +360,48 @@ class Transaction {
 		return array (
 			'MEC_gateway_pay_locally' => (object) array(
 			   'key' => 'MEC_gateway_pay_locally',
-			   'label' => __('Pay Locally', 'modern-events-calendar-lite' ),
+			   'label' => __('Pay Locally', 'modern-events-calendar-lite'),
 			   'id' => 1,
 			),
 			'MEC_gateway_paypal_express' => (object) array(
 			   'key' => 'MEC_gateway_paypal_express',
-			   'label' => __('PayPal Express', 'modern-events-calendar-lite' ),
+			   'label' => __('PayPal Express', 'modern-events-calendar-lite'),
 			   'id' => 2,
 			),
 			'MEC_gateway_woocommerce' =>
 			(object) array(
 			   'key' => 'MEC_gateway_woocommerce',
-			   'label' => __('Pay by WooCommerce', 'modern-events-calendar-lite' ),
+			   'label' => __('Pay by WooCommerce', 'modern-events-calendar-lite'),
 			   'id' => 6,
 			),
 			'MEC_gateway_paypal_credit_card' => (object) array(
 			   'key' => 'MEC_gateway_paypal_credit_card',
-			   'label' => __('PayPal Credit Card', 'modern-events-calendar-lite' ),
+			   'label' => __('PayPal Credit Card', 'modern-events-calendar-lite'),
 			   'id' => 3,
 			),
 			'MEC_gateway_stripe' => (object) array(
 			   'key' => 'MEC_gateway_stripe',
-			   'label' => __('Stripe', 'modern-events-calendar-lite' ),
+			   'label' => __('Stripe', 'modern-events-calendar-lite'),
 			   'id' => 5,
 			),
 			'MEC_gateway_stripe_connect' => (object) array(
 			   'key' => 'MEC_gateway_stripe_connect',
-			   'label' => __('Stripe Connect', 'modern-events-calendar-lite' ),
+			   'label' => __('Stripe Connect', 'modern-events-calendar-lite'),
 			   'id' => 7,
 			),
 			'MEC_gateway_bank_transfer' => (object) array(
 			   'key' => 'MEC_gateway_bank_transfer',
-			   'label' => __('Bank Transfer', 'modern-events-calendar-lite' ),
+			   'label' => __('Bank Transfer', 'modern-events-calendar-lite'),
 			   'id' => 8,
 			),
 			'MEC_gateway_paypal_standard' => (object) array(
 			   'key' => 'MEC_gateway_paypal_standard',
-			   'label' => __('PayPal Standard', 'modern-events-calendar-lite' ),
+			   'label' => __('PayPal Standard', 'modern-events-calendar-lite'),
 			   'id' => 9,
 			),
 			'MEC_gateway_add_to_woocommerce_cart' => (object) array(
 			   'key' => 'MEC_gateway_add_to_woocommerce_cart',
-			   'label' => __('Add to cart', 'modern-events-calendar-lite' ),
+			   'label' => __('Add to cart', 'modern-events-calendar-lite'),
 			   'id' => 1995,
 			),
 		);
@@ -542,7 +542,7 @@ class Transaction {
 						'variation_key' => $key,
 						'price' => $v_price,
 						'amount'=> $variation_amount,
-						'description'=> __( $variation_title, 'modern-events-calendar-lite' ),
+						'description'=> __( $variation_title, 'modern-events-calendar-lite'),
 						'type'=> 'variation',
 						'count' => $variation_count
 					);
@@ -552,7 +552,7 @@ class Transaction {
 
 					$new_count = ((int) $variation_details[$key]['count'] + $variation_count);
 					$variation_details[$key]['count'] = $new_count;
-					$variation_details[$key]['description'] = esc_html__($ticket_variation['title'].' ('.$new_count.')', 'modern-events-calendar-lite' );
+					$variation_details[$key]['description'] = esc_html__($ticket_variation['title'].' ('.$new_count.')', 'modern-events-calendar-lite');
 				}
 			}
 		}
@@ -636,6 +636,11 @@ class Transaction {
 		$event_id = $this->get_event_id();
 		$mec_fees = $this->bookClass->get_fees( $event_id );
 
+		if( $this->has_100percent_coupon() && $this->apply_100percent_coupon_to_all_fees() ){
+
+			return array();
+		}
+
 		$disabled_fees_for_gateway = $this->is_disabled_fees_for_gateway();
 
 		$gateway = $this->get_gateway();
@@ -661,7 +666,7 @@ class Transaction {
 
 		}
 
-		if( !$can_use_mec_fees ) {
+		if( $can_use_mec_fees ) {
 
 			$fees = array_merge_recursive( $fees, $mec_fees );
 		}
@@ -722,7 +727,7 @@ class Transaction {
 				$fee_details[ $key ] = array(
 					'fee_key' => $key,
 					'amount'=> $fee_amount,
-					'description'=>__($fee['title'], 'modern-events-calendar-lite' ),
+					'description'=>__($fee['title'], 'modern-events-calendar-lite'),
 					'type'=>'fee',
 					'fee_type'=> $fee['type'],
 					'fee_amount'=> $fee['amount']
@@ -781,7 +786,7 @@ class Transaction {
 						'variations_amount' => $discount_ticket_variation_amount * $ticket_count,
 						'amount'=> $total_ticket_discount,
 						'fee' => $total_ticket_discount * $ticket_count,
-						'description'=> esc_html__( 'Discount by WC Coupon', 'modern-events-calendar-lite' ),
+						'description'=> esc_html__( 'Discount by WC Coupon', 'modern-events-calendar-lite'),
 						'coupon_code' => $coupon_code,
 						'type'=> 'wc_coupon',
 						'discount_type'=> $coupon_discount_type,
@@ -857,7 +862,7 @@ class Transaction {
 						'variations_amount' => $discount_ticket_variation_amount * $ticket_count,
 						'amount'=> $total_ticket_discount * $ticket_count,
 						'fee' => $total_ticket_discount,
-						'description'=>__( 'User Discount', 'modern-events-calendar-lite' ),
+						'description'=>__( 'User Discount', 'modern-events-calendar-lite'),
 						'type'=> 'roles_discount',
 						'discount_type'=> 'roles_discount',
 						'discount_amount'=> $role_discount,
@@ -873,13 +878,14 @@ class Transaction {
 		$coupon = $this->get_coupon();
 		if ( $coupon ) {
 
-            $term = get_term_by( 'name', $coupon, 'mec_coupon' );
-            $coupon_id = isset($term->term_id) ? $term->term_id : 0;
+			$coupon_details = $this->get_mec_coupon_detail( $coupon );
+
+            $coupon_id = $coupon_details['coupon_id'] ?? false;
 
             if ( $coupon_id ) {
 
-                $coupon_discount_type = get_term_meta($coupon_id, 'discount_type', true);
-                $coupon_discount = get_term_meta($coupon_id, 'discount', true);
+				$coupon_discount_type = $coupon_details['discount_type'] ?? false;
+				$coupon_discount = $coupon_details['discount'] ?? false;
 
 				$discount_ticket_amount = 0;
 				$discount_ticket_variation_amount = 0;
@@ -907,7 +913,7 @@ class Transaction {
 						'variations_amount' => $discount_ticket_variation_amount * $ticket_count,
 						'amount'=> $total_ticket_discount,
 						'fee' => $total_ticket_discount * $ticket_count,
-						'description'=>__( 'Discount', 'modern-events-calendar-lite' ),
+						'description'=>__( 'Discount', 'modern-events-calendar-lite'),
 						'type'=> 'coupon_discount',
 						'discount_type'=> $coupon_discount_type,
 						'discount_amount'=> $coupon_discount,
@@ -1038,7 +1044,6 @@ class Transaction {
 				$ticket['date'] = $timestamp;
 				$ticket['product_id'] = $ticket[ 'product_ids' ][ $timestamp ] ?? 0;
 
-				//TODO: check
 				$ticket_date_timestamp_day_start = strtotime( date( 'Y-m-d', $start_timestamp ) );
 				$ticket_date_timestamp_day_end = strtotime( date( 'Y-m-d', $end_timestamp ) );
 				$ticket['ticket_timestamp_start'] = $ticket_date_timestamp_day_start + $ticket_start_seconds;
@@ -1085,6 +1090,11 @@ class Transaction {
 			$discounts_amount = array_sum(
 				array_column( $discounts, 'amount' )
 			);
+
+			if( $ticket['tickets_amount_with_variations'] < $discounts_amount ) {
+
+				$discounts_amount = $ticket['tickets_amount_with_variations'];
+			}
 			$ticket['discounts_amount'] = $discounts_amount;
 			$ticket['discounts_details'] = $discounts;
 
@@ -1661,7 +1671,7 @@ class Transaction {
 			$ticket_availability = $occurrence_availability[ $ticket_id ] ?? false;
 			$str_replace = !empty( $ticket_name ) ? '<strong>'. $ticket_name .'</strong>' : '';
 			$ticket_message_sold_out =  sprintf(
-				__('The %s ticket is sold out in %s. You can try another ticket or another date.', 'modern-events-calendar-lite' ),
+				__('The %s ticket is sold out in %s. You can try another ticket or another date.', 'modern-events-calendar-lite'),
 				$str_replace,
 				date_i18n( $date_format, $occurrence )
 			);
@@ -1756,7 +1766,7 @@ class Transaction {
 
 			return new \WP_Error(
 				'NO_TICKET',
-				__( 'There is no attendee for booking!', 'modern-events-calendar-lite' )
+				__( 'There is no attendee for booking!', 'modern-events-calendar-lite')
 			);
         }
 
@@ -1994,7 +2004,7 @@ class Transaction {
 		$variations = $ticket_detail['variations_details'] ?? array();
 
 		$args = array(
-			'product_title' => __( 'Ticket', 'modern-events-calendar-lite' ) . ' (' . $ticket_detail['ticket_name'] . ') - ' . $this->transaction_id,
+			'product_title' => __( 'Ticket', 'modern-events-calendar-lite') . ' (' . $ticket_detail['ticket_name'] . ') - ' . $this->transaction_id,
 			'meta_input' => array(
 				'_regular_price' => $ticket_price,
 				'_sale_price' => $ticket_sale_price,
@@ -2288,5 +2298,42 @@ class Transaction {
 		}
 
 		return $fees;
+	}
+
+	public function get_mec_coupon_detail( $coupon ) {
+
+		$coupon_details = array();
+		$term = get_term_by( 'name', $coupon, 'mec_coupon' );
+		$coupon_id = isset($term->term_id) ? $term->term_id : 0;
+
+		if ( $coupon_id ) {
+
+			$coupon_details['coupon_id'] = $coupon_id;
+			$coupon_details['discount_type'] = get_term_meta($coupon_id, 'discount_type', true);
+			$coupon_details['discount'] = get_term_meta($coupon_id, 'discount', true);
+		}
+
+		return $coupon_details;
+	}
+
+	public function has_100percent_coupon(){
+
+		$coupon = $this->get_coupon();
+		$coupon_details = $this->get_mec_coupon_detail( $coupon );
+
+		$discount_type = $coupon_details['discount_type'] ?? false;
+		$discount = $coupon_details['discount'] ?? false;
+
+		if( 'percent' === $discount_type && 100 == $discount ) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	public function apply_100percent_coupon_to_all_fees() {
+
+		return \MEC\Settings\Settings::getInstance()->get_settings('coupons_apply_100percent_to_all');
 	}
 }

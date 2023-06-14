@@ -108,7 +108,7 @@ class DisplayFields {
 					case 'name':
 						$field_type     = 'text';
 						$field_id       = 'name';
-						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('Last Name', 'modern-events-calendar-lite' );
+						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('Last Name', 'modern-events-calendar-lite');
 						$value      	= $current_user->first_name . ' ' . $current_user->last_name;
 						$has_icon 		= isset( $field['has_icon'] ) ? $field['has_icon'] : true;
 						$icon_content 	= \MEC\Base::get_main()->svg('form/user-icon');
@@ -116,19 +116,19 @@ class DisplayFields {
 					case 'first_name':
 						$field_type     = 'text';
 						$field_id       = 'first_name';
-						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('First Name', 'modern-events-calendar-lite' );
+						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('First Name', 'modern-events-calendar-lite');
 						$value      = $current_user->first_name;
 						break;
 					case 'last_name':
 						$field_type     = 'text';
 						$field_id       = 'last_name';
-						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('Last Name', 'modern-events-calendar-lite' );
+						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('Last Name', 'modern-events-calendar-lite');
 						$value      	= $current_user->last_name;
 						break;
 					case 'mec_email':
 						$field_type     = 'email';
 						$field_id       = $type;
-						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('Email', 'modern-events-calendar-lite' );
+						$field['label'] = isset( $field['label'] ) ? $field['label'] : esc_html__('Email', 'modern-events-calendar-lite');
 						$value          = isset( $current_user->user_email ) ? $current_user->user_email : '';
 						$has_icon 		= isset( $field['has_icon'] ) ? $field['has_icon'] : true;
 						$icon_content 	= \MEC\Base::get_main()->svg('form/email-icon');
@@ -213,7 +213,7 @@ class DisplayFields {
 				if ( isset( $field['label'] ) && !empty( $field['label'] ) && 'agreement' !== $type ) {
 
 					$label_field = '<label for="' . esc_attr( $html_id ) . '" style="display:block" class="' . ( $required ? 'required' : '' ) . '">'
-						 . esc_html__( $field['label'], 'modern-events-calendar-lite' )
+						 . esc_html__( $field['label'], 'modern-events-calendar-lite')
 						 . ( $required ? '<span class="wbmec-mandatory">*</span>' : '' )
 						 . '</label>';
 
@@ -229,7 +229,7 @@ class DisplayFields {
 					case 'last_name':
 					case 'mec_email':
 
-						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? esc_html__( $field['placeholder'], 'modern-events-calendar-lite' ) : esc_html__( $field['label'], 'modern-events-calendar-lite' );
+						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? esc_html__( $field['placeholder'], 'modern-events-calendar-lite') : esc_html__( $field['label'], 'modern-events-calendar-lite');
 						$input_html = '<input id="' . esc_attr( $html_id ) . '" class="' . esc_attr( $field_class ) . '" type="' . esc_attr( $field_type ) . '" name="' . esc_attr($field_name) . '" value="' . esc_attr(trim( $value )) . '" placeholder="' . esc_attr( $placeholder ) . '" ' . $required . '  ' . $lock_field . '  ' . $attributes . '  />';
 
 						break;
@@ -239,13 +239,13 @@ class DisplayFields {
 					case 'email':
 					case 'tel':
 
-						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? esc_html__( $field['placeholder'], 'modern-events-calendar-lite' ) : esc_html__( $field['label'], 'modern-events-calendar-lite' );
+						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? esc_html__( $field['placeholder'], 'modern-events-calendar-lite') : esc_html__( $field['label'], 'modern-events-calendar-lite');
 						$input_html = '<input id="' . esc_attr( $html_id ) . '" class="' . esc_attr( $field_class ) . '" type="' . esc_attr( $field_type ) . '" name="' . esc_attr($field_name) . '" value="' . esc_attr(trim( $value )) . '" placeholder="' . esc_attr( $placeholder ) . '" ' . $required . '  ' . $lock_field . '  ' . $attributes . '  />';
 
 						break;
 					case 'textarea':
 
-						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? esc_html__( $field['placeholder'], 'modern-events-calendar-lite' ) : esc_html__( $field['label'], 'modern-events-calendar-lite' );
+						$placeholder = ( isset( $field['placeholder'] ) && $field['placeholder'] ) ? esc_html__( $field['placeholder'], 'modern-events-calendar-lite') : esc_html__( $field['label'], 'modern-events-calendar-lite');
 						$input_html = '<textarea id="' . esc_attr( $html_id ) . '" class="' . esc_attr( $field_class ) . '" name="' . esc_attr( $field_name ) . '" value="' . esc_attr(trim( $value )) . '" placeholder="' . esc_attr( $placeholder ) . '" ' . $required . '  ' . $lock_field . '  ' . $attributes . '  ></textarea>';
 
 						break;
@@ -258,8 +258,8 @@ class DisplayFields {
 						$options = isset($field['options']) ? $field['options'] : [];
 						foreach ( $options as $field_option ) {
 							$rd++;
-							$option_text  = isset( $field_option['label'] ) ? esc_html__( $field_option['label'], 'modern-events-calendar-lite' ) : '';
-							$option_value = ( $rd === 1 and isset( $field['ignore'] ) and $field['ignore'] ) ? '' : esc_attr__( $field_option['label'], 'modern-events-calendar-lite' );
+							$option_text  = isset( $field_option['label'] ) ? esc_html__( $field_option['label'], 'modern-events-calendar-lite') : '';
+							$option_value = ( $rd === 1 and isset( $field['ignore'] ) and $field['ignore'] ) ? '' : esc_attr__( $field_option['label'], 'modern-events-calendar-lite');
 
 							$input_html .= '<option value="' . esc_attr($option_value) . '" ' . selected( $selected, $option_value, false ) . '>' . esc_html($option_text) . '</option>';
 						}
@@ -269,11 +269,11 @@ class DisplayFields {
 					case 'radio':
 						$options = isset($field['options']) ? $field['options'] : [];
 						foreach ( $options as $field_option ) {
-							$current_value = esc_html__( $field_option['label'], 'modern-events-calendar-lite' );
+							$current_value = esc_html__( $field_option['label'], 'modern-events-calendar-lite');
 							$checked = in_array($current_value,(array)$value);
 							$input_html .= '<label>'
 								 . '<input type="' . esc_attr( $field_type ) . '" id="mec_' . esc_attr($form_type . '_field_' . $type . $j . '_' . $field_id . '_' . strtolower( str_replace( ' ', '_', $field_option['label'] ) )) . '" name="' . esc_attr( $field_name ) . '" value="' . esc_attr($current_value) . '" '.checked($checked,true,false).'/>'
-								 . esc_html__( $field_option['label'], 'modern-events-calendar-lite' )
+								 . esc_html__( $field_option['label'], 'modern-events-calendar-lite')
 								 . '</label>';
 						}
 
@@ -282,11 +282,11 @@ class DisplayFields {
 					case 'checkbox':
 						$options = isset($field['options']) ? $field['options'] : [];
 						foreach ( $options as $field_option ) {
-							$current_value = esc_html__( $field_option['label'], 'modern-events-calendar-lite' );
+							$current_value = esc_html__( $field_option['label'], 'modern-events-calendar-lite');
 							$checked = in_array($current_value,(array)$value);
 							$input_html .= '<label>'
 								 . '<input type="' . esc_attr( $field_type ) . '" id="mec_' . esc_attr($form_type . '_field_' . $type . $j . '_' . $field_id . '_' . strtolower( str_replace( ' ', '_', $field_option['label'] ) )) . '" name="' . esc_attr( $field_name ) . '[]" value="' . esc_attr($current_value) . '" '.checked($checked,true,false).'/>'
-								 . esc_html__( $field_option['label'], 'modern-events-calendar-lite' )
+								 . esc_html__( $field_option['label'], 'modern-events-calendar-lite')
 								 . '</label>';
 						}
 
@@ -297,7 +297,7 @@ class DisplayFields {
 						$input_html = '<label for="' . esc_attr($html_id . $j) . '">'
 							 . '<input type="checkbox" id="' . esc_attr($html_id . $j) . '" name="' . esc_attr( $field_name ) . '" value="1" ' . checked( $checked, 'checked', false ) . ' onchange="mec_agreement_change(this);"/>'
 							 . ( $required ? '<span class="wbmec-mandatory">*</span>' : '' )
-							 . sprintf( esc_html__( stripslashes( $field['label'] ), 'modern-events-calendar-lite' ), '<a href="' . get_the_permalink( $field['page'] ) . '" target="_blank">' . get_the_title( $field['page'] ) . '</a>' )
+							 . sprintf( esc_html__( stripslashes( $field['label'] ), 'modern-events-calendar-lite'), '<a href="' . get_the_permalink( $field['page'] ) . '" target="_blank">' . get_the_title( $field['page'] ) . '</a>' )
 							 . '</label>';
 
 						break;

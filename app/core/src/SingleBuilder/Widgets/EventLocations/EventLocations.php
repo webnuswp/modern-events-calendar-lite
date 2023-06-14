@@ -36,8 +36,8 @@ class EventLocations extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( empty($locations) || !isset($locations[$primary_location_id]) ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if location is set. In order for the widget in this page to be displayed correctly, please set location for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/location/" target="_blank">' . esc_html__('How to set location', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if location is set. In order for the widget in this page to be displayed correctly, please set location for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/location/" target="_blank">' . esc_html__('How to set location', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} elseif ( !empty($locations) && isset($locations[$primary_location_id]) and !empty($locations[$primary_location_id])) {
 
@@ -52,7 +52,7 @@ class EventLocations extends WidgetBase {
 						<img class="mec-img-location" src="<?php echo esc_url($location['thumbnail']); ?>" alt="<?php echo (isset($location['name']) ? esc_attr($location['name']) : ''); ?>">
 					<?php endif; ?>
 					<i class="mec-sl-location-pin"></i>
-					<h3 class="mec-events-single-section-title mec-location"><?php echo Base::get_main()->m('taxonomy_location', esc_html__('Location', 'modern-events-calendar-lite' )); ?></h3>
+					<h3 class="mec-events-single-section-title mec-location"><?php echo Base::get_main()->m('taxonomy_location', esc_html__('Location', 'modern-events-calendar-lite')); ?></h3>
 					<dd class="author fn org"><?php echo (isset($location['name']) ? esc_html($location['name']) : ''); ?></dd>
 					<dd class="location">
 						<address class="mec-events-address"><span class="mec-address"><?php echo (isset($location['address']) ? esc_html($location['address']) : ''); ?></span></address>
@@ -61,7 +61,7 @@ class EventLocations extends WidgetBase {
 					<?php if(isset($location['url']) and trim($location['url'])): ?>
 						<dd class="mec-location-url">
 							<i class="mec-sl-sitemap"></i>
-							<h6><?php esc_html_e('Website', 'modern-events-calendar-lite' ); ?></h6>
+							<h6><?php esc_html_e('Website', 'modern-events-calendar-lite'); ?></h6>
 							<span><a href="<?php echo esc_url($location['url']); ?>" class="mec-color-hover" target="_blank"><?php echo esc_url( $location['url'] ); ?></a></span>
 						</dd>
 					<?php endif;

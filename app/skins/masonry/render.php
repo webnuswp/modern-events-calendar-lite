@@ -147,7 +147,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
                                 </div>
                             </div>
                             <div class="mec-event-footer">
-                                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                                 <?php echo MEC_kses::form($this->booking_button($event)); ?>
                                 <?php do_action('mec_masonry_button', $event); ?>
                             </div>

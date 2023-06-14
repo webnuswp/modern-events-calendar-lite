@@ -94,11 +94,11 @@ do_action('mec_list_skin_head');
         <?php echo MEC_kses::full($items_html); ?>
     </div>
     <div class="mec-skin-list-no-events-container mec-util-hidden" id="mec_skin_no_events_<?php echo esc_attr($this->id); ?>">
-        <?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?>
+        <?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?>
     </div>
     <?php else: ?>
     <div class="mec-skin-list-events-container<?php if($this->style == 'accordion' and $this->toggle_month_divider and $this->month_divider) echo ' mec-toggle-month-divider'; ?>" id="mec_skin_events_<?php echo esc_attr($this->id); ?>">
-        <?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?>
+        <?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?>
     </div>
     <?php endif; ?>
 

@@ -54,9 +54,9 @@ class RSVPForm extends WidgetBase {
 			$html = '<div class="mec-content-notification">
 					<p>'
 						.'<span>'
-							. esc_html__('This widget is displayed if label is set. In order for the widget in this page to be displayed correctly, please set RSVP module for your last event.', 'modern-events-calendar-lite' )
+							. esc_html__('This widget is displayed if label is set. In order for the widget in this page to be displayed correctly, please set RSVP module for your last event.', 'modern-events-calendar-lite')
 						.'</span>'
-						.'<a href="https://webnus.net/dox/modern-events-calendar/rsvp-events-addon/" target="_blank">' . esc_html__('How to set RSVP module', 'modern-events-calendar-lite' ) . ' </a>'
+						.'<a href="https://webnus.net/dox/modern-events-calendar/rsvp-events-addon/" target="_blank">' . esc_html__('How to set RSVP module', 'modern-events-calendar-lite') . ' </a>'
 					.'</p>'
 				.'</div>';
 		} elseif( $is_rsvp_enabled ) {

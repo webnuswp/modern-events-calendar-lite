@@ -15,9 +15,9 @@ $posts = get_posts(array(
 $options = array('' => '-----');
 foreach($posts as $post) $options['' . $post->ID] = $post->post_title;
 
-$fields->select('event_id', esc_html__('Event', 'modern-events-calendar-lite' ), $options); ?>
+$fields->select('event_id', esc_html__('Event', 'modern-events-calendar-lite'), $options); ?>
 
-<?php $fields->select('layout', esc_html__('Layout', 'modern-events-calendar-lite' ), array(
+<?php $fields->select('layout', esc_html__('Layout', 'modern-events-calendar-lite'), array(
     'full' => 'Full',
     'left' => 'Image left',
     'right' => 'Image right'

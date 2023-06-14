@@ -30,7 +30,7 @@ class MEC_MEC_widget extends WP_Widget
         // MEC Main Class
         $this->main = MEC::getInstance('app.libraries.main');
         
-        parent::__construct('MEC_MEC_widget', esc_html__('Modern Events Calendar', 'modern-events-calendar-lite' ), array('description'=>__('Show events based on created shortcodes.', 'modern-events-calendar-lite' )));
+        parent::__construct('MEC_MEC_widget', esc_html__('Modern Events Calendar', 'modern-events-calendar-lite'), array('description'=>__('Show events based on created shortcodes.', 'modern-events-calendar-lite')));
     }
 
     /**
@@ -98,14 +98,14 @@ class MEC_MEC_widget extends WP_Widget
         $grid_view_options = false;
 
         echo '<p class="mec-widget-row-container">'
-        .'<label for="'.esc_attr($this->get_field_id('title')).'">'.esc_html__('Title:', 'modern-events-calendar-lite' ).'</label>'
+        .'<label for="'.esc_attr($this->get_field_id('title')).'">'.esc_html__('Title:', 'modern-events-calendar-lite').'</label>'
         .'<input class="widefat" type="text" id="'.esc_attr($this->get_field_id('title')).'" name="'.esc_attr($this->get_field_name('title')).'" value="'.(isset($instance['title']) ? esc_attr($instance['title']) : '').'" />'
         .'</p>';
         
         if(count($calendars))
         {
             echo '<p class="mec-widget-row-container">'
-                .'<label for="'.esc_attr($this->get_field_id('calendar_id')).'">'.esc_html__('Shortcode:', 'modern-events-calendar-lite' ).'</label>'
+                .'<label for="'.esc_attr($this->get_field_id('calendar_id')).'">'.esc_html__('Shortcode:', 'modern-events-calendar-lite').'</label>'
                 .'<select class="widefat" name="'.esc_attr($this->get_field_name('calendar_id')).'" id="'.esc_attr($this->get_field_id('calendar_id')).'" onchange="mec_show_widget_options(this);"><option value="">-----</option>';
             
             foreach($calendars as $calendar) 
@@ -121,21 +121,21 @@ class MEC_MEC_widget extends WP_Widget
             echo '</select></p>';
 
             // Monthly View Options
-            echo '<p class="mec-widget-row-container mec-current-check-wrap '.(($monthly_view_options) ? '' : 'mec-util-hidden').'"><label for="'.esc_attr($this->get_field_id('current_hide')).'">'.esc_html__('Enable No Event Block Display: ', 'modern-events-calendar-lite' ).'</label><input type="checkbox" id="'.esc_attr($this->get_field_id('current_hide')).'" name="'.esc_attr($this->get_field_name('current_hide')).'" value="current-hide" '.checked($current_hide, 'current-hide', false).'></p>';
+            echo '<p class="mec-widget-row-container mec-current-check-wrap '.(($monthly_view_options) ? '' : 'mec-util-hidden').'"><label for="'.esc_attr($this->get_field_id('current_hide')).'">'.esc_html__('Enable No Event Block Display: ', 'modern-events-calendar-lite').'</label><input type="checkbox" id="'.esc_attr($this->get_field_id('current_hide')).'" name="'.esc_attr($this->get_field_name('current_hide')).'" value="current-hide" '.checked($current_hide, 'current-hide', false).'></p>';
 
             // Grid Options
             echo '<div class="mec-grid-options-wrap '.(($grid_view_options) ? '' : 'mec-util-hidden').'">
                 <p class="mec-widget-row-container">
-                    <label for="'.esc_attr($this->get_field_id('autoplay')).'">'.esc_html__('Autoplay: ', 'modern-events-calendar-lite' ).'</label>
+                    <label for="'.esc_attr($this->get_field_id('autoplay')).'">'.esc_html__('Autoplay: ', 'modern-events-calendar-lite').'</label>
                     <input type="hidden" name="'.esc_attr($this->get_field_name('autoplay')).'" value="0">
                     <input type="checkbox" id="'.esc_attr($this->get_field_id('autoplay')).'" name="'.esc_attr($this->get_field_name('autoplay')).'" value="1" '.($autoplay ? 'checked="checked"' : '').'>
                 </p>
                 <p class="mec-widget-row-container">
-                    <label for="'.esc_attr($this->get_field_id('autoplay_time')).'">'.esc_html__('Autoplay Time: ', 'modern-events-calendar-lite' ).'</label>
+                    <label for="'.esc_attr($this->get_field_id('autoplay_time')).'">'.esc_html__('Autoplay Time: ', 'modern-events-calendar-lite').'</label>
                     <input type="number" id="'.esc_attr($this->get_field_id('autoplay_time')).'" name="'.esc_attr($this->get_field_name('autoplay_time')).'" value="'.esc_attr($autoplay_time).'">
                 </p>
                 <p class="mec-widget-row-container">
-                    <label for="'.esc_attr($this->get_field_id('loop')).'">'.esc_html__('Loop: ', 'modern-events-calendar-lite' ).'</label>
+                    <label for="'.esc_attr($this->get_field_id('loop')).'">'.esc_html__('Loop: ', 'modern-events-calendar-lite').'</label>
                     <input type="hidden" name="'.esc_attr($this->get_field_name('loop')).'" value="0">
                     <input type="checkbox" id="'.esc_attr($this->get_field_id('loop')).'" name="'.esc_attr($this->get_field_name('loop')).'" value="1" '.($loop ? 'checked="checked"' : '').'>
                 </p>

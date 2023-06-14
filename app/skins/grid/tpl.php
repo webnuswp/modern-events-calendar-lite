@@ -84,11 +84,11 @@ do_action('mec_grid_skin_head');
         <?php echo MEC_kses::full($items_html); ?>
     </div>
     <div class="mec-skin-grid-no-events-container mec-util-hidden" id="mec_skin_no_events_<?php echo esc_attr($this->id); ?>">
-        <?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?>
+        <?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?>
     </div>
     <?php else: ?>
     <div class="mec-skin-grid-events-container" id="mec_skin_events_<?php echo esc_attr($this->id); ?>">
-        <?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?>
+        <?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?>
     </div>
     <?php endif; ?>
 

@@ -18,7 +18,7 @@ $sponsors = (isset($event->data->sponsors) and is_array($event->data->sponsors))
 if(!count($sponsors)) return false;
 ?>
 <div class="mec-sponsors-details mec-single-event-sponsor mec-frontbox" id="mec_sponsor_details">
-    <h3 class="mec-events-single-section-title"><?php if(count($sponsors) == 1): echo esc_html($this->m('taxonomy_sponsor', esc_html__('Sponsor', 'modern-events-calendar-lite' ))); else: echo esc_html($this->m('taxonomy_sponsors', esc_html__('Sponsors', 'modern-events-calendar-lite' ))); endif; ?></h3>
+    <h3 class="mec-events-single-section-title"><?php if(count($sponsors) == 1): echo esc_html($this->m('taxonomy_sponsor', esc_html__('Sponsor', 'modern-events-calendar-lite'))); else: echo esc_html($this->m('taxonomy_sponsors', esc_html__('Sponsors', 'modern-events-calendar-lite'))); endif; ?></h3>
     <ul>
         <?php foreach($sponsors as $sponsor): ?>
         <li>

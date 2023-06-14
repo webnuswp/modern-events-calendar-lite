@@ -88,7 +88,7 @@ $map_events = array();
                     </div>
                     <div class="col-md-4 col-sm-4 mec-btn-wrapper">
                         <?php echo MEC_kses::element($this->booking_button($event, 'icon')); ?>
-                        <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                        <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                         <?php do_action('mec_list_modern_style', $event); ?>
                     </div>
                 <?php elseif($this->style == 'classic'): ?>
@@ -143,7 +143,7 @@ $map_events = array();
                         <?php echo MEC_kses::element($this->display_cost($event)); ?>
                         <?php echo MEC_kses::form($this->booking_button($event)); ?>
                     </div>
-                    <div class="col-md-3 col-sm-3 btn-wrapper"><?php do_action('before_mec_list_minimal_button', $event); ?><?php echo MEC_kses::element($this->display_link($event, $this->main->m('event_detail', esc_html__('EVENT DETAIL', 'modern-events-calendar-lite' )), 'mec-detail-button')); ?></div>
+                    <div class="col-md-3 col-sm-3 btn-wrapper"><?php do_action('before_mec_list_minimal_button', $event); ?><?php echo MEC_kses::element($this->display_link($event, $this->main->m('event_detail', esc_html__('EVENT DETAIL', 'modern-events-calendar-lite')), 'mec-detail-button')); ?></div>
                 <?php elseif($this->style == 'standard'): ?>
                     <?php
                         $excerpt = trim($event->data->post->post_excerpt) ? $event->data->post->post_excerpt : '';
@@ -215,7 +215,7 @@ $map_events = array();
                         <?php echo MEC_kses::full($this->main->display_progress_bar($event)); ?>
                         <?php do_action('mec_standard_booking_button', $event); ?>
                         <?php echo MEC_kses::form($this->booking_button($event)); ?>
-                        <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                        <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                     </div>
                 <?php elseif($this->style == 'accordion'): ?>
                     <!-- toggles wrap start -->
@@ -306,7 +306,7 @@ $map_events = array();
                     </div>
                     <div class="col-md-2 col-sm-2">
                         <?php if(isset($event->date['start']['timestamp']) && current_user_can(current_user_can('administrator') ? 'manage_options' : 'mec_bookings') && $total_attendees = $this->main->get_total_attendees_by_event_occurrence($event->data->ID, $event->date['start']['timestamp'])): ?>
-                        <a href="<?php echo trim($this->main->URL('admin'), '/ ').'/?mec-dl-bookings=1&event_id='.$event->data->ID.'&occurrence='.$event->date['start']['timestamp']; ?>"><?php echo esc_html__('Download Attendees', 'modern-events-calendar-lite' ); ?> (<?php echo esc_html($total_attendees); ?>)</a>
+                        <a href="<?php echo trim($this->main->URL('admin'), '/ ').'/?mec-dl-bookings=1&event_id='.$event->data->ID.'&occurrence='.$event->date['start']['timestamp']; ?>"><?php echo esc_html__('Download Attendees', 'modern-events-calendar-lite'); ?> (<?php echo esc_html($total_attendees); ?>)</a>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>

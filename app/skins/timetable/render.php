@@ -76,7 +76,7 @@ else $set_dark = '';
 
     <?php elseif(!isset($has_events[$week])): $has_events[$week] = 'printed'; ?>
     <div class="mec-timetable-events-list mec-weekly-view-date-events mec-util-hidden mec-calendar-day-events mec-clear mec-weekly-view-week-<?php echo esc_attr($this->id); ?>-<?php echo date('Ym', strtotime($date)).$week; ?> mec_weekly_view_date_events<?php echo esc_attr($this->id); ?>_<?php echo date('Ymd', strtotime($date)); ?>" id="mec_weekly_view_date_events<?php echo esc_attr($this->id); ?>_<?php echo date('Ymd', strtotime($date)); ?>" data-week-number="<?php echo esc_attr($week); ?>">
-        <article class="mec-event-article"><h4 class="mec-event-title"><?php esc_html_e('No Events', 'modern-events-calendar-lite' ); ?></h4><div class="mec-event-detail"></div></article>
+        <article class="mec-event-article"><h4 class="mec-event-title"><?php esc_html_e('No Events', 'modern-events-calendar-lite'); ?></h4><div class="mec-event-detail"></div></article>
     </div>
     <?php endif; ?>
     <?php endforeach; ?>
@@ -145,7 +145,7 @@ else $set_dark = '';
     <table>
         <thead>
             <tr>
-                <td><?php esc_html_e('Time/Date', 'modern-events-calendar-lite' ); ?></td>
+                <td><?php esc_html_e('Time/Date', 'modern-events-calendar-lite'); ?></td>
                 <?php foreach($this->events as $date=>$events): ?>
                 <td><?php echo esc_html($this->main->date_i18n('l', strtotime($date))); ?></td>
                 <?php endforeach; ?>

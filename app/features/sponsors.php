@@ -55,8 +55,8 @@ class MEC_feature_sponsors extends MEC_base
      */
     public function register_taxonomy()
     {
-        $singular_label = $this->main->m('taxonomy_sponsor', esc_html__('Sponsor', 'modern-events-calendar-lite' ));
-        $plural_label = $this->main->m('taxonomy_sponsors', esc_html__('Sponsors', 'modern-events-calendar-lite' ));
+        $singular_label = $this->main->m('taxonomy_sponsor', esc_html__('Sponsor', 'modern-events-calendar-lite'));
+        $plural_label = $this->main->m('taxonomy_sponsors', esc_html__('Sponsors', 'modern-events-calendar-lite'));
 
         register_taxonomy(
             'mec_sponsor',
@@ -66,16 +66,16 @@ class MEC_feature_sponsors extends MEC_base
                 'labels'=>array(
                     'name'=>$plural_label,
                     'singular_name'=>$singular_label,
-                    'all_items'=>sprintf(esc_html__('All %s', 'modern-events-calendar-lite' ), $plural_label),
-                    'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'view_item'=>sprintf(esc_html__('View %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'update_item'=>sprintf(esc_html__('Update %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'add_new_item'=>sprintf(esc_html__('Add New %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'new_item_name'=>sprintf(esc_html__('New %s Name', 'modern-events-calendar-lite' ), $singular_label),
-                    'popular_items'=>sprintf(esc_html__('Popular %s', 'modern-events-calendar-lite' ), $plural_label),
-                    'search_items'=>sprintf(esc_html__('Search %s', 'modern-events-calendar-lite' ), $plural_label),
-                    'back_to_items'=>sprintf(esc_html__('← Back to %s', 'modern-events-calendar-lite' ), $plural_label),
-                    'not_found'=>sprintf(esc_html__('no %s found.', 'modern-events-calendar-lite' ), strtolower($plural_label)),
+                    'all_items'=>sprintf(esc_html__('All %s', 'modern-events-calendar-lite'), $plural_label),
+                    'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite'), $singular_label),
+                    'view_item'=>sprintf(esc_html__('View %s', 'modern-events-calendar-lite'), $singular_label),
+                    'update_item'=>sprintf(esc_html__('Update %s', 'modern-events-calendar-lite'), $singular_label),
+                    'add_new_item'=>sprintf(esc_html__('Add New %s', 'modern-events-calendar-lite'), $singular_label),
+                    'new_item_name'=>sprintf(esc_html__('New %s Name', 'modern-events-calendar-lite'), $singular_label),
+                    'popular_items'=>sprintf(esc_html__('Popular %s', 'modern-events-calendar-lite'), $plural_label),
+                    'search_items'=>sprintf(esc_html__('Search %s', 'modern-events-calendar-lite'), $plural_label),
+                    'back_to_items'=>sprintf(esc_html__('← Back to %s', 'modern-events-calendar-lite'), $plural_label),
+                    'not_found'=>sprintf(esc_html__('no %s found.', 'modern-events-calendar-lite'), strtolower($plural_label)),
                 ),
                 'rewrite'=>array('slug'=>'events-sponsor'),
                 'public'=>false,
@@ -101,21 +101,21 @@ class MEC_feature_sponsors extends MEC_base
     ?>
         <tr class="form-field">
             <th scope="row">
-                <label for="mec_link"><?php esc_html_e('Link', 'modern-events-calendar-lite' ); ?></label>
+                <label for="mec_link"><?php esc_html_e('Link', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
-                <input type="url" placeholder="<?php esc_attr_e('Insert URL of Sponsor', 'modern-events-calendar-lite' ); ?>" name="link" id="mec_link" value="<?php echo esc_attr($link); ?>" />
+                <input type="url" placeholder="<?php esc_attr_e('Insert URL of Sponsor', 'modern-events-calendar-lite'); ?>" name="link" id="mec_link" value="<?php echo esc_attr($link); ?>" />
             </td>
         </tr>
         <tr class="form-field">
             <th scope="row">
-                <label for="mec_thumbnail_button"><?php esc_html_e('Logo', 'modern-events-calendar-lite' ); ?></label>
+                <label for="mec_thumbnail_button"><?php esc_html_e('Logo', 'modern-events-calendar-lite'); ?></label>
             </th>
             <td>
                 <div id="mec_thumbnail_img"><?php if(trim($logo) != '') echo '<img src="'.esc_url($logo).'" />'; ?></div>
                 <input type="hidden" name="logo" id="mec_thumbnail" value="<?php echo esc_attr($logo); ?>" />
-                <button type="button" class="mec_upload_image_button button" id="mec_thumbnail_button"><?php echo esc_html__('Upload/Add image', 'modern-events-calendar-lite' ); ?></button>
-                <button type="button" class="mec_remove_image_button button <?php echo (!trim($logo) ? 'mec-util-hidden' : ''); ?>"><?php echo esc_html__('Remove image', 'modern-events-calendar-lite' ); ?></button>
+                <button type="button" class="mec_upload_image_button button" id="mec_thumbnail_button"><?php echo esc_html__('Upload/Add image', 'modern-events-calendar-lite'); ?></button>
+                <button type="button" class="mec_remove_image_button button <?php echo (!trim($logo) ? 'mec-util-hidden' : ''); ?>"><?php echo esc_html__('Remove image', 'modern-events-calendar-lite'); ?></button>
             </td>
         </tr>
         <?php do_action('mec_edit_sponsor_extra_fields', $term); ?>
@@ -130,15 +130,15 @@ class MEC_feature_sponsors extends MEC_base
     {
     ?>
         <div class="form-field">
-            <label for="mec_link"><?php esc_html_e('Link', 'modern-events-calendar-lite' ); ?></label>
-            <input type="url" name="link" placeholder="<?php esc_attr_e('Insert URL of Sponsor.', 'modern-events-calendar-lite' ); ?>" id="mec_link" value="" />
+            <label for="mec_link"><?php esc_html_e('Link', 'modern-events-calendar-lite'); ?></label>
+            <input type="url" name="link" placeholder="<?php esc_attr_e('Insert URL of Sponsor.', 'modern-events-calendar-lite'); ?>" id="mec_link" value="" />
         </div>
         <div class="form-field">
-            <label for="mec_thumbnail_button"><?php esc_html_e('Logo', 'modern-events-calendar-lite' ); ?></label>
+            <label for="mec_thumbnail_button"><?php esc_html_e('Logo', 'modern-events-calendar-lite'); ?></label>
             <div id="mec_thumbnail_img"></div>
             <input type="hidden" name="logo" id="mec_thumbnail" value="" />
-            <button type="button" class="mec_upload_image_button button" id="mec_thumbnail_button"><?php echo esc_html__('Upload/Add image', 'modern-events-calendar-lite' ); ?></button>
-            <button type="button" class="mec_remove_image_button button mec-util-hidden"><?php echo esc_html__('Remove image', 'modern-events-calendar-lite' ); ?></button>
+            <button type="button" class="mec_upload_image_button button" id="mec_thumbnail_button"><?php echo esc_html__('Upload/Add image', 'modern-events-calendar-lite'); ?></button>
+            <button type="button" class="mec_remove_image_button button mec-util-hidden"><?php echo esc_html__('Remove image', 'modern-events-calendar-lite'); ?></button>
         </div>
         <?php do_action('mec_add_sponsor_extra_fields'); ?>
     <?php

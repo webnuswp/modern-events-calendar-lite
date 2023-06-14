@@ -4591,15 +4591,14 @@ jQuery(window).on('load', function()
         var settings = $.extend({
             // These are the defaults.
             date: null,
-            format: null,
-            interval: 1000
+            format: null
         }, options);
 
         var callback = callBack;
         var selector = $(this);
 
         startCountdown();
-        var interval = setInterval(startCountdown, settings.interval);
+        var interval = setInterval(startCountdown, 1000);
 
         function startCountdown() {
             var eventDate = Date.parse(settings.date) / 1000;

@@ -33,8 +33,8 @@ class EventZoom extends WidgetBase {
 		if ( true === $this->is_editor_mode && isset( $events_detail->data->meta['mec_zoom_event'] ) && 'none' === $events_detail->data->meta['mec_zoom_event'] ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('Please make sure the last event has appropriate content for this widget.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/zoom-integration-addon/" target="_blank">' . esc_html__('How to set up Zoom event', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('Please make sure the last event has appropriate content for this widget.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/zoom-integration-addon/" target="_blank">' . esc_html__('How to set up Zoom event', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 

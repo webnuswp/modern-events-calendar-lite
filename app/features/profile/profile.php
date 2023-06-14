@@ -53,29 +53,29 @@ $id = 1;
     <table class="mec-profile-bookings">
         <tr>
             <td>
-                <?php esc_html_e('#' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('#' , 'modern-events-calendar-lite'); ?>
             </td>
             <td>
-                <?php esc_html_e('Event' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Event' , 'modern-events-calendar-lite'); ?>
             </td>
             <td>
-                <?php esc_html_e('Date' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Date' , 'modern-events-calendar-lite'); ?>
             </td>
             <td>
-                <?php esc_html_e('Status' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Status' , 'modern-events-calendar-lite'); ?>
             </td>
             <td>
-                <?php esc_html_e('Attendees' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Attendees' , 'modern-events-calendar-lite'); ?>
             </td>
             <td>
-                <?php esc_html_e('Invoice' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Invoice' , 'modern-events-calendar-lite'); ?>
             </td>
             <td>
-                <?php esc_html_e('Map' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Map' , 'modern-events-calendar-lite'); ?>
             </td>
             <?php do_action( 'mec_profile_event_detail_header' ); ?>
             <td>
-                <?php esc_html_e('Cancel' , 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Cancel' , 'modern-events-calendar-lite'); ?>
             </td>
         </tr>
         <?php while($query->have_posts()): $query->the_post();
@@ -126,7 +126,7 @@ $id = 1;
             </td>
             <td>
                 <?php if(!isset($event->ID) or !isset($event->title)) : ?>
-                <span class="mec-event-title"><?php esc_html_e('N/A', 'modern-events-calendar-lite' ); ?></span>
+                <span class="mec-event-title"><?php esc_html_e('N/A', 'modern-events-calendar-lite'); ?></span>
                 <?php else : ?>
                 <a class="mec-event-title" href="<?php echo esc_url(get_the_permalink($event->ID)); ?>"><?php echo esc_html($event->title); ?></a>
                 <?php do_action('mec_profile_event_title', $event, $transaction); ?>
@@ -191,19 +191,19 @@ $id = 1;
             <div class="mec-booking-attendees-wrapper">
                 <div class="mec-booking-attendees-head">
                     <span class="mec-booking-attendee-id">
-                        <?php esc_html_e('#' , 'modern-events-calendar-lite' ); ?>
+                        <?php esc_html_e('#' , 'modern-events-calendar-lite'); ?>
                     </span>
                     <span class="mec-booking-attendee-name">
-                        <?php esc_html_e('Name' , 'modern-events-calendar-lite' ); ?>
+                        <?php esc_html_e('Name' , 'modern-events-calendar-lite'); ?>
                     </span>
                     <span class="mec-booking-attendee-email">
-                        <?php esc_html_e('Email' , 'modern-events-calendar-lite' ); ?>
+                        <?php esc_html_e('Email' , 'modern-events-calendar-lite'); ?>
                     </span>
                     <span class="mec-booking-attendee-ticket">
-                        <?php esc_html_e('Ticket' , 'modern-events-calendar-lite' ); ?>
+                        <?php esc_html_e('Ticket' , 'modern-events-calendar-lite'); ?>
                     </span>
                     <span class="mec-booking-attendee-ticket-variations">
-                        <?php esc_html_e('Variations' , 'modern-events-calendar-lite' ); ?>
+                        <?php esc_html_e('Variations' , 'modern-events-calendar-lite'); ?>
                     </span>
                 </div>
                 <?php
@@ -252,7 +252,7 @@ $id = 1;
         <?php $id++; endwhile; wp_reset_postdata(); // Restore original Post Data ?>
     </table>
     <?php else: ?>
-    <p><?php echo esc_html__('No bookings found!', 'modern-events-calendar-lite' ); ?></p>
+    <p><?php echo esc_html__('No bookings found!', 'modern-events-calendar-lite'); ?></p>
     <?php endif; ?>
 </div>
 <script>

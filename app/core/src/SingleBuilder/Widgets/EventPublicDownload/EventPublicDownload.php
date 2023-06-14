@@ -35,8 +35,8 @@ class EventPublicDownload extends WidgetBase {
 		if ( empty( $html ) && $this->is_editor_mode() ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if event Public Download is set. In order for the widget in this page to be displayed correctly, please set Public Download for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/single-event-page-settings/#Public_Download_Module" target="_blank">' . esc_html__('How to set Public Download', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if event Public Download is set. In order for the widget in this page to be displayed correctly, please set Public Download for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/single-event-page-settings/#Public_Download_Module" target="_blank">' . esc_html__('How to set Public Download', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 
 		}

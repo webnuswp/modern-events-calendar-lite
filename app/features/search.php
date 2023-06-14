@@ -88,37 +88,37 @@ class MEC_feature_search extends MEC_base
         {
             // Message Category
             case 'category':
-                $taxonomy_name = $this->main->m('taxonomy_category', esc_html__('Category', 'modern-events-calendar-lite' ));
+                $taxonomy_name = $this->main->m('taxonomy_category', esc_html__('Category', 'modern-events-calendar-lite'));
                 $taxonomy_key = 'category';
                 break;
 
             // Message Location
             case 'location':
-                $taxonomy_name = $this->main->m('taxonomy_location', esc_html__('Location', 'modern-events-calendar-lite' ));
+                $taxonomy_name = $this->main->m('taxonomy_location', esc_html__('Location', 'modern-events-calendar-lite'));
                 $taxonomy_key = 'location';
                 break;
 
             // Message Organizer
             case 'organizer':
-                $taxonomy_name = $this->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite' ));
+                $taxonomy_name = $this->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite'));
                 $taxonomy_key = 'organizer';
                 break;
 
             // Message Organizer
             case 'speaker':
-                $taxonomy_name = $this->main->m('taxonomy_speaker', esc_html__('Speaker', 'modern-events-calendar-lite' ));
+                $taxonomy_name = $this->main->m('taxonomy_speaker', esc_html__('Speaker', 'modern-events-calendar-lite'));
                 $taxonomy_key = 'speaker';
                 break;
 
             // Message Tag
             case 'tag':
-                $taxonomy_name =  esc_html__('Tag', 'modern-events-calendar-lite' );
+                $taxonomy_name =  esc_html__('Tag', 'modern-events-calendar-lite');
                 $taxonomy_key = 'tag';
                 break;
 
             // Message label
             case 'label':
-                $taxonomy_name = $this->main->m('taxonomy_label', esc_html__('Label', 'modern-events-calendar-lite' ));
+                $taxonomy_name = $this->main->m('taxonomy_label', esc_html__('Label', 'modern-events-calendar-lite'));
                 $taxonomy_key = 'label';
                 break;
 
@@ -155,7 +155,7 @@ class MEC_feature_search extends MEC_base
     {
         if(sanitize_text_field($_POST['length']) < '3')
         {
-            esc_html_e('Please enter at least 3 characters and try again', 'modern-events-calendar-lite' );
+            esc_html_e('Please enter at least 3 characters and try again', 'modern-events-calendar-lite');
             die();
         }
 

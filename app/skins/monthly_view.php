@@ -435,8 +435,8 @@ class MEC_skin_monthly_view extends MEC_skins
 
         if($this->main->is_day_first())
         {
-            return '<h6 class="mec-table-side-title">'.sprintf(esc_html__('Events for %s %s', 'modern-events-calendar-lite' ), '<span class="mec-color mec-table-side-day"> '.esc_html($date_suffix).'</span>', esc_html($this->main->date_i18n('F', $time))).'</h6>';
+            return '<h6 class="mec-table-side-title">'.sprintf(esc_html__('Events for %s %s', 'modern-events-calendar-lite'), '<span class="mec-color mec-table-side-day"> '.esc_html($date_suffix).'</span>', esc_html($this->main->date_i18n('F', $time))).'</h6>';
         }
-        else return '<h6 class="mec-table-side-title">'.sprintf(esc_html__('Events for %s', 'modern-events-calendar-lite' ), esc_html($this->main->date_i18n('F', $time))).'</h6><h3 class="mec-color mec-table-side-day"> '.esc_html($date_suffix).'</h3>';
+        else return '<h6 class="mec-table-side-title">'.sprintf(esc_html__('Events for %s', 'modern-events-calendar-lite'), esc_html($this->main->date_i18n('F', $time))).'</h6><h3 class="mec-color mec-table-side-day"> '.esc_html($date_suffix).'</h3>';
     }
 }

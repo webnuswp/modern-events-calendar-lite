@@ -27,10 +27,10 @@ $archive_url = $this->main->get_archive_url();
 <div class="mec-wrap mec-cart">
 
     <div class="mec-cart-empty-wrapper <?php echo (count($cart) ? 'mec-util-hidden' : ''); ?>">
-        <p><?php esc_html_e('Cart is empty!', 'modern-events-calendar-lite' ); ?></p>
+        <p><?php esc_html_e('Cart is empty!', 'modern-events-calendar-lite'); ?></p>
         <?php if($archive_url): ?>
         <div>
-            <a class="mec-bg-color button" href="<?php echo esc_url($archive_url); ?>"><?php esc_html_e('Go to events page', 'modern-events-calendar-lite' ); ?></a>
+            <a class="mec-bg-color button" href="<?php echo esc_url($archive_url); ?>"><?php esc_html_e('Go to events page', 'modern-events-calendar-lite'); ?></a>
         </div>
         <?php endif; ?>
     </div>
@@ -40,11 +40,11 @@ $archive_url = $this->main->get_archive_url();
         <thead>
             <tr>
                 <th></th>
-                <th><?php esc_html_e('Transaction ID', 'modern-events-calendar-lite' ); ?></th>
-                <th><?php esc_html_e('Event', 'modern-events-calendar-lite' ); ?></th>
-                <th><?php esc_html_e('Tickets', 'modern-events-calendar-lite' ); ?></th>
-                <th><?php esc_html_e('Dates', 'modern-events-calendar-lite' ); ?></th>
-                <th><?php esc_html_e('Payable', 'modern-events-calendar-lite' ); ?></th>
+                <th><?php esc_html_e('Transaction ID', 'modern-events-calendar-lite'); ?></th>
+                <th><?php esc_html_e('Event', 'modern-events-calendar-lite'); ?></th>
+                <th><?php esc_html_e('Tickets', 'modern-events-calendar-lite'); ?></th>
+                <th><?php esc_html_e('Dates', 'modern-events-calendar-lite'); ?></th>
+                <th><?php esc_html_e('Payable', 'modern-events-calendar-lite'); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -53,7 +53,7 @@ $archive_url = $this->main->get_archive_url();
                 <td><span class="mec-cart-remove-transactions" data-transaction-id="<?php echo esc_attr($transaction_id); ?>"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="8.999" viewBox="0 0 9 8.999"><path id="close" d="M6.079,5.647l4.067,4.067-.433.433L5.646,6.079,1.579,10.146l-.433-.433L5.214,5.647,1.146,1.58l.433-.433L5.646,5.214,9.713,1.147l.433.433Z" transform="translate(-1.146 -1.147)" fill="#949596"></path></svg></span></td>
                 <td>
                     <?php echo esc_html($transaction_id); ?>
-                    <?php echo ($TO->get_coupon() ? '<br><code class="mec-cart-coupon-code" title="'.esc_attr__('Applied Coupon', 'modern-events-calendar-lite' ).'">'.esc_html($TO->get_coupon()).'</code>' : ''); ?>
+                    <?php echo ($TO->get_coupon() ? '<br><code class="mec-cart-coupon-code" title="'.esc_attr__('Applied Coupon', 'modern-events-calendar-lite').'">'.esc_html($TO->get_coupon()).'</code>' : ''); ?>
                 </td>
                 <td class="mec-cart-event-info"><?php echo MEC_kses::element($TO->get_event_featured_image()); ?><?php echo MEC_kses::element($TO->get_event_link()); ?></td>
                 <td><?php echo MEC_kses::element($TO->get_tickets_html()); ?></td>
@@ -86,7 +86,7 @@ $archive_url = $this->main->get_archive_url();
 
         <?php if(isset($this->settings['checkout_page']) and $this->settings['checkout_page']): ?>
         <div class="mec-cart-checkout-button">
-            <a class="mec-cart-checkout-link mec-bg-color button" href="<?php echo esc_url(get_permalink($this->settings['checkout_page'])); ?>"><?php esc_html_e('Proceed to checkout', 'modern-events-calendar-lite' ); ?></a>
+            <a class="mec-cart-checkout-link mec-bg-color button" href="<?php echo esc_url(get_permalink($this->settings['checkout_page'])); ?>"><?php esc_html_e('Proceed to checkout', 'modern-events-calendar-lite'); ?></a>
         </div>
         <?php endif; ?>
     </div>

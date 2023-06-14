@@ -292,7 +292,7 @@ class MEC_skin_masonry extends MEC_skins
 
     public function filter_by()
     {
-        $output = '<div class="mec-events-masonry-cats"><a href="#" class="mec-masonry-cat-selected" data-filter="*">'.esc_html__('All', 'modern-events-calendar-lite' ).'</a>';
+        $output = '<div class="mec-events-masonry-cats"><a href="#" class="mec-masonry-cat-selected" data-filter="*">'.esc_html__('All', 'modern-events-calendar-lite').'</a>';
 
         $taxonomy = $this->filter_by_get_taxonomy();
         $terms = get_terms($taxonomy, array

@@ -70,7 +70,7 @@ do_action('mec_map_skin_head');
         <?php do_action('mec_map_inner_element_tools', $settings); ?>
     </div>
     <?php else: ?>
-    <p class="mec-error"><?php esc_html_e('No events found!', 'modern-events-calendar-lite' ); ?></p>
+    <p class="mec-error"><?php esc_html_e('No events found!', 'modern-events-calendar-lite'); ?></p>
     <?php endif; ?>
 
 </div>
@@ -90,7 +90,7 @@ do_action('mec_map_skin_head');
                     <?php do_action('mec_map_inner_element_tools', $settings); ?>
                 </div>
             <?php else: ?>
-                <p class="mec-error"><?php esc_html_e('No events found!', 'modern-events-calendar-lite' ); ?></p>
+                <p class="mec-error"><?php esc_html_e('No events found!', 'modern-events-calendar-lite'); ?></p>
             <?php endif; ?>
         </div>
         <div class="col-sm-5" id="mec-map-skin-side-<?php echo esc_attr($this->id); ?>"></div>

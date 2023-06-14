@@ -26,9 +26,9 @@ if(isset($settings['search_bar_ajax_mode']) && $settings['search_bar_ajax_mode']
     <div class="mec-ajax-search-result">
         <div class="mec-text-input-search">
             <i class="mec-sl-magnifier"></i>
-            <input type="text" placeholder="'.esc_html__('Please enter at least 3 characters' , 'modern-events-calendar-lite' ).'" value="" id="keyword" name="keyword" />
+            <input type="text" placeholder="'.esc_html__('Please enter at least 3 characters' , 'modern-events-calendar-lite').'" value="" id="keyword" name="keyword" />
         </div>
-        <div id="mec-ajax-search-result-wrap"><div class="mec-ajax-search-result-events">'.esc_html__('Search results will show here' , 'modern-events-calendar-lite' ).'</div></div>
+        <div id="mec-ajax-search-result-wrap"><div class="mec-ajax-search-result-events">'.esc_html__('Search results will show here' , 'modern-events-calendar-lite').'</div></div>
     </div>';
 }
 else
@@ -48,7 +48,7 @@ else
         ';
     }
 
-    $output .= '<input class="mec-search-bar-input" id="mec-search-bar-input" type="submit" alt="'.esc_html__('Search', 'modern-events-calendar-lite' ).'" value="'.esc_html__('Search', 'modern-events-calendar-lite' ).'" /><input type="hidden" name="post_type" value="mec-events">';
+    $output .= '<input class="mec-search-bar-input" id="mec-search-bar-input" type="submit" alt="'.esc_html__('Search', 'modern-events-calendar-lite').'" value="'.esc_html__('Search', 'modern-events-calendar-lite').'" /><input type="hidden" name="post_type" value="mec-events">';
 }
 
 $output .= '</form></div>';

@@ -55,7 +55,7 @@ class MEC_feature_userevents extends MEC_base
         if(!is_user_logged_in())
         {
             // Show message
-            $message = sprintf(esc_html__('Please %s/%s in order to see your own events.', 'modern-events-calendar-lite' ), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.esc_html__('Login', 'modern-events-calendar-lite' ).'</a>', '<a href="'.wp_registration_url().'">'.esc_html__('Register', 'modern-events-calendar-lite' ).'</a>');
+            $message = sprintf(esc_html__('Please %s/%s in order to see your own events.', 'modern-events-calendar-lite'), '<a href="'.wp_login_url($this->main->get_full_url()).'">'.esc_html__('Login', 'modern-events-calendar-lite').'</a>', '<a href="'.wp_registration_url().'">'.esc_html__('Register', 'modern-events-calendar-lite').'</a>');
 
             return '<div class="mec-userevents-message">
                 <p>'.MEC_kses::element($message).'</p>

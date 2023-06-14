@@ -21,6 +21,11 @@ if($this->style == 'colorful')
 	$this->style = 'modern';
 	$colorful_class = ' mec-event-custom-colorful';
 }
+
+global $mec_enqueue_custom_css;
+$is_load_more = 'mec_custom_load_more' === ($_REQUEST['action'] ?? '') ? true : false;
+$with_css = $is_load_more ? false : true;
+
 ?>
 <div class="mec-wrap <?php echo esc_attr($event_colorskin.$colorful_class); ?>">
     <div class="mec-event-custom-<?php echo esc_attr($this->style); ?>">
@@ -51,7 +56,16 @@ if($this->style == 'colorful')
                         echo ($rcount == 1) ? '<div class="row">' : '';
                         echo '<div class="col-md-'.esc_attr($col).' col-sm-'.esc_attr($col).'">';
                         echo '<article class="mec-event-article mec-sd-event-article'. get_the_ID().' mec-clear" itemscope>';
-                        echo Plugin::instance()->frontend->get_builder_content_for_display($this->style, true);
+
+                        if( isset( $mec_enqueue_custom_css[ $this->style ] ) ) {
+
+                            $with_css = false;
+                        }else{
+
+                            $mec_enqueue_custom_css[ $this->style ] = true;
+                        }
+
+                        echo Plugin::instance()->frontend->get_builder_content_for_display($this->style, $with_css);
                         echo '</article></div>';
 
                         if($rcount == $count)

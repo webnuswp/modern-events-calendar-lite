@@ -46,14 +46,14 @@ class EventGoogleMap extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( !isset($settings['google_maps_status']) || !$settings['google_maps_status'] ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This option is disabled. In order for the widget in this page to be displayed correctly, please turn on  Google Maps Options and set the API for it there.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank">' . esc_html__('How to set Google Map', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This option is disabled. In order for the widget in this page to be displayed correctly, please turn on  Google Maps Options and set the API for it there.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank">' . esc_html__('How to set Google Map', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} elseif ( true === $this->is_editor_mode && empty( $html ) ){
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if Google Map is set. In order for the widget in this page to be displayed correctly, please set Google Map for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank">' . esc_html__('How to set Google Map', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if Google Map is set. In order for the widget in this page to be displayed correctly, please set Google Map for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/google-maps-options/" target="_blank">' . esc_html__('How to set Google Map', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		}
 

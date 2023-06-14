@@ -36,14 +36,14 @@ class EventTags extends WidgetBase {
 		if ( true === $this->is_editor_mode && empty( $tags ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if tags is set. In order for the widget in this page to be displayed correctly, please set tags for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/tags/" target="_blank">' . esc_html__('How to set tags', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if tags is set. In order for the widget in this page to be displayed correctly, please set tags for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/tags/" target="_blank">' . esc_html__('How to set tags', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 
 			ob_start();
 				echo '<div class="mec-events-meta-group mec-events-meta-group-tags">';
-					echo '<span class="mec-events-meta-group-tags-label">' . esc_html__( 'Tags: ', 'modern-events-calendar-lite' ) . '</span>';
+					echo '<span class="mec-events-meta-group-tags-label">' . esc_html__( 'Tags: ', 'modern-events-calendar-lite') . '</span>';
 					if ( $tags ) {
 						echo implode(
 							', ',

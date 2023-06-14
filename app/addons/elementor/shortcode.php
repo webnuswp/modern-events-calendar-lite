@@ -31,7 +31,7 @@ class MEC_addon_elementor_shortcode extends \Elementor\Widget_Base
 	 */
 	public function get_title()
     {
-		return esc_html__('Modern Events Calendar (MEC)', 'modern-events-calendar-lite' );
+		return esc_html__('Modern Events Calendar (MEC)', 'modern-events-calendar-lite');
     }
 
 	/**
@@ -75,7 +75,7 @@ class MEC_addon_elementor_shortcode extends \Elementor\Widget_Base
 		$this->start_controls_section(
 			'content_section',
 			array(
-				'label' => esc_html__('General', 'modern-events-calendar-lite' ),
+				'label' => esc_html__('General', 'modern-events-calendar-lite'),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             )
 		);
@@ -84,7 +84,7 @@ class MEC_addon_elementor_shortcode extends \Elementor\Widget_Base
 		$this->add_control(
 			'type',
 			array(
-				'label' => esc_html__('Select Type', 'modern-events-calendar-lite' ),
+				'label' => esc_html__('Select Type', 'modern-events-calendar-lite'),
 				'type' => \Elementor\Controls_Manager::SELECT,
 				'options' => $calendars,
             )

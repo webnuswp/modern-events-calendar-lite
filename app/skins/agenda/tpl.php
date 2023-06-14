@@ -82,11 +82,11 @@ do_action('mec_agenda_skin_head');
         </div>
     </div>
     <div class="mec-skin-agenda-no-events-container mec-util-hidden" id="mec_skin_no_events_<?php echo esc_attr($this->id); ?>">
-        <?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?>
+        <?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?>
     </div>
     <?php else: ?>
     <div class="mec-skin-agenda-events-container" id="mec_skin_events_<?php echo esc_attr($this->id); ?>">
-        <?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?>
+        <?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?>
     </div>
     <?php endif; ?>
 

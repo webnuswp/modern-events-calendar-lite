@@ -34,8 +34,8 @@ class EventSponsors extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( empty($sponsors) || (!isset($settings['sponsors_status']) || !$settings['sponsors_status']) ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if sponsor is set. In order for the widget in this page to be displayed correctly, please set sponsor for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/sponsor/" target="_blank">' . esc_html__('How to set sponsor', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if sponsor is set. In order for the widget in this page to be displayed correctly, please set sponsor for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/sponsor/" target="_blank">' . esc_html__('How to set sponsor', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} elseif ( true === $this->is_editor_mode && isset($settings['sponsors_status']) && $settings['sponsors_status'] ) {
 

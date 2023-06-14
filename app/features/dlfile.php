@@ -95,7 +95,7 @@ class MEC_feature_dlfile extends MEC_base
         $uploaded_file = isset($_FILES['file']) ? $_FILES['file'] : NULL;
 
         // No file
-        if(!$uploaded_file) $this->main->response(array('success'=>0, 'code'=>'NO_FILE', 'message'=>esc_html__('Please upload a file.', 'modern-events-calendar-lite' )));
+        if(!$uploaded_file) $this->main->response(array('success'=>0, 'code'=>'NO_FILE', 'message'=>esc_html__('Please upload a file.', 'modern-events-calendar-lite')));
 
         $allowed = array('gif', 'jpeg', 'jpg', 'png', 'pdf', 'zip');
 
@@ -103,13 +103,13 @@ class MEC_feature_dlfile extends MEC_base
         $extension = end($ex);
 
         // Invalid Extension
-        if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION', 'message'=>sprintf(esc_html__('File extension is invalid. You can upload %s files.', 'modern-events-calendar-lite' ), implode(', ', $allowed))));
+        if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION', 'message'=>sprintf(esc_html__('File extension is invalid. You can upload %s files.', 'modern-events-calendar-lite'), implode(', ', $allowed))));
 
         // Maximum File Size
         $max_file_size = isset($this->settings['fes_max_file_size']) ? (int) ($this->settings['fes_max_file_size'] * 1000) : (5000 * 1000);
 
         // Invalid Size
-        if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG', 'message'=>sprintf(esc_html__('File is too big. Maximum size is %s KB.', 'modern-events-calendar-lite' ), ($max_file_size / 1000))));
+        if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG', 'message'=>sprintf(esc_html__('File is too big. Maximum size is %s KB.', 'modern-events-calendar-lite'), ($max_file_size / 1000))));
 
         // Include the functions
         if(!function_exists('wp_handle_upload'))
@@ -139,7 +139,7 @@ class MEC_feature_dlfile extends MEC_base
         if($attach_id and (!isset($upload['error']) or (isset($upload['error']) and !$upload['error'])))
         {
             $success = 1;
-            $message = esc_html__('File uploaded!', 'modern-events-calendar-lite' );
+            $message = esc_html__('File uploaded!', 'modern-events-calendar-lite');
 
             $data['url'] = $upload['url'];
             $data['id'] = $attach_id;
@@ -174,7 +174,7 @@ class MEC_feature_dlfile extends MEC_base
         $uploaded_file = isset($_FILES['file']) ? $_FILES['file'] : NULL;
 
         // No file
-        if(!$uploaded_file) $this->main->response(array('success'=>0, 'code'=>'NO_FILE', 'message'=>esc_html__('Please upload a file.', 'modern-events-calendar-lite' )));
+        if(!$uploaded_file) $this->main->response(array('success'=>0, 'code'=>'NO_FILE', 'message'=>esc_html__('Please upload a file.', 'modern-events-calendar-lite')));
 
         $allowed = array('docx', 'jpeg', 'jpg', 'png', 'pdf', 'zip');
 
@@ -182,13 +182,13 @@ class MEC_feature_dlfile extends MEC_base
         $extension = end($ex);
 
         // Invalid Extension
-        if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION', 'message'=>sprintf(esc_html__('File extension is invalid. You can upload %s files.', 'modern-events-calendar-lite' ), implode(', ', $allowed))));
+        if(!in_array($extension, $allowed)) $this->main->response(array('success'=>0, 'code'=>'INVALID_EXTENSION', 'message'=>sprintf(esc_html__('File extension is invalid. You can upload %s files.', 'modern-events-calendar-lite'), implode(', ', $allowed))));
 
         // Maximum File Size
         $max_file_size = isset($this->settings['fes_max_file_size']) ? (int) ($this->settings['fes_max_file_size'] * 1000) : (5000 * 1000);
 
         // Invalid Size
-        if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG', 'message'=>sprintf(esc_html__('File is too big. Maximum size is %s KB.', 'modern-events-calendar-lite' ), ($max_file_size / 1000))));
+        if($uploaded_file['size'] > $max_file_size) $this->main->response(array('success'=>0, 'code'=>'IMAGE_IS_TOO_BIG', 'message'=>sprintf(esc_html__('File is too big. Maximum size is %s KB.', 'modern-events-calendar-lite'), ($max_file_size / 1000))));
 
         // Include the functions
         if(!function_exists('wp_handle_upload'))
@@ -218,7 +218,7 @@ class MEC_feature_dlfile extends MEC_base
         if($attach_id and (!isset($upload['error']) or (isset($upload['error']) and !$upload['error'])))
         {
             $success = 1;
-            $message = esc_html__('File uploaded!', 'modern-events-calendar-lite' );
+            $message = esc_html__('File uploaded!', 'modern-events-calendar-lite');
 
             $data['url'] = $upload['url'];
             $data['id'] = $attach_id;

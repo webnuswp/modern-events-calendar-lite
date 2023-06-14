@@ -35,7 +35,7 @@ get_header('mec'); ?>
 
         <?php else: ?>
 
-        <p><?php esc_html_e('No event found!', 'modern-events-calendar-lite' ); ?></p>
+        <p><?php esc_html_e('No event found!', 'modern-events-calendar-lite'); ?></p>
 
         <?php endif; ?>
     </section>

@@ -72,7 +72,7 @@ class MEC_addon_PMP extends MEC_base
         if(!defined('PMPRO_VERSION')) return;
 
         // Register
-        add_meta_box('pmpro_page_meta', esc_html__('Require Membership', 'modern-events-calendar-lite' ), 'pmpro_page_meta', $this->main->get_main_post_type(), 'side', 'high');
+        add_meta_box('pmpro_page_meta', esc_html__('Require Membership', 'modern-events-calendar-lite'), 'pmpro_page_meta', $this->main->get_main_post_type(), 'side', 'high');
     }
 
     public function check($status, $event_id)

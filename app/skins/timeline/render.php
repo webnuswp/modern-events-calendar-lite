@@ -104,7 +104,7 @@ $sed_method = isset($this->skin_options['sed_method']) ? $this->skin_options['se
                                 </div>
                             </div>
                         </div>
-                        <?php if($sed_method != 'no') echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('Register for event', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Details', 'modern-events-calendar-lite' ))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color')); ?>
+                        <?php if($sed_method != 'no') echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('Register for event', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Details', 'modern-events-calendar-lite'))).'<i class="mec-sl-arrow-right"></i>', 'mec-booking-button mec-timeline-readmore mec-bg-color')); ?>
                     </div>
                 </div>
 

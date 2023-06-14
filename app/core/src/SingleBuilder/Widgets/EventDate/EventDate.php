@@ -44,7 +44,7 @@ class EventDate extends WidgetBase {
 			<div class="mec-event-meta">
 				<div class="mec-single-event-date">
 					<i class="mec-sl-calendar"></i>
-					<h3 class="mec-date"><?php esc_html_e('Date', 'modern-events-calendar-lite' ); ?></h3>
+					<h3 class="mec-date"><?php esc_html_e('Date', 'modern-events-calendar-lite'); ?></h3>
 					<dl>
 						<?php if($midnight_event): ?>
 							<dd><abbr class="mec-events-abbr"><?php echo Base::get_main()->dateify( $event_detail, $date_format ); ?></abbr></dd>

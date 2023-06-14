@@ -52,8 +52,8 @@ class EventBreadcrumbs extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( !isset($settings['breadcrumbs']) || !$settings['breadcrumbs'] ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if breadcrumbs is set. In order for the widget in this page to be displayed correctly, please set breadcrumbs for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank">' . esc_html__('How to set breadcrumbs', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if breadcrumbs is set. In order for the widget in this page to be displayed correctly, please set breadcrumbs for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/event-detailssingle-event-page/" target="_blank">' . esc_html__('How to set breadcrumbs', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 

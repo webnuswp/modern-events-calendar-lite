@@ -69,8 +69,8 @@ class MEC_feature_webhooks extends MEC_base
      */
     public function register_post_type()
     {
-        $singular_label = esc_html__('Webhook', 'modern-events-calendar-lite' );
-        $plural_label = esc_html__('Webhooks', 'modern-events-calendar-lite' );
+        $singular_label = esc_html__('Webhook', 'modern-events-calendar-lite');
+        $plural_label = esc_html__('Webhooks', 'modern-events-calendar-lite');
 
         $capability = 'manage_options';
         register_post_type($this->PT,
@@ -78,12 +78,12 @@ class MEC_feature_webhooks extends MEC_base
                 'labels'=>[
                     'name'=>$plural_label,
                     'singular_name'=>$singular_label,
-                    'add_new'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'add_new_item'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'not_found'=>sprintf(esc_html__('No %s found!', 'modern-events-calendar-lite' ), strtolower($plural_label)),
+                    'add_new'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite'), $singular_label),
+                    'add_new_item'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite'), $singular_label),
+                    'not_found'=>sprintf(esc_html__('No %s found!', 'modern-events-calendar-lite'), strtolower($plural_label)),
                     'all_items'=>$plural_label,
-                    'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite' ), $plural_label),
-                    'not_found_in_trash'=>sprintf(esc_html__('No %s found in Trash!', 'modern-events-calendar-lite' ), strtolower($singular_label))
+                    'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite'), $plural_label),
+                    'not_found_in_trash'=>sprintf(esc_html__('No %s found in Trash!', 'modern-events-calendar-lite'), strtolower($singular_label))
                 ],
                 'public'=>false,
                 'show_ui'=>(current_user_can($capability) ? true : false),
@@ -122,7 +122,7 @@ class MEC_feature_webhooks extends MEC_base
      */
     public function register_meta_boxes()
     {
-        add_meta_box('mec_webhook_metabox_details', esc_html__('Details', 'modern-events-calendar-lite' ), [$this, 'meta_box_details'], $this->PT, 'normal', 'high');
+        add_meta_box('mec_webhook_metabox_details', esc_html__('Details', 'modern-events-calendar-lite'), [$this, 'meta_box_details'], $this->PT, 'normal', 'high');
     }
 
     public function meta_box_details($post)
@@ -301,7 +301,7 @@ class MEC_feature_webhooks extends MEC_base
                 if(!is_numeric($field_id)) continue;
 
                 $type = isset($reg_field['type']) ? $reg_field['type'] : '';
-                $label = isset($reg_field['label']) ? esc_html__($reg_field['label'], 'modern-events-calendar-lite' ) : '';
+                $label = isset($reg_field['label']) ? esc_html__($reg_field['label'], 'modern-events-calendar-lite') : '';
 
                 if(trim($label) == '' or $type == 'name' or $type == 'mec_email') continue;
 
@@ -316,7 +316,7 @@ class MEC_feature_webhooks extends MEC_base
                 'email' => isset($attendee['email']) ? $attendee['email'] : @$booker->user_email,
                 'ticket' => [
                     'id' => $ticket_id,
-                    'name' => isset($tickets[$ticket_id], $tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : esc_html__('Unknown', 'modern-events-calendar-lite' )
+                    'name' => isset($tickets[$ticket_id], $tickets[$ticket_id]['name']) ? $tickets[$ticket_id]['name'] : esc_html__('Unknown', 'modern-events-calendar-lite')
                 ],
                 'price' => $raw_price,
                 'price_rendered' => $rendered_price,

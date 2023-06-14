@@ -240,7 +240,7 @@ class MEC
         else
         {
             // Get current locale
-            $locale = apply_filters('plugin_locale', get_locale(), 'modern-events-calendar-lite' );
+            $locale = apply_filters('plugin_locale', get_locale(), 'modern-events-calendar-lite');
             
             // WordPress language directory /wp-content/languages/mec-en_US.mo
             $language_filepath = WP_LANG_DIR.DS.'mec-'.$locale.'.mo';

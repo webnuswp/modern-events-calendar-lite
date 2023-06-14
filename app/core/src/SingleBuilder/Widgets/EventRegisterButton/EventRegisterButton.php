@@ -33,8 +33,8 @@ class EventRegisterButton extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( !isset($settings['single_booking_style']) || !$settings['single_booking_style'] ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if register button is set. In order for the widget in this page to be displayed correctly, please set register button for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank">' . esc_html__('How to set register button', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if register button is set. In order for the widget in this page to be displayed correctly, please set register button for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/booking/" target="_blank">' . esc_html__('How to set register button', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 
@@ -45,7 +45,7 @@ class EventRegisterButton extends WidgetBase {
 			if (isset($event_detail->data->meta['mec_more_info_title']) && trim($event_detail->data->meta['mec_more_info_title'])){
 				$button_text = trim($event_detail->data->meta['mec_more_info_title']);
 			}else{
-				$button_text = Base::get_main()->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' ));
+				$button_text = Base::get_main()->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite'));
 			}
 
 			$classes = '';
@@ -65,7 +65,7 @@ class EventRegisterButton extends WidgetBase {
 						$classes .= ' mec-booking-data-lity';
 					}
 					?>
-					<a class="mec-booking-button mec-bg-color <?php echo esc_attr( $classes ); ?>" href="#mec-events-meta-group-booking-<?php echo esc_attr( $single->uniqueid ); ?>" <?php echo esc_attr( $data_lity ); ?>><?php echo esc_html__( $button_text, 'modern-events-calendar-lite' ); ?></a>
+					<a class="mec-booking-button mec-bg-color <?php echo esc_attr( $classes ); ?>" href="#mec-events-meta-group-booking-<?php echo esc_attr( $single->uniqueid ); ?>" <?php echo esc_attr( $data_lity ); ?>><?php echo esc_html__( $button_text, 'modern-events-calendar-lite'); ?></a>
 					<script>
 					// Fix modal booking in some themes
 					if( 'undefined' === typeof mec_booking_lity_init){
@@ -83,7 +83,7 @@ class EventRegisterButton extends WidgetBase {
 					</script>
 				<?php elseif ( $mec_more_info ) : ?>
 					<a target="<?php echo esc_attr( $mec_more_info_target ); ?>" class="mec-booking-button mec-bg-color" href="<?php echo esc_url( $event_detail->data->meta['mec_more_info'] ); ?>">
-						<?php echo esc_html__( $button_text , 'modern-events-calendar-lite' ); ?>
+						<?php echo esc_html__( $button_text , 'modern-events-calendar-lite'); ?>
 					</a>
 				<?php endif; ?>
 			</div>

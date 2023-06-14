@@ -40,8 +40,8 @@ class EventAttendees extends WidgetBase {
 		if ( true === $this->is_editor_mode && empty( $html ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if buddypress is set. In order for the widget in this page to be displayed correctly, please set buddypress for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/buddypress/" target="_blank">' . esc_html__('How to set buddypress', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if buddypress is set. In order for the widget in this page to be displayed correctly, please set buddypress for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/buddypress/" target="_blank">' . esc_html__('How to set buddypress', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		}
 

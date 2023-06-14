@@ -65,17 +65,17 @@ class MEC_addon_KC extends MEC_base
         kc_add_map(array
         (
             'MEC' => array(
-                'name' => esc_html__('Modern Events Calendar', 'modern-events-calendar-lite' ),
+                'name' => esc_html__('Modern Events Calendar', 'modern-events-calendar-lite'),
                 'icon' => 'mec-kingcomposer-icon',
-                'category' => esc_html__('Content', 'modern-events-calendar-lite' ),
+                'category' => esc_html__('Content', 'modern-events-calendar-lite'),
                 'params' => array(
                     'General' => array(
                         array(
                             'name' => 'id',
-                            'label' => esc_html__('Shortcode', 'modern-events-calendar-lite' ),
+                            'label' => esc_html__('Shortcode', 'modern-events-calendar-lite'),
                             'type' => 'select',
                             'options' => $calendars_array,
-                            'description' => esc_html__('Select from predefined shortcodes', 'modern-events-calendar-lite' ),
+                            'description' => esc_html__('Select from predefined shortcodes', 'modern-events-calendar-lite'),
                         ),
                     ),
                 )

@@ -6,12 +6,12 @@ defined('MECEXEC') or die();
     <div class="welcome-head w-clearfix">
         <div class="w-row">
             <div class="w-col-sm-9">
-                <h1> <?php echo esc_html__('Go Pro', 'modern-events-calendar-lite' ); ?> </h1>
+                <h1> <?php echo esc_html__('Go Pro', 'modern-events-calendar-lite'); ?> </h1>
             </div>
             <div class="w-col-sm-3">
                 <?php $styling = $this->main->get_styling(); $darkadmin_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : ''; if ($darkadmin_mode == 1): $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w2.png'; else: $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w.png'; endif; ?>
                 <img src="<?php echo esc_url($darklogo); ?>" />
-                <span class="w-theme-version"><?php echo esc_html__('Version', 'modern-events-calendar-lite' ); ?> <?php echo MEC_VERSION; ?></span>
+                <span class="w-theme-version"><?php echo esc_html__('Version', 'modern-events-calendar-lite'); ?> <?php echo MEC_VERSION; ?></span>
             </div>
         </div>
     </div>
@@ -63,10 +63,10 @@ defined('MECEXEC') or die();
             <div class="w-col-sm-12">
                 <div class="info-msg">
                     <p>
-                        <?php echo sprintf(esc_html__("You're using %s version of Modern Events Calendar. To use advanced booking system, modern skins like Agenda, Timetable, Masonry, Yearly View, Available Spots, etc you should upgrade to the Pro version.", 'modern-events-calendar-lite' ), '<strong>'.esc_html__('lite', 'modern-events-calendar-lite' ).'</strong>'); ?>
+                        <?php echo sprintf(esc_html__("You're using %s version of Modern Events Calendar. To use advanced booking system, modern skins like Agenda, Timetable, Masonry, Yearly View, Available Spots, etc you should upgrade to the Pro version.", 'modern-events-calendar-lite'), '<strong>'.esc_html__('lite', 'modern-events-calendar-lite').'</strong>'); ?>
                     </p>
                     <a class="info-msg-link" href="<?php echo esc_url($this->main->get_pro_link()); ?>" target="_blank">
-                        <?php esc_html_e('GO PREMIUM', 'modern-events-calendar-lite' ); ?>
+                        <?php esc_html_e('GO PREMIUM', 'modern-events-calendar-lite'); ?>
                     </a>
                     <div class="info-msg-coupon">
                         

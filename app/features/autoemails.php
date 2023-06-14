@@ -57,8 +57,8 @@ class MEC_feature_autoemails extends MEC_base
      */
     public function register_post_type()
     {
-        $singular_label = esc_html__('Email', 'modern-events-calendar-lite' );
-        $plural_label = esc_html__('Emails', 'modern-events-calendar-lite' );
+        $singular_label = esc_html__('Email', 'modern-events-calendar-lite');
+        $plural_label = esc_html__('Emails', 'modern-events-calendar-lite');
 
         $capability = 'manage_options';
         register_post_type($this->PT,
@@ -67,12 +67,12 @@ class MEC_feature_autoemails extends MEC_base
                 (
                     'name'=>$plural_label,
                     'singular_name'=>$singular_label,
-                    'add_new'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'add_new_item'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite' ), $singular_label),
-                    'not_found'=>sprintf(esc_html__('No %s found!', 'modern-events-calendar-lite' ), strtolower($plural_label)),
+                    'add_new'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite'), $singular_label),
+                    'add_new_item'=>sprintf(esc_html__('Add %s', 'modern-events-calendar-lite'), $singular_label),
+                    'not_found'=>sprintf(esc_html__('No %s found!', 'modern-events-calendar-lite'), strtolower($plural_label)),
                     'all_items'=>$plural_label,
-                    'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite' ), $plural_label),
-                    'not_found_in_trash'=>sprintf(esc_html__('No %s found in Trash!', 'modern-events-calendar-lite' ), strtolower($singular_label))
+                    'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite'), $plural_label),
+                    'not_found_in_trash'=>sprintf(esc_html__('No %s found in Trash!', 'modern-events-calendar-lite'), strtolower($singular_label))
                 ),
                 'public'=>false,
                 'show_ui'=>(current_user_can($capability) ? true : false),
@@ -112,7 +112,7 @@ class MEC_feature_autoemails extends MEC_base
      */
     public function register_meta_boxes()
     {
-        add_meta_box('mec_email_metabox_details', esc_html__('Details', 'modern-events-calendar-lite' ), array($this, 'meta_box_details'), $this->PT, 'normal', 'high');
+        add_meta_box('mec_email_metabox_details', esc_html__('Details', 'modern-events-calendar-lite'), array($this, 'meta_box_details'), $this->PT, 'normal', 'high');
     }
 
     public function meta_box_details($post)

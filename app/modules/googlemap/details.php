@@ -140,11 +140,11 @@ else $factory->params('footer', $javascript);
 <div class="mec-get-direction">
     <form method="post" action="#" id="mec_get_direction_form<?php echo esc_attr($uniqueid); ?>" class="clearfix">
         <div class="mec-map-get-direction-address-cnt">
-            <input class="mec-map-get-direction-address" type="text" placeholder="<?php esc_attr_e('Address from ...', 'modern-events-calendar-lite' ) ?>" id="mec_get_direction_addr<?php echo esc_attr($uniqueid); ?>" />
+            <input class="mec-map-get-direction-address" type="text" placeholder="<?php esc_attr_e('Address from ...', 'modern-events-calendar-lite') ?>" id="mec_get_direction_addr<?php echo esc_attr($uniqueid); ?>" />
             <span class="mec-map-get-direction-reset mec-util-hidden" id="mec_map_get_direction_reset<?php echo esc_attr($uniqueid); ?>">X</span>
         </div>
         <div class="mec-map-get-direction-btn-cnt btn btn-primary">
-            <input type="submit" value="<?php esc_html_e('Get Directions', 'modern-events-calendar-lite' ); ?>" />
+            <input type="submit" value="<?php esc_html_e('Get Directions', 'modern-events-calendar-lite'); ?>" />
         </div>
     </form>
 </div>

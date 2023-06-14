@@ -264,7 +264,7 @@ class MEC_search extends MEC_base
         // Categories
         if($category_type == 'dropdown')
         {
-            $label = $this->main->m('taxonomy_category', esc_html__('Category', 'modern-events-calendar-lite' ));
+            $label = $this->main->m('taxonomy_category', esc_html__('Category', 'modern-events-calendar-lite'));
 
             $categories_html .= wp_dropdown_categories(array
             (
@@ -312,7 +312,7 @@ class MEC_search extends MEC_base
         }
 
         // Locations
-        $label = $this->main->m('taxonomy_location', esc_html__('Location', 'modern-events-calendar-lite' ));
+        $label = $this->main->m('taxonomy_location', esc_html__('Location', 'modern-events-calendar-lite'));
 
         if($location_type == 'dropdown')
         {
@@ -346,7 +346,7 @@ class MEC_search extends MEC_base
         }
 
         // Organizers
-        $label = $this->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite' ));
+        $label = $this->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite'));
 
         if($organizer_type == 'dropdown')
         {
@@ -380,7 +380,7 @@ class MEC_search extends MEC_base
         }
 
         // Speakers
-        $label = $this->main->m('taxonomy_speaker', esc_html__('Speaker', 'modern-events-calendar-lite' ));
+        $label = $this->main->m('taxonomy_speaker', esc_html__('Speaker', 'modern-events-calendar-lite'));
 
         if($speaker_type == 'dropdown')
         {
@@ -414,7 +414,7 @@ class MEC_search extends MEC_base
         }
 
         // Tags
-        $label = $this->main->m('taxonomy_tag', esc_html__('Tag', 'modern-events-calendar-lite' ));
+        $label = $this->main->m('taxonomy_tag', esc_html__('Tag', 'modern-events-calendar-lite'));
 
         $tags_html .= wp_dropdown_categories(array
         (
@@ -434,7 +434,7 @@ class MEC_search extends MEC_base
         ));
 
         // Labels
-        $label = $this->main->m('taxonomy_label', esc_html__('Label', 'modern-events-calendar-lite' ));
+        $label = $this->main->m('taxonomy_label', esc_html__('Label', 'modern-events-calendar-lite'));
 
         if($label_type == 'dropdown')
         {

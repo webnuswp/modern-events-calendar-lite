@@ -81,11 +81,11 @@ do_action('mec_full_skin_head');
         </div>
         <div class="col-md-5">
             <div class="mec-totalcal-view">
-                <?php if($this->yearly): ?><span class="mec-totalcal-yearlyview<?php if($this->default_view == 'yearly') echo ' mec-totalcalview-selected'; ?>" data-skin="yearly"><?php esc_html_e('Yearly', 'modern-events-calendar-lite' ); ?></span><?php endif; ?>
-                <?php if($this->monthly): ?><span class="mec-totalcal-monthlyview<?php if($this->default_view == 'monthly') echo ' mec-totalcalview-selected'; ?>" data-skin="monthly"><?php esc_html_e('Monthly', 'modern-events-calendar-lite' ); ?></span><?php endif; ?>
-                <?php if($this->weekly): ?><span class="mec-totalcal-weeklyview<?php if($this->default_view == 'weekly') echo ' mec-totalcalview-selected'; ?>" data-skin="weekly"><?php esc_html_e('Weekly', 'modern-events-calendar-lite' ); ?></span><?php endif; ?>
-                <?php if($this->daily): ?><span class="mec-totalcal-dailyview<?php if($this->default_view == 'daily') echo ' mec-totalcalview-selected'; ?>" data-skin="daily"><?php esc_html_e('Daily', 'modern-events-calendar-lite' ); ?></span><?php endif; ?>
-                <?php if($this->list): ?><span class="mec-totalcal-listview<?php if($this->default_view == 'list') echo ' mec-totalcalview-selected'; ?>" data-skin="list"><?php esc_html_e('List', 'modern-events-calendar-lite' ); ?></span><?php endif; ?>
+                <?php if($this->yearly): ?><span class="mec-totalcal-yearlyview<?php if($this->default_view == 'yearly') echo ' mec-totalcalview-selected'; ?>" data-skin="yearly"><?php esc_html_e('Yearly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                <?php if($this->monthly): ?><span class="mec-totalcal-monthlyview<?php if($this->default_view == 'monthly') echo ' mec-totalcalview-selected'; ?>" data-skin="monthly"><?php esc_html_e('Monthly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                <?php if($this->weekly): ?><span class="mec-totalcal-weeklyview<?php if($this->default_view == 'weekly') echo ' mec-totalcalview-selected'; ?>" data-skin="weekly"><?php esc_html_e('Weekly', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                <?php if($this->daily): ?><span class="mec-totalcal-dailyview<?php if($this->default_view == 'daily') echo ' mec-totalcalview-selected'; ?>" data-skin="daily"><?php esc_html_e('Daily', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
+                <?php if($this->list): ?><span class="mec-totalcal-listview<?php if($this->default_view == 'list') echo ' mec-totalcalview-selected'; ?>" data-skin="list"><?php esc_html_e('List', 'modern-events-calendar-lite'); ?></span><?php endif; ?>
             </div>
         </div>
     </div>

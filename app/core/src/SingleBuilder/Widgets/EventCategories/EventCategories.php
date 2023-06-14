@@ -35,8 +35,8 @@ class EventCategories extends WidgetBase {
 		if ( true === $this->is_editor_mode && empty( $categories ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-						.'<span>'. esc_html__('This widget is displayed if category is set. In order for the widget in this page to be displayed correctly, please set category for your last event.', 'modern-events-calendar-lite' ).'</span>'
-						. '<a href="https://webnus.net/dox/modern-events-calendar/categories/" target="_blank">' . esc_html__('How to set category', 'modern-events-calendar-lite' ) . ' </a>'
+						.'<span>'. esc_html__('This widget is displayed if category is set. In order for the widget in this page to be displayed correctly, please set category for your last event.', 'modern-events-calendar-lite').'</span>'
+						. '<a href="https://webnus.net/dox/modern-events-calendar/categories/" target="_blank">' . esc_html__('How to set category', 'modern-events-calendar-lite') . ' </a>'
 					.'</p></div>';
 		} elseif ( !empty($categories) ) {
 
@@ -44,7 +44,7 @@ class EventCategories extends WidgetBase {
 				echo '<div class="mec-single-event-category mec-event-meta mec-frontbox">';
 				?>
 				<i class="mec-sl-folder"></i>
-				<dt><?php echo Base::get_main()->m('taxonomy_categories', esc_html__('Category', 'modern-events-calendar-lite' )); ?></dt>
+				<dt><?php echo Base::get_main()->m('taxonomy_categories', esc_html__('Category', 'modern-events-calendar-lite')); ?></dt>
 				<dl>
 				<?php
 				foreach ($categories as $category) {

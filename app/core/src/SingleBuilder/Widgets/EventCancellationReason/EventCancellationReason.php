@@ -51,8 +51,8 @@ class EventCancellationReason extends WidgetBase {
 		if ( !$display_reason && $this->is_editor_mode() ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if cancellation reason is set. In order for the widget in this page to be displayed correctly, please set cancellation reason for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/add-event/#SEO_SchemaEvent_Status" target="_blank">' . esc_html__('Cancellation Reason', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if cancellation reason is set. In order for the widget in this page to be displayed correctly, please set cancellation reason for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/add-event/#SEO_SchemaEvent_Status" target="_blank">' . esc_html__('Cancellation Reason', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 

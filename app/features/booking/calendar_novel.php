@@ -146,7 +146,7 @@ echo MEC_kses::full($javascript);
                             $soldout = $this->main->is_soldout($event->ID, $start_datetime);
                             if($is_soldout and !$soldout) $is_soldout = false;
 
-                            $render .='<div class="mec-booking-calendar-date '.($soldout ? 'mec-booking-calendar-date-soldout' : '').'" data-timestamp="'.esc_attr($this->book->timestamp($date['start'], $date['end'])).'" data-formatted-date="'.esc_attr($this->main->date_i18n($date_format.' '.$time_format, $date_timestamp_ex[0])).'">' .(($date['start']['date'] !== $date['end']['date']) ? '<div class="mec-booking-calendar-date-hover">'.strip_tags($this->main->date_label($date['start'], $date['end'], $date_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0), $event)).'</div><div class="mec-booking-calendar-time-hover">' : ($allday != 0 ? esc_html__('All Day' , 'modern-events-calendar-lite' ) : '')).strip_tags($this->main->date_label($date['start'], $date['end'], $time_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0))).(($date['start']['date'] !== $date['end']['date']) ? '</div>' : '') .'</div>';
+                            $render .='<div class="mec-booking-calendar-date '.($soldout ? 'mec-booking-calendar-date-soldout' : '').'" data-timestamp="'.esc_attr($this->book->timestamp($date['start'], $date['end'])).'" data-formatted-date="'.esc_attr($this->main->date_i18n($date_format.' '.$time_format, $date_timestamp_ex[0])).'">' .(($date['start']['date'] !== $date['end']['date']) ? '<div class="mec-booking-calendar-date-hover">'.strip_tags($this->main->date_label($date['start'], $date['end'], $date_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0), $event)).'</div><div class="mec-booking-calendar-time-hover">' : ($allday != 0 ? esc_html__('All Day' , 'modern-events-calendar-lite') : '')).strip_tags($this->main->date_label($date['start'], $date['end'], $time_format, ' - ', false, (isset($date['allday']) ? $date['allday'] : 0))).(($date['start']['date'] !== $date['end']['date']) ? '</div>' : '') .'</div>';
                             $first_day = strtotime($date['start']['date']) == $time ? ' first-day' : null;
                             $middle_day = (strtotime($date['end']['date']) != $time && strtotime($date['start']['date']) != $time) ? ' middle-day' : null;
                             $last_day = strtotime($date['end']['date']) == $time ? ' last-day' : null;
@@ -194,4 +194,4 @@ echo MEC_kses::full($javascript);
         </dl>
     </div>
 </div>
-<div class="mec-choosen-time-message disable"><?php echo esc_html__('Chosen Time:', 'modern-events-calendar-lite' ); ?> <span class="mec-choosen-time"></span></div>
+<div class="mec-choosen-time-message disable"><?php echo esc_html__('Chosen Time:', 'modern-events-calendar-lite'); ?> <span class="mec-choosen-time"></span></div>

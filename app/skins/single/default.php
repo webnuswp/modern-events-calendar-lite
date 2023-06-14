@@ -31,7 +31,7 @@ $more_info = (isset($event->data->meta['mec_more_info']) and trim($event->data->
 if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $more_info = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info', $more_info);
 
 $more_info_target = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_target', (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'));
-$more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : esc_html__('Read More', 'modern-events-calendar-lite' )));
+$more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : esc_html__('Read More', 'modern-events-calendar-lite')));
 
 // Event Cost
 $cost = $this->main->get_event_cost($event);
@@ -57,6 +57,8 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
         </div>
 		<?php endif; ?>
 		<!-- end breadcrumbs -->
+
+		<?php echo MEC_kses::element($this->display_banner_module($event)); ?>
 
 		<div class="col-md-8">
 			<div class="mec-events-event-image">
@@ -125,7 +127,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 					 if ( true === $availability[ $key ] ) {
 
 						$sales_end++;
-						$ticket_sales_ended_messages[ $ticket_id ] = sprintf( esc_html__( 'The %s ticket sales has ended!', 'modern-events-calendar-lite' ), $ticket_name );
+						$ticket_sales_ended_messages[ $ticket_id ] = sprintf( esc_html__( 'The %s ticket sales has ended!', 'modern-events-calendar-lite'), $ticket_name );
 					 }
 				  }
 
@@ -146,7 +148,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 					 ?>
 
 				  <?php else: ?>
-					 <div id="mec-events-meta-group-booking-<?php echo esc_attr($this->uniqueid); ?>" class="mec-sold-tickets warning-msg"><?php esc_html_e( 'Sold out!', 'modern-events-calendar-lite' );do_action( 'mec_booking_sold_out', $event, null, null, array( $event->date ) ); ?> </div>
+					 <div id="mec-events-meta-group-booking-<?php echo esc_attr($this->uniqueid); ?>" class="mec-sold-tickets warning-msg"><?php esc_html_e( 'Sold out!', 'modern-events-calendar-lite');do_action( 'mec_booking_sold_out', $event, null, null, array( $event->date ) ); ?> </div>
 				  <?php endif; ?>
 			<?php elseif($this->main->can_show_booking_module($event)): ?>
 				<?php $data_lity_class = ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ) $data_lity_class = 'lity-hide '; ?>
@@ -165,7 +167,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 
 			<!-- Tags -->
 			<div class="mec-events-meta-group mec-events-meta-group-tags">
-                <?php echo get_the_term_list(get_the_ID(), apply_filters('mec_taxonomy_tag', ''), esc_html__('Tags: ', 'modern-events-calendar-lite' ), ', ', '<br />'); ?>
+                <?php echo get_the_term_list(get_the_ID(), apply_filters('mec_taxonomy_tag', ''), esc_html__('Tags: ', 'modern-events-calendar-lite'), ', ', '<br />'); ?>
 			</div>
 
 		</div>
@@ -182,7 +184,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 						?>
 						<div class="mec-single-event-date">
 							<i class="mec-sl-calendar"></i>
-							<h3 class="mec-date"><?php esc_html_e('Date', 'modern-events-calendar-lite' ); ?></h3>
+							<h3 class="mec-date"><?php esc_html_e('Date', 'modern-events-calendar-lite'); ?></h3>
 							<dl>
 								<?php if($midnight_event): ?>
 									<dd><abbr class="mec-events-abbr"><?php echo MEC_kses::element($this->main->dateify($event, $this->date_format1)); ?></abbr></dd>
@@ -201,13 +203,13 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 							?>
 							<div class="mec-single-event-time">
 								<i class="mec-sl-clock " style=""></i>
-								<h3 class="mec-time"><?php esc_html_e('Time', 'modern-events-calendar-lite' ); ?></h3>
+								<h3 class="mec-time"><?php esc_html_e('Time', 'modern-events-calendar-lite'); ?></h3>
 								<i class="mec-time-comment"><?php echo (isset($time_comment) ? esc_html($time_comment) : ''); ?></i>
 								<dl>
 									<?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
 										<dd><abbr class="mec-events-abbr"><?php echo esc_html($event->data->time['start']); ?><?php echo (trim($event->data->time['end']) ? ' - '.esc_html($event->data->time['end']) : ''); ?></abbr></dd>
 									<?php else: ?>
-										<dd><abbr class="mec-events-abbr"><?php echo esc_html($this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite' ))); ?></abbr></dd>
+										<dd><abbr class="mec-events-abbr"><?php echo esc_html($this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite'))); ?></abbr></dd>
 									<?php endif; ?>
 								</dl>
 							</div>
@@ -226,7 +228,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 						?>
 						<div class="mec-event-cost">
 							<i class="mec-sl-wallet"></i>
-							<h3 class="mec-cost"><?php echo esc_html($this->main->m('cost', esc_html__('Cost', 'modern-events-calendar-lite' ))); ?></h3>
+							<h3 class="mec-cost"><?php echo esc_html($this->main->m('cost', esc_html__('Cost', 'modern-events-calendar-lite'))); ?></h3>
 							<dl><dd class="mec-events-event-cost"><?php echo MEC_kses::element($cost); ?></dd></dl>
 						</div>
 						<?php
@@ -244,7 +246,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 						?>
 						<div class="mec-event-more-info">
 							<i class="mec-sl-info"></i>
-							<h3 class="mec-cost"><?php echo esc_html($this->main->m('more_info_link', esc_html__('More Info', 'modern-events-calendar-lite' ))); ?></h3>
+							<h3 class="mec-cost"><?php echo esc_html($this->main->m('more_info_link', esc_html__('More Info', 'modern-events-calendar-lite'))); ?></h3>
 							<dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo esc_attr($more_info_target); ?>" href="<?php echo esc_url($more_info); ?>"><?php echo esc_html($more_info_title); ?></a></dd></dl>
 						</div>
 						<?php
@@ -259,7 +261,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 						$mec_i = 0; ?>
 						<div class="mec-single-event-label">
 							<i class="mec-fa-bookmark-o"></i>
-							<h3 class="mec-cost"><?php echo esc_html($this->main->m('taxonomy_labels', esc_html__('Labels', 'modern-events-calendar-lite' ))); ?></h3>
+							<h3 class="mec-cost"><?php echo esc_html($this->main->m('taxonomy_labels', esc_html__('Labels', 'modern-events-calendar-lite'))); ?></h3>
 							<?php foreach($event->data->labels as $labels=>$label) :
 								$seperator = (++$mec_i === $mec_items ) ? '' : ',';
 								echo '<dl><dd style="color:' . esc_attr($label['color']) . '">' . esc_html($label["name"] . $seperator) . '</dd></dl>';
@@ -286,7 +288,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 						?>
 						<div class="mec-single-event-category">
 							<i class="mec-sl-folder"></i>
-							<dt><?php echo esc_html($this->main->m('taxonomy_categories', esc_html__('Category', 'modern-events-calendar-lite' ))); ?></dt>
+							<dt><?php echo esc_html($this->main->m('taxonomy_categories', esc_html__('Category', 'modern-events-calendar-lite'))); ?></dt>
 							<dl>
 							<?php
 							foreach($event->data->categories as $category)
@@ -318,7 +320,7 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 							<?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
 								<img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? esc_attr($organizer['name']) : ''); ?>">
 							<?php endif; ?>
-							<h3 class="mec-events-single-section-title"><?php echo esc_html($this->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite' ))); ?></h3>
+							<h3 class="mec-events-single-section-title"><?php echo esc_html($this->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite'))); ?></h3>
 							<dl>
 							<?php if(isset($organizer['thumbnail'])): ?>
 								<dd class="mec-organizer">
@@ -329,21 +331,21 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 							if(isset($organizer['tel']) && !empty($organizer['tel'])): ?>
 								<dd class="mec-organizer-tel">
 									<i class="mec-sl-phone"></i>
-									<h6><?php esc_html_e('Phone', 'modern-events-calendar-lite' ); ?></h6>
+									<h6><?php esc_html_e('Phone', 'modern-events-calendar-lite'); ?></h6>
 									<a href="tel:<?php echo esc_attr($organizer['tel']); ?>"><?php echo esc_html($organizer['tel']); ?></a>
 								</dd>
 							<?php endif;
 							if(isset($organizer['email']) && !empty($organizer['email'])): ?>
 								<dd class="mec-organizer-email">
 									<i class="mec-sl-envelope"></i>
-									<h6><?php esc_html_e('Email', 'modern-events-calendar-lite' ); ?></h6>
+									<h6><?php esc_html_e('Email', 'modern-events-calendar-lite'); ?></h6>
 									<a href="mailto:<?php echo esc_attr($organizer['email']); ?>"><?php echo esc_html($organizer['email']); ?></a>
 								</dd>
 							<?php endif;
 							if(isset($organizer['url']) && !empty($organizer['url']) and $organizer['url'] != 'http://'): ?>
 								<dd class="mec-organizer-url">
 									<i class="mec-sl-sitemap"></i>
-									<h6><?php esc_html_e('Website', 'modern-events-calendar-lite' ); ?></h6>
+									<h6><?php esc_html_e('Website', 'modern-events-calendar-lite'); ?></h6>
                                     <span><a href="<?php echo esc_url($organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo (isset($organizer['page_label']) and trim($organizer['page_label'])) ? esc_html($organizer['page_label']) : esc_html($organizer['url']); ?></a></span>
                                     <?php do_action('mec_single_default_organizer', $organizer); ?>
 								</dd>
@@ -367,9 +369,9 @@ if($sticky_sidebar == 1) $sticky_sidebar = 'mec-sticky';
 					<!-- Register Booking Button -->
 					<?php if($this->main->can_show_booking_module($event)): ?>
 						<?php $data_lity_class = ''; if(isset($settings['single_booking_style']) and $settings['single_booking_style'] == 'modal' ){ $data_lity_class = 'mec-booking-data-lity'; }  ?>
-						<a class="mec-booking-button mec-bg-color <?php echo esc_attr($data_lity_class); ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo esc_attr($this->uniqueid); ?>"><?php echo esc_html($this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' ))); ?></a>
+						<a class="mec-booking-button mec-bg-color <?php echo esc_attr($data_lity_class); ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#mec-events-meta-group-booking-<?php echo esc_attr($this->uniqueid); ?>"><?php echo esc_html($this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite'))); ?></a>
 					<?php elseif($more_info and !$this->main->is_expired($event)): ?>
-						<a class="mec-booking-button mec-bg-color" target="<?php echo esc_attr($more_info_target); ?>" href="<?php echo esc_url($more_info); ?>"><?php if($more_info_title) echo esc_html__($more_info_title, 'modern-events-calendar-lite' ); else echo esc_html($this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' ))); ?></a>
+						<a class="mec-booking-button mec-bg-color" target="<?php echo esc_attr($more_info_target); ?>" href="<?php echo esc_url($more_info); ?>"><?php if($more_info_title) echo esc_html__($more_info_title, 'modern-events-calendar-lite'); else echo esc_html($this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite'))); ?></a>
 					<?php endif; ?>
 
 				</div>

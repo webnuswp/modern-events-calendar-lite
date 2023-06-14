@@ -33,8 +33,8 @@ class EventNextOccurrences extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( !isset($settings['next_event_module_status']) || !$settings['next_event_module_status'] ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if next events module is set. In order for the widget in this page to be displayed correctly, please set next events module for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/next-event-module/" target="_blank">' . esc_html__('How to set next events module', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if next events module is set. In order for the widget in this page to be displayed correctly, please set next events module for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/next-event-module/" target="_blank">' . esc_html__('How to set next events module', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 

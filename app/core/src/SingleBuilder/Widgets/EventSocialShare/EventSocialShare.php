@@ -34,8 +34,8 @@ class EventSocialShare extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( !isset($settings['social_network_status']) || !$settings['social_network_status'] ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-				.'<span>'. esc_html__('This widget is displayed if social networks is set. In order for the widget in this page to be displayed correctly, please set label for your last event.', 'modern-events-calendar-lite' ).'</span>'
-				. '<a href="https://webnus.net/dox/modern-events-calendar/social-networks/" target="_blank">' . esc_html__('How to set social networks', 'modern-events-calendar-lite' ) . ' </a>'
+				.'<span>'. esc_html__('This widget is displayed if social networks is set. In order for the widget in this page to be displayed correctly, please set label for your last event.', 'modern-events-calendar-lite').'</span>'
+				. '<a href="https://webnus.net/dox/modern-events-calendar/social-networks/" target="_blank">' . esc_html__('How to set social networks', 'modern-events-calendar-lite') . ' </a>'
 			.'</p></div>';
 		} else {
 
@@ -48,7 +48,7 @@ class EventSocialShare extends WidgetBase {
 				$socials = Base::get_main()->get_social_networks();
 				?>
 				<div class="mec-event-social mec-frontbox">
-					<h3 class="mec-social-single mec-frontbox-title"><?php esc_html_e('Share this event', 'modern-events-calendar-lite' ); ?></h3>
+					<h3 class="mec-social-single mec-frontbox-title"><?php esc_html_e('Share this event', 'modern-events-calendar-lite'); ?></h3>
 					<div class="mec-event-sharing">
 						<div class="mec-links-details">
 							<ul>

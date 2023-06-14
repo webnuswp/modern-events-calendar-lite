@@ -77,7 +77,7 @@ class MEC_feature_adminupcoming extends MEC_base
                 <script>
                 jQuery(document).ready(function($)
                 {
-                    $('hr.wp-header-end').before('<a href="<?php echo esc_url($this->main->remove_qs_var('adminview')); ?>" class="add-new-h2"><?php esc_html_e('Classic View', 'modern-events-calendar-lite' ); ?></a>');
+                    $('hr.wp-header-end').before('<a href="<?php echo esc_url($this->main->remove_qs_var('adminview')); ?>" class="add-new-h2"><?php esc_html_e('Classic View', 'modern-events-calendar-lite'); ?></a>');
                     $('#posts-filter').before(`<div><?php echo $HTML; ?></div>`);
                 });
                 </script>
@@ -92,7 +92,7 @@ class MEC_feature_adminupcoming extends MEC_base
                 <script>
                 jQuery(document).ready(function($)
                 {
-                    $('hr.wp-header-end').before('<a href="<?php echo esc_url($this->main->add_qs_vars(array('adminview'=>'upcoming'))); ?>" class="add-new-h2"><?php esc_html_e('Upcoming View', 'modern-events-calendar-lite' ); ?></a>');
+                    $('hr.wp-header-end').before('<a href="<?php echo esc_url($this->main->add_qs_vars(array('adminview'=>'upcoming'))); ?>" class="add-new-h2"><?php esc_html_e('Upcoming View', 'modern-events-calendar-lite'); ?></a>');
                 });
                 </script>
                 <?php

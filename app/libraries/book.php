@@ -116,14 +116,14 @@ class MEC_book extends MEC_base
                         $date_variations_amount += $variation_amount;
 
                         // Price Details
-                        if(!isset($variation_details[$key])) $variation_details[$key] = array('amount'=>$variation_amount, 'description'=>__($variation_title, 'modern-events-calendar-lite' ), 'type'=>'variation', 'count' => $variation_count);
+                        if(!isset($variation_details[$key])) $variation_details[$key] = array('amount'=>$variation_amount, 'description'=>__($variation_title, 'modern-events-calendar-lite'), 'type'=>'variation', 'count' => $variation_count);
                         else
                         {
                             $variation_details[$key]['amount'] += $variation_amount;
 
                             $new_count = ((int) $variation_details[$key]['count'] + $variation_count);
                             $variation_details[$key]['count'] = $new_count;
-                            $variation_details[$key]['description'] = esc_html__($ticket_variation['title'].' ('.$new_count.')', 'modern-events-calendar-lite' );
+                            $variation_details[$key]['description'] = esc_html__($ticket_variation['title'].' ('.$new_count.')', 'modern-events-calendar-lite');
                         }
                     }
                 }
@@ -150,7 +150,7 @@ class MEC_book extends MEC_base
                     $date_fee_amount += $fee_amount;
 
                     // Price Details
-                    if(!isset($fee_details[$key])) $fee_details[$key] = array('amount'=>$fee_amount, 'description'=>__($fee['title'], 'modern-events-calendar-lite' ), 'type'=>'fee', 'fee_type'=>$fee['type'], 'fee_amount'=>$fee['amount']);
+                    if(!isset($fee_details[$key])) $fee_details[$key] = array('amount'=>$fee_amount, 'description'=>__($fee['title'], 'modern-events-calendar-lite'), 'type'=>'fee', 'fee_type'=>$fee['type'], 'fee_amount'=>$fee['amount']);
                     else $fee_details[$key]['amount'] += $fee_amount;
                 }
             }
@@ -179,7 +179,7 @@ class MEC_book extends MEC_base
                 $rest_fee_amount += $fee_amount;
 
                 // Price Details
-                if(!isset($fee_details[$key])) $fee_details[$key] = array('amount'=>$fee_amount, 'description'=>__($fee['title'], 'modern-events-calendar-lite' ), 'type'=>'fee', 'fee_type'=>$fee['type'], 'fee_amount'=>$fee['amount']);
+                if(!isset($fee_details[$key])) $fee_details[$key] = array('amount'=>$fee_amount, 'description'=>__($fee['title'], 'modern-events-calendar-lite'), 'type'=>'fee', 'fee_type'=>$fee['type'], 'fee_amount'=>$fee['amount']);
                 else $fee_details[$key]['amount'] += $fee_amount;
             }
 
@@ -187,7 +187,7 @@ class MEC_book extends MEC_base
         }
 
         // Ticket Details
-        $details[] = array('amount'=>$total_tickets_amount, 'description'=>esc_html__('Subtotal', 'modern-events-calendar-lite' ), 'type'=>'tickets');
+        $details[] = array('amount'=>$total_tickets_amount, 'description'=>esc_html__('Subtotal', 'modern-events-calendar-lite'), 'type'=>'tickets');
 
         // Variation Details
         foreach($variation_details as $variation_detail) $details[] = $variation_detail;
@@ -998,7 +998,7 @@ class MEC_book extends MEC_base
             if(isset($price_detail['type']) and $price_detail['type'] == 'discount' and isset($price_detail['coupon'])) unset($price_details[$i]);
         }
 
-        $price_details[] = array('amount'=>$discount, 'description'=>__('Discount', 'modern-events-calendar-lite' ), 'type'=>'discount', 'coupon'=>$coupon);
+        $price_details[] = array('amount'=>$discount, 'description'=>__('Discount', 'modern-events-calendar-lite'), 'type'=>'discount', 'coupon'=>$coupon);
 
         $transaction['price_details']['details'] = $price_details;
         $transaction['discount'] = $discount;
@@ -1118,7 +1118,7 @@ class MEC_book extends MEC_base
 
             $has_100percent_coupon = !$has_100percent_coupon ? $this->coupon_is_100percent($discount_item['coupon']) : $has_100percent_coupon;
 
-            $price_details[] = array('amount'=>$discount, 'description'=>__('Discount', 'modern-events-calendar-lite' ), 'type'=>'discount', 'coupon'=>$discount_item['coupon']);
+            $price_details[] = array('amount'=>$discount, 'description'=>__('Discount', 'modern-events-calendar-lite'), 'type'=>'discount', 'coupon'=>$discount_item['coupon']);
         }
 
         // Apply Fees
@@ -1132,7 +1132,7 @@ class MEC_book extends MEC_base
             elseif($fee_item['fee_type'] == 'amount_per_booking') $fee_amount += $fee_item['fee_amount'];
 
             $total_fee_amount += $fee_amount;
-            $price_details[] = array('amount'=>$fee_amount, 'description'=>__($fee_item['description'], 'modern-events-calendar-lite' ), 'type'=>'fee', 'fee_type'=>$fee_item['fee_type'], 'fee_amount'=>$fee_item['fee_amount']);
+            $price_details[] = array('amount'=>$fee_amount, 'description'=>__($fee_item['description'], 'modern-events-calendar-lite'), 'type'=>'fee', 'fee_type'=>$fee_item['fee_type'], 'fee_amount'=>$fee_item['fee_amount']);
         }
 
         $total += $total_fee_amount;
@@ -1237,7 +1237,7 @@ class MEC_book extends MEC_base
         if(!$transaction) return NULL;
 
         $book = $this->getBook();
-        return '<a href="'.esc_url($book->get_invoice_link($transaction)).'" target="_blank">'.esc_html__('Download Invoice', 'modern-events-calendar-lite' ).'</a>';
+        return '<a href="'.esc_url($book->get_invoice_link($transaction)).'" target="_blank">'.esc_html__('Download Invoice', 'modern-events-calendar-lite').'</a>';
     }
 
     public function get_total_attendees($book_id)

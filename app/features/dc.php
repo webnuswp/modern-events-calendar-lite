@@ -212,7 +212,7 @@ class MEC_feature_dc extends MEC_base
             if(isset($event->date) and isset($event->date['start']) and isset($event->date['start']['timestamp'])) $more_info_url = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info', $more_info_url);
 
             $more_info_target = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_target', (isset($event->data->meta['mec_more_info_target']) ? $event->data->meta['mec_more_info_target'] : '_self'));
-            $more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : esc_html__('Read More', 'modern-events-calendar-lite' )));
+            $more_info_title = MEC_feature_occurrences::param($event->ID, $event->date['start']['timestamp'], 'more_info_title', ((isset($event->data->meta['mec_more_info_title']) and trim($event->data->meta['mec_more_info_title'])) ? $event->data->meta['mec_more_info_title'] : esc_html__('Read More', 'modern-events-calendar-lite')));
 
             return '<a target="'.esc_attr($more_info_target).'" href="'.esc_url($more_info_url).'">'.esc_html($more_info_title).'</a>';
         }

@@ -24,16 +24,16 @@ if(trim($transaction_id))
 <div id="mec_booking_thankyou_<?php echo esc_attr($event_id); ?>">
     <?php if($display_progress_bar): ?>
     <ul class="mec-booking-progress-bar">
-        <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite' ); ?></li>
-        <li class="mec-booking-progress-bar-attendee-info mec-active"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite' ); ?></li>
+        <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite'); ?></li>
+        <li class="mec-booking-progress-bar-attendee-info mec-active"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite'); ?></li>
         <?php if($had_payment): ?>
-        <li class="mec-booking-progress-bar-payment mec-active"><?php esc_html_e('Payment', 'modern-events-calendar-lite' ); ?></li>
+        <li class="mec-booking-progress-bar-payment mec-active"><?php esc_html_e('Payment', 'modern-events-calendar-lite'); ?></li>
         <?php endif; ?>
-        <li class="mec-booking-progress-bar-complete mec-active"><?php esc_html_e('Complete', 'modern-events-calendar-lite' ); ?></li>
+        <li class="mec-booking-progress-bar-complete mec-active"><?php esc_html_e('Complete', 'modern-events-calendar-lite'); ?></li>
     </ul>
     <?php endif; ?>
     <?php if(!$had_payment): ?>
-    <div class="warning-msg"><?php esc_html_e("For free bookings, there is no payment step.", 'modern-events-calendar-lite' ); ?></div>
+    <div class="warning-msg"><?php esc_html_e("For free bookings, there is no payment step.", 'modern-events-calendar-lite'); ?></div>
     <?php endif; ?>
     <?php if(isset($message)): ?>
     <div class="mec-event-book-message mec-gateway-message mec-success">
@@ -43,6 +43,6 @@ if(trim($transaction_id))
     </div>
     <?php endif; ?>
     <?php if(trim($transaction_id)): ?>
-    <a href="<?php echo $main->get_event_date_permalink(get_permalink($event_id)); ?>"><?php esc_html_e('New Booking', 'modern-events-calendar-lite' ); ?></a>
+    <a href="<?php echo $main->get_event_date_permalink(get_permalink($event_id)); ?>"><?php esc_html_e('New Booking', 'modern-events-calendar-lite'); ?></a>
     <?php endif; ?>
 </div>

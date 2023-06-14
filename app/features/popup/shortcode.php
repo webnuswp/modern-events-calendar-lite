@@ -35,16 +35,16 @@ if(!isset($post_type)) $post_type = NULL;
                         <?php $user = wp_get_current_user(); ?>
                         <span class="mec-steps-header-img"><img src="<?php echo esc_url( get_avatar_url( $user->ID ) ); ?>" /></span>
                         <span class="mec-steps-header-name"><?php echo esc_html($user->display_name); ?></span>
-                        <span class="mec-steps-header-add-text"><?php esc_html_e('Adding a Shortcode...', 'modern-events-calendar-lite' ) ?></span>
+                        <span class="mec-steps-header-add-text"><?php esc_html_e('Adding a Shortcode...', 'modern-events-calendar-lite') ?></span>
                     </div>
                     <div class="mec-steps-header-settings">
-                        <a href="<?php echo admin_url( 'admin.php?page=MEC-settings' ); ?>"><i class="mec-sl-settings"></i><?php esc_html_e('Settings', 'modern-events-calendar-lite' ); ?></a>
+                        <a href="<?php echo admin_url( 'admin.php?page=MEC-settings' ); ?>"><i class="mec-sl-settings"></i><?php esc_html_e('Settings', 'modern-events-calendar-lite'); ?></a>
                     </div>
                 </div>
                 <div class="mec-steps-content mec-steps-content-1">
                     <?php wp_nonce_field('mec_shortcode_popup', '_mecnonce'); ?>
-                    <input type="text" name="shortcode[name]" placeholder="<?php esc_attr_e('Shortcode Name', 'modern-events-calendar-lite' ); ?>" id="mec_shortcode_name">
-                    <p class="popup-sh-name-required"><?php esc_html_e('Shortcode name is required', 'modern-events-calendar-lite' ); ?></p>
+                    <input type="text" name="shortcode[name]" placeholder="<?php esc_attr_e('Shortcode Name', 'modern-events-calendar-lite'); ?>" id="mec_shortcode_name">
+                    <p class="popup-sh-name-required"><?php esc_html_e('Shortcode name is required', 'modern-events-calendar-lite'); ?></p>
                 </div>
                 <div class="mec-steps-content mec-steps-content-2">
                     <ul>
@@ -69,33 +69,33 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/list-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/list-minimal.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="minimal">
-                                <div><?php esc_html_e('Minimal', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Minimal', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/list-modern.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
-                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/list-standard.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="standard">
-                                <div><?php esc_html_e('Standard', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Standard', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/list-toggle.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="accordion">
-                                <div><?php esc_html_e('Toggle', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Toggle', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/list-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -103,43 +103,43 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-clean.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
-                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-minimal.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="minimal">
-                                <div><?php esc_html_e('Minimal', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Minimal', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-modern.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
-                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-simple.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="simple">
-                                <div><?php esc_html_e('Simple', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Simple', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-colorful.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="colorful">
-                                <div><?php esc_html_e('Colorful', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Colorful', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-novel.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="novel">
-                                <div><?php esc_html_e('Novel', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Novel', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/grid-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -147,38 +147,38 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/agenda-clean.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
-                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/agenda-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
                         <div class="mec-skin-styles mec-styles-full_calendar">
-                            <h3><?php esc_html_e('Monthly Style', 'modern-events-calendar-lite' ); ?></h3>
+                            <h3><?php esc_html_e('Monthly Style', 'modern-events-calendar-lite'); ?></h3>
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-clean.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
-                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-novel.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="novel">
-                                <div><?php esc_html_e('Novel', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Novel', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-simple.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="simple">
-                                <div><?php esc_html_e('Simple', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Simple', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -186,13 +186,13 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/yearly-modern.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
-                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/yearly-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -200,33 +200,33 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-clean.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
-                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-modern.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
-                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-novel.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="novel">
-                                <div><?php esc_html_e('Novel', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Novel', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-simple.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="simple">
-                                <div><?php esc_html_e('Simple', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Simple', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/monthly-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -237,12 +237,12 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/daily-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/daily-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -251,12 +251,12 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/weekly-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/weekly-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -264,18 +264,18 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/timetable-modern.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
-                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/timetable-clean.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
-                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/timetable-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -284,12 +284,12 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/masonry-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/masonry-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -297,38 +297,38 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/cover-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/cover-clean.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="clean">
-                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Clean', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/cover-modern.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="modern">
-                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Modern', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/cover-fluent-type1.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type1">
-                                <div><?php esc_html_e('Fluent Type 1', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent Type 1', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/cover-fluent-type2.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type2">
-                                <div><?php esc_html_e('Fluent Type 2', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent Type 2', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/cover-fluent-type3.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type3">
-                                <div><?php esc_html_e('Fluent Type 3', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent Type 3', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/cover-fluent-type4.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type4">
-                                <div><?php esc_html_e('Fluent Type 4', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent Type 4', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -336,23 +336,23 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/countdown-type1.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="style1">
-                                <div><?php esc_html_e('Style 1', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Style 1', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/countdown-type2.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="style2">
-                                <div><?php esc_html_e('Style 2', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Style 2', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/countdown-type3.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="style3">
-                                <div><?php esc_html_e('Style 3', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Style 3', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/countdown-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -361,17 +361,17 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/available-spot-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/available-spot-fluent-type1.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type1">
-                                <div><?php esc_html_e('Fluent Type 1', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent Type 1', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/available-spot-fluent-type2.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent-type2">
-                                <div><?php esc_html_e('Fluent Type 2', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent Type 2', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -379,28 +379,28 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/carousel-type1.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="type1">
-                                <div><?php esc_html_e('Type 1', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 1', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/carousel-type2.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="type2">
-                                <div><?php esc_html_e('Type 2', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 2', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/carousel-type3.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="type3">
-                                <div><?php esc_html_e('Type 3', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 3', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/carousel-type4.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="type4">
-                                <div><?php esc_html_e('Type 4', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 4', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/carousel-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -408,33 +408,33 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/slider-type1.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="t1">
-                                <div><?php esc_html_e('Type 1', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 1', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/slider-type2.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="t2">
-                                <div><?php esc_html_e('Type 2', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 2', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/slider-type3.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="t3">
-                                <div><?php esc_html_e('Type 3', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 3', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/slider-type4.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="t4">
-                                <div><?php esc_html_e('Type 4', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 4', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/slider-type5.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="t5">
-                                <div><?php esc_html_e('Type 5', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Type 5', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php if ( is_plugin_active( 'mec-fluent-layouts/mec-fluent-layouts.php' ) ) { ?>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/slider-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -445,12 +445,12 @@ if(!isset($post_type)) $post_type = NULL;
                             <label class="active">
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/tile-classic.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="classic">
-                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Classic', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <label>
                                 <span class="wn-hover-img-sh"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/skins/popup/tile-fluent.jpg'; ?>" /></span>
                                 <input type="radio" name="shortcode[style]" class="mec-styles" value="fluent">
-                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite' ); ?></div>
+                                <div><?php esc_html_e('Fluent', 'modern-events-calendar-lite'); ?></div>
                             </label>
                             <?php } ?>
                         </div>
@@ -464,7 +464,7 @@ if(!isset($post_type)) $post_type = NULL;
                         );
                         $styles = new WP_Query($args);
                         ?>
-                        <h3 for="mec_shortcode_custom_style"><?php esc_html_e('Select Style', 'modern-events-calendar-lite' ); ?></h3>
+                        <h3 for="mec_shortcode_custom_style"><?php esc_html_e('Select Style', 'modern-events-calendar-lite'); ?></h3>
                         <select class="mec-col-4 wn-mec-select" name="shortcode[custom_style]" id="mec_skin_custom_style">
                             <?php foreach($styles->get_posts() as $post): ?>
                             <option value="<?php echo esc_attr($post->ID) ?>" <?php isset($sk_options_custom['style']) ? selected($sk_options_custom['style'], $post->ID, true) : ''; ?> ><?php echo esc_html($post->post_title); ?></option>';
@@ -477,24 +477,24 @@ if(!isset($post_type)) $post_type = NULL;
                 </div>
                 <div class="mec-steps-content mec-steps-content-4">
                     <div class="mec-multiple-skin-options">
-                        <h3><?php esc_html_e('Single Event Display Method', 'modern-events-calendar-lite' ); ?></h3>
+                        <h3><?php esc_html_e('Single Event Display Method', 'modern-events-calendar-lite'); ?></h3>
                         <div>
                             <label>
                                 <input type="radio" name="shortcode[sed]" value="0" checked>
-                                <?php esc_html_e('Current Window', 'modern-events-calendar-lite' ); ?>
+                                <?php esc_html_e('Current Window', 'modern-events-calendar-lite'); ?>
                             </label>
                             <label class="active">
                                 <input type="radio" name="shortcode[sed]" value="new" checked>
-                                <?php esc_html_e('New Window', 'modern-events-calendar-lite' ); ?>
+                                <?php esc_html_e('New Window', 'modern-events-calendar-lite'); ?>
                             </label>
                             <label>
                                 <input type="radio" name="shortcode[sed]" value="m1">
-                                <?php esc_html_e('Modal Popup', 'modern-events-calendar-lite' ); ?>
+                                <?php esc_html_e('Modal Popup', 'modern-events-calendar-lite'); ?>
                             </label>
                         </div>
                     </div>
                     <div class="mec-single-skin-options">
-                        <h3 for="mec_shortcode_event_id"><?php esc_html_e('Select Event', 'modern-events-calendar-lite' ); ?></h3>
+                        <h3 for="mec_shortcode_event_id"><?php esc_html_e('Select Event', 'modern-events-calendar-lite'); ?></h3>
                         <select name="shortcode[event]" id="mec_shortcode_event_id" class="mec_shortcode_event_id wn-mec-select-popup">
                             <?php foreach($events as $event): ?>
                             <option value="<?php echo esc_attr($event->ID); ?>" <?php if(isset($sk_options_cover['event_id']) and $sk_options_cover['event_id'] == $event->ID) echo 'selected="selected"'; ?>><?php echo esc_html($event->post_title); ?></option>
@@ -505,8 +505,8 @@ if(!isset($post_type)) $post_type = NULL;
                 <div class="wns-be-group-tab mec-steps-content mec-steps-content-5">
                     <div class="mec-switcher" id="mec_show_past_events_wrapper">
                         <div>
-                            <label for="mec_show_past_events"><?php esc_html_e('Include Expired Events', 'modern-events-calendar-lite' ); ?></label>
-                            <p class="description"><?php esc_html_e('You have ability to include past/expired events if you like so it will show upcoming and expired events based on start date that you selected.', 'modern-events-calendar-lite' ); ?></p>
+                            <label for="mec_show_past_events"><?php esc_html_e('Include Expired Events', 'modern-events-calendar-lite'); ?></label>
+                            <p class="description"><?php esc_html_e('You have ability to include past/expired events if you like so it will show upcoming and expired events based on start date that you selected.', 'modern-events-calendar-lite'); ?></p>
                         </div>
                         <div>
                             <input type="hidden" name="shortcode[show_past_events]" value="0" />
@@ -516,8 +516,8 @@ if(!isset($post_type)) $post_type = NULL;
                     </div>
                     <div class="mec-switcher" id="mec_show_only_past_events_wrapper">
                         <div>
-                            <label for="mec_show_only_past_events"><?php esc_html_e('Show Only Expired Events', 'modern-events-calendar-lite' ); ?></label>
-                            <p class="description" style="color: red;"><?php echo sprintf(esc_html__('It shows %s expired/past events.', 'modern-events-calendar-lite' ), '<strong>'.esc_html__('only', 'modern-events-calendar-lite' ).'</strong>'); ?></p>
+                            <label for="mec_show_only_past_events"><?php esc_html_e('Show Only Expired Events', 'modern-events-calendar-lite'); ?></label>
+                            <p class="description" style="color: red;"><?php echo sprintf(esc_html__('It shows %s expired/past events.', 'modern-events-calendar-lite'), '<strong>'.esc_html__('only', 'modern-events-calendar-lite').'</strong>'); ?></p>
                         </div>
                         <div>
                             <input type="hidden" name="shortcode[show_only_past_events]" value="0" />
@@ -527,8 +527,8 @@ if(!isset($post_type)) $post_type = NULL;
                     </div>
                     <div class="mec-switcher" id="mec_show_only_ongoing_events_wrapper">
                         <div>
-                            <label for="mec_show_only_ongoing_events"><?php esc_html_e('Show Only Ongoing Events', 'modern-events-calendar-lite' ); ?></label>
-                            <p class="description"><?php esc_html_e('It shows only ongoing events on List and Grid skins.', 'modern-events-calendar-lite' ); ?></p>
+                            <label for="mec_show_only_ongoing_events"><?php esc_html_e('Show Only Ongoing Events', 'modern-events-calendar-lite'); ?></label>
+                            <p class="description"><?php esc_html_e('It shows only ongoing events on List and Grid skins.', 'modern-events-calendar-lite'); ?></p>
                         </div>
                         <div>
                             <input type="hidden" name="shortcode[show_only_ongoing_events]" value="0" />
@@ -541,21 +541,21 @@ if(!isset($post_type)) $post_type = NULL;
                     <div class="mec-steps-6-loading"><div class="mec-loader"></div></div>
                     <div class="mec-steps-6-results">
                         <div class="mec-popup-shortcode">
-                            <h3><?php esc_html_e('Your Shortcode', 'modern-events-calendar-lite' ); ?></h3>
+                            <h3><?php esc_html_e('Your Shortcode', 'modern-events-calendar-lite'); ?></h3>
                             <div class="mec-popup-shortcode-code">
                                 <code></code>
-                                <button type="button" class="mec-button-copy"><?php esc_html_e('Copy', 'modern-events-calendar-lite' ); ?></button>
+                                <button type="button" class="mec-button-copy"><?php esc_html_e('Copy', 'modern-events-calendar-lite'); ?></button>
                             </div>
                         </div>
-                        <p class="description"><?php esc_html_e('Put this shortcode into your desired page.', 'modern-events-calendar-lite' ); ?></p>
+                        <p class="description"><?php esc_html_e('Put this shortcode into your desired page.', 'modern-events-calendar-lite'); ?></p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="mec-next-previous-buttons">
-            <button class="mec-button-prev"><?php esc_html_e('Prev', 'modern-events-calendar-lite' ); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-prev-icon.svg'; ?>" /></button>
-            <button class="mec-button-next"><?php esc_html_e('Next', 'modern-events-calendar-lite' ); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-next-icon.svg'; ?>" /></button>
-            <button class="mec-button-new"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-new-shortcode-plus.svg'; ?>" /><?php esc_html_e('New Shortcode', 'modern-events-calendar-lite' ); ?></button>
+            <button class="mec-button-prev"><?php esc_html_e('Prev', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-prev-icon.svg'; ?>" /></button>
+            <button class="mec-button-next"><?php esc_html_e('Next', 'modern-events-calendar-lite'); ?><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-next-icon.svg'; ?>" /></button>
+            <button class="mec-button-new"><img src="<?php echo plugin_dir_url(__FILE__ ) . '../../../assets/img/popup/popup-new-shortcode-plus.svg'; ?>" /><?php esc_html_e('New Shortcode', 'modern-events-calendar-lite'); ?></button>
         </div>
     </div>
 </div>

@@ -55,7 +55,7 @@ class MEC_feature_faq extends MEC_base
 
     public function tab($tabs)
     {
-        $tabs[__('FAQ', 'modern-events-calendar-lite' )] = 'mec-faq';
+        $tabs[__('FAQ', 'modern-events-calendar-lite')] = 'mec-faq';
         return $tabs;
     }
 
@@ -71,34 +71,34 @@ class MEC_feature_faq extends MEC_base
         if(!is_array($faqs)) $faqs = [];
         ?>
         <div class="mec-meta-box-fields mec-event-tab-content" id="mec-faq">
-            <h4><?php esc_html_e('FAQ', 'modern-events-calendar-lite' ); ?></h4>
+            <h4><?php esc_html_e('FAQ', 'modern-events-calendar-lite'); ?></h4>
             <div class="mec-faq-wrapper mec-form-row">
                 <div>
-                    <button id="mec_add_faq_button" type="button" class="button mec-button-new"><?php esc_attr_e('Add', 'modern-events-calendar-lite' ); ?></button>
+                    <button id="mec_add_faq_button" type="button" class="button mec-button-new"><?php esc_attr_e('Add', 'modern-events-calendar-lite'); ?></button>
                 </div>
                 <ul class="mec-faq-list" id="mec_faq_list">
                     <?php $i = 0; foreach($faqs as $faq): ?>
                     <li class="mec-box mec_faq_row" id="mec_faq_row<?php echo $i; ?>">
                         <div class="mec-faq-actions">
                             <ul>
-                                <li><button class=" button mec-faq-remove" onclick="mec_faq_remove(<?php echo $i; ?>)"><?php esc_html_e("Remove", 'modern-events-calendar-lite' ); ?></button></li>
+                                <li><button class=" button mec-faq-remove" onclick="mec_faq_remove(<?php echo $i; ?>)"><?php esc_html_e("Remove", 'modern-events-calendar-lite'); ?></button></li>
                             </ul>
                         </div>
                         <div class="mec-faq-data">
                             <div class="mec-faq-data-row mec-form-row">
                                 <div class="mec-col-2">
-                                    <label for="mec_faq<?php echo $i; ?>_title"><?php esc_html_e("FAQ Title", 'modern-events-calendar-lite' ); ?></label>
+                                    <label for="mec_faq<?php echo $i; ?>_title"><?php esc_html_e("FAQ Title", 'modern-events-calendar-lite'); ?></label>
                                 </div>
                                 <div class="mec-col-8">
-                                    <input type="text" class="mec-col-12" name="mec[faq][<?php echo $i; ?>][title]" placeholder="<?php esc_attr_e('Title Here', 'modern-events-calendar-lite' ); ?>" value="<?php echo esc_attr($faq['title']); ?>">
+                                    <input type="text" class="mec-col-12" name="mec[faq][<?php echo $i; ?>][title]" placeholder="<?php esc_attr_e('Title Here', 'modern-events-calendar-lite'); ?>" value="<?php echo esc_attr($faq['title']); ?>">
                                 </div>
                             </div>
                             <div class="mec-faq-data-row mec-form-row">
                                 <div class="mec-col-2">
-                                    <label for="mec_faq<?php echo $i; ?>_body"><?php esc_html_e("FAQ Content", 'modern-events-calendar-lite' ); ?></label>
+                                    <label for="mec_faq<?php echo $i; ?>_body"><?php esc_html_e("FAQ Content", 'modern-events-calendar-lite'); ?></label>
                                 </div>
                                 <div class="mec-col-8">
-                                    <textarea type="text" class="mec-col-12" name="mec[faq][<?php echo $i; ?>][body]" placeholder="<?php esc_attr_e('FAQ Content Here', 'modern-events-calendar-lite' ); ?>"><?php echo esc_textarea($faq['body']); ?></textarea>
+                                    <textarea type="text" class="mec-col-12" name="mec[faq][<?php echo $i; ?>][body]" placeholder="<?php esc_attr_e('FAQ Content Here', 'modern-events-calendar-lite'); ?>"><?php echo esc_textarea($faq['body']); ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -111,24 +111,24 @@ class MEC_feature_faq extends MEC_base
                 <li class="mec-box mec_faq_row" id="mec_faq_row:i:">
                     <div class="mec-faq-actions">
                         <ul>
-                            <li><button class="button mec-faq-remove" onclick="mec_faq_remove(:i:)"><?php esc_html_e("Remove", 'modern-events-calendar-lite' ); ?></button></li>
+                            <li><button class="button mec-faq-remove" onclick="mec_faq_remove(:i:)"><?php esc_html_e("Remove", 'modern-events-calendar-lite'); ?></button></li>
                         </ul>
                     </div>
                     <div class="mec-faq-data">
                         <div class="mec-faq-data-row mec-form-row">
                             <div class="mec-col-2">
-                                <label for="mec_faq:i:_title"><?php esc_html_e("FAQ Title", 'modern-events-calendar-lite' ); ?></label>
+                                <label for="mec_faq:i:_title"><?php esc_html_e("FAQ Title", 'modern-events-calendar-lite'); ?></label>
                             </div>
                             <div class="mec-col-8">
-                                <input type="text" class="mec-col-12" name="mec[faq][:i:][title]" placeholder="<?php esc_attr_e('Title Here', 'modern-events-calendar-lite' ); ?>">
+                                <input type="text" class="mec-col-12" name="mec[faq][:i:][title]" placeholder="<?php esc_attr_e('Title Here', 'modern-events-calendar-lite'); ?>">
                             </div>
                         </div>
                         <div class="mec-faq-data-row mec-form-row">
                             <div class="mec-col-2">
-                                <label for="mec_faq:i:_body"><?php esc_html_e("FAQ Content", 'modern-events-calendar-lite' ); ?></label>
+                                <label for="mec_faq:i:_body"><?php esc_html_e("FAQ Content", 'modern-events-calendar-lite'); ?></label>
                             </div>
                             <div class="mec-col-8">
-                                <textarea type="text" class="mec-col-12"     name="mec[faq][:i:][body]" placeholder="<?php esc_attr_e('FAQ Content Here', 'modern-events-calendar-lite' ); ?>"></textarea>
+                                <textarea type="text" class="mec-col-12"     name="mec[faq][:i:][body]" placeholder="<?php esc_attr_e('FAQ Content Here', 'modern-events-calendar-lite'); ?>"></textarea>
                             </div>
                         </div>
                     </div>

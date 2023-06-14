@@ -23,27 +23,27 @@ if(!is_array($events)) $events = array();
 $upcoming_event_ids = $this->main->get_upcoming_event_ids(NULL, 'publish');
 ?>
 <div class="mec-form-row mec-email-metabox mec-details">
-    <h3><?php esc_html_e('Time', 'modern-events-calendar-lite' ); ?></h3>
+    <h3><?php esc_html_e('Time', 'modern-events-calendar-lite'); ?></h3>
     <div>
-        <span><?php esc_html_e('Send it', 'modern-events-calendar-lite' ); ?></span>
-        <input type="number" min="1" name="mec[time]" placeholder="2" value="<?php echo esc_attr($time); ?>" title="<?php esc_attr_e('Time', 'modern-events-calendar-lite' ); ?>" required>
-        <select name="mec[type]" title="<?php esc_attr_e('Time Type', 'modern-events-calendar-lite' ); ?>">
-            <option value="day" <?php echo ($type === 'day' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Day(s)', 'modern-events-calendar-lite' ); ?></option>
-            <option value="hour" <?php echo ($type === 'hour' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Hour(s)', 'modern-events-calendar-lite' ); ?></option>
-            <option value="minute" <?php echo ($type === 'minute' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Minute(s)', 'modern-events-calendar-lite' ); ?></option>
+        <span><?php esc_html_e('Send it', 'modern-events-calendar-lite'); ?></span>
+        <input type="number" min="1" name="mec[time]" placeholder="2" value="<?php echo esc_attr($time); ?>" title="<?php esc_attr_e('Time', 'modern-events-calendar-lite'); ?>" required>
+        <select name="mec[type]" title="<?php esc_attr_e('Time Type', 'modern-events-calendar-lite'); ?>">
+            <option value="day" <?php echo ($type === 'day' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Day(s)', 'modern-events-calendar-lite'); ?></option>
+            <option value="hour" <?php echo ($type === 'hour' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Hour(s)', 'modern-events-calendar-lite'); ?></option>
+            <option value="minute" <?php echo ($type === 'minute' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Minute(s)', 'modern-events-calendar-lite'); ?></option>
         </select>
-        <select name="mec[afterbefore]" title="<?php esc_attr_e('After / Before', 'modern-events-calendar-lite' ); ?>">
-            <option value="before" <?php echo ($afterbefore === 'before' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Before', 'modern-events-calendar-lite' ); ?></option>
-            <option value="after" <?php echo ($afterbefore === 'after' ? 'selected="selected"' : ''); ?>><?php esc_html_e('After', 'modern-events-calendar-lite' ); ?></option>
+        <select name="mec[afterbefore]" title="<?php esc_attr_e('After / Before', 'modern-events-calendar-lite'); ?>">
+            <option value="before" <?php echo ($afterbefore === 'before' ? 'selected="selected"' : ''); ?>><?php esc_html_e('Before', 'modern-events-calendar-lite'); ?></option>
+            <option value="after" <?php echo ($afterbefore === 'after' ? 'selected="selected"' : ''); ?>><?php esc_html_e('After', 'modern-events-calendar-lite'); ?></option>
         </select>
-        <span><?php esc_html_e('event occurrence.', 'modern-events-calendar-lite' ); ?></span>
+        <span><?php esc_html_e('event occurrence.', 'modern-events-calendar-lite'); ?></span>
     </div>
 
-    <h3><?php esc_html_e('Events', 'modern-events-calendar-lite' ); ?></h3>
+    <h3><?php esc_html_e('Events', 'modern-events-calendar-lite'); ?></h3>
     <div>
         <input type="hidden" name="mec[all]" value="0">
         <label>
-            <input type="checkbox" name="mec[all]" <?php echo ($all ? 'checked' : ''); ?> value="1" onchange="jQuery('#mec_events_container').toggleClass('w-hidden');"> <?php esc_html_e('All Events', 'modern-events-calendar-lite' ); ?>
+            <input type="checkbox" name="mec[all]" <?php echo ($all ? 'checked' : ''); ?> value="1" onchange="jQuery('#mec_events_container').toggleClass('w-hidden');"> <?php esc_html_e('All Events', 'modern-events-calendar-lite'); ?>
         </label>
         <div id="mec_events_container" class="<?php echo ($all ? 'w-hidden' : ''); ?>">
             <ul>
@@ -58,7 +58,7 @@ $upcoming_event_ids = $this->main->get_upcoming_event_ids(NULL, 'publish');
         </div>
     </div>
 
-    <h3><?php esc_html_e('Placeholders', 'modern-events-calendar-lite' ); ?></h3>
+    <h3><?php esc_html_e('Placeholders', 'modern-events-calendar-lite'); ?></h3>
     <?php MEC_feature_notifications::display_placeholders(); ?>
 
     <?php

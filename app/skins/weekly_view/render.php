@@ -60,7 +60,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
     </li>
     <?php elseif(!isset($has_events[$week])): $has_events[$week] = 'printed'; ?>
     <li class="mec-weekly-view-date-events mec-util-hidden mec-calendar-day-events mec-clear mec-weekly-view-week-<?php echo esc_attr($this->id); ?>-<?php echo date('Ym', strtotime($date)).$week; ?>" id="mec_weekly_view_date_events<?php echo esc_attr($this->id); ?>_<?php echo date('Ymd', strtotime($date)); ?>" data-week-number="<?php echo esc_attr($week); ?>">
-        <article class="mec-event-article"><h4 class="mec-event-title"><?php esc_html_e('No Events', 'modern-events-calendar-lite' ); ?></h4><div class="mec-event-detail"></div></article>
+        <article class="mec-event-article"><h4 class="mec-event-title"><?php esc_html_e('No Events', 'modern-events-calendar-lite'); ?></h4><div class="mec-event-detail"></div></article>
     </li>
     <?php endif; ?>
     <?php endforeach; ?>

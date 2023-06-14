@@ -43,7 +43,7 @@ elseif($week_start == 5) // Friday
 }
 
 $events_str = '';
-if($this->display_all) $events_str .= '<h3 class="mec-table-side-title">'.esc_html__('Events', 'modern-events-calendar-lite' ).'</h3>';
+if($this->display_all) $events_str .= '<h3 class="mec-table-side-title">'.esc_html__('Events', 'modern-events-calendar-lite').'</h3>';
 
 $date_format = get_option('date_format');
 ?>
@@ -247,7 +247,7 @@ $date_format = get_option('date_format');
                 {
                     $events_str .= '<div class="mec-calendar-events-sec" id="mec-calendar-events-sec-'.esc_attr($this->id.'-'.$day_id).'" data-mec-cell="'.esc_attr($day_id).'" '.((trim($selected_day) != '' or $this->display_all) ? ' style="display: block;"' : '').'>'.MEC_kses::element($this->day_label($time));
                     $events_str .= '<article class="mec-event-article">';
-                    $events_str .= '<div class="mec-event-detail">'.esc_html__('No Events', 'modern-events-calendar-lite' ).'</div>';
+                    $events_str .= '<div class="mec-event-detail">'.esc_html__('No Events', 'modern-events-calendar-lite').'</div>';
                     $events_str .= '</article>';
                     $events_str .= '</div>';
                 }

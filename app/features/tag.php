@@ -55,8 +55,8 @@ class MEC_feature_tag extends MEC_base
         if($taxonomy === 'post_tag') register_taxonomy_for_object_type('post_tag', $this->PT);
         else
         {
-            $singular_label = $this->main->m('taxonomy_tag', esc_html__('Tag', 'modern-events-calendar-lite' ));
-            $plural_label = $this->main->m('taxonomy_tags', esc_html__('Tags', 'modern-events-calendar-lite' ));
+            $singular_label = $this->main->m('taxonomy_tag', esc_html__('Tag', 'modern-events-calendar-lite'));
+            $plural_label = $this->main->m('taxonomy_tags', esc_html__('Tags', 'modern-events-calendar-lite'));
 
             register_taxonomy(
                 'mec_tag',
@@ -66,16 +66,16 @@ class MEC_feature_tag extends MEC_base
                     'labels'=>array(
                         'name'=>$plural_label,
                         'singular_name'=>$singular_label,
-                        'all_items'=>sprintf(esc_html__('All %s', 'modern-events-calendar-lite' ), $plural_label),
-                        'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite' ), $singular_label),
-                        'view_item'=>sprintf(esc_html__('View %s', 'modern-events-calendar-lite' ), $singular_label),
-                        'update_item'=>sprintf(esc_html__('Update %s', 'modern-events-calendar-lite' ), $singular_label),
-                        'add_new_item'=>sprintf(esc_html__('Add New %s', 'modern-events-calendar-lite' ), $singular_label),
-                        'new_item_name'=>sprintf(esc_html__('New %s Name', 'modern-events-calendar-lite' ), $singular_label),
-                        'popular_items'=>sprintf(esc_html__('Popular %s', 'modern-events-calendar-lite' ), $plural_label),
-                        'search_items'=>sprintf(esc_html__('Search %s', 'modern-events-calendar-lite' ), $plural_label),
-                        'back_to_items'=>sprintf(esc_html__('← Back to %s', 'modern-events-calendar-lite' ), $plural_label),
-                        'not_found'=>sprintf(esc_html__('no %s found.', 'modern-events-calendar-lite' ), strtolower($plural_label)),
+                        'all_items'=>sprintf(esc_html__('All %s', 'modern-events-calendar-lite'), $plural_label),
+                        'edit_item'=>sprintf(esc_html__('Edit %s', 'modern-events-calendar-lite'), $singular_label),
+                        'view_item'=>sprintf(esc_html__('View %s', 'modern-events-calendar-lite'), $singular_label),
+                        'update_item'=>sprintf(esc_html__('Update %s', 'modern-events-calendar-lite'), $singular_label),
+                        'add_new_item'=>sprintf(esc_html__('Add New %s', 'modern-events-calendar-lite'), $singular_label),
+                        'new_item_name'=>sprintf(esc_html__('New %s Name', 'modern-events-calendar-lite'), $singular_label),
+                        'popular_items'=>sprintf(esc_html__('Popular %s', 'modern-events-calendar-lite'), $plural_label),
+                        'search_items'=>sprintf(esc_html__('Search %s', 'modern-events-calendar-lite'), $plural_label),
+                        'back_to_items'=>sprintf(esc_html__('← Back to %s', 'modern-events-calendar-lite'), $plural_label),
+                        'not_found'=>sprintf(esc_html__('no %s found.', 'modern-events-calendar-lite'), strtolower($plural_label)),
                     ),
                     'rewrite'=>array('slug'=>'events-tag'),
                     'public'=>true,

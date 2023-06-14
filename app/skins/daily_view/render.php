@@ -49,7 +49,7 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
             </article>
         <?php endforeach; ?>
         <?php else: ?>
-            <article class="mec-event-article"><div class="mec-daily-view-no-event mec-no-event"><?php esc_html_e('No event', 'modern-events-calendar-lite' ); ?></div></article>
+            <article class="mec-event-article"><div class="mec-daily-view-no-event mec-no-event"><?php esc_html_e('No event', 'modern-events-calendar-lite'); ?></div></article>
         <?php endif; ?>
     </li>
     <?php endforeach; ?>

@@ -98,7 +98,7 @@ wp_enqueue_script('mec-nice-select', $this->main->asset('js/jquery.nice-select.m
 		echo ((is_array($this->sf_options) and $this->sf_options['label']['type'] != '0') ? MEC_kses::form($this->sf_search_field('label', array('type' => $this->sf_options['label']['type']))) : '');
 		echo ((is_array($this->sf_options) and $this->sf_options['address_search']['type'] != '0') ? MEC_kses::form($this->sf_search_field('address_search', array('type' => $this->sf_options['address_search']['type']))) : '');
 		echo ((is_array($this->sf_options) and $this->sf_options['event_cost']['type'] != '0') ? MEC_kses::form($this->sf_search_field('event_cost', array('type' => $this->sf_options['event_cost']['type']))) : '');
-		echo ($this->sf_reset_button ? '<div class="mec-search-reset-button"><button class="button mec-button" id="mec_search_form_'.esc_attr($this->id).'_reset" type="button">'.esc_html__('Reset', 'modern-events-calendar-lite' ).'</button></div>' : '');
+		echo ($this->sf_reset_button ? '<div class="mec-search-reset-button"><button class="button mec-button" id="mec_search_form_'.esc_attr($this->id).'_reset" type="button">'.esc_html__('Reset', 'modern-events-calendar-lite').'</button></div>' : '');
 		?>
 		</div>
 	</div>
@@ -125,7 +125,7 @@ if (mec_general_calendar_find_event($this->sf_options, 'find')) :
 $javascript .='
 			customButtons: {
 				findEvents: {
-					text: "'. esc_html__('Find Events', 'modern-events-calendar-lite' ) .'",
+					text: "'. esc_html__('Find Events', 'modern-events-calendar-lite') .'",
 					click: function() {
 						jQuery(".mec-gCalendar-filters").css("display" , "none")
 						var eventSource = [];
@@ -175,7 +175,7 @@ $javascript .='
 if (mec_general_calendar_find_event($this->sf_options, 'filter')) :
 $javascript .='
 				filterEvents: {
-					text: "'. esc_html__('Filter', 'modern-events-calendar-lite' ) .'",
+					text: "'. esc_html__('Filter', 'modern-events-calendar-lite') .'",
 					click: function() {
 						jQuery(".mec-gCalendar-filters").fadeToggle( "fast", "linear" );
 					}
@@ -204,7 +204,7 @@ endif;
 $javascript .='
             },
 			buttonText: {
-                today: "'. esc_html__('Today', 'modern-events-calendar-lite' ) .'"
+                today: "'. esc_html__('Today', 'modern-events-calendar-lite') .'"
             },
 			eventDidMount: function(info) {
 				var searchField = jQuery(".mec-gCalendar-search-text");
@@ -379,7 +379,7 @@ $javascript .= '
 		// Search Bar Filter
 if (is_array($this->sf_options) and $this->sf_options['text_search']['type'] != '0') :
 $javascript .='
-			jQuery( "<div class=\"mec-gCalendar-search-text-wrap\"><i class=\"mec-sl-magnifier\"></i><input type=\"text\" class=\"mec-gCalendar-search-text\" placeholder=\"'. ((is_array($this->sf_options) and $this->sf_options['text_search']['placeholder']) ? esc_html__($this->sf_options['text_search']['placeholder']) : esc_html__('Search for events', 'modern-events-calendar-lite' )) .'\" /></div>" ).insertBefore( ".fc-header-toolbar .fc-toolbar-chunk:last-child .fc-button-group" );
+			jQuery( "<div class=\"mec-gCalendar-search-text-wrap\"><i class=\"mec-sl-magnifier\"></i><input type=\"text\" class=\"mec-gCalendar-search-text\" placeholder=\"'. ((is_array($this->sf_options) and $this->sf_options['text_search']['placeholder']) ? esc_html__($this->sf_options['text_search']['placeholder']) : esc_html__('Search for events', 'modern-events-calendar-lite')) .'\" /></div>" ).insertBefore( ".fc-header-toolbar .fc-toolbar-chunk:last-child .fc-button-group" );
 
 			jQuery(".mec-gCalendar-search-text").keypress(function(event){
 				var keycode = (event.keyCode ? event.keyCode : event.which);

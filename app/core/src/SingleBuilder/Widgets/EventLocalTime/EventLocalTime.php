@@ -33,8 +33,8 @@ class EventLocalTime extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( !isset($settings['local_time_module_status']) || !$settings['local_time_module_status'] ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if label is set. In order for the widget in this page to be displayed correctly, please set LocalTime module for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/local-time-module/" target="_blank">' . esc_html__('How to set LocalTime module', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if label is set. In order for the widget in this page to be displayed correctly, please set LocalTime module for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/local-time-module/" target="_blank">' . esc_html__('How to set LocalTime module', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 

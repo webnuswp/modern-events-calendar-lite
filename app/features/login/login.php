@@ -2,22 +2,22 @@
     <div class="mec-login-input">
         <label>
             <i class="mec-sl-user"></i>
-            <input name="email" id="email" type="text" title="<?php esc_attr_e('Email', 'modern-events-calendar-lite' ); ?>">
+            <input name="email" id="email" type="text" title="<?php esc_attr_e('Email', 'modern-events-calendar-lite'); ?>">
         </label>
     </div>
     <div class="mec-login-input">
         <label>
             <i class="mec-sl-key"></i>
-            <input name="password" id="password" type="password" title="<?php esc_attr_e('Password', 'modern-events-calendar-lite' ); ?>">
+            <input name="password" id="password" type="password" title="<?php esc_attr_e('Password', 'modern-events-calendar-lite'); ?>">
             <i class="mec-sl-display-controller-password"></i>
         </label>
     </div>
     <div class="mec-login-form-footer">
         <div class="mec-login-forgotpassword">
-            <a class="mec-color-hover" href="<?php echo wp_lostpassword_url(); ?>"><?php esc_html_e('Forgot Password?', 'modern-events-calendar-lite' ); ?></a>
+            <a class="mec-color-hover" href="<?php echo wp_lostpassword_url(); ?>"><?php esc_html_e('Forgot Password?', 'modern-events-calendar-lite'); ?></a>
         </div>
         <div class="mec-login-submit">
-            <button class="mec-bg-color mec-box-shadow-color"><?php esc_html_e('Login', 'modern-events-calendar-lite' ); ?></button>
+            <button class="mec-bg-color mec-box-shadow-color"><?php esc_html_e('Login', 'modern-events-calendar-lite'); ?></button>
         </div>
     </div>
     <?php wp_nonce_field('mec-ajax-login-nonce', 'mec_login_nonce'); ?>

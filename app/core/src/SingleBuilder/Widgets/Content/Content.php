@@ -45,7 +45,7 @@ class Content extends WidgetBase {
 		if ( empty( $content ) && $this->is_editor_mode() ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if event content is set. In order for the widget in this page to be displayed correctly, please set content for your last event.', 'modern-events-calendar-lite' ).'</span>'
+					.'<span>'. esc_html__('This widget is displayed if event content is set. In order for the widget in this page to be displayed correctly, please set content for your last event.', 'modern-events-calendar-lite').'</span>'
 				.'</p></div>';
 		} else {
 

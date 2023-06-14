@@ -22,6 +22,7 @@ class MEC_render extends MEC_base
     {
         // Add image size for list and carousel
         add_image_size('thumblist', '300', '300', true);
+        add_image_size('thumbrelated', '500', '500', true);
         add_image_size('meccarouselthumb', '474', '324', true);
         add_image_size('gridsquare', '391', '260', true);
         add_image_size('tileview', '300', '400', true);
@@ -81,7 +82,7 @@ class MEC_render extends MEC_base
         if($skin_path != $skin and $this->file->exists($skin_path)) $path = $skin_path;
         if(!$this->file->exists($path))
         {
-            return esc_html__('Skin controller does not exist.', 'modern-events-calendar-lite' );
+            return esc_html__('Skin controller does not exist.', 'modern-events-calendar-lite');
         }
 
         include_once $path;
@@ -527,7 +528,7 @@ class MEC_render extends MEC_base
         if($skin_path != $skin and $this->file->exists($skin_path)) $path = $skin_path;
         if(!$this->file->exists($path))
         {
-            return esc_html__('Skin controller does not exist.', 'modern-events-calendar-lite' );
+            return esc_html__('Skin controller does not exist.', 'modern-events-calendar-lite');
         }
 
         include_once $path;
@@ -615,7 +616,7 @@ class MEC_render extends MEC_base
         elseif($allday)
         {
             $data->time = array(
-                'start'=>$this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite' )),
+                'start'=>$this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite')),
                 'end'=>'',
                 'start_raw'=>$start_time,
                 'end_raw'=>$end_time,
@@ -643,7 +644,7 @@ class MEC_render extends MEC_base
         if(count($meta_hourly_schedules) and !isset($meta_hourly_schedules[$first_key]['schedules']))
         {
             $hourly_schedules[] = array(
-                'title' => esc_html__('Day 1', 'modern-events-calendar-lite' ),
+                'title' => esc_html__('Day 1', 'modern-events-calendar-lite'),
                 'schedules'=>$meta_hourly_schedules
             );
         }
@@ -775,7 +776,7 @@ class MEC_render extends MEC_base
             $data->fields[] = array(
                 'id' => $f,
                 'type' => ($field['type'] ?? NULL),
-                'label' => esc_html__(stripslashes($field['label']), 'modern-events-calendar-lite' ),
+                'label' => esc_html__(stripslashes($field['label']), 'modern-events-calendar-lite'),
                 'value' => stripslashes($field_value),
             );
         }
@@ -843,7 +844,7 @@ class MEC_render extends MEC_base
                 $allday = $event->data->meta['mec_allday'] ?? 0;
                 if($allday)
                 {
-                    $st = $this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite' ));
+                    $st = $this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite'));
                     $et = '';
                 }
 
@@ -1088,7 +1089,7 @@ class MEC_render extends MEC_base
                 }
                 elseif($allday)
                 {
-                    $event->data->time['start'] = $this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite' ));
+                    $event->data->time['start'] = $this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite'));
                     $event->data->time['end'] = '';
                 }
                 else
@@ -1115,7 +1116,7 @@ class MEC_render extends MEC_base
 
         if($allday)
         {
-            $st = $this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite' ));
+            $st = $this->main->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite'));
             $et = '';
         }
 

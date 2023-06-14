@@ -91,7 +91,7 @@ class MEC_feature_cart extends MEC_base
         $cart = $this->cart->get_cart($cart_id);
 
         // Validation
-        if(!in_array($transaction_id, $cart)) wp_send_json(array('success' => 0, 'message' => esc_html__('Transaction does not exists in cart.', 'modern-events-calendar-lite' )));
+        if(!in_array($transaction_id, $cart)) wp_send_json(array('success' => 0, 'message' => esc_html__('Transaction does not exists in cart.', 'modern-events-calendar-lite')));
 
         // Remove
         $this->cart->remove($transaction_id);
@@ -111,7 +111,7 @@ class MEC_feature_cart extends MEC_base
         wp_send_json(array(
             'success' => 1,
             'total' => $this->main->render_price($total),
-            'message' => esc_html__('Successfully removed and updated the cart.', 'modern-events-calendar-lite' ),
+            'message' => esc_html__('Successfully removed and updated the cart.', 'modern-events-calendar-lite'),
         ));
     }
 
@@ -143,14 +143,14 @@ class MEC_feature_cart extends MEC_base
         {
             wp_send_json(array(
                 'success' => 1,
-                'message' => esc_html__('Coupon applied successfully. Please wait ...', 'modern-events-calendar-lite' ),
+                'message' => esc_html__('Coupon applied successfully. Please wait ...', 'modern-events-calendar-lite'),
             ));
         }
         else
         {
             wp_send_json(array(
                 'success' => 0,
-                'message' => esc_html__('Coupon was not valid or applicable.', 'modern-events-calendar-lite' ),
+                'message' => esc_html__('Coupon was not valid or applicable.', 'modern-events-calendar-lite'),
             ));
         }
     }
@@ -165,7 +165,7 @@ class MEC_feature_cart extends MEC_base
             wp_send_json(array(
                 'success' => 0,
                 'code' => 'NONCE_IS_INVALID',
-                'message' => esc_html__('Request is invalid!', 'modern-events-calendar-lite' ),
+                'message' => esc_html__('Request is invalid!', 'modern-events-calendar-lite'),
             ));
         }
 
@@ -175,14 +175,14 @@ class MEC_feature_cart extends MEC_base
             wp_send_json(array(
                 'success' => 0,
                 'code' => 'NOT_FREE',
-                'message' => esc_html__('Your cart is not free!', 'modern-events-calendar-lite' ),
+                'message' => esc_html__('Your cart is not free!', 'modern-events-calendar-lite'),
             ));
         }
 
         $free_gateway = new MEC_gateway_free();
         $results = $free_gateway->cart_do_transaction($cart_id);
 
-        $results['output'] = '<h4>' . esc_html__('Thanks for your booking.', 'modern-events-calendar-lite' ) . '</h4>
+        $results['output'] = '<h4>' . esc_html__('Thanks for your booking.', 'modern-events-calendar-lite') . '</h4>
         <div class="mec-event-book-message">
             <div class="' . ($results['success'] ? 'mec-success' : 'mec-error') . '">' . MEC_kses::element($results['message']) . '</div>
         </div>';

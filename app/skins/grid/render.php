@@ -90,13 +90,13 @@ if($this->style == 'colorful')
                 <?php echo MEC_kses::element($this->display_cost($event)); ?>
             </div>
             <div class="mec-event-footer">
-                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                 <?php echo MEC_kses::form($this->booking_button($event)); ?>
                 <?php if($settings['social_network_status'] != '0'): ?>
                 <ul class="mec-event-sharing-wrap">
                     <li class="mec-event-share">
                         <a href="#" class="mec-event-share-icon">
-                            <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite' ) ?>"></i>
+                            <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite') ?>"></i>
                         </a>
                     </li>
                     <li>
@@ -139,7 +139,7 @@ if($this->style == 'colorful')
                 <ul class="mec-event-sharing-wrap">
                     <li class="mec-event-share">
                         <a href="#" class="mec-event-share-icon">
-                            <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite' ) ?>"></i>
+                            <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite') ?>"></i>
                         </a>
                     </li>
                     <li>
@@ -150,7 +150,7 @@ if($this->style == 'colorful')
                 </ul>
                 <?php endif; ?>
                 <?php echo MEC_kses::form($this->booking_button($event)); ?>
-                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
             </div>
         <?php elseif($this->style == 'minimal'): ?>
             <div class="mec-event-date mec-bg-color-hover mec-border-color-hover mec-color"><span><?php echo esc_html($this->main->date_i18n($this->date_format_minimal_1, strtotime($event->date['start']['date']))); ?></span><?php echo esc_html($this->main->date_i18n($this->date_format_minimal_2, strtotime($event->date['start']['date']))); ?></div>
@@ -201,7 +201,7 @@ if($this->style == 'colorful')
                 <ul class="mec-event-sharing-wrap">
                     <li class="mec-event-share">
                         <a href="#" class="mec-event-share-icon">
-                            <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite' ) ?>"></i>
+                            <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite') ?>"></i>
                         </a>
                     </li>
                     <li>
@@ -213,7 +213,7 @@ if($this->style == 'colorful')
                 <?php endif; ?>
                 <?php do_action('mec_grid_clean_booking_button', $event); ?>
                 <?php echo MEC_kses::form($this->booking_button($event)); ?>
-                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
             </div>
         <?php elseif($this->style == 'novel'): ?>
             <div class="novel-grad-bg"></div>
@@ -241,7 +241,7 @@ if($this->style == 'colorful')
                         <ul class="mec-event-sharing-wrap">
                             <li class="mec-event-share">
                                 <a href="#" class="mec-event-share-icon">
-                                    <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite' ) ?>"></i>
+                                    <i class="mec-sl-share" title="<?php echo esc_html__('Share', 'modern-events-calendar-lite') ?>"></i>
                                 </a>
                             </li>
                             <li>
@@ -252,7 +252,7 @@ if($this->style == 'colorful')
                         </ul>
                         <?php endif; ?>
                         <?php echo MEC_kses::element($this->booking_button($event, 'icon')); ?>
-                        <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite' ))), 'mec-booking-button')); ?>
+                        <?php echo MEC_kses::element($this->display_link($event, ((is_array($event->data->tickets) and count($event->data->tickets) and !strpos($soldout, '%%soldout%%') and !$this->booking_button and !$this->main->is_expired($event)) ? $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')) : $this->main->m('view_detail', esc_html__('View Detail', 'modern-events-calendar-lite'))), 'mec-booking-button')); ?>
                     </div>
                 </div>
             </div>

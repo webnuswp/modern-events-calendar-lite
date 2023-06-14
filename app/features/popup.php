@@ -306,7 +306,7 @@ class MEC_feature_popup extends MEC_base
         else
         {
             $address = (isset($mec['location']['address']) and trim($mec['location']['address'])) ? sanitize_text_field($mec['location']['address']) : '';
-            $name = (isset($mec['location']['name']) and trim($mec['location']['name'])) ? sanitize_text_field($mec['location']['name']) : (trim($address) ? $address : esc_html__('Location Name', 'modern-events-calendar-lite' ));
+            $name = (isset($mec['location']['name']) and trim($mec['location']['name'])) ? sanitize_text_field($mec['location']['name']) : (trim($address) ? $address : esc_html__('Location Name', 'modern-events-calendar-lite'));
 
             $term = get_term_by('name', $name, 'mec_location');
 
@@ -365,7 +365,7 @@ class MEC_feature_popup extends MEC_base
         }
         else
         {
-            $name = (isset($mec['organizer']['name']) and trim($mec['organizer']['name'])) ? sanitize_text_field($mec['organizer']['name']) : esc_html__('Organizer Name', 'modern-events-calendar-lite' );
+            $name = (isset($mec['organizer']['name']) and trim($mec['organizer']['name'])) ? sanitize_text_field($mec['organizer']['name']) : esc_html__('Organizer Name', 'modern-events-calendar-lite');
 
             $term = get_term_by('name', $name, 'mec_organizer');
 

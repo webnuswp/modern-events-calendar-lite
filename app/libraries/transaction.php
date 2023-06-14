@@ -182,7 +182,7 @@ class MEC_transaction extends MEC_base
         {
             $times = explode(':', $timestamp);
 
-            $html .= '<li>'.sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite' ), $this->main->date_i18n($date_format.' '.$time_format, $times[0]), $this->main->date_i18n($date_format.' '.$time_format, $times[1])).'</li>';
+            $html .= '<li>'.sprintf(esc_html__('%s to %s', 'modern-events-calendar-lite'), $this->main->date_i18n($date_format.' '.$time_format, $times[0]), $this->main->date_i18n($date_format.' '.$time_format, $times[1])).'</li>';
         }
 
         $html .= '</ul>';

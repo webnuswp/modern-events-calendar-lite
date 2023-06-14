@@ -19,7 +19,7 @@ class MEC_single_widget extends WP_Widget
 	 */
 	public function __construct()
 	{
-		parent::__construct($this->get_widget_slug(), esc_html__('MEC Single Sidebar Items', 'modern-events-calendar-lite' ), array('classname' => $this->get_widget_slug() . '-class', 'description' => esc_html__('To manage event details page elements.', 'modern-events-calendar-lite' )));
+		parent::__construct($this->get_widget_slug(), esc_html__('MEC Single Sidebar Items', 'modern-events-calendar-lite'), array('classname' => $this->get_widget_slug() . '-class', 'description' => esc_html__('To manage event details page elements.', 'modern-events-calendar-lite')));
 
 		// Refreshing the widget's cached output with each new post
 		add_action('save_post', array($this, 'flush_widget_cache'));

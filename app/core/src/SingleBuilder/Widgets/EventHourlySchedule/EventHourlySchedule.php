@@ -34,8 +34,8 @@ class EventHourlySchedule extends WidgetBase {
 		if ( true === $this->is_editor_mode && 0 == count($hourly_schedules) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if Hourly Schedule is set. In order for the widget in this page to be displayed correctly, please set Hourly Schedule for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/hourly-schedule/" target="_blank">' . esc_html__('How to set Hourly Schedule', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if Hourly Schedule is set. In order for the widget in this page to be displayed correctly, please set Hourly Schedule for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/hourly-schedule/" target="_blank">' . esc_html__('How to set Hourly Schedule', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 

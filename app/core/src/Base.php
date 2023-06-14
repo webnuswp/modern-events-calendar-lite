@@ -115,7 +115,7 @@ final class Base {
 
 		register_activation_hook( MEC_CORE_FILE, __CLASS__ . '::register_activation' );
 		$db_version = get_option('mec_core_db','1.0.0');
-		if(version_compare($db_version, MEC_VERSION, '<')){
+		if(version_compare($db_version, '6.10.0', '<')){
 
 			static::register_activation();
 		}
@@ -196,7 +196,7 @@ final class Base {
 		}
 
 		$db_version = get_option( 'mec_transaction_version', '1.0.0' );
-		if( version_compare( $db_version, MEC_VERSION, '<' ) ) {
+		if( version_compare( $db_version, '6.10.0', '<' ) ) {
 
 			static::upgrade_transactions();
 			wp_send_json(array(
@@ -214,7 +214,7 @@ final class Base {
 
 		$booking_module_status = (bool)\MEC\Settings\Settings::getInstance()->get_settings('booking_status');
 		$db_version = get_option( 'mec_transaction_version', '1.0.0' );
-		if( version_compare( $db_version, MEC_VERSION, '<' ) && $booking_module_status ) {
+		if( version_compare( $db_version, '6.10.0', '<' ) && $booking_module_status ) {
 
 			if (!current_user_can('activate_plugins')) {
 				return;
@@ -222,10 +222,10 @@ final class Base {
 
 			$upgrade_url = admin_url( '?mec_upgrade_db=true' );
 			$message        = '<p>'
-				. __('Your booking database needs updating. To do that, click the button below and wait until the operation is over. Do not refresh the page until the end.', 'modern-events-calendar-lite' )
-				. '<br><b>' . __('Note: if you have many bookings, the operation might take longer, please be patient.', 'modern-events-calendar-lite' ) . '</b>'
+				. __('Your booking database needs updating. To do that, click the button below and wait until the operation is over. Do not refresh the page until the end.', 'modern-events-calendar-lite')
+				. '<br><b>' . __('Note: if you have many bookings, the operation might take longer, please be patient.', 'modern-events-calendar-lite') . '</b>'
 				. '</p>';
-			$message       .= '<p>' . sprintf('<a href="%s" class="button-primary mec-upgrade-db">%s</a>', $upgrade_url, __('Upgrade Database Now', 'modern-events-calendar-lite' )) . '</p>';
+			$message       .= '<p>' . sprintf('<a href="%s" class="button-primary mec-upgrade-db">%s</a>', $upgrade_url, __('Upgrade Database Now', 'modern-events-calendar-lite')) . '</p>';
 
 			?>
 			<script>
@@ -234,7 +234,7 @@ final class Base {
 						e.preventDefault();
 
 						var $btn = $(this);
-						$btn.html("<?php echo __( 'Updating Database...', 'modern-events-calendar-lite' ); ?>");
+						$btn.html("<?php echo __( 'Updating Database...', 'modern-events-calendar-lite'); ?>");
 						$.post(
 							"<?php echo admin_url('admin-ajax.php'); ?>",
 							{
@@ -248,7 +248,7 @@ final class Base {
 									$('.mec-upgrade-db').trigger('click');
 								}else{
 
-									$btn.html("<?php echo __( 'Database has been upgraded.', 'modern-events-calendar-lite' ); ?>");
+									$btn.html("<?php echo __( 'Database has been upgraded.', 'modern-events-calendar-lite'); ?>");
 								}
 							}
 						)

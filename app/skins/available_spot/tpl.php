@@ -133,26 +133,26 @@ do_action('mec_available_spot_skin_head');
 
                 <div class="mec-av-spot-head clearfix">
                     <div class="mec-av-spot-col6">
-                        <div class="mec-av-spot-box"><?php esc_html_e('Available Spot(s):', 'modern-events-calendar-lite' ); ?> <span class="mec-av-spot-count mec-color"><?php echo ($spots != '-1' ? $spots : esc_html__('Unlimited', 'modern-events-calendar-lite' )); ?></span></div>
+                        <div class="mec-av-spot-box"><?php esc_html_e('Available Spot(s):', 'modern-events-calendar-lite'); ?> <span class="mec-av-spot-count mec-color"><?php echo ($spots != '-1' ? $spots : esc_html__('Unlimited', 'modern-events-calendar-lite')); ?></span></div>
                     </div>
                     <div class="mec-av-spot-col6">
                         <div class="mec-event-countdown" id="mec_skin_available_spot<?php echo esc_attr($this->id); ?>">
                             <ul class="clockdiv" id="countdown">
                                 <li class="days-w block-w">
                                     <span class="mec-days">00</span>
-                                    <p class="mec-timeRefDays label-w"><?php esc_html_e('days', 'modern-events-calendar-lite' ); ?></p>
+                                    <p class="mec-timeRefDays label-w"><?php esc_html_e('days', 'modern-events-calendar-lite'); ?></p>
                                 </li>
                                 <li class="hours-w block-w">
                                     <span class="mec-hours">00</span>
-                                    <p class="mec-timeRefHours label-w"><?php esc_html_e('hours', 'modern-events-calendar-lite' ); ?></p>
+                                    <p class="mec-timeRefHours label-w"><?php esc_html_e('hours', 'modern-events-calendar-lite'); ?></p>
                                 </li>
                                 <li class="minutes-w block-w">
                                     <span class="mec-minutes">00</span>
-                                    <p class="mec-timeRefMinutes label-w"><?php esc_html_e('minutes', 'modern-events-calendar-lite' ); ?></p>
+                                    <p class="mec-timeRefMinutes label-w"><?php esc_html_e('minutes', 'modern-events-calendar-lite'); ?></p>
                                 </li>
                                 <li class="seconds-w block-w">
                                     <span class="mec-seconds">00</span>
-                                    <p class="mec-timeRefSeconds label-w"><?php esc_html_e('seconds', 'modern-events-calendar-lite' ); ?></p>
+                                    <p class="mec-timeRefSeconds label-w"><?php esc_html_e('seconds', 'modern-events-calendar-lite'); ?></p>
                                 </li>
                             </ul>
                         </div>
@@ -201,7 +201,7 @@ do_action('mec_available_spot_skin_head');
                         </div>
                     </div>
                     <div class="mec-event-footer">
-                        <?php echo MEC_kses::element($this->display_link($event, $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' )), 'mec-booking-button')); ?>
+                        <?php echo MEC_kses::element($this->display_link($event, $this->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite')), 'mec-booking-button')); ?>
                     </div>
                 </div>
             </article>

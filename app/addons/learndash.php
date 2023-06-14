@@ -74,7 +74,7 @@ class MEC_addon_learndash extends MEC_base
         if(!count($courses)) return;
         ?>
         <div class="mec-form-row">
-            <label for="mec_tickets_<?php echo esc_attr($key); ?>_ld_course"><?php esc_html_e('LearnDash Course', 'modern-events-calendar-lite' ); ?></label>
+            <label for="mec_tickets_<?php echo esc_attr($key); ?>_ld_course"><?php esc_html_e('LearnDash Course', 'modern-events-calendar-lite'); ?></label>
             <select name="mec[tickets][<?php echo esc_attr($key); ?>][ld_course]" id="mec_tickets_<?php echo esc_attr($key); ?>_ld_course">
                 <option>-----</option>
                 <?php foreach($courses as $course_id => $course_name): ?>

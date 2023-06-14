@@ -80,7 +80,7 @@ if($this->next_previous_button)
     }
 }
 
-$week_html = '<div class="mec-calendar-d-top"><div class="mec-previous-month mec-load-week mec-color" href="#"><i class="mec-sl-angle-left"></i></div><div class="mec-next-month mec-load-week mec-color" href="#"><i class="mec-sl-angle-right"></i></div><h3 class="mec-current-week">'.sprintf(esc_html__('Week %s', 'modern-events-calendar-lite' ), '<span>'.(isset($this->week_of_days[$this->today]) ? $this->week_of_days[$this->today] : 1).'</span>').'</h3></div>';
+$week_html = '<div class="mec-calendar-d-top"><div class="mec-previous-month mec-load-week mec-color" href="#"><i class="mec-sl-angle-left"></i></div><div class="mec-next-month mec-load-week mec-color" href="#"><i class="mec-sl-angle-right"></i></div><h3 class="mec-current-week">'.sprintf(esc_html__('Week %s', 'modern-events-calendar-lite'), '<span>'.(isset($this->week_of_days[$this->today]) ? $this->week_of_days[$this->today] : 1).'</span>').'</h3></div>';
 
 $month_html = '<div class="mec-weeks-container mec-calendar-d-table">'.MEC_kses::element($weeks).'</div>
 <div class="mec-week-events-container">'.MEC_kses::full($date_events).'</div>';

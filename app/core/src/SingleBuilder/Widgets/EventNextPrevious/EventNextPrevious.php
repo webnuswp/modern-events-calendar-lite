@@ -33,8 +33,8 @@ class EventNextPrevious extends WidgetBase {
 		if ( true === $this->is_editor_mode && ( !isset($settings['next_previous_events']) || !$settings['next_previous_events'] ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if related events is set. In order for the widget in this page to be displayed correctly, please set Related Event for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/next-previous-events/" target="_blank">' . esc_html__('How to set Next/Previous Events', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if related events is set. In order for the widget in this page to be displayed correctly, please set Related Event for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/next-previous-events/" target="_blank">' . esc_html__('How to set Next/Previous Events', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 

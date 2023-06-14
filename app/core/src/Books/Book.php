@@ -103,18 +103,18 @@ class Book extends PostBase {
 		switch ( $status ) {
 			case '-1':
 
-				$text = esc_html__('Rejected', 'modern-events-calendar-lite' );
+				$text = esc_html__('Rejected', 'modern-events-calendar-lite');
 
 				break;
 			case '1':
 
-				$text = esc_html__('Confirmed', 'modern-events-calendar-lite' );
+				$text = esc_html__('Confirmed', 'modern-events-calendar-lite');
 
 				break;
 			case '0':
 			default:
 
-				$text = esc_html__('Pending', 'modern-events-calendar-lite' );
+				$text = esc_html__('Pending', 'modern-events-calendar-lite');
 
 				break;
 		}
@@ -183,18 +183,18 @@ class Book extends PostBase {
 		switch ( $status ) {
 			case '-1':
 
-				$text = esc_html__('Canceled', 'modern-events-calendar-lite' );
+				$text = esc_html__('Canceled', 'modern-events-calendar-lite');
 
 				break;
 			case '1':
 
-				$text = esc_html__('Verified', 'modern-events-calendar-lite' );
+				$text = esc_html__('Verified', 'modern-events-calendar-lite');
 
 				break;
 			case '0':
 			default:
 
-				$text = esc_html__('Waiting', 'modern-events-calendar-lite' );
+				$text = esc_html__('Waiting', 'modern-events-calendar-lite');
 
 				break;
 		}

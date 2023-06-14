@@ -57,7 +57,7 @@ $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->
 ?>
 <div class="mec-next-event-details mec-frontbox" id="mec_next_event_details">
     <div class="mec-next-<?php echo esc_attr($method); ?>">
-        <h3 class="mec-frontbox-title"><?php echo esc_html__('Next Occurrences', 'modern-events-calendar-lite' ); ?></h3>
+        <h3 class="mec-frontbox-title"><?php echo esc_html__('Next Occurrences', 'modern-events-calendar-lite'); ?></h3>
         <ul>
             <?php foreach($dates as $date): ?>
             <li>
@@ -74,7 +74,7 @@ $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->
                         <?php if($allday == '0' and isset($event->data->time) and trim($event->data->time['start'])): ?>
                         <dd><abbr class="mec-events-abbr"><?php echo date($time_format, $date['start']['timestamp']); ?> - <?php echo ($hide_end_time ? '' : ' '.date($time_format, $date['end']['timestamp'])); ?></abbr></dd>
                         <?php else: ?>
-                        <dd><abbr class="mec-events-abbr"><?php echo esc_html($this->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite' ))); ?></abbr></dd>
+                        <dd><abbr class="mec-events-abbr"><?php echo esc_html($this->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite'))); ?></abbr></dd>
                         <?php endif; ?>
                         </dl>
                     </span>
@@ -85,6 +85,6 @@ $hide_end_time = isset($event->data->meta['mec_hide_end_time']) ? $event->data->
         </ul>
     </div>
     <?php if($active_button && isset($_GET['occurrence']) && trim($_GET['occurrence'])): ?>
-    <a class="mec-button mec-active-occurrence-button" href="<?php echo esc_url($this->get_event_date_permalink($event)); ?>"><?php esc_html_e('Active Occurrence', 'modern-events-calendar-lite' ); ?></a>
+    <a class="mec-button mec-active-occurrence-button" href="<?php echo esc_url($this->get_event_date_permalink($event)); ?>"><?php esc_html_e('Active Occurrence', 'modern-events-calendar-lite'); ?></a>
     <?php endif; ?>
 </div>

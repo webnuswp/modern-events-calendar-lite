@@ -242,7 +242,7 @@ class Attendees {
             $event = $events[0];
         }
 
-        $form_title = $args['form_title'] ?? esc_html__("Attendee's Form", 'modern-events-calendar-lite' );
+        $form_title = $args['form_title'] ?? esc_html__("Attendee's Form", 'modern-events-calendar-lite');
         $date_ex = explode(':', $date);
         $occurrence = $date_ex[0];
 
@@ -270,7 +270,7 @@ class Attendees {
             $reg_fields[] = array(
                 'mandatory' => '0',
                 'type'      => 'name',
-                'label'     => esc_html__('Name', 'modern-events-calendar-lite' ),
+                'label'     => esc_html__('Name', 'modern-events-calendar-lite'),
             );
         }
 
@@ -278,7 +278,7 @@ class Attendees {
             $reg_fields[] = array(
                 'mandatory' => '0',
                 'type'      => 'mec_email',
-                'label'     => esc_html__('Email', 'modern-events-calendar-lite' ),
+                'label'     => esc_html__('Email', 'modern-events-calendar-lite'),
             );
         }
 
@@ -339,13 +339,13 @@ class Attendees {
 
             <?php if( $display_progress_bar ): ?>
                 <ul class="mec-booking-progress-bar">
-                    <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite' ); ?></li>
-                    <li class="mec-booking-progress-bar-attendee-info mec-active"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite' ); ?></li>
+                    <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite'); ?></li>
+                    <li class="mec-booking-progress-bar-attendee-info mec-active"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite'); ?></li>
                     <?php if($WC_status): ?>
-                        <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Checkout', 'modern-events-calendar-lite' ); ?></li>
+                        <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Checkout', 'modern-events-calendar-lite'); ?></li>
                     <?php else: ?>
-                        <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Payment', 'modern-events-calendar-lite' ); ?></li>
-                        <li class="mec-booking-progress-bar-complete"><?php esc_html_e('Complete', 'modern-events-calendar-lite' ); ?></li>
+                        <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Payment', 'modern-events-calendar-lite'); ?></li>
+                        <li class="mec-booking-progress-bar-complete"><?php esc_html_e('Complete', 'modern-events-calendar-lite'); ?></li>
                     <?php endif; ?>
                 </ul>
             <?php else: ?>
@@ -356,7 +356,7 @@ class Attendees {
                 <div class="mec-ticket-icon-wrapper"><?php echo \MEC\Base::get_main()->svg('form/subtotal-icon'); ?></div>
                 <div class="mec-ticket-name-description-wrapper">
                     <div class="mec-ticket-price-wrapper">
-                        <span class="mec-ticket-price-label"><?php echo esc_html__('Subtotal', 'modern-events-calendar-lite' ); ?></span>
+                        <span class="mec-ticket-price-label"><?php echo esc_html__('Subtotal', 'modern-events-calendar-lite'); ?></span>
                         <span class="mec-ticket-price"><?php echo \MEC_kses::element(\MEC\Base::get_main()->render_price($total_ticket_prices, $requested_event_id)); ?></span>
                     </div>
                 </div>
@@ -381,15 +381,15 @@ class Attendees {
                                     <div class="mec-ticket-icon-wrapper"><?php echo \MEC\Base::get_main()->svg('form/ticket-icon'); ?></div>
                                     <div class="mec-ticket-name-description-wrapper">
                                         <h4>
-                                            <?php if($attendee_counter == 1): ?><span class="mec-ticket-attendee-counter"><?php printf(__('Attendee #%s details — ', 'modern-events-calendar-lite' ), $i); ?></span><?php endif; ?>
-                                            <span class="mec-ticket-name"><?php echo esc_html__($ticket['name'], 'modern-events-calendar-lite' ); ?></span>
+                                            <?php if($attendee_counter == 1): ?><span class="mec-ticket-attendee-counter"><?php printf(__('Attendee #%s details — ', 'modern-events-calendar-lite'), $i); ?></span><?php endif; ?>
+                                            <span class="mec-ticket-name"><?php echo esc_html__($ticket['name'], 'modern-events-calendar-lite'); ?></span>
                                         </h4>
                                         <?php
                                             $ticket_price = $bookClass->get_ticket_price_label($ticket, current_time('Y-m-d'), $event_id, $occurrence);
                                             $ticket_price = apply_filters('mec_filter_ticket_price_label', $ticket_price, $ticket, $event_id, $bookClass);
                                         ?>
                                         <div class="mec-ticket-price-wrapper">
-                                            <span class="mec-ticket-price-label"><?php echo esc_html__('Subtotal', 'modern-events-calendar-lite' ); ?></span>
+                                            <span class="mec-ticket-price-label"><?php echo esc_html__('Subtotal', 'modern-events-calendar-lite'); ?></span>
                                             <span class="mec-ticket-price"><?php echo \MEC_kses::element($ticket_price); ?></span>
                                         </div>
                                     </div>
@@ -433,21 +433,21 @@ class Attendees {
                     <input type="hidden" name="book[first_for_all]" value="0" />
                     <input type="checkbox" name="book[first_for_all]" value="1" checked="checked" class="mec_book_first_for_all" id="mec_book_first_for_all<?php echo esc_attr($uniqueid); ?>" onchange="mec_toggle_first_for_all<?php echo esc_attr($uniqueid); ?>(this);" />
                     <label for="pages1" onclick="mec_label_first_for_all<?php echo esc_attr($uniqueid); ?>(this);" class="wn-checkbox-label"></label>
-                    <?php esc_html_e("Fill other attendees information like the first form.", 'modern-events-calendar-lite' ); ?>
+                    <?php esc_html_e("Fill other attendees information like the first form.", 'modern-events-calendar-lite'); ?>
                 </label>
             </div>
             <?php endif; ?>
 
             <?php if($booking_register and $booking_userpass == 'manual' and !is_user_logged_in()): ?>
             <div class="mec-book-username-password-wrapper">
-                <h3><?php esc_html_e('Registration', 'modern-events-calendar-lite' ); ?></h3>
+                <h3><?php esc_html_e('Registration', 'modern-events-calendar-lite'); ?></h3>
                 <ul class="mec-booking-registrtaion-fields">
                     <li>
-                        <label for="mec_book_form_username"><?php esc_html_e('Username', 'modern-events-calendar-lite' ); ?></label>
+                        <label for="mec_book_form_username"><?php esc_html_e('Username', 'modern-events-calendar-lite'); ?></label>
                         <input type="text" name="book[username]" id="mec_book_form_username">
                     </li>
                     <li>
-                        <label for="mec_book_form_password"><?php esc_html_e('Password', 'modern-events-calendar-lite' ); ?></label>
+                        <label for="mec_book_form_password"><?php esc_html_e('Password', 'modern-events-calendar-lite'); ?></label>
                         <input type="password" name="book[password]" id="mec_book_form_password">
                     </li>
                 </ul>
@@ -477,10 +477,10 @@ class Attendees {
 
             <div class="mec-book-form-btn-wrap">
                 <?php if(!$step_skipped): ?>
-                <button id="mec-book-form-back-btn-step-2" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php echo \MEC\Base::get_main()->svg('form/back-icon').' '.esc_html__('Back', 'modern-events-calendar-lite' ); ?></button>
+                <button id="mec-book-form-back-btn-step-2" class="mec-book-form-back-button" type="button" onclick="mec_book_form_back_btn_click(this);"><?php echo \MEC\Base::get_main()->svg('form/back-icon').' '.esc_html__('Back', 'modern-events-calendar-lite'); ?></button>
                 <?php endif; ?>
                 <button id="mec-book-form-btn-step-2" class="mec-book-form-next-button" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo esc_attr($uniqueid); ?>);" <?php echo ($step_skipped ? 'style="margin-left: 0;"' : ''); ?>>
-                    <?php echo (($WC_status or $cart_status) ? esc_html__('Add to Cart', 'modern-events-calendar-lite' ) : ((!$total_ticket_prices and !$has_fees and !$has_variations && $check_free_tickets_booking) ? esc_html__('Submit', 'modern-events-calendar-lite' ) : esc_html__('Next', 'modern-events-calendar-lite' ).' '.'<svg xmlns="http://www.w3.org/2000/svg" width="13" height="10" viewBox="0 0 13 10"><path id="next-icon" d="M92.034,76.719l-.657.675,3.832,3.857H84v.937H95.208l-3.832,3.857.657.675,4.967-5Z" transform="translate(-84.001 -76.719)" fill="#07bbe9"/></svg>')); ?>
+                    <?php echo (($WC_status or $cart_status) ? esc_html__('Add to Cart', 'modern-events-calendar-lite') : ((!$total_ticket_prices and !$has_fees and !$has_variations && $check_free_tickets_booking) ? esc_html__('Submit', 'modern-events-calendar-lite') : esc_html__('Next', 'modern-events-calendar-lite').' '.'<svg xmlns="http://www.w3.org/2000/svg" width="13" height="10" viewBox="0 0 13 10"><path id="next-icon" d="M92.034,76.719l-.657.675,3.832,3.857H84v.937H95.208l-3.832,3.857.657.675,4.967-5Z" transform="translate(-84.001 -76.719)" fill="#07bbe9"/></svg>')); ?>
                 </button>
             </div>
         </form>

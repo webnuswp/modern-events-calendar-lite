@@ -43,9 +43,9 @@ foreach($bookings as $booking)
 $u = $this->getUser();
 ?>
 <div class="mec-attendees-list-details mec-frontbox" id="mec_attendees_list_details">
-    <h3 class="mec-attendees-list mec-frontbox-title"><?php esc_html_e('Event Attendees', 'modern-events-calendar-lite' ); ?></h3>
+    <h3 class="mec-attendees-list mec-frontbox-title"><?php esc_html_e('Event Attendees', 'modern-events-calendar-lite'); ?></h3>
     <?php if(!count($attendees)): ?>
-    <p><?php esc_html_e('No attendee found! Be the first one to book!', 'modern-events-calendar-lite' ); ?></p>
+    <p><?php esc_html_e('No attendee found! Be the first one to book!', 'modern-events-calendar-lite'); ?></p>
     <?php else: ?>
     <ul>
         <?php do_action('mec_attendeed_hook', $attendees); foreach($attendees as $attendee_id=>$attendee_bookings): ?>
@@ -66,7 +66,7 @@ $u = $this->getUser();
                 foreach($attendee_bookings as $booking_id) $total_attendees += $book->get_total_attendees($booking_id);
             ?>
             <div class="mec-attendee-profile-link">
-                <?php echo '<a href="'.esc_url($link).'">'.esc_html($name).'</a>' . '<span class="mec-attendee-profile-ticket-number mec-bg-color">'. esc_html($total_attendees) .'</span>' . '<span class="mec-color-hover"> ' . esc_html__( 'tickets' , 'modern-events-calendar-lite' ) . '<i class="mec-sl-arrow-down"></i></span>' ; ?>
+                <?php echo '<a href="'.esc_url($link).'">'.esc_html($name).'</a>' . '<span class="mec-attendee-profile-ticket-number mec-bg-color">'. esc_html($total_attendees) .'</span>' . '<span class="mec-color-hover"> ' . esc_html__( 'tickets' , 'modern-events-calendar-lite') . '<i class="mec-sl-arrow-down"></i></span>' ; ?>
             </div>
 
             <!-- MEC BuddyPress Integration Attendees Modules -->
@@ -96,7 +96,7 @@ $u = $this->getUser();
                         <?php
                             echo '<div class="mec-attendee-avatar-sec">'. get_avatar($mec_attendee['email'], '50') .'</div>';
                             echo '<div class="mec-attendee-profile-name-sec">'. (!is_email($mec_attendee['name']) ? $mec_attendee['name'] : 'N/A') .'</div>';
-                            echo '<span class="mec-attendee-profile-ticket-sec">'. sprintf(_n('%s ticket', '%s tickets', $mec_attendee['count'], 'modern-events-calendar-lite' ), $mec_attendee['count']) . '</span>';
+                            echo '<span class="mec-attendee-profile-ticket-sec">'. sprintf(_n('%s ticket', '%s tickets', $mec_attendee['count'], 'modern-events-calendar-lite'), $mec_attendee['count']) . '</span>';
                         ?>
                     </div>
                     <?php

@@ -997,7 +997,6 @@
 }
 
 .mec-event-grid-modern .mec-event-content {
-  background: #fff;
   color: #767676;
   padding: 35px 15px 10px;
   text-align: left;
@@ -1567,8 +1566,9 @@ span.mec-event-title-soldout {
   border: none;
   border-radius: 50%;
   margin-right: 10px;
+  margin-bottom: 5px;
 }
-
+/* 
 .mec-event-list-modern .mec-event-sharing .telegram {
   min-width: 36px;
   min-height: 36px;
@@ -1582,9 +1582,9 @@ span.mec-event-title-soldout {
   padding-bottom: 9px;
   border-radius: 50%;
   border: 1px solid #ddd;
-}
+} */
 
-.mec-event-list-modern .mec-event-sharing .telegram .svg-inline--fa.fa-telegram.fa-w-16 {
+/* .mec-event-list-modern .mec-event-sharing .telegram .svg-inline--fa.fa-telegram.fa-w-16 {
   width: 3.246rem;
   padding: 2px 10px 0 10px;
   margin-bottom: -2px;
@@ -1600,7 +1600,7 @@ span.mec-event-title-soldout {
 
 .mec-event-list-modern .mec-event-sharing li:hover .telegram .svg-inline--fa.fa-telegram.fa-w-16 path {
   fill: #fff;
-}
+} */
 
 .mec-event-list-modern .mec-event-sharing>li:hover {
   display: inline-block;
@@ -1625,6 +1625,11 @@ span.mec-event-title-soldout {
   transition: all ease 300ms;
 }
 
+.mec-event-list-modern .mec-event-sharing>li i svg{
+  height: 16px;
+  vertical-align: middle;
+}
+
 .mec-event-list-modern .mec-event-sharing>li .mec-social-title {
   color: #767676;
   font-size: 14px;
@@ -1640,7 +1645,7 @@ span.mec-event-title-soldout {
 .mec-event-list-modern .mec-event-sharing li:hover a i {
   background: #40d9f1;
 }
-
+/*
 .mec-event-list-modern .mec-event-sharing li .fa-telegram {
   fill: #000;
   max-width: 20px !important;
@@ -1664,7 +1669,7 @@ span.mec-event-title-soldout {
   width: 36px !important;
   height: 36px !important;
   padding: 9px 7px 9px;
-}
+} */
 
 @media only screen and (min-width: 768px) {
   .mec-event-list-modern .mec-event-article {
@@ -5426,7 +5431,7 @@ mec-book-form-pay-button button#mec-book-form-back-btn-step-3 {
 .mec-book-reg-field-checkbox input[type="checkbox"],
 .mec-book-reg-field-radio input[type="radio"] {
   float: left;
-  margin-right: 5px !important;
+  margin-right: 10px !important;
 }
 
 .mec-book-ticket-container .wbmec-mandatory,
@@ -8237,7 +8242,7 @@ li.mec-no-event-found .mec-event-title {
 .mec-success,
 .warning-msg,
 .mec-error {
-  margin: 30px 0 0 0;
+  margin: 30px 0 20px 0;
   padding: 10px;
   border-radius: 3px 3px 3px 3px;
   font-size: 13px;
@@ -8933,7 +8938,6 @@ li.mec-no-event-found .mec-event-title {
   color: #40d9f1;
   text-transform: capitalize;
   padding: 15px 20px;
-  background: #ecfcff;
   margin-bottom: 20px;
 }
 
@@ -19678,8 +19682,7 @@ a.mec-timeline-readmore i {
 
 .mec-shortcode-organizers i {
   margin-right: 4px;
-  vertical-align: top;
-  line-height: 20px;
+  display: inline-block;
 }
 
 .mec-shortcode-organizers .mec-organizers {
@@ -23192,7 +23195,6 @@ span.mec-marker-wrap,
 .mec-booking-tooltip.multiple-time .mec-booking-calendar-date:hover,
 .mec-ongoing-normal-label,
 .mec-calendar .mec-has-event:after,
-.mec-event-list-modern .mec-event-sharing li:hover .telegram,
 .lity-content .mec-booking-progress-bar li.mec-active:before,
 .lity-content .mec-booking-progress-bar li.mec-active:after,
 .mec-wrap .mec-booking-progress-bar li.mec-active:before,
@@ -23448,7 +23450,8 @@ span.mec-marker-wrap,
 .mec-fes-list ul li .mec-fes-event-export a:hover,
 .mec-fes-list ul li .mec-fes-event-view a:hover,
 .mec-fes-form button[type="submit"].mec-fes-sub-button,
-.mec-fes-form .mec-form-row .button:not(.wp-color-result):hover {
+.mec-fes-form .mec-form-row .button:not(.wp-color-result):hover,
+.mec-fes-form .mec-form-row .quicktags-toolbar input.button.button-small:hover {
   background: var(--mec-fes-main-color);
   color: #fff;
 }

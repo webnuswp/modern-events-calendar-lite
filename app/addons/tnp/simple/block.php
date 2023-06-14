@@ -53,7 +53,7 @@ $event = $event_id ? get_post($event_id) : NULL;
 
 $button_options = $options;
 $button_options['button_url'] = $event_id ? get_permalink($event) : NULL;
-$button_options['button_label'] = esc_html__('Click Here', 'modern-events-calendar-lite' );
+$button_options['button_label'] = esc_html__('Click Here', 'modern-events-calendar-lite');
 
 switch ($layout) {
     case 'left':

@@ -119,17 +119,17 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
 
     <?php if($display_progress_bar and (!$WC_status or $WC_booking_form)): ?>
         <ul class="mec-booking-progress-bar">
-            <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite' ); ?></li>
-            <li class="mec-booking-progress-bar-attendee-info"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite' ); ?></li>
+            <li class="mec-booking-progress-bar-date-and-ticket mec-active"><?php esc_html_e('Date & Ticket', 'modern-events-calendar-lite'); ?></li>
+            <li class="mec-booking-progress-bar-attendee-info"><?php esc_html_e('Attendee Info', 'modern-events-calendar-lite'); ?></li>
             <?php if($WC_status): ?>
-                <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Checkout', 'modern-events-calendar-lite' ); ?></li>
+                <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Checkout', 'modern-events-calendar-lite'); ?></li>
             <?php else: ?>
-                <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Payment', 'modern-events-calendar-lite' ); ?></li>
-                <li class="mec-booking-progress-bar-complete"><?php esc_html_e('Complete', 'modern-events-calendar-lite' ); ?></li>
+                <li class="mec-booking-progress-bar-payment"><?php esc_html_e('Payment', 'modern-events-calendar-lite'); ?></li>
+                <li class="mec-booking-progress-bar-complete"><?php esc_html_e('Complete', 'modern-events-calendar-lite'); ?></li>
             <?php endif; ?>
         </ul>
     <?php else: ?>
-        <h4><?php echo ($from_shortcode ? $event->data->post->post_title : esc_html__('Book Event', 'modern-events-calendar-lite' )); ?></h4>
+        <h4><?php echo ($from_shortcode ? $event->data->post->post_title : esc_html__('Book Event', 'modern-events-calendar-lite')); ?></h4>
     <?php endif; ?>
 
     <?php if(!$book_all_occurrences and count($dates) > 1): ?>
@@ -139,7 +139,7 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
             <?php if(!$modal_booking): ?>
                 <?php if($date_selection === 'calendar'): ?>
                 <div class="mec-booking-calendar-wrapper" id="mec_booking_calendar_wrapper<?php echo esc_attr($uniqueid); ?>">
-                    <div class="mec-select-date-label"><?php esc_html_e('Select Date', 'modern-events-calendar-lite' ); ?> <span class="mec-required">*</span></div>
+                    <div class="mec-select-date-label"><?php esc_html_e('Select Date', 'modern-events-calendar-lite'); ?> <span class="mec-required">*</span></div>
                     <div class="mec-select-date-calendar-dropdown-wrapper">
                         <div class="mec-select-date-calendar-dropdown">
                             <span class="mec-select-date-calendar-icon"><?php echo $this->svg('form/calendar-icon'); ?></span>
@@ -154,7 +154,7 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
                 </div>
                 <?php else: ?>
                 <div class="mec-booking-express-calendar-wrapper" id="mec_booking_calendar_wrapper<?php echo esc_attr($uniqueid); ?>">
-                    <div class="mec-select-date-label"><?php esc_html_e('Select Date', 'modern-events-calendar-lite' ); ?> <span class="mec-required">*</span></div>
+                    <div class="mec-select-date-label"><?php esc_html_e('Select Date', 'modern-events-calendar-lite'); ?> <span class="mec-required">*</span></div>
                     <div class="mec-select-date-express-calendar-wrapper">
                         <div class="mec-select-date-calendar-container"><?php echo (new MEC_feature_bookingcalendar())->display_calendar($event, $uniqueid, $dates[0]['start']['date'], $default_selected_datetime); ?></div>
                     </div>
@@ -169,7 +169,7 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
             <?php endif; ?>
 
         <?php elseif($date_selection == 'checkboxes'): ?>
-        <label><?php esc_html_e('Dates', 'modern-events-calendar-lite' ); ?>: </label>
+        <label><?php esc_html_e('Dates', 'modern-events-calendar-lite'); ?>: </label>
         <div class="mec-booking-dates-checkboxes">
             <?php foreach($dates as $date): ?>
             <label><input type="checkbox" name="book[date][]" value="<?php echo esc_attr($book->timestamp($date['start'], $date['end'])); ?>" onchange="mec_get_tickets_availability_multiple<?php echo esc_attr($uniqueid); ?>(<?php echo esc_attr($event_id); ?>);">&nbsp;<?php echo strip_tags($this->date_label($date['start'], $date['end'], $date_format, ' - ', false, ($date['allday'] ?? 0))); ?></label>
@@ -177,7 +177,7 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
         </div>
         <?php else: ?>
         <div class="mec-booking-calendar-wrapper" id="mec_booking_calendar_wrapper<?php echo esc_attr($uniqueid); ?>">
-            <label for="mec_book_form_date<?php echo esc_attr($uniqueid); ?>" class="mec-select-date-label"><?php esc_html_e('Select Date', 'modern-events-calendar-lite' ); ?> <span class="mec-required">*</span> </label>
+            <label for="mec_book_form_date<?php echo esc_attr($uniqueid); ?>" class="mec-select-date-label"><?php esc_html_e('Select Date', 'modern-events-calendar-lite'); ?> <span class="mec-required">*</span> </label>
             <div class="mec-select-date-dropdown-wrapper">
                 <div class="mec-select-date-dropdown">
                     <span class="mec-select-date-calendar-icon"><?php echo $this->svg('form/calendar-icon'); ?></span>
@@ -195,7 +195,7 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
     </div>
     <?php elseif($book_all_occurrences): ?>
     <div class="mec-next-occ-booking-p">
-        <?php esc_html_e('By booking this event you can attend all occurrences. Some of them are listed below but there might be more.', 'modern-events-calendar-lite' ); ?>
+        <?php esc_html_e('By booking this event you can attend all occurrences. Some of them are listed below but there might be more.', 'modern-events-calendar-lite'); ?>
         <div class="mec-next-occ-booking"><?php foreach($dates as $date) echo MEC_kses::element($this->date_label($date['start'], $date['end'], $date_format, ' - ', false))."<br>"; ?></div>
     </div>
     <input type="hidden" name="book[date]" id="mec_book_form_date<?php echo esc_attr($uniqueid); ?>" value="<?php echo esc_attr($book->timestamp($dates[0]['start'], $dates[0]['end'])); ?>">
@@ -223,7 +223,7 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
                 </div>
                 <div class="mec-ticket-style-row-section-2">
                     <div class="mec-ticket-name-description-wrapper">
-                        <span class="mec-event-ticket-name"><?php echo (isset($ticket['name']) ? esc_html__($ticket['name'], 'modern-events-calendar-lite' ) : ''); ?></span>
+                        <span class="mec-event-ticket-name"><?php echo (isset($ticket['name']) ? esc_html__($ticket['name'], 'modern-events-calendar-lite') : ''); ?></span>
                         <?php
                             $price_label = isset($ticket['price_label']) ? $book->get_ticket_price_label($ticket, current_time('Y-m-d'), $event_id, $occurrence_time) : '';
                             $price_label = apply_filters('mec_filter_price_label', $price_label, $ticket, $event_id, $book);
@@ -235,25 +235,25 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
                     <?php if(!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1): ?>
                     <input type="hidden" name="book[tickets][<?php echo esc_attr($ticket_id); ?>]" value="1" />
                     <p>
-                        <?php esc_html_e('1 Ticket selected.', 'modern-events-calendar-lite' ); ?>
+                        <?php esc_html_e('1 Ticket selected.', 'modern-events-calendar-lite'); ?>
                     </p>
                     <?php else: ?>
                     <div class="mec-event-ticket-input-wrapper">
                         <a href="#" class="plus"><?php echo $this->svg('form/up-small-icon'); ?></a>
-                        <input onkeydown="return event.keyCode !== 69" type="number" class="mec-book-ticket-limit in-num" name="book[tickets][<?php echo esc_attr($ticket_id); ?>]" title="<?php esc_attr_e('Count', 'modern-events-calendar-lite' ); ?>" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite' ); ?>" value="<?php echo esc_attr($default_ticket_number); ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" data-seats="<?php echo esc_attr($ticket_seats); ?>" onchange="mec_check_tickets_availability<?php echo esc_attr($uniqueid); ?>(<?php echo esc_attr($ticket_id); ?>, this.value);" />
+                        <input onkeydown="return event.keyCode !== 69" type="number" class="mec-book-ticket-limit in-num" name="book[tickets][<?php echo esc_attr($ticket_id); ?>]" title="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" placeholder="<?php esc_attr_e('Count', 'modern-events-calendar-lite'); ?>" value="<?php echo esc_attr($default_ticket_number); ?>" min="0" max="<?php echo ($ticket_limit != '-1' ? $ticket_limit : ''); ?>" data-seats="<?php echo esc_attr($ticket_seats); ?>" onchange="mec_check_tickets_availability<?php echo esc_attr($uniqueid); ?>(<?php echo esc_attr($ticket_id); ?>, this.value);" />
                         <a href="#" class="minus dis"><?php echo $this->svg('form/down-small-icon'); ?></a>
                     </div>
-                    <div class="mec-event-ticket-available"><?php echo sprintf(esc_html__('Available %s: %s', 'modern-events-calendar-lite' ), $this->m('tickets', esc_html__('Tickets', 'modern-events-calendar-lite' )), (($ticket['unlimited'] and $ticket_limit == '-1') ? '<span>'.esc_html__('Unlimited', 'modern-events-calendar-lite' ).'</span>' : ($ticket_limit != '-1' ? '<span>'.$ticket_limit.'</span>' : '<span>'.esc_html__('Unlimited', 'modern-events-calendar-lite' ).'</span>'))); ?></div>
+                    <div class="mec-event-ticket-available"><?php echo sprintf(esc_html__('Available %s: %s', 'modern-events-calendar-lite'), $this->m('tickets', esc_html__('Tickets', 'modern-events-calendar-lite')), (($ticket['unlimited'] and $ticket_limit == '-1') ? '<span>'.esc_html__('Unlimited', 'modern-events-calendar-lite').'</span>' : ($ticket_limit != '-1' ? '<span>'.$ticket_limit.'</span>' : '<span>'.esc_html__('Unlimited', 'modern-events-calendar-lite').'</span>'))); ?></div>
                     <?php endif; ?>
                 </div>
             </div>
-            <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo esc_html__($ticket['description'], 'modern-events-calendar-lite' ); ?></p><?php endif; ?>
+            <?php if(isset($ticket['description']) and trim($ticket['description'])): ?><p class="mec-event-ticket-description"><?php echo esc_html__($ticket['description'], 'modern-events-calendar-lite'); ?></p><?php endif; ?>
 
             <?php
                 $str_replace = isset($ticket['name']) ? '<strong>'.esc_html($ticket['name']).'</strong>' : '';
-                $ticket_message_sales = sprintf(esc_html__('The %s ticket sales has ended!', 'modern-events-calendar-lite' ), $str_replace);
-                $ticket_message_sold_out = sprintf(esc_html__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite' ), $str_replace);
-                $ticket_message_sold_out_multiple = sprintf(esc_html__('The %s ticket is sold out for some of dates. You can try another ticket or another date.', 'modern-events-calendar-lite' ), $str_replace);
+                $ticket_message_sales = sprintf(esc_html__('The %s ticket sales has ended!', 'modern-events-calendar-lite'), $str_replace);
+                $ticket_message_sold_out = sprintf(esc_html__('The %s ticket is sold out. You can try another ticket or another date.', 'modern-events-calendar-lite'), $str_replace);
+                $ticket_message_sold_out_multiple = sprintf(esc_html__('The %s ticket is sold out for some of dates. You can try another ticket or another date.', 'modern-events-calendar-lite'), $str_replace);
             ?>
             <?php if(isset($stop_selling) and $stop_selling): ?>
             <div id="mec-ticket-message-<?php echo esc_attr($ticket_id); ?>" class="mec-ticket-unavailable-spots mec-error <?php echo (($ticket_limit != '0' or ($date_selection == 'calendar' and !$modal_booking)) ? 'mec-util-hidden' : ''); ?>">
@@ -289,11 +289,11 @@ wp_enqueue_script('mec-nice-select', $this->asset('js/jquery.nice-select.min.js'
     <?php wp_nonce_field('mec_book_form_'.$event_id); ?>
 
     <?php if(isset($settings['booking_display_total_tickets']) and $settings['booking_display_total_tickets']): ?>
-    <span id="mec_booking_quantity_wrapper_<?php echo esc_attr($uniqueid); ?>"><?php echo sprintf(esc_html__('Total: %s', 'modern-events-calendar-lite' ), '<span class="mec-booking-quantity-holder">'.((!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1) ? 1 : 0).'</span>'); ?></span>
+    <span id="mec_booking_quantity_wrapper_<?php echo esc_attr($uniqueid); ?>"><?php echo sprintf(esc_html__('Total: %s', 'modern-events-calendar-lite'), '<span class="mec-booking-quantity-holder">'.((!$user_ticket_unlimited and $user_ticket_limit == 1 and count($tickets) == 1) ? 1 : 0).'</span>'); ?></span>
     <?php endif; ?>
     <div class="mec-book-form-btn-wrap">
         <button id="mec-book-form-btn-step-1" class="mec-book-form-next-button" style="<?php if($available_spots == '0') echo 'display: none;'; ?>" type="submit" onclick="mec_book_form_back_btn_cache(this, <?php echo esc_attr($uniqueid); ?>);">
-            <?php echo (($WC_status and !$WC_booking_form) ? esc_html__('Add to Cart', 'modern-events-calendar-lite' ) : esc_html__('Next', 'modern-events-calendar-lite' ).' '.'<svg xmlns="http://www.w3.org/2000/svg" width="13" height="10" viewBox="0 0 13 10"><path id="next-icon" d="M92.034,76.719l-.657.675,3.832,3.857H84v.937H95.208l-3.832,3.857.657.675,4.967-5Z" transform="translate(-84.001 -76.719)" fill="#07bbe9"/></svg>'); ?>
+            <?php echo (($WC_status and !$WC_booking_form) ? esc_html__('Add to Cart', 'modern-events-calendar-lite') : esc_html__('Next', 'modern-events-calendar-lite').' '.'<svg xmlns="http://www.w3.org/2000/svg" width="13" height="10" viewBox="0 0 13 10"><path id="next-icon" d="M92.034,76.719l-.657.675,3.832,3.857H84v.937H95.208l-3.832,3.857.657.675,4.967-5Z" transform="translate(-84.001 -76.719)" fill="#07bbe9"/></svg>'); ?>
         </button>
     </div>
 </form>

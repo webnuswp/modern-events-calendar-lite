@@ -78,6 +78,6 @@ $reason_for_cancellation = isset($this->skin_options['reason_for_cancellation'])
     <span class="mec-yearly-max" data-count="<?php echo esc_attr($count); ?>"></span>
 
     <?php if($count > 20): ?>
-    <div class="mec-load-more-wrap"><div tabindex="0" onkeydown="if(event.keyCode==13){jQuery(this).trigger('click');}" class="mec-load-more-button"><?php echo esc_html__('Load More', 'modern-events-calendar-lite' ); ?></div></div>
+    <div class="mec-load-more-wrap"><div tabindex="0" onkeydown="if(event.keyCode==13){jQuery(this).trigger('click');}" class="mec-load-more-button"><?php echo esc_html__('Load More', 'modern-events-calendar-lite'); ?></div></div>
     <?php endif; ?>
 </div>

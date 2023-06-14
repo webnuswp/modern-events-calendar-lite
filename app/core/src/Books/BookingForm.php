@@ -45,7 +45,7 @@ class BookingForm extends Singleton {
 
         if ($mainClass->is_sold($single_event, (trim($occurrence) ? $occurrence : $single_event->date['start']['date'])) && count($single_event->dates) <= 1) : ?>
             <div <?php echo $is_modal ? 'id="mec-events-meta-group-booking-' . esc_attr( $single->uniqueid ) . '"' : '' ?> class="<?php echo esc_attr( $data_lity_class ); ?> mec-sold-tickets warning-msg">
-                <?php esc_html_e('Sold out!', 'modern-events-calendar-lite' ); ?>
+                <?php esc_html_e('Sold out!', 'modern-events-calendar-lite'); ?>
                 <?php do_action('mec_booking_sold_out',$single_event, NULL, NULL, array($single_event->date)); ?>
             </div>
         <?php

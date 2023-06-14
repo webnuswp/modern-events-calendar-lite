@@ -85,8 +85,8 @@ class EventGallery extends WidgetBase {
 		if ( ( true === $this->is_editor_mode || ( $atts['edit_mode'] ?? false ) ) && empty( $html ) ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-				.'<span>'. esc_html__('This widget is displayed if event gallery is set. In order for the widget in this page to be displayed correctly, please set Event Gallery module for your last event.', 'modern-events-calendar-lite' ).'</span>'
-				. '<a href="https://webnus.net/dox/modern-events-calendar/event-gallery-module/" target="_blank">' . esc_html__('How to set Event Gallery module', 'modern-events-calendar-lite' ) . ' </a>'
+				.'<span>'. esc_html__('This widget is displayed if event gallery is set. In order for the widget in this page to be displayed correctly, please set Event Gallery module for your last event.', 'modern-events-calendar-lite').'</span>'
+				. '<a href="https://webnus.net/dox/modern-events-calendar/event-gallery-module/" target="_blank">' . esc_html__('How to set Event Gallery module', 'modern-events-calendar-lite') . ' </a>'
 			.'</p></div>';
 		}
 

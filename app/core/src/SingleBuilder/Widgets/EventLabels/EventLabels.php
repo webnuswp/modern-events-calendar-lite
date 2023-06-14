@@ -35,8 +35,8 @@ class EventLabels extends WidgetBase {
 		if ( empty($labels) && true === $this->is_editor_mode ) {
 
 			echo '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if label is set. In order for the widget in this page to be displayed correctly, please set label for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/label/" target="_blank">' . esc_html__('How to set label', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if label is set. In order for the widget in this page to be displayed correctly, please set label for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/label/" target="_blank">' . esc_html__('How to set label', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} elseif ( !empty($labels) ) {
 
@@ -45,7 +45,7 @@ class EventLabels extends WidgetBase {
 			$mec_i = 0; ?>
 			<div class="mec-single-event-label">
 				<i class="mec-fa-bookmark-o"></i>
-				<h3 class="mec-cost"><?php echo Base::get_main()->m('taxonomy_labels', esc_html__('Labels', 'modern-events-calendar-lite' )); ?></h3>
+				<h3 class="mec-cost"><?php echo Base::get_main()->m('taxonomy_labels', esc_html__('Labels', 'modern-events-calendar-lite')); ?></h3>
 				<?php foreach ($labels as $k => $label) :
 					$seperator = (++$mec_i === $mec_items) ? '' : ',';
 					echo '<dd style="color:' . esc_attr( $label['color'] ) . '">' . esc_html($label["name"] . $seperator) . '</dd>';

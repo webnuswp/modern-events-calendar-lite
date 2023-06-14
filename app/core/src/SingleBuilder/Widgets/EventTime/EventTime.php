@@ -40,14 +40,14 @@ class EventTime extends WidgetBase {
 					?>
 						<div class="mec-single-event-time">
 							<i class="mec-sl-clock"></i>
-							<h3 class="mec-time"><?php esc_html_e('Time', 'modern-events-calendar-lite' ); ?></h3>
+							<h3 class="mec-time"><?php esc_html_e('Time', 'modern-events-calendar-lite'); ?></h3>
 							<i class="mec-time-comment"><?php echo (isset($time_comment) ? esc_html($time_comment) : ''); ?></i>
 							<dl>
 								<?php if ($allday == '0' and isset($event_detail->data->time) and trim($event_detail->data->time['start'])) : ?>
 									<?php ?>
 									<dd><abbr class="mec-events-abbr"><?php echo esc_html( $event_detail->data->time['start'] ); ?><?php echo (trim($event_detail->data->time['end']) ? esc_html( ' - ' . $event_detail->data->time['end'] ) : ''); ?></abbr></dd>
 								<?php else : ?>
-									<dd><abbr class="mec-events-abbr"><?php echo esc_html( \MEC\Base::get_main()->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite' )) ); ?></abbr></dd>
+									<dd><abbr class="mec-events-abbr"><?php echo esc_html( \MEC\Base::get_main()->m('all_day', esc_html__('All Day' , 'modern-events-calendar-lite')) ); ?></abbr></dd>
 								<?php endif; ?>
 							</dl>
 						</div>

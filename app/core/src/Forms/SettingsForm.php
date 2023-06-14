@@ -70,72 +70,72 @@ class SettingsForm extends Singleton {
 		$elements = array(
 				'first_name'      => array(
 					'required' => true,
-					'text'     => esc_html__( 'MEC First Name', 'modern-events-calendar-lite' ),
+					'text'     => esc_html__( 'MEC First Name', 'modern-events-calendar-lite'),
 					'class'    => 'red',
 				),
 				'last_name'      => array(
 					'required' => true,
-					'text'     => esc_html__( 'MEC Last Name', 'modern-events-calendar-lite' ),
+					'text'     => esc_html__( 'MEC Last Name', 'modern-events-calendar-lite'),
 					'class'    => 'red',
 				),
 				'mec_email' => array(
 						'required' => true,
-						'text'     => esc_html__( 'MEC Email', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'MEC Email', 'modern-events-calendar-lite'),
 						'class'    => 'red',
 				),
 				'text'      => array(
 						'required' => false,
-						'text'     => esc_html__( 'Text', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Text', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'email'     => array(
 						'required' => false,
-						'text'     => esc_html__( 'Email', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Email', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'date'      => array(
 						'required' => false,
-						'text'     => esc_html__( 'Date', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Date', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'tel'       => array(
 						'required' => false,
-						'text'     => esc_html__( 'Tel', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Tel', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'file'      => array(
 						'required' => false,
-						'text'     => esc_html__( 'File', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'File', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'textarea'  => array(
 						'required' => false,
-						'text'     => esc_html__( 'Textarea', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Textarea', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'checkbox'  => array(
 						'required' => false,
-						'text'     => esc_html__( 'Checkboxes', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Checkboxes', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'radio'     => array(
 						'required' => false,
-						'text'     => esc_html__( 'Radio Buttons', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Radio Buttons', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'select'    => array(
 						'required' => false,
-						'text'     => esc_html__( 'Dropdown', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Dropdown', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'agreement' => array(
 						'required' => false,
-						'text'     => esc_html__( 'Agreement', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Agreement', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 				'p'         => array(
 						'required' => false,
-						'text'     => esc_html__( 'Paragraph', 'modern-events-calendar-lite' ),
+						'text'     => esc_html__( 'Paragraph', 'modern-events-calendar-lite'),
 						'class'    => '',
 				),
 		);

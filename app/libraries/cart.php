@@ -61,14 +61,14 @@ class MEC_cart extends MEC_base
     public function next()
     {
         $ticket_names = implode(', ', $this->ticket_names);
-        if(trim($ticket_names) === '') $ticket_names = esc_html__('Ticket', 'modern-events-calendar-lite' );
+        if(trim($ticket_names) === '') $ticket_names = esc_html__('Ticket', 'modern-events-calendar-lite');
 
         // Checkout URL
         if(isset($this->settings['cart_after_add']) and $this->settings['cart_after_add'] == 'checkout') return array('type' => 'url', 'url' => $this->get_checkout_url());
         // Optional Checkout URL
-        if(isset($this->settings['cart_after_add']) and $this->settings['cart_after_add'] == 'optional_cart') return array('type' => 'message', 'message' => '<div class="woocommerce-notices-wrapper"><div class="woocommerce-message" role="alert"><a href="'.esc_url($this->get_cart_url()).'" tabindex="1" class="button wc-forward" target="_parent">'.esc_html__('View cart', 'modern-events-calendar-lite' ).'</a> '.esc_html(sprintf(_n('“%s” has been added to your cart.', '“%s” have been added to your cart.', count($this->ticket_names), 'modern-events-calendar-lite' ), $ticket_names)).'</div></div>');
+        if(isset($this->settings['cart_after_add']) and $this->settings['cart_after_add'] == 'optional_cart') return array('type' => 'message', 'message' => '<div class="woocommerce-notices-wrapper"><div class="woocommerce-message" role="alert"><a href="'.esc_url($this->get_cart_url()).'" tabindex="1" class="button wc-forward" target="_parent">'.esc_html__('View cart', 'modern-events-calendar-lite').'</a> '.esc_html(sprintf(_n('“%s” has been added to your cart.', '“%s” have been added to your cart.', count($this->ticket_names), 'modern-events-calendar-lite'), $ticket_names)).'</div></div>');
         // Optional Cart URL
-        if(isset($this->settings['cart_after_add']) and $this->settings['cart_after_add'] == 'optional_chckout') return array('type' => 'message', 'message' => '<div class="woocommerce-notices-wrapper"><div class="woocommerce-message" role="alert"><a href="'.esc_url($this->get_checkout_url()).'" tabindex="1" class="button wc-forward" target="_parent">'.esc_html__('Checkout', 'modern-events-calendar-lite' ).'</a> '.esc_html(sprintf(_n('“%s” has been added to your cart.', '“%s” have been added to your cart.', count($this->ticket_names), 'modern-events-calendar-lite' ), $ticket_names)).'</div></div>');
+        if(isset($this->settings['cart_after_add']) and $this->settings['cart_after_add'] == 'optional_chckout') return array('type' => 'message', 'message' => '<div class="woocommerce-notices-wrapper"><div class="woocommerce-message" role="alert"><a href="'.esc_url($this->get_checkout_url()).'" tabindex="1" class="button wc-forward" target="_parent">'.esc_html__('Checkout', 'modern-events-calendar-lite').'</a> '.esc_html(sprintf(_n('“%s” has been added to your cart.', '“%s” have been added to your cart.', count($this->ticket_names), 'modern-events-calendar-lite'), $ticket_names)).'</div></div>');
         // Cart URL
         else return array('type' => 'url', 'url' => $this->get_cart_url());
     }

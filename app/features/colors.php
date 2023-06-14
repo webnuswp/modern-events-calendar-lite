@@ -47,7 +47,7 @@ class MEC_feature_colors extends MEC_base
      */
     public function register_meta_boxes()
     {
-        add_meta_box('mec_metabox_color', esc_html__('Event Color', 'modern-events-calendar-lite' ), array($this, 'meta_box_colors'), $this->main->get_main_post_type(), 'side');
+        add_meta_box('mec_metabox_color', esc_html__('Event Color', 'modern-events-calendar-lite'), array($this, 'meta_box_colors'), $this->main->get_main_post_type(), 'side');
     }
 
     public function mec_hex2rgb($hex)
@@ -84,7 +84,7 @@ class MEC_feature_colors extends MEC_base
                 <input type="text" id="mec_event_color" name="mec[color]" value="#<?php echo esc_attr($color); ?>" data-default-color="#<?php echo esc_attr($color); ?>" class="mec-color-picker" />
             </div>
             <div class="mec-form-row mec-available-color-row">
-                <div class="mec-recent-color-sec" style="display: none"><?php echo esc_html__('Recent Colors', 'modern-events-calendar-lite' ); ?></div>
+                <div class="mec-recent-color-sec" style="display: none"><?php echo esc_html__('Recent Colors', 'modern-events-calendar-lite'); ?></div>
                 <?php foreach($available_colors as $available_color): $rgba_array = $this->mec_hex2rgb('#'.$available_color); ?>
                 <span class="mec-recent-color-sec-wrap">
                     <?php if(!empty($rgba_array)) echo '<span class="mec-color-meta-box-popup" style="display: none;background-color: rgba('.esc_attr($rgba_array[0]).','.esc_attr($rgba_array[1]).','.esc_attr($rgba_array[2]).',0.14);"></span>'; ?>

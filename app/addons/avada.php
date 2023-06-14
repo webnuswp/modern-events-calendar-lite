@@ -51,7 +51,7 @@ class MEC_addon_avada extends MEC_base
         }
 
         fusion_builder_map(array(
-            'name'            => esc_attr__('MEC', 'modern-events-calendar-lite' ),
+            'name'            => esc_attr__('MEC', 'modern-events-calendar-lite'),
             'shortcode'       => 'MEC',
             'icon'            => 'fusiona-code',
             'preview'         => MEC_ABSPATH.'app/addons/avada/preview.php',
@@ -60,8 +60,8 @@ class MEC_addon_avada extends MEC_base
             'params'          => array(
                 array(
                     'type'        => 'select',
-                    'heading'     => esc_attr__('Shortcode', 'modern-events-calendar-lite' ),
-                    'description' => esc_attr__('Select one of created shortcodes.', 'modern-events-calendar-lite' ),
+                    'heading'     => esc_attr__('Shortcode', 'modern-events-calendar-lite'),
+                    'description' => esc_attr__('Select one of created shortcodes.', 'modern-events-calendar-lite'),
                     'param_name'  => 'id',
                     'value'       => $shortcodes,
                     'default'     => '',

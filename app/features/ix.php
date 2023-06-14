@@ -100,7 +100,7 @@ class MEC_feature_ix extends MEC_base
     public function menus()
     {
         $capability = (current_user_can('administrator') ? 'manage_options' : 'mec_import_export');
-        add_submenu_page('mec-intro', esc_html__('MEC - Import / Export', 'modern-events-calendar-lite' ), esc_html__('Import / Export', 'modern-events-calendar-lite' ), $capability, 'MEC-ix', array($this, 'ix'));
+        add_submenu_page('mec-intro', esc_html__('MEC - Import / Export', 'modern-events-calendar-lite'), esc_html__('Import / Export', 'modern-events-calendar-lite'), $capability, 'MEC-ix', array($this, 'ix'));
     }
 
     /**
@@ -203,12 +203,12 @@ class MEC_feature_ix extends MEC_base
         $feed_file = $_FILES['feed'];
 
         // File is not uploaded
-        if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => esc_html__('Please upload a CSV file.', 'modern-events-calendar-lite' ));
+        if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => esc_html__('Please upload a CSV file.', 'modern-events-calendar-lite'));
 
         // File name validation
         $name_ex = explode('.', $feed_file['name']);
         $name_end = end($name_ex);
-        if($name_end != 'csv') return array('success' => 0, 'message' => esc_html__('Please upload a CSV file.', 'modern-events-calendar-lite' ));
+        if($name_end != 'csv') return array('success' => 0, 'message' => esc_html__('Please upload a CSV file.', 'modern-events-calendar-lite'));
 
         // Upload the File
         $upload_dir = wp_upload_dir();
@@ -217,12 +217,12 @@ class MEC_feature_ix extends MEC_base
         $uploaded = move_uploaded_file($feed_file['tmp_name'], $target_path);
 
         // Error on Upload
-        if(!$uploaded) return array('success' => 0, 'message' => esc_html__("An error occurred during the file upload! Please check permissions!", 'modern-events-calendar-lite' ));
+        if(!$uploaded) return array('success' => 0, 'message' => esc_html__("An error occurred during the file upload! Please check permissions!", 'modern-events-calendar-lite'));
 
         if($type = mime_content_type($target_path) and $type == 'text/x-php')
         {
             unlink($target_path);
-            return array('success' => 0, 'message' => esc_html__("Please upload a CSV file.", 'modern-events-calendar-lite' ));
+            return array('success' => 0, 'message' => esc_html__("Please upload a CSV file.", 'modern-events-calendar-lite'));
         }
 
         $bookings = array();
@@ -276,13 +276,13 @@ class MEC_feature_ix extends MEC_base
                 $email = $data[10];
 
                 $confirmed_label = $data[12];
-                if($confirmed_label == esc_html__('Confirmed', 'modern-events-calendar-lite' )) $confirmed = 1;
-                elseif($confirmed_label == esc_html__('Rejected', 'modern-events-calendar-lite' )) $confirmed = -1;
+                if($confirmed_label == esc_html__('Confirmed', 'modern-events-calendar-lite')) $confirmed = 1;
+                elseif($confirmed_label == esc_html__('Rejected', 'modern-events-calendar-lite')) $confirmed = -1;
                 else $confirmed = 0;
 
                 $verified_label = $data[13];
-                if($verified_label == esc_html__('Verified', 'modern-events-calendar-lite' )) $verified = 1;
-                elseif($verified_label == esc_html__('Canceled', 'modern-events-calendar-lite' )) $verified = -1;
+                if($verified_label == esc_html__('Verified', 'modern-events-calendar-lite')) $verified = 1;
+                elseif($verified_label == esc_html__('Canceled', 'modern-events-calendar-lite')) $verified = -1;
                 else $verified = 0;
 
                 $other_dates_str = $data[14];
@@ -448,7 +448,7 @@ class MEC_feature_ix extends MEC_base
         // Delete File
         unlink($target_path);
 
-        return array('success' => (count($bookings) ? 1 : 0), 'message' => (count($bookings) ? esc_html__('The bookings are imported successfully!', 'modern-events-calendar-lite' ) : esc_html__('No bookings found to import!', 'modern-events-calendar-lite' )));
+        return array('success' => (count($bookings) ? 1 : 0), 'message' => (count($bookings) ? esc_html__('The bookings are imported successfully!', 'modern-events-calendar-lite') : esc_html__('No bookings found to import!', 'modern-events-calendar-lite')));
     }
 
     public function import_start()
@@ -456,15 +456,15 @@ class MEC_feature_ix extends MEC_base
         $feed_file = $_FILES['feed'];
 
         // File is not uploaded
-        if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => esc_html__('Please upload the feed file.', 'modern-events-calendar-lite' ));
+        if(!isset($feed_file['name']) or (isset($feed_file['name']) and trim($feed_file['name']) == '')) return array('success' => 0, 'message' => esc_html__('Please upload the feed file.', 'modern-events-calendar-lite'));
 
         // File name validation
         $ex = explode('.', $feed_file['name']);
         $name_end = end($ex);
-        if(!in_array($name_end, array('xml', 'ics'))) return array('success' => 0, 'message' => esc_html__('Please upload an XML or an ICS file.', 'modern-events-calendar-lite' ));
+        if(!in_array($name_end, array('xml', 'ics'))) return array('success' => 0, 'message' => esc_html__('Please upload an XML or an ICS file.', 'modern-events-calendar-lite'));
 
         // File Type is not valid
-        if(!isset($feed_file['type']) or (isset($feed_file['type']) and !in_array(strtolower($feed_file['type']), array('text/xml', 'text/calendar')))) return array('success' => 0, 'message' => esc_html__('The file type should be XML or ICS.', 'modern-events-calendar-lite' ));
+        if(!isset($feed_file['type']) or (isset($feed_file['type']) and !in_array(strtolower($feed_file['type']), array('text/xml', 'text/calendar')))) return array('success' => 0, 'message' => esc_html__('The file type should be XML or ICS.', 'modern-events-calendar-lite'));
 
         // Upload the File
         $upload_dir = wp_upload_dir();
@@ -473,17 +473,17 @@ class MEC_feature_ix extends MEC_base
         $uploaded = move_uploaded_file($feed_file['tmp_name'], $target_path);
 
         // Error on Upload
-        if(!$uploaded) return array('success' => 0, 'message' => esc_html__("An error occurred during the file upload! Please check permissions!", 'modern-events-calendar-lite' ));
+        if(!$uploaded) return array('success' => 0, 'message' => esc_html__("An error occurred during the file upload! Please check permissions!", 'modern-events-calendar-lite'));
 
         if($type = mime_content_type($target_path) and $type == 'text/x-php')
         {
             unlink($target_path);
-            return array('success' => 0, 'message' => esc_html__("Please upload an XML or an ICS file.", 'modern-events-calendar-lite' ));
+            return array('success' => 0, 'message' => esc_html__("Please upload an XML or an ICS file.", 'modern-events-calendar-lite'));
         }
 
         if($type === 'text/calendar' and is_string($this->main->parse_ics($target_path)))
         {
-            return array('success' => 0, 'message' => sprintf(__("The ICS file is not valid. Reported Error: %s", 'modern-events-calendar-lite' ), '<strong>'.$this->main->parse_ics($target_path).'</strong>'));
+            return array('success' => 0, 'message' => sprintf(__("The ICS file is not valid. Reported Error: %s", 'modern-events-calendar-lite'), '<strong>'.$this->main->parse_ics($target_path).'</strong>'));
         }
 
         // Import
@@ -492,7 +492,7 @@ class MEC_feature_ix extends MEC_base
         // Delete File
         unlink($target_path);
 
-        return array('success' => 1, 'message' => esc_html__('The events are imported successfully!', 'modern-events-calendar-lite' ));
+        return array('success' => 1, 'message' => esc_html__('The events are imported successfully!', 'modern-events-calendar-lite'));
     }
 
     public function import_do($feed)
@@ -1001,8 +1001,9 @@ class MEC_feature_ix extends MEC_base
                 if(isset($event->dtstart_array) and isset($event->dtstart_array[0]) and isset($event->dtstart_array[0]['TZID'])) $ics_timezone = $event->dtstart_array[0]['TZID'];
 
                 $allday_event = ((isset($event->dtstart_array, $event->dtstart_array[0], $event->dtstart_array[0]['VALUE']) and $event->dtstart_array[0]['VALUE'] === 'DATE') and (isset($event->dtend_array, $event->dtend_array[0], $event->dtend_array[0]['VALUE']) and $event->dtend_array[0]['VALUE'] === 'DATE'));
-
                 $start_datetime = $event->dtstart;
+
+                $not_in_days = NULL;
 
                 // ICS file has Timezone for event
                 if($ics_timezone)
@@ -1018,6 +1019,23 @@ class MEC_feature_ix extends MEC_base
                         $end_datetime = $event->dtend;
 
                         $date_end = new DateTime($end_datetime, new DateTimeZone($ics_timezone));
+                    }
+
+                    // Excluded Dates
+                    if(isset($event->exdate) and trim($event->exdate))
+                    {
+                        $ex_dates = explode(',', $event->exdate);
+
+                        $not_in_days = '';
+                        foreach($ex_dates as $ex_date)
+                        {
+                            $exd = new DateTime($ex_date, new DateTimeZone('UTC'));
+                            $exd->setTimezone(new DateTimeZone($ics_timezone));
+
+                            $not_in_days .= $exd->format('Y-m-d').',';
+                        }
+
+                        $not_in_days = trim($not_in_days, ', ');
                     }
                 }
                 // Consider UTC as default timezone
@@ -1041,6 +1059,23 @@ class MEC_feature_ix extends MEC_base
 
                         $date_end = new DateTime($end_datetime, new DateTimeZone($cal_tz));
                         $date_end->setTimezone(new DateTimeZone($event_timezone));
+                    }
+
+                    // Excluded Dates
+                    if(isset($event->exdate) and trim($event->exdate))
+                    {
+                        $ex_dates = explode(',', $event->exdate);
+
+                        $not_in_days = '';
+                        foreach($ex_dates as $ex_date)
+                        {
+                            $exd = new DateTime($ex_date, new DateTimeZone($cal_tz));
+                            $exd->setTimezone(new DateTimeZone($event_timezone));
+
+                            $not_in_days .= $exd->format('Y-m-d').',';
+                        }
+
+                        $not_in_days = trim($not_in_days, ', ');
                     }
                 }
 
@@ -1092,8 +1127,8 @@ class MEC_feature_ix extends MEC_base
                 $weekday = NULL;
                 $weekdays = NULL;
                 $days = NULL;
-                $not_in_days = NULL;
                 $repeat_count = NULL;
+                $advanced_days = NULL;
 
                 // Recurring Event
                 $rrule = (isset($event->rrule) and trim($event->rrule)) ? $event->rrule : '';
@@ -1122,6 +1157,24 @@ class MEC_feature_ix extends MEC_base
                     {
                         $repeat_type = 'weekly';
                         $repeat_interval = isset($rule['interval']) ? $rule['interval']*7 : 7;
+                    }
+                    elseif($rule['freq'] == 'monthly' and isset($rule['byday']) and trim($rule['byday']))
+                    {
+                        $repeat_type = 'advanced';
+
+                        $adv_week = (isset($rule['bysetpos']) and trim($rule['bysetpos']) != '') ? $rule['bysetpos'] : (int) substr($rule['byday'], 0, -2);
+                        $adv_day = str_replace($adv_week, '', $rule['byday']);
+
+                        $mec_adv_day = 'Sat';
+                        if($adv_day == 'su') $mec_adv_day = 'Sun';
+                        elseif($adv_day == 'mo') $mec_adv_day = 'Mon';
+                        elseif($adv_day == 'tu') $mec_adv_day = 'Tue';
+                        elseif($adv_day == 'we') $mec_adv_day = 'Wed';
+                        elseif($adv_day == 'th') $mec_adv_day = 'Thu';
+                        elseif($adv_day == 'fr') $mec_adv_day = 'Fri';
+
+                        if($adv_week < 0) $adv_week = 'l';
+                        $advanced_days = array($mec_adv_day.'.'.$adv_week);
                     }
                     elseif($rule['freq'] == 'monthly')
                     {
@@ -1262,6 +1315,7 @@ class MEC_feature_ix extends MEC_base
                         'mec_reg_fields_global_inheritance' =>  1,
                         'mec_reg_fields' => $reg_fields,
                         'mec_timezone' => ($event_timezone === $timezone ? 'global' : $event_timezone),
+                        'mec_advanced_days'=>$advanced_days,
                     )
                 );
 
@@ -1368,7 +1422,7 @@ class MEC_feature_ix extends MEC_base
             $end_ampm = 'PM';
 
             $event_id = $this->main->save_event([
-                'title' => sprintf(esc_html__('%s - Test Event', 'modern-events-calendar-lite' ), $name),
+                'title' => sprintf(esc_html__('%s - Test Event', 'modern-events-calendar-lite'), $name),
                 'location_id' => $location_id,
                 'organizer_id' => $organizer_id,
                 'date' => [
@@ -1427,7 +1481,7 @@ class MEC_feature_ix extends MEC_base
             if($location_method && $location_method === 'random') $location_id = $this->select_random_term('mec_location');
         }
 
-        return ['success' => 1, 'message' => sprintf(esc_html__("%s events successfully created.", 'modern-events-calendar-lite' ), '<strong>'.$number.'</strong>')];
+        return ['success' => 1, 'message' => sprintf(esc_html__("%s events successfully created.", 'modern-events-calendar-lite'), '<strong>'.$number.'</strong>')];
     }
 
     private function select_random_term($taxonomy)
@@ -1533,7 +1587,7 @@ class MEC_feature_ix extends MEC_base
                 'post_type' => 'event_listing',
             ));
         }
-        else return array('success'=>0, 'message'=>__("Third Party plugin is not installed and activated!", 'modern-events-calendar-lite' ));
+        else return array('success'=>0, 'message'=>__("Third Party plugin is not installed and activated!", 'modern-events-calendar-lite'));
 
         return array(
             'success' => 1,
@@ -1563,7 +1617,7 @@ class MEC_feature_ix extends MEC_base
 
         $third_party = isset($this->ix['third-party']) ? $this->ix['third-party'] : '';
 
-        $response = array('success'=>0, 'message'=>__('Third Party plugin is invalid!', 'modern-events-calendar-lite' ));
+        $response = array('success'=>0, 'message'=>__('Third Party plugin is invalid!', 'modern-events-calendar-lite'));
         if($third_party == 'eventon') $response = $this->thirdparty_eventon_import_do($events);
         elseif($third_party == 'the-events-calendar') $response = $this->thirdparty_tec_import_do($events);
         elseif($third_party == 'weekly-class') $response = $this->thirdparty_weekly_class_import_do($events);
@@ -3545,7 +3599,7 @@ class MEC_feature_ix extends MEC_base
         $start_date = isset($this->ix['google_import_start_date']) ? $this->ix['google_import_start_date'] : 'Today';
         $end_date = (isset($this->ix['google_import_end_date']) and trim($this->ix['google_import_end_date'])) ? $this->ix['google_import_end_date'] : 'Tomorrow';
 
-        if(!trim($api_key) or !trim($calendar_id)) return array('success'=>0, 'error'=>__('API key and Calendar ID are required!', 'modern-events-calendar-lite' ));
+        if(!trim($api_key) or !trim($calendar_id)) return array('success'=>0, 'error'=>__('API key and Calendar ID are required!', 'modern-events-calendar-lite'));
 
         // Save options
         $this->main->save_ix_options(array('google_import_api_key'=>$api_key, 'google_import_calendar_id'=>$calendar_id, 'google_import_start_date'=>$start_date, 'google_import_end_date'=>$end_date));
@@ -3607,12 +3661,12 @@ class MEC_feature_ix extends MEC_base
     public function g_calendar_import_do()
     {
         $g_events = ((isset($_POST['g-events']) and is_array($_POST['g-events'])) ? array_map('sanitize_text_field', $_POST['g-events']) : array());
-        if(!count($g_events)) return array('success'=>0, 'error'=>__('Please select events to import!', 'modern-events-calendar-lite' ));
+        if(!count($g_events)) return array('success'=>0, 'error'=>__('Please select events to import!', 'modern-events-calendar-lite'));
 
         $api_key = isset($this->ix['google_import_api_key']) ? $this->ix['google_import_api_key'] : NULL;
         $calendar_id = isset($this->ix['google_import_calendar_id']) ? $this->ix['google_import_calendar_id'] : NULL;
 
-        if(!trim($api_key) or !trim($calendar_id)) return array('success'=>0, 'error'=>__('API key and Calendar ID are required!', 'modern-events-calendar-lite' ));
+        if(!trim($api_key) or !trim($calendar_id)) return array('success'=>0, 'error'=>__('API key and Calendar ID are required!', 'modern-events-calendar-lite'));
 
         // Timezone
         $timezone = $this->main->get_timezone();
@@ -4049,7 +4103,7 @@ class MEC_feature_ix extends MEC_base
         $api_key = isset($this->ix['meetup_api_key']) ? $this->ix['meetup_api_key'] : NULL;
         $group_url = isset($this->ix['meetup_group_url']) ? $this->ix['meetup_group_url'] : NULL;
 
-        if(!trim($api_key) or !trim($group_url)) return array('success'=>0, 'error'=>__('API key and Group URL are required!', 'modern-events-calendar-lite' ));
+        if(!trim($api_key) or !trim($group_url)) return array('success'=>0, 'error'=>__('API key and Group URL are required!', 'modern-events-calendar-lite'));
 
         // Save options
         $this->main->save_ix_options(array('meetup_api_key'=>$api_key, 'meetup_group_url'=>$group_url));
@@ -4107,12 +4161,12 @@ class MEC_feature_ix extends MEC_base
     public function meetup_import_do()
     {
         $m_events = ((isset($_POST['m-events']) and is_array($_POST['m-events'])) ? array_map('sanitize_text_field', $_POST['m-events']) : array());
-        if(!count($m_events)) return array('success'=>0, 'error'=>__('Please select events to import!', 'modern-events-calendar-lite' ));
+        if(!count($m_events)) return array('success'=>0, 'error'=>__('Please select events to import!', 'modern-events-calendar-lite'));
 
         $api_key = isset($this->ix['meetup_api_key']) ? $this->ix['meetup_api_key'] : NULL;
         $group_url = isset($this->ix['meetup_group_url']) ? $this->ix['meetup_group_url'] : NULL;
 
-        if(!trim($api_key) or !trim($group_url)) return array('success'=>0, 'error'=>__('API key and Group URL are required!', 'modern-events-calendar-lite' ));
+        if(!trim($api_key) or !trim($group_url)) return array('success'=>0, 'error'=>__('API key and Group URL are required!', 'modern-events-calendar-lite'));
 
         // Timezone
         $timezone = $this->main->get_timezone();
@@ -4351,7 +4405,7 @@ class MEC_feature_ix extends MEC_base
                     'mec_meetup_id'=>$mcal_id,
                     'mec_meetup_series_id'=>$series_id,
                     'mec_more_info'=>$more_info,
-                    'mec_more_info_title'=>__('Check at Meetup', 'modern-events-calendar-lite' ),
+                    'mec_more_info_title'=>__('Check at Meetup', 'modern-events-calendar-lite'),
                     'mec_more_info_target'=>'_self',
                     'mec_cost'=>$fee,
                     'mec_meetup_url'=>$group_url,
@@ -4529,7 +4583,7 @@ class MEC_feature_ix extends MEC_base
         $calendar_id = isset($ix['google_export_calendar_id']) ? $ix['google_export_calendar_id'] : NULL;
         $auth_url = '';
 
-        if(!trim($client_id) or !trim($client_secret) or !trim($calendar_id)) $this->main->response(array('success'=>0, 'message'=>__('All of Client ID, Client Secret, and Calendar ID are required!', 'modern-events-calendar-lite' )));
+        if(!trim($client_id) or !trim($client_secret) or !trim($calendar_id)) $this->main->response(array('success'=>0, 'message'=>__('All of Client ID, Client Secret, and Calendar ID are required!', 'modern-events-calendar-lite')));
 
         // Save options
         $this->main->save_ix_options(array('google_export_client_id'=>$client_id, 'google_export_client_secret'=>$client_secret, 'google_export_calendar_id'=>$calendar_id));
@@ -4552,7 +4606,7 @@ class MEC_feature_ix extends MEC_base
             $this->main->response(array('success'=>0, 'message'=>$ex->getMessage()));
         }
 
-        $this->main->response(array('success'=>1, 'message'=>sprintf(esc_html__('All seems good! Please click %s to authenticate your app.', 'modern-events-calendar-lite' ), '<a href="'.esc_url($auth_url).'">'.esc_html__('here', 'modern-events-calendar-lite' ).'</a>')));
+        $this->main->response(array('success'=>1, 'message'=>sprintf(esc_html__('All seems good! Please click %s to authenticate your app.', 'modern-events-calendar-lite'), '<a href="'.esc_url($auth_url).'">'.esc_html__('here', 'modern-events-calendar-lite').'</a>')));
     }
 
     public function g_calendar_export_get_token()
@@ -4607,7 +4661,7 @@ class MEC_feature_ix extends MEC_base
         $refresh_token = isset($ix['google_export_refresh_token']) ? $ix['google_export_refresh_token'] : NULL;
         $calendar_id = isset($ix['google_export_calendar_id']) ? $ix['google_export_calendar_id'] : NULL;
 
-        if(!trim($client_id) or !trim($client_secret) or !trim($calendar_id)) $this->main->response(array('success'=>0, 'message'=>__('Client App, Client Secret, and Calendar ID are all required!', 'modern-events-calendar-lite' )));
+        if(!trim($client_id) or !trim($client_secret) or !trim($calendar_id)) $this->main->response(array('success'=>0, 'message'=>__('Client App, Client Secret, and Calendar ID are all required!', 'modern-events-calendar-lite')));
 
         $client = new Google_Client();
         $client->setApplicationName('Modern Events Calendar');
@@ -4771,9 +4825,9 @@ class MEC_feature_ix extends MEC_base
         foreach($g_events_not_inserted as $g_event_not_inserted) $results .= '<li><strong>'.MEC_kses::element($g_event_not_inserted['title']).'</strong>: '.MEC_kses::element($g_event_not_inserted['message']).'</li>';
         $results .= '<ul>';
 
-        $message = (count($g_events_inserted) ? sprintf(esc_html__('%s events added to Google Calendar with success.', 'modern-events-calendar-lite' ), '<strong>'.count($g_events_inserted).'</strong>') : '');
-        $message .= (count($g_events_updated) ? ' '.sprintf(esc_html__('%s Updated previously added events.', 'modern-events-calendar-lite' ), '<strong>'.count($g_events_updated).'</strong>') : '');
-        $message .= (count($g_events_not_inserted) ? ' '.sprintf(esc_html__('%s events failed to add for following reasons: %s', 'modern-events-calendar-lite' ), '<strong>'.count($g_events_not_inserted).'</strong>', $results) : '');
+        $message = (count($g_events_inserted) ? sprintf(esc_html__('%s events added to Google Calendar with success.', 'modern-events-calendar-lite'), '<strong>'.count($g_events_inserted).'</strong>') : '');
+        $message .= (count($g_events_updated) ? ' '.sprintf(esc_html__('%s Updated previously added events.', 'modern-events-calendar-lite'), '<strong>'.count($g_events_updated).'</strong>') : '');
+        $message .= (count($g_events_not_inserted) ? ' '.sprintf(esc_html__('%s events failed to add for following reasons: %s', 'modern-events-calendar-lite'), '<strong>'.count($g_events_not_inserted).'</strong>', $results) : '');
 
         $this->main->response(array('success'=>((count($g_events_inserted) or count($g_events_updated)) ? 1 : 0), 'message'=>trim($message)));
     }
@@ -4805,7 +4859,7 @@ class MEC_feature_ix extends MEC_base
         $fb_page_link = isset($this->ix['facebook_import_page_link']) ? $this->ix['facebook_import_page_link'] : NULL;
         $this->fb_access_token = isset($this->ix['facebook_app_token']) ? $this->ix['facebook_app_token'] : NULL;
 
-        if(!trim($fb_page_link)) return array('success'=>0, 'message'=>__("Please insert your Facebook page's link.", 'modern-events-calendar-lite' ));
+        if(!trim($fb_page_link)) return array('success'=>0, 'message'=>__("Please insert your Facebook page's link.", 'modern-events-calendar-lite'));
 
         // Save options
         $this->main->save_ix_options(array('facebook_import_page_link'=>$fb_page_link));
@@ -4816,7 +4870,7 @@ class MEC_feature_ix extends MEC_base
         $fb_page_id = isset($fb_page['id']) ? $fb_page['id'] : 0;
         if(!$fb_page_id)
         {
-            $message = esc_html__("We were not able to recognize your Facebook page. Please check again and provide a valid link.", 'modern-events-calendar-lite' );
+            $message = esc_html__("We were not able to recognize your Facebook page. Please check again and provide a valid link.", 'modern-events-calendar-lite');
             if(isset($fb_page['error']) and isset($fb_page['error']['message'])) $message = $fb_page['error']['message'];
 
             return array('success'=>0, 'message'=>$message);
@@ -4842,23 +4896,23 @@ class MEC_feature_ix extends MEC_base
         }
         while($next_page);
 
-        if(!count($events)) return array('success'=>0, 'message'=>__("No events found!", 'modern-events-calendar-lite' ));
+        if(!count($events)) return array('success'=>0, 'message'=>__("No events found!", 'modern-events-calendar-lite'));
         else return array('success'=>1, 'message'=>'', 'data'=>array('events'=>$events, 'count'=>count($events), 'name'=>$fb_page['name']));
     }
 
     public function f_calendar_import_do()
     {
         $f_events = ((isset($_POST['f-events']) and is_array($_POST['f-events'])) ? array_map('sanitize_text_field', $_POST['f-events']) : array());
-        if(!count($f_events)) return array('success'=>0, 'message'=>__('Please select events to import!', 'modern-events-calendar-lite' ));
+        if(!count($f_events)) return array('success'=>0, 'message'=>__('Please select events to import!', 'modern-events-calendar-lite'));
 
         $fb_page_link = isset($this->ix['facebook_import_page_link']) ? $this->ix['facebook_import_page_link'] : NULL;
         $this->fb_access_token = isset($this->ix['facebook_app_token']) ? $this->ix['facebook_app_token'] : NULL;
-        if(!trim($fb_page_link)) return array('success'=>0, 'message'=>__("Please insert your facebook page's link.", 'modern-events-calendar-lite' ));
+        if(!trim($fb_page_link)) return array('success'=>0, 'message'=>__("Please insert your facebook page's link.", 'modern-events-calendar-lite'));
 
         $fb_page = $this->f_calendar_import_get_page($fb_page_link);
 
         $fb_page_id = isset($fb_page['id']) ? $fb_page['id'] : 0;
-        if(!$fb_page_id) return array('success'=>0, 'message'=>__("We were not able to recognize your Facebook page. Please check again and provide a valid link.", 'modern-events-calendar-lite' ));
+        if(!$fb_page_id) return array('success'=>0, 'message'=>__("We were not able to recognize your Facebook page. Please check again and provide a valid link.", 'modern-events-calendar-lite'));
 
         // Timezone
         $timezone = $this->main->get_timezone();

@@ -33,8 +33,8 @@ class EventCost extends WidgetBase {
 		if ( true === $this->is_editor_mode && !(isset($events_detail->data->meta['mec_cost']) && $events_detail->data->meta['mec_cost'] != '') ) {
 
 			$html = '<div class="mec-content-notification"><p>'
-					.'<span>'. esc_html__('This widget is displayed if cost is set. In order for the widget in this page to be displayed correctly, please set cost for your last event.', 'modern-events-calendar-lite' ).'</span>'
-					. '<a href="https://webnus.net/dox/modern-events-calendar/add-event/" target="_blank">' . esc_html__('How to set cost', 'modern-events-calendar-lite' ) . ' </a>'
+					.'<span>'. esc_html__('This widget is displayed if cost is set. In order for the widget in this page to be displayed correctly, please set cost for your last event.', 'modern-events-calendar-lite').'</span>'
+					. '<a href="https://webnus.net/dox/modern-events-calendar/add-event/" target="_blank">' . esc_html__('How to set cost', 'modern-events-calendar-lite') . ' </a>'
 				.'</p></div>';
 		} else {
 
@@ -46,7 +46,7 @@ class EventCost extends WidgetBase {
 				?>
 				<div class="mec-event-cost">
 					<i class="mec-sl-wallet"></i>
-					<h3 class="mec-cost"><?php echo esc_html(\MEC\Base::get_main()->m('cost', esc_html__('Cost', 'modern-events-calendar-lite' ))); ?></h3>
+					<h3 class="mec-cost"><?php echo esc_html(\MEC\Base::get_main()->m('cost', esc_html__('Cost', 'modern-events-calendar-lite'))); ?></h3>
 					<dl><dd class="mec-events-event-cost">
 						<?php
 						if( is_numeric( $cost ) ) {

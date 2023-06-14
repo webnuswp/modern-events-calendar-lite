@@ -27,7 +27,7 @@ jQuery(document).ready(function($)
             // Grab the selected attachment.
             var attachment = frame.state().get('selection').first();
 
-            $('#'+preview_id).html('<img src="'+attachment.attributes.url+'" />');
+            $('#'+preview_id).html('<img src="'+attachment.attributes.url+'" style="max-width: 100%;" />');
             $('#'+input_id).val(attachment.attributes.url);
 
             $('.mec_remove_image_button').toggleClass('mec-util-hidden');
@@ -302,6 +302,9 @@ jQuery(document).ready(function($)
             yearRange: 'c-1:c+5',
         });
     }
+
+    // Initialize WP Color Picker
+    if($.fn.wpColorPicker) jQuery('.mec-color-picker').wpColorPicker();
 
     $('#mec_location_id').on('change', function()
     {

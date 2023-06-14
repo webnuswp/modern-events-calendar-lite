@@ -8,12 +8,12 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
     <div class="welcome-head w-clearfix">
         <div class="w-row">
             <div class="w-col-sm-9">
-                <h1> <?php echo esc_html__('Addons', 'modern-events-calendar-lite' ); ?> </h1>
+                <h1> <?php echo esc_html__('Addons', 'modern-events-calendar-lite'); ?> </h1>
             </div>
             <div class="w-col-sm-3">
                 <?php $styling = $this->main->get_styling(); $darkadmin_mode = ( isset($styling['dark_mode']) ) ? $styling['dark_mode'] : ''; if ($darkadmin_mode == 1): $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w2.png'; else: $darklogo = plugin_dir_url(__FILE__ ) . '../../../assets/img/mec-logo-w.png'; endif; ?>
                 <img src="<?php echo esc_url($darklogo); ?>" />
-                <span class="w-theme-version"><?php echo esc_html__('Version', 'modern-events-calendar-lite' ); ?> <?php echo MEC_VERSION; ?></span>
+                <span class="w-theme-version"><?php echo esc_html__('Version', 'modern-events-calendar-lite'); ?> <?php echo MEC_VERSION; ?></span>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                             ?>
                             <div class="mec-addon-box-title"><img src="<?php esc_html_e($value->img); ?>" /><span><?php esc_html_e($value->name); ?></span></div>
                             <?php if ( $value->comingsoon == 'false' ) : ?> 
-                                <?php if(isset($addons_json['version'])): ?><div class="mec-addon-box-version"><span><?php esc_html_e('Version', 'modern-events-calendar-lite' ); ?> <strong><?php esc_html_e($addons_json['version']); ?></strong></span></div><?php endif; ?>
+                                <?php if(isset($addons_json['version'])): ?><div class="mec-addon-box-version"><span><?php esc_html_e('Version', 'modern-events-calendar-lite'); ?> <strong><?php esc_html_e($addons_json['version']); ?></strong></span></div><?php endif; ?>
                                 <?php if ( $value->pro == 'true' ) : ?>
                                     <div class="mec-addon-box-pro">Requires Pro Version</div>
                                 <?php endif; ?>
@@ -64,7 +64,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
                             <a class="mec-addon-box-purchase" href="<?php esc_html_e($value->page); ?>" target="_blank"><i class="mec-sl-link"></i><div class="wn-p-t-right"><div class="wn-p-t-text-content"><h5>Details</h5>Learn everything about this addon</div><i></i></div></a>
                             <a class="mec-addon-box-purchase" href="<?php esc_html_e($value->purchase); ?>" target="_blank"><i class="mec-sl-basket"></i><div class="wn-p-t-right"><div class="wn-p-t-text-content"><h5>Add To Cart</h5>Add to cart and continue purchasing</div><i></i></div></a>
                             <?php else : ?>
-                            <div class="mec-addon-box-comingsoon"><?php esc_html_e('Coming Soon', 'modern-events-calendar-lite' ); ?></div>
+                            <div class="mec-addon-box-comingsoon"><?php esc_html_e('Coming Soon', 'modern-events-calendar-lite'); ?></div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ wp_enqueue_script('mec-lity-script', $this->main->asset('packages/lity/lity.min.
             <div class="w-col-sm-12">
                 <div class="addons-page-error">
                     <p>
-                    <?php echo esc_html__( '<strong>"file_get_contents"</strong> and <strong>"Curl"</strong> functions are <strong>not activated</strong> on your server. Please contact your host provider in this regard.', 'modern-events-calendar-lite' ); ?>
+                    <?php echo esc_html__( '<strong>"file_get_contents"</strong> and <strong>"Curl"</strong> functions are <strong>not activated</strong> on your server. Please contact your host provider in this regard.', 'modern-events-calendar-lite'); ?>
                     </p>
                 </div>
             </div>

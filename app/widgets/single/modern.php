@@ -27,7 +27,7 @@ if($this->is_enabled('event_orgnizer') || $this->is_enabled('register_btn')): ?>
                 <?php if(isset($organizer['thumbnail']) and trim($organizer['thumbnail'])): ?>
                     <img class="mec-img-organizer" src="<?php echo esc_url($organizer['thumbnail']); ?>" alt="<?php echo (isset($organizer['name']) ? esc_attr($organizer['name']) : ''); ?>">
                 <?php endif; ?>
-                <h3 class="mec-events-single-section-title"><?php echo esc_html($single->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite' ))); ?></h3>
+                <h3 class="mec-events-single-section-title"><?php echo esc_html($single->main->m('taxonomy_organizer', esc_html__('Organizer', 'modern-events-calendar-lite'))); ?></h3>
                 <dl>
                     <?php if(isset($organizer['thumbnail'])): ?>
                         <dd class="mec-organizer">
@@ -38,21 +38,21 @@ if($this->is_enabled('event_orgnizer') || $this->is_enabled('register_btn')): ?>
                     if(isset($organizer['tel']) && !empty($organizer['tel'])): ?>
                         <dd class="mec-organizer-tel">
                             <i class="mec-sl-phone"></i>
-                            <h6><?php esc_html_e('Phone', 'modern-events-calendar-lite' ); ?></h6>
+                            <h6><?php esc_html_e('Phone', 'modern-events-calendar-lite'); ?></h6>
                             <a href="tel:<?php echo esc_attr($organizer['tel']); ?>"><?php echo esc_html($organizer['tel']); ?></a>
                         </dd>
                     <?php endif;
                     if(isset($organizer['email']) && !empty($organizer['email'])): ?>
                         <dd class="mec-organizer-email">
                             <i class="mec-sl-envelope"></i>
-                            <h6><?php esc_html_e('Email', 'modern-events-calendar-lite' ); ?></h6>
+                            <h6><?php esc_html_e('Email', 'modern-events-calendar-lite'); ?></h6>
                             <a href="mailto:<?php echo esc_attr($organizer['email']); ?>"><?php echo esc_html($organizer['email']); ?></a>
                         </dd>
                     <?php endif;
                     if(isset($organizer['url']) && !empty($organizer['url'])): ?>
                         <dd class="mec-organizer-url">
                             <i class="mec-sl-sitemap"></i>
-                            <h6><?php esc_html_e('Website', 'modern-events-calendar-lite' ); ?></h6>
+                            <h6><?php esc_html_e('Website', 'modern-events-calendar-lite'); ?></h6>
                             <span><a href="<?php echo esc_url($organizer['url']); ?>" class="mec-color-hover" target="_blank"><?php echo (isset($organizer['page_label']) and trim($organizer['page_label'])) ? esc_html($organizer['page_label']) : esc_html($organizer['url']); ?></a></span>
                         </dd>
                     <?php endif;
@@ -78,9 +78,9 @@ if($this->is_enabled('event_orgnizer') || $this->is_enabled('register_btn')): ?>
                 $data_lity_class = 'mec-booking-data-lity';
                 $target_id = 'mec-events-meta-group-booking-box-'.$single->uniqueid;
             }  ?>
-            <a class="mec-booking-button mec-bg-color <?php echo esc_attr($data_lity_class); ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#<?php echo esc_attr($target_id); ?>"><?php echo esc_html($single->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' ))); ?></a>
+            <a class="mec-booking-button mec-bg-color <?php echo esc_attr($data_lity_class); ?> <?php if(isset($settings['single_booking_style']) and $settings['single_booking_style'] != 'modal' ) echo 'simple-booking'; ?>" href="#<?php echo esc_attr($target_id); ?>"><?php echo esc_html($single->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite'))); ?></a>
         <?php elseif($more_info and !$single->main->is_expired($event)): ?>
-            <a class="mec-booking-button mec-bg-color" target="<?php echo esc_attr($more_info_target); ?>" href="<?php echo esc_url($more_info); ?>"><?php if($more_info_title) echo esc_html__($more_info_title, 'modern-events-calendar-lite' ); else echo esc_html($single->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite' ))); ?></a>
+            <a class="mec-booking-button mec-bg-color" target="<?php echo esc_attr($more_info_target); ?>" href="<?php echo esc_url($more_info); ?>"><?php if($more_info_title) echo esc_html__($more_info_title, 'modern-events-calendar-lite'); else echo esc_html($single->main->m('register_button', esc_html__('REGISTER', 'modern-events-calendar-lite'))); ?></a>
         <?php endif; ?>
     </div>
 <?php endif; ?>
@@ -113,7 +113,7 @@ if($this->is_enabled('event_orgnizer') || $this->is_enabled('register_btn')): ?>
             ?>
             <div class="mec-single-event-category">
                 <i class="mec-sl-folder"></i>
-                <dt><?php echo esc_html($single->main->m('taxonomy_categories', esc_html__('Category', 'modern-events-calendar-lite' ))); ?></dt>
+                <dt><?php echo esc_html($single->main->m('taxonomy_categories', esc_html__('Category', 'modern-events-calendar-lite'))); ?></dt>
                 <dl>
                 <?php
                 foreach($event->data->categories as $category)
@@ -142,7 +142,7 @@ if($this->is_enabled('event_orgnizer') || $this->is_enabled('register_btn')): ?>
             ?>
             <div class="mec-event-more-info">
                 <i class="mec-sl-info"></i>
-                <h3 class="mec-cost"><?php echo esc_html($single->main->m('more_info_link', esc_html__('More Info', 'modern-events-calendar-lite' ))); ?></h3>
+                <h3 class="mec-cost"><?php echo esc_html($single->main->m('more_info_link', esc_html__('More Info', 'modern-events-calendar-lite'))); ?></h3>
                 <dl><dd class="mec-events-event-more-info"><a class="mec-more-info-button mec-color-hover" target="<?php echo esc_attr($more_info_target); ?>" href="<?php echo esc_url($more_info); ?>"><?php echo esc_html($more_info_title); ?></a></dd></dl>
             </div>
             <?php
