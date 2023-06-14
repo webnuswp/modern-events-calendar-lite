@@ -45,27 +45,34 @@ $end_time = date('D M j Y G:i:s', strtotime($end_date.' '.$e_time));
 // Timezone
 $TZO = $this->get_TZO($event);
 
-$d1 = new DateTime($start_time, $TZO);
-$d2 = new DateTime('now', $TZO);
-$d3 = new DateTime($end_time, $TZO);
+$starttime = new DateTime($start_time, $TZO);
+$nowtime   = new DateTime('now', $TZO);
+$endtime   = new DateTime($end_time, $TZO);
 
-$countdown_method = get_post_meta($event->ID, 'mec_countdown_method', true);
-if(trim($countdown_method) == '') $countdown_method = 'global';
-
-if($countdown_method == 'global') $ongoing = (isset($settings['hide_time_method']) and trim($settings['hide_time_method']) == 'end') ? true : false;
-else $ongoing = ($countdown_method == 'end') ? true : false;
-
-$disable_for_ongoing = (isset($settings['countdown_disable_for_ongoing_events']) and $settings['countdown_disable_for_ongoing_events']);
-
-if($d3 < $d2)
+if($endtime < $nowtime)
 {
-    echo '<div class="mec-end-counts"><h3>'.esc_html__('The event is finished.', 'modern-events-calendar-lite').'</h3></div>';
+    echo '<div class="mec-end-counts"><h3>'.esc_html__('This event has passed', 'modern-events-calendar-lite').'</h3></div>';
     return;
 }
-elseif(($d1 < $d2 and !$ongoing) or ($d1 < $d2 and $disable_for_ongoing))
+
+$countdown_method = get_post_meta($event->ID, 'mec_countdown_method', true);
+if(trim($countdown_method) == '') 
+	$countdown_method = 'global';
+	
+$ongoing = ($starttime < $nowtime);
+$disable_for_ongoing = (isset($settings['countdown_disable_for_ongoing_events']) and $settings['countdown_disable_for_ongoing_events']);
+
+if ( ! $ongoing )
+	$cd2 = "starts in";
+else
 {
-    echo '<div class="mec-end-counts"><h3>'.esc_html__('The event is ongoing.', 'modern-events-calendar-lite').'</h3></div>';
-    return;
+    echo '<div class="mec-end-counts"><h3>'
+            . esc_html__('going on NOW!', 'modern-events-calendar-lite')
+            . '</h3></div>';
+    if ($disable_for_ongoing or ($countdown_method == 'start'))
+        return;
+
+    $cd2 = "ends in";
 }
 
 $gmt_offset = $this->get_gmt_offset($event, strtotime($start_date.' '.$s_time));
@@ -74,6 +81,7 @@ if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'E
 if(isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') == true) $gmt_offset = substr(trim($gmt_offset), 2 , 3);
 
 $datetime = $ongoing ? $end_time : $start_time;
+$countdown_interval = 30000;  // setting tbd
 
 // Generating javascript code of countdown default module
 $defaultjs = '<script>
@@ -83,10 +91,12 @@ jQuery(document).ready(function($)
     {
         var datetime = jQuery(el).data("datetime");
         var gmt_offset = jQuery(el).data("gmt_offset");
-        jQuery(el).mecCountDown(
+        var countdown_interval = jQuery(el).data("countdown_interval");
+		jQuery(el).mecCountDown(
             {
                 date: datetime+""+gmt_offset,
-                format: "off"
+                format: "off",
+                interval: countdown_interval 
             },
             function(){}
         );
@@ -183,7 +193,12 @@ if(!function_exists('is_plugin_active')) include_once( ABSPATH . 'wp-admin/inclu
     elseif (is_plugin_active( 'mec-single-builder/mec-single-builder.php')) echo MEC_kses::full($defaultjs);
     else $factory->params('footer', $defaultjs);
 ?>
-<div class="mec-countdown-details" id="mec_countdown_details" data-datetime="<?php echo esc_attr($datetime); ?>" data-gmt_offset="<?php echo esc_attr($gmt_offset); ?>">
+<div class="mec-countdown-details" id="mec_countdown_details" 
+			data-datetime="<?php echo esc_attr($datetime); ?>" 
+			data-gmt_offset="<?php echo esc_attr($gmt_offset); ?>" 
+			data-countdown_interval ="<?php echo $countdown_interval; ?>" >
+	<?php  echo $cd2; ?>
+
     <div class="countdown-w ctd-simple">
         <ul class="clockdiv" id="countdown">
             <li class="days-w block-w">

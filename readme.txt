@@ -1,10 +1,10 @@
-﻿=== Modern Events Calendar Lite ===
+=== Modern Events Calendar Lite ===
 Contributors: webnus
 Donate link: https://webnus.net
 Tags: Event, Events, Calendar, Booking, Schedule, Organizer, Venue
 Requires at least: 4.0.0
 Tested up to: 6.2.2
-Stable tag: 6.10.5
+Stable tag: 6.10.5.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -472,6 +472,12 @@ You can see [plugin documentation](https://webnus.net/dox/modern-events-calendar
 43. WordPress Event Calendar - Daily view(Fluent View Layouts Addon)
 
 == Changelog ==
+= 6.10.1.1 – 14 June 2023
+-	countdown fixes	air_drummer@verizon.net
+  fixed: default countdown to start prior to event, to end during event, while allowing override
+  improved: added interval param to countdown.js to reduce annoying page updates
+  improved: countdown displays "starts in" prior to event, "ends in" during event
+
 = 6.10.5 – 14 June 2023 =
 - Added: Event banner feature.
 - Added: Ability to use WordPress Media window for uploading images in FES when current user has access to media.
