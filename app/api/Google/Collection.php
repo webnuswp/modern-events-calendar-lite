@@ -13,6 +13,9 @@ class Google_Collection extends Google_Model implements Iterator, Countable
 {
   protected $collection_key = 'items';
 
+    /**
+     * @return void
+     */
   public function rewind()
   {
     if (isset($this->modelData[$this->collection_key])
@@ -21,33 +24,52 @@ class Google_Collection extends Google_Model implements Iterator, Countable
     }
   }
 
+    /**
+     * @return mixed
+     */
   public function current()
   {
     $this->coerceType($this->key());
     if (is_array($this->modelData[$this->collection_key])) {
       return current($this->modelData[$this->collection_key]);
     }
+
+    return null;
   }
 
+    /**
+     * @return bool|float|int|string|null
+     */
   public function key()
   {
     if (isset($this->modelData[$this->collection_key])
         && is_array($this->modelData[$this->collection_key])) {
       return key($this->modelData[$this->collection_key]);
     }
+
+    return null;
   }
 
+    /**
+     * @return mixed|void
+     */
   public function next()
   {
     return next($this->modelData[$this->collection_key]);
   }
 
+    /**
+     * @return bool
+     */
   public function valid()
   {
     $key = $this->key();
     return $key !== null && $key !== false;
   }
 
+    /**
+     * @return int
+     */
   public function count()
   {
     if (!isset($this->modelData[$this->collection_key])) {

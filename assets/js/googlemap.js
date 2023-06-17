@@ -19,8 +19,15 @@
                 reset: '.mec-map-get-direction-reset',
                 addr: '#mec_get_direction_addr',
                 destination: {}
-            }
+            },
+            month_navigator: 0,
+            sf:{},
         }, options);
+
+        var getMarkersLock = false;
+
+        // Initialize Month Navigator
+        if (settings.month_navigator) initMonthNavigator();
 
         var bounds;
         var map;
@@ -36,7 +43,8 @@
 
         function init() {
             // Search Widget
-            if (settings.sf.container !== '') {
+            if (settings.sf.container !== '' && false == $(settings.sf.container).hasClass('mec-skin-map-search-init') ) {
+
                 $(settings.sf.container).mecSearchForm({
                     id: settings.id,
                     atts: settings.atts,
@@ -45,6 +53,8 @@
                         getMarkers();
                     }
                 });
+
+                $(settings.sf.container).addClass('mec-skin-map-search-init');
             }
 
             // Create the options
@@ -167,6 +177,19 @@
             }
         }
 
+        function initMonthNavigator() {
+            // Remove the onclick event
+            $("#mec_skin_" + settings.id + " .mec-load-month").off("click");
+
+            // Add onclick event
+            $("#mec_skin_" + settings.id + " .mec-load-month").on("click", function () {
+                var year = $(this).data("mec-year");
+                var month = $(this).data("mec-month");
+
+                getMarkers(year, month);
+            });
+        }
+
         function loadMarkers(markers) {
             var f = 0;
             for (var i in markers) {
@@ -203,7 +226,7 @@
                         infowindow.setContent(this.infowindow);
                         infowindow.open(map, this);
                         lity(this.lightbox);
-                    }); 
+                    });
                 }
 
                 // extend the bounds to include each marker's position
@@ -219,34 +242,67 @@
             if (f === 1) {
                 map.setCenter(new google.maps.LatLng(dataMarker.latitude, dataMarker.longitude));
             }
+
+            $(document).trigger( 'mec_map_load_markers', [ markers, settings ] );
         }
 
-        function getMarkers() {
+        function renderMarkers(markers){
+                // Remove Markers
+                removeMarkers();
+
+                // Load Markers
+                loadMarkers(markers);
+
+                markerCluster.clearMarkers();
+                markerCluster.addMarkers(loadedMarkers, false);
+                markerCluster.redraw();
+        }
+
+        function getMarkers( year = null, month = null ) {
+
+            // Already Locked
+            if(getMarkersLock) return;
+
+            // Lock it
+            getMarkersLock = true;
+
             // Add loader
             $("#mec_googlemap_canvas" + settings.id).addClass("mec-loading");
 
+            // Add Loading Class
+            if($('.mec-modal-result').length === 0) $('.mec-wrap').append('<div class="mec-modal-result"></div>');
+            $('.mec-modal-result').addClass('mec-month-navigator-loading');
+
             $.ajax({
                 url: settings.ajax_url,
-                data: "action=mec_map_get_markers&" + settings.atts,
+                data: "action=mec_map_get_markers&mec_year="+ year + "&mec_month=" + month + "&" + settings.atts,
                 dataType: "json",
                 type: "post",
                 success: function (response) {
-                    // Remove Markers
-                    removeMarkers();
 
-                    // Load Markers
-                    loadMarkers(response.markers);
+                    renderMarkers( response.markers );
 
-                    markerCluster.clearMarkers();
-                    markerCluster.addMarkers(loadedMarkers, false);
-                    markerCluster.redraw();
+                    // Append Month
+                    $("#mec_skin_events_" + settings.id).append('<div class="mec-month-container" id="mec_monthly_view_month_' + settings.id + '_' + response.current_month + '" data-month-id="' + response.current_month + '">' + response.month + '</div>');
+
+                    // Append Month Navigator
+                    $("#mec_skin_" + settings.id + " .mec-skin-map-view-month-navigator-container").append('<div class="mec-month-navigator" id="mec_month_navigator_' + settings.id + '_' + response.current_month + '">' + response.navigator + '</div>');
 
                     // Remove loader
                     $("#mec_googlemap_canvas" + settings.id).removeClass("mec-loading");
+
+                    $('.mec-modal-result').removeClass('mec-month-navigator-loading');
+
+                    // Release the Lock
+                    getMarkersLock = false;
                 },
                 error: function () {
                     // Remove loader
                     $("#mec_googlemap_canvas" + settings.id).removeClass("mec-loading");
+                    $('.mec-modal-result').removeClass('mec-month-navigator-loading');
+
+                    // Release the Lock
+                    getMarkersLock = false;
                 }
             });
         }

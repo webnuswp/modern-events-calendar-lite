@@ -4,36 +4,53 @@ defined('MECEXEC') or die();
 
 /** @var MEC_feature_fes $this */
 
+// Page Size
+$limit = 20;
+
+// Current Page
+$paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
+
+// Query Args
+$args = array(
+    'post_type'=>$this->PT,
+    'posts_per_page'=>$limit,
+    'paged'=>$paged,
+    'post_status'=>array('pending', 'draft', 'future', 'publish')
+);
+
+// Apply Author Query
+if(!current_user_can('edit_others_posts')) $args['author'] = get_current_user_id();
+
 // The Query
-$query = new WP_Query(array('post_type'=>$this->PT, 'author'=>get_current_user_id(), 'posts_per_page'=>'-1', 'post_status'=>array('pending', 'draft', 'future', 'publish')));
+$query = new WP_Query($args);
 
 // Date Format
 $date_format = get_option('date_format');
 
 // Display Date
-$display_date = (isset($this->settings['fes_display_date_in_list']) ? (boolean) $this->settings['fes_display_date_in_list'] : false);
+$display_date = (isset($this->settings['fes_display_date_in_list']) && $this->settings['fes_display_date_in_list']);
 
 // Generating javascript code of countdown module
-$javascript = '<script type="text/javascript">
+$javascript = '<script>
 jQuery(document).ready(function()
 {
     jQuery(".mec-fes-event-remove").on("click", function(event)
     {
         var id = jQuery(this).data("id");
         var confirmed = jQuery(this).data("confirmed");
-        
+
         if(confirmed == "0")
         {
             jQuery(this).data("confirmed", "1");
             jQuery(this).addClass("mec-fes-waiting");
             jQuery(this).text("'.esc_attr__('Click again to remove!', 'modern-events-calendar-lite').'");
-            
+
             return false;
         }
 
         // Add loading class to the row
         jQuery("#mec_fes_event_"+id).addClass("loading");
-        
+
         jQuery.ajax(
         {
             type: "POST",
@@ -69,11 +86,11 @@ $this->factory->params('footer', $javascript);
 <div class="mec-fes-list">
     <?php if($query->have_posts()): ?>
     <div class="mec-fes-list-top-actions">
-        <a href="<?php echo $this->link_add_event(); ?>"><?php echo __('Add new', 'modern-events-calendar-lite'); ?></a>
+        <a href="<?php echo esc_url($this->link_add_event()); ?>"><?php echo esc_html__('Add new', 'modern-events-calendar-lite'); ?></a>
     </div>
     <?php do_action('mec_fes_list'); ?>
     <ul>
-        <?php 
+        <?php
             while($query->have_posts()): $query->the_post();
             // Show Post Status
             global $post;
@@ -81,16 +98,16 @@ $this->factory->params('footer', $javascript);
         ?>
         <li id="mec_fes_event_<?php echo get_the_ID(); ?>">
             <span class="mec-event-title">
-                <a href="<?php echo $this->link_edit_event(get_the_ID()); ?>"><?php the_title(); ?></a>
+                <a href="<?php echo esc_url($this->link_edit_event(get_the_ID())); ?>"><?php the_title(); ?></a>
                 <?php if($display_date): ?>
-                <span>(<?php echo $this->main->date_label(array(
+                <span>(<?php echo MEC_kses::element($this->main->date_label(array(
                     'date' => get_post_meta(get_the_ID(), 'mec_start_date', true)
                 ), array(
                     'date' => get_post_meta(get_the_ID(), 'mec_end_date', true)
-                ), $date_format); ?>)</span>
+                ), $date_format)); ?>)</span>
                 <?php endif; ?>
             </span>
-            <?php 
+            <?php
                 $event_status = get_post_status(get_the_ID());
                 if(isset($event_status) and strtolower($event_status) == 'publish'):
             ?>
@@ -101,9 +118,9 @@ $this->factory->params('footer', $javascript);
             <?php if(current_user_can('delete_post', get_the_ID())): ?>
             <span class="mec-fes-event-remove" data-confirmed="0" data-id="<?php echo get_the_ID(); ?>"><div class="wn-p-t-right"><div class="wn-p-t-text-content"><?php echo esc_html__('Remove Event', 'modern-events-calendar-lite'); ?></div><i></i></div></span>
             <?php endif; ?>
-            <span class="mec-fes-event-view mec-event-status <?php echo $status['status_class']; ?>"><?php echo $status['label']; ?></span>
+            <span class="mec-fes-event-view mec-event-status <?php echo esc_attr($status['status_class']); ?>"><?php echo esc_html($status['label']); ?></span>
             <div class="mec-fes-export-wrapper mec-modal-wrap lity-hide" id="mec-fes-export-wrapper-<?php echo get_the_ID(); ?>" data-event-id="<?php echo get_the_ID(); ?>">
-                <div class="mec-fes-btn-date">                    
+                <div class="mec-fes-btn-date">
                     <?php $mec_repeat_info = get_post_meta(get_the_ID(), 'mec_repeat', true); if(isset($mec_repeat_info['status']) and $mec_repeat_info['status']): ?>
                         <ul class="mec-export-list-wrapper">
                             <?php
@@ -125,7 +142,7 @@ $this->factory->params('footer', $javascript);
                                         $attendees_count += $book->get_total_attendees($booking->ID);
                                     }
                             ?>
-                                <li class="mec-export-list-item" data-time="<?php echo $date['start']['timestamp']; ?>"><?php echo $this->main->date_label($date['start'], $date['end'], $date_format); ?> <span class="mec-export-badge"><?php echo $attendees_count; ?></span></li>
+                                <li class="mec-export-list-item" data-time="<?php echo esc_attr($date['start']['timestamp']); ?>"><?php echo MEC_kses::element($this->main->date_label($date['start'], $date['end'], $date_format)); ?> <span class="mec-export-badge"><?php echo esc_html($attendees_count); ?></span></li>
                             <?php
                                 }
                             }
@@ -141,7 +158,17 @@ $this->factory->params('footer', $javascript);
         </li>
         <?php endwhile; wp_reset_postdata(); // Restore original Post Data ?>
     </ul>
+        <div class="pagination mec-pagination">
+            <?php $big = 999999999; echo paginate_links(array(
+                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                'format' => 'paged=%#%',
+                'current' => max(1, get_query_var('paged')),
+                'total' => $query->max_num_pages,
+                'type' => 'list',
+                'prev_next' => true,
+            )); ?>
+        </div>
     <?php else: ?>
-    <p><?php echo sprintf(__('No events found! %s', 'modern-events-calendar-lite'), '<a href="'.$this->link_add_event().'">'.__('Add new', 'modern-events-calendar-lite').'</a>'); ?></p>
+    <p><?php echo sprintf(esc_html__('No events found! %s', 'modern-events-calendar-lite'), '<a href="'.esc_url($this->link_add_event()).'">'.esc_html__('Add new', 'modern-events-calendar-lite').'</a>'); ?></p>
     <?php endif; ?>
 </div>

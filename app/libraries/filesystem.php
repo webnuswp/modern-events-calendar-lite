@@ -4,20 +4,20 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC File class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_file extends MEC_base
 {
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $file
      * @return string
      */
@@ -28,7 +28,7 @@ class MEC_file extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $file
      * @return string
      */
@@ -38,7 +38,7 @@ class MEC_file extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $file
      * @return string
      */
@@ -49,7 +49,7 @@ class MEC_file extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $src
      * @param string $dest
      * @param string $path
@@ -79,7 +79,7 @@ class MEC_file extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $file
      * @return boolean
      */
@@ -106,7 +106,7 @@ class MEC_file extends MEC_base
 	}
 
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $src
      * @param string $dest
      * @param string $path
@@ -128,7 +128,7 @@ class MEC_file extends MEC_base
 	}
 
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $filename
      * @return boolean
      */
@@ -156,7 +156,7 @@ class MEC_file extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $file
      * @param string $buffer
      * @return string
@@ -178,7 +178,7 @@ class MEC_file extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $src
      * @param string $dest
      * @return boolean
@@ -206,7 +206,7 @@ class MEC_file extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $file
      * @return string
      */
@@ -216,7 +216,7 @@ class MEC_file extends MEC_base
 	}
 
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $file
      * @return string
      */
@@ -239,13 +239,13 @@ class MEC_file extends MEC_base
 
 /**
  * Webnus MEC Folder class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_folder extends MEC_base
 {
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -253,7 +253,7 @@ class MEC_folder extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $src
      * @param string $dest
      * @param string $path
@@ -316,7 +316,7 @@ class MEC_folder extends MEC_base
     
     /**
      * Create a folder -- and all necessary parent folders.
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @staticvar int $nested
      * @param string $path
      * @param int $mode
@@ -405,7 +405,7 @@ class MEC_folder extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @return boolean
      */
@@ -470,7 +470,7 @@ class MEC_folder extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $src
      * @param string $dest
      * @param string $path
@@ -496,7 +496,7 @@ class MEC_folder extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @return string
      */
@@ -506,7 +506,7 @@ class MEC_folder extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @param string $filter
      * @param boolean $recurse
@@ -545,7 +545,7 @@ class MEC_folder extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @param string $filter
      * @param boolean $recurse
@@ -584,7 +584,7 @@ class MEC_folder extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @param string $filter
      * @param boolean $recurse
@@ -654,7 +654,7 @@ class MEC_folder extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @return string
      */
@@ -667,13 +667,13 @@ class MEC_folder extends MEC_base
 
 /**
  * Webnus MEC Path class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_path extends MEC_base
 {
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -681,7 +681,7 @@ class MEC_path extends MEC_base
     }
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @return boolean
      */
@@ -701,7 +701,7 @@ class MEC_path extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @param string $filemode
      * @param string $foldermode
@@ -762,7 +762,7 @@ class MEC_path extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @return string
      */
@@ -791,7 +791,7 @@ class MEC_path extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @param string $ds
      * @return string
@@ -803,7 +803,7 @@ class MEC_path extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param string $path
      * @param string $ds
      * @return string
@@ -825,7 +825,7 @@ class MEC_path extends MEC_base
 	}
     
     /**
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param array $paths
      * @param string $file
      * @return boolean
