@@ -39,7 +39,7 @@
         <custom-field action="translate">mec_more_info_title</custom-field>
         <custom-field action="copy">mec_more_info_target</custom-field>
         <custom-field action="copy">mec_cost</custom-field>
-        <custom-field action="copy">mec_currency</custom-field>
+        <custom-field action="translate">mec_currency</custom-field>
         <custom-field action="copy">mec_additional_organizer_ids</custom-field>
         <custom-field action="copy">mec_additional_location_ids</custom-field>
         <custom-field action="copy">mec_repeat</custom-field>
@@ -59,7 +59,7 @@
         <custom-field action="copy">mec_ticket_variations_global_inheritance</custom-field>
         <custom-field action="copy">mec_ticket_variations</custom-field>
         <custom-field action="copy">mec_reg_fields_global_inheritance</custom-field>
-        <custom-field action="copy">mec_fields</custom-field>
+        <custom-field action="translate">mec_fields</custom-field>
         <custom-field action="copy">mec_event_status</custom-field>
         <custom-field action="copy">mec_moved_online_link</custom-field>
         <custom-field action="copy">mec_cancelled_reason</custom-field>
@@ -68,6 +68,7 @@
         <custom-field action="copy">show_only_past_events</custom-field>
         <custom-field action="copy">show_only_ongoing_events</custom-field>
         <custom-field action="translate">mec_tickets</custom-field>
+        <custom-field action="translate">mec_reg_fields</custom-field>
     </custom-fields>
     <custom-fields-texts>
         <key name="mec_tickets">
@@ -136,6 +137,14 @@
             </key>
             <key name="reg_fields">
                 <key name="*" />
+            </key>
+            <key name="event_fields">
+                <key name="*">
+                    <key name="label" />
+                    <key name="options">
+                        <key name="label" />
+                    </key>
+                </key>
             </key>
             <key name="gateways">
                 <key name="*">

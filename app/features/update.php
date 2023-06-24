@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC update class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_update extends MEC_base
 {
@@ -14,7 +14,7 @@ class MEC_feature_update extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class MEC_feature_update extends MEC_base
     
     /**
      * Initialize update feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -38,7 +38,7 @@ class MEC_feature_update extends MEC_base
         if(!get_option('mec_installed', 0)) return;
 
         // Run the Update Function
-        $this->factory->action('wp_loaded', array($this, 'update'));
+        $this->factory->action('admin_init', array($this, 'update'));
     }
 
     public function update()
@@ -47,7 +47,7 @@ class MEC_feature_update extends MEC_base
 
         // It's updated to latest version
         if(version_compare($version, $this->main->get_version(), '>=')) return;
-
+     
         // Run the updates one by one
         if(version_compare($version, '1.0.3', '<')) $this->version103();
         if(version_compare($version, '1.3.0', '<')) $this->version130();
@@ -75,6 +75,14 @@ class MEC_feature_update extends MEC_base
         if(version_compare($version, '5.17.0', '<')) $this->version5170();
         if(version_compare($version, '5.17.1', '<')) $this->version5171();
         if(version_compare($version, '5.19.1', '<')) $this->version5191();
+        if(version_compare($version, '5.22.0', '<')) $this->version5220();
+        if(version_compare($version, '6.0.0', '<')) $this->version600();
+        // if(version_compare($version, '6.2.6', '>')) $this->version626();
+        if(version_compare($version, '6.4.0', '<')) $this->version640();
+        if(version_compare($version, '6.5.3', '<')) $this->version653();
+        if(version_compare($version, '6.6.11', '<')) $this->version6611();
+        if(version_compare($version, '6.7.5', '<')) $this->version675();
+        if(version_compare($version, '6.8.35', '<')) $this->version6835();
 
         // Update to latest version to prevent running the code twice
         update_option('mec_version', $this->main->get_version());
@@ -111,7 +119,7 @@ class MEC_feature_update extends MEC_base
     
     /**
      * Update database to version 1.0.3
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function version103()
     {
@@ -144,7 +152,7 @@ class MEC_feature_update extends MEC_base
     
     /**
      * Update database to version 1.3.0
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function version130()
     {
@@ -153,7 +161,7 @@ class MEC_feature_update extends MEC_base
     
     /**
      * Update database to version 1.5.0
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function version150()
     {
@@ -163,7 +171,7 @@ class MEC_feature_update extends MEC_base
 
     /**
      * Update database to version 2.2.0
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function version220()
     {
@@ -342,8 +350,9 @@ class MEC_feature_update extends MEC_base
     {
         // Get Booking Posts
         $bookings = get_posts(array(
-            'post_type'  => 'mec-books',
+            'post_type'  => $this->main->get_book_post_type(),
             'numberposts'  => '-1',
+            'post_status'  => 'any',
         ));
 
         foreach($bookings as $id => $booking)
@@ -364,8 +373,9 @@ class MEC_feature_update extends MEC_base
     {
         // Get Booking Posts
         $bookings = get_posts(array(
-            'post_type'  => 'mec-books',
+            'post_type'  => $this->main->get_book_post_type(),
             'numberposts'  => '-1',
+            'post_status'  => 'any',
         ));
 
         foreach($bookings as $id => $booking)
@@ -587,5 +597,185 @@ class MEC_feature_update extends MEC_base
     public function version5191()
     {
         $this->version5170();
+    }
+
+    public function version5220()
+    {
+        // All Events
+        $events = $this->main->get_events();
+
+        foreach($events as $event)
+        {
+            $start_time_hour = get_post_meta($event->ID, 'mec_start_time_hour', true);
+            $start_time_minutes = get_post_meta($event->ID, 'mec_start_time_minutes', true);
+            $start_time_ampm = get_post_meta($event->ID, 'mec_start_time_ampm', true);
+            $end_time_hour = get_post_meta($event->ID, 'mec_end_time_hour', true);
+            $end_time_minutes = get_post_meta($event->ID, 'mec_end_time_minutes', true);
+            $end_time_ampm = get_post_meta($event->ID, 'mec_end_time_ampm', true);
+
+            $day_start_seconds = $this->main->time_to_seconds($this->main->to_24hours($start_time_hour, $start_time_ampm), $start_time_minutes);
+            $day_end_seconds = $this->main->time_to_seconds($this->main->to_24hours($end_time_hour, $end_time_ampm), $end_time_minutes);
+
+            update_post_meta($event->ID, 'mec_start_day_seconds', $day_start_seconds);
+            update_post_meta($event->ID, 'mec_end_day_seconds', $day_end_seconds);
+        }
+    }
+
+    public function version600()
+    {
+        $this->db->q("CREATE TABLE IF NOT EXISTS `#__mec_bookings` (
+          `id` int UNSIGNED NOT NULL,
+          `booking_id` int UNSIGNED NOT NULL,
+          `event_id` int UNSIGNED NOT NULL,
+          `ticket_ids` varchar(255) NOT NULL,
+          `status` varchar(20) NOT NULL DEFAULT 'pending',
+          `confirmed` tinyint NOT NULL DEFAULT '0',
+          `verified` tinyint NOT NULL DEFAULT '0',
+          `all_occurrences` tinyint NOT NULL DEFAULT '0',
+          `date` datetime NOT NULL,
+          `timestamp` int UNSIGNED NOT NULL
+        ) DEFAULT CHARSET=[:CHARSET:] COLLATE=[:COLLATE:];");
+
+        $this->db->q("ALTER TABLE `#__mec_bookings` ADD PRIMARY KEY (`id`);");
+        $this->db->q("ALTER TABLE `#__mec_bookings` MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;");
+        $this->db->q("ALTER TABLE `#__mec_bookings` ADD KEY `event_id` (`event_id`,`ticket_ids`,`status`,`confirmed`,`verified`,`date`);");
+        $this->db->q("ALTER TABLE `#__mec_bookings` ADD KEY `booking_id` (`booking_id`);");
+        $this->db->q("ALTER TABLE `#__mec_bookings` ADD KEY `timestamp` (`timestamp`);");
+        $this->db->q("ALTER TABLE `#__mec_bookings` ADD `transaction_id` VARCHAR(20) NULL AFTER `booking_id`;");
+
+        $this->db->q("ALTER TABLE `#__mec_bookings` ADD `user_id` INT(10) UNSIGNED NULL DEFAULT NULL AFTER `booking_id`;");
+        $this->db->q("ALTER TABLE `#__mec_bookings` ADD INDEX (`user_id`);");
+
+        // Get Booking Posts
+        $bookings = get_posts(array(
+            'post_type' => $this->main->get_book_post_type(),
+            'numberposts' => '-1',
+            'post_status' => 'any',
+        ));
+
+        // Booking Record
+        $bookingRecord = $this->getBookingRecord();
+
+        // Add Records for Existing Bookings
+        foreach($bookings as $booking) $bookingRecord->insert($booking);
+    }
+
+    public function version626()
+    {
+        if(!$this->getPRO()) return;
+
+        // Get Options
+        $options = get_option('mec_options');
+        $code = isset($options['purchase_code']) ? $options['purchase_code'] : '';
+        $item_id = isset($options['product_id']) ? $options['product_id'] : '';
+        $url = get_home_url();
+
+        $reActivationOption = get_option('reActivationOption');
+        if(is_null($code) || empty($code) || !isset($code) || $reActivationOption) return;
+        
+        if(!$reActivationOption)
+        {
+            $verify_url = MEC_API_ACTIVATION . '/activation/verify?category=mec&license=' . $code . '&url=' . $url . '&item_id=' . $item_id;
+            $JSON = wp_remote_retrieve_body(wp_remote_get($verify_url, array(
+                'body' => null,
+                'timeout' => '120',
+                'redirection' => '10',
+                'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+            )));
+
+            if($JSON != '')
+            {
+                $data = json_decode($JSON);
+                if($data and !is_null($data) and isset($data->item_link) and !is_null($data->item_link))
+                {
+                    $options['product_id'] = $data->item_id;
+
+                    update_option('mec_license_status', 'active');
+                    update_option('mec_options', $options);
+                    update_option('reActivationOption', '1');
+
+                    return;
+                }
+                else
+                {
+                    update_option('mec_license_status', 'faild');
+                    update_option('reActivationOption', '1');
+
+                    return;
+                }
+            }  else {
+                update_option('reActivationOption', '1');
+
+                return;
+            }
+        }
+    }
+
+    public function version640()
+    {
+        $this->db->q("ALTER TABLE `#__mec_dates` ADD `status` VARCHAR(20) NOT NULL DEFAULT 'publish' AFTER `tend`;");
+    }
+
+    public function version653()
+    {
+        $this->db->q("ALTER TABLE `#__mec_bookings` CHANGE `ticket_ids` `ticket_ids` VARCHAR(655) NOT NULL;");
+    }
+
+    public function version6611()
+    {
+        // Add Seats Columns If Not Exists
+        if(!$this->db->columns('mec_bookings', 'seats'))
+        {
+            $this->db->q("ALTER TABLE `#__mec_bookings` ADD `seats` INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `ticket_ids`;");
+
+            // Booking Records
+            $bookings = $this->db->select("SELECT `id`, `ticket_ids` FROM `#__mec_bookings` ORDER BY `date` DESC LIMIT 2000", 'loadObjectList');
+            foreach($bookings as $booking)
+            {
+                $ticket_ids = trim($booking->ticket_ids, ', ');
+                $seats = substr_count($ticket_ids, ',') + 1;
+
+                $this->db->q("UPDATE `#__mec_bookings` SET `seats`='".esc_sql($seats)."' WHERE `id`=".esc_sql($booking->id));
+            }
+        }
+    }
+
+    public function version675()
+    {
+        $bookings = get_posts([
+            'post_type' => $this->main->get_book_post_type(),
+            'numberposts' => 300,
+            'post_status' => 'publish'
+        ]);
+
+        // MEC Booking
+        $book = $this->getBook();
+
+        foreach($bookings as $booking)
+        {
+            $price = get_post_meta($booking->ID, 'mec_price', true);
+
+            // Payable Data Exists
+            $existing_payable = get_post_meta($booking->ID, 'mec_payable', true);
+            if($existing_payable) continue;
+
+            update_post_meta($booking->ID, 'mec_payable', $price);
+
+            $transaction_id = get_post_meta($booking->ID, 'mec_transaction_id', true);
+            $transaction = $book->get_transaction($transaction_id);
+
+            if(isset($transaction['price']))
+            {
+                $transaction['price_details']['payable'] = $transaction['price'];
+                $transaction['payable'] = $transaction['price'];
+
+                $book->update_transaction($transaction_id, $transaction);
+            }
+        }
+    }
+
+    public function version6835()
+    {
+        if(!wp_next_scheduled('mec_maintenance')) wp_schedule_event(time(), 'weekly', 'mec_maintenance');
     }
 }

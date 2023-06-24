@@ -4,7 +4,7 @@ defined('MECEXEC') or die();
 
 /**
  * Webnus MEC schema class.
- * @author Webnus <info@webnus.biz>
+ * @author Webnus <info@webnus.net>
  */
 class MEC_feature_schema extends MEC_base
 {
@@ -14,7 +14,7 @@ class MEC_feature_schema extends MEC_base
 
     /**
      * Constructor method
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class MEC_feature_schema extends MEC_base
     
     /**
      * Initialize locations feature
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      */
     public function init()
     {
@@ -42,13 +42,16 @@ class MEC_feature_schema extends MEC_base
         $this->factory->action('save_post', array($this, 'save_event'));
 
         // Print Schema
-        $this->factory->action('mec_schema', array($this, 'schema'), 10);
-        $this->factory->filter('mec_schema_text', array($this, 'schema_text'), 10, 2);
+        if(isset($this->settings['schema']) and $this->settings['schema'] != 0)
+        {
+            $this->factory->action('mec_schema', array($this, 'schema'), 10);
+            $this->factory->filter('mec_schema_text', array($this, 'schema_text'), 10, 2);
+        }
     }
     
     /**
      * Show location meta box
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param object $post
      */
     public function meta_box_schema($post)
@@ -61,37 +64,37 @@ class MEC_feature_schema extends MEC_base
         $display_cancellation_reason_in_single_page = get_post_meta($post->ID, 'mec_display_cancellation_reason_in_single_page', true);
         ?>
         <div class="mec-meta-box-fields mec-event-tab-content" id="mec-schema">
-            <h4><?php echo __('SEO Schema', 'modern-events-calendar-lite'); ?></h4>
-            <p><?php _e("Following statuses are for informing search engines (Google, bing, etc) about your events so they can manage your events better. Therefore you can use these statuses to be more Search Engine Friendly.", 'modern-events-calendar-lite'); ?></p>
+            <h4><?php echo esc_html__('SEO Schema', 'modern-events-calendar-lite'); ?></h4>
+            <p><?php esc_html_e("Following statuses are for informing search engines (Google, bing, etc) about your events so they can manage your events better. Therefore you can use these statuses to be more Search Engine Friendly.", 'modern-events-calendar-lite'); ?></p>
 
 			<div class="mec-form-row">
                 <label>
                     <input class="mec-schema-event-status" type="radio" name="mec[event_status]" value="EventScheduled" <?php echo ($event_status == 'EventScheduled' ? 'checked' : ''); ?>>
-                    <?php _e('Scheduled', 'modern-events-calendar-lite'); ?>
+                    <?php esc_html_e('Scheduled', 'modern-events-calendar-lite'); ?>
                 </label>
-                <p class="description"><?php _e('For active events!', 'modern-events-calendar-lite'); ?></p>
+                <p class="description"><?php esc_html_e('For active events!', 'modern-events-calendar-lite'); ?></p>
 			</div>
             <div class="mec-form-row">
                 <label>
                     <input class="mec-schema-event-status" type="radio" name="mec[event_status]" value="EventPostponed" <?php echo ($event_status == 'EventPostponed' ? 'checked' : ''); ?>>
-                    <?php _e('Postponed', 'modern-events-calendar-lite'); ?>
+                    <?php esc_html_e('Postponed', 'modern-events-calendar-lite'); ?>
                 </label>
-                <p class="description"><?php _e('If you postponed an event then you can use this status!', 'modern-events-calendar-lite'); ?></p>
+                <p class="description"><?php esc_html_e('If you postponed an event then you can use this status!', 'modern-events-calendar-lite'); ?></p>
             </div>
             <div class="mec-form-row">
                 <label>
                     <input class="mec-schema-event-status" type="radio" name="mec[event_status]" value="EventCancelled" <?php echo ($event_status == 'EventCancelled' ? 'checked' : ''); ?>>
-                    <?php _e('Cancelled', 'modern-events-calendar-lite'); ?>
+                    <?php esc_html_e('Cancelled', 'modern-events-calendar-lite'); ?>
                 </label>
-                <p class="description"><?php _e('If you cancelled an event then you should select this status!', 'modern-events-calendar-lite'); ?></p>
+                <p class="description"><?php esc_html_e('If you cancelled an event then you should select this status!', 'modern-events-calendar-lite'); ?></p>
             </div>
             <div id="mec_cancelled_reason_wrapper" class="event-status-schema" <?php echo ($event_status == 'EventCancelled' ? '' : 'style="display: none;"'); ?>>
                 <div class="mec-form-row">
-                    <label class="mec-col-2" for="mec_cancelled_reason"><?php _e('Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
-                    <input class="mec-col-9" type="text" id="mec_cancelled_reason" name="mec[cancelled_reason]" value="<?php echo $cancelled_reason; ?>" placeholder="<?php esc_html_e('Please write your reasons here', 'modern-events-calendar-lite'); ?>">
+                    <label class="mec-col-2" for="mec_cancelled_reason"><?php esc_html_e('Reason for Cancellation', 'modern-events-calendar-lite'); ?></label>
+                    <input class="mec-col-9" type="text" id="mec_cancelled_reason" name="mec[cancelled_reason]" value="<?php echo esc_attr($cancelled_reason); ?>" placeholder="<?php esc_html_e('Please write your reasons here', 'modern-events-calendar-lite'); ?>">
                 </div>
                 <div>
-                    <p class="description"><?php _e('This will be displayed in Single Event and Shortcode/Calendar Pages', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description"><?php esc_html_e('This will be displayed in Single Event and Shortcode/Calendar Pages', 'modern-events-calendar-lite'); ?></p>
                 </div>
                 <div class="mec-form-row">
                     <input
@@ -101,23 +104,23 @@ class MEC_feature_schema extends MEC_base
                         }
                         ?>
                             type="checkbox" name="mec[display_cancellation_reason_in_single_page]" id="mec_display_cancellation_reason_in_single_page" value="1"/><label
-                            for="mec_display_cancellation_reason_in_single_page"><?php _e('Display in single event page', 'modern-events-calendar-lite'); ?></label>
+                            for="mec_display_cancellation_reason_in_single_page"><?php esc_html_e('Display in single event page', 'modern-events-calendar-lite'); ?></label>
                 </div>
             </div>
             <div class="mec-form-row">
                 <label>
                     <input class="mec-schema-event-status" type="radio" name="mec[event_status]" value="EventMovedOnline" <?php echo ($event_status == 'EventMovedOnline' ? 'checked' : ''); ?>>
-                    <?php _e('Moved Online', 'modern-events-calendar-lite'); ?>
+                    <?php esc_html_e('Moved Online', 'modern-events-calendar-lite'); ?>
                 </label>
-                <p class="description"><?php _e('For the events that moved online!', 'modern-events-calendar-lite'); ?></p>
+                <p class="description"><?php esc_html_e('For the events that moved online!', 'modern-events-calendar-lite'); ?></p>
             </div>
             <div id="mec_moved_online_link_wrapper" class="event-status-schema" <?php echo ($event_status == 'EventMovedOnline' ? '' : 'style="display: none;"'); ?>>
                 <div class="mec-form-row">
-                    <label class="mec-col-2" for="mec_moved_online_link"><?php _e('Online Link', 'modern-events-calendar-lite'); ?></label>
-                    <input class="mec-col-9" type="url" id="mec_moved_online_link" name="mec[moved_online_link]" value="<?php echo $moved_online_link; ?>" placeholder="https://online-platform.com/event-id">
+                    <label class="mec-col-2" for="mec_moved_online_link"><?php esc_html_e('Online Link', 'modern-events-calendar-lite'); ?></label>
+                    <input class="mec-col-9" type="url" id="mec_moved_online_link" name="mec[moved_online_link]" value="<?php echo esc_url($moved_online_link); ?>" placeholder="https://online-platform.com/event-id">
                 </div>
                 <div>
-                    <p class="description"><?php _e('Link to join online event. If you leave it empty event link will be used.', 'modern-events-calendar-lite'); ?></p>
+                    <p class="description"><?php esc_html_e('Link to join online event. If you leave it empty event link will be used.', 'modern-events-calendar-lite'); ?></p>
                 </div>
             </div>
         </div>
@@ -150,7 +153,7 @@ class MEC_feature_schema extends MEC_base
     
     /**
      * Save event schema data
-     * @author Webnus <info@webnus.biz>
+     * @author Webnus <info@webnus.net>
      * @param int $post_id
      * @return boolean
      */
@@ -166,17 +169,17 @@ class MEC_feature_schema extends MEC_base
         if(defined('DOING_AUTOSAVE') and DOING_AUTOSAVE) return false;
 
         // Get Modern Events Calendar Data
-        $_mec = isset($_POST['mec']) ? $_POST['mec'] : array();
+        $_mec = isset($_POST['mec']) ? $this->main->sanitize_deep_array($_POST['mec']) : array();
 
         $event_status = isset($_mec['event_status']) ? sanitize_text_field($_mec['event_status']) : 'EventScheduled';
         if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
 
         update_post_meta($post_id, 'mec_event_status', $event_status);
 
-        $moved_online_link = (isset($_mec['moved_online_link']) and filter_var($_mec['moved_online_link'], FILTER_VALIDATE_URL)) ? esc_url($_mec['moved_online_link']) : '';
+        $moved_online_link = (isset($_mec['moved_online_link']) and filter_var($_mec['moved_online_link'], FILTER_VALIDATE_URL)) ? sanitize_url($_mec['moved_online_link']) : '';
         update_post_meta($post_id, 'mec_moved_online_link', $moved_online_link);
 
-        $cancelled_reason = (isset($_mec['cancelled_reason']) and !empty($_mec['cancelled_reason'])) ? esc_html($_mec['cancelled_reason']) : '';
+        $cancelled_reason = (isset($_mec['cancelled_reason']) and !empty($_mec['cancelled_reason'])) ? sanitize_text_field($_mec['cancelled_reason']) : '';
         update_post_meta($post_id, 'mec_cancelled_reason', $cancelled_reason);
 
         $display_cancellation_reason_in_single_page = (isset($_mec['display_cancellation_reason_in_single_page']) and !empty($_mec['display_cancellation_reason_in_single_page'])) ? true : false;
@@ -214,13 +217,15 @@ class MEC_feature_schema extends MEC_base
 
         if(!in_array($event_status, array('EventScheduled', 'EventPostponed', 'EventCancelled', 'EventMovedOnline'))) $event_status = 'EventScheduled';
 
-        $cost = isset($event->data->meta['mec_cost']) ? preg_replace("/[^0-9.]/", '', $event->data->meta['mec_cost']) : '';
-        $cost = (isset($params['cost']) and trim($params['cost']) != '') ? preg_replace("/[^0-9.]/", '', $params['cost']) : $cost;
+        $cost = $this->main->get_event_cost($event, false);
 
         $location_id = $this->main->get_master_location_id($event);
         $location = ($location_id ? $this->main->get_location_data($location_id) : array());
 
-        $event_link = $this->main->get_event_date_permalink($event, $event->date['start']['date']);
+        $start_date = (isset($event->date) and isset($event->date['start']) and isset($event->date['start']['date'])) ? $event->date['start']['date'] : NULL;
+        $end_date = (isset($event->date) and isset($event->date['end']) and isset($event->date['end']['date'])) ? $event->date['end']['date'] : NULL;
+
+        $event_link = $this->main->get_event_date_permalink($event, $start_date);
         $soldout = $this->main->is_soldout($event, $event->date);
 
         $organizer_id = $this->main->get_master_organizer_id($event);
@@ -228,48 +233,54 @@ class MEC_feature_schema extends MEC_base
 
         $moved_online_link = (isset($event->data->meta['mec_moved_online_link']) and trim($event->data->meta['mec_moved_online_link'])) ? $event->data->meta['mec_moved_online_link'] : '';
         $moved_online_link = (isset($params['moved_online_link']) and trim($params['moved_online_link']) != '') ? $params['moved_online_link'] : $moved_online_link;
-        ?>
-        <script type="application/ld+json">
+
+        $content = strip_tags($event->data->post->post_content);
+
+        $this->factory->printOnAjaxOrFooter(function() use($event, $event_status, $start_date, $end_date, $moved_online_link, $event_link, $location, $organizer, $cost, $soldout, $content, $speakers)
         {
-            "@context": "http://schema.org",
-            "@type": "Event",
-            "eventStatus": "https://schema.org/<?php echo $event_status; ?>",
-            "startDate": "<?php echo $event->date['start']['date']; ?>",
-            "endDate": "<?php echo $event->date['end']['date']; ?>",
-            "eventAttendanceMode": "<?php echo ($event_status === 'EventMovedOnline' ? "https://schema.org/OnlineEventAttendanceMode" : "https://schema.org/OfflineEventAttendanceMode"); ?>",
-            "location":
+            ?>
+            <script type="application/ld+json">
             {
-                "@type": "<?php echo (($event_status === 'EventMovedOnline') ? 'VirtualLocation' : 'Place'); ?>",
-                <?php if($event_status === 'EventMovedOnline'): ?>
-                "url": "<?php echo (trim($moved_online_link) ? esc_url($moved_online_link) : esc_url($event_link)); ?>"
-                <?php else: ?>
-                "name": "<?php echo (isset($location['name']) ? $location['name'] : ''); ?>",
-                "image": "<?php echo (isset($location['thumbnail']) ? esc_url($location['thumbnail'] ) : ''); ?>",
-                "address": "<?php echo (isset($location['address']) ? $location['address'] : ''); ?>"
-                <?php endif; ?>
-            },
-            "organizer":
-            {
-                "@type": "Person",
-                "name": "<?php echo (isset($organizer['name']) ? $organizer['name'] : ''); ?>",
-                "url": "<?php echo (isset($organizer['url']) ? esc_url($organizer['url']) : ''); ?>"
-            },
-            "offers":
-            {
-                "url": "<?php echo $event->data->permalink; ?>",
-                "price": "<?php echo $cost ?>",
-                "priceCurrency": "<?php echo isset($this->settings['currency']) ? $this->settings['currency'] : ''; ?>",
-                "availability": "<?php echo ($soldout ? "https://schema.org/SoldOut" : "https://schema.org/InStock"); ?>",
-                "validFrom": "<?php echo date('Y-m-d\TH:i', strtotime($event->date['start']['date'])); ?>"
-            },
-            "performer": <?php echo (count($speakers) ? json_encode($speakers) : '""'); ?>,
-            "description": "<?php echo esc_html(preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<div class="figure">$1</div>', preg_replace('/\s/u', ' ', $event->data->post->post_content))); ?>",
-            "image": "<?php echo !empty($event->data->featured_image['full']) ? esc_html($event->data->featured_image['full']) : '' ; ?>",
-            "name": "<?php esc_html_e($event->data->title); ?>",
-            "url": "<?php echo $event_link; ?>"
-        }
-        </script>
-        <?php
+                "@context": "http://schema.org",
+                "@type": "Event",
+                "eventStatus": "https://schema.org/<?php echo $this->escape($event_status); ?>",
+                "startDate": "<?php echo $this->escape($start_date); ?>",
+                "endDate": "<?php echo $this->escape($end_date); ?>",
+                "eventAttendanceMode": "<?php echo ($event_status === 'EventMovedOnline' ? "https://schema.org/OnlineEventAttendanceMode" : "https://schema.org/OfflineEventAttendanceMode"); ?>",
+                "location":
+                {
+                    "@type": "<?php echo (($event_status === 'EventMovedOnline') ? 'VirtualLocation' : 'Place'); ?>",
+                    <?php if($event_status === 'EventMovedOnline'): ?>
+                    "url": "<?php echo (trim($moved_online_link) ? esc_url($moved_online_link) : esc_url($event_link)); ?>"
+                    <?php else: ?>
+                    "name": "<?php echo (isset($location['name']) ? $this->escape($location['name']) : ''); ?>",
+                    "image": "<?php echo (isset($location['thumbnail']) ? esc_url($location['thumbnail'] ) : ''); ?>",
+                    "address": "<?php echo (isset($location['address']) ? $this->escape($location['address']) : ''); ?>"
+                    <?php endif; ?>
+                },
+                "organizer":
+                {
+                    "@type": "Person",
+                    "name": "<?php echo (isset($organizer['name']) ? $this->escape($organizer['name']) : ''); ?>",
+                    "url": "<?php echo (isset($organizer['url']) ? esc_url($organizer['url']) : ''); ?>"
+                },
+                "offers":
+                {
+                    "url": "<?php echo esc_url($event->data->permalink); ?>",
+                    "price": "<?php echo trim($cost) != '' ? $this->escape($cost) : 0; ?>",
+                    "priceCurrency": "<?php echo $this->escape($this->main->get_currency_code($event)); ?>",
+                    "availability": "<?php echo ($soldout ? "https://schema.org/SoldOut" : "https://schema.org/InStock"); ?>",
+                    "validFrom": "<?php echo date('Y-m-d\TH:i', strtotime($event->date['start']['date'])); ?>"
+                },
+                "performer": <?php echo (count($speakers) ? json_encode($speakers) : '""'); ?>,
+                "description": "<?php echo $this->escape(preg_replace('/\s/u', ' ', $content)); ?>",
+                "image": "<?php echo (!empty($event->data->featured_image['full']) ? $event->data->featured_image['full'] : ''); ?>",
+                "name": "<?php esc_html_e($event->data->title); ?>",
+                "url": "<?php echo $this->escape(esc_url($event_link)); ?>"
+            }
+            </script>
+            <?php
+        });
     }
 
     public function schema_text($text, $event)
@@ -277,5 +288,11 @@ class MEC_feature_schema extends MEC_base
         ob_start();
         do_action('mec_schema', $event);
         return ob_get_clean();
+    }
+
+    public function escape($text)
+    {
+        $escaped = esc_js($text);
+        return str_replace("\'", "'", $escaped);
     }
 }
