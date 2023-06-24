@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="14.706" viewBox="0 0 20 14.706">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2034" data-name="Rectangle 2034" width="20" height="14.706" fill="#67abef"/>
+    </clipPath>
+  </defs>
+  <g id="credit-card-icon" clip-path="url(#clip-path)">
+    <g id="Group_11791" data-name="Group 11791" transform="translate(0.588 0.588)">
+      <path id="Path_10996" data-name="Path 10996" d="M16.971,0H2.029A2.033,2.033,0,0,0,0,2.029v9.5a2.033,2.033,0,0,0,2.029,2.029H16.971A2.033,2.033,0,0,0,19,11.529v-9.5A2.033,2.033,0,0,0,16.971,0ZM2.029,1.353H16.971a.666.666,0,0,1,.676.676v.676H1.353V2.029a.666.666,0,0,1,.676-.676ZM16.971,12.206H2.029a.666.666,0,0,1-.676-.676V5.441H17.647v6.118A.66.66,0,0,1,16.971,12.206Z" fill="#bec3c8"/>
+      <path id="Path_10997" data-name="Path 10997" d="M46.876,27.7h1.353a.666.666,0,0,1,.676.676v1.353a.666.666,0,0,1-.676.676H46.876a.666.666,0,0,1-.676-.676V28.376A.666.666,0,0,1,46.876,27.7Z" transform="translate(-32.612 -19.553)" fill="#bec3c8"/>
+      <path id="Path_10998" data-name="Path 10998" d="M17.877,30H9.73a.693.693,0,1,0-.088,1.382h8.235A.693.693,0,1,0,17.966,30Z" transform="translate(-6.348 -21.172)" fill="#bec3c8"/>
+    </g>
+  </g>
+</svg>
